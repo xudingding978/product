@@ -123,17 +123,19 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     isTracking: false,
     isInreview: false,
     cropsize: null,
+    profile_average_review_length: '',
     init: function() {
 
         this.set('is_authentic_user', false);
-
+//    $('#starsize').attr("style", "width:" + this.get("profile_average_review_length") + "px");
     },
-    goToProfileRoute: function()
+    goToProfileRoute: function(id)
     {
-     //   $('#user-stats > li').removeClass('selected-user-stats');
-      
+        //   $('#user-stats > li').removeClass('selected-user-stats');
+//this.setProfile(id);
         this.transitionToRoute('profile');
-
+//       $('#user-stats > li').removeClass('selected-user-stats');
+//        $('#defualt').addClass('selected-user-stats');
     },
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);
@@ -182,6 +184,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set("reviews", profile.get("reviews"));
         this.set("profile_average_review", profile.get("profile_average_review"));
 
+        this.set('profile_average_review_length', profile.get("profile_average_review_length"));
+       // document.getElementById("starsize").style.width="156px";
+       if(profile.get("profile_average_review_length")!=="" && profile.get("profile_average_review_length") !==null && profile.get("profile_average_review_length")!== undefined ){
+            $('#starsize').attr("style", "width:" + profile.get("profile_average_review_length") + "px");
+       }
+       else {
+           $('#starsize').attr("style", "width:100px");
+       }
+       
         var collections = profile.get("collections");
         if (this.get('controllers.profilePartners').get("partnerNew") !== undefined && this.get('controllers.profilePartners').get("partnerNew") !== null && this.get('controllers.profilePartners').get("partnerNew") !== "")
         {
@@ -190,6 +201,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.isFollowed();
         this.checkAuthenticUser();
         this.labelBarRefresh();
+
         //  this.set('profileSelectionStatus', 'Collections');
         //this.selectCollection();
         var photoCreateController = this.get('controllers.photoCreate');
@@ -587,6 +599,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         return isFollow;
     },
     selectCollection: function() {
+
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
+
         this.sendEventTracking('event', 'button', 'click', 'Collections');
         this.set('partnerPage', 'Collections');
         this.set('profileSelectionStatus', 'Collections');
@@ -595,6 +611,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('collectionTag', true);
         this.set('reviewTag', false);
         this.transitionToRoute('profileCollections');
+
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -628,6 +645,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('reviewTag', false);
         this.set('followerProfileTag', true);   
          this.transitionToRoute('profileFollowers');
+
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -753,15 +771,16 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 that.set('CurrentImageSize', size);
                 that.set('isCrop', true);
                 that.set('isUpload', true);
+
             }
         });
     },
     addLike: function(event)
     {
-          var profile = this.get('model.id');
-         console.log(event);
+        var profile = this.get('model.id');
+        console.log(event);
         var review_people_like = event.get("review_people_like");
-        
+
         console.log(review_people_like);
         if (review_people_like === null || review_people_like === undefined) {
             review_people_like = "";
@@ -772,11 +791,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             {
             }
             else {
-                event.set('review_people_like', event.get('review_people_like')+','+localStorage.loginStatus);
-                event.set('review_like_count', event.get('review_like_count')+1);
-                
+                event.set('review_people_like', event.get('review_people_like') + ',' + localStorage.loginStatus);
+                event.set('review_like_count', event.get('review_like_count') + 1);
+
                 HubStar.store.save();
-                       
+
             }
         }
     },
@@ -806,6 +825,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('isPhotoEditingMode', true);
         this.set('isFinished', false);
         this.set('isUpload', false);
+
         if (this.get('UploadImageMode') === "Profile Picture")
         {
             this.set('isProfilePicture', true);
@@ -843,7 +863,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 that.set('currentWidth', width);
                 that.set('currentHeight', height);
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
-
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))
                     {
@@ -857,7 +876,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             //       that.set('isUpload', false);
                             that.setCropImage();
                         }
-                        //  $('#uploadStyleImg').attr("style", "display:block");
 
                         var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
                             'newStyleImageName': that.get('newStyleImageName'),
@@ -937,6 +955,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('CurrentImageSize', "");
         this.set('isCrop', false);
         this.set('isUpload', false);
+
         this.changeSize();
     }, dropdown: function(checking) {
         if (checking === "package") {

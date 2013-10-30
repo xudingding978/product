@@ -33,6 +33,7 @@ function createReviewid() {
     randomnumber = removeZero(randomnumber);
     var result = randomnumber +
             dateObject.getTime().toString();
+
     return result.toString();
 }
 
@@ -44,6 +45,7 @@ function createMessageid() {
     randomnumber = removeZero(randomnumber);
     var result = randomnumber +
             dateObject.getTime().toString();
+
     return  result.toString();
 }
 

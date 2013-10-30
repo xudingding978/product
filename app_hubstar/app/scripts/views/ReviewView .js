@@ -4,8 +4,8 @@ HubStar.ReviewView = Ember.View.extend({
 
 
         $(document).ready(function() {
-            $('#example-1').ratings(10).bind('ratingchanged', function(event, data) {
-                $('#example-rating-1').text(data.rating);
+            $('#post-star').ratings(10).bind('ratingchanged', function(event, data) {
+                $('#post-star-rating').text(data.rating);
             });
         });
 

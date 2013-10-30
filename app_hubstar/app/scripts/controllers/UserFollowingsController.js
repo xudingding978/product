@@ -96,9 +96,9 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                 }
                 dataNew = new Array();
             }
-
             that.set('loadingTime', false);
-           
+            that.relayout();
+
         });
 
     },

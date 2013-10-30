@@ -23,15 +23,19 @@
 
     {{/unless}}
 
-    {{outlet photos}}
-    {{outlet articles}}
-    {{outlet "profileNew"}}
-    {{render "footer"}}
 
     {{else}}
 
     {{view HubStar.RegisterView}}
     {{/if}}
+    
+     {{outlet photos}}
+    {{outlet articles}}
+    {{outlet "profileNew"}}
+    {{render "footer"}}
+
+    
+    
 
     {{#if controller.islogin}}
     {{render platformBar}}

@@ -30,6 +30,7 @@ HubStar.CollectionRoute = Ember.Route.extend({
         },
         transitionToProfile: function(id) {
 
+
             this.controllerFor('user').set('switchPhoto', false);
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
@@ -47,6 +48,7 @@ HubStar.CollectionRoute = Ember.Route.extend({
 
                 this.transitionTo("article", HubStar.Article.find(id));
             }
+
         },
         transitionToArticle: function(id) {
 

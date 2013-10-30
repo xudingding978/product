@@ -91,6 +91,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     setUser: function()
     {
+  
         var user = this.get('model');
         this.setIntersetsArr(user);
         this.set("user", user);
@@ -150,7 +151,7 @@ HubStar.UserController = Ember.Controller.extend({
         }
         this.initStastics(user);
         this.checkAuthenticUser();
-        //   this.labelBarRefresh();
+
         this.userPhotoEditBackButton();
         this.userDashboardBackButton();
         /// this.transitionToRoute('userCollections');        
@@ -159,12 +160,13 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('collectionTag', true);
         this.set('followerTag', false);
         this.set('messageTag', false);
-          $('#user-stats > li').removeClass('selected-user-stats');
-        $('#default').addClass('selected-user-stats');
-        $('#user-stats > li').click(function() {
-            $('#user-stats > li').removeClass('selected-user-stats');
-            $(this).addClass('selected-user-stats');
-        });
+                 this.labelBarRefresh();
+//          $('#user-stats > li').removeClass('selected-user-stats');
+//        $('#default').addClass('selected-user-stats');
+//        $('#user-stats > li').click(function() {
+//            $('#user-stats > li').removeClass('selected-user-stats');
+//            $(this).addClass('selected-user-stats');
+//        });
     },
     labelBarRefresh: function() {
         this.set("profileSelectionStatus", "Collections");
@@ -252,6 +254,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('newStyleImageName', "");
             this.set('CurrentImageSize', "");
             this.set('isUpload', false);
+
             this.set('isCrop', false);
         }
     },
@@ -674,7 +677,6 @@ HubStar.UserController = Ember.Controller.extend({
         {
             this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
         }
-
     },
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
@@ -710,6 +712,7 @@ HubStar.UserController = Ember.Controller.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
+
         this.set('messageTag', false);
         this.transitionToRoute('userCollections');
 
@@ -724,12 +727,11 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('messageTag', false);
         this.transitionToRoute('following', model);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
         }, 200);
     },
     selectFollower: function(model) {
-//        $('#user-stats > li').removeClass('selected-user-stats');
-//        $('#ufollower').addClass('selected-user-stats');
+ 
         this.set('profileSelectionStatus', 'Followers');
         //     this.get('controllers.userFollowers').getClientId(model);
         this.set('followingTag', false);
@@ -738,7 +740,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('messageTag', false);
         this.transitionToRoute('followers', model);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
         }, 200);
     },
     selectMessage: function(model) {
@@ -752,6 +754,7 @@ HubStar.UserController = Ember.Controller.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
         }, 200);
+
     },
     flickButtonClick: function()
     {
@@ -863,6 +866,7 @@ HubStar.UserController = Ember.Controller.extend({
             var that = this;
             var imageName = that.get('newStyleImageName').split('.');
             var type = imageName[imageName.length - 1];
+
 
             if (that.get('isUpload') === true) {
                 that.setTempImage();

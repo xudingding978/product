@@ -241,6 +241,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var owner_id = address.split("#")[1].split("/")[2];
         var userOrprofile = HubStarModel.find(owner_id).get('collections');
         // var that = this;
+
         for (var i = 0; i < userOrprofile.get('content').length; i++) {
 
             if (userOrprofile.objectAt(i).id === collection_id) {

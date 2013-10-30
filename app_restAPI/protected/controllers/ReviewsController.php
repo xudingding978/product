@@ -32,7 +32,9 @@ class ReviewsController extends Controller {
         array_unshift($oldRecord['profile'][0]['reviews'], $newRecord['review']);
         
         $average = $this->calculateReviewAverage($oldRecord['profile'][0]['reviews']);
+        $averageLength=$average*20;
         $oldRecord['profile'][0]['profile_average_review'] = $average;
+         $oldRecord['profile'][0]['profile_average_review_length'] = $averageLength;
         error_log(var_export($oldRecord,true));
         if ($cb->set($docID, CJSON::encode($oldRecord))) {
             $this->sendResponse(204);
@@ -45,6 +47,7 @@ class ReviewsController extends Controller {
         $average = 0;
         for ($i = 0; $i< sizeof($reviews); $i++) {
             $average = $average + $reviews[$i]['review_star_rating_value'];
+           
         }
         return round($average/sizeof($reviews),1);
     }

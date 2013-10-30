@@ -55,6 +55,10 @@ HubStar.GoogleMapPopupView = Ember.View.extend({
                     directionsDisplay.setDirections(response);
                 }
             });
+            
+            $( "#map_canvas_pop" ).animate({ width: "535px"}, 1000,'linear');
+             document.getElementById('directionsPanel').style.display = 'block';
+            
         }
     }
 

@@ -3,27 +3,18 @@
 
 
 <div  id ="google_map_pop" class="aside-container radius-rounded-corner box" style="position: fixed; top: 15%; z-index: 10; margin: auto; left: 0px; right: 0px; width: 800px;height: 565px;background-color: #fff;overflow: hidden;border: 0;" >
-    <div  id="map_canvas_pop"style="width: 800px; height: 423px; background-color: rgb(229, 227, 223); -webkit-transform: translateZ(0); position: relative; overflow: hidden;border-bottom: 1px solid #ddd; " >
+    <div  id="map_canvas_pop"style="width: 800px; height: 425px; background-color: rgb(229, 227, 223); -webkit-transform: translateZ(0); position: relative; overflow: hidden;border-bottom: 1px solid #ddd; " >
 
 
     </div>
-    <div  id="directionsPanel" style="width: 300px; height: 200px; margin: auto; left: 0px; right: 0px; direction: ltr;display:none;vertical-align: top;height: 400px;overflow: hidden;" >     
+    <div  id="directionsPanel" style="position: absolute;width: 265px;    direction: ltr;   height: 425px; overflow: auto;right: 0;top: 0;border-left: 1px solid #ddd;display: none;" >     
     </div>
 
     <div style="margin: 15px 0 5px;">
         <div style="margin: 10px auto;border-bottom: 1px solid #ddd; width: 87%;"> {{input type="text" value=fromAddress placeholder="From" class="no-effect"}}</div>
         <div style="margin: 10px auto; width: 87%"> {{input type="text" value=toAddress placeholder="To" class="no-effect"}}</div>
     </div>
-    <!--    <select id="routeMode" name="routeMode">
-            <option value="DRIVING">Driving</option>
-            <option value="WALKING">Walking</option>
-            <option value="BICYCLING">Bicycling</option>
-            <option value="TRANSIT">Transit</option>
-        </select>
-        <button id="routeGo">Get Direction</button>
-        <button id="routeClear">Clear </button>
-        <input type="button" value="Print map" onclick="printmap('google_map_pop');">-->
-
+    
     <div class="" style="height: 45px;position: relative;border-top: 1px solid #ddd;top: -1px;">
         <div class="message-btn easing" style='width: 33%;height: 45px;line-height: 45px;' value="Print map" onclick="printmap('google_map_pop');"><k class='icon-print'>&nbsp;</k>Print Map</div>
 

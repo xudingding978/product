@@ -1162,8 +1162,8 @@ div.album-description-bg{
 }
 
 .profilepic/* for a*/{
-    width: 46px;
-    height: 46px;
+    max-width: 46px;
+    max-height: 60px;
     float: left;
     padding: 0px;
     border-radius: 5px 5px 5px 5px;

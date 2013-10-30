@@ -4,7 +4,6 @@ HubStar.ReviewController = Ember.Controller.extend({
     reviews: "",
     review_user_photo_url: "",
     currentUser: "",
-    currentOwner:"",
     review_user_name: "",
     review_content: "",
     review_time_stamp: "",
@@ -15,7 +14,7 @@ HubStar.ReviewController = Ember.Controller.extend({
     //currentUserID:"",
     reviewDate: "",
     review_id: null,
-    isSingle: false,
+    isReply: false,
     profileName: "",
     replyContent:"",
     needs: ['profile', 'user'],
@@ -35,7 +34,7 @@ HubStar.ReviewController = Ember.Controller.extend({
         this.set("profile", this.get("controllers.profile").get('currentUserID'));
         this.set("profileReview", this.get("controllers.profile").get('reviews'));
         this.set("profileName", this.get("controllers.profile").get('name'));
-        console.log(this.get('profileName'));
+        console.log(this.get('profile'));
 
     },
     reviewCancel: function() {
@@ -90,16 +89,14 @@ HubStar.ReviewController = Ember.Controller.extend({
 
 
     }, 
-             addReviewReply: function(review_id) {
+             addReviewReply: function(reviewID) {
 
-        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
-      //  this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var replyContent = this.get('replyContent'); //replyContent is just the user input txt, it is not a whole reply object
         if (replyContent) {
             this.set("isReply", false);
             var replyUserID = this.get("currentUser").get('id');
             var replyDate = new Date();
-            var replyOwnerID = this.get("currentOwner").get("id");
+            var ownerID =this.get("controllers.profile").get('currentUserID');
             var newStyleImage = "";
             var imageStyleName = "";
             if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
@@ -126,8 +123,8 @@ HubStar.ReviewController = Ember.Controller.extend({
                 var imageName = imageStyleName.split('.');
                 var imageType = imageName[imageName.length - 1];
             }
-            var messageID = createMessageid();
-            var tempReply = [replyUserID, replyDate.toString(), replyContent, replyOwnerID, newStyleImage, imageType, imageStyleName, messageID, review_id];
+            var replyReviewID = createReviewid();
+            var tempReply = [replyUserID, replyDate.toString(), replyContent, ownerID, newStyleImage, imageType, imageStyleName, replyReviewID, reviewID];
 
             tempReply = JSON.stringify(tempReply);
             var that = this;

@@ -55,20 +55,20 @@ class ReviewsController extends Controller {
         $replyUserID= $request_array[0];
         $replyDate = $request_array[1];
         $replyContent = $request_array[2];
-        $replyOwnerID = $request_array[3];
+        $ownerID = $request_array[3];
 
         $newStyleImage = $request_array[4];
 
         $imageType = $request_array[5];
         $photo_name = $request_array[6];
 
-        $message_id = $request_array[7];
-        $review_id = $request_array[8]; //current message owner's message id 
+        $replyReviewID = $request_array[7];
+        $reviewID = $request_array[8]; //current reply owner's review id 
 
 
 
-        $message_id = $message_id . $replyUserID . $replyOwnerID;
-        $comment = $this->addReply($replyUserID, $replyDate, $replyContent, $replyOwnerID, $newStyleImage, $imageType, $photo_name, $message_id, $review_id);
+        $replyReviewID = $replyReviewID . $replyUserID . $ownerID;
+        $comment = $this->addReply($replyUserID, $replyDate, $replyContent, $ownerID, $newStyleImage, $imageType, $photo_name, $replyReviewID, $reviewID);
 
         if ($comment) {
             $this->sendResponse(200, CJSON::encode($comment));
@@ -78,10 +78,10 @@ class ReviewsController extends Controller {
     }
 
 //$message_id: is used to store the image store url and as a reply id
-    public function addReply($replyUserID, $replyDate, $replyContent, $replyOwnerID, $newStyleImage, $imageType, $photo_name, $message_id, $review_id) {                       //saving follower in profile
+    public function addReply($replyUserID, $replyDate, $replyContent, $ownerID, $newStyleImage, $imageType, $photo_name, $replyReviewID, $reviewID) {                       //saving follower in profile
         try {
-             //$id = $newRecord['review']['optional'];
-            $docIDDeep = $this->getDomain() . "/profiles/" . $id;
+            
+            $docIDDeep = $this->getDomain() . "/profiles/" . $ownerID;
             $cb = $this->couchBaseConnection();
             $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
             $oldRecordDeep = CJSON::decode($oldDeep, true);
@@ -89,7 +89,7 @@ class ReviewsController extends Controller {
 
             $newReply = array();
 
-            $newReply["review_reply_id"] = $message_id;
+            $newReply["review_reply_id"] = $replyReviewID;
             $newReply["review_user_id"] = $replyUserID;
             $newReply["review_time_stamp"] = $replyDate;
             $newReply["review_msg"] = $replyContent;
@@ -102,8 +102,8 @@ class ReviewsController extends Controller {
             $commenterInfoDeep = $cbs->get($commenterInfo); // get the old user record from the database according to the docID string
             $oldcommenterInfo = CJSON::decode($commenterInfoDeep, true);
 
-            $newReply["user_name"] = $oldcommenterInfo['user'][0]["display_name"];
-            $newReply["photo_url_large"] = $oldcommenterInfo['user'][0]["photo_url_large"];
+            $newReply["review_user_name"] = $oldcommenterInfo['user'][0]["first_name"] +  $oldcommenterInfo['user'][0]["last_name"];
+            $newReply["review_photo_url_large"] = $oldcommenterInfo['user'][0]["photo_url_large"];
 
             if ($newStyleImage !== null && $photo_name !== "") {
                 $photoController = new PhotosController(); //    this.get("controllers.PhotosController").             
@@ -114,7 +114,7 @@ class ReviewsController extends Controller {
                 $compressed_photo = $photoController->compressPhotoData($imageType, $photo);
                 $orig_size['width'] = imagesx($compressed_photo);
                 $orig_size['height'] = imagesy($compressed_photo);
-                $url = $photoController->saveCommentPhotoInTypes($orig_size, "user_cover_small", $photo_name, $compressed_photo, $data_arr, $id, null, $message_id);
+                $url = $photoController->saveCommentPhotoInTypes($orig_size, "user_cover_small", $photo_name, $compressed_photo, $data_arr, $replyUserID, null, $replyReviewID);
 
 
                 $newReply["url"] = $url;
@@ -122,27 +122,27 @@ class ReviewsController extends Controller {
                 $newReply["url"] = null;
             }
 //$newReplyJason= CJSON::encode($newReply);
-            $currentMessage = null;
-            for ($i = 0; $i < sizeof($oldRecordDeep['user'][0]["messages"]); $i++) {
-                $currentMessage = $oldRecordDeep['user'][0]["messages"][$i];
-                if ($currentMessage["message_id"] === $ownerMessage_id) {
+            $currentReply = null;
+            for ($i = 0; $i < sizeof($oldRecordDeep['profile'][0]["reviews"]); $i++) {
+                $currentReply = $oldRecordDeep['profile'][0]["reviews"][$i];
+                if ($currentReply["review_id"] === $reviewID) {
 
-                    if (isset($oldRecordDeep['user'][0]["messages"])) {
-                        array_unshift($oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"], $newReply);
+                    if (isset($oldRecordDeep['profile'][0]["reviews"])) {
+                        array_unshift($oldRecordDeep['user'][0]["reviews"][$i]["replyReviewCollection"], $newReply);
                     } else {
-                        $oldRecordDeep['user'][0]["messages"] = array();
-                        array_unshift($oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"], $newReply);
+                        $oldRecordDeep['profile'][0]["reviews"] = array();
+                        array_unshift($oldRecordDeep['profile'][0]["reviews"][$i]["replyReviewCollection"], $newReply);
                     }
-                    $currentMessage = $oldRecordDeep['user'][0]["messages"][$i];
+                    $currentReply = $oldRecordDeep['profile'][0]["reviews"][$i];
                     break;
                 }
             }
 
-            $newMessage = $currentMessage;
+            $newReply = $currentReply;
 
 
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
-                return $newMessage;
+                return $newReply;
             } else {
                 
             }

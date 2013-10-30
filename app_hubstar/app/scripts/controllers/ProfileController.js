@@ -982,10 +982,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         this.set("rateTime", true);
 
-        if (this.get('reviewTag') === true) {
-            this.set('reviewTag', false);
-            this.set('isInreview', true);
-        }
+//        if (this.get('reviewTag') === true) {
+//            this.set('reviewTag', false);
+//            this.set('isInreview', true);
+//        }
     },
     setCollectionAttr: function() {
         this.set("newTitle", this.get('selectedCollection').get('title'));

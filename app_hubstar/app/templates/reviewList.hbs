@@ -55,15 +55,13 @@
 
 </script>
 
-{{/each}}
-</div>
 
 
 
 
 
  <!--the following comment-frame is used to show the reply box for the second level reply-->
-    <div id="reviewData_{{unbound model.review_id}}"  style="display: none">
+    <div id="reviewData_{{unbound model.review_id}}"  style="display: block;">
         {{#if model.replyEdit}}
         <div class="reply-comment-frame"  style="">
             <div style="margin:0 auto; padding: 0 45px 15px 0;">
@@ -155,7 +153,6 @@
         {{/each}}         
     </div>
 
-</div>
 <script>
     $(function() {
         var $container = $('#masonry_user_container');
@@ -165,5 +162,4 @@
         }, 10);
     });
 </script>
-
 

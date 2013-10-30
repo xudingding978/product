@@ -23,7 +23,9 @@
     </div>
     <div class="" style="height: 41px;position: relative;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
         <div class="message-btn easing" style="height: 40px;line-height: 40px;border-right: 1px solid #ddd;" {{action canel}}><k class="icon-remove">&nbsp;</k>Cancel</div>
+        {{#if videoid}}
         <div class="message-btn easing" style="height: 40px;line-height: 40px;"{{action videoCreate}} ><k class='icon-ok'>&nbsp;</k>Post</div>
+    {{/if}}
     </div>
 
 </div>

@@ -23,8 +23,7 @@
                         <span class="posttime">{{date this.review_time_stamp}} </span>
                     </div>
                 </div>
-                <div style="position: absolute; right: 0; margin: 7px;"><span class="starsview" >{{this.review_star_rating_value}}</span></div>
-
+                <div style="position: absolute; right: 0; margin: 7px;"><span class="starsview" ><span style="width:{{unbound this.review_length}}px;"></span></span></div>
             </div>
 
 
@@ -41,6 +40,13 @@
 
 
 </div>
+
+
+{{/each}}
+
+
+
+</div>
 <script>
     $(function() {
         var $container = $('#masonry_user_container');
@@ -52,10 +58,3 @@
 
 
 </script>
-
-{{/each}}
-
-
-
-</div>
-

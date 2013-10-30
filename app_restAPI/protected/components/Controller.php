@@ -162,8 +162,10 @@ class Controller extends CController {
             $response = $this->getCollectionReults($collection_id, $owner_profile_id);
             $response = $this->profileSetting($response, $returnType);
         } elseif ($requireType == 'partner') {
+            
             $response = $this->getPartnerResults($requireParams[1]);
             $response = $this->getReponseResult($response, $returnType);
+              
         } elseif ($requireType == 'articleRelatedImage') {
             $article_id = $this->getUserInput($requireParams[1]);
             $owner_id = $this->getUserInput($requireParams[2]);
@@ -334,7 +336,6 @@ class Controller extends CController {
         $request->query($termQuery);
 
         $response = $request->execute();
-
         return $response;
     }
 

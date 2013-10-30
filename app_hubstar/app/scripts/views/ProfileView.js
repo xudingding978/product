@@ -3,37 +3,67 @@ HubStar.ProfileView = Ember.View.extend({
     
     
     didInsertElement: function() {
+        
+        
+        console.log(this.get('controller').get("profile_average_review_length"));
+        
+           if(this.get('controller').get("profile_average_review_length")!=="" && this.get('controller').get("profile_average_review_length") !==null && this.get('controller').get("profile_average_review_length")!== undefined ){
+            $('#starsize').attr("style", "width:" + this.get('controller').get("profile_average_review_length") + "px");
+       }
+       else {
+           $('#starsize').attr("style", "width:100px");
+       }
         $(document).ready(function() {
 
-            $('span.stars').each(function() {
-
-                // Get the value
-                var val = parseFloat($(this).text());
-                //console.log(that.get('controller').get('reviews').objectAt(0).get('review_star_rating_value'));
-
-                // Make sure that the value is in 0 - 5 range, multiply to get width
-                var size = Math.max(0, (Math.min(10, val))) * 20;
-                // Create stars holder
-                var $span = $('<span />').width(size);
-                // Replace the numerical value with stars
-                $(this).html($span);
-            });
+           
+             setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+            }, 200);
 
         });
-        $(function() {
-            $('#masonry_profile_container').masonry({
-                itemSelector: '.box',
-                columnWidth: 185,
-                isFitWidth: true
-            });
-        });
-        $('#defualt').addClass('selected-user-stats');
-        $('#user-stats > li').click(function() {
+      
+
+        var address = document.URL;
+        var user_id = address.split("#")[1].split("/")[3];
+
+        if (user_id === "partners")
+        {
             $('#user-stats > li').removeClass('selected-user-stats');
-            $(this).addClass('selected-user-stats');
-        });
-        
-       
+
+            $('#partners').addClass('selected-user-stats');
+            $('#user-stats > li').click(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $(this).addClass('selected-user-stats');
+            });
+        }
+        else if (user_id === "followers")
+        {
+            $('#user-stats > li').removeClass('selected-user-stats');
+            $('#follow').addClass('selected-user-stats');
+            $('#user-stats > li').click(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $(this).addClass('selected-user-stats');
+            });
+        }
+        else if (user_id === "reviews")
+        {
+            $('#user-stats > li').removeClass('selected-user-stats');
+            $('#reviewList').addClass('selected-user-stats');
+            $('#user-stats > li').click(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $(this).addClass('selected-user-stats');
+            });
+        }
+        else {
+            $('#user-stats > li').removeClass('selected-user-stats');
+            $('#defualt').addClass('selected-user-stats');
+            $('#user-stats > li').click(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $(this).addClass('selected-user-stats');
+            });
+        }
+
+
     }
 });
 

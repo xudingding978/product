@@ -364,8 +364,7 @@ body > div.ember-view{
     width: 100%;
     position: fixed;
     height: 100%;
-    opacity: 0.6;
-    background-color: white;
+    background-color: transparent;
 }
 
 .blur_black{

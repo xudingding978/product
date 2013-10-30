@@ -1189,8 +1189,8 @@ div.album-description-bg{
     position: relative;
     top: 3px;
     display: inline-block;
-    min-width: 178px;
-    max-width:80%;
+    min-width: 170px;
+    width: 60%;
 }
 
 .poster-name{

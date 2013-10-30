@@ -64,7 +64,8 @@
                             <div style="position: absolute;width: 500px;">
                                 <span class="stars" style="float: left;margin: 5px 15px 5px 0;" ><span id="starsize" ></span></span>  
                                 <div class="hint--right hint--rounded" data-hint="Review this profile!"  {{action rateEditing model.id}} >
-                                     <div class="contactmeicon easing" style="float: left;  width: 35px; height: 35px;line-height: 31px;text-align: center;font-weight: bold;font-size: 13px;border: 2px solid #aaa;">{{this.profile_average_review}}</div><span style=" font-size: 24px; color: white;">Reviews:({{this.reviews.length}})</span> 
+                                     <div class="contactmeicon easing" style="float: left;  width: 35px; height: 35px;line-height: 31px;text-align: center;font-weight: bold;font-size: 13px;border: 2px solid #aaa;">{{this.profile_average_review}}</div>
+                                    <div class="hover-opacity" style="font-size: 13px; font-weight: bold; color: #fff; cursor: pointer;  float: left;  margin: 8px 10px;">{{this.reviews.length}} • Reviews</div> 
                                 </div>
                             </div>   
 
@@ -367,18 +368,18 @@
 
                     </div>
                 </td>
-                
-                
+
+
                 <!--RIGHT COL ENDS -->
-                 </tr>
-           </tbody>
-            </table>
-            </div>
-       </div>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
 
 </div>
-    
-  
+
+
 <div class="back t-style-box"  style='width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0;'>
     <div style="position: relative; top: 0; width: 100%;height: 300px;overflow: hidden; border-radius: 3px 3px 0 0;">
         <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
@@ -498,7 +499,7 @@
                                 </div>
                             </td>
                         </tr>
-                        
+
 
                         <tr>
                             <td>Contact Number:</td>
@@ -836,7 +837,7 @@
             </div>
 
 
-         
+
             <div class="tab-pane" id="fileuploader">
 
                 {{#if controller.isPhotoUploadMode}}
@@ -894,22 +895,22 @@
                 </div>
                 {{/view}}
                 {{/if}}
-                
-                 {{#if controller.loadingTime}}
 
-            {{render loadingSpinner}}
+                {{#if controller.loadingTime}}
 
-            {{/if}}
+                {{render loadingSpinner}}
+
+                {{/if}}
 
                 {{#if controller.isPhotoEditingMode}}
 
-              <div class='' style='position:relative;height: 65px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
-        <span style="position: relative;display: inline-block;font-size: 40px; vertical-align: top;"><k class='icon-ok-circle'></k></span>
-        <span style="position: relative;width: 87%;display: inline-block;margin: 0 15px;">
-            <span style='font-size: 20px;display: block;line-height: 25px;font-weight: bold'>Crop your picture now!</span>
-            <span style='font-size: 15px;display: block;line-height: 15px;'> Image Size: <span id="log"></span> </span>  
-        </span>
-    </div>
+                <div class='' style='position:relative;height: 65px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
+                    <span style="position: relative;display: inline-block;font-size: 40px; vertical-align: top;"><k class='icon-ok-circle'></k></span>
+                    <span style="position: relative;width: 87%;display: inline-block;margin: 0 15px;">
+                        <span style='font-size: 20px;display: block;line-height: 25px;font-weight: bold'>Crop your picture now!</span>
+                        <span style='font-size: 15px;display: block;line-height: 15px;'> Image Size: <span id="log"></span> </span>  
+                    </span>
+                </div>
 
                 {{#if controller.isProfilePicture}}
                 <div id="crop-container" style="width: 820px;height: 500px;margin: 10px auto; text-align: center">          
@@ -999,7 +1000,7 @@
 
 
     {{/if}}
-    
+
     <script>
 //    
 //            $(document).ready(function() {
@@ -1009,6 +1010,6 @@
 //
 //        });
 //    
-   
 
-</script>
+
+    </script>

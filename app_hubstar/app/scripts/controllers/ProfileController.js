@@ -49,6 +49,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     keywords: "",
     keywords_array: [],
     keyword_num: 0,
+    keyword_left:0,
     add_keywords: "",
     show_keyword_id: "",
     show_keyword_array:[],
@@ -212,6 +213,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         } else {
             this.setKeywordsNum(this.get('model').get('profile_package_name'));
         }
+        this.set('keyword_left', parseInt(profile.get("profile_keywords_num")) - profile.get('keywords').get('length'));
     },
     setShowKeywordsArray: function(show_keywords_id, keywords) {
         var newArray = [];
@@ -759,6 +761,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             requiredBackEnd('keywords', 'addKeywords', keywords_JSON, 'POST', function(params) {
                 });
             this.set('add_keywords',"");
+            this.set('keyword_left', this.get('keyword_left') - add_keywords_array.get('length'));
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "You can not add keywords more than " + this.get('keyword_num'), 'failed');
         }
@@ -778,6 +781,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     requiredBackEnd('keywords', 'delete', JSON.stringify(this.get('keywords_array').objectAt(i)), 'POST', function(params) {
                     });
                     this.get('keywords_array').removeObject(this.get('keywords_array').objectAt(i));
+                    this.set('keyword_left', this.get('keyword_left') + 1);
                 }
             }
         } else {

@@ -163,7 +163,8 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     editingContactForm: function() {
         var contactController = this.get('controllers.contact');
-
+        this.get("controllers.contact").set("firstStepOfContactEmail",false);      
+        this.get("controllers.contact").set('secondStepOfContactEmail', false);
         var selectid = this.get('selectedPhoto').id;
         contactController.setSelectedMega(selectid);
         this.set('contact', !this.get('contact'));

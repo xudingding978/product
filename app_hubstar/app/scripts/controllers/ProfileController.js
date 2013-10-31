@@ -470,7 +470,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     editingContactForm: function() {
         this.sendEventTracking('event', 'button', 'click', 'Contact us');
         var contactController = this.get('controllers.contact');
-
+         this.get("controllers.contact").set("firstStepOfContactEmail",true);
         contactController.setSelectedMega(this.get('currentUserID'));
         this.set('contactChecking', !this.get('contactChecking'));
     },

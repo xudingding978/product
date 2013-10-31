@@ -733,39 +733,13 @@ textarea.add-interests{
 
 
 
-/*STAR RATING STYLE*/
-
-.rating {
-    unicode-bidi: bidi-override;
-    direction: rtl;
-    font-size: 20px;
-}
-
-.rating > span.star {
-    content: "";
-    color: #999999;
-}
-.rating > span:hover:before,
-.rating > span:hover ~ span:before {
-    content: "";
-}
-
-
-.profilegb div.profile-wallpaper{
-    top:45px;
-    left:0;
-}
-
-
-
-
 
 /*MESSAGE CENTER STYLE FROM HERE*/
 
 .message-btn{
-    width: 50%;
-    float: left;
-    height:30px;
+    width: 50%; 
+    float: left; 
+    height:30px; 
     font-size: 12px;
     font-weight: bold;
     line-height: 30px;
@@ -915,7 +889,7 @@ textarea.add-interests{
     border-top: 15px solid transparent;
     border-bottom: 0px solid transparent;
     border-left: 0px solid transparent;
-    border-right: 15px solid #ddd;
+    border-right: 15px solid #ddd;	
 
     position: absolute;
     z-index: 1;
@@ -964,3 +938,37 @@ textarea.add-interests{
 }
 
 .remove-comment-photo:hover{opacity: 1;}
+
+
+
+
+
+
+.crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
+
+
+
+
+/*STAR RATING STYLE*/
+
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    font-size: 20px;
+}
+
+.rating > span.star {
+    content: "";
+    color: #999999;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+    content: "";
+}
+
+
+.profilegb div.profile-wallpaper{
+    top:45px;
+    left:0;
+}
+

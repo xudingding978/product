@@ -64,52 +64,45 @@
 
 #user-dd-menu > li {padding:0}
 
-
-* {
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
+#user-dd-menu > li > a >span {
+    color: #555;
+    font-size: 13px;
+    padding:6px 30px 6px 60px;
+    display:block;
 }
 
-
-#user-dd-menu li:first-child a{border-top:0 none;}
-#user-dd-menu li:last-child a{border-bottom:0 none;}
-#user-dd-menu li a {
-    border-radius: 0px;
-    color: white;
-    background-color: rgba(255, 255, 255, 0);
-    border-bottom:1px solid black;
-    padding:10px;
-    border-top:1px solid rgb(66,66,66);
-    box-shadow:none;
-    margin:0;
+#user-dd-menu > li >  a > k {
+    font-size: 15px;
+    margin: 8px 0 0 30px;
+    position: absolute;
+    color: #555;
 }
 
-
-.navbar .nav > li > #user-dd-menu:after {
-    border-color: #000 transparent;
-    left:47%
-
+#user-dd-menu:before{
+    content: "";
+    position: absolute;
+    top: -7px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #fff;
+    z-index: 11;
+    left: 70px;
 }
 
-
-.navbar .nav > li >#user-dd-menu:before {
-    left:47%;
+#user-dd-menu:after{
+    content: "";
+    position: absolute;
+    top: -8px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #888;
+    z-index: 10;
+    left: 70px;
 }
-
-#user-dd-menu {
-    background: none repeat scroll 0% 0% rgb(45,45,45);
-    border: 1px solid rgba(0,0,0,0.17);
-    margin-top:20px;
-    padding:3px;
-    width:150px;
-    top:35px;
-    left: -60px;
-}
-
-
-
-
 
 
 /*new login style Colin Shaw 25/9/2013*/

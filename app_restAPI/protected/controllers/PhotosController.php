@@ -27,12 +27,9 @@ class PhotosController extends Controller {
     
 
     public function actionCreate() {
-
         $response;
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-
-
         $url = $request_arr["url"];
         $this->addResizedHeroPhoto($url);
     }

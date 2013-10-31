@@ -146,8 +146,7 @@ class Controller extends CController {
         $requireType = $this->getUserInput($requireParams[0]);
         if ($requireType == 'search') {
 
-  
-
+ 
 
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
@@ -184,12 +183,30 @@ class Controller extends CController {
             $response = $this->searchCollectionItem($userid, $collection_id, $returnType);
         } elseif ($requireType == 'defaultSearch') {
             $response = $this->searchCollectionItem('21051211514', 'editor-picks', $returnType);
-        } else {
+            
+        }elseif ($requireType == 'video') {
+            $response = $this->getVideoesByOwner($returnType);
+        } 
+        else {
+            
+            
             $response = $this->getSearchResults("", "huang");
         }
         return $response;
     }
+   protected function getVideoesByOwner($returnType) {
+        $conditions = array();
+        $requestStringOne = 'couchbaseDocument.doc.type=video' ;
+        array_push($conditions, $requestStringOne);
+      //  $requestStringTwo = 'couchbaseDocument.doc.user.collections.id=' . $collection_id;
+       // array_push($conditions, $requestStringTwo);
+        $tempResult= $this->searchWithCondictions($conditions, 'must');
+        $response = $this->getReponseResult($tempResult, $returnType);
 
+        return $response;
+    }
+    
+    
     protected function searchCollectionItem($userid, $collection_id, $returnType) {
         $conditions = array();
         $requestStringOne = 'couchbaseDocument.doc.user.id=' . $userid;
@@ -230,7 +247,6 @@ class Controller extends CController {
         $mustQuery = explode('=', $queryString);
         $should = Sherlock\Sherlock::queryBuilder()->QueryString()->query($mustQuery[1])//$collection_id
                 ->default_field($mustQuery[0])
-                // ->default_field($mustQuery[0])
                 ->default_operator('AND');
         return $should;
     }

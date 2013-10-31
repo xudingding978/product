@@ -20,6 +20,7 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
 
         this.set('videoid', this.getVideoId());
         var that = this;
+
         if (this.get('videoid') !== null) {
             $.ajax({
                 url: "http://gdata.youtube.com/feeds/api/videos/" + this.get('videoid') + "?v=2&alt=jsonc",
@@ -29,6 +30,7 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
                     that.set('videoTitle', feedback.data.title);
                     that.set('videoDesc', feedback.data.description);
                 }, error: function() {
+                    that.set('videoid', null);
                     console.log("some wrong with youtube id");
                 }
             });
@@ -57,7 +59,6 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
         });
         var mega = MegaCreateController.createNewMega(this.get("profileMega"), testID, null, 'video');
         mega.get('videoes').pushObject(video);
-
 
         var profileVideosController = this.get('controllers.profileVideos');
         profileVideosController.get("videoesContent").insertAt(0, mega);

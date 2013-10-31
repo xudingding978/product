@@ -18,8 +18,20 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
         $('#message').addClass('selected-user-stats');
         var address = document.URL;
         var conversation_id = "";
+        if (this.controllerFor('notificationTop').get("goReply") === true)
+        {
+            model = localStorage.loginStatus;
+            var replyID = this.controllerFor('notificationTop').get("reply_ids");
+            model = replyID;
+            this.controllerFor('notificationTop').set("goReply", false);
+        }
+        if (this.controllerFor('notificationTop').get("goMessage") !== undefined && this.controllerFor('notificationTop').get("goMessage") !== null && this.controllerFor('notificationTop').get("goMessage") !== "")
+        {
+            model = localStorage.loginStatus;
+        }
         if (this.controllerFor('notification').get("reply_ids") !== undefined && this.controllerFor('notification').get("reply_ids") !== null && this.controllerFor('notification').get("reply_ids") !== "")
         {
+
             model = this.controllerFor('notification').get("reply_ids");
             //this.controllerFor('notification').set("reply_ids", "");
         }
@@ -27,10 +39,17 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
         {
             model = this.controllerFor('notificationTop').get("reply_ids");
             //this.controllerFor('notification').set("reply_ids", "");
+
         }
-        if (address.split("#")[1].split("/").length === 6 && address.split("#")[1].split("/")[4] === "conversations") {
+        if (this.controllerFor('notificationTop').get("goConversation") === true)
+        {
+            model = localStorage.loginStatus;
+            this.controllerFor('notificationTop').set("goConversation", false);
+            this.controllerFor('messageCenter').getClientId(localStorage.loginStatus);
+        }
+        else if (address.split("#")[1].split("/").length === 6 && address.split("#")[1].split("/")[4] === "conversations") {
             conversation_id = address.split("#")[1].split("/")[5];
-            this.controllerFor('messageCenter').getClientId(model, conversation_id);
+            this.controllerFor('messageCenter').getClientId(localStorage.loginStatus, conversation_id);
         }
         else {
             this.controllerFor('messageCenter').getClientId(model);

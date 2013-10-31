@@ -6,6 +6,8 @@
 
 HubStar.ConversationRoute = Ember.Route.extend({
     setupController: function(controller, model) {          
+        console.log("conversation congtroller");
+         console.log(model);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -13,6 +15,7 @@ HubStar.ConversationRoute = Ember.Route.extend({
     },
     model: function(params) {           
         var address = document.URL;
+        console.log("conversation model");
         var user_id = address.split("#")[1].split("/")[2];
         var user = HubStar.User.find(user_id);
         var conversation_id = address.split("#")[1].split("/")[5];
@@ -26,6 +29,7 @@ HubStar.ConversationRoute = Ember.Route.extend({
             }
         }
         return data;
+
     }
 });
 

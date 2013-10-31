@@ -1,3 +1,4 @@
+
 /* 
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -12,12 +13,10 @@ HubStar.MessagesRoute = Ember.Route.extend({
           if (this.controllerFor('notification').get("reply_ids") !== undefined && this.controllerFor('notification').get("reply_ids") !== null && this.controllerFor('notification').get("reply_ids") !== "")
         {
             model = this.controllerFor('notification').get("reply_ids");
-            //this.controllerFor('notification').set("reply_ids", "");
         }
         if (this.controllerFor('notificationTop').get("reply_ids") !== undefined && this.controllerFor('notificationTop').get("reply_ids") !== null && this.controllerFor('notificationTop').get("reply_ids") !== "")
         {
             model = this.controllerFor('notificationTop').get("reply_ids");
-            //this.controllerFor('notification').set("reply_ids", "");
         }
     },
     model: function(params) {

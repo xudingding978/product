@@ -154,21 +154,24 @@ HubStar.UserMessageController = Ember.Controller.extend({
     goToMessageTop: function(s)
     {     
         if (localStorage.loginStatus === this.get("controllers.notificationTop").get("reply_ids"))
-        {          
-            $("#content_message").mCustomScrollbar("scrollTo", s);
+        {
+            setTimeout(function() {
+                $("#content_message").mCustomScrollbar("scrollTo", s);
+            }, 500);
         }
         else {
             setTimeout(function() {
                 $("#content_message").mCustomScrollbar("scrollTo", s);
-            }, 200);
+            }, 500);
         }
 
         if (this.get("controllers.notificationTop").get("reply_ids") !== undefined && this.get("controllers.notificationTop").get("reply_ids") !== null && this.get("controllers.notificationTop").get("reply_ids") !== "")
         {
+            console.log("ggggggggggggggggggggggggggggggggggggg");
             var that = this;
             setTimeout(function() {
                 that.get('controllers.message').seeMore(that.get("controllers.notificationTop").get("reply"));
-            }, 200);
+            }, 1000);
 
             this.get('controllers.notificationTop').set("reply_ids", "");
         }

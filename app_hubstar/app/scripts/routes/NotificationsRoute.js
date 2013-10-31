@@ -5,6 +5,7 @@
 
 
 HubStar.NotificationsRoute = Ember.Route.extend({
+
     setupController: function(controller, model) {       
         this.controllerFor('messageCenter').selectNotification(model);
 
@@ -12,6 +13,7 @@ HubStar.NotificationsRoute = Ember.Route.extend({
             $('#masonry_user_container').masonry("reload");
         }, 200);
         $(window).scrollTop(0);
+
     },
     model: function(params) {
 

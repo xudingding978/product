@@ -334,11 +334,11 @@ HubStar.MessageController = Ember.Controller.extend({
             $('#masonry_user_container').masonry("reload");
         }, 200);
     },
-    seeMore: function(id) {
+    seeMore: function(id) {        
         $('#closeComment_' + id).attr('style', 'display:inline-block');
         $('#showMoreComment_' + id).attr('style', 'display:none');
         $('#messageData_' + id).attr('style', 'display: block');
-        $('#masonry_user_container').masonry("reload");
+        $('#masonry_user_container').masonry("reload");     
     },
     closeMore: function(id) {
         $('#closeComment_' + id).attr('style', 'display:none');

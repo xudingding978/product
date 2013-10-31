@@ -13,7 +13,7 @@
 HubStar.UserMessageController = Ember.Controller.extend({
     contentMsg: null,
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'notification', 'message','notificationTop'],
     isUploadPhoto: false,
     isEdit: true,
     isPosting: true,
@@ -39,7 +39,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
         }
         this.getClientId(message); // It is used to get the mesage model      
     },
-
     getClientId: function(id) {
         this.set("isPosting", true);
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
@@ -66,8 +65,8 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 dataNew["url"] = params[i]["replyMessageCollection"][length]["url"];
                 dataNew["enableToEdit"] = false;
                 dataNew["replyEdit"] = true;
-                dataNew["replyCount"] = params[i]["replyMessageCollection"].length -1;
-                        if (params[i]["replyMessageCollection"][length]["user_id"] === localStorage.loginStatus)
+                dataNew["replyCount"] = params[i]["replyMessageCollection"].length - 1;
+                if (params[i]["replyMessageCollection"][length]["user_id"] === localStorage.loginStatus)
                 {
                     dataNew["isUserself"] = true; //dataNew["isUserself"] is true , which means it is the login users is the same as the user page owner
                 }
@@ -114,28 +113,67 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 dataNew = new Array();
             }
             that.set('loadingTime', false);
+            if (that.get('controllers.notification').get("goMessage") !== undefined && that.get('controllers.notification').get("goMessage") !== null && that.get('controllers.notification').get("goMessage") !== "") {
+                var s = that.get('controllers.notification').get("goMessage");
+                that.goToMessage(s);
+            }
+            if (that.get('controllers.notificationTop').get("goMessage") !== undefined && that.get('controllers.notificationTop').get("goMessage") !== null && that.get('controllers.notificationTop').get("goMessage") !== "") {
+                var s = that.get('controllers.notificationTop').get("goMessage");
+                that.goToMessageTop(s);
+            }
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
-                $("#content_message").mCustomScrollbar({
-                    scrollButtons: {
-                        enable: false,
-                        scrollSpeed: "auto"
-                    },
-                    advanced: {
-                        updateOnBrowserResize: true,
-                        updateOnContentResize: true,
-                        autoScrollOnFocus: false,
-                        normalizeMouseWheelDelta: false
-                    },
-                    autoHideScrollbar: true,
-                    mouseWheel: true,
-                    theme: "dark-2",
-                    set_height: 1000
-                });
             }, 200);
 
         });
-        
+
+    },
+    goToMessage: function(s)
+    {     
+        if (localStorage.loginStatus === this.get("controllers.notification").get("reply_ids"))
+        {          
+            $("#content_message").mCustomScrollbar("scrollTo", s);
+        }
+        else {
+            setTimeout(function() {
+                $("#content_message").mCustomScrollbar("scrollTo", s);
+            }, 200);
+        }
+
+        if (this.get("controllers.notification").get("reply_ids") !== undefined && this.get("controllers.notification").get("reply_ids") !== null && this.get("controllers.notification").get("reply_ids") !== "")
+        {
+            var that = this;
+            setTimeout(function() {
+                that.get('controllers.message').seeMore(that.get("controllers.notification").get("reply"));
+            }, 200);
+
+            this.get('controllers.notification').set("reply_ids", "");
+        }
+        this.get('controllers.notification').set("goMessage", "");
+    },
+    goToMessageTop: function(s)
+    {     
+        if (localStorage.loginStatus === this.get("controllers.notificationTop").get("reply_ids"))
+        {          
+            $("#content_message").mCustomScrollbar("scrollTo", s);
+        }
+        else {
+            setTimeout(function() {
+                $("#content_message").mCustomScrollbar("scrollTo", s);
+            }, 100);
+        }
+
+        if (this.get("controllers.notificationTop").get("reply_ids") !== undefined && this.get("controllers.notificationTop").get("reply_ids") !== null && this.get("controllers.notificationTop").get("reply_ids") !== "")
+        {
+            var that = this;
+            setTimeout(function() {
+                that.get('controllers.message').seeMore(that.get("controllers.notificationTop").get("reply"));
+            }, 200);
+
+            this.get('controllers.notificationTop').set("reply_ids", "");
+        }
+        this.get('controllers.notificationTop').set("goMessage", "");
+          
     },
     removeMessage: function(Message_id)
     {
@@ -231,7 +269,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
 
             requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
                 //params  is just one message 
-                that.set("isPosting", true);               
+                that.set("isPosting", true);
                 dataNew["message_id"] = params["message_id"];
                 dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
                 dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
@@ -272,7 +310,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             });
 
 
-         
+
             setTimeout(function() {
                 $('#masonry_container').masonry("reloadItems");
             }, 200);

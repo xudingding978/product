@@ -16,8 +16,22 @@ HubStar.UserFollowersController = Ember.Controller.extend({
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
     test: "test",
     setUserFollowers: function(followers) {
+
         var model = HubStar.User.find(followers);
         this.getClientId(model); // It is used to get the mesage model
+
+    },
+    goToUserFollowerRoute: function()
+    {
+        this.transitionToRoute('user');
+        this.set('profileSelectionStatus', 'Collections');
+        this.set('followingTag', false);
+        this.set('collectionTag', true);
+        this.set('followerTag', false);
+        this.set('messageTag', false);
+
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
 
     },
     getClientId: function(model) {
@@ -291,10 +305,10 @@ HubStar.UserFollowersController = Ember.Controller.extend({
     unFollowUser: function(user_id, that, follow_object) {
         var currentUser = localStorage.loginStatus;
         var date = new Date();
-        var followArray = [currentUser, user_id,date.toString()];
+        var followArray = [currentUser, user_id, date.toString()];
 
         var thatNew = that;
-        var thisThis = this;      
+        var thisThis = this;
         requiredBackEnd('followers', 'deleteUserFollower', followArray, 'POST', function(params) {
             if (thatNew !== "follower" && thatNew !== "following") {
 

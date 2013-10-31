@@ -998,6 +998,7 @@ textarea.add-interests{
 
 
 .selected-conversation{background-color: #555 !important;}
+.selected-conversation > div {color: #fff !important;}
 
 .selected-conversation .comment-username, .selected-conversation .comment-content, .selected-conversation .icon-trash{color: #fff !important}
 
@@ -1017,3 +1018,6 @@ textarea.add-interests{
 .Notification-Board > div:nth-child(even){background-color: #f4f6f8}
 
 
+#notititopbar > .mCustomScrollBox{
+
+}

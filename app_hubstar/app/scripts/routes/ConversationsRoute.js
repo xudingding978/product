@@ -7,25 +7,19 @@
 HubStar.ConversationsRoute = Ember.Route.extend({
     setupController: function(controller, model) {
 
-
-        this.controllerFor('user').set('collectionTag', false);
-
-        this.controllerFor('user').set('followerTag', false);
-        this.controllerFor('user').set('followingTag', false);
-        this.controllerFor('user').set('messageTag', true);
-        // The following two line is used to change the selection with dark 
-
-        this.controllerFor('messageCenter').getClientId(model);
-        this.controllerFor('user').set('profileSelectionStatus', 'conversations');
-
+        this.controllerFor('user').set('profileSelectionStatus', 'Conversations');
 
         this.controllerFor('messageCenter').set("isNewConversation", false);
+
         this.controllerFor('messageCenter').set("isConversationItem", true);
+
         this.controllerFor('messageCenter').set("isNotification", false);
+
         this.controllerFor('messageCenter').set("isMessageBoard", false);
-
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
         $(window).scrollTop(0);
-
 
     },
     model: function(params) {

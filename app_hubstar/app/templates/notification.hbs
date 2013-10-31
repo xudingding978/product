@@ -13,7 +13,7 @@
         {{#each controller.notificationContent}}
         {{#if this.isRead}}
         <div class='each-conversation easing'>
-            <div style="  padding: 15px 0 10px 95px;position: relative;" {{action go this.user_id}}>
+            <div style="  padding: 15px 0 10px 95px;position: relative;" {{action go this.notification_id}}>
                  <a class="" style="position: absolute; top: 18px;margin: 0 0 0 -55px;">
                     <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.photo_url}} /> 
                 </a>
@@ -40,15 +40,15 @@
             </div>
 
             <div class="reply-comment easing" style="right:25px;position: relative;float: right;top: -60px;">  
-                <i class="icon-ok-sign"></i>                 
-                <i class="icon-remove-sign"></i>
+                <i class="icon-ok-sign" ></i>                 
+                <i class="icon-remove-sign"{{action deleteNotification this.notification_id}}></i>
             </div>
         </div>
 
 
         {{else}}
         <div class='each-conversation easing unread-style'>
-            <div style="  padding: 15px 0 10px 95px;position: relative;" {{action go this.user_id}}>
+            <div style="  padding: 15px 0 10px 95px;position: relative;" {{action go this.notification_id}}>
                  <a class="" style="position: absolute; top: 18px;margin: 0 0 0 -55px;">
                     <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.photo_url}} /> 
                 </a>
@@ -73,11 +73,32 @@
             </div>
 
             <div class="reply-comment easing" style="right:25px;position: relative;float: right;top: -60px;">  
-                <i class="icon-ok-sign"></i>                 
-                <i class="icon-remove-sign"></i>
+                <i class="icon-ok-sign" {{action markRead this.notification_id}}></i>                 
+                <i class="icon-remove-sign"{{action deleteNotification this.notification_id}}></i>
             </div>
         </div>
         {{/if}}
         {{/each}}
     </div>
 </div>
+
+<script>
+    $(function() {
+        $("#content_notification").mCustomScrollbar({
+            scrollButtons: {
+                enable: false,
+                scrollSpeed: "auto"
+            },
+            advanced: {
+                updateOnBrowserResize: true,
+                updateOnContentResize: true,
+                autoScrollOnFocus: false,
+                normalizeMouseWheelDelta: false
+            },
+            autoHideScrollbar: true,
+            mouseWheel: true,
+            theme: "dark-2",
+            set_height: 950
+        });
+    });
+</script>

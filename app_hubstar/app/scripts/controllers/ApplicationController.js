@@ -4,7 +4,7 @@
 /*global $:false */
 
 HubStar.ApplicationController = Ember.ArrayController.extend({
-    needs: ['status', 'applicationFeedback','notificationTop'],
+    needs: ['status', 'applicationFeedback', 'notificationTop'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -27,13 +27,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeLoginURL: "",
     isWaiting: "",
     isGeoDropdown: false,
+    unReadCount: 0,
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
-       this.defaultSearch();
-       this.set('search_string', '');
+        this.defaultSearch();
+        this.set('search_string', '');
     },
     dropdownPhotoSetting: function() {
-      this.set("isNotification",!this.get("isNotification"));    
+        this.set("isNotification", !this.get("isNotification"));
+        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
     },
     popupModal: function() {
         this.set('popup', !this.get('popup'));
@@ -44,10 +46,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     loginStatus: function() {
     },
     grapData: function() {
-        this.set("user", HubStar.User.find(localStorage.loginStatus));
-        console.log(this.get("user").get("isLoaded"));
-        this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
+        var u = HubStar.User.find(localStorage.loginStatus);
+        this.set("user", u);
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
+        this.set("myUserProfile", "#/users/" + localStorage.loginStatus);       
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));
@@ -277,7 +279,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     result = false;
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
-                    $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'}); 
+                    $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
 
 
 
@@ -294,12 +296,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     setfemale: function() {
         this.set('gender', "female");
     },
-            
- dropdown: function(checking) {
+    dropdown: function(checking) {
         this.set('isGeoDropdown', !this.get('isGeoDropdown'));
         $('#geo-filter').toggleClass('Geo-Filter-active');
     },
-            
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {

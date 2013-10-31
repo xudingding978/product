@@ -28,22 +28,62 @@ class NotificationsController extends Controller {
         //      $this->sendResponse(204);
     }
 
+    public function actionMarkRead() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request = CJSON::decode($request_array);
+        $notificationId = $request[1];
+        $ownerId = $request[0];
+        $this->setRead($ownerId, $notificationId);
+    }
+
     public function actionMarkAllRead() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request = CJSON::decode($request_array);
         $notificationId = $request[0];
-        $this->setAllRead($notificationId);
+        $ids = $request[1];
+        $this->setAllRead($notificationId, $ids);
+        $notification = $this->actionReadNotification($notificationId);
+        if ($notification) {
+            $this->sendResponse(200, CJSON::encode($notification));
+        } else {
+            $this->sendResponse(204);
+        }
     }
 
-    public function setAllRead($notificationId) {
+    public function setAllRead($notificationId, $ids) {
         $cb = $this->couchBaseConnection();
         $domain = $this->getDomain();
         $docID_currentUser = $domain . "/users/" . $notificationId;
         $tempMega_currentUser = $cb->get($docID_currentUser);
         $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
+        $idArray = explode(",", $ids);
         if (isset($mega_currentUser['user'][0]["notifications"])) {
             for ($i = 0; $i < sizeof($mega_currentUser['user'][0]["notifications"]); $i++) {
-                $mega_currentUser['user'][0]["notifications"][$i]["isRead"] = true;
+                for ($j = 0; $j < sizeof($idArray); $j++) {
+                    if ($mega_currentUser['user'][0]["notifications"][$i]["notification_id"] === $idArray[$j]) {
+                        $mega_currentUser['user'][0]["notifications"][$i]["isRead"] = true;
+                    }
+                }
+            }
+        }
+        if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
+            
+        } else {
+            
+        }
+    }
+
+    public function setRead($ownerId, $notificationId) {
+        $cb = $this->couchBaseConnection();
+        $domain = $this->getDomain();
+        $docID_currentUser = $domain . "/users/" . $ownerId;
+        $tempMega_currentUser = $cb->get($docID_currentUser);
+        $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
+        if (isset($mega_currentUser['user'][0]["notifications"])) {
+            for ($i = 0; $i < sizeof($mega_currentUser['user'][0]["notifications"]); $i++) {
+                if ($mega_currentUser['user'][0]["notifications"][$i]["notification_id"] === $notificationId) {
+                    $mega_currentUser['user'][0]["notifications"][$i]["isRead"] = true;
+                }
             }
         }
         if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
@@ -104,6 +144,41 @@ class NotificationsController extends Controller {
                 $readNotification = array();
             }
             return $readNotification;
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
+    }
+ public function actionDeleteNotification() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request_array = CJSON::decode($request_array);
+        $commenter_id = $request_array[0];
+        $notification_id = $request_array[1];
+        $comment = $this->delNotification($commenter_id, $notification_id);
+
+        if ($comment) {
+            $this->sendResponse(204, CJSON::encode($comment));
+        }
+    }
+
+    public function delNotification($commenter_id, $notification_id) {
+        try {
+            $isDelete = false;
+            $commenterInfo = $this->getDomain() . "/users/" . $commenter_id;
+            $cb = $this->couchBaseConnection();
+            $commenterInfoDeep = $cb->get($commenterInfo); // get the old user record from the database according to the docID string
+            $oldcommenterInfo = CJSON::decode($commenterInfoDeep, true);
+            $notification = $oldcommenterInfo['user'][0]["notifications"];
+            for ($i = 0; $i < sizeof($notification); $i++) {
+                if ($notification[$i]["notification_id"] === $notification_id) {
+                    array_splice($oldcommenterInfo['user'][0]["notifications"], $i, 1);
+                    break;
+                }
+            }
+            if ($cb->set($commenterInfo, CJSON::encode($oldcommenterInfo))) {
+                $isDelete = true;
+                return $isDelete;
+            }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
             echo json_decode(file_get_contents('php://input'));

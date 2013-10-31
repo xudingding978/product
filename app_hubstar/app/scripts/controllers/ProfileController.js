@@ -122,6 +122,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('is_authentic_user', false);
 
     },
+    goToProfileRoute: function(id)
+    {
+     //   $('#user-stats > li').removeClass('selected-user-stats');
+//this.setProfile(id);
+      this.transitionToRoute('profile');
+//       $('#user-stats > li').removeClass('selected-user-stats');
+//        $('#defualt').addClass('selected-user-stats');
+    },
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);
         var profile = HubStar.Profile.find(id);
@@ -174,8 +182,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.isFollowed();
         this.checkAuthenticUser();
-      //  this.labelBarRefresh();
-     //   this.selectCollection();
+
+      this.labelBarRefresh();
+
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
         this.initStastics(profile);
@@ -563,6 +572,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         return isFollow;
     },
     selectCollection: function() {
+//
+//     $('#user-stats > li').removeClass('selected-user-stats');
+//        $('#defualt').addClass('selected-user-stats');
+        //$(window).scrollTop(1500);
+
         this.sendEventTracking('event', 'button', 'click', 'Collections');
         this.set('partnerPage', 'Collections');
         this.set('profileSelectionStatus', 'Collections');
@@ -579,7 +593,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.sendEventTracking('event', 'button', 'click', 'Partners');
         HubStar.set("lastPositionId", model.id);
         this.set('profileSelectionStatus', 'Partners');
-        this.get('controllers.profilePartners').getClientId(model);
+        //   this.get('controllers.profilePartners').getClientId(model);
         this.set('partnerTag', true);
         this.set('collectionTag', false);
         this.set('followerProfileTag', false);
@@ -599,8 +613,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('collectionTag', false);
         this.set('followerProfileTag', true);
 
+
          this.transitionToRoute('profileFollowers');
         
+
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);

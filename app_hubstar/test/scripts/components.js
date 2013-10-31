@@ -2457,10 +2457,13 @@ var e=function(){},t=0,r=this.document,n=r&&"createRange"in r&&"undefined"!=type
  */
 function getRestAPIURL()
 {
-    var api_url = document.domain;
-    var api_domain_start_pos = api_url.indexOf('.');
-    var api_url = api_url.slice(api_domain_start_pos);
-    api_url = "http://test-api" + api_url;
+//    var api_url = document.domain;
+//    api_url = "http://api." + api_url;
+//    console.log(api_url);
+//    return api_url;
+   var api_url = document.domain;
+   
+    api_url = "http://api." + api_url;
     return api_url;
 }
 
@@ -2475,6 +2478,16 @@ function createGuid() {
     return "test" + result.toString();
 }
 
+function createMessageid() {
+
+    var dateObject = new Date();
+    var randomnumber = Math.random().toString().slice(2, 5);
+    randomnumber = randomnumber.toString();
+    randomnumber = removeZero(randomnumber);
+    var result = randomnumber +
+            dateObject.getTime().toString();
+    return  result.toString();
+}
 function removeZero(string)
 {
 
@@ -2522,18 +2535,18 @@ function getImageWidth(imgSrc, callback) {
     var img = new Image();
     img.src = imgSrc;
     img.onload = function() {
-  
+
         callback(this.width, this.height);
-       
+
     };
 
-    
-  }  
-  
+
+}
+
 function requiredBackEnd(controller, method, para, ajaxType, callback) {
     {
         var tempurl = getRestAPIURL();
-
+     
         $.ajax({
             url: tempurl + '/' + controller + '/' + method,
             type: ajaxType,
@@ -2544,26 +2557,1011 @@ function requiredBackEnd(controller, method, para, ajaxType, callback) {
             }
         });
     }
-
+ 
 
 }
-function getTarget(obj,type) {
-        var targ;
-        var e = obj;
-        if (e.target)
-            targ = e.target;
-        else if (e.srcElement)
-            targ = e.srcElement;
-        if (type === "single") {
-            if (targ.nodeType === 3) // defeat Safari bug
-                targ = targ.parentNode;
-        }
-        return targ;
+function getTarget(obj, type) {
+    var targ;
+    var e = obj;
+    if (e.target)
+        targ = e.target;
+    else if (e.srcElement)
+        targ = e.srcElement;
+    if (type === "single") {
+        if (targ.nodeType === 3) // defeat Safari bug
+            targ = targ.parentNode;
     }
+    return targ;
+}
+
+
+
     
-    
- 
-    
+
+// variables
+var canvas, ctx;
+var image;
+var iMouseX, iMouseY = 1;
+var theSelection;
+var xRation;
+var yRation;
+var defaultWidth;
+var defaultHeight;
+var rate;
+
+// define Selection constructor
+function Selection(x, y, w, h) {
+    this.x = x; // initial positions
+    this.y = y;
+    this.w = w; // and size
+    this.h = h;
+    this.px = x; // extra variables to dragging calculations
+    this.py = y;
+
+    this.csize = 3; // resize cubes size
+    this.csizeh = 15; // resize cubes size (on hover)
+
+    this.bHow = [false, false, false, false]; // hover statuses
+    this.iCSize = [this.csize, this.csize, this.csize, this.csize]; // resize cubes sizes
+    this.bDrag = [false, false, false, false]; // drag statuses
+    this.bDragAll = false; // drag whole selection
+}
+
+// define Selection draw method
+Selection.prototype.draw = function() {
+
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(this.x, this.y, this.w, this.h);
+    // draw part of original image
+
+    if (this.w > 0 && this.h > 0) {
+        ctx.drawImage(image, this.x * xRation, this.y * yRation, this.w * xRation, this.h * yRation, this.x, this.y, this.w, this.h);
+    }
+
+    // draw resize cubes
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(this.x - this.iCSize[0], this.y - this.iCSize[0], this.iCSize[0] * 2, this.iCSize[0] * 2);
+    ctx.fillRect(this.x + this.w - this.iCSize[1], this.y - this.iCSize[1], this.iCSize[1] * 2, this.iCSize[1] * 2);
+    ctx.fillRect(this.x + this.w - this.iCSize[2], this.y + this.h - this.iCSize[2], this.iCSize[2] * 2, this.iCSize[2] * 2);
+    ctx.fillRect(this.x - this.iCSize[3], this.y + this.h - this.iCSize[3], this.iCSize[3] * 2, this.iCSize[3] * 2);
+};
+
+function drawScene() { // main drawScene function
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // clear canvas
+    // draw source image
+    ctx.drawImage(image, 0, 0, ctx.canvas.width, ctx.canvas.height);
+    // and make it darker
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    // draw selection
+    theSelection.draw();
+}
+
+function crop(imageSrc) {
+    // loading source image
+    image = new Image();
+    image.src = imageSrc;
+
+     xRation = 1;
+     yRation = 1;
+    defaultWidth = document.getElementById('crop-container').offsetWidth;
+    defaultHeight = document.getElementById('crop-container').offsetHeight;
+    rate = image.width / image.height;
+
+    image.onload = function() {
+
+        if (document.getElementById('crop-container').offsetWidth === 300) {
+            
+            ctx.canvas.width =  image.width;
+            ctx.canvas.height = image.height;
+            
+
+              if (ctx.canvas.width > defaultWidth)
+            {
+                ctx.canvas.width = defaultWidth;
+                ctx.canvas.height = defaultWidth / rate;
+
+                xRation = image.width / ctx.canvas.width;
+                yRation = (image.height * rate) / ctx.canvas.width;
+
+            }
+             if (ctx.canvas.height > defaultHeight)
+            {
+                ctx.canvas.height = defaultHeight;
+                ctx.canvas.width = defaultHeight * rate;
+                xRation = image.width / (ctx.canvas.height * rate);
+                yRation = image.height / ctx.canvas.height;
+
+            }
+
+        } else {
+
+
+
+            if (ctx.canvas.width > defaultWidth || ctx.canvas.width < defaultWidth)
+            {
+                ctx.canvas.width = defaultWidth;
+                ctx.canvas.height = defaultWidth / rate;
+
+                xRation = image.width / ctx.canvas.width;
+                yRation = (image.height * rate) / ctx.canvas.width;
+
+            }
+
+
+            if (ctx.canvas.height > defaultHeight || ctx.canvas.height < defaultHeight)
+            {
+                ctx.canvas.height = defaultHeight;
+                ctx.canvas.width = defaultHeight * rate;
+                xRation = image.width / (ctx.canvas.height * rate);
+                yRation = image.height / ctx.canvas.height;
+
+            }
+
+        }
+    };
+
+    // creating canvas and context objects
+    canvas = document.getElementById('panel');
+
+    ctx = canvas.getContext('2d');
+
+    // create initial selection
+    if (document.getElementById('crop-container').offsetWidth === 300) {
+        theSelection = new Selection(20, 20, 150, 150);
+    }
+    if (document.getElementById('crop-container').offsetWidth === 600) {
+        theSelection = new Selection(10, 10, 150, 92);
+
+    }
+    if (document.getElementById('crop-container').offsetWidth === 820) {
+        theSelection = new Selection(10, 10, 200, 200);
+
+    }
+    if (document.getElementById('crop-container').offsetWidth === 830) {
+        theSelection = new Selection(10, 10, 420, 200);
+
+    }
+    if (document.getElementById('crop-container').offsetWidth === 850) {
+        theSelection = new Selection(10, 10, 400, 160);
+
+    }
+
+
+    $('#panel').mousemove(function(e) { // binding mouse move event
+        
+        var canvasOffset = $(canvas).offset();
+        iMouseX = Math.floor(e.pageX - canvasOffset.left);
+        iMouseY = Math.floor(e.pageY - canvasOffset.top);
+     $ ('#log').text( "width: " + parseInt(theSelection.w * xRation) + ", Height: " +  parseInt(theSelection.h * yRation) );
+   
+      
+        // in case of drag of whole selector and limit for the size of selection
+        if (theSelection.bDragAll) {
+
+
+            theSelection.x = iMouseX - theSelection.px;
+            theSelection.y = iMouseY - theSelection.py;
+
+            if (theSelection.x < 0 && theSelection.y < 0) {
+                theSelection.x = 0;
+                theSelection.y = 0;
+            } else if (theSelection.x < 0 && theSelection.y > 0)
+            {
+                theSelection.x = 0;
+            }
+            else if (theSelection.x > 0 && theSelection.y < 0)
+            {
+                theSelection.y = 0;
+            }
+
+            if (theSelection.x + theSelection.w - ctx.canvas.width > 0 && theSelection.y + theSelection.h - ctx.canvas.height > 0) {
+
+                theSelection.x = ctx.canvas.width - theSelection.w;
+                theSelection.y = ctx.canvas.height - theSelection.h;
+
+            } else if (theSelection.x + theSelection.w - ctx.canvas.width > 0 && theSelection.y + theSelection.h - ctx.canvas.height < 0)
+            {
+                theSelection.x = ctx.canvas.width - theSelection.w;
+            }
+            else if (theSelection.x + theSelection.w - ctx.canvas.width < 0 && theSelection.y + theSelection.h - ctx.canvas.height > 0)
+            {
+                theSelection.y = ctx.canvas.height - theSelection.h;
+            }
+
+
+        }
+
+        for (i = 0; i < 4; i++) {
+            theSelection.bHow[i] = false;
+            theSelection.iCSize[i] = theSelection.csize;
+        }
+
+        // hovering over resize cubes
+        if (iMouseX > theSelection.x - theSelection.csizeh
+                && iMouseX < theSelection.x + theSelection.csizeh
+                && iMouseY > theSelection.y - theSelection.csizeh
+                && iMouseY < theSelection.y + theSelection.csizeh)
+        {
+
+            theSelection.bHow[0] = true;
+            theSelection.iCSize[0] = theSelection.csizeh / 3;
+
+        }
+        if (iMouseX > theSelection.x + theSelection.w - theSelection.csizeh && iMouseX < theSelection.x + theSelection.w + theSelection.csizeh &&
+                iMouseY > theSelection.y - theSelection.csizeh && iMouseY < theSelection.y + theSelection.csizeh) {
+
+            theSelection.bHow[1] = true;
+            theSelection.iCSize[1] = theSelection.csizeh / 3;
+        }
+        if (iMouseX > theSelection.x + theSelection.w - theSelection.csizeh && iMouseX < theSelection.x + theSelection.w + theSelection.csizeh &&
+                iMouseY > theSelection.y + theSelection.h - theSelection.csizeh && iMouseY < theSelection.y + theSelection.h + theSelection.csizeh) {
+
+            theSelection.bHow[2] = true;
+            theSelection.iCSize[2] = theSelection.csizeh / 3;
+        }
+        if (iMouseX > theSelection.x - theSelection.csizeh && iMouseX < theSelection.x + theSelection.csizeh &&
+                iMouseY > theSelection.y + theSelection.h - theSelection.csizeh && iMouseY < theSelection.y + theSelection.h + theSelection.csizeh) {
+
+            theSelection.bHow[3] = true;
+            theSelection.iCSize[3] = theSelection.csizeh / 3;
+        }
+
+
+        // in case of dragging of resize cubes
+        var iFW, iFH;
+        if (theSelection.bDrag[0]) {
+            var iFX = iMouseX - theSelection.px;
+            var iFY = iMouseY - theSelection.py;
+
+            iFW = theSelection.w + theSelection.x - iFX;
+            // iFH = theSelection.h + theSelection.y - iFY;
+            if (document.getElementById('crop-container').offsetWidth === 600) {
+                iFH = iFW / 1.63;
+            } else if (document.getElementById('crop-container').offsetWidth === 300) {
+                iFH = iFW;
+            } else if (document.getElementById('crop-container').offsetWidth === 820) {
+                iFH = theSelection.h + theSelection.y - iFY;
+            }
+            else if (document.getElementById('crop-container').offsetWidth === 830) {
+                iFH = iFW / 1.9;
+            }
+            else if (document.getElementById('crop-container').offsetWidth === 850) {
+                iFH = iFW / 2.46;
+            }
+
+
+        }
+        if (theSelection.bDrag[1]) {
+            var iFX = theSelection.x;
+            var iFY = iMouseY - theSelection.py;
+            iFW = iMouseX - theSelection.px - iFX;
+            // iFH = theSelection.h + theSelection.y - iFY;
+            if (document.getElementById('crop-container').offsetWidth === 600) {
+                iFH = iFW / 1.63;
+            } else if (document.getElementById('crop-container').offsetWidth === 300) {
+                iFH = iFW;
+            } else if (document.getElementById('crop-container').offsetWidth === 820) {
+                iFH = theSelection.h + theSelection.y - iFY;
+            }
+            else if (document.getElementById('crop-container').offsetWidth === 830) {
+                iFH = iFW / 1.9;
+            }
+            else if (document.getElementById('crop-container').offsetWidth === 850) {
+                iFH = iFW / 2.46;
+            }
+        }
+        if (theSelection.bDrag[2]) {
+            var iFX = theSelection.x;
+            var iFY = theSelection.y;
+            iFW = iMouseX - theSelection.px - iFX;
+            //  iFH = iMouseY - theSelection.py - iFY;
+            if (document.getElementById('crop-container').offsetWidth === 600) {
+                iFH = iFW / 1.63;
+            } else if (document.getElementById('crop-container').offsetWidth === 300) {
+                iFH = iFW;
+            } else if (document.getElementById('crop-container').offsetWidth === 820) {
+                iFH = iMouseY - theSelection.py - iFY;
+            }
+            else if (document.getElementById('crop-container').offsetWidth === 830) {
+                iFH = iFW / 1.9;
+            }
+            else if (document.getElementById('crop-container').offsetWidth === 850) {
+                iFH = iFW / 2.46;
+            }
+        }
+        if (theSelection.bDrag[3]) {
+            var iFX = iMouseX - theSelection.px;
+            var iFY = theSelection.y;
+            iFW = theSelection.w + theSelection.x - iFX;
+            //  iFH = iMouseY - theSelection.py - iFY;
+            if (document.getElementById('crop-container').offsetWidth === 600) {
+                iFH = iFW / 1.63;
+            } else if (document.getElementById('crop-container').offsetWidth === 300) {
+                iFH = iFW;
+            } else if (document.getElementById('crop-container').offsetWidth === 820) {
+                iFH = iMouseY - theSelection.py - iFY;
+            }
+            else if (document.getElementById('crop-container').offsetWidth === 830) {
+                iFH = iFW / 1.9;
+            }
+            else if (document.getElementById('crop-container').offsetWidth === 850) {
+                iFH = iFW / 2.46;
+            }
+        }
+
+        if (iFW >= theSelection.csizeh * xRation && iFH >= theSelection.csizeh * yRation) {
+
+            theSelection.w = iFW;
+            theSelection.h = iFH;
+
+            theSelection.x = iFX;
+            theSelection.y = iFY;
+        }
+        else if (iFW < theSelection.csizeh * xRation || iFH < theSelection.csizeh * yRation)
+        {
+            theSelection.x = iFX;
+            theSelection.y = iFY;
+            theSelection.w = theSelection.csizeh * xRation;
+
+
+            if (document.getElementById('crop-container').offsetWidth === 600) {
+                theSelection.h = theSelection.w / 1.63;
+            } else if (document.getElementById('crop-container').offsetWidth === 300) {
+                theSelection.h = theSelection.w;
+            } else if (document.getElementById('crop-container').offsetWidth === 820) {
+                theSelection.h = theSelection.csizeh * yRation;
+            }
+            else if (document.getElementById('crop-container').offsetWidth === 830) {
+                theSelection.h = theSelection.w / 1.9;
+            }
+            else if (document.getElementById('crop-container').offsetWidth === 850) {
+                theSelection.h = theSelection.w / 2.46;
+            }
+
+        }
+
+        drawScene();
+          
+        
+        
+    });
+
+    $('#panel').mousedown(function(e) { // binding mousedown event
+        var canvasOffset = $(canvas).offset();
+        iMouseX = Math.floor(e.pageX - canvasOffset.left);
+        iMouseY = Math.floor(e.pageY - canvasOffset.top);
+        theSelection.px = iMouseX - theSelection.x;
+        theSelection.py = iMouseY - theSelection.y;
+
+        if (theSelection.bHow[0]) {
+            theSelection.px = iMouseX - theSelection.x;
+            theSelection.py = iMouseY - theSelection.y;
+        }
+        if (theSelection.bHow[1]) {
+            theSelection.px = iMouseX - theSelection.x - theSelection.w;
+            theSelection.py = iMouseY - theSelection.y;
+        }
+        if (theSelection.bHow[2]) {
+            theSelection.px = iMouseX - theSelection.x - theSelection.w;
+            theSelection.py = iMouseY - theSelection.y - theSelection.h;
+        }
+        if (theSelection.bHow[3]) {
+            theSelection.px = iMouseX - theSelection.x;
+            theSelection.py = iMouseY - theSelection.y - theSelection.h;
+        }
+        if (iMouseX > theSelection.x + theSelection.csizeh && iMouseX < theSelection.x + theSelection.w - theSelection.csizeh &&
+                iMouseY > theSelection.y + theSelection.csizeh && iMouseY < theSelection.y + theSelection.h - theSelection.csizeh) {
+
+            theSelection.bDragAll = true;
+        }
+
+        for (i = 0; i < 4; i++) {
+            if (theSelection.bHow[i]) {
+                theSelection.bDrag[i] = true;
+            }
+        }
+    });
+
+    $('#panel').mouseup(function(e) { // binding mouseup event
+        theSelection.bDragAll = false;
+
+        for (i = 0; i < 4; i++) {
+            theSelection.bDrag[i] = false;
+        }
+        theSelection.px = 0;
+        theSelection.py = 0;
+    });
+
+    drawScene();
+}
+
+
+function getResults() {
+    var temp_ctx, temp_canvas;
+    temp_canvas = document.createElement('canvas');
+    temp_ctx = temp_canvas.getContext('2d');
+    temp_canvas.width = theSelection.w * xRation;
+    temp_canvas.height = theSelection.h * yRation;
+    temp_ctx.drawImage(image, theSelection.x * xRation, theSelection.y * yRation, theSelection.w * xRation, theSelection.h * yRation, 0, 0, theSelection.w * xRation, theSelection.h * yRation);
+    var vData = temp_canvas.toDataURL();
+    return vData;
+}
+/**
+ * Full HTML5 compatibility rule set
+ * These rules define which tags and css classes are supported and which tags should be specially treated.
+ *
+ * Examples based on this rule set:
+ *
+ *    <a href="http://foobar.com">foo</a>
+ *    ... becomes ...
+ *    <a href="http://foobar.com" target="_blank" rel="nofollow">foo</a>
+ *
+ *    <img align="left" src="http://foobar.com/image.png">
+ *    ... becomes ...
+ *    <img class="wysiwyg-float-left" src="http://foobar.com/image.png" alt="">
+ *
+ *    <div>foo<script>alert(document.cookie)</script></div>
+ *    ... becomes ...
+ *    <div>foo</div>
+ *
+ *    <marquee>foo</marquee>
+ *    ... becomes ...
+ *    <span>foo</marquee>
+ *
+ *    foo <br clear="both"> bar
+ *    ... becomes ...
+ *    foo <br class="wysiwyg-clear-both"> bar
+ *
+ *    <div>hello <iframe src="http://google.com"></iframe></div>
+ *    ... becomes ...
+ *    <div>hello </div>
+ *
+ *    <center>hello</center>
+ *    ... becomes ...
+ *    <div class="wysiwyg-text-align-center">hello</div>
+ */
+var wysihtml5ParserRules = {
+    /**
+     * CSS Class white-list
+     * Following css classes won't be removed when parsed by the wysihtml5 html parser
+     */
+    "classes": {
+        "wysiwyg-clear-both": 1,
+        "wysiwyg-clear-left": 1,
+        "wysiwyg-clear-right": 1,
+        "wysiwyg-color-aqua": 1,
+        "wysiwyg-color-black": 1,
+        "wysiwyg-color-blue": 1,
+        "wysiwyg-color-fuchsia": 1,
+        "wysiwyg-color-gray": 1,
+        "wysiwyg-color-green": 1,
+        "wysiwyg-color-lime": 1,
+        "wysiwyg-color-maroon": 1,
+        "wysiwyg-color-navy": 1,
+        "wysiwyg-color-olive": 1,
+        "wysiwyg-color-purple": 1,
+        "wysiwyg-color-red": 1,
+        "wysiwyg-color-silver": 1,
+        "wysiwyg-color-teal": 1,
+        "wysiwyg-color-white": 1,
+        "wysiwyg-color-yellow": 1,
+        "wysiwyg-float-left": 1,
+        "wysiwyg-float-right": 1,
+        "wysiwyg-font-size-large": 1,
+        "wysiwyg-font-size-larger": 1,
+        "wysiwyg-font-size-medium": 1,
+        "wysiwyg-font-size-small": 1,
+        "wysiwyg-font-size-smaller": 1,
+        "wysiwyg-font-size-x-large": 1,
+        "wysiwyg-font-size-x-small": 1,
+        "wysiwyg-font-size-xx-large": 1,
+        "wysiwyg-font-size-xx-small": 1,
+        "wysiwyg-text-align-center": 1,
+        "wysiwyg-text-align-justify": 1,
+        "wysiwyg-text-align-left": 1,
+        "wysiwyg-text-align-right": 1
+    },
+    /**
+     * Tag list
+     *
+     * Following options are available:
+     *
+     *    - add_class:        converts and deletes the given HTML4 attribute (align, clear, ...) via the given method to a css class
+     *                        The following methods are implemented in wysihtml5.dom.parse:
+     *                          - align_text:  converts align attribute values (right/left/center/justify) to their corresponding css class "wysiwyg-text-align-*")
+     <p align="center">foo</p> ... becomes ... <p> class="wysiwyg-text-align-center">foo</p>
+     *                          - clear_br:    converts clear attribute values left/right/all/both to their corresponding css class "wysiwyg-clear-*"
+     *                            <br clear="all"> ... becomes ... <br class="wysiwyg-clear-both">
+     *                          - align_img:    converts align attribute values (right/left) on <img> to their corresponding css class "wysiwyg-float-*"
+     *                          
+     *    - remove:             removes the element and it's content
+     *
+     *    - rename_tag:         renames the element to the given tag
+     *
+     *    - set_class:          adds the given class to the element (note: make sure that the class is in the "classes" white list above)
+     *
+     *    - set_attributes:     sets/overrides the given attributes
+     *
+     *    - check_attributes:   checks the given HTML attribute via the given method
+     *                            - url:      checks whether the given string is an url, deletes the attribute if not
+     *                            - alt:      strips unwanted characters. if the attribute is not set, then it gets set (to ensure valid and compatible HTML)
+     *                            - numbers:  ensures that the attribute only contains numeric characters
+     */
+    "tags": {
+        "tr": {
+            "add_class": {
+                "align": "align_text"
+            }
+        },
+        "strike": {
+            "remove": 1
+        },
+        "form": {
+            "rename_tag": "div"
+        },
+        "rt": {
+            "rename_tag": "span"
+        },
+        "code": {},
+        "acronym": {
+            "rename_tag": "span"
+        },
+        "br": {
+            "add_class": {
+                "clear": "clear_br"
+            }
+        },
+        "details": {
+            "rename_tag": "div"
+        },
+        "h4": {
+            "add_class": {
+                "align": "align_text"
+            },
+            "check_attributes": {
+                "style": "allow",
+                "class": "allow"
+
+            }
+        },
+        "em": {},
+        "title": {
+            "remove": 1
+        },
+        "multicol": {
+            "rename_tag": "div"
+        },
+        "figure": {
+            "rename_tag": "div"
+        },
+        "xmp": {
+            "rename_tag": "span"
+        },
+        "small": {
+            "rename_tag": "span",
+            "set_class": "wysiwyg-font-size-smaller"
+        },
+        "area": {
+            "remove": 1
+        },
+        "time": {
+            "rename_tag": "span"
+        },
+        "dir": {
+            "rename_tag": "ul"
+        },
+        "bdi": {
+            "rename_tag": "span"
+        },
+        "command": {
+            "remove": 1
+        },
+        "ul": {},
+        "progress": {
+            "rename_tag": "span"
+        },
+        "dfn": {
+            "rename_tag": "span"
+        },
+        "iframe": {
+            "check_attributes": {
+                'width': 'allow',
+                'height': 'allow',
+                'src': 'allow',
+                'frameborder': 'allow',
+                'allowfullscreen': 'allow'
+            }
+        },
+        "figcaption": {
+            "rename_tag": "div"
+        },
+        "a": {
+            "check_attributes": {
+                "href": "url",
+                "style": "allow",
+                "class": "allow"
+
+            },
+            "set_attributes": {
+                "rel": "nofollow",
+                "target": "_blank"
+            }
+        },
+        "img": {
+            "check_attributes": {
+                "width": "numbers",
+                "alt": "alt",
+                 "title": "title",
+                "src": "url",
+                "height": "numbers",
+                'style': 'allow',
+                'class': 'allow'
+            },
+            "add_class": {
+                "align": "align_img"
+            }
+        },
+        "rb": {
+            "rename_tag": "span"
+        },
+        "footer": {
+            "rename_tag": "div"
+        },
+        "noframes": {
+            "remove": 1
+        },
+        "abbr": {
+            "rename_tag": "span"
+        },
+        "u": {},
+        "bgsound": {
+            "remove": 1
+        },
+        "sup": {
+            "rename_tag": "span"
+        },
+        "address": {
+            "rename_tag": "div"
+        },
+        "basefont": {
+            "remove": 1
+        },
+        "nav": {
+            "rename_tag": "div"
+        },
+        "h1": {
+            "add_class": {
+                "align": "align_text"
+            }
+        },
+        "head": {
+            "remove": 1
+        },
+        "tbody": {
+            "add_class": {
+                "align": "align_text"
+            }
+        },
+        "dd": {
+            "rename_tag": "div"
+        },
+        "s": {
+            "rename_tag": "span"
+        },
+        "li": {},
+        "td": {
+            "check_attributes": {
+                "rowspan": "numbers",
+                "colspan": "numbers"
+            },
+            "add_class": {
+                "align": "align_text"
+            }
+        },
+        "object": {
+            "remove": 1
+        },
+        "div": {
+            "add_class": {
+                "align": "align_text"
+
+            },
+            "check_attributes": {
+                'style': 'allow',
+                'class': 'allow'
+            }
+        },
+        "option": {
+            "rename_tag": "span"
+        },
+        "select": {
+            "rename_tag": "span"
+        },
+        "i": {},
+        "track": {
+            "remove": 1
+        },
+        "wbr": {
+            "remove": 1
+        },
+        "fieldset": {
+            "rename_tag": "div"
+        },
+        "big": {
+            "rename_tag": "span",
+            "set_class": "wysiwyg-font-size-larger"
+        },
+        "button": {
+            "rename_tag": "span"
+        },
+        "noscript": {
+            "remove": 1
+        },
+        "svg": {
+            "remove": 1
+        },
+        "input": {
+            "remove": 1
+        },
+        "table": {},
+        "keygen": {
+            "remove": 1
+        },
+        "h5": {
+            "add_class": {
+                "align": "align_text"
+            }
+        },
+        "meta": {
+            "remove": 1
+        },
+        "map": {
+            "rename_tag": "div"
+        },
+        "isindex": {
+            "remove": 1
+        },
+        "mark": {
+            "rename_tag": "span"
+        },
+        "caption": {
+            "add_class": {
+                "align": "align_text"
+            }
+        },
+        "tfoot": {
+            "add_class": {
+                "align": "align_text"
+            }
+        },
+        "base": {
+            "remove": 1
+        },
+        "video": {
+            "remove": 1
+        },
+        "strong": {},
+        "canvas": {
+            "remove": 1
+        },
+        "output": {
+            "rename_tag": "span"
+        },
+        "marquee": {
+            "rename_tag": "span"
+        },
+        "b": {},
+        "q": {
+            "check_attributes": {
+                "cite": "url"
+            }
+        },
+        "applet": {
+            "remove": 1
+        },
+        "span": {},
+        "rp": {
+            "rename_tag": "span"
+        },
+        "spacer": {
+            "remove": 1
+        },
+        "source": {
+            "remove": 1
+        },
+        "aside": {
+            "rename_tag": "div"
+        },
+        "frame": {
+            "remove": 1
+        },
+        "section": {
+            "rename_tag": "div"
+        },
+        "body": {
+            "rename_tag": "div"
+        },
+        "ol": {},
+        "nobr": {
+            "rename_tag": "span"
+        },
+        "html": {
+            "rename_tag": "div"
+        },
+        "summary": {
+            "rename_tag": "span"
+        },
+        "var": {
+            "rename_tag": "span"
+        },
+        "del": {
+            "remove": 1
+        },
+        "blockquote": {
+            "check_attributes": {
+                "cite": "url"
+            }
+        },
+        "style": {
+            "remove": 1
+        },
+        "device": {
+            "remove": 1
+        },
+        "meter": {
+            "rename_tag": "span"
+        },
+        "h3": {
+            "add_class": {
+                "align": "align_text"
+            }
+        },
+        "textarea": {
+            "rename_tag": "span"
+        },
+        "embed": {
+            "rename_tag": "embed"
+        },
+        "hgroup": {
+            "rename_tag": "div"
+        },
+        "font": {
+            "check_attributes": {
+                "style": "allow",
+                "class": "allow",
+                "color": "allow"
+            }
+        },
+        "tt": {
+            "rename_tag": "span"
+        },
+        "noembed": {
+            "remove": 1
+        },
+        "thead": {
+            "add_class": {
+                "align": "align_text"
+            }
+        },
+        "blink": {
+            "rename_tag": "span"
+        },
+        "plaintext": {
+            "rename_tag": "span"
+        },
+        "xml": {
+            "remove": 1
+        },
+        "h6": {
+            "add_class": {
+                "align": "align_text"
+            }
+        },
+        "param": {
+            "remove": 1
+        },
+        "th": {
+            "check_attributes": {
+                "rowspan": "numbers",
+                "colspan": "numbers"
+            },
+            "add_class": {
+                "align": "align_text"
+            }
+        },
+        "legend": {
+            "rename_tag": "span"
+        },
+        "hr": {},
+        "label": {
+            "rename_tag": "span"
+        },
+        "dl": {
+            "rename_tag": "div"
+        },
+        "kbd": {
+            "rename_tag": "span"
+        },
+        "listing": {
+            "rename_tag": "div"
+        },
+        "dt": {
+            "rename_tag": "span"
+        },
+        "nextid": {
+            "remove": 1
+        },
+        "pre": {},
+        "center": {
+            "rename_tag": "div",
+            "set_class": "wysiwyg-text-align-center"
+        },
+        "audio": {
+            "remove": 1
+        },
+        "datalist": {
+            "rename_tag": "span"
+        },
+        "samp": {
+            "rename_tag": "span"
+        },
+        "col": {
+            "remove": 1
+        },
+        "article": {
+            "rename_tag": "div"
+        },
+        "cite": {},
+        "link": {
+            "remove": 1
+        },
+        "script": {
+            "remove": 1
+        },
+        "bdo": {
+            "rename_tag": "span"
+        },
+        "menu": {
+            "rename_tag": "ul"
+        },
+        "colgroup": {
+            "remove": 1
+        },
+        "ruby": {
+            "rename_tag": "span"
+        },
+        "h2": {
+            "add_class": {
+                "align": "align_text"
+            }
+        },
+        "ins": {
+            "rename_tag": "span"
+        },
+        "p": {
+            "add_class": {
+                "align": "align_text"
+            }
+        },
+        "sub": {
+            "rename_tag": "span"
+        },
+        "comment": {
+            "remove": 1
+        },
+        "frameset": {
+            "remove": 1
+        },
+        "optgroup": {
+            "rename_tag": "span"
+        },
+        "header": {
+            "rename_tag": "div"
+        }
+    }
+};
 /**
  * @license wysihtml5 v0.3.0
  * https://github.com/xing/wysihtml5
@@ -11486,6 +12484,18 @@ rangy.createModule("DomRange", function(api, module) {
                                                         event.preventDefault();
                                                     }
 
+<<<<<<< HEAD
+    $('#panel').mousemove(function(e) { // binding mouse move event
+        
+        var canvasOffset = $(canvas).offset();
+        iMouseX = Math.floor(e.pageX - canvasOffset.left);
+        iMouseY = Math.floor(e.pageY - canvasOffset.top);
+     $ ('#log').text( "width: " + parseInt(theSelection.w * xRation) + ", Height: " +  parseInt(theSelection.h * yRation) );
+   
+      
+        // in case of drag of whole selector and limit for the size of selection
+        if (theSelection.bDragAll) {
+=======
                                                     event.stopPropagation();
                                                 });
                                             };
@@ -11518,6 +12528,7 @@ rangy.createModule("DomRange", function(api, module) {
                                                             this.editor = editor;
                                                             this.container = typeof(container) === "string" ? document.getElementById(container) : container;
                                                             this.composer = editor.composer;
+>>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
 
                                                             this._getLinks("command");
                                                             this._getLinks("action");
@@ -11839,6 +12850,13 @@ rangy.createModule("DomRange", function(api, module) {
                                                 supportTouchDevices: true
                                             };
 
+<<<<<<< HEAD
+        drawScene();
+          
+        
+        
+    });
+=======
                                             wysihtml5.Editor = wysihtml5.lang.Dispatcher.extend(
                                                     /** @scope wysihtml5.Editor.prototype */ {
                                                         constructor: function(textareaElement, config) {
@@ -11847,6 +12865,7 @@ rangy.createModule("DomRange", function(api, module) {
                                                             this.textarea = new wysihtml5.views.Textarea(this, this.textareaElement, this.config);
                                                             this.currentView = this.textarea;
                                                             this._isCompatible = wysihtml5.browser.supported();
+>>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
 
                                                             // Sort out unsupported/unwanted browsers here
                                                             if (!this._isCompatible || (!this.config.supportTouchDevices && wysihtml5.browser.isTouchDevice())) {
@@ -11951,580 +12970,6 @@ rangy.createModule("DomRange", function(api, module) {
                                                     });
                                         })(wysihtml5);
 
-/**
- * Full HTML5 compatibility rule set
- * These rules define which tags and css classes are supported and which tags should be specially treated.
- *
- * Examples based on this rule set:
- *
- *    <a href="http://foobar.com">foo</a>
- *    ... becomes ...
- *    <a href="http://foobar.com" target="_blank" rel="nofollow">foo</a>
- *
- *    <img align="left" src="http://foobar.com/image.png">
- *    ... becomes ...
- *    <img class="wysiwyg-float-left" src="http://foobar.com/image.png" alt="">
- *
- *    <div>foo<script>alert(document.cookie)</script></div>
- *    ... becomes ...
- *    <div>foo</div>
- *
- *    <marquee>foo</marquee>
- *    ... becomes ...
- *    <span>foo</marquee>
- *
- *    foo <br clear="both"> bar
- *    ... becomes ...
- *    foo <br class="wysiwyg-clear-both"> bar
- *
- *    <div>hello <iframe src="http://google.com"></iframe></div>
- *    ... becomes ...
- *    <div>hello </div>
- *
- *    <center>hello</center>
- *    ... becomes ...
- *    <div class="wysiwyg-text-align-center">hello</div>
- */
-var wysihtml5ParserRules = {
-    /**
-     * CSS Class white-list
-     * Following css classes won't be removed when parsed by the wysihtml5 html parser
-     */
-    "classes": {
-        "wysiwyg-clear-both": 1,
-        "wysiwyg-clear-left": 1,
-        "wysiwyg-clear-right": 1,
-        "wysiwyg-color-aqua": 1,
-        "wysiwyg-color-black": 1,
-        "wysiwyg-color-blue": 1,
-        "wysiwyg-color-fuchsia": 1,
-        "wysiwyg-color-gray": 1,
-        "wysiwyg-color-green": 1,
-        "wysiwyg-color-lime": 1,
-        "wysiwyg-color-maroon": 1,
-        "wysiwyg-color-navy": 1,
-        "wysiwyg-color-olive": 1,
-        "wysiwyg-color-purple": 1,
-        "wysiwyg-color-red": 1,
-        "wysiwyg-color-silver": 1,
-        "wysiwyg-color-teal": 1,
-        "wysiwyg-color-white": 1,
-        "wysiwyg-color-yellow": 1,
-        "wysiwyg-float-left": 1,
-        "wysiwyg-float-right": 1,
-        "wysiwyg-font-size-large": 1,
-        "wysiwyg-font-size-larger": 1,
-        "wysiwyg-font-size-medium": 1,
-        "wysiwyg-font-size-small": 1,
-        "wysiwyg-font-size-smaller": 1,
-        "wysiwyg-font-size-x-large": 1,
-        "wysiwyg-font-size-x-small": 1,
-        "wysiwyg-font-size-xx-large": 1,
-        "wysiwyg-font-size-xx-small": 1,
-        "wysiwyg-text-align-center": 1,
-        "wysiwyg-text-align-justify": 1,
-        "wysiwyg-text-align-left": 1,
-        "wysiwyg-text-align-right": 1
-    },
-    /**
-     * Tag list
-     *
-     * Following options are available:
-     *
-     *    - add_class:        converts and deletes the given HTML4 attribute (align, clear, ...) via the given method to a css class
-     *                        The following methods are implemented in wysihtml5.dom.parse:
-     *                          - align_text:  converts align attribute values (right/left/center/justify) to their corresponding css class "wysiwyg-text-align-*")
-     <p align="center">foo</p> ... becomes ... <p> class="wysiwyg-text-align-center">foo</p>
-     *                          - clear_br:    converts clear attribute values left/right/all/both to their corresponding css class "wysiwyg-clear-*"
-     *                            <br clear="all"> ... becomes ... <br class="wysiwyg-clear-both">
-     *                          - align_img:    converts align attribute values (right/left) on <img> to their corresponding css class "wysiwyg-float-*"
-     *                          
-     *    - remove:             removes the element and it's content
-     *
-     *    - rename_tag:         renames the element to the given tag
-     *
-     *    - set_class:          adds the given class to the element (note: make sure that the class is in the "classes" white list above)
-     *
-     *    - set_attributes:     sets/overrides the given attributes
-     *
-     *    - check_attributes:   checks the given HTML attribute via the given method
-     *                            - url:      checks whether the given string is an url, deletes the attribute if not
-     *                            - alt:      strips unwanted characters. if the attribute is not set, then it gets set (to ensure valid and compatible HTML)
-     *                            - numbers:  ensures that the attribute only contains numeric characters
-     */
-    "tags": {
-        "tr": {
-            "add_class": {
-                "align": "align_text"
-            }
-        },
-        "strike": {
-            "remove": 1
-        },
-        "form": {
-            "rename_tag": "div"
-        },
-        "rt": {
-            "rename_tag": "span"
-        },
-        "code": {},
-        "acronym": {
-            "rename_tag": "span"
-        },
-        "br": {
-            "add_class": {
-                "clear": "clear_br"
-            }
-        },
-        "details": {
-            "rename_tag": "div"
-        },
-        "h4": {
-            "add_class": {
-                "align": "align_text"
-            },
-            "check_attributes": {
-                "style": "allow",
-                "class": "allow"
-
-            }
-        },
-        "em": {},
-        "title": {
-            "remove": 1
-        },
-        "multicol": {
-            "rename_tag": "div"
-        },
-        "figure": {
-            "rename_tag": "div"
-        },
-        "xmp": {
-            "rename_tag": "span"
-        },
-        "small": {
-            "rename_tag": "span",
-            "set_class": "wysiwyg-font-size-smaller"
-        },
-        "area": {
-            "remove": 1
-        },
-        "time": {
-            "rename_tag": "span"
-        },
-        "dir": {
-            "rename_tag": "ul"
-        },
-        "bdi": {
-            "rename_tag": "span"
-        },
-        "command": {
-            "remove": 1
-        },
-        "ul": {},
-        "progress": {
-            "rename_tag": "span"
-        },
-        "dfn": {
-            "rename_tag": "span"
-        },
-        "iframe": {
-            "check_attributes": {
-                'width': 'allow',
-                'height': 'allow',
-                'src': 'allow',
-                'frameborder': 'allow',
-                'allowfullscreen': 'allow'
-            }
-        },
-        "figcaption": {
-            "rename_tag": "div"
-        },
-        "a": {
-            "check_attributes": {
-                "href": "url",
-                "style": "allow",
-                "class": "allow"
-
-            },
-            "set_attributes": {
-                "rel": "nofollow",
-                "target": "_blank"
-            }
-        },
-        "img": {
-            "check_attributes": {
-                "width": "numbers",
-                "alt": "alt",
-                 "title": "title",
-                "src": "url",
-                "height": "numbers",
-                'style': 'allow',
-                'class': 'allow'
-            },
-            "add_class": {
-                "align": "align_img"
-            }
-        },
-        "rb": {
-            "rename_tag": "span"
-        },
-        "footer": {
-            "rename_tag": "div"
-        },
-        "noframes": {
-            "remove": 1
-        },
-        "abbr": {
-            "rename_tag": "span"
-        },
-        "u": {},
-        "bgsound": {
-            "remove": 1
-        },
-        "sup": {
-            "rename_tag": "span"
-        },
-        "address": {
-            "rename_tag": "div"
-        },
-        "basefont": {
-            "remove": 1
-        },
-        "nav": {
-            "rename_tag": "div"
-        },
-        "h1": {
-            "add_class": {
-                "align": "align_text"
-            }
-        },
-        "head": {
-            "remove": 1
-        },
-        "tbody": {
-            "add_class": {
-                "align": "align_text"
-            }
-        },
-        "dd": {
-            "rename_tag": "div"
-        },
-        "s": {
-            "rename_tag": "span"
-        },
-        "li": {},
-        "td": {
-            "check_attributes": {
-                "rowspan": "numbers",
-                "colspan": "numbers"
-            },
-            "add_class": {
-                "align": "align_text"
-            }
-        },
-        "object": {
-            "remove": 1
-        },
-        "div": {
-            "add_class": {
-                "align": "align_text"
-
-            },
-            "check_attributes": {
-                'style': 'allow',
-                'class': 'allow'
-            }
-        },
-        "option": {
-            "rename_tag": "span"
-        },
-        "select": {
-            "rename_tag": "span"
-        },
-        "i": {},
-        "track": {
-            "remove": 1
-        },
-        "wbr": {
-            "remove": 1
-        },
-        "fieldset": {
-            "rename_tag": "div"
-        },
-        "big": {
-            "rename_tag": "span",
-            "set_class": "wysiwyg-font-size-larger"
-        },
-        "button": {
-            "rename_tag": "span"
-        },
-        "noscript": {
-            "remove": 1
-        },
-        "svg": {
-            "remove": 1
-        },
-        "input": {
-            "remove": 1
-        },
-        "table": {},
-        "keygen": {
-            "remove": 1
-        },
-        "h5": {
-            "add_class": {
-                "align": "align_text"
-            }
-        },
-        "meta": {
-            "remove": 1
-        },
-        "map": {
-            "rename_tag": "div"
-        },
-        "isindex": {
-            "remove": 1
-        },
-        "mark": {
-            "rename_tag": "span"
-        },
-        "caption": {
-            "add_class": {
-                "align": "align_text"
-            }
-        },
-        "tfoot": {
-            "add_class": {
-                "align": "align_text"
-            }
-        },
-        "base": {
-            "remove": 1
-        },
-        "video": {
-            "remove": 1
-        },
-        "strong": {},
-        "canvas": {
-            "remove": 1
-        },
-        "output": {
-            "rename_tag": "span"
-        },
-        "marquee": {
-            "rename_tag": "span"
-        },
-        "b": {},
-        "q": {
-            "check_attributes": {
-                "cite": "url"
-            }
-        },
-        "applet": {
-            "remove": 1
-        },
-        "span": {},
-        "rp": {
-            "rename_tag": "span"
-        },
-        "spacer": {
-            "remove": 1
-        },
-        "source": {
-            "remove": 1
-        },
-        "aside": {
-            "rename_tag": "div"
-        },
-        "frame": {
-            "remove": 1
-        },
-        "section": {
-            "rename_tag": "div"
-        },
-        "body": {
-            "rename_tag": "div"
-        },
-        "ol": {},
-        "nobr": {
-            "rename_tag": "span"
-        },
-        "html": {
-            "rename_tag": "div"
-        },
-        "summary": {
-            "rename_tag": "span"
-        },
-        "var": {
-            "rename_tag": "span"
-        },
-        "del": {
-            "remove": 1
-        },
-        "blockquote": {
-            "check_attributes": {
-                "cite": "url"
-            }
-        },
-        "style": {
-            "remove": 1
-        },
-        "device": {
-            "remove": 1
-        },
-        "meter": {
-            "rename_tag": "span"
-        },
-        "h3": {
-            "add_class": {
-                "align": "align_text"
-            }
-        },
-        "textarea": {
-            "rename_tag": "span"
-        },
-        "embed": {
-            "rename_tag": "embed"
-        },
-        "hgroup": {
-            "rename_tag": "div"
-        },
-        "font": {
-            "check_attributes": {
-                "style": "allow",
-                "class": "allow",
-                "color": "allow"
-            }
-        },
-        "tt": {
-            "rename_tag": "span"
-        },
-        "noembed": {
-            "remove": 1
-        },
-        "thead": {
-            "add_class": {
-                "align": "align_text"
-            }
-        },
-        "blink": {
-            "rename_tag": "span"
-        },
-        "plaintext": {
-            "rename_tag": "span"
-        },
-        "xml": {
-            "remove": 1
-        },
-        "h6": {
-            "add_class": {
-                "align": "align_text"
-            }
-        },
-        "param": {
-            "remove": 1
-        },
-        "th": {
-            "check_attributes": {
-                "rowspan": "numbers",
-                "colspan": "numbers"
-            },
-            "add_class": {
-                "align": "align_text"
-            }
-        },
-        "legend": {
-            "rename_tag": "span"
-        },
-        "hr": {},
-        "label": {
-            "rename_tag": "span"
-        },
-        "dl": {
-            "rename_tag": "div"
-        },
-        "kbd": {
-            "rename_tag": "span"
-        },
-        "listing": {
-            "rename_tag": "div"
-        },
-        "dt": {
-            "rename_tag": "span"
-        },
-        "nextid": {
-            "remove": 1
-        },
-        "pre": {},
-        "center": {
-            "rename_tag": "div",
-            "set_class": "wysiwyg-text-align-center"
-        },
-        "audio": {
-            "remove": 1
-        },
-        "datalist": {
-            "rename_tag": "span"
-        },
-        "samp": {
-            "rename_tag": "span"
-        },
-        "col": {
-            "remove": 1
-        },
-        "article": {
-            "rename_tag": "div"
-        },
-        "cite": {},
-        "link": {
-            "remove": 1
-        },
-        "script": {
-            "remove": 1
-        },
-        "bdo": {
-            "rename_tag": "span"
-        },
-        "menu": {
-            "rename_tag": "ul"
-        },
-        "colgroup": {
-            "remove": 1
-        },
-        "ruby": {
-            "rename_tag": "span"
-        },
-        "h2": {
-            "add_class": {
-                "align": "align_text"
-            }
-        },
-        "ins": {
-            "rename_tag": "span"
-        },
-        "p": {
-            "add_class": {
-                "align": "align_text"
-            }
-        },
-        "sub": {
-            "rename_tag": "span"
-        },
-        "comment": {
-            "remove": 1
-        },
-        "frameset": {
-            "remove": 1
-        },
-        "optgroup": {
-            "rename_tag": "span"
-        },
-        "header": {
-            "rename_tag": "div"
-        }
-    }
-};
 /* mousetrap v1.4.5 craig.is/killing/mice */
 (function(J,r,f){function s(a,b,c){a.addEventListener?a.addEventListener(b,c,!1):a.attachEvent("on"+b,c)}function A(a){if("keypress"==a.type){var b=String.fromCharCode(a.which);a.shiftKey||(b=b.toLowerCase());return b}return h[a.which]?h[a.which]:B[a.which]?B[a.which]:String.fromCharCode(a.which).toLowerCase()}function t(a){a=a||{};var b=!1,c;for(c in n)a[c]?b=!0:n[c]=0;b||(u=!1)}function C(a,b,c,d,e,v){var g,k,f=[],h=c.type;if(!l[a])return[];"keyup"==h&&w(a)&&(b=[a]);for(g=0;g<l[a].length;++g)if(k=
 l[a][g],!(!d&&k.seq&&n[k.seq]!=k.level||h!=k.action||("keypress"!=h||c.metaKey||c.ctrlKey)&&b.sort().join(",")!==k.modifiers.sort().join(","))){var m=d&&k.seq==d&&k.level==v;(!d&&k.combo==e||m)&&l[a].splice(g,1);f.push(k)}return f}function K(a){var b=[];a.shiftKey&&b.push("shift");a.altKey&&b.push("alt");a.ctrlKey&&b.push("ctrl");a.metaKey&&b.push("meta");return b}function x(a,b,c){m.stopCallback(b,b.target||b.srcElement,c)||!1!==a(b,c)||(b.preventDefault&&b.preventDefault(),b.stopPropagation&&b.stopPropagation(),
@@ -12535,406 +12980,7 @@ d,a,e),l[c.key][d?"unshift":"push"]({callback:b,modifiers:c.modifiers,action:c.a
 unbind:function(a,b){return m.bind(a,function(){},b)},trigger:function(a,b){if(q[a+":"+b])q[a+":"+b]({},a);return this},reset:function(){l={};q={};return this},stopCallback:function(a,b){return-1<(" "+b.className+" ").indexOf(" mousetrap ")?!1:"INPUT"==b.tagName||"SELECT"==b.tagName||"TEXTAREA"==b.tagName||b.isContentEditable},handleKey:function(a,b,c){var d=C(a,b,c),e;b={};var f=0,g=!1;for(e=0;e<d.length;++e)d[e].seq&&(f=Math.max(f,d[e].level));for(e=0;e<d.length;++e)d[e].seq?d[e].level==f&&(g=!0,
 b[d[e].seq]=1,x(d[e].callback,c,d[e].combo)):g||x(d[e].callback,c,d[e].combo);d="keypress"==c.type&&I;c.type!=u||w(a)||d||t(b);I=g&&"keydown"==c.type}};J.Mousetrap=m;"function"===typeof define&&define.amd&&define(m)})(window,document);
 
-// variables
-var canvas, ctx;
-var image;
-var iMouseX, iMouseY = 1;
-var theSelection;
-var xRation;
-var yRation;
-var defaultWidth;
-var defaultHeight;
-var rate;
-
-// define Selection constructor
-function Selection(x, y, w, h) {
-    this.x = x; // initial positions
-    this.y = y;
-    this.w = w; // and size
-    this.h = h;
-    this.px = x; // extra variables to dragging calculations
-    this.py = y;
-
-    this.csize = 3; // resize cubes size
-    this.csizeh = 15; // resize cubes size (on hover)
-
-    this.bHow = [false, false, false, false]; // hover statuses
-    this.iCSize = [this.csize, this.csize, this.csize, this.csize]; // resize cubes sizes
-    this.bDrag = [false, false, false, false]; // drag statuses
-    this.bDragAll = false; // drag whole selection
-}
-
-// define Selection draw method
-Selection.prototype.draw = function() {
-
-    ctx.strokeStyle = '#000';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(this.x, this.y, this.w, this.h);
-    // draw part of original image
-
-    if (this.w > 0 && this.h > 0) {
-        ctx.drawImage(image, this.x * xRation, this.y * yRation, this.w * xRation, this.h * yRation, this.x, this.y, this.w, this.h);
-    }
-
-    // draw resize cubes
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(this.x - this.iCSize[0], this.y - this.iCSize[0], this.iCSize[0] * 2, this.iCSize[0] * 2);
-    ctx.fillRect(this.x + this.w - this.iCSize[1], this.y - this.iCSize[1], this.iCSize[1] * 2, this.iCSize[1] * 2);
-    ctx.fillRect(this.x + this.w - this.iCSize[2], this.y + this.h - this.iCSize[2], this.iCSize[2] * 2, this.iCSize[2] * 2);
-    ctx.fillRect(this.x - this.iCSize[3], this.y + this.h - this.iCSize[3], this.iCSize[3] * 2, this.iCSize[3] * 2);
-};
-
-function drawScene() { // main drawScene function
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // clear canvas
-    // draw source image
-    ctx.drawImage(image, 0, 0, ctx.canvas.width, ctx.canvas.height);
-    // and make it darker
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    // draw selection
-    theSelection.draw();
-}
-
-function crop(imageSrc) {
-    // loading source image
-    image = new Image();
-    image.src = imageSrc;
-
-     xRation = 1;
-     yRation = 1;
-    defaultWidth = document.getElementById('crop-container').offsetWidth;
-    defaultHeight = document.getElementById('crop-container').offsetHeight;
-    rate = image.width / image.height;
-
-    image.onload = function() {
-
-        if (document.getElementById('crop-container').offsetWidth === 300) {
-            
-            ctx.canvas.width =  image.width;
-            ctx.canvas.height = image.height;
-            
-
-              if (ctx.canvas.width > defaultWidth)
-            {
-                ctx.canvas.width = defaultWidth;
-                ctx.canvas.height = defaultWidth / rate;
-
-                xRation = image.width / ctx.canvas.width;
-                yRation = (image.height * rate) / ctx.canvas.width;
-
-            }
-             if (ctx.canvas.height > defaultHeight)
-            {
-                ctx.canvas.height = defaultHeight;
-                ctx.canvas.width = defaultHeight * rate;
-                xRation = image.width / (ctx.canvas.height * rate);
-                yRation = image.height / ctx.canvas.height;
-
-            }
-
-        } else {
-
-
-
-            if (ctx.canvas.width > defaultWidth || ctx.canvas.width < defaultWidth)
-            {
-                ctx.canvas.width = defaultWidth;
-                ctx.canvas.height = defaultWidth / rate;
-
-                xRation = image.width / ctx.canvas.width;
-                yRation = (image.height * rate) / ctx.canvas.width;
-
-            }
-
-
-            if (ctx.canvas.height > defaultHeight || ctx.canvas.height < defaultHeight)
-            {
-                ctx.canvas.height = defaultHeight;
-                ctx.canvas.width = defaultHeight * rate;
-                xRation = image.width / (ctx.canvas.height * rate);
-                yRation = image.height / ctx.canvas.height;
-
-            }
-
-        }
-    };
-
-    // creating canvas and context objects
-    canvas = document.getElementById('panel');
-
-    ctx = canvas.getContext('2d');
-
-    // create initial selection
-    if (document.getElementById('crop-container').offsetWidth === 300) {
-        theSelection = new Selection(20, 20, 150, 150);
-    }
-    if (document.getElementById('crop-container').offsetWidth === 600) {
-        theSelection = new Selection(10, 10, 150, 92);
-
-    }
-    if (document.getElementById('crop-container').offsetWidth === 820) {
-        theSelection = new Selection(10, 10, 200, 200);
-
-    }
-    if (document.getElementById('crop-container').offsetWidth === 830) {
-        theSelection = new Selection(10, 10, 420, 200);
-
-    }
-    if (document.getElementById('crop-container').offsetWidth === 850) {
-        theSelection = new Selection(10, 10, 400, 160);
-
-    }
-
-
-    $('#panel').mousemove(function(e) { // binding mouse move event
-        
-        var canvasOffset = $(canvas).offset();
-        iMouseX = Math.floor(e.pageX - canvasOffset.left);
-        iMouseY = Math.floor(e.pageY - canvasOffset.top);
-     $ ('#log').text( "width: " + parseInt(theSelection.w * xRation) + ", Height: " +  parseInt(theSelection.h * yRation) );
-   
-      
-        // in case of drag of whole selector and limit for the size of selection
-        if (theSelection.bDragAll) {
-
-
-            theSelection.x = iMouseX - theSelection.px;
-            theSelection.y = iMouseY - theSelection.py;
-
-            if (theSelection.x < 0 && theSelection.y < 0) {
-                theSelection.x = 0;
-                theSelection.y = 0;
-            } else if (theSelection.x < 0 && theSelection.y > 0)
-            {
-                theSelection.x = 0;
-            }
-            else if (theSelection.x > 0 && theSelection.y < 0)
-            {
-                theSelection.y = 0;
-            }
-
-            if (theSelection.x + theSelection.w - ctx.canvas.width > 0 && theSelection.y + theSelection.h - ctx.canvas.height > 0) {
-
-                theSelection.x = ctx.canvas.width - theSelection.w;
-                theSelection.y = ctx.canvas.height - theSelection.h;
-
-            } else if (theSelection.x + theSelection.w - ctx.canvas.width > 0 && theSelection.y + theSelection.h - ctx.canvas.height < 0)
-            {
-                theSelection.x = ctx.canvas.width - theSelection.w;
-            }
-            else if (theSelection.x + theSelection.w - ctx.canvas.width < 0 && theSelection.y + theSelection.h - ctx.canvas.height > 0)
-            {
-                theSelection.y = ctx.canvas.height - theSelection.h;
-            }
-
-
-        }
-
-        for (i = 0; i < 4; i++) {
-            theSelection.bHow[i] = false;
-            theSelection.iCSize[i] = theSelection.csize;
-        }
-
-        // hovering over resize cubes
-        if (iMouseX > theSelection.x - theSelection.csizeh
-                && iMouseX < theSelection.x + theSelection.csizeh
-                && iMouseY > theSelection.y - theSelection.csizeh
-                && iMouseY < theSelection.y + theSelection.csizeh)
-        {
-
-            theSelection.bHow[0] = true;
-            theSelection.iCSize[0] = theSelection.csizeh / 3;
-
-        }
-        if (iMouseX > theSelection.x + theSelection.w - theSelection.csizeh && iMouseX < theSelection.x + theSelection.w + theSelection.csizeh &&
-                iMouseY > theSelection.y - theSelection.csizeh && iMouseY < theSelection.y + theSelection.csizeh) {
-
-            theSelection.bHow[1] = true;
-            theSelection.iCSize[1] = theSelection.csizeh / 3;
-        }
-        if (iMouseX > theSelection.x + theSelection.w - theSelection.csizeh && iMouseX < theSelection.x + theSelection.w + theSelection.csizeh &&
-                iMouseY > theSelection.y + theSelection.h - theSelection.csizeh && iMouseY < theSelection.y + theSelection.h + theSelection.csizeh) {
-
-            theSelection.bHow[2] = true;
-            theSelection.iCSize[2] = theSelection.csizeh / 3;
-        }
-        if (iMouseX > theSelection.x - theSelection.csizeh && iMouseX < theSelection.x + theSelection.csizeh &&
-                iMouseY > theSelection.y + theSelection.h - theSelection.csizeh && iMouseY < theSelection.y + theSelection.h + theSelection.csizeh) {
-
-            theSelection.bHow[3] = true;
-            theSelection.iCSize[3] = theSelection.csizeh / 3;
-        }
-
-
-        // in case of dragging of resize cubes
-        var iFW, iFH;
-        if (theSelection.bDrag[0]) {
-            var iFX = iMouseX - theSelection.px;
-            var iFY = iMouseY - theSelection.py;
-
-            iFW = theSelection.w + theSelection.x - iFX;
-            // iFH = theSelection.h + theSelection.y - iFY;
-            if (document.getElementById('crop-container').offsetWidth === 600) {
-                iFH = iFW / 1.63;
-            } else if (document.getElementById('crop-container').offsetWidth === 300) {
-                iFH = iFW;
-            } else if (document.getElementById('crop-container').offsetWidth === 820) {
-                iFH = theSelection.h + theSelection.y - iFY;
-            }
-            else if (document.getElementById('crop-container').offsetWidth === 830) {
-                iFH = iFW / 1.9;
-            }
-            else if (document.getElementById('crop-container').offsetWidth === 850) {
-                iFH = iFW / 2.46;
-            }
-
-
-        }
-        if (theSelection.bDrag[1]) {
-            var iFX = theSelection.x;
-            var iFY = iMouseY - theSelection.py;
-            iFW = iMouseX - theSelection.px - iFX;
-            // iFH = theSelection.h + theSelection.y - iFY;
-            if (document.getElementById('crop-container').offsetWidth === 600) {
-                iFH = iFW / 1.63;
-            } else if (document.getElementById('crop-container').offsetWidth === 300) {
-                iFH = iFW;
-            } else if (document.getElementById('crop-container').offsetWidth === 820) {
-                iFH = theSelection.h + theSelection.y - iFY;
-            }
-            else if (document.getElementById('crop-container').offsetWidth === 830) {
-                iFH = iFW / 1.9;
-            }
-            else if (document.getElementById('crop-container').offsetWidth === 850) {
-                iFH = iFW / 2.46;
-            }
-        }
-        if (theSelection.bDrag[2]) {
-            var iFX = theSelection.x;
-            var iFY = theSelection.y;
-            iFW = iMouseX - theSelection.px - iFX;
-            //  iFH = iMouseY - theSelection.py - iFY;
-            if (document.getElementById('crop-container').offsetWidth === 600) {
-                iFH = iFW / 1.63;
-            } else if (document.getElementById('crop-container').offsetWidth === 300) {
-                iFH = iFW;
-            } else if (document.getElementById('crop-container').offsetWidth === 820) {
-                iFH = iMouseY - theSelection.py - iFY;
-            }
-            else if (document.getElementById('crop-container').offsetWidth === 830) {
-                iFH = iFW / 1.9;
-            }
-            else if (document.getElementById('crop-container').offsetWidth === 850) {
-                iFH = iFW / 2.46;
-            }
-        }
-        if (theSelection.bDrag[3]) {
-            var iFX = iMouseX - theSelection.px;
-            var iFY = theSelection.y;
-            iFW = theSelection.w + theSelection.x - iFX;
-            //  iFH = iMouseY - theSelection.py - iFY;
-            if (document.getElementById('crop-container').offsetWidth === 600) {
-                iFH = iFW / 1.63;
-            } else if (document.getElementById('crop-container').offsetWidth === 300) {
-                iFH = iFW;
-            } else if (document.getElementById('crop-container').offsetWidth === 820) {
-                iFH = iMouseY - theSelection.py - iFY;
-            }
-            else if (document.getElementById('crop-container').offsetWidth === 830) {
-                iFH = iFW / 1.9;
-            }
-            else if (document.getElementById('crop-container').offsetWidth === 850) {
-                iFH = iFW / 2.46;
-            }
-        }
-
-        if (iFW >= theSelection.csizeh * xRation && iFH >= theSelection.csizeh * yRation) {
-
-            theSelection.w = iFW;
-            theSelection.h = iFH;
-
-            theSelection.x = iFX;
-            theSelection.y = iFY;
-        }
-        else if (iFW < theSelection.csizeh * xRation || iFH < theSelection.csizeh * yRation)
-        {
-            theSelection.x = iFX;
-            theSelection.y = iFY;
-            theSelection.w = theSelection.csizeh * xRation;
-
-
-            if (document.getElementById('crop-container').offsetWidth === 600) {
-                theSelection.h = theSelection.w / 1.63;
-            } else if (document.getElementById('crop-container').offsetWidth === 300) {
-                theSelection.h = theSelection.w;
-            } else if (document.getElementById('crop-container').offsetWidth === 820) {
-                theSelection.h = theSelection.csizeh * yRation;
-            }
-            else if (document.getElementById('crop-container').offsetWidth === 830) {
-                theSelection.h = theSelection.w / 1.9;
-            }
-            else if (document.getElementById('crop-container').offsetWidth === 850) {
-                theSelection.h = theSelection.w / 2.46;
-            }
-
-        }
-
-        drawScene();
-          
-        
-        
-    });
-
-    $('#panel').mousedown(function(e) { // binding mousedown event
-        var canvasOffset = $(canvas).offset();
-        iMouseX = Math.floor(e.pageX - canvasOffset.left);
-        iMouseY = Math.floor(e.pageY - canvasOffset.top);
-        theSelection.px = iMouseX - theSelection.x;
-        theSelection.py = iMouseY - theSelection.y;
-
-        if (theSelection.bHow[0]) {
-            theSelection.px = iMouseX - theSelection.x;
-            theSelection.py = iMouseY - theSelection.y;
-        }
-        if (theSelection.bHow[1]) {
-            theSelection.px = iMouseX - theSelection.x - theSelection.w;
-            theSelection.py = iMouseY - theSelection.y;
-        }
-        if (theSelection.bHow[2]) {
-            theSelection.px = iMouseX - theSelection.x - theSelection.w;
-            theSelection.py = iMouseY - theSelection.y - theSelection.h;
-        }
-        if (theSelection.bHow[3]) {
-            theSelection.px = iMouseX - theSelection.x;
-            theSelection.py = iMouseY - theSelection.y - theSelection.h;
-        }
-        if (iMouseX > theSelection.x + theSelection.csizeh && iMouseX < theSelection.x + theSelection.w - theSelection.csizeh &&
-                iMouseY > theSelection.y + theSelection.csizeh && iMouseY < theSelection.y + theSelection.h - theSelection.csizeh) {
-
-            theSelection.bDragAll = true;
-        }
-
-        for (i = 0; i < 4; i++) {
-            if (theSelection.bHow[i]) {
-                theSelection.bDrag[i] = true;
-            }
-        }
-    });
-
-    $('#panel').mouseup(function(e) { // binding mouseup event
-        theSelection.bDragAll = false;
-
-        for (i = 0; i < 4; i++) {
-            theSelection.bDrag[i] = false;
-        }
-        theSelection.px = 0;
-        theSelection.py = 0;
-    });
-
-    drawScene();
-}
-
-
+<<<<<<< HEAD
 function getResults() {
     var temp_ctx, temp_canvas;
     temp_canvas = document.createElement('canvas');
@@ -12945,6 +12991,8 @@ function getResults() {
     var vData = temp_canvas.toDataURL();
     return vData;
 }
+=======
+>>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
 /*mousewheel*/
 (function(a){function d(b){var c=b||window.event,d=[].slice.call(arguments,1),e=0,f=!0,g=0,h=0;return b=a.event.fix(c),b.type="mousewheel",c.wheelDelta&&(e=c.wheelDelta/120),c.detail&&(e=-c.detail/3),h=e,c.axis!==undefined&&c.axis===c.HORIZONTAL_AXIS&&(h=0,g=-1*e),c.wheelDeltaY!==undefined&&(h=c.wheelDeltaY/120),c.wheelDeltaX!==undefined&&(g=-1*c.wheelDeltaX/120),d.unshift(b,e,g,h),(a.event.dispatch||a.event.handle).apply(this,d)}var b=["DOMMouseScroll","mousewheel"];if(a.event.fixHooks)for(var c=b.length;c;)a.event.fixHooks[b[--c]]=a.event.mouseHooks;a.event.special.mousewheel={setup:function(){if(this.addEventListener)for(var a=b.length;a;)this.addEventListener(b[--a],d,!1);else this.onmousewheel=d},teardown:function(){if(this.removeEventListener)for(var a=b.length;a;)this.removeEventListener(b[--a],d,!1);else this.onmousewheel=null}},a.fn.extend({mousewheel:function(a){return a?this.bind("mousewheel",a):this.trigger("mousewheel")},unmousewheel:function(a){return this.unbind("mousewheel",a)}})})(jQuery);
 /*custom scrollbar*/

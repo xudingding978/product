@@ -76,8 +76,6 @@ Ember.Handlebars.registerBoundHelper('ebooklength', function(number) {
 });
 
 
-
-
 Ember.Handlebars.registerBoundHelper('date', function(date) {
     if (date === "" || date === null || date === undefined) {
         return "";

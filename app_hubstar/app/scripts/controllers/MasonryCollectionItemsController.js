@@ -77,6 +77,20 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     ,
     goBack: function() {
 
+        var lastposition = HubStar.get("scrollCollectionPosition");
+        //window.history.back();
+
+        var address = document.URL;
+        var user_id = address.split("#")[1].split("/")[1];
+        if (user_id === "profiles")
+        {
+            // this.
+            this.get('controllers.profile').goToProfileRoute();
+        }
+        else if (user_id === "users")
+        {
+            this.get('controllers.user').goToUserRoute();
+        }
 
         var lastposition = HubStar.get("scrollCollectionPosition");
         //   window.history.back();

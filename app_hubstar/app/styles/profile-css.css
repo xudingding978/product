@@ -416,7 +416,53 @@ input{
     position: relative;
 }
 
+div#appfeedback{
+    
+    position:fixed;
+    z-index: 100000;
+    text-align: center;
+    top: -80px;
+    width: 100%;
+}
+
+div#appfeedback div.fresh-profile-pic > img:first-child
+{
+   height: 80px;
+   width: 80px;
+   z-index: 1;
+   top: -3px;
+   position: relative; 
+}
+div#appfeedback div.fresh-profile-pic > img:last-child
+{
+   height: 80px;
+   width: 80px;
+   z-index: 2;
+   position: absolute;
+   top: -3px;
+   left: 0;
+}
+div#appfeedback .fresh-message > span.feed-back{float:left;max-width:85%;overflow:hidden;margin-left:10%;text-align:left;}
+
+div#appfeedback .fresh-message > k.icon-remove{
+   position:absolute;
+   top:1px;
+   right:2px;
+   font-size:16px;
+   margin:0;
+   
+}
+div#appfeedback .fresh-message k.icon-ok-sign{
+    position:absolute;
+    top:11.5px;
+    left:2.5%;
+    width:5%;
+}
+
+
+
 .fresh-message{
+    position:relative;
     line-height: 50px;
     font-size: 18px;
     font-weight: normal;
@@ -436,10 +482,12 @@ input{
 
     display: inline-block;
     width: auto;
-    min-width: 500px;
+    min-width:600px;
     position: relative;
     vertical-align: top;
     margin-left: -20px;
+    
+    overflow:hidden;
 }
 
 .fresh-message > k{
@@ -577,6 +625,13 @@ div.profile-picture-active
     border-width:4px!important;
     position:absolute;
 }
+div#profile-picture.profile-picture-active > img{
+    min-width:50px;
+    min-height:50px;
+    max-height:53px;
+    max-width: 53px;
+    margin:-4px 0 0 -4px;
+}
 #profile-picture > img{
     margin-left:-5px;
     min-width:180px;
@@ -708,21 +763,6 @@ textarea.add-interests{
 }
 
 .Followed-by:hover{opacity: 1}   
-
-
-
-
-
-
-.crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
-
-
-
-
-
-
-
-
 
 
 
@@ -939,7 +979,8 @@ textarea.add-interests{
 
 
 
-/*message menu*/
+
+.crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
 
 .create-conversation{
     height: 69px;
@@ -1019,5 +1060,11 @@ textarea.add-interests{
 .rating > span:hover:before,
 .rating > span:hover ~ span:before {
     content: "";
+}
+
+
+.profilegb div.profile-wallpaper{
+    top:45px;
+    left:0;
 }
 

@@ -16,9 +16,24 @@ HubStar.UserFollowersController = Ember.Controller.extend({
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
     test: "test",
     setUserFollowers: function(followers) {
+//        $('#user-stats > li').removeClass('selected-user-stats');
+    // $('#ufollower').addClass('selected-user-stats');
         var model = HubStar.User.find(followers);
         this.getClientId(model); // It is used to get the mesage model
 
+    },
+    goToUserFollowerRoute: function()
+    {
+             this.transitionToRoute('user');
+          this.set('profileSelectionStatus', 'Collections');
+        this.set('followingTag', false);
+        this.set('collectionTag', true);
+        this.set('followerTag', false);
+        this.set('messageTag', false);
+
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
+          
     },
     getClientId: function(model) {
         //console.log(localStorage.loginStatus);

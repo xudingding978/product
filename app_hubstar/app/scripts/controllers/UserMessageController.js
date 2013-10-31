@@ -13,7 +13,7 @@
 HubStar.UserMessageController = Ember.Controller.extend({
     contentMsg: null,
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'notification', 'message','notificationTop'],
     isUploadPhoto: false,
     isEdit: true,
     isPosting: true,
@@ -113,30 +113,66 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 dataNew = new Array();
             }
             that.set('loadingTime', false);
+            if (that.get('controllers.notification').get("goMessage") !== undefined && that.get('controllers.notification').get("goMessage") !== null && that.get('controllers.notification').get("goMessage") !== "") {
+                var s = that.get('controllers.notification').get("goMessage");
+                that.goToMessage(s);
+            }
+            if (that.get('controllers.notificationTop').get("goMessage") !== undefined && that.get('controllers.notificationTop').get("goMessage") !== null && that.get('controllers.notificationTop').get("goMessage") !== "") {
+                var s = that.get('controllers.notificationTop').get("goMessage");
+                that.goToMessageTop(s);
+            }
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
-
-                                $("#content_message").mCustomScrollbar({
-                    scrollButtons: {
-                        enable: false,
-                        scrollSpeed: "auto"
-                    },
-                    advanced: {
-                        updateOnBrowserResize: true,
-                        updateOnContentResize: true,
-                        autoScrollOnFocus: false,
-                        normalizeMouseWheelDelta: false
-                    },
-                    autoHideScrollbar: true,
-                    mouseWheel: true,
-                    theme: "dark-2",
-                    set_height: 1000
-                });
-
             }, 200);
 
         });
 
+    },
+    goToMessage: function(s)
+    {     
+        if (localStorage.loginStatus === this.get("controllers.notification").get("reply_ids"))
+        {          
+            $("#content_message").mCustomScrollbar("scrollTo", s);
+        }
+        else {
+            setTimeout(function() {
+                $("#content_message").mCustomScrollbar("scrollTo", s);
+            }, 200);
+        }
+
+        if (this.get("controllers.notification").get("reply_ids") !== undefined && this.get("controllers.notification").get("reply_ids") !== null && this.get("controllers.notification").get("reply_ids") !== "")
+        {
+            var that = this;
+            setTimeout(function() {
+                that.get('controllers.message').seeMore(that.get("controllers.notification").get("reply"));
+            }, 200);
+
+            this.get('controllers.notification').set("reply_ids", "");
+        }
+        this.get('controllers.notification').set("goMessage", "");
+    },
+    goToMessageTop: function(s)
+    {     
+        if (localStorage.loginStatus === this.get("controllers.notificationTop").get("reply_ids"))
+        {          
+            $("#content_message").mCustomScrollbar("scrollTo", s);
+        }
+        else {
+            setTimeout(function() {
+                $("#content_message").mCustomScrollbar("scrollTo", s);
+            }, 200);
+        }
+
+        if (this.get("controllers.notificationTop").get("reply_ids") !== undefined && this.get("controllers.notificationTop").get("reply_ids") !== null && this.get("controllers.notificationTop").get("reply_ids") !== "")
+        {
+            var that = this;
+            setTimeout(function() {
+                that.get('controllers.message').seeMore(that.get("controllers.notificationTop").get("reply"));
+            }, 200);
+
+            this.get('controllers.notificationTop').set("reply_ids", "");
+        }
+        this.get('controllers.notificationTop').set("goMessage", "");
     },
     removeMessage: function(Message_id)
     {

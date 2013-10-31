@@ -5,30 +5,27 @@
 
 
 HubStar.ConversationRoute = Ember.Route.extend({
-    setupController: function(controller, model) {
-        this.controllerFor('user').set('profileSelectionStatus', 'Conversations');
-
-        this.controllerFor('messageCenter').set("isNewConversation", false);
-
-        this.controllerFor('messageCenter').set("isConversationItem", true);
-
-        this.controllerFor('messageCenter').set("isNotification", false);
-
-        this.controllerFor('messageCenter').set("isMessageBoard", false);
-        
-         var id  =this.controllerFor('conversation').get("selectId");
-         console.log(id);
-           this.controllerFor('conversationItem').getClientId(id);
+    setupController: function(controller, model) {          
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
-        $(window).scrollTop(0);
+      
     },
-    model: function(params) {
-
+    model: function(params) {           
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
-        return user_id;
+        var user = HubStar.User.find(user_id);
+        var conversation_id = address.split("#")[1].split("/")[5];
+
+        var data = null;
+        for (var i = 0; i < user.get('conversations').get("length"); i++) {
+            data = user.get('conversations').objectAt(i);
+            if (data.get("conversation_id") === conversation_id) {
+                data.set("id", data.get("conversation_id"));            
+                break;
+            }
+        }
+        return data;
     }
 });
 

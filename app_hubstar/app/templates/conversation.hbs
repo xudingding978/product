@@ -5,7 +5,7 @@
 {{/if}}
 <div id="conversation_content" class="">
     {{#each conversationContent}} 
-    <div id="conversation_{{unbound this.conversationID}}"class='each-conversation easing' {{action selectConversation this.conversationID}}>
+    <div id="conversation_{{unbound this.conversationID}}"class='each-conversation easing' {{action transitionToConversation this.conversationID}}>
 
          <div style="  padding: 15px 0 10px 95px;position: relative;">
             <div style='position: absolute;right: 35px;top: 40px;color: #888;' {{action deleteConversationItem this.conversationID}}><i class='icon-trash'></i></div>

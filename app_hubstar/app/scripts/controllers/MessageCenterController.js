@@ -26,22 +26,25 @@ HubStar.MessageCenterController = Ember.Controller.extend({
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
         }
     },
-    getClientId: function(id) {
+    getClientId: function(id, conversation_id) {
+
         if (id === localStorage.loginStatus)
         {
             this.set("isUserself", true);
-            this.get('controllers.conversation').getClientId(id);
+            
+            this.get('controllers.conversation').getClientId(id, conversation_id);
         }
         else
         {
             this.set("isUserself", false);
-        }
-
-        this.selectMessage(id);
+        }      
+        this.selectMessage(id,true);
         this.set("id", id);
 
     },
-    selectMessage: function(id) {
+    selectMessage: function(id,b) {
+        
+                
         this.set("isMessageBoard", true);
         this.set("isNotification", false);
         this.set("isNewConversation", false);
@@ -49,8 +52,10 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         this.get("controllers.conversation").selectConversation();
         $('#notificationselected').removeClass('selected-conversation');
         $('#messageBoardselected').addClass('selected-conversation');
-     //   this.get('controllers.userMessage').getClientId(id);
-        this.transitionToRoute("messages");
+        this.get('controllers.userMessage').getClientId(id);
+        if (b !== true) {         
+            this.transitionToRoute("messages");
+        }       
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -67,7 +72,7 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         this.get("controllers.conversation").selectConversation();
         $('#messageBoardselected').removeClass('selected-conversation');
         $('#notificationselected').addClass('selected-conversation');
-    //    this.get("controllers.notification").getClientId(id);
+        this.get("controllers.notification").getClientId(id);
         this.transitionToRoute("notifications");
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
@@ -78,17 +83,19 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         this.set("isConversationItem", false);
         this.set("isNotification", false);
         this.set("isMessageBoard", false);
+        HubStar.set("newConversation", true);
         this.get("controllers.conversation").selectConversation();
         this.get('controllers.newConversation').set("isInvitePeople", false);
+    //    this.transitionToRoute("conversations");
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
     },
     selectConversationItem: function() {
-//        this.set("isNewConversation", false);
-//        this.set("isConversationItem", true);
-//        this.set("isNotification", false);
-//        this.set("isMessageBoard", false);
+        this.set("isNewConversation", false);
+        this.set("isConversationItem", true);
+        this.set("isNotification", false);
+        this.set("isMessageBoard", false);
         this.transitionToRoute("conversation");
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");

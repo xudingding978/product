@@ -1,5 +1,5 @@
 HubStar.UserRoute = Ember.Route.extend({
-    setupController: function(controller, model) {
+    setupController: function(controller, model) {       
         HubStar.set('editingMode', 'user');
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('application').set('popup', false);
@@ -9,8 +9,7 @@ HubStar.UserRoute = Ember.Route.extend({
         this.controller.set('switchPhoto', true);
         this.controller.set('collectionTag', true);
         //  this.controller.set('partnerTag', false);
-       
-         $('#default').toggle('selected-user-stats');
+        $('#default').toggle('selected-user-stats');
         this.controller.set('followerTag', false);
         this.controller.set('followingTag', false);
         this.controller.set('messageTag', false);
@@ -19,7 +18,7 @@ HubStar.UserRoute = Ember.Route.extend({
         this.controllerFor('user').setUser();
         $(window).scrollTop(0);
     },
-    model: function(params) {
+    model: function(params) {   
         return HubStar.User.find(params.user_id);
     },
     events: {

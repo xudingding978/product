@@ -574,7 +574,7 @@ class MessagesController extends Controller {
 
 
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
-                $this->createNotificationReply($commenter_id, $id, $date, $message_id . ',' . $ownerMessage_id, $commentContent, $newMessage["replyMessageCollection"][sizeof($newMessage["replyMessageCollection"]) - 1]['user_id']);
+                $this->createNotificationReply($commenter_id, $id, $date, $message_id . ',' . $ownerMessage_id.','.$id, $commentContent, $newMessage["replyMessageCollection"][sizeof($newMessage["replyMessageCollection"]) - 1]['user_id']);
                 return $newMessage;
             } else {
                 

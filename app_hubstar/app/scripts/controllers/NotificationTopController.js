@@ -43,9 +43,9 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                     dataNew["action_id"] = params.objectAt(i)["action_id"];
                     that.get("notificationTopContent").pushObject(dataNew);
                     dataNew = new Array();
-                }            
+                }
             }
-             that.get("controllers.notification").set("notificationContent",that.get("notificationTopContent"));
+            that.get("controllers.notification").set("notificationContent", that.get("notificationTopContent"));
         });
     },
     markAllRead: function() {
@@ -85,12 +85,12 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                     dataNew["action_id"] = params.objectAt(i)["action_id"];
                     that.get("notificationTopContent").pushObject(dataNew);
                     dataNew = new Array();
-                }              
+                }
             }
-             that.get("controllers.notification").set("notificationContent",that.get("notificationTopContent"));
+            that.get("controllers.notification").set("notificationContent", that.get("notificationTopContent"));
         });
     },
-    markRead: function(id) {      
+    markRead: function(id) {
         var dataNew = new Array();
         var tempComment = [localStorage.loginStatus, id];
         tempComment = JSON.stringify(tempComment);
@@ -110,8 +110,112 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             that.set('loadingTime', false);
         });
     },
-    go: function(user_id) {
-        console.log(user_id + "tom, come on! Finish it");
+    go: function(notification_id) {
+        for (var i = 0; i < this.get("notificationTopContent").get("length"); i++)
+        {
+            if (this.get("notificationTopContent").objectAt(i)["notification_id"] === notification_id)
+            {
+                this.goto(this.get("notificationTopContent").objectAt(i));
+                break;
+            }
+        }
+    },
+    goto: function(obj) {
+        if (obj.get("type") === "follow" || obj.get("type") === "unFollow")
+        {
+
+            this.gotoUser(obj.get("user_id"));
+        }
+        else if (obj.get("type") === "conversation")
+        {
+            this.gotoConversation(obj.get("user_id"), obj.get("action_id"));
+        }
+        else if (obj.get("type") === "addMessage")
+        {
+            this.gotoMessage(obj.get("action_id"));
+        }
+        else if (obj.get("type") === "addReply")
+        {
+            this.gotoReply(obj.get("action_id"));
+        }
+
+    },
+    gotoUser: function(id) {
+        var user = HubStar.User.find(id);
+        this.reviewCancel();
+        this.transitionToRoute('user', user);
+    },
+    gotoConversation: function(id, conversationID) {
+        var user = HubStar.User.find(id);
+        var that = this;
+        if (user.get('isLoaded')) {
+            var data = null;
+
+            for (var i = 0; i < user.get('conversations').get("length"); i++) {
+                data = user.get('conversations').objectAt(i);
+                if (data.get("conversation_id") === conversationID) {
+
+                    data.set("id", data.get("conversation_id"));
+                    break;
+                }
+
+            }
+            // this.get("controllers.conversation").selectConversation(conversationID);
+            this.get('controllers.messageCenter').getClientId(localStorage.loginStatus, conversationID);
+            this.transitionToRoute('conversation', data);
+        }
+        user.addObserver('isLoaded', function() {
+            if (user.get('isLoaded')) {
+                var data = null;
+
+                for (var i = 0; i < user.get('conversations').get("length"); i++) {
+                    data = user.get('conversations').objectAt(i);
+                    if (data.get("conversation_id") === conversationID) {
+
+                        data.set("id", data.get("conversation_id"));
+                        break;
+                    }
+
+                }
+                that.get('controllers.messageCenter').getClientId(localStorage.loginStatus, conversationID);
+                //that.get("controllers.conversation").selectConversation(conversationID);
+                that.transitionToRoute('conversation', data);
+            }
+        });
+        this.reviewCancel();
+    },
+    gotoMessage: function(id)
+    {
+
+        this.set("goMessage", '#message_' + id);
+        this.reviewCancel();
+        this.transitionToRoute('messages');
+    },
+    gotoReply: function(id)
+    {
+        var reply = id.split(",");
+        var user = HubStar.User.find(reply[2]);
+        this.set("reply_ids", reply[2]);
+        this.set("reply", reply[1]);
+        this.reviewCancel();
+        if (localStorage.loginStatus !== reply[2]) {
+            var that = this;
+            if (user.get('isLoaded')) {
+                this.set("goMessage", '#message_' + reply[1]);
+                this.transitionToRoute('messageCenter', user);
+            }
+            user.addObserver('isLoaded', function() {
+                if (user.get('isLoaded')) {
+                    that.set("goMessage", '#message_' + reply[1]);
+                    that.transitionToRoute('messageCenter', user);
+                }
+            });
+        }
+        else
+        {
+            this.set("goMessage", '#message_' + reply[1]);
+            this.transitionToRoute('messages');
+        }
     },
     reviewCancel: function() {
         this.get("controllers.application").set("isNotification", false);

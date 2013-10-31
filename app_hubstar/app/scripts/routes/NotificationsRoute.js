@@ -5,17 +5,10 @@
 
 
 HubStar.NotificationsRoute = Ember.Route.extend({
-    setupController: function(controller, model) {
+    setupController: function(controller, model) {       
+        this.controllerFor('messageCenter').selectNotification(model);
 
-        this.controllerFor('user').set('profileSelectionStatus', 'Notifications');
-        this.controllerFor('messageCenter').set("isNewConversation", false);
-        this.controllerFor('messageCenter').set("isConversationItem", false);
-        this.controllerFor('messageCenter').set("isNotification", true);
-        this.controllerFor('messageCenter').set("isMessageBoard", false);
-        this.controllerFor('conversation').selectConversation();
-
-         this.controllerFor('notification').getClientId(model);
-         setTimeout(function() {
+        setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
         $(window).scrollTop(0);

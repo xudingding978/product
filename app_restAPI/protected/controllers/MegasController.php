@@ -54,6 +54,10 @@ class MegasController extends Controller {
         } elseif ($mega['type'] == "photo") {
             $this->createUploadedPhoto($mega);
         }
+        else{
+                
+                error_log("ddddddddddddddddddddddddd");
+        }
         $this->sendResponse(204, $request_json);
     }
 

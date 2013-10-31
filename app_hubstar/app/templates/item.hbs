@@ -129,10 +129,11 @@
                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
             </a>   
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer; width: auto;" {{bindAttr href="getProfile_id"}}>{{profile_id}}</a>
-                <div class="posttime-container">
+                         <a class="poster-name" style="cursor: pointer; width: auto;" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+
+<!--                <div class="posttime-container">
                     <span class="posttime">yesterday 8:37</span>
-                </div>
+                </div>-->
             </div>
 
             <div class="object-tags-box">
@@ -174,8 +175,8 @@
 
             <div class="masonry-object_text">
                 <div class="masonry-object_text-container">
-                    <p>  {{#linkTo 'video' this}} {{video_title}}{{/linkTo}} </p>
-                    <p>{{description}}</p>
+                    <p>  {{#linkTo 'video' this}}{{object_title}}{{/linkTo}} </p>
+                    <p>{{object_description}}</p>
                 </div>
 
                 <div class="more_detail" {{bindAttr id="id"}} style="display:none;width:auto">

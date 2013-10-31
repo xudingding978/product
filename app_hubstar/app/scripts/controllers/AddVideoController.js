@@ -45,10 +45,25 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
     videoCreate: function() {
         var testID = createGuid();
         var MegaCreateController = this.get('controllers.megaCreate');
+        var tempMega = this.get("profileMega");
+        tempMega.set("object_title", this.get('videoTitle'));
+        tempMega.set("object_description", this.get('videoDesc'));
+        tempMega.set("object_image_url", this.get('videoImg'));
+        var video = HubStar.Video.createRecord({
+            videoImg: this.get('videoImg'),
+            videoTitle: this.get('videoTitle'),
+            videoDesc: this.get('videoDesc'),
+            videoIframeCode: this.getIframeCode(480, 360, this.getVideoId())
+        });
         var mega = MegaCreateController.createNewMega(this.get("profileMega"), testID, null, 'video');
+        mega.get('videoes').pushObject(video);
+
+
         var profileVideosController = this.get('controllers.profileVideos');
         profileVideosController.get("videoesContent").insertAt(0, mega);
-        console.log(profileVideosController.get("videoesContent"));
+        mega.store.save();
+
+
         profileVideosController.relayout();
         this.canel();
     },

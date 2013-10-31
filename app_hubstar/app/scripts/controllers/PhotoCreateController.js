@@ -70,7 +70,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     {
         var fileSize = this.get("fileSize");
         var addPhoto = true;
-        //  console.log(fileSize+"size");
+
         if ((fileSize === null) || (fileSize === "undefined") || (fileSize === "NaN"))
         {
             this.set("fileSize", size);

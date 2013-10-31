@@ -4,10 +4,10 @@
  */
 
 HubStar.MegaCreateController = Ember.ArrayController.extend({
-    createNewMega: function(ProfileMega, testID, collectionId,type)
+    createNewMega: function(ProfileMega, testID, collectionId, type)
     {
 
-        var photoMega = HubStar.Mega.createRecord({
+        var mega = HubStar.Mega.createRecord({
             "id": testID,
             "accessed": ProfileMega.get("accessed"),
             "boost": ProfileMega.get("boost"),
@@ -26,8 +26,8 @@ HubStar.MegaCreateController = Ember.ArrayController.extend({
             "geography": ProfileMega.get("country"),
             "is_indexed": false,
             "object_image_url": ProfileMega.get("object_image_url"),
-            "object_title": null,
-            "object_description": null,
+            "object_title": ProfileMega.get("object_title"),
+            "object_description": ProfileMega.get("object_description"),
             "owner_profile_id": ProfileMega.get('id'),
             "owner_profile_pic": ProfileMega.get("profile_pic_url"),
             "owner_title": ProfileMega.get("profile_name"),
@@ -42,6 +42,6 @@ HubStar.MegaCreateController = Ember.ArrayController.extend({
             "uri_url": ProfileMega.get("uri_url"),
             "view_count": null
         });
-        return photoMega;
+        return mega;
     }
 });

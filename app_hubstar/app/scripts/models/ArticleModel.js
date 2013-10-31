@@ -7,7 +7,7 @@ HubStar.Article = DS.Model.extend({
     article_headline: DS.attr('string'),
     article_subHeadline: DS.attr('string'),
     article_body: DS.attr('string'),
-    article_creditText: DS.attr('string'),
+    article_credits_text: DS.attr('string'),
     article_photography: DS.attr('string'),
     article_featureName: DS.attr('string'),
     article_channelId: DS.attr('string'),

@@ -79,6 +79,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('image_no', 1);
         var megaResouce = HubStar.Mega.find(megaObject.id);
         this.set('articleResouce', megaResouce.get('article').objectAt(0));
+        console.log(megaResouce);
         this.set('megaResouce', megaResouce);
         this.addRelatedData(megaObject);
         this.getCommentsById(megaObject.id);

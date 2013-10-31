@@ -16,6 +16,7 @@ class MegasController extends Controller {
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $request_string = $temp [sizeof($temp) - 1];
             $response = "";
+            error_log($request_string);
             if (sizeof($temp) > 1) {
                 $requireParams = explode('&', $request_string);
                 if ($this->getUserInput($requireParams[0]) == "photos") {                                //reload photo page, get information from couchbase, form request string;
@@ -60,6 +61,7 @@ class MegasController extends Controller {
     public function actionRead() {
         try {
             $temp = explode("/", $_SERVER['REQUEST_URI']);
+            error_log("read here ~~~~~~~~~~~~~~");
             $id = $temp [sizeof($temp) - 1];
             $cb = $this->couchBaseConnection();
             $docID = $this->getDomain() . "/profiles/" . $id;

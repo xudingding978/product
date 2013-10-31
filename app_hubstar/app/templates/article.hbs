@@ -157,7 +157,41 @@
         </div>
     </div>
 
+<!-- OBJECT CREDIT LIST SECTION -->
+    <div>
+        <div class="object-collapes-title" >
+            <div class="collapes-title_inner">
+                Credit List
+            </div>
 
+
+
+
+
+
+            {{#unless view.readContent}}
+
+            <div class="readbtn new-btn" {{action checkReading on="click" target="view"}} >
+                Read
+            </div>
+            {{else}}
+
+            <div class="closeReadbtn new-btn" {{action checkClosed on="click" target="view"}}>
+                Close
+            </div>
+            {{/unless}}
+        </div>
+
+
+    </div>
+
+
+
+    <div class="collapes-container"  id="article_action" style="display:block;">
+        <div class="collapes-container_inner">
+            <div class="article-text">{{{controller.articleResouce.article_credits_text}}</div>
+        </div>
+    </div>
 
 
 

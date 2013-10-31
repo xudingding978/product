@@ -205,6 +205,7 @@ HubStar.NotificationController = Ember.Controller.extend({
         this.transitionToRoute('user', user);
     },
     gotoConversation: function(id, conversationID) {
+
         var user = HubStar.User.find(id);
         var that = this;
         if (user.get('isLoaded')) {
@@ -241,6 +242,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                 that.transitionToRoute('conversation', data);
             }
         });
+         $(window).scrollTop(550);
     },
     gotoNotification: function(id, notificationID)
     {
@@ -260,6 +262,7 @@ HubStar.NotificationController = Ember.Controller.extend({
 
         this.set("goMessage", '#message_' + id);
         this.transitionToRoute('messages');
+         $(window).scrollTop(550);
     },
     gotoReply: function(id)
     {
@@ -285,6 +288,7 @@ HubStar.NotificationController = Ember.Controller.extend({
             this.set("goMessage", '#message_' + reply[1]);
             this.transitionToRoute('messages');
         }
+  $(window).scrollTop(550);
     }
 }
 );

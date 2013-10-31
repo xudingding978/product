@@ -27,6 +27,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeLoginURL: "",
     isWaiting: "",
     isGeoDropdown: false,
+    unReadCount: 0,
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
         this.defaultSearch();
@@ -47,8 +48,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     grapData: function() {
         var u = HubStar.User.find(localStorage.loginStatus);
         this.set("user", u);
-        this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
-        
+        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
+        this.set("myUserProfile", "#/users/" + localStorage.loginStatus);       
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));

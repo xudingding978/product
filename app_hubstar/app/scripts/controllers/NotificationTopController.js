@@ -13,7 +13,7 @@
 HubStar.NotificationTopController = Ember.Controller.extend({
     notificationTopContent: null,
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'application', 'notification'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'application', 'notification', 'userMessage'],
     isUploadPhoto: false,
     init: function()
     {
@@ -47,6 +47,31 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             }
             that.get("controllers.notification").set("notificationContent", that.get("notificationTopContent"));
         });
+    },
+    deleteNotification: function(id) {
+        var tempComment = [localStorage.loginStatus, id];
+        tempComment = JSON.stringify(tempComment);
+        var that = this;
+        requiredBackEnd('notifications', 'DeleteNotification', tempComment, 'POST', function() {
+
+            for (var i = 0; i < that.get("notificationTopContent").length; i++)
+            {
+                if (that.get("notificationTopContent").objectAt(i).get("notification_id") === id)
+                {
+                    that.get("notificationTopContent").removeObject(that.get("notificationTopContent").objectAt(i));
+                }
+            }
+            that.get("controllers.notification").set("notificationContent", that.get("notificationTopContent"));
+
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+            }, 200);
+            that.set('loadingTime', false);
+        });
+    },
+    seeAll:function()
+    {
+       this.transitionToRoute("notifications"); 
     },
     markAllRead: function() {
         //mark all read tom       
@@ -116,6 +141,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             if (this.get("notificationTopContent").objectAt(i)["notification_id"] === notification_id)
             {
                 this.goto(this.get("notificationTopContent").objectAt(i));
+                this.markRead(this.get("notificationTopContent").objectAt(i)["notification_id"]);
                 break;
             }
         }
@@ -186,8 +212,15 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     },
     gotoMessage: function(id)
     {
-
         this.set("goMessage", '#message_' + id);
+        var address = document.URL;
+        if (address.split("#")[1].split("/").length >= 5) {
+            var page = address.split("#")[1].split("/")[4];
+            if (page === "messages")
+            {
+                this.get("controllers.userMessage").goToMessageTop(this.get("goMessage"));
+            }
+        }
         this.reviewCancel();
         this.transitionToRoute('messages');
     },
@@ -212,9 +245,17 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             });
         }
         else
-        {
+        { //login user is the person who left the reply
             this.set("goMessage", '#message_' + reply[1]);
             this.transitionToRoute('messages');
+        }
+        var address = document.URL;
+        if (address.split("#")[1].split("/").length >= 5) {
+            var page = address.split("#")[1].split("/")[4];
+            if (page === "messages")
+            {
+                this.get("controllers.userMessage").goToMessageTop(this.get("goMessage"));
+            }
         }
     },
     reviewCancel: function() {

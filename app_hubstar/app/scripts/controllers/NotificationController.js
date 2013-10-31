@@ -103,19 +103,20 @@ HubStar.NotificationController = Ember.Controller.extend({
         });
     },
     deleteNotification: function(id) {
-        var dataNew = new Array();
         var tempComment = [localStorage.loginStatus, id];
         tempComment = JSON.stringify(tempComment);
         var that = this;
         requiredBackEnd('notifications', 'DeleteNotification', tempComment, 'POST', function() {
-//            for (var i = 0; i < that.get("notificationContent").length; i++)
-//            {
-//                if (that.get("notificationContent").objectAt(i).get("notification_id") === id)
-//                {
-//                    that.get("notificationContent").objectAt(i).set("isRead", true);
-//                }
-//            }
-//            that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
+  
+            for (var i = 0; i < that.get("notificationContent").length; i++)
+            {
+                if (that.get("notificationContent").objectAt(i).get("notification_id") === id)
+                {
+                    that.get("notificationContent").removeObject(that.get("notificationContent").objectAt(i));
+                }
+            }
+            that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
+            
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
             }, 200);
@@ -174,6 +175,7 @@ HubStar.NotificationController = Ember.Controller.extend({
             {
                 //console.log(this.get("notificationContent").objectAt(i));
                 this.goto(this.get("notificationContent").objectAt(i));
+                this.markRead(this.get("notificationContent").objectAt(i)["notification_id"]);
                 break;
             }
         }
@@ -199,7 +201,7 @@ HubStar.NotificationController = Ember.Controller.extend({
 
     },
     gotoUser: function(id) {
-        var user = HubStar.User.find(id);     
+        var user = HubStar.User.find(id);
         this.transitionToRoute('user', user);
     },
     gotoConversation: function(id, conversationID) {
@@ -268,7 +270,7 @@ HubStar.NotificationController = Ember.Controller.extend({
         if (localStorage.loginStatus !== reply[2]) {
             var that = this;
             if (user.get('isLoaded')) {
-                 this.set("goMessage", '#message_' + reply[1]);
+                this.set("goMessage", '#message_' + reply[1]);
                 this.transitionToRoute('messageCenter', user);
             }
             user.addObserver('isLoaded', function() {
@@ -276,7 +278,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                     that.set("goMessage", '#message_' + reply[1]);
                     that.transitionToRoute('messageCenter', user);
                 }
-            });      
+            });
         }
         else
         {

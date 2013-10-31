@@ -149,6 +149,41 @@ class NotificationsController extends Controller {
             echo json_decode(file_get_contents('php://input'));
         }
     }
+ public function actionDeleteNotification() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request_array = CJSON::decode($request_array);
+        $commenter_id = $request_array[0];
+        $notification_id = $request_array[1];
+        $comment = $this->delNotification($commenter_id, $notification_id);
+
+        if ($comment) {
+            $this->sendResponse(204, CJSON::encode($comment));
+        }
+    }
+
+    public function delNotification($commenter_id, $notification_id) {
+        try {
+            $isDelete = false;
+            $commenterInfo = $this->getDomain() . "/users/" . $commenter_id;
+            $cb = $this->couchBaseConnection();
+            $commenterInfoDeep = $cb->get($commenterInfo); // get the old user record from the database according to the docID string
+            $oldcommenterInfo = CJSON::decode($commenterInfoDeep, true);
+            $notification = $oldcommenterInfo['user'][0]["notifications"];
+            for ($i = 0; $i < sizeof($notification); $i++) {
+                if ($notification[$i]["notification_id"] === $notification_id) {
+                    array_splice($oldcommenterInfo['user'][0]["notifications"], $i, 1);
+                    break;
+                }
+            }
+            if ($cb->set($commenterInfo, CJSON::encode($oldcommenterInfo))) {
+                $isDelete = true;
+                return $isDelete;
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
+    }
 
     public function readNotificationItemTop($notificationId) {
         try {

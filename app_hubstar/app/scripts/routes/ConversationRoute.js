@@ -9,7 +9,7 @@ HubStar.ConversationRoute = Ember.Route.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
-      
+        $(window).scrollTop(0);
     },
     model: function(params) {           
         var address = document.URL;

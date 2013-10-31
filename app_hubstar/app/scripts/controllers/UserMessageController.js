@@ -173,6 +173,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             this.get('controllers.notificationTop').set("reply_ids", "");
         }
         this.get('controllers.notificationTop').set("goMessage", "");
+          
     },
     removeMessage: function(Message_id)
     {

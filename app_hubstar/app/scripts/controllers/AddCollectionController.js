@@ -110,14 +110,16 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         }
     },
     exit: function() {
-
+        //console.log(this.get('parentController'));
         if (this.get('parentController') === 'article')
         {
             this.get("controllers.article").switchCollection();
         }
-        else  if (this.get('parentController') === 'comment')
+        else if (this.get('parentController') === 'comment')
         {
-            HubStar.set('collectable', !HubStar.get('collectable'));
+            var id = this.get("objectID");
+            //console.log(id);
+            $('#addCollection_' + id).attr('style', 'display: none');
         }
         else {
             this.get("controllers.mega").switchCollection();

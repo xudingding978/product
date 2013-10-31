@@ -18,11 +18,11 @@
 
         </div>
 
-        {{#if controller.collectable}}
 
-        {{render addCollection}}
-        <!--<div style="position:fixed; background-color: red; width: 100px;height: 100px;top:100px">asdfasdfasdfasdfasdfsd</div>-->
-        {{/if}}
+        <div id="addCollection_{{unbound model.id}}"  style="display: none">
+            {{render addCollection}}
+            <!--<div style="position:fixed; background-color: red; width: 100px;height: 100px;top:100px">asdfasdfasdfasdfasdfsd</div>-->
+        </div>       
 
         <div style="display: inline-block;float: right; font-size: 13px;" >
             <div id="thumbUpBtn_{{unbound model.id}}" style="display:inline-block;vertical-align: top;" class="new-btn" {{action addLike model.id}}><i class="icon-thumbs-up-alt">&nbsp</i>{{model.likes_count}}</div>

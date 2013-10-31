@@ -26,7 +26,8 @@ HubStar.CommentController = Ember.Controller.extend({
         addCollectionController.setThumbnailUrl(tempUrl);
         addCollectionController.setUser();
         addCollectionController.setRelatedController('comment');
-        this.set('collectable', !this.get('collectable'));
+       $('#addCollection_' + model.id).attr('style', 'display: block');
+      // console.log(model.id);
     },
     addComment: function() {       
         var commentContent = this.get('commentContent');

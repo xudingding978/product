@@ -48,7 +48,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     is_authentic_user: false,
     keywords: "",
     keywords_array: [],
-    keywordsNum: 0,
+    keyword_num: 0,
     add_keywords: "",
     show_keyword_id: "",
     show_keyword_array:[],
@@ -208,7 +208,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //            this.setKeywordsArray(this.get('model').get('profile_keywords'));
 //        }
         if (profile.get("profile_keywords_num") !== null && profile.get("profile_keywords_num") !== "undefined" && profile.get("profile_keywords_num") !== "") {
-            this.set("keywordsNum", profile.get("profile_keywords_num"));
+            this.set("keyword_num", profile.get("profile_keywords_num"));
         } else {
             this.setKeywordsNum(this.get('model').get('profile_package_name'));
         }
@@ -235,13 +235,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //    },
     setKeywordsNum: function(profile_package_name) {
         if (profile_package_name === 'Platinum') {
-            this.set('keywordsNum', 200);
+            this.set('keyword_num', 200);
         } else if (profile_package_name === 'Gold') {
-            this.set('keywordsNum', 100);
+            this.set('keyword_num', 100);
         } else if (profile_package_name === 'Silver') {
-            this.set('keywordsNum', 50);
+            this.set('keyword_num', 50);
         } else if (profile_package_name === 'Bronze') {
-            this.set('keywordsNum', 25);
+            this.set('keyword_num', 25);
         }
     },
     followerPhoto: function(id)
@@ -689,7 +689,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
         update_profile_record.set('profile_editors', this.get('editors'));
         update_profile_record.set('profile_keywords', this.get('keywords'));
-        update_profile_record.set('profile_keywords_num', parseInt(this.get('keywordsNum')));
+        update_profile_record.set('profile_keywords_num', parseInt(this.get('keyword_num')));
         update_profile_record.set('profile_regoin', this.get('region'));
         update_profile_record.set('profile_country', this.get('country'));
         update_profile_record.set('profile_boost', this.get('boost'));
@@ -739,19 +739,19 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         HubStar.store.save();
     },
-    saveShowKeywords: function() {
-        var show_keyword_id = '';
-        for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
-            show_keyword_id = show_keyword_id+','+ this.get('keywords_array').objectAt(i).get('keyword_id');
-        }
-        this.set('show_keyword_id',show_keyword_id);
-        this.saveUpdate();
-    },
+//    saveShowKeywords: function() {
+//        var show_keyword_id = '';
+//        for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
+//            show_keyword_id = show_keyword_id+','+ this.get('keywords_array').objectAt(i).get('keyword_id');
+//        }
+//        this.set('show_keyword_id',show_keyword_id);
+//        this.saveUpdate();
+//    },
     addKeywords: function() {
         console.log('add_keywords');
         var keywords_JSON = [];
         var add_keywords_array = this.get('add_keywords').split(',');
-        if (this.get('keywords_array').get('length') + add_keywords_array.get('length') <= this.get('keywordsNum')) {
+        if (this.get('keywords_array').get('length') + add_keywords_array.get('length') <= this.get('keyword_num')) {
             for (var i = 0; i < add_keywords_array.get('length'); i++) {
                 var keyword =this.addKeyword(add_keywords_array[i]);
                 keywords_JSON.push(JSON.stringify(keyword));
@@ -760,7 +760,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 });
             this.set('add_keywords',"");
         } else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "You can not add keywords more than " + this.get('keywordsNum'), 'failed');
+            this.get('controllers.applicationFeedback').statusObserver(null, "You can not add keywords more than " + this.get('keyword_num'), 'failed');
         }
     },
     addKeyword: function(keyword_name) {        
@@ -1148,11 +1148,16 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     dragIntoFront: function() {
         if (this.get('dragTargetIndex') < 0) {
-            
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please drag keywords from the keywords list below.", "warnning");
         } else if (this.get('show_keyword_array').get('length')>9) {
-            
+            this.get('controllers.applicationFeedback').statusObserver(null, "Your can maximum show 10 keywords on the profile.", "warnning");
         } else {
-            this.get('show_keyword_array').pushObject(this.get('keywords_array').objectAt(this.get('dragTargetIndex')));
+            if (this.get('show_keyword_id').indexOf(this.get('keywords_array').objectAt(this.get('dragTargetIndex')).get('keyword_id')) === -1) {
+                this.get('show_keyword_array').pushObject(this.get('keywords_array').objectAt(this.get('dragTargetIndex')));
+                this.set('show_keyword_id', this.get('show_keyword_id')+','+this.get('keywords_array').objectAt(this.get('dragTargetIndex')).get('keyword_id'));
+            } else {
+                this.get('controllers.applicationFeedback').statusObserver(null, "This keyword has already been in the show list.", "warnning");
+            }
         }
     }
 

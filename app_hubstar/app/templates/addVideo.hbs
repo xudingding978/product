@@ -8,12 +8,17 @@
     <div style="margin: 20px;min-height: 400px;">
         <div style="height: 35px; width: inherit;border-bottom: 1px solid #ddd;">
             {{view Ember.TextField valueBinding="videoUrl" placeholder="Please insert YOUTUBE link or share url." class="no-effect"}}
-            <div {{action getVideoFromYoutube}}>button</div>
+            <div class="message-btn easing" style="right: 0;position: absolute;top: 69px;margin-right: 20px;width: 35px;height: 35px;line-height: 35px;border-left: 1px solid #ddd;"{{action getVideoFromYoutube}}>
+                 <i class="icon-ok"></i>
+            </div>
         </div>
-
-        <img style="width: 470px;margin: 15px 0;" {{bindAttr src="videoImg"}}/>
-
-        <div style="width: 470px; background-color: #f3f3f3;padding: 10px; font-size: 13px;">
+        <div style="width: 470px; min-height: 300px; margin: 15px 0; border: 2px dashed #eee;">
+            <div class="radius-circle" style="position: absolute;width: 70px;height: 70px;border: 2px solid #eee;line-height: 66px;text-align: center;color: #eee;font-size: 25px;margin: 120px auto;left: 0;right: 0;box-shadow: 0 0 10px #f3f3f3;">
+                <i class="icon-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
+            </div>
+            <img style="width: 470px;" {{bindAttr src="videoImg"}}/>
+        </div>
+        <div style="width: 470px; background-color: #f3f3f3;padding: 10px; font-size: 13px;min-height: 50px;">
             <div style="font-size: 15px;font-weight: bold">{{videoTitle}}</div>
             <div>{{videoTitle}}
                 {{videoDesc}}
@@ -25,7 +30,9 @@
         <div class="message-btn easing" style="height: 40px;line-height: 40px;border-right: 1px solid #ddd;" {{action canel}}><k class="icon-remove">&nbsp;</k>Cancel</div>
         {{#if videoid}}
         <div class="message-btn easing" style="height: 40px;line-height: 40px;"{{action videoCreate}} ><k class='icon-ok'>&nbsp;</k>Post</div>
-    {{/if}}
+        {{else}}
+        <div class="message-btn-x easing" style="height: 40px;line-height: 40px;"><k class='icon-ok'>&nbsp;</k>Post</div>
+        {{/if}}
     </div>
 
 </div>

@@ -777,6 +777,8 @@ div.album-description-bg{
     min-height:150px
 }
 
+.mainfeature-wrapper:hover > .hover-opacity{opacity: 1}
+
 .edit-object{
     opacity: 0;
 }
@@ -814,9 +816,10 @@ div.album-description-bg{
 }
 
 .masonry-object_text-container{
-
+    overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .more_detail{
     color: #555;
     width: 300px;

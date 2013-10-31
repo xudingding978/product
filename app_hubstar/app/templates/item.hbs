@@ -253,9 +253,9 @@
             </a>
             <div class="object_username">
                 <a class="poster-name" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{creator}}</a>
-                               <div class="posttime-container" style="display:none;">
-                                    <span class="posttime">{{date created}}</span>
-                                </div>
+                <div class="posttime-container" style="display:none;">
+                    <span class="posttime">{{date created}}</span>
+                </div>
             </div>
             <div class="object-tags-box">
 
@@ -293,10 +293,10 @@
                     <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} />
 
                 </a>          
-                 <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
+                <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
                     {{#if controller.is_authentic_user}}
 
-                    
+
                     <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
                          <k class="icon-cog" style="font-size: 16px; margin: 0px 5px"></k>
                         <k class='icon-caret-down'></k>
@@ -329,7 +329,7 @@
             {{/linkTo}}
         </div>
     </div>
-
+    {{render "comment" this}}
 
 
 </div>

@@ -124,6 +124,110 @@ HubStar.CommentController = Ember.Controller.extend({
             success: function() {
             }
         });
+    },
+    shareDisplay: function(id){
+        $('#share_' + id).children('ul').removeClass("hideClass");
+    },
+            
+            
+            
+            
+            
+    fbShare: function() {
+        var that = this;
+        console.log(this.get('selectedPhoto').id);
+        console.log(this.get('selectedPhoto').photo_image_thumbnail_url);
+        console.log(this.get('articleResouce').get("article_body"));
+        console.log(this.get('articleResouce').get("article_headline"));
+        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
+        var caption = '';
+
+        if (this.get('articleResouce').get("article_body") !== null)
+        {
+            caption =this.get('articleResouce').get("article_body");
+        }
+        else
+        {
+            caption = '';
+        }
+
+        var obj = {
+            method: 'feed',
+            link: currntUrl,
+            picture: this.get('selectedPhoto').photo_image_thumbnail_url,
+            name: this.get('articleResouce').get("article_headline"),
+            caption: 'Trends Ideas',
+            description: caption
+        };
+
+        function callback(response) {
+            if (response && response.post_id) {
+                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
+            } else {
+                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessfully.", "failed");
+            }
+        }
+
+        FB.ui(obj, callback);
+
+        return false;
+    },
+    //share to social google plus
+    gpShare: function() {
+        var caption = '';
+       if (this.get('articleResouce').get("article_body") !== null)
+        {
+            caption =this.get('articleResouce').get("article_body");
+        }
+        else
+        {
+            caption = '';
+        }
+
+
+//        var meta = document.getElementsByTagName('meta');
+//        for (var i = 0; i < meta.length; i++) {
+//            console.log(meta[i]);
+//        }
+        $("meta[property='og\\:title']").attr("content", this.get('articleResouce').get("article_headline"));
+        $("meta[property='og\\:description']").attr("content", caption);
+        $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').photo_image_thumbnail_url);
+
+
+        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
+        var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+
+        window.open(
+                url,
+                'popupwindow',
+                'scrollbars=yes,width=800,height=400'
+                ).focus();
+
+        return false;
+    },
+    //share to social twitter
+    tShare: function() {
+        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
+        var url = 'https://twitter.com/share?text=' + this.get('articleResouce').get("article_headline") + '&url=' + encodeURIComponent(currntUrl);
+        window.open(
+                url,
+                'popupwindow',
+                'height=436,width=626'
+                ).focus();
+        return false;
+    },
+    pShare: function() {
+        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
+        var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+                '&media=' + encodeURIComponent(this.get('selectedPhoto').photo_image_thumbnail_url) +
+                '&description=' + encodeURIComponent(this.get('articleResouce').get("article_headline"));
+        window.open(
+                url,
+                'popupwindow',
+                'height=436,width=626'
+                ).focus();
+        return false;
     }
+         
 });
 

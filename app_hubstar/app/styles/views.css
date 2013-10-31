@@ -849,7 +849,7 @@ div.album-description-bg{
 
 .masonry-object_interact{
     margin: 20px 0 0 0; /* was margin: 20px 0 10px 0; */
-    overflow:hidden;
+    /* overflow:hidden; */
     border-top: 1px solid #e5e5e5;
     /* border-bottom: 1px solid #e5e5e5; */
     -webkit-border-radius: 0 0 2px 2px;
@@ -863,6 +863,11 @@ div.album-description-bg{
 .masonry_show-comment{
     margin: 16px auto 12px;
     width: 87%;
+}
+.masonry_show-comment .edit-object-ul{
+    position:absolute;
+    left:0!important;
+    bottom:0;
 }
 
 .masonry_dropdownicon{

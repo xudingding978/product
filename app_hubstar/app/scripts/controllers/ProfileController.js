@@ -50,7 +50,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     is_authentic_user: false,
     keywords: "",
     last_name: "",
-    needs: ["profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review'],
+    needs: ["profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review', 'reviewList'],
     name: "",
     facebook: "",
     twitter: "",
@@ -655,13 +655,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Reviews');
         this.set('profileSelectionStatus', 'Reviews');
+         this.get('controllers.reviewList').getReviewId(model);
         this.set('partnerTag', false);
         this.set('collectionTag', false);
         this.set('followerProfileTag', false);
         this.set('reviewTag', true);
+    
        this.transitionToRoute('reviews');
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
         }, 200);
     },
     saveUpdateAboutUs: function() {
@@ -775,30 +777,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
         });
     },
-    addLike: function(event)
-    {
-        var profile = this.get('model.id');
-        console.log(event);
-        var review_people_like = event.get("review_people_like");
-
-        console.log(review_people_like);
-        if (review_people_like === null || review_people_like === undefined) {
-            review_people_like = "";
-        }
-        if (localStorage.loginStatus !== null && localStorage.loginStatus !== undefined && localStorage.loginStatus !== "")
-        {
-            if (review_people_like.indexOf(localStorage.loginStatus) !== -1)
-            {
-            }
-            else {
-                event.set('review_people_like', event.get('review_people_like') + ',' + localStorage.loginStatus);
-                event.set('review_like_count', event.get('review_like_count') + 1);
-
-                HubStar.store.save();
-
-            }
-        }
-    },
+    
     saveLink: function(link_url, link) {
 
         var http = "http://";

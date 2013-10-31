@@ -28,14 +28,17 @@ class ReviewsController extends Controller {
         $oldRecord = CJSON::decode($oldRecord_arr, true);
         if (!isset($oldRecord['profile'][0]['reviews'])) {
             $oldRecord['profile'][0]['reviews'] = array();
+            
         }
+        $newRecord['review']['replyReviewCollection'] =array();  
         array_unshift($oldRecord['profile'][0]['reviews'], $newRecord['review']);
-        
+         error_log(var_export($newRecord['review'],true));
         $average = $this->calculateReviewAverage($oldRecord['profile'][0]['reviews']);
         $averageLength=$average*20;
         $oldRecord['profile'][0]['profile_average_review'] = $average;
          $oldRecord['profile'][0]['profile_average_review_length'] = $averageLength;
-        error_log(var_export($oldRecord,true));
+         
+       
         if ($cb->set($docID, CJSON::encode($oldRecord))) {
             $this->sendResponse(204);
         } else {
@@ -89,8 +92,8 @@ class ReviewsController extends Controller {
             $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
             $oldRecordDeep = CJSON::decode($oldDeep, true);
 
-
             $newReply = array();
+           
 
             $newReply["review_reply_id"] = $replyReviewID;
             $newReply["review_user_id"] = $replyUserID;
@@ -125,6 +128,7 @@ class ReviewsController extends Controller {
                 $newReply["url"] = null;
             }
 //$newReplyJason= CJSON::encode($newReply);
+           
             $currentReply = null;
             for ($i = 0; $i < sizeof($oldRecordDeep['profile'][0]["reviews"]); $i++) {
                 $currentReply = $oldRecordDeep['profile'][0]["reviews"][$i];
@@ -158,8 +162,62 @@ class ReviewsController extends Controller {
     
     
 
-    public function actionRead() {
+       public function actionRead() {
+           
+       
+        $request_json = file_get_contents('php://input');
+        $request_arr = CJSON::decode($request_json, true); 
 
+        try {
+            $cb = $this->couchBaseConnection();
+            //$ownerID= $request_arr['optional'];
+            $docID = $this->getDomain() . "/profiles/" . $request_arr;
+            $old = $cb->get($docID); // get the old user record from the database according to the docID string
+            $oldRecord = CJSON::decode($old, true);
+            $newRecord = array();
+
+
+// update name and photo
+
+            if (isset($oldRecord['profile'][0]["reviews"])) {
+                for ($i = 0; $i < sizeof($oldRecord['profile'][0]["reviews"]); $i++) {
+                    $newRecord[$i]["review_id"] = $oldRecord['profile'][0]["reviews"][$i]["review_id"];
+                     $newRecord[$i]["review_user_id"] = $oldRecord['profile'][0]["reviews"][$i]["review_user_id"];
+                     $newRecord[$i]["review_user_photo_url"] = $oldRecord['profile'][0]["reviews"][$i]["review_user_photo_url"];
+                     $newRecord[$i]["review_user_name"] = $oldRecord['profile'][0]["reviews"][$i]["review_user_name"];
+                     $newRecord[$i]["review_content"] = $oldRecord['profile'][0]["reviews"][$i]["review_content"];
+                     $newRecord[$i]["review_time_stamp"] = $oldRecord['profile'][0]["reviews"][$i]["review_time_stamp"];
+                     $newRecord[$i]["review_star_rating_value"] = $oldRecord['profile'][0]["reviews"][$i]["review_star_rating_value"];
+                     $newRecord[$i]["review_length"] = $oldRecord['profile'][0]["reviews"][$i]["review_length"];
+                     $newRecord[$i]["review_like_count"] = $oldRecord['profile'][0]["reviews"][$i]["review_like_count"];
+                      $newRecord[$i]["review_people_like"] = $oldRecord['profile'][0]["reviews"][$i]["review_people_like"];
+                    if (isset($oldRecord['profile'][0]["reviews"][$i]["replyReviewCollection"])) {
+                        $newRecord[$i]["replyReviewCollection"] = array();
+                        for ($j = 0; $j < sizeof($oldRecord['profile'][0]["reviews"][$i]["replyReviewCollection"]); $j++) {
+                            $newRecord[$i]["replyReviewCollection"][$j] = $oldRecord['profile'][0]["reviews"][$i]["replyReviewCollection"][$j];
+                            $commenterInfo = $this->getDomain() . "/users/" . $newRecord[$i]["replyReviewCollection"][$j] ["review_user_id"];
+                            $cbs = $this->couchBaseConnection();
+                            $commenterInfoDeep = $cbs->get($commenterInfo); // get the old user record from the database according to the docID string
+                            $oldcommenterInfo = CJSON::decode($commenterInfoDeep, true);
+                            $display_name =$oldcommenterInfo['user'][0]["first_name"] +  $oldcommenterInfo['user'][0]["last_name"];
+                            $photo_url_large = $oldcommenterInfo['user'][0]["photo_url_large"];
+                            $newRecord[$i]["replyReviewCollection"][$j]["user_name"] = $display_name;
+                            $newRecord[$i]["replyReviewCollection"][$j]["photo_url_large"] = $photo_url_large;
+ 
+                        }
+                    }
+                }
+            }
+
+
+            if ($newRecord === null) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(200, CJSON::encode($newRecord));
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
     }
 
     public function actionUpdate() {

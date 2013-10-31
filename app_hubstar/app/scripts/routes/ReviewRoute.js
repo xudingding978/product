@@ -12,13 +12,12 @@ HubStar.ReviewRoute = Ember.Route.extend({
         $('#reviewList').addClass('selected-user-stats');
         // this.controllerFor('profile').selectPartner(model);
 
-        console.log("ddddd");
         this.controllerFor('profile').set('profileSelectionStatus', 'Reviews');
         this.controllerFor('profile').set('reviewTag', true);
         this.controllerFor('profile').set('partnerTag', false);
         this.controllerFor('profile').set('collectionTag', false);
         this.controllerFor('profile').set('followerProfileTag', false);
-       // this.controllerFor('profilePartners').getClientId(model);
+        this.controllerFor('reviewList').getReviewId(model);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);

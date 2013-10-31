@@ -15,13 +15,14 @@ HubStar.Review = DS.Model.extend({
     review_time_stamp: DS.attr('string'),
     review_is_delete: DS.attr('boolean'),
     review_is_edit: DS.attr('boolean'),
+    review_is_reply: DS.attr('boolean'),
     review_star_rating_value: DS.attr('number'),
     review_id: DS.attr('string'),
+    review_count: DS.attr('string'),
     review_length: DS.attr('string'),
     review_like_count:DS.attr('number'),
     review_people_like:DS.attr('string'),
-    replyReviewCollection: DS.hasMany('HubStar.ReplyReview'),
-    
+    replyReviewCollection: DS.hasMany('HubStar.ReplyReview'), 
     optional: DS.attr('string'),
     didLoad: function() {
 

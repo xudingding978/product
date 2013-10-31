@@ -8,7 +8,7 @@ HubStar.ProfileFollowersController = Ember.Controller.extend({
 
 
             this.set('content', this.get('followers'));
-
+            
 
 
         }

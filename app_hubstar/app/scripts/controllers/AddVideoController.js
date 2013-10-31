@@ -1,6 +1,6 @@
 
 HubStar.AddVideoController = Ember.ObjectController.extend({
-    needs: ["profileVideos", "applicationFeedback", 'profile','megaCreate'],
+    needs: ["profileVideos", "applicationFeedback", 'profile', 'megaCreate'],
     videoUrl: null,
     videoImg: null,
     videoTitle: null,
@@ -9,11 +9,10 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
     profileMega: null,
     init: function() {
         this.setMega();
-        console.log(this.get("profileMega"));
     },
     canel: function() {
-        var profileVideoController = this.get('controllers.profileVideos');
         this.reset();
+        var profileVideoController = this.get('controllers.profileVideos');
         profileVideoController.videoCreateModeSwitch();
     },
     getVideoFromYoutube: function()
@@ -44,8 +43,14 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
 
     },
     videoCreate: function() {
-
-
+        var testID = createGuid();
+        var MegaCreateController = this.get('controllers.megaCreate');
+        var mega = MegaCreateController.createNewMega(this.get("profileMega"), testID, null, 'video');
+        var profileVideosController = this.get('controllers.profileVideos');
+        profileVideosController.get("videoesContent").insertAt(0, mega);
+        console.log(profileVideosController.get("videoesContent"));
+        profileVideosController.relayout();
+        this.canel();
     },
     getVideoId: function() {
         var videoid = null;

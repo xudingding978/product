@@ -80,7 +80,6 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             if (fileSize + size > 25000000)
             {
                 addPhoto = false;
-                //  alert("please select a small image");
             }
             else
             {
@@ -109,8 +108,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             var target = getTarget(e, "pural");
             var src = target.result;
             var MegaCreateController = this.get('controllers.megaCreate');
-            var mega = MegaCreateController.createNewMega(this.get("profileMega"), testID, this.get('controllers.masonryCollectionItems').get('collection_id'));
-            // console.log(testID);
+            var mega = MegaCreateController.createNewMega(this.get("profileMega"), testID, this.get('controllers.masonryCollectionItems').get('collection_id'), 'photo');
             var keywords = this.get("profileMega").get("profile_keywords");
             var file = HubStar.Photo.createRecord({
                 "id": testID,

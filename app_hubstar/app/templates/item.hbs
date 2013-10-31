@@ -120,13 +120,12 @@
 {{/if}}
 
 {{#if getVideo}}
+
 <div class="box col2 noStyle1">
 
     <div class="masonry-object">
         <div class="masonry-object_poster">
             <a href="#" class="masonry-object_poster">
-                <img {{bindAttr src="profile_pic_url"}} class="profilepic-on-masonry" />
-
                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
             </a>   
             <div class="object_username">

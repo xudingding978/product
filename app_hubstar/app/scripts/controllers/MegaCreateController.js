@@ -4,7 +4,7 @@
  */
 
 HubStar.MegaCreateController = Ember.ArrayController.extend({
-    createNewMega: function(ProfileMega, testID, collectionId)
+    createNewMega: function(ProfileMega, testID, collectionId,type)
     {
 
         var photoMega = HubStar.Mega.createRecord({
@@ -15,7 +15,7 @@ HubStar.MegaCreateController = Ember.ArrayController.extend({
             "is_active": false,
             "region": ProfileMega.get("profile_regoin"),
             "topic": null,
-            "type": "photo",
+            "type": type,
             "category": ProfileMega.get("category"),
             "creator": localStorage.loginStatus,
             "country": ProfileMega.get("country"),

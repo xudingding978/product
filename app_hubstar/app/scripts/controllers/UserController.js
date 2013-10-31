@@ -166,6 +166,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('followerTag', false);
         this.set('messageTag', false);
         this.labelBarRefresh();
+
     },
     labelBarRefresh: function() {
         this.set("profileSelectionStatus", "Collections");
@@ -686,6 +687,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
         }
 
+
     },
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
@@ -721,6 +723,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         this.set('messageTag', false);
         this.transitionToRoute('userCollections');
+
     },
     selectFollowing: function(model) {
 
@@ -750,6 +753,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', true);
+
         this.set('messageTag', false);
         this.transitionToRoute('followers');
         setTimeout(function() {
@@ -768,6 +772,7 @@ HubStar.UserController = Ember.Controller.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
         }, 200);
+
     },
     flickButtonClick: function()
     {
@@ -835,10 +840,12 @@ HubStar.UserController = Ember.Controller.extend({
             if (that.get('newStyleImageSource') !== null && that.get('newStyleImageSource') !== "")
             {
                 var size = " size is " + width + "x" + height;
-                that.set('CurrprofileStyleImageDropentImageSize', size);
 
+
+                that.set('CurrentImageSize', size);
 
                 if (that.get('UploadImageMode') === "User Picture" || that.get('UploadImageMode') === "User Cover") {
+
 
                     if (width < 150 || height < 150) {
                         that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + 150 + "x" + 150, "warnning");
@@ -883,6 +890,7 @@ HubStar.UserController = Ember.Controller.extend({
 
             var src = this.get('newStyleImageSource');
             var that = this;
+
 
             var imageName = that.get('newStyleImageName').split('.');
             var type = imageName[imageName.length - 1];

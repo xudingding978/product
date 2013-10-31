@@ -14,7 +14,7 @@
                         {{model.user_name }}
                     </a>
                     <div class="posttime-container">
-                        <span class="posttime">{{model.time_stamp}}</span>
+                        <span class="posttime">{{date model.time_stamp}}</span>
                     </div>
                 </div>
                 <div class="reply-comment easing">  
@@ -140,7 +140,7 @@
                             {{this.user_name}}    
                         </a>
                         <div class="posttime-container">
-                            <span class="posttime">{{this.time_stamp}}</span>
+                            <span class="posttime">{{date this.time_stamp}}</span>
                         </div>
                     </div>
                 </div>

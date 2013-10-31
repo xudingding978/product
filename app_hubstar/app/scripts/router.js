@@ -18,11 +18,13 @@ HubStar.Router.map(function() {
         this.resource("profile", {path: '/profiles/:profile_id'}, function() {
 
 
+            this.resource("profileFollowers", {path: '/followers'});
+
             this.resource("profileCollections", {path: '/collections'}, function() {
                 this.resource("profileCollection", {path: ':profileCollection_id'});
             });
             this.resource("partners", {path: '/partners'});
-            this.resource("profileFollowers", {path: '/followers'});
+
 
         });
         this.resource("profiles", function() {

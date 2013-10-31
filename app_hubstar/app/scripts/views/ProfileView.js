@@ -48,6 +48,7 @@ HubStar.ProfileView = Ember.View.extend({
             });
         }
 
+
     }
 });
 

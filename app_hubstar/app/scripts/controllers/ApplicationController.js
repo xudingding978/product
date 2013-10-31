@@ -50,6 +50,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("user", u);
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);       
+        this.set("myMessageBoard", "#/users/" + localStorage.loginStatus+"/messages");
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));

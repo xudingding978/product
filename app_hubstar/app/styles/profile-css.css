@@ -577,6 +577,13 @@ div.profile-picture-active
     border-width:4px!important;
     position:absolute;
 }
+div#profile-picture.profile-picture-active > img{
+    min-width:50px;
+    min-height:50px;
+    max-height:53px;
+    max-width: 53px;
+    margin:-4px 0 0 -4px;
+}
 #profile-picture > img{
     margin-left:-5px;
     min-width:180px;
@@ -1021,3 +1028,14 @@ textarea.add-interests{
 #notititopbar > .mCustomScrollBox{
 
 }
+
+
+
+
+
+.profilegb div.profile-wallpaper{
+    top:45px;
+    left:0;
+}
+
+

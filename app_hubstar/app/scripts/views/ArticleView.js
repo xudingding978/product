@@ -65,10 +65,12 @@ HubStar.ArticleView = Ember.View.extend({
     },
     openComment: function() {
 
+
         $('#addcommetBut').attr('style', 'display:none');
         $('#commentBox').attr('style', 'display:block');
-
         $('.comment-insert-field').focus();
+   this.get("controller").get("controllers.checkingLoginStatus").popupLogin();
+
     },
     closeComment: function() {
 

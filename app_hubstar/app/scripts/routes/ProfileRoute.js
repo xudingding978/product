@@ -1,6 +1,6 @@
 HubStar.ProfileRoute = Ember.Route.extend({
     setupController: function(ProfileController, model) {
-        console.log("sssssssssssss");
+        
 
         HubStar.set('editingMode', 'profile');
         ProfileController.setLocalLoginRecrod();
@@ -55,12 +55,12 @@ HubStar.ProfileRoute = Ember.Route.extend({
         }
     },
     redirect: function() {
-        if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
-
-            this.transitionTo('indexIndex');
-            this.controllerFor('application').set('popup', true);
-
-        }
+//        if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+//
+//            this.transitionTo('indexIndex');
+//            this.controllerFor('application').set('popup', true);
+//
+//        }
 
 
     },

@@ -29,7 +29,7 @@ HubStar.ItemView = Ember.View.extend({
                 
         transitionToArticle:function(){
 
-            console.log("transitionToArticle");
+            
             
             
         },

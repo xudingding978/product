@@ -48,7 +48,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     is_authentic_user: false,
     keywords: "",
     last_name: "",
-    needs: ["profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor'],
+    needs: ["profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor','checkingLoginStatus'],
     name: "",
     facebook: "",
     twitter: "",
@@ -468,11 +468,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('uploadChecking', !this.get('uploadChecking'));
     },
     editingContactForm: function() {
+
+ if(this.get("controllers.checkingLoginStatus").popupLogin())
+         {
         this.sendEventTracking('event', 'button', 'click', 'Contact us');
         var contactController = this.get('controllers.contact');
 
         contactController.setSelectedMega(this.get('currentUserID'));
         this.set('contactChecking', !this.get('contactChecking'));
+        }
     },
     closeContact: function() {
         this.set('contactChecking', false);

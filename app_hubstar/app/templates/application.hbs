@@ -9,6 +9,8 @@
     {{outlet profiles}}
 
     {{outlet user}}
+    {{render "footer"}}
+
 
     {{#unless controller.isotherpage}}
 
@@ -23,18 +25,22 @@
 
     {{/unless}}
 
-    
-    {{render "footer"}}
-    
     {{else}}
 
     {{view HubStar.RegisterView}}
     {{/if}}
- {{outlet profile}}
+    
+    
+    
+    {{outlet profile}}
     {{outlet photos}}
     {{outlet articles}}
     {{outlet "profileNew"}}
-
+    
+    
+    
+    
+    
     {{#if controller.islogin}}
     {{render platformBar}}
     {{/if}}

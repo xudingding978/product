@@ -303,7 +303,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
       pShare: function() {
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
         var url = 'http://www.pinterest.com/pin/create/button/?url=' +  encodeURIComponent(currntUrl)+          
-                  '&media='+ encodeURIComponent(this.get('selectedPhoto').get('photo_image_thumbnail_url'))+
+                  '&media='+ encodeURIComponent(this.get('selectedPhoto').get('photo_image_original_url'))+
                   '&description='+encodeURIComponent(this.get('selectedPhoto').get('photo_title'));    
         window.open(
                 url,

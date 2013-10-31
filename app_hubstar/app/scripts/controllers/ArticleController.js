@@ -199,10 +199,6 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     fbShare: function() {
         var that = this;
-        console.log(this.get('selectedPhoto').id);
-        console.log(this.get('selectedPhoto').photo_image_thumbnail_url);
-        console.log(this.get('articleResouce').get("article_body"));
-        console.log(this.get('articleResouce').get("article_headline"));
         var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
         var caption = '';
 
@@ -281,9 +277,10 @@ HubStar.ArticleController = Ember.Controller.extend({
         return false;
     },
     pShare: function() {
+         console.log(this.get('selectedPhoto'));
         var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
-                '&media=' + encodeURIComponent(this.get('selectedPhoto').photo_image_thumbnail_url) +
+                '&media=' + encodeURIComponent(this.get('selectedPhoto').photo_image_original_url) +
                 '&description=' + encodeURIComponent(this.get('articleResouce').get("article_headline"));
         window.open(
                 url,

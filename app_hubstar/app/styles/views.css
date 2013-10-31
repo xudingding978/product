@@ -1173,7 +1173,7 @@ div.album-description-bg{
     border-radius: 50%;
     width: 46px;
     height: 46px;
-    background:#efeded;
+    border: 1px solid #f3f3f3;
 }
 
 .profilepic_effect{
@@ -1189,8 +1189,8 @@ div.album-description-bg{
     position: relative;
     top: 3px;
     display: inline-block;
-    min-width: 178px;
-    max-width:80%;
+    min-width: 170px;
+    width: 60%;
 }
 
 .poster-name{
@@ -1673,18 +1673,6 @@ div.album-description-bg{
     vertical-align: top
 }
 
-.reply-comment{
-    display: inline-block;
-    font-size: 11px;
-    min-height: 16px;
-    padding: 0 0 0 0;
-    position: absolute;
-    right: 0;
-    text-align: right;
-    top: 0;
-    width: 115px;
-}
-
 .comment-content{
     color: #404040;
     font-size: 13px;
@@ -1741,16 +1729,17 @@ div.album-description-bg{
 }
 
 .add-collection_select-collection{
-    width: 335px;
-    height: 250px;
-    padding: 15px;
+    width: 325px;
+    height: 240px;
+    padding: 10px;
     position: absolute;
-    left: 130px;
-    top: 55px;
+    left: 4px;
+    top: 50px;
     background: #fff;
     -webkit-box-shadow: 0 0px 1px #888;
     -moz-box-shadow: 0 0px 1px #888;
     box-shadow: 0 0px 1px #888;
+    z-index: 11;
 }
 
 .edit-btn{

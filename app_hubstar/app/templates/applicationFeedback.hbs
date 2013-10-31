@@ -1,17 +1,17 @@
 
 {{#if controller.feedback}}
-<div id='appfeedback' style='position:fixed; z-index: 100000;text-align: center;top: -80px;width: 100%;'>
+<div id='appfeedback' style=''>
 
     {{#if controller.info}}
 
     <div  class="fresh-profile-pic"style="">
-        <img src="../../../images/trendsideas.jpg" style="height: 80px;width: 80px;z-index: 1;top: -3px;position: relative;"/>
-        <img {{bindAttr src= this.photo_url}} style="height: 80px;width: 80px;z-index: 2;position: absolute;top: -3px;left: 0;"/>
+        <img src="../../../images/trendsideas.jpg"/>
+        <img {{bindAttr src= this.photo_url}}/>
     </div>
     <div class="fresh-message">
         <k class="icon-info-sign"></k>
-        {{controller.status}}
-        <k class="icon-remove" style="float: right;margin: 16px;font-size: 15px;" {{action removeButton }}></k>
+        <span class="feed-back">{{controller.status}}</span>
+        <k class="icon-remove" {{action removeButton }}></k>
     </div>
 
     {{/if}}
@@ -22,13 +22,13 @@
 
 
     <div class="fresh-profile-pic" style="">
-        <img src="../../../images/trendsideas.jpg" style="height: 80px;width: 80px;z-index: 1;top: -3px;position: relative;"/>
-        <img {{bindAttr src= this.photo_url}} style="height: 80px;width: 80px;z-index: 2;position: absolute;top: -3px;left: 0;"/>
+        <img src="../../../images/trendsideas.jpg"/>
+        <img {{bindAttr src= this.photo_url}}/>
     </div>
     <div class="fresh-message fresh_succeed">
         <k class="icon-ok-sign"></k>
-        {{controller.status}}
-        <k class="icon-remove" style="float: right;margin: 16px;font-size: 15px;" {{action removeButton }}></k>
+        <span class="feed-back">{{controller.status}}</span>
+        <k class="icon-remove" {{action removeButton }}></k>
     </div>
 
     {{/if}}
@@ -36,13 +36,13 @@
     {{#if controller.failed}}
 
     <div class="fresh-profile-pic" style="">
-        <img src="../../../images/trendsideas.jpg" style="height: 80px;width: 80px;z-index: 1;top: -3px;position: relative;"/>
-        <img {{bindAttr src= this.photo_url}} style="height: 80px;width: 80px;z-index: 2;position: absolute;top: -3px;left: 0;"/>
+        <img src="../../../images/trendsideas.jpg"/>
+        <img {{bindAttr src= this.photo_url}}/>
     </div>
     <div class="fresh-message fresh_failed">
         <k class="icon-remove-sign"></k>
-        {{controller.status}}
-        <k class="icon-remove" style="float: right;margin: 16px;font-size: 15px;" {{action removeButton }}></k>
+        <span class="feed-back">{{controller.status}}</span>
+        <k class="icon-remove" {{action removeButton }}></k>
     </div>
 
     {{/if}}
@@ -51,13 +51,13 @@
     {{#if controller.warnning}}
 
     <div class="fresh-profile-pic" style="">
-        <img src="../../../images/trendsideas.jpg" style="height: 80px;width: 80px;z-index: 1;top: -3px;position: relative;"/>
-        <img {{bindAttr src= this.photo_url}} style="height: 80px;width: 80px;z-index: 2;position: absolute;top: -3px;left: 0;"/>
+        <img src="../../../images/trendsideas.jpg"/>
+        <img {{bindAttr src= this.photo_url}}/>
     </div>
     <div class="fresh-message fresh_warnning">
         <k class="icon-exclamation-sign"></k>
-        {{controller.status}}
-        <k class="icon-remove" style="float: right;margin: 16px;font-size: 15px;" {{action removeButton }}></k>
+        <span class="feed-back">{{controller.status}}</span>
+        <k class="icon-remove" {{action removeButton }}></k>
     </div>
 
     {{/if}}

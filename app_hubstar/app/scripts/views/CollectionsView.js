@@ -33,5 +33,6 @@ HubStar.CollectionsView = Ember.View.extend({
             columnWidth: 185,
             isFitWidth: true
         });
+
     }
 });

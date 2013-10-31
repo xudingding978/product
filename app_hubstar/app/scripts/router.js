@@ -9,10 +9,10 @@ HubStar.Router.map(function() {
         this.resource("indexIndex", {path: '/'});
         this.resource("photo", {path: '/photos/:photo_id'});
         this.resource("article", {path: '/articles/:article_id'});
-        this.resource("videos", {path: '/videos/:video_id'});
-        this.resource("videos", function() {
-            this.resource("video", {path: ':video_id'});
-        });
+        this.resource("videoes", {path: '/videoes/:video_id'});
+//        this.resource("videoes", function() {
+//            this.resource("video", {path: ':video_id'});
+//        });
         this.resource("files", {path: '/files/:file_id'});
         this.resource("ideabooks", {path: '/ideabooks/:ideabook_id'});
         this.resource("profile", {path: '/profiles/:profile_id'}, function() {

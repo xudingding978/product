@@ -167,20 +167,20 @@
         </div>
         <div class="masonry-object_mainfeature">
             <div class="mainfeature-wrapper">
-                {{#linkTo 'video' this}} 
+                {{#linkTo 'videoes' this}} 
                 <div class="hover-opacity radius-circle easing" style="position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 0;right: 0;box-shadow: 0 0 10px #f3f3f3;">
                     <i class="icon-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
                 </div>
                 {{/linkTo}}
                 <a class="mainfeature-container">
-                    {{#linkTo 'video' this}} <img {{bindAttr src="object_image_url" }} class="this-is-the-object"/>{{/linkTo}}
+                    {{#linkTo 'videoes' this}} <img {{bindAttr src="object_image_url" }} class="this-is-the-object"/>{{/linkTo}}
                 </a>
             </div>              
 
 
             <div class="masonry-object_text">
                 <div style="">
-                    <p style="font-weight: bold;margin-bottom: 5px;">  {{#linkTo 'video' this}}{{object_title}}{{/linkTo}} </p>
+                    <p style="font-weight: bold;margin-bottom: 5px;">  {{#linkTo 'videoes' this}}{{object_title}}{{/linkTo}} </p>
                     <p class="masonry-object_text-container" style="font-size: 11px; max-height: 50px;">{{object_description}}</p>
                 </div>
 

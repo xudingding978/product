@@ -70,7 +70,6 @@ class ProfilesController extends Controller {
             $request_json = file_get_contents('php://input');
             $request_arr = CJSON::decode($request_json, true);
             $tempProfile = $request_arr['profile'];
-            sleep(1);
             $cb = $this->couchBaseConnection();
             $id = $tempProfile['id'];
             $domain = $this->getDomain();
@@ -143,6 +142,7 @@ class ProfilesController extends Controller {
             $oldRecord['keywords'] = $newRecord['profile_keywords'];
             $oldRecord['profile'][0]['profile_keywords_num'] = $newRecord['profile_keywords_num'];
             $oldRecord['keywordsNum'] = $newRecord['profile_keywords_num'];
+            $oldRecord['profile'][0]['show_keyword_id'] = $newRecord['show_keyword_id'];
 //            $oldRecord['profile'][0]['keywords'] = $newRecord['keywords'] ;
 //            $oldRecord['keyword'] = $newRecord['keywords'];
             

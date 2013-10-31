@@ -44,14 +44,18 @@ HubStar.Profile = DS.Model.extend({
     profile_linkedin_link: DS.attr('string'),
     profile_youtube_link: DS.attr('string'),
     profile_analytics_code: DS.attr('string'),
-
     owner: DS.attr('string'),
     owner_contact_email: DS.attr('string'),
     owner_contact_cc_emails: DS.attr('string'),
     owner_contact_bcc_emails: DS.attr('string'),
     followers: DS.hasMany('HubStar.Follower'),
     collections: DS.hasMany('HubStar.Collection'),
-    keywords: DS.hasMany('HubStar.Keyword')
+    keywords: DS.hasMany('HubStar.Keyword'),
+    show_keyword_id: DS.attr('string')
+//    getTenKeywords: function() {
+//        var tenKeywords =  this.get('keywords').slice(0,10);
+//        return tenKeywords;
+//    }.property('keywords')
 });
 
 

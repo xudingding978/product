@@ -166,8 +166,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
         }
 
         if (this.get("controllers.notificationTop").get("reply_ids") !== undefined && this.get("controllers.notificationTop").get("reply_ids") !== null && this.get("controllers.notificationTop").get("reply_ids") !== "")
-        {
-            console.log("ggggggggggggggggggggggggggggggggggggg");
+        {           
             var that = this;
             setTimeout(function() {
                 that.get('controllers.message').seeMore(that.get("controllers.notificationTop").get("reply"));

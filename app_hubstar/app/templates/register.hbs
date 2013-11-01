@@ -321,7 +321,7 @@
                     /* LOGIN TAB:  hiding social login */
 
                     if ($('#social-login-container').css('display') === 'none') {
-                        $('#social-login-container').animate({height: 'toggle'});
+                        $('#social-login-container').animate({height: 'toggle'}); 
                         $('#social-login').addClass('social-active');
                         if ($('#login-with-email-drop-down').css('display') === 'block') {
                             $('#login-with-email-drop-down').animate({height: 'toggle'});
@@ -565,7 +565,7 @@
 
 
                 function loginPane() {
-
+                    
                     if (loginState === false) {
                         $('#login-btn').text('REGISTER');
                         $('.black-tool-tip').css('display', 'none');
@@ -729,7 +729,6 @@
                         newwindow.focus();
                     }
                 }
-
+                
 </script>
-
 

@@ -129,6 +129,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
         $('#dropdown_id_').toggleClass('hideClass');
     },
     switchCollection: function() {
+
+   if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var addCollectionController = this.get('controllers.addCollection');
         var selectid = this.get('selectedPhoto').id;
         addCollectionController.setImageID(selectid);
@@ -137,6 +140,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         addCollectionController.setUser();
         addCollectionController.setRelatedController('photo');
         this.set('collectable', !this.get('collectable'));
+        }
     },
     keydown: function(e) {
         var currKey = 0, e = e || event;

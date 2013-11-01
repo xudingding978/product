@@ -239,7 +239,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
     seeMore: function(id) {
         $('#closeComment').attr('style', 'display:inline-block');
         $('#showMoreComment').attr('style', 'display:none');
-        $('#messageData').attr('style', 'display: block');
+        $('#messageData').attr('style', 'display: block; padding: 5px 20px;');
         $('#masonry_user_container').masonry("reload");
     },
     closeMore: function(id) {

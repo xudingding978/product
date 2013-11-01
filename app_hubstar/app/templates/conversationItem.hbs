@@ -11,11 +11,13 @@
             &nbsp;Conversation
         </div>
         <div class="create-conversation easing hint--left hint--rounded" data-hint="Invite friends to this conversation!" {{action invitePeople id}}><i class="icon-smile"></i></div>
-        <div  id="showMoreComment"  style="line-height: 45px;display:none;"  {{action seeMore target="controller" on="click"}}>
-            <i class="icon-caret-down show-comment_inner" ></i>   
-        </div>
-        <div id="closeComment"   style="line-height: 45px;display: inline-block;" {{action closeMore target="controller" on="click"}}>
-            <i class="icon-caret-up show-comment_inner" ></i>
+        <div class="create-conversation easing" style="position: absolute;right: 0px;  width: 20px;text-align: center;line-height: 70px;">
+            <div  id="showMoreComment"  style="line-height: 45px;display:none;"  {{action seeMore target="controller" on="click"}}>
+                <i class="icon-caret-down show-comment_inner" ></i>   
+            </div>
+            <div id="closeComment"   style="line-height: 45px;display: inline-block;" {{action closeMore target="controller" on="click"}}>
+                <i class="icon-caret-up show-comment_inner" ></i>
+            </div>
         </div>
     </div>
 

@@ -1,13 +1,17 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header('Content-type: *');
 
+header('Access-Control-Request-Method: *');
+header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 class VideosController extends Controller {
 
     const JSON_RESPONSE_ROOT_SINGLE = 'video';
     const JSON_RESPONSE_ROOT_PLURAL = 'videos';
 
     public function actionIndex() {
-
-
+        
     }
 
     public function actionCreate() {
@@ -29,15 +33,15 @@ class VideosController extends Controller {
 
     public function actionRead() {
         try {
+                 $temp = explode("/", $_SERVER['REQUEST_URI']);
+            $id = $temp [sizeof($temp) - 1];
             $cb = $this->couchBaseConnection();
-            $results_arr = $cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']);
+            $docID = $this->getDomain() . "/videos/" . $id;
+    
+            $reponse = $cb->get($docID);
+            $reponse = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
 
-            if ($results_arr) {
-                $result = $this->processGet($results_arr, self::JSON_RESPONSE_ROOT_SINGLE);
-                echo $this->sendResponse(200, $result);
-            } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . $_POST['id'] . '" already exists');
-            }
+            $this->sendResponse(200, $reponse);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
@@ -68,13 +72,6 @@ class VideosController extends Controller {
         }
     }
 
-    public function actionOptions() {
-        try {
-            echo $this->sendResponse(200, "OK");
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-    }
 
 }
 

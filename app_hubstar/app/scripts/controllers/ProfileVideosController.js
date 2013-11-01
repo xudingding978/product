@@ -4,7 +4,6 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
     getVideo: true,
     videoesContent: [],
     init: function() {
-
         var results = HubStar.Mega.find({"RquireType": "video"});
         var that = this;
         results.addObserver('isLoaded', function() {

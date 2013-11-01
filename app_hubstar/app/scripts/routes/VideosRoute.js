@@ -1,24 +1,19 @@
-HubStar.VideoesRoute = Ember.Route.extend({
+HubStar.VideosRoute = Ember.Route.extend({
     //     controller: HubStarlicationController,
     setupController: function(controller, model) {
-        var temp;
-        console.log('VideoesRoute');
-        console.log(controller);
-        console.log(model);
-//        if (model.id === undefined) {                        //reload the page model id can not be find...
-//            var url =  window.location.href;
-//            urlArray = url.split("/");
-//            temp = urlArray[urlArray.length-1];
-//        } else {
-//            temp = model.id;
-//        }
-//            var d = HubStar.Mega.find(temp);
-//            controller.getInitData(d);
+        var tempid;
+
+        if (model.id === undefined) {          //reload the page model id can not be find...
+            var url = window.location.href;
+            urlArray = url.split("/");
+            tempid = urlArray[urlArray.length - 1];
+        } else {
+            tempid = model.id;
+        }
+        controller.getinitdata(tempid);
     },
     model: function(params) {
-        console.log(params);
-//            var model = HubStar.Mega.find({"RequireType": "articles", "article_id": params.article_id});
-            return params;
+        return params;
     },
     activate: function() {
 
@@ -36,7 +31,6 @@ HubStar.VideoesRoute = Ember.Route.extend({
 
     },
     deactivate: function() {
-
 
         setTimeout(function() {
             $("body").css("overflow", "auto");

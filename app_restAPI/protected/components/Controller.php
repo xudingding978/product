@@ -147,7 +147,6 @@ class Controller extends CController {
         if ($requireType == 'search') {
 
  
-
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);
@@ -186,6 +185,11 @@ class Controller extends CController {
             
         }elseif ($requireType == 'video') {
             $response = $this->getVideoesByOwner($returnType);
+        }
+        elseif ($requireType == 'singleVideo') {
+          $videoid = $this->getUserInput($requireParams[1]);
+              $response = $this->getRequestResultByID($returnType, $videoid);
+              error_log(var_export($response,true));
         } 
         else {
             
@@ -289,7 +293,7 @@ class Controller extends CController {
                 ->field('couchbaseDocument.doc.id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->should($should);
         $response = $request->query($bool)->execute();
-        if ($returnType == "mega" || $returnType == "megas") {
+        if ($returnType == "mega" ) {
             $results = '{"' . $returnType . '":';
             $i = 0;
             foreach ($response as $hit) {
@@ -300,7 +304,19 @@ class Controller extends CController {
                 }
             }
             $results .= '}';
-        } else {
+        }else if( $returnType == "megas") {
+            $results = '{"' . $returnType . '":[';
+            $i = 0;
+            foreach ($response as $hit) {
+                $results .= CJSON::encode($hit['source']['doc']);
+
+                if (++$i < count($response)) {
+                    $results .= ',';
+                }
+            }
+            $results .= ']}';
+        }  
+        else {
             $results = '{"' . $returnType . '":';
             $i = 0;
             foreach ($response as $hit) {

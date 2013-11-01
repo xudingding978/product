@@ -71,24 +71,25 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
 
             var data = null;
             var isNewConversation = HubStar.get("newConversation");
-            if (isNewConversation)
+            var isTalk = HubStar.get("talkConversation");
+            if (isNewConversation||isTalk)
             {
                 data = this.controllerFor('conversation').get("conversationContent").objectAt(0);
                 data.set("id", data.get("conversationID")); //it is use for the new conversation
-
             }
             else {
-                for (var i = 0; i < user.get('conversations').get("length"); i++) {
-                    data = user.get('conversations').objectAt(i);
+                for (var i = 0; i < this.controllerFor('conversation').get("conversationContent").length; i++) {
+                    data =  this.controllerFor('conversation').get("conversationContent").objectAt(i);
 
-                    if (data.get("conversation_id") === conversation_id) {
+                    if (data.get("conversationID") === conversation_id) {
 
-                        data.set("id", data.get("conversation_id"));
+                        data.set("id", data.get("conversationID"));
                         break;
                     }
                 }
             }
             HubStar.set("newConversation", false);
+            HubStar.set("talkConversation",false);
             this.controllerFor("conversation").selectConversation(data.get("id"));
             this.transitionTo("conversation", data);
         }

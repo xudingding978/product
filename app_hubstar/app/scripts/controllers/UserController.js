@@ -22,7 +22,7 @@ HubStar.UserController = Ember.Controller.extend({
     age: "",
     userTage: true,
     currentUserID: "",
-    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor', 'userMessage', 'messageCenter'],
+    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor', 'userMessage', 'messageCenter','talk'],
     facebook: "",
     twitter: "",
     follow_status: false,
@@ -72,9 +72,15 @@ HubStar.UserController = Ember.Controller.extend({
     interestsActive: false,
     isUpload: false,
     loadingTime: false,
+    isTalk: false,
     init: function()
     {
 
+    },
+    talkToPeople: function() {
+        this.set("isTalk", true);             
+        this.get("controllers.talk").set("owner_photo_url", this.get("photo_url_large"));     
+        this.get("controllers.talk").set("displayName", this.get("display_name"));
     },
     isUserSelfOrNot: function(currentUserID) {
         this.set("isUserSelf", false);

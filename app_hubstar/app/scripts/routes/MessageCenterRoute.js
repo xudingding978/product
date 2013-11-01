@@ -54,7 +54,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
         else {
             this.controllerFor('messageCenter').getClientId(model);
         }
-        $(window).scrollTop(0);
+        $(window).scrollTop(550);
     },
     model: function(params) {
         var address = document.URL;

@@ -10,7 +10,7 @@ HubStar.MessagesRoute = Ember.Route.extend({
 
         this.controllerFor('user').set('profileSelectionStatus', 'Messages');
         this.controllerFor('messageCenter').selectMessage(model);
-          if (this.controllerFor('notification').get("reply_ids") !== undefined && this.controllerFor('notification').get("reply_ids") !== null && this.controllerFor('notification').get("reply_ids") !== "")
+        if (this.controllerFor('notification').get("reply_ids") !== undefined && this.controllerFor('notification').get("reply_ids") !== null && this.controllerFor('notification').get("reply_ids") !== "")
         {
             model = this.controllerFor('notification').get("reply_ids");
         }
@@ -18,6 +18,7 @@ HubStar.MessagesRoute = Ember.Route.extend({
         {
             model = this.controllerFor('notificationTop').get("reply_ids");
         }
+        $(window).scrollTop(550);
     },
     model: function(params) {
         var user_id = "";

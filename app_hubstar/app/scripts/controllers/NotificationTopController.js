@@ -204,9 +204,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                     break;
                 }
             }
-            // this.get("controllers.conversation").selectConversation(conversationID);
             this.transitionToRoute('user', user);
-            //this.transitionToRoute('messageCenter');
             this.transitionToRoute('conversation', data);
             this.get('controllers.messageCenter').getClientId(localStorage.loginStatus, conversationID);
             //   $(window).scrollTop(2000);
@@ -232,7 +230,6 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             $(window).scrollTop(550);
         });
         this.reviewCancel();
-        //   $(window).scrollTop(2000);
     },
     gotoMessage: function(id)
     {

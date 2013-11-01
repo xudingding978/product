@@ -25,7 +25,8 @@ HubStar.ReviewListController = Ember.Controller.extend({
         this.set("profile", this.get("controllers.profile").get('currentUserID'));
         this.set("profileReview", this.get("controllers.profile").get('reviews'));
         this.set("profileName", this.get("controllers.profile").get('profile_name'));
-
+      
+        this.getReviewId(HubStar.Review.find(this.get("profile")));
 
     },
     setUserReviews: function(reviews) {
@@ -44,7 +45,7 @@ HubStar.ReviewListController = Ember.Controller.extend({
         var that = this;
         requiredBackEnd('reviews', 'Read', data, 'POST', function(params) {
 
-            that.set("reviewContent", []);
+          that.set("reviewContent", []);
             for (var i = 0; i < params.length; i++)
             {
                 //First reply message and it is the last one of message and it contail the reply message collection
@@ -64,10 +65,10 @@ HubStar.ReviewListController = Ember.Controller.extend({
                 //  dataNew["replyCount"] = params[i]["replyReviewCollection"].length - 1;
 
                 dataNew["replyReviewCollection"] = new Array();  // replyMessageCollection is used to store all the replyMessage except the last one which is the first Reply.
-                for (var j = 0; j < params[i]["replyReviewCollection"].length; j++)
+                for (var j = 0; j < params[i]["replyReviewCollection"].get("length"); j++)
                 {
                     var dataReply = new Array();
-
+ 
                     dataReply["review_reply_id"] = params[i]["replyReviewCollection"][j]["review_reply_id"];
                     dataReply["review_user_id"] = params[i]["replyReviewCollection"][j]["review_user_id"];
                     dataReply["review_time_stamp"] = params[i]["replyReviewCollection"][j]["review_time_stamp"];
@@ -97,26 +98,8 @@ HubStar.ReviewListController = Ember.Controller.extend({
             that.set('loadingTime', false);
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reload");
-            }, 20);
-//            setTimeout(function() {
-//                $('#masonry_user_container').masonry("reloadItems");
-//                $("#content_4").mCustomScrollbar({
-//                    scrollButtons: {
-//                        enable: false,
-//                        scrollSpeed: "auto"
-//                    },
-//                    advanced: {
-//                        updateOnBrowserResize: true,
-//                        updateOnContentResize: true,
-//                        autoScrollOnFocus: false,
-//                        normalizeMouseWheelDelta: false
-//                    },
-//                    autoHideScrollbar: true,
-//                    mouseWheel: true,
-//                    theme: "dark-2",
-//                    set_height: 1000
-//                });
-//            }, 200);
+            }, 200);
+            
 
         });
 
@@ -147,11 +130,10 @@ HubStar.ReviewListController = Ember.Controller.extend({
     },
     addReviewReply: function(reviewID) {
        
-        
-        var replyContent = this.get("replyReviewContent"); //replyContent is just the user input txt, it is not a whole reply object
-  
-      
-        console.log(this.get("replyReviewContent"));
+       
+      var replyContent = this.get("replyReviewContent"); //replyContent is just the user input txt, it is not a whole reply object
+//      var replyContent = $('#'+ reviewID).val();
+      console.log(replyContent);
         if (replyContent) {
             //      this.set("isReply", false);
             var replyUserID = this.get("currentUser").get('id');
@@ -159,7 +141,7 @@ HubStar.ReviewListController = Ember.Controller.extend({
             var ownerID = this.get("controllers.profile").get('currentUserID');
             var newStyleImage = "";
             var imageStyleName = "";
-            console.log("ddfsgdfgsdfg");
+          
             if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
             {
                 newStyleImage = this.get("newStyleImageSource");
@@ -188,14 +170,15 @@ HubStar.ReviewListController = Ember.Controller.extend({
             var tempReply = [replyUserID, replyDate.toString(), replyContent, ownerID, newStyleImage, imageType, imageStyleName, replyReviewID, reviewID];
             tempReply = JSON.stringify(tempReply);
             var that = this;
-            console.log(tempReply);
             var dataNew = new Array();
             requiredBackEnd('reviews', 'CreateReviewReply', tempReply, 'POST', function(params) {
                 //          that.set("isReply", true);
-                for (var i = 0; i < that.get("controllers.profile").get('reviews').get("length"); i++)
+
+                for (var i = 0; i < that.get('reviewContent').get("length"); i++)
                 {
-                    if (that.get("controllers.profile").get('reviews').objectAt(i).get("review_id") === params["review_id"])
+                    if (that.get('reviewContent').objectAt(i).get("review_id") === params["review_id"])
                     {
+                        
                         dataNew["review_reply_id"] = params["replyReviewCollection"][0]["review_reply_id"];
                         dataNew["review_user_id"] = params["replyReviewCollection"][0]["review_user_id"];
                         dataNew["review_time_stamp"] = params["replyReviewCollection"][0]["review_time_stamp"];
@@ -204,9 +187,6 @@ HubStar.ReviewListController = Ember.Controller.extend({
                         dataNew["review_photo_url_large"] = params["replyReviewCollection"][0]["review_photo_url_large"];
                         dataNew["review_url"] = params["replyReviewCollection"][0]["review_url"];
                         dataNew["review_enableToEdit"] = false;
-
-//                        var replyLength = that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyCount") + 1;
-//                        that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
 
                         if (params["replyReviewCollection"][0]["review_user_id"] === localStorage.loginStatus)
                         {
@@ -222,24 +202,25 @@ HubStar.ReviewListController = Ember.Controller.extend({
                         }
 
 
-                        if (that.get("controllers.profile").get('reviews').objectAt(i).get("replyReviewCollection") !== undefined)
+                        if (that.get('reviewContent').objectAt(i).get("replyReviewCollection") !== undefined)
                         {
-                            that.get("controllers.profile").get('reviews').objectAt(i).get("replyReviewCollection").insertAt(0, dataNew);
+                            that.get('reviewContent').objectAt(i).get("replyReviewCollection").insertAt(0, dataNew);
                         }
                         else
                         {
-                            that.get("controllers.profile").get('reviews').objectAt(i).set("replyReviewCollection", dataNew);
+                            that.get('reviewContent').objectAt(i).set("replyReviewCollection", dataNew);
                         }
-                        dataNew["replyReviewCollection"] = new Array();
-
+                  //      dataNew["replyReviewCollection"] = new Array();
+                       console.log(dataNew);
                     }
                     that.set("isUploadPhoto", false);
                 }
-                dataNew = new Array();
+                dataNew = new Array();   
+                that.set("replyReviewContent", "");
                 setTimeout(function() {
                     $('#masonry_user_container').masonry("reload");
                 }, 200);
-                that.set('replyContent', "");
+              
                 that.set('newStyleImageSource', null);
                 that.set('newStyleImageName', "");
             });
@@ -252,9 +233,10 @@ HubStar.ReviewListController = Ember.Controller.extend({
 
             }, 200);
         }
+        
     },
     close: function() {
-        this.set('replyContent', "");
+       this.set("replyReviewContent", "");
         this.set('newStyleImageSource', null);
         this.set('newStyleImageName', "");
     },

@@ -8,6 +8,7 @@ DS.RESTAdapter.map('HubStar.Review', {
 
 
 HubStar.Review = DS.Model.extend({
+    review_id: DS.attr('string'),
     review_user_photo_url: DS.attr('string'),
     review_user_name: DS.attr('string'),
     review_user_id: DS.attr('string'),
@@ -16,8 +17,7 @@ HubStar.Review = DS.Model.extend({
     review_is_delete: DS.attr('boolean'),
     review_is_edit: DS.attr('boolean'),
     review_is_reply: DS.attr('boolean'),
-    review_star_rating_value: DS.attr('number'),
-    review_id: DS.attr('string'),
+    review_star_rating_value: DS.attr('number'),  
     review_count: DS.attr('string'),
     review_length: DS.attr('string'),
     review_like_count:DS.attr('number'),

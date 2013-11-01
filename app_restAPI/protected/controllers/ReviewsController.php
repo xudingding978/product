@@ -32,7 +32,7 @@ class ReviewsController extends Controller {
         }
         $newRecord['review']['replyReviewCollection'] =array();  
         array_unshift($oldRecord['profile'][0]['reviews'], $newRecord['review']);
-         error_log(var_export($newRecord['review'],true));
+       
         $average = $this->calculateReviewAverage($oldRecord['profile'][0]['reviews']);
         $averageLength=$average*20;
         $oldRecord['profile'][0]['profile_average_review'] = $average;
@@ -108,7 +108,7 @@ class ReviewsController extends Controller {
             $commenterInfoDeep = $cbs->get($commenterInfo); // get the old user record from the database according to the docID string
             $oldcommenterInfo = CJSON::decode($commenterInfoDeep, true);
 
-            $newReply["review_user_name"] = $oldcommenterInfo['user'][0]["first_name"] +  $oldcommenterInfo['user'][0]["last_name"];
+            $newReply["review_user_name"] = $oldcommenterInfo['user'][0]["display_name"] ;
             $newReply["review_photo_url_large"] = $oldcommenterInfo['user'][0]["photo_url_large"];
 
             if ($newStyleImage !== null && $photo_name !== "") {
@@ -123,9 +123,9 @@ class ReviewsController extends Controller {
                 $url = $photoController->saveCommentPhotoInTypes($orig_size, "user_cover_small", $photo_name, $compressed_photo, $data_arr, $replyUserID, null, $replyReviewID);
 
 
-                $newReply["url"] = $url;
+                $newReply["review_url"] = $url;
             } else {
-                $newReply["url"] = null;
+                $newReply["review_url"] = null;
             }
 //$newReplyJason= CJSON::encode($newReply);
            
@@ -133,13 +133,16 @@ class ReviewsController extends Controller {
             for ($i = 0; $i < sizeof($oldRecordDeep['profile'][0]["reviews"]); $i++) {
                 $currentReply = $oldRecordDeep['profile'][0]["reviews"][$i];
                 if ($currentReply["review_id"] === $reviewID) {
+                    error_log(var_export($newReply,true));
 
-                    if (isset($oldRecordDeep['profile'][0]["reviews"])) {
-                        array_unshift($oldRecordDeep['user'][0]["reviews"][$i]["replyReviewCollection"], $newReply);
-                    } else {
-                        $oldRecordDeep['profile'][0]["reviews"] = array();
-                        array_unshift($oldRecordDeep['profile'][0]["reviews"][$i]["replyReviewCollection"], $newReply);
-                    }
+                        if(isset($oldRecordDeep['profile'][0]["reviews"][$i]["replyReviewCollection"])){
+                            array_unshift($oldRecordDeep['profile'][0]["reviews"][$i]["replyReviewCollection"], $newReply);
+                        }   
+                        else{
+                            $oldRecordDeep['profile'][0]["reviews"][$i]["replyReviewCollection"] = $newReply;
+                        }
+                          
+                 
                     $currentReply = $oldRecordDeep['profile'][0]["reviews"][$i];
                     break;
                 }

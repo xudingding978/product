@@ -430,7 +430,7 @@ input{
 }
 
 div#appfeedback{
-    
+
     position:fixed;
     z-index: 100000;
     text-align: center;
@@ -440,30 +440,30 @@ div#appfeedback{
 
 div#appfeedback div.fresh-profile-pic > img:first-child
 {
-   height: 80px;
-   width: 80px;
-   z-index: 1;
-   top: -3px;
-   position: relative; 
+    height: 80px;
+    width: 80px;
+    z-index: 1;
+    top: -3px;
+    position: relative; 
 }
 div#appfeedback div.fresh-profile-pic > img:last-child
 {
-   height: 80px;
-   width: 80px;
-   z-index: 2;
-   position: absolute;
-   top: -3px;
-   left: 0;
+    height: 80px;
+    width: 80px;
+    z-index: 2;
+    position: absolute;
+    top: -3px;
+    left: 0;
 }
 div#appfeedback .fresh-message > span.feed-back{float:left;max-width:85%;overflow:hidden;margin-left:10%;text-align:left;}
 
 div#appfeedback .fresh-message > k.icon-remove{
-   position:absolute;
-   top:1px;
-   right:2px;
-   font-size:16px;
-   margin:0;
-   
+    position:absolute;
+    top:1px;
+    right:2px;
+    font-size:16px;
+    margin:0;
+
 }
 div#appfeedback .fresh-message k.icon-ok-sign{
     position:absolute;
@@ -499,7 +499,7 @@ div#appfeedback .fresh-message k.icon-ok-sign{
     position: relative;
     vertical-align: top;
     margin-left: -20px;
-    
+
     overflow:hidden;
 }
 
@@ -1029,3 +1029,65 @@ textarea.add-interests{
 #google-map:hover > .enlarge-map{
     opacity: .8;
 }
+
+
+
+#directionsPanel .adp-placemark {
+    background: #f3f3f3;
+    border: 1px solid #ddd;
+    color: #333;
+    vertical-align: middle;
+}
+
+#directionsPanel .adp, #directionsPanel .adp table, #directionsPanel .adp-list{
+    font-family: Roboto,Arial,sans-serif;
+    font-weight: 300;
+    color: #333;
+    font-size: 13px;
+}
+
+#directionsPanel img.adp-marker {
+    width: 22px;
+    height: 40px;
+    margin: 10px 30px 10px 10px;
+}
+
+
+#directionsPanel .adp-summary {
+    padding: 0 3px 3px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: -8px;
+}
+
+
+#directionsPanel .adp b, .adp-list b {
+    font-weight: 600;
+}
+
+#directionsPanel .adp-legal{
+    font-size: 11px;
+}
+
+#directionsPanel .adp-step, #directionsPanel .adp-subste {
+    border-top: 1px solid #cdcdcd;
+    margin: 0;
+    padding: .3em 3px;
+    vertical-align: top;
+    line-height: 18px;
+}
+
+#directionsPanel .adp-list img, .adp-substep img {top: -1px;}
+
+#directionsPanel .adp-agencies {
+    font-size: 80%;
+    margin: 5px 15px;
+}
+
+#directionsPanel .adp-step:first-child, #directionsPanel .adp-substep:first-child {padding: .3em 3px .3em 10px !important;}
+
+#directionsPanel .adp-step:last-child, #directionsPanel .adp-substep:last-child {padding: .3em 10px .3em 3px;}
+
+#directionsPanel .adp-directions > tbody > tr:nth-child(odd){background-color: #fff}
+#directionsPanel .adp-directions > tbody > tr:nth-child(even){background-color: #f3f3f3}

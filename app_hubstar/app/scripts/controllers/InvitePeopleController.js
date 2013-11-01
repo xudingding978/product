@@ -47,11 +47,11 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
             }
             else
             {
-                
+
                 if (conversationID !== undefined) {
                     var participation_id = new Array();
                     participation_id = that.get("conversationItem").get("participation_ids").split(',');
-                    
+
                 }
                 for (var i = 0; i < params.length; i++)
                 {
@@ -71,7 +71,7 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
                             if (participation_id[j] === params[i]["record_id"])
                             {
                                 flag = true;
-                                
+
                                 break;
                             }
                         }
@@ -111,6 +111,7 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
         {
             this.get("controllers.conversationItem").set("isAdded", true);
             this.get("controllers.conversationItem").set("contentFollowerPhoto", this.get("contentFollowerPhoto"));
+            this.get("controllers.conversationItem").set("isNewPeople", true);
             this.get("controllers.conversationItem").set("isInvitePeople", false);
         }
         this.set("contentFollowerPhoto", null);

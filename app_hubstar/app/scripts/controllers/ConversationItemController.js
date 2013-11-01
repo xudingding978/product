@@ -20,6 +20,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
     isInvitePeople: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversation', 'invitePeople', 'newConversation'],
     isUploadPhoto: false,
+    isNewPeople: false,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -35,7 +36,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         this.set("isUploadPhoto", false);
     },
     getClientIdAdd: function(id) {
-         var conversationContent = this.get('controllers.conversation').get("conversationContent");
+        var conversationContent = this.get('controllers.conversation').get("conversationContent");
         this.set("id", id);
         for (var i = 0; i < conversationContent.length; i++)
         {
@@ -213,13 +214,39 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         this.get("controllers.invitePeople").getClientId(localStorage.loginStatus, id);
     },
     addToList: function(id) {
+        var count = 0;
         for (var i = 0; i < this.get("contentFollowerPhoto").length; i++)
         {
             if (this.get("contentFollowerPhoto").objectAt(i).get("id") === id)
             {
                 this.get("contentFollowerPhoto").objectAt(i).set("isAdd", !this.get("contentFollowerPhoto").objectAt(i).get("isAdd"));
             }
+            if (this.get("contentFollowerPhoto").objectAt(i).get("isAdd") === true)
+            {
+                count++;
+            }
         }
+        console.log(count);
+        if (count !== 0)
+        {
+            this.set("isNewPeople", true);
+        }
+        else
+        {
+            this.set("isNewPeople", false);
+        }
+    },
+    seeMore: function(id) {
+        $('#closeComment').attr('style', 'display:inline-block');
+        $('#showMoreComment').attr('style', 'display:none');
+        $('#messageData').attr('style', 'display: block');
+        $('#masonry_user_container').masonry("reload");
+    },
+    closeMore: function(id) {
+        $('#closeComment').attr('style', 'display:none');
+        $('#showMoreComment').attr('style', 'display:inline-block');
+        $('#messageData').attr('style', 'display: none');
+        $('#masonry_user_container').masonry("reload");
     },
     profileStyleImageDrop: function(e, name)
     {

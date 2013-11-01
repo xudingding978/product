@@ -11,15 +11,21 @@
             &nbsp;Conversation
         </div>
         <div class="create-conversation easing hint--left hint--rounded" data-hint="Invite friends to this conversation!" {{action invitePeople id}}><i class="icon-smile"></i></div>
+        <div  id="showMoreComment"  style="line-height: 45px;display:none;"  {{action seeMore target="controller" on="click"}}>
+            <i class="icon-caret-down show-comment_inner" ></i>   
+        </div>
+        <div id="closeComment"   style="line-height: 45px;display: inline-block;" {{action closeMore target="controller" on="click"}}>
+            <i class="icon-caret-up show-comment_inner" ></i>
+        </div>
     </div>
 
-    <div style="position: relative; width: 100%; border-bottom: 1px solid #ddd;">
-        <div style="line-height: 45px;text-align: center;position: absolute;right: 0;top: 0;width: 45px;height: 45px;cursor: pointer;margin: 15px 0;"><k class="icon-caret-up"></k></div>
-        <div style="padding: 5px  15px;margin-left: 10px;">
+    <div style="position: relative; width: 100%; border-bottom: 1px solid #ddd;">       
+        <div id="messageData"  style="padding: 5px  15px;margin-left: 10px; display: inline-block;">
             {{#each  contentFollowerPhotoOld}}     
             <img class="profilepic_comment radius-circle"  style=" box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;margin:10px 5px;" {{bindAttr src= this.photo_url}} />                
             {{/each}}
         </div>
+        {{#if isNewPeople}}
         <div style="padding:5px 15px;background-color: #f4f6f8;">
             {{#each  contentFollowerPhoto}}
             {{#if this.isAdd}}
@@ -30,6 +36,7 @@
             {{/if}}
             {{/each}}
         </div>
+        {{/if}}
     </div>
 
     <div  style="width: 100%;padding: 20px 6.5%;margin: 0 auto;overflow: hidden;border-bottom: 1px solid #ddd;">

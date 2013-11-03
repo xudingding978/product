@@ -25,6 +25,11 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             model = replyID;
             this.controllerFor('notificationTop').set("goReply", false);
         }
+        if (this.controllerFor('notificationTop').get("notificationSeeAll") === true)
+        {
+            model = localStorage.loginStatus;
+            this.controllerFor('notificationTop').set("notificationSeeAll",false) ;          
+        }
         if (this.controllerFor('notificationTop').get("goMessage") !== undefined && this.controllerFor('notificationTop').get("goMessage") !== null && this.controllerFor('notificationTop').get("goMessage") !== "")
         {
             model = localStorage.loginStatus;
@@ -41,6 +46,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             //this.controllerFor('notification').set("reply_ids", "");
 
         }
+        console.log(model);
         if (this.controllerFor('notificationTop').get("goConversation") === true)
         {
             model = localStorage.loginStatus;
@@ -72,14 +78,14 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             var data = null;
             var isNewConversation = HubStar.get("newConversation");
             var isTalk = HubStar.get("talkConversation");
-            if (isNewConversation||isTalk)
+            if (isNewConversation || isTalk)
             {
                 data = this.controllerFor('conversation').get("conversationContent").objectAt(0);
                 data.set("id", data.get("conversationID")); //it is use for the new conversation
             }
             else {
                 for (var i = 0; i < this.controllerFor('conversation').get("conversationContent").length; i++) {
-                    data =  this.controllerFor('conversation').get("conversationContent").objectAt(i);
+                    data = this.controllerFor('conversation').get("conversationContent").objectAt(i);
 
                     if (data.get("conversationID") === conversation_id) {
 
@@ -89,7 +95,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
                 }
             }
             HubStar.set("newConversation", false);
-            HubStar.set("talkConversation",false);
+            HubStar.set("talkConversation", false);
             this.controllerFor("conversation").selectConversation(data.get("id"));
             this.transitionTo("conversation", data);
         }

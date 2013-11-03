@@ -20,7 +20,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
-        var that =this;
+        var that = this;
         if (localStorage.loginStatus) {
             var loginUser = HubStar.User.find(localStorage.loginStatus);
             loginUser.addObserver('isLoaded', function() {
@@ -131,50 +131,42 @@ HubStar.UserMessageController = Ember.Controller.extend({
     },
     goToMessage: function(s)
     {
-        if (localStorage.loginStatus === this.get("controllers.notification").get("reply_ids"))
-        {
-            $("#content_message").mCustomScrollbar("scrollTo", s);
-        }
-        else {
+        var that = this;
+        $(document).ready(function() {
             setTimeout(function() {
                 $("#content_message").mCustomScrollbar("scrollTo", s);
-            }, 200);
-        }
-
-        if (this.get("controllers.notification").get("reply_ids") !== undefined && this.get("controllers.notification").get("reply_ids") !== null && this.get("controllers.notification").get("reply_ids") !== "")
-        {
-            var that = this;
-            setTimeout(function() {
-                that.get('controllers.message').seeMore(that.get("controllers.notification").get("reply"));
-            }, 200);
-            this.get('controllers.notification').set("reply_ids", "");
-        }
-        this.get('controllers.notification').set("goMessage", "");
+                if (that.get("controllers.notification").get("reply_ids") !== undefined && that.get("controllers.notification").get("reply_ids") !== null && that.get("controllers.notification").get("reply_ids") !== "")
+                {
+                    var thatthat = that;
+                    setTimeout(function() {
+                        thatthat.get('controllers.message').seeMore(that.get("controllers.notification").get("reply"));
+                    }, 50);
+                    that.get('controllers.notification').set("reply_ids", "");
+                }
+                that.get('controllers.notification').set("goMessage", "");
+            });
+        }, 50);
     },
     goToMessageTop: function(s)
     {
-        if (localStorage.loginStatus === this.get("controllers.notificationTop").get("reply_ids"))
-        {
+        var that = this;
+        $(document).ready(function() {
             setTimeout(function() {
                 $("#content_message").mCustomScrollbar("scrollTo", s);
-            }, 500);
-        }
-        else {
-            setTimeout(function() {
-                $("#content_message").mCustomScrollbar("scrollTo", s);
-            }, 500);
-        }
+                if (that.get("controllers.notificationTop").get("reply_ids") !== undefined && that.get("controllers.notificationTop").get("reply_ids") !== null && that.get("controllers.notificationTop").get("reply_ids") !== "")
+                {
+                    var thatthat = that;
+                    setTimeout(function() {
+                        thatthat.get('controllers.message').seeMore(that.get("controllers.notificationTop").get("reply"));
+                    }, 50);
+                    that.get('controllers.notificationTop').set("reply_ids", "");
+                }
 
-        if (this.get("controllers.notificationTop").get("reply_ids") !== undefined && this.get("controllers.notificationTop").get("reply_ids") !== null && this.get("controllers.notificationTop").get("reply_ids") !== "")
-        {           
-            var that = this;
-            setTimeout(function() {
-                that.get('controllers.message').seeMore(that.get("controllers.notificationTop").get("reply"));
-            }, 1000);
-            this.get('controllers.notificationTop').set("reply_ids", "");
-        }
-        this.get('controllers.notificationTop').set("goMessage", "");
-    },
+                that.get('controllers.notificationTop').set("goMessage", "");
+            }, 50);
+        });
+    }
+    ,
     removeMessage: function(Message_id)
     {
 
@@ -209,7 +201,8 @@ HubStar.UserMessageController = Ember.Controller.extend({
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
         }, 200);
-    },
+    }
+    ,
     removePic: function() {
         this.set('newStyleImageSource', null);
         this.set('newStyleImageName', "");

@@ -5,8 +5,10 @@
 
 
 HubStar.NotificationsRoute = Ember.Route.extend({
+    setupController: function(controller, model) {
 
-    setupController: function(controller, model) {       
+        model = localStorage.loginStatus;
+
         this.controllerFor('messageCenter').selectNotification(model);
 
         setTimeout(function() {

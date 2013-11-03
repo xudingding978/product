@@ -33,7 +33,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('search_string', '');
     },
     popupModal: function() {
-        this.set('popup', !this.get('popup'));
+         HubStar.set('checkLoginStatus',true);
     },
     email_login: function() {
         this.set('mail', !this.get('mail'));

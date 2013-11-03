@@ -597,6 +597,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }, 200);
     },
     selectPartner: function(model) {
+ if (this.get("controllers.checkingLoginStatus").popupLogin())
+{
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Partners');
         HubStar.set("lastPositionId", model.id);
@@ -611,9 +613,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
-
+}
     },
     selectFollower: function(model) {
+
+ if (this.get("controllers.checkingLoginStatus").popupLogin())
+     {
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Followers');
         $('#user-stats > li').removeClass('selected-user-stats');
@@ -629,7 +634,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
-
+    }
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));

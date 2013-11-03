@@ -2457,12 +2457,14 @@ var e=function(){},t=0,r=this.document,n=r&&"createRange"in r&&"undefined"!=type
  */
 function getRestAPIURL()
 {
+
 //    var api_url = document.domain;
 //    api_url = "http://api." + api_url;
 //    console.log(api_url);
 //    return api_url;
-   var api_url = document.domain;
-   
+    var api_url = document.domain;
+
+
     api_url = "http://api." + api_url;
     return api_url;
 }
@@ -2488,6 +2490,7 @@ function createMessageid() {
             dateObject.getTime().toString();
     return  result.toString();
 }
+
 function removeZero(string)
 {
 
@@ -2546,7 +2549,6 @@ function getImageWidth(imgSrc, callback) {
 function requiredBackEnd(controller, method, para, ajaxType, callback) {
     {
         var tempurl = getRestAPIURL();
-     
         $.ajax({
             url: tempurl + '/' + controller + '/' + method,
             type: ajaxType,
@@ -2557,7 +2559,7 @@ function requiredBackEnd(controller, method, para, ajaxType, callback) {
             }
         });
     }
- 
+
 
 }
 function getTarget(obj, type) {
@@ -2576,7 +2578,7 @@ function getTarget(obj, type) {
 
 
 
-    
+
 
 // variables
 var canvas, ctx;
@@ -12484,18 +12486,6 @@ rangy.createModule("DomRange", function(api, module) {
                                                         event.preventDefault();
                                                     }
 
-<<<<<<< HEAD
-    $('#panel').mousemove(function(e) { // binding mouse move event
-        
-        var canvasOffset = $(canvas).offset();
-        iMouseX = Math.floor(e.pageX - canvasOffset.left);
-        iMouseY = Math.floor(e.pageY - canvasOffset.top);
-     $ ('#log').text( "width: " + parseInt(theSelection.w * xRation) + ", Height: " +  parseInt(theSelection.h * yRation) );
-   
-      
-        // in case of drag of whole selector and limit for the size of selection
-        if (theSelection.bDragAll) {
-=======
                                                     event.stopPropagation();
                                                 });
                                             };
@@ -12528,7 +12518,6 @@ rangy.createModule("DomRange", function(api, module) {
                                                             this.editor = editor;
                                                             this.container = typeof(container) === "string" ? document.getElementById(container) : container;
                                                             this.composer = editor.composer;
->>>>>>> 05260ad97506587af8b5a3703761b9c7a6e26cac
 
                                                             this._getLinks("command");
                                                             this._getLinks("action");
@@ -12850,13 +12839,6 @@ rangy.createModule("DomRange", function(api, module) {
                                                 supportTouchDevices: true
                                             };
 
-<<<<<<< HEAD
-        drawScene();
-          
-        
-        
-    });
-=======
                                             wysihtml5.Editor = wysihtml5.lang.Dispatcher.extend(
                                                     /** @scope wysihtml5.Editor.prototype */ {
                                                         constructor: function(textareaElement, config) {
@@ -12865,7 +12847,6 @@ rangy.createModule("DomRange", function(api, module) {
                                                             this.textarea = new wysihtml5.views.Textarea(this, this.textareaElement, this.config);
                                                             this.currentView = this.textarea;
                                                             this._isCompatible = wysihtml5.browser.supported();
->>>>>>> 05260ad97506587af8b5a3703761b9c7a6e26cac
 
                                                             // Sort out unsupported/unwanted browsers here
                                                             if (!this._isCompatible || (!this.config.supportTouchDevices && wysihtml5.browser.isTouchDevice())) {
@@ -12980,19 +12961,6 @@ d,a,e),l[c.key][d?"unshift":"push"]({callback:b,modifiers:c.modifiers,action:c.a
 unbind:function(a,b){return m.bind(a,function(){},b)},trigger:function(a,b){if(q[a+":"+b])q[a+":"+b]({},a);return this},reset:function(){l={};q={};return this},stopCallback:function(a,b){return-1<(" "+b.className+" ").indexOf(" mousetrap ")?!1:"INPUT"==b.tagName||"SELECT"==b.tagName||"TEXTAREA"==b.tagName||b.isContentEditable},handleKey:function(a,b,c){var d=C(a,b,c),e;b={};var f=0,g=!1;for(e=0;e<d.length;++e)d[e].seq&&(f=Math.max(f,d[e].level));for(e=0;e<d.length;++e)d[e].seq?d[e].level==f&&(g=!0,
 b[d[e].seq]=1,x(d[e].callback,c,d[e].combo)):g||x(d[e].callback,c,d[e].combo);d="keypress"==c.type&&I;c.type!=u||w(a)||d||t(b);I=g&&"keydown"==c.type}};J.Mousetrap=m;"function"===typeof define&&define.amd&&define(m)})(window,document);
 
-<<<<<<< HEAD
-function getResults() {
-    var temp_ctx, temp_canvas;
-    temp_canvas = document.createElement('canvas');
-    temp_ctx = temp_canvas.getContext('2d');
-    temp_canvas.width = theSelection.w * xRation;
-    temp_canvas.height = theSelection.h * yRation;
-    temp_ctx.drawImage(image, theSelection.x * xRation, theSelection.y * yRation, theSelection.w * xRation, theSelection.h * yRation, 0, 0, theSelection.w * xRation, theSelection.h * yRation);
-    var vData = temp_canvas.toDataURL();
-    return vData;
-}
-=======
->>>>>>> 05260ad97506587af8b5a3703761b9c7a6e26cac
 /*mousewheel*/
 (function(a){function d(b){var c=b||window.event,d=[].slice.call(arguments,1),e=0,f=!0,g=0,h=0;return b=a.event.fix(c),b.type="mousewheel",c.wheelDelta&&(e=c.wheelDelta/120),c.detail&&(e=-c.detail/3),h=e,c.axis!==undefined&&c.axis===c.HORIZONTAL_AXIS&&(h=0,g=-1*e),c.wheelDeltaY!==undefined&&(h=c.wheelDeltaY/120),c.wheelDeltaX!==undefined&&(g=-1*c.wheelDeltaX/120),d.unshift(b,e,g,h),(a.event.dispatch||a.event.handle).apply(this,d)}var b=["DOMMouseScroll","mousewheel"];if(a.event.fixHooks)for(var c=b.length;c;)a.event.fixHooks[b[--c]]=a.event.mouseHooks;a.event.special.mousewheel={setup:function(){if(this.addEventListener)for(var a=b.length;a;)this.addEventListener(b[--a],d,!1);else this.onmousewheel=d},teardown:function(){if(this.removeEventListener)for(var a=b.length;a;)this.removeEventListener(b[--a],d,!1);else this.onmousewheel=null}},a.fn.extend({mousewheel:function(a){return a?this.bind("mousewheel",a):this.trigger("mousewheel")},unmousewheel:function(a){return this.unbind("mousewheel",a)}})})(jQuery);
 /*custom scrollbar*/

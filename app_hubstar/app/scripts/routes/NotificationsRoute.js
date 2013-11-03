@@ -14,7 +14,7 @@ HubStar.NotificationsRoute = Ember.Route.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
-        $(window).scrollTop(0);
+        $(window).scrollTop(550);
 
     },
     model: function(params) {

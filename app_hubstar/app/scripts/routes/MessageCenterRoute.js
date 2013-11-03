@@ -46,7 +46,6 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             //this.controllerFor('notification').set("reply_ids", "");
 
         }
-        console.log(model);
         if (this.controllerFor('notificationTop').get("goConversation") === true)
         {
             model = localStorage.loginStatus;

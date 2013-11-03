@@ -226,7 +226,6 @@ HubStar.ConversationItemController = Ember.Controller.extend({
                 count++;
             }
         }
-        console.log(count);
         if (count !== 0)
         {
             this.set("isNewPeople", true);

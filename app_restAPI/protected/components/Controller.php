@@ -1,6 +1,6 @@
 <?php
- session_start();
 
+session_start();
 
 class Controller extends CController {
 
@@ -146,7 +146,7 @@ class Controller extends CController {
         $requireType = $this->getUserInput($requireParams[0]);
         if ($requireType == 'search') {
 
- 
+
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);
@@ -160,10 +160,9 @@ class Controller extends CController {
             $response = $this->getCollectionReults($collection_id, $owner_profile_id);
             $response = $this->profileSetting($response, $returnType);
         } elseif ($requireType == 'partner') {
-            
+
             $response = $this->getPartnerResults($requireParams[1]);
             $response = $this->getReponseResult($response, $returnType);
-              
         } elseif ($requireType == 'articleRelatedImage') {
             $article_id = $this->getUserInput($requireParams[1]);
             $owner_id = $this->getUserInput($requireParams[2]);
@@ -182,35 +181,32 @@ class Controller extends CController {
             $response = $this->searchCollectionItem($userid, $collection_id, $returnType);
         } elseif ($requireType == 'defaultSearch') {
             $response = $this->searchCollectionItem('21051211514', 'editor-picks', $returnType);
-            
-        }elseif ($requireType == 'video') {
+        } elseif ($requireType == 'video') {
             $response = $this->getVideoesByOwner($returnType);
-        }
-        elseif ($requireType == 'singleVideo') {
-          $videoid = $this->getUserInput($requireParams[1]);
-              $response = $this->getRequestResultByID($returnType, $videoid);
-              error_log(var_export($response,true));
-        } 
-        else {
-            
-            
+        } elseif ($requireType == 'singleVideo') {
+            $videoid = $this->getUserInput($requireParams[1]);
+            $response = $this->getRequestResultByID($returnType, $videoid);
+
+        } else {
+
+
             $response = $this->getSearchResults("", "huang");
         }
         return $response;
     }
-   protected function getVideoesByOwner($returnType) {
+
+    protected function getVideoesByOwner($returnType) {
         $conditions = array();
-        $requestStringOne = 'couchbaseDocument.doc.type=video' ;
+        $requestStringOne = 'couchbaseDocument.doc.type=video';
         array_push($conditions, $requestStringOne);
-      //  $requestStringTwo = 'couchbaseDocument.doc.user.collections.id=' . $collection_id;
-       // array_push($conditions, $requestStringTwo);
-        $tempResult= $this->searchWithCondictions($conditions, 'must');
+        //  $requestStringTwo = 'couchbaseDocument.doc.user.collections.id=' . $collection_id;
+        // array_push($conditions, $requestStringTwo);
+        $tempResult = $this->searchWithCondictions($conditions, 'must');
         $response = $this->getReponseResult($tempResult, $returnType);
 
         return $response;
     }
-    
-    
+
     protected function searchCollectionItem($userid, $collection_id, $returnType) {
         $conditions = array();
         $requestStringOne = 'couchbaseDocument.doc.user.id=' . $userid;
@@ -240,7 +236,7 @@ class Controller extends CController {
         if ($requestString != null && $requestString != "") {
             $requestStringTwo = '_all=' . $requestString;
             array_push($conditions, $requestStringTwo);
-        }        
+        }
 
         $results = $this->searchWithCondictions($conditions, 'must', $from, $size, $location);
 
@@ -254,7 +250,7 @@ class Controller extends CController {
                 ->default_operator('AND');
         return $should;
     }
-    
+
     protected function searchWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50, $location = 'Global') {
         $request = $this->getElasticSearch();
         $request->from($from);
@@ -263,10 +259,10 @@ class Controller extends CController {
             $filter = Sherlock\Sherlock::filterBuilder()->Raw('{"query": {
                 "queryString": {
                   "default_field": "couchbaseDocument.doc.country",
-                  "query": "'. $location .'"
+                  "query": "' . $location . '"
                 }
               }}');
-            $request->filter($filter);            
+            $request->filter($filter);
         }
         $max = sizeof($conditions);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
@@ -279,9 +275,8 @@ class Controller extends CController {
             } else {
                 echo "no such search type, please input: must or should as a search type.";
             }
-        }        
+        }
         $request->query($bool);
-        error_log($request->toJSON());
         $response = $request->execute();
 
         return $response;
@@ -293,7 +288,7 @@ class Controller extends CController {
                 ->field('couchbaseDocument.doc.id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->should($should);
         $response = $request->query($bool)->execute();
-        if ($returnType == "mega" ) {
+        if ($returnType == "mega") {
             $results = '{"' . $returnType . '":';
             $i = 0;
             foreach ($response as $hit) {
@@ -304,7 +299,7 @@ class Controller extends CController {
                 }
             }
             $results .= '}';
-        }else if( $returnType == "megas") {
+        } else if ($returnType == "megas") {
             $results = '{"' . $returnType . '":[';
             $i = 0;
             foreach ($response as $hit) {
@@ -315,8 +310,7 @@ class Controller extends CController {
                 }
             }
             $results .= ']}';
-        }  
-        else {
+        } else {
             $results = '{"' . $returnType . '":';
             $i = 0;
             foreach ($response as $hit) {
@@ -607,6 +601,8 @@ class Controller extends CController {
         } elseif ($type == "photo") {
             $docID = $this->getDomain() . "/" . $id;
         } elseif ($type == "article") {
+            $docID = $this->getDomain() . "/" . $id;
+        } elseif ($type == "video") {
             $docID = $this->getDomain() . "/" . $id;
         }
         return $docID;

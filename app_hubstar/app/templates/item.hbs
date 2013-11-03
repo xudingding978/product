@@ -131,9 +131,6 @@
             <div class="object_username">
                 <a class="poster-name" style="cursor: pointer; width: auto;" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
 
-                <!--                <div class="posttime-container">
-                                    <span class="posttime">yesterday 8:37</span>
-                                </div>-->
             </div>
 
             <div class="object-tags-box">
@@ -167,20 +164,20 @@
         </div>
         <div class="masonry-object_mainfeature">
             <div class="mainfeature-wrapper">
-                {{#linkTo 'videos' this}} 
+                {{#linkTo 'video' this}} 
                 <div class="hover-opacity radius-circle easing" style="position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 0;right: 0;box-shadow: 0 0 10px #f3f3f3;">
                     <i class="icon-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
                 </div>
                 {{/linkTo}}
                 <a class="mainfeature-container">
-                    {{#linkTo 'videos' this}} <img {{bindAttr src="object_image_url" }} class="this-is-the-object"/>{{/linkTo}}
+                    {{#linkTo 'video' this}} <img {{bindAttr src="object_image_url" }} class="this-is-the-object"/>{{/linkTo}}
                 </a>
             </div>              
 
 
             <div class="masonry-object_text">
                 <div style="">
-                    <p style="font-weight: bold;margin-bottom: 5px;">  {{#linkTo 'videos' this}}{{object_title}}{{/linkTo}} </p>
+                    <p style="font-weight: bold;margin-bottom: 5px;">  {{#linkTo 'video' this}}{{object_title}}{{/linkTo}} </p>
                     <p class="masonry-object_text-container" style="font-size: 11px; max-height: 50px;">{{object_description}}</p>
                 </div>
 
@@ -188,38 +185,10 @@
 
         </div>
 
-        <div class="masonry-object_interact">
-            <div class="masonry_show-comment">
-                <div class="show-comment_container">
-                    <span class="show-comment_inner">
-                        <span class="comment-amount"> 10 </span>
-                        <span class="comment-amount"> comments</span>
-                    </span>
-
-                    <div class="dropdownicon masonry_dropdownicon">
-                        <i class="icon-angle-down"></i>
-                    </div>
-
-                </div>
-                <div style="display: inline-block;float: right;">
-                    <div class="new-btn" style=""><i class="icon-thumbs-up-alt">&nbsp</i> 32</div>
-                    <div class="new-btn" style=""><i class="icon-folder-close-alt">&nbsp</i> 12</div>
-                </div>
-            </div>
-            <div class="masonry_addcommnetbox-container">
-                <div class="addcommnetbox">
-                    Add comments
-                </div>
-            </div>
-        </div>
     </div>
 
 </div>
 {{/if}}
-
-
-
-
 
 
 
@@ -229,8 +198,6 @@
     {{#linkTo 'files' this}}<h1>{{type}}</h1>{{/linkTo}}
 </div>
 {{/if}}
-
-
 
 
 
@@ -331,9 +298,6 @@
 
 </div>
 {{/if}}
-
-
-
 
 
 

@@ -1,4 +1,4 @@
-HubStar.VideosRoute = Ember.Route.extend({
+HubStar.VideoRoute = Ember.Route.extend({
     //     controller: HubStarlicationController,
     setupController: function(controller, model) {
         var tempid;

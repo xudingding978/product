@@ -1606,6 +1606,7 @@ div.album-description-bg{
 .comment-item{
     position: relative;
     width: auto;
+    height: auto;
     display: block;
     margin: 5px 0;
     overflow-wrap: break-word;

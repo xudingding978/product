@@ -60,7 +60,6 @@ class MegasController extends Controller {
 
 
             $mega['videoes'][0]['id'] = $mega['id'];
-            error_log(var_export($mega['videoes'], true));
             $this->createUploadedVideo($mega);
         }
         $this->sendResponse(204, $request_json);
@@ -177,7 +176,7 @@ class MegasController extends Controller {
         if (sizeof($mega) > 0) {
 
             $cb = $this->couchBaseConnection();
-            if ($cb->add($this->getDomain() . '/videoes/' . $mega['id'], CJSON::encode($mega))) {
+            if ($cb->add($this->getDomain() . '/' . $mega['id'], CJSON::encode($mega))) {
                 echo $this->sendResponse(204);
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');

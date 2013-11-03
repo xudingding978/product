@@ -36,7 +36,7 @@ class VideosController extends Controller {
                  $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $cb = $this->couchBaseConnection();
-            $docID = $this->getDomain() . "/videos/" . $id;
+            $docID = $this->getDomain() . "/video/" . $id;
     
             $reponse = $cb->get($docID);
             $reponse = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';

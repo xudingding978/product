@@ -260,6 +260,7 @@ class Controller extends CController {
                                 "query": "' . $queryString . '",
                                 "fields": [
                                                 "keywords^8",
+                                                "couchbaseDocument.doc.keyword.keyword_name^10",
                                                 "owner_title^2",
                                                 "country",
                                                 "region",

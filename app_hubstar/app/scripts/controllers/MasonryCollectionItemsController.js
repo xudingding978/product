@@ -78,7 +78,19 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     goBack: function() {
 
         var lastposition = HubStar.get("scrollCollectionPosition");
-        window.history.back();
+        //window.history.back();
+
+        var address = document.URL;
+        var user_id = address.split("#")[1].split("/")[1];
+        if (user_id === "profiles")
+        {
+            // this.
+            this.get('controllers.profile').goToProfileRoute();
+        }
+        else if (user_id === "users")
+        {
+            this.get('controllers.user').goToUserRoute();
+        }
 
         setTimeout(function() {
 
@@ -204,7 +216,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         else {
             var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
         }
-
 
         for (var i = 0; i < userOrprofile.get('content').length; i++) {
 

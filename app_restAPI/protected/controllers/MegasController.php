@@ -16,7 +16,6 @@ class MegasController extends Controller {
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $request_string = $temp [sizeof($temp) - 1];
             $response = "";
-
             if (sizeof($temp) > 1) {
                 $requireParams = explode('&', $request_string);
                 if ($this->getUserInput($requireParams[0]) == "photos") {                                //reload photo page, get information from couchbase, form request string;
@@ -37,7 +36,7 @@ class MegasController extends Controller {
 
                     $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
                     //$r=CJSON::decode($response, true);
-
+                       
             }            
             $this->sendResponse(200, $response);
         } catch (Exception $exc) {
@@ -60,7 +59,6 @@ class MegasController extends Controller {
 
     public function actionRead() {
         try {
-            
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $cb = $this->couchBaseConnection();

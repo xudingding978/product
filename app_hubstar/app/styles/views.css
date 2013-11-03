@@ -866,9 +866,21 @@ div.album-description-bg{
 }
 .masonry_show-comment .edit-object-ul{
     position:absolute;
-    left:0!important;
-    bottom:0;
+    left:-61px!important;
+    top:40px;
 }
+.masonry_show-comment .edit-object-ul:after{
+    content: "";
+    position: absolute;
+    left: 65px;
+    top: -21px;
+    border-color: transparent transparent #ccc transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: -1;	
+}
+
+
 
 .masonry_dropdownicon{
     display: inline-block;
@@ -1571,6 +1583,7 @@ div.album-description-bg{
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #aaa;
+    float:left;
 }
 
 .show-comment_inner{

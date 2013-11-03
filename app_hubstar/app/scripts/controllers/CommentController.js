@@ -127,10 +127,10 @@ HubStar.CommentController = Ember.Controller.extend({
     },
     shareDisplay: function(id){
         $('#share_' + id).children('ul').removeClass("hideClass");
-    },
-            
-            
-            
+    },   
+    shareHide: function(id){
+        $('#share_' + id).children('ul').addClass("hideClass");
+    },  
             
             
     fbShare: function() {

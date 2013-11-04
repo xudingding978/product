@@ -417,7 +417,7 @@ input{
 }
 
 div#appfeedback{
-    
+
     position:fixed;
     z-index: 100000;
     text-align: center;
@@ -427,30 +427,30 @@ div#appfeedback{
 
 div#appfeedback div.fresh-profile-pic > img:first-child
 {
-   height: 80px;
-   width: 80px;
-   z-index: 1;
-   top: -3px;
-   position: relative; 
+    height: 80px;
+    width: 80px;
+    z-index: 1;
+    top: -3px;
+    position: relative; 
 }
 div#appfeedback div.fresh-profile-pic > img:last-child
 {
-   height: 80px;
-   width: 80px;
-   z-index: 2;
-   position: absolute;
-   top: -3px;
-   left: 0;
+    height: 80px;
+    width: 80px;
+    z-index: 2;
+    position: absolute;
+    top: -3px;
+    left: 0;
 }
 div#appfeedback .fresh-message > span.feed-back{float:left;max-width:85%;overflow:hidden;margin-left:10%;text-align:left;}
 
 div#appfeedback .fresh-message > k.icon-remove{
-   position:absolute;
-   top:1px;
-   right:2px;
-   font-size:16px;
-   margin:0;
-   
+    position:absolute;
+    top:1px;
+    right:2px;
+    font-size:16px;
+    margin:0;
+
 }
 div#appfeedback .fresh-message k.icon-ok-sign{
     position:absolute;
@@ -486,7 +486,7 @@ div#appfeedback .fresh-message k.icon-ok-sign{
     position: relative;
     vertical-align: top;
     margin-left: -20px;
-    
+
     overflow:hidden;
 }
 
@@ -782,6 +782,20 @@ textarea.add-interests{
     cursor: pointer;
     background-color: #f3f3f3;
     opacity: .8;
+}
+
+.message-btn-x {
+    width: 50%;
+    float: left;
+    height: 30px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: default;
+    opacity: .8;
+    background-color: #e3e3e3;
+    color: #999;
 }
 
 .message-btn:hover{

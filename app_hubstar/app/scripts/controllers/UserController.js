@@ -128,7 +128,6 @@ HubStar.UserController = Ember.Controller.extend({
         return user;
     },
     notificationSetting: function() {
-        console.log(this.get("notification_setting"));
         if (this.get("notification_setting") !== null && this.get("notification_setting") !== "")
         {
             var items = this.get("notification_setting").split(",");
@@ -180,8 +179,6 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("newpassword", "");
         this.set("repeatnew", "");
         this.set("notification_setting", user.get("notification_setting"));
-        console.log("ssssssss");
-        console.log(user.get("notification_setting"));
         this.notificationSetting();
         this.set("password", user.get("password"));
         if (user.get('cover_url') === null || user.get('cover_url') === "" || user.get('cover_url') === undefined) {

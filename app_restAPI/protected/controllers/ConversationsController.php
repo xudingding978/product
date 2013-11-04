@@ -12,6 +12,10 @@ class ConversationsController extends Controller {
     const JSON_RESPONSE_ROOT_SINGLE = 'conversation';
     const JSON_RESPONSE_ROOT_PLURAL = 'conversations';
 
+    public function __construct() {
+        
+    }
+
     public function actionIndex() {
         //   date_default_timezone_set('Pacific/Auckland'); 
         // echo phpinfo();
@@ -345,18 +349,23 @@ class ConversationsController extends Controller {
                 $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
                 $userInfo = CJSON::decode($notificationInfoDeep, true);
 
-//                 if (!isset($userInfo['user'][0]['notification_setting'])||strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
-//                   $receiveEmail = $userInfo['user'][0]['email'];  
-//                   $this->sendEmail($commenter_id,$receiveEmail, $date, $conversationID);
-//                 }
-//                
-                if (!isset($userInfo['user'][0]['notification_setting'])||strpos($userInfo['user'][0]['notification_setting'], "conversation") !== false) {
+                if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "conversation") !== false) {
                     if (!isset($userInfo['user'][0]['notifications'])) {
                         $userInfo['user'][0]['notifications'] = array();
                     }
                     array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
                     if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
-                        
+                        if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
+                            $receiveEmail = $userInfo['user'][0]['email'];
+                            $receiveName = $userInfo['user'][0]['display_name'];
+                            $notificationCount = 0;
+                            for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
+                                if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
+                                    $notificationCount++;
+                                }
+                            }
+                            $this->sendEmail($receiveEmail, $receiveName, $notificationCount, $ownerId);
+                        }
                     } else {
                         echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
                     }
@@ -364,122 +373,112 @@ class ConversationsController extends Controller {
             }
         }
     }
-//
-//    public function sendEmail($commenter_id, $receiveEmail,$date, $conversationID)
-//    {
-//        
-//        $notificationInfo = $this->getDomain() . "/users/" . $commenter_id;
-//        $cbs = $this->couchBaseConnection();
-//        $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
-//        $userInfo = CJSON::decode($notificationInfoDeep, true);
-//
-//        $senderName = $userInfo['user'][0]['display_name'];
-//        $domain = $this->getDomain();
-//        $configuration = $this->getProviderConfigurationByName($domain, "SES");
-//        $amazonSes = Aws\Ses\SesClient::factory($configuration);
-//        $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
-//        $platformEmail = $platformSettings['support']['email'];
-//        $subject_prefix = $senderName. "has leave a message in conversation on ". $date ;
-//        $args = array(
-//            "Source" => $platformEmail,
-//            "Destination" => array(
-//                "ToAddresses" => array(
-//                    $receiveEmail),
-//                "BccAddresses" => array(
-//                    $platformEmail)
-//            ),
-//            "Message" => array(
-//                "Subject" => array(
-//                    "Data" => $subject_prefix
-//                ),
-//                "Body" => array(
-//                    "Html" => array(
-//                        "Data" => $this->confirmationEmailForm($conversationID, $senderName)
-//                    )
-//                ),
-//            ),
-//        );
-//        $response = $amazonSes->sendEmail($args);
-//        $this->sendResponse(200, $response);
-//    }
-//    public function confirmationEmailForm($username, $password) {
-//        return '
-//<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-//<html xmlns="http://www.w3.org/1999/xhtml">
-//    <head>
-//        <title></title>
-//    </head>
-//    <body style="background: #E5E5E5; margin: 0; padding: 0;">
-//        <table width="100%" cellpadding="0" cellspacing="0">
-//            <tbody>
-//                <tr>
-//                    <td align="center">
-//                        &nbsp;<br />
-//                        <br />&nbsp
-//                        <table cellpadding="0" cellspacing="0" border="0" style="background: #fff;" width="600">
-//                            <tbody>
-//                                <tr>
-//                                    <td>
-//                                        <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/header.jpg" />
-//                                    </td>
-//                                </tr>
-//                                <tr>
-//                                    <td align="center">
-//                                        &nbsp;<br />
-//                                        <table cellpadding="10" cellspacing="0" width="90%" style="color: #666; font-size: 13px;
-//                                               line-height: 150%; font-family: Helvetica, Arial, San-Serif; text-align: left;">
-//                                            <tr>
-//                                                <td valign="top">
-//                                                    <h1 style="color: #05B1E5; font-size: 2em; font-weight: normal; margin: 0; line-height: 200%;">
-//                                                        Welcome to Trends Ideas Web Platform!</h1>
-//                                                    Here is your registration information, please keep this email in a safe place.
-//                                                </td>
-//                                            </tr>
-//                                            <tr>
-//                                                <td>
-//                                                    <table align="left" style="color: #05B1E5; font-size: 13px; line-height: 150%; font-family: Helvetica, Arial, San-Serif;
-//                                                           text-align: left;" cellpadding="0" cellspacing="0">
-//                                                        <tr>
-//                                                            <td valign="top">
-//                                                                User name: ' . $username . '
-//                                                            </td>
-//                                                        </tr>
-//                                                        <tr>
-//                                                            <td valign="top">
-//                                                                New password: ' . $password . '
-//                                                            </td>
-//                                                        </tr>
-//                                                    </table>
-//
-//                                                </td>
-//                                            </tr>
-//                                            <tr>
-//                                                <td valign="top">
-//                                                    <hr style="text-align:center;height: 1px; color: #0088CC; background: #0088CC; width: 100%; border: 0 none;margin:0;" />
-//                                                </td>
-//                                            </tr>
-//                                        </table>
-//                                    </td>
-//                                </tr>
-//                                <tr>
-//                                    <td align="center">
-//                                        &nbsp;<br />
-//                                        <img src="http://develop.devbox.s3.amazonaws.com/email-bottom.jpg" style="float: left;" />
-//                                        <br />&nbsp;
-//                                    </td>
-//                                </tr>
-//                            </tbody>
-//                        </table>
-//                        &nbsp;<br />
-//                    </td>
-//                </tr>
-//            </tbody>
-//        </table>
-//    </body>
-//</html>
-//';
-//    }
-//    
+
+    public function sendEmail($receiveEmail, $receiveName, $notificationCount, $ownerId) {
+
+        $receiveEmail = "tom@hubstar.co";
+        $domain = $this->getDomain();
+        $configuration = $this->getProviderConfigurationByName($domain, "SES");
+        $amazonSes = Aws\Ses\SesClient::factory($configuration);
+        $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
+        $platformEmail = $platformSettings['support']['email'];
+        $subject_prefix = $receiveName . "  you have notifications pending ";
+        $args = array(
+            "Source" => $platformEmail,
+            "Destination" => array(
+                "ToAddresses" => array(
+                    $receiveEmail),
+                "BccAddresses" => array(
+                    $platformEmail)
+            ),
+            "Message" => array(
+                "Subject" => array(
+                    "Data" => $subject_prefix
+                ),
+                "Body" => array(
+                    "Html" => array(
+                        "Data" => $this->confirmationEmailForm($receiveName, $notificationCount, $ownerId)
+                    )
+                ),
+            ),
+        );
+        $amazonSes->sendEmail($args);
+    }
+
+    public function confirmationEmailForm($receiveName, $notificationCount, $ownerId) {
+        return '
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title></title>
+    </head>
+    <body style="background: #E5E5E5; margin: 0; padding: 0;">
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td align="center">
+                        &nbsp;<br />
+                        <br />&nbsp;
+                        <table cellpadding="0" cellspacing="0" border="0" style="background: #fff;" width="600">
+                            <tbody>     
+                                <tr>
+                                    <td align="center">
+                                        &nbsp;<br />
+                                        <table cellpadding="10" cellspacing="0" width="90%" style="color: #666; font-size: 13px;
+                                               line-height: 150%; font-family: Helvetica, Arial, San-Serif; text-align: left;">
+                                            <tr>
+                                                <td valign="top">
+                                                    <h1 style="color: #05B1E5; font-size: 2em; font-weight: normal; margin: 0; line-height: 200%;">
+                                                       Hi :  ' . $receiveName . '</h1>
+                                                    Here are some activities you may have missed on Trends Ideas Web Platform!
+                                                         &nbsp;<br />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <table align="left" style="color: #05B1E5; font-size: 13px; line-height: 150%; font-family: Helvetica, Arial, San-Serif;
+                                                           text-align: left;" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td valign="top">
+                                                            <a href="http://develop.trendsideas.com/#/users/' . $ownerId . '/messagecenter/notifications">  ' . $notificationCount . ' notifications  </a>
+                                                                  
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top">
+                                                    <hr style="text-align:center;height: 1px; color: #0088CC; background: #0088CC; width: 100%; border: 0 none;margin:0;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        &nbsp;<br />
+                                 <a href="http://develop.trendsideas.com/#/search">     <button type="homepage">Go to TrendsIdeas</button></a>
+
+                                    </td>
+                                     <td align="center">
+                                  <a href="http://develop.trendsideas.com/#/users/' . $ownerId . '/messagecenter/notifications">      <button type="notifications">     See all notifications</button> </a>
+                                        <br />&nbsp;
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        &nbsp;<br />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
+';
+    }
+
     public function addConversation($commenter_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $conversationID, $conversationItemID, $participation_ids) {                       //saving follower in profile
         try {
 

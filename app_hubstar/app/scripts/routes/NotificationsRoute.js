@@ -7,10 +7,8 @@
 HubStar.NotificationsRoute = Ember.Route.extend({
     setupController: function(controller, model) {
 
-        model = localStorage.loginStatus;
-
+        var model = localStorage.loginStatus;
         this.controllerFor('messageCenter').selectNotification(model);
-
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -18,7 +16,6 @@ HubStar.NotificationsRoute = Ember.Route.extend({
 
     },
     model: function(params) {
-
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
         return user_id;

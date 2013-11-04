@@ -803,6 +803,7 @@ HubStar.User = DS.Model.extend({
     zip: DS.attr('string'),
     address: DS.attr('string'),
     password: DS.attr('string'),
+    notification_setting:DS.attr('string'),
     selected_topics: DS.attr('string'),
     collections: DS.hasMany('HubStar.Collection'),
     followers: DS.hasMany('HubStar.Follower'),
@@ -1003,8 +1004,6 @@ HubStar.CollectionRoute = Ember.Route.extend({
 
 HubStar.ConversationRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-        console.log("conversation congtroller");
-        console.log(model);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -1012,7 +1011,6 @@ HubStar.ConversationRoute = Ember.Route.extend({
     },
     model: function(params) {
         var address = document.URL;
-        console.log("conversation model");
         var user_id = address.split("#")[1].split("/")[2];
         var user = HubStar.User.find(user_id);
         var conversation_id = address.split("#")[1].split("/")[5];
@@ -1301,7 +1299,6 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             //this.controllerFor('notification').set("reply_ids", "");
 
         }
-        console.log(model);
         if (this.controllerFor('notificationTop').get("goConversation") === true)
         {
             model = localStorage.loginStatus;
@@ -1413,15 +1410,18 @@ HubStar.NotificationsRoute = Ember.Route.extend({
         model = localStorage.loginStatus;
 
         this.controllerFor('messageCenter').selectNotification(model);
-
+  
+  console.log("notification route");
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
-        $(window).scrollTop(0);
+        $(window).scrollTop(550);
 
     },
     model: function(params) {
-
+  
+  
+  console.log("notification model");
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
         return user_id;
@@ -1697,7 +1697,6 @@ HubStar.ProfileNewRoute = Ember.Route.extend({
 
 HubStar.ProfileRoute = Ember.Route.extend({
     setupController: function(ProfileController, model) {
-        console.log("sssssssssssss");
 
         HubStar.set('editingMode', 'profile');
         ProfileController.setLocalLoginRecrod();
@@ -3281,6 +3280,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         $('#dropdown_id_').toggleClass('hideClass');
     },
     fbShare: function() {
+        this.dropdownPhotoSetting();
         var that = this;
         var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
         var caption = '';
@@ -3317,6 +3317,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     //share to social google plus
     gpShare: function() {
+        this.dropdownPhotoSetting();
         var caption = '';
        if (this.get('articleResouce').get("article_body") !== null)
         {
@@ -3350,6 +3351,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     //share to social twitter
     tShare: function() {
+        this.dropdownPhotoSetting();
         var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
         var url = 'https://twitter.com/share?text=' + this.get('articleResouce').get("article_headline") + '&url=' + encodeURIComponent(currntUrl);
         window.open(
@@ -3360,6 +3362,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         return false;
     },
     pShare: function() {
+        this.dropdownPhotoSetting();
         var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.get('selectedPhoto').photo_image_thumbnail_url) +
@@ -3660,7 +3663,7 @@ HubStar.CommentController = Ember.Controller.extend({
         },
         checkedAction: function(checkedboxselection) {
             $("#" + checkedboxselection).prop('checked', !$("#" + checkedboxselection).prop('checked'));
-            if ($("#" + checkedboxselection).prop('checked') === false) {
+            if ($("#" + checkedboxselection).prop('checked') === false) {               
                 this.set(checkedboxselection, false);
             } else {
                 this.set(checkedboxselection, true);
@@ -4253,7 +4256,6 @@ HubStar.ConversationItemController = Ember.Controller.extend({
                 count++;
             }
         }
-        console.log(count);
         if (count !== 0)
         {
             this.set("isNewPeople", true);
@@ -5050,7 +5052,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
-            console.log(results);
                 for (var i = 0; i < this.get("content").length; i++) {
                     var tempObject = results.objectAt(i);
                     that.get("content").pushObject(tempObject);
@@ -5537,6 +5538,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     // share to social facebook
     fbShare: function() {
+        this.dropdownPhotoSetting();
         var that = this;
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
         var caption = '';
@@ -5573,6 +5575,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     //share to social google plus
     gpShare: function() {
+        this.dropdownPhotoSetting();
         var caption = '';
         if (this.get('selectedPhoto').get('photo_caption') !== null)
         {
@@ -5605,6 +5608,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     //share to social twitter
     tShare: function() {
+        this.dropdownPhotoSetting();
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
         var url = 'https://twitter.com/share?text=' + this.get('selectedPhoto').get('photo_title') + '&url=' + encodeURIComponent(currntUrl);
         window.open(
@@ -5615,6 +5619,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         return false;
     },
       pShare: function() {
+        this.dropdownPhotoSetting();
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
         var url = 'http://www.pinterest.com/pin/create/button/?url=' +  encodeURIComponent(currntUrl)+          
                   '&media='+ encodeURIComponent(this.get('selectedPhoto').get('photo_image_thumbnail_url'))+
@@ -6351,7 +6356,7 @@ HubStar.NewConversationController = Ember.Controller.extend({
 HubStar.NotificationController = Ember.Controller.extend({
     notificationContent: null,
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'notificationTop', 'conversation'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'notificationTop', 'conversation','application'],
     isUploadPhoto: false,
     init: function()
     {
@@ -6433,6 +6438,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                     that.get("notificationContent").objectAt(i).set("isRead", true);
                 }
             }
+            that.unReadCount();
             that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
@@ -6445,7 +6451,7 @@ HubStar.NotificationController = Ember.Controller.extend({
         tempComment = JSON.stringify(tempComment);
         var that = this;
         requiredBackEnd('notifications', 'DeleteNotification', tempComment, 'POST', function() {
-  
+
             for (var i = 0; i < that.get("notificationContent").length; i++)
             {
                 if (that.get("notificationContent").objectAt(i).get("notification_id") === id)
@@ -6454,7 +6460,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                 }
             }
             that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
-            
+
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
             }, 200);
@@ -6499,6 +6505,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                     dataNew = new Array();
                 }
             }
+            that.unReadCount();
             that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
@@ -6517,6 +6524,19 @@ HubStar.NotificationController = Ember.Controller.extend({
                 break;
             }
         }
+    },
+    unReadCount: function()
+    {
+        var count = 0;
+        for (var i = 0; i < this.get("notificationContent").get("length"); i++)
+        {
+            if (this.get("notificationContent").objectAt(i)["isRead"] === false)
+            {
+                count++;
+            }
+        }
+        this.get("controllers.application").set("unReadCount", count);
+        this.get("controllers.messageCenter").set("unReadCount", count);
     },
     goto: function(obj) {
         if (obj.get("type") === "follow" || obj.get("type") === "unFollow")
@@ -6580,7 +6600,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                 that.transitionToRoute('conversation', data);
             }
         });
-         $(window).scrollTop(550);
+        $(window).scrollTop(550);
     },
     gotoNotification: function(id, notificationID)
     {
@@ -6600,7 +6620,7 @@ HubStar.NotificationController = Ember.Controller.extend({
 
         this.set("goMessage", '#message_' + id);
         this.transitionToRoute('messages');
-         $(window).scrollTop(550);
+        $(window).scrollTop(550);
     },
     gotoReply: function(id)
     {
@@ -6626,7 +6646,7 @@ HubStar.NotificationController = Ember.Controller.extend({
             this.set("goMessage", '#message_' + reply[1]);
             this.transitionToRoute('messages');
         }
-  $(window).scrollTop(550);
+        $(window).scrollTop(550);
     }
 }
 );
@@ -6789,7 +6809,6 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             if (this.get("notificationTopContent").objectAt(i)["isRead"] === false)
             {
                 count++;
-
             }
         }
         this.get("controllers.application").set("unReadCount", count);
@@ -9314,7 +9333,7 @@ HubStar.UserController = Ember.Controller.extend({
     age: "",
     userTage: true,
     currentUserID: "",
-    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor', 'userMessage', 'messageCenter','talk'],
+    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor', 'userMessage', 'messageCenter', 'talk'],
     facebook: "",
     twitter: "",
     follow_status: false,
@@ -9346,6 +9365,7 @@ HubStar.UserController = Ember.Controller.extend({
     about_me: "",
     first_name: "",
     last_name: "",
+    subcate: [{list_id: 0, isSelection: false, category_topic: "email"}, {list_id: 1, isSelection: false, category_topic: "message"}, {list_id: 2, isSelection: false, category_topic: "follow"}, {list_id: 3, isSelection: false, category_topic: "conversation"}],
     is_Photoclick: false,
     is_click: false,
     photo_url_large: "",
@@ -9369,9 +9389,38 @@ HubStar.UserController = Ember.Controller.extend({
     {
 
     },
+    checkedAction: function(checkedboxselection) {
+        $("#" + checkedboxselection).prop('checked', !$("#" + checkedboxselection).prop('checked'));
+        this.get("subcate").objectAt(checkedboxselection)["isSelection"] = !this.get("subcate").objectAt(checkedboxselection)["isSelection"];
+    },
+    saveNotification: function()
+    {
+        var notification = "";
+        for (var i = 0; i < this.get("subcate").length; i++)
+        {
+            if (this.get("subcate").objectAt(i)["isSelection"] === true) {
+                if (notification === "")
+                {
+                    notification = this.get("subcate").objectAt(i)["category_topic"];
+                }
+                else
+                {
+                    notification = notification + "," + this.get("subcate").objectAt(i)["category_topic"];
+                }
+            }
+        }
+        var notification_string = [localStorage.loginStatus, notification];
+        var tempComment = JSON.stringify(notification_string);
+        var that = this;
+        requiredBackEnd('users', 'SaveNotification', tempComment, 'POST', function(params) {
+            var update_user_record = that.get('model');
+            update_user_record.set("notification_setting", notification);
+            that.userDashboardBackButton();
+        });
+    },
     talkToPeople: function() {
-        this.set("isTalk", true);             
-        this.get("controllers.talk").set("owner_photo_url", this.get("photo_url_large"));     
+        this.set("isTalk", true);
+        this.get("controllers.talk").set("owner_photo_url", this.get("photo_url_large"));
         this.get("controllers.talk").set("displayName", this.get("display_name"));
     },
     isUserSelfOrNot: function(currentUserID) {
@@ -9384,9 +9433,36 @@ HubStar.UserController = Ember.Controller.extend({
     {
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
+
         this.set('currentUserID', user_id);
         var user = HubStar.User.find(user_id);
         return user;
+    },
+    notificationSetting: function() {
+        console.log(this.get("notification_setting"));
+        if (this.get("notification_setting") !== null && this.get("notification_setting") !== "")
+        {
+            var items = this.get("notification_setting").split(",");
+            for (var i = 0; i < items.length; i++)
+            {
+                if (items[i] === "email")
+                {
+                    this.get("subcate").objectAt(0)["isSelection"] = true;
+                }
+                else if (items[i] === "message")
+                {
+                    this.get("subcate").objectAt(1)["isSelection"] = true;
+                }
+                else if (items[i] === "follow")
+                {
+                    this.get("subcate").objectAt(2)["isSelection"] = true;
+                }
+                else if (items[i] === "conversation")
+                {
+                    this.get("subcate").objectAt(3)["isSelection"] = true;
+                }
+            }
+        }
     },
     setUser: function()
     {
@@ -9414,6 +9490,10 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("oldpassword", "");
         this.set("newpassword", "");
         this.set("repeatnew", "");
+        this.set("notification_setting", user.get("notification_setting"));
+        console.log("ssssssss");
+        console.log(user.get("notification_setting"));
+        this.notificationSetting();
         this.set("password", user.get("password"));
         if (user.get('cover_url') === null || user.get('cover_url') === "" || user.get('cover_url') === undefined) {
             this.set('cover_url', 'http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg');

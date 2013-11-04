@@ -142,13 +142,26 @@ class FollowersController extends Controller {
         $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
         $userInfo = CJSON::decode($notificationInfoDeep, true);
 
-        if (!isset($userInfo['user'][0]['notification_setting'])||strpos($userInfo['user'][0]['notification_setting'], "follow") !== false) {
+        $conversationController = new ConversationsController();
+        if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "follow") !== false) {
             if (!isset($userInfo['user'][0]['notifications'])) {
                 $userInfo['user'][0]['notifications'] = array();
             }
             array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+
             if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
-                
+                if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
+
+                    $receiveEmail = $userInfo['user'][0]['email'];
+                    $receiveName = $userInfo['user'][0]['display_name'];
+                    $notificationCount = 0;
+                    for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
+                        if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
+                            $notificationCount++;
+                        }
+                    }
+                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCount, $ownerId);
+                }
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
             }
@@ -695,15 +708,26 @@ class FollowersController extends Controller {
         $cbs = $this->couchBaseConnection();
         $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
         $userInfo = CJSON::decode($notificationInfoDeep, true);
-
-        if (!isset($userInfo['user'][0]['notification_setting'])||strpos($userInfo['user'][0]['notification_setting'], "follow") !== false) {
+        $conversationController = new ConversationsController();
+        if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "follow") !== false) {
             if (!isset($userInfo['user'][0]['notifications'])) {
                 $userInfo['user'][0]['notifications'] = array();
             }
             array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
 
+
             if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
-                
+                if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
+                    $receiveEmail = $userInfo['user'][0]['email'];
+                    $receiveName = $userInfo['user'][0]['display_name'];
+                    $notificationCount = 0;
+                    for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
+                        if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
+                            $notificationCount++;
+                        }
+                    }
+                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCount, $ownerId);
+                }
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
             }

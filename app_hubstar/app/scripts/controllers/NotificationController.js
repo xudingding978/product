@@ -13,7 +13,7 @@
 HubStar.NotificationController = Ember.Controller.extend({
     notificationContent: null,
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'notificationTop', 'conversation'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'notificationTop', 'conversation','application'],
     isUploadPhoto: false,
     init: function()
     {
@@ -95,6 +95,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                     that.get("notificationContent").objectAt(i).set("isRead", true);
                 }
             }
+            that.unReadCount();
             that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
@@ -107,7 +108,7 @@ HubStar.NotificationController = Ember.Controller.extend({
         tempComment = JSON.stringify(tempComment);
         var that = this;
         requiredBackEnd('notifications', 'DeleteNotification', tempComment, 'POST', function() {
-  
+
             for (var i = 0; i < that.get("notificationContent").length; i++)
             {
                 if (that.get("notificationContent").objectAt(i).get("notification_id") === id)
@@ -116,7 +117,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                 }
             }
             that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
-            
+
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
             }, 200);
@@ -161,6 +162,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                     dataNew = new Array();
                 }
             }
+            that.unReadCount();
             that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
@@ -179,6 +181,19 @@ HubStar.NotificationController = Ember.Controller.extend({
                 break;
             }
         }
+    },
+    unReadCount: function()
+    {
+        var count = 0;
+        for (var i = 0; i < this.get("notificationContent").get("length"); i++)
+        {
+            if (this.get("notificationContent").objectAt(i)["isRead"] === false)
+            {
+                count++;
+            }
+        }
+        this.get("controllers.application").set("unReadCount", count);
+        this.get("controllers.messageCenter").set("unReadCount", count);
     },
     goto: function(obj) {
         if (obj.get("type") === "follow" || obj.get("type") === "unFollow")
@@ -242,7 +257,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                 that.transitionToRoute('conversation', data);
             }
         });
-         $(window).scrollTop(550);
+        $(window).scrollTop(550);
     },
     gotoNotification: function(id, notificationID)
     {
@@ -262,7 +277,7 @@ HubStar.NotificationController = Ember.Controller.extend({
 
         this.set("goMessage", '#message_' + id);
         this.transitionToRoute('messages');
-         $(window).scrollTop(550);
+        $(window).scrollTop(550);
     },
     gotoReply: function(id)
     {
@@ -288,7 +303,7 @@ HubStar.NotificationController = Ember.Controller.extend({
             this.set("goMessage", '#message_' + reply[1]);
             this.transitionToRoute('messages');
         }
-  $(window).scrollTop(550);
+        $(window).scrollTop(550);
     }
 }
 );

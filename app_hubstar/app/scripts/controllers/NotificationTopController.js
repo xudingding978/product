@@ -151,7 +151,6 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             if (this.get("notificationTopContent").objectAt(i)["isRead"] === false)
             {
                 count++;
-
             }
         }
         this.get("controllers.application").set("unReadCount", count);

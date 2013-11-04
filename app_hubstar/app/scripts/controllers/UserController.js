@@ -22,7 +22,7 @@ HubStar.UserController = Ember.Controller.extend({
     age: "",
     userTage: true,
     currentUserID: "",
-    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor', 'userMessage', 'messageCenter','talk'],
+    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor', 'userMessage', 'messageCenter', 'talk'],
     facebook: "",
     twitter: "",
     follow_status: false,
@@ -54,6 +54,7 @@ HubStar.UserController = Ember.Controller.extend({
     about_me: "",
     first_name: "",
     last_name: "",
+    subcate: [{list_id: 0, isSelection: false, category_topic: "email"}, {list_id: 1, isSelection: false, category_topic: "message"}, {list_id: 2, isSelection: false, category_topic: "follow"}, {list_id: 3, isSelection: false, category_topic: "conversation"}],
     is_Photoclick: false,
     is_click: false,
     photo_url_large: "",
@@ -77,9 +78,38 @@ HubStar.UserController = Ember.Controller.extend({
     {
 
     },
+    checkedAction: function(checkedboxselection) {
+        $("#" + checkedboxselection).prop('checked', !$("#" + checkedboxselection).prop('checked'));
+        this.get("subcate").objectAt(checkedboxselection)["isSelection"] = !this.get("subcate").objectAt(checkedboxselection)["isSelection"];
+    },
+    saveNotification: function()
+    {
+        var notification = "";
+        for (var i = 0; i < this.get("subcate").length; i++)
+        {
+            if (this.get("subcate").objectAt(i)["isSelection"] === true) {
+                if (notification === "")
+                {
+                    notification = this.get("subcate").objectAt(i)["category_topic"];
+                }
+                else
+                {
+                    notification = notification + "," + this.get("subcate").objectAt(i)["category_topic"];
+                }
+            }
+        }
+        var notification_string = [localStorage.loginStatus, notification];
+        var tempComment = JSON.stringify(notification_string);
+        var that = this;
+        requiredBackEnd('users', 'SaveNotification', tempComment, 'POST', function(params) {
+            var update_user_record = that.get('model');
+            update_user_record.set("notification_setting", notification);
+            that.userDashboardBackButton();
+        });
+    },
     talkToPeople: function() {
-        this.set("isTalk", true);             
-        this.get("controllers.talk").set("owner_photo_url", this.get("photo_url_large"));     
+        this.set("isTalk", true);
+        this.get("controllers.talk").set("owner_photo_url", this.get("photo_url_large"));
         this.get("controllers.talk").set("displayName", this.get("display_name"));
     },
     isUserSelfOrNot: function(currentUserID) {
@@ -92,9 +122,36 @@ HubStar.UserController = Ember.Controller.extend({
     {
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
+
         this.set('currentUserID', user_id);
         var user = HubStar.User.find(user_id);
         return user;
+    },
+    notificationSetting: function() {
+        console.log(this.get("notification_setting"));
+        if (this.get("notification_setting") !== null && this.get("notification_setting") !== "")
+        {
+            var items = this.get("notification_setting").split(",");
+            for (var i = 0; i < items.length; i++)
+            {
+                if (items[i] === "email")
+                {
+                    this.get("subcate").objectAt(0)["isSelection"] = true;
+                }
+                else if (items[i] === "message")
+                {
+                    this.get("subcate").objectAt(1)["isSelection"] = true;
+                }
+                else if (items[i] === "follow")
+                {
+                    this.get("subcate").objectAt(2)["isSelection"] = true;
+                }
+                else if (items[i] === "conversation")
+                {
+                    this.get("subcate").objectAt(3)["isSelection"] = true;
+                }
+            }
+        }
     },
     setUser: function()
     {
@@ -122,6 +179,10 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("oldpassword", "");
         this.set("newpassword", "");
         this.set("repeatnew", "");
+        this.set("notification_setting", user.get("notification_setting"));
+        console.log("ssssssss");
+        console.log(user.get("notification_setting"));
+        this.notificationSetting();
         this.set("password", user.get("password"));
         if (user.get('cover_url') === null || user.get('cover_url') === "" || user.get('cover_url') === undefined) {
             this.set('cover_url', 'http://develop.devbox.s3.amazonaws.com/profile_cover/default/defaultcover6.jpg');

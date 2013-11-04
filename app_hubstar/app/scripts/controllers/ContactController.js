@@ -57,7 +57,7 @@
         },
         checkedAction: function(checkedboxselection) {
             $("#" + checkedboxselection).prop('checked', !$("#" + checkedboxselection).prop('checked'));
-            if ($("#" + checkedboxselection).prop('checked') === false) {
+            if ($("#" + checkedboxselection).prop('checked') === false) {               
                 this.set(checkedboxselection, false);
             } else {
                 this.set(checkedboxselection, true);

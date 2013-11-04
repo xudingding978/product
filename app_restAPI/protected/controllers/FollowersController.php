@@ -55,7 +55,7 @@ class FollowersController extends Controller {
             }
             if (!$bool) {
                 array_unshift($mega_profile['profile'][0]['followers'], $request_arr);
-            }           
+            }
             if ($cb->set($docID_profile, CJSON::encode($mega_profile))) {
                 $isSaving = true;
             } else {
@@ -67,9 +67,7 @@ class FollowersController extends Controller {
             echo json_decode(file_get_contents('php://input'));
         }
     }
-    
-     
-    
+
     public function followingProfile($profile_id, $request_arr) {                      //saving following profile in follower user
         $isSaving = false;
         try {
@@ -144,13 +142,16 @@ class FollowersController extends Controller {
         $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
         $userInfo = CJSON::decode($notificationInfoDeep, true);
 
-        if (!isset($userInfo['user'][0]['notifications'])) {
-            $userInfo['user'][0]['notifications'] = array();
-        }
-        array_unshift($userInfo['user'][0]["notifications"], $notificationObject);     
-        if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {          
-        } else {
-            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+        if (!isset($userInfo['user'][0]['notification_setting'])||strpos($userInfo['user'][0]['notification_setting'], "follow") !== false) {
+            if (!isset($userInfo['user'][0]['notifications'])) {
+                $userInfo['user'][0]['notifications'] = array();
+            }
+            array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+            if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
+                
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
         }
     }
 
@@ -695,15 +696,17 @@ class FollowersController extends Controller {
         $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
         $userInfo = CJSON::decode($notificationInfoDeep, true);
 
-        if (!isset($userInfo['user'][0]['notifications'])) {
-            $userInfo['user'][0]['notifications'] = array();
-        }
-        array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+        if (!isset($userInfo['user'][0]['notification_setting'])||strpos($userInfo['user'][0]['notification_setting'], "follow") !== false) {
+            if (!isset($userInfo['user'][0]['notifications'])) {
+                $userInfo['user'][0]['notifications'] = array();
+            }
+            array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
 
-        if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
-            
-        } else {
-            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
+                
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
         }
     }
 
@@ -712,10 +715,10 @@ class FollowersController extends Controller {
         $currentUser_id = $request_array[0];
         $user_id = $request_array[1];
         $time = $request_array[2];
-        
+
         $unFollowing = $this->unFollowingUser($currentUser_id, $user_id);
-        $unFollower = $this->unFollowerUser($currentUser_id, $user_id,$time);
-        if ($unFollowing && $unFollower) {        
+        $unFollower = $this->unFollowerUser($currentUser_id, $user_id, $time);
+        if ($unFollowing && $unFollower) {
             $this->sendResponse(204);
         } else {
             echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
@@ -745,7 +748,7 @@ class FollowersController extends Controller {
         }
     }
 
-    public function unFollowerUser($currentUser_id, $user_id,$time) {                           //delete follower in this following user
+    public function unFollowerUser($currentUser_id, $user_id, $time) {                           //delete follower in this following user
         $isDelete = false;
         $flag = false;
         try {
@@ -763,8 +766,7 @@ class FollowersController extends Controller {
             if ($cb->set($docID_user, CJSON::encode($mega_user))) {
                 $isDelete = true;
             }
-            if($flag === true)
-            {
+            if ($flag === true) {
                 $this->createNotificationunfollow($currentUser_id, $user_id, $time);
             }
             return $isDelete;
@@ -843,7 +845,7 @@ class FollowersController extends Controller {
             if (!$bool) {
                 $current_time = $request_arr["time_stamp"];
                 $follower_id = $request_arr["follower_id"];
-                $this->createNotification($follower_id, $user_id, $current_time);              
+                $this->createNotification($follower_id, $user_id, $current_time);
             }
             return $isSaving;
         } catch (Exception $exc) {

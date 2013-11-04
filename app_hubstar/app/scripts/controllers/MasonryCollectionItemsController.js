@@ -36,7 +36,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
-            console.log(results);
                 for (var i = 0; i < this.get("content").length; i++) {
                     var tempObject = results.objectAt(i);
                     that.get("content").pushObject(tempObject);

@@ -246,15 +246,17 @@ class MessagesController extends Controller {
             $cbs = $this->couchBaseConnection();
             $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
             $userInfo = CJSON::decode($notificationInfoDeep, true);
-
-            if (!isset($userInfo['user'][0]['notifications'])) {
-                $userInfo['user'][0]['notifications'] = array();
-            }
-            array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
-            if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
-                
-            } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+          
+            if (!isset($userInfo['user'][0]['notification_setting'])||strpos($userInfo['user'][0]['notification_setting'], "message") !== false) {
+                if (!isset($userInfo['user'][0]['notifications'])) {
+                    $userInfo['user'][0]['notifications'] = array();
+                }
+                array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+                if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
+                    
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
             }
         }
     }
@@ -608,75 +610,89 @@ class MessagesController extends Controller {
             $cbs = $this->couchBaseConnection();
             $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
             $userInfo = CJSON::decode($notificationInfoDeep, true);
+         
+            if (!isset($userInfo['user'][0]['notification_setting'])||strpos($userInfo['user'][0]['notification_setting'], "message") !== false) {
+                if (!isset($userInfo['user'][0]['notifications'])) {
+                    $userInfo['user'][0]['notifications'] = array();
+                }
+                array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+                if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
+                    
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
+            }
 
-            if (!isset($userInfo['user'][0]['notifications'])) {
-                $userInfo['user'][0]['notifications'] = array();
-            }
-            array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
-            if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
-                
-            } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-            }
 
             $notification = $this->getDomain() . "/users/" . $message_owner;
             $cbm = $this->couchBaseConnection();
             $notificationDeep = $cbm->get($notification); // get the old user record from the database according to the docID string
             $userMessage = CJSON::decode($notificationDeep, true);
 
-            if (!isset($userMessage['user'][0]['notifications'])) {
-                $userMessage['user'][0]['notifications'] = array();
-            }
-            array_unshift($userMessage['user'][0]["notifications"], $notificationObject);
-            if ($cbm->set($notification, CJSON::encode($userMessage))) {
-                
-            } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+           
+
+            if (!isset($userMessage['user'][0]['notification_setting'])||strpos($userMessage['user'][0]['notification_setting'], "message") !== false) {
+                if (!isset($userMessage['user'][0]['notifications'])) {
+                    $userMessage['user'][0]['notifications'] = array();
+                }
+                array_unshift($userMessage['user'][0]["notifications"], $notificationObject);
+                if ($cbm->set($notification, CJSON::encode($userMessage))) {
+                    
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
             }
         } elseif ($commenter_id !== $message_owner && $commenter_id !== $id && $message_owner === $id) {
             $notificationInfo = $this->getDomain() . "/users/" . $ownerId;
             $cbs = $this->couchBaseConnection();
             $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
             $userInfo = CJSON::decode($notificationInfoDeep, true);
-
-            if (!isset($userInfo['user'][0]['notifications'])) {
-                $userInfo['user'][0]['notifications'] = array();
-            }
-            array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
-            if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
-                
-            } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+           
+            if (!isset($userInfo['user'][0]['notification_setting'])||strpos($userInfo['user'][0]['notification_setting'], "message") !== false) {
+                if (!isset($userInfo['user'][0]['notifications'])) {
+                    $userInfo['user'][0]['notifications'] = array();
+                }
+                array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+                if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
+                    
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
             }
         } elseif ($commenter_id === $id && $id !== $message_owner) {
             $notification = $this->getDomain() . "/users/" . $message_owner;
             $cbm = $this->couchBaseConnection();
             $notificationDeep = $cbm->get($notification); // get the old user record from the database according to the docID string
             $userMessage = CJSON::decode($notificationDeep, true);
+         
 
-            if (!isset($userMessage['user'][0]['notifications'])) {
-                $userMessage['user'][0]['notifications'] = array();
-            }
-            array_unshift($userMessage['user'][0]["notifications"], $notificationObject);
-            if ($cbm->set($notification, CJSON::encode($userMessage))) {
-                
-            } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            if (!isset($userMessage['user'][0]['notification_setting'])||strpos($userMessage['user'][0]['notification_setting'], "message") !== false) {
+                if (!isset($userMessage['user'][0]['notifications'])) {
+                    $userMessage['user'][0]['notifications'] = array();
+                }
+                array_unshift($userMessage['user'][0]["notifications"], $notificationObject);
+                if ($cbm->set($notification, CJSON::encode($userMessage))) {
+                    
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
             }
         } elseif ($commenter_id === $message_owner && $id !== $commenter_id) {
             $notificationInfo = $this->getDomain() . "/users/" . $ownerId;
             $cbs = $this->couchBaseConnection();
             $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
             $userInfo = CJSON::decode($notificationInfoDeep, true);
-
-            if (!isset($userInfo['user'][0]['notifications'])) {
-                $userInfo['user'][0]['notifications'] = array();
-            }
-            array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
-            if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
-                
-            } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+           
+            if (!isset($userInfo['user'][0]['notification_setting'])||strpos($userInfo['user'][0]['notification_setting'], "message") !== false) {
+                if (!isset($userInfo['user'][0]['notifications'])) {
+                    $userInfo['user'][0]['notifications'] = array();
+                }
+                array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+                if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
+                    
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
             }
         }
     }

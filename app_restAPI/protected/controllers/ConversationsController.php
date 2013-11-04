@@ -191,7 +191,7 @@ class ConversationsController extends Controller {
             }
             $participantions = explode(",", $mega_currentUser["participation_ids"]);
             $this->createNotification($commenter_id, $participantions, $time_stamp, $conversationId, $conversationtContent);
-            
+
             for ($i = 0; $i < sizeof($participation_id); $i++) {
 
                 $commenterInfo = $this->getDomain() . "/users/" . $participation_id[$i];
@@ -230,7 +230,7 @@ class ConversationsController extends Controller {
             $cb = $this->couchBaseConnection();
             $domain = $this->getDomain();
             $docID_currentUser = $domain . "/users/" . $conversationId;
-           
+
             $tempMega_currentUser = $cb->get($docID_currentUser);
             $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
 
@@ -279,7 +279,7 @@ class ConversationsController extends Controller {
                         $mega_currentConversation["ConversationCollection"][$j]["sender_photo_url_large"] = $docID_currentUserNew['user'][0]["photo_url_large"];
                     }
                     array_push($readConversation, $mega_currentConversation);
-                    
+
                     $readConversation[$i]["names"] = $names;
                     $readConversation[$i]["conversationPhoto"] = $contentParticipation;
                 }
@@ -291,7 +291,7 @@ class ConversationsController extends Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
             echo json_decode(file_get_contents('php://input'));
-        }     
+        }
     }
 
     public function actionCreateConversation() {
@@ -340,25 +340,146 @@ class ConversationsController extends Controller {
                 $notificationObject["action_id"] = $conversationID;
                 $notificationObject["isRead"] = false;
 
-
                 $notificationInfo = $this->getDomain() . "/users/" . $ownerId;
                 $cbs = $this->couchBaseConnection();
                 $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
                 $userInfo = CJSON::decode($notificationInfoDeep, true);
 
-                if (!isset($userInfo['user'][0]['notifications'])) {
-                    $userInfo['user'][0]['notifications'] = array();
-                }
-                array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
-                if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
-                    
-                } else {
-                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+//                 if (!isset($userInfo['user'][0]['notification_setting'])||strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
+//                   $receiveEmail = $userInfo['user'][0]['email'];  
+//                   $this->sendEmail($commenter_id,$receiveEmail, $date, $conversationID);
+//                 }
+//                
+                if (!isset($userInfo['user'][0]['notification_setting'])||strpos($userInfo['user'][0]['notification_setting'], "conversation") !== false) {
+                    if (!isset($userInfo['user'][0]['notifications'])) {
+                        $userInfo['user'][0]['notifications'] = array();
+                    }
+                    array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+                    if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
+                        
+                    } else {
+                        echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                    }
                 }
             }
         }
     }
-
+//
+//    public function sendEmail($commenter_id, $receiveEmail,$date, $conversationID)
+//    {
+//        
+//        $notificationInfo = $this->getDomain() . "/users/" . $commenter_id;
+//        $cbs = $this->couchBaseConnection();
+//        $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
+//        $userInfo = CJSON::decode($notificationInfoDeep, true);
+//
+//        $senderName = $userInfo['user'][0]['display_name'];
+//        $domain = $this->getDomain();
+//        $configuration = $this->getProviderConfigurationByName($domain, "SES");
+//        $amazonSes = Aws\Ses\SesClient::factory($configuration);
+//        $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
+//        $platformEmail = $platformSettings['support']['email'];
+//        $subject_prefix = $senderName. "has leave a message in conversation on ". $date ;
+//        $args = array(
+//            "Source" => $platformEmail,
+//            "Destination" => array(
+//                "ToAddresses" => array(
+//                    $receiveEmail),
+//                "BccAddresses" => array(
+//                    $platformEmail)
+//            ),
+//            "Message" => array(
+//                "Subject" => array(
+//                    "Data" => $subject_prefix
+//                ),
+//                "Body" => array(
+//                    "Html" => array(
+//                        "Data" => $this->confirmationEmailForm($conversationID, $senderName)
+//                    )
+//                ),
+//            ),
+//        );
+//        $response = $amazonSes->sendEmail($args);
+//        $this->sendResponse(200, $response);
+//    }
+//    public function confirmationEmailForm($username, $password) {
+//        return '
+//<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+//<html xmlns="http://www.w3.org/1999/xhtml">
+//    <head>
+//        <title></title>
+//    </head>
+//    <body style="background: #E5E5E5; margin: 0; padding: 0;">
+//        <table width="100%" cellpadding="0" cellspacing="0">
+//            <tbody>
+//                <tr>
+//                    <td align="center">
+//                        &nbsp;<br />
+//                        <br />&nbsp
+//                        <table cellpadding="0" cellspacing="0" border="0" style="background: #fff;" width="600">
+//                            <tbody>
+//                                <tr>
+//                                    <td>
+//                                        <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/header.jpg" />
+//                                    </td>
+//                                </tr>
+//                                <tr>
+//                                    <td align="center">
+//                                        &nbsp;<br />
+//                                        <table cellpadding="10" cellspacing="0" width="90%" style="color: #666; font-size: 13px;
+//                                               line-height: 150%; font-family: Helvetica, Arial, San-Serif; text-align: left;">
+//                                            <tr>
+//                                                <td valign="top">
+//                                                    <h1 style="color: #05B1E5; font-size: 2em; font-weight: normal; margin: 0; line-height: 200%;">
+//                                                        Welcome to Trends Ideas Web Platform!</h1>
+//                                                    Here is your registration information, please keep this email in a safe place.
+//                                                </td>
+//                                            </tr>
+//                                            <tr>
+//                                                <td>
+//                                                    <table align="left" style="color: #05B1E5; font-size: 13px; line-height: 150%; font-family: Helvetica, Arial, San-Serif;
+//                                                           text-align: left;" cellpadding="0" cellspacing="0">
+//                                                        <tr>
+//                                                            <td valign="top">
+//                                                                User name: ' . $username . '
+//                                                            </td>
+//                                                        </tr>
+//                                                        <tr>
+//                                                            <td valign="top">
+//                                                                New password: ' . $password . '
+//                                                            </td>
+//                                                        </tr>
+//                                                    </table>
+//
+//                                                </td>
+//                                            </tr>
+//                                            <tr>
+//                                                <td valign="top">
+//                                                    <hr style="text-align:center;height: 1px; color: #0088CC; background: #0088CC; width: 100%; border: 0 none;margin:0;" />
+//                                                </td>
+//                                            </tr>
+//                                        </table>
+//                                    </td>
+//                                </tr>
+//                                <tr>
+//                                    <td align="center">
+//                                        &nbsp;<br />
+//                                        <img src="http://develop.devbox.s3.amazonaws.com/email-bottom.jpg" style="float: left;" />
+//                                        <br />&nbsp;
+//                                    </td>
+//                                </tr>
+//                            </tbody>
+//                        </table>
+//                        &nbsp;<br />
+//                    </td>
+//                </tr>
+//            </tbody>
+//        </table>
+//    </body>
+//</html>
+//';
+//    }
+//    
     public function addConversation($commenter_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $conversationID, $conversationItemID, $participation_ids) {                       //saving follower in profile
         try {
 

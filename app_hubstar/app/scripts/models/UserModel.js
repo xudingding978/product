@@ -44,6 +44,7 @@ HubStar.User = DS.Model.extend({
     zip: DS.attr('string'),
     address: DS.attr('string'),
     password: DS.attr('string'),
+    notification_setting:DS.attr('string'),
     selected_topics: DS.attr('string'),
     collections: DS.hasMany('HubStar.Collection'),
     followers: DS.hasMany('HubStar.Follower'),

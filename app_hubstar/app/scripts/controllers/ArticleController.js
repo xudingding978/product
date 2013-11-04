@@ -2,12 +2,14 @@
 HubStar.ArticleController = Ember.Controller.extend({
     content: [],
     image_no: 1,
-    selectedPhoto: null,
+    selectedPhoto: null,         
     captionTitle: "",
     readCaption: true,
     caption: '',
+    checkLoginStatus:false,
     needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus'],
     init: function() {
+  
     },
     findSelectedItemIndex: function() {
         content = this.get('content');

@@ -2,8 +2,16 @@ var HubStar = window.HubStar = Ember.Application.createWithMixins({
     LOG_TRANSITIONS: false,
     LOG_BINDINGS: false,
     ready: function() {
-        HubStar.set("isLogin", false);
-         HubStar.set("checkLoginStatus", false);
+           console.log("aaaaaaaaaaa");
+        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
+        {
+         
+            HubStar.set("isLogin", false);
+        }else{
+                    HubStar.set("isLogin", true);               
+        }
+      
+        HubStar.set("checkLoginStatus", false);
         HubStar.set("afterSearch", false);
         HubStar.set("setHight", null);
         HubStar.set('chooseCollection', null);

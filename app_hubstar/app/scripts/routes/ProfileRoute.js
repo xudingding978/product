@@ -9,9 +9,9 @@ HubStar.ProfileRoute = Ember.Route.extend({
         ProfileController.set('collectionTag', true);
         ProfileController.set('partnerTag', false);
         /*************************            partner cehcking           ***********8*/
-
+       
         this.controllerFor('application').set('islogin', true);
-        this.controllerFor('application').set('popup', false);
+     this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', true);
         this.controllerFor('searchs').setLoginImge();
         this.controllerFor('profile').set('switchPhoto', true);

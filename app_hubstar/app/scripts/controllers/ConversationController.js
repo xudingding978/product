@@ -23,14 +23,20 @@ HubStar.ConversationController = Ember.Controller.extend({
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
         }
     },
-    selectConversation: function(id) {    
+    selectConversation: function(id) {
         var idOld = this.get("selectId");
 
         this.get("controllers.messageCenter").selectedNone();
         setTimeout(function() {
             $('#conversation_' + idOld).removeClass('selected-conversation');
             $('#conversation_' + id).addClass('selected-conversation');
-        },200);
+            var s = '#conversation_' + id;
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $("#conversation_content").mCustomScrollbar("scrollTo", s);
+                }, 50);
+            });
+        }, 100);
         this.set("selectId", id);
         if (id !== null && id !== undefined) {
             this.get('controllers.messageCenter').selectConversationItem(id);

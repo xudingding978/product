@@ -92,3 +92,24 @@
     <img style="width: 22.5px;height: 22.5px;position: absolute;" {{bindAttr src= controller.commenter_photo_url}} />
     <img style="width: 22.5px;height: 22.5px;position: absolute;top: 22.5px;" {{bindAttr src= controller.commenter_photo_url}} />
 </div>
+
+<script>
+    $(function() {
+        $("#conversation_content").mCustomScrollbar({
+            scrollButtons: {
+                enable: false,
+                scrollSpeed: "auto"
+            },
+            advanced: {
+                updateOnBrowserResize: true,
+                updateOnContentResize: true,
+                autoScrollOnFocus: false,
+                normalizeMouseWheelDelta: false
+            },
+            autoHideScrollbar: true,
+            mouseWheel: true,
+            theme: "dark-2",
+            set_height: 1000
+        });
+    });
+</script>

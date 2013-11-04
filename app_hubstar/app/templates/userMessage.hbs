@@ -38,9 +38,9 @@
                         </div>
                     </div>
                     {{#if controller.isPosting}}
-                    <div class="message-btn easing" style=''{{action addComment}}><k class='icon-ok'>&nbsp;</k>Post</div>
+                    <div class="message-btn easing" style=''{{action addComment}}><k class='icon-ok'>&nbsp;</k>Post </div>
                     {{else}}
-                    <div class="message-btn easing" style=''><k class='icon-ok'>&nbsp;</k>Posting</div>
+                    <div class="message-btn-x easing" style=''><i class="spinner">&nbsp;</i>Posting </div>
                     {{/if}}
                 </div>
             </div>
@@ -62,30 +62,30 @@
                 window.setTimeout(function() {
                     $container.masonry();
                     $container.masonry('reloadItems');
-                }, 10);
+                }, 200);
             });
         </script>
         {{/each}}
     </div>
 </div>
 <script>
-    $(function() {        
-            $("#content_message").mCustomScrollbar({
-                scrollButtons: {
-                    enable: false,
-                    scrollSpeed: "auto"
-                },
-                advanced: {
-                    updateOnBrowserResize: true,
-                    updateOnContentResize: true,
-                    autoScrollOnFocus: false,
-                    normalizeMouseWheelDelta: false
-                },
-                autoHideScrollbar: true,
-                mouseWheel: true,
-                theme: "dark-2",
-                set_height: 1000
-            });       
+    $(function() {
+        $("#content_message").mCustomScrollbar({
+            scrollButtons: {
+                enable: false,
+                scrollSpeed: "auto"
+            },
+            advanced: {
+                updateOnBrowserResize: true,
+                updateOnContentResize: true,
+                autoScrollOnFocus: false,
+                normalizeMouseWheelDelta: false
+            },
+            autoHideScrollbar: true,
+            mouseWheel: true,
+            theme: "dark-2",
+            set_height: 1000
+        });
     });
 </script>
 

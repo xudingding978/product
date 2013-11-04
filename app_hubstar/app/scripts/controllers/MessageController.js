@@ -203,7 +203,6 @@ HubStar.MessageController = Ember.Controller.extend({
         $('#commentBox').attr('style', 'display:none');
         setTimeout(function() {
             $('#masonry_container').masonry("reloadItems");
-
         }, 200);
     },
     addReply: function(message_id) {

@@ -90,6 +90,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     isPhotoEditingMode: false,
     isCrop: false,
 
+
     isUpload: false,
     loadingTime: false,
 
@@ -184,10 +185,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.isFollowed();
         this.checkAuthenticUser();
+
       this.labelBarRefresh();
 
-        //  this.set('profileSelectionStatus', 'Collections');
-        //this.selectCollection();
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
         this.initStastics(profile);
@@ -579,6 +579,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
      $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
 
+
         this.sendEventTracking('event', 'button', 'click', 'Collections');
         this.set('partnerPage', 'Collections');
         this.set('profileSelectionStatus', 'Collections');
@@ -610,15 +611,16 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     selectFollower: function(model) {
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Followers');
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#follow').addClass('selected-user-stats');
         this.set('profileSelectionStatus', 'Followers');
-        this.get('controllers.userFollowers').getProfileId(model);
+         //this.get('controllers.userFollowers').getProfileId(model);
+        
         this.set('partnerTag', false);
         this.set('collectionTag', false);
         this.set('followerProfileTag', true);
 
+
         this.transitionToRoute('profileFollowers');
+
 
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
@@ -822,6 +824,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             that.setCropImage();
                         }
 
+
                         var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
                             'newStyleImageName': that.get('newStyleImageName'),
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
@@ -850,8 +853,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         that.set('CurrentImageSize', "");
                         that.set('isCrop', false);
 
-
                         that.set('isUpload', false);
+
 
                     }
 

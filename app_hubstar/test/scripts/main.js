@@ -241,6 +241,48 @@ HubStar.Comment= DS.Model.extend({
 
 (function() {
 
+HubStar.ConversationItem = DS.Model.extend({
+    item_id: DS.attr('string'),
+    name: DS.attr('string'),
+    time_stamp: DS.attr('string'),
+    content: DS.attr('string'),
+    sender_id:DS.attr('string'),
+    sender_photo_url_large: DS.attr('string')
+});
+
+
+
+})();
+
+(function() {
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+DS.RESTAdapter.map('HubStar.Conversation', {
+
+    ConversationCollection: {embedded: 'load'}
+});
+
+
+HubStar.Conversation = DS.Model.extend({
+     conversation_id: DS.attr('string'),
+     participation_ids: DS.attr('string'),
+    ConversationCollection: DS.hasMany('HubStar.ConversationItem')
+        
+});
+
+
+
+
+
+})();
+
+(function() {
+
 HubStar.Email= DS.Model.extend({
         displayName: DS.attr('string'),
         displayEmail: DS.attr('string'),
@@ -414,6 +456,30 @@ HubStar.Message = DS.Model.extend({
     photo_url_large: DS.attr('string'),
     enableToEdit: DS.attr('string')
 });
+
+
+
+})();
+
+(function() {
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+HubStar.Notification = DS.Model.extend({
+    notification_id: DS.attr('string'),
+    user_id: DS.attr('string'),
+    type: DS.attr('string'),
+    time: DS.attr('string'),
+    content:DS.attr('string'),
+    action_id:DS.attr('string'),
+    isRead:false
+});
+
+
 
 
 
@@ -654,6 +720,17 @@ HubStar.Subcategories = DS.Model.extend({
 
 (function() {
 
+HubStar.UserConversation = DS.Model.extend({
+    conversation_id: DS.attr('string'),
+    is_read: false
+});
+
+
+
+})();
+
+(function() {
+
 /* 
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -685,7 +762,9 @@ DS.RESTAdapter.map('HubStar.User', {
     collections: {embedded: 'load'},
     followers: {embedded: 'load'},
     followings: {embedded: 'load'},
-    messages: {embedded: 'load'}
+    messages: {embedded: 'load'},
+    conversations: {embedded: 'load'},
+    notifications: {embedded: 'load'}
 });
 
 
@@ -728,8 +807,11 @@ HubStar.User = DS.Model.extend({
     collections: DS.hasMany('HubStar.Collection'),
     followers: DS.hasMany('HubStar.Follower'),
     followings: DS.hasMany('HubStar.Follower'),
-    messages: DS.hasMany('HubStar.UserMessage')
+    messages: DS.hasMany('HubStar.UserMessage'),
+    conversations: DS.hasMany('HubStar.UserConversation'),
+    notifications: DS.hasMany('HubStar.Notification')
 });
+
 
 
 
@@ -856,28 +938,36 @@ HubStar.CollectionRoute = Ember.Route.extend({
 
         }
         this.controllerFor('user').set('switchPhoto', false);
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
         this.controllerFor('masonryCollectionItems').selectModelForUser(id);
         this.controllerFor('masonryCollectionItems').set('canEdit', true);
         setTimeout(function() {
             $('#masonry_photo_collection_container').masonry("reload");
         }, 3000);
-    },
-    model: function(params) {
+   
 
-        this.controllerFor('user').set('switchPhoto', false);
-        var address = document.URL;
-        var user_id = address.split("#")[1].split("/")[2];
-        return HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: params.collection_id});
     },
+//    model: function(params) {
+//
+//        this.controllerFor('user').set('switchPhoto', false);
+//        var address = document.URL;
+//        var user_id = address.split("#")[1].split("/")[2];
+//        return HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: params.collection_id});
+//    },
     events: {
         transitionToPhoto: function(id) {
             this.transitionTo("photo", HubStar.Mega.find(id));
+
         },
         transitionToProfile: function(id) {
 
-            this.transitionTo("profile", HubStar.Profile.find(id));
-
+            this.controllerFor('user').set('switchPhoto', false);
+            var address = document.URL;
+            var user_id = address.split("#")[1].split("/")[2];
+            return HubStar.Mega.find({RquireType: "firstsearch", user_id: user_id, collection_id: params.collection_id});
         },
+
         transitionToArticle: function(id) {
 
             this.transitionTo("article", HubStar.Article.find(id));
@@ -911,19 +1001,94 @@ HubStar.CollectionRoute = Ember.Route.extend({
  */
 
 
-HubStar.FollowersRoute = Ember.Route.extend({
+HubStar.ConversationRoute = Ember.Route.extend({
+    setupController: function(controller, model) {
+        console.log("conversation congtroller");
+        console.log(model);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+        $(window).scrollTop(550);
+    },
+    model: function(params) {
+        var address = document.URL;
+        console.log("conversation model");
+        var user_id = address.split("#")[1].split("/")[2];
+        var user = HubStar.User.find(user_id);
+        var conversation_id = address.split("#")[1].split("/")[5];
+
+        var data = null;
+        for (var i = 0; i < user.get('conversations').get("length"); i++) {
+            data = user.get('conversations').objectAt(i);
+            if (data.get("conversation_id") === conversation_id) {
+                data.set("id", data.get("conversation_id"));
+                break;
+            }
+        }
+        return data;
+
+    }
+});
+
+
+
+
+})();
+
+(function() {
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+HubStar.ConversationsRoute = Ember.Route.extend({
     setupController: function(controller, model) {
 
+  
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+        $(window).scrollTop(0);
+
+    },
+    model: function(params) {
+
+        var address = document.URL;
+        var user_id = address.split("#")[1].split("/")[2];
+        return user_id;
+    }
+});
+
+
+
+
+})();
+
+(function() {
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+HubStar.FollowersRoute = Ember.Route.extend({
+    setupController: function(controller, model) {
+ 
         this.controllerFor('user').set('profileSelectionStatus', 'Followers');
         this.controllerFor('user').set('collectionTag', false);
 
         this.controllerFor('user').set('followerTag', true);
         this.controllerFor('user').set('followingTag', false);
         this.controllerFor('user').set('messageTag', false);
-   //    $('#user-stats > li').removeClass('selected-user-stats');
+
+        
+        $('#user-stats > li').removeClass('selected-user-stats');
         $('#ufollower').addClass('selected-user-stats');
-//        this.controllerFor('userFollowers').setUserFollowers(model);
-        this.controllerFor('userFollowers').setUserFollowers(model);
+   this.controllerFor('userFollowers').setUserFollowers(model);
+
         $(window).scrollTop(0);
     },
     model: function(params) {
@@ -954,12 +1119,11 @@ HubStar.FollowingRoute = Ember.Route.extend({
         this.controllerFor('user').set('followerTag', false);
         this.controllerFor('user').set('followingTag', true);
         this.controllerFor('user').set('messageTag', false);
-     //  $('#user-stats > li').removeClass('selected-user-stats');
+
+
+        $('#user-stats > li').removeClass('selected-user-stats');
         $('#ufollowing').addClass('selected-user-stats');
-//        $('#user-stats > li').click(function() {
-//            $('#user-stats > li').removeClass('selected-user-stats');
-//            $(this).addClass('selected-user-stats');
-//        });
+
         this.controllerFor('userFollowings').setUserFollowings(model);
 
         $(window).scrollTop(0);
@@ -1095,6 +1259,188 @@ HubStar.IndexRoute = Ember.Route.extend({
  */
 
 
+HubStar.MessageCenterRoute = Ember.Route.extend({
+    setupController: function(controller, model) {
+
+        this.controllerFor('user').set('profileSelectionStatus', 'Messages');
+        this.controllerFor('user').set('collectionTag', false);
+
+        this.controllerFor('user').set('followerTag', false);
+        this.controllerFor('user').set('followingTag', false);
+        this.controllerFor('user').set('messageTag', true);
+        // The following two line is used to change the selection with dark 
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#message').addClass('selected-user-stats');
+        var address = document.URL;
+        var conversation_id = "";
+        if (this.controllerFor('notificationTop').get("goReply") === true)
+        {
+            model = localStorage.loginStatus;
+            var replyID = this.controllerFor('notificationTop').get("reply_ids");
+            model = replyID;
+            this.controllerFor('notificationTop').set("goReply", false);
+        }
+        if (this.controllerFor('notificationTop').get("notificationSeeAll") === true)
+        {
+            model = localStorage.loginStatus;
+            this.controllerFor('notificationTop').set("notificationSeeAll",false) ;          
+        }
+        if (this.controllerFor('notificationTop').get("goMessage") !== undefined && this.controllerFor('notificationTop').get("goMessage") !== null && this.controllerFor('notificationTop').get("goMessage") !== "")
+        {
+            model = localStorage.loginStatus;
+        }
+        if (this.controllerFor('notification').get("reply_ids") !== undefined && this.controllerFor('notification').get("reply_ids") !== null && this.controllerFor('notification').get("reply_ids") !== "")
+        {
+
+            model = this.controllerFor('notification').get("reply_ids");
+            //this.controllerFor('notification').set("reply_ids", "");
+        }
+        if (this.controllerFor('notificationTop').get("reply_ids") !== undefined && this.controllerFor('notificationTop').get("reply_ids") !== null && this.controllerFor('notificationTop').get("reply_ids") !== "")
+        {
+            model = this.controllerFor('notificationTop').get("reply_ids");
+            //this.controllerFor('notification').set("reply_ids", "");
+
+        }
+        console.log(model);
+        if (this.controllerFor('notificationTop').get("goConversation") === true)
+        {
+            model = localStorage.loginStatus;
+            this.controllerFor('notificationTop').set("goConversation", false);
+            this.controllerFor('messageCenter').getClientId(localStorage.loginStatus);
+        }
+        else if (address.split("#")[1].split("/").length === 6 && address.split("#")[1].split("/")[4] === "conversations") {
+            conversation_id = address.split("#")[1].split("/")[5];
+            this.controllerFor('messageCenter').getClientId(localStorage.loginStatus, conversation_id);
+        }
+        else {
+            this.controllerFor('messageCenter').getClientId(model);
+        }
+        $(window).scrollTop(550);
+    },
+    model: function(params) {
+        var address = document.URL;
+        var user_id = address.split("#")[1].split("/")[2];
+        return user_id;
+    },
+    events: {
+        transitionToConversation: function(conversation_id) {
+
+
+            var address = document.URL;
+            var user_id = address.split("#")[1].split("/")[2];
+            var user = HubStar.User.find(user_id);
+
+            var data = null;
+            var isNewConversation = HubStar.get("newConversation");
+            var isTalk = HubStar.get("talkConversation");
+            if (isNewConversation || isTalk)
+            {
+                data = this.controllerFor('conversation').get("conversationContent").objectAt(0);
+                data.set("id", data.get("conversationID")); //it is use for the new conversation
+            }
+            else {
+                for (var i = 0; i < this.controllerFor('conversation').get("conversationContent").length; i++) {
+                    data = this.controllerFor('conversation').get("conversationContent").objectAt(i);
+
+                    if (data.get("conversationID") === conversation_id) {
+
+                        data.set("id", data.get("conversationID"));
+                        break;
+                    }
+                }
+            }
+            HubStar.set("newConversation", false);
+            HubStar.set("talkConversation", false);
+            this.controllerFor("conversation").selectConversation(data.get("id"));
+            this.transitionTo("conversation", data);
+        }
+    }
+});
+
+
+
+
+})();
+
+(function() {
+
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+HubStar.MessagesRoute = Ember.Route.extend({
+    setupController: function(controller, model) {
+
+        this.controllerFor('user').set('profileSelectionStatus', 'Messages');
+        this.controllerFor('messageCenter').selectMessage(model);
+        if (this.controllerFor('notification').get("reply_ids") !== undefined && this.controllerFor('notification').get("reply_ids") !== null && this.controllerFor('notification').get("reply_ids") !== "")
+        {
+            model = this.controllerFor('notification').get("reply_ids");
+        }
+        if (this.controllerFor('notificationTop').get("reply_ids") !== undefined && this.controllerFor('notificationTop').get("reply_ids") !== null && this.controllerFor('notificationTop').get("reply_ids") !== "")
+        {
+            model = this.controllerFor('notificationTop').get("reply_ids");
+        }
+        $(window).scrollTop(550);
+    },
+    model: function(params) {
+        var user_id = "";
+        var address = document.URL;
+        var user_id = address.split("#")[1].split("/")[2];
+        return user_id;
+    }
+});
+
+
+
+
+})();
+
+(function() {
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+HubStar.NotificationsRoute = Ember.Route.extend({
+    setupController: function(controller, model) {
+
+        model = localStorage.loginStatus;
+
+        this.controllerFor('messageCenter').selectNotification(model);
+
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+        $(window).scrollTop(0);
+
+    },
+    model: function(params) {
+
+        var address = document.URL;
+        var user_id = address.split("#")[1].split("/")[2];
+        return user_id;
+    }
+});
+
+
+
+
+})();
+
+(function() {
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
 HubStar.PartnersRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         // this.controllerFor('ProfileController').set('is_authentic_user', true);
@@ -1215,9 +1561,7 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
         this.controllerFor('profile').set('switchPhoto', false);
         this.controllerFor('masonryCollectionItems').set('uploadStuff', true);
         this.controllerFor('masonryCollectionItems').set('canEditbyOwner', true);
-   setTimeout(function() {
-            $('#masonry_photo_collection_container').masonry("reload");
-        }, 3000);
+
     },
     model: function(params) {
         this.controllerFor('profile').set('switchPhoto', false);
@@ -1265,10 +1609,18 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
 HubStar.ProfileFollowersRoute = Ember.Route.extend({
     setupController: function(controller, model) {
 
+       $(window).scrollTop(1500);      
+         this.controllerFor('profile').sendEventTracking('event', 'button', 'click', 'Followers');
+         this.controllerFor('profile').set('profileSelectionStatus', 'Followers');
 
+        
+         this.controllerFor('profile').set('partnerTag', false);
+         this.controllerFor('profile').set('collectionTag', false);
+         this.controllerFor('profile').set('followerProfileTag', true);
+         
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#follow').addClass('selected-user-stats');
-        this.controllerFor('profile').selectFollower(model);
+          this.controllerFor('userFollowers').getProfileId(model);
 
     },
     model: function(params) {
@@ -1279,6 +1631,7 @@ HubStar.ProfileFollowersRoute = Ember.Route.extend({
         return model;
     }
 });
+
 
 
 })();
@@ -1725,7 +2078,7 @@ HubStar.UserMessageRoute = Ember.Route.extend({
         this.controllerFor('user').set('messageTag', true);
         // The following two line is used to change the selection with dark 
         $('#user-stats > li').removeClass('selected-user-stats');
-        $('#message').addClass('selected-user-stats');
+        $('#message').addClass('selected-user-stats');      
         this.controllerFor('userMessage').setUserMessage(model);
 
         $(window).scrollTop(0);
@@ -1745,7 +2098,7 @@ HubStar.UserMessageRoute = Ember.Route.extend({
 (function() {
 
 HubStar.UserRoute = Ember.Route.extend({
-    setupController: function(controller, model) {
+    setupController: function(controller, model) {       
         HubStar.set('editingMode', 'user');
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('application').set('popup', false);
@@ -1755,7 +2108,6 @@ HubStar.UserRoute = Ember.Route.extend({
         this.controller.set('switchPhoto', true);
         this.controller.set('collectionTag', true);
         //  this.controller.set('partnerTag', false);
-
         $('#default').toggle('selected-user-stats');
         this.controller.set('followerTag', false);
         this.controller.set('followingTag', false);
@@ -1765,7 +2117,7 @@ HubStar.UserRoute = Ember.Route.extend({
 
         $(window).scrollTop(0);
     },
-    model: function(params) {
+    model: function(params) {   
         return HubStar.User.find(params.user_id);
     },
     events: {
@@ -2187,7 +2539,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
 /*global $:false */
 
 HubStar.ApplicationController = Ember.ArrayController.extend({
-    needs: ['status', 'applicationFeedback'],
+    needs: ['status', 'applicationFeedback', 'notificationTop'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -2210,10 +2562,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeLoginURL: "",
     isWaiting: "",
     isGeoDropdown: false,
+    unReadCount: 0,
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
         this.defaultSearch();
         this.set('search_string', '');
+    },
+    dropdownPhotoSetting: function() {
+        this.set("isNotification", !this.get("isNotification"));
+        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
     },
     popupModal: function() {
         this.set('popup', !this.get('popup'));
@@ -2224,9 +2581,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     loginStatus: function() {
     },
     grapData: function() {
-        this.set("user", HubStar.User.find(localStorage.loginStatus));
-        this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
-        this.set("myMessageBoard", "#/users/" + localStorage.loginStatus+"/messages");
+        var u = HubStar.User.find(localStorage.loginStatus);
+        this.set("user", u);
+        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
+        this.set("myUserProfile", "#/users/" + localStorage.loginStatus);       
+        this.set("myMessageBoard", "#/users/" + localStorage.loginStatus+"/messagecenter");
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));
@@ -2923,10 +3282,6 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     fbShare: function() {
         var that = this;
-        console.log(this.get('selectedPhoto').id);
-        console.log(this.get('selectedPhoto').photo_image_thumbnail_url);
-        console.log(this.get('articleResouce').get("article_body"));
-        console.log(this.get('articleResouce').get("article_headline"));
         var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
         var caption = '';
 
@@ -3481,6 +3836,477 @@ HubStar.CommentController = Ember.Controller.extend({
  */
 
 
+HubStar.ConversationController = Ember.Controller.extend({
+    conversationContent: null,
+    commenter_photo_url: null,
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem'],
+    isUploadPhoto: false,
+    init: function()
+    {
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+        if (localStorage.loginStatus) {
+            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+            this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
+        }
+        setTimeout(function() {
+            $("#conversation_content").mCustomScrollbar({
+                scrollButtons: {
+                    enable: false,
+                    scrollSpeed: "auto"
+                },
+                advanced: {
+                    updateOnBrowserResize: true,
+                    updateOnContentResize: true,
+                    autoScrollOnFocus: false,
+                    normalizeMouseWheelDelta: false
+                },
+                autoHideScrollbar: true,
+                mouseWheel: true,
+                theme: "dark-2",
+                set_height: 950
+            });
+        }, 200);
+    },
+    selectConversation: function(id) {      
+        var idOld = this.get("selectId");
+        this.get("controllers.messageCenter").selectedNone();
+        $('#conversation_' + idOld).removeClass('selected-conversation');
+        $('#conversation_' + id).addClass('selected-conversation');        
+        this.set("selectId", id);
+        if (id !== null && id !== undefined) {
+
+this.get('controllers.messageCenter').selectConversationItem(id);
+
+            this.get('controllers.conversationItem').getClientId(id);
+        }
+    },
+    deleteConversationItem: function(id)
+    {
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+        var owner_id = this.get("currentUser").get('id');
+
+        var tempComment = [owner_id, id];
+
+        tempComment = JSON.stringify(tempComment);
+        var that = this;
+
+        requiredBackEnd('conversations', 'DeleteConversation', tempComment, 'POST', function(params) {
+            that.get("controllers.messageCenter").selectNewConversation();
+            for (var i = 0; i < that.get("conversationContent").length; i++)
+            {
+                if (that.get("conversationContent").objectAt(i).get("conversationID") === id)
+                {
+                    that.get("conversationContent").removeObject(that.get("conversationContent").objectAt(i));
+                    break;
+                }
+            }
+        });
+    },
+    getClientId: function(id,conversation_id) {
+        this.set("routerFlag",false);
+        this.set('clientID', id);
+        var data = this.get('clientID');
+        var dataNew = new Array();
+        var tempComment = [data];
+        this.set('loadingTime', true);
+        tempComment = JSON.stringify(tempComment);
+        var that = this;
+        this.set("conversationContent", []);
+        requiredBackEnd('conversations', 'ReadConversation', tempComment, 'POST', function(params) {
+            that.set("routerFlag",true);
+            if (params !== undefined) {
+                that.set("conversationContent", []);
+                for (var i = 0; i < params.length; i++)
+                {
+                    //First reply message and it is the last one of message and it contail the reply message collection
+                    dataNew["conversationID"] = params[i]["conversationID"];
+                    dataNew["participation_ids"] = params[i]["participation_ids"];
+
+                    dataNew["names"] = params[i]["names"];
+                    dataNew["conversationPhoto"] = new Array();
+                    dataNew["conversationPhoto"] = params[i]["conversationPhoto"];
+                    if (dataNew["conversationPhoto"].length === 1)
+                    {
+                        dataNew["one"] = true;
+                        dataNew["two"] = false;
+                        dataNew["three"] = false;
+                        dataNew["four"] = false;
+                        dataNew["onePic"] = params[i]["conversationPhoto"][0]["photo_url"];
+                    }
+                    else if (dataNew["conversationPhoto"].length === 2)
+                    {
+                        dataNew["one"] = false;
+                        dataNew["two"] = true;
+                        dataNew["three"] = false;
+                        dataNew["four"] = false;
+                        dataNew["onePic"] = params[i]["conversationPhoto"][0]["photo_url"];
+                        dataNew["twoPic"] = params[i]["conversationPhoto"][1]["photo_url"];
+                    }
+                    else if (dataNew["conversationPhoto"].length === 3)
+                    {
+                        dataNew["one"] = false;
+                        dataNew["two"] = false;
+                        dataNew["three"] = true;
+                        dataNew["four"] = false;
+                        dataNew["onePic"] = params[i]["conversationPhoto"][0]["photo_url"];
+                        dataNew["twoPic"] = params[i]["conversationPhoto"][1]["photo_url"];
+                        dataNew["threePic"] = params[i]["conversationPhoto"][2]["photo_url"];
+                    }
+                    else
+                    {
+                        dataNew["one"] = false;
+                        dataNew["two"] = false;
+                        dataNew["three"] = false;
+                        dataNew["four"] = true;
+                        dataNew["onePic"] = params[i]["conversationPhoto"][0]["photo_url"];
+                        dataNew["twoPic"] = params[i]["conversationPhoto"][1]["photo_url"];
+                        dataNew["threePic"] = params[i]["conversationPhoto"][2]["photo_url"];
+                        dataNew["fourPic"] = params[i]["conversationPhoto"][3]["photo_url"];
+                    }
+                    dataNew["ConversationCollection"] = new Array();
+                    dataNew["msg"] = params[i]["ConversationCollection"][0]["msg"];
+                    dataNew["time_stamp"] = params[i]["ConversationCollection"][0]["time_stamp"];
+
+                    for (var j = 0; j < params[i]["ConversationCollection"].length; j++)
+                    {
+
+                        var conversationItem = new Array();
+                        conversationItem["item_id"] = params[i]["ConversationCollection"][j]["item_id"];
+                        conversationItem["sender_id"] = params[i]["ConversationCollection"][j]["sender_id"];
+                        conversationItem["time_stamp"] = params[i]["ConversationCollection"][j]["time_stamp"];
+                        conversationItem["msg"] = params[i]["ConversationCollection"][j]["msg"];
+                        conversationItem["name"] = params[i]["ConversationCollection"][j]["name"];
+
+                        conversationItem["sender_photo_url_large"] = params[i]["ConversationCollection"][j]["sender_photo_url_large"];
+                        if (params[i]["ConversationCollection"][j]["url"] === null)
+                        {
+                            conversationItem["isUrl"] = false;
+                        }
+                        else
+                        {
+                            conversationItem["isUrl"] = true;
+                        }
+                        conversationItem["url"] = params[i]["ConversationCollection"][j]["url"];
+
+                        dataNew["ConversationCollection"].pushObject(conversationItem);
+                    }
+                    that.get("conversationContent").pushObject(dataNew);
+                    dataNew = new Array();
+                }
+            }
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+
+            }, 200);
+            that.set('loadingTime', false);
+            if(conversation_id!==""&&conversation_id!==null&&conversation_id!==undefined)
+                {                  
+                    that.selectConversation(conversation_id);
+                }
+        });
+    },
+    profileStyleImageDrop: function(e, name)
+    {
+
+        this.set("isUploadPhoto", true);
+        var target = getTarget(e, "single");
+        var src = target.result;
+        this.set('newStyleImageSource', src);
+        this.set('newStyleImageName', name);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+        }, 200);
+    }
+}
+);
+
+
+})();
+
+(function() {
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+HubStar.ConversationItemController = Ember.Controller.extend({
+    conversationItemContent: null,
+    conversationItem: null,
+    commenter_photo_url: null,
+    contentFollowerPhoto: null,
+    contentFollowerPhotoOld: null,
+    isAdded: false,
+    isInvitePeople: false,
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversation', 'invitePeople', 'newConversation'],
+    isUploadPhoto: false,
+    isNewPeople: false,
+    init: function()
+    {
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+        if (localStorage.loginStatus) {
+            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+            this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
+        }
+    },
+    removePic: function() {
+        this.set('newStyleImageSource', null);
+        this.set('newStyleImageName', "");
+
+        this.set("isUploadPhoto", false);
+    },
+    getClientIdAdd: function(id) {
+        var conversationContent = this.get('controllers.conversation').get("conversationContent");
+        this.set("id", id);
+        for (var i = 0; i < conversationContent.length; i++)
+        {
+            if (conversationContent[i]["conversationID"] === id)
+            {
+                this.set("conversationItem", conversationContent[i]);
+                break;
+            }
+        }
+
+        if (this.get("conversationItem").get("conversationPhoto").length === 0)
+        {
+            this.set("isAdded", false);
+        }
+        else
+        {
+            this.set("isAdded", true);
+        }
+        this.set("contentFollowerPhotoOld", this.get("conversationItem").get("conversationPhoto"));
+        this.set("conversationItemContent", this.get("conversationItem").get("ConversationCollection"));
+    },
+    getClientId: function(id) {
+
+        var conversationContent = this.get('controllers.conversation').get("conversationContent");
+        this.set("id", id);
+        for (var i = 0; i < conversationContent.length; i++)
+        {
+            if (conversationContent[i]["conversationID"] === id)
+            {
+                this.set("conversationItem", conversationContent[i]);
+                break;
+            }
+        }
+
+        if (this.get("conversationItem").get("conversationPhoto").length === 0)
+        {
+            this.set("isAdded", false);
+        }
+        else
+        {
+            this.set("isAdded", true);
+        }
+        this.set("contentFollowerPhotoOld", this.get("conversationItem").get("conversationPhoto"));
+        this.set("conversationItemContent", this.get("conversationItem").get("ConversationCollection"));
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+            $("#content_conversationItem_" + id).mCustomScrollbar({
+                scrollButtons: {
+                    enable: false,
+                    scrollSpeed: "auto"
+                },
+                advanced: {
+                    updateOnBrowserResize: true,
+                    updateOnContentResize: true,
+                    autoScrollOnFocus: false,
+                    normalizeMouseWheelDelta: false
+                },
+                autoHideScrollbar: true,
+                mouseWheel: true,
+                theme: "dark-2",
+                set_height: 1000
+            });
+        }, 200);
+    },
+    addComment: function() {
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+
+        this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+        var conversationtContent = this.get('messageContent');
+        if (conversationtContent) {
+            var commenter_id = this.get("currentUser").get('id');
+            var conversationId = this.get("id");
+            var date = new Date();
+            var newStyleImage = "";
+            var imageStyleName = "";
+            if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
+            {
+                newStyleImage = this.get("newStyleImageSource");
+            }
+            else
+            {
+                newStyleImage = null;
+            }
+            if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
+            {
+                imageStyleName = this.get('newStyleImageName');
+
+            }
+            else
+            {
+                imageStyleName = "";
+            }
+            var imageName = "";
+            var imageType = "";
+            if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
+            {
+                var imageName = imageStyleName.split('.');
+                var imageType = imageName[imageName.length - 1];
+            }
+            var conversationItemId = createMessageid();
+            var participation_ids = '';
+            if (this.get("contentFollowerPhoto") !== null) {
+                for (var i = 0; i < this.get("contentFollowerPhoto").length; i++)
+                {
+                    if (this.get("contentFollowerPhoto").objectAt(i).get("isAdd") === true)
+                    {
+                        if (participation_ids === "")
+                        {
+                            participation_ids = participation_ids + this.get("contentFollowerPhoto").objectAt(i).get("id");
+                        }
+                        else
+                        {
+                            participation_ids = participation_ids + ',' + this.get("contentFollowerPhoto").objectAt(i).get("id");
+                        }
+                    }
+                }
+            }
+            var tempComment = [commenter_id, date.toString(), conversationtContent, conversationItemId, newStyleImage, imageType, imageStyleName, conversationId, participation_ids];
+
+            tempComment = JSON.stringify(tempComment);
+            var that = this;
+
+            //var dataNew = new Array();
+
+            requiredBackEnd('conversations', 'AddConversationItem', tempComment, 'POST', function(params) {
+                var conversationContent = that.get('controllers.conversation').get("conversationContent");
+                for (var i = 0; i < conversationContent.length; i++)
+                {
+                    if (conversationContent[i]["conversationID"] === conversationId)
+                    {
+
+
+                        var conversationItems = new Array();
+
+                        conversationItems = params;
+
+                        if (params["url"] !== null)
+                        {
+                            conversationItems["isUrl"] = true;
+                        }
+                        else
+                        {
+                            conversationItems["isUrl"] = false;
+                        }
+
+                        that.get('controllers.conversation').get("conversationContent").objectAt(i).get("ConversationCollection").insertAt(0, conversationItems);
+                        if (that.get("contentFollowerPhoto") !== null) {
+                            for (var j = 0; j < that.get("contentFollowerPhoto").length; j++)
+                            {
+                                if (that.get("contentFollowerPhoto").objectAt(j).get("isAdd") === true)
+                                {
+                                    that.get('controllers.conversation').get("conversationContent").objectAt(i).get("conversationPhoto").pushObject(that.get("contentFollowerPhoto").objectAt(j));
+                                }
+                            }
+                        }
+                        that.getClientIdAdd(conversationId);
+                        break;
+                    }
+                }
+                that.set("contentFollowerPhoto", null);
+                that.set("isUploadPhoto", false);
+                that.set('messageContent', "");
+                that.set('newStyleImageSource', null);
+                that.set('newStyleImageName', "");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry("reloadItems");
+                }, 200);
+            });
+        }
+    },
+    invitePeople: function(id)
+    {
+        this.get("controllers.invitePeople").set("owner", "conversationItem");
+        this.set("isInvitePeople", true);
+        this.get("controllers.invitePeople").getClientId(localStorage.loginStatus, id);
+    },
+    addToList: function(id) {
+        var count = 0;
+        for (var i = 0; i < this.get("contentFollowerPhoto").length; i++)
+        {
+            if (this.get("contentFollowerPhoto").objectAt(i).get("id") === id)
+            {
+                this.get("contentFollowerPhoto").objectAt(i).set("isAdd", !this.get("contentFollowerPhoto").objectAt(i).get("isAdd"));
+            }
+            if (this.get("contentFollowerPhoto").objectAt(i).get("isAdd") === true)
+            {
+                count++;
+            }
+        }
+        console.log(count);
+        if (count !== 0)
+        {
+            this.set("isNewPeople", true);
+        }
+        else
+        {
+            this.set("isNewPeople", false);
+        }
+    },
+    seeMore: function(id) {
+        $('#closeComment').attr('style', 'display:inline-block');
+        $('#showMoreComment').attr('style', 'display:none');
+        $('#messageData').attr('style', 'display: block; padding: 5px 20px;');
+        $('#masonry_user_container').masonry("reload");
+    },
+    closeMore: function(id) {
+        $('#closeComment').attr('style', 'display:none');
+        $('#showMoreComment').attr('style', 'display:inline-block');
+        $('#messageData').attr('style', 'display: none');
+        $('#masonry_user_container').masonry("reload");
+    },
+    profileStyleImageDrop: function(e, name)
+    {
+
+        this.set("isUploadPhoto", true);
+        var target = getTarget(e, "single");
+        var src = target.result;
+        this.set('newStyleImageSource', src);
+        this.set('newStyleImageName', name);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+        }, 200);
+    }
+}
+);
+
+
+})();
+
+(function() {
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
 HubStar.EditMessageController = Ember.Controller.extend({
     commenter_photo_url: null,
     messageContent: null,
@@ -3913,6 +4739,143 @@ HubStar.EditReplyController = Ember.Controller.extend({
 
 (function() {
 
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+HubStar.InvitePeopleController = Ember.Controller.extend({
+    contentFollowerPhoto: null,
+    commenter_photo_url: null,
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'conversation', 'messageCenter', 'newConversation', 'conversationItem'],
+    isUploadPhoto: false,
+    isInvitePeople: false,
+    owner: "newConversation",
+    init: function()
+    {
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+        if (localStorage.loginStatus) {
+            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+            this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
+        }
+    },
+    getClientId: function(id, conversationID) {
+        this.set('loadingTime', true);
+        this.set('clientID', id);
+        var dataNew = new Array();
+        var conversationContent = this.get('controllers.conversation').get("conversationContent");
+        for (var i = 0; i < conversationContent.length; i++)
+        {
+            if (conversationContent[i]["conversationID"] === conversationID)
+            {
+                this.set("conversationItem", conversationContent[i]);
+                break;
+            }
+        }
+        var that = this;
+        requiredBackEnd('followers', 'ReadPic', id, 'POST', function(params) {
+            that.set("contentFollowerPhoto", []);
+
+            if (params === undefined)
+            {
+            }
+            else
+            {
+
+                if (conversationID !== undefined) {
+                    var participation_id = new Array();
+                    participation_id = that.get("conversationItem").get("participation_ids").split(',');
+
+                }
+                for (var i = 0; i < params.length; i++)
+                {
+
+                    if (conversationID === undefined) {
+                        dataNew["isAdd"] = false;
+                        dataNew["id"] = params[i]["record_id"];
+                        dataNew["name"] = params[i]["name"];
+                        dataNew["photo_url"] = params[i]["photo_url"];
+                        that.get("contentFollowerPhoto").pushObject(dataNew);
+                    }
+                    else {
+
+                        var flag = false;
+                        for (var j = 0; j < participation_id.length; j++)
+                        {
+                            if (participation_id[j] === params[i]["record_id"])
+                            {
+                                flag = true;
+
+                                break;
+                            }
+                        }
+                        if (flag !== true)
+                        {
+                            dataNew["isAdd"] = false;
+                            dataNew["id"] = params[i]["record_id"];
+                            dataNew["name"] = params[i]["name"];
+                            dataNew["photo_url"] = params[i]["photo_url"];
+                            that.get("contentFollowerPhoto").pushObject(dataNew);
+                        }
+                    }
+                    dataNew = new Array();
+                }
+            }
+            that.set('loadingTime', false);
+        });
+    },
+    addToList: function(id) {
+        for (var i = 0; i < this.get("contentFollowerPhoto").length; i++)
+        {
+            if (this.get("contentFollowerPhoto").objectAt(i).get("id") === id)
+            {
+                this.get("contentFollowerPhoto").objectAt(i).set("isAdd", !this.get("contentFollowerPhoto").objectAt(i).get("isAdd"));
+            }
+        }
+
+    },
+    reviewPost: function() {
+        if (this.get("owner") === "newConversation") {
+            this.get("controllers.newConversation").set("isAdded", true);
+            this.get("controllers.newConversation").set("contentFollowerPhoto", this.get("contentFollowerPhoto"));
+            this.get("controllers.newConversation").set("isInvitePeople", false);
+
+        }
+        else if (this.get("owner") === "conversationItem")
+        {
+            this.get("controllers.conversationItem").set("isAdded", true);
+            this.get("controllers.conversationItem").set("contentFollowerPhoto", this.get("contentFollowerPhoto"));
+            this.get("controllers.conversationItem").set("isNewPeople", true);
+            this.get("controllers.conversationItem").set("isInvitePeople", false);
+        }
+        this.set("contentFollowerPhoto", null);
+    },
+    reviewCancel: function() {
+        if (this.get("owner") === "newConversation") {
+            this.get("controllers.newConversation").set("isInvitePeople", false);
+        }
+        else if (this.get("owner") === "conversationItem")
+        {
+            this.get("controllers.conversationItem").set("isInvitePeople", false);
+        }
+
+        this.set("contentFollowerPhoto", null);
+    }
+}
+);
+
+
+})();
+
+(function() {
+
 //HubStar.ItemFollowController = Ember.Controller.extend({
 //    model: null,
 //    test:"testqqqqqqq",
@@ -4086,17 +5049,16 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
 
         results.addObserver('isLoaded', function() {
-
-
             if (results.get('isLoaded')) {
-
+            console.log(results);
                 for (var i = 0; i < this.get("content").length; i++) {
                     var tempObject = results.objectAt(i);
                     that.get("content").pushObject(tempObject);
-
+               
                 }
    
             }
+             console.log("ddddddddddddd");
         });
         this.checkEditingMode();
 
@@ -4127,7 +5089,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     }
     ,
     goBack: function() {
-
+    
         var lastposition = HubStar.get("scrollCollectionPosition");
         //window.history.back();
 
@@ -4143,6 +5105,9 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             this.get('controllers.user').goToUserRoute();
         }
 
+
+        var lastposition = HubStar.get("scrollCollectionPosition");
+   
         setTimeout(function() {
 
             $(window).scrollTop(lastposition);
@@ -4227,7 +5192,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     },
     reLayout: function() {
 
-    console.log('relayout');
+
         setTimeout(function() {
             $('#masonry_photo_collection_container').masonry("reload");
         }, 1000);
@@ -4281,6 +5246,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             }
         }
     },
+
     transitionToArticle: function(id) {
 
         this.transitionTo("article", HubStar.Article.find(id));
@@ -4667,6 +5633,128 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
 (function() {
 
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+HubStar.MessageCenterController = Ember.Controller.extend({
+    commenter_photo_url: null,
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'userMessage', 'conversation', 'newConversation', 'notification'],
+    isMessageBoard: true,
+    isNotification: false,
+    isNewConversation: false,
+    isConversationItem: false,
+    isUserself: false,
+
+    unReadCount: 0,
+
+    init: function()
+    {
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+        if (localStorage.loginStatus) {
+            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+            this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
+        }
+    },
+
+    getClientId: function(id, conversation_id) {
+
+
+        if (id === localStorage.loginStatus)
+        {
+            this.set("isUserself", true);
+
+            this.get('controllers.conversation').getClientId(id, conversation_id);
+        }
+        else
+        {
+            this.set("isUserself", false);
+        }
+        this.selectMessage(id, true);
+        this.set("id", id);
+
+    },
+    selectMessage: function(id, b) {
+
+
+        this.set("isMessageBoard", true);
+        this.set("isNotification", false);
+        this.set("isNewConversation", false);
+        this.set("isConversationItem", false);
+        this.get("controllers.conversation").selectConversation();
+
+        $('#notificationselected').removeClass('selected-conversation');
+        $('#messageBoardselected').addClass('selected-conversation');
+        this.get('controllers.userMessage').getClientId(id);
+        if (b !== true) {
+            this.transitionToRoute("messages");
+        }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    selectedNone: function() {
+        $('#messageBoardselected').removeClass('selected-conversation');
+        $('#notificationselected').removeClass('selected-conversation');
+    },
+    selectNotification: function(id) {
+        this.set("isNewConversation", false);
+        this.set("isConversationItem", false);
+        this.set("isNotification", true);
+        this.set("isMessageBoard", false);
+        this.get("controllers.conversation").selectConversation();
+
+        $('#messageBoardselected').removeClass('selected-conversation');
+        $('#notificationselected').addClass('selected-conversation');
+        this.get("controllers.notification").getClientId(id);
+        this.transitionToRoute("notifications");
+
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    selectNewConversation: function() {
+        this.set("isNewConversation", true);
+        this.set("isConversationItem", false);
+        this.set("isNotification", false);
+        this.set("isMessageBoard", false);
+        HubStar.set("newConversation", true);
+        this.get("controllers.conversation").selectConversation();
+        this.get('controllers.newConversation').set("isInvitePeople", false);
+
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+
+    selectConversationItem: function() {
+
+        this.set("isNewConversation", false);
+        this.set("isConversationItem", true);
+        this.set("isNotification", false);
+        this.set("isMessageBoard", false);
+
+        this.transitionToRoute("conversation");
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    }
+}
+);
+
+
+})();
+
+(function() {
+
 
 /* 
  * To change this template, choose Tools | Templates
@@ -4682,7 +5770,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
 HubStar.MessageController = Ember.Controller.extend({
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'userMessage', 'editMessage'],
+    messagecms: '',
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'userMessage'],
     isUserself: false,
     isUploadPhoto: false,
     isReply: true,
@@ -4701,7 +5790,7 @@ HubStar.MessageController = Ember.Controller.extend({
         this.set("isEdit", true);
     },
     setEditReply: function() {
-       
+
 
         this.set("isEdit", true);
     },
@@ -4710,6 +5799,7 @@ HubStar.MessageController = Ember.Controller.extend({
 
         var enableEditCount = 0;
         var messageId = null;
+
         for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
         {
 
@@ -4720,6 +5810,7 @@ HubStar.MessageController = Ember.Controller.extend({
                 messageId = this.get('controllers.userMessage').get("contentMsg").objectAt(i);
                 break;
             }
+
 
         }
         if (enableEditCount === 1)
@@ -4748,8 +5839,8 @@ HubStar.MessageController = Ember.Controller.extend({
             }
         }
 
-
         HubStar.set('message', msg);
+
 
     },
     editingReplyData: function(id, msg) {
@@ -4999,6 +6090,853 @@ HubStar.MessageController = Ember.Controller.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
+    },
+    seeMore: function(id) {        
+        $('#closeComment_' + id).attr('style', 'display:inline-block');
+        $('#showMoreComment_' + id).attr('style', 'display:none');
+        $('#messageData_' + id).attr('style', 'display: block');
+        $('#masonry_user_container').masonry("reload");     
+    },
+    closeMore: function(id) {
+        $('#closeComment_' + id).attr('style', 'display:none');
+        $('#showMoreComment_' + id).attr('style', 'display:inline-block');
+        $('#messageData_' + id).attr('style', 'display: none');
+        $('#masonry_user_container').masonry("reload");
+    }
+}
+);
+
+
+})();
+
+(function() {
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+HubStar.NewConversationController = Ember.Controller.extend({
+    contentMsg: null,
+    commenter_photo_url: null,
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'conversation', 'messageCenter', 'invitePeople', 'conversationItem'],
+    isUploadPhoto: false,
+    isInvitePeople: false,
+    isAdded: false,
+    contentFollowerPhoto: null,
+    init: function()
+    {
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+        if (localStorage.loginStatus) {
+            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+            this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
+        }
+    },
+    removePic: function() {
+        this.set('newStyleImageSource', null);
+        this.set('newStyleImageName', "");
+
+        this.set("isUploadPhoto", false);
+    },
+    addComment: function() {
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+        this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+        var commentContent = this.get('messageContent');
+        if (commentContent) {
+            var commenter_id = this.get("currentUser").get('id');
+            var date = new Date();
+            var owner_id = this.get("currentOwner").get("id");
+            var newStyleImage = "";
+            var imageStyleName = "";
+            if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
+            {
+                newStyleImage = this.get("newStyleImageSource");
+            }
+            else
+            {
+                newStyleImage = null;
+            }
+            if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
+            {
+                imageStyleName = this.get('newStyleImageName');
+
+            }
+            else
+            {
+                imageStyleName = "";
+            }
+            var imageName = "";
+            var imageType = "";
+            if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
+            {
+                var imageName = imageStyleName.split('.');
+                var imageType = imageName[imageName.length - 1];
+            }
+            var conversationID = createMessageid();
+            var conversationItemID = createMessageid();
+
+            var participation_ids = '';
+            if (this.get("contentFollowerPhoto") !== null) {
+
+                for (var i = 0; i < this.get("contentFollowerPhoto").length; i++)
+                {
+                    if (this.get("contentFollowerPhoto").objectAt(i).get("isAdd") === true)
+                    {
+                        if (participation_ids === "")
+                        {
+                            participation_ids = participation_ids + this.get("contentFollowerPhoto").objectAt(i).get("id");
+                        }
+                        else
+                        {
+                            participation_ids = participation_ids + ',' + this.get("contentFollowerPhoto").objectAt(i).get("id");
+                        }
+                    }
+                }
+
+            }        
+
+            var tempComment = [commenter_id, date.toString(), commentContent, newStyleImage, imageType, imageStyleName, conversationID, conversationItemID, participation_ids];
+
+            tempComment = JSON.stringify(tempComment);
+            var that = this;
+
+            var dataNew = new Array();
+
+            requiredBackEnd('conversations', 'CreateConversation', tempComment, 'POST', function(params) {
+                dataNew["conversationID"] = params["conversationID"];
+                dataNew["participation_ids"] = params["participation_ids"];
+
+                dataNew["names"] = params["names"];
+
+                dataNew["ConversationCollection"] = new Array();
+                dataNew["msg"] = params["ConversationCollection"][0]["msg"];
+                dataNew["time_stamp"] = params["ConversationCollection"][0]["time_stamp"];
+                dataNew["conversationPhoto"] = new Array();
+                dataNew["conversationPhoto"] = params["conversationPhoto"];
+                if (dataNew["conversationPhoto"].length === 1)
+                {
+                    dataNew["one"] = true;
+                    dataNew["two"] = false;
+                    dataNew["three"] = false;
+                    dataNew["four"] = false;
+                    dataNew["onePic"] = params["conversationPhoto"][0]["photo_url"];
+                }
+                else if (dataNew["conversationPhoto"].length === 2)
+                {
+                    dataNew["one"] = false;
+                    dataNew["two"] = true;
+                    dataNew["three"] = false;
+                    dataNew["four"] = false;
+                    dataNew["onePic"] = params["conversationPhoto"][0]["photo_url"];
+                    dataNew["twoPic"] = params["conversationPhoto"][1]["photo_url"];
+                }
+                else if (dataNew["conversationPhoto"].length === 3)
+                {
+                    dataNew["one"] = false;
+                    dataNew["two"] = false;
+                    dataNew["three"] = true;
+                    dataNew["four"] = false;
+                    dataNew["onePic"] = params["conversationPhoto"][0]["photo_url"];
+                    dataNew["twoPic"] = params["conversationPhoto"][1]["photo_url"];
+                    dataNew["threePic"] = params["conversationPhoto"][2]["photo_url"];               
+                }
+                else
+                {
+                    dataNew["one"] = false;
+                    dataNew["two"] = false;
+                    dataNew["three"] = false;
+                    dataNew["four"] = true;
+                    dataNew["onePic"] = params["conversationPhoto"][0]["photo_url"];
+                    dataNew["twoPic"] = params["conversationPhoto"][1]["photo_url"];
+                    dataNew["threePic"] = params["conversationPhoto"][2]["photo_url"];
+                    dataNew["fourPic"] = params["conversationPhoto"][3]["photo_url"];
+                }
+                for (var j = 0; j < params["ConversationCollection"].length; j++)
+                {
+
+                    var conversationItem = new Array();
+                    conversationItem["item_id"] = params["ConversationCollection"][j]["item_id"];
+                    conversationItem["sender_id"] = params["ConversationCollection"][j]["sender_id"];
+                    conversationItem["time_stamp"] = params["ConversationCollection"][j]["time_stamp"];
+                    conversationItem["msg"] = params["ConversationCollection"][j]["msg"];
+                    conversationItem["name"] = params["ConversationCollection"][j]["name"];
+
+                    conversationItem["sender_photo_url_large"] = params["ConversationCollection"][j]["sender_photo_url_large"];
+                    if (params["ConversationCollection"][j]["url"] === null)
+                    {
+                        conversationItem["isUrl"] = false;
+                    }
+                    else
+                    {
+                        conversationItem["isUrl"] = true;
+                    }
+                    conversationItem["url"] = params["ConversationCollection"][j]["url"];
+
+                    dataNew["ConversationCollection"].pushObject(conversationItem);
+                }
+
+
+                that.get('controllers.conversation').get("conversationContent").insertAt(0, dataNew);
+                dataNew = new Array();
+
+                that.set("isUploadPhoto", false);
+
+                that.set("isAdded",false);
+
+                that.set('messageContent', "");
+                that.set("contentFollowerPhoto",null);
+                that.set('newStyleImageSource', null);
+                that.set('newStyleImageName', "");
+                setTimeout(function() {
+                $('#masonry_container').masonry("reloadItems");
+            }, 200);
+            });
+           
+        }
+    },
+    invitePeople: function()
+    {
+        this.get("controllers.invitePeople").set("owner", "newConversation");
+        this.set("isInvitePeople", true);
+        this.get("controllers.invitePeople").getClientId(localStorage.loginStatus);
+    },
+    addToList: function(id) {
+        for (var i = 0; i < this.get("contentFollowerPhoto").length; i++)
+        {
+            if (this.get("contentFollowerPhoto").objectAt(i).get("id") === id)
+            {
+                this.get("contentFollowerPhoto").objectAt(i).set("isAdd", !this.get("contentFollowerPhoto").objectAt(i).get("isAdd"));
+            }
+        }
+    },
+    profileStyleImageDrop: function(e, name)
+    {
+
+        this.set("isUploadPhoto", true);
+        var target = getTarget(e, "single");
+        var src = target.result;
+        this.set('newStyleImageSource', src);
+        this.set('newStyleImageName', name);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    }
+}
+);
+
+
+})();
+
+(function() {
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+HubStar.NotificationController = Ember.Controller.extend({
+    notificationContent: null,
+    commenter_photo_url: null,
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'notificationTop', 'conversation'],
+    isUploadPhoto: false,
+    init: function()
+    {
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+        if (localStorage.loginStatus) {
+            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+            this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
+        }
+    },
+    typeDisplay: function(type, name) {
+        var displayString = '';
+        if (type === "follow")
+        {
+            displayString = " has followed you";
+        }
+        else if (type === "unFollow")
+        {
+            displayString = " has unfollowed you";
+        }
+        else if (type === "conversation")
+        {
+            displayString = " has say something in this conversation";
+        }
+        else if (type === "addMessage")
+        {
+            displayString = " has leave a message for you";
+        }
+        else if (type === "addReply")
+        {
+            displayString = " has reply you in this message";
+        }
+        return displayString;
+    },
+    getClientId: function(id) {
+        this.set('clientID', id);
+        var data = this.get('clientID');
+        var dataNew = new Array();
+        var tempComment = [data];
+        this.set('loadingTime', true);
+        tempComment = JSON.stringify(tempComment);
+        var that = this;
+        this.set("notificationContent", []);
+        requiredBackEnd('notifications', 'ReadNotification', tempComment, 'POST', function(params) {
+            if (params !== undefined) {
+                that.set("notificationContent", []);
+                for (var i = 0; i < params.get("length"); i++)
+                {
+                    dataNew["name"] = params.objectAt(i)["display_name"];
+                    dataNew["photo_url"] = params.objectAt(i)["photo_url_large"];
+                    dataNew["user_id"] = params.objectAt(i)["user_id"];
+                    dataNew["type"] = params.objectAt(i)["type"];
+                    dataNew["typeDisplay"] = that.typeDisplay(dataNew["type"]);
+                    dataNew["time"] = params.objectAt(i)["time"];
+                    dataNew["notification_id"] = params.objectAt(i)["notification_id"];
+                    dataNew["isRead"] = params.objectAt(i)["isRead"];
+                    dataNew["content"] = params.objectAt(i)["content"];
+                    dataNew["action_id"] = params.objectAt(i)["action_id"];
+                    that.get("notificationContent").pushObject(dataNew);
+                    dataNew = new Array();
+                }
+            }
+            that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+            }, 200);
+            that.set('loadingTime', false);
+        });
+    },
+    markRead: function(id) {
+        var dataNew = new Array();
+        var tempComment = [localStorage.loginStatus, id];
+        tempComment = JSON.stringify(tempComment);
+        var that = this;
+        requiredBackEnd('notifications', 'MarkRead', tempComment, 'POST', function() {
+            for (var i = 0; i < that.get("notificationContent").length; i++)
+            {
+                if (that.get("notificationContent").objectAt(i).get("notification_id") === id)
+                {
+                    that.get("notificationContent").objectAt(i).set("isRead", true);
+                }
+            }
+            that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+            }, 200);
+            that.set('loadingTime', false);
+        });
+    },
+    deleteNotification: function(id) {
+        var tempComment = [localStorage.loginStatus, id];
+        tempComment = JSON.stringify(tempComment);
+        var that = this;
+        requiredBackEnd('notifications', 'DeleteNotification', tempComment, 'POST', function() {
+  
+            for (var i = 0; i < that.get("notificationContent").length; i++)
+            {
+                if (that.get("notificationContent").objectAt(i).get("notification_id") === id)
+                {
+                    that.get("notificationContent").removeObject(that.get("notificationContent").objectAt(i));
+                }
+            }
+            that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
+            
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+            }, 200);
+            that.set('loadingTime', false);
+        });
+    },
+    markAllRead: function() {
+        this.set('clientID', localStorage.loginStatus);
+        var data = this.get('clientID');
+        var ids = "";
+        for (var j = 0; j < this.get("notificationContent").get("length"); j++)
+        {
+            if (j === 0)
+            {
+                ids = this.get("notificationContent").objectAt(j)["notification_id"];
+            }
+            else {
+                ids = ids + "," + this.get("notificationContent").objectAt(j)["notification_id"];
+            }
+        }
+        var tempComment = [data, ids];
+        this.set('loadingTime', true);
+        tempComment = JSON.stringify(tempComment);
+        var that = this;
+        var dataNew = new Array();
+        requiredBackEnd('notifications', 'MarkAllRead', tempComment, 'POST', function(params) {
+            if (params !== undefined) {
+                that.set("notificationContent", []);
+                for (var i = 0; i < params.get("length"); i++)
+                {
+                    dataNew["name"] = params.objectAt(i)["display_name"];
+                    dataNew["photo_url"] = params.objectAt(i)["photo_url_large"];
+                    dataNew["user_id"] = params.objectAt(i)["user_id"];
+                    dataNew["type"] = params.objectAt(i)["type"];
+                    dataNew["typeDisplay"] = that.typeDisplay(dataNew["type"]);
+                    dataNew["time"] = params.objectAt(i)["time"];
+                    dataNew["notification_id"] = params.objectAt(i)["notification_id"];
+                    dataNew["isRead"] = params.objectAt(i)["isRead"];
+                    dataNew["content"] = params.objectAt(i)["content"];
+                    dataNew["action_id"] = params.objectAt(i)["action_id"];
+                    that.get("notificationContent").pushObject(dataNew);
+                    dataNew = new Array();
+                }
+            }
+            that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+            }, 200);
+            that.set('loadingTime', false);
+        });
+    },
+    go: function(notification_id) {
+        for (var i = 0; i < this.get("notificationContent").get("length"); i++)
+        {
+            if (this.get("notificationContent").objectAt(i)["notification_id"] === notification_id)
+            {
+                //console.log(this.get("notificationContent").objectAt(i));
+                this.goto(this.get("notificationContent").objectAt(i));
+                this.markRead(this.get("notificationContent").objectAt(i)["notification_id"]);
+                break;
+            }
+        }
+    },
+    goto: function(obj) {
+        if (obj.get("type") === "follow" || obj.get("type") === "unFollow")
+        {
+
+            this.gotoUser(obj.get("user_id"));
+        }
+        else if (obj.get("type") === "conversation")
+        {
+            this.gotoConversation(obj.get("user_id"), obj.get("action_id"));
+        }
+        else if (obj.get("type") === "addMessage")
+        {
+            this.gotoMessage(obj.get("action_id"));
+        }
+        else if (obj.get("type") === "addReply")
+        {
+            this.gotoReply(obj.get("action_id"));
+        }
+
+    },
+    gotoUser: function(id) {
+        var user = HubStar.User.find(id);
+        this.transitionToRoute('user', user);
+    },
+    gotoConversation: function(id, conversationID) {
+
+        var user = HubStar.User.find(id);
+        var that = this;
+        if (user.get('isLoaded')) {
+            var data = null;
+
+            for (var i = 0; i < user.get('conversations').get("length"); i++) {
+                data = user.get('conversations').objectAt(i);
+                if (data.get("conversation_id") === conversationID) {
+
+                    data.set("id", data.get("conversation_id"));
+                    break;
+                }
+
+            }
+            // this.get("controllers.conversation").selectConversation(conversationID);
+            this.get('controllers.messageCenter').getClientId(localStorage.loginStatus, conversationID);
+            this.transitionToRoute('conversation', data);
+        }
+        user.addObserver('isLoaded', function() {
+            if (user.get('isLoaded')) {
+                var data = null;
+
+                for (var i = 0; i < user.get('conversations').get("length"); i++) {
+                    data = user.get('conversations').objectAt(i);
+                    if (data.get("conversation_id") === conversationID) {
+
+                        data.set("id", data.get("conversation_id"));
+                        break;
+                    }
+
+                }
+                that.get('controllers.messageCenter').getClientId(localStorage.loginStatus, conversationID);
+                //that.get("controllers.conversation").selectConversation(conversationID);
+                that.transitionToRoute('conversation', data);
+            }
+        });
+         $(window).scrollTop(550);
+    },
+    gotoNotification: function(id, notificationID)
+    {
+        var user = HubStar.User.find(id);
+
+        var data = null;
+        for (var i = 0; i < user.get('conversations').get("length"); i++) {
+            data = user.get('conversations').objectAt(i);
+            if (data.get("conversation_id") === "conversationID") {
+                data.set("id", data.get("conversation_id"));
+                break;
+            }
+        }
+    },
+    gotoMessage: function(id)
+    {
+
+        this.set("goMessage", '#message_' + id);
+        this.transitionToRoute('messages');
+         $(window).scrollTop(550);
+    },
+    gotoReply: function(id)
+    {
+        var reply = id.split(",");
+        var user = HubStar.User.find(reply[2]);
+        this.set("reply_ids", reply[2]);
+        this.set("reply", reply[1]);
+        if (localStorage.loginStatus !== reply[2]) {
+            var that = this;
+            if (user.get('isLoaded')) {
+                this.set("goMessage", '#message_' + reply[1]);
+                this.transitionToRoute('messageCenter', user);
+            }
+            user.addObserver('isLoaded', function() {
+                if (user.get('isLoaded')) {
+                    that.set("goMessage", '#message_' + reply[1]);
+                    that.transitionToRoute('messageCenter', user);
+                }
+            });
+        }
+        else
+        {
+            this.set("goMessage", '#message_' + reply[1]);
+            this.transitionToRoute('messages');
+        }
+  $(window).scrollTop(550);
+    }
+}
+);
+
+
+})();
+
+(function() {
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+HubStar.NotificationTopController = Ember.Controller.extend({
+    notificationTopContent: null,
+    commenter_photo_url: null,
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'application', 'notification', 'userMessage', 'application'],
+    isUploadPhoto: false,
+    init: function()
+    {
+    },
+    getClientId: function(id) {
+        this.set('clientID', id);
+        var data = this.get('clientID');
+        var dataNew = new Array();
+        var tempComment = [data];
+        tempComment = JSON.stringify(tempComment);
+        var that = this;
+        this.set("notificationTopContent", []);
+        requiredBackEnd('notifications', 'ReadNotification', tempComment, 'POST', function(params) {
+            if (params !== undefined) {
+                that.set("notificationTopContent", []);
+                for (var i = 0; i < params.get("length"); i++)
+                {
+                    dataNew["name"] = params.objectAt(i)["display_name"];
+                    dataNew["photo_url"] = params.objectAt(i)["photo_url_large"];
+                    dataNew["user_id"] = params.objectAt(i)["user_id"];
+                    dataNew["type"] = params.objectAt(i)["type"];
+                    dataNew["typeDisplay"] = that.get("controllers.notification").typeDisplay(dataNew["type"]);
+                    dataNew["time"] = params.objectAt(i)["time"];
+                    dataNew["notification_id"] = params.objectAt(i)["notification_id"];
+                    dataNew["isRead"] = params.objectAt(i)["isRead"];
+                    dataNew["content"] = params.objectAt(i)["content"];
+                    dataNew["action_id"] = params.objectAt(i)["action_id"];
+                    that.get("notificationTopContent").pushObject(dataNew);
+                    dataNew = new Array();
+                }
+            }
+            that.get("controllers.notification").set("notificationContent", that.get("notificationTopContent"));
+            that.unReadCount();
+        });
+    },
+    deleteNotification: function(id) {
+        var tempComment = [localStorage.loginStatus, id];
+        tempComment = JSON.stringify(tempComment);
+        var that = this;
+        requiredBackEnd('notifications', 'DeleteNotification', tempComment, 'POST', function() {
+
+            for (var i = 0; i < that.get("notificationTopContent").length; i++)
+            {
+                if (that.get("notificationTopContent").objectAt(i).get("notification_id") === id)
+                {
+                    that.get("notificationTopContent").removeObject(that.get("notificationTopContent").objectAt(i));
+                }
+            }
+            that.get("controllers.notification").set("notificationContent", that.get("notificationTopContent"));
+            that.unReadCount();
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+            }, 200);
+            that.set('loadingTime', false);
+        });
+    },
+    seeAll: function()
+    {
+        var user = HubStar.User.find(localStorage.loginStatus);
+        this.transitionToRoute('user', user);
+       this.set("notificationSeeAll", true);
+       this.transitionToRoute('messageCenter');
+        this.transitionToRoute("notifications");
+        this.reviewCancel();
+    },
+    markAllRead: function() {
+        //mark all read tom       
+        this.set('clientID', localStorage.loginStatus);
+        var data = this.get('clientID');
+        var ids = "";
+        for (var j = 0; j < this.get("notificationTopContent").get("length"); j++)
+        {
+            if (j === 0)
+            {
+                ids = this.get("notificationTopContent").objectAt(j)["notification_id"];
+            }
+            else {
+                ids = ids + "," + this.get("notificationTopContent").objectAt(j)["notification_id"];
+            }
+        }
+        var tempComment = [data, ids];
+
+        tempComment = JSON.stringify(tempComment);
+        var that = this;
+        var dataNew = new Array();
+        requiredBackEnd('notifications', 'MarkAllRead', tempComment, 'POST', function(params) {
+            if (params !== undefined) {
+                that.set("notificationTopContent", []);
+                for (var i = 0; i < params.get("length"); i++)
+                {
+                    dataNew["name"] = params.objectAt(i)["display_name"];
+                    dataNew["photo_url"] = params.objectAt(i)["photo_url_large"];
+                    dataNew["user_id"] = params.objectAt(i)["user_id"];
+                    dataNew["type"] = params.objectAt(i)["type"];
+                    dataNew["typeDisplay"] = that.get("controllers.notification").typeDisplay(dataNew["type"]);
+                    dataNew["time"] = params.objectAt(i)["time"];
+                    dataNew["notification_id"] = params.objectAt(i)["notification_id"];
+                    dataNew["isRead"] = params.objectAt(i)["isRead"];
+                    dataNew["content"] = params.objectAt(i)["content"];
+                    dataNew["action_id"] = params.objectAt(i)["action_id"];
+                    that.get("notificationTopContent").pushObject(dataNew);
+                    dataNew = new Array();
+                }
+            }
+            that.get("controllers.notification").set("notificationContent", that.get("notificationTopContent"));
+            that.unReadCount();
+        });
+    },
+    markRead: function(id) {
+        var dataNew = new Array();
+        var tempComment = [localStorage.loginStatus, id];
+        tempComment = JSON.stringify(tempComment);
+        var that = this;
+        requiredBackEnd('notifications', 'MarkRead', tempComment, 'POST', function() {
+            for (var i = 0; i < that.get("notificationTopContent").length; i++)
+            {
+                if (that.get("notificationTopContent").objectAt(i).get("notification_id") === id)
+                {
+                    that.get("notificationTopContent").objectAt(i).set("isRead", true);
+                }
+            }
+            that.get("controllers.notification").set("notificationContent", that.get("notificationTopContent"));
+            that.unReadCount();
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+            }, 200);
+            that.set('loadingTime', false);
+        });
+    },
+    unReadCount: function()
+    {
+        var count = 0;
+        for (var i = 0; i < this.get("notificationTopContent").get("length"); i++)
+        {
+            if (this.get("notificationTopContent").objectAt(i)["isRead"] === false)
+            {
+                count++;
+
+            }
+        }
+        this.get("controllers.application").set("unReadCount", count);
+        this.get("controllers.messageCenter").set("unReadCount", count);
+    },
+    go: function(notification_id) {
+        for (var i = 0; i < this.get("notificationTopContent").get("length"); i++)
+        {
+            if (this.get("notificationTopContent").objectAt(i)["notification_id"] === notification_id)
+            {
+                this.goto(this.get("notificationTopContent").objectAt(i));
+                this.markRead(this.get("notificationTopContent").objectAt(i)["notification_id"]);
+                break;
+            }
+        }
+    },
+    goto: function(obj) {
+        if (obj.get("type") === "follow" || obj.get("type") === "unFollow")
+        {
+
+            this.gotoUser(obj.get("user_id"));
+        }
+        else if (obj.get("type") === "conversation")
+        {
+            this.gotoConversation(obj.get("user_id"), obj.get("action_id"));
+        }
+        else if (obj.get("type") === "addMessage")
+        {
+            this.gotoMessage(obj.get("action_id"));
+        }
+        else if (obj.get("type") === "addReply")
+        {
+            this.gotoReply(obj.get("action_id"));
+        }
+
+    },
+    gotoUser: function(id) {
+        var user = HubStar.User.find(id);
+        this.reviewCancel();
+        this.transitionToRoute('user', user);
+    },
+    gotoConversation: function(id, conversationID) {
+        var user = HubStar.User.find(localStorage.loginStatus);
+        var that = this;
+        this.set("goConversation", true);
+        if (user.get('isLoaded')) {
+            var data = null;
+
+            for (var i = 0; i < user.get('conversations').get("length"); i++) {
+                data = user.get('conversations').objectAt(i);
+                if (data.get("conversation_id") === conversationID) {
+
+                    data.set("id", data.get("conversation_id"));
+                    break;
+                }
+            }
+            this.transitionToRoute('user', user);
+            this.transitionToRoute('conversation', data);
+            this.get('controllers.messageCenter').getClientId(localStorage.loginStatus, conversationID);
+            //   $(window).scrollTop(2000);
+        }
+        user.addObserver('isLoaded', function() {
+            if (user.get('isLoaded')) {
+                var data = null;
+
+                for (var i = 0; i < user.get('conversations').get("length"); i++) {
+                    data = user.get('conversations').objectAt(i);
+                    if (data.get("conversation_id") === conversationID) {
+
+                        data.set("id", data.get("conversation_id"));
+                        break;
+                    }
+
+                }
+                that.transitionToRoute('user', user);
+                that.transitionToRoute('messageCenter');
+                that.get('controllers.messageCenter').getClientId(localStorage.loginStatus, conversationID);
+                that.transitionToRoute('conversation', data);
+            }
+            $(window).scrollTop(550);
+        });
+        this.reviewCancel();
+    },
+    gotoMessage: function(id)
+    {
+        this.set("goMessage", '#message_' + id);
+
+        var address = document.URL;
+        if (address.split("#")[1].split("/").length >= 5) {
+            var page = address.split("#")[1].split("/")[4];
+            if (page === "messages")
+            {
+                this.get("controllers.userMessage").goToMessageTop(this.get("goMessage"));
+            }
+        }
+        this.reviewCancel();
+        var user = HubStar.User.find(localStorage.loginStatus);
+        this.transitionToRoute('user', user);
+        this.transitionToRoute('messageCenter');
+        this.transitionToRoute('messages');
+        $(window).scrollTop(550);
+    },
+    gotoReply: function(id)
+    {
+        var reply = id.split(",");
+        var user = HubStar.User.find(reply[2]);
+        this.set("reply_ids", reply[2]);
+        this.set("reply", reply[1]);
+        this.reviewCancel();
+        this.set("goReply", false);
+        if (localStorage.loginStatus !== reply[2]) {
+            var that = this;
+           
+            if (user.get('isLoaded')) {
+                this.set("goMessage", '#message_' + reply[1]);
+                this.transitionToRoute('messageCenter', user);
+
+            }
+            user.addObserver('isLoaded', function() {
+                if (user.get('isLoaded')) {
+                    that.set("goMessage", '#message_' + reply[1]);
+                    var userID = HubStar.User.find(reply[2]);
+                    that.transitionToRoute('user', userID);
+                    that.transitionToRoute('messageCenter', user);
+                }
+            });
+        }
+        else
+        { //login user is the person who left the reply           
+            this.set("goMessage", '#message_' + reply[1]);
+            var userID = HubStar.User.find(reply[2]);
+            this.transitionToRoute('user', userID);
+            this.transitionToRoute('messageCenter');
+            this.transitionToRoute('messages');
+        }
+        var address = document.URL;
+        if (address.split("#")[1].split("/").length >= 5) {
+            var page = address.split("#")[1].split("/")[4];
+            if (page === "messages")
+            {
+                this.get("controllers.userMessage").goToMessageTop(this.get("goMessage"));
+            }
+        }
+        $(window).scrollTop(550);
+    },
+    reviewCancel: function() {
+        this.get("controllers.application").set("isNotification", false);
     }
 }
 );
@@ -5533,6 +7471,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     isPhotoEditingMode: false,
     isCrop: false,
 
+
     isUpload: false,
     loadingTime: false,
 
@@ -5627,10 +7566,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.isFollowed();
         this.checkAuthenticUser();
+
       this.labelBarRefresh();
 
-        //  this.set('profileSelectionStatus', 'Collections');
-        //this.selectCollection();
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
         this.initStastics(profile);
@@ -6022,6 +7960,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
      $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
 
+
         this.sendEventTracking('event', 'button', 'click', 'Collections');
         this.set('partnerPage', 'Collections');
         this.set('profileSelectionStatus', 'Collections');
@@ -6053,15 +7992,16 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     selectFollower: function(model) {
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Followers');
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#follow').addClass('selected-user-stats');
         this.set('profileSelectionStatus', 'Followers');
-        this.get('controllers.userFollowers').getProfileId(model);
+         //this.get('controllers.userFollowers').getProfileId(model);
+        
         this.set('partnerTag', false);
         this.set('collectionTag', false);
         this.set('followerProfileTag', true);
 
+
         this.transitionToRoute('profileFollowers');
+
 
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
@@ -6265,6 +8205,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             that.setCropImage();
                         }
 
+
                         var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
                             'newStyleImageName': that.get('newStyleImageName'),
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
@@ -6293,8 +8234,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         that.set('CurrentImageSize', "");
                         that.set('isCrop', false);
 
-
                         that.set('isUpload', false);
+
 
                     }
 
@@ -7148,6 +9089,120 @@ HubStar.StatusController = Ember.Controller.extend({
 
 (function() {
 
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+HubStar.TalkController = Ember.Controller.extend({
+    contentMsg: null,
+    commenter_photo_url: null,
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'conversation', 'messageCenter', 'invitePeople', 'conversationItem'],
+    isUploadPhoto: false,
+    isInvitePeople: false,
+    isAdded: false,
+    contentFollowerPhoto: null,
+    init: function()
+    {
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+        if (localStorage.loginStatus) {
+            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+            this.set("owner_photo_url", this.get("currentOwner").get("photo_url_large"));
+            this.set("commenter_photo_url",this.get("currentUser").get("photo_url_large"));
+            this.set("displayName",this.get("currentOwner").get("display_name"));
+        }
+    },
+    removePic: function() {
+        this.set('newStyleImageSource', null);
+        this.set('newStyleImageName', "");
+        this.set("isUploadPhoto", false);
+    },
+    addComment: function() {
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+        this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+        var commentContent = this.get('messageContent');
+        if (commentContent) {
+            var commenter_id = this.get("currentUser").get('id');
+            var date = new Date();
+            var owner_id = this.get("currentOwner").get("id");
+            var newStyleImage = "";
+            var imageStyleName = "";
+            if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
+            {
+                newStyleImage = this.get("newStyleImageSource");
+            }
+            else
+            {
+                newStyleImage = null;
+            }
+            if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
+            {
+                imageStyleName = this.get('newStyleImageName');
+
+            }
+            else
+            {
+                imageStyleName = "";
+            }
+            var imageName = "";
+            var imageType = "";
+            if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
+            {
+                var imageName = imageStyleName.split('.');
+                var imageType = imageName[imageName.length - 1];
+            }
+            var conversationID = createMessageid();
+            var conversationItemID = createMessageid();
+
+            var participation_ids = this.get("currentOwner").get("id");
+           
+
+            var tempComment = [commenter_id, date.toString(), commentContent, newStyleImage, imageType, imageStyleName, conversationID, conversationItemID, participation_ids];
+
+            tempComment = JSON.stringify(tempComment);
+            var that = this;
+            requiredBackEnd('conversations', 'CreateConversation', tempComment, 'POST', function(params) {
+                that.get('controllers.applicationFeedback').statusObserver(null, "Send Successfully.");
+                HubStar.set("talkConversation",true);
+                that.reviewCancel();
+                that.set('messageContent', "");              
+                that.set('newStyleImageSource', null);
+                that.set('newStyleImageName', "");
+
+            });
+           
+        }
+    },
+  reviewCancel:function(){
+      this.get("controllers.user").set("isTalk",false);
+  },
+    profileStyleImageDrop: function(e, name)
+    {
+
+        this.set("isUploadPhoto", true);
+        var target = getTarget(e, "single");
+        var src = target.result;
+        this.set('newStyleImageSource', src);
+        this.set('newStyleImageName', name);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    }
+}
+);
+
+
+})();
+
+(function() {
+
 HubStar.TestController = Ember.Controller.extend({
     test: function()
     {
@@ -7259,7 +9314,7 @@ HubStar.UserController = Ember.Controller.extend({
     age: "",
     userTage: true,
     currentUserID: "",
-    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor', 'userMessage'],
+    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor', 'userMessage', 'messageCenter','talk'],
     facebook: "",
     twitter: "",
     follow_status: false,
@@ -7309,8 +9364,15 @@ HubStar.UserController = Ember.Controller.extend({
     interestsActive: false,
     isUpload: false,
     loadingTime: false,
+    isTalk: false,
     init: function()
     {
+
+    },
+    talkToPeople: function() {
+        this.set("isTalk", true);             
+        this.get("controllers.talk").set("owner_photo_url", this.get("photo_url_large"));     
+        this.get("controllers.talk").set("displayName", this.get("display_name"));
     },
     isUserSelfOrNot: function(currentUserID) {
         this.set("isUserSelf", false);
@@ -7328,7 +9390,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     setUser: function()
     {
-  
+
         var user = this.get('model');
         this.setIntersetsArr(user);
         this.set("user", user);
@@ -7394,20 +9456,15 @@ HubStar.UserController = Ember.Controller.extend({
         this.userPhotoEditBackButton();
         this.userDashboardBackButton();
         /// this.transitionToRoute('userCollections');
-        
-        
+
+
         this.set('profileSelectionStatus', 'Collections');
         this.set('followingTag', false);
         this.set('collectionTag', true);
         this.set('followerTag', false);
         this.set('messageTag', false);
-                 this.labelBarRefresh();
-//          $('#user-stats > li').removeClass('selected-user-stats');
-//        $('#default').addClass('selected-user-stats');
-//        $('#user-stats > li').click(function() {
-//            $('#user-stats > li').removeClass('selected-user-stats');
-//            $(this).addClass('selected-user-stats');
-//        });
+        this.labelBarRefresh();
+
     },
     labelBarRefresh: function() {
         this.set("profileSelectionStatus", "Collections");
@@ -7421,8 +9478,9 @@ HubStar.UserController = Ember.Controller.extend({
     goToUserRoute: function()
     {
         this.transitionToRoute('user');
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
     },
-
     initStastics: function(user) {
         if (user.get("followers") !== null) {
             this.set('userFollowerStatistics', user.get("followers").get("length"));
@@ -7473,6 +9531,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('isCrop', false);
 
             this.set('isUpload', false);
+
 
         }
     },
@@ -7692,6 +9751,7 @@ HubStar.UserController = Ember.Controller.extend({
         checkList.push(location);
         for (var i = 0; i < checkList.length; i++)
         {
+
 
             if (checkList[i].id === 'email') {
                 document.getElementById(checkList[i].id).setAttribute("class", "disabled-btn");
@@ -7966,40 +10026,47 @@ HubStar.UserController = Ember.Controller.extend({
     selectFollowing: function(model) {
 
         this.set('profileSelectionStatus', 'Following');
+
         //     this.get('controllers.userFollowings').getClientId(model);
+
         this.set('followingTag', true);
         this.set('collectionTag', false);
         this.set('followerTag', false);
 
         this.set('messageTag', false);
+
         this.transitionToRoute('following', model);
+
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
         }, 200);
 
     },
     selectFollower: function(model) {
- 
+
         this.set('profileSelectionStatus', 'Followers');
+
         //     this.get('controllers.userFollowers').getClientId(model);
+
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', true);
 
         this.set('messageTag', false);
-        this.transitionToRoute('followers', model);
+        this.transitionToRoute('followers');
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
         }, 200);
     },
     selectMessage: function(model) {
         this.set('profileSelectionStatus', 'Messages');
-        //this.get('controllers.userMessage').getClientId(model.id);
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', false);
         this.set('messageTag', true);
-        this.transitionToRoute('userMessage', model);
+
+        this.transitionToRoute('messageCenter');
+
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
         }, 200);
@@ -8072,9 +10139,11 @@ HubStar.UserController = Ember.Controller.extend({
             {
                 var size = " size is " + width + "x" + height;
 
+
                 that.set('CurrentImageSize', size);
 
                 if (that.get('UploadImageMode') === "User Picture" || that.get('UploadImageMode') === "User Cover") {
+
 
                     if (width < 150 || height < 150) {
                         that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + 150 + "x" + 150, "warnning");
@@ -8109,16 +10178,16 @@ HubStar.UserController = Ember.Controller.extend({
 
         $('#uploadStyleImg').attr("style", "display:none");
 
+
     },
     savePhotoUpdate: function()
     {
 
         if (this.get('newStyleImageSource') !== null && this.get('newStyleImageSource') !== "")
         {
-           
+
             var src = this.get('newStyleImageSource');
             var that = this;
-
 
 
             var imageName = that.get('newStyleImageName').split('.');
@@ -8135,18 +10204,19 @@ HubStar.UserController = Ember.Controller.extend({
                 that.setCropImage();
             }
             that.set('loadingTime', true);
-         //   $('#uploadStyleImg').attr("style", "display:block");
+            //   $('#uploadStyleImg').attr("style", "display:block");
             var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
                 'newStyleImageName': that.get('newStyleImageName'),
                 'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                 'id': that.get('model.id'), 'type': type};
             requiredBackEnd('users', 'updateStyleImage', data1, 'POST', function(params) {
-         //       $('#uploadStyleImg').attr("style", "display:none");
+                //       $('#uploadStyleImg').attr("style", "display:none");
                 that.set('isPhotoUploadMode', false);
                 HubStar.store.save();
                 that.userPhotoEditBackButton();
                 that.userDashboardBackButton();
                 that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
+
                 that.set('loadingTime', false);
             });
 
@@ -8246,16 +10316,15 @@ HubStar.UserFollowersController = Ember.Controller.extend({
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
     test: "test",
     setUserFollowers: function(followers) {
-//        $('#user-stats > li').removeClass('selected-user-stats');
-    // $('#ufollower').addClass('selected-user-stats');
+
         var model = HubStar.User.find(followers);
         this.getClientId(model); // It is used to get the mesage model
 
     },
     goToUserFollowerRoute: function()
     {
-             this.transitionToRoute('user');
-          this.set('profileSelectionStatus', 'Collections');
+        this.transitionToRoute('user');
+        this.set('profileSelectionStatus', 'Collections');
         this.set('followingTag', false);
         this.set('collectionTag', true);
         this.set('followerTag', false);
@@ -8263,7 +10332,7 @@ HubStar.UserFollowersController = Ember.Controller.extend({
 
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
-          
+
     },
     getClientId: function(model) {
         //console.log(localStorage.loginStatus);
@@ -8535,10 +10604,8 @@ HubStar.UserFollowersController = Ember.Controller.extend({
     },
     unFollowUser: function(user_id, that, follow_object) {
         var currentUser = localStorage.loginStatus;
-
-        var followArray = [currentUser, user_id];
-
-
+        var date = new Date();
+        var followArray = [currentUser, user_id, date.toString()];
 
         var thatNew = that;
         var thisThis = this;
@@ -8709,10 +10776,9 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowers', 'profile'],
     test: "test",
     followings: "",
-    setUserFollowings: function(following) {
-//        $('#user-stats > li').removeClass('selected-user-stats');
-//        $('#ufollowing').addClass('selected-user-stats');
-        var model = HubStar.User.find(following);
+    setUserFollowings: function(followingId) {
+
+        var model = HubStar.User.find(followingId);
         this.getClientId(model); // It is used to get the mesage model
 
     },
@@ -9061,18 +11127,24 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
 HubStar.UserMessageController = Ember.Controller.extend({
     contentMsg: null,
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'notification', 'message', 'notificationTop'],
     isUploadPhoto: false,
     isEdit: true,
     isPosting: true,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+        var that = this;
         if (localStorage.loginStatus) {
-            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-            this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
+            var loginUser = HubStar.User.find(localStorage.loginStatus);
+            loginUser.addObserver('isLoaded', function() {
+
+                if (loginUser.get('isLoaded')) {
+                    that.set("commenter_photo_url", that.get("currentUser").get("photo_url_large"));
+                }
+            });
         }
-        // this.set("isPosting", true);
+//    this.set("isPosting", true);
     },
     setUserMessage: function(message) {
 
@@ -9080,12 +11152,17 @@ HubStar.UserMessageController = Ember.Controller.extend({
 //          var msg = model.get("messages");
 //          this.set("contentMsg",msg);
 //          
-
-        this.getClientId(message); // It is used to get the mesage model
-
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+        if (localStorage.loginStatus) {
+            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+            this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
+        }
+        this.getClientId(message); // It is used to get the mesage model      
     },
     getClientId: function(id) {
         this.set("isPosting", true);
+        this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+        this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
         this.set('clientID', id);
         this.set('loadingTime', true);
         var data = this.get('clientID');
@@ -9096,7 +11173,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             that.set("contentMsg", []);
             for (var i = 0; i < params.length; i++)
             {
-                //First reply message and it is the last one of message and it contail the reply message collection
+//First reply message and it is the last one of message and it contail the reply message collection
                 dataNew["message_id"] = params[i]["message_id"];
                 var length = params[i]["replyMessageCollection"].length - 1;
                 dataNew["reply_id"] = params[i]["replyMessageCollection"][length]["reply_id"];
@@ -9108,8 +11185,8 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 dataNew["url"] = params[i]["replyMessageCollection"][length]["url"];
                 dataNew["enableToEdit"] = false;
                 dataNew["replyEdit"] = true;
-                dataNew["replyCount"] = params[i]["replyMessageCollection"].length -1;
-                        if (params[i]["replyMessageCollection"][length]["user_id"] === localStorage.loginStatus)
+                dataNew["replyCount"] = params[i]["replyMessageCollection"].length - 1;
+                if (params[i]["replyMessageCollection"][length]["user_id"] === localStorage.loginStatus)
                 {
                     dataNew["isUserself"] = true; //dataNew["isUserself"] is true , which means it is the login users is the same as the user page owner
                 }
@@ -9123,13 +11200,11 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 }
 
 
-                dataNew["replyMessageCollection"] = new Array();  // replyMessageCollection is used to store all the replyMessage except the last one which is the first Reply.
+                dataNew["replyMessageCollection"] = new Array(); // replyMessageCollection is used to store all the replyMessage except the last one which is the first Reply.
                 for (var j = 0; j < params[i]["replyMessageCollection"].length - 1; j++)
                 {
                     var dataReply = new Array();
-
                     dataReply["reply_id"] = params[i]["replyMessageCollection"][j]["reply_id"];
-
                     dataReply["user_id"] = params[i]["replyMessageCollection"][j]["user_id"];
                     dataReply["time_stamp"] = params[i]["replyMessageCollection"][j]["time_stamp"];
                     dataReply["msg"] = params[i]["replyMessageCollection"][j]["msg"];
@@ -9137,7 +11212,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
                     dataReply["photo_url_large"] = params[i]["replyMessageCollection"][j]["photo_url_large"];
                     dataReply["url"] = params[i]["replyMessageCollection"][j]["url"];
                     dataReply["enableToEdit"] = false;
-
                     if (params[i]["replyMessageCollection"][j]["url"] !== null)
                     {
                         dataReply["isUrl"] = true;
@@ -9148,7 +11222,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                     }
                     if (params[i]["replyMessageCollection"][j]["user_id"] === localStorage.loginStatus)
                     {
-                        dataReply["isUserself"] = true;  // isUserself is used to judge whether the reply message is written by the current login user
+                        dataReply["isUserself"] = true; // isUserself is used to judge whether the reply message is written by the current login user
                     }
                     dataNew["replyMessageCollection"][j] = dataReply;
                 }
@@ -9156,42 +11230,68 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 dataNew = new Array();
             }
             that.set('loadingTime', false);
+            if (that.get('controllers.notification').get("goMessage") !== undefined && that.get('controllers.notification').get("goMessage") !== null && that.get('controllers.notification').get("goMessage") !== "") {
+                var s = that.get('controllers.notification').get("goMessage");
+                that.goToMessage(s);
+            }
+            if (that.get('controllers.notificationTop').get("goMessage") !== undefined && that.get('controllers.notificationTop').get("goMessage") !== null && that.get('controllers.notificationTop').get("goMessage") !== "") {
+                var s = that.get('controllers.notificationTop').get("goMessage");
+                that.goToMessageTop(s);
+            }
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
-                $("#content_4").mCustomScrollbar({
-                    scrollButtons: {
-                        enable: false,
-                        scrollSpeed: "auto"
-                    },
-                    advanced: {
-                        updateOnBrowserResize: true,
-                        updateOnContentResize: true,
-                        autoScrollOnFocus: false,
-                        normalizeMouseWheelDelta: false
-                    },
-                    autoHideScrollbar: true,
-                    mouseWheel: true,
-                    theme: "dark-2",
-                    set_height: 1000
-                });
             }, 200);
-
         });
     },
+    goToMessage: function(s)
+    {
+        var that = this;
+        $(document).ready(function() {
+            setTimeout(function() {
+                $("#content_message").mCustomScrollbar("scrollTo", s);
+                if (that.get("controllers.notification").get("reply_ids") !== undefined && that.get("controllers.notification").get("reply_ids") !== null && that.get("controllers.notification").get("reply_ids") !== "")
+                {
+                    var thatthat = that;
+                    setTimeout(function() {
+                        thatthat.get('controllers.message').seeMore(that.get("controllers.notification").get("reply"));
+                    }, 50);
+                    that.get('controllers.notification').set("reply_ids", "");
+                }
+                that.get('controllers.notification').set("goMessage", "");
+            });
+        }, 50);
+    },
+    goToMessageTop: function(s)
+    {
+        var that = this;
+        $(document).ready(function() {
+            setTimeout(function() {
+                $("#content_message").mCustomScrollbar("scrollTo", s);
+                if (that.get("controllers.notificationTop").get("reply_ids") !== undefined && that.get("controllers.notificationTop").get("reply_ids") !== null && that.get("controllers.notificationTop").get("reply_ids") !== "")
+                {
+                    var thatthat = that;
+                    setTimeout(function() {
+                        thatthat.get('controllers.message').seeMore(that.get("controllers.notificationTop").get("reply"));
+                    }, 50);
+                    that.get('controllers.notificationTop').set("reply_ids", "");
+                }
+
+                that.get('controllers.notificationTop').set("goMessage", "");
+            }, 50);
+        });
+    }
+    ,
     removeMessage: function(Message_id)
     {
 
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-
-        var commenter_id = this.get("currentUser").get('id');// it is the login in user , it will use to check the right of delete
-        var owner_id = this.get("currentOwner").get("id");// it the owner of the page, it will be used to identify  delete  which user's message item
+        var commenter_id = this.get("currentUser").get('id'); // it is the login in user , it will use to check the right of delete
+        var owner_id = this.get("currentOwner").get("id"); // it the owner of the page, it will be used to identify  delete  which user's message item
 
         var tempComment = [commenter_id, owner_id, Message_id];
-
         tempComment = JSON.stringify(tempComment);
         var that = this;
-
         requiredBackEnd('messages', 'RemoveMessage', tempComment, 'POST', function() {
 
 
@@ -9215,7 +11315,8 @@ HubStar.UserMessageController = Ember.Controller.extend({
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
         }, 200);
-    },
+    }
+    ,
     removePic: function() {
         this.set('newStyleImageSource', null);
         this.set('newStyleImageName', "");
@@ -9248,7 +11349,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
             if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
             {
                 imageStyleName = this.get('newStyleImageName');
-
             }
             else
             {
@@ -9264,16 +11364,13 @@ HubStar.UserMessageController = Ember.Controller.extend({
             var messageID = createMessageid();
             var replyID = createMessageid();
             var tempComment = [commenter_id, date.toString(), commentContent, owner_id, newStyleImage, imageType, imageStyleName, messageID, replyID];
-
             tempComment = JSON.stringify(tempComment);
             var that = this;
-
             var dataNew = new Array();
-
             requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
-                //params  is just one message 
+//params  is just one message 
+
                 that.set("isPosting", true);
-                console.log(that.get("isPosting"));
                 dataNew["message_id"] = params["message_id"];
                 dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
                 dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
@@ -9301,21 +11398,13 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 that.get("contentMsg").insertAt(0, dataNew);
                 that.set("isUploadPhoto", false);
                 dataNew = new Array();
-
-
                 setTimeout(function() {
                     $('#masonry_user_container').masonry("reload");
                 }, 200);
-
-
                 that.set('messageContent', "");
                 that.set('newStyleImageSource', null);
                 that.set('newStyleImageName', "");
             });
-
-
-            $('#addcommetBut').attr('style', 'display:block');
-            $('#commentBox').attr('style', 'display:none');
             setTimeout(function() {
                 $('#masonry_container').masonry("reloadItems");
             }, 200);
@@ -9802,6 +11891,37 @@ HubStar.ContactView = Ember.View.extend({
 
 (function() {
 
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+HubStar.ConversationItemView = Ember.View.extend({
+          templateName: 'conversationItem'
+     
+    });
+
+})();
+
+(function() {
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+HubStar.ConversationView = Ember.View.extend({
+
+  templateName: 'conversation'
+    });
+
+
+
+})();
+
+(function() {
+
 HubStar.DeleteFunctionView = Ember.View.extend({
     templateName: 'deleteFunction',
     didInsertElement: function() {
@@ -10242,6 +12362,19 @@ HubStar.ImageInputButtonView = Ember.TextField.extend({
 
 (function() {
 
+
+HubStar.InvitePeopleView = Ember.View.extend({
+    templateName: 'invitePeople',
+    didInsertElement: function() {
+       
+    }
+});
+
+
+})();
+
+(function() {
+
 HubStar.IsLoadingView = Ember.View.extend({
         templateName: 'isLoading'
     });
@@ -10594,53 +12727,75 @@ HubStar.MasonryView = Ember.View.extend({
  * and open the template in the editor.
  */
 
+HubStar.MessageCenterView = Ember.View.extend({
+
+  templateName: 'messageCenter'
+    });
+
+
+
+})();
+
+(function() {
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 HubStar.MessageView = Ember.View.extend({
-    templateName: 'message',
-    seeMore: function(id) {
-        $('#closeComment_' + id).attr('style', 'display:inline-block');
-        $('#showMoreComment_' + id).attr('style', 'display:none');
-        $('#messageData_' + id).attr('style', 'display: block');
-         $('#masonry_user_container').masonry("reload");
-       // $('#messageData_' + id).stop().animate({
-            //maxHeight: '750px'
-
-
-        //}, 420, function() {
-            //$('#messageData_' + id).css(');
-           
-//            $('#messageData_' + id).mCustomScrollbar({
-//                scrollButtons: {
-//                    enable: false
-//                },
-//                theme: "dark-2"
-//            });
-        //});
-
-    },
-    closeMore: function(id) {
-        $('#closeComment_' + id).attr('style', 'display:none');
-        $('#showMoreComment_' + id).attr('style', 'display:inline-block');
-        $('#messageData_' + id).attr('style', 'display: none');
- $('#masonry_user_container').masonry("reload");
-       // $('#messageData_' + id).stop().animate({
-         //   maxHeight: '30px'
-        //}, 380, function() {
-            //$('#messageData_' + id).css('overflow', 'hidden');
-          //  $('#masonry_user_container').masonry("reload");
-//            $('#messageData_' + id).mCustomScrollbar({
-//                scrollButtons: {
-//                    enable: false
-//                },
-//                theme: "dark-2"
-//            });
-        //});
-
-
-
-
-    }
+    templateName: 'message'
+   
 
 });
+
+
+
+})();
+
+(function() {
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+HubStar.NewConversationView = Ember.View.extend({
+
+  templateName: 'newConversation'
+    });
+
+
+
+})();
+
+(function() {
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+HubStar.NotificationTopView = Ember.View.extend({
+
+  templateName: 'notificationTop'
+    });
+
+
+
+})();
+
+(function() {
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+HubStar.NotificationView = Ember.View.extend({
+
+  templateName: 'notification'
+    });
 
 
 
@@ -10964,6 +13119,7 @@ HubStar.ProfileView = Ember.View.extend({
 
         if (user_id === "partners")
         {
+
             $('#user-stats > li').removeClass('selected-user-stats');
 
             $('#partners').addClass('selected-user-stats');
@@ -10974,7 +13130,9 @@ HubStar.ProfileView = Ember.View.extend({
         }
         else if (user_id === "followers")
         {
+
             $('#user-stats > li').removeClass('selected-user-stats');
+
             $('#follow').addClass('selected-user-stats');
             $('#user-stats > li').click(function() {
                 $('#user-stats > li').removeClass('selected-user-stats');
@@ -10982,7 +13140,9 @@ HubStar.ProfileView = Ember.View.extend({
             });
         }
         else {
+
             $('#user-stats > li').removeClass('selected-user-stats');
+
             $('#defualt').addClass('selected-user-stats');
             $('#user-stats > li').click(function() {
                 $('#user-stats > li').removeClass('selected-user-stats');
@@ -11229,6 +13389,22 @@ HubStar.StatusView = Ember.View.extend({
 
 (function() {
 
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+HubStar.TalkView = Ember.View.extend({
+
+  templateName: 'talk'
+    });
+
+
+
+})();
+
+(function() {
+
 HubStar.TestView = Ember.View.extend({
            templateName: 'test'
     });
@@ -11342,6 +13518,7 @@ HubStar.UserView = Ember.View.extend({
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[3];
 
+
         if (user_id === "following")
         {
              $('#user-stats > li').removeClass('selected-user-stats');
@@ -11353,6 +13530,7 @@ HubStar.UserView = Ember.View.extend({
         }
         else if (user_id === "followers")
         {
+
           $('#user-stats > li').removeClass('selected-user-stats');
             $('#ufollower').addClass('selected-user-stats');
             $('#user-stats > li').click(function() {
@@ -11360,7 +13538,8 @@ HubStar.UserView = Ember.View.extend({
                 $(this).addClass('selected-user-stats');
             });
         }
-        else if (user_id === "messages") {
+
+        else if (user_id==="messagecenter") {
             $('#user-stats > li').removeClass('selected-user-stats');
             $('#message').addClass('selected-user-stats');
             $('#user-stats > li').click(function() {
@@ -11579,8 +13758,8 @@ HubStar.WelcomeView = Ember.View.extend({
 
 var Router = Ember.Router.extend(
 
-        
-);
+
+        );
 
 
 HubStar.Router.map(function() {
@@ -11596,11 +13775,14 @@ HubStar.Router.map(function() {
         this.resource("ideabooks", {path: '/ideabooks/:ideabook_id'});
         this.resource("profile", {path: '/profiles/:profile_id'}, function() {
 
+
             this.resource("profileFollowers", {path: '/followers'});
+
             this.resource("profileCollections", {path: '/collections'}, function() {
                 this.resource("profileCollection", {path: ':profileCollection_id'});
             });
             this.resource("partners", {path: '/partners'});
+
 
         });
         this.resource("profiles", function() {
@@ -11614,7 +13796,15 @@ HubStar.Router.map(function() {
             this.resource("userCollections", {path: '/collections'}, function() {
                 this.resource("collection", {path: ':collection_id'});
             });
-            this.resource("userMessage", {path: '/messages'});
+
+            this.resource("messageCenter", {path: '/messagecenter'}, function() {
+                //  this.resource("messageCenter.index", {path: '/messages'});
+                this.resource("messages", {path: '/messages'});
+                this.resource("notifications", {path: '/notifications'});
+                this.resource("conversations", {path: '/conversations'}, function() {
+                    this.resource("conversation", {path: ':conversation_id'});
+                });
+            });
         });
         this.resource("users", function() {
             this.resource("usersIndex", {path: '/'});

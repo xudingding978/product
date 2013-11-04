@@ -1,5 +1,5 @@
 
-<div class="Message-Board_comment-item" style=''>
+<div  class="Message-Board_comment-item" style=''>
     {{#unless model.enableToEdit}}  <!-- enableToEdit is just whether allow to modify-->
 
 
@@ -11,7 +11,7 @@
             <div class="comment-namentime">
                 <div class="namentime_position">
                     <a class="comment-username"   href="#/users/{{unbound model.user_id}}">
-                        {{model.user_name }} 
+                        {{model.user_name }}
                     </a>
                     <div class="posttime-container">
                         <span class="posttime">{{date model.time_stamp}}</span>
@@ -33,11 +33,11 @@
                     {{/if}}
                     {{/if}}
 
-                    <div id="showMoreComment_{{unbound model.message_id}}" style="display: inline-block"  {{action seeMore model.message_id target="view" on="click"}}>
-                        <span style="font-size: 11px;font-weight: bold">&nbsp; reply {{model.replyCount}}</span>
+                    <div id="showMoreComment_{{unbound model.message_id}}" style="display: inline-block"  {{action seeMore model.message_id target="controller" on="click"}}>
+                        <span style="font-size: 11px;font-weight: bold">&nbsp; reply{{model.replyCount}}</span>
                         <i class="icon-caret-down show-comment_inner" ></i>   
                     </div>
-                    <div id="closeComment_{{unbound model.message_id}}"   style="display: none" {{action closeMore model.message_id  target="view" on="click"}}>
+                    <div id="closeComment_{{unbound model.message_id}}"   style="display: none" {{action closeMore model.message_id  target="controller" on="click"}}>
                         <span style="font-size: 11px;font-weight: bold">&nbsp; reply {{model.replyCount}}</span>
                         <i class="icon-caret-up show-comment_inner" ></i>
                     </div>
@@ -137,7 +137,7 @@
                         {{/if}}
                         {{/if}}
                         <a class="comment-username"  href="#/users/{{unbound this.user_id}}">
-                            {{this.user_name}}    {{controller.isEdit}}                
+                            {{this.user_name}}    
                         </a>
                         <div class="posttime-container">
                             <span class="posttime">{{date this.time_stamp}}</span>
@@ -158,8 +158,6 @@
 
         {{render editReply this}}
         {{/unless}}
-
-
         {{/each}}         
     </div>
 

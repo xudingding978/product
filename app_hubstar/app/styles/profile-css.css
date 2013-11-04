@@ -769,6 +769,18 @@ textarea.add-interests{
 
 
 
+
+.crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
+
+
+
+
+
+
+
+
+
+
 /*MESSAGE CENTER STYLE FROM HERE*/
 
 .message-btn{
@@ -836,7 +848,7 @@ textarea.add-interests{
 
 .mCSB_container > div:nth-child(odd){background-color: #fff}
 .mCSB_container > div:nth-child(even){background-color: #f4f6f8}
-.mCSB_container > div:hover{background-color: rgba(220,220,220,.1);
+.mCSB_container > div:hover{background-color: rgba(200,200,200,.1);
                             -webkit-transition: all 0.5s ease;
                             -moz-transition: all 0.5s ease;
                             -o-transition: all 0.5s ease;}
@@ -982,6 +994,7 @@ textarea.add-interests{
     font-size: 13px;
     top: -10px;
     right: -12px;
+    cursor: pointer;
 
     opacity: .6;
 }
@@ -992,32 +1005,99 @@ textarea.add-interests{
 
 
 
+/*message menu*/
 
-.crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
+.create-conversation{
+    height: 69px;
+    width: 70px;
+    float: right;
+    opacity: .7;
+    color: #888;
+    font-size: 18px;
+    line-height: 73px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.create-conversation:hover{
+    background-color: #fff;
+    opacity: 1;
+}
+
+.each-conversation{
+    min-height: 100px; 
+    width: 100%; 
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #fff;
+    cursor: pointer;
+}
+
+.each-conversation:hover{
+    background-color: rgba(150,150,150,.1) !important;
+}
 
 
+.Message-menu-messages-container > div:nth-child(odd){background-color: #fff}
+.Message-menu-messages-container > div:nth-child(even){background-color: #f4f6f8}
+
+
+.invite-this-friend{
+    background-color: #000;
+    opacity: 0;
+
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    line-height: 22px;
+    font-size: 13px;
+    text-align: center;
+    margin-right: -2px;
+}
+
+.invite-friend{
+    float: left; 
+    margin: 10px;
+    position: relative;
+    display: block;
+}
+
+.invite-friend:hover > .invite-this-friend{opacity: .8}
+
+
+.selected-conversation{background-color: #555 !important;}
+.selected-conversation > div {color: #fff !important;}
+
+.selected-conversation .comment-username, .selected-conversation .comment-content, .selected-conversation .icon-trash{color: #fff !important}
 
 
 /*STAR RATING STYLE*/
 
-.rating {
-    unicode-bidi: bidi-override;
-    direction: rtl;
-    font-size: 20px;
+
+
+
+
+
+.unread-style{
+    background-color: rgba(85, 170, 255,.15) !important;
 }
 
-.rating > span.star {
-    content: "";
-    color: #999999;
+.Notification-Board > div:nth-child(odd){background-color: #fff}
+.Notification-Board > div:nth-child(even){background-color: #f4f6f8}
+
+
+#notititopbar > .mCustomScrollBox{
+
 }
-.rating > span:hover:before,
-.rating > span:hover ~ span:before {
-    content: "";
-}
+
+
+
 
 
 .profilegb div.profile-wallpaper{
     top:45px;
     left:0;
 }
+
 

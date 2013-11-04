@@ -17,10 +17,9 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowers', 'profile'],
     test: "test",
     followings: "",
-    setUserFollowings: function(following) {
-//        $('#user-stats > li').removeClass('selected-user-stats');
-//        $('#ufollowing').addClass('selected-user-stats');
-        var model = HubStar.User.find(following);
+    setUserFollowings: function(followingId) {
+
+        var model = HubStar.User.find(followingId);
         this.getClientId(model); // It is used to get the mesage model
 
     },

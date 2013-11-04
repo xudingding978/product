@@ -1003,8 +1003,6 @@ HubStar.CollectionRoute = Ember.Route.extend({
 
 HubStar.ConversationRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-        console.log("conversation congtroller");
-        console.log(model);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -1012,7 +1010,6 @@ HubStar.ConversationRoute = Ember.Route.extend({
     },
     model: function(params) {
         var address = document.URL;
-        console.log("conversation model");
         var user_id = address.split("#")[1].split("/")[2];
         var user = HubStar.User.find(user_id);
         var conversation_id = address.split("#")[1].split("/")[5];
@@ -1301,7 +1298,6 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             //this.controllerFor('notification').set("reply_ids", "");
 
         }
-        console.log(model);
         if (this.controllerFor('notificationTop').get("goConversation") === true)
         {
             model = localStorage.loginStatus;
@@ -1417,7 +1413,7 @@ HubStar.NotificationsRoute = Ember.Route.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
-        $(window).scrollTop(0);
+        $(window).scrollTop(550);
 
     },
     model: function(params) {
@@ -1697,7 +1693,6 @@ HubStar.ProfileNewRoute = Ember.Route.extend({
 
 HubStar.ProfileRoute = Ember.Route.extend({
     setupController: function(ProfileController, model) {
-        console.log("sssssssssssss");
 
         HubStar.set('editingMode', 'profile');
         ProfileController.setLocalLoginRecrod();
@@ -4253,7 +4248,6 @@ HubStar.ConversationItemController = Ember.Controller.extend({
                 count++;
             }
         }
-        console.log(count);
         if (count !== 0)
         {
             this.set("isNewPeople", true);

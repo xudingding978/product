@@ -22,35 +22,18 @@ HubStar.ConversationController = Ember.Controller.extend({
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
         }
-        setTimeout(function() {
-            $("#conversation_content").mCustomScrollbar({
-                scrollButtons: {
-                    enable: false,
-                    scrollSpeed: "auto"
-                },
-                advanced: {
-                    updateOnBrowserResize: true,
-                    updateOnContentResize: true,
-                    autoScrollOnFocus: false,
-                    normalizeMouseWheelDelta: false
-                },
-                autoHideScrollbar: true,
-                mouseWheel: true,
-                theme: "dark-2",
-                set_height: 950
-            });
-        }, 200);
     },
-    selectConversation: function(id) {      
+    selectConversation: function(id) {    
         var idOld = this.get("selectId");
+
         this.get("controllers.messageCenter").selectedNone();
-        $('#conversation_' + idOld).removeClass('selected-conversation');
-        $('#conversation_' + id).addClass('selected-conversation');        
+        setTimeout(function() {
+            $('#conversation_' + idOld).removeClass('selected-conversation');
+            $('#conversation_' + id).addClass('selected-conversation');
+        },200);
         this.set("selectId", id);
         if (id !== null && id !== undefined) {
-
-this.get('controllers.messageCenter').selectConversationItem(id);
-
+            this.get('controllers.messageCenter').selectConversationItem(id);
             this.get('controllers.conversationItem').getClientId(id);
         }
     },
@@ -76,8 +59,8 @@ this.get('controllers.messageCenter').selectConversationItem(id);
             }
         });
     },
-    getClientId: function(id,conversation_id) {
-        this.set("routerFlag",false);
+    getClientId: function(id, conversation_id) {
+        this.set("routerFlag", false);
         this.set('clientID', id);
         var data = this.get('clientID');
         var dataNew = new Array();
@@ -87,7 +70,7 @@ this.get('controllers.messageCenter').selectConversationItem(id);
         var that = this;
         this.set("conversationContent", []);
         requiredBackEnd('conversations', 'ReadConversation', tempComment, 'POST', function(params) {
-            that.set("routerFlag",true);
+            that.set("routerFlag", true);
             if (params !== undefined) {
                 that.set("conversationContent", []);
                 for (var i = 0; i < params.length; i++)
@@ -173,10 +156,10 @@ this.get('controllers.messageCenter').selectConversationItem(id);
 
             }, 200);
             that.set('loadingTime', false);
-            if(conversation_id!==""&&conversation_id!==null&&conversation_id!==undefined)
-                {                  
-                    that.selectConversation(conversation_id);
-                }
+            if (conversation_id !== "" && conversation_id !== null && conversation_id !== undefined)
+            {
+                that.selectConversation(conversation_id);
+            }
         });
     },
     profileStyleImageDrop: function(e, name)

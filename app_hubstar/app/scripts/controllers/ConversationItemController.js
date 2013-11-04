@@ -21,6 +21,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversation', 'invitePeople', 'newConversation'],
     isUploadPhoto: false,
     isNewPeople: false,
+    isPosting:true,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -103,10 +104,11 @@ HubStar.ConversationItemController = Ember.Controller.extend({
     },
     addComment: function() {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
-
+        
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var conversationtContent = this.get('messageContent');
         if (conversationtContent) {
+            this.set("isPosting",false);
             var commenter_id = this.get("currentUser").get('id');
             var conversationId = this.get("id");
             var date = new Date();
@@ -162,6 +164,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
             //var dataNew = new Array();
 
             requiredBackEnd('conversations', 'AddConversationItem', tempComment, 'POST', function(params) {
+                  that.set("isPosting",true);
                 var conversationContent = that.get('controllers.conversation').get("conversationContent");
                 for (var i = 0; i < conversationContent.length; i++)
                 {

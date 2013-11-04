@@ -32,11 +32,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         }
         var results = HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});
         var that = this;
-
-
         results.addObserver('isLoaded', function() {
-
-
             if (results.get('isLoaded')) {
 
                 for (var i = 0; i < this.get("content").length; i++) {
@@ -149,7 +145,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     var tempcollectedColletionids = collectedColletionids.replace(this.get('itemID') + ",", "");
                     tempcollectedColletionids = tempcollectedColletionids.replace(this.get('itemID'), "");
                     currentCollection.set('collection_ids', tempcollectedColletionids);
-                    //   this.get('controllers.applicationFeedback').statusObserver(null, "Delete Successfully.");
                     HubStar.store.save();
                     break;
                 }

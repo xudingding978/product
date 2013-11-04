@@ -182,9 +182,11 @@ class Controller extends CController {
         } elseif ($requireType == 'defaultSearch') {
             $response = $this->searchCollectionItem('21051211514', 'editor-picks', $returnType);
         } elseif ($requireType == 'video') {
-            $response = $this->getVideoesByOwner($returnType);
+              $videoOwnerId = $this->getUserInput($requireParams[1]);
+            $response = $this->getVideoesByOwner($returnType,$videoOwnerId);
         } elseif ($requireType == 'singleVideo') {
             $videoid = $this->getUserInput($requireParams[1]);
+             
             $response = $this->getRequestResultByID($returnType, $videoid);
 
         } else {
@@ -195,12 +197,14 @@ class Controller extends CController {
         return $response;
     }
 
-    protected function getVideoesByOwner($returnType) {
+    protected function getVideoesByOwner($returnType,$videoOwnerId) {
         $conditions = array();
         $requestStringOne = 'couchbaseDocument.doc.type=video';
         array_push($conditions, $requestStringOne);
-        //  $requestStringTwo = 'couchbaseDocument.doc.user.collections.id=' . $collection_id;
-        // array_push($conditions, $requestStringTwo);
+              $requestStringTwo = 'couchbaseDocument.doc.owner_id=' . $videoOwnerId;
+        array_push($conditions, $requestStringTwo);
+        
+        
         $tempResult = $this->searchWithCondictions($conditions, 'must');
         $response = $this->getReponseResult($tempResult, $returnType);
 

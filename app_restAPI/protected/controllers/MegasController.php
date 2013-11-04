@@ -32,9 +32,10 @@ class MegasController extends Controller {
                     $tempRecord = $cb->get($docID);
                     $record = CJSON::decode($tempRecord, true);
                     $request_string = "RequireType=articleRelatedImage&collection_id=" . $record["collection_id"] . "&owner_profile_id=" . $record["owner_id"];
-                } elseif ($this->getUserInput($requireParams[0]) == "video") {
-                    $request_string = "RequireType=video";
                 }
+//                elseif ($this->getUserInput($requireParams[0]) == "video") {
+//                    $request_string = "RequireType=video";
+//                }
 
                 $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
             }

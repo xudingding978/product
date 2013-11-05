@@ -5,7 +5,7 @@ HubStar.CommentController = Ember.Controller.extend({
     stringFiedTime_stamp: null,
     mega: null,
     count: null,
-    isUserSelf:false,
+    isUserSelf: false,
     init: function()
     {
 
@@ -13,7 +13,7 @@ HubStar.CommentController = Ember.Controller.extend({
 
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         }
-        
+
 
     },
     addComment: function() {
@@ -52,20 +52,57 @@ HubStar.CommentController = Ember.Controller.extend({
         var mega = HubStar.Mega.find(id);
         var comments = mega.get('comments');
         this.set('mega', mega);
-        for(var i =0 ;i < comments.get("length");i++)
+        for (var i = 0; i < comments.get("length"); i++)
+        {
+            if (comments.objectAt(i).get("commenter_id") === localStorage.loginStatus)
             {
-                if(comments.objectAt(i).get("commenter_id")===localStorage.loginStatus)
-                    {
-                        comments.objectAt(i).set("isUserSelf",true);
-                        console.log(comments.objectAt(i));
-                    }
+                comments.objectAt(i).set("isUserSelf", true);
             }
+        }
         this.set('thisComments', comments);
     },
-  removeComment:function(object)
-  {
-      
-  },
+    removeComment: function(object)
+    {
+
+            var id = this.get('content').id;
+            var commentId = object.get("commenter_id");
+            var time_stamp = object.get("time_stamp");
+            var delInfo = [id, commentId, time_stamp];
+            delInfo = JSON.stringify(delInfo);
+            var that = this;
+            requiredBackEnd('comments', 'DeletePhotoComment', delInfo, 'POST', function(params) {
+              that.get("thisComments").removeObject(object);        
+                $('#masonry_user_container').masonry("reload");
+                that.cancelDelete();
+            });
+
+    },
+     updateComment: function(object) {
+     
+            var id = this.get('content').id;
+            var commentId = object.get("commenter_id");
+            var time_stamp = object.get("time_stamp");
+            var content = object.get("content");
+            var contentID = commentId+time_stamp;
+            var delInfo = [id, commentId, time_stamp,content];
+
+            delInfo = JSON.stringify(delInfo);
+            var that = this;
+            requiredBackEnd('comments', 'UpdatePhotoComment', delInfo, 'POST', function(params) {
+                
+                for(var i = 0 ; i<    that.get("thisComments").get("length");i++)
+                    {
+                        var commentId =     that.get("thisComments").objectAt(i).get("commenter_id")+  that.get("thisComments").objectAt(i).get("time_stamp");
+                        if(that.contentID ===commentId)
+                            {
+                                  that.get("thisComments").objectAt(i).set("content",that.content);
+                            }
+                    }
+            
+                $('#masonry_user_container').masonry("reload");
+                that.cancelDelete();
+            });
+    },
     deleteComment: function(object) {
         var message = "Do you wish to delete this comment ?";
         this.set("message", message);

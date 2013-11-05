@@ -288,8 +288,13 @@
 
 
                 <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">NOTIFICATION</div>
-
-
+                 {{#each controller.subcateMethod}}
+                <li class="checkbox-container" {{action checkedMethodAction list_id this}}>
+                    <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox"   >
+                    <label for="{{unbound list_id}}" name="{{unbound list_id}}" class="css-label lite-blue-check {{unbound list_id}}">{{category_topic}}</label>
+                </li>
+                {{/each}}
+<hr>
                 {{#each controller.subcate}}
                 <li class="checkbox-container" {{action checkedAction list_id this}}>
                     <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox"   >

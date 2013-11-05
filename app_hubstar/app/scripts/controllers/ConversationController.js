@@ -25,18 +25,21 @@ HubStar.ConversationController = Ember.Controller.extend({
     },
     selectConversation: function(id) {
         var idOld = this.get("selectId");
-
+        console.log(id);
         this.get("controllers.messageCenter").selectedNone();
         setTimeout(function() {
-            $('#conversation_' + idOld).removeClass('selected-conversation');
-            $('#conversation_' + id).addClass('selected-conversation');
             var s = '#conversation_' + id;
             $(document).ready(function() {
+
                 setTimeout(function() {
                     $("#conversation_content").mCustomScrollbar("scrollTo", s);
-                }, 50);
+                    setTimeout(function() {
+                        $('#conversation_' + idOld).removeClass('selected-conversation');
+                        $('#conversation_' + id).addClass('selected-conversation');
+                    }, 10);
+                }, 10);
             });
-        }, 100);
+        }, 50);
         this.set("selectId", id);
         if (id !== null && id !== undefined) {
             this.get('controllers.messageCenter').selectConversationItem(id);

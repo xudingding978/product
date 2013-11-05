@@ -203,6 +203,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 that.set('region', "");
                 that.set('gender', "");
                 that.set('age', "");
+                that.set('isWaiting', false);
             }, 2000);
         });
     },
@@ -294,7 +295,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('isGeoDropdown', !this.get('isGeoDropdown'));
         $('#geo-filter').toggleClass('Geo-Filter-active');
     },
+            
+          
     login: function() {
+
+
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {
         this.set('isWaiting', true);
@@ -349,6 +354,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
             });
         }
+
     },
     emailSend: function()
     {

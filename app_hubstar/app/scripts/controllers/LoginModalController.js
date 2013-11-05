@@ -16,7 +16,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
      login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {
-//            this.set('isWaiting', true);
+            this.set('isWaiting', true);
             document.getElementById("loginUsername").setAttribute("class", "login-textfield");
             document.getElementById("loginPassword").setAttribute("class", "login-textfield");
 
@@ -25,7 +25,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
             requiredBackEnd('login', 'login', loginInfo, 'POST', function(params) {
                 if (params === 1) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-//                    that.set('isWaiting', false);
+                    that.set('isWaiting', false);
 
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
@@ -36,7 +36,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                 else if (params === 0) {
 
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-//                    that.set('isWaiting', false);
+                    that.set('isWaiting', false);
 
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
@@ -47,7 +47,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
 
                     if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
                         localStorage.loginStatus = params.COUCHBASE_ID;
-               
+             
                  location.reload();
                  HubStar.set('checkLoginStatus', false);
                         that.set('loginUsername', "");
@@ -57,7 +57,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                     else {
                         document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
 
-//                        that.set('isWaiting', false);
+                        that.set('isWaiting', false);
 
                         if ($('#incorrect-password').css('display') === 'none') {
 
@@ -109,7 +109,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
         }
     },
     done: function() {
-//        this.set('isWaiting', true);
+        this.set('isWaiting', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;
         requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {

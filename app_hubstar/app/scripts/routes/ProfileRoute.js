@@ -3,6 +3,12 @@ HubStar.ProfileRoute = Ember.Route.extend({
         
 
         HubStar.set('editingMode', 'profile');
+          if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
+        {
+            HubStar.set("isLogin", false);
+        }else{
+                    HubStar.set("isLogin", true);               
+        }
         ProfileController.setLocalLoginRecrod();
         /******************  partner cehcking*******************/
         ProfileController.set('contactChecking', false);

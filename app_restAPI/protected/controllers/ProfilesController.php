@@ -178,15 +178,9 @@ class ProfilesController extends Controller {
     }
     
     public function setBoost($package_name) {
-        if ($package_name === "Platinum") {
-            $boost = 200;
-        } else if ($package_name === "Gold") {
-            $boost = 100;
-        } else if ($package_name === "Silver") {
-            $boost = 50;
-        } else {
-            $boost = 25;
-        }
+        $domain = $this->getDomain();
+        $configuration = $this->getProviderConfigurationByName($domain, "package_details");
+        $boost = $configuration[$package_name]['boost'];
         return $boost;
     }
     
@@ -194,11 +188,11 @@ class ProfilesController extends Controller {
         $response = $this->getProfileReults($profile_id);
         $responseArray = array();
         foreach ($response as $hit) {
-            $id = $hit['id'];
-            $profileId = $hit['owner_id'];
+            $id = $hit['source']['doc']['id'];
+            $profileId = $hit['source']['doc']['owner_id'];
             if ($profileId === $profile_id){
                 $cb = $this->couchBaseConnection();
-                $docID = $this->getDomain() . $id;
+                $docID = $this->getDomain() .'/'. $id;
                 $profileOwn = $cb->get($docID);
                 $owner = CJSON::decode($profileOwn, true);
                 $owner['boost'] = $boost;

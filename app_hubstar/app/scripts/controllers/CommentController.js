@@ -27,7 +27,6 @@ HubStar.CommentController = Ember.Controller.extend({
         addCollectionController.setUser();
         addCollectionController.setRelatedController('comment');
        $('#addCollection_' + model.id).attr('style', 'display: block');
-      // console.log(model.id);
     },
     addComment: function() {       
         var commentContent = this.get('commentContent');
@@ -108,8 +107,6 @@ HubStar.CommentController = Ember.Controller.extend({
                     mega.set("likes_count", like.length);
                     mega.set("people_like", params);
                     that.count = like.length;
-                    //console.log(that.count);
-                    //console.log("sssssssssssssssssssss");
                 });
             }
         }
@@ -132,19 +129,16 @@ HubStar.CommentController = Ember.Controller.extend({
         $('#share_' + id).children('ul').addClass("hideClass");
     },  
             
-            
-    fbShare: function() {
+          
+    fbShare: function(model) {
+          this.set("selectedPhoto",model.get("photo").objectAt(0));
         var that = this;
-        console.log(this.get('selectedPhoto').id);
-        console.log(this.get('selectedPhoto').photo_image_thumbnail_url);
-        console.log(this.get('articleResouce').get("article_body"));
-        console.log(this.get('articleResouce').get("article_headline"));
-        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
+        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
         var caption = '';
 
-        if (this.get('articleResouce').get("article_body") !== null)
+        if (this.get('selectedPhoto').get('photo_caption') !== null)
         {
-            caption =this.get('articleResouce').get("article_body");
+            caption = this.get('selectedPhoto').get('photo_caption');
         }
         else
         {
@@ -154,8 +148,8 @@ HubStar.CommentController = Ember.Controller.extend({
         var obj = {
             method: 'feed',
             link: currntUrl,
-            picture: this.get('selectedPhoto').photo_image_thumbnail_url,
-            name: this.get('articleResouce').get("article_headline"),
+            picture: this.get('selectedPhoto').get('photo_image_thumbnail_url'),
+            name: this.get('selectedPhoto').get('photo_title'),
             caption: 'Trends Ideas',
             description: caption
         };
@@ -173,28 +167,28 @@ HubStar.CommentController = Ember.Controller.extend({
         return false;
     },
     //share to social google plus
-    gpShare: function() {
+    gpShare: function(model) {
+        this.set("selectedPhoto",model.get("photo").objectAt(0));
         var caption = '';
-       if (this.get('articleResouce').get("article_body") !== null)
+        if (this.get('selectedPhoto').get('photo_caption') !== null)
         {
-            caption =this.get('articleResouce').get("article_body");
+            caption = this.get('selectedPhoto').get('photo_caption');
         }
         else
         {
             caption = '';
         }
 
-
 //        var meta = document.getElementsByTagName('meta');
 //        for (var i = 0; i < meta.length; i++) {
 //            console.log(meta[i]);
 //        }
-        $("meta[property='og\\:title']").attr("content", this.get('articleResouce').get("article_headline"));
+        $("meta[property='og\\:title']").attr("content", this.get('selectedPhoto').get('photo_title'));
         $("meta[property='og\\:description']").attr("content", caption);
-        $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').photo_image_thumbnail_url);
+        $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_thumbnail_url'));
 
 
-        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
+        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
         window.open(
@@ -206,9 +200,10 @@ HubStar.CommentController = Ember.Controller.extend({
         return false;
     },
     //share to social twitter
-    tShare: function() {
-        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
-        var url = 'https://twitter.com/share?text=' + this.get('articleResouce').get("article_headline") + '&url=' + encodeURIComponent(currntUrl);
+    tShare: function(model) {
+        this.set("selectedPhoto",model.get("photo").objectAt(0));
+        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+        var url = 'https://twitter.com/share?text=' + this.get('selectedPhoto').get('photo_title') + '&url=' + encodeURIComponent(currntUrl);
         window.open(
                 url,
                 'popupwindow',
@@ -216,11 +211,12 @@ HubStar.CommentController = Ember.Controller.extend({
                 ).focus();
         return false;
     },
-    pShare: function() {
-        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
-        var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
-                '&media=' + encodeURIComponent(this.get('selectedPhoto').photo_image_thumbnail_url) +
-                '&description=' + encodeURIComponent(this.get('articleResouce').get("article_headline"));
+      pShare: function(model) {
+        this.set("selectedPhoto",model.get("photo").objectAt(0));
+        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+        var url = 'http://www.pinterest.com/pin/create/button/?url=' +  encodeURIComponent(currntUrl)+          
+                  '&media='+ encodeURIComponent(this.get('selectedPhoto').get('photo_image_original_url'))+
+                  '&description='+encodeURIComponent(this.get('selectedPhoto').get('photo_title'));    
         window.open(
                 url,
                 'popupwindow',
@@ -228,6 +224,5 @@ HubStar.CommentController = Ember.Controller.extend({
                 ).focus();
         return false;
     }
-         
 });
 

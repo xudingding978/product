@@ -54,7 +54,7 @@ HubStar.EditCollectionView = Ember.View.extend({
     returnCollection: function(id) {
    //    this.get('controller').getCollectionAttr();
         var div_id = "#" + id;
-        var div_class = "." + id + "  #uploadArea";
+        var div_class = ".C" + id + "  #uploadArea";
         $(div_id).attr("style", "display:block");
         $(div_class).attr('style', "display:none");
           this.get('controller').set('newTitle', '');

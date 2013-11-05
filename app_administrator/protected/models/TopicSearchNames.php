@@ -88,15 +88,36 @@ class TopicSearchNames extends CActiveRecord
 		));
 	}
         
+        public function  findRegionIdfromId($id) {
+        $data_list = array();
+        $regionId = "";
+        $sql = "select top 1 * from dbo.ArticleTopicMaps where articleId =" . $id;
+        echo $sql." this is sql command\n";
+          try {
+            $data_list = Yii::app()->db->createCommand($sql)->queryAll();
+            if (sizeof($data_list) > 0) {
+                $regionId = $data_list[0]['regionId'];                           
+            }
+        } catch (Exception $e) {
+            $response = $e->getMessage();
+            $message = date("Y-m-d H:i:s") . " ----cannot get photo from region -> selectRegionByImage!!---------------------------- \r\n" . $response;
+            $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
+        }
+        return $regionId;
+        }
+        
                 public function selectTopicName($id) {
+                    
+                    $regionId=$this->findRegionIdfromId($id);
+                    echo $regionId." this is region id\n";
                     $data_list = array();
                     $topic_list = array();
-                    $sql = "select dbo.TopicSearchNames.* from dbo.TopicSearchNames
-                                inner join dbo.ArticleTopicMaps
-                                on dbo.TopicSearchNames.topicId = dbo.ArticleTopicMaps.topicId 
-                                inner join dbo.ArticleImages
-                                on dbo.ArticleTopicMaps.articleId = dbo.ArticleImages.articleId
-                                where dbo.ArticleImages.id = ".$id;
+                    $sql = "select dbo.TopicSearchNames.*,  dbo.ArticleTopicMaps.* from dbo.TopicSearchNames
+
+                                right join dbo.ArticleTopicMaps
+                                on dbo.ArticleTopicMaps.topicId =dbo.TopicSearchNames.topicId
+                                 where dbo.ArticleTopicMaps.articleId =" .$id.
+                               "and dbo.ArticleTopicMaps.regionId=".$regionId;
                     try {
                         $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
                         if(sizeof($data_list)>0) {

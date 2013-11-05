@@ -307,8 +307,17 @@ class Regions extends CActiveRecord {
 //                    error_log($sql); 
         try {
             $data_list = Yii::app()->db->createCommand($sql)->queryAll();
-            if (sizeof($data_list) > 0) {
+            echo "size of region: ". sizeof($data_list)."\n";
+            if (sizeof($data_list) > 1) {
+                foreach($data_list as $regionFound){
+                    echo "this is region: ".$regionFound['name']."\n";
+                    $region .=$regionFound['name'].', ' ;
+          //          $region .=" ".$regionFound['name'];
+                }
+            }
+            elseif (sizeof($data_list) ===1 ) {
                 $region = $data_list[0]['name'];
+                
                 while (true) {
                     $parent_id = $data_list[0]['parentId'];
                     if ($parent_id == null) {
@@ -340,5 +349,7 @@ class Regions extends CActiveRecord {
 
         unset($fileName, $content, $handle, $output);
     }
+    
+     
 
 }

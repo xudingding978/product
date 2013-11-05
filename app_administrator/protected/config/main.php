@@ -121,9 +121,9 @@ return CMap::mergeArray(
                 ),
                 'db' => array(
                     'class' => 'CDbConnection',
-                    'connectionString' => 'dblib:host=192.168.2.100;dbname=Trends;port:1433;',
-                    'username' => 'sa',
-                    'password' => 'Pa55word',
+                    'connectionString' => 'dblib:host=125.236.58.231;dbname=Trends2012;port:1433;',
+                    'username' => 'platform',
+                    'password' => 'L86wBWVeKYKuqKZQ',
                    // 'tablePrefix'=>'dbo',
 //                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
 //                    'enableParamLogging' => YII_DEBUG,

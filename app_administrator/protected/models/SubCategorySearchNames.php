@@ -129,17 +129,17 @@ class SubCategorySearchNames extends CActiveRecord
                     $data_list = array();
                     $topic_list = array();
                     $sql = "select 
-                                    SCSN.*
+                                  dbo.ArticleSubCategoryMaps.*
                                 from 
-                                   dbo.Articles as Ar,
-                                   dbo.ArticleSubCategoryMaps as ASCM,
-                                   dbo.SubCategorySearchNames as SCSN
+                                   dbo.Articles,
+                                   dbo.ArticleSubCategoryMaps,
+                                   dbo.SubCategorySearchNames 
                                 where
-                                   SCSN.subCategoryId = ASCM.subCategoryId
+                                   SubCategorySearchNames.subCategoryId = ArticleSubCategoryMaps.subCategoryId
                                 AND
-                                   Ar.id = ASCM.articleId
+                                   dbo.Articles.id = ArticleSubCategoryMaps.articleId
                                 AND
-                                   Ar.id = ".$id;
+                                   dbo.Articles.id = ".$id;
                     try {
                         $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
                         
@@ -156,6 +156,40 @@ class SubCategorySearchNames extends CActiveRecord
                     }
                     
                     return $topic_list;
+                }
+                
+                public function findSubCategorybyId($subCategoryId){
+                     $data_list = array();
+                   
+                    $sql = "select dbo.SubCategorySearchNames.*
+                           from
+                           dbo.SubCategorySearchNames
+                           where 
+                           dbo.SubCategorySearchNames.subCategoryId= ".$subCategoryId;
+                    try {
+                        $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
+                        echo "found ".sizeof($data_list)."row of creditlist";
+                        if(sizeof($data_list)>0){
+                            foreach($data_list as $list){
+                                $SubCategory_str .= $list['name'] .", ";
+                               
+                            }
+                             $SubCategory_str= substr($SubCategory_str, 0,  -2);
+                           echo $SubCategory_str; 
+                        } 
+
+                            }
+
+                            
+                            
+                            
+                        
+                     catch (Exception $e) {
+                        error_log("Cannot get SubCategory infor: ".$e->getMessage());
+                    }
+                    
+                    return $SubCategory_str;
+            
                 }
         
 }

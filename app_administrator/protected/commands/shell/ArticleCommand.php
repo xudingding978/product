@@ -23,13 +23,73 @@ class ArticleCommand extends Controller_admin {
         } 
         else if ($action == "body") {                //linebreaks to <p>.
             $this->reflexArticleBody();
+        } else if ($action == "credit") {                //linebreaks to <p>.
+            $this->findCreditList();
         }
 
         echo "All finished: start from: " . "\r\n";
         $end_time = microtime(true);
         echo "totally spend: " . ($end_time - $start_time);      //time spend
     }
+    
+    public function findCreditList(){
+       //  $credit_arr = ArticleCredits::model()->getCreditListbyId(7684);
+      //  $subCategory_str = SubCategorySearchNames::model()->findSubCategorybyId(779);
+     // $categoryName= CategorySearchNames::model()->findCategoryNamebySubCategoryId(779);
+    //     print_r($credit_arr);
+        $this->buildCreditListObject(7684);
+    }
+    
+    public function findCreditListCategory($categoryId){
+         $category_str = CategorySearchNames::model()->findCategoryNamebyCategoryId($categoryId);
+         return $category_str;
+    }
+    
+    public function findCreditListSubCategory($subCategoryId){
+        
+        $subCategory_str = SubCategorySearchNames::model()->findSubCategorybyId($subCategoryId);
+        return $subCategory_str;
+    }
+    
+    public function findCreditListCategorybySubCategory($subCategoryId){
+        $category_str = CategorySearchNames::model()->findCategoryNamebySubCategoryId($subCategoryId);
+                return $category_str;
+    }
 
+    public function buildCreditListObject($articleId){
+        $credit_arr = ArticleCredits::model()->getCreditListbyId($articleId);
+        $creditList_arr=array();
+        $creditEntry_arr=array();
+        foreach ($credit_arr as $creditEntry){
+            unset($creditEntry_arr);
+            print_r("this is credit entry: ".$creditEntry);
+            $creditEntry_arr['credit_list_name']=$creditEntry['categoryText'];
+            $creditEntry_arr['credit_list_text']=$creditEntry['clientText'];
+            if($creditEntry['subCategoryId']){
+            $creditEntry_arr['subCategoryName']=$this->findCreditListSubCategory($creditEntry['subCategoryId']);           
+            $creditEntry_arr['categoryName']=$this->findCreditListCategorybySubCategory($creditEntry['subCategoryId']);
+            }
+            else{
+                if($creditEntry['categoryId']){
+                    $creditEntry_arr['categoryName']=$this->findCreditListCategory($creditEntry['categoryId']);
+                    $creditEntry_arr['subCategoryName']=null;
+                }else{
+                    $creditEntry_arr['categoryName']=null;
+                    $creditEntry_arr['subCategoryName']=null;
+                }
+                
+                
+            }
+            
+            array_push($creditList_arr, $creditEntry_arr);
+        }
+        print_r($creditList_arr);
+        return $creditList_arr;
+        
+    }
+    
+    
+    
     public function reflexArticleBody() {
         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $log_path = "/var/log/yii/$start_time.log";          

@@ -121,20 +121,20 @@ class Categories extends CActiveRecord
                     $data_list = array();
                     $topic_list = array();
                     $sql = "select 
-                                    CSN.*
+                                    dbo.CategorySearchNames.*
                                 from 
-                                    dbo.ArticleImages as AI,
-                                    dbo.ArticleSubCategoryMaps as ASCM,
-                                    dbo.CategorySearchNames as CSN,
-                                    dbo.SubCategories as SC
+                                    dbo.ArticleImages,
+                                    dbo.ArticleSubCategoryMaps,
+                                    dbo.CategorySearchNames,
+                                    dbo.SubCategories 
                                 where
-                                    CSN.categoryId = SC.categoryId
+                                    dbo.CategorySearchNames.categoryId = dbo.SubCategories.categoryId
                                 AND
-                                    ASCM.subCategoryId=SC.id
+                                    dbo.ArticleSubCategoryMaps.subCategoryId=dbo.SubCategories.id
                                 AND
-                                    AI.articleId = ASCM.articleId
+                                    dbo.ArticleImages.articleId = dbo.ArticleSubCategoryMaps.articleId
                                 AND
-                                    AI.id = ".$id;
+                                    dbo.ArticleImages.id = ".$id;
                     try {
                         $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
                         

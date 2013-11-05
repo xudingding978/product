@@ -2,7 +2,7 @@
 
 DS.RESTAdapter.map('HubStar.Review', {
 
-    replyReviewCollection: {embedded: 'load'}
+    reply_reviews: {embedded: 'load'}
 });
 
 
@@ -22,7 +22,7 @@ HubStar.Review = DS.Model.extend({
     review_length: DS.attr('string'),
     review_like_count:DS.attr('number'),
     review_people_like:DS.attr('string'),
-    replyReviewCollection: DS.hasMany('HubStar.ReplyReview'), 
+    reply_reviews: DS.hasMany('HubStar.Reply'), 
     optional: DS.attr('string'),
     didLoad: function() {
 

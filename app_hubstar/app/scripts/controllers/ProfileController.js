@@ -655,7 +655,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Reviews');
         this.set('profileSelectionStatus', 'Reviews');
-         this.get('controllers.reviewList').getReviewId(model);
+     //    this.get('controllers.reviewList').getReviewId(model);
         this.set('partnerTag', false);
         this.set('collectionTag', false);
         this.set('followerProfileTag', false);
@@ -663,7 +663,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     
        this.transitionToRoute('reviews');
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
+            $('#masonry_user_container').masonry("reload");
         }, 200);
     },
     saveUpdateAboutUs: function() {
@@ -961,10 +961,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         this.set("rateTime", true);
 
-//        if (this.get('reviewTag') === true) {
-//            this.set('reviewTag', false);
-//            this.set('isInreview', true);
-//        }
+        if (this.get('reviewTag') === true) {
+            this.set('reviewTag', false);
+            this.set('isInreview', true);
+        }
     },
     setCollectionAttr: function() {
         this.set("newTitle", this.get('selectedCollection').get('title'));

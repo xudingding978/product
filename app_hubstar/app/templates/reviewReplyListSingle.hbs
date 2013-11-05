@@ -1,0 +1,54 @@
+
+
+
+
+<div id="reply_{{unbound model.review_reply_id}}" class="your-relpy">
+                            <a class="your-relpy_profilepic" href="#/users/{{unbound model.review_user_id}}">
+                                <img class="profilepic_comment"  {{bindAttr src= model.review_photo_url_large}} />
+                            </a>
+                            <div style="">
+                                <div class="comment-namentime">
+                                    <div class="namentime_position">
+                                        {{#if controller.isUserself}}
+                                        <div class="reply-comment" style="left: 40px;right: initial;">
+                                            <i class="icon-trash"  {{action removeReviewReply model.review_reply_id}}></i>
+                                            <i class="icon-pencil" {{action editingReviewReplyData model.review_reply_id model.review_msg}}></i>
+                                        </div>
+                                        {{else}}
+                                        {{#if controller.isUserself}}
+                                        <div class="reply-comment" style="left: 40px;right: initial;">                        
+                                            <i class="icon-trash"  {{action removeReply model.review_reply_id}}></i>
+                                            <i class="icon-pencil" {{action editingReplyData model.review_reply_id model.review_msg}}></i>
+                                        </div>
+                                        {{/if}}
+                                        {{/if}}
+                                        <a class="comment-username"  href="#/users/{{unbound model.review_user_id}}">
+                                            {{model.review_user_name}}                
+                                        </a>
+                                        <div class="posttime-container">
+                                            <span class="posttime">{{date model.review_time_stamp}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="comment-content">
+                                    {{model.review_msg}}<br>
+                                    {{#if controller.isUrl }}   <!-- if the isUrl is not null which mean it has the picture url, so it can show the image-->
+                                    <div style='margin: 5px auto;max-width: 300px;max-height: 300px;float: right;'>
+                                        <img {{bindAttr src= model.review_url}} style="border: 4px solid #fff;"/>
+                                    </div>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            $(function() {
+                                var $container = $('#masonry_user_container');
+                                window.setTimeout(function() {
+                                    $container.masonry();
+                                    $container.masonry('reload');
+                                }, 10);
+                            });
+                        </script>
+
+
+                   

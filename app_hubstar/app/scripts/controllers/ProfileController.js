@@ -589,25 +589,25 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }, 200);
     },
     selectVideo: function(model) {
-
-        console.log(model);
+console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaadddddddddddddddd");
+        $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Video');
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#video').addClass('selected-user-stats');
         this.set('profileSelectionStatus', 'Videos');
         this.get('controllers.profileVideos').getClientId(model);
+        this.set('videoTag', true);
         this.set('partnerTag', false);
         this.set('collectionTag', false);
         this.set('followerProfileTag', false);
-        this.set('videoTag', true);
 
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+
+
     },
     selectPartner: function(model) {
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Partners');
         HubStar.set("lastPositionId", model.id);
-        console.log(model);
         this.set('profileSelectionStatus', 'Partners');
         this.get('controllers.profilePartners').getClientId(model);
         this.set('partnerTag', true);
@@ -630,7 +630,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
-        //update_About_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
         update_About_record.set("profile_about_us", editor.getValue());
 
         this.get('controllers.applicationFeedback').statusObserver(null, "Update successful");

@@ -127,14 +127,37 @@
 
 
 
-                <div class="article-title">
-                    {{controller.megaResouce.object_title}}
+                {{#unless controller.enableToEdit}}
 
+                <div class="article-title">     {{controller.megaResouce.object_title}}
+
+                    {{#if controller.is_authentic_user}}
+                    <div class='hint--left hint--rounded' data-hint='Edit Photo Info' style="position: absolute;font-size: 15px;right: 10px;margin: 1px;">
+                        <i class="icon-edit" {{action editingPhotoMegaData}}></i>
+                    </div>
+                    {{/if}}
 
                 </div>
 
-                <div class="article-text"></div>
-                {{controller.megaResouce.object_description}}
+                <div class="article-text">     {{controller.megaResouce.object_description}}</div>
+
+
+
+                {{else}}
+
+                {{view Ember.TextField valueBinding="controller.megaResouce.object_title"  id="" class="edit_photo-titile_field"  }} 
+                {{view Ember.TextArea valueBinding="controller.megaResouce.object_description"  id="" class="edit_photo-caption_field"}} 
+
+
+                <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
+
+                    <div  type="button" class="new-btn blue-btn" {{action yes}}> <i class="icon-ok icon-white"></i></div>
+
+                    <div  type="button" class="new-btn" {{action no }}> <i class="icon-remove"></i></div>
+
+                </div>
+
+                {{/unless}}
 
             </div>
 

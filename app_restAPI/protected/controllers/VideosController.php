@@ -1,14 +1,20 @@
 <?php
+
 header("Access-Control-Allow-Origin: *");
 header('Content-type: *');
 
 header('Access-Control-Request-Method: *');
 header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+
 class VideosController extends Controller {
 
     const JSON_RESPONSE_ROOT_SINGLE = 'video';
     const JSON_RESPONSE_ROOT_PLURAL = 'videos';
+
+    public function __construct() {
+        
+    }
 
     public function actionIndex() {
         
@@ -33,11 +39,11 @@ class VideosController extends Controller {
 
     public function actionRead() {
         try {
-                 $temp = explode("/", $_SERVER['REQUEST_URI']);
+            $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $cb = $this->couchBaseConnection();
             $docID = $this->getDomain() . "/video/" . $id;
-    
+
             $reponse = $cb->get($docID);
             $reponse = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
 
@@ -48,19 +54,31 @@ class VideosController extends Controller {
     }
 
     public function actionUpdate() {
+        
+    }
 
+    public function videoUpdate($mega) {
         try {
-            $payloads_arr = CJSON::decode(file_get_contents('php://input'));
-            $payload_json = CJSON::encode($payloads_arr['video']);
-            $payload_arr = CJSON::decode($payload_json);
             $cb = $this->couchBaseConnection();
-            $document_arr = CJSON::decode($cb->get(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI']));
-            $newdocument = array_merge($document_arr, $payload_arr);
-            if ($cb->set(substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'], CJSON::encode($newdocument))) {
-                echo $this->sendResponse(201,var_export($newdocument));
+            $temp = explode("/", $_SERVER['REQUEST_URI']);
+            $id = $temp [sizeof($temp) - 1];
+            $photoTitle = $mega['mega']['object_title'];
+            $photoCaption = $mega['mega']['object_description'];
+            $url = $this->getDomain() . "/" . $id;
+            $tempRecord = $cb->get($url);
+            $oldRecord = CJSON::decode($tempRecord, true);
+            $oldRecord['mega']['object_title'] = $photoTitle;
+            $oldRecord['mega']['object_description'] = $photoCaption;
+            $oldRecord['object_description'] = $photoCaption;
+            $oldRecord['videoes'][0]['video_title'] = $photoTitle;
+            $oldRecord['videoes'][0]['video_desc'] = $photoCaption;
+            if ($cb->set($url, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
             }
         } catch (Exception $exc) {
-            echo var_export($newdocument);
+            echo $exc->getTraceAsString();
         }
     }
 
@@ -71,7 +89,6 @@ class VideosController extends Controller {
             echo $exc->getTraceAsString();
         }
     }
-
 
 }
 

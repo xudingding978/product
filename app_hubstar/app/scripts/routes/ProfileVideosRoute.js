@@ -1,9 +1,8 @@
 HubStar.ProfileVideosRoute = Ember.Route.extend({
     setupController: function(controller, model) {
 
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#video_tap').addClass('selected-user-stats');
-        this.controllerFor('profile').selectVideo();
+//           $('#video').addClass('selected-user-stats');
+        this.controllerFor('profile').selectVideo(model);
     },
     model: function(params) {
 

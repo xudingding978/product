@@ -3,11 +3,11 @@ HubStar.VideoController = Ember.Controller.extend({
     videoObject: null,
     video_iframe_code: null,
     currentUser: null,
+    enableToEdit: false,
     needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission'],
     getinitdata: function(videoObject)
     {
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-        console.log(this.get("currentUser"));
         var that = this;
         var megaResouce = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": videoObject});
         this.set('megaResouce', megaResouce.objectAt(0));
@@ -17,6 +17,7 @@ HubStar.VideoController = Ember.Controller.extend({
                 var tempVideoObject = megaResouce.objectAt(0).get('videoes').get("content").objectAt(0);
                 that.set('videoObject', tempVideoObject);
                 that.set('video_iframe_code', tempVideoObject.data.video_iframe_code);
+                that.checkAuthenticUser();
             }
         });
     }, addComment: function() {
@@ -43,7 +44,6 @@ HubStar.VideoController = Ember.Controller.extend({
         window.history.back();
     },
     switchCollection: function() {
-
         var addCollectionController = this.get('controllers.addCollection');
         var selectid = this.get('megaResouce').id;
         addCollectionController.setImageID(selectid);
@@ -158,6 +158,36 @@ HubStar.VideoController = Ember.Controller.extend({
                 'height=436,width=626'
                 ).focus();
         return false;
+    },
+    editingPhotoMegaData: function() {
+        this.set('enableToEdit', !this.get('enableToEdit'));
+
+    }, checkAuthenticUser: function() {
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
+        var current_user_email = currentUser.get('email');
+        var permissionController = this.get('controllers.permission');
+        var that = this;
+        console.log(that.get("megaResouce").get("owner_contact_email"));
+        var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
+        that.set("is_authentic_user", is_authentic_user);
+        currentUser.addObserver('isLoaded', function() {
+            var current_user_email = currentUser.get('email');
+            if (currentUser.get('isLoaded')) {
+                var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
+                that.set("is_authentic_user", is_authentic_user);
+            }
+        });
+    },
+    yes: function()
+    {
+        this.get('megaResouce').store.save();
+        this.set('enableToEdit', !this.get('enableToEdit'));
+    },
+    no: function() {
+        if (this.get('megaResouce').get("isDirty")) {
+            this.get('megaResouce').rollback();
+        }
+        this.set('enableToEdit', !this.get('enableToEdit'));
     }
 }
 

@@ -23,7 +23,8 @@
             {{render addCollection}}
             <!--<div style="position:fixed; background-color: red; width: 100px;height: 100px;top:100px">asdfasdfasdfasdfasdfsd</div>-->
         </div>       
-
+{{#if model.getProfile}}
+{{else}}
         <div style="display: inline-block;float: right; font-size: 13px;">
             <div  id="thumbUpBtn_{{unbound model.id}}" style="display:inline-block;vertical-align: top;" class="new-btn" {{action addLike model.id}}><i class="icon-thumbs-up-alt">&nbsp</i>{{model.likes_count}}</div>
             <div data-hint="Add to your own collection." id="saveBtn_{{unbound model.id}}"  style="display:inline-block;vertical-align: top;" class="new-btn hint--top hint--rounded" {{action switchCollection model}}><i class="icon-save" >&nbsp</i></div>
@@ -49,10 +50,11 @@
             </div>
             
 </div>
+{{/if}}
 </div>
 <div class="masonry_addcommnetbox-container" {{action openComment model.id target="view" on="click"}} id="comment_{{unbound model.id}}">
     <div class="addcommnetbox">
-        Add comments
+        Add comments 
     </div>
 </div>
 

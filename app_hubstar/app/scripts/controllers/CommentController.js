@@ -8,12 +8,9 @@ HubStar.CommentController = Ember.Controller.extend({
     needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission'],
     init: function()
     {
-
         if (localStorage.loginStatus) {
-
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-        }
-
+        }       
     },
     switchCollection: function(model) {
         if (model.get("type") === "photo") {

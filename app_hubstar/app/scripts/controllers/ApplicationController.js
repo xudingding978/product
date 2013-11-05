@@ -276,8 +276,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
 
-
-
                     document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
                 }// INVALID user name when the user attempts to login.

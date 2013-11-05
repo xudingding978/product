@@ -63,12 +63,13 @@ class VideosController extends Controller {
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $photoTitle = $mega['mega']['object_title'];
+            error_log($photoTitle);
             $photoCaption = $mega['mega']['object_description'];
             $url = $this->getDomain() . "/" . $id;
             $tempRecord = $cb->get($url);
             $oldRecord = CJSON::decode($tempRecord, true);
-            $oldRecord['mega']['object_title'] = $photoTitle;
-            $oldRecord['mega']['object_description'] = $photoCaption;
+            $oldRecord['object_title'] = $photoTitle;
+            $oldRecord['object_description'] = $photoCaption;
             $oldRecord['object_description'] = $photoCaption;
             $oldRecord['videoes'][0]['video_title'] = $photoTitle;
             $oldRecord['videoes'][0]['video_desc'] = $photoCaption;

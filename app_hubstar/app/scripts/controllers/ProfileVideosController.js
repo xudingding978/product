@@ -25,7 +25,7 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
     {
         this.set('is_video_create_mode', !this.get('is_video_create_mode'));
     },
-    dropdownSetting: function(id)
+    dropdownPhotoSetting: function(id)
     {
         this.set('delete_id', id);
         $('#dropdown_id_' + id).toggleClass('hideClass');
@@ -74,6 +74,7 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
     },
     removeCollectedItem: function()
     {
+        this.set('message', "Are you going to delete this video?");
         this.set('isRenderDeleteItemTemplate', !this.get('isRenderDeleteItemTemplate'));
     },
     deleteSelectedCollection: function()
@@ -93,6 +94,7 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
     },
     cancelDelete: function() {
         this.set('isRenderDeleteItemTemplate', !this.get('isRenderDeleteItemTemplate'));
+   this.set('message', "");
         HubStar.set('data', null);
         $('#dropdown_id_' + this.get('delete_id')).toggleClass('hideClass');
         this.set('delete_id', null);

@@ -97,8 +97,8 @@ class MegasController extends Controller {
             $photoController = new PhotosController();
             $photoController->photoUpdate($newRecord);
         } elseif ($newRecord['mega']['type'] == 'video') {
-            $photoController = new VideosController();
-            $photoController->videoUpdate($newRecord);
+            $videoController = new VideosController();
+            $videoController->videoUpdate($newRecord);
         }  
         
         else {

@@ -6,6 +6,7 @@
 
 HubStar.PartnersRoute = Ember.Route.extend({
     setupController: function(controller, model) {
+    this.controllerFor('profilePartners').getClientId(model);
           this.controllerFor('profile').selectPartner(model);
     },
     model: function(params) {

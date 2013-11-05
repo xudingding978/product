@@ -606,13 +606,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#network').addClass('selected-user-stats');
         HubStar.set("lastPositionId", model.id);
-        this.set('profileSelectionStatus', 'Partners');
-        this.get('controllers.profilePartners').getClientId(model);
+        this.set('profileSelectionStatus', 'Network');
+ 
         this.set('partnerTag', true);
         this.set('collectionTag', false);
         this.set('followerProfileTag', false);
         this.set('videoTag', false);
-        this.get('controllers.itemProfiles').setPartnerRemove();
+//        this.get('controllers.itemProfiles').setPartnerRemove();
         this.transitionToRoute('partners');
     },
     selectFollower: function(model) {

@@ -119,7 +119,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
 
             });
             setTimeout(function() {
-                that.transitionToRoute('search');
+                location.reload();
                 that.set('first_name', "");
                 that.set('last_name', "");
                 that.set('email', "");

@@ -29,6 +29,7 @@
 
 
         parent.location = 'http://' + domain + '/#/search';
+        
 
         var windowObject = window.self;
         windowObject.opener = window.self;

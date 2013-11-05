@@ -219,7 +219,7 @@
                     </div>
                 </div>
                 {{#each controller.megaResouce.comments}}
-                <div class="comment-item">
+                <div class="comment-item"{{action EditDelete commenter_id time_stamp target="controller" on="mouseEnter"}} {{action EditDeleteLeave commenter_id time_stamp target="controller" on="mouseLeave"}}>
 
                     <div class="comment-position">
                         <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}">
@@ -231,6 +231,11 @@
                                     <a class="comment-username"  href="#/users/{{unbound commenter_id}}">
                                         {{name}}
                                     </a>
+                                    <div id ="editdel_{{unbound commenter_id}}_{{unbound dateTImeStamp time_stamp}}" style="display: none">
+                                        <i class="icon-trash"  {{action removeMessage model.message_id}}></i>                 
+                                        <i class="icon-pencil" {{action editingCommentData model.message_id model.msg}}></i>
+                                    </div>
+
                                     <div class="posttime-container">
                                         <span class="posttime">{{date time_stamp}}</span>                  
                                     </div>

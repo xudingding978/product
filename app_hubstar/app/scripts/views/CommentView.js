@@ -20,8 +20,7 @@ HubStar.CommentView = Ember.View.extend({
 
 
     },
-    closeComment: function(id) {
-
+    closeComment: function(id) {    
         $('#comment_' + id).attr('style', 'display:block');
         $('#commentBox_' + id).attr('style', 'display:none');
         $('#masonry_container').masonry("reload");

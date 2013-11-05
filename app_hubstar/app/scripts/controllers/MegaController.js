@@ -110,6 +110,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         if (HubStar.Mega.find(id).get('photo').get('length') === 1 && mega.get('id') !== id)
                         {
                             if (HubStar.Mega.find(id).get('collection_id') === collection_id) {
+                                // that.setPhotoStatus(HubStar.Mega.find(id).get("comments"));
                                 that.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
                             }
                         }
@@ -138,18 +139,15 @@ HubStar.MegaController = Ember.ArrayController.extend({
         addCollectionController.setRelatedController('photo');
         this.set('collectable', !this.get('collectable'));
     },
+    keydown: function(e) {
+        var currKey = 0, e = e || event;
+        currKey = e.keyCode || e.which || e.charCode;//支持IE、FF 
+        if (currKey === 27) {
+            window.history.back();
+            //document.getElementByIdx_xx_x("btn_selector").click();
+        }
 
- keydown:function(e) {
-            var currKey = 0, e = e || event;
-            currKey = e.keyCode || e.which || e.charCode;//支持IE、FF 
-            if (currKey === 27) {
-                 window.history.back();
-                //document.getElementByIdx_xx_x("btn_selector").click();
-            }
-          
-        },
-      
-    
+    },
     closeWindow: function() {
         this.set('collectable', false);
         this.set('contact', false);
@@ -164,6 +162,23 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     closeContact: function() {
         this.set('contact', false);
+    },
+    EditDelete: function(id, time_stamp) {
+        var s = "#editdel_" + id + "_" + this.dateTImeStamp(time_stamp);
+        console.log(s);
+        if (id === localStorage.loginStatus)
+        {
+            console.log("sssssssssssss");
+            $(s).attr('style', 'display:inline-block');
+        }
+        else {
+            console.log("ddddddddddddddd");
+            $(s).attr('style', 'display: none');
+        }
+    },
+    EditDeleteLeave: function(id, time_stamp) {
+         var s = "#editdel_" + id + "_" + this.dateTImeStamp(time_stamp);
+         $(s).attr('style', 'display: none');
     },
     addComment: function() {
         var commentContent = this.get('commentContent');
@@ -188,6 +203,25 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var mega = HubStar.Mega.find(id);
         var comments = mega.get('comments');
         this.set('thisComments', comments);
+        this.setPhotoStatus(comments);
+    },
+    setPhotoStatus: function(comments) {
+        for (var i = 0; i < comments.get("length"); i++)
+        {
+
+        }
+    },
+    dateTImeStamp: function(date) {
+        if (date === "" || date === null || date === undefined) {
+            return "";
+        } else {
+            var matches = date.match('^[0-9]+$');
+            if (matches !== null) {
+                return moment.unix(date).valueOf();
+            } else {
+                return moment(date).valueOf();
+            }
+        }
     },
     editingPhotoMegaData: function() {
         this.set('enableToEdit', !this.get('enableToEdit'));
@@ -300,11 +334,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 ).focus();
         return false;
     },
-      pShare: function() {
+    pShare: function() {
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
-        var url = 'http://www.pinterest.com/pin/create/button/?url=' +  encodeURIComponent(currntUrl)+          
-                  '&media='+ encodeURIComponent(this.get('selectedPhoto').get('photo_image_thumbnail_url'))+
-                  '&description='+encodeURIComponent(this.get('selectedPhoto').get('photo_title'));    
+        var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+                '&media=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_thumbnail_url')) +
+                '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title'));
         window.open(
                 url,
                 'popupwindow',

@@ -5,6 +5,7 @@ HubStar.Comment= DS.Model.extend({
                 content: DS.attr('string'),
                 time_stamp: DS.attr('string'),
                 is_delete: DS.attr('boolean'),
+                isUserSelf: DS.attr('boolean'),
                 optional: DS.attr('string'),
  
                 didLoad: function() {

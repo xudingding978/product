@@ -23,7 +23,7 @@
         </div>
         <div style="display: inline-block;float: right; font-size: 13px;">
             <div id="thumbUpBtn_{{unbound model.id}}"  class="new-btn" {{action addLike model.id}}><i class="icon-thumbs-up-alt" {{action addLike model.id}}>&nbsp</i>{{model.likes_count}}</div>
-       
+
         </div>
     </div>
 
@@ -55,41 +55,45 @@
 
             <div class="comment-position">
                 <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
-                    <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
+                   <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
                 </a>
                 <div style="">
                     <div class="comment-namentime">
                         <div class="namentime_position">
                             <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
-                                {{name}}  
-                            </a>
-                            <div class="posttime-container">
-                                <span class="posttime">{{date  time_stamp}}</span>
-                            </div>
+                               {{name}}
+                        </a>
+                        
+                            <i class="icon-trash"  {{action removeMessage model.message_id}}></i>                 
+                            <i class="icon-pencil" {{action editingCommentData model.message_id model.msg}}></i>
+                   
+                        <div class="posttime-container">
+                            <span class="posttime">{{date  time_stamp}}</span>
                         </div>
-                      
-                    </div>
-
-                    <div class="comment-content">
-                        {{content}} 
-
-                        <span>
-                            <span></span>
-                        </span>
                     </div>
 
                 </div>
+
+                <div class="comment-content">
+                    {{content}} 
+
+                    <span>
+                        <span></span>
+                    </span>
+                </div>
+
             </div>
-
         </div>
-        {{else}}
-
-
-        {{/each}}
-
-
 
     </div>
+    {{else}}
+
+
+    {{/each}}
+
+
+
+</div>
 
 
 

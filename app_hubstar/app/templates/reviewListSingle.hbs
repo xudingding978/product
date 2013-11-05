@@ -81,7 +81,7 @@
                     </div>
                     <!--output each the second level reply-->
 
-                    <div  id="content_4"  style=" ">
+                    <div  id="reply_{{unbound model.review_id}}"  style=" ">
                 
 {{#each model.reply_reviews}} 
 {{render reviewReplyListSingle this}}
@@ -98,7 +98,26 @@
         </div>
     </div>
 
-
+<script>
+//     $(function() {
+//    $('#content_4').mCustomScrollbar({
+//            scrollButtons: {
+//                enable: false,
+//                scrollSpeed: "auto"
+//            },
+//            advanced: {
+//                updateOnBrowserResize: true,
+//                updateOnContentResize: true,
+//                autoScrollOnFocus: false,
+//                normalizeMouseWheelDelta: false
+//            },
+//            autoHideScrollbar: true,
+//            mouseWheel: true,
+//            theme: "dark-2",
+//            set_height: 300
+//        });
+//         });
+</script>
 
 
 

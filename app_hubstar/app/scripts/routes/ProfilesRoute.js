@@ -1,5 +1,5 @@
 HubStar.ProfilesRoute = Ember.Route.extend({
-        //     controller: HubStarlicationController,
+
         setupController: function(controller, model) {
 
             this.controller.set('model', null);

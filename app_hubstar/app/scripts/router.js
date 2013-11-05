@@ -22,7 +22,7 @@ HubStar.Router.map(function() {
             this.resource("profileCollections", {path: '/collections'}, function() {
                 this.resource("profileCollection", {path: ':profileCollection_id'});
             });
-            this.resource("partners", {path: '/partners'});
+            this.resource("partners", {path: '/network'});
 
         });
         this.resource("profiles", function() {

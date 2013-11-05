@@ -185,7 +185,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.labelBarRefresh();
 
         //  this.set('profileSelectionStatus', 'Collections');
-        this.selectCollection();
+//        this.selectCollection();
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
         this.initStastics(profile);
@@ -219,7 +219,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     labelBarRefresh: function() {
         this.set("profileSelectionStatus", "Collections");
-
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
         $('#user-stats > li').click(function() {
@@ -441,9 +440,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     updateCollectionInfo: function() {
         if (this.get('newDesc').length < 256) {
             this.get('selectedCollection').set('title', this.get('newTitle'));
-
             this.get('selectedCollection').set('desc', this.get('newDesc'));
-
             var collectionController = this.get('controllers.collection');
             var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
             collection.set('optional', this.get('model').get('id'));
@@ -584,12 +581,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('followerProfileTag', false);
         this.set('collectionTag', true);
         this.set('videoTag', false);
+        this.transitionToRoute('profileCollections');
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
+
     },
     selectVideo: function(model) {
-console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaadddddddddddddddd");
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Video');
         $('#user-stats > li').removeClass('selected-user-stats');
@@ -600,13 +598,13 @@ console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaadddddddddddddddd");
         this.set('partnerTag', false);
         this.set('collectionTag', false);
         this.set('followerProfileTag', false);
-
-
-
+        this.transitionToRoute('profileVideos');
     },
     selectPartner: function(model) {
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Partners');
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#network').addClass('selected-user-stats');
         HubStar.set("lastPositionId", model.id);
         this.set('profileSelectionStatus', 'Partners');
         this.get('controllers.profilePartners').getClientId(model);
@@ -615,6 +613,7 @@ console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaadddddddddddddddd");
         this.set('followerProfileTag', false);
         this.set('videoTag', false);
         this.get('controllers.itemProfiles').setPartnerRemove();
+        this.transitionToRoute('partners');
     },
     selectFollower: function(model) {
         $(window).scrollTop(1500);
@@ -627,6 +626,7 @@ console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaadddddddddddddddd");
         this.set('collectionTag', false);
         this.set('followerProfileTag', true);
         this.set('videoTag', false);
+        this.transitionToRoute('profileFollowers');
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));

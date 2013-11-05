@@ -7,7 +7,7 @@
 
         <div  class="review-list-content easing" style="">
             <div style="background-color: #f3f3f3;padding: 5px 5px 5px 70px;">
-                <div {{action 'downContent' model.review_id target='view' on="click"}} class="comment-namentime" style="display: block;position: relative;height: 35px;">
+                <div {{action 'showOneReview' model.review_id target='view' on="click"}} class="comment-namentime" style="display: block;position: relative;height: 35px;">
                     <div class="namentime_position" style="margin: 0;float: left;">
                         <a class="comment-username" href="#/users/{{unbound model.review_user_id}}"  >
                             {{model.review_user_name}}
@@ -24,10 +24,21 @@
             <div  style="background-color: #fff; padding: 5px 0 0 70px; font-size: 13px;">
                 <div id="review_content_{{unbound model.review_id}}" {{action 'upContent' model.review_id target='view' on="click"}} style="width: 390px; height:20px; position: relative; display: inline-block; overflow: hidden; ">{{model.review_content}}  </div>   
                          <div id="review_like_{{unbound model.review_id}}"  style="display: inline-block;float: right; font-size: 13px;" class="new-btn" {{action addLike}}><i class="icon-thumbs-up-alt" {{action addLike model}}>&nbsp</i>{{model.review_like_count}}</div>
-              <!--               <div id="review_share_{{unbound model.review_id}}"  style="display: inline-block;float: right; font-size: 13px;" class="new-btn" ><i class="icon-share" >&nbsp</i></div>           -->
+               <div id="review_share_{{unbound model.review_id}}"  style="display: inline-block;float: right; font-size: 13px;" class="new-btn" {{action dropdownPhotoSetting model.review_id}}><i class="icon-share" >&nbsp</i></div>          
 
 
 
+                            <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound model.review_id}}" style="width: 150px;  padding: 0;right: 45px;top: 70px;position: absolute;">
+                                <li class="ite" {{action  fbShare model}} >
+                            <k class="icon-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
+                            </li>
+                            <li class='ite' {{action tShare model}} >
+                        <k class="icon-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span>
+                        </li>
+                        <li class="ite" {{action gpShare model}}>
+                    <k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
+                    </li>
+                </ul>
 
 
                 <!--the following comment-frame is used to show the reply box for the second level reply-->
@@ -43,7 +54,7 @@
                             <div class="reply-comment-container" style="width: 382px;height: 32px;">
                                 <div style="margin: 0;width: 320px; height: 30px;float: left;">
 
-                                    {{view Ember.TextField  valueBinding="controller.replyReviewContent"  class="no-resize"  placeholder="What's up testing!" }}                                                   
+                                    {{view Ember.TextField  valueBinding="controller.replyReviewContent"  class="no-resize"  placeholder="What's up!" }}                                                   
                                 </div>
                                 <div style="float: right;height: 34px;position: relative;">
                                     <div  class="message-btn easing" style="width:30px; border-right: 1px solid #ddd; border-left: 1px solid #ddd;"><k class='icon-picture'></k>

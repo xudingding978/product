@@ -1,8 +1,7 @@
 
 HubStar.ReviewListSingleController = Ember.Controller.extend({
     currentUser: "",
-    review_length: "",
-    profile: "",
+   // profile: "",
     review_id: null,
     profileReview:"",
    replyReviewContent: "",
@@ -57,7 +56,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
             //      this.set("isReply", false);
             var replyUserID = this.get("currentUser").get('id');
             var replyDate = new Date();
-            var ownerID = this.get("controllers.profile").get('currentUserID');
+        //    var ownerID = this.get("controllers.profile").get('currentUserID');
             var newStyleImage = "";
             var imageStyleName = "";
           
@@ -107,7 +106,20 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
             }, 200);
         }
         
-    },
+    }, 
+            dropdownPhotoSetting: function(event) {
+        var id = "#dropdown_id_" + event;
+        console.log("start");
+        $(id).toggleClass('hideClass');
+        
+        
+        $(id).click(function(){
+    $(this).removeClass('hideClass');
+}).mouseleave(function(){
+    $(this).addClass('hideClass');
+});
+         //$(id).not("#dropdown_id_").toggleClass("hideClass");   
+     },
     close: function() {
        this.set("replyReviewContent", "");
         this.set('newStyleImageSource', null);
@@ -123,6 +135,88 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
+    },
+    
+    fbShare: function(event) {
+        var that = this;
+      console.log("facebook");
+        var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get("controllers.profile").get('currentUserID') + '/reviews/' + event.get("review_id");
+        var caption = '';
+        if (event.get('review_content') !== null)
+        {
+            caption = event.get('review_content');
+
+        }
+        else
+        {
+            caption = '';
+        }
+
+        var obj = {
+            method: 'feed',
+            link: currntUrl,
+            picture: event.get('review_user_photo_url'),
+            name: event.get('review_user_name'),
+            caption: 'Trends Ideas',
+            description: caption
+        };
+
+        function callback(response) {
+            if (response && response.post_id) {
+                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
+            } else {
+                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessfully.", "failed");
+            }
+        }
+
+        FB.ui(obj, callback);
+
+        return false;
+    },
+    //share to social google plus
+    gpShare: function(event) {
+        var caption = '';
+         if (event.get('review_content') !== null)
+        {
+            caption = event.get('review_content');
+
+        }
+        else
+        {
+            caption = '';
+        }
+
+//        var meta = document.getElementsByTagName('meta');
+//        for (var i = 0; i < meta.length; i++) {
+//        }
+        $("meta[property='og\\:title']").attr("content", event.get('review_user_name'));
+        $("meta[property='og\\:description']").attr("content", caption);
+        $("meta[property='og\\:image']").attr("content", event.get('review_user_photo_url'));
+
+
+        var currntUrl ='http://beta.trendsideas.com/#/profiles/' + this.get("controllers.profile").get('currentUserID') + '/reviews/' + event.get("review_id");
+        var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+
+        window.open(
+                url,
+                'popupwindow',
+                'scrollbars=yes,width=800,height=400'
+                ).focus();
+
+        return false;
+    },
+    //share to social twitter
+    tShare: function(event) {
+        var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get("controllers.profile").get('currentUserID') + '/reviews/' + event.get("review_id");
+        var url = 'https://twitter.com/share?text=' + event.get('review_user_name') + '&url=' + encodeURIComponent(currntUrl);
+        window.open(
+                url,
+                'popupwindow',
+                'height=436,width=626'
+                ).focus();
+        return false;
     }
+            
+     
 
 });

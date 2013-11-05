@@ -12,13 +12,18 @@ HubStar.Router.map(function() {
         this.resource("ideabooks", {path: '/ideabooks/:ideabook_id'});
         this.resource("profile", {path: '/profiles/:profile_id'}, function() {
 
-            this.resource("profileFollowers", {path: '/followers'}); 
+            this.resource("profileFollowers", {path: '/followers'});
             this.resource("profileCollections", {path: '/collections'}, function() {
                 this.resource("profileCollection", {path: ':profileCollection_id'});
             });
             this.resource("partners", {path: '/partners'});
-            this.resource("reviews", {path: '/reviews'});
-
+            this.resource("reviews", {path: '/reviews'}, function() {
+                this.resource("review", {path: ':review_id'}, function() {
+                    this.resource("replys", {path: '/replys'}, function() {
+                        this.resource("reply", {path: ':review_reply_id'});
+                    });
+                });
+            });
         });
         this.resource("profiles", function() {
             this.resource("profileNew", {path: '/new'});

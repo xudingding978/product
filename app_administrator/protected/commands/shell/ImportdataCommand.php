@@ -1,6 +1,7 @@
 <?php
 Yii::import("application.models.*");
-class ImportdataCommand extends CConsoleCommand {
+Yii::import("application.components.*");
+class ImportdataCommand extends Controller_admin {
 
     public function actionIndex($action = null){
             //$start = null, $quantity = null) {
@@ -51,6 +52,30 @@ class ImportdataCommand extends CConsoleCommand {
 
         $id=$this->getNewID();
         echo $id;
+    }
+    
+    public function checkImageExisting($heliumMediaId){
+         $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = 'temp';
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"$heliumMediaId\"")
+                ->default_field('couchbaseDocument.doc.photo.photo_heliumMediaId');
+        $must2 = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()->query("photo")
+                ->default_field('couchbaseDocument.doc.type');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
+                must($must2);
+        $request->index($index)->type("couchbaseDocument");
+        $request->from(0)
+                ->size(50);
+        $request->query($bool);
+        //   print_r($bool);
+
+        $response = $request->execute();
+        
+        
     }
     
     
@@ -261,6 +286,7 @@ class ImportdataCommand extends CConsoleCommand {
                 
                 $obj = $this->structureArray($val, $return_hero, $return_thumbnail, $return_preview, $return_original);
         //        $this->importMegaObj($obj, $val['id']);
+                $this->writeCouchbaseRecord($obj);
             } else {
                 echo "http://trendsideas.com/media/article/preview/" . $val['preview'] . "--- DO NOT have return value from S3!--ID:" . $val['id']. " \r\n";
             }
@@ -374,6 +400,47 @@ class ImportdataCommand extends CConsoleCommand {
             unset($json_list, $response, $message);
         }
     }
+    
+    protected function getNewID() {
+        $myText = (string) microtime();
+        $pieces = explode(" ", $myText);
+        $id = $pieces[1];
+        $id = (string)rand(99999999, 999999999) . $id;
+//        echo "111111111111111111111111111111";
+        return $id;
+    }
+    
+    public function writeCouchbaseRecord($obj){
+           $image_arr = $obj;
+            $imageAdded_arr=array();
+            $total_amount = sizeof($image_arr);
+
+            if ($total_amount > 0) {
+
+                    $newId=$this->getNewID();
+                    $couchbase_id = 'trendsideas.com/' . $newId;
+                    $image_arr['id']=$newId;
+                    $image_arr['photo'][0]['id']=$newId;
+                    $cb = $this->couchBaseConnection('restored');
+                    //create Couchbase object ready for inserting into bucket
+                    if ($cb->add($couchbase_id, CJSON::encode($image_arr))) {
+                        array_push($imageAdded_arr, $couchbase_id);
+  
+            echo "add record successful ". $couchbase_id."\n";
+  
+                    }
+    
+                    } else {
+                        $message = "add object fail ------------------------------- \r\n";
+                        $this->writeToLog($this->error_path, $message);
+                    }
+
+                    //   print_r($obj_arr);
+                    echo $message;
+                    //    exit();
+                    print_r($imageAdded_arr);
+
+    }
 
     public function structureArray($val, $return_hero, $return_thumbnail, $return_preview, $return_original) {
         // get size of image
@@ -413,8 +480,7 @@ class ImportdataCommand extends CConsoleCommand {
         $timezone="";
         if(sizeof($book_list)>0) {
             foreach($book_list as $book) {
-                array_push($book_id, $book['id']);
-                $region_book = Regions::model()->selectCountryNameByID($book['region']);
+                array_push($book_id, $book['id']);         
                 $date_live = $book['dateLive'];
                 $title = str_replace(" & ", "-", $book['title']);
                 $title = str_replace(" ", "-", $title);
@@ -422,16 +488,14 @@ class ImportdataCommand extends CConsoleCommand {
                 if(sizeof($time_array)>0) {
                     $UTC = $time_array['utc'];
                     $timezone = $time_array['timezone'];
-//                    if ((int)$UTC>$book_date) {
-//                       $book_date = $UTC;
-                        $region_book = str_replace(" & ", "-", $region_book);
-                        $region_book = str_replace(" ", "-", $region_book);
-                        $book_title =$region_book."-".$title;
-    //                    $book_title = strtolower($book_title);
-              //      }
+                        $book_title =$title;
                 }
             }
         }
+
+            
+
+       
         
         // get current datetime
         $accessed = strtotime(date('Y-m-d H:i:s'));
@@ -470,7 +534,7 @@ class ImportdataCommand extends CConsoleCommand {
             "owner_contact_cc_emails"=> null,                                    //
             "owner_contact_bcc_emails"=> null,                                 //
             "people_like"=>null,                                       //
-            "region" => $region,
+            "region" => $country,
             "suburb"=>null,                           //
             "status_id" => null,                         //
             "subcategories" => $subcategory,
@@ -512,14 +576,16 @@ class ImportdataCommand extends CConsoleCommand {
         array_push($obj['photo'], $photo_list);
         $domains_arr = array("beta.trendsides.com", "trendsideas.com");
         array_push($obj['domains'], $domains_arr);
-        //  print_r(var_export($obj));
+          print_r(var_export($obj));
         unset($photo_list, $photo_list, $keywords, $category, $subcategory, $topic_list, $country, $pos, $region, $original_size, $size, $val, $return_hero, $return_thumbnail, $return_preview, $return_original);
         return $obj;
    
                 
     }
+    
+  
 
-    public function UTC($datetime, $region) {
+    public function getUTC($datetime, $region) {
         $time_zone = '';
         switch ($region) {
             case "New Zealand": 

@@ -1256,7 +1256,7 @@ textarea.add-interests{
     border-radius: 50%;
     overflow: hidden;
     box-shadow: 0 0 5px #aaa;
-    top: 5px;
+    top: -5px;
     float:left;
 }
 

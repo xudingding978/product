@@ -226,7 +226,7 @@ class Controller extends CController {
         return $should;
     }
     
-    protected function searchWithMultiMatch($queryString, $from, $size, $location) {
+    protected function searchWithMultiMatch($queryString, $from = 0, $size = 50, $location = 'Global') {
         $request = $this->getElasticSearch();
         $request->from($from)
                 ->size($size);

@@ -2,7 +2,6 @@
 
 HubStar.ReviewRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-
         this.controllerFor('profile').sendEventTracking('event', 'button', 'click', 'Reviews');
         this.controllerFor('profile').set('profileSelectionStatus', 'Reviews');
 

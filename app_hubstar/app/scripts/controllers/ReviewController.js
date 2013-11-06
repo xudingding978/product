@@ -74,7 +74,7 @@ HubStar.ReviewController = Ember.Controller.extend({
             this.get("controllers.profile").set('collectionTag', false);
             this.get("controllers.profile").set('followerProfileTag', false);
             this.get("controllers.profile").set('reviewTag', true);
-
+           this.transitionToRoute('reviews');
             this.set('reviewContent', "");
 
 

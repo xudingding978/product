@@ -655,7 +655,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Reviews');
         this.set('profileSelectionStatus', 'Reviews');
-     //    this.get('controllers.reviewList').getReviewId(model);
         this.set('partnerTag', false);
         this.set('collectionTag', false);
         this.set('followerProfileTag', false);

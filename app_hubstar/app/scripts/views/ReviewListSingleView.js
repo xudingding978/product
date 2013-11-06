@@ -3,28 +3,26 @@ HubStar.ReviewListSingleView = Ember.View.extend({
     isDown: false,
     didInsertElement: function() {
 
-
-       
-            var that = this;
-$(document).ready(function() {
-    var id  = "#reply_" + that.get("controller").get('model').get('review_id');
-    console.log(id);
-  $(id).mCustomScrollbar({
-            scrollButtons: {
-                enable: false,
-                scrollSpeed: "auto"
-            },
-            advanced: {
-                updateOnBrowserResize: true,
-                updateOnContentResize: true,
-                autoScrollOnFocus: false,
-                normalizeMouseWheelDelta: false
-            },
-            autoHideScrollbar: true,
-            mouseWheel: true,
-            theme: "dark-2",
-            set_height: 200
-        });
+        var that = this;
+        $(document).ready(function() {
+             var replyid = "#reply_" + that.get("controller").get('model').get('review_id');
+    
+            $(replyid).mCustomScrollbar({
+                scrollButtons: {
+                    enable: false,
+                    scrollSpeed: "auto"
+                },
+                advanced: {
+                    updateOnBrowserResize: true,
+                    updateOnContentResize: true,
+                    autoScrollOnFocus: false,
+                    normalizeMouseWheelDelta: false
+                },
+                autoHideScrollbar: true,
+                mouseWheel: true,
+                theme: "dark-2",
+                set_height: 200
+            });
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
             }, 200);
@@ -41,11 +39,29 @@ $(document).ready(function() {
         var down_button = "#down_button_" + event;
         var review_reply = "#reviewReplyData_" + event;
         this.get("controller").transitionToRoute('review', {id: event});
+         var reviewContent ="#review_content_" + event;
         var content = "#review_content_" + event;
         $(up_button).attr("style", "position: relative;  font-size: 18px; color: #888;margin: 0 10px; display:inline-block;");
         $(down_button).attr("style", "position: relative; display: none;  font-size: 18px; color: #888;margin: 0 10px;");
         $(content).animate({width: '420px', height: '120px', position: 'relative', display: 'inline-block', overflow: 'auto'}, 1000);
         $(review_reply).show(10);
+        
+        $(reviewContent).mCustomScrollbar({
+                scrollButtons: {
+                    enable: false,
+                    scrollSpeed: "auto"
+                },
+                advanced: {
+                    updateOnBrowserResize: true,
+                    updateOnContentResize: true,
+                    autoScrollOnFocus: false,
+                    normalizeMouseWheelDelta: false
+                },
+                autoHideScrollbar: true,
+                mouseWheel: true,
+                theme: "dark-2",
+                set_height: 50
+            });
 
 
 

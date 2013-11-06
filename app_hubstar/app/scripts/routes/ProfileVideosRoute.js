@@ -1,13 +1,7 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-HubStar.PartnersRoute = Ember.Route.extend({
+HubStar.ProfileVideosRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-    this.controllerFor('profilePartners').getClientId(model);
-          this.controllerFor('profile').selectPartner(model);
+
+        this.controllerFor('profile').selectVideo(model);
     },
     model: function(params) {
 

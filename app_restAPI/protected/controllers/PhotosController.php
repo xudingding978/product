@@ -1,4 +1,4 @@
-<?php
+photoUpdate<?php
 
 header('Content-type: *');
 header("Access-Control-Allow-Origin: *");
@@ -27,12 +27,9 @@ class PhotosController extends Controller {
     
 
     public function actionCreate() {
-
         $response;
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-
-
         $url = $request_arr["url"];
         $this->addResizedHeroPhoto($url);
     }
@@ -49,6 +46,7 @@ class PhotosController extends Controller {
             }
 
             $image_info = $this->getImageInfo($url);
+            
             $name = $this->renamingImage($image_info, $url);
             if (strpos($url, 'original')) {
                 $response = $this->getWatermarkImageSource($url, $image_info);

@@ -2,13 +2,13 @@
 <div class="masonry-object_interact" >
     <div class="masonry_show-comment">
         <div class="show-comment_container" >
-            <div class="show-comment_inner"  id="showMoreComment_{{unbound model.id}}"   {{action seeMore model.id target="view" on="click"}}>
+            <div class="show-comment_inner"  id="showMoreComment_{{unbound model.id}}"   {{action seeMore model.id target="controller" on="click"}}>
                 <span class="comment-amount text-anchor easing">  {{model.comments.length}}</span>
                 <span class="comment-amount text-anchor easing"> comments  <i class="icon-angle-down"></i></span>
             </div>
 
 
-            <div class="show-comment_inner" id="closeComment_{{unbound model.id}}"   style="display: none" {{action closeMore model.id  target="view" on="click"}}>
+            <div class="show-comment_inner" id="closeComment_{{unbound model.id}}"   style="display: none" {{action closeMore model.id  target="controller" on="click"}}>
                 <span class="comment-amount text-anchor easing">  {{model.comments.length}} </span>
                 <span class="comment-amount text-anchor easing"> comments  <i class="icon-angle-up"></i></span>
             </div>
@@ -44,7 +44,8 @@
     <div id="commentData_{{unbound model.id}}" class="comment-frame" style="max-height:88px;">
 
         {{#each model.comments}}
-        <div class="comment-item">
+        
+        <div class="comment-item" id="commentItem_{{unbound message_id}}" style="display: block">
 
             <div class="comment-position">
                 <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
@@ -56,9 +57,9 @@
                             <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
                                {{name}}
                         </a>
-                         {{#if this.getUser}}
+                        {{#if this.getUser}}
                         <i class="icon-trash"  {{action removeComment this}}></i>                 
-                        <i class="icon-pencil" {{action updateComment this}}></i>
+                        <i class="icon-pencil" {{action editingCommentData this.message_id}}></i>
                         {{/if}}
                         <div class="posttime-container">
                             <span class="posttime">{{date  time_stamp}}</span>
@@ -79,9 +80,23 @@
         </div>
 
     </div>
-    {{else}}
+    
 
+    
+    <div class="addcommnetbox-container comment-frame" id="commentEdit_{{unbound message_id}}" style="display: none">
+        <div style="margin:0 auto; padding: 0 0 15px 45px;">
+            <a>
+                <img class="profilepic_comment"  style="float: left; margin: 4px 0 0 -45px; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url_large"}} /> 
+            </a>
 
+            {{view HubStar.SearchRequireTextFieldView valueBinding="commentContent"  id="" class="comment-insert-field"  placeholder="" }}
+            <span class="" style="margin:7px 0;float: right;">
+                <div  class="new-btn"{{action closeCommentItem message_id target="controller" on="click"}}>Cancel</div>
+                <div class="new-btn green-btn" {{action addComment}}>Post</div>
+            </span>
+
+        </div>
+    </div>
     {{/each}}
 
 

@@ -24,8 +24,8 @@ HubStar.CommentController = Ember.Controller.extend({
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
-             var message_id = createMessageid()+commenter_id;           
-            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,"message_id": message_id,
+            var message_id = createMessageid() + commenter_id;
+            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url, "message_id": message_id,
                 "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), "is_delete": false, optional: this.get('mega').get('type') + '/' + this.get('mega').get('id')});
             comments.insertAt(0, tempComment);
             comments.store.save();
@@ -38,9 +38,14 @@ HubStar.CommentController = Ember.Controller.extend({
             }, 200);
         }
     },
-    editingCommentData: function()
-    {
-
+    editingCommentData: function(id)
+    {    
+        $('#commentEdit_' + id).attr('style', 'display:block');
+        $('#commentItem_' + id).attr('style', 'display:none');
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
     },
     linkingUser: function(id) {
 
@@ -62,69 +67,122 @@ HubStar.CommentController = Ember.Controller.extend({
         }
         this.set('thisComments', comments);
     },
+    closeCommentItem: function(id) {
+        $('#commentEdit_' + id).attr('style', 'display:none');
+        $('#commentItem_' + id).attr('style', 'display:block');
+    },
     removeComment: function(object)
     {
 
-            var id = this.get('content').id;
+        var id = this.get('content').id;
+        var type = this.get('content').get('type');
+
+        if (type === 'photo') {
             var commentId = object.get("commenter_id");
             var time_stamp = object.get("time_stamp");
-            var delInfo = [id, commentId, time_stamp];
+            var message_id = object.get("message_id");
+            var delInfo = [id, message_id];
             delInfo = JSON.stringify(delInfo);
             var that = this;
             requiredBackEnd('comments', 'DeletePhotoComment', delInfo, 'POST', function(params) {
-                console.log(that.get("thisComments"));
-              that.get("thisComments").removeObject(object);        
-                $('#masonry_user_container').masonry("reload");
+
+                that.get("thisComments").removeObject(object);
+                $('#masonry_user_container').masonry("reloadItems");
+                $('#masonry_container').masonry("reloadItems");
+                
+            });
+        }
+        else if (type === "profile")
+        {
+            var commentId = object.get("commenter_id");
+            var time_stamp = object.get("time_stamp");
+            var message_id = object.get("message_id");
+            var delInfo = [id, message_id];
+            delInfo = JSON.stringify(delInfo);
+            var that = this;
+            requiredBackEnd('comments', 'DeleteProfileComment', delInfo, 'POST', function(params) {
+
+                that.get("thisComments").removeObject(object);
+                $('#masonry_user_container').masonry("reloadItems");
+                $('#masonry_container').masonry("reloadItems");
                 that.cancelDelete();
             });
-
+        }
     },
-     updateComment: function(object) {
-     
-            var id = this.get('content').id;
+    updateComment: function(object) {
+
+        var id = this.get('content').id;
+        var type = this.get('content').get('type');
+        if (type === 'photo') {
             var commentId = object.get("commenter_id");
             var time_stamp = object.get("time_stamp");
             var content = object.get("content");
-            var contentID = commentId+time_stamp;
-            var delInfo = [id, commentId, time_stamp,content];
+            var contentID = commentId + time_stamp;
+            var delInfo = [id, commentId, time_stamp, content];
 
             delInfo = JSON.stringify(delInfo);
             var that = this;
             requiredBackEnd('comments', 'UpdatePhotoComment', delInfo, 'POST', function(params) {
-                
-                for(var i = 0 ; i<    that.get("thisComments").get("length");i++)
+
+                for (var i = 0; i < that.get("thisComments").get("length"); i++)
+                {
+                    var commentId = that.get("thisComments").objectAt(i).get("commenter_id") + that.get("thisComments").objectAt(i).get("time_stamp");
+                    if (that.contentID === commentId)
                     {
-                        var commentId =     that.get("thisComments").objectAt(i).get("commenter_id")+  that.get("thisComments").objectAt(i).get("time_stamp");
-                        if(that.contentID ===commentId)
-                            {
-                                  that.get("thisComments").objectAt(i).set("content",that.content);
-                            }
+                        that.get("thisComments").objectAt(i).set("content", that.content);
                     }
-            
+                }
+
                 $('#masonry_user_container').masonry("reload");
                 that.cancelDelete();
             });
-    },
-    deleteComment: function(object) {
-        var message = "Do you wish to delete this comment ?";
-        this.set("message", message);
-        this.set('makeSureDelete', true);
-        if (this.get('willDelete')) {
-            this.getCommentsById(this.get('content').id);
-            var comments = this.get("thisComments");
-            HubStar.get('data').deleteRecord();
-            comments.store.save();
-            this.cancelDelete();
-        } else {
-            this.set('willDelete', true);
-            HubStar.set('data', object);
+        }
+        else if (type === "profile")
+        {
+            var commentId = object.get("commenter_id");
+            var time_stamp = object.get("time_stamp");
+            var content = object.get("content");
+            var contentID = commentId + time_stamp;
+            var delInfo = [id, commentId, time_stamp, content];
+
+            delInfo = JSON.stringify(delInfo);
+            var that = this;
+            requiredBackEnd('comments', 'UpdatePhotoComment', delInfo, 'POST', function(params) {
+
+                for (var i = 0; i < that.get("thisComments").get("length"); i++)
+                {
+                    var commentId = that.get("thisComments").objectAt(i).get("commenter_id") + that.get("thisComments").objectAt(i).get("time_stamp");
+                    if (that.contentID === commentId)
+                    {
+                        that.get("thisComments").objectAt(i).set("content", that.content);
+                    }
+                }
+
+                $('#masonry_user_container').masonry("reload");
+                that.cancelDelete();
+            });
         }
     },
-    cancelDelete: function() {
-        this.set('willDelete', false);
-        this.set('makeSureDelete', false);
-        HubStar.set('data', null);
-    },
+//    deleteComment: function(object) {
+//        var message = "Do you wish to delete this comment ?";
+//        this.set("message", message);
+//        this.set('makeSureDelete', true);
+//        if (this.get('willDelete')) {
+//            this.getCommentsById(this.get('content').id);
+//            var comments = this.get("thisComments");
+//            HubStar.get('data').deleteRecord();
+//            comments.store.save();
+//            this.cancelDelete();
+//        } else {
+//            this.set('willDelete', true);
+//            HubStar.set('data', object);
+//        }
+//    },
+//    cancelDelete: function() {
+//        this.set('willDelete', false);
+//        this.set('makeSureDelete', false);
+//        HubStar.set('data', null);
+//    },
     addLike: function(id)
     {
         var mega = HubStar.Mega.find(id);
@@ -166,5 +224,107 @@ HubStar.CommentController = Ember.Controller.extend({
             success: function() {
             }
         });
+    },
+    seeMore: function(id) {
+        $('#closeComment_' + id).attr('style', 'display:block');
+        $('#showMoreComment_' + id).attr('style', 'display:none');
+        $('#commentData_' + id).attr('style', 'max-height: 88px;');      
+        $('#commentData_' + id).stop().animate({
+            maxHeight: '350px'                   
+        }, 420, function(){$('#commentData_' + id).css('overflow','auto');$('#masonry_container').masonry("reload");});
+       
+        /* this will need to be cleaned up, using a timed for loop etc (to not repeat code) */
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reload");
+            
+        }, 52.5);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reload");
+            $('#masonry_user_container').masonry("reload");
+        }, 105);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reload");
+            $('#masonry_user_container').masonry("reload");
+        }, 158);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reload");
+            $('#masonry_user_container').masonry("reload");
+        }, 210.5);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reload");
+            $('#masonry_user_container').masonry("reload");
+        }, 263);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reload");
+            $('#masonry_user_container').masonry("reload");
+        }, 315);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reload");
+            $('#masonry_user_container').masonry("reload");
+        }, 368);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reload");
+            $('#masonry_user_container').masonry("reload");
+        }, 420);       
+    },
+    closeMore: function(id) {
+        $('#closeComment_' + id).attr('style', 'display:none');
+        $('#showMoreComment_' + id).attr('style', 'display:block');
+        
+        $('#commentData_' + id).stop().animate({
+            maxHeight: '88px'
+        }, 380, function(){$('#commentData_' + id).css('overflow','hidden');$('#masonry_container').masonry("reload");});
+        
+        
+        /* this will need to be cleaned up, using a timed for loop etc (to not repeat code) */
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reload");
+            $('#masonry_user_container').masonry("reload");
+            
+        }, 47.5);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reload");
+            $('#masonry_user_container').masonry("reload");
+        }, 95);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reload");
+            $('#masonry_user_container').masonry("reload");
+        }, 142.5);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reload");
+            $('#masonry_user_container').masonry("reload");
+        }, 190);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reload");
+            $('#masonry_user_container').masonry("reload");
+        }, 237.5);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reload");
+            $('#masonry_user_container').masonry("reload");
+        }, 285);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reload");
+            $('#masonry_user_container').masonry("reload");
+        }, 332.5);
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reload");
+            $('#masonry_user_container').masonry("reload");
+        }, 368);
     }
 });

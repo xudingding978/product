@@ -10,7 +10,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     image_no: 1,
     selectedPhoto: null,
     isSelected: false,
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission'],
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'checkingLoginStatus'],
     currentUser: null,
     currentUserProfile: null,
     photo_album_id: null,
@@ -129,6 +129,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
         $('#dropdown_id_').toggleClass('hideClass');
     },
     switchCollection: function() {
+
+   if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var addCollectionController = this.get('controllers.addCollection');
         var selectid = this.get('selectedPhoto').id;
         addCollectionController.setImageID(selectid);
@@ -137,30 +140,32 @@ HubStar.MegaController = Ember.ArrayController.extend({
         addCollectionController.setUser();
         addCollectionController.setRelatedController('photo');
         this.set('collectable', !this.get('collectable'));
+        }
     },
+    keydown: function(e) {
+        var currKey = 0, e = e || event;
+        currKey = e.keyCode || e.which || e.charCode;//支持IE、FF 
+        if (currKey === 27) {
+            window.history.back();
+            //document.getElementByIdx_xx_x("btn_selector").click();
+        }
 
- keydown:function(e) {
-            var currKey = 0, e = e || event;
-            currKey = e.keyCode || e.which || e.charCode;//支持IE、FF 
-            if (currKey === 27) {
-                 window.history.back();
-                //document.getElementByIdx_xx_x("btn_selector").click();
-            }
-          
-        },
-      
-    
+    },
     closeWindow: function() {
         this.set('collectable', false);
         this.set('contact', false);
         window.history.back();
     },
     editingContactForm: function() {
-        var contactController = this.get('controllers.contact');
-        var selectid = this.get('selectedPhoto').id;
-        contactController.setSelectedMega(selectid);
-        contactController.selectionCheckBox();
-        this.set('contact', !this.get('contact'));
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            var contactController = this.get('controllers.contact');
+            var selectid = this.get('selectedPhoto').id;
+            contactController.setSelectedMega(selectid);
+            contactController.selectionCheckBox();
+
+            this.set('contact', !this.get('contact'));
+        }
     },
     closeContact: function() {
         this.set('contact', false);
@@ -296,11 +301,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 ).focus();
         return false;
     },
-      pShare: function() {
+    pShare: function() {
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
-        var url = 'http://www.pinterest.com/pin/create/button/?url=' +  encodeURIComponent(currntUrl)+          
-                  '&media='+ encodeURIComponent(this.get('selectedPhoto').get('photo_image_thumbnail_url'))+
-                  '&description='+encodeURIComponent(this.get('selectedPhoto').get('photo_title'));    
+        var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+                '&media=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_thumbnail_url')) +
+                '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title'));
         window.open(
                 url,
                 'popupwindow',

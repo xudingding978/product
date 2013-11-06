@@ -17,9 +17,9 @@
 
     <div class="masonry-object">
         <div class="masonry-object_poster">
-            <a class="profilepic-on-masonry" style="cursor: pointer">
+            <div class="profilepic-on-masonry">
                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
-            </a>
+            </div>
             <div class="object_username">
                 <a class="poster-name" style="cursor: pointer; width: auto;" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <div class="posttime-container">
@@ -67,6 +67,7 @@
                 <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
 
                     {{#if controller.is_authentic_user}}
+                    
 
 
                     <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
@@ -125,9 +126,10 @@
 
     <div class="masonry-object">
         <div class="masonry-object_poster">
-            <a href="#" class="masonry-object_poster">
-                <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
-            </a>   
+            <div class="profilepic-on-masonry">
+                <img {{bindAttr src="profile_pic_url"}} class="profilepic-on-masonry" />
+                <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
+            </div>
             <div class="object_username">
                 <a class="poster-name" style="cursor: pointer; width: auto;" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
 
@@ -227,11 +229,9 @@
 
     <div class="masonry-object">
         <div class="masonry-object_poster">  
-            <a style="cursor: pointer">
-
-                <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}} class="profilepic-on-masonry"/>
-
-            </a>
+            <div class="profilepic-on-masonry">
+                <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
+            </div>
             <div class="object_username">
                 <a class="poster-name" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{creator}}</a>
                 <div class="posttime-container" style="display:none;">
@@ -259,7 +259,7 @@
 
                 <div class="object-tags ">
                     <span class="tags-mark" style="background-color: #a0c3ff"></span>
-                    <div class="tags easing tagsappear">
+                    <div class="tags easing tagsappear"  style="overflow: hidden;">
                         <div class="tags-new">#{{categories}}</div>                   
                     </div>
                 </div>

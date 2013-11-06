@@ -48,7 +48,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     is_authentic_user: false,
     keywords: "",
     last_name: "",
-    needs: ["profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'profileVideos'],
+    needs: ["profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'profileVideos', 'checkingLoginStatus'],
     name: "",
     facebook: "",
     twitter: "",
@@ -463,11 +463,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('uploadChecking', !this.get('uploadChecking'));
     },
     editingContactForm: function() {
+
+ if(this.get("controllers.checkingLoginStatus").popupLogin())
+         {
         this.sendEventTracking('event', 'button', 'click', 'Contact us');
         var contactController = this.get('controllers.contact');
 
         contactController.setSelectedMega(this.get('currentUserID'));
         this.set('contactChecking', !this.get('contactChecking'));
+        }
     },
     closeContact: function() {
         this.set('contactChecking', false);
@@ -520,6 +524,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     followThisProfile: function() {
+
+  if (this.get("controllers.checkingLoginStatus").popupLogin()){
         var profile_id = this.get('model').get('id');
         if (this.checkFollowStatus() === false) {
             this.get("controllers.userFollowings").followProfile(profile_id);
@@ -530,7 +536,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.sendEventTracking('event', 'button', 'click', 'unFollow');
             this.set('follow_status', false);
         }
-
+  }
 
     },
     socialLink: function(link) {
@@ -601,6 +607,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.transitionToRoute('profileVideos');
     },
     selectPartner: function(model) {
+ if (this.get("controllers.checkingLoginStatus").popupLogin())
+{
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Partners');
         $('#user-stats > li').removeClass('selected-user-stats');
@@ -614,8 +622,16 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('videoTag', false);
 //        this.get('controllers.itemProfiles').setPartnerRemove();
         this.transitionToRoute('partners');
+       
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+}
     },
     selectFollower: function(model) {
+
+ if (this.get("controllers.checkingLoginStatus").popupLogin())
+     {
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Followers');
         $('#user-stats > li').removeClass('selected-user-stats');
@@ -627,6 +643,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('followerProfileTag', true);
         this.set('videoTag', false);
         this.transitionToRoute('profileFollowers');
+       setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    }
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));

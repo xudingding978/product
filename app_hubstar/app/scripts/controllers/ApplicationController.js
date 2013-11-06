@@ -43,7 +43,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     grapData: function() {
         this.set("user", HubStar.User.find(localStorage.loginStatus));
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
-        this.set("myMessageBoard", "#/users/" + localStorage.loginStatus+"/messages");
+        this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messages");
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));
@@ -203,6 +203,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 that.set('region', "");
                 that.set('gender', "");
                 that.set('age', "");
+                 that.set('isWaiting', false);
             }, 2000);
         });
     },
@@ -331,7 +332,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         that.transitionToRoute('search');
                         that.set('loginUsername', "");
                         that.set('loginPassword', "");
-
+                        that.set('isWaiting', false);
                     }
                     else {
                         document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");

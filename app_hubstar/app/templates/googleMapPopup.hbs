@@ -20,21 +20,20 @@
     <div class="" style="height: 45px;position: relative;border-top: 1px solid #ddd;top: -1px;">
         <div class="message-btn easing" style='width: 33%;height: 45px;line-height: 45px;' value="Print map" onclick="printmap('google_map_pop');"><k class='icon-print'>&nbsp;</k>Print Map</div>
 
-        <select  id="routeMode" name="routeMode" class="message-btn easing" style="border: none; border-right: 1px solid #ddd;border-left: 1px solid #ddd; width: 34%;height: 45px;line-height: 45px;border-radius: 0;">   
-            <option value="DRIVING"><div class="ite">Driving</div></option>
-            <option value="WALKING"><div class="ite">Walking</div></option>
-            <option value="BICYCLING"><div class="ite">Bicycling</div></option>
-            <option value="TRANSIT"><div class="ite">Transit</div></option>
-        </select>
 
-        <!--<div  id="routeMode" name="routeMode" class="message-btn easing" style="border: none; border-right: 1px solid #ddd;border-left: 1px solid #ddd; width: 34%;height: 45px;line-height: 45px;border-radius: 0;"> 
-            </div>
-                <ul class="hideClass edit-object-ul" id="routeMode dropdown_id_{{unbound id}}" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
-                    <li class="ite" value="DRIVING" >Driving</li>
-                    <li class='ite' value="WALKING">Walking</li>
-                    <li class='ite' value="BICYCLING">Bicycling </li>
-                    <li class="ite" value="TRANSIT">Transit</li>
-                </ul>-->
+
+        <div id ="routeMode" class="message-btn easing" style="border: none; border-right: 1px solid #ddd;border-left: 1px solid #ddd; width: 34%;height: 45px;line-height: 45px;border-radius: 0;" {{action dropdownRoute target="view" on="click"}}>
+            <span id="routeModeSelection">{{view.routeModeSelection}}</span>
+            <span class="caret"></span>
+        </div>
+
+        <div id="routeModeDropdown" class="hideClass Dropdownstyle1" style="width: 100px; z-index: 1000; position: fixed;text-align: center;margin-left: 300px;margin-top: -160px;" {{action selectRoute target="view" on="click"}}>
+            <li class="ite" value="DRIVING" >Bicycling</li>
+            <li class='ite' value="WALKING">Walking</li>
+            <li class='ite' value="BICYCLING">Driving </li>
+            <li class="ite" value="TRANSIT">Transit</li>
+        </div>
+
 
 
         <div  id="routeGo" class="message-btn easing" style='width: 33%;height: 45px;line-height: 45px;'>Get Direction <k class='icon-long-arrow-right'>&nbsp;</k></div>

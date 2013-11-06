@@ -1038,14 +1038,15 @@
 
     {{/if}}
 
+    {{#if HubStar.checkLoginStatus}}
+
+    {{render loginModal}}       
+
+    {{/if}}
+
 
     <script>
         $(document).on("mousemove", function(event) {
             $("#panel").text("pageX: " + event.pageX + ", pageY: " + event.pageY);
         });
     </script>
-
-
-</div>
-
-</div>

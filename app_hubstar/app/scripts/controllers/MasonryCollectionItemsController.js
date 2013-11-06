@@ -32,11 +32,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         }
         var results = HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});
         var that = this;
-
-
         results.addObserver('isLoaded', function() {
-
-
             if (results.get('isLoaded')) {
 
                 for (var i = 0; i < this.get("content").length; i++) {
@@ -92,6 +88,9 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             this.get('controllers.user').goToUserRoute();
         }
 
+        var lastposition = HubStar.get("scrollCollectionPosition");
+        //   window.history.back();
+          this.get('controllers.user').goToRouter();
         setTimeout(function() {
 
             $(window).scrollTop(lastposition);
@@ -149,7 +148,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     var tempcollectedColletionids = collectedColletionids.replace(this.get('itemID') + ",", "");
                     tempcollectedColletionids = tempcollectedColletionids.replace(this.get('itemID'), "");
                     currentCollection.set('collection_ids', tempcollectedColletionids);
-                    //   this.get('controllers.applicationFeedback').statusObserver(null, "Delete Successfully.");
                     HubStar.store.save();
                     break;
                 }
@@ -175,8 +173,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         }
     },
     reLayout: function() {
-
-    console.log('relayout');
         setTimeout(function() {
             $('#masonry_photo_collection_container').masonry("reload");
         }, 1000);
@@ -235,8 +231,12 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.transitionTo("article", HubStar.Article.find(id));
     },
     dropdownPhotoSetting: function(id) {
-        $('#dropdown_id_' + id).toggleClass('hideClass');
+
+                        $('#dropdown_id_' + id).toggleClass('hideClass');
+
     },
+
+    
     resetContent: function()
     {
 
@@ -252,7 +252,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             if (results.get('isLoaded')) {
                 for (var i = 0; i < this.get("length"); i++) {
                     var tempmega = results.objectAt(i);
-                    if (tempmega.get('photo').get('length') === 1 && (that.get('collection_id') === tempmega.get('collection_id')))
+                     if (tempmega.get('profile').get('length') === 0 && tempmega.get('user').get('length') === 0 && (that.get('collection_id') === tempmega.get('collection_id')))
                     {
                         that.get("content").pushObject(tempmega);
                     }

@@ -1,6 +1,6 @@
 <?php
- session_start();
 
+session_start();
 
 class Controller extends CController {
 
@@ -175,9 +175,33 @@ class Controller extends CController {
             $response = $this->searchCollectionItem($userid, $collection_id, $returnType);
         } elseif ($requireType == 'defaultSearch') {
             $response = $this->searchCollectionItem('21051211514', 'editor-picks', $returnType);
+        } elseif ($requireType == 'video') {
+              $videoOwnerId = $this->getUserInput($requireParams[1]);
+            $response = $this->getVideoesByOwner($returnType,$videoOwnerId);
+        } elseif ($requireType == 'singleVideo') {
+            $videoid = $this->getUserInput($requireParams[1]);
+             
+            $response = $this->getRequestResultByID($returnType, $videoid);
+
         } else {
+
+
             $response = $this->getSearchResults("", "huang");
         }
+        return $response;
+    }
+
+    protected function getVideoesByOwner($returnType,$videoOwnerId) {
+        $conditions = array();
+        $requestStringOne = 'couchbaseDocument.doc.type=video';
+        array_push($conditions, $requestStringOne);
+              $requestStringTwo = 'couchbaseDocument.doc.owner_id=' . $videoOwnerId;
+        array_push($conditions, $requestStringTwo);
+        
+        
+        $tempResult = $this->searchWithCondictions($conditions, 'must');
+        $response = $this->getReponseResult($tempResult, $returnType);
+
         return $response;
     }
 
@@ -210,7 +234,7 @@ class Controller extends CController {
         if ($requestString != null && $requestString != "") {
             $requestStringTwo = '_all=' . $requestString;
             array_push($conditions, $requestStringTwo);
-        }        
+        }
 
         $results = $this->searchWithCondictions($conditions, 'must', $from, $size, $location);
 
@@ -221,7 +245,6 @@ class Controller extends CController {
         $mustQuery = explode('=', $queryString);
         $should = Sherlock\Sherlock::queryBuilder()->QueryString()->query($mustQuery[1])//$collection_id
                 ->default_field($mustQuery[0])
-                // ->default_field($mustQuery[0])
                 ->default_operator('AND');
         return $should;
     }
@@ -288,10 +311,10 @@ class Controller extends CController {
             $filter = Sherlock\Sherlock::filterBuilder()->Raw('{"query": {
                 "queryString": {
                   "default_field": "couchbaseDocument.doc.country",
-                  "query": "'. $location .'"
+                  "query": "' . $location . '"
                 }
               }}');
-            $request->filter($filter);            
+            $request->filter($filter);
         }
         $max = sizeof($conditions);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
@@ -304,9 +327,8 @@ class Controller extends CController {
             } else {
                 echo "no such search type, please input: must or should as a search type.";
             }
-        }        
+        }
         $request->query($bool);
-        error_log($request->toJSON());
         $response = $request->execute();
 
         return $response;
@@ -318,7 +340,7 @@ class Controller extends CController {
                 ->field('couchbaseDocument.doc.id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->should($should);
         $response = $request->query($bool)->execute();
-        if ($returnType == "mega" || $returnType == "megas") {
+        if ($returnType == "mega") {
             $results = '{"' . $returnType . '":';
             $i = 0;
             foreach ($response as $hit) {
@@ -329,6 +351,17 @@ class Controller extends CController {
                 }
             }
             $results .= '}';
+        } else if ($returnType == "megas") {
+            $results = '{"' . $returnType . '":[';
+            $i = 0;
+            foreach ($response as $hit) {
+                $results .= CJSON::encode($hit['source']['doc']);
+
+                if (++$i < count($response)) {
+                    $results .= ',';
+                }
+            }
+            $results .= ']}';
         } else {
             $results = '{"' . $returnType . '":';
             $i = 0;
@@ -624,6 +657,8 @@ class Controller extends CController {
         } elseif ($type == "photo") {
             $docID = $this->getDomain() . "/" . $id;
         } elseif ($type == "article") {
+            $docID = $this->getDomain() . "/" . $id;
+        } elseif ($type == "video") {
             $docID = $this->getDomain() . "/" . $id;
         }
         return $docID;

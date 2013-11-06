@@ -32,12 +32,18 @@ HubStar.UserMessageController = Ember.Controller.extend({
 //          var msg = model.get("messages");
 //          this.set("contentMsg",msg);
 //          
-
-        this.getClientId(message); // It is used to get the mesage model
-
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+        if (localStorage.loginStatus) {
+            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+            this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
+        }
+        this.getClientId(message); // It is used to get the mesage model      
     },
+
     getClientId: function(id) {
         this.set("isPosting", true);
+        this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+        this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
         this.set('clientID', id);
         this.set('loadingTime', true);
         var data = this.get('clientID');
@@ -110,7 +116,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             that.set('loadingTime', false);
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
-                $("#content_4").mCustomScrollbar({
+                $("#content_message").mCustomScrollbar({
                     scrollButtons: {
                         enable: false,
                         scrollSpeed: "auto"
@@ -129,6 +135,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             }, 200);
 
         });
+        
     },
     removeMessage: function(Message_id)
     {
@@ -265,8 +272,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             });
 
 
-            $('#addcommetBut').attr('style', 'display:block');
-            $('#commentBox').attr('style', 'display:none');
+         
             setTimeout(function() {
                 $('#masonry_container').masonry("reloadItems");
             }, 200);

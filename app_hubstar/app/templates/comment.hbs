@@ -56,7 +56,7 @@
                             <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
                                {{name}}
                         </a>
-                        {{#if this.isUserSelf}}
+                         {{#if this.getUser}}
                         <i class="icon-trash"  {{action removeComment this}}></i>                 
                         <i class="icon-pencil" {{action updateComment this}}></i>
                         {{/if}}

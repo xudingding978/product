@@ -165,17 +165,14 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set('contact', false);
     },
     EditDelete: function(id, time_stamp) {
-        var s = "#editdel_" + id + "_" + this.dateTImeStamp(time_stamp);
-        console.log(s);
-        if (id === localStorage.loginStatus)
-        {
-            console.log("sssssssssssss");
-            $(s).attr('style', 'display:inline-block');
-        }
-        else {
-            console.log("ddddddddddddddd");
-            $(s).attr('style', 'display: none');
-        }
+//        var s = "#editdel_" + id + "_" + this.dateTImeStamp(time_stamp);
+//        if (id === localStorage.loginStatus)
+//        {          
+//            $(s).attr('style', 'display:inline-block');
+//        }
+//        else {          
+//            $(s).attr('style', 'display: none');
+//        }
     },
     EditDeleteLeave: function(id, time_stamp) {
          var s = "#editdel_" + id + "_" + this.dateTImeStamp(time_stamp);
@@ -189,7 +186,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
-            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
+            var message_id = createMessageid()+commenter_id;           
+            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,"message_id": message_id,
                 "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
                 "is_delete": false, optional: this.get('megaResouce').get('type') + '/' + this.get('megaResouce').get('id')});
             comments.insertAt(0, tempComment);
@@ -244,8 +242,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     getCommentsById: function(id)
     {
         var mega = HubStar.Mega.find(id);
-        var comments = mega.get('comments');
-        console.log(comments);
+        var comments = mega.get('comments');     
          for (var i = 0; i < comments.get("length"); i++)
         {
             if (comments.objectAt(i).get("commenter_id") === localStorage.loginStatus)
@@ -253,15 +250,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 comments.objectAt(i).set("isUserSelf", true);
             }
         }
-        this.set('thisComments', comments);
-        this.setPhotoStatus(comments);
-    },
-    setPhotoStatus: function(comments) {
-        for (var i = 0; i < comments.get("length"); i++)
-        {
-
-        }
-    },
+        this.set('thisComments', comments);        
+    },    
     dateTImeStamp: function(date) {
         if (date === "" || date === null || date === undefined) {
             return "";

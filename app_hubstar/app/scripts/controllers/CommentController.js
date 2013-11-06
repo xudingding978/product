@@ -24,7 +24,8 @@ HubStar.CommentController = Ember.Controller.extend({
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
-            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
+             var message_id = createMessageid()+commenter_id;           
+            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,"message_id": message_id,
                 "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), "is_delete": false, optional: this.get('mega').get('type') + '/' + this.get('mega').get('id')});
             comments.insertAt(0, tempComment);
             comments.store.save();
@@ -71,6 +72,7 @@ HubStar.CommentController = Ember.Controller.extend({
             delInfo = JSON.stringify(delInfo);
             var that = this;
             requiredBackEnd('comments', 'DeletePhotoComment', delInfo, 'POST', function(params) {
+                console.log(that.get("thisComments"));
               that.get("thisComments").removeObject(object);        
                 $('#masonry_user_container').masonry("reload");
                 that.cancelDelete();

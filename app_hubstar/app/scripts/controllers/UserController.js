@@ -22,7 +22,7 @@ HubStar.UserController = Ember.Controller.extend({
     age: "",
     userTage: true,
     currentUserID: "",
-    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor', 'userMessage'],
+    needs: ['photoCreate', 'applicationFeedback', 'userFollowers', 'userFollowings', 'application', 'platformBar', 'collection', 'htmlEditor', 'userMessage', 'messageCenter'],
     facebook: "",
     twitter: "",
     follow_status: false,
@@ -74,6 +74,7 @@ HubStar.UserController = Ember.Controller.extend({
     loadingTime: false,
     init: function()
     {
+
     },
     isUserSelfOrNot: function(currentUserID) {
         this.set("isUserSelf", false);
@@ -167,6 +168,12 @@ HubStar.UserController = Ember.Controller.extend({
 //            $('#user-stats > li').removeClass('selected-user-stats');
 //            $(this).addClass('selected-user-stats');
 //        });
+    },
+    goToRouter: function()
+    {
+        this.transitionToRoute('user');
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
     },
     labelBarRefresh: function() {
         this.set("profileSelectionStatus", "Collections");
@@ -350,6 +357,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
 
         }
+
     },
     socialLink: function(link) {
         if (link === 'facebook') {
@@ -678,6 +686,10 @@ HubStar.UserController = Ember.Controller.extend({
             this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
         }
     },
+            
+            
+            
+            
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
             var thisCollection = this.get("collections").objectAt(i);
@@ -738,14 +750,13 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('collectionTag', false);
         this.set('followerTag', true);
         this.set('messageTag', false);
-        this.transitionToRoute('followers', model);
+        this.transitionToRoute('followers');
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
         }, 200);
     },
     selectMessage: function(model) {
         this.set('profileSelectionStatus', 'Messages');
-        //this.get('controllers.userMessage').getClientId(model.id);
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', false);

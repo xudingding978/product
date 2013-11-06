@@ -28,18 +28,21 @@ HubStar.UserMessageController = Ember.Controller.extend({
     },
     setUserMessage: function(message) {
 
-//        var model = HubStar.User.find(message);
-//          var msg = model.get("messages");
-//          this.set("contentMsg",msg);
-//          
-        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
-        if (localStorage.loginStatus) {
-            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-            this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
+        var model = HubStar.User.find(localStorage.loginStatus);
+        var that = this;
+        if (model.get('isLoaded')) {
+            that.set("currentUser", model);
+            that.set("commenter_photo_url", that.get("currentUser").get("photo_url_large"));
+            that.getClientId(message); // It is used to get the mesage model
         }
-        this.getClientId(message); // It is used to get the mesage model      
+        model.addObserver('isLoaded', function() {
+            if (model.get('isLoaded')) {
+                that.set("currentUser", model);
+                that.set("commenter_photo_url", that.get("currentUser").get("photo_url_large"));
+                that.getClientId(message); // It is used to get the mesage model
+            }
+        });
     },
-
     getClientId: function(id) {
         this.set("isPosting", true);
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
@@ -66,8 +69,8 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 dataNew["url"] = params[i]["replyMessageCollection"][length]["url"];
                 dataNew["enableToEdit"] = false;
                 dataNew["replyEdit"] = true;
-                dataNew["replyCount"] = params[i]["replyMessageCollection"].length -1;
-                        if (params[i]["replyMessageCollection"][length]["user_id"] === localStorage.loginStatus)
+                dataNew["replyCount"] = params[i]["replyMessageCollection"].length - 1;
+                if (params[i]["replyMessageCollection"][length]["user_id"] === localStorage.loginStatus)
                 {
                     dataNew["isUserself"] = true; //dataNew["isUserself"] is true , which means it is the login users is the same as the user page owner
                 }
@@ -135,7 +138,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             }, 200);
 
         });
-        
+
     },
     removeMessage: function(Message_id)
     {
@@ -272,7 +275,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             });
 
 
-         
+
             setTimeout(function() {
                 $('#masonry_container').masonry("reloadItems");
             }, 200);

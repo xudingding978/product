@@ -12260,7 +12260,10 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 that.set("isPosting", true);               
 =======
                 that.set("isPosting", true);
+<<<<<<< HEAD
 >>>>>>> 1db18b2bae52056278548b59dca06d6d91465446
+=======
+>>>>>>> 90404519fac3d86e4a61a58dd75be993530c95f2
                 dataNew["message_id"] = params["message_id"];
                 dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
                 dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];

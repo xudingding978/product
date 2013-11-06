@@ -13,7 +13,10 @@
 
 HubStar.MessageController = Ember.Controller.extend({
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'userMessage', 'editMessage'],
+
+    messagecms:'',
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'userMessage'],
+
     isUserself: false,
     isUploadPhoto: false,
     isReply: true,
@@ -36,11 +39,13 @@ HubStar.MessageController = Ember.Controller.extend({
 
         this.set("isEdit", true);
     },
+
     editingCommentData: function(id, msg) {
 
 
         var enableEditCount = 0;
         var messageId = null;
+
         for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
         {
 
@@ -51,6 +56,7 @@ HubStar.MessageController = Ember.Controller.extend({
                 messageId = this.get('controllers.userMessage').get("contentMsg").objectAt(i);
                 break;
             }
+
 
         }
         if (enableEditCount === 1)
@@ -79,8 +85,8 @@ HubStar.MessageController = Ember.Controller.extend({
             }
         }
 
-
-        HubStar.set('message', msg);
+        HubStar.set('message',msg);
+      
 
     },
     editingReplyData: function(id, msg) {

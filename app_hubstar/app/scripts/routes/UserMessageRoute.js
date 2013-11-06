@@ -15,7 +15,7 @@ HubStar.UserMessageRoute = Ember.Route.extend({
         this.controllerFor('user').set('messageTag', true);
         // The following two line is used to change the selection with dark 
         $('#user-stats > li').removeClass('selected-user-stats');
-        $('#message').addClass('selected-user-stats');
+        $('#message').addClass('selected-user-stats');      
         this.controllerFor('userMessage').setUserMessage(model);
 
         $(window).scrollTop(0);
@@ -25,6 +25,6 @@ HubStar.UserMessageRoute = Ember.Route.extend({
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
         return user_id;
-        
+
     }
 });

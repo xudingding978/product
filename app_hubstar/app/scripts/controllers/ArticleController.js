@@ -2,13 +2,15 @@
 HubStar.ArticleController = Ember.Controller.extend({
     content: [],
     image_no: 1,
-    selectedPhoto: null,
+    selectedPhoto: null,         
     captionTitle: "",
     readCaption: true,
     caption: '',
+    checkLoginStatus:false,
     isCreditListExist: false,
-    needs: ['application', 'addCollection', 'contact','applicationFeedback'],
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus'],
     init: function() {
+  
     },
     findSelectedItemIndex: function() {
         content = this.get('content');
@@ -173,9 +175,15 @@ HubStar.ArticleController = Ember.Controller.extend({
     editingContactForm: function() {
         var contactController = this.get('controllers.contact');
 
+        this.get("controllers.contact").set("firstStepOfContactEmail",false);      
+        this.get("controllers.contact").set('secondStepOfContactEmail', false);
+
         var selectid = this.get('selectedPhoto').id;
         contactController.setSelectedMega(selectid);
-        this.set('contact', !this.get('contact'));
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            this.set('contact', !this.get('contact'));
+        }
     },
     closeContact: function() {
         this.set('contact', false);
@@ -208,16 +216,12 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     fbShare: function() {
         var that = this;
-        console.log(this.get('selectedPhoto').id);
-        console.log(this.get('selectedPhoto').photo_image_thumbnail_url);
-        console.log(this.get('articleResouce').get("article_body"));
-        console.log(this.get('articleResouce').get("article_headline"));
         var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
         var caption = '';
 
         if (this.get('articleResouce').get("article_body") !== null)
         {
-            caption =this.get('articleResouce').get("article_body");
+            caption = this.get('articleResouce').get("article_body");
         }
         else
         {
@@ -248,9 +252,9 @@ HubStar.ArticleController = Ember.Controller.extend({
     //share to social google plus
     gpShare: function() {
         var caption = '';
-       if (this.get('articleResouce').get("article_body") !== null)
+        if (this.get('articleResouce').get("article_body") !== null)
         {
-            caption =this.get('articleResouce').get("article_body");
+            caption = this.get('articleResouce').get("article_body");
         }
         else
         {
@@ -290,9 +294,10 @@ HubStar.ArticleController = Ember.Controller.extend({
         return false;
     },
     pShare: function() {
+         console.log(this.get('selectedPhoto'));
         var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
-                '&media=' + encodeURIComponent(this.get('selectedPhoto').photo_image_thumbnail_url) +
+                '&media=' + encodeURIComponent(this.get('selectedPhoto').photo_image_original_url) +
                 '&description=' + encodeURIComponent(this.get('articleResouce').get("article_headline"));
         window.open(
                 url,

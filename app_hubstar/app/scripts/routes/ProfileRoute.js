@@ -106,7 +106,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
             this.controller.set('isTracking',true);
         } catch (err) {
             this.controller.set('isTracking', false);
-            console.log('error out');
+            
         }
     }
 

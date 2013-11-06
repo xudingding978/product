@@ -295,6 +295,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('isGeoDropdown', !this.get('isGeoDropdown'));
         $('#geo-filter').toggleClass('Geo-Filter-active');
     },
+    canelDropDown: function()
+    {
+        $('#geo-filter').toggleClass('Geo-Filter-active');
+        this.set('isGeoDropdown', false);
+    },
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {

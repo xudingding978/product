@@ -1,4 +1,4 @@
-HubStar.VideoController = Ember.Controller.extend({
+HubStar.VideoController = Ember.Controller.extend(HubStar.DisplayViewMixin,{
     megaResouce: null,
     videoObject: null,
     video_iframe_code: null,
@@ -7,6 +7,7 @@ HubStar.VideoController = Ember.Controller.extend({
     needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission'],
     getinitdata: function(videoObject)
     {
+       this. displayMixinTest();
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var that = this;
         var megaResouce = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": videoObject});

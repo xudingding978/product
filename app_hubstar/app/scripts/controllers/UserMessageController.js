@@ -20,28 +20,30 @@ HubStar.UserMessageController = Ember.Controller.extend({
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+        var that = this;
+        if (localStorage.loginStatus) {
+            var loginUser = HubStar.User.find(localStorage.loginStatus);
+            loginUser.addObserver('isLoaded', function() {
+
+                if (loginUser.get('isLoaded')) {
+                    that.set("commenter_photo_url", that.get("currentUser").get("photo_url_large"));
+                }
+            });
+        }
+//    this.set("isPosting", true);
+    },
+    setUserMessage: function(message) {
+
+//        var model = HubStar.User.find(message);
+//          var msg = model.get("messages");
+//          this.set("contentMsg",msg);
+//          
+        this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         if (localStorage.loginStatus) {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
         }
-        // this.set("isPosting", true);
-    },
-    setUserMessage: function(message) {
-
-        var model = HubStar.User.find(localStorage.loginStatus);
-        var that = this;
-        if (model.get('isLoaded')) {
-            that.set("currentUser", model);
-            that.set("commenter_photo_url", that.get("currentUser").get("photo_url_large"));
-            that.getClientId(message); // It is used to get the mesage model
-        }
-        model.addObserver('isLoaded', function() {
-            if (model.get('isLoaded')) {
-                that.set("currentUser", model);
-                that.set("commenter_photo_url", that.get("currentUser").get("photo_url_large"));
-                that.getClientId(message); // It is used to get the mesage model
-            }
-        });
+        this.getClientId(message); // It is used to get the mesage model      
     },
     getClientId: function(id) {
         this.set("isPosting", true);

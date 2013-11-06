@@ -3,7 +3,7 @@
         <img src="../../../images/beta-version.png"/>
 
 
-        <span style="position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;" id="lastidentifie">0.3-87</span>
+        <span style="position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;" id="lastidentifie">0.3-91</span>
 
 
 
@@ -17,7 +17,7 @@
             </div>
 
             <!-- show if not logged into platform-->
-            {{#if controller.islogin}}
+            {{#if HubStar.isLogin}}
 
             <div id="login_detail" style="position: relative;float: right;cursor: pointer;text-align: right;">
                 {{view HubStar.AfterLoginView}}
@@ -31,13 +31,7 @@
 
                 {{view HubStar.BeforeLoginView}}
 
-                {{#if controller.popup}}
-
-
-                {{view HubStar.LoginModalView}}
-
-
-                {{/if}}
+              
 
             </div>
 

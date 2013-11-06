@@ -2,12 +2,14 @@
 HubStar.ArticleController = Ember.Controller.extend({
     content: [],
     image_no: 1,
-    selectedPhoto: null,
+    selectedPhoto: null,         
     captionTitle: "",
     readCaption: true,
     caption: '',
-    needs: ['application', 'addCollection', 'contact', 'applicationFeedback'],
+    checkLoginStatus:false,
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus'],
     init: function() {
+  
     },
     findSelectedItemIndex: function() {
         content = this.get('content');
@@ -166,7 +168,10 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         var selectid = this.get('selectedPhoto').id;
         contactController.setSelectedMega(selectid);
-        this.set('contact', !this.get('contact'));
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            this.set('contact', !this.get('contact'));
+        }
     },
     closeContact: function() {
         this.set('contact', false);
@@ -199,10 +204,6 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     fbShare: function() {
         var that = this;
-        console.log(this.get('selectedPhoto').id);
-        console.log(this.get('selectedPhoto').photo_image_thumbnail_url);
-        console.log(this.get('articleResouce').get("article_body"));
-        console.log(this.get('articleResouce').get("article_headline"));
         var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
         var caption = '';
 

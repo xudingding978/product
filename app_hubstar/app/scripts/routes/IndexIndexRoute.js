@@ -27,7 +27,7 @@ HubStar.IndexIndexRoute = Ember.Route.extend({
 
 
             if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-                this.transitionTo('indexIndex');
+              //  this.transitionTo('indexIndex');
 
             } else {
 

@@ -1272,8 +1272,8 @@ textarea.add-interests{
 
 }
 
-.review-list-content:hover{
-    opacity: 1
+.review-list-content:hover, .review-list-content.active{
+    opacity: 1!important;
 }
 
 

@@ -25,9 +25,7 @@ $(document).ready(function() {
             theme: "dark-2",
             set_height: 200
         });
-            setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");
-            }, 200);
+            
         });
 
     },
@@ -40,12 +38,20 @@ $(document).ready(function() {
         var up_button = "#up_button_" + event;
         var down_button = "#down_button_" + event;
         var review_reply = "#reviewReplyData_" + event;
+        
         this.get("controller").transitionToRoute('review', {id: event});
         var content = "#review_content_" + event;
         $(up_button).attr("style", "position: relative;  font-size: 18px; color: #888;margin: 0 10px; display:inline-block;");
         $(down_button).attr("style", "position: relative; display: none;  font-size: 18px; color: #888;margin: 0 10px;");
-        $(content).animate({width: '420px', height: '120px', position: 'relative', display: 'inline-block', overflow: 'auto'}, 1000);
+        $(content).animate({width: '420px', maxHeight: '120px', position: 'relative', display: 'inline-block', overflow: 'auto'}, 500);
+        $(content).parent().parent().addClass('active');
+        
         $(review_reply).show(10);
+       // $(review_reply).animate({height: '63px', overflow: 'hidden'}, 500);
+        
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reload");
+            }, 500); 
 
 
 
@@ -59,8 +65,14 @@ $(document).ready(function() {
         var review_reply = "#reviewReplyData_" + event;
         $(up_button).attr("style", "position: relative;  font-size: 18px; color: #888;margin: 0 10px; display:none");
         $(down_button).attr("style", "position: relative; display: none;  font-size: 18px; color: #888;margin: 0 10px; display:inline-block");
-        $(content).animate({width: '390px', height: '20px', position: 'relative', dispaly: 'none', overflow: 'hidden'}, 1000);
-        $(review_reply).hide(10);
+        $(content).animate({width: '390px', maxHeight: '100px', position: 'relative', dispaly: 'none', overflow: 'hidden'}, 500);
+        //$(review_reply).animate({height: '0', overflow: 'hidden'}, 500);
+        //$(review_reply).hide(10);
+        
+
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reload");
+            }, 500); 
     },
     showOneReview: function(event) {
 
@@ -73,6 +85,13 @@ $(document).ready(function() {
             }
         }
 
+    },
+    viewComments: function(event){
+        $('#reply_' + event).attr('style', 'display: block;max-height:0;');
+       $('#reply_' + event).animate({maxHeight: '200px'}, 500);
+        setTimeout(function() {
+                $('#masonry_user_container').masonry("reload");
+            }, 500); 
     }
 
 

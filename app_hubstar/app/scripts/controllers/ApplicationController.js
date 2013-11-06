@@ -273,7 +273,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     result = false;
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
-                    $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                    $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'}); 
 
 
 

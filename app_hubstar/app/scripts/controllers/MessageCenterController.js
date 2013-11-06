@@ -35,8 +35,7 @@ HubStar.MessageCenterController = Ember.Controller.extend({
 
         if (id === localStorage.loginStatus)
         {
-            this.set("isUserself", true);
-
+            this.set("isUserself", true);           
             this.get('controllers.conversation').getClientId(id, conversation_id);
         }
         else

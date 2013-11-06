@@ -1,7 +1,6 @@
 HubStar.CollectionRoute = Ember.Route.extend({
     setupController: function(controller, model) {
 
-
         if (model.id === undefined || model.id === "") {
             var address = document.URL;
             var id = address.split("#")[1].split("/")[3];
@@ -42,7 +41,6 @@ HubStar.CollectionRoute = Ember.Route.extend({
         },
 
         transitionToArticle: function(id) {
-
             this.transitionTo("article", HubStar.Article.find(id));
         }
     },

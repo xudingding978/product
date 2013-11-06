@@ -17,6 +17,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#message').addClass('selected-user-stats');
         var address = document.URL;
+         
         var conversation_id = "";
         if (this.controllerFor('notificationTop').get("goReply") === true)
         {
@@ -48,6 +49,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
         }
         if (this.controllerFor('notificationTop').get("goConversation") === true)
         {
+           
             model = localStorage.loginStatus;
             this.controllerFor('notificationTop').set("goConversation", false);
             this.controllerFor('messageCenter').getClientId(localStorage.loginStatus);
@@ -56,14 +58,17 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             conversation_id = address.split("#")[1].split("/")[5];
             this.controllerFor('messageCenter').getClientId(localStorage.loginStatus, conversation_id);
         }
-        else {
+        else {      
             this.controllerFor('messageCenter').getClientId(model);
         }
         $(window).scrollTop(550);
     },
     model: function(params) {
+
+
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
+       
         return user_id;
     },
     events: {

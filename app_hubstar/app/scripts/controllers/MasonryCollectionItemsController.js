@@ -43,7 +43,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                 }
    
             }
-             console.log("ddddddddddddd");
         });
         this.checkEditingMode();
 

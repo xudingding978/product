@@ -576,7 +576,9 @@
 
                     var left = (screen.width / 2) - (popupWidth / 2);
                     var top = (screen.height / 2) - (popupHeight / 2);
-                   // var address=document.URL;
+                    var address=document.URL;
+                 //   HubStar.set('currentState',address);
+                   // console.log(HubStar.get('currentState'));
                  //   console.log(address);
                     var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook#_=_";
                     newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');

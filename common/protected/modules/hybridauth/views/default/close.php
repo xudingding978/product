@@ -27,9 +27,9 @@
         var address = document.URL;
         var domain = address.split("/")[2];
 
-
-        parent.location = 'http://' + domain + '/#/search';
-        
+//var lastState=HubStar.get();
+       // parent.location = 'http://' + domain + '/#/search';
+        parent.location.reload();
 
         var windowObject = window.self;
         windowObject.opener = window.self;

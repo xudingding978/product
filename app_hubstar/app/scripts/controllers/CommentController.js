@@ -4,14 +4,16 @@ HubStar.CommentController = Ember.Controller.extend({
     thisComments: null,
     stringFiedTime_stamp: null,
     mega: null,
-    count:null,
+    count: null,
+    isUserSelf: false,
     init: function()
     {
-        
+
         if (localStorage.loginStatus) {
 
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         }
+
 
     },
     addComment: function() {
@@ -31,14 +33,17 @@ HubStar.CommentController = Ember.Controller.extend({
             $('#commentBox').attr('style', 'display:none');
             setTimeout(function() {
                 $('#masonry_container').masonry("reload");
-              $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
+                $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
             }, 200);
         }
     },
-            
+    editingCommentData: function()
+    {
+
+    },
     linkingUser: function(id) {
-            
-            self.location="#/users/"+id;
+
+        self.location = "#/users/" + id;
 
     },
     getCommentsById: function(id)
@@ -47,7 +52,56 @@ HubStar.CommentController = Ember.Controller.extend({
         var mega = HubStar.Mega.find(id);
         var comments = mega.get('comments');
         this.set('mega', mega);
+        for (var i = 0; i < comments.get("length"); i++)
+        {
+            if (comments.objectAt(i).get("commenter_id") === localStorage.loginStatus)
+            {
+                comments.objectAt(i).set("isUserSelf", true);
+            }
+        }
         this.set('thisComments', comments);
+    },
+    removeComment: function(object)
+    {
+
+            var id = this.get('content').id;
+            var commentId = object.get("commenter_id");
+            var time_stamp = object.get("time_stamp");
+            var delInfo = [id, commentId, time_stamp];
+            delInfo = JSON.stringify(delInfo);
+            var that = this;
+            requiredBackEnd('comments', 'DeletePhotoComment', delInfo, 'POST', function(params) {
+              that.get("thisComments").removeObject(object);        
+                $('#masonry_user_container').masonry("reload");
+                that.cancelDelete();
+            });
+
+    },
+     updateComment: function(object) {
+     
+            var id = this.get('content').id;
+            var commentId = object.get("commenter_id");
+            var time_stamp = object.get("time_stamp");
+            var content = object.get("content");
+            var contentID = commentId+time_stamp;
+            var delInfo = [id, commentId, time_stamp,content];
+
+            delInfo = JSON.stringify(delInfo);
+            var that = this;
+            requiredBackEnd('comments', 'UpdatePhotoComment', delInfo, 'POST', function(params) {
+                
+                for(var i = 0 ; i<    that.get("thisComments").get("length");i++)
+                    {
+                        var commentId =     that.get("thisComments").objectAt(i).get("commenter_id")+  that.get("thisComments").objectAt(i).get("time_stamp");
+                        if(that.contentID ===commentId)
+                            {
+                                  that.get("thisComments").objectAt(i).set("content",that.content);
+                            }
+                    }
+            
+                $('#masonry_user_container').masonry("reload");
+                that.cancelDelete();
+            });
     },
     deleteComment: function(object) {
         var message = "Do you wish to delete this comment ?";
@@ -71,10 +125,10 @@ HubStar.CommentController = Ember.Controller.extend({
     },
     addLike: function(id)
     {
-        var mega = HubStar.Mega.find(id); 
+        var mega = HubStar.Mega.find(id);
         var type = mega.get("type");
-          var people_like = mega.get("people_like");
-          if (people_like === null || people_like === undefined) {
+        var people_like = mega.get("people_like");
+        if (people_like === null || people_like === undefined) {
             people_like = "";
         }
         if (localStorage.loginStatus !== null && localStorage.loginStatus !== undefined && localStorage.loginStatus !== "")
@@ -82,25 +136,24 @@ HubStar.CommentController = Ember.Controller.extend({
             if (people_like.indexOf(localStorage.loginStatus) !== -1)
             {
                 this.count = mega.get('likes_count');
-                
+
             }
-            else{     
-                var likeArray = [localStorage.loginStatus,id,type];
-                 likeArray=JSON.stringify(likeArray);
-                 var that = this;
-                    requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
-                        params = params+"";
-                        var like = params.split(",");
-                        mega.set("likes_count", like.length);
-                        mega.set("people_like",params);
-                        that.count = like.length;
-                        //console.log(that.count);
-                        //console.log("sssssssssssssssssssss");
-                    }); 
+            else {
+                var likeArray = [localStorage.loginStatus, id, type];
+                likeArray = JSON.stringify(likeArray);
+                var that = this;
+                requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
+                    params = params + "";
+                    var like = params.split(",");
+                    mega.set("likes_count", like.length);
+                    mega.set("people_like", params);
+                    that.count = like.length;
+                    //console.log(that.count);
+                    //console.log("sssssssssssssssssssss");
+                });
             }
         }
-    }, 
-
+    },
     pushComment: function(comment)
     {
         var tempurl = getRestAPIURL();

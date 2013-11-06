@@ -56,10 +56,10 @@
                             <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
                                {{name}}
                         </a>
-                        
-                            <i class="icon-trash"  {{action removeMessage model.message_id}}></i>                 
-                            <i class="icon-pencil" {{action editingCommentData model.message_id model.msg}}></i>
-                   
+                        {{#if this.isUserSelf}}
+                        <i class="icon-trash"  {{action removeComment this}}></i>                 
+                        <i class="icon-pencil" {{action updateComment this}}></i>
+                        {{/if}}
                         <div class="posttime-container">
                             <span class="posttime">{{date  time_stamp}}</span>
                         </div>

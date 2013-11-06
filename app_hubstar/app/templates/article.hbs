@@ -158,6 +158,8 @@
     </div>
 
     <!-- OBJECT CREDIT LIST SECTION -->
+    {{#if controller.isCreditListExist}}
+    <div>
     <div>
         <div class="object-collapes-title" >
             <div class="collapes-title_inner">
@@ -171,10 +173,13 @@
 
     <div class="collapes-container"  id="article_action" style="display:block;">
         <div class="collapes-container_inner">
-            <div class="article-text">{{{controller.articleResouce.article_credits_text}}</div>
+            {{#each articleResouce.credits}}
+            <div class="article-text">{{credit_list_name}}: {{credit_list_text}}</div>
+            {{/each}}
         </div>
     </div>
-
+    </div>
+   {{/if}}
 
 
 

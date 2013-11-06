@@ -1,4 +1,7 @@
 
+DS.RESTAdapter.map('HubStar.Article', {
+    credits: {embedded: 'load'}
+});
 HubStar.Article = DS.Model.extend({
     mega: DS.belongsTo('HubStar.Mega', {embedded: 'always'}),
     article_sparkJobId: DS.attr('string'),
@@ -23,6 +26,7 @@ HubStar.Article = DS.Model.extend({
     article_image_url: DS.attr('string'),
     article_writer_user_id: DS.attr('string'),
     article_book_id: DS.attr('string'),
+    credits: DS.hasMany('HubStar.Credit'),
     didLoad: function() {
 
     }

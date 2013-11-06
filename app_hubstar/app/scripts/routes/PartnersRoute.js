@@ -6,22 +6,8 @@
 
 HubStar.PartnersRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-        // this.controllerFor('ProfileController').set('is_authentic_user', true);
-
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#partners').addClass('selected-user-stats');
-        // this.controllerFor('profile').selectPartner(model);
-
-
-        this.controllerFor('profile').set('profileSelectionStatus', 'Partners');
-
-        this.controllerFor('profile').set('partnerTag', true);
-        this.controllerFor('profile').set('collectionTag', false);
-        this.controllerFor('profile').set('followerProfileTag', false);
-        this.controllerFor('profilePartners').getClientId(model);
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+    this.controllerFor('profilePartners').getClientId(model);
+          this.controllerFor('profile').selectPartner(model);
     },
     model: function(params) {
 

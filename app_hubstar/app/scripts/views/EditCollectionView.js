@@ -2,7 +2,6 @@ HubStar.EditCollectionView = Ember.View.extend({
     templateName: 'editCollection',
     didInsertElement: function() {
         $(function() {
-
             $('#masonry_user_container').masonry({
                 itemSelector: '.box',
                 columnWidth: 185,
@@ -52,7 +51,6 @@ HubStar.EditCollectionView = Ember.View.extend({
         });
     },
     returnCollection: function(id) {
-   //    this.get('controller').getCollectionAttr();
         var div_id = "#" + id;
         var div_class = ".C" + id + "  #uploadArea";
         $(div_id).attr("style", "display:block");

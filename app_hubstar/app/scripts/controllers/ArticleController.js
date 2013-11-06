@@ -165,7 +165,8 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     editingContactForm: function() {
         var contactController = this.get('controllers.contact');
-
+        this.get("controllers.contact").set("firstStepOfContactEmail",false);      
+        this.get("controllers.contact").set('secondStepOfContactEmail', false);
         var selectid = this.get('selectedPhoto').id;
         contactController.setSelectedMega(selectid);
         if (this.get("controllers.checkingLoginStatus").popupLogin())
@@ -282,9 +283,10 @@ HubStar.ArticleController = Ember.Controller.extend({
         return false;
     },
     pShare: function() {
+         console.log(this.get('selectedPhoto'));
         var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
-                '&media=' + encodeURIComponent(this.get('selectedPhoto').photo_image_thumbnail_url) +
+                '&media=' + encodeURIComponent(this.get('selectedPhoto').photo_image_original_url) +
                 '&description=' + encodeURIComponent(this.get('articleResouce').get("article_headline"));
         window.open(
                 url,

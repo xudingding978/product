@@ -88,6 +88,9 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             this.get('controllers.user').goToUserRoute();
         }
 
+        var lastposition = HubStar.get("scrollCollectionPosition");
+        //   window.history.back();
+          this.get('controllers.user').goToRouter();
         setTimeout(function() {
 
             $(window).scrollTop(lastposition);

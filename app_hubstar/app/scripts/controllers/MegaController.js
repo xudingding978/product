@@ -144,10 +144,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     keydown: function(e) {
         var currKey = 0, e = e || event;
-        currKey = e.keyCode || e.which || e.charCode;//支持IE、FF 
+        currKey = e.keyCode || e.which || e.charCode;    //支持IE、FF 
         if (currKey === 27) {
             window.history.back();
-            //document.getElementByIdx_xx_x("btn_selector").click();
         }
 
     },
@@ -303,9 +302,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     pShare: function() {
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
-        var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
-                '&media=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_thumbnail_url')) +
-                '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title'));
+        var url = 'http://www.pinterest.com/pin/create/button/?url=' +  encodeURIComponent(currntUrl)+          
+                  '&media='+ encodeURIComponent(this.get('selectedPhoto').get('photo_image_original_url'))+
+                  '&description='+encodeURIComponent(this.get('selectedPhoto').get('photo_title'));    
         window.open(
                 url,
                 'popupwindow',

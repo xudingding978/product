@@ -468,7 +468,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
          {
         this.sendEventTracking('event', 'button', 'click', 'Contact us');
         var contactController = this.get('controllers.contact');
-
+         this.get("controllers.contact").set("firstStepOfContactEmail",true);
         contactController.setSelectedMega(this.get('currentUserID'));
         this.set('contactChecking', !this.get('contactChecking'));
         }
@@ -634,10 +634,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
      {
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Followers');
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#follow').addClass('selected-user-stats');
         this.set('profileSelectionStatus', 'Followers');
-        this.get('controllers.userFollowers').getProfileId(model);
+         //this.get('controllers.userFollowers').getProfileId(model);
+        
         this.set('partnerTag', false);
         this.set('collectionTag', false);
         this.set('followerProfileTag', true);

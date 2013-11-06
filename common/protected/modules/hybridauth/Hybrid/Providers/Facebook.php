@@ -41,7 +41,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
 
         // override requested display
         if (isset($this->config["display"]) && !empty($this->config["display"])) {
-       
+
             $this->display = $this->config["display"];
         }
 
@@ -74,7 +74,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
      * finish login step 
      */
     function loginFinish() {
-
+  
         // in case we get error_reason=user_denied&error=access_denied
         if (isset($_REQUEST['error']) && $_REQUEST['error'] == "access_denied") {
 
@@ -178,12 +178,11 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
             'description' => 'Join the design community; CONNECT with products and services, COLLECT and SHARE Ideas and COLLABORATE with professionals - Become a part of Trends Ideas Space',
             'caption' => 'Trends Global Web Platform'
         );
-         try {
+        try {
             $post_id = $this->api->api("/me/feed", "post", $args);
         } catch (FacebookApiException $e) {
-          
-        }   
-        
+            
+        }
     }
 
     /**

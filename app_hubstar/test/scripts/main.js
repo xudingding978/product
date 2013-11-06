@@ -4,7 +4,14 @@ var HubStar = window.HubStar = Ember.Application.createWithMixins({
     LOG_TRANSITIONS: false,
     LOG_BINDINGS: false,
     ready: function() {
-        HubStar.set("isLogin", false);
+       
+        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
+        {
+            HubStar.set("isLogin", false);
+        }else{
+                    HubStar.set("isLogin", true);               
+        }
+        HubStar.set("checkLoginStatus", false);
         HubStar.set("afterSearch", false);
         HubStar.set("setHight", null);
         HubStar.set('chooseCollection', null);
@@ -696,7 +703,6 @@ HubStar.Subcategories = DS.Model.extend({
 
 (function() {
 
-<<<<<<< HEAD
 HubStar.UserConversation = DS.Model.extend({
     conversation_id: DS.attr('string'),
     is_read: false
@@ -705,7 +711,7 @@ HubStar.UserConversation = DS.Model.extend({
 
 
 })();
-=======
+
 /* 
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -716,7 +722,6 @@ DS.RESTAdapter.map('HubStar.UserMessage', {
 
     replyMessageCollection: {embedded: 'load'}
 });
->>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
 
 (function() {
 
@@ -725,7 +730,7 @@ DS.RESTAdapter.map('HubStar.UserMessage', {
  * and open the template in the editor.
  */
 
-<<<<<<< HEAD
+
 
 DS.RESTAdapter.map('HubStar.UserMessage', {
 
@@ -739,14 +744,12 @@ HubStar.UserMessage = DS.Model.extend({
         
 });
 
-=======
 HubStar.UserMessage = DS.Model.extend({
     message_id: DS.attr('string'),
     replyMessageCollection: DS.hasMany('HubStar.Message')
         
 });
 
->>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
 
 
 
@@ -760,12 +763,9 @@ DS.RESTAdapter.map('HubStar.User', {
     collections: {embedded: 'load'},
     followers: {embedded: 'load'},
     followings: {embedded: 'load'},
-<<<<<<< HEAD
     messages: {embedded: 'load'},
-    userConversation: {embedded: 'load'}
-=======
+    userConversation: {embedded: 'load'},
     messages: {embedded: 'load'}
->>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
 });
 
 
@@ -808,15 +808,10 @@ HubStar.User = DS.Model.extend({
     collections: DS.hasMany('HubStar.Collection'),
     followers: DS.hasMany('HubStar.Follower'),
     followings: DS.hasMany('HubStar.Follower'),
-<<<<<<< HEAD
     messages: DS.hasMany('HubStar.UserMessage'),
     userConversation: DS.hasMany('HubStar.UserConversation')
 });
 
-=======
-    messages: DS.hasMany('HubStar.UserMessage')
-});
->>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
 
 
 
@@ -961,9 +956,6 @@ HubStar.CollectionRoute = Ember.Route.extend({
 
         },
         transitionToProfile: function(id) {
-
-<<<<<<< HEAD
-
             this.controllerFor('user').set('switchPhoto', false);
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
@@ -981,15 +973,7 @@ HubStar.CollectionRoute = Ember.Route.extend({
 
                 this.transitionTo("article", HubStar.Article.find(id));
             }
-=======
-            this.transitionTo("profile", HubStar.Profile.find(id));
->>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
-
         },
-        transitionToArticle: function(id) {
-
-            this.transitionTo("article", HubStar.Article.find(id));
-        }
     },
     redirect: function() {
 
@@ -1021,29 +1005,18 @@ HubStar.CollectionRoute = Ember.Route.extend({
 
 HubStar.FollowersRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-<<<<<<< HEAD
- 
-=======
 
->>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
         this.controllerFor('user').set('profileSelectionStatus', 'Followers');
         this.controllerFor('user').set('collectionTag', false);
 
         this.controllerFor('user').set('followerTag', true);
         this.controllerFor('user').set('followingTag', false);
         this.controllerFor('user').set('messageTag', false);
-<<<<<<< HEAD
         
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#userfollower').addClass('selected-user-stats');
    this.controllerFor('userFollowers').setUserFollowers(model);
 
-=======
-   //    $('#user-stats > li').removeClass('selected-user-stats');
-        $('#ufollower').addClass('selected-user-stats');
-//        this.controllerFor('userFollowers').setUserFollowers(model);
-        this.controllerFor('userFollowers').setUserFollowers(model);
->>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
         $(window).scrollTop(0);
     },
     model: function(params) {
@@ -1074,19 +1047,11 @@ HubStar.FollowingRoute = Ember.Route.extend({
         this.controllerFor('user').set('followerTag', false);
         this.controllerFor('user').set('followingTag', true);
         this.controllerFor('user').set('messageTag', false);
-<<<<<<< HEAD
 
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#ufollowing').addClass('selected-user-stats');
   
-=======
-     //  $('#user-stats > li').removeClass('selected-user-stats');
-        $('#ufollowing').addClass('selected-user-stats');
-//        $('#user-stats > li').click(function() {
-//            $('#user-stats > li').removeClass('selected-user-stats');
-//            $(this).addClass('selected-user-stats');
-//        });
->>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
+
         this.controllerFor('userFollowings').setUserFollowings(model);
 
         $(window).scrollTop(0);
@@ -1174,7 +1139,7 @@ HubStar.IndexIndexRoute = Ember.Route.extend({
 
 
             if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-                this.transitionTo('indexIndex');
+              //  this.transitionTo('indexIndex');
 
             } else {
 
@@ -1222,7 +1187,6 @@ HubStar.IndexRoute = Ember.Route.extend({
  */
 
 
-<<<<<<< HEAD
 HubStar.MessageCenterRoute = Ember.Route.extend({
     setupController: function(controller, model) {
 
@@ -1266,7 +1230,6 @@ HubStar.PartnersRoute = Ember.Route.extend({
         $('#partners').addClass('selected-user-stats');
           this.controllerFor('profile').selectPartner(model);
 
-=======
 HubStar.PartnersRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         // this.controllerFor('ProfileController').set('is_authentic_user', true);
@@ -1282,7 +1245,6 @@ HubStar.PartnersRoute = Ember.Route.extend({
         this.controllerFor('profile').set('collectionTag', false);
         this.controllerFor('profile').set('followerProfileTag', false);
         this.controllerFor('profilePartners').getClientId(model);
->>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -1438,7 +1400,7 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
 HubStar.ProfileFollowersRoute = Ember.Route.extend({
     setupController: function(controller, model) {
 
-<<<<<<< HEAD
+
        $(window).scrollTop(1500);
         console.log("sddddddddddddddd");
          this.controllerFor('profile').sendEventTracking('event', 'button', 'click', 'Followers');
@@ -1452,12 +1414,12 @@ HubStar.ProfileFollowersRoute = Ember.Route.extend({
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#follow').addClass('selected-user-stats');
           this.controllerFor('userFollowers').getProfileId(model);
-=======
+
 
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#follow').addClass('selected-user-stats');
         this.controllerFor('profile').selectFollower(model);
->>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
+
 
     },
     model: function(params) {
@@ -1470,32 +1432,28 @@ HubStar.ProfileFollowersRoute = Ember.Route.extend({
 });
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
 })();
 
 (function() {
 
-HubStar.ProfileIndexRoute = Ember.Route.extend({
-        setupController: function(controller, model) {
-
-            this.controllerFor('profile').set('switchPhoto', true);
-        },
-        redirect: function() {
-
-            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
-
-                this.transitionTo('indexIndex');
-                this.controllerFor('application').set('popup', true);
-            } else {
-                this.transitionTo('profile');
-            }
-        }
-
-
-    });
+//HubStar.ProfileIndexRoute = Ember.Route.extend({
+//        setupController: function(controller, model) {
+//
+//            this.controllerFor('profile').set('switchPhoto', true);
+//        },
+//        redirect: function() {
+//
+////            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+////
+////                this.transitionTo('indexIndex');
+////                this.controllerFor('application').set('popup', true);
+////            } else {
+////                this.transitionTo('profile');
+////            }
+//        }
+//
+//
+//    });
 
 
 })();
@@ -1537,18 +1495,24 @@ HubStar.ProfileNewRoute = Ember.Route.extend({
 
 HubStar.ProfileRoute = Ember.Route.extend({
     setupController: function(ProfileController, model) {
-        console.log("sssssssssssss");
+        
 
         HubStar.set('editingMode', 'profile');
+          if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
+        {
+            HubStar.set("isLogin", false);
+        }else{
+                    HubStar.set("isLogin", true);               
+        }
         ProfileController.setLocalLoginRecrod();
         /******************  partner cehcking*******************/
         ProfileController.set('contactChecking', false);
         ProfileController.set('collectionTag', true);
         ProfileController.set('partnerTag', false);
         /*************************            partner cehcking           ***********8*/
-
+       
         this.controllerFor('application').set('islogin', true);
-        this.controllerFor('application').set('popup', false);
+     this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', true);
         this.controllerFor('searchs').setLoginImge();
         this.controllerFor('profile').set('switchPhoto', true);
@@ -1592,12 +1556,12 @@ HubStar.ProfileRoute = Ember.Route.extend({
         }
     },
     redirect: function() {
-        if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
-
-            this.transitionTo('indexIndex');
-            this.controllerFor('application').set('popup', true);
-
-        }
+//        if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+//
+//            this.transitionTo('indexIndex');
+//            this.controllerFor('application').set('popup', true);
+//
+//        }
 
 
     },
@@ -1666,12 +1630,12 @@ HubStar.ProfilesRoute = Ember.Route.extend({
 
         },
         redirect: function() {
-
-            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
-
-                this.transitionTo('indexIndex');
-                this.controllerFor('application').set('popup', true);
-            }
+//
+//            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+//
+//                this.transitionTo('indexIndex');
+//                this.controllerFor('application').set('popup', true);
+//            }
         },
         deactivate: function() {
 
@@ -1805,7 +1769,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
         localStorage.checkUser = "";
-<<<<<<< HEAD
+
 
     },
     events: {
@@ -1813,17 +1777,6 @@ HubStar.SearchsRoute = Ember.Route.extend({
             this.transitionTo("photo", HubStar.Mega.find(id));
         },
         transitionToProfile: function(id) {
-
-=======
-
-    },
-    events: {
-        transitionToPhoto: function(id) {
-            this.transitionTo("photo", HubStar.Mega.find(id));
-        },
-        transitionToProfile: function(id) {
-
->>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
             this.transitionTo("profile", HubStar.Profile.find(id));
         },
         transitionToArticle: function(id) {
@@ -1916,7 +1869,7 @@ HubStar.UserIndexRoute = Ember.Route.extend({
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-<<<<<<< HEAD
+
 
 
 HubStar.UserMessageRoute = Ember.Route.extend({
@@ -2012,7 +1965,7 @@ HubStar.UserRoute = Ember.Route.extend({
     },
     renderTemplate: function() {
 
-=======
+
 
 
 HubStar.UserMessageRoute = Ember.Route.extend({
@@ -2109,7 +2062,6 @@ HubStar.UserRoute = Ember.Route.extend({
     },
     renderTemplate: function() {
 
->>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
         this.render('user', {
             outlet: "user",
             into: "application"
@@ -2518,7 +2470,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('search_string', '');
     },
     popupModal: function() {
-        this.set('popup', !this.get('popup'));
+         HubStar.set('checkLoginStatus',true);
     },
     email_login: function() {
         this.set('mail', !this.get('mail'));
@@ -2688,6 +2640,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 that.set('region', "");
                 that.set('gender', "");
                 that.set('age', "");
+                that.set('isWaiting', false);
             }, 2000);
         });
     },
@@ -2760,8 +2713,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
 
-
-
                     document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
                 }// INVALID user name when the user attempts to login.
@@ -2779,10 +2730,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('isGeoDropdown', !this.get('isGeoDropdown'));
         $('#geo-filter').toggleClass('Geo-Filter-active');
     },
+            
+          
     login: function() {
+
+
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {
-            this.set('isWaiting', true);
+        this.set('isWaiting', true);
             document.getElementById("loginUsername").setAttribute("class", "login-textfield");
             document.getElementById("loginPassword").setAttribute("class", "login-textfield");
 
@@ -2791,7 +2746,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             requiredBackEnd('login', 'login', loginInfo, 'POST', function(params) {
                 if (params === 1) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-                    that.set('isWaiting', false);
+                that.set('isWaiting', false);
 
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
@@ -2802,7 +2757,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 else if (params === 0) {
 
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-                    that.set('isWaiting', false);
+                that.set('isWaiting', false);
 
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
@@ -2816,12 +2771,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         that.transitionToRoute('search');
                         that.set('loginUsername', "");
                         that.set('loginPassword', "");
-
+                    that.set('isWaiting', false);
                     }
                     else {
                         document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
 
-                        that.set('isWaiting', false);
+                    that.set('isWaiting', false);
 
                         if ($('#incorrect-password').css('display') === 'none') {
 
@@ -2834,6 +2789,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
             });
         }
+
     },
     emailSend: function()
     {
@@ -3028,12 +2984,14 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
 HubStar.ArticleController = Ember.Controller.extend({
     content: [],
     image_no: 1,
-    selectedPhoto: null,
+    selectedPhoto: null,         
     captionTitle: "",
     readCaption: true,
     caption: '',
-    needs: ['application', 'addCollection', 'contact','applicationFeedback'],
+    checkLoginStatus:false,
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus'],
     init: function() {
+  
     },
     findSelectedItemIndex: function() {
         content = this.get('content');
@@ -3192,7 +3150,10 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         var selectid = this.get('selectedPhoto').id;
         contactController.setSelectedMega(selectid);
-        this.set('contact', !this.get('contact'));
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            this.set('contact', !this.get('contact'));
+        }
     },
     closeContact: function() {
         this.set('contact', false);
@@ -3234,7 +3195,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         if (this.get('articleResouce').get("article_body") !== null)
         {
-            caption =this.get('articleResouce').get("article_body");
+            caption = this.get('articleResouce').get("article_body");
         }
         else
         {
@@ -3265,9 +3226,9 @@ HubStar.ArticleController = Ember.Controller.extend({
     //share to social google plus
     gpShare: function() {
         var caption = '';
-       if (this.get('articleResouce').get("article_body") !== null)
+        if (this.get('articleResouce').get("article_body") !== null)
         {
-            caption =this.get('articleResouce').get("article_body");
+            caption = this.get('articleResouce').get("article_body");
         }
         else
         {
@@ -3318,6 +3279,34 @@ HubStar.ArticleController = Ember.Controller.extend({
                 ).focus();
         return false;
     }
+});
+
+
+})();
+
+(function() {
+
+
+/*global HubStar */
+/*global Ember */
+/*global $:false */
+
+HubStar.CheckingLoginStatusController = Ember.Controller.extend({
+    
+    init: function() {
+
+    },
+    popupLogin: function() {
+
+        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+            HubStar.set('checkLoginStatus', true);
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
 });
 
 
@@ -3783,19 +3772,19 @@ HubStar.CommentController = Ember.Controller.extend({
  */
 
 
-<<<<<<< HEAD
+
 HubStar.ConversationController = Ember.Controller.extend({
     conversationContent: null,
     commenter_photo_url: null,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem'],
     isUploadPhoto: false,
-=======
+
 HubStar.EditMessageController = Ember.Controller.extend({
     commenter_photo_url: null,
     messageContent: null,
     isUploadPhoto: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'message', 'userMessage'],
->>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
+
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -3803,7 +3792,7 @@ HubStar.EditMessageController = Ember.Controller.extend({
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
         }
-<<<<<<< HEAD
+
         setTimeout(function() {
             $("#conversation_content").mCustomScrollbar({
                 scrollButtons: {
@@ -3968,7 +3957,7 @@ HubStar.EditMessageController = Ember.Controller.extend({
     }
 }
 );
-=======
+
         if (this.get("currentOwner").get("id") === localStorage.loginStatus)
         {
             this.set("isUserself", true);
@@ -4056,7 +4045,6 @@ HubStar.EditMessageController = Ember.Controller.extend({
 
                 requiredBackEnd('messages', 'UpdateMessage', tempComment, 'POST', function(params) {
 
->>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
 
                     for (var i = 0; i < that.get('controllers.userMessage').get("contentMsg").length; i++)
                     {
@@ -4091,13 +4079,8 @@ HubStar.EditMessageController = Ember.Controller.extend({
  * and open the template in the editor.
  */
 
-<<<<<<< HEAD
 
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-=======
+
                 });
             }
         }
@@ -4153,13 +4136,12 @@ HubStar.EditReplyController = Ember.Controller.extend({
         this.set('replyContent', HubStar.get('reply'));
     },
     close: function(id) {
->>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
+
 
         this.set('replyContent', "");
         this.set('newStyleImageSource', null);
         this.set('newStyleImageName', "");
 
-<<<<<<< HEAD
 HubStar.ConversationItemController = Ember.Controller.extend({
     conversationItemContent: null,
     conversationItem: null,
@@ -4197,7 +4179,6 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         }
 
         if (this.get("conversationItem").get("conversationPhoto").length === 0)
-=======
 
         for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
         {
@@ -4488,7 +4469,6 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
     followThisUser: function(profile)
     {
         if (profile.get("isFollowCurrentUser") === false)
->>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
         {
             this.set("isAdded", false);
         }
@@ -4510,6 +4490,7 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
                 this.set("conversationItem", conversationContent[i]);
                 break;
             }
+
         }
 
         if (this.get("conversationItem").get("conversationPhoto").length === 0)
@@ -4544,6 +4525,331 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
     },
     addComment: function() {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
+
+        });
+        //console.log(is_authentic_user);
+        return is_authentic_user;
+    },
+    dropdownPhotoSetting: function(id) {
+
+        $('#dropdown_id_' + id).toggleClass('hideClass');
+    },
+    checkEditingMode: function()
+    {
+        this.set('is_profile_editing_mode', false);
+        if (HubStar.get('editingMode') === 'profile') {
+            this.set('is_profile_editing_mode', true);
+            var proController = this.get('controllers.profile');
+            this.set('pageModel', proController.get('model'));
+            this.set("is_authentic_user", this.checkAuthenticUser());
+        }
+        else {
+            this.set('is_profile_editing_mode', false);
+        }
+
+    },
+    removeCollectedItem: function(idDel) {
+
+        this.get('controllers.profilePartners').deleteSelectedPartner(idDel);
+        //console.log();
+    },
+    toProfilePage: function(model) {
+
+        HubStar.set("scrollPartenerPosition", $(window).scrollTop());
+        this.transitionToRoute('profile', model);
+        console.log(model);
+        $(window).scrollTop(0);
+    },
+    setPartnerRemove: function() {
+        this.set('partnerRemove', false);
+    },
+    collectionStatistic: function() {
+        if (this.get("collections").get("length") !== 0) {
+            this.set('itemProfileCollectionStatistics', this.get("collections").get("length"));
+        }
+        else
+        {
+            this.set('itemProfileCollectionStatistics', 0);
+        }
+    },
+            
+          
+            
+    partnerStatistic: function() {
+        //  this.set("profile_partner_ids", profile.get("profile_partner_ids"));
+        if (this.get('profile_partner_ids') !== null) {
+            var ids = this.get('profile_partner_ids').split(",");
+            this.set('itemProfilePartnerStatistics', ids.get('length'));
+        }
+        else
+        {
+            this.set('itemProfilePartnerStatistics', 0);
+        }
+    }
+});
+
+
+})();
+
+(function() {
+
+HubStar.LoginModalController = Ember.Controller.extend({
+ needs: ['application'],
+
+    init: function() {
+
+    },
+    closePopupLogin:function(){
+      HubStar.set('checkLoginStatus',false);
+    },
+     validateEmail: function(email)
+    {
+
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    },
+     login: function() {
+        if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
+        {
+            this.set('isWaiting', true);
+            document.getElementById("loginUsername").setAttribute("class", "login-textfield");
+            document.getElementById("loginPassword").setAttribute("class", "login-textfield");
+
+            var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
+            var that = this;
+            requiredBackEnd('login', 'login', loginInfo, 'POST', function(params) {
+                if (params === 1) {
+                    document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                    that.set('isWaiting', false);
+
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                }// INVALID user name when the user attempts to login.
+
+
+                else if (params === 0) {
+
+                    document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                    that.set('isWaiting', false);
+
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+
+                } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is a social network login account
+                else {
+
+                    if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
+                        localStorage.loginStatus = params.COUCHBASE_ID;
+             
+                 location.reload();
+                 HubStar.set('checkLoginStatus', false);
+                        that.set('loginUsername', "");
+                        that.set('loginPassword', "");
+
+                    }
+                    else {
+                        document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
+
+                        that.set('isWaiting', false);
+
+                        if ($('#incorrect-password').css('display') === 'none') {
+
+                            $('.black-tool-tip').stop();
+                            $('.black-tool-tip').css('display', 'none');
+                            $('#incorrect-password').animate({opacity: 'toggle'});
+                        }// INCORRECT PASSWORD; User is trying to login with incorrect password
+
+                    }
+                }
+            });
+        }
+    },
+    
+    signUp: function() {
+
+        if (this.checkSignupInfo()) {
+            var signupInfo = [this.get('email')];
+            requiredBackEnd('login', 'getemail', signupInfo, 'POST', function(params) {
+                if (params === 1) {
+                    $('#register-with-email-step-2').addClass('active-step');
+                    $('#click-register').addClass('active-tab');
+                    $('#register-with-email-step-2').animate({height: 'toggle'});
+                    $('#register-with-email-drop-down').animate({height: 'toggle'});
+                    checkSocial();
+                }
+                else if (params === 0) {
+
+                    document.getElementById("email").setAttribute("class", "login-textfield error-textfield");
+
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#email-used-by-social').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+
+                } // EMAIL ALREADY IN USE; The use has attempted to register with an email address that has already been used via 'register with social account'
+
+                else if (params === 2) {
+
+                    document.getElementById("email").setAttribute("class", "login-textfield error-textfield");
+
+
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#email-in-use').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+                }// EMAIL ALREADY IN USE; The user as attempted to register with an email address that is already in use
+            });
+        }
+    },
+    done: function() {
+        this.set('isWaiting', true);
+        var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
+        var that = this;
+        requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
+            localStorage.loginStatus = params.COUCHBASE_ID;
+            var emailInfo = [params.USER_NAME, params.PWD_HASH];
+            requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
+
+            });
+            setTimeout(function() {
+                location.reload();
+                that.set('first_name', "");
+                that.set('last_name', "");
+                that.set('email', "");
+                that.set('password', "");
+                that.set('region', "");
+                that.set('gender', "");
+                that.set('age', "");
+            }, 2000);
+        });
+    },
+    checkSignupInfo: function() {
+        function checkObject(id, input, lengthMin, lengthMax, isEmailValid)
+        {
+            this.id = id;
+            this.input = input;
+            this.lengthMin = lengthMin;
+            this.lengthMax = lengthMax;
+            this.isEmailValid = isEmailValid;
+        }
+        var checkList = new Array();
+        var result;
+        var first_name = new checkObject("first_name", this.get('first_name'), 0, 128, null);
+        checkList.push(first_name);
+        var last_name = new checkObject("last_name", this.get('last_name'), 0, 128, null);
+        checkList.push(last_name);
+        var email = new checkObject("email", this.get('email'), 0, 45, true);
+        checkList.push(email);
+        var password = new checkObject("password", this.get('password'), 6, 40, null);
+        checkList.push(password);
+
+        for (var i = 0; i < checkList.length; i++)
+        {
+            var patternEmail = /^(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}$/;
+            document.getElementById(checkList[i].id).setAttribute("class", "login-textfield");
+            if (checkList[i].input !== null && checkList[i].input !== "" && checkList[i].input !== undefined)
+            {
+                if (checkList[i].input.length > checkList[i].lengthMax || checkList[i].input.length < checkList[i].lengthMin)
+                {
+                    result = false;
+
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-password').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    break;
+
+                }
+            }// INVALID PASSWORD; the user has entered a  password that does not meet the requirements (6-40 characters long)
+
+
+            if (checkList[i].id === 'first_name' || checkList[i].id === 'last_name' || checkList[i].id === 'email' || checkList[i].id === 'password')
+            {
+                if (checkList[i].input === null || checkList[i].input === "" || checkList[i].input === undefined) {
+                    result = false;
+
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#missing-fields').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    break;
+
+
+                }
+            }//MISSING FIELDS; the user has not filled in all the mandatory fields
+
+
+            if (checkList[i].input !== null && checkList[i].isEmailValid === true)
+            {
+                if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
+                    result = true;
+                }
+                else {
+                    result = false;
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    break;
+                }// INVALID user name when the user attempts to login.
+            }
+        }
+        return result;
+    },
+    setmale: function() {
+        this.set('gender', "male");
+    },
+    setfemale: function() {
+        this.set('gender', "female");
+    },
+    dropdown: function(checking) {
+        this.set('isGeoDropdown', !this.get('isGeoDropdown'));
+        $('#geo-filter').toggleClass('Geo-Filter-active');
+    },
+    emailSend: function()
+    {
+
+        var signupInfo = [this.get('resetPasswordEmail')];
+        var that = this;
+        requiredBackEnd('login', 'resetemail', signupInfo, 'POST', function(params) {
+            if (params === 1) {
+
+
+                $('.black-tool-tip').stop();
+                $('.black-tool-tip').css('display', 'none');
+                $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+
+            }// INVALID EMAIL; The user has forgotten their password and inputted an invalid email address
+            else if (params === 0) {
+
+                $('.black-tool-tip').stop();
+                $('.black-tool-tip').css('display', 'none');
+                $('#invalid-account-type-reset').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+            }
+            else {
+                var emailInfo = [that.get('resetPasswordEmail'), params.USER_NAME, params.PWD_HASH];
+                requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
+                    if (params === 1) {
+                        $('.black-tool-tip').stop();
+                        $('.black-tool-tip').css('display', 'none');
+                        $('#new-password').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                        /* forgotten password email sent */
+                    }
+
+                });
+            }
+        });
+    }
+    
+    
+});
+>>>>>>> 1db18b2bae52056278548b59dca06d6d91465446
 
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var conversationtContent = this.get('messageContent');
@@ -5174,6 +5480,7 @@ HubStar.EditReplyController = Ember.Controller.extend({
  * and open the template in the editor.
  */
 
+<<<<<<< HEAD
 
 /* 
  * To change this template, choose Tools | Templates
@@ -5188,6 +5495,23 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
     isUploadPhoto: false,
     isInvitePeople: false,
     owner: "newConversation",
+=======
+HubStar.MegaController = Ember.ArrayController.extend({
+    content: [],
+    megaResouce: null,
+    temp: null,
+    image_no: 1,
+    selectedPhoto: null,
+    isSelected: false,
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'checkingLoginStatus'],
+    currentUser: null,
+    currentUserProfile: null,
+    photo_album_id: null,
+    photo_thumb_id: null,
+    is_authentic_user: false,
+    sharePhotoUrl: '',
+    sharePhotoName: '',
+>>>>>>> 1db18b2bae52056278548b59dca06d6d91465446
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -6466,6 +6790,7 @@ HubStar.MessageController = Ember.Controller.extend({
             }, 200);
         }
     },
+<<<<<<< HEAD
     close: function() {
         this.set('replyContent', "");
         this.set('newStyleImageSource', null);
@@ -6516,6 +6841,55 @@ HubStar.NewConversationController = Ember.Controller.extend({
         if (localStorage.loginStatus) {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
+=======
+    isParamExist: function(param)
+    {
+        var result = (param !== null && param !== undefined);
+        return result;
+    },
+    dropdownPhotoSetting: function() {
+        this.set('sharePhotoUrl', this.get('selectedPhoto').get('photo_image_thumbnail_url'));
+        this.set('sharePhotoName', this.get('selectedPhoto').get('photo_title'));
+        $('#dropdown_id_').toggleClass('hideClass');
+    },
+    switchCollection: function() {
+
+   if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+        var addCollectionController = this.get('controllers.addCollection');
+        var selectid = this.get('selectedPhoto').id;
+        addCollectionController.setImageID(selectid);
+        var tempUrl = this.get('selectedPhoto').get('photo_image_thumbnail_url');
+        addCollectionController.setThumbnailUrl(tempUrl);
+        addCollectionController.setUser();
+        addCollectionController.setRelatedController('photo');
+        this.set('collectable', !this.get('collectable'));
+        }
+    },
+    keydown: function(e) {
+        var currKey = 0, e = e || event;
+        currKey = e.keyCode || e.which || e.charCode;//支持IE、FF 
+        if (currKey === 27) {
+            window.history.back();
+            //document.getElementByIdx_xx_x("btn_selector").click();
+        }
+
+    },
+    closeWindow: function() {
+        this.set('collectable', false);
+        this.set('contact', false);
+        window.history.back();
+    },
+    editingContactForm: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            var contactController = this.get('controllers.contact');
+            var selectid = this.get('selectedPhoto').id;
+            contactController.setSelectedMega(selectid);
+            contactController.selectionCheckBox();
+
+            this.set('contact', !this.get('contact'));
+>>>>>>> 1db18b2bae52056278548b59dca06d6d91465446
         }
     },
     removePic: function() {
@@ -6782,11 +7156,11 @@ HubStar.NewConversationController = Ember.Controller.extend({
                 ).focus();
         return false;
     },
-      pShare: function() {
+    pShare: function() {
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
-        var url = 'http://www.pinterest.com/pin/create/button/?url=' +  encodeURIComponent(currntUrl)+          
-                  '&media='+ encodeURIComponent(this.get('selectedPhoto').get('photo_image_thumbnail_url'))+
-                  '&description='+encodeURIComponent(this.get('selectedPhoto').get('photo_title'));    
+        var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+                '&media=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_thumbnail_url')) +
+                '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title'));
         window.open(
                 url,
                 'popupwindow',
@@ -7626,7 +8000,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     is_authentic_user: false,
     keywords: "",
     last_name: "",
-    needs: ["profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor'],
+    needs: ["profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor','checkingLoginStatus'],
     name: "",
     facebook: "",
     twitter: "",
@@ -8056,11 +8430,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('uploadChecking', !this.get('uploadChecking'));
     },
     editingContactForm: function() {
+
+ if(this.get("controllers.checkingLoginStatus").popupLogin())
+         {
         this.sendEventTracking('event', 'button', 'click', 'Contact us');
         var contactController = this.get('controllers.contact');
 
         contactController.setSelectedMega(this.get('currentUserID'));
         this.set('contactChecking', !this.get('contactChecking'));
+        }
     },
     closeContact: function() {
         this.set('contactChecking', false);
@@ -8113,6 +8491,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     followThisProfile: function() {
+
+  if (this.get("controllers.checkingLoginStatus").popupLogin()){
         var profile_id = this.get('model').get('id');
         if (this.checkFollowStatus() === false) {
             this.get("controllers.userFollowings").followProfile(profile_id);
@@ -8123,7 +8503,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.sendEventTracking('event', 'button', 'click', 'unFollow');
             this.set('follow_status', false);
         }
-
+  }
 
     },
     socialLink: function(link) {
@@ -8179,6 +8559,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }, 200);
     },
     selectPartner: function(model) {
+ if (this.get("controllers.checkingLoginStatus").popupLogin())
+{
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Partners');
         HubStar.set("lastPositionId", model.id);
@@ -8197,11 +8579,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             $('#masonry_user_container').masonry("reload");
         }, 200);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 53ee17d9e7cbd97c135465914c347f3239bbc3f6
+=======
+}
+>>>>>>> 1db18b2bae52056278548b59dca06d6d91465446
     },
     selectFollower: function(model) {
+
+ if (this.get("controllers.checkingLoginStatus").popupLogin())
+     {
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Followers');
         this.set('profileSelectionStatus', 'Followers');
@@ -8221,7 +8610,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
-
+    }
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
@@ -11867,7 +12256,11 @@ HubStar.UserMessageController = Ember.Controller.extend({
 
             requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
                 //params  is just one message 
+<<<<<<< HEAD
                 that.set("isPosting", true);               
+=======
+                that.set("isPosting", true);
+>>>>>>> 1db18b2bae52056278548b59dca06d6d91465446
                 dataNew["message_id"] = params["message_id"];
                 dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
                 dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
@@ -12096,10 +12489,12 @@ HubStar.ArticleView = Ember.View.extend({
     },
     openComment: function() {
 
+
         $('#addcommetBut').attr('style', 'display:none');
         $('#commentBox').attr('style', 'display:block');
-
         $('.comment-insert-field').focus();
+   this.get("controller").get("controllers.checkingLoginStatus").popupLogin();
+
     },
     closeComment: function() {
 
@@ -12573,6 +12968,22 @@ HubStar.DiscoveryView = Ember.View.extend({
 
 (function() {
 
+HubStar.DoneEnterKeyTextFieldView = Ember.TextField.extend({
+
+       
+   keyDown: function(event) {
+    if (event.keyCode === 13) { 
+      this.get('controller').done();
+      
+    }
+  }
+    });
+
+
+})();
+
+(function() {
+
 HubStar.DropDownView = Ember.View.extend({
     templateName: 'dropDown',
     value: null,
@@ -12917,9 +13328,9 @@ HubStar.ItemView = Ember.View.extend({
         },
         checkingLoginStatus: function() {
 
+       
             var controller = this.get('controller');
             if (controller._debugContainerKey.indexOf("application") !== -1) {
-
 
                 if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
                     controller.set("popup", true);
@@ -12929,6 +13340,9 @@ HubStar.ItemView = Ember.View.extend({
                 
         transitionToArticle:function(){
 
+            
+            
+            
         },
 
         moreContent: function(event) {
@@ -12982,20 +13396,276 @@ HubStar.LoadingSpinnerView = Ember.View.extend({
 
 (function() {
 
-HubStar.LoginModalView = Ember.View.extend({
-      templateName: 'loginModal',
- 
-        didInsertElement: function() {
+HubStar.LoginEnterKeyTextFieldView = Ember.TextField.extend({
 
-            this.$().draggable({
-                cursor: "move",
-                scroll: true,
-                scrollSensitivity: 100
-            });
-
-
-        }
+       
+   keyDown: function(event) {
+    if (event.keyCode === 13) { 
+      this.get('controller').login();
+      
+    }
+  }
     });
+
+
+})();
+
+(function() {
+
+HubStar.LoginModalView = Ember.View.extend({
+    templateName: 'loginModal',
+    didInsertElement: function() {
+
+        $("#loginModal").on("click", function() {
+            HubStar.set('checkLoginStatus', false);
+
+        });
+
+//  
+//  $('.t-style-box .black-tool-tip').css('display', 'none');
+//        $('.t-style-box #click-register-social').css('display', 'none');
+//        $('.t-style-box #click-register').css('display', 'none');
+//        $('.t-style-box #social-link').css('display', 'none');
+//        $('.t-style-box #login-with-email-drop-down').css('display', 'block');
+//        $('.t-style-box #social-login-container').css('display', 'none');
+//        $('.t-style-box #click-login').addClass('active-tab');
+//        $('.t-style-box #social-login').removeClass('social-active');
+//        $('.t-style-box #user-forgot-password-pane').css('display', 'none');
+//        $('.t-style-box #forgot-message-container').css('display', 'none');
+//        $('.t-style-box #invalid-username').css('display', 'none');
+//
+//        $('.t-style-box #register-with-email-drop-down').css('display', 'none');
+//        $('.t-style-box #register-with-email-step-2').css('display', 'none');
+//        $('.t-style-box #user-login-pane').css('display', 'block');
+//  
+//  
+//  
+//                $(".t-style-box #social-login").click(function() {
+//
+//                    $('.t-style-box #social-login').removeClass('social-active');
+//                    $('.t-style-box #click-login').removeClass('active-tab');
+//                    if ($('.t-style-box #social-login-container').css('display') === 'block') {
+//                        $('.t-style-box #social-login-container').animate({height: 'toggle'});
+//                    }
+//                    /* LOGIN TAB:  hiding social login */
+//
+//                    if ($('.t-style-box #social-login-container').css('display') === 'none') {
+//                        $('.t-style-box #social-login-container').animate({height: 'toggle'}); 
+//                        $('.t-style-box #social-login').addClass('social-active');
+//                        if ($('.t-style-box #login-with-email-drop-down').css('display') === 'block') {
+//                            $('.t-style-box #login-with-email-drop-down').animate({height: 'toggle'});
+//                        }
+//                        if ($('.t-style-box #forgot-message-container').css('display') === 'block') {
+//                            $('.t-style-box #forgot-message-container').animate({opacity: 'toggle'});
+//                        }
+//                        if ($('.t-style-box #invalid-username').css('display') === 'block') {
+//                            $('.t-style-box #invalid-username').animate({opacity: 'toggle'});
+//                        }
+//                        if ($('.t-style-box #click-login').css('display') === 'none') {
+//                            $('.t-style-box #click-login').animate({opacity: 'toggle'});
+//                        }
+//                        if ($('.t-style-box #user-forgot-password-pane').css('display') === 'block') {
+//                            $('.t-style-box #user-forgot-password-pane').animate({height: 'toggle'});
+//                        }
+//
+//                        /* LOGIN TAB:  showing social login */
+//
+//                    }
+//                });
+//                $(".t-style-box #click-login").click(function() {
+//                    if ($('.t-style-box #login-with-email-drop-down').css('display') === 'block' && $('#click-login').hasClass('active-tab')) {
+//                        $('.t-style-box #click-login').removeClass('active-tab');
+//
+//                        $('.t-style-box #login-with-email-drop-down').animate({height: 'toggle'});
+//
+//                        if ($('.t-style-box #social-login-container').css('display') === 'block') {
+//                            $('.t-style-box #social-login-container').animate({height: 'toggle'});
+//                        }
+//                    }
+//                    /* LOGIN TAB: closing login with email */
+//
+//
+//                    if ($('.t-style-box #login-with-email-drop-down').css('display') === 'none') {
+//                        $('.t-style-box #social-login').removeClass('social-active');
+//                        $('.t-style-box #click-login').addClass('active-tab');
+//                        $('.t-style-box #login-with-email-drop-down').animate({height: 'toggle'});
+//
+//                        if ($('.t-style-box #social-login-container').css('display') === 'block') {
+//                            $('.t-style-box #social-login-container').animate({height: 'toggle'});
+//                        }
+//                    } /* LOGIN TAB: clicking login*/
+//                });
+//                $('.t-style-box #loginPassword > div').click(function() {
+//                    if ($('.t-style-box #login-with-email-drop-down').css('display')) {
+//                        $('.t-style-box #click-login').removeClass('active-tab');
+//
+//                        $('.t-style-box #login-with-email-drop-down').animate({height: 'toggle'});
+//                        $('.t-style-box #user-forgot-password-pane').animate({height: 'toggle'});
+//
+//                        if ($('.t-style-box #social-login-container').css('display') === 'block') {
+//                            $('.t-style-box #social-login-container').animate({height: 'toggle'});
+//
+//                        }
+//                        if ($('.t-style-box #forgot-message-container').css('display') === 'block') {
+//                            $('.t-style-box #forgot-message-container').animate({opacity: 'toggle'});
+//                        }
+//                        if ($('.t-style-box #click-login').css('display') === 'block') {
+//                            $('.t-style-box #click-login').animate({height: 'toggle'});
+//
+//                        }
+//                    }
+//                });
+//                /*  LOGIN TAB: show forget password pane */
+//
+//                $('.t-style-box #user-forgot-password-pane .back-btn').click(function() {
+//                    $('.t-style-box #user-forgot-password-pane').animate({height: 'toggle'});
+//                    $('.t-style-box #login-with-email-drop-down').animate({height: 'toggle'});
+//
+//                    if ($('.t-style-box #social-login-container').css('display') === 'block') {
+//                        $('.t-style-box #social-login-container').animate({height: 'toggle'});
+//
+//                    }
+//
+//
+//                });
+//                /* Back to login with email from forget password pane */
+//
+//
+//                $('.t-style-box #reset-btn').click(function() {
+//
+//                });
+//                /* forgot password function showing thank you message */
+//
+//
+//                $('.t-style-box #user-forgot-password-pane .back-btn').click(function() {
+//                    if ($('.t-style-box #forgot-message-container').css('display') === 'block') {
+//                        $('.t-style-box #forgot-message-container').animate({opacity: 'toggle'});
+//                    }
+//                });
+//                /* hiding thank you message when the user clicks the back btn */
+//
+//
+//
+//
+//
+//
+//                $(".t-style-box #click-register-social").click(function() {
+//
+//                    $('.t-style-box #click-register-social').removeClass('social-active');
+//                    $('.t-style-box #click-register').removeClass('active-tab');
+//                    if ($('.t-style-box #social-link').css('display') === 'block') {
+//                        $('.t-style-box #social-link').animate({height: 'toggle'});
+//                        if ($('.t-style-box #register-with-email-drop-down').css('display') === 'block') {
+//                            $('.t-style-box #register-with-email-drop-down').animate({height: 'toggle'});
+//                        }
+//                        if ($('.t-style-box #register-with-email-step-2').css('display') === 'block') {
+//                            $('.t-style-box #register-with-email-step-2').animate({height: 'toggle'});
+//                        }
+//                    }
+//                    /* hiding social login */
+//
+//                    if ($('.t-style-box #social-link').css('display') === 'none') {
+//                        $('.t-style-box #social-link').animate({height: 'toggle'});
+//                        $('.t-style-box #click-register-social').addClass('social-active');
+//                        if ($('.t-style-box #register-with-email-drop-down').css('display') === 'block') {
+//                            $('.t-style-box #register-with-email-drop-down').animate({height: 'toggle'});
+//                        }
+//                        if ($('.t-style-box #register-with-email-step-2').css('display') === 'block') {
+//                            $('.t-style-box #register-with-email-step-2').animate({height: 'toggle'});
+//                        }
+//                    }
+//                    /*  REGISTER TAB: showing social login section*/
+//
+//                });
+//
+//
+//
+//                $('.t-style-box #register-with-email-step-2 .back-btn').click(function() {
+//                    $('.t-style-box #register-with-email-step-2').removeClass('active-step');
+//                    $('.t-style-box #register-with-email-step-2').animate({height: 'toggle'});
+//                    $('.t-style-box #register-with-email-drop-down').animate({height: 'toggle'});
+//                    checkSocial();
+//                });
+//                /* going back to step 1 function*/
+//
+//
+//                $(".register-clicker").click(function() {
+//
+//                    if ($('#register-with-email-step-2').hasClass('active-step')) {
+//                        //alert('closing step2');
+//
+//                        $('#social-link').animate({height: 'toggle'});
+//                        $('#register-with-email-step-2').animate({height: 'toggle'});
+//                        if ($('#click-register').hasClass('active-tab')) {
+//                            $('#click-register').removeClass('active-tab');
+//                            /* closing step */
+//                        }
+//
+//                        else {
+//                            $('#click-register').addClass('active-tab');
+//                            /* opening step */
+//                        }
+//
+//                    }
+//                    /* closing/opening register section while on step 2 function */
+//
+//                    if ($('.t-style-box #register-with-email-drop-down').css('display') === 'block' && $('#click-register').hasClass('active-tab')) {
+//                        //alert('closing step1');
+//                        $('.t-style-box #click-register').removeClass('active-tab');
+//                        $('.t-style-box #social-link').animate({height: 'toggle'});
+//                        $('.t-style-box #register-with-email-drop-down').animate({height: 'toggle'});
+//                        $('.t-style-box #click-register-social').addClass('social-active');
+//                    }
+//                    /* closing register section while on step 1 function */
+//
+//
+//                    if ($('.t-style-box #register-with-email-drop-down').css('display') === 'none' && $('#register-with-email-step-2').hasClass('')) {
+//                        //alert('opening step 1');
+//                        $('.t-style-box #click-register-social').removeClass('social-active');
+//                        $('.t-style-box #click-register').addClass('active-tab');
+//                        $('.t-style-box #register-with-email-drop-down').animate({height: 'toggle'});
+//                        checkSocial();
+//                    }
+//                    /* clicking register step 1 function*/
+//
+//                });
+//
+//
+//              
+//
+//
+//                function checkSocial() {
+//                    if ($('.t-style-box #social-link').css('display') === 'block') {
+//                        $('.t-style-box #social-link').animate({height: 'toggle'});
+//                    }
+//                    else {
+//                    }
+//                }
+//                /* close social login checker function */
+//
+//
+//                $('.login-select').click(function() {
+//                    $('.login-select').removeClass('login-selected');
+//                    $(this).addClass('login-selected');
+//                });
+//                /* select gender function */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+});
 
 
 
@@ -13454,6 +14124,7 @@ HubStar.PhotoView = Ember.View.extend({
         $('#commentBox').attr('style', 'display:block');
 
         $('.comment-insert-field').focus();
+          this.get("controller").get("controllers.checkingLoginStatus").popupLogin();
     },
     closeComment: function() {
 
@@ -13720,6 +14391,22 @@ HubStar.QuickstartView = Ember.View.extend({
   templateName: 'quickstart'
  
   });
+
+
+})();
+
+(function() {
+
+HubStar.RegisterEnterKeyTextFieldView = Ember.TextField.extend({
+
+       
+   keyDown: function(event) {
+    if (event.keyCode === 13) { 
+      this.get('controller').signUp();
+      
+    }
+  }
+    });
 
 
 })();

@@ -5,9 +5,9 @@
 
 {{/if}}
 {{#if controller.is_authentic_user}}
-<div class="box style-box t-style-box col2" id="addNew" style="z-index: 0">    
-    <div id="uploadObject" >
-         <div class="add-new-object-hoverarea easing">
+<div class="box style-box t-style-box col2" {{action videoCreateModeSwitch}} id="addNewVideo" style="z-index: 0">    
+     <div id="uploadVideoObject" >
+        <div class="add-new-object-hoverarea easing">
 
             <i class="icon-plus-sign"></i>
         </div>
@@ -18,31 +18,20 @@
                 <i class="icon-picture"></i>
                 <i class="icon-film"></i>
             </div>
-          
+
         </div>
     </div>
-    {{view HubStar.EditCollectionView}}
+
 </div>
 {{/if}}
+{{#each  videoesContent}}
 
-{{#each  content}}
-<div class="box col2 noStyle1">
-    <div class="masonry-object">            
-        {{render itemProfiles this}}
 
-        {{render "comment" this}}
-    </div>
-</div>
+
+        {{view HubStar.ItemView}}
 
 
 {{/each}}
-
-
-
-
-
-
-
 
 
 
@@ -51,3 +40,8 @@
 {{view HubStar.DeleteFunctionView}}
 
 {{/if}}
+
+{{#if controller.is_video_create_mode}}
+{{render addVideo}}
+{{/if}}
+

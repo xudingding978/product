@@ -2,12 +2,14 @@
 HubStar.ArticleController = Ember.Controller.extend({
     content: [],
     image_no: 1,
-    selectedPhoto: null,
+    selectedPhoto: null,         
     captionTitle: "",
     readCaption: true,
     caption: '',
-    needs: ['application', 'addCollection', 'contact','applicationFeedback'],
+    checkLoginStatus:false,
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus'],
     init: function() {
+  
     },
     findSelectedItemIndex: function() {
         content = this.get('content');
@@ -167,7 +169,10 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.get("controllers.contact").set('secondStepOfContactEmail', false);
         var selectid = this.get('selectedPhoto').id;
         contactController.setSelectedMega(selectid);
-        this.set('contact', !this.get('contact'));
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            this.set('contact', !this.get('contact'));
+        }
     },
     closeContact: function() {
         this.set('contact', false);
@@ -205,7 +210,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         if (this.get('articleResouce').get("article_body") !== null)
         {
-            caption =this.get('articleResouce').get("article_body");
+            caption = this.get('articleResouce').get("article_body");
         }
         else
         {
@@ -236,9 +241,9 @@ HubStar.ArticleController = Ember.Controller.extend({
     //share to social google plus
     gpShare: function() {
         var caption = '';
-       if (this.get('articleResouce').get("article_body") !== null)
+        if (this.get('articleResouce').get("article_body") !== null)
         {
-            caption =this.get('articleResouce').get("article_body");
+            caption = this.get('articleResouce').get("article_body");
         }
         else
         {

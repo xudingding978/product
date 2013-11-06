@@ -365,6 +365,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
 
         }
+
     },
     socialLink: function(link) {
         if (link === 'facebook') {
@@ -697,6 +698,10 @@ HubStar.UserController = Ember.Controller.extend({
 
 
     },
+            
+            
+            
+            
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
             var thisCollection = this.get("collections").objectAt(i);

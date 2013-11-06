@@ -468,7 +468,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
          {
         this.sendEventTracking('event', 'button', 'click', 'Contact us');
         var contactController = this.get('controllers.contact');
-         this.get("controllers.contact").set("firstStepOfContactEmail",true);
+
+        this.get("controllers.contact").set('secondStepOfContactEmail', false);
+        this.get("controllers.contact").set('firstStepOfContactEmail', false);
+
         contactController.setSelectedMega(this.get('currentUserID'));
         this.set('contactChecking', !this.get('contactChecking'));
         }
@@ -827,6 +830,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 that.set('currentWidth', width);
                 that.set('currentHeight', height);
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
+
 
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))

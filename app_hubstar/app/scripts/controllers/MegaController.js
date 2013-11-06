@@ -130,23 +130,25 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     switchCollection: function() {
 
-   if (this.get("controllers.checkingLoginStatus").popupLogin())
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-        var addCollectionController = this.get('controllers.addCollection');
-        var selectid = this.get('selectedPhoto').id;
-        addCollectionController.setImageID(selectid);
-        var tempUrl = this.get('selectedPhoto').get('photo_image_thumbnail_url');
-        addCollectionController.setThumbnailUrl(tempUrl);
-        addCollectionController.setUser();
-        addCollectionController.setRelatedController('photo');
-        this.set('collectable', !this.get('collectable'));
+            var addCollectionController = this.get('controllers.addCollection');
+            var selectid = this.get('selectedPhoto').id;
+            addCollectionController.setImageID(selectid);
+            var tempUrl = this.get('selectedPhoto').get('photo_image_thumbnail_url');
+            addCollectionController.setThumbnailUrl(tempUrl);
+            addCollectionController.setUser();
+            addCollectionController.setRelatedController('photo');
+            this.set('collectable', !this.get('collectable'));
         }
     },
     keydown: function(e) {
         var currKey = 0, e = e || event;
+
         currKey = e.keyCode || e.which || e.charCode;    //支持IE、FF 
         if (currKey === 27) {
             window.history.back();
+
         }
 
     },
@@ -156,17 +158,22 @@ HubStar.MegaController = Ember.ArrayController.extend({
         window.history.back();
     },
     editingContactForm: function() {
+
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
             var contactController = this.get('controllers.contact');
             var selectid = this.get('selectedPhoto').id;
+            this.get("controllers.contact").set('secondStepOfContactEmail', false);
+            this.get("controllers.contact").set('firstStepOfContactEmail', false);
             contactController.setSelectedMega(selectid);
             contactController.selectionCheckBox();
 
             this.set('contact', !this.get('contact'));
+            }
+
         }
-    },
-    closeContact: function() {
+        ,
+                closeContact: function() {
         this.set('contact', false);
     },
     addComment: function() {
@@ -302,10 +309,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     pShare: function() {
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
-        var url = 'http://www.pinterest.com/pin/create/button/?url=' +  encodeURIComponent(currntUrl)+          
-                  '&media='+ encodeURIComponent(this.get('selectedPhoto').get('photo_image_original_url'))+
-                  '&description='+encodeURIComponent(this.get('selectedPhoto').get('photo_title'));    
-        window.open(
+
+                var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+                '&media=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_original_url')) +
+                '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title'));
+                window.open(
                 url,
                 'popupwindow',
                 'height=436,width=626'

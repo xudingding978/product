@@ -6,8 +6,10 @@ HubStar.ArticleController = Ember.Controller.extend({
     captionTitle: "",
     readCaption: true,
     caption: '',
+
     checkLoginStatus:false,
     needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus'],
+
     init: function() {
   
     },
@@ -165,8 +167,10 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     editingContactForm: function() {
         var contactController = this.get('controllers.contact');
+
         this.get("controllers.contact").set("firstStepOfContactEmail",false);      
         this.get("controllers.contact").set('secondStepOfContactEmail', false);
+
         var selectid = this.get('selectedPhoto').id;
         contactController.setSelectedMega(selectid);
         if (this.get("controllers.checkingLoginStatus").popupLogin())

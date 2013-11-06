@@ -89,10 +89,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     isPhotoUploadMode: false,
     isPhotoEditingMode: false,
     isCrop: false,
-
     isUpload: false,
     loadingTime: false,
-
     isFinished: false,
     isProfilePicture: false,
     isProfileHero: false,
@@ -126,9 +124,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     goToProfileRoute: function(id)
     {
-     //   $('#user-stats > li').removeClass('selected-user-stats');
+        //   $('#user-stats > li').removeClass('selected-user-stats');
 //this.setProfile(id);
-      this.transitionToRoute('profile');
+        this.transitionToRoute('profile');
 //       $('#user-stats > li').removeClass('selected-user-stats');
 //        $('#defualt').addClass('selected-user-stats');
     },
@@ -184,7 +182,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.isFollowed();
         this.checkAuthenticUser();
-      this.labelBarRefresh();
+        this.labelBarRefresh();
 
         //  this.set('profileSelectionStatus', 'Collections');
         //this.selectCollection();
@@ -470,7 +468,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     editingContactForm: function() {
         this.sendEventTracking('event', 'button', 'click', 'Contact us');
         var contactController = this.get('controllers.contact');
-
+        this.get("controllers.contact").set('secondStepOfContactEmail', false);
+        this.get("controllers.contact").set('firstStepOfContactEmail', false);
         contactController.setSelectedMega(this.get('currentUserID'));
         this.set('contactChecking', !this.get('contactChecking'));
     },
@@ -576,7 +575,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectCollection: function() {
 
-     $('#user-stats > li').removeClass('selected-user-stats');
+        $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
 
         this.sendEventTracking('event', 'button', 'click', 'Collections');
@@ -807,11 +806,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 that.set('currentHeight', height);
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
 
-               
+
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))
                     {
-                           
+
                         if (that.get('isUpload') === true) {
                             //    that.set('isCrop', false);
                             that.setTempImage();
@@ -826,9 +825,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             'newStyleImageName': that.get('newStyleImageName'),
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': that.get('model.id')};
-                         that.set('loadingTime', true);
+                        that.set('loadingTime', true);
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
-                     //     $('#uploadStyleImg').attr("style", "display:none");
+                            //     $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoEditingMode', false);
                             that.set('isPhotoUploadMode', false);
                             that.set('isFinished', true);
@@ -843,7 +842,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
 
                     else if (width < params.width || height < params.height) {
-                        that.set('loadingTime', false);  
+                        that.set('loadingTime', false);
                         that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height);
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");

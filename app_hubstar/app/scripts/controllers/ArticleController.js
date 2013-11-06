@@ -6,7 +6,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     captionTitle: "",
     readCaption: true,
     caption: '',
-    needs: ['application', 'addCollection', 'contact','applicationFeedback'],
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback'],
     init: function() {
     },
     findSelectedItemIndex: function() {
@@ -163,7 +163,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     editingContactForm: function() {
         var contactController = this.get('controllers.contact');
-
+        
         var selectid = this.get('selectedPhoto').id;
         contactController.setSelectedMega(selectid);
         this.set('contact', !this.get('contact'));
@@ -208,7 +208,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         if (this.get('articleResouce').get("article_body") !== null)
         {
-            caption =this.get('articleResouce').get("article_body");
+            caption = this.get('articleResouce').get("article_body");
         }
         else
         {
@@ -239,9 +239,9 @@ HubStar.ArticleController = Ember.Controller.extend({
     //share to social google plus
     gpShare: function() {
         var caption = '';
-       if (this.get('articleResouce').get("article_body") !== null)
+        if (this.get('articleResouce').get("article_body") !== null)
         {
-            caption =this.get('articleResouce').get("article_body");
+            caption = this.get('articleResouce').get("article_body");
         }
         else
         {

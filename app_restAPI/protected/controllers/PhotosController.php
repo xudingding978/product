@@ -454,23 +454,7 @@ class PhotosController extends Controller {
             ));
         }
     }
-    
-    
-//    public function saveMapToS3($url, $data, $bucket) {
-//
-//        $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
-//        $client = Aws\S3\S3Client::factory(
-//                        $arr
-//        );
-//       
-//            $client->putObject(array(
-//                'Bucket' => $bucket, //"s3.hubsrv.com"
-//                'Key' => $url,
-//                'Body' => $data,             
-//                'ACL' => 'public-read'
-//            ));
-//       
-//    }
+
 
     public function removeS3Record($mega) {
         $bucket = 's3.hubsrv.com';

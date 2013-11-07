@@ -53,7 +53,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         {
             var arrayUrl;
             arrayUrl = (document.URL).split("/");
-            var locationUrl = arrayUrl.get("length") - 2;
+            var locationUrl = arrayUrl.get("length") - 3;
 
             var results = HubStar.Collection.find({RquireType: "personalCollection", profile_id: arrayUrl[locationUrl], collection_id: collection_id});
             var that = this;
@@ -79,26 +79,26 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         if (user_id === "profiles")
         {
             // this.
-            this.get('controllers.profile').goToProfileRoute();
+            window.history.back();
         }
         else if (user_id === "users")
         {
             this.get('controllers.user').goToUserRoute();
-            }
-
-            var lastposition = HubStar.get("scrollCollectionPosition");
-
-            setTimeout(function() {
-
-                $(window).scrollTop(lastposition);
-
-            }, 200);
-
-
-
         }
-        ,
-                newUpload: function() {
+
+  //       lastposition = HubStar.get("scrollCollectionPosition");
+
+        setTimeout(function() {
+
+            $(window).scrollTop(lastposition);
+
+        }, 200);
+
+
+
+    }
+    ,
+    newUpload: function() {
 
         $('#ownerUpload').attr('style', 'display:block');
         $('#tagetUplaod').attr('style', 'display:none');
@@ -172,7 +172,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     },
     reLayout: function() {
 
-                setTimeout(function() {
+        setTimeout(function() {
             $('#masonry_photo_collection_container').masonry("reload");
         }, 1000);
     },

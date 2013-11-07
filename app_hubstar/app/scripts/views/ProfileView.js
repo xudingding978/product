@@ -9,7 +9,6 @@ HubStar.ProfileView = Ember.View.extend({
                 isFitWidth: true
             });
         });
-
         var address = document.URL;
         var displayTap = address.split("#")[1].split("/")[3];
 

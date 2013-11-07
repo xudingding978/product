@@ -123,6 +123,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     willDelete: false,
     profile_partner_ids: null,
     isTracking: false,
+    goBackType:false,
     cropsize: null,
     init: function() {
 
@@ -131,7 +132,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     goToProfileRoute: function(id)
     {
-        this.transitionToRoute('profile');
+        //this.transitionToRoute('user');
+      this.set("goBackType", true);
+     var model = {id:id};
+        this.transitionToRoute('profile',model);
     },
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);
@@ -782,7 +786,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //        this.saveUpdate();
 //    },
     addKeywords: function() {
-        console.log('add_keywords');
         var keywords_JSON = [];
         var add_keywords_array = this.get('add_keywords').split(',');
         if (this.get('keywords_array').get('length') + add_keywords_array.get('length') <= this.get('keyword_num')) {
@@ -802,7 +805,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var keyword_id = new Date().getTime() + Math.random().toString().substring(2, 7);
         var keyword = HubStar.Keyword.createRecord({"keyword_id": keyword_id, "keyword_name": keyword_name, "create_date": new Date().getTime(),
             "expire_date": null, "value": null, 'profile_id': this.get('model').get('id'), 'collection_id': null, "is_delete": false});
-        console.log(keyword_name);
         this.get('keywords_array').pushObject(keyword);
         return keyword;
     },

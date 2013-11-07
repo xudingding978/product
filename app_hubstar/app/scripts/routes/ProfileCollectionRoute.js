@@ -15,6 +15,9 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
         this.controllerFor('profile').set('switchPhoto', false);
         this.controllerFor('masonryCollectionItems').set('uploadStuff', true);
         this.controllerFor('masonryCollectionItems').set('canEditbyOwner', true);
+        setTimeout(function() {
+            $('#masonry_photo_collection_container').masonry("reload");
+        }, 3000);
 
     },
     model: function(params) {

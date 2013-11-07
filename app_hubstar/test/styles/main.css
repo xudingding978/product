@@ -7352,8 +7352,7 @@ body > div.ember-view{
     width: 100%;
     position: fixed;
     height: 100%;
-    opacity: 0.6;
-    background-color: white;
+    background-color: transparent;
 }
 
 .blur_black{
@@ -7406,6 +7405,11 @@ div.search-loading-invisible{
 
 }
 
+.masonry_show-comment .addCollection-container{
+    top:20%;
+    margin-left:-240px;
+    left:50%;
+}
 
 /*/WindowContainer-------------------/*/
 .window-container {
@@ -8530,6 +8534,7 @@ div.loading-visible{
 
 }
 
+
 /*BASIC STYLE*/
 
 #master_bg
@@ -9271,10 +9276,11 @@ div.album-description-bg{
 }
 
 .profilepic-on-masonry{
-    width: 46px;
-    height: 46px;
+    max-width: 46px;
+    max-height: 60px;
+
     float: left;
-    margin: 20px 15px 0 0;
+    margin: 15px 15px 12px 0;
     padding: 0;
     -webkit-border-radius: 5px;
     -o-border-radius: 5px;
@@ -9282,9 +9288,9 @@ div.album-description-bg{
     -moz-border-radius: 5px;
     border-radius: 5px;
     overflow: hidden;
-    margin-bottom:12px;
     position:relative;
     z-index:1;
+    cursor: pointer;
 }
 
 .object_username{
@@ -9308,6 +9314,8 @@ div.album-description-bg{
     /* background:#e5e5e5; */
     min-height:150px
 }
+
+.mainfeature-wrapper:hover > .hover-opacity{opacity: 1}
 
 .edit-object{
     opacity: 0;
@@ -9346,9 +9354,10 @@ div.album-description-bg{
 }
 
 .masonry-object_text-container{
-
+    overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .more_detail{
     color: #555;
     width: 300px;
@@ -9381,7 +9390,7 @@ div.album-description-bg{
 
 .masonry-object_interact{
     margin: 20px 0 0 0; /* was margin: 20px 0 10px 0; */
-    overflow:hidden;
+    /* overflow:hidden; */
     border-top: 1px solid #e5e5e5;
     /* border-bottom: 1px solid #e5e5e5; */
     -webkit-border-radius: 0 0 2px 2px;
@@ -9396,6 +9405,23 @@ div.album-description-bg{
     margin: 16px auto 12px;
     width: 87%;
 }
+.masonry_show-comment .edit-object-ul{
+    position:absolute;
+    left:-61px!important;
+    top:40px;
+}
+.masonry_show-comment .edit-object-ul:after{
+    content: "";
+    position: absolute;
+    left: 65px;
+    top: -21px;
+    border-color: transparent transparent #ccc transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: -1;	
+}
+
+
 
 .masonry_dropdownicon{
     display: inline-block;
@@ -9693,8 +9719,8 @@ div.album-description-bg{
 }
 
 .profilepic/* for a*/{
-    width: 46px;
-    height: 46px;
+    max-width: 46px;
+    max-height: 60px;
     float: left;
     padding: 0px;
     border-radius: 5px 5px 5px 5px;
@@ -9721,8 +9747,8 @@ div.album-description-bg{
     position: relative;
     top: 3px;
     display: inline-block;
-    min-width: 178px;
-    max-width:80%;
+    min-width: 170px;
+    width: 60%;
 }
 
 .poster-name{
@@ -9773,7 +9799,7 @@ div.album-description-bg{
 }
 
 .collapes-container_inner{
-    padding: 15px 0;
+    padding: 30px 0;
     width: 87%;
     margin: auto;
     border-bottom: 1px solid rgba(0,0,0,.03)
@@ -10060,7 +10086,7 @@ div.album-description-bg{
 
 
 .article-title{
-    font-size: 18px;
+    font-size: 28px;
     font-weight: bold;
     line-height: 20px;
     margin-bottom: 10px;
@@ -10071,10 +10097,22 @@ div.album-description-bg{
     line-height: 16px;
 }
 
-.article-text > p{
+.caption-title{
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+
+.caption-text{
     font-size: 13px;
-    color: #555;
     line-height: 16px;
+}
+
+.article-text > p{
+    font-size: 15px;
+    color: #555;
+    line-height: 20px;
     margin-bottom: 12px;
 }
 
@@ -10098,6 +10136,7 @@ div.album-description-bg{
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #aaa;
+    float:left;
 }
 
 .show-comment_inner{
@@ -10135,6 +10174,7 @@ div.album-description-bg{
 .comment-item{
     position: relative;
     width: auto;
+    height: auto;
     display: block;
     margin: 5px 0;
     overflow-wrap: break-word;
@@ -10261,16 +10301,17 @@ div.album-description-bg{
 }
 
 .add-collection_select-collection{
-    width: 335px;
-    height: 250px;
-    padding: 15px;
+    width: 325px;
+    height: 240px;
+    padding: 10px;
     position: absolute;
-    left: 130px;
-    top: 55px;
+    left: 4px;
+    top: 50px;
     background: #fff;
     -webkit-box-shadow: 0 0px 1px #888;
     -moz-box-shadow: 0 0px 1px #888;
     box-shadow: 0 0px 1px #888;
+    z-index: 11;
 }
 
 .edit-btn{
@@ -10346,6 +10387,10 @@ div.album-description-bg{
 }
 /* tool-tips for profile items  ENDS - 9/10/13 clint */
 
+.no-effect, .no-effect:hover, .no-effect:focus{    
+    box-shadow: none;
+    border: none;
+}
 
 textarea{
     padding: 3px 8px !important;
@@ -10357,6 +10402,12 @@ input{
     height: 30px;
     line-height: 30px !important;
 }
+
+.no-effect, .no-effect:hover, .no-effect:focus{    
+    box-shadow: none !important;
+    border: none !important;
+}
+
 
 .insetbox-shadow {
     -moz-box-shadow:    inset 1px 1px 3px #aaa;
@@ -10763,7 +10814,53 @@ input{
     position: relative;
 }
 
+div#appfeedback{
+
+    position:fixed;
+    z-index: 100000;
+    text-align: center;
+    top: -80px;
+    width: 100%;
+}
+
+div#appfeedback div.fresh-profile-pic > img:first-child
+{
+    height: 80px;
+    width: 80px;
+    z-index: 1;
+    top: -3px;
+    position: relative; 
+}
+div#appfeedback div.fresh-profile-pic > img:last-child
+{
+    height: 80px;
+    width: 80px;
+    z-index: 2;
+    position: absolute;
+    top: -3px;
+    left: 0;
+}
+div#appfeedback .fresh-message > span.feed-back{float:left;max-width:85%;overflow:hidden;margin-left:10%;text-align:left;}
+
+div#appfeedback .fresh-message > k.icon-remove{
+    position:absolute;
+    top:1px;
+    right:2px;
+    font-size:16px;
+    margin:0;
+
+}
+div#appfeedback .fresh-message k.icon-ok-sign{
+    position:absolute;
+    top:11.5px;
+    left:2.5%;
+    width:5%;
+}
+
+
+
 .fresh-message{
+    position:relative;
     line-height: 50px;
     font-size: 18px;
     font-weight: normal;
@@ -10783,10 +10880,12 @@ input{
 
     display: inline-block;
     width: auto;
-    min-width: 500px;
+    min-width:600px;
     position: relative;
     vertical-align: top;
     margin-left: -20px;
+
+    overflow:hidden;
 }
 
 .fresh-message > k{
@@ -10841,11 +10940,6 @@ input{
     float:left;
     width:65%;
     padding:0 5px;
-    /* padding: 20px 5px; 
-     position:absolute;
-     width:65%;
-     top:-180px;
-     left:17.5%; */
 }
 
 
@@ -10858,17 +10952,18 @@ input{
     margin:auto;
     min-width:553px;
 }
+
 .premium > div > table  .profileaside > .profileaside_content .aside-container{
     padding: 20px 0;
-    border-bottom: 1px solid #ccc;
+    border-bottom:1px solid #ccc;
+    border-top: 1px solid #fff;
     font-size: 14px;
-    margin: auto;
-    width: 95%;
+    width: 90%;
+    margin: 0 auto;
 }
-.flip .front .main_aboutus
-{
-    display:none;
-}
+
+.flip .front .main_aboutus{display:none;}
+
 /* paid profile ENDS, Clint Rex Lewis 4/9/13 */
 
 
@@ -11025,6 +11120,13 @@ textarea.add-interests{
 
 .crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
 
+
+
+
+/*Latest follower*/
+
+
+
 .LatestFollower{
     text-align: center;
     width: 300px;
@@ -11054,18 +11156,160 @@ textarea.add-interests{
     font-weight: bold;
     color: #888;
     position: relative;
-    width: 100%;
+    width: 90%;
     clear: both;
     margin: 0 auto;
     opacity: .8;
     cursor: pointer;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
 }
 
 .Followed-by:hover{opacity: 1}   
 
 
 
+/*CLIENT KEYWORDS STYLE   by Colin 11st Oct 2013 --------------start*/
 
+.Client-Keywords-tags{
+    margin:0;
+    padding:0;
+    position:relative;
+    list-style:none;
+}
+
+.Client-Keywords-tags li{
+    float:left;
+    height:30px;
+    line-height:30px;
+    position:relative;
+    font-size:13px;
+
+    margin: 3px 5px;
+}
+
+.tags-before{
+    display: inline-block;
+    height: 30px;
+    width: 20px;
+    background: #0089e0;
+    color: #fff;
+
+    border-radius: 1px 0 0 1px;
+    -webkit-border-radius: 1px 0 0 1px;
+    -moz-border-radius: 1px 0 0 1px;
+    -o-border-radius: 1px 0 0 1px;
+}
+
+.tags-before:before{
+    content: "";
+    float: left;
+    position: absolute;
+    top: 0;
+    left: -12px;
+    width: 0;
+    height: 0;
+    border-color: transparent #0089e0 transparent transparent;
+    border-style: solid;
+    border-width: 15px 12px 15px 0;
+}
+
+.tags-before:after{
+    content:"";
+    position:absolute;
+    top:12px;
+    left:0;
+    float:left;
+    width:4px;
+    height:4px;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+    background:#fff;
+    -moz-box-shadow:-1px -1px 2px #004977;
+    -webkit-box-shadow:-1px -1px 2px #004977;
+    box-shadow:-1px -1px 2px #004977;
+}
+
+.Client-Keywords-tags > li > a{
+    position: relative;
+    top: -11px;
+    padding: 7px 20px 7px 0px;
+    background: #fff;
+    color: #888;
+    font-weight: bold;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    cursor: pointer;
+
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+}
+
+.Client-Keywords-tags > li > a:before{
+    content: "";
+    float: left;
+
+    position: absolute;
+    top: 0;
+    left: -12px;
+    width: 0;
+    height: 0;
+    border-color: transparent #fff transparent transparent;
+    border-style: solid;
+    border-width: 15px 12px 15px 0;
+}
+
+.Client-Keywords-tags > li > a:after {
+    content: "";
+    position: absolute;
+    float: right;
+    top: -1px;
+    right: -1px;
+    width: 0;
+    height: 0;
+    border-color: transparent #f2f0f0 transparent transparent;
+    border-style: solid;
+    border-width: 17px 16px 16px 0;
+}
+
+
+.Client-Keywords-tags > li > a:hover{background-color: #f4f6f8;color: #555}
+.Client-Keywords-tags > li > a:hover:before{border-color:transparent #f4f6f8 transparent transparent;}
+
+.Client-dashboard-keywords{
+
+}
+
+.message-btn-x{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: default;
+    opacity: .8;
+    background-color: #e3e3e3;
+    color: #999;
+}
+
+
+.keyword-pool{
+    margin: 0 0 5px; 
+    width: 100%; 
+    min-height: 200px;
+    padding: 5px 8px;
+}
+
+.keyword-pool > div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+/*CLIENT KEYWORDS STYLE   by Colin 11st Oct 2013 --------------end*/
 
 
 /*MESSAGE CENTER STYLE FROM HERE*/
@@ -11083,45 +11327,9 @@ textarea.add-interests{
     opacity: .8;
 }
 
-.message-btn:hover{
-    opacity: 1;
-
-    -webkit-box-shadow: inset 0 -2px 0 #ddd;
-    -o-box-shadow: inset 0 -2px 0 #ddd;
-    -ms-box-shadow: inset 0 -2px 0 #ddd;
-    -moz-box-shadow: inset 0 -2px 0 #ddd;
-    box-shadow: inset 0 -2px 0 #ddd;
-    background-color: #fff;
-}
-
-.message-btn:active{
-    opacity: 1;
-    background-color: #08c;
-    color: #fff;
-
-    -webkit-box-shadow: inset 0 2px 0 #ddd;
-    -o-box-shadow: inset 0 2px 0 #ddd;
-    -ms-box-shadow: inset 0 2px 0 #ddd;
-    -moz-box-shadow: inset 0 2px 0 #ddd;
-    box-shadow: inset 0 2px 0 #ddd;
-}
-
-
-.Message-Board_comment-item{
-    position: relative;
-    width: auto;
-    display: block;
-    overflow-wrap: break-word;
-    overflow-x: hidden;
-    padding: 10px 6.5%;
-
-    border-bottom: 1px solid #eee;
-    border-top: #f3f3f3;
-}
-
 .mCSB_container > div:nth-child(odd){background-color: #fff}
 .mCSB_container > div:nth-child(even){background-color: #f4f6f8}
-.mCSB_container > div:hover{background-color: rgba(220,220,220,.1);
+.mCSB_container > div:hover{background-color: rgba(200,200,200,.1);
                             -webkit-transition: all 0.5s ease;
                             -moz-transition: all 0.5s ease;
                             -o-transition: all 0.5s ease;}
@@ -11130,11 +11338,10 @@ textarea.add-interests{
 
 .Message-Board_comment-container .profilepic-comment-container{ left: 6.5%; top: 18px;}
 .your-relpy_profilepic{
-    position: absolute;
-    right: 6.5%;
-    margin: 3px 0 0;
+    position:absolute;
+    right:6.5%;
+    margin:3px 0 0;
 }
-
 
 .your-relpy{
     padding: 10px 50px 10px 0;
@@ -11267,6 +11474,7 @@ textarea.add-interests{
     font-size: 13px;
     top: -10px;
     right: -12px;
+    cursor: pointer;
 
     opacity: .6;
 }
@@ -11274,14 +11482,70 @@ textarea.add-interests{
 .remove-comment-photo:hover{opacity: 1;}
 
 
-
-
-
-
 .crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
 
+.create-conversation{
+    height: 69px;
+    width: 70px;
+    float: right;
+    opacity: .7;
+    color: #888;
+    font-size: 18px;
+    line-height: 73px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.create-conversation:hover{
+    background-color: #fff;
+    opacity: 1;
+}
+
+.each-conversation{
+    min-height: 100px; 
+    width: 100%; 
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #fff;
+    cursor: pointer;
+}
+
+.each-conversation:hover{
+    background-color: rgba(5,5,5,.1) !important;
+}
 
 
+.Message-menu-messages-container > div:nth-child(odd){background-color: #fff}
+.Message-menu-messages-container > div:nth-child(even){background-color: #f4f6f8}
+
+
+.invite-this-friend{
+    background-color: #000;
+    opacity: 0;
+
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    line-height: 22px;
+    font-size: 13px;
+    text-align: center;
+    margin-right: -2px;
+}
+
+.invite-friend{
+    float: left; 
+    margin: 10px;
+    position: relative;
+    display: block;
+}
+
+.invite-friend:hover > .invite-this-friend{opacity: .8}
+
+
+.selected-conversation{background-color: #555 !important;}
+
+.selected-conversation .comment-username, .selected-conversation .comment-content, .selected-conversation .icon-trash{color: #fff !important}
 
 /*STAR RATING STYLE*/
 
@@ -11305,7 +11569,6 @@ textarea.add-interests{
     top:45px;
     left:0;
 }
-
 
 
 

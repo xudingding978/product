@@ -1,0 +1,47 @@
+
+{{#if controller.loadingTime}}
+
+{{render loadingSpinner}}
+
+{{/if}}
+{{#if controller.is_authentic_user}}
+<div class="box style-box t-style-box col2" {{action videoCreateModeSwitch}} id="addNewVideo" style="z-index: 0">    
+     <div id="uploadVideoObject" >
+        <div class="add-new-object-hoverarea easing">
+
+            <i class="icon-plus-sign"></i>
+        </div>
+        <div class="masonry-object t-style-box col2">
+            <div class="add-new-object-content">
+                <i class="icon-group"></i>
+                <i class="icon-book"></i>
+                <i class="icon-picture"></i>
+                <i class="icon-film"></i>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{{/if}}
+{{#each  videoesContent}}
+
+
+
+        {{view HubStar.ItemView}}
+
+
+{{/each}}
+
+
+
+{{#if controller.makeSureDelete}}
+
+{{view HubStar.DeleteFunctionView}}
+
+{{/if}}
+
+{{#if controller.is_video_create_mode}}
+{{render addVideo}}
+{{/if}}
+

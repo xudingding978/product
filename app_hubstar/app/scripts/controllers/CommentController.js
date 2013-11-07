@@ -38,6 +38,7 @@ HubStar.CommentController = Ember.Controller.extend({
         }
     },
     addComment: function() {
+
         var commentContent = this.get('commentContent');
         if (commentContent) {
             var comments = this.get('mega').get('comments');

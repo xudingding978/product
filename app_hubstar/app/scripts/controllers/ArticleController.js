@@ -2,12 +2,17 @@
 HubStar.ArticleController = Ember.Controller.extend({
     content: [],
     image_no: 1,
-    selectedPhoto: null,
+    selectedPhoto: null,         
     captionTitle: "",
     readCaption: true,
     caption: '',
-    needs: ['application', 'addCollection', 'contact', 'applicationFeedback'],
+
+    checkLoginStatus:false,
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus'],
+
+
     init: function() {
+  
     },
     findSelectedItemIndex: function() {
         content = this.get('content');
@@ -165,9 +170,15 @@ HubStar.ArticleController = Ember.Controller.extend({
     editingContactForm: function() {
         var contactController = this.get('controllers.contact');
 
+        this.get("controllers.contact").set("firstStepOfContactEmail",false);      
+        this.get("controllers.contact").set('secondStepOfContactEmail', false);
+
         var selectid = this.get('selectedPhoto').id;
         contactController.setSelectedMega(selectid);
-        this.set('contact', !this.get('contact'));
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            this.set('contact', !this.get('contact'));
+        }
     },
     closeContact: function() {
         this.set('contact', false);
@@ -199,9 +210,16 @@ HubStar.ArticleController = Ember.Controller.extend({
         $('#dropdown_id_').toggleClass('hideClass');
     },
     fbShare: function() {
+<<<<<<< HEAD
         this.dropdownPhotoSetting();
         var that = this;
         var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('articleID');
+=======
+
+        var that = this;     
+
+        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
+>>>>>>> 7006658d075d84550fa5d0c143c931bbecd52c41
         var caption = '';
 
         if (this.get('articleResouce').get("article_body") !== null)
@@ -281,8 +299,13 @@ HubStar.ArticleController = Ember.Controller.extend({
         return false;
     },
     pShare: function() {
+<<<<<<< HEAD
         this.dropdownPhotoSetting();
         var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('articleID');
+=======
+         console.log(this.get('selectedPhoto'));
+        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
+>>>>>>> 7006658d075d84550fa5d0c143c931bbecd52c41
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.get('selectedPhoto').photo_image_original_url) +
                 '&description=' + encodeURIComponent(this.get('articleResouce').get("article_headline"));

@@ -56,7 +56,6 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
         return is_authentic_user;
     },
     dropdownPhotoSetting: function(id) {
-
         $('#dropdown_id_' + id).toggleClass('hideClass');
     },
     checkEditingMode: function()
@@ -82,7 +81,6 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
 
         HubStar.set("scrollPartenerPosition", $(window).scrollTop());
         this.transitionToRoute('profile', model);
-        console.log(model);
         $(window).scrollTop(0);
     },
     setPartnerRemove: function() {

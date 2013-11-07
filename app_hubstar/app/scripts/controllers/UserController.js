@@ -438,6 +438,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
 
         }
+
     },
     socialLink: function(link) {
         if (link === 'facebook') {
@@ -771,6 +772,10 @@ HubStar.UserController = Ember.Controller.extend({
 
 
     },
+            
+            
+            
+            
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
             var thisCollection = this.get("collections").objectAt(i);
@@ -811,8 +816,6 @@ HubStar.UserController = Ember.Controller.extend({
 
         this.set('profileSelectionStatus', 'Following');
 
-        //     this.get('controllers.userFollowings').getClientId(model);
-
         this.set('followingTag', true);
         this.set('collectionTag', false);
         this.set('followerTag', false);
@@ -848,6 +851,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('collectionTag', false);
         this.set('followerTag', false);
         this.set('messageTag', true);
+
 
         this.transitionToRoute('messageCenter');
 
@@ -972,6 +976,7 @@ HubStar.UserController = Ember.Controller.extend({
 
             var src = this.get('newStyleImageSource');
             var that = this;
+
 
 
             var imageName = that.get('newStyleImageName').split('.');

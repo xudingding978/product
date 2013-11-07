@@ -40,6 +40,7 @@ HubStar.CollectionRoute = Ember.Route.extend({
             return HubStar.Mega.find({RquireType: "firstsearch", user_id: user_id, collection_id: params.collection_id});
         },
 
+
         transitionToArticle: function(id) {
             this.transitionTo("article", HubStar.Article.find(id));
         }

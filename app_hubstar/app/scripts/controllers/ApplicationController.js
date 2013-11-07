@@ -38,7 +38,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
     },
     popupModal: function() {
-        this.set('popup', !this.get('popup'));
+         HubStar.set('checkLoginStatus',true);
     },
     email_login: function() {
         this.set('mail', !this.get('mail'));
@@ -46,11 +46,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     loginStatus: function() {
     },
     grapData: function() {
+
         var u = HubStar.User.find(localStorage.loginStatus);
         this.set("user", u);
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);       
         this.set("myMessageBoard", "#/users/" + localStorage.loginStatus+"/messagecenter");
+
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));
@@ -210,6 +212,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 that.set('region', "");
                 that.set('gender', "");
                 that.set('age', "");
+                 that.set('isWaiting', false);
             }, 2000);
         });
     },
@@ -280,9 +283,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     result = false;
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
-                    $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
-
-
+                    $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'}); 
 
                     document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
@@ -301,10 +302,17 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('isGeoDropdown', !this.get('isGeoDropdown'));
         $('#geo-filter').toggleClass('Geo-Filter-active');
     },
+    canelDropDown: function()
+    {
+        $('#geo-filter').toggleClass('Geo-Filter-active');
+        this.set('isGeoDropdown', false);
+    },
     login: function() {
+
+
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {
-            this.set('isWaiting', true);
+        this.set('isWaiting', true);
             document.getElementById("loginUsername").setAttribute("class", "login-textfield");
             document.getElementById("loginPassword").setAttribute("class", "login-textfield");
 
@@ -313,7 +321,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             requiredBackEnd('login', 'login', loginInfo, 'POST', function(params) {
                 if (params === 1) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-                    that.set('isWaiting', false);
+                that.set('isWaiting', false);
 
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
@@ -324,7 +332,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 else if (params === 0) {
 
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-                    that.set('isWaiting', false);
+                that.set('isWaiting', false);
 
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
@@ -338,12 +346,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         that.transitionToRoute('search');
                         that.set('loginUsername', "");
                         that.set('loginPassword', "");
-
+                        that.set('isWaiting', false);
                     }
                     else {
                         document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
 
-                        that.set('isWaiting', false);
+                    that.set('isWaiting', false);
 
                         if ($('#incorrect-password').css('display') === 'none') {
 
@@ -356,6 +364,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
             });
         }
+
     },
     emailSend: function()
     {

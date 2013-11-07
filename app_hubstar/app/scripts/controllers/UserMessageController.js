@@ -254,7 +254,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
             var that = this;
             var dataNew = new Array();
             requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
-//params  is just one message 
 
                 that.set("isPosting", true);
                 dataNew["message_id"] = params["message_id"];
@@ -291,6 +290,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 that.set('newStyleImageSource', null);
                 that.set('newStyleImageName', "");
             });
+
             setTimeout(function() {
                 $('#masonry_container').masonry("reloadItems");
             }, 200);

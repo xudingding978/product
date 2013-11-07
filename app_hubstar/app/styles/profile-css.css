@@ -1,4 +1,8 @@
 
+.no-effect, .no-effect:hover, .no-effect:focus{    
+    box-shadow: none;
+    border: none;
+}
 
 textarea{
     padding: 3px 8px !important;
@@ -10,6 +14,12 @@ input{
     height: 30px;
     line-height: 30px !important;
 }
+
+.no-effect, .no-effect:hover, .no-effect:focus{    
+    box-shadow: none !important;
+    border: none !important;
+}
+
 
 .insetbox-shadow {
     -moz-box-shadow:    inset 1px 1px 3px #aaa;
@@ -542,11 +552,6 @@ div#appfeedback .fresh-message k.icon-ok-sign{
     float:left;
     width:65%;
     padding:0 5px;
-    /* padding: 20px 5px; 
-     position:absolute;
-     width:65%;
-     top:-180px;
-     left:17.5%; */
 }
 
 
@@ -559,17 +564,18 @@ div#appfeedback .fresh-message k.icon-ok-sign{
     margin:auto;
     min-width:553px;
 }
+
 .premium > div > table  .profileaside > .profileaside_content .aside-container{
     padding: 20px 0;
-    border-bottom: 1px solid #ccc;
+    border-bottom:1px solid #ccc;
+    border-top: 1px solid #fff;
     font-size: 14px;
-    margin: auto;
-    width: 95%;
+    width: 90%;
+    margin: 0 auto;
 }
-.flip .front .main_aboutus
-{
-    display:none;
-}
+
+.flip .front .main_aboutus{display:none;}
+
 /* paid profile ENDS, Clint Rex Lewis 4/9/13 */
 
 
@@ -726,6 +732,13 @@ textarea.add-interests{
 
 .crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
 
+
+
+
+/*Latest follower*/
+
+
+
 .LatestFollower{
     text-align: center;
     width: 300px;
@@ -755,30 +768,143 @@ textarea.add-interests{
     font-weight: bold;
     color: #888;
     position: relative;
-    width: 100%;
+    width: 90%;
     clear: both;
     margin: 0 auto;
     opacity: .8;
     cursor: pointer;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
 }
 
 .Followed-by:hover{opacity: 1}   
 
 
 
+/*CLIENT KEYWORDS STYLE   by Colin 11st Oct 2013 --------------start*/
+
+.Client-Keywords-tags{
+    margin:0;
+    padding:0;
+    position:relative;
+    list-style:none;
+}
+
+.Client-Keywords-tags li{
+    float:left;
+    height:30px;
+    line-height:30px;
+    position:relative;
+    font-size:13px;
+
+    margin: 3px 5px;
+}
+
+.tags-before{
+    display: inline-block;
+    height: 30px;
+    width: 20px;
+    background: #0089e0;
+    color: #fff;
+
+    border-radius: 1px 0 0 1px;
+    -webkit-border-radius: 1px 0 0 1px;
+    -moz-border-radius: 1px 0 0 1px;
+    -o-border-radius: 1px 0 0 1px;
+}
+
+.tags-before:before{
+    content: "";
+    float: left;
+    position: absolute;
+    top: 0;
+    left: -12px;
+    width: 0;
+    height: 0;
+    border-color: transparent #0089e0 transparent transparent;
+    border-style: solid;
+    border-width: 15px 12px 15px 0;
+}
+
+.tags-before:after{
+    content:"";
+    position:absolute;
+    top:12px;
+    left:0;
+    float:left;
+    width:4px;
+    height:4px;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+    background:#fff;
+    -moz-box-shadow:-1px -1px 2px #004977;
+    -webkit-box-shadow:-1px -1px 2px #004977;
+    box-shadow:-1px -1px 2px #004977;
+}
+
+.Client-Keywords-tags > li > a{
+    position: relative;
+    top: -11px;
+    padding: 7px 20px 7px 0px;
+    background: #fff;
+    color: #888;
+    font-weight: bold;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    cursor: pointer;
+
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+}
+
+.Client-Keywords-tags > li > a:before{
+    content: "";
+    float: left;
+
+    position: absolute;
+    top: 0;
+    left: -12px;
+    width: 0;
+    height: 0;
+    border-color: transparent #fff transparent transparent;
+    border-style: solid;
+    border-width: 15px 12px 15px 0;
+}
+
+.Client-Keywords-tags > li > a:after {
+    content: "";
+    position: absolute;
+    float: right;
+    top: -1px;
+    right: -1px;
+    width: 0;
+    height: 0;
+    border-color: transparent #f2f0f0 transparent transparent;
+    border-style: solid;
+    border-width: 17px 16px 16px 0;
+}
+
+
+.Client-Keywords-tags > li > a:hover{background-color: #f4f6f8;color: #555}
+.Client-Keywords-tags > li > a:hover:before{border-color:transparent #f4f6f8 transparent transparent;}
 
 
 
+.keyword-pool{
+    margin: 0 0 5px; 
+    width: 100%; 
+    min-height: 200px;
+    padding: 5px 8px;
+}
 
-.crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
+.keyword-pool > div {
+    display: inline-block;
+    vertical-align: top;
+}
 
-
-
-
-
-
-
-
+/*CLIENT KEYWORDS STYLE   by Colin 11st Oct 2013 --------------end*/
 
 
 /*MESSAGE CENTER STYLE FROM HERE*/
@@ -796,10 +922,11 @@ textarea.add-interests{
     opacity: .8;
 }
 
-.message-btn-x {
-    width: 50%;
-    float: left;
-    height: 30px;
+
+.message-btn-x{
+    width: 50%; 
+    float: left; 
+    height:30px; 
     font-size: 12px;
     font-weight: bold;
     line-height: 30px;
@@ -809,6 +936,7 @@ textarea.add-interests{
     background-color: #e3e3e3;
     color: #999;
 }
+
 
 .message-btn:hover{
     opacity: 1;
@@ -857,11 +985,10 @@ textarea.add-interests{
 
 .Message-Board_comment-container .profilepic-comment-container{ left: 6.5%; top: 18px;}
 .your-relpy_profilepic{
-    position: absolute;
-    right: 6.5%;
-    margin: 3px 0 0;
+    position:absolute;
+    right:6.5%;
+    margin:3px 0 0;
 }
-
 
 .your-relpy{
     padding: 10px 50px 10px 0;
@@ -1092,12 +1219,7 @@ textarea.add-interests{
 }
 
 
-
-
-
 .profilegb div.profile-wallpaper{
     top:45px;
     left:0;
 }
-
-

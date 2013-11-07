@@ -2559,9 +2559,13 @@ function requiredBackEnd(controller, method, para, ajaxType, callback) {
             }
         });
     }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 35ec29a9c1ce977df5205f0deacce24770e9f69c
 }
+
 function getTarget(obj, type) {
     var targ;
     var e = obj;

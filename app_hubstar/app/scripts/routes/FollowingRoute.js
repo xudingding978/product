@@ -15,8 +15,10 @@ HubStar.FollowingRoute = Ember.Route.extend({
         this.controllerFor('user').set('messageTag', false);
 
 
+
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#ufollowing').addClass('selected-user-stats');
+
 
         this.controllerFor('userFollowings').setUserFollowings(model);
 

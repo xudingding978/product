@@ -106,9 +106,8 @@ function requiredBackEnd(controller, method, para, ajaxType, callback) {
             }
         });
     }
-
-
 }
+
 function getTarget(obj, type) {
     var targ;
     var e = obj;

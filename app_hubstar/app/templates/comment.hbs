@@ -44,7 +44,7 @@
     <div id="commentData_{{unbound model.id}}" class="comment-frame" style="max-height:88px;">
 
         {{#each model.comments}}
-        
+        {{#unless this.isEdit}}
         <div class="comment-item" id="commentItem_{{unbound message_id}}" style="display: block">
 
             <div class="comment-position">
@@ -59,7 +59,7 @@
                         </a>
                         {{#if this.getUser}}
                         <i class="icon-trash"  {{action removeComment this}}></i>                 
-                        <i class="icon-pencil" {{action editingCommentData this.message_id}}></i>
+                        <i class="icon-pencil" {{action editingCommentData this}}></i>
                         {{/if}}
                         <div class="posttime-container">
                             <span class="posttime">{{date  time_stamp}}</span>
@@ -80,23 +80,47 @@
         </div>
 
     </div>
-    
 
-    
-    <div class="addcommnetbox-container comment-frame" id="commentEdit_{{unbound message_id}}" style="display: none">
-        <div style="margin:0 auto; padding: 0 0 15px 45px;">
-            <a>
-                <img class="profilepic_comment"  style="float: left; margin: 4px 0 0 -45px; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url_large"}} /> 
-            </a>
+    {{else}}
+    <div class="comment-item" id="commentItemIn_{{unbound message_id}}" style="display: block">
 
-            {{view HubStar.SearchRequireTextFieldView valueBinding="commentContent"  id="" class="comment-insert-field"  placeholder="" }}
-            <span class="" style="margin:7px 0;float: right;">
-                <div  class="new-btn"{{action closeCommentItem message_id target="controller" on="click"}}>Cancel</div>
-                <div class="new-btn green-btn" {{action addComment}}>Post</div>
-            </span>
+            <div class="comment-position">
+                <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
+                   <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
+                </a>
+                <div style="">
+                    <div class="comment-namentime">
+                        <div class="namentime_position">
+                            <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
+                               {{name}}
+                        </a>
+                        {{#if this.getUser}}
+                        <i class="icon-trash"  {{action removeComment this}}></i>                 
+                        <i class="icon-pencil" {{action editingCommentData this}}></i>
+                        {{/if}}
+                        <div class="posttime-container">
+                            <span class="posttime">{{date  time_stamp}}</span>
+                        </div>
+                    </div>
 
+                </div>
+
+                <div class="comment-content">
+                    {{content}} 
+
+                    <span>
+                        <span></span>
+                    </span>
+                </div>
+
+            </div>
         </div>
+
     </div>
+    <div class="addcommnetbox-container comment-frame" id="commentEdit_{{unbound message_id}}" style="display: none">
+        {{render editComment this}}       
+    </div>
+    {{/unless}}
     {{/each}}
 
 

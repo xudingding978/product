@@ -6,6 +6,8 @@ HubStar.CommentController = Ember.Controller.extend({
     mega: null,
     count: null,
     isUserSelf: false,
+    objID: "",
+    needs: ['editComment'],
     init: function()
     {
 
@@ -38,11 +40,22 @@ HubStar.CommentController = Ember.Controller.extend({
             }, 200);
         }
     },
-    editingCommentData: function(id)
-    {    
-        $('#commentEdit_' + id).attr('style', 'display:block');
+    editingCommentData: function(obj)
+    {
+        var id = obj.get("message_id");
+        var msg = obj.get("content");
         $('#commentItem_' + id).attr('style', 'display:none');
+      
+        obj.set("isEdit", true);
+       
+        
+        this.seeMore(this.get('content').id);
+        
+        HubStar.set("updateCommentmsg", msg);
+        
         setTimeout(function() {
+             $('#commentEdit_' + id).attr('style', 'display:block');
+             $('#commentItemIn_' + id).attr('style', 'display:none');
             $('#masonry_container').masonry("reload");
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -67,9 +80,12 @@ HubStar.CommentController = Ember.Controller.extend({
         }
         this.set('thisComments', comments);
     },
-    closeCommentItem: function(id) {
+    closeCommentItem: function(obj) {      
+        obj.set("isEdit", false);
+        var id = obj.get("message_id");
         $('#commentEdit_' + id).attr('style', 'display:none');
         $('#commentItem_' + id).attr('style', 'display:block');
+         $('#commentItemIn_' + id).attr('style', 'display:block');
     },
     removeComment: function(object)
     {
@@ -89,7 +105,7 @@ HubStar.CommentController = Ember.Controller.extend({
                 that.get("thisComments").removeObject(object);
                 $('#masonry_user_container').masonry("reloadItems");
                 $('#masonry_container').masonry("reloadItems");
-                
+
             });
         }
         else if (type === "profile")
@@ -105,60 +121,6 @@ HubStar.CommentController = Ember.Controller.extend({
                 that.get("thisComments").removeObject(object);
                 $('#masonry_user_container').masonry("reloadItems");
                 $('#masonry_container').masonry("reloadItems");
-                that.cancelDelete();
-            });
-        }
-    },
-    updateComment: function(object) {
-
-        var id = this.get('content').id;
-        var type = this.get('content').get('type');
-        if (type === 'photo') {
-            var commentId = object.get("commenter_id");
-            var time_stamp = object.get("time_stamp");
-            var content = object.get("content");
-            var contentID = commentId + time_stamp;
-            var delInfo = [id, commentId, time_stamp, content];
-
-            delInfo = JSON.stringify(delInfo);
-            var that = this;
-            requiredBackEnd('comments', 'UpdatePhotoComment', delInfo, 'POST', function(params) {
-
-                for (var i = 0; i < that.get("thisComments").get("length"); i++)
-                {
-                    var commentId = that.get("thisComments").objectAt(i).get("commenter_id") + that.get("thisComments").objectAt(i).get("time_stamp");
-                    if (that.contentID === commentId)
-                    {
-                        that.get("thisComments").objectAt(i).set("content", that.content);
-                    }
-                }
-
-                $('#masonry_user_container').masonry("reload");
-                that.cancelDelete();
-            });
-        }
-        else if (type === "profile")
-        {
-            var commentId = object.get("commenter_id");
-            var time_stamp = object.get("time_stamp");
-            var content = object.get("content");
-            var contentID = commentId + time_stamp;
-            var delInfo = [id, commentId, time_stamp, content];
-
-            delInfo = JSON.stringify(delInfo);
-            var that = this;
-            requiredBackEnd('comments', 'UpdatePhotoComment', delInfo, 'POST', function(params) {
-
-                for (var i = 0; i < that.get("thisComments").get("length"); i++)
-                {
-                    var commentId = that.get("thisComments").objectAt(i).get("commenter_id") + that.get("thisComments").objectAt(i).get("time_stamp");
-                    if (that.contentID === commentId)
-                    {
-                        that.get("thisComments").objectAt(i).set("content", that.content);
-                    }
-                }
-
-                $('#masonry_user_container').masonry("reload");
                 that.cancelDelete();
             });
         }
@@ -228,16 +190,19 @@ HubStar.CommentController = Ember.Controller.extend({
     seeMore: function(id) {
         $('#closeComment_' + id).attr('style', 'display:block');
         $('#showMoreComment_' + id).attr('style', 'display:none');
-        $('#commentData_' + id).attr('style', 'max-height: 88px;');      
+        $('#commentData_' + id).attr('style', 'max-height: 88px;');
         $('#commentData_' + id).stop().animate({
-            maxHeight: '350px'                   
-        }, 420, function(){$('#commentData_' + id).css('overflow','auto');$('#masonry_container').masonry("reload");});
-       
+            maxHeight: '350px'
+        }, 420, function() {
+            $('#commentData_' + id).css('overflow', 'auto');
+            $('#masonry_container').masonry("reload");
+        });
+
         /* this will need to be cleaned up, using a timed for loop etc (to not repeat code) */
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
             $('#masonry_photo_collection_container').masonry("reload");
-            
+
         }, 52.5);
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
@@ -273,23 +238,26 @@ HubStar.CommentController = Ember.Controller.extend({
             $('#masonry_container').masonry("reload");
             $('#masonry_photo_collection_container').masonry("reload");
             $('#masonry_user_container').masonry("reload");
-        }, 420);       
+        }, 420);
     },
     closeMore: function(id) {
         $('#closeComment_' + id).attr('style', 'display:none');
         $('#showMoreComment_' + id).attr('style', 'display:block');
-        
+
         $('#commentData_' + id).stop().animate({
             maxHeight: '88px'
-        }, 380, function(){$('#commentData_' + id).css('overflow','hidden');$('#masonry_container').masonry("reload");});
-        
-        
+        }, 380, function() {
+            $('#commentData_' + id).css('overflow', 'hidden');
+            $('#masonry_container').masonry("reload");
+        });
+
+
         /* this will need to be cleaned up, using a timed for loop etc (to not repeat code) */
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
             $('#masonry_photo_collection_container').masonry("reload");
             $('#masonry_user_container').masonry("reload");
-            
+
         }, 47.5);
         setTimeout(function() {
             $('#masonry_container').masonry("reload");

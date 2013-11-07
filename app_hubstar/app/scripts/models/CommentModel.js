@@ -7,6 +7,7 @@ HubStar.Comment = DS.Model.extend({
     is_delete: DS.attr('boolean'),
     optional: DS.attr('string'),
     message_id: DS.attr('string'),
+    isEdit: DS.attr('boolean'),
     getUser: function() {
         return this.get('commenter_id') === localStorage.loginStatus;
     }.property('isUserSelf'),

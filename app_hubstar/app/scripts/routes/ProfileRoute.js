@@ -1,20 +1,30 @@
 HubStar.ProfileRoute = Ember.Route.extend({
     setupController: function(ProfileController, model) {
-        //  console.log("sssssssssssss");
         HubStar.set('editingMode', 'profile');
+          if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
+        {
+            HubStar.set("isLogin", false);
+        }else{
+                    HubStar.set("isLogin", true);               
+        }
         ProfileController.setLocalLoginRecrod();
         /******************  partner cehcking*******************/
         ProfileController.set('contactChecking', false);
         ProfileController.set('collectionTag', true);
         ProfileController.set('partnerTag', false);
         /*************************            partner cehcking           ***********8*/
-
+       
         this.controllerFor('application').set('islogin', true);
-        this.controllerFor('application').set('popup', false);
+     this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', true);
         this.controllerFor('searchs').setLoginImge();
         this.controllerFor('profile').set('switchPhoto', true);
-
+      $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
+//            $('#user-stats > li').click(function() {
+//                $('#user-stats > li').removeClass('selected-user-stats');
+//                $(this).addClass('selected-user-stats');
+//            });
         if (model.get('profile_analytics_code') !== null && model.get('profile_analytics_code') !== '' && model.get('profile_analytics_code') !== undefined) {
             this.sendGAMessage(model.get('profile_analytics_code'), model.get('id').split('-').join(''));
         }
@@ -49,12 +59,12 @@ HubStar.ProfileRoute = Ember.Route.extend({
         }
     },
     redirect: function() {
-        if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
-
-            this.transitionTo('indexIndex');
-            this.controllerFor('application').set('popup', true);
-
-        }
+//        if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+//
+//            this.transitionTo('indexIndex');
+//            this.controllerFor('application').set('popup', true);
+//
+//        }
 
 
     },
@@ -94,7 +104,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
             this.controller.set('isTracking',true);
         } catch (err) {
             this.controller.set('isTracking', false);
-            console.log('error out');
+            
         }
     }
 

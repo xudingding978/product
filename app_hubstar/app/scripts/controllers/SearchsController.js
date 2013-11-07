@@ -22,27 +22,6 @@ HubStar.SearchsController = Ember.ArrayController.extend({
         this.setLoginImge();
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         this.set("content", results);
-
-        Ember.run.later(function() {
-            var ads = HubStar.get('ads');
-//            googletag.cmd.push(function() {
-//                for (var i = 0; i < ads.length; i++) {
-//                    var ad = ads[i];
-//                    console.log(ad.size[0] + " " + ad.div);
-//                    googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
-//                }
-//                googletag.pubads().enableSingleRequest();
-//                googletag.enableServices();
-//            });
-//            for (var i = 0; i < ads.length; i++) {
-//                var ad = ads[i];
-//                googletag.cmd.push(function() {
-//                    googletag.display(ad.div);
-//                });
-//            }
-
-        }, 500);
-
     },
     getResponseTime: function(start, end) {
         var totalTime = end - start;

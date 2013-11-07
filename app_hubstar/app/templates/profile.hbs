@@ -1,7 +1,5 @@
 
 
-
-
 <div class="profilegb" style="background: #fff url('../images/texture.png') repeat;width: 100%;height: auto; ">
 
     <div class="profile-wallpaper" style="width: 100%; height: 500px; overflow: hidden; position: fixed;">
@@ -122,29 +120,45 @@
                                     </div>
                                 </a>                                             
                                 {{/each}}
+
                             </div>
                             <div class="Followed-by easing"{{action selectFollower this }}>Followed by {{controller.profileFollowerStatistics}} people.</div>
 
 
 
-                            <div style="padding: 0;border-top:1px solid #ccc;border-bottom: 1px solid #fff;font-size: 14px;width:139%;float:left;width:95%;margin:20px 2.5%;height:2px;"></div>
+                            <!--KEYWORDS SECTION-->
+                            <div class="aside-container"> 
+                                <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'>
+                                    <i class='icon-bookmark' style='margin-right: 10px;'></i>Keywords
+                                </div>
+
+                                <div style='width: 100%;min-height: 100px;'>
+                                    <ul class="Client-Keywords-tags">    
+                                        {{#each controller.show_keyword_array}}  
+                                        <li><div class="tags-before"></div><a href="#" {{action keywordSearch this.keyword_name}} >{{this.keyword_name}}</a></li>
+                                        {{/each}}
+                                    </ul>
+                                </div>                                            
+                            </div>
+
+
+
+
                             <!--PROFILE CONTACT SECTION-->
 
-                            <div class="aside-container">
-
-                                {{#unless controller.editingContact}}
-                                <div>
-                                    <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-phone' style='margin-right: 10px;'></i>Contact Detail</div>
-                                    {{#if controller.is_authentic_user}}
-                                    <div class="edit-btn easing hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing model.phone_number controller.contact}}>
-                                         <i class="icon-edit" ></i>
-                                    </div>
-                                    {{/if}}
+                            {{#unless controller.editingContact}}
+                            <div class="aside-container" style="">
+                                <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-phone' style='margin-right: 10px;'></i>Contact Detail</div>
+                                {{#if controller.is_authentic_user}}
+                                <div class="edit-btn easing hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing model.phone_number controller.contact}}>
+                                     <i class="icon-edit" ></i>
                                 </div>
+                                {{/if}}
+
 
                                 {{/unless}}
 
-                                <table id="aside_contact">
+                                <table id="aside_contact" class="">
                                     <tr>
                                         <th>Contact:</th>
                                         {{#if controller.editingContact}}
@@ -224,8 +238,8 @@
 
                                 </div>
                                 {{/unless}}
-
                             </div>
+
                             <!--PROFILE HOURS SECTION-->
 
                             <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;">
@@ -392,6 +406,7 @@
                 <li class="easing" {{action changeSize}}><a href="#tab7" data-toggle="tab">Social Link</a></li>
                 {{#if controller.isAdmin}}
                 <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>
+                <li class="easing" {{action changeSize}}><a href="#tab5" data-toggle="tab">Keywords Settings</a></li>
                 {{/if}}   
             </ul>
         </div>
@@ -821,15 +836,51 @@
                             </td>
                         </tr>
 
-
                     </tbody>
                 </table>
+
                 <div style="right: 0;margin: 30px auto 0;width: 150px;">
                     <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
                     <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}}><k class='icon-group'> &nbsp;</k>Back</span>
                 </div>
             </div>
 
+
+            <div class="tab-pane" id="tab5">
+
+                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 5px;">Keywords Settings</div>
+                <div style="font-size: 15px; font-weight: bold;color: #555; text-align: center;margin: 5px auto 20px;">You have {{keyword_left}} keywords left out of  ({{keyword_num}}).</div>
+                {{#view HubStar.KeywordDropTargetView}}
+                <div style="width: 700px; min-height: 100px; background-color: #f3f3f3; margin: 10px auto;padding: 5px 8px;position: relative;">
+                    <div style="font-size: 13px; font-weight: bold;color: #aaa;position: absolute;bottom: 5px;text-align: center;width: 684px;">Keywords in this area can be showed on the profile, drag from the pool below. (maximum 10 keywords)</div>
+                    {{#each controller.show_keyword_array}}                    
+                    <div class='hashtags' style="margin: 2px 3px;">{{keyword_name}}{{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteKeywords keyword_id "show"}}>x</i>{{/if}}</div>                    
+                    {{/each}}                      
+                </div>
+                {{/view}}
+                <div style="width: 700px; border: 1px solid #ddd;margin: 0 auto;border-radius: 3px;">
+
+                    <div class="keyword-pool" style="">
+                        {{#each controller.keywords_array}}
+                        {{#view HubStar.KeywordView elementIdBinding="keyword_id"}}
+                        <div class='hashtags' style="margin: 2px 3px;">{{keyword_name}}{{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteKeywords keyword_id "all"}}>x</i>{{/if}}</div>
+                        {{/view}}
+                        {{/each}}
+                    </div>
+
+                    <div  style="margin: 0;width: 657px; height:50px;border-top: 1px dashed #aaa;overflow: hidden;">
+                        {{view Ember.TextArea valueBinding="add_keywords" class="no-resize no-effect"  placeholder="* Please ensure you use a commer seperated list!!! ie: bathroom, kitchen, living room"}}
+                    </div>
+
+                    <div class="new-btn" style="float: right;top: -50px;height: 51px;line-height: 50px;right: -1px;" {{action addKeywords}}>Add</div>
+                </div>
+
+
+                <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                    <span class="new-btn green-btn" {{action saveUpdate}}>Save</span>
+                    <span class='new-btn blue-btn flip-back' {{action flipFrontBack}}><k class='icon-group'> &nbsp;</k>Back</span>
+                </div>
+            </div>
 
 
             <div class="tab-pane" id="fileuploader">
@@ -873,7 +924,12 @@
                     <div class="controlbtn" style="left: 300px;">
 
                         {{#if controller.isCrop}}
-                        <span id="photoUploadbtn" class="new-btn green-btn" {{action cropButton}}>Upload</span>
+                        <span id="photoUploadbtn" class="new-btn blue-btn" {{action cropButton}}>Crop</span>
+                        {{else}}
+                        <span  class="disabled-btn" >Crop</span>
+                        {{/if}} 
+                        {{#if controller.isUpload}}
+                        <span id="photoUploadbtn" class="new-btn green-btn" {{action photoUpload}}>Upload</span>
                         {{else}}
                         <span  class="disabled-btn" >Upload</span>
                         {{/if}} 
@@ -885,12 +941,19 @@
                 {{/view}}
                 {{/if}}
 
+                {{#if controller.loadingTime}}
+
+                {{render loadingSpinner}}
+
+                {{/if}}
+
                 {{#if controller.isPhotoEditingMode}}
+
                 <div class='' style='position:relative;height: 65px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
-                    <span style="position: relative;display: inline-block;font-size: 40px;margin: 10px 0;vertical-align: top;"><k class='icon-ok-circle'></k></span>
-                    <span style="position: relative;width: 87%;display: inline-block;margin: 18px 15px;">
-                        <span style='font-size: 20px;display: block;line-height: 15px;'>Cropping time!</span>
-                        <span style='font-size: 13px;margin: auto;  display: block;line-height: 16px;'></span>
+                    <span style="position: relative;display: inline-block;font-size: 40px; vertical-align: top;"><k class='icon-ok-circle'></k></span>
+                    <span style="position: relative;width: 87%;display: inline-block;margin: 0 15px;">
+                        <span style='font-size: 20px;display: block;line-height: 25px;font-weight: bold'>Crop your picture now!</span>
+                        <span style='font-size: 15px;display: block;line-height: 15px;'> Image Size: <span id="log"></span> </span>  
                     </span>
                 </div>
 
@@ -919,20 +982,22 @@
                         </div>
                         {{/if}}
                         {{#if controller.isFinished}}
-                        <div class='' style='position:relative;height: 65px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
-                            <span style="position: relative;display: inline-block;font-size: 40px;margin: 10px 0;vertical-align: top;"><k class='icon-ok-circle'></k></span>
-                            <span style="position: relative;width: 87%;display: inline-block;margin: 18px 15px;">
+
+                        <div class='' style='line-height: 45px;position:relative;height: 50px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 5px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
+                            <span style="position: relative;display: inline-block;font-size: 40px;vertical-align: top;"><k class='icon-ok-circle'></k></span>
+                            <span style="position: relative;width: 87%;display: inline-block;margin: 0 15px;">
+
                                 <span style='font-size: 20px;display: block;line-height: 15px;'>Congratulations! Your Photos have been uploaded!</span>
-                                <span style='font-size: 13px;margin: auto;  display: block;line-height: 16px;'></span>
                             </span>
                         </div>
 
-                        <div style="position: relative; margin: auto;height: 520px; width: 690px; overflow: hidden;line-height: 510px;">
+                        <div style="position: relative; margin: auto;height: 500px; width: 690px; overflow: hidden;line-height: 490px;">
                             <div style="position: relative;margin:3px;text-align: center;overflow: hidden;">
                                 <img  {{bindAttr src= "newStyleImageSource"}} >
                             </div>
                         </div>
-                        <div class="" style="margin-top: 5px;">
+                        <div class="" style="">
+
 
                             <div class="controlbtn" style="left: 34%;">
 
@@ -949,7 +1014,6 @@
 
 
     </div>
-
 
 
 
@@ -974,4 +1038,15 @@
 
     {{/if}}
 
+    {{#if HubStar.checkLoginStatus}}
 
+    {{render loginModal}}       
+
+    {{/if}}
+
+
+    <script>
+        $(document).on("mousemove", function(event) {
+            $("#panel").text("pageX: " + event.pageX + ", pageY: " + event.pageY);
+        });
+    </script>

@@ -24,6 +24,11 @@ Handlebars.registerHelper('checkInputFilesSize', function(object) {
 
 });
 
+//Handlebars.registerHelper('subtraction', function(minuend, subtrahend) {
+//    minuend = Ember.getPath(this, minuend);
+//    subtrahend = Ember.getPath(this, subtrahend);
+//    return parseInt(minuend) - parseInt(subtrahend);
+//});
 
 
 
@@ -74,8 +79,6 @@ Ember.Handlebars.registerBoundHelper('ebooklength', function(number) {
 
 
 });
-
-
 
 
 Ember.Handlebars.registerBoundHelper('date', function(date) {

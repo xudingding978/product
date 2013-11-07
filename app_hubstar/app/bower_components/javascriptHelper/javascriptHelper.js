@@ -2,8 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-function getRestAPIURL()
-{
+function getRestAPIURL(){
 //    var api_url = document.domain;
 //    api_url = "http://api." + api_url;
 //    console.log(api_url);
@@ -22,6 +21,17 @@ function createGuid() {
     var result = randomnumber +
             dateObject.getTime().toString();
     return "test" + result.toString();
+}
+
+function createMessageid() {
+
+    var dateObject = new Date();
+    var randomnumber = Math.random().toString().slice(2, 5);
+    randomnumber = randomnumber.toString();
+    randomnumber = removeZero(randomnumber);
+    var result = randomnumber +
+            dateObject.getTime().toString();
+    return  result.toString();
 }
 
 function removeZero(string)
@@ -93,9 +103,8 @@ function requiredBackEnd(controller, method, para, ajaxType, callback) {
             }
         });
     }
-
-
 }
+
 function getTarget(obj, type) {
     var targ;
     var e = obj;
@@ -127,4 +136,4 @@ function ReplaceContentInContainer(matchClass, content)
 
 
 
-    
+

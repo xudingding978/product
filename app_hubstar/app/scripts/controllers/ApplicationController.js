@@ -4,7 +4,7 @@
 /*global $:false */
 
 HubStar.ApplicationController = Ember.ArrayController.extend({
-    needs: ['status', 'applicationFeedback'],
+    needs: ['status', 'applicationFeedback', 'megaCreate'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -30,13 +30,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
         this.defaultSearch();
-        this.display();
         this.set('search_string', '');
-        var address = document.URL;
-        var domain = address.split("/")[2];
     },
     popupModal: function() {
-        this.set('popup', !this.get('popup'));
+        HubStar.set('checkLoginStatus', true);
     },
     email_login: function() {
         this.set('mail', !this.get('mail'));
@@ -46,13 +43,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     grapData: function() {
         this.set("user", HubStar.User.find(localStorage.loginStatus));
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
+        this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messages");
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));
     },
     scrollDownAction: function() {
-
-
         this.set('loadingTime', true);
         this.set("size", 20);
         this.set("from", this.get("from") + this.get("size"));
@@ -60,31 +56,34 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var that = this;
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
-                for (var i = 0; i < results.get("length"); i++) {
-                    var tempmega = results.objectAt(i);
-                    if (tempmega.get("profile").objectAt(0) !== undefined) {
-                        var isFollow = false;
-                        for (var j = 0; j < tempmega.get("profile").objectAt(0).get("followers").get("length"); j++)
-                        {
-                            if (tempmega.get("profile").objectAt(0).get("followers").objectAt(j).get("follower_id") === localStorage.loginStatus)
-                            {
-                                isFollow = true;
-                                break;
-                            }
-                        }
-                        tempmega.get("profile").objectAt(0).set("isFollowCurrentUser", isFollow);
-                    }
-                    that.pushObject(tempmega);
-                }
-                setTimeout(function() {
-                    $('#masonry_container').masonry("reload");
-                }, 2200);
+                that.setContent(results);
+                that.relayout();
                 that.set('loadingTime', false);
                 if (results.get("length") === 0) {
                     that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
                 }
             }
         });
+    },
+    setContent: function(results)
+    {
+        for (var i = 0; i < results.get("length"); i++) {
+            var tempmega = results.objectAt(i);
+            if (tempmega.get("profile").objectAt(0) !== undefined) {
+                var isFollow = false;
+                for (var j = 0; j < tempmega.get("profile").objectAt(0).get("followers").get("length"); j++)
+                {
+                    if (tempmega.get("profile").objectAt(0).get("followers").objectAt(j).get("follower_id") === localStorage.loginStatus)
+                    {
+                        isFollow = true;
+                        break;
+                    }
+                }
+                tempmega.get("profile").objectAt(0).set("isFollowCurrentUser", isFollow);
+            }
+            this.pushObject(tempmega);
+        }
+        this.getAds();
     },
     newSearch: function() {
         this.set("content", []);
@@ -101,23 +100,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 var stat = stats.objectAt(0);
                 var megasResults = stat.get("megas");
                 HubStar.set('itemNumber', megasResults.get("length"));
-                for (var i = 0; i < megasResults.get("length"); i++) {
-                    var tempmega = megasResults.objectAt(i);
-                    //console.log(tempmega.get("profile").objectAt(0));
-                    if (tempmega.get("profile").objectAt(0) !== undefined) {
-                        var isFollow = false;
-                        for (var j = 0; j < tempmega.get("profile").objectAt(0).get("followers").get("length"); j++)
-                        {
-                            if (tempmega.get("profile").objectAt(0).get("followers").objectAt(j).get("follower_id") === localStorage.loginStatus)
-                            {
-                                isFollow = true;
-                                break;
-                            }
-                        }
-                        tempmega.get("profile").objectAt(0).set("isFollowCurrentUser", isFollow);
-                    }
-                    that.pushObject(tempmega);
-                }
+                that.setContent(megasResults);
                 that.set('isWaiting', false);
                 that.set('loadingTime', false);
                 this.set("from", this.get("size"));
@@ -128,16 +111,21 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 statusController.set("time", time);
                 statusController.changeDescription();
             }
-            setTimeout(function() {
-                $('#masonry_container').masonry("reload");
-            }, 1800);
+            that.relayout();
         });
         HubStar.set('searchStart', true);
     },
     defaultSearch: function() {
         this.set("loginInfo", localStorage.loginStatus);
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
-        this.set("content", results);
+        var that = this;
+        results.addObserver('isLoaded', function() {
+            if (results.get('isLoaded')) {
+                that.setContent(results);
+                that.relayout();
+            }
+        });
+
     },
     getResponseTime: function(start, end) {
         var totalTime = end - start;
@@ -173,15 +161,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     checkSocial();
                 }
                 else if (params === 0) {
-
                     document.getElementById("email").setAttribute("class", "login-textfield error-textfield");
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#email-used-by-social').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                 } // EMAIL ALREADY IN USE; The use has attempted to register with an email address that has already been used via 'register with social account'
-
                 else if (params === 2) {
-
                     document.getElementById("email").setAttribute("class", "login-textfield error-textfield");
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
@@ -209,6 +194,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 that.set('region', "");
                 that.set('gender', "");
                 that.set('age', "");
+                that.set('isWaiting', false);
             }, 2000);
         });
     },
@@ -253,15 +239,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             {
                 if (checkList[i].input === null || checkList[i].input === "" || checkList[i].input === undefined) {
                     result = false;
+
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#missing-fields').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
                     document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
                 }
             }//MISSING FIELDS; the user has not filled in all the mandatory fields
-
-
             if (checkList[i].input !== null && checkList[i].isEmailValid === true)
             {
                 if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
@@ -272,6 +258,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
                     document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
                 }// INVALID user name when the user attempts to login.
@@ -289,18 +276,25 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('isGeoDropdown', !this.get('isGeoDropdown'));
         $('#geo-filter').toggleClass('Geo-Filter-active');
     },
+    canelDropDown: function()
+    {
+        $('#geo-filter').toggleClass('Geo-Filter-active');
+        this.set('isGeoDropdown', false);
+    },
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {
             this.set('isWaiting', true);
             document.getElementById("loginUsername").setAttribute("class", "login-textfield");
             document.getElementById("loginPassword").setAttribute("class", "login-textfield");
+
             var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
             var that = this;
             requiredBackEnd('login', 'login', loginInfo, 'POST', function(params) {
                 if (params === 1) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                     that.set('isWaiting', false);
+
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
@@ -311,8 +305,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                     that.set('isWaiting', false);
+
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+
+
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is a social network login account
                 else {
 
@@ -321,10 +318,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         that.transitionToRoute('search');
                         that.set('loginUsername', "");
                         that.set('loginPassword', "");
+                        that.set('isWaiting', false);
                     }
                     else {
                         document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
+
                         that.set('isWaiting', false);
+
                         if ($('#incorrect-password').css('display') === 'none') {
 
                             $('.black-tool-tip').stop();
@@ -336,6 +336,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
             });
         }
+
     },
     emailSend: function()
     {
@@ -349,6 +350,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
             }// INVALID EMAIL; The user has forgotten their password and inputted an invalid email address
             else if (params === 0) {
+
                 $('.black-tool-tip').stop();
                 $('.black-tool-tip').css('display', 'none');
                 $('#invalid-account-type-reset').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
@@ -367,26 +369,27 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }
         });
     },
-    display: function()
+    display: function(ads)
     {
-
+//        console.log(ads);
         Ember.run.later(function() {
-            var ads = HubStar.get('ads');
-            var masonryContainer = document.getElementById('masonry_container');
-            var child = masonryContainer.children[1];
-            for (var i = 0; i < ads.length; i++) {
-                var ad = ads[i];
-                var masonrybox = document.createElement('div');
-                masonrybox.border = 0;
-                masonrybox.backgroundColor = 'transparent';
-                masonrybox.textAlign = "center";
-                masonrybox.className = "box colAd noStyle1";
-                var adDiv = document.createElement('div');
-                adDiv.id = ad.div;
-                masonrybox.appendChild(adDiv);
-                masonryContainer.insertBefore(masonrybox, child);
-            }
+//            var ads = HubStar.get('ads');
+//            var masonryContainer = document.getElementById('masonry_container');
+//            var child = masonryContainer.children[1];
+//            for (var i = 0; i < ads.length; i++) {
+//                var ad = ads[i];
+//                var masonrybox = document.createElement('div');
+//                masonrybox.border = 0;
+//                masonrybox.backgroundColor = 'transparent';
+//                masonrybox.textAlign = "center";
+//                masonrybox.className = "box colAd noStyle1";
+//                var adDiv = document.createElement('div');
+//                adDiv.id = ad.div;
+//                masonrybox.appendChild(adDiv);
+//                masonryContainer.insertBefore(masonrybox, child);
+//            }
             googletag.cmd.push(function() {
+                console.log(ads.length);
                 for (var i = 0; i < ads.length; i++) {
                     var ad = ads[i];
                     console.log(ad);
@@ -403,5 +406,28 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
             });
         }, 1000);
+        this.relayout();
+    },
+    relayout: function()
+    {
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 500);
+    },
+    getAds: function() {
+        var requiredNumber = {"adPageNo": 0};
+        var that = this;
+        requiredBackEnd('tenantConfiguration', 'doesAdDisplay', requiredNumber, 'post', function(callbck) {
+            var ads = $.map(callbck, function(value, index) {
+                return [value];
+            });
+            for (var i = 0; i < ads.length; i++) {
+                var ad = ads[i];
+                var mega = HubStar.Mega.createRecord({"id": ad.div, "type": "ad"});
+                mega.store.save();
+                that.insertAt(ad.slot_position, mega);
+            }
+        //    that.display(ads);
+        });
     }
 });

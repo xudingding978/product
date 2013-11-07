@@ -17,6 +17,19 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowers', 'profile'],
     test: "test",
     followings: "",
+    setUserFollowings: function(followingId) {
+
+        var model = HubStar.User.find(followingId);
+        this.getClientId(model); // It is used to get the mesage model
+
+    },
+    goToUserRoute: function()
+    {
+      
+        this.get("controllers.user").selectCollection();
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
+    },
     getClientId: function(model) {
         //console.log(localStorage.loginStatus);
         this.set('loadingTime', true);
@@ -84,8 +97,10 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
             }
 
 
+
             that.set('loadingTime', false);
             that.relayout();
+
         });
 
     },
@@ -146,7 +161,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
 
             if (type === "user")
             {
-                console.log(this.get("controllers.user").get('user'));
+                
                 if (localStorage.loginStatus === this.get("controllers.user").get('user').id)
                 {
                     this.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));

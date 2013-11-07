@@ -1,7 +1,5 @@
 HubStar.ProfileView = Ember.View.extend({
     templateName: 'profile',
-    
-    
     didInsertElement: function() {
 
         $(function() {
@@ -11,13 +9,46 @@ HubStar.ProfileView = Ember.View.extend({
                 isFitWidth: true
             });
         });
-        $('#defualt').addClass('selected-user-stats');
-        $('#user-stats > li').click(function() {
+
+        var address = document.URL;
+        var displayTap = address.split("#")[1].split("/")[3];
+
+        if (displayTap === "network")
+        {
             $('#user-stats > li').removeClass('selected-user-stats');
-            $(this).addClass('selected-user-stats');
-        });
-        
-       
+            $('#network').addClass('selected-user-stats');
+            $('#user-stats > li').click(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $(this).addClass('selected-user-stats');
+            });
+        }
+        else if (displayTap === "followers")
+        {
+            $('#user-stats > li').removeClass('selected-user-stats');
+            $('#follow').addClass('selected-user-stats');
+            $('#user-stats > li').click(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $(this).addClass('selected-user-stats');
+            });
+        }
+        else if (displayTap === "videos")
+        {
+            $('#user-stats > li').removeClass('selected-user-stats');
+            $('#video').addClass('selected-user-stats');
+            $('#user-stats > li').click(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $(this).addClass('selected-user-stats');
+            });
+        }
+        else {
+            $('#user-stats > li').removeClass('selected-user-stats');
+            $('#defualt').addClass('selected-user-stats');
+            $('#user-stats > li').click(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $(this).addClass('selected-user-stats');
+            });
+        }
+
+
     }
 });
-

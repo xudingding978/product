@@ -1,6 +1,6 @@
 HubStar.GoogleMapPopupView = Ember.View.extend({
     templateName: 'googleMapPopup',
-    // routeModeDropdown: false,
+   
     routeModeSelection: "DRIVING",
     didInsertElement: function() {
         var directionsDisplay = new google.maps.DirectionsRenderer({draggable: true});
@@ -35,8 +35,6 @@ HubStar.GoogleMapPopupView = Ember.View.extend({
             });
             $("#routeGo").click(function() {
                 $("#map_canvas_pop").animate({width: "535px"}, 1000, 'linear');
-               // document.getElementById('directionsPanel').style.display = 'block';
-               //directionsDisplay.setMap(null);
 
                 $('#routeGo').attr({"style": "display:none; width: 33%;height: 45px;line-height: 45px;'"});
                 $('#routeClear').attr({"style": "display:block;width: 33%;height: 45px;line-height: 45px;'"});
@@ -45,19 +43,14 @@ HubStar.GoogleMapPopupView = Ember.View.extend({
                $('#directionsPanel').attr({"style": "display:block; position: absolute; width: 265px; direction: ltr; height: 425px; overflow: auto; overflow-x: hidden;right: 0px; top: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(221, 221, 221); border-bottom: 1px solid #ddd;"});
             
                 },1000);
-      
                 calcRoute();
-       
-             
             });
             
             $("#routeClear").click(function() {
                 $("#map_canvas_pop").animate({width: "800px"}, 1000, 'linear');
                 $('#routeClear').attr({"style": "display:none;width: 33%;height: 45px;line-height: 45px;'"});
                 $('#routeGo').attr({"style": "display:block; width: 33%;height: 45px;line-height: 45px;'"});
-              
                directionsDisplay.setDirections({routes: []});
-            
                 $('#directionsPanel').attr({"style": "display:none; "});
             });
 
@@ -72,9 +65,9 @@ HubStar.GoogleMapPopupView = Ember.View.extend({
         });
 
 
-        // console.log(this.get('routeModeSelection'));
+      
         function calcRoute() {
-            console.log(that.get('routeModeSelection'));
+        
             var request = {
                 origin: that.get('controller').get('fromAddress'),
                 destination: that.get('controller').get('toAddress'),
@@ -85,8 +78,6 @@ HubStar.GoogleMapPopupView = Ember.View.extend({
                     directionsDisplay.setDirections(response);
                 }
             });
-
-
             setTimeout(function() {
 
                 $("#directionsPanel").mCustomScrollbar({
@@ -113,7 +104,6 @@ HubStar.GoogleMapPopupView = Ember.View.extend({
     },
     selectRoute: function() {
         var that = this;
-        //  console.log("1");
         $('#routeModeDropdown > .ite').click(function() {
             that.set('routeModeSelection', $(this).text());
         });

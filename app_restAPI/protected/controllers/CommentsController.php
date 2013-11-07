@@ -15,7 +15,7 @@ class CommentsController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'comments';
 
     public function actionIndex() {
-        $this->sendResponse(200, "aaaaaaaaaaaaa");
+        $this->sendResponse(204, "aaaaaaaaaaaaa");
     }
 
     public function actionDeletePhotoComment() {
@@ -79,8 +79,8 @@ class CommentsController extends Controller {
          $request_array = CJSON::decode(file_get_contents('php://input'));
         $request_array = CJSON::decode($request_array);
         $pic_id = $request_array[0]; // it is the  login in user
-        $id = $request_array[1].$request_array[2];
-        $content = $request_array[3];
+        $id = $request_array[1];
+        $content = $request_array[2];
 
         try {
             $docIDDeep = $this->getDomain() . "/" .$pic_id; //$id  is the page owner
@@ -88,7 +88,36 @@ class CommentsController extends Controller {
             $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
             $oldRecordDeep = CJSON::decode($oldDeep, true);
             for ($i = 0; $i < sizeof($oldRecordDeep['comments']); $i++) {
-                 $uid = $oldRecordDeep['comments'][$i]["commenter_id"] . $oldRecordDeep['comments'][$i]["time_stamp"] ;
+                 $uid = $oldRecordDeep['comments'][$i]["message_id"];
+                if ($uid === $id) {
+                    $oldRecordDeep['comments'][$i]["content"] = $content;
+                    break;
+                }
+            }
+            if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                $this->sendResponse(204);
+            }
+
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
+    }
+        public function actionUpdateProfileComment()
+    {
+         $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request_array = CJSON::decode($request_array);
+        $profile_id = $request_array[0]; // it is the  login in user
+        $id = $request_array[1];
+        $content = $request_array[2];
+
+        try {
+             $docIDDeep = $this->getDomain() . "/profiles/" .$profile_id; //$id  is the page owner
+            $cb = $this->couchBaseConnection();
+            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+            $oldRecordDeep = CJSON::decode($oldDeep, true);
+            for ($i = 0; $i < sizeof($oldRecordDeep['comments']); $i++) {
+                 $uid = $oldRecordDeep['comments'][$i]["message_id"];
                 if ($uid === $id) {
                     $oldRecordDeep['comments'][$i]["content"] = $content;
                     break;
@@ -125,11 +154,11 @@ class CommentsController extends Controller {
     }
 
     public function actionRead() {
-        
+         
     }
 
     public function actionUpdate() {
-        
+          $this->sendResponse(204);
     }
 
     public function actionDelete() {

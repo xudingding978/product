@@ -126,11 +126,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     goToProfileRoute: function(id)
     {
-     //   $('#user-stats > li').removeClass('selected-user-stats');
-//this.setProfile(id);
+        
       this.transitionToRoute('profile');
-//       $('#user-stats > li').removeClass('selected-user-stats');
-//        $('#defualt').addClass('selected-user-stats');
+
     },
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);

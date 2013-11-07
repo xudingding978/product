@@ -42,6 +42,7 @@ HubStar.CommentController = Ember.Controller.extend({
     },
     editingCommentData: function(obj)
     {
+        console.log(obj);
         var id = obj.get("message_id");
         var msg = obj.get("content");
         $('#commentItem_' + id).attr('style', 'display:none');
@@ -83,9 +84,14 @@ HubStar.CommentController = Ember.Controller.extend({
     closeCommentItem: function(obj) {      
         obj.set("isEdit", false);
         var id = obj.get("message_id");
-        $('#commentEdit_' + id).attr('style', 'display:none');
+        setTimeout(function() {
+             $('#commentEdit_' + id).attr('style', 'display:none');
         $('#commentItem_' + id).attr('style', 'display:block');
          $('#commentItemIn_' + id).attr('style', 'display:block');
+            $('#masonry_container').masonry("reload");
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+        
     },
     removeComment: function(object)
     {

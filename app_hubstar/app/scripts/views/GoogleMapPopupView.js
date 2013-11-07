@@ -37,17 +37,17 @@ HubStar.GoogleMapPopupView = Ember.View.extend({
                 $("#map_canvas_pop").animate({width: "535px"}, 1000, 'linear');
                // document.getElementById('directionsPanel').style.display = 'block';
                //directionsDisplay.setMap(null);
-console.log("1");
+
                 $('#routeGo').attr({"style": "display:none; width: 33%;height: 45px;line-height: 45px;'"});
                 $('#routeClear').attr({"style": "display:block;width: 33%;height: 45px;line-height: 45px;'"});
-                console.log("2");
+              
                 setTimeout(function() {
                $('#directionsPanel').attr({"style": "display:block; position: absolute; width: 265px; direction: ltr; height: 425px; overflow: auto; overflow-x: hidden;right: 0px; top: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(221, 221, 221); border-bottom: 1px solid #ddd;"});
-            console.log("3");
+            
                 },1000);
-        console.log("4");
+      
                 calcRoute();
-        console.log("5");
+       
              
             });
             
@@ -55,9 +55,9 @@ console.log("1");
                 $("#map_canvas_pop").animate({width: "800px"}, 1000, 'linear');
                 $('#routeClear').attr({"style": "display:none;width: 33%;height: 45px;line-height: 45px;'"});
                 $('#routeGo').attr({"style": "display:block; width: 33%;height: 45px;line-height: 45px;'"});
-                  that.get('controller').set('fromAddress',""),
+              
                directionsDisplay.setDirections({routes: []});
-             //  directionsDisplay.setMap(null);
+            
                 $('#directionsPanel').attr({"style": "display:none; "});
             });
 
@@ -78,7 +78,7 @@ console.log("1");
             var request = {
                 origin: that.get('controller').get('fromAddress'),
                 destination: that.get('controller').get('toAddress'),
-                travelMode: google.maps.DirectionsTravelMode.DRIVING
+                travelMode: google.maps.DirectionsTravelMode[that.get('routeModeSelection')]
             };
             directionsService.route(request, function(response, status) {
                 if (status === google.maps.DirectionsStatus.OK) {

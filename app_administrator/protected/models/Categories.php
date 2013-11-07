@@ -120,7 +120,7 @@ class Categories extends CActiveRecord
                 public function selectCategory($id) {
                     $data_list = array();
                     $topic_list = array();
-                    $sql = "select 
+                    $sql = "select DISTINCT 
                                     dbo.CategorySearchNames.*
                                 from 
                                     dbo.ArticleImages,

@@ -102,14 +102,14 @@ class CategorySearchNames extends CActiveRecord
                         dbo.CategorySearchNames.categoryId= ".$categoryId;
                     try {
                         $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
-                        echo "found ".sizeof($data_list)."row of creditlist";
+
                         if(sizeof($data_list)>0){
                             foreach($data_list as $list){
                                 $category_str .= $list['name'] .", ";
                                
                             }
                              $category_str= substr($category_str, 0,  -2);
-                           echo $category_str; 
+
                         } 
 
                             }
@@ -135,14 +135,14 @@ class CategorySearchNames extends CActiveRecord
                     dbo.SubCategories.id= ".$subCategoryId;
                     try {
                         $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
-                        echo "found ".sizeof($data_list)."row of creditlist";
+
                         if(sizeof($data_list)>0){
                             foreach($data_list as $list){
                                 $category_str .= $list['name'] .", ";
                                
                             }
                              $category_str= substr($category_str, 0,  -2);
-                           echo $category_str; 
+
                         } 
 
                             }

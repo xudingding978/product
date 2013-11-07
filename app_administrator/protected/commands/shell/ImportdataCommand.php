@@ -2,6 +2,7 @@
 
 Yii::import("application.models.*");
 Yii::import("application.components.*");
+require_once("ArticleCommand.php");
 
 class ImportdataCommand extends Controller_admin {
 
@@ -14,8 +15,13 @@ class ImportdataCommand extends Controller_admin {
             $this->getPhotoDataByDate();
         } elseif ($action == "test") {
             $this->test();
+        }elseif ($action == "date") {
+            $this->importArticleandImagefromTrends();
         }
     }
+    function __construct()
+     {
+     }
 
     public $image_amount = 0;
     public $obj_amount = 0;
@@ -52,42 +58,45 @@ class ImportdataCommand extends Controller_admin {
         $id = $this->checkImageExisting('24046', 'home-and-architectural-trends','5260');
         echo $id;
     }
-
-    public function checkImageExisting($heliumMediaId, $owner_id, $collection_id) {
-
-        $settings['log.enabled'] = true;
-        $sherlock = new \Sherlock\Sherlock($settings);
-        $sherlock->addNode("es1.hubsrv.com", 9200);
-        $request = $sherlock->search();
-        $index = 'test';
-        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"\"' . $heliumMediaId . '\""')
-                ->default_field('couchbaseDocument.doc.photo.photo_heliumMediaId');
-        $must2 = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()->query("photo")
-                ->default_field('couchbaseDocument.doc.type');
-        $must3 = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()->query('"\"' . $owner_id . '\""')
-                ->default_field('couchbaseDocument.doc.owner_id');
-         $must4 = Sherlock\Sherlock::queryBuilder()
-                ->QueryString()->query('"\"' . $collection_id . '\""')
-                ->default_field('couchbaseDocument.doc.collection_id');
-        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
-                        must($must2)->must($must3)
-                ->must($must4);
-        $request->index($index)->type("couchbaseDocument");
-        $request->from(0)
-                ->size(50);
-        $request->query($bool);
-        print_r($bool->toJSON());
-
-        $response = $request->execute();
-        echo sizeof($response);
-        $existing_arr = array();
-        foreach ($response as $found) {
-            array_push($existing_arr, $found['id']);
-        }
-        return $existing_arr;
+    
+    public function importArticleandImagefromTrends(){
+                  // Set timezone
+	//date_default_timezone_set('UTC');
+            $bucket="develop";
+            $article_list=array();
+	// Start date
+        echo "start \n";
+        $classArticleImport=new ArticleCommand();
+        echo "create class \n";
+	$date = '2013-10-18';
+        
+        echo "call method \n";
+	// End date
+                $end_date ='2013-10-22';
+	//$end_date =date('Y-m-d');
+// echo $date."\n".$newdate;
+	while (strtotime($date) <= strtotime($end_date)) {
+		//echo "$date\n";
+            $start = $date;
+            $to = date("Y-m-d", strtotime("+1 day", strtotime($date)));
+            $message = "\nIMPORT DATA FOR ".$start."\n";
+            $this->createRecord($message);
+            $this->getPhotoDataByDate($start,$to,$bucket);
+            sleep(2);
+            $artical_on_date=$classArticleImport->importArticleToProduction($start,$to,$bucket);
+            if(sizeof($artical_on_date)>0){
+                array_merge($article_list,$artical_on_date);
+            }
+            
+		$date = date ("Y-m-d", strtotime("+1 day", strtotime($date)));
+                
+                echo $start."     ".$to."\n";
+	}
+        $message=  $article_list;
+        $this->createRecord($message);
     }
+
+    
 
     public function createArticleCover() {
         $data_list = array();
@@ -136,27 +145,32 @@ class ImportdataCommand extends Controller_admin {
 //                                    left join  dbo.HeliumMedia on dbo.ArticleImages.heliumMediaId = dbo.HeliumMedia.heliumId
     //       order by dbo.ArticleImages.id asc
 
-    public function getPhotoDataByDate() {
+    public function getPhotoDataByDate($from,$to,$bucket) {
+//        $from = "2013-10-20";
+//        $to = "2013-10-25";
         $sql = "select dbo.articleImages.*, dbo.SparkJobNotes.dateCreated, dbo.SparkJobNotes.sparkJobId, dbo.SparkJobNotes.comment, dbo.Articles.headline, dbo.Articles.subHeadline, dbo.Articles.body, dbo.Articles.creditText, dbo.Articles.photography, dbo.HeliumMedia.keywords from dbo.ArticleImages
                                        inner join dbo.HeliumMedia on  dbo.ArticleImages.heliumMediaId = dbo.HeliumMedia.heliumId
                                        inner join dbo.Articles on dbo.Articles.id=dbo.ArticleImages.articleId
                                        left join dbo.SparkJobNotes on dbo.Articles.sparkJobId =dbo.SparkJobNotes.sparkJobId
 
-                                       where (dbo.SparkJobNotes.dateCreated between '2013-10-21' and '2013-10-29')
+                                      where (dbo.SparkJobNotes.dateCreated between "."'".$from."'"." and "."'".$to."'".")
                                        and dbo.SparkJobNotes.comment like 'Success'
 
                                        order by dbo.Articles.id ASC
                              ";
-        $from = "2013-10-01";
-        $to = "2013-10-30";
+
         $dataDuringDates = Yii::app()->db->createCommand($sql)->queryAll();
         //   echo var_export($dataDuringDates). "over";
         echo "-------------------" . sizeof($dataDuringDates) . "\r\n";
         if (sizeof($dataDuringDates) > 0) {
+$message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
 
 
-            $this->getMegaData($dataDuringDates);
+            $this->getMegaData($dataDuringDates,$bucket);
+        }else{
+            $message="\nNo image found on this date.";
         }
+        $this->createRecord($message);
     }
 
     public function actionImage($start, $quantity) {
@@ -199,7 +213,7 @@ class ImportdataCommand extends Controller_admin {
 //        ));
     }
 
-    public function getMegaData($image_data) {
+    public function getMegaData($image_data,$bucket) {
 
         foreach ($image_data as $val) {
             $return_hero = array();
@@ -284,19 +298,23 @@ class ImportdataCommand extends Controller_admin {
             // echo "\n\n55555555".var_export($image_details_array)."\n66666666\n";
 
             if (sizeof($image_details_array) > 0) {
+                $message="\n     image stored to S3";
+                $this->createRecord($message);
                 $return_hero = json_decode($image_details_array['hero']);
                 $return_thumbnail = json_decode($image_details_array['thumbnail']);
                 $return_preview = json_decode($image_details_array['preview']);
                 $return_original = json_decode($image_details_array['original']);
                 //  print_r(json_decode($image_details_array['hero']) );
                 //   print_r($return_hero );
-                print_r('hero: ' . var_export($return_hero) . "\n" . 'thumbnail: ' . var_export($return_thumbnail) . "\n" . 'preview: ' . var_export($return_preview) . "\n" . 'original: ' . var_export($return_original) . "\n");
+            //    print_r('hero: ' . var_export($return_hero) . "\n" . 'thumbnail: ' . var_export($return_thumbnail) . "\n" . 'preview: ' . var_export($return_preview) . "\n" . 'original: ' . var_export($return_original) . "\n");
 
                 $obj = $this->structureArray($val, $return_hero, $return_thumbnail, $return_preview, $return_original);
                 //        $this->importMegaObj($obj, $val['id']);
-                $this->writeCouchbaseRecord($obj);
+                $this->writeCouchbaseRecord($obj,$bucket);
             } else {
                 echo "http://trendsideas.com/media/article/preview/" . $val['preview'] . "--- DO NOT have return value from S3!--ID:" . $val['id'] . " \r\n";
+                $message="\n     http://trendsideas.com/media/article/original/" . $val['original'] . "--- DOES NOT have return value from S3!--ID:" . $val['id'] . " \r\n";
+                $this->createRecord($message);
             }
         }
     }
@@ -412,54 +430,70 @@ class ImportdataCommand extends Controller_admin {
 //        echo "111111111111111111111111111111";
         return $id;
     }
+    
+    
 
-    public function writeCouchbaseRecord($obj) {
+
+    public function writeCouchbaseRecord($obj,$bucket) {
 
         $image_arr = $obj;
+        
+        
 
         $imageAdded_arr = array();
         $total_amount = sizeof($image_arr);
+       
 
         if ($total_amount > 0) {
-            $exist_arr = $this->checkImageExisting($image_arr['photo'][0]['photo_heliumMediaId'], $image_arr['owner_id'], $image_arr['collection_id']);
+            $exist_arr = $this->checkImageExisting($image_arr['photo'][0]['photo_heliumMediaId'], $image_arr['owner_id'], $image_arr['collection_id'],$bucket);
             if (sizeof($exist_arr) > 0) {
-                foreach ($exist_arr as $existPhoto) {
-                    $couchbase_id = 'trendsideas.com/' . $existPhoto;
-                    $cb = $this->couchBaseConnection('restored');
-                    $result = $cb->get($couchbase_id);
-                    //   if($result!= null){
-                    $result_arr = CJSON::decode($result, true);
-                    //  $record_collection_id = $result_arr["collection_id"];
-                    //create Couchbase object ready for inserting into bucket
-                    if ($cb->set($couchbase_id, CJSON::encode($result_arr))) {
+                 $existPhoto=$exist_arr[0];
+                 $existId = substr($existPhoto,  16);
+                    $couchbase_id = $existPhoto;
+                    $image_arr['id'] = $existId;
+                    $image_arr['photo'][0]['id'] = $existId;
+                    $cb = $this->couchBaseConnection($bucket);
+
+                    if ($cb->set($couchbase_id, CJSON::encode($image_arr))) {
                         array_push($imageAdded_arr, $couchbase_id);
+                          echo "\nupdate record successful " . $couchbase_id . " \n";
+                          $message="\n   update record successful " . $couchbase_id . " \n";
+                          $this->createRecord($message);
                     }
-                }
+                    else{
+                         $message = "\n   update object fail ".$couchbase_id."------------------------------- \n";
+                         echo "\nupdate record failed " . $couchbase_id . "\n";
+              //      $this->writeToLog($this->error_path, $message);
+                         $this->createRecord($message);
+                    }
+                
             } else {
                 $newId = $this->getNewID();
                 $couchbase_id = 'trendsideas.com/' . $newId;
                 $image_arr['id'] = $newId;
                 $image_arr['photo'][0]['id'] = $newId;
-                $cb = $this->couchBaseConnection('restored');
+                $cb = $this->couchBaseConnection($bucket);
                 //any attributes that need to update
                 //create Couchbase object ready for inserting into bucket
                 if ($cb->add($couchbase_id, CJSON::encode($image_arr))) {
                     array_push($imageAdded_arr, $couchbase_id);
 
-                    echo "add record successful " . $couchbase_id . "\n";
+                 //   echo "\n   add record successful " . $couchbase_id . "\n";
+                    $message="\n   add record successful " . $couchbase_id . "\n";
+                    $this->createRecord($message);
                 } else {
-                    $message = "add object fail ------------------------------- \r\n";
-                    $this->writeToLog($this->error_path, $message);
+                    $message = "\n   add object failed ".$couchbase_id. "------------------------------- \n";
+                    $this->createRecord($message);
                 }
 
-                //   print_r($obj_arr);
                 echo $message;
-                //    exit();
-                print_r($imageAdded_arr);
+
             }
         }
         unset($image_arr);
     }
+
+
 
     public function structureArray($val, $return_hero, $return_thumbnail, $return_preview, $return_original) {
         // get size of image
@@ -501,6 +535,7 @@ class ImportdataCommand extends Controller_admin {
             foreach ($book_list as $book) {
                 array_push($book_id, $book['id']);
                 $date_live = $book['dateLive'];
+
                 $title = str_replace(" & ", "-", $book['title']);
                 $title = str_replace(" ", "-", $title);
                 $time_array = $this->getUTC($date_live, $region_book);
@@ -524,7 +559,7 @@ class ImportdataCommand extends Controller_admin {
         $obj = array(
             "id" => null, //
             "accessed" => $accessed, //the creating UTC datatime of a obj
-            "created" => $book_date, //the UTC datatime of book datelive from books table of MS SQL
+            "created" => $UTC, //the UTC datatime of book datelive from books table of MS SQL
             "boost" => null, //
             "categories" => $category,
             "collection_id" => $val['articleId'],

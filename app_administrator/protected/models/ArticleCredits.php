@@ -140,8 +140,8 @@ class ArticleCredits extends CActiveRecord
                                     dbo.ArticleCredits.articleId = ".$id;
                     try {
                         $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
-                        echo "found ".sizeof($data_list)."row of creditlist";
-                         print_r($data_list);
+                  //      echo "found ".sizeof($data_list)."row of creditlist";
+                 //        print_r($data_list);
 
                             }
 

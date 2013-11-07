@@ -3,6 +3,7 @@
 class Controller_admin extends CConsoleCommand {
 
     protected $error_path = "/home/devbox/NetBeansProjects/test/image.log";
+ // 
 
     protected function getData($url, $list_arr) {
         try {
@@ -32,6 +33,13 @@ class Controller_admin extends CConsoleCommand {
             return null;
         }
     }
+    
+        public function createRecord($message){
+       //   $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $start_time = date('M-d-Y');
+          $import_log="/var/log/yii/ImportProgress/$start_time.log";
+          $this->writeToLog($import_log, $message);
+    }
 
     protected function writeToLog($fileName, $content) {
         //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
@@ -40,7 +48,78 @@ class Controller_admin extends CConsoleCommand {
         fwrite($handle, $output);
         fclose($handle);
     }
+    
+        public function checkImageExisting($heliumMediaId, $owner_id, $collection_id,$bucket) {
 
+        $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = $bucket;
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"\"' . $heliumMediaId . '\""')
+                ->default_field('couchbaseDocument.doc.photo.photo_heliumMediaId');
+        $must2 = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()->query("photo")
+                ->default_field('couchbaseDocument.doc.type');
+        $must3 = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()->query('"\"' . $owner_id . '\""')
+                ->default_field('couchbaseDocument.doc.owner_id');
+         $must4 = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()->query('"\"' . $collection_id . '\""')
+                ->default_field('couchbaseDocument.doc.collection_id');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
+                        must($must2)->must($must3)
+                ->must($must4);
+        $request->index($index)->type("couchbaseDocument");
+        $request->from(0)
+                ->size(50);
+        $request->query($bool);
+        print_r($bool->toJSON());
+
+        $response = $request->execute();
+        echo sizeof($response);
+        $existing_arr = array();
+        foreach ($response as $found) {
+            array_push($existing_arr, $found['id']);
+        }
+        return $existing_arr;
+    }
+
+    
+    
+    public function checkArticleExisting($heliumMediaId, $owner_id, $collection_id,$bucket) {
+
+        $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = $bucket;
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"\"' . $heliumMediaId . '\""')
+                ->default_field('couchbaseDocument.doc.article.article_helium_media_id');
+        $must2 = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()->query("article")
+                ->default_field('couchbaseDocument.doc.type');
+        $must3 = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()->query('"\"' . $owner_id . '\""')
+                ->default_field('couchbaseDocument.doc.owner_id');
+         $must4 = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()->query('"\"' . $collection_id . '\""')
+                ->default_field('couchbaseDocument.doc.collection_id');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
+                        must($must2)->must($must3)
+                ->must($must4);
+        $request->index($index)->type("couchbaseDocument");
+        $request->from(0)
+                ->size(50);
+        $request->query($bool);
+
+        $response = $request->execute();
+        $existing_arr = array();
+        foreach ($response as $found) {
+            array_push($existing_arr, $found['id']);
+        }
+        return $existing_arr;
+    }
     protected function couchBaseConnection($bucket) {
 
         //   return new Couchbase($node, $account, $password, $bucket, true);

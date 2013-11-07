@@ -57,9 +57,12 @@ class TenantConfigurationController extends Controller {
     }
 
     public function actionDoesAdDisplay() {
-        $domain = $this->getDomain();
+        $domain = $this->getDomainWihoutAPI();
         $configuration = $this->getProviderConfigurationByName($domain, "ads");
+               error_log(var_export($configuration,true));
         $feedback = CJSON::encode($configuration[0]);
+        
+        error_log(var_export($feedback,true));
         $this->sendResponse(200, $feedback);
     }
 

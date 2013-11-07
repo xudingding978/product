@@ -36,7 +36,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
             ProfileController.setProfile(model.id);
         }
 
-    },
+    },       
     events: {
         transitionToCollectionPhoto: function(collection_id) {
 

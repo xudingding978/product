@@ -8,7 +8,7 @@
 
     </div>
     <div class="scrollbarGoogleMap">
-        <div  id="directionsPanel" style="position: absolute; width: 265px; direction: ltr; height: 425px; overflow: auto; overflow-x: hidden;right: 0px; top: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(221, 221, 221); display: block;border-bottom: 1px solid #ddd;" > 
+        <div  id="directionsPanel" style="display:block; position: absolute; width: 265px; direction: ltr; height: 425px; overflow: auto; overflow-x: hidden;right: 0px; top: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(221, 221, 221); border-bottom: 1px solid #ddd;" > 
         </div>        
     </div>
 
@@ -28,16 +28,14 @@
         </div>
 
         <div id="routeModeDropdown" class="hideClass Dropdownstyle1" style="width: 100px; z-index: 1000; position: fixed;text-align: center;margin-left: 300px;margin-top: -160px;" {{action selectRoute target="view" on="click"}}>
-            <li class="ite" value="DRIVING" >Bicycling</li>
-            <li class='ite' value="WALKING">Walking</li>
-            <li class='ite' value="BICYCLING">Driving </li>
-            <li class="ite" value="TRANSIT">Transit</li>
+            <li class="ite" value="DRIVING" >DRIVING</li>
+            <li class='ite' value="WALKING">WALKING</li>
+            <li class='ite' value="BICYCLING">BICYCLING</li>
+            <li class="ite" value="TRANSIT">TRANSIT</li>
         </div>
-
-
-
-        <div  id="routeGo" class="message-btn easing" style='width: 33%;height: 45px;line-height: 45px;'>Get Direction <k class='icon-long-arrow-right'>&nbsp;</k></div>
-
+        
+       <div  id="routeGo" class="message-btn easing" style='width: 33%;height: 45px;line-height: 45px;'>Get Direction <k class='icon-long-arrow-right'>&nbsp;</k></div>
+       <div  id="routeClear" class="message-btn easing" style='display:none;width: 33%;height: 45px;line-height: 45px;'>Clear <k class='icon-long-arrow-right'>&nbsp;</k></div>
     </div>
 
 </div>

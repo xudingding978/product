@@ -225,6 +225,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //            this.setKeywordsArray(this.get('model').get('profile_keywords'));
 //        }
         if (profile.get("profile_keywords_num") !== null && profile.get("profile_keywords_num") !== "undefined" && profile.get("profile_keywords_num") !== "") {
+            
             this.set("keyword_num", profile.get("profile_keywords_num"));
         } else {
             this.setKeywordsNum(this.get('model').get('profile_package_name'));

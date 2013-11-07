@@ -12,10 +12,8 @@ HubStar.ReviewController = Ember.Controller.extend({
     profile: "",
     replyReviewCollection: [],
     reviewList: false,
-    //currentUserID:"",
     reviewDate: "",
     review_id: null,
-    // isReply: true,
     profileName: "",
     needs: ['profile', 'applicationFeedback', 'user', 'reviewList'],
     init: function()
@@ -67,7 +65,7 @@ HubStar.ReviewController = Ember.Controller.extend({
             $('#user-stats > li').removeClass('selected-user-stats');
             $('#reviewList').addClass('selected-user-stats');
             setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");
+                $('#masonry_user_container').masonry("reload");
             }, 200);
             $(window).scrollTop(1500);
             this.get("controllers.profile").set('partnerTag', false);

@@ -39,7 +39,7 @@ HubStar.ProfileView = Ember.View.extend({
                 $(this).addClass('selected-user-stats');
             });
         }
-        else if (user_id === "reviews")
+        else if (displayTap === "reviews")
         {
             $('#user-stats > li').removeClass('selected-user-stats');
             $('#reviewList').addClass('selected-user-stats');

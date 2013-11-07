@@ -1,10 +1,7 @@
 HubStar.Video = DS.Model.extend({
-        
-        
-        
-        
-        didLoad: function() {
-
-        }
-    });
+    videoImg: DS.attr('string'),
+    videoTitle: DS.attr('string'),
+    videoDesc: DS.attr('string'),
+    videoIframeCode: DS.attr('string')
+});
 

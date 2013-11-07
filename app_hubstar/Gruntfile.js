@@ -267,7 +267,7 @@ module.exports = function(grunt) {
                      '<%= yeoman.app %>/bower_components/wysihtml5/parser_rules/advanced.js',
                     '<%= yeoman.app %>/bower_components/wysihtml5/dist/wysihtml5-0.3.0.js',
                     '<%= yeoman.app %>/bower_components/mousetrap.min.js',                  
-                   '<%= yeoman.app %>/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'
+                    '<%= yeoman.app %>/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'
                 ],
                 dest: '<%= yeoman.dist %>/scripts/components.js'
             },

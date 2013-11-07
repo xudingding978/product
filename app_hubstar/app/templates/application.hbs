@@ -4,11 +4,13 @@
     {{#if controller.islogin}}
     {{view HubStar.HeaderView}}
 
-    {{outlet profile}}
+
 
     {{outlet profiles}}
 
     {{outlet user}}
+    {{render "footer"}}
+
 
     {{#unless controller.isotherpage}}
 
@@ -23,25 +25,18 @@
 
     {{/unless}}
 
-
     {{else}}
 
     {{view HubStar.RegisterView}}
     {{/if}}
     
+    {{outlet profile}}
      {{outlet photos}}
     {{outlet articles}}
-    {{outlet "profileNew"}}
-    {{render "footer"}}
-
-    
-    
-
-    {{outlet photos}}
-    {{outlet articles}}
+    {{outlet videoes}}
     {{outlet "profileNew"}}
 
-    {{#if controller.islogin}}
+    {{#if HubStar.isLogin}}
     {{render platformBar}}
     {{/if}}
 

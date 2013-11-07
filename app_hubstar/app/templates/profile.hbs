@@ -1044,7 +1044,11 @@
 
     {{/if}}
 
-
+  {{#unless HubStar.isLogin}}
+    {{render "footer"}}
+    {{/unless}}
+    
+    
     <script>
         $(document).on("mousemove", function(event) {
             $("#panel").text("pageX: " + event.pageX + ", pageY: " + event.pageY);

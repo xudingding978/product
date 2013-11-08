@@ -27,9 +27,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeLoginURL: "",
     isWaiting: "",
     isGeoDropdown: false,
+    adPageNo: 0,
+    googletagCmd: null,
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
-        this.defaultSearch();
+//        this.defaultSearch();
         this.set('search_string', '');
     },
     popupModal: function() {
@@ -57,7 +59,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
                 that.setContent(results);
-                that.relayout();
                 that.set('loadingTime', false);
                 if (results.get("length") === 0) {
                     that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
@@ -86,7 +87,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.getAds();
     },
     newSearch: function() {
+        this.set("googletagCmd", []);
         this.set("content", []);
+        this.set("adPageNo", 0);
         this.set("from", 0);
         this.set("size", 20);
         this.set('loadingTime', true);
@@ -122,10 +125,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
                 that.setContent(results);
-                that.relayout();
             }
         });
-
     },
     getResponseTime: function(start, end) {
         var totalTime = end - start;
@@ -239,11 +240,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             {
                 if (checkList[i].input === null || checkList[i].input === "" || checkList[i].input === undefined) {
                     result = false;
-
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#missing-fields').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
-
                     document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
                 }
@@ -258,7 +257,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name-register').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
-
                     document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
                 }// INVALID user name when the user attempts to login.
@@ -287,29 +285,21 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.set('isWaiting', true);
             document.getElementById("loginUsername").setAttribute("class", "login-textfield");
             document.getElementById("loginPassword").setAttribute("class", "login-textfield");
-
             var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
             var that = this;
             requiredBackEnd('login', 'login', loginInfo, 'POST', function(params) {
                 if (params === 1) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                     that.set('isWaiting', false);
-
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                 }// INVALID user name when the user attempts to login.
-
-
                 else if (params === 0) {
-
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                     that.set('isWaiting', false);
-
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
-
-
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is a social network login account
                 else {
 
@@ -322,9 +312,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     }
                     else {
                         document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
-
                         that.set('isWaiting', false);
-
                         if ($('#incorrect-password').css('display') === 'none') {
 
                             $('.black-tool-tip').stop();
@@ -371,51 +359,65 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     display: function(ads)
     {
-//        console.log(ads);
+        var that = this;
         Ember.run.later(function() {
-//            var ads = HubStar.get('ads');
-//            var masonryContainer = document.getElementById('masonry_container');
-//            var child = masonryContainer.children[1];
-//            for (var i = 0; i < ads.length; i++) {
-//                var ad = ads[i];
-//                var masonrybox = document.createElement('div');
-//                masonrybox.border = 0;
-//                masonrybox.backgroundColor = 'transparent';
-//                masonrybox.textAlign = "center";
-//                masonrybox.className = "box colAd noStyle1";
-//                var adDiv = document.createElement('div');
-//                adDiv.id = ad.div;
-//                masonrybox.appendChild(adDiv);
-//                masonryContainer.insertBefore(masonrybox, child);
-//            }
-            googletag.cmd.push(function() {
-                console.log(ads.length);
-                for (var i = 0; i < ads.length; i++) {
-                    var ad = ads[i];
-                    console.log(ad);
-                    googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
-                }
-                googletag.pubads().enableSingleRequest();
-                googletag.enableServices();
-            });
-            googletag.cmd.push(function() {
-                var ads = HubStar.get('ads');
-                for (var i = 0; i < ads.length; i++) {
-                    var ad = ads[i];
-                    googletag.display(ad.div);
-                }
-            });
-        }, 1000);
+            console.log("asdfsdafasd " + that.get('adPageNo'));
+            if (that.get('adPageNo') === 1) {
+                googletag.cmd.push(function() {
+                    for (var i = 0; i < ads.length; i++) {
+                        var ad = ads[i];
+                        googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                    }
+                    googletag.pubads().enableSingleRequest();
+                    googletag.enableServices();
+                });
+                googletag.cmd.push(function() {
+                    for (var i = 0; i < ads.length; i++) {
+                        var ad = ads[i];
+                        googletag.display(ad.div);
+                    }
+                });
+                that.set('googletagCmd', googletag.cmd);
+            }
+            else {
+//                googletag.cmd = that.get('googletagCmd');
+//                googletag.cmd.ua = 2;
+//                googletag.cmd.bb = 0;
+//                console.log(googletag.cmd);
+                googletag.cmd.push(function() {
+                    for (var i = 0; i < ads.length; i++) {
+                        var ad = ads[i];
+                         slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+
+                        googletag.pubads().enableSingleRequest();
+                        googletag.enableServices();
+                        googletag.display(ad.div);
+                        googletag.pubads().refresh([slot1]);
+                    }
+                });
+            }
+
+// googletag.cmd.push(function() {
+//        var slot1 = googletag.defineSlot("/12345678/Refresh_Example", [728, 90],
+//        "div-gpt-ad-1327312723268-0").addService(googletag.pubads());
+//        googletag.enableServices();
+//        googletag.display("div-gpt-ad-1327312723268-0");
+//        setInterval(function(){googletag.pubads().refresh([slot1]);}, 30000);
+//        });
+
+
+
+        }, 200);
         this.relayout();
     },
     relayout: function()
     {
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
-        }, 500);
+        }, 1300);
     },
     getAds: function() {
-        var requiredNumber = {"adPageNo": 0};
+        var requiredNumber = {"adPageNo": this.getPageNo()};
         var that = this;
         requiredBackEnd('tenantConfiguration', 'doesAdDisplay', requiredNumber, 'post', function(callbck) {
             var ads = $.map(callbck, function(value, index) {
@@ -427,7 +429,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 mega.store.save();
                 that.insertAt(ad.slot_position, mega);
             }
-        //    that.display(ads);
+            that.display(ads);
         });
+    },
+    getPageNo: function()
+    {
+        var pageNo = this.get('adPageNo');
+        var increaseby0ne = pageNo + 1;
+        this.set('adPageNo', increaseby0ne);
+        return pageNo;
     }
 });

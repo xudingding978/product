@@ -61,12 +61,12 @@ class TenantConfigurationController extends Controller {
         $request_json = file_get_contents('php://input');
         $request = CJSON::decode($request_json, true);
         $adPageNo=$request['adPageNo'];
-        
         $domain = $this->getDomainWihoutAPI();
         $configuration = $this->getProviderConfigurationByName($domain, "ads");
-        
+        $feedback=null;
+        if($adPageNo<sizeof($configuration)){
         $feedback = CJSON::encode($configuration[$adPageNo]);
-        
+        }
    
         $this->sendResponse(200, $feedback);
     }

@@ -376,7 +376,7 @@ class ConversationsController extends Controller {
 
     public function sendEmail($receiveEmail, $receiveName, $notificationCount, $ownerId) {
 
-        $receiveEmail = "tom@hubstar.co";
+        //$receiveEmail = "tom@hubstar.co";
         $domain = $this->getDomain();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
         $amazonSes = Aws\Ses\SesClient::factory($configuration);

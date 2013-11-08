@@ -1,6 +1,12 @@
 HubStar.UserRoute = Ember.Route.extend({
     setupController: function(controller, model) {       
         HubStar.set('editingMode', 'user');
+         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
+        {
+            HubStar.set("isLogin", false);
+        }else{
+                    HubStar.set("isLogin", true);               
+        }
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', true);

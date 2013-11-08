@@ -216,8 +216,7 @@ class ProfilesController extends Controller {
         $cb = $this->couchBaseConnection();
         $docID = $this->getDomain() . '/profiles/' . $id;
         $oldRecord = CJSON::decode($cb->get($docID));
-                error_log($googleMap);
-                error_log($oldRecord['profile'][0]['profile_google_map']);
+               
            $oldRecord['profile'][0]['profile_google_map'] = $googleMap;
 
             if ($cb->set($docID, CJSON::encode($oldRecord))) {

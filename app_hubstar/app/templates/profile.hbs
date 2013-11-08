@@ -1055,12 +1055,19 @@
     {{/if}}
 
 
+  {{#unless HubStar.isLogin}}
+    {{render "footer"}}
+    {{/unless}}
+    
+
+
     {{#if controller.popUpMap}}
 
     {{view  HubStar.GoogleMapPopupView}}
 
 
     {{/if}}
+
 
 
     <script>

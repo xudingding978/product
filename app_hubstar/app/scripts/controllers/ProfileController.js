@@ -206,6 +206,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.setShowKeywordsArray(profile.get('show_keyword_id'),profile.get('keywords'));
         } else {
             this.set('show_keyword_id', '');
+            this.set('show_keyword_array', []);
         }
 //        } else {            
 //            this.setKeywordsArray(this.get('model').get('profile_keywords'));
@@ -215,7 +216,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         } else {
             this.setKeywordsNum(this.get('model').get('profile_package_name'));
         }
-        this.set('keyword_left', parseInt(profile.get("profile_keywords_num")) - profile.get('keywords').get('length'));
+        this.set('keyword_left', parseInt(this.get("keyword_num")) - profile.get('keywords').get('length'));
     },
     setShowKeywordsArray: function(show_keywords_id, keywords) {
         var newArray = [];
@@ -825,6 +826,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
                 if (this.get('show_keyword_array').objectAt(i).get('keyword_id') === keyword_id) {
                     this.get('show_keyword_array').removeObject(this.get('show_keyword_array').objectAt(i));
+                    this.set('show_keyword_id', this.get('show_keyword_id').replace(','+keyword_id, ''));
                 }
             }
         }

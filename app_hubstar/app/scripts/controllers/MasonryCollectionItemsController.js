@@ -17,6 +17,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     },
     selectModelForUser: function(collection_id) {
         this.set('content', []);
+        this.set('type',"user");
         this.set('collection_id', collection_id);
         this.set('');
         var address = document.URL;
@@ -48,7 +49,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     selectModelForProfile: function(collection_id, title) {
         this.set('collection_id', collection_id);
         this.resetContent();
-
+        this.set('type',"profile");
         if (title === undefined)
         {
             var arrayUrl;

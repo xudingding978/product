@@ -10,7 +10,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     image_no: 1,
     selectedPhoto: null,
     isSelected: false,
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'checkingLoginStatus'],
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'checkingLoginStatus','masonryCollectionItems'],
     currentUser: null,
     currentUserProfile: null,
     photo_album_id: null,
@@ -78,9 +78,38 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set('megaResouce', megaResouce);
         this.set("photo_album_id", "album_" + megaObject.id);
         this.set("photo_thumb_id", "thumb_" + megaObject.id);
-        this.addRelatedData(megaObject);
+        if (this.get("controllers.masonryCollectionItems").get("type") === "user")
+        {
+            console.log(":sssssssss");
+            console.log(megaObject.get("type"));
+            this.addRelatedCollectionItemData(megaObject);
+        }
+        else
+        {
+            this.addRelatedData(megaObject);
+        }
         this.checkAuthenticUser();
         this.getCommentsById(megaObject.id);
+    },
+    addRelatedCollectionItemData: function(mega)
+    {
+        var collection_id = mega.get("collection_id");
+        var owner_profile_id = mega.get("owner_id");
+        var photoContent = this.get("controllers.masonryCollectionItems").get("content");
+        var isProfileIDExist = this.isParamExist(owner_profile_id);
+        var isCollectionIDExist = this.isParamExist(collection_id);
+        if (isProfileIDExist && isCollectionIDExist) {
+            this.set("content", photoContent);
+            for (var i = 0; i < this.get("content").length; i++) {
+                var id = this.get("content").objectAt(i).id;
+                if (HubStar.Mega.find(id).get('photo').get('length') === 1 && mega.get('id') !== id)
+                {
+                    if (HubStar.Mega.find(id).get('collection_id') === collection_id) {
+                        this.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
+                    }
+                }
+            }
+        }
     },
     selectImage: function(e) {
 
@@ -169,11 +198,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
             contactController.selectionCheckBox();
 
             this.set('contact', !this.get('contact'));
-            }
-
         }
-        ,
-                closeContact: function() {
+
+    }
+    ,
+    closeContact: function() {
         this.set('contact', false);
     },
     addComment: function() {
@@ -310,16 +339,15 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 ).focus();
         return false;
     },
-
-      pShare: function() {
+    pShare: function() {
         this.dropdownPhotoSetting();
 
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
 
-                var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+        var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_original_url')) +
                 '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title'));
-                window.open(
+        window.open(
                 url,
                 'popupwindow',
                 'height=436,width=626'

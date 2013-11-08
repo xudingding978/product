@@ -254,7 +254,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             var that = this;
             var dataNew = new Array();
             requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
-
+               
                 that.set("isPosting", true);
                 dataNew["message_id"] = params["message_id"];
                 dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];

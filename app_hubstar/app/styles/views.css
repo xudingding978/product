@@ -28,13 +28,13 @@
 
 
 .easing {
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
 }
 
 .hover-opacity{opacity:.6}
-.hover-opacity:hover{opacity:1}
+.hover-opacity:hover, .hover-opacity:focus, .hover-opacity:active{opacity:1}
 
 
 
@@ -1180,14 +1180,6 @@ div.album-description-bg{
     border: 1px solid #f3f3f3;
 }
 
-.profilepic_effect{
-    opacity: 0.8;
-}
-
-.profilepic_effect:hover{
-    box-shadow: 0px 0px 10px #fff;
-    opacity: 1;
-}
 
 .poster_user{
     position: relative;

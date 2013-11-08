@@ -1,63 +1,66 @@
 <div class="navbar">
-    <div style="position: absolute;right: 0;z-index: 1;">
-        <img src="../../../images/beta-version.png"/>
 
-
-        <span style="position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;" id="lastidentifie">0.3-92</span>
-
-
-
-
-    </div>
     <div class="navbar-inner">
-        <div class="container">
-            <div class="brand">
-                <a href="/#">
-                    <img class="logonew" style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png">
-                </a>
+        <div class="brand">
+            <img class="logonew" style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png">
+
+            <div style="position: relative;display: inline-block;top: 12px;font-weight: normal;font-style: italic;color: white;font-size: 11px;">
+                <span>Beta</span> <span id="lastidentifie">0.3-92</span>
             </div>
-
-            <!-- show if not logged into platform-->
-            {{#if HubStar.isLogin}}
-
-            <div id="login_detail" style="position: relative;float: right;cursor: pointer;text-align: right;">
-                {{view HubStar.AfterLoginView}}
-            </div>
+        </div>
 
 
-            {{else}}
+        <div class="top-about-menu" style="">
+            <span><a href="http://about.trendsideas.com/">About</a></span>
+            <span><a href="http://about.trendsideas.com/business/">Business</a></span>
+            <span><a href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span>
+            <span><a href="http://about.trendsideas.com/contact-us/">Contact us</a></span>
+            <span><a href="http://beta.trendsideas.com">Register Now</a></span>
+        </div>
 
 
-            <div id="login_icon" style="position: absolute; right: 80px;">
-
-                {{view HubStar.BeforeLoginView}}
-
-              
-
-            </div>
 
 
-            {{/if}}
 
 
-            <!-- user is logged in -->
+        <!-- show if not logged into platform-->
+        {{#if HubStar.isLogin}}
 
-            <div class="Geo-Filter easing" style="margin-right: 80px;">
-                <i class="icon-search icon-large"></i>
-            </div>
+        <div id="login_detail" style="position: relative;float: right;cursor: pointer;text-align: right;">
+            {{view HubStar.AfterLoginView}}
+        </div>
 
-            <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdown controller.projectCategoryDropdownType}}>
-                 <i class="icon-globe icon-large">&nbsp;</i>
-                <span style="font-weight: bold;font-size: 15px;">{{HubStar.geoLocation}}</span>
-            </div>
-            
-            {{#if controller.isGeoDropdown}}
-            {{view HubStar.DropdownListView}}
-            {{/if}}
 
-            
+        {{else}}
+
+
+        <div id="login_icon" style="position: absolute; right: 80px;">
+
+            {{view HubStar.BeforeLoginView}}
+
+
 
         </div>
+
+
+        {{/if}}
+
+
+        <!-- user is logged in -->
+
+
+
+        <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdown controller.projectCategoryDropdownType}}>
+             <i class="icon-angle-down icon-large">&nbsp;</i>
+            <span style="font-weight: bold;font-size: 15px;">{{HubStar.geoLocation}}</span>
+        </div>
+
+        {{#if controller.isGeoDropdown}}
+        {{view HubStar.DropdownListView}}
+        {{/if}}
+
+
+
     </div>
 </div>
 

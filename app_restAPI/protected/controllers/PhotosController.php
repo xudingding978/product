@@ -1,4 +1,4 @@
-photoUpdate<?php
+<?php
 
 header('Content-type: *');
 header("Access-Control-Allow-Origin: *");

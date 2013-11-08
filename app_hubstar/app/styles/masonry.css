@@ -259,6 +259,10 @@ button {
 .col2 { width: 350px; }
 .col3 { width: 300px; margin: 10px; }
 .col4 {width: 720px;}
+.colAd{width: 350px;
+       text-align: center;
+       border: 0;
+       background-color: transparent;}
 
 /*
 .col1 img { max-width: 80px; }

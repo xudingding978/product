@@ -52,6 +52,9 @@ body > div.ember-view{
     margin-top: 85px;
 }
 
+
+.masonry-ad{background-color: transparent; border: none;text-align: center;}
+
 .plaform_bar:hover{
     box-shadow: none;
     background-color: transparent;
@@ -1341,3 +1344,4 @@ to{
     -webkit-transform: rotate(360deg);
 }
 }
+

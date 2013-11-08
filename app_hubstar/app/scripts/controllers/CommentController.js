@@ -7,18 +7,42 @@ HubStar.CommentController = Ember.Controller.extend({
     count: null,
     isUserSelf: false,
     objID: "",
-    needs: ['editComment'],
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment'],
     init: function()
     {
 
         if (localStorage.loginStatus) {
-
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         }
-
+    },
+    switchCollection: function(model) {
+        if (model.get("type") === "photo") {
+            var photoObj = model.get("photo").objectAt(0);
+            var addCollectionController = this.get('controllers.addCollection');
+            var selectid = model.id;
+            addCollectionController.setImageID(selectid);
+            var tempUrl = photoObj.get('photo_image_thumbnail_url');
+            addCollectionController.setThumbnailUrl(tempUrl);
+            addCollectionController.setUser();
+            addCollectionController.setRelatedController('comment');
+            $('#addCollection_' + model.id).attr('style', 'display: block');
+        }
+        else if (model.get("type") === "article")
+        {
+            var photoObj = model.get("article").objectAt(0);
+            var addCollectionController = this.get('controllers.addCollection');
+            var selectid = model.id;
+            addCollectionController.setImageID(selectid);
+            var tempUrl = photoObj.get('article_image_url');
+            addCollectionController.setThumbnailUrl(tempUrl);
+            addCollectionController.setUser();
+            addCollectionController.setRelatedController('comment');
+            $('#addCollection_' + model.id).attr('style', 'display: block');
+        }
 
     },
     addComment: function() {
+
         var commentContent = this.get('commentContent');
         if (commentContent) {
             var comments = this.get('mega').get('comments');
@@ -46,17 +70,17 @@ HubStar.CommentController = Ember.Controller.extend({
         var id = obj.get("message_id");
         var msg = obj.get("content");
         $('#commentItem_' + id).attr('style', 'display:none');
-      
+
         obj.set("isEdit", true);
-       
-        
+
+
         this.seeMore(this.get('content').id);
-        
+
         HubStar.set("updateCommentmsg", msg);
-        
+
         setTimeout(function() {
-             $('#commentEdit_' + id).attr('style', 'display:block');
-             $('#commentItemIn_' + id).attr('style', 'display:none');
+            $('#commentEdit_' + id).attr('style', 'display:block');
+            $('#commentItemIn_' + id).attr('style', 'display:none');
             $('#masonry_container').masonry("reload");
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -81,17 +105,17 @@ HubStar.CommentController = Ember.Controller.extend({
         }
         this.set('thisComments', comments);
     },
-    closeCommentItem: function(obj) {      
+    closeCommentItem: function(obj) {
         obj.set("isEdit", false);
         var id = obj.get("message_id");
         setTimeout(function() {
-             $('#commentEdit_' + id).attr('style', 'display:none');
-        $('#commentItem_' + id).attr('style', 'display:block');
-         $('#commentItemIn_' + id).attr('style', 'display:block');
+            $('#commentEdit_' + id).attr('style', 'display:none');
+            $('#commentItem_' + id).attr('style', 'display:block');
+            $('#commentItemIn_' + id).attr('style', 'display:block');
             $('#masonry_container').masonry("reload");
             $('#masonry_user_container').masonry("reload");
         }, 200);
-        
+
     },
     removeComment: function(object)
     {
@@ -176,8 +200,6 @@ HubStar.CommentController = Ember.Controller.extend({
                     mega.set("likes_count", like.length);
                     mega.set("people_like", params);
                     that.count = like.length;
-                    //console.log(that.count);
-                    //console.log("sssssssssssssssssssss");
                 });
             }
         }
@@ -300,5 +322,210 @@ HubStar.CommentController = Ember.Controller.extend({
             $('#masonry_photo_collection_container').masonry("reload");
             $('#masonry_user_container').masonry("reload");
         }, 368);
+    },
+    shareDisplay: function(id) {
+        $('#share_' + id).children('ul').removeClass("hideClass");
+    },
+    shareHide: function(id) {
+        $('#share_' + id).children('ul').addClass("hideClass");
+    },
+    fbShare: function(model) {
+        this.shareHide(model.id);
+        if (model.get("type") === "photo") {
+            this.set("selectedPhoto", model.get("photo").objectAt(0));
+            var that = this;
+            var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+            var caption = '';
+
+            if (this.get('selectedPhoto').get('photo_caption') !== null)
+            {
+                caption = this.get('selectedPhoto').get('photo_caption');
+            }
+            else
+            {
+                caption = '';
+            }
+            var obj = {
+                method: 'feed',
+                link: currntUrl,
+                picture: this.get('selectedPhoto').get('photo_image_thumbnail_url'),
+                name: this.get('selectedPhoto').get('photo_title'),
+                caption: 'Trends Ideas',
+                description: caption
+            };
+
+            function callback(response) {
+                if (response && response.post_id) {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
+                } else {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessfully.", "failed");
+                }
+            }
+
+            FB.ui(obj, callback);
+
+            return false;
+        }
+        if (model.get("type") === "article") {
+            this.set("selectedArticle", model.get("article").objectAt(0));
+            var that = this;
+            var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedArticle').get('id');
+            var caption = '';
+
+            if (this.get('selectedArticle').get('article_body') !== null)
+            {
+                caption = this.get('selectedArticle').get('article_body');
+            }
+            else
+            {
+                caption = '';
+            }
+            var obj = {
+                method: 'feed',
+                link: currntUrl,
+                picture: this.get('selectedArticle').get('article_image_url'),
+                name: this.get('selectedArticle').get('article_headline'),
+                caption: 'Trends Ideas',
+                description: caption
+            };
+
+            function callback(response) {
+                if (response && response.post_id) {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
+                } else {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessfully.", "failed");
+                }
+            }
+
+            FB.ui(obj, callback);
+
+            return false;
+        }
+
+    },
+    //share to social google plus
+    gpShare: function(model) {
+        this.shareHide(model.id);
+        if (model.get("type") === "photo") {
+            this.set("selectedPhoto", model.get("photo").objectAt(0));
+            var caption = '';
+            if (this.get('selectedPhoto').get('photo_caption') !== null)
+            {
+                caption = this.get('selectedPhoto').get('photo_caption');
+            }
+            else
+            {
+                caption = '';
+            }
+
+//        var meta = document.getElementsByTagName('meta');
+//        for (var i = 0; i < meta.length; i++) {
+//            console.log(meta[i]);
+//        }
+            $("meta[property='og\\:title']").attr("content", this.get('selectedPhoto').get('photo_title'));
+            $("meta[property='og\\:description']").attr("content", caption);
+            $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_thumbnail_url'));
+
+
+            var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+            var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+
+            window.open(
+                    url,
+                    'popupwindow',
+                    'scrollbars=yes,width=800,height=400'
+                    ).focus();
+
+            return false;
+        }
+        else if (model.get("type") === "article") {
+            this.set("selectedArticle", model.get("article").objectAt(0));
+            var caption = '';
+            if (this.get('selectedArticle').get('article_body') !== null)
+            {
+                caption = this.get('selectedArticle').get('article_body');
+            }
+            else
+            {
+                caption = '';
+            }
+
+//        var meta = document.getElementsByTagName('meta');
+//        for (var i = 0; i < meta.length; i++) {
+//            console.log(meta[i]);
+//        }
+            $("meta[property='og\\:title']").attr("content", this.get('selectedArticle').get('article_headline'));
+            $("meta[property='og\\:description']").attr("content", caption);
+            $("meta[property='og\\:image']").attr("content", this.get('selectedArticle').get('article_image_url'));
+
+
+            var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedArticle').get('id');
+            var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+
+            window.open(
+                    url,
+                    'popupwindow',
+                    'scrollbars=yes,width=800,height=400'
+                    ).focus();
+
+            return false;
+        }
+    },
+    //share to social twitter
+    tShare: function(model) {
+        this.shareHide(model.id);
+        if (model.get("type") === "photo") {
+            this.set("selectedPhoto", model.get("photo").objectAt(0));
+            var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+            var url = 'https://twitter.com/share?text=' + this.get('selectedPhoto').get('photo_title') + '&url=' + encodeURIComponent(currntUrl);
+            window.open(
+                    url,
+                    'popupwindow',
+                    'height=436,width=626'
+                    ).focus();
+            return false;
+        }
+        else if (model.get("type") === "article") {
+            this.set("selectedArticle", model.get("article").objectAt(0));
+            var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedArticle').get('id');
+            var url = 'https://twitter.com/share?text=' + this.get('selectedArticle').get('article_headline') + '&url=' + encodeURIComponent(currntUrl);
+            window.open(
+                    url,
+                    'popupwindow',
+                    'height=436,width=626'
+                    ).focus();
+            return false;
+        }
+    },
+    pShare: function(model) {
+        this.shareHide(model.id);
+        if (model.get("type") === "photo") {
+            this.set("selectedPhoto", model.get("photo").objectAt(0));
+            var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+            var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+                    '&media=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_original_url')) +
+                    '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title'));
+            window.open(
+                    url,
+                    'popupwindow',
+                    'height=436,width=626'
+                    ).focus();
+            return false;
+
+        }
+        else if (model.get("type") === "article") {
+            this.set("selectedArticle", model.get("article").objectAt(0));
+            var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedArticle').get('id');
+            var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+                    '&media=' + encodeURIComponent(this.get('selectedArticle').get('article_image_url')) +
+                    '&description=' + encodeURIComponent(this.get('selectedArticle').get('article_headline'));
+            window.open(
+                    url,
+                    'popupwindow',
+                    'height=436,width=626'
+                    ).focus();
+            return false;
+        }
     }
 });
+

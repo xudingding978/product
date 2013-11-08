@@ -86,7 +86,7 @@
     z-index: 1;
     height: 520px;
     width: 100%;
-    background: url(../../images/landingpagebg.jpg) repeat scroll 0% 50% rgb(242, 240, 240);
+    background: url(../../images/landingpagebg.jpg);
     border-bottom: 1px solid #aaa;
     background-size: 100% auto;
     background-position: left top;

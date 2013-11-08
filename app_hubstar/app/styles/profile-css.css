@@ -1183,6 +1183,7 @@ textarea.add-interests{
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #fff;
     cursor: pointer;
+    line-height: 20px;
 }
 
 .each-conversation:hover{

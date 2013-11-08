@@ -32,7 +32,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     unReadCount: 0,
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
-//        this.defaultSearch();
+        this.defaultSearch();
         this.set('search_string', '');
     },
     dropdownPhotoSetting: function() {

@@ -3,26 +3,31 @@
 
 
 
-<div id="discovery_search_bar_wrapper" style="margin: 0 0 100px 0;">
+<div id="discovery_search_bar_wrapper">
 
-    <p style="position: absolute; font-size: 20px; top: 190px;z-index: 600; width: 600px; color: white; left:0; right: 0; margin: auto; line-height: 25px; text-align: center;text-shadow: 0 0 15px #000;">
-        Your online resource for homes, products, services & ideas   
-    </p>
-
-    <div id="discovery_search_bar">
-
-        {{view HubStar.SearchAreaTextFieldView valueBinding="search_area"  id="search_key" class="search_input" placeholder="Search by region" name="search_key"}}
-        {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_business" class="search_business" placeholder="Search by keyword" }}
-
-
-        <a  style="right: -35px;" class="cancleIcon"  href="#" ><i class="icon-remove-sign" ></i></a>
-    </div>
-    <div style="margin: auto; width: 200px; top: 450px; position: relative;"></div>    
-
-    <div class="new-btn blue-btn" style="margin: auto; width: 100px; display: block; position: absolute;left: 0;right: 0;top: 310px; cursor:pointer;" {{action searching on="click" target="view"}}>
-        <i class="icon-search" style="margin-right: 10px;"></i> Search
+    <div style="position: absolute; top: 150px; width: 600px;left:0; right: 0; margin: auto; l">
+        <img src="../../images/Wecometext.png"/>
     </div>
 
+    <div class="search-bar" style="">
+        <div class="Search-box easing" style="">
+            {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_business" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
+            <div class="Nav-btn easing" style="position: absolute;right: -5px;border-radius: 0 3px 3px 0;top: 0; border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
+                <i class="icon-search"></i>
+            </div>
+        </div>
+        <div class="Nav-btn easing" style="float: right;"><i class="icon-list"></i></div>
+    </div>
+
+    <div class="popular-topics" style="">
+        <span style="float: left;color: white;font-family: Georgia, serif;font-style: italic;margin: 5px 15px;">Moast Popular Topics:</span>
+        <div>Noew Homes</div>
+        <div>Kitchens</div>
+        <div>Bathrooms</div>
+        <div>Renovations</div>
+        <div>Outdoor Living</div>
+        <div>Interior</div>
+    </div>
 
 </div>
 

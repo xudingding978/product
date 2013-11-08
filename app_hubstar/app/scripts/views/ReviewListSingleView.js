@@ -82,13 +82,27 @@ HubStar.ReviewListSingleView = Ember.View.extend({
     },
     viewComments: function(event) {
         $('#reply_' + event).attr('style', 'display: block;max-height:0;');
+         $('#up-comments_' + event).attr('style', 'display: block;max-height:0; text-align: center;');
+          $('#up-comments_' + event).animate({display: 'block'},500);
+            $('#viewComments_' + event).attr('style', 'display: none;max-height:0; text-align: center;');
+        $('#viewComments_' + event).animate({display: 'none'},500);
         $('#reply_' + event).animate({maxHeight: '200px'}, 500);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 500);
+    },
+     
+upComments: function(event) {
+        $('#reply_' + event).attr('style', 'display: none; max-height:0;');
+        $('#up-comments_' + event).attr('style', 'display: none;max-height:0; text-align: center;');
+        $('#up-comments_' + event).animate({display: 'none'},500);
+         $('#viewComments_' + event).attr('style', 'display: block;max-height:0; text-align: center;');
+        $('#viewComments_' + event).animate({display: 'block'},500);
+        $('#reply_' + event).animate({maxHeight: '0px'}, 500);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 500);
     }
-
-
 
 });
 

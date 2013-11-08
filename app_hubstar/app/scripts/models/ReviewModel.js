@@ -27,27 +27,6 @@ HubStar.Review = DS.Model.extend({
     didLoad: function() {
 
     }
-    
-    
-    
-    
-//    isValid: function() {
-//        var isEven = false;
-//        if (this.get('review_count') === "" || this.get('review_count') === null || this.get('review_count') === undefined) {
-//            isEven = false;
-//        }
-//        else if (this.get('review_count') % 2 === 0)
-//        {
-//            isEven = false;
-//        }
-//        else
-//        {
-//            isEven = true;
-//        }
-//
-//        return isEven;
-//    }.property('review_count')
-
 
 
 });

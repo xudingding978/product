@@ -688,6 +688,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('videoTag', true);
         this.set('partnerTag', false);
         this.set('collectionTag', false);
+          this.set('reviewTag', false);
         this.set('followerProfileTag', false);
         this.transitionToRoute('profileVideos');
     },
@@ -727,6 +728,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('partnerTag', false);
         this.set('collectionTag', false);
         this.set('followerProfileTag', true);
+          this.set('reviewTag', false);
         this.set('videoTag', false);
         this.transitionToRoute('profileFollowers');
        setTimeout(function() {
@@ -742,7 +744,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('collectionTag', false);
         this.set('followerProfileTag', false);
         this.set('reviewTag', true);
-    
+       this.set('videoTag', false);
        this.transitionToRoute('reviews');
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");

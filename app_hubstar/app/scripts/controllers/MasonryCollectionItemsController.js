@@ -37,10 +37,9 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             if (results.get('isLoaded')) {
                 for (var i = 0; i < this.get("content").length; i++) {
                     var tempObject = results.objectAt(i);
+                    console.log(tempObject);
                     that.get("content").pushObject(tempObject);
-
                 }
-
             }
         });
         this.checkEditingMode();
@@ -94,9 +93,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             $(window).scrollTop(lastposition);
 
         }, 200);
-
-
-
     }
     ,
     newUpload: function() {

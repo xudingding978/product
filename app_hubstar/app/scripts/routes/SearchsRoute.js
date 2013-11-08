@@ -1,6 +1,6 @@
 HubStar.SearchsRoute = Ember.Route.extend({
     setupController: function() {
-
+        
         this.controllerFor('searchs').defaultSearch();
         this.controllerFor('index').setLogin();
 

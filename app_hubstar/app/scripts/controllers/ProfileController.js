@@ -14,12 +14,12 @@ var collection_title_record;
 var collection_desc_record;
 
 
-
 HubStar.ProfileController = Ember.ObjectController.extend({
     model: null,
     aboutMe: "aboutMe",
     isAboutUs: false,
     about_me: "",
+    google_map: "",
     address: "",
     suburb: "",
     boost: '',
@@ -71,6 +71,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     profile_hero_url: "",
     profile_pic_url: "",
     profile_contact_number: "",
+    profile_google_map: "",
     profile_name: "",
     partnerTag: false,
     videoTag: false,
@@ -120,14 +121,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     projectDeleteDropdownContent: '',
     message: null,
     makeSureDelete: false,
+    popUpMap: false,
     willDelete: false,
     profile_partner_ids: null,
     isTracking: false,
     goBackType:false,
     cropsize: null,
+        fromAddress: '',
+    toAddress: '',
     init: function() {
 
         this.set('is_authentic_user', false);
+
 
     },
     goToProfileRoute: function(id)
@@ -174,6 +179,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('projectCategoryDropdownContent', profile.get('profile_package_name'));
         this.set('first_name', profile.get('profile_contact_first_name'));
         this.set('address', profile.get('profile_physical_address'));
+        if (profile.get('profile_google_map') === null || profile.get('profile_google_map') === 'undefined' || profile.get('profile_google_map') === "") {
+            this.createGooglemap();
+        }
+        else {
+            this.set('profile_google_map', profile.get('profile_google_map'));
+        }
+        this.set('toAddress', profile.get('profile_physical_address') + ", " + profile.get('profile_suburb') + ", " + profile.get('profile_regoin') + ", " + profile.get('profile_country'));
+
         this.set('suburb', profile.get('profile_suburb'));
         this.set('last_name', profile.get('profile_contact_last_name'));
         this.set("profile_name", profile.get("profile_name"));
@@ -198,6 +211,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         photoCreateController.setMega();
         this.initStastics(profile);
         this.followerPhoto(id);
+
 //        if (profile.get("keywords") !==null && profile.get("keywords") !== "undefined" && profile.get("keywords").get('length') > 0) {
         this.set("keywords_array", profile.get('keywords'));
         this.set("show_keyword_id", profile.get('show_keyword_id'));
@@ -248,6 +262,26 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         } else if (profile_package_name === 'Bronze') {
             this.set('keyword_num', 25);
         }
+
+
+
+  },
+    createGooglemap: function() {
+
+        var geocoder = new google.maps.Geocoder();
+        var addressmap = this.get('model').get("profile_physical_address") + ", " + this.get('model').get("profile_suburb") + ", " + this.get('model').get("profile_regoin") + ", " + this.get('model').get('profile_country');
+        var that = this;
+
+        geocoder.geocode({'address': addressmap}, function(results) {
+            var imageMap = "http://maps.googleapis.com/maps/api/staticmap?center=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&markers=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&zoom=15&size=300x250&maptype=roadmap&sensor=false";
+            that.set('profile_google_map', imageMap);
+            requiredBackEnd('profiles', 'googleMap', [that.get('profile_google_map'), that.get('model').get('id')], 'POST', function(params) {
+            });
+        });
+    },
+    popUpGoogleMap: function() {
+
+        this.set('popUpMap', true);
     },
     followerPhoto: function(id)
     {
@@ -772,7 +806,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_name", this.get('profile_name'));
         update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
-
+        this.createGooglemap();
+        this.set('toAddress', update_profile_record.get('profile_physical_address') + ", " + update_profile_record.get('profile_suburb') + ", " + update_profile_record.get('profile_regoin') + ", " + update_profile_record.get('profile_country'));
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
@@ -1203,6 +1238,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
         }
     }
+
+
+
+
+
 
 }
 );

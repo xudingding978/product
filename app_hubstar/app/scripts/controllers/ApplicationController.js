@@ -4,7 +4,7 @@
 /*global $:false */
 
 HubStar.ApplicationController = Ember.ArrayController.extend({
-    needs: ['status', 'applicationFeedback', 'megaCreate','notificationTop'],
+    needs: ['status', 'applicationFeedback', 'user','megaCreate','notificationTop'],
     content: [],
     loginInfo: "",
     search_area: "",

@@ -262,11 +262,11 @@ class ConversationsController extends Controller {
                             if ($k === 0) {
                                 $names = $tdocID_currentUserNew['user'][0]["display_name"];
                             } elseif ($k === 1) {
-                                $names = $names . ',' . $tdocID_currentUserNew['user'][0]["display_name"];
+                                $names = $names . ', ' . $tdocID_currentUserNew['user'][0]["display_name"];
                             } elseif ($k === 2) {
-                                $names = $names . ',' . $tdocID_currentUserNew['user'][0]["display_name"];
-                                if (strlen($names) > 40) {
-                                    $names = substr($names, 0, 40) . "...";
+                                $names = $names . ', ' . $tdocID_currentUserNew['user'][0]["display_name"];
+                                if (strlen($names) > 45) {
+                                    $names = substr($names, 0, 45) . "...";
                                 } else {
                                     $names = $names . "...";
                                 }

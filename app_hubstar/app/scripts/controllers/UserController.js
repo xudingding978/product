@@ -54,8 +54,8 @@ HubStar.UserController = Ember.Controller.extend({
     about_me: "",
     first_name: "",
     last_name: "",
-    subcateMethod:[{list_id: 0, isSelection: false, category_topic: "email"}],
-    subcate: [ {list_id: 1, isSelection: false, category_topic: "message"}, {list_id: 2, isSelection: false, category_topic: "follow"}, {list_id: 3, isSelection: false, category_topic: "conversation"}],
+    subcateMethod: [{list_id: 0, isSelection: false, category_topic: "email"}],
+    subcate: [{list_id: 1, isSelection: false, category_topic: "message"}, {list_id: 2, isSelection: false, category_topic: "follow"}, {list_id: 3, isSelection: false, category_topic: "conversation"}],
     is_Photoclick: false,
     is_click: false,
     photo_url_large: "",
@@ -103,7 +103,7 @@ HubStar.UserController = Ember.Controller.extend({
                 }
             }
         }
-         for (var i = 0; i < this.get("subcate").length; i++)
+        for (var i = 0; i < this.get("subcate").length; i++)
         {
             if (this.get("subcate").objectAt(i)["isSelection"] === true) {
                 if (notification === "")
@@ -168,6 +168,19 @@ HubStar.UserController = Ember.Controller.extend({
                     this.get("subcate").objectAt(2)["isSelection"] = true;
                 }
             }
+        }
+        else if (this.get("notification_setting") === null)
+        {
+
+            this.get("subcateMethod").objectAt(0)["isSelection"] = true;
+
+            this.get("subcate").objectAt(0)["isSelection"] = true;
+
+            this.get("subcate").objectAt(1)["isSelection"] = true;
+
+            this.get("subcate").objectAt(2)["isSelection"] = true;
+
+
         }
     },
     setUser: function()
@@ -772,10 +785,6 @@ HubStar.UserController = Ember.Controller.extend({
 
 
     },
-            
-            
-            
-            
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
             var thisCollection = this.get("collections").objectAt(i);

@@ -3,9 +3,8 @@
  * and open the template in the editor.
  */
 
-HubStar.MessageView = Ember.View.extend({
-    templateName: 'message'
-   
+HubStar.NotificationTopView = Ember.View.extend({
 
-});
+  templateName: 'notificationTop'
+    });
 

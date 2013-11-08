@@ -234,6 +234,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     // share to social facebook
     fbShare: function() {
+        this.dropdownPhotoSetting();
         var that = this;
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
         var caption = '';
@@ -270,6 +271,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     //share to social google plus
     gpShare: function() {
+        this.dropdownPhotoSetting();
         var caption = '';
         if (this.get('selectedPhoto').get('photo_caption') !== null)
         {
@@ -298,6 +300,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     //share to social twitter
     tShare: function() {
+        this.dropdownPhotoSetting();
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
         var url = 'https://twitter.com/share?text=' + this.get('selectedPhoto').get('photo_title') + '&url=' + encodeURIComponent(currntUrl);
         window.open(
@@ -307,7 +310,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 ).focus();
         return false;
     },
-    pShare: function() {
+
+      pShare: function() {
+        this.dropdownPhotoSetting();
+
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
 
                 var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +

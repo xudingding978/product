@@ -13,10 +13,13 @@ HubStar.FollowersRoute = Ember.Route.extend({
         this.controllerFor('user').set('followerTag', true);
         this.controllerFor('user').set('followingTag', false);
         this.controllerFor('user').set('messageTag', false);
-   //    $('#user-stats > li').removeClass('selected-user-stats');
+
+
+        
+        $('#user-stats > li').removeClass('selected-user-stats');
         $('#ufollower').addClass('selected-user-stats');
-//        this.controllerFor('userFollowers').setUserFollowers(model);
-        this.controllerFor('userFollowers').setUserFollowers(model);
+   this.controllerFor('userFollowers').setUserFollowers(model);
+
         $(window).scrollTop(0);
     },
     model: function(params) {

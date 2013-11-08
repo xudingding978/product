@@ -69,6 +69,7 @@
                             </div>
 
                             <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px;  padding: 0;right: 45px;top: 70px;position: absolute;">
+                               <!--<li style="position:fixed;z-index:0;height:100%;width:100%;" onClick="document.getElementById('dropdown_id_'+{{unbound id}}).style.display='none' ">&nbsp;<li>-->
                                 <li class="ite" {{action  fbShare}} >
                             <k class="icon-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
                             </li>
@@ -242,7 +243,7 @@
 
                             <!--PROFILE HOURS SECTION-->
 
-                            <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;">
+                            <div class="aside-container" style="border-top: 1px solid #fff;">
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</div>
 
                                 {{#unless controller.editingTime}}
@@ -282,6 +283,15 @@
                                     <div class="new-btn"{{action no controller.timeSetting}}><i class="icon-remove icon-white"></i></div>
                                 </div>
                                 {{/if}}
+                            </div>
+
+
+                            <!--PROFILE GOOGLEMAP SECTION--> 
+                            <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;">
+                                <div id="google-map"  style="width: 300px;height: 250px; border: 5px solid #fff;cursor: pointer"  >
+                                    <div class="enlarge-map easing" style=""{{action popUpGoogleMap}}><k class="icon-resize-full"></k></div>
+                                    <img  {{bindAttr src="controller.profile_google_map"}} style="width: 100%; height:auto;" {{action popUpGoogleMap}}>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1044,11 +1054,22 @@
 
     {{/if}}
 
+
   {{#unless HubStar.isLogin}}
     {{render "footer"}}
     {{/unless}}
     
-    
+
+
+    {{#if controller.popUpMap}}
+
+    {{view  HubStar.GoogleMapPopupView}}
+
+
+    {{/if}}
+
+
+
     <script>
         $(document).on("mousemove", function(event) {
             $("#panel").text("pageX: " + event.pageX + ", pageY: " + event.pageY);

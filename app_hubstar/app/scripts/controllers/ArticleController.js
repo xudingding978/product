@@ -6,11 +6,9 @@ HubStar.ArticleController = Ember.Controller.extend({
     captionTitle: "",
     readCaption: true,
     caption: '',
-
     checkLoginStatus:false,
+    isCreditListExist: false,
     needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus'],
-
-
     init: function() {
   
     },
@@ -88,6 +86,14 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('megaResouce', megaResouce);
         this.addRelatedData(megaObject);
         this.getCommentsById(megaObject.id);
+        this.checkCreditExist(megaResouce.get('article').objectAt(0).get('credits'));
+    },
+    checkCreditExist: function(credits) {
+        if (credits !== null && credits !== 'undefined' && credits.get('length') >0) {
+            this.set('isCreditListExist', true);
+        } else {
+            this.set('isCreditListExist', false);
+        }
     },
     addComment: function() {
         var commentContent = this.get('commentContent');

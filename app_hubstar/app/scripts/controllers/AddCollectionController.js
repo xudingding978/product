@@ -2,7 +2,7 @@
 HubStar.AddCollectionController = Ember.ObjectController.extend({
     collections: [],
     selectedDesc: "",
-    selectedTitle: "",
+    selectedTitle: "Choose your Collection",
     selectedCollection: "",
     selectionPop: false,
     needs: ["mega", "article", "collection", "applicationFeedback", "comment", "video"],
@@ -23,7 +23,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         this.set("collections", user.get("collections"));
         if (this.get("collections").objectAt(0) !== null && this.get("collections").objectAt(0) !== undefined) {
             this.setDesc("");
-            this.setTitle(this.get("collections").objectAt(0).get("title"));
+            this.setTitle("Choose your Collection");
         }
     },
     setImageID: function(id) {
@@ -87,6 +87,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         }
     },
     setSelectedCollection: function(id) {
+       
         var selectedCollection = null;
         for (var i = 0; i < this.get("collections").get("length"); i++) {
             var thisCollection = this.get("collections").objectAt(i);
@@ -143,7 +144,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             this.get("collections").insertAt(0, collection);
             HubStar.store.save();
             this.set('selectedCollection', collection);
-            $('#recordID').text(this.get('newCollectionName'));
+            //$('#recordID').text(this.get('newCollectionName'));
         } else {
             selectedCollection.deleteRecord();
         }
@@ -153,11 +154,11 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     collectionSwitch: function() {
         this.set('selectionPop', !this.get('selectionPop'));
     },
-    chooseRecord: function(title, id) {
+    chooseRecord: function(title, id) {        
         this.set('selectedTitle', title);
         this.setSelectedCollection(id);
         this.selectSelectedDesc();
-        $('#recordID').text(this.get('selectedTitle'));
+        //$('#recordID').text(this.get('selectedTitle'));
         HubStar.set('chooseCollection', this.get('selectedTitle'));
         this.set('selectionPop', !this.get('selectionPop'));
     },

@@ -455,6 +455,7 @@ class PhotosController extends Controller {
         }
     }
 
+
     public function removeS3Record($mega) {
         $bucket = 's3.hubsrv.com';
         $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");

@@ -627,6 +627,10 @@ HubStar.Profile = DS.Model.extend({
     profile_linkedin_link: DS.attr('string'),
     profile_youtube_link: DS.attr('string'),
     profile_analytics_code: DS.attr('string'),
+<<<<<<< HEAD
+    profile_google_map:DS.attr('string'),
+=======
+>>>>>>> e12f5a9adf826eb4f4e89bc5176018e961e73c3f
     owner: DS.attr('string'),
     owner_contact_email: DS.attr('string'),
     owner_contact_cc_emails: DS.attr('string'),
@@ -1764,6 +1768,9 @@ HubStar.ProfileRoute = Ember.Route.extend({
         else {
             ProfileController.setProfile(model.id);
         }
+        
+        
+        
 
     },       
     events: {
@@ -1803,6 +1810,10 @@ HubStar.ProfileRoute = Ember.Route.extend({
         $(function() {
             $('#masonry_container').masonry('remove', $('.noStyle1'));
         });
+        
+        
+        
+        
     },
     renderTemplate: function() {
         this.render('profile', {
@@ -2880,8 +2891,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     signUp: function() {
 
         if (this.checkSignupInfo()) {
+<<<<<<< HEAD
+            var signupInfo = [this.get('email')];  
+<<<<<<< HEAD
+            requiredBackEnd('site', 'getemail', signupInfo, 'POST', function(params) {
+=======
+=======
             var signupInfo = [this.get('email')];
+>>>>>>> 1a38339b9db0b6d30c07ef36cb5c266b8e3acd36
             requiredBackEnd('login', 'getemail', signupInfo, 'POST', function(params) {
+>>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
                 if (params === 1) {
                     $('#register-with-email-step-2').addClass('active-step');
                     $('#click-register').addClass('active-tab');
@@ -6019,8 +6038,18 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             }
         }
     },
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
+>>>>>>> 1a38339b9db0b6d30c07ef36cb5c266b8e3acd36
     transitionToArticle: function(id) {
 
+=======
+
+    transitionToArticle: function(id) {
+
+>>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
         this.transitionTo("article", HubStar.Article.find(id));
     },
     dropdownPhotoSetting: function(id) {
@@ -8204,12 +8233,12 @@ var collection_title_record;
 var collection_desc_record;
 
 
-
 HubStar.ProfileController = Ember.ObjectController.extend({
     model: null,
     aboutMe: "aboutMe",
     isAboutUs: false,
     about_me: "",
+    google_map:"",
     address: "",
     suburb: "",
     boost: '',
@@ -8328,6 +8357,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         this.set('is_authentic_user', false);
 
+
     },
     goToProfileRoute: function(id)
     {
@@ -8370,6 +8400,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('projectCategoryDropdownContent', profile.get('profile_package_name'));
         this.set('first_name', profile.get('profile_contact_first_name'));
         this.set('address', profile.get('profile_physical_address'));
+<<<<<<< HEAD
+       this.createGooglemap();
+=======
+>>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
         this.set('suburb', profile.get('profile_suburb'));
         this.set('last_name', profile.get('profile_contact_last_name'));
         this.set("profile_name", profile.get("profile_name"));
@@ -8394,6 +8428,22 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         photoCreateController.setMega();
         this.initStastics(profile);
         this.followerPhoto(id);
+<<<<<<< HEAD
+     
+        
+          
+//
+//        var geocoder = new google.maps.Geocoder();
+//        var address = profile.get('profile_physical_address') + ", " + profile.get('profile_suburb') + ", " + profile.get('profile_regoin') + ", " + profile.get('profile_country');
+//        if (geocoder) {
+//            geocoder.geocode({'address': address}, function(results, status) {
+//                var mapImage = "http://maps.googleapis.com/maps/api/staticmap?center=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&markers=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&zoom=15&size=300x250&maptype=roadmap&sensor=false";
+//                console.log(mapImage);
+//
+//            });
+//        }
+
+=======
 //        if (profile.get("keywords") !==null && profile.get("keywords") !== "undefined" && profile.get("keywords").get('length') > 0) {
         this.set("keywords_array", profile.get('keywords'));
         this.set("show_keyword_id", profile.get('show_keyword_id'));
@@ -8445,7 +8495,34 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         } else if (profile_package_name === 'Bronze') {
             this.set('keyword_num', 25);
         }
+>>>>>>> e12f5a9adf826eb4f4e89bc5176018e961e73c3f
     },
+            
+            
+            createGooglemap:function(){
+        
+          var geocoder = new google.maps.Geocoder();
+        var addressmap = this.get('model').get("profile_physical_address")+ ", " + this.get('model').get("profile_suburb") + ", " + this.get('model').get("profile_regoin") + ", " + this.get('model').get('profile_country');
+          console.log(addressmap);
+        var that = this;
+            
+            geocoder.geocode({'address': addressmap}, function(results) {
+              var imageMap =   "http://maps.googleapis.com/maps/api/staticmap?center=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&markers=" + results[0].geometry.location.lb + "," + results[0].geometry.location.mb + "&zoom=15&size=300x250&maptype=roadmap&sensor=false";
+                
+                that.set('google_map',  imageMap);
+                 console.log(that.get('google_map'));
+//                    var data = {"googleMap": that.get('google_map'),
+//                           
+//                            'id': that.get('model.id')};
+//                        requiredBackEnd('profiles', 'googleMap', data, 'POST', function() {
+// 
+//                            HubStar.store.save();
+//
+//                        });
+
+            });
+        
+            },
     followerPhoto: function(id)
     {
         var dataNew = new Array();
@@ -8969,7 +9046,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_name", this.get('profile_name'));
         update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
-
+        update_profile_record.set("profile_google_map", this.get("google_map"));
+             console.log(this.get('profile_google_map'));   
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
@@ -9423,6 +9501,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     }
 
+
+
+
+
+
 }
 );
 
@@ -9697,7 +9780,13 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 owner_contact_cc_emails: this.get("secondary_email"),
                 owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
                 profile_category: $('#categorySelection').text(),
+<<<<<<< HEAD
+
+                 profile_physical_address: this.get("address"),
+
+=======
                 profile_physical_address: this.get("address"),
+>>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
                 profile_suburb: this.get("suburb"),
                 profile_keywords: this.get("keywords"),
                 profile_regoin: this.get("region"),
@@ -10928,8 +11017,24 @@ HubStar.UserController = Ember.Controller.extend({
         checkList.push(location);
         for (var i = 0; i < checkList.length; i++)
         {
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+            var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+=======
+          //  var patternEmail = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+>>>>>>> 483b4de8996edbd1e89f2379be86d156c87e78e8
+//            document.getElementById(checkList[i].id).style.border = '';
 
+=======
+>>>>>>> 1a38339b9db0b6d30c07ef36cb5c266b8e3acd36
+=======
 
+<<<<<<< HEAD
+>>>>>>> 83ba4f15691ebcc5060c3fcd6e5bf0604513890c
+=======
+
+>>>>>>> e12f5a9adf826eb4f4e89bc5176018e961e73c3f
             if (checkList[i].id === 'email') {
                 document.getElementById(checkList[i].id).setAttribute("class", "disabled-btn");
             }
@@ -14593,6 +14698,7 @@ HubStar.ProfileVideosView = Ember.View.extend({
 (function() {
 
 HubStar.ProfileView = Ember.View.extend({
+    
     templateName: 'profile',
     didInsertElement: function() {
 
@@ -14654,6 +14760,8 @@ HubStar.ProfileView = Ember.View.extend({
 
 
     }
+     
+    
 });
 
 

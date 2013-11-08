@@ -42,7 +42,6 @@ HubStar.ContactController = Ember.Controller.extend({
             for (var i = 0; i < this.get('temp').get('subcate').get('length'); i++) {
                 this.get('subcate').pushObject({'list_id': "checkbox" + i, 'category_topic': this.get('temp').get('subcate').objectAt(i).get('category_topic'), "isSelection": this.get("checkbox" + i)});
             }
-
         }
     },
     topicSelection: function(data) {
@@ -113,7 +112,6 @@ HubStar.ContactController = Ember.Controller.extend({
                         those.set("emaiCCDestination", tempProfile.get("owner_contact_cc_emails"));
                     }
                 });
-                //console.log(idProfile);
             }
         });
 

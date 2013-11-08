@@ -283,7 +283,9 @@ HubStar.ArticleController = Ember.Controller.extend({
     //share to social twitter
     tShare: function() {
         this.dropdownPhotoSetting();
+
         var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('articleID');
+
         var url = 'https://twitter.com/share?text=' + this.get('articleResouce').get("article_headline") + '&url=' + encodeURIComponent(currntUrl);
         window.open(
                 url,
@@ -295,6 +297,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     pShare: function() {
 
         this.dropdownPhotoSetting();
+
         var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('articleID');
 
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +

@@ -74,16 +74,14 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
         this.set('newStyleImageSource', null);
         this.set('newStyleImageName', "");
     },
-    profileStyleImageDrop: function(e, name)
-    {
-        this.set("isUploadPhoto", true);
-        var target = getTarget(e, "single");
-        var src = target.result;
-        this.set('newStyleImageSource', src);
-        this.set('newStyleImageName', name);
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+   dropdownPhotoSetting: function(event) {
+        var id = "#dropdown_id_" + event;
+        $(id).toggleClass('hideClass');
+        $(id).click(function() {
+            $(this).removeClass('hideClass');
+        }).mouseleave(function() {
+            $(this).addClass('hideClass');
+        });
     },
     fbShare: function(event) {
         var that = this;

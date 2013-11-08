@@ -32,7 +32,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     unReadCount: 0,
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
-//        this.defaultSearch();
+        this.defaultSearch();
         this.set('search_string', '');
     },
     dropdownPhotoSetting: function() {
@@ -128,14 +128,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         HubStar.set('searchStart', true);
     },
     defaultSearch: function() {
-        console.log("sssssssssssssssssssssssssssssss");
+        
         this.set("loginInfo", localStorage.loginStatus);
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
-                console.log(results);
+               
                 that.setContent(results);
+                that.relayout();
             }
         });
     },

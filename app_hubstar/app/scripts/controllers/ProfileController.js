@@ -815,6 +815,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
                 if (this.get('show_keyword_array').objectAt(i).get('keyword_id') === keyword_id) {
                     this.get('show_keyword_array').removeObject(this.get('show_keyword_array').objectAt(i));
+                    this.set('show_keyword_id', this.get('show_keyword_id').replace(','+keyword_id, ''));
                 }
             }
         }

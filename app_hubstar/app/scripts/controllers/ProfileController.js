@@ -201,8 +201,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //        if (profile.get("keywords") !==null && profile.get("keywords") !== "undefined" && profile.get("keywords").get('length') > 0) {
         this.set("keywords_array", profile.get('keywords'));
         this.set("show_keyword_id", profile.get('show_keyword_id'));
-        if (profile.get("show_keyword_id") !== null && profile.get("show_keyword_id") !== "undefined" && profile.get("show_keyword_id") !== '') {
-            this.setShowKeywordsArray(profile.get('show_keyword_id'), profile.get('keywords'));
+
+        if (profile.get("show_keyword_id") !==null && profile.get("show_keyword_id") !== "undefined" && profile.get("show_keyword_id") !=='') {
+            this.setShowKeywordsArray(profile.get('show_keyword_id'),profile.get('keywords'));
+        } else {
+            this.set('show_keyword_id', '');
         }
 //        } else {            
 //            this.setKeywordsArray(this.get('model').get('profile_keywords'));

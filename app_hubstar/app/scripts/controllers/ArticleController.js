@@ -215,6 +215,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         $('#dropdown_id_').toggleClass('hideClass');
     },
     fbShare: function() {
+        this.dropdownPhotoSetting();
         var that = this;
         var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
         var caption = '';
@@ -251,6 +252,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     //share to social google plus
     gpShare: function() {
+        this.dropdownPhotoSetting();
         var caption = '';
         if (this.get('articleResouce').get("article_body") !== null)
         {
@@ -284,6 +286,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     //share to social twitter
     tShare: function() {
+        this.dropdownPhotoSetting();
         var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
         var url = 'https://twitter.com/share?text=' + this.get('articleResouce').get("article_headline") + '&url=' + encodeURIComponent(currntUrl);
         window.open(
@@ -294,7 +297,9 @@ HubStar.ArticleController = Ember.Controller.extend({
         return false;
     },
     pShare: function() {
-         console.log(this.get('selectedPhoto'));
+
+        this.dropdownPhotoSetting();
+
         var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.get('selectedPhoto').photo_image_original_url) +

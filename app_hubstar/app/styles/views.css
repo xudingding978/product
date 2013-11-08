@@ -1591,6 +1591,8 @@ div.album-description-bg{
     transition: color .218s;
     font-size: 12px;
     padding-right: 5px;
+    
+    cursor: pointer;
 }
 
 

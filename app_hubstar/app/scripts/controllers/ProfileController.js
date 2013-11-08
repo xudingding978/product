@@ -57,7 +57,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     show_keyword_array:[],
     dragTargetIndex: -1,
     last_name: "",
-    needs: ["profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor','keywords', 'profileVideos', 'checkingLoginStatus'],
+
+    needs: ["profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review','keywords', 'profileVideos', 'checkingLoginStatus'],
+
     name: "",
     facebook: "",
     twitter: "",
@@ -724,7 +726,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Followers');
         this.set('profileSelectionStatus', 'Followers');
-     
         this.set('partnerTag', false);
         this.set('collectionTag', false);
         this.set('followerProfileTag', true);

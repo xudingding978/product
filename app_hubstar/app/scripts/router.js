@@ -28,12 +28,12 @@ HubStar.Router.map(function() {
                     });
                 });
             });
+
         });
         this.resource("profiles", function() {
             this.resource("profileNew", {path: '/new'});
 
         });
-
 
         this.resource("user", {path: '/users/:user_id'}, function() {
             this.resource("following", {path: '/following'});

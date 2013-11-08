@@ -3,9 +3,8 @@
  * and open the template in the editor.
  */
 
-HubStar.MessageView = Ember.View.extend({
+HubStar.TalkView = Ember.View.extend({
 
-    templateName: 'message'
-   
-});
+  templateName: 'talk'
+    });
 

@@ -4,7 +4,7 @@
 /*global $:false */
 
 HubStar.ApplicationController = Ember.ArrayController.extend({
-    needs: ['status', 'applicationFeedback', 'megaCreate'],
+    needs: ['status', 'applicationFeedback', 'megaCreate','notificationTop'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -29,10 +29,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     isGeoDropdown: false,
     adPageNo: 0,
     googletagCmd: null,
+    unReadCount: 0,
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
 //        this.defaultSearch();
         this.set('search_string', '');
+    },
+    dropdownPhotoSetting: function() {
+        this.set("isNotification", !this.get("isNotification"));
+        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
     },
     popupModal: function() {
         HubStar.set('checkLoginStatus', true);
@@ -43,9 +48,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     loginStatus: function() {
     },
     grapData: function() {
-        this.set("user", HubStar.User.find(localStorage.loginStatus));
-        this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
-        this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messages");
+
+        var u = HubStar.User.find(localStorage.loginStatus);
+        this.set("user", u);
+        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
+        this.set("myUserProfile", "#/users/" + localStorage.loginStatus);       
+        this.set("myMessageBoard", "#/users/" + localStorage.loginStatus+"/messagecenter");
+
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));

@@ -909,6 +909,19 @@ textarea.add-interests{
 
 /*MESSAGE CENTER STYLE FROM HERE*/
 
+.Message-Board{
+    position: absolute; 
+    width: 545px; 
+    margin: 2px; 
+    border-radius:5px;
+    overflow: hidden; 
+    background-color: rgb(255, 255, 255);
+    top: 0px;
+    left: 0px;
+}
+
+
+
 .message-btn{
     width: 50%; 
     float: left; 

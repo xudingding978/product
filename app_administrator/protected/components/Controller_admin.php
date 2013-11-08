@@ -34,6 +34,33 @@ class Controller_admin extends CConsoleCommand {
         }
     }
     
+
+
+    
+    public function writeMySQLLog($log_arr){
+                $model = new Trendsideas_import_log;
+
+        //$log_arr = CJSON::decode(file_get_contents('php://input'));
+
+        $model->REC_DATETIME = new CDbExpression('NOW()');
+        $model->REC_TIMESTAMP = new CDbExpression('NOW()');
+        $model->TENANT_ID = "1";
+        $model->CouchBaseID = $log_arr[0];
+        $model->objectId = $log_arr[1];
+        $model->type = $log_arr[2];
+        $model->spark_job_id = $log_arr[3];
+        $model->helium_media_id = $log_arr[4];
+        $model->article_id = $log_arr[5];          
+        $model->photo_image_hero_url = $log_arr[6];
+        $model->photo_image_original_url = $log_arr[7];
+        $model->photo_image_thumbnail_url = $log_arr[8];
+        $model->photo_image_preview_url = $log_arr[9];
+        $model->article_image_url = $log_arr[10];
+
+        
+        $model->save(false);
+    }
+    
         public function createRecord($message){
        //   $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $start_time = date('M-d-Y');

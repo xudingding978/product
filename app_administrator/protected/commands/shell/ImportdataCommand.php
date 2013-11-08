@@ -430,8 +430,6 @@ $message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
 //        echo "111111111111111111111111111111";
         return $id;
     }
-    
-    
 
 
     public function writeCouchbaseRecord($obj,$bucket) {
@@ -442,7 +440,7 @@ $message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
 
         $imageAdded_arr = array();
         $total_amount = sizeof($image_arr);
-       
+        $SQL_arr=array();
 
         if ($total_amount > 0) {
             $exist_arr = $this->checkImageExisting($image_arr['photo'][0]['photo_heliumMediaId'], $image_arr['owner_id'], $image_arr['collection_id'],$bucket);
@@ -459,6 +457,9 @@ $message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
                           echo "\nupdate record successful " . $couchbase_id . " \n";
                           $message="\n   update record successful " . $couchbase_id . " \n";
                           $this->createRecord($message);
+                          
+                          array_push($SQL_arr, $couchbase_id,$existId,"1",$image_arr['photo'][0]['photo_sparkJobId'],$image_arr['photo'][0]['photo_heliumMediaId'],$image_arr['collection_id'],$image_arr['photo'][0]['photo_image_hero_url'],$image_arr['photo'][0]['photo_image_original_url'],$image_arr['photo'][0]['photo_image_thumbnail_url'],$image_arr['photo'][0]['photo_image_preview_url'],NULL);
+
                     }
                     else{
                          $message = "\n   update object fail ".$couchbase_id."------------------------------- \n";
@@ -477,6 +478,7 @@ $message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
                 //create Couchbase object ready for inserting into bucket
                 if ($cb->add($couchbase_id, CJSON::encode($image_arr))) {
                     array_push($imageAdded_arr, $couchbase_id);
+                       array_push($SQL_arr, $couchbase_id,$newId,"1",$image_arr['photo'][0]['photo_sparkJobId'],$image_arr['photo'][0]['photo_heliumMediaId'],$image_arr['collection_id'],$image_arr['photo'][0]['photo_image_hero_url'],$image_arr['photo'][0]['photo_image_original_url'],$image_arr['photo'][0]['photo_image_thumbnail_url'],$image_arr['photo'][0]['photo_image_preview_url'],NULL);
 
                  //   echo "\n   add record successful " . $couchbase_id . "\n";
                     $message="\n   add record successful " . $couchbase_id . "\n";
@@ -490,6 +492,8 @@ $message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
 
             }
         }
+        $this->writeMySQLLog($SQL_arr);
+        unset($SQL_arr);
         unset($image_arr);
     }
 
@@ -604,6 +608,7 @@ $message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
         $photo_list = array(
             "id" => null, //
             "photo_title" => null, //
+            "photo_sparkJobId"=>$val['sparkJobId'],
             "photo_caption" => $val['caption'],
             "photo_articleId" => $val['articleId'],
             "photo_heliumMediaId" => $val['heliumMediaId'],

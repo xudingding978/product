@@ -173,7 +173,7 @@ class ArticleCommand extends Controller_admin {
         $artical_data_arr = Article::model()->getAll($from, $to);    //gets all from Trends.dbo.Articles and create array of queries 
         $total_amount = sizeof($artical_data_arr);
         echo "totally: " . $total_amount . "\r\n";
-         $artical_on_date=array();
+        $artical_on_date = array();
         if ($total_amount > 0) {                      //if there is articles in there
             for ($i = 0; $i < $total_amount; $i++) {   //for each query
 //                echo $this->getNewID() . "\r\n";
@@ -181,7 +181,7 @@ class ArticleCommand extends Controller_admin {
                 //    print_r($obj);
 //                print_r($obj);
 //                exit();
-                $article_id=$this->writeCouchbaseRecord($obj, $bucket);    //add $obj to couchbase
+                $article_id = $this->writeCouchbaseRecord($obj, $bucket);    //add $obj to couchbase
                 array_push($artical_on_date, $article_id);
 //                    $id_arr['couchBaseId'] = "trendsideas.com/" . $obj['id'];   //set couchbase id
 //                    $id_arr['objectId'] = $obj['id'];    //set objectid
@@ -204,11 +204,9 @@ class ArticleCommand extends Controller_admin {
 //                } else {   //no article found
 //                    echo "cannot find any articles";
             }
-            $message = "\nFound ".$total_amount." articles on this date.";
-                    
-        }
-        else{
-           $message= "\nNo article found on this date.";
+            $message = "\nFound " . $total_amount . " articles on this date.";
+        } else {
+            $message = "\nNo article found on this date.";
         }
         $this->createRecord($message);
         return $artical_on_date;
@@ -358,10 +356,9 @@ class ArticleCommand extends Controller_admin {
                 $result_arr = CJSON::decode($result, true);
                 $cover = $result_arr["photo"][0]["photo_image_hero_url"];
                 echo "\n cover image done  ---------------------\n";
-                $message="\n     Found cover image ".$cover;
-            }
-            else{
-                $message="\n     Can not find cover image for article".$val['id'];
+                $message = "\n     Found cover image " . $cover;
+            } else {
+                $message = "\n     Can not find cover image for article" . $val['id'];
             }
             $this->createRecord($message);
         }
@@ -460,7 +457,7 @@ class ArticleCommand extends Controller_admin {
 
         $article_added_arr = array();
         $total_amount = sizeof($article_arr);
-
+        $SQL_arr = array();
 
         if ($total_amount > 0) {
             $exist_arr = $this->checkArticleExisting($article_arr['article'][0]['article_helium_media_id'], $article_arr['owner_id'], $article_arr['collection_id'], $bucket);
@@ -485,6 +482,7 @@ class ArticleCommand extends Controller_admin {
 
                 if ($cb->set($couchbase_id, CJSON::encode($article_arr))) {
                     array_push($article_added_arr, $couchbase_id);
+                    array_push($SQL_arr, $couchbase_id, $existId, "0", $article_arr['article'][0]['article_spark_job_id'], $article_arr['article'][0]['article_helium_media_id'], $article_arr['collection_id'], NULL, NULL, NULL, NULL, $article_arr['article'][0]['article_image_url']);
                     echo "\nupdate record successful " . $couchbase_id . " \n";
                     $message = "\n     update article record successful " . $couchbase_id;
                 } else {
@@ -499,9 +497,11 @@ class ArticleCommand extends Controller_admin {
                 $article_arr['article'][0]['id'] = $newId;
                 for ($i = 0; $i < sizeof($article_arr['article'][0]['article_credits']); $i++) {
                     $credit_arr = CJSON::encode($article_arr['article'][0]['article_credits'][$i]);
-                    $credit_arr = substr($credit_arr, 0, -1);
-                    $credit_arr.=',"optional":"' . $existId . '"}';
+                    array_push($credit_arr, '"optional":"' . $existId);
                     $article_arr['article'][0]['article_credits'][$i] = CJSON::decode($credit_arr);
+//                    $credit_arr = substr($credit_arr, 0, -1);
+//                    $credit_arr.=',"optional":"' . $existId . '"}';
+//                    $article_arr['article'][0]['article_credits'][$i] = CJSON::decode($credit_arr);
 //                          print_r("\n\n".$credit_arr);
 //                          print_r("\n\n".var_export($article_arr['article'][0]['article_credits'][$i]));
                 }
@@ -514,6 +514,7 @@ class ArticleCommand extends Controller_admin {
 
                     echo "\nadd record successful " . $couchbase_id . "\n";
                     $message = "\n     add article record successful " . $couchbase_id;
+                    array_push($SQL_arr, $couchbase_id, $existId, "0", $article_arr['article'][0]['article_spark_job_id'], $article_arr['article'][0]['article_helium_media_id'], $article_arr['collection_id'], NULL, NULL, NULL, NULL, $article_arr['article'][0]['article_image_url']);
                 } else {
                     $message = $couchbase_id . "add object failed ------------------------------- \n";
                     $message = "\n     add article record successful " . $couchbase_id;
@@ -523,10 +524,12 @@ class ArticleCommand extends Controller_admin {
 
             $this->createRecord($message);
         }
-        return $couchbase_id;
+        $this->writeMySQLLog($SQL_arr);
         unset($article_arr);
+        unset($SQL_arr);
+        return $couchbase_id;
     }
-        
+
 }
 
 ?>

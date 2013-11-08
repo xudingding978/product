@@ -42,5 +42,17 @@ HubStar.EditCommentController = Ember.Controller.extend({
                 
             });
         }
+        else if (type === "article")
+        {
+            var message_id = object.get("message_id");
+            var delInfo = [id, message_id, this.get("commentContent")];
+            delInfo = JSON.stringify(delInfo);
+            var that = this;
+            object.set("content", that.get("commentContent"));
+                that.closeCommentItem(object);
+            requiredBackEnd('comments', 'UpdateArticleComment', delInfo, 'POST', function(params) {
+                
+            });
+        }
     }
 });

@@ -154,6 +154,22 @@ HubStar.CommentController = Ember.Controller.extend({
                 that.cancelDelete();
             });
         }
+        else if (type === "article")
+        {
+            var commentId = object.get("commenter_id");
+            var time_stamp = object.get("time_stamp");
+            var message_id = object.get("message_id");
+            var delInfo = [id, message_id];
+            delInfo = JSON.stringify(delInfo);
+            var that = this;
+            requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function(params) {
+
+                that.get("thisComments").removeObject(object);
+                $('#masonry_user_container').masonry("reloadItems");
+                $('#masonry_container').masonry("reloadItems");
+                that.cancelDelete();
+            });
+        }
     },
 //    deleteComment: function(object) {
 //        var message = "Do you wish to delete this comment ?";

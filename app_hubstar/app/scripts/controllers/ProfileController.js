@@ -204,6 +204,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.setShowKeywordsArray(profile.get('show_keyword_id'),profile.get('keywords'));
         } else {
             this.set('show_keyword_id', '');
+            this.set('show_keyword_array', []);
         }
 //        } else {            
 //            this.setKeywordsArray(this.get('model').get('profile_keywords'));

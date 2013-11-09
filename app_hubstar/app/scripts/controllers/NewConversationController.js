@@ -1,15 +1,3 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 HubStar.NewConversationController = Ember.Controller.extend({
     contentMsg: null,
     commenter_photo_url: null,
@@ -17,6 +5,7 @@ HubStar.NewConversationController = Ember.Controller.extend({
     isUploadPhoto: false,
     isInvitePeople: false,
     isAdded: false,
+    hasItem:false,
     contentFollowerPhoto: null,
     init: function()
     {
@@ -29,7 +18,6 @@ HubStar.NewConversationController = Ember.Controller.extend({
     removePic: function() {
         this.set('newStyleImageSource', null);
         this.set('newStyleImageName', "");
-
         this.set("isUploadPhoto", false);
     },
     addComment: function() {

@@ -15,7 +15,7 @@
     <div style="position: relative; width: 100%;min-height: 100px;padding: 10px  15px;">
         {{#each  contentFollowerPhoto}}
         {{#if this.isAdd}}
-        <div class="invite-friend" style="" {{action addToList id}}>
+        <div class="invite-friend"  style="" {{action addToList id}}>
              <div class="invite-this-friend radius-circle easing" style="opacity: .8;"><k class="icon-minus" ></k></div>
             <img class="profilepic_comment radius-circle"  style=" box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;" {{bindAttr src= this.photo_url}} />                
         </div>

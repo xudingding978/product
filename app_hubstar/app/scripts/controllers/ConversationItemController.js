@@ -33,7 +33,6 @@ HubStar.ConversationItemController = Ember.Controller.extend({
     removePic: function() {
         this.set('newStyleImageSource', null);
         this.set('newStyleImageName', "");
-
         this.set("isUploadPhoto", false);
     },
     getClientIdAdd: function(id) {
@@ -80,6 +79,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         {
             this.set("isAdded", true);
         }
+
         this.set("contentFollowerPhotoOld", this.get("conversationItem").get("conversationPhoto"));
         this.set("conversationItemContent", this.get("conversationItem").get("ConversationCollection"));
         setTimeout(function() {

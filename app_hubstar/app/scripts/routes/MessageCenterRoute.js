@@ -6,7 +6,6 @@
 
 HubStar.MessageCenterRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-
         this.controllerFor('user').set('profileSelectionStatus', 'Messages');
         this.controllerFor('user').set('collectionTag', false);
 
@@ -64,8 +63,6 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
         $(window).scrollTop(550);
     },
     model: function(params) {
-
-
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
        
@@ -73,8 +70,6 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
     },
     events: {
         transitionToConversation: function(conversation_id) {
-
-
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
             var user = HubStar.User.find(user_id);

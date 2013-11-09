@@ -181,13 +181,11 @@ HubStar.NewConversationController = Ember.Controller.extend({
                 that.set("contentFollowerPhoto",null);
                 that.set('newStyleImageSource', null);
                 that.set('newStyleImageName', "");
-            });
-
-
-
-            setTimeout(function() {
+                setTimeout(function() {
                 $('#masonry_container').masonry("reloadItems");
             }, 200);
+            });
+           
         }
     },
     invitePeople: function()

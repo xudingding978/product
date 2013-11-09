@@ -12,7 +12,7 @@ var BrowserDetect = {
             var dataProp = data[i].prop;
             this.versionSearchString = data[i].versionSearch || data[i].identity;
             if (dataString) {
-                if (dataString.indexOf(data[i].subString) != -1)
+                if (dataString.indexOf(data[i].subString) !== -1)
                     return data[i].identity;
             }
             else if (dataProp)
@@ -21,7 +21,7 @@ var BrowserDetect = {
     },
     searchVersion: function(dataString) {
         var index = dataString.indexOf(this.versionSearchString);
-        if (index == -1)
+        if (index === -1)
             return;
         return parseFloat(dataString.substring(index + this.versionSearchString.length + 1));
     },
@@ -2455,16 +2455,12 @@ var e=function(){},t=0,r=this.document,n=r&&"createRange"in r&&"undefined"!=type
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-function getRestAPIURL()
-{
-
+function getRestAPIURL(){
 //    var api_url = document.domain;
 //    api_url = "http://api." + api_url;
 //    console.log(api_url);
 //    return api_url;
     var api_url = document.domain;
-
-
     api_url = "http://api." + api_url;
     return api_url;
 }
@@ -2549,6 +2545,7 @@ function getImageWidth(imgSrc, callback) {
 function requiredBackEnd(controller, method, para, ajaxType, callback) {
     {
         var tempurl = getRestAPIURL();
+
         $.ajax({
             url: tempurl + '/' + controller + '/' + method,
             type: ajaxType,
@@ -2574,6 +2571,21 @@ function getTarget(obj, type) {
     }
     return targ;
 }
+
+function ReplaceContentInContainer(matchClass, content)
+{
+    var elems = document.getElementsByTagName('*'), i;
+    for (i in elems)
+    {
+        if ((" " + elems[i].className + " ").indexOf(" " + matchClass + " ") > -1)
+        {
+            console.log("match");
+            elems[i].style.display = 'none';
+        }
+    }
+
+}
+
 
 
 

@@ -1551,7 +1551,7 @@ div.album-description-bg{
 .article-title{
     font-size: 28px;
     font-weight: bold;
-    line-height: 20px;
+    line-height: 30px;
     margin-bottom: 10px;
 }
 
@@ -1591,7 +1591,7 @@ div.album-description-bg{
 
 
 .show-comment{
-    padding-bottom: 12px;
+    padding-bottom: 30px;
 }
 
 .show-comment_container{

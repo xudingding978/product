@@ -44,7 +44,6 @@ HubStar.ProfileRoute = Ember.Route.extend({
     },
     events: {
         transitionToCollectionPhoto: function(collection_id) {
-
             HubStar.set("scrollCollectionPosition", $(window).scrollTop());
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
@@ -78,6 +77,10 @@ HubStar.ProfileRoute = Ember.Route.extend({
         $(function() {
             $('#masonry_container').masonry('remove', $('.noStyle1'));
         });
+        
+        
+        
+        
     },
     renderTemplate: function() {
         this.render('profile', {

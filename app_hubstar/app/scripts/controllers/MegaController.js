@@ -62,6 +62,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set('image_no', selectedIndex + 1);
         this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
         this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
+        console.log(HubStar.Mega.find(this.get('selectedPhoto').id));
         this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
         this.selectedImage(this.get('selectedPhoto').id);
@@ -96,6 +97,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var collection_id = mega.get("collection_id");
         var owner_profile_id = mega.get("owner_id");
         var photoContent = this.get("controllers.masonryCollectionItems").get("content");
+
         var isProfileIDExist = this.isParamExist(owner_profile_id);
         var isCollectionIDExist = this.isParamExist(collection_id);
         if (isProfileIDExist && isCollectionIDExist) {

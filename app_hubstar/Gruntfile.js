@@ -554,8 +554,8 @@ module.exports = function(grunt) {
     ]);
     grunt.registerTask('default', [
         'jshint',
-        'test',
-        'shell'
+      //  'test',
+      //  'shell'
     ]);
     grunt.registerTask('gitcommit', [
         'shell:listFolders'

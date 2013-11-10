@@ -1317,7 +1317,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#message').addClass('selected-user-stats');
         var address = document.URL;
-         
+
         var conversation_id = "";
         if (this.controllerFor('notificationTop').get("goReply") === true)
         {
@@ -1329,7 +1329,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
         if (this.controllerFor('notificationTop').get("notificationSeeAll") === true)
         {
             model = localStorage.loginStatus;
-            this.controllerFor('notificationTop').set("notificationSeeAll",false) ;          
+            this.controllerFor('notificationTop').set("notificationSeeAll", false);
         }
         if (this.controllerFor('notificationTop').get("goMessage") !== undefined && this.controllerFor('notificationTop').get("goMessage") !== null && this.controllerFor('notificationTop').get("goMessage") !== "")
         {
@@ -1349,7 +1349,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
         }
         if (this.controllerFor('notificationTop').get("goConversation") === true)
         {
-           
+
             model = localStorage.loginStatus;
             this.controllerFor('notificationTop').set("goConversation", false);
             this.controllerFor('messageCenter').getClientId(localStorage.loginStatus);
@@ -1358,7 +1358,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             conversation_id = address.split("#")[1].split("/")[5];
             this.controllerFor('messageCenter').getClientId(localStorage.loginStatus, conversation_id);
         }
-        else {      
+        else {
             this.controllerFor('messageCenter').getClientId(model);
         }
         $(window).scrollTop(550);
@@ -1366,7 +1366,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
     model: function(params) {
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
-       
+
         return user_id;
     },
     events: {
@@ -1378,6 +1378,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             var data = null;
             var isNewConversation = HubStar.get("newConversation");
             var isTalk = HubStar.get("talkConversation");
+            this.controllerFor('conversation').set("isNewConversation", false);
             if (isNewConversation || isTalk)
             {
                 data = this.controllerFor('conversation').get("conversationContent").objectAt(0);
@@ -1453,9 +1454,8 @@ HubStar.NewConversationRoute = Ember.Route.extend({
         this.controllerFor('messageCenter').set("isNotification", false);
         this.controllerFor('messageCenter').set("isMessageBoard", false);
         HubStar.set("newConversation", true);
-        this.controllerFor('conversation').set("hasItem", false);
+        this.controllerFor('conversation').set("isNewConversation", true);
         this.controllerFor('conversation').selectConversation();
-        this.controllerFor('conversation').set("hasItem", true);
         this.controllerFor('conversation').set("isInvitePeople", false);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
@@ -3145,10 +3145,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     {
         var that = this;
         Ember.run.later(function() {
-<<<<<<< HEAD
-            console.log("asdfsdafasd " + that.get('adPageNo'));
-=======
->>>>>>> 509ef974c54b9169751a84b1cf3b5ae8f646b9df
             if (that.get('adPageNo') === 1) {
                 googletag.cmd.push(function() {
                     for (var i = 0; i < ads.length; i++) {
@@ -4403,7 +4399,7 @@ HubStar.ConversationController = Ember.Controller.extend({
     commenter_photo_url: null,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem'],
     isUploadPhoto: false,
-    hasItem:true,
+    isNewConversation: false,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -4431,11 +4427,10 @@ HubStar.ConversationController = Ember.Controller.extend({
                     }, 10);
                 });
             }, 50);
-            if (this.get("hasItem") === true)
+            if (this.get("isNewConversation") === false)
             {
             this.get('controllers.messageCenter').selectConversationItem(id);
             this.get('controllers.conversationItem').getClientId(id);
-            this.set("hasItem",true);
         }
         }
     },
@@ -4655,7 +4650,6 @@ HubStar.ConversationItemController = Ember.Controller.extend({
                 break;
             }
         }
-
         if (this.get("conversationItem").get("conversationPhoto").length === 0)
         {
             this.set("isAdded", false);
@@ -6670,20 +6664,6 @@ HubStar.MessageCenterController = Ember.Controller.extend({
     selectNewConversation: function() {
         this.transitionToRoute("newConversation");
     },
-//    selectNewConversation: function() {
-//        this.set("isNewConversation", true);
-//        this.set("isConversationItem", false);
-//        this.set("isNotification", false);
-//        this.set("isMessageBoard", false);
-//        HubStar.set("newConversation", true);
-//        this.get("controllers.conversation").selectConversation();
-//        this.get('controllers.newConversation').set("isInvitePeople", false);
-//
-//        setTimeout(function() {
-//            $('#masonry_user_container').masonry("reload");
-//        }, 200);
-//    },
-
     selectConversationItem: function() {
 
         this.set("isNewConversation", false);
@@ -7217,7 +7197,8 @@ HubStar.NewConversationController = Ember.Controller.extend({
                     dataNew["ConversationCollection"].pushObject(conversationItem);
                 }
 
-
+                        console.log("qqqqqqqqqqqqqqqqqqq");
+                        console.log(dataNew);
                 that.get('controllers.conversation').get("conversationContent").insertAt(0, dataNew);
                 dataNew = new Array();
 
@@ -10387,8 +10368,10 @@ HubStar.TalkController = Ember.Controller.extend({
             tempComment = JSON.stringify(tempComment);
             var that = this;
             requiredBackEnd('conversations', 'CreateConversation', tempComment, 'POST', function(params) {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Send Successfully.");
-                HubStar.set("talkConversation", true);
+
+                that.get('controllers.applicationFeedback').statusObserver(null, "Your Message Has Been Sent Successfully.");
+                HubStar.set("talkConversation",true);
+
                 that.reviewCancel();
                 that.set('messageContent', "");
                 that.set('newStyleImageSource', null);
@@ -11059,13 +11042,8 @@ HubStar.UserController = Ember.Controller.extend({
         checkList.push(location);
         for (var i = 0; i < checkList.length; i++)
         {
-<<<<<<< HEAD
 
 
-=======
-
-
->>>>>>> 509ef974c54b9169751a84b1cf3b5ae8f646b9df
             if (checkList[i].id === 'email') {
                 document.getElementById(checkList[i].id).setAttribute("class", "disabled-btn");
             }

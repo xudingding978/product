@@ -85,8 +85,10 @@ HubStar.TalkController = Ember.Controller.extend({
             tempComment = JSON.stringify(tempComment);
             var that = this;
             requiredBackEnd('conversations', 'CreateConversation', tempComment, 'POST', function(params) {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Send Successfully.");
-                HubStar.set("talkConversation", true);
+
+                that.get('controllers.applicationFeedback').statusObserver(null, "Your Message Has Been Sent Successfully.");
+                HubStar.set("talkConversation",true);
+
                 that.reviewCancel();
                 that.set('messageContent', "");
                 that.set('newStyleImageSource', null);

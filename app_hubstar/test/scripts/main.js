@@ -3145,7 +3145,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     {
         var that = this;
         Ember.run.later(function() {
+<<<<<<< HEAD
             console.log("asdfsdafasd " + that.get('adPageNo'));
+=======
+>>>>>>> 509ef974c54b9169751a84b1cf3b5ae8f646b9df
             if (that.get('adPageNo') === 1) {
                 googletag.cmd.push(function() {
                     for (var i = 0; i < ads.length; i++) {
@@ -11056,8 +11059,13 @@ HubStar.UserController = Ember.Controller.extend({
         checkList.push(location);
         for (var i = 0; i < checkList.length; i++)
         {
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> 509ef974c54b9169751a84b1cf3b5ae8f646b9df
             if (checkList[i].id === 'email') {
                 document.getElementById(checkList[i].id).setAttribute("class", "disabled-btn");
             }

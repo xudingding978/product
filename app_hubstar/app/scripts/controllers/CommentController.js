@@ -92,18 +92,17 @@ HubStar.CommentController = Ember.Controller.extend({
 
     },
     getCommentsById: function(id)
-    {
-        //console.log(id);
+    {       
         var mega = HubStar.Mega.find(id);
         var comments = mega.get('comments');
         this.set('mega', mega);
-        for (var i = 0; i < comments.get("length"); i++)
-        {
-            if (comments.objectAt(i).get("commenter_id") === localStorage.loginStatus)
-            {
-                comments.objectAt(i).set("isUserSelf", true);
-            }
-        }
+//        for (var i = 0; i < comments.get("length"); i++)
+//        {
+//            if (comments.objectAt(i).get("commenter_id") === localStorage.loginStatus)
+//            {
+//                comments.objectAt(i).set("isUserSelf", true);
+//            }
+//        }
         this.set('thisComments', comments);
     },
     closeCommentItem: function(obj) {
@@ -123,7 +122,8 @@ HubStar.CommentController = Ember.Controller.extend({
 
         var id = this.get('content').id;
         var type = this.get('content').get('type');
-
+        this.getCommentsById(id);
+        console.log(this.get("thisComments"));
         if (type === 'photo') {
             var commentId = object.get("commenter_id");
             var time_stamp = object.get("time_stamp");
@@ -152,7 +152,7 @@ HubStar.CommentController = Ember.Controller.extend({
                 that.get("thisComments").removeObject(object);
                 $('#masonry_user_container').masonry("reloadItems");
                 $('#masonry_container').masonry("reloadItems");
-                that.cancelDelete();
+                
             });
         }
         else if (type === "article")
@@ -168,7 +168,7 @@ HubStar.CommentController = Ember.Controller.extend({
                 that.get("thisComments").removeObject(object);
                 $('#masonry_user_container').masonry("reloadItems");
                 $('#masonry_container').masonry("reloadItems");
-                that.cancelDelete();
+                
             });
         }
     },

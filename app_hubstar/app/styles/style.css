@@ -370,6 +370,17 @@ body > div.ember-view{
     background-color: transparent;
 }
 
+.blur_white{
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    opacity: .6;
+    background-color: white;
+}
+
 .blur_black{
     z-index: 10;
     left: 0;

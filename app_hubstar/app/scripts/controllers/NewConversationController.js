@@ -5,7 +5,6 @@ HubStar.NewConversationController = Ember.Controller.extend({
     isUploadPhoto: false,
     isInvitePeople: false,
     isAdded: false,
-    hasItem:false,
     contentFollowerPhoto: null,
     init: function()
     {
@@ -157,7 +156,8 @@ HubStar.NewConversationController = Ember.Controller.extend({
                     dataNew["ConversationCollection"].pushObject(conversationItem);
                 }
 
-
+                        console.log("qqqqqqqqqqqqqqqqqqq");
+                        console.log(dataNew);
                 that.get('controllers.conversation').get("conversationContent").insertAt(0, dataNew);
                 dataNew = new Array();
 

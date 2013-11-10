@@ -88,20 +88,6 @@ HubStar.MessageCenterController = Ember.Controller.extend({
     selectNewConversation: function() {
         this.transitionToRoute("newConversation");
     },
-//    selectNewConversation: function() {
-//        this.set("isNewConversation", true);
-//        this.set("isConversationItem", false);
-//        this.set("isNotification", false);
-//        this.set("isMessageBoard", false);
-//        HubStar.set("newConversation", true);
-//        this.get("controllers.conversation").selectConversation();
-//        this.get('controllers.newConversation').set("isInvitePeople", false);
-//
-//        setTimeout(function() {
-//            $('#masonry_user_container').masonry("reload");
-//        }, 200);
-//    },
-
     selectConversationItem: function() {
 
         this.set("isNewConversation", false);

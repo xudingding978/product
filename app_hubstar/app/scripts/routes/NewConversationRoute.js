@@ -5,9 +5,8 @@ HubStar.NewConversationRoute = Ember.Route.extend({
         this.controllerFor('messageCenter').set("isNotification", false);
         this.controllerFor('messageCenter').set("isMessageBoard", false);
         HubStar.set("newConversation", true);
-        this.controllerFor('conversation').set("hasItem", false);
+        this.controllerFor('conversation').set("isNewConversation", true);
         this.controllerFor('conversation').selectConversation();
-        this.controllerFor('conversation').set("hasItem", true);
         this.controllerFor('conversation').set("isInvitePeople", false);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");

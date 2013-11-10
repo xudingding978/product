@@ -565,7 +565,7 @@ class ConversationsController extends Controller {
 
                 $tempPhoto = array();
                 $tempPhoto['isAdd'] = true;
-
+                $tempPhoto['name'] = $oldcommenterInfo['user'][0]["display_name"];
                 $tempPhoto['photo_url'] = $oldcommenterInfo['user'][0]["photo_url_large"];
                 array_push($addResult['conversationPhoto'], $tempPhoto);
                 if ($i === 0) {

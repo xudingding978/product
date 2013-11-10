@@ -70,7 +70,6 @@ HubStar.ConversationItemController = Ember.Controller.extend({
                 break;
             }
         }
-
         if (this.get("conversationItem").get("conversationPhoto").length === 0)
         {
             this.set("isAdded", false);

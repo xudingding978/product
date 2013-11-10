@@ -3,6 +3,7 @@ HubStar.ConversationController = Ember.Controller.extend({
     commenter_photo_url: null,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem'],
     isUploadPhoto: false,
+    isNewConversation: false,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -30,11 +31,10 @@ HubStar.ConversationController = Ember.Controller.extend({
                     }, 10);
                 });
             }, 50);
-            if (this.get("hasItem") === true)
+            if (this.get("isNewConversation") === false)
             {
             this.get('controllers.messageCenter').selectConversationItem(id);
             this.get('controllers.conversationItem').getClientId(id);
-            this.set("hasItem",true);
         }
         }
     },

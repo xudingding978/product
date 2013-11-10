@@ -24,15 +24,11 @@
         {{else}}
 
 
-        <div id="login_icon" style="position: absolute; right: 10px;">
+        <div id="login_icon" style="display:block;position: relative;float: right;">
 
             {{view HubStar.BeforeLoginView}}
 
-            {{#if controller.popup}}
-
-            {{view HubStar.LoginModalView}}
-
-            {{/if}}
+           
 
         </div>
 

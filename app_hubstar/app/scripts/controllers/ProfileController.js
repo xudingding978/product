@@ -691,6 +691,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
     },
     selectVideo: function(model) {
+  if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Video');
         $('#user-stats > li').removeClass('selected-user-stats');
@@ -702,6 +704,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('collectionTag', false);
         this.set('followerProfileTag', false);
         this.transitionToRoute('profileVideos');
+                }
+
     },
     selectPartner: function(model) {
         if (this.get("controllers.checkingLoginStatus").popupLogin())

@@ -22,18 +22,20 @@
     </div>
 
     <div style="position: relative; width: 100%; border-bottom: 1px solid #ddd;">       
-        <div id="messageData"  style="padding: 5px  15px;margin-left: 10px; display: inline-block;">
-            {{#each  contentFollowerPhotoOld}}     
-            <img class="profilepic_comment radius-circle"  style=" box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;margin:10px 5px;" {{bindAttr src= this.photo_url}} />                
+        <div id="messageData"  style="padding: 5px  15px;margin-left: 10px; display: inline-block;" >
+            {{#each  contentFollowerPhotoOld }}     
+            <div  data-hint="{{unbound this.name}}">
+                <img class="profilepic_comment radius-circle"  style=" box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;margin:10px 5px;" {{bindAttr src= this.photo_url}} />                
+            </div>
             {{/each}}
         </div>
         {{#if isNewPeople}}
         <div style="padding:5px 15px;background-color: #f4f6f8;">
             {{#each  contentFollowerPhoto}}
             {{#if this.isAdd}}
-            <div style="margin:10px 5px;margin-left: 10px;position: relative;width: 45px;display: inline-block;vertical-align: top;" {{action addToList id}}>            
+            <div style="margin:10px 5px;margin-left: 10px;position: relative;width: 45px;display: inline-block;vertical-align: top;"  data-hint="{{unbound this.name}}" {{action addToList id}} >            
                  <div class="invite-this-friend radius-circle easing" style="opacity: .8;"><k class="icon-minus" ></k></div>
-                <img class="profilepic_comment radius-circle"  style=" box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;" {{bindAttr src= this.photo_url}} />                         
+                    <img class="profilepic_comment radius-circle"  style=" box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;" {{bindAttr src= this.photo_url}} />                         
             </div>
             {{/if}}
             {{/each}}
@@ -67,7 +69,7 @@
                     </div>
                     {{#if controller.isPosting}}
                     <div class="message-btn easing" style=''{{action addComment}}><k class='icon-ok'>&nbsp;</k>Post</div>
-                     {{else}}
+                    {{else}}
                     <div class="message-btn-x easing" style=''><i class="spinner">&nbsp;</i>Posting </div>
                     {{/if}}
                 </div>

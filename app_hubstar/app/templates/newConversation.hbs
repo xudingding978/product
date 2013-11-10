@@ -3,7 +3,7 @@
 {{/if}}
 <div class="Message-Board box" style="width: 545px; margin: 10px; border-radius:5px; overflow: hidden; background-color: rgb(255, 255, 255); top: 0px; left: 0px;">
     <div style="background-color: #f3f3f3; width:100%;height: 70px; border-bottom: 1px solid #ddd;padding: 0 20px;">
-        <div style="color: #555;font-size: 18px;line-height: 70px;font-weight: bold;float: left;">
+        <div style="color: #555;font-size: 18px;line-height: 70px;font-weight: bold;float: left;" data-hint="{{unbound this.name}}>
             <a><img class="profilepic_comment"  style="float: left; margin: 12px; box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;" {{bindAttr src= controller.commenter_photo_url}} /> </a>
             &nbsp;Conversation
         </div>
@@ -15,7 +15,7 @@
     <div style="position: relative; width: 100%;min-height: 100px;padding: 10px  15px;">
         {{#each  contentFollowerPhoto}}
         {{#if this.isAdd}}
-        <div class="invite-friend" style="" {{action addToList id}}>
+        <div class="invite-friend"  style="" {{action addToList id}} data-hint="{{unbound this.name}}">
              <div class="invite-this-friend radius-circle easing" style="opacity: .8;"><k class="icon-minus" ></k></div>
             <img class="profilepic_comment radius-circle"  style=" box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;" {{bindAttr src= this.photo_url}} />                
         </div>

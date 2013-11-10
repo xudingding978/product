@@ -5,7 +5,10 @@
     <div style="background-color: #f3f3f3; width:100%;height: 70px; border-bottom: 1px solid #ddd;padding: 0 20px;">
         <div style="color: #555;font-size: 18px;line-height: 70px;font-weight: bold;float: left;">
             <a><img class="profilepic_comment"  style="float: left; margin: 12px; box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;" {{bindAttr src= controller.owner_photo_url}} /> </a>
-            &nbsp;Message to: {{displayName}}
+            &nbsp;Message to: {{displayName}}   &nbsp; &nbsp;
+            <div class="closeview"{{action cancelTalk on="click" target="controller"}} >
+                <i class="icon-remove"></i>
+            </div>
         </div>       
     </div>
 
@@ -36,6 +39,9 @@
                     <div class="message-btn easing" style=''{{action addComment}}><k class='icon-ok'>&nbsp;</k>Post</div>
                 </div>
 
+                <div class="" style="height: 45px;position: relative;border-top: 1px solid #ddd;top: -1px;" {{action cancelTalk on="click" target="controller"}} >
+                    <div class="message-btn-fx easing" style="height:45px;line-height: 45px; border-right: 1px solid #ddd;"><i class="icon-remove"></i>&nbsp;</k>Cancel</div>
+                </div>
             </div>
 
         </div>

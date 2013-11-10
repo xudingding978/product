@@ -8363,10 +8363,6 @@ to{
     font-size: 16px;
 }
 
-
-
-
-
 .easing {
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -9889,9 +9885,9 @@ div.album-description-bg{
 
 
 .article-title{
-    font-size: 28px;
+    font-size: 26px;
     font-weight: bold;
-    line-height: 20px;
+    line-height: 30px;
     margin-bottom: 10px;
 }
 
@@ -9931,7 +9927,7 @@ div.album-description-bg{
 
 
 .show-comment{
-    padding-bottom: 12px;
+    padding-bottom: 30px;
 }
 
 .show-comment_container{
@@ -11155,7 +11151,216 @@ textarea.add-interests{
     background-color: #e3e3e3;
     color: #999;
 }
-
+.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}.message-btn-fx{
+    width: 100%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}
 
 .message-btn:hover{
     opacity: 1;

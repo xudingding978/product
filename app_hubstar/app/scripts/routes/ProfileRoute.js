@@ -78,6 +78,10 @@ HubStar.ProfileRoute = Ember.Route.extend({
         $(function() {
             $('#masonry_container').masonry('remove', $('.noStyle1'));
         });
+        
+        
+        
+        
     },
     renderTemplate: function() {
         this.render('profile', {

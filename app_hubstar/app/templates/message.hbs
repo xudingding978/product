@@ -34,11 +34,11 @@
                     {{/if}}
 
                     <div id="showMoreComment_{{unbound model.message_id}}" style="display: inline-block; cursor: pointer"  {{action seeMore model.message_id target="controller" on="click"}}>
-                        <span style="font-size: 11px;font-weight: bold">&nbsp; reply{{model.replyCount}}</span>
+                        <span style="font-size: 11px;font-weight: bold">&nbsp; reply&nbsp; {{model.replyCount}}</span>
                         <i class="icon-caret-down show-comment_inner" ></i>   
                     </div>
                     <div id="closeComment_{{unbound model.message_id}}"   style="display: none;cursor: pointer" {{action closeMore model.message_id  target="controller" on="click"}}>
-                        <span style="font-size: 11px;font-weight: bold">&nbsp; reply {{model.replyCount}}</span>
+                        <span style="font-size: 11px;font-weight: bold">&nbsp; reply &nbsp; {{model.replyCount}}</span>
                         <i class="icon-caret-up show-comment_inner" ></i>
                     </div>
 

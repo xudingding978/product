@@ -182,7 +182,71 @@
 
 
 
+.Navigator-box{
+    margin-top: 60px;
+    width: 665px;
+    height: 450px;
+    border-radius: 3px;
+    box-shadow: 0 0 10px #aaa;
+    background-color: white;
+    z-index: 11;
+    position: relative;
+}
 
+.Navigator-box:before{
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: -19px;
+    border-color: transparent transparent #f3f3f3 transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: 0;
+}
+
+.Navigator-box:after{
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: -20px;
+    border-color: transparent transparent #888 transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: -1;
+}
+
+.Navigator-content{
+    height: 380px;
+    width: 100%;
+    font-size: 13px;
+    font-weight: bold;
+    color: #555;
+}
+
+.Navigator-content  li {padding: 3px 15px;cursor: pointer;}
+.Navigator-content  li:hover {background-color: #d2d2d2}
+
+.Navigator-content  li >.icon-angle-right{
+    font-size: 18px;
+    color: white;
+    float: right;
+    margin-top: 2px;
+}
+
+.Navigator_links{
+    background-color: #f3f3f3; 
+    height: 35px; 
+    line-height: 35px;
+    width: 100%; 
+    border-top: 1px solid #ddd;
+    padding: 0 15px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #555;
+    border-radius: 0 0 3px 3px;
+}
+
+.Navigator_links > div > span{margin: 0 5px;cursor: pointer;}
 
 
 

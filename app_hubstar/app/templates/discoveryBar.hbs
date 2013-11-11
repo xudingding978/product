@@ -3,7 +3,7 @@
 
 
 
-<div id="discovery_search_bar_wrapper">
+<div id="discovery_search_bar_wrapper" style="z-index: 11">
 
     <div style="position: absolute; top: 150px; width: 600px;left:0; right: 0; margin: auto; l">
         <img src="../../images/Wecometext.png"/>
@@ -16,8 +16,10 @@
                 <i class="icon-search"></i>
             </div>
         </div>
-        <div id ="navigator" class="Nav-btn easing" style="float: right;" {{action dropdown "navigator"}}><i class="icon-list"></i></div>
-
+        <div id ="navigator" class="Nav-btn easing" style="float: right;" {{action dropdownNavigator}}><i class="icon-list"></i></div>
+        {{#if controller.isNavigatorDropdown}}
+        {{view HubStar.NavigatorView}}
+        {{/if}}
     </div>
 
     <div class="popular-topics" style="">

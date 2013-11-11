@@ -1,4 +1,4 @@
-HubStar.VideoController = Ember.Controller.extend(HubStar.DisplayViewMixin,{
+HubStar.VideoController = Ember.Controller.extend({
     megaResouce: null,
     videoObject: null,
     video_iframe_code: null,
@@ -7,7 +7,6 @@ HubStar.VideoController = Ember.Controller.extend(HubStar.DisplayViewMixin,{
     needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission'],
     getinitdata: function(videoObject)
     {
-       this. displayMixinTest();
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var that = this;
         var megaResouce = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": videoObject});
@@ -168,7 +167,6 @@ HubStar.VideoController = Ember.Controller.extend(HubStar.DisplayViewMixin,{
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
-        console.log(that.get("megaResouce").get("owner_contact_email"));
         var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
         that.set("is_authentic_user", is_authentic_user);
         currentUser.addObserver('isLoaded', function() {

@@ -5,10 +5,14 @@ HubStar.DeleteFunctionView = Ember.View.extend({
     },
     deleteSelection: function() {
         var controller = this.get('controller');
-        
+
         if (controller._debugContainerKey.indexOf("addCollection") !== -1)
         {
             //     controller.addNewCollection();
+        }
+        else if (controller._debugContainerKey.indexOf("profileVideos") !== -1) {
+          
+            controller.deleteConfirm();
         }
         else if (controller._debugContainerKey.indexOf("application") !== -1)
         {
@@ -33,7 +37,6 @@ HubStar.DeleteFunctionView = Ember.View.extend({
         }
         else if (controller._debugContainerKey.indexOf("profile") !== -1) {
 
-
             controller.deleteSelectedCollection();
 
         }
@@ -51,6 +54,7 @@ HubStar.DeleteFunctionView = Ember.View.extend({
             controller.removeCollectedItem();
 
         }
+
         else {
             console.log("this is a deleete");
         }
@@ -101,6 +105,8 @@ HubStar.DeleteFunctionView = Ember.View.extend({
             controller.cancelDelete();
 
         }
+
+
         else {
 
         }

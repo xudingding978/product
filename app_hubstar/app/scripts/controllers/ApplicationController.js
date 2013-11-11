@@ -4,7 +4,7 @@
 /*global $:false */
 
 HubStar.ApplicationController = Ember.ArrayController.extend({
-    needs: ['status', 'applicationFeedback', 'user','megaCreate','notificationTop'],
+    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -53,8 +53,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var u = HubStar.User.find(localStorage.loginStatus);
         this.set("user", u);
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
-        this.set("myUserProfile", "#/users/" + localStorage.loginStatus);       
-        this.set("myMessageBoard", "#/users/" + localStorage.loginStatus+"/messagecenter");
+        this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
+        this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
 
     },
     reloadPage: function() {
@@ -281,14 +281,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('gender', "female");
     },
     dropdown: function(checking) {
-        console.log(checking);
         if (checking === "geoLocation") {
             this.set('isGeoDropdown', !this.get('isGeoDropdown'));
             $('#geo-filter').toggleClass('Geo-Filter-active');
         } else {
-            this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
-//            $('#navigator').toggleClass('Geo-Filter-active');
+
         }
+    },
+    dropdownNavigator: function() {
+        console.log("sssssssssssssssssssssssssssssss");
+        this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
     },
     canelDropDown: function()
     {
@@ -403,7 +405,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 googletag.cmd.push(function() {
                     for (var i = 0; i < ads.length; i++) {
                         var ad = ads[i];
-                         slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                        slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
 
                         googletag.pubads().enableSingleRequest();
                         googletag.enableServices();

@@ -195,6 +195,8 @@
                 <div class="addcommnetbox" role="button" {{action openComment target="view" on="click"}} id="addcommetBut" >
                     add comment...
                 </div>
+                
+                {{#unless HubStar.checkLoginStatus}}
                 <div class="addcommnetbox-container" id="commentBox" style="display: none">
                     <div style="margin:0 auto; padding: 0 0 15px 38px;">
                         <a> 
@@ -209,6 +211,8 @@
 
                     </div>
                 </div>
+                  {{/unless}}
+                
                 {{#each controller.megaResouce.comments}}
                 <div class="comment-item">
 
@@ -258,4 +262,8 @@
 
 </div>
 
+{{#if HubStar.checkLoginStatus}}
 
+{{render loginModal}}       
+
+{{/if}}

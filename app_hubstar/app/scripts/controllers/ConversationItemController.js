@@ -20,6 +20,8 @@ HubStar.ConversationItemController = Ember.Controller.extend({
     isInvitePeople: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversation', 'invitePeople', 'newConversation'],
     isUploadPhoto: false,
+    isNewPeople: false,
+    isPosting:true,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -31,11 +33,10 @@ HubStar.ConversationItemController = Ember.Controller.extend({
     removePic: function() {
         this.set('newStyleImageSource', null);
         this.set('newStyleImageName', "");
-
         this.set("isUploadPhoto", false);
     },
     getClientIdAdd: function(id) {
-         var conversationContent = this.get('controllers.conversation').get("conversationContent");
+        var conversationContent = this.get('controllers.conversation').get("conversationContent");
         this.set("id", id);
         for (var i = 0; i < conversationContent.length; i++)
         {
@@ -69,7 +70,6 @@ HubStar.ConversationItemController = Ember.Controller.extend({
                 break;
             }
         }
-
         if (this.get("conversationItem").get("conversationPhoto").length === 0)
         {
             this.set("isAdded", false);
@@ -78,6 +78,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         {
             this.set("isAdded", true);
         }
+
         this.set("contentFollowerPhotoOld", this.get("conversationItem").get("conversationPhoto"));
         this.set("conversationItemContent", this.get("conversationItem").get("ConversationCollection"));
         setTimeout(function() {
@@ -102,10 +103,11 @@ HubStar.ConversationItemController = Ember.Controller.extend({
     },
     addComment: function() {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
-
+        
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var conversationtContent = this.get('messageContent');
         if (conversationtContent) {
+            this.set("isPosting",false);
             var commenter_id = this.get("currentUser").get('id');
             var conversationId = this.get("id");
             var date = new Date();
@@ -161,6 +163,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
             //var dataNew = new Array();
 
             requiredBackEnd('conversations', 'AddConversationItem', tempComment, 'POST', function(params) {
+                  that.set("isPosting",true);
                 var conversationContent = that.get('controllers.conversation').get("conversationContent");
                 for (var i = 0; i < conversationContent.length; i++)
                 {
@@ -213,13 +216,38 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         this.get("controllers.invitePeople").getClientId(localStorage.loginStatus, id);
     },
     addToList: function(id) {
+        var count = 0;
         for (var i = 0; i < this.get("contentFollowerPhoto").length; i++)
         {
             if (this.get("contentFollowerPhoto").objectAt(i).get("id") === id)
             {
                 this.get("contentFollowerPhoto").objectAt(i).set("isAdd", !this.get("contentFollowerPhoto").objectAt(i).get("isAdd"));
             }
+            if (this.get("contentFollowerPhoto").objectAt(i).get("isAdd") === true)
+            {
+                count++;
+            }
         }
+        if (count !== 0)
+        {
+            this.set("isNewPeople", true);
+        }
+        else
+        {
+            this.set("isNewPeople", false);
+        }
+    },
+    seeMore: function(id) {
+        $('#closeComment').attr('style', 'display:inline-block');
+        $('#showMoreComment').attr('style', 'display:none');
+        $('#messageData').attr('style', 'display: block; padding: 5px 20px;');
+        $('#masonry_user_container').masonry("reload");
+    },
+    closeMore: function(id) {
+        $('#closeComment').attr('style', 'display:none');
+        $('#showMoreComment').attr('style', 'display:inline-block');
+        $('#messageData').attr('style', 'display: none');
+        $('#masonry_user_container').masonry("reload");
     },
     profileStyleImageDrop: function(e, name)
     {

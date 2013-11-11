@@ -27,6 +27,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeLoginURL: "",
     isWaiting: "",
     isGeoDropdown: false,
+    isNavigatorDropdown: false,
     adPageNo: 0,
     googletagCmd: null,
     unReadCount: 0,
@@ -280,8 +281,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('gender', "female");
     },
     dropdown: function(checking) {
-        this.set('isGeoDropdown', !this.get('isGeoDropdown'));
-        $('#geo-filter').toggleClass('Geo-Filter-active');
+        console.log(checking);
+        if (checking === "geoLocation") {
+            this.set('isGeoDropdown', !this.get('isGeoDropdown'));
+            $('#geo-filter').toggleClass('Geo-Filter-active');
+        } else {
+            this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
+//            $('#navigator').toggleClass('Geo-Filter-active');
+        }
     },
     canelDropDown: function()
     {

@@ -16,7 +16,10 @@
                 <i class="icon-search"></i>
             </div>
         </div>
-        <div class="Nav-btn easing" style="float: right;"><i class="icon-list"></i></div>
+        <div id ="navigator" class="Nav-btn easing" style="float: right;" {{action dropdown "navigator"}}><i class="icon-list"></i></div>
+        {{#if controller.isNavigatorDropdown}}
+        {{view HubStar.DropdownListView}}
+        {{/if}}
     </div>
 
     <div class="popular-topics" style="">

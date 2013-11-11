@@ -342,6 +342,7 @@ class MessagesController extends Controller {
                                 $dataNew["url"] = $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$j]["url"];
                                 if ($url === null) {
                                     $dataNew["url"] = null;
+                                    $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$j]["url"] = null;
                                 }
                             }
                             break;
@@ -449,6 +450,7 @@ class MessagesController extends Controller {
                             $dataNew["url"] = $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$replyLenth]["url"];
                             if ($url === null) {
                                 $dataNew["url"] = null;
+                                $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$replyLenth]["url"] = null;
                             }
                         }
                         break;

@@ -31,6 +31,46 @@
                 <tbody class="profilesnew-table" style="display: table-row-group; vertical-align: middle; border-color: inherit;">
 
                     <tr>
+                        <td> Package:</td>
+                        <td> 
+                            <div class="new-btn" style="display: block;" {{action dropdown "package"}}>
+                                 <span id="packgeSelection" >{{controller.packgeSelection}}</span>
+                                <span class="caret"></span>
+                            </div>
+                            {{#if controller.packgetDropdown}}
+                            {{view HubStar.DropdownListView}}
+                            {{/if}}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Client Name:</td>
+                        <td> 
+                            <div style="display: block;">
+                                <div   style="margin: 0;width: 100%;">
+                                    {{view Ember.TextField valueBinding="client_name"  placeholder="John Key" }}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Client Email*:</td>
+
+                        <td> 
+                            <div style="display: block;">
+                                <div   style="margin: 0;width: 100%;">
+                                    {{view Ember.TextField valueBinding="owner" class="mustFill3"  placeholder="John_Key@gg.com"}}
+                                </div>
+                            </div>   
+                            <div class="mustfull" id="emailFormat3" style="display: none">not correct email format.....</div>
+                            <div class="mustfull" id="mustFill3" style="display: none">please fill in info... </div>
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
                         <td>Profile Name*: </td>                     
                         <td> 
                             <div style="display: block;">
@@ -40,35 +80,79 @@
                         </td>
                     </tr>
 
-                    <tr>
-                        <td>Profile URL*:</td>
-                        <td> 
-                            <div style="display: block;">
-                                {{view Ember.TextField valueBinding="profile_url"  class="mustFill2"  placeholder="ie: heritage-tiles-nz * no spaces, no underscores, no special characters, all lower case"}}
-                            </div>
-                            <div style="margin-bottom: 10px; color: #333;font-size: 13px;width: auto;display: inline-block;">
-                                Note: Once the URL has been set, it cannot be changed nor undone.
-                            </div>
-                            <div class="mustfull" id="mustFill2" style="display: none">please fill in info... </div>
-                            <div class="mustfull" id="invalide" style="display: none">invalide characters... </div>
-                        </td> 
-                    </tr>
 
                     <tr>
-                        <td>boost*:</td>
-                        <td> 
-                            <div style="display: block;">
-                                {{view Ember.TextField valueBinding="boost"  class="mustFill7"  placeholder="ie: number"}}
+                        <td>Profile Category:</td> 
+                        <td  id="categorySelection" style="width: 48%;">{{controller.categorySelection}}</td>        
+                        <td>
+                            <div class="new-btn" style="display: block; width: 48%;" {{action dropdown "category"}}>
+                                 <span id="categorySelection">{{controller.categorySelection}}</span>
+                                <span class="caret"></span>
                             </div>
-                            <div class="mustfull" id="number1" style="display: none">not a number....</div>
-                            <div class="mustfull" id="mustFill7" style="display: none">please fill in info... </div>
+                            {{#if controller.categoryDropdown}}
+                            {{view HubStar.DropdownListView}}
+                            {{/if}}
                         </td>
                     </tr>
 
 
 
                     <tr>
-                        <td>Profile Contact:</td>
+                        <td>Physical Address:</td>
+                        <td>Country*:</td>
+                        <td> 
+                            <div style="display: block;">
+                                <div   style="margin: 0;width: 100%;">
+                                    {{view Ember.TextField valueBinding="country" class="country"  placeholder="New Zealand" value="New Zealand"}}
+                                </div>
+                            </div>     
+                            <div class="mustfull" id="country" style="display: none">please fill in info... </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td>Region*:</td>
+                        <td> 
+                            <div style="display: block;">
+                                <div   style="margin: 0;width: 100%;">
+                                    {{view Ember.TextField valueBinding="region" class="region"  placeholder="Auckland"}}
+                                </div>
+                            </div>
+                            <div class="mustfull" id="region" style="display: none">please fill in info... </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td>Suburb*:</td>
+                        <td> 
+                            <div style="display: block;">
+                                <div   style="margin: 0;width: 100%;">
+                                    {{view Ember.TextField valueBinding="suburb"  placeholder="Suburb"}}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td></td>
+                        <td>Street Name*:</td>
+                        <td> 
+                            <div  style="display: block; margin-bottom: 5px;" >
+
+                                <div   style="margin: 0;width: 100%;">
+                                    {{view Ember.TextField valueBinding="address"  placeholder="Street Address"}}
+                                </div>
+
+
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Contact Name:</td>
                         <td> 
                             <div  style="display: block; margin-bottom: 5px;" >
 
@@ -82,51 +166,10 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td> Package:</td>
-                        <td> 
-                            <div class="new-btn" style="display: block;" {{action dropdown "package"}}>
-                                 <span id="packgeSelection">{{controller.packgeSelection}}</span>
-                                <span class="caret"></span>
-                            </div>
-                            {{#if controller.packgetDropdown}}
-                            {{view HubStar.DropdownListView}}
-                            {{/if}}
-                        </td>
-                    </tr>
 
 
-                    <tr>
-                        <td>Category:</td>         
-                        <td>
-                            <div class="new-btn" style="display: block;" {{action dropdown "category"}}>
-                                 <span id="categorySelection">{{controller.categorySelection}}</span>
-                                <span class="caret"></span>
-                            </div>
-                            {{#if controller.categoryDropdown}}
-                            {{view HubStar.DropdownListView}}
-                            {{/if}}
-                        </td>
-                  
-                        
-                    </tr>
 
 
-                    <tr>
-                        <td>Physical Address:</td>
-                        <td> 
-                            <div  style="display: block; margin-bottom: 5px;" >
-
-                                <div  style="margin: 0 5px 0;width: 48%;display: inline-block;">
-                                    {{view Ember.TextField valueBinding="address"  placeholder="Street Address"}}
-                                </div>
-                                <div style="margin: 0;width: 48%;display: inline-block;">
-                                    {{view Ember.TextField valueBinding="suburb"  placeholder="Suburb"}}
-                                </div>
-
-                            </div>
-                        </td>
-                    </tr>
                     <tr>
                         <td>Contact Number:</td>
                         <td> 
@@ -139,7 +182,7 @@
                     </tr>
 
                     <tr>
-                        <td>Website:</td>
+                        <td>Website Name:</td>
                         <td> 
                             <div style="display: block;">
                                 <div   style="margin: 0;width: 100%;">
@@ -160,61 +203,31 @@
                         </td>
                     </tr>
 
-                </tbody>
-            </table>        
-
-            <div style="border-bottom: 1px dashed #aaa;height: 1px; width: 100%;"></div>
-
-            <table style="padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px 0;">
-                <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
                     <tr>
-                        <td>Client Name:</td>
+                        <td>Profile URL*:</td>
                         <td> 
                             <div style="display: block;">
-                                <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="client_name"  placeholder="John Key" }}
-                                </div>
+                                {{view Ember.TextField valueBinding="profile_url"  class="mustFill2"  placeholder="ie: heritage-tiles-nz * no spaces, no underscores, no special characters, all lower case"}}
                             </div>
-                        </td>
+<!--                            <div style="margin-bottom: 10px; color: #333;font-size: 13px;width: auto;display: inline-block;">
+                                Note: Once the URL has been set, it cannot be changed nor undone.
+                            </div>-->
+                            <div class="mustfull" id="mustFill2" style="display: none">please fill in info... </div>
+                            <div class="mustfull" id="invalide" style="display: none">invalide characters... </div>
+                        </td> 
                     </tr>
 
-                    <tr>
-                        <td>Country*:</td>
+<!--                    <tr>
+                        <td>boost*:</td>
                         <td> 
                             <div style="display: block;">
-                                <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="country" class="country"  placeholder="New Zealand" value="New Zealand"}}
-                                </div>
-                            </div>     
-                            <div class="mustfull" id="country" style="display: none">please fill in info... </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Region*:</td>
-                        <td> 
-                            <div style="display: block;">
-                                <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="region" class="region"  placeholder="Auckland"}}
-                                </div>
+                                {{view Ember.TextField valueBinding="boost"  class="mustFill7"  placeholder="ie: number"}}
                             </div>
-                            <div class="mustfull" id="region" style="display: none">please fill in info... </div>
+                            <div class="mustfull" id="number1" style="display: none">not a number....</div>
+                            <div class="mustfull" id="mustFill7" style="display: none">please fill in info... </div>
                         </td>
                     </tr>
 
-                    <tr>
-                        <td>Owner*:</td>
-
-                        <td> 
-                            <div style="display: block;">
-                                <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="owner" class="mustFill3"  placeholder="John_Key@gg.com"}}
-                                </div>
-                            </div>   
-                            <div class="mustfull" id="emailFormat3" style="display: none">not correct email format.....</div>
-                            <div class="mustfull" id="mustFill3" style="display: none">please fill in info... </div>
-                        </td>
-                    </tr>
 
                     <tr>
                         <td>Direct Enquiry Email*:</td>
@@ -275,20 +288,11 @@
                             <div class="mustfill" id="emailFormat6" style="display: none">not correct email format.....</div>
                             <div class="mustfull" id="mustFill6" style="display: none">please fill in info... </div>
                         </td>
-                    </tr>
-
-                    <tr>
-                        <td>Keywords:</td>
-                        <td> 
-                            <div style="display: block;">
-                                <div   style="margin: 0;width: 100%; height:100px;">
-                                    {{view Ember.TextArea valueBinding="keywords" class="no-resize"  placeholder="* Please ensure you use a commer seperated list!!! ie: bathroom, kitchen, living room"}}
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                    </tr>-->
 
 
+
+                    <tr><td style="font-weight: bold;">Image Upload</td></tr>
                     <tr>
                         <td>Background:</td>
                         <td> 
@@ -335,12 +339,23 @@
                         </td>
                     </tr>
 
+                    <tr>
+                        <td>Request Keywords:</td>
+                        <td> 
+                            <div style="display: block;">
+                                <div   style="margin: 0;width: 100%; height:100px;">
+                                    {{view Ember.TextArea valueBinding="keywords" class="no-resize"  placeholder="* Please ensure you use a commer seperated list!!! ie: bathroom, kitchen, living room"}}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
 
                 </tbody>
             </table>
 
             <div  style="display: block; margin:15px auto; float: none; right: 0; bottom: 0;text-align: center;">
-                <a class="new-btn green-btn" href="#" {{action save }} style="width: 100px;">Submit</a>
+                <a class="new-btn green-btn" href="#" {{action save }} style="width: 100px;">Create Profile</a>
             </div>
 
         </div>
@@ -354,7 +369,7 @@
 
 </div>
 
-</div>
+
 
 
 

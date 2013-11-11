@@ -10,7 +10,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     image_no: 1,
     selectedPhoto: null,
     isSelected: false,
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'checkingLoginStatus'],
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'checkingLoginStatus', 'editComment'],
     currentUser: null,
     currentUserProfile: null,
     photo_album_id: null,
@@ -66,7 +66,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
         this.selectedImage(this.get('selectedPhoto').id);
     },
-   
     getInitData: function(megaObject) {
 
         var photoObj = megaObject.get('photo').objectAt(0);
@@ -171,26 +170,17 @@ HubStar.MegaController = Ember.ArrayController.extend({
             contactController.selectionCheckBox();
 
             this.set('contact', !this.get('contact'));
-            }
-
         }
-        ,
-                closeContact: function() {
+
+    }
+    ,
+    closeContact: function() {
         this.set('contact', false);
     },
     EditDelete: function(id, time_stamp) {
-//        var s = "#editdel_" + id + "_" + this.dateTImeStamp(time_stamp);
-//        if (id === localStorage.loginStatus)
-//        {          
-//            $(s).attr('style', 'display:inline-block');
-//        }
-//        else {          
-//            $(s).attr('style', 'display: none');
-//        }
     },
     EditDeleteLeave: function(id, time_stamp) {
-         var s = "#editdel_" + id + "_" + this.dateTImeStamp(time_stamp);
-         $(s).attr('style', 'display: none');
+       
     },
     addComment: function() {
         var commentContent = this.get('commentContent');
@@ -200,8 +190,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
-            var message_id = createMessageid()+commenter_id;           
-            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,"message_id": message_id,
+            var message_id = createMessageid() + commenter_id;
+            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url, "message_id": message_id,
                 "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
                 "is_delete": false, optional: this.get('megaResouce').get('type') + '/' + this.get('megaResouce').get('id')});
             comments.insertAt(0, tempComment);
@@ -211,61 +201,48 @@ HubStar.MegaController = Ember.ArrayController.extend({
             $('#commentBox').attr('style', 'display:none');
         }
     },
-     removeComment: function(object)
+    removeComment: function(object)
     {
+        var id = this.get('megaResouce').get("id");
+        var message_id = object.get("message_id");
+        var delInfo = [id, message_id];
 
-        var id = this.get('content').id;
-        var commentId = object.get("commenter_id");
-        var time_stamp = object.get("time_stamp");
-        var delInfo = [id, commentId, time_stamp];
         delInfo = JSON.stringify(delInfo);
         var that = this;
+        this.get('megaResouce').get('comments').removeObject(object);
         requiredBackEnd('comments', 'DeletePhotoComment', delInfo, 'POST', function(params) {
-            that.get("thisComments").removeObject(object);
-            $('#masonry_user_container').masonry("reload");
-            that.cancelDelete();
         });
-
     },
     updateComment: function(object) {
-
-        var id = this.get('content').id;
-        var commentId = object.get("commenter_id");
-        var time_stamp = object.get("time_stamp");
-        var content = object.get("content");
-        var contentID = commentId + time_stamp;
-        var delInfo = [id, commentId, time_stamp, content];
-
-        delInfo = JSON.stringify(delInfo);
-        var that = this;
-        requiredBackEnd('comments', 'UpdatePhotoComment', delInfo, 'POST', function(params) {
-
-            for (var i = 0; i < that.get("thisComments").get("length"); i++)
-            {
-                var commentId = that.get("thisComments").objectAt(i).get("commenter_id") + that.get("thisComments").objectAt(i).get("time_stamp");
-                if (that.contentID === commentId)
-                {
-                    that.get("thisComments").objectAt(i).set("content", that.content);
-                }
+        this.get("controllers.editComment").setRelatedController("mega");
+        var comments = this.get('megaResouce').get('comments');
+        for (var i = 0; i < comments.get("length"); i++)
+        {        
+            if (comments.objectAt(i).get("message_id") === object.get("message_id"))
+            {            
+                object.set("isEdit", !object.get("isEdit"));
             }
-
-            $('#masonry_user_container').masonry("reload");
-            that.cancelDelete();
-        });
+            else
+            {
+                comments.objectAt(i).set("isEdit", false);
+            }
+        }
+        var msg = object.get("content");
+        HubStar.set("updateCommentmsg", msg);
     },
     getCommentsById: function(id)
     {
         var mega = HubStar.Mega.find(id);
-        var comments = mega.get('comments');     
-         for (var i = 0; i < comments.get("length"); i++)
+        var comments = mega.get('comments');
+        for (var i = 0; i < comments.get("length"); i++)
         {
             if (comments.objectAt(i).get("commenter_id") === localStorage.loginStatus)
             {
                 comments.objectAt(i).set("isUserSelf", true);
             }
         }
-        this.set('thisComments', comments);        
-    },    
+        this.set('thisComments', comments);
+    },
     dateTImeStamp: function(date) {
         if (date === "" || date === null || date === undefined) {
             return "";
@@ -280,7 +257,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     editingPhotoMegaData: function() {
         this.set('enableToEdit', !this.get('enableToEdit'));
-
     },
     yes: function(photoObject) {
         var photo_title = this.get('selectedPhoto.photo_title');
@@ -388,16 +364,15 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 ).focus();
         return false;
     },
-
-      pShare: function() {
+    pShare: function() {
         this.dropdownPhotoSetting();
 
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
 
-                var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+        var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_original_url')) +
                 '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title'));
-                window.open(
+        window.open(
                 url,
                 'popupwindow',
                 'height=436,width=626'

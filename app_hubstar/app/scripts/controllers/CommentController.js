@@ -67,7 +67,7 @@ HubStar.CommentController = Ember.Controller.extend({
     },
     editingCommentData: function(obj)
     {
-        console.log(obj);
+        this.get("controllers.editComment").setRelatedController("comment");
         var id = obj.get("message_id");
         var msg = obj.get("content");
         $('#commentItem_' + id).attr('style', 'display:none');
@@ -122,8 +122,7 @@ HubStar.CommentController = Ember.Controller.extend({
 
         var id = this.get('content').id;
         var type = this.get('content').get('type');
-        this.getCommentsById(id);
-        console.log(this.get("thisComments"));
+        this.getCommentsById(id);       
         if (type === 'photo') {
             var commentId = object.get("commenter_id");
             var time_stamp = object.get("time_stamp");
@@ -131,9 +130,10 @@ HubStar.CommentController = Ember.Controller.extend({
             var delInfo = [id, message_id];
             delInfo = JSON.stringify(delInfo);
             var that = this;
+            that.get("thisComments").removeObject(object);
             requiredBackEnd('comments', 'DeletePhotoComment', delInfo, 'POST', function(params) {
 
-                that.get("thisComments").removeObject(object);
+                
                 $('#masonry_user_container').masonry("reloadItems");
                 $('#masonry_container').masonry("reloadItems");
 
@@ -147,9 +147,10 @@ HubStar.CommentController = Ember.Controller.extend({
             var delInfo = [id, message_id];
             delInfo = JSON.stringify(delInfo);
             var that = this;
+            that.get("thisComments").removeObject(object);
             requiredBackEnd('comments', 'DeleteProfileComment', delInfo, 'POST', function(params) {
 
-                that.get("thisComments").removeObject(object);
+                
                 $('#masonry_user_container').masonry("reloadItems");
                 $('#masonry_container').masonry("reloadItems");
                 
@@ -163,13 +164,30 @@ HubStar.CommentController = Ember.Controller.extend({
             var delInfo = [id, message_id];
             delInfo = JSON.stringify(delInfo);
             var that = this;
+             that.get("thisComments").removeObject(object);
             requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function(params) {
 
-                that.get("thisComments").removeObject(object);
+               
                 $('#masonry_user_container').masonry("reloadItems");
                 $('#masonry_container').masonry("reloadItems");
                 
             });
+        }
+        else if (type === "video")
+        {
+            var commentId = object.get("commenter_id");
+            var time_stamp = object.get("time_stamp");
+            var message_id = object.get("message_id");
+            var delInfo = [id, message_id];
+            delInfo = JSON.stringify(delInfo);
+            var that = this;
+//            requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function(params) {
+//
+//                that.get("thisComments").removeObject(object);
+//                $('#masonry_user_container').masonry("reloadItems");
+//                $('#masonry_container').masonry("reloadItems");
+//                
+//            });
         }
     },
 //    deleteComment: function(object) {

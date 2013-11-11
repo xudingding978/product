@@ -197,9 +197,9 @@
                 {{/unless}}
 
 
-                {{#each controller.megaResouce.comments}}
-             
-                <div class="comment-item"{{action EditDelete commenter_id time_stamp target="controller" on="mouseEnter"}}>
+             {{#each controller.megaResouce.comments}}
+              {{#unless this.isEdit}}
+              <div class="comment-item"}}>
 
                     <div class="comment-position">
                         <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}">
@@ -212,8 +212,8 @@
                                         {{name}}
                                     </a>
                                      {{#if this.getUser}}
-                                        <i class="icon-trash"  {{action removeMessage model.message_id}}></i>                 
-                                        <i class="icon-pencil" {{action editingCommentData model.message_id model.msg}}></i>
+                                        <i class="icon-trash"  {{action removeComment this}}></i>                 
+                                        <i class="icon-pencil" {{action updateComment this}}></i>
                                    {{/if}}
 
                                     <div class="posttime-container">
@@ -236,11 +236,10 @@
                         </div>
                     </div>
                 </div>
-<<<<<<< HEAD
-
+              {{else}}
+              {{render editComment this}}   
+              {{/unless}}
                
-=======
->>>>>>> 52f04e94a283973f39451f9b7f5a2c735ebf37ce
                 {{/each}}
             </div>
         </div>

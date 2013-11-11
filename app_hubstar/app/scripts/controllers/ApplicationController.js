@@ -374,7 +374,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     {
         var that = this;
         Ember.run.later(function() {
-            console.log("asdfsdafasd " + that.get('adPageNo'));
             if (that.get('adPageNo') === 1) {
                 googletag.cmd.push(function() {
                     for (var i = 0; i < ads.length; i++) {

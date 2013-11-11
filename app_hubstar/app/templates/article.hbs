@@ -57,7 +57,6 @@
 
 <div class="caption-container" id="caption_action">
     <div style="margin-bottom: 5px;">
-        <span class="caption-title">{{captionTitle}}</span>
         <span class="hover-opacity easing" style="float: right; cursor:pointer;">
             {{#if controller.readCaption}}
             <i class="icon-double-angle-left"{{action setCaption  on="click" target="controller"}}></i>
@@ -104,7 +103,7 @@
                 <a href="#" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.creator_profile_pic"}} class="profilepic"/></a>                              
             </div>
             <div class="poster_user">
-                <a class="poster-name" href="#" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_id}}</a>
+                <a class="poster-name" href="#" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
                 <span class="posttime">{{date controller.megaResouce.created}}</span>
             </div>
 

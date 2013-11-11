@@ -7,6 +7,8 @@ HubStar.CollectionRoute = Ember.Route.extend({
         } else {
             var id = model.get('id');
         }
+        console.log("ddddddddddssssssss");
+        console.log(id);
         this.controllerFor('user').set('switchPhoto', false);
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
@@ -15,7 +17,7 @@ HubStar.CollectionRoute = Ember.Route.extend({
         setTimeout(function() {
             $('#masonry_photo_collection_container').masonry("reload");
         }, 3000);
-   
+
 
     },
 //    model: function(params) {
@@ -37,8 +39,6 @@ HubStar.CollectionRoute = Ember.Route.extend({
             var user_id = address.split("#")[1].split("/")[2];
             return HubStar.Mega.find({RquireType: "firstsearch", user_id: user_id, collection_id: params.collection_id});
         },
-
-
         transitionToArticle: function(id) {
             this.transitionTo("article", HubStar.Article.find(id));
         }

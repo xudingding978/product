@@ -17,13 +17,13 @@ HubStar.ContactController = Ember.Controller.extend({
     emailSubject: null,
     emailDestination: null,
     emaiCCDestination: null,
-    rememberMessage:true,
-    owner_profile_pic:null,
+    rememberMessage: true,
+    owner_profile_pic: null,
     emaiBCCDestination: null,
     projectCategory: null,
     projectTimeframe: null,
     categorys: [],
-    showCate:false,
+    showCate: false,
     temp: [],
     subcate: [],
     projectBudget: null,
@@ -31,7 +31,7 @@ HubStar.ContactController = Ember.Controller.extend({
     email_title: "",
     needs: ["mega", "profile", 'article', 'applicationFeedback', 'video'],
     init: function() {
-      
+
         this.set('categorys', []);
 
         this.set('categorys', HubStar.Cate.find());
@@ -49,7 +49,7 @@ HubStar.ContactController = Ember.Controller.extend({
         }
     },
     topicSelection: function(data) {
-this.set('showCate',true);
+        this.set('showCate', true);
         this.set('temp', []);
         this.set('temp', data);
         this.set('subcate', []);
@@ -69,8 +69,8 @@ this.set('showCate',true);
     },
     setSelectedMega: function(id)
     {
-         console.log(id);
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+
         if (this.get("currentUser").get("first_name") !== null && this.get("currentUser").get("last_name")) {
             this.set("displayName", this.get("currentUser").get("first_name") + " " + this.get("currentUser").get("last_name"));
         }
@@ -81,54 +81,41 @@ this.set('showCate',true);
         this.set("displayEmail", this.get("currentUser").get("email"));
         var idProfile;
         var tempMega = HubStar.Mega.find(id);
-      
-
-
         this.set("selectedMega", tempMega);
-         
-        if(this.get("selectedMega").get("type")==='profile')
+
+        if (this.get("selectedMega").get("type") === 'profile')
         {
-this.set("owner_profile_pic",this.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
-
-           console.log(this.get("owner_profile_pic"));
-           
+            this.set("owner_profile_pic", this.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
         }
-        else{
-            this.set("owner_profile_pic",this.get("selectedMega").get("owner_profile_pic"));
-
+        else {
+            this.set("owner_profile_pic", this.get("selectedMega").get("owner_profile_pic"));
         }
-            
-        
-            this.set("recieveProfile", this.get("selectedMega").get("id"));
-
-        //console.log(this.get("recieveProfile"));
-
+        this.set("recieveProfile", this.get("selectedMega").get("id"));
         this.set("emailDestination", this.get("selectedMega").get("owner_contact_email"));
-        //console.log(tempMega);
-        //console.log(this.get("selectedMega").get("owner_contact_email"));
-
         this.set("emaiCCDestination", this.get("selectedMega").get("owner_contact_cc_emails"));
         var that = this;
-//            console.log(this.get("selectedMega"));
-//            console.log( that.get("selectedMega").get("owner_id"));
         tempMega.addObserver('isLoaded', function() {
 
             if (tempMega.get('isLoaded')) {
-                //console.log(tempMega);
+                
                 that.set("selectedMega", tempMega);
                 that.set("emailDestination", that.get("selectedMega").get("owner_contact_email"));
                 that.set("emaiCCDestination", that.get("selectedMega").get("owner_contact_cc_emails"));
                 idProfile = that.get("selectedMega").get("owner_id");
-                //console.log(that.get('selectedMega').get('owner_title'));
+
+                if (that.get("selectedMega").get("type") === 'profile')
+                {
+                    that.set("owner_profile_pic", that.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
+                }
+                else {
+                    that.set("owner_profile_pic", that.get("selectedMega").get("owner_profile_pic"));
+                }
                 var tempProfile = HubStar.Profile.find(idProfile);
                 var those = that;
                 tempProfile.addObserver('isLoaded', function() {
                     if (tempProfile.get('isLoaded')) {
                         those.get('selectedMega').set('owner_title', tempProfile.get('profile_name'));
-                        //console.log(those.get('selectedMega').get('owner_title'));
-                        //console.log(tempProfile.get('profile_name'));
                         those.set("emailDestination", tempProfile.get("owner_contact_email"));
-
                         those.set("emaiCCDestination", tempProfile.get("owner_contact_cc_emails"));
                     }
                 });
@@ -146,8 +133,8 @@ this.set("owner_profile_pic",this.get("selectedMega").get("profile").objectAt(0)
         this.set('projectTimeframeDropdown', false);
         this.set('projectBudgetDropdown', false);
         this.set('projectExperienceDropdown', false);
-        this.set('showCate',false);
-        
+        this.set('showCate', false);
+
         videoController.closeContact();
         megaController.closeContact();
         profileController.closeContact();
@@ -192,17 +179,17 @@ this.set("owner_profile_pic",this.get("selectedMega").get("profile").objectAt(0)
         });
         tempEmail.store.commit();
         this.get('controllers.applicationFeedback').statusObserver(null, "Email has been sent.");
-      if(!this.get('rememberMessage')){
-        this.set("emailBody","");
-         this.set("emailSubject","");
-  
+        if (!this.get('rememberMessage')) {
+            this.set("emailBody", "");
+            this.set("emailSubject", "");
+
         }
-           
-           this.set('projectCategorySelection', 'Please Select One ...');
+
+        this.set('projectCategorySelection', 'Please Select One ...');
         this.set('timeframeSelection', 'Please Select One ...');
         this.set('projectBudgetSelection', 'Please Select One ...');
         this.set('projectExperienceSelection', 'Please Select One ...');
-        this.set('showCate',false);
+        this.set('showCate', false);
         this.closeContact();
 
     },
@@ -238,20 +225,19 @@ this.set("owner_profile_pic",this.get("selectedMega").get("profile").objectAt(0)
         } else {
         }
     },
-              canelDropDown: function()
+    canelDropDown: function()
     {
-             this.set('projectCategoryDropdown', false);
+        this.set('projectCategoryDropdown', false);
         this.set('projectTimeframeDropdown', false);
         this.set('projectBudgetDropdown', false);
         this.set('projectExperienceDropdown', false);
     },
-            
     nextSendingEmailProcess: function() {
- 
+
         this.set('secondStepOfContactEmail', true);
         this.set('firstStepOfContactEmail', true);
         this.selectionCheckBox();
-        
+
     },
     proviousSendingEmailProcess: function() {
         this.set('secondStepOfContactEmail', false);

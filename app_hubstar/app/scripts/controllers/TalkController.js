@@ -24,14 +24,21 @@ HubStar.TalkController = Ember.Controller.extend({
         if (localStorage.loginStatus) {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("owner_photo_url", this.get("currentOwner").get("photo_url_large"));
-            this.set("commenter_photo_url",this.get("currentUser").get("photo_url_large"));
-            this.set("displayName",this.get("currentOwner").get("display_name"));
+            this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
+            this.set("displayName", this.get("currentOwner").get("display_name"));
         }
     },
     removePic: function() {
         this.set('newStyleImageSource', null);
         this.set('newStyleImageName', "");
         this.set("isUploadPhoto", false);
+    },
+    cancelTalk: function()
+    {
+        this.set('messageContent', "");
+        this.set('newStyleImageSource', null);
+        this.set('newStyleImageName', "");
+        this.get("controllers.user").set("isTalk", false);
     },
     addComment: function() {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -71,27 +78,29 @@ HubStar.TalkController = Ember.Controller.extend({
             var conversationItemID = createMessageid();
 
             var participation_ids = this.get("currentOwner").get("id");
-           
+
 
             var tempComment = [commenter_id, date.toString(), commentContent, newStyleImage, imageType, imageStyleName, conversationID, conversationItemID, participation_ids];
 
             tempComment = JSON.stringify(tempComment);
             var that = this;
             requiredBackEnd('conversations', 'CreateConversation', tempComment, 'POST', function(params) {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Send Successfully.");
+
+                that.get('controllers.applicationFeedback').statusObserver(null, "Your Message Has Been Sent Successfully.");
                 HubStar.set("talkConversation",true);
+
                 that.reviewCancel();
-                that.set('messageContent', "");              
+                that.set('messageContent', "");
                 that.set('newStyleImageSource', null);
                 that.set('newStyleImageName', "");
 
             });
-           
+
         }
     },
-  reviewCancel:function(){
-      this.get("controllers.user").set("isTalk",false);
-  },
+    reviewCancel: function() {
+        this.get("controllers.user").set("isTalk", false);
+    },
     profileStyleImageDrop: function(e, name)
     {
 

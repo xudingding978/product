@@ -13,6 +13,7 @@ HubStar.CommentController = Ember.Controller.extend({
         }       
     },
     switchCollection: function(model) {
+        
         if (model.get("type") === "photo") {
             var photoObj = model.get("photo").objectAt(0);
             var addCollectionController = this.get('controllers.addCollection');

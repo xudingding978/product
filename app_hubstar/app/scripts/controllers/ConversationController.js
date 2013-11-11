@@ -1,20 +1,9 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 HubStar.ConversationController = Ember.Controller.extend({
     conversationContent: null,
     commenter_photo_url: null,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem'],
     isUploadPhoto: false,
+    isNewConversation: false,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -33,7 +22,6 @@ HubStar.ConversationController = Ember.Controller.extend({
             setTimeout(function() {
                 var s = '#conversation_' + id;
                 $(document).ready(function() {
-
                     setTimeout(function() {
                         $("#conversation_content").mCustomScrollbar("scrollTo", s);
                         setTimeout(function() {
@@ -43,8 +31,11 @@ HubStar.ConversationController = Ember.Controller.extend({
                     }, 10);
                 });
             }, 50);
+            if (this.get("isNewConversation") === false)
+            {
             this.get('controllers.messageCenter').selectConversationItem(id);
             this.get('controllers.conversationItem').getClientId(id);
+        }
         }
     },
     deleteConversationItem: function(id)
@@ -174,7 +165,6 @@ HubStar.ConversationController = Ember.Controller.extend({
     },
     profileStyleImageDrop: function(e, name)
     {
-
         this.set("isUploadPhoto", true);
         var target = getTarget(e, "single");
         var src = target.result;

@@ -195,7 +195,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         window.history.back();
     },
     switchCollection: function() {
-
+ if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var addCollectionController = this.get('controllers.addCollection');
         var selectid = this.get('articleResouce').id;
         addCollectionController.setImageID(selectid);
@@ -204,6 +205,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         addCollectionController.setRelatedController('article');
         addCollectionController.setUser();
         this.set('collectable', !this.get('collectable'));
+        }
     },
     editingContactForm: function() {
         var contactController = this.get('controllers.contact');

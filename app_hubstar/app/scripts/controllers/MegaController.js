@@ -91,6 +91,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     addRelatedCollectionItemData: function(mega)
     {
+        
         var collection_id = mega.get("collection_id");
         var owner_profile_id = mega.get("owner_id");
         var photoContent = this.get("controllers.masonryCollectionItems").get("content");

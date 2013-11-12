@@ -75,6 +75,7 @@ HubStar.ReviewListSingleView = Ember.View.extend({
             for (var i = 0; i < this.get("controller").get("controllers.profile").get('reviews').get('length'); i++) {
                 if (this.get("controller").get("controllers.profile").get('reviews').objectAt(i).get('review_id') !== event) {
                     this.upContent(this.get("controller").get("controllers.profile").get('reviews').objectAt(i).get("review_id"));
+                    this.upComments(this.get("controller").get("controllers.profile").get('reviews').objectAt(i).get("review_id"));
                 }
             }
         }

@@ -3,6 +3,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
     currentUser: "",
     review_id: null,
     profileReview: "",
+    userPhoto:"",
     replyReviewContent: "",
     currentOwner: "",
     isSelf: false,
@@ -11,7 +12,11 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
     {
         if (localStorage.loginStatus !== null && localStorage.loginStatus !== 'undefined' && localStorage.loginStatus !== '') {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+            
+            this.set("userPhoto", this.get("currentUser").get("photo_url_large"));
+            console.log(this.get("userPhoto"));
         }
+        
     },
     addLike: function()
     {

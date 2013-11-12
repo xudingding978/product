@@ -52,8 +52,8 @@
 <div id="reviewReplyData_{{unbound model.review_id}}">
     <div class="reply-comment-frame"  style="">
         <div style="margin:0 auto; padding: 0 45px 15px 0;">
-            <a  href="#/users/{{unbound model.review_user_id}}">
-                <img class="profilepic_comment"  style="float: right; margin: 4px -10px 0 0; margin-top: 0;"{{bindAttr src="model.review_user_photo_url"}} /> 
+            <a  href="#/users/{{unbound controller.currentUser.id}}">
+                <img class="profilepic_comment"  style="float: right; margin: 4px -10px 0 0; margin-top: 0;"{{bindAttr src="controller.userPhoto"}} /> 
                 <div class='user-reply-angle-before'></div>
                 <div class='user-reply-angle-after'></div>
             </a>

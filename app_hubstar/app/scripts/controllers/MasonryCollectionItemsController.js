@@ -20,6 +20,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.set('type',"user");
         this.set('collection_id', collection_id);
         this.set('');
+
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
         this.set('user_id', user_id);
@@ -42,7 +43,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             }
         });
         this.checkEditingMode();
-
     },
     selectModelForProfile: function(collection_id, title) {
         this.set('collection_id', collection_id);

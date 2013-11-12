@@ -5,6 +5,7 @@
 
 HubStar.MegaController = Ember.ArrayController.extend({
     content: [],
+    clickOrRoute: false,
     megaResouce: null,
     temp: null,
     image_no: 1,
@@ -91,22 +92,62 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     addRelatedCollectionItemData: function(mega)
     {
-        
         var collection_id = mega.get("collection_id");
         var owner_profile_id = mega.get("owner_id");
-        var photoContent = this.get("controllers.masonryCollectionItems").get("content");
-      //  console.log(photoContent);
-        var isProfileIDExist = this.isParamExist(owner_profile_id);
-        var isCollectionIDExist = this.isParamExist(collection_id);
-        if (isProfileIDExist && isCollectionIDExist) {
-            for (var i = 0; i < photoContent.get("length"); i++) {
-                var id = photoContent.objectAt(i).get("id");
-                if (this.get("content").objectAt(0).get('id') !== id)
-                {
-                    this.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
+
+        if (this.get("clickOrRoute") === false)
+        {
+            var photoContent = "";
+            photoContent = this.get("controllers.masonryCollectionItems").get("content");
+            var isProfileIDExist = this.isParamExist(owner_profile_id);
+            var isCollectionIDExist = this.isParamExist(collection_id);
+            if (isProfileIDExist && isCollectionIDExist) {
+                for (var i = 0; i < photoContent.length; i++) {
+                    var id = photoContent.objectAt(i).get("id");
+                    if (this.get("content").objectAt(0).get('id') !== id)
+                    {
+                        this.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
+                    }
                 }
             }
         }
+        else if (this.get("clickOrRoute") === true)
+        {
+            var photoContent = new Array();
+            var address = document.URL;
+            var user_id = address.split("#")[1].split("/")[2];
+            var collection_id = address.split("#")[1].split("/")[4];
+            var results = HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});
+            var that = this;
+            results.addObserver('isLoaded', function() {
+                if (results.get('isLoaded')) {
+
+                    for (var i = 0; i < this.get("content").length; i++) {
+                        var tempObject = this.get("content").objectAt(i);
+
+                        photoContent.pushObject(tempObject);
+
+                    }
+
+                    var isProfileIDExist = that.isParamExist(owner_profile_id);
+                    var isCollectionIDExist = that.isParamExist(collection_id);
+                    if (isProfileIDExist && isCollectionIDExist) {
+                        for (var i = 0; i < photoContent.get("length"); i++) {
+                            console.log(photoContent.objectAt(i)["id"]);
+                            var id = photoContent.objectAt(i)["id"];
+
+                            if (that.get("content").objectAt(0).get('id') !== id)
+                            {
+                                that.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
+                            }
+                        }
+                    }
+                    console.log("dddddddd");
+                }
+            });
+
+        }
+
     },
     selectImage: function(e) {
 

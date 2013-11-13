@@ -15,6 +15,7 @@ HubStar.ContactView = Ember.View.extend({
 
 
         this.$().draggable({
+           handle: "p" ,
           cursor: "move",
            scroll: true,
          scrollSensitivity: 100

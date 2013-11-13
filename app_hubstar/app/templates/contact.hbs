@@ -1,14 +1,14 @@
     
 
-
-<div class="contactmebox-wapper" style="width: 500px;font-size: 13px;background-color: white;margin-top: 20px;z-index:11;">
+<p id="dragarea" style="position: relative;height: 20px; width: 100%;cursor: move"></p>
+<div class="contactmebox-wapper" style="width: 500px;font-size: 13px;background-color: white;z-index:11;">
 
 
     {{#unless controller.firstStepOfContactEmail}}
     <div class="head controlbtn-field">
         <div style="position: relative; text-align: center;">
-            <div class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold;background-color: #427fed;z-index: 1;">1</div>
-            <div {{action nextSendingEmailProcess}} class="panelcircle" style="cursor:pointer; position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; z-index: 1;">2</div>
+            <div class="panelcircle radius-circle" style="">1</div>
+            <div {{action nextSendingEmailProcess}} class="panelcircle radius-circle" style="">2</div>
             <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
             <div style='font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);position: relative;top: 10px;right: 87px;font-weight: bold;margin-bottom: 10px;'> Send a message.</div>
         </div>
@@ -54,8 +54,8 @@
     {{#if controller.secondStepOfContactEmail}}
     <div class="head controlbtn-field">
         <div style="position: relative;margin-bottom: 20px;text-align: center;">
-            <div class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; z-index: 1;" {{action proviousSendingEmailProcess}}>1</div>
-            <div class="panelcircle" style="cursor:pointer; position: relative; display: inline-block;  margin: 0 65px; font-weight:bold; background-color: #427fed; z-index: 1;">2</div>
+            <div class="panelcircle radius-circle"  {{action proviousSendingEmailProcess}}>1</div>
+            <div class="panelcircle radius-circle" >2</div>
             <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
             <div style='font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);position: relative;top: 10px;left: 90px;font-weight: bold;margin-bottom: 10px;'>Help us help you.</div>
         </div>

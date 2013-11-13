@@ -1181,3 +1181,14 @@ textarea.add-interests{
     top:45px;
     left:0;
 }
+
+
+.profilenew-package{
+    padding: 35px;
+background-color: gainsboro;
+margin: 30px 20px 0 20px;
+position: relative;
+width: 28%;
+float: left;
+text-align: center;
+}

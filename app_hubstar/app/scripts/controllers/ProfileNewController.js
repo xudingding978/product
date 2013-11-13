@@ -95,15 +95,15 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
         multiEmail2 = this.multiEmailChecking($('.mustFill6').val(), '#emailFormat6', multiEmail2);
         var boost = this.numberChecking('#number1', $('.mustFill7').val());
 
-        if ($('.mustFill1').val() !== "" && $('.mustFill2').val() !== "" && $('.country').val() !== "" && $('.region').val() !== "" && $('.mustFill3').val() !== "" && multiEmail1
+        if ($('.profileName').val() !== "" && $('.profileURL').val() !== "" && $('.country').val() !== "" && $('.region').val() !== "" && $('.mustFill3').val() !== "" && multiEmail1
                 && $('.mustFill5').val() !== "" && $('.mustFill4').val() !== "" && $('.mustFill6').val() !== "" && boost && $('.mustFill7').val() !== "" && multiEmail2 && this.validateEmail($('.mustFill5').val())
-                && this.validateEmail($('.mustFill3').val())) {
+                && this.validateEmail($('.clientEmail').val())) {
             passSubmit = true;
         } else {
             passSubmit = false;
         }
 
-        if (this.specialCharactersChecking(this.spaceChecking($('.mustFill2').val()))) {
+        if (this.specialCharactersChecking(this.spaceChecking($('.profileURL').val()))) {
 
             $('#invalide').attr('style', 'display:none');
         } else {
@@ -111,7 +111,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             $('#invalide').attr('style', 'display:block');
             passSubmit = false;
         }
-        if (this.validateEmail($('.mustFill3').val())) {
+        if (this.validateEmail($('.clientEmail').val())) {
 
             $('#emailFormat3').attr('style', 'display:none');
         } else {
@@ -140,23 +140,23 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             $('#country').attr('style', 'display:none');
         }
 
-        if ($('.mustFill1').val() === "") {
+        if ($('.profileName').val() === "") {
 
-            $('#mustFill1').attr('style', 'display:block');
+            $('#profileName').attr('style', 'display:block');
         } else {
-            $('#mustFill1').attr('style', 'display:none');
+            $('#profileName').attr('style', 'display:none');
         }
-        if ($('.mustFill2').val() === "") {
+        if ($('.profileURL').val() === "") {
 
-            $('#mustFill2').attr('style', 'display:block');
+            $('#profileURL').attr('style', 'display:block');
         } else {
-            $('#mustFill2').attr('style', 'display:none');
+            $('#profileURL').attr('style', 'display:none');
         }
         if ($('.mustFill3').val() === "") {
             $('#emailFormat3').attr('style', 'display:none');
-            $('#mustFill3').attr('style', 'display:block');
+            $('#clientEmail').attr('style', 'display:block');
         } else {
-            $('#mustFill3').attr('style', 'display:none');
+            $('#clientEmail').attr('style', 'display:none');
         }
         if ($('.mustFill4').val() === "") {
 
@@ -164,27 +164,27 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
         } else {
             $('#mustFill4').attr('style', 'display:none');
         }
-        if ($('.mustFill5').val() === "") {
-
-            $('#emailFormat5').attr('style', 'display:none');
-            $('#mustFill5').attr('style', 'display:block');
-        } else {
-            $('#mustFill5').attr('style', 'display:none');
-        }
-
+//        if ($('.mustFill5').val() === "") {
+//
+//            $('#emailFormat5').attr('style', 'display:none');
+//            $('#mustFill5').attr('style', 'display:block');
+//        } else {
+//            $('#mustFill5').attr('style', 'display:none');
+//        }
+//
         if ($('.mustFill6').val() === "") {
 
             $('#mustFill6').attr('style', 'display:block');
         } else {
             $('#mustFill6').attr('style', 'display:none');
         }
-
-        if ($('.mustFill7').val() === "") {
-
-            $('#mustFill7').attr('style', 'display:block');
-        } else {
-            $('#mustFill7').attr('style', 'display:none');
-        }
+//
+//        if ($('.mustFill7').val() === "") {
+//
+//            $('#mustFill7').attr('style', 'display:block');
+//        } else {
+//            $('#mustFill7').attr('style', 'display:none');
+//        }
 
         if ($('.background').val() === "") {
 

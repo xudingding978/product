@@ -206,7 +206,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
 
         this.labelBarRefresh();
-
+        this.flipFrontBack();
+        this.changeSize();
 
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();

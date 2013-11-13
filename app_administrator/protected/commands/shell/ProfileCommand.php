@@ -96,19 +96,21 @@ class ProfileCommand extends Controller_admin {
 //            curl_setopt($cb, CURLOPT_RETURNTRANSFER, true);
 //            curl_setopt($cb, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         //    }
-
+        $partner_str="";
         if ($profiles_arr != null) {
             $total_amount = sizeof($profiles_arr);
             error_log('$total_amount   ' . $total_amount);
             if ($total_amount > 0) {
                 for ($i = 0; $i < $total_amount; $i++) {
-                    $couchbase_id = 'trendsideas.com/profiles/' . $profiles_arr[$i]['profile_url'];
+                    $partner_str.=strtolower($profiles_arr[$i]['profile_url']).",";
+                    $couchbase_id = 'trendsideas.com/profiles/' . strtolower($profiles_arr[$i]['profile_url']);
                     $obj_arr = $this->createObjectArr($profiles_arr[$i]);
                  //   echo "\n".var_export($obj_arr);
-                      $cb = $this->couchBaseConnection("test");
+                      $cb = $this->couchBaseConnection("production");
                        if ($cb->set($couchbase_id, CJSON::encode($obj_arr))){
                             $message=$couchbase_id."     is added"."\n";
                          $this->writeToLog($log_path, $message);
+                         echo $message;
                        }
                       
 
@@ -134,11 +136,22 @@ class ProfileCommand extends Controller_admin {
                         $message = "add object fail ------------------------------- \r\n";
                         $this->writeToLog($this->error_path, $message);
                     }
+                    
 
                     //   print_r($obj_arr);
-                    echo $message;
+                    
                     //    exit();
                 }
+                $master_id='trendsideas.com/profiles/luxaflex-australia';
+                     $result = $cb->get($master_id);
+                     $result_arr = CJSON::decode($result, true);
+                     $partner_str=substr($partner_str, 0, -1);
+                     $result_arr['profile'][0]['profile_partner_ids']=$partner_str;
+                      if ($cb->set($master_id, CJSON::encode($result_arr))){
+                            $message=$master_id."   partners are added"."\n";
+                         $this->writeToLog($log_path, $message);
+                         echo $message;
+                       }
             } else {
                 $message = 'cannot find any data from sql server!';
             }
@@ -367,16 +380,17 @@ class ProfileCommand extends Controller_admin {
     }
 
     public function checkNumber() {
+        $bucket='test';
         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $log_path = "/var/log/yii/$start_time.log";
-        $profile_arr = $this->findProfiles();
+        $profile_arr = $this->findProfiles($bucket);
 
         foreach ($profile_arr as $profile_id) {
             $message = "";
             $message = "\n\nIn the partner list of: " . $profile_id . "\n";
             echo "\n\nThis is the partner list of: " . $profile_id . "\n";
 
-            $ch = $this->couchBaseConnection("temp");
+            $ch = $this->couchBaseConnection($bucket);
             $result = $ch->get($profile_id);
             $result_arr = CJSON::decode($result, true);
             $partner_str = $result_arr["profile"][0]["profile_partner_ids"];
@@ -391,7 +405,7 @@ class ProfileCommand extends Controller_admin {
                     $sherlock = new \Sherlock\Sherlock($settings);
                     $sherlock->addNode("es1.hubsrv.com", 9200);
                     $request = $sherlock->search();
-                    $index = 'test';
+                    $index = $bucket;
                     $request->index($index)->type("couchbaseDocument");
                     $request->from(0)
                             ->size(400);
@@ -575,7 +589,7 @@ class ProfileCommand extends Controller_admin {
             "accessed_readable" => date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')',
             "boost" => $profile_arr['boost'],
             "created" => $now,
-            "created" => date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')',
+            "created_readable" => date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')',
             "category" => $profile_arr['category'],
             "categories" => array(),
             "collection_id" => null,
@@ -647,7 +661,7 @@ class ProfileCommand extends Controller_admin {
             "profile_counter_collections" => null,
             "profile_counter_partners" => null,
             "profile_counter_follwers" => null,
-            "profile_category" => $profile_arr['category'],
+            "profile_category" => "Doors & Windows",
             "profile_about_us" => $profile_arr['ProfileAboutUs'],
             "profile_physical_address" => $profile_arr['address'],
             "profile_contact_number" => $profile_arr['contact_no'],
@@ -672,7 +686,7 @@ class ProfileCommand extends Controller_admin {
             "profile_boost" => $profile_arr['boost'],
             "profile_regoin" => $profile_arr['region'],
             "profile_domains" => null,
-            "profile_partner_ids" => null,
+            "profile_partner_ids" => 'luxaflex-australia',
             "profile_isActive" => null,
             "profile_isDeleted" => null,
             "profile_facebook_link" => null,

@@ -66,7 +66,7 @@ class ImportdataCommand extends Controller_admin {
     public function replicateArticleandImagefromDevelop() {
         // Set timezone
         //date_default_timezone_set('UTC');
-        $bucket = "develop";
+        $bucket = "test";
         $article_list = array();
         $replication=true;
 

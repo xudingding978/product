@@ -17,7 +17,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     },
     selectModelForUser: function(collection_id) {
         this.set('content', []);
-        this.set('type',"user");
+        this.set('type', "user");
         this.set('collection_id', collection_id);
         this.set('');
 
@@ -38,7 +38,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             if (results.get('isLoaded')) {
                 for (var i = 0; i < this.get("content").length; i++) {
                     var tempObject = results.objectAt(i);
-                    that.get("content").pushObject(tempObject);
+                        that.get("content").pushObject(tempObject);
                 }
             }
         });
@@ -47,7 +47,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     selectModelForProfile: function(collection_id, title) {
         this.set('collection_id', collection_id);
         this.resetContent();
-        this.set('type',"profile");
+        this.set('type', "profile");
         if (title === undefined)
         {
             var arrayUrl;

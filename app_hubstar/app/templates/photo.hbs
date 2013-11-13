@@ -7,6 +7,16 @@
         <div class="top-controlbar easing" >
             <!--            <div class="icon-on-black" style="left: 8px;"><i class="icon-thumbs-up"></i></div>-->
 
+            {{#if controller.megaResouce.getArticle}}
+            <div class="icon-on-black hint--rounded hint--bottom" data-hint="Read this article" style="position:relative;margin: 0 5px;" {{action transitionToArticle controller.megaResouce.id}}>
+                 <i class="icon-book"></i><span class="pretooltip">Read</span>
+            </div>       
+            {{/if}}
+            {{#if controller.megaResouce.getVideo}}
+            <div class="icon-on-black hint--rounded hint--bottom" data-hint="Video" style="position:relative;margin: 0 5px;"  {{action transitionToVideo controller.megaResouce}}>
+                <i class="icon-film"></i>
+            </div>    
+            {{/if}}
             <div class="icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." style="position:relative;margin: 0 5px;"  {{action switchCollection on="click" target="controller"}}>
                 <i class="icon-save"></i><span class="pretooltip">Save</span>
             </div>
@@ -46,6 +56,7 @@
 <div class="mainfeature">
     <div class="previous" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="controller"}}></div>
     <div class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="controller"}}></div>
+
     {{view HubStar.PhotoDisplayAreaView}}
 </div>
 <!--THIS IS THE ALBUM BOX-->
@@ -111,13 +122,13 @@
                         <i class="icon-edit" {{action editingPhotoMegaData}}></i>
                     </div>
                     {{/if}}
-                        </div>
-                        <div class="article-text">
-                            <p>{{{controller.selectedPhoto.photo_caption}}}</p>
-                        </div>
-                    {{else}}
-                        {{view Ember.TextField valueBinding="controller.selectedPhoto.photo_title"  id="" class="edit_photo-titile_field"  }} 
-                        {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_caption"  id="" class="edit_photo-caption_field"}} 
+                </div>
+                <div class="article-text">
+                    <p>{{{controller.selectedPhoto.photo_caption}}}</p>
+                </div>
+                {{else}}
+                {{view Ember.TextField valueBinding="controller.selectedPhoto.photo_title"  id="" class="edit_photo-titile_field"  }} 
+                {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_caption"  id="" class="edit_photo-caption_field"}} 
 
 
                 <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">

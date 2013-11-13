@@ -128,15 +128,8 @@ HubStar.ArticleController = Ember.Controller.extend({
                     for (var i = 0; i < length; i++) {
                         var temp = data.get("content").objectAt(i);
                         if (temp.data.photo !== undefined) {
-                            //console.log(temp.data.photo.objectAt(0));
                             that.get("content").pushObject(temp.data.photo.objectAt(0));                                  //find the object which contain photos and push it into model
-                            //that.set('selectedPhoto', temp.data.photo.objectAt(0));
                         }
-//                        else if (temp.record._data.article !== undefined) {                                                      // there is no hasMany in this object
-//                            console.log("record._data");
-//                            that.get("content").pushObject(temp.record._data.hasMany.photo.objectAt(0));
-//                            that.set('selectedPhoto', temp.record._data.hasMany.photo.objectAt(0));
-//                        }
                     }
                     that.set('selectedPhoto', that.get('content').objectAt(0));                                                  //set selectedPhoto to the first photo
 

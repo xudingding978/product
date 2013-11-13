@@ -60,6 +60,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.set('image_no', 1);
             selectedIndex = 0;
         }
+
         this.set('image_no', selectedIndex + 1);
         this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
         this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
@@ -79,13 +80,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set('megaResouce', megaResouce);
         this.set("photo_album_id", "album_" + megaObject.id);
         this.set("photo_thumb_id", "thumb_" + megaObject.id);
-        if (this.get("controllers.masonryCollectionItems").get("type") === "user")
+        if (this.get("controllers.masonryCollectionItems").get("type") === "user") //it is for user's collection
         {
             this.addRelatedCollectionItemData(megaObject);
         }
         else
         {
-            this.addRelatedData(megaObject);
+            this.addRelatedData(megaObject);  //it is for profile's collection
         }
         this.checkAuthenticUser();
         this.getCommentsById(megaObject.id);
@@ -95,23 +96,47 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var collection_id = mega.get("collection_id");
         var owner_profile_id = mega.get("owner_id");
 
-        if (this.get("clickOrRoute") === false)
+        if (this.get("clickOrRoute") === false) //it  accesses the collection photo by click
         {
             var photoContent = "";
             photoContent = this.get("controllers.masonryCollectionItems").get("content");
+
             var isProfileIDExist = this.isParamExist(owner_profile_id);
             var isCollectionIDExist = this.isParamExist(collection_id);
             if (isProfileIDExist && isCollectionIDExist) {
                 for (var i = 0; i < photoContent.length; i++) {
-                    var id = photoContent.objectAt(i).get("id");
-                    if (this.get("content").objectAt(0).get('id') !== id)
+                    console.log(photoContent.objectAt(i).get("type"));
+                    console.log(photoContent.objectAt(i));
+                    if (photoContent.objectAt(i).get("type") === "photo")
                     {
-                        this.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
+                        var id = photoContent.objectAt(i).get("id");
+
+                        if (this.get("content").objectAt(0).get('id') !== id)
+                        {
+                            this.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
+                        }
+                    }
+                    else if (photoContent.objectAt(i).get("type") === "article")
+                    {
+                        var id = photoContent.objectAt(i).get("id");
+                        if (this.get("content").objectAt(0).get('id') !== id)
+                        {
+                            var photoUrl = photoContent.objectAt(i).get("article").objectAt(0).get("article_image_url");
+                            photoContent.objectAt(i).set("photo_image_original_url", photoUrl);
+                            this.get("content").pushObject(photoContent.objectAt(i));
+                        }
+                    }
+                    else if (photoContent.objectAt(i).get("type") === "video")
+                    {
+                        var photoUrl = photoContent.objectAt(i).get("videoes").objectAt(0).get("videoImg");
+                        photoContent.objectAt(i).set("photo_image_original_url", photoUrl);
+                        this.get("content").pushObject(photoContent.objectAt(i));
+
                     }
                 }
             }
         }
-        else if (this.get("clickOrRoute") === true)
+        else if (this.get("clickOrRoute") === true) // it  assesses the collection photo from route
         {
             var photoContent = new Array();
             var address = document.URL;
@@ -121,19 +146,16 @@ HubStar.MegaController = Ember.ArrayController.extend({
             var that = this;
             results.addObserver('isLoaded', function() {
                 if (results.get('isLoaded')) {
-
+                    console.log("22222222222");
                     for (var i = 0; i < this.get("content").length; i++) {
                         var tempObject = this.get("content").objectAt(i);
-
                         photoContent.pushObject(tempObject);
-
                     }
 
                     var isProfileIDExist = that.isParamExist(owner_profile_id);
                     var isCollectionIDExist = that.isParamExist(collection_id);
                     if (isProfileIDExist && isCollectionIDExist) {
                         for (var i = 0; i < photoContent.get("length"); i++) {
-                            console.log(photoContent.objectAt(i)["id"]);
                             var id = photoContent.objectAt(i)["id"];
 
                             if (that.get("content").objectAt(0).get('id') !== id)
@@ -141,13 +163,15 @@ HubStar.MegaController = Ember.ArrayController.extend({
                                 that.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
                             }
                         }
+
                     }
-                    console.log("dddddddd");
+
                 }
+
             });
 
         }
-
+        this.set("clickOrRoute", false);
     },
     selectImage: function(e) {
 
@@ -168,12 +192,14 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var isProfileIDExist = this.isParamExist(owner_profile_id);
         var isCollectionIDExist = this.isParamExist(collection_id);
         var that = this;
+
         if (isProfileIDExist && isCollectionIDExist) {
             var data = HubStar.Mega.find({RequireType: "collection", "collection_id": collection_id, "owner_profile_id": owner_profile_id});
             data.addObserver('isLoaded', function() {
                 if (data.get('isLoaded')) {
                     for (var i = 0; i < this.get("content").length; i++) {
                         var id = this.get("content").objectAt(i).id;
+                        console.log(mega.objectAt(i).get("type"));
                         if (HubStar.Mega.find(id).get('photo').get('length') === 1 && mega.get('id') !== id)
                         {
                             if (HubStar.Mega.find(id).get('collection_id') === collection_id) {

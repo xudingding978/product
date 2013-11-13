@@ -15,20 +15,10 @@ HubStar.CollectionRoute = Ember.Route.extend({
         setTimeout(function() {
             $('#masonry_photo_collection_container').masonry("reload");
         }, 3000);
-
-
     },
-//    model: function(params) {
-//
-//        this.controllerFor('user').set('switchPhoto', false);
-//        var address = document.URL;
-//        var user_id = address.split("#")[1].split("/")[2];
-//        return HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: params.collection_id});
-//    },
     events: {
         transitionToPhoto: function(id) {
             this.transitionTo("photo", HubStar.Mega.find(id));
-
         },
         transitionToProfile: function(id) {
 

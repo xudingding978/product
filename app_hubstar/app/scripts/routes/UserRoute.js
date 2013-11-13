@@ -1,11 +1,11 @@
 HubStar.UserRoute = Ember.Route.extend({
-    setupController: function(controller, model) {       
+    setupController: function(controller, model) {
         HubStar.set('editingMode', 'user');
-         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
+        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
         {
             HubStar.set("isLogin", false);
-        }else{
-                    HubStar.set("isLogin", true);               
+        } else {
+            HubStar.set("isLogin", true);
         }
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('application').set('popup', false);
@@ -24,7 +24,7 @@ HubStar.UserRoute = Ember.Route.extend({
 
         $(window).scrollTop(0);
     },
-    model: function(params) {   
+    model: function(params) {
         return HubStar.User.find(params.user_id);
     },
     events: {
@@ -42,6 +42,12 @@ HubStar.UserRoute = Ember.Route.extend({
                 }
             }
             this.transitionTo("collection", data);
+        },
+        transitionToArticle: function(article_id) {
+            this.transitionTo("article", article_id);
+        },
+        transitionToVideo: function(video_id) {
+            this.transitionTo("video", video_id);
         }
     },
     redirect: function() {

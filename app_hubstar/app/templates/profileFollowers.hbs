@@ -1,27 +1,14 @@
-
-
-
-
 {{#each  content}}
-
-
-
-
-<div class="col1 box style-box t-style-box" style="text-align: center; height: 200px;">
-    <div class="usersobject-hover">
-        <a href="#/users/{{unbound follower_id}}"><img style="width: 100%; height: 100%;cursor:pointer" {{bindAttr src="follower_profile_pic_url"}} /></a>
-
+    <div class="col1 box style-box t-style-box" style="text-align: center; height: 200px;">
+        <div class="usersobject-hover">
+            <a href="#/users/{{unbound follower_id}}"><img style="width: 100%; height: 100%;cursor:pointer" {{bindAttr src="follower_profile_pic_url"}} /></a>
+        </div>
+        <div style="height:35px; line-height: 35px;">
+            <span style="font-size: 13px;line-height: 15px; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-weight: bold;">
+                {{name}}
+            </span>
+        </div>
     </div>
-    <div style="height:35px; line-height: 35px;">
-        <span style="font-size: 13px;line-height: 15px; text-shadow: 0 1px 0 rgba(255,255,255,0.8); font-weight: bold;">
-            {{name}}
-            
-           
-        </span>
-    </div>
-</div>
-
-
 {{/each}}
 
 

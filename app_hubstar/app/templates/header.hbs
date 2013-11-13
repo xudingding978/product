@@ -10,28 +10,44 @@
         </div>
 
 
-        <div class="top-about-menu" style="">
+        <div id="top-about-menu" class="top-about-menu" style="display:block;">
             <span><a target="blank" href="http://about.trendsideas.com/">About</a></span>
             <span><a target="blank" href="http://about.trendsideas.com/business/">Business</a></span>
             <span><a target="blank" href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span>
             <span><a target="blank" href="http://about.trendsideas.com/contact-us/">Contact us</a></span>
         </div>
 
+        <div id="search-bar" class="top-about-menu" style="display:none;">
+        <div class="Search-box easing" style="">
+            {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_business" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
+            <div class="Nav-btn easing" style="position: absolute;right: -5px;border-radius: 0 3px 3px 0;top: 0; border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
+                <i class="icon-search"></i>
+            </div>
+        </div>
+        <div id ="navigator" class="Nav-btn easing" style="float: right;" {{action dropdownNavigator}}><i class="icon-list"></i></div>
+        {{#if controller.isNavigatorDropdown}}
+        {{view HubStar.NavigatorView}}
+        {{/if}}
+    </div>
+        
+        
+        
+        
+        
 
 
-
-
-        <!-- show if not logged into platform-->
-
-
-        <!-- show if not logged into platform-->
         {{#if HubStar.isLogin}}
 
         <div id="login_detail" style="position: relative;float: right;cursor: pointer;text-align: right;">
             {{view HubStar.AfterLoginView}}
         </div>
+  <div class="Geo-Filter easing"  style="margin-right: 50px;font-size: 15px;" {{action dropdownPhotoSetting}}>
+             <i class="icon-bell-alt icon-large"></i>
+            <div style="cursor: pointer;position: absolute;top: 20px;left: 15px;width: auto;padding: 0 5px 0 4px;height: 15px;background-color: red;line-height: 15px;border-radius: 2px;font-size: 11px;font-weight: bold;">{{unReadCount}}</div>
+        </div>
 
-
+        
+        
         {{else}}
 
 
@@ -49,10 +65,7 @@
         <!-- user is logged in -->
 
 
-        <div class="Geo-Filter easing"  style="margin-right: 50px;font-size: 15px;" {{action dropdownPhotoSetting}}>
-             <i class="icon-bell-alt icon-large"></i>
-            <div style="cursor: pointer;position: absolute;top: 20px;left: 15px;width: auto;padding: 0 5px 0 4px;height: 15px;background-color: red;line-height: 15px;border-radius: 2px;font-size: 11px;font-weight: bold;">{{unReadCount}}</div>
-        </div>
+      
         {{#if isNotification}}
         {{render notificationTop}}
         {{/if}}

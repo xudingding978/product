@@ -163,7 +163,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         window.history.back();
     },
     switchCollection: function() {
-
+ if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var addCollectionController = this.get('controllers.addCollection');
         var selectid = this.get('articleResouce').id;
         addCollectionController.setImageID(selectid);
@@ -172,8 +173,11 @@ HubStar.ArticleController = Ember.Controller.extend({
         addCollectionController.setRelatedController('article');
         addCollectionController.setUser();
         this.set('collectable', !this.get('collectable'));
+        }
     },
     editingContactForm: function() {
+ if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var contactController = this.get('controllers.contact');
 
         this.get("controllers.contact").set("firstStepOfContactEmail",false);      
@@ -181,8 +185,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         var selectid = this.get('selectedPhoto').id;
         contactController.setSelectedMega(selectid);
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
+       
             this.set('contact', !this.get('contact'));
         }
     },

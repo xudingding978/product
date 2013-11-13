@@ -101,7 +101,7 @@
                 <div class="more_detail" {{bindAttr id="id"}} >
                     <div class="more_text-container" >
                         <div style="display:block;">
-                            {{object_description}}
+                            {{{object_description}}}
                         </div>
                     </div>
 
@@ -126,13 +126,14 @@
 
     <div class="masonry-object">
         <div class="masonry-object_poster">
-            <div class="profilepic-on-masonry">
-                <img {{bindAttr src="profile_pic_url"}} class="profilepic-on-masonry" />
+             <div class="profilepic-on-masonry">
                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
             </div>
             <div class="object_username">
                 <a class="poster-name" style="cursor: pointer; width: auto;" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
-
+                <div class="posttime-container">
+                    <span class="posttime" style="display:none;">{{date created}}</span>
+                </div>
             </div>
 
             <div class="object-tags-box">

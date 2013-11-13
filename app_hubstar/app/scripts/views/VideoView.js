@@ -36,6 +36,7 @@ HubStar.VideoView = Ember.View.extend({
         $('#commentBox').attr('style', 'display:block');
 
         $('.comment-insert-field').focus();
+         this.get("controller").get("controllers.checkingLoginStatus").popupLogin();
     },
     closeComment: function() {
 

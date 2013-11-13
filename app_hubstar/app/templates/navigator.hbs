@@ -34,7 +34,7 @@
             {{#each  controller.subcategories}}
 
             <ul>
-                <li class="icon-angle-right" {{search_topic}} </li>
+                <li class="icon-angle-right" {{action topicSearch search_topic}}>{{search_topic}} </li>
 
             </ul>
             {{/each}}

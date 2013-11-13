@@ -69,7 +69,7 @@
                             </div>
 
                             <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px;  padding: 0;right: 45px;top: 70px;position: absolute;">
-                               <!--<li style="position:fixed;z-index:0;height:100%;width:100%;" onClick="document.getElementById('dropdown_id_'+{{unbound id}}).style.display='none' ">&nbsp;<li>-->
+                                <!--<li style="position:fixed;z-index:0;height:100%;width:100%;" onClick="document.getElementById('dropdown_id_'+{{unbound id}}).style.display='none' ">&nbsp;<li>-->
                                 <li class="ite" {{action  fbShare}} >
                             <k class="icon-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
                             </li>
@@ -91,6 +91,7 @@
 
     <!--PROFILE PAGE LEFT SIDE-->
 
+    
     <table cellpadding="0" cellspacing="0" width="100%">
         <tbody>
             <tr>
@@ -99,8 +100,10 @@
                     <div class="profileaside">
                         <div class="profileaside_content">
                             <div class="aside-profilepic">
-                                <div style="min-height: 175px; overflow: visible; line-height: 175px;margin-bottom: 20px;">
-                                    <img {{bindAttr src= model.profile_pic_url}} style="border:5px solid white;box-shadow: 0px 0px 5px #888;min-height: 0;width: 100%">
+                                <div style="min-height: 175px; overflow: visible; line-height: 175px;margin-bottom: 20px;" data-hint="{{unbound model.id}}">
+                                    <a href="#/profiles/{{unbound model.id}}">
+                                        <img {{bindAttr src= model.profile_pic_url}} style="border:5px solid white;box-shadow: 0px 0px 5px #888;min-height: 0;width: 100%">
+                                    </a> 
                                 </div>
                                 {{#if controller.follow_status}}
                                 <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
@@ -289,7 +292,7 @@
                             <!--PROFILE GOOGLEMAP SECTION--> 
                             <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;">
                                 <div id="google-map"  style="width: 300px;height: 250px; border: 5px solid #fff;cursor: pointer"  >
-                                    <div class="enlarge-map easing" style=""><k class="icon-resize-full"></k></div>
+                                    <div class="enlarge-map easing" style=""{{action popUpGoogleMap}}><k class="icon-resize-full"></k></div>
                                     <img  {{bindAttr src="controller.profile_google_map"}} style="width: 100%; height:auto;" {{action popUpGoogleMap}}>
                                 </div>
                             </div>
@@ -1055,12 +1058,19 @@
     {{/if}}
 
 
+    {{#unless HubStar.isLogin}}
+    {{render "footer"}}
+    {{/unless}}
+
+
+
     {{#if controller.popUpMap}}
 
     {{view  HubStar.GoogleMapPopupView}}
 
 
     {{/if}}
+
 
 
     <script>

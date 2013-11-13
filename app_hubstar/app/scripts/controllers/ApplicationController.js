@@ -133,12 +133,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         HubStar.set('searchStart', true);
     },
     defaultSearch: function() {
+        
         this.set("loginInfo", localStorage.loginStatus);
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
+               
                 that.setContent(results);
+                that.relayout();
             }
         });
     },
@@ -296,7 +299,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
         this.set('categorys', HubStar.Cate.find({}));
-   
+        this.set('subcate', []);
+   this.set('subcategories', []);
     },
     topicSelection: function(data) {
        
@@ -315,6 +319,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.get('subcategories').pushObject({'search_topic': data.objectAt(i).get('search_topic')});
         }
 
+    },
+                topicSearch: function(search_topic) {
+            console.log(search_topic);
+        this.transitionToRoute('searchIndex');
+        this.set('search_string', search_topic);
+        this.newSearch();
+this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
     },
     canelDropDown: function()
     {
@@ -403,7 +414,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     {
         var that = this;
         Ember.run.later(function() {
-            console.log("asdfsdafasd " + that.get('adPageNo'));
             if (that.get('adPageNo') === 1) {
                 googletag.cmd.push(function() {
                     for (var i = 0; i < ads.length; i++) {

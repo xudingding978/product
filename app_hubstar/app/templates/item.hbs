@@ -21,7 +21,7 @@
                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
             </div>
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer; width: auto;" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <a class="poster-name" style="cursor: pointer; width: auto;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <div class="posttime-container">
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
@@ -131,7 +131,7 @@
                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
             </div>
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer; width: auto;" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <a class="poster-name" style="cursor: pointer; width: auto;"  href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
 
             </div>
 
@@ -232,8 +232,8 @@
                 <div class="profilepic-on-masonry">
                     <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
                 </div>
-                <div class="object_username">
-                    <a class="poster-name" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{creator}}</a>
+                <div class="object_username">  
+                    <a class="poster-name" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{creator}}</a>
                     <div class="posttime-container" style="display:none;">
                         <span class="posttime">{{date created}}</span>
                     </div>

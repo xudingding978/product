@@ -210,6 +210,7 @@
                     </div>
                 </div>
                 {{#each controller.megaResouce.comments}}
+                {{#unless this.isEdit}}
                 <div class="comment-item">
 
                     <div class="comment-position">
@@ -222,6 +223,10 @@
                                     <a class="comment-username"  href="#/users/{{unbound commenter_id}}">
                                         {{name}}
                                     </a>
+                                     {{#if this.getUser}}
+                                        <i class="icon-trash"  {{action removeComment this}}></i>                 
+                                        <i class="icon-pencil" {{action updateComment this}}></i>
+                                   {{/if}}
                                     <div class="posttime-container">
                                         <span class="posttime">{{date time_stamp}}</span>                  
                                     </div>
@@ -242,6 +247,9 @@
                         </div>
                     </div>
                 </div>
+                 {{else}}
+              {{render editComment this}}   
+              {{/unless}}
                 {{/each}}
 
 

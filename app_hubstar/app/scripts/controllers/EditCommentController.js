@@ -1,7 +1,7 @@
 
 HubStar.EditCommentController = Ember.Controller.extend({
     id: "",
-    needs: ['comment', "mega","article"],
+    needs: ['comment', "mega","article",'video'],
     
     init: function()
     {
@@ -24,6 +24,9 @@ HubStar.EditCommentController = Ember.Controller.extend({
         }
         else if(HubStar.get("parentController") === 'article'){
             this.get("controllers.article").updateComment(obj);
+        }
+         else if(HubStar.get("parentController") === 'video'){
+            this.get("controllers.video").updateComment(obj);
         }
     },
     updateComment: function(object) {
@@ -64,6 +67,18 @@ HubStar.EditCommentController = Ember.Controller.extend({
             object.set("content", that.get("commentContent"));
             that.closeCommentItem(object);
             requiredBackEnd('comments', 'UpdateArticleComment', delInfo, 'POST', function(params) {
+
+            });
+        }
+        else if (type === "video")
+        {
+            var message_id = object.get("message_id");
+            var delInfo = [id, message_id, this.get("commentContent")];
+            delInfo = JSON.stringify(delInfo);
+            var that = this;
+            object.set("content", that.get("commentContent"));
+            that.closeCommentItem(object);
+            requiredBackEnd('comments', 'UpdateVideoComment', delInfo, 'POST', function(params) {
 
             });
         }

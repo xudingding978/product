@@ -97,6 +97,33 @@ class CommentsController extends Controller {
         }
     }
     
+    public function actionDeleteVideoComment() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request_array = CJSON::decode($request_array);
+        $video_id = $request_array[0]; // it is the  login in user
+        $id = $request_array[1];
+
+        try {
+            $docIDDeep = $this->getDomain() . "/" . $video_id; //$id  is the page owner
+            $cb = $this->couchBaseConnection();
+            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+            $oldRecordDeep = CJSON::decode($oldDeep, true);
+            for ($i = 0; $i < sizeof($oldRecordDeep['comments']); $i++) {
+                $uid = $oldRecordDeep['comments'][$i]["message_id"];
+                if ($uid === $id) {
+                    array_splice($oldRecordDeep['comments'], $i, 1);
+                    break;
+                }
+            }
+            if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                $this->sendResponse(204);
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
+    }
+    
     public function actionUpdatePhotoComment() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request_array = CJSON::decode($request_array);
@@ -162,6 +189,34 @@ class CommentsController extends Controller {
 
         try {
             $docIDDeep = $this->getDomain() . "/" . $article_id; //$id  is the page owner
+            $cb = $this->couchBaseConnection();
+            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+            $oldRecordDeep = CJSON::decode($oldDeep, true);
+            for ($i = 0; $i < sizeof($oldRecordDeep['comments']); $i++) {
+                $uid = $oldRecordDeep['comments'][$i]["message_id"];
+                if ($uid === $id) {
+                    $oldRecordDeep['comments'][$i]["content"] = $content;
+                    break;
+                }
+            }
+            if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                $this->sendResponse(204);
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
+    }
+    
+    public function actionUpdateVideoComment() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request_array = CJSON::decode($request_array);
+        $video_id = $request_array[0]; // it is the  login in user
+        $id = $request_array[1];
+        $content = $request_array[2];
+
+        try {
+            $docIDDeep = $this->getDomain() . "/" . $video_id; //$id  is the page owner
             $cb = $this->couchBaseConnection();
             $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
             $oldRecordDeep = CJSON::decode($oldDeep, true);

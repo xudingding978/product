@@ -11,8 +11,10 @@ HubStar.CommentView = Ember.View.extend({
             $('#commentBox_' + id).attr('style', 'display:block');
 
             setTimeout(function() {
+                $('#masonry_user_container').masonry("reload");
                 $('#masonry_container').masonry("reload");
                 $('.comment-insert-field').focus();
+                
             }, 200);
         }
     },

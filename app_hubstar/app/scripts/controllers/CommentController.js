@@ -10,13 +10,12 @@ HubStar.CommentController = Ember.Controller.extend({
     needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment'],
     init: function()
     {
-
         if (localStorage.loginStatus) {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         }
     },
     switchCollection: function(model) {
-        
+
         if (model.get("type") === "photo") {
             var photoObj = model.get("photo").objectAt(0);
             var addCollectionController = this.get('controllers.addCollection');
@@ -40,7 +39,17 @@ HubStar.CommentController = Ember.Controller.extend({
             addCollectionController.setRelatedController('comment');
             $('#addCollection_' + model.id).attr('style', 'display: block');
         }
-
+        else if (model.get("type") === "video")
+        {
+            var addCollectionController = this.get('controllers.addCollection');
+            var selectid = model.id;
+            addCollectionController.setImageID(selectid);
+            var tempUrl = model.get('object_image_url');
+            addCollectionController.setThumbnailUrl(tempUrl);
+            addCollectionController.setUser();
+            addCollectionController.setRelatedController('comment');
+            $('#addCollection_' + model.id).attr('style', 'display: block');
+        }
     },
     addComment: function() {
 
@@ -61,6 +70,7 @@ HubStar.CommentController = Ember.Controller.extend({
             $('#commentBox').attr('style', 'display:none');
             setTimeout(function() {
                 $('#masonry_container').masonry("reload");
+                $('#masonry_user_container').masonry("reload");
                 $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
             }, 200);
         }
@@ -73,7 +83,6 @@ HubStar.CommentController = Ember.Controller.extend({
         $('#commentItem_' + id).attr('style', 'display:none');
 
         obj.set("isEdit", true);
-
 
         this.seeMore(this.get('content').id);
 
@@ -92,7 +101,7 @@ HubStar.CommentController = Ember.Controller.extend({
 
     },
     getCommentsById: function(id)
-    {       
+    {
         var mega = HubStar.Mega.find(id);
         var comments = mega.get('comments');
         this.set('mega', mega);
@@ -122,7 +131,7 @@ HubStar.CommentController = Ember.Controller.extend({
 
         var id = this.get('content').id;
         var type = this.get('content').get('type');
-        this.getCommentsById(id);       
+        this.getCommentsById(id);
         if (type === 'photo') {
             var commentId = object.get("commenter_id");
             var time_stamp = object.get("time_stamp");
@@ -133,7 +142,7 @@ HubStar.CommentController = Ember.Controller.extend({
             that.get("thisComments").removeObject(object);
             requiredBackEnd('comments', 'DeletePhotoComment', delInfo, 'POST', function(params) {
 
-                
+
                 $('#masonry_user_container').masonry("reloadItems");
                 $('#masonry_container').masonry("reloadItems");
 
@@ -150,10 +159,10 @@ HubStar.CommentController = Ember.Controller.extend({
             that.get("thisComments").removeObject(object);
             requiredBackEnd('comments', 'DeleteProfileComment', delInfo, 'POST', function(params) {
 
-                
+
                 $('#masonry_user_container').masonry("reloadItems");
                 $('#masonry_container').masonry("reloadItems");
-                
+
             });
         }
         else if (type === "article")
@@ -164,13 +173,13 @@ HubStar.CommentController = Ember.Controller.extend({
             var delInfo = [id, message_id];
             delInfo = JSON.stringify(delInfo);
             var that = this;
-             that.get("thisComments").removeObject(object);
+            that.get("thisComments").removeObject(object);
             requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function(params) {
 
-               
+
                 $('#masonry_user_container').masonry("reloadItems");
                 $('#masonry_container').masonry("reloadItems");
-                
+
             });
         }
         else if (type === "video")
@@ -181,13 +190,11 @@ HubStar.CommentController = Ember.Controller.extend({
             var delInfo = [id, message_id];
             delInfo = JSON.stringify(delInfo);
             var that = this;
-//            requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function(params) {
-//
-//                that.get("thisComments").removeObject(object);
-//                $('#masonry_user_container').masonry("reloadItems");
-//                $('#masonry_container').masonry("reloadItems");
-//                
-//            });
+            requiredBackEnd('comments', 'DeleteVideoComment', delInfo, 'POST', function(params) {
+                that.get("thisComments").removeObject(object);
+                $('#masonry_user_container').masonry("reloadItems");
+                $('#masonry_container').masonry("reloadItems");
+            });
         }
     },
 //    deleteComment: function(object) {
@@ -401,6 +408,40 @@ HubStar.CommentController = Ember.Controller.extend({
 
             return false;
         }
+         if (model.get("type") === "video") {           
+            this.set("selectedVideo", model._data.videoes[0]);
+            var that = this;
+            var currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('selectedVideo')['id'];
+            var caption = '';       
+            if (this.get('selectedVideo').data.video_desc !== null)
+            {
+                caption = this.get('selectedVideo').data.video_desc;
+            }
+            else
+            {
+                caption = '';
+            }
+            var obj = {
+                method: 'feed',
+                link: currntUrl,
+                picture: this.get('selectedVideo').data.video_img,
+                name: this.get('selectedVideo').data.video_title,
+                caption: 'Trends Ideas',
+                description: caption
+            };
+
+            function callback(response) {
+                if (response && response.post_id) {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
+                } else {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessfully.", "failed");
+                }
+            }
+
+            FB.ui(obj, callback);
+
+            return false;
+        }
         if (model.get("type") === "article") {
             this.set("selectedArticle", model.get("article").objectAt(0));
             var that = this;
@@ -505,6 +546,38 @@ HubStar.CommentController = Ember.Controller.extend({
 
             return false;
         }
+        else if (model.get("type") === "video") {
+            this.set("selectedVideo", model._data.videoes[0]);
+            var caption = '';
+            if (this.get('selectedVideo').data.video_desc !== null)
+            {
+                caption = this.get('selectedVideo').data.video_desc;
+            }
+            else
+            {
+                caption = '';
+            }
+
+//        var meta = document.getElementsByTagName('meta');
+//        for (var i = 0; i < meta.length; i++) {
+//            console.log(meta[i]);
+//        }
+            $("meta[property='og\\:title']").attr("content", this.get('selectedVideo').data.video_title);
+            $("meta[property='og\\:description']").attr("content", caption);
+            $("meta[property='og\\:image']").attr("content", this.get('selectedVideo').data.video_img);
+
+
+            var currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('selectedVideo')['id'];
+            var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+
+            window.open(
+                    url,
+                    'popupwindow',
+                    'scrollbars=yes,width=800,height=400'
+                    ).focus();
+
+            return false;
+        }
     },
     //share to social twitter
     tShare: function(model) {
@@ -531,6 +604,17 @@ HubStar.CommentController = Ember.Controller.extend({
                     ).focus();
             return false;
         }
+         else if (model.get("type") === "video") {
+            this.set("selectedVideo", model._data.videoes[0]);
+            var currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('selectedVideo')['id'];
+            var url = 'https://twitter.com/share?text=' + this.get('selectedVideo').data.video_title + '&url=' + encodeURIComponent(currntUrl);
+            window.open(
+                    url,
+                    'popupwindow',
+                    'height=436,width=626'
+                    ).focus();
+            return false;
+        }
     },
     pShare: function(model) {
         this.shareHide(model.id);
@@ -547,6 +631,19 @@ HubStar.CommentController = Ember.Controller.extend({
                     ).focus();
             return false;
 
+        }
+        else if (model.get("type") === "video") {
+            this.set("selectedVideo", model._data.videoes[0]);
+            var currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('selectedVideo')['id'];
+            var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+                    '&media=' + encodeURIComponent(this.get('selectedVideo').data.video_img) +
+                    '&description=' + encodeURIComponent(this.get('selectedVideo').data.video_title);
+            window.open(
+                    url,
+                    'popupwindow',
+                    'height=436,width=626'
+                    ).focus();
+            return false;
         }
         else if (model.get("type") === "article") {
             this.set("selectedArticle", model.get("article").objectAt(0));

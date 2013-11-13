@@ -31,6 +31,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     adPageNo: 0,
     googletagCmd: null,
     unReadCount: 0,
+    categorys: [],
+    temp: [],
+    subcate: [],
+    subcategories: [],
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
         this.defaultSearch();
@@ -289,8 +293,28 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
     },
     dropdownNavigator: function() {
-        console.log("sssssssssssssssssssssssssssssss");
+
         this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
+        this.set('categorys', HubStar.Cate.find({}));
+   
+    },
+    topicSelection: function(data) {
+       
+        this.set('temp', []);
+        this.set('temp', data);
+        this.set('subcate', []);
+        for (var i = 0; i < data.get('subcate').get('length'); i++) {
+            this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')});
+        }
+    },
+    searchTopicSelection: function(data) {
+        this.set('temp', []);
+        this.set('temp', data);
+        this.set('subcategories', []);
+        for (var i = 0; i < data.get('length'); i++) {
+            this.get('subcategories').pushObject({'search_topic': data.objectAt(i).get('search_topic')});
+        }
+
     },
     canelDropDown: function()
     {

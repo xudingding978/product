@@ -57,7 +57,6 @@
 
 <div class="caption-container" id="caption_action">
     <div style="margin-bottom: 5px;">
-        <span class="article-title">{{captionTitle}}</span>
         <span class="hover-opacity easing" style="float: right; cursor:pointer;">
             {{#if controller.readCaption}}
             <i class="icon-double-angle-left"{{action setCaption  on="click" target="controller"}}></i>
@@ -66,7 +65,7 @@
             {{/if}}                       
         </span>
     </div>
-    <div class="article-text" style="width: 300px;font-size: 13px;line-height: 16px;">{{caption}} </div>
+    <div class="caption-text" style="width: 300px;font-size: 13px;line-height: 16px;">{{caption}} </div>
 </div>
 
 
@@ -104,7 +103,7 @@
                 <a href="#" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.creator_profile_pic"}} class="profilepic"/></a>                              
             </div>
             <div class="poster_user">
-                <a class="poster-name" href="#" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_id}}</a>
+                <a class="poster-name" href="#" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
                 <span class="posttime">{{date controller.megaResouce.created}}</span>
             </div>
 
@@ -157,8 +156,29 @@
         </div>
     </div>
 
+    <!-- OBJECT CREDIT LIST SECTION -->
+    {{#if controller.isCreditListExist}}
+    <div>
+    <div>
+        <div class="object-collapes-title" >
+            <div class="collapes-title_inner">
+                Credit List
+            </div>
+        </div> 
+
+    </div>
 
 
+
+    <div class="collapes-container"  id="article_action" style="display:block;">
+        <div class="collapes-container_inner">
+            {{#each articleResouce.credits}}
+            <div class="article-text">{{credits_name}}: {{credits_text}}</div>
+            {{/each}}
+        </div>
+    </div>
+    </div>
+   {{/if}}
 
 
 
@@ -193,6 +213,9 @@
                     <div class="addcommnetbox" role="button" {{action openComment target="view" on="click"}} id="addcommetBut" >
                         add comment...
                     </div >
+
+                    {{#unless HubStar.checkLoginStatus}}
+
                     <div class="addcommnetbox-container" id="commentBox" style="display: none">
                         <div style="margin:0 auto; padding: 0 0 15px 38px;">
                             <a> 
@@ -205,9 +228,11 @@
                                 <div class="new-btn green-btn" {{action addComment}}>Post</div>
                             </span>
 
-
                         </div>
                     </div>
+
+                    {{/unless}}
+
                     {{#each controller.megaResouce.comments}}
                     <div class="comment-item">
 
@@ -265,3 +290,9 @@
 
 
 </div>
+
+{{#if HubStar.checkLoginStatus}}
+
+{{render loginModal}}       
+
+{{/if}}

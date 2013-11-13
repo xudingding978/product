@@ -10,7 +10,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     image_no: 1,
     selectedPhoto: null,
     isSelected: false,
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission'],
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'checkingLoginStatus'],
     currentUser: null,
     currentUserProfile: null,
     photo_album_id: null,
@@ -129,40 +129,51 @@ console.log(megaObject);
         $('#dropdown_id_').toggleClass('hideClass');
     },
     switchCollection: function() {
-        var addCollectionController = this.get('controllers.addCollection');
-        var selectid = this.get('selectedPhoto').id;
-        addCollectionController.setImageID(selectid);
-        var tempUrl = this.get('selectedPhoto').get('photo_image_thumbnail_url');
-        addCollectionController.setThumbnailUrl(tempUrl);
-        addCollectionController.setUser();
-        addCollectionController.setRelatedController('photo');
-        this.set('collectable', !this.get('collectable'));
-    },
 
- keydown:function(e) {
-            var currKey = 0, e = e || event;
-            currKey = e.keyCode || e.which || e.charCode;//支持IE、FF 
-            if (currKey === 27) {
-                 window.history.back();
-                //document.getElementByIdx_xx_x("btn_selector").click();
-            }
-          
-        },
-      
-    
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            var addCollectionController = this.get('controllers.addCollection');
+            var selectid = this.get('selectedPhoto').id;
+            addCollectionController.setImageID(selectid);
+            var tempUrl = this.get('selectedPhoto').get('photo_image_thumbnail_url');
+            addCollectionController.setThumbnailUrl(tempUrl);
+            addCollectionController.setUser();
+            addCollectionController.setRelatedController('photo');
+            this.set('collectable', !this.get('collectable'));
+        }
+    },
+    keydown: function(e) {
+        var currKey = 0, e = e || event;
+
+        currKey = e.keyCode || e.which || e.charCode;    //支持IE、FF 
+        if (currKey === 27) {
+            window.history.back();
+
+        }
+
+    },
     closeWindow: function() {
         this.set('collectable', false);
         this.set('contact', false);
         window.history.back();
     },
     editingContactForm: function() {
-        var contactController = this.get('controllers.contact');
-        var selectid = this.get('selectedPhoto').id;
-        contactController.setSelectedMega(selectid);
-        contactController.selectionCheckBox();
-        this.set('contact', !this.get('contact'));
-    },
-    closeContact: function() {
+
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            var contactController = this.get('controllers.contact');
+            var selectid = this.get('selectedPhoto').id;
+            this.get("controllers.contact").set('secondStepOfContactEmail', false);
+            this.get("controllers.contact").set('firstStepOfContactEmail', false);
+            contactController.setSelectedMega(selectid);
+            contactController.selectionCheckBox();
+
+            this.set('contact', !this.get('contact'));
+            }
+
+        }
+        ,
+                closeContact: function() {
         this.set('contact', false);
     },
     addComment: function() {
@@ -223,6 +234,7 @@ console.log(megaObject);
     },
     // share to social facebook
     fbShare: function() {
+        this.dropdownPhotoSetting();
         var that = this;
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
         var caption = '';
@@ -259,6 +271,7 @@ console.log(megaObject);
     },
     //share to social google plus
     gpShare: function() {
+        this.dropdownPhotoSetting();
         var caption = '';
         if (this.get('selectedPhoto').get('photo_caption') !== null)
         {
@@ -269,10 +282,6 @@ console.log(megaObject);
             caption = '';
         }
 
-//        var meta = document.getElementsByTagName('meta');
-//        for (var i = 0; i < meta.length; i++) {
-//            console.log(meta[i]);
-//        }
         $("meta[property='og\\:title']").attr("content", this.get('selectedPhoto').get('photo_title'));
         $("meta[property='og\\:description']").attr("content", caption);
         $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_thumbnail_url'));
@@ -291,6 +300,7 @@ console.log(megaObject);
     },
     //share to social twitter
     tShare: function() {
+        this.dropdownPhotoSetting();
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
         var url = 'https://twitter.com/share?text=' + this.get('selectedPhoto').get('photo_title') + '&url=' + encodeURIComponent(currntUrl);
         window.open(
@@ -300,12 +310,16 @@ console.log(megaObject);
                 ).focus();
         return false;
     },
+
       pShare: function() {
+        this.dropdownPhotoSetting();
+
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
-        var url = 'http://www.pinterest.com/pin/create/button/?url=' +  encodeURIComponent(currntUrl)+          
-                  '&media='+ encodeURIComponent(this.get('selectedPhoto').get('photo_image_thumbnail_url'))+
-                  '&description='+encodeURIComponent(this.get('selectedPhoto').get('photo_title'));    
-        window.open(
+
+                var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+                '&media=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_original_url')) +
+                '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title'));
+                window.open(
                 url,
                 'popupwindow',
                 'height=436,width=626'

@@ -27,7 +27,6 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             var that = this;
             data.addObserver('isLoaded', function() {
                 that.checkAuthenticUser();
-                //var partnerNew = '';
                 if (data.get('isLoaded')) {
                     for (var i = 0; i < data.get("length"); i++) {
                         var tempmega = data.objectAt(i);
@@ -51,9 +50,8 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                         //    tempmega.set("isFollow", true);
                         //console.log( tempmega.get("profile").objectAt(0).get("isFollowCurrentUser"));
                         that.get("content").pushObject(tempmega);
-                        //console.log(tempmega);
+      
                     }
-                    //console.log(that.get('partnerNew'));
                     that.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
                     var lastPositionId = HubStar.get('lastPositionId');
                     var lastPosition = HubStar.get("scrollPartenerPosition");

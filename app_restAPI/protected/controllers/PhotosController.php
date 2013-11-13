@@ -27,12 +27,9 @@ class PhotosController extends Controller {
     
 
     public function actionCreate() {
-
         $response;
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-
-
         $url = $request_arr["url"];
         $this->addResizedHeroPhoto($url);
     }
@@ -49,6 +46,7 @@ class PhotosController extends Controller {
             }
 
             $image_info = $this->getImageInfo($url);
+            
             $name = $this->renamingImage($image_info, $url);
             if (strpos($url, 'original')) {
                 $response = $this->getWatermarkImageSource($url, $image_info);
@@ -303,13 +301,7 @@ class PhotosController extends Controller {
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
         //$new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
         $bucket = 's3.hubsrv.com';
-        
-        error_log(var_export($owner_id, true));
-        error_log(var_export($message_id, true));
-        error_log(var_export($photo_type, true));
-        error_log(var_export($photo_name, true));
-        
-        
+
             $url = $this->getDomain(). '/users' . "/" . $owner_id . "/" ."message/".$message_id."/".$photo_type . "/" . $photo_name;
             
         $this->saveImageToS3($url, $new_photo_data, $bucket, $type);
@@ -317,6 +309,20 @@ class PhotosController extends Controller {
         return $s3url;
     }
 
+      public function saveConversationPhotoInTypes($orig_size , $photo_type , $photo_name , $compressed_photo , $data_arr, $type = null, $message_id) {
+                                                                        
+        $new_size = $this->getNewPhotoSize($orig_size, $photo_type);
+        $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
+        //$new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
+        $bucket = 's3.hubsrv.com';
+
+            $url = $this->getDomain(). '/conversations'  . "/" .$message_id."/".$photo_type . "/" . $photo_name;
+            
+        $this->saveImageToS3($url, $new_photo_data, $bucket, $type);
+        $s3url = 'http://' . $bucket . '/' . $url;
+        return $s3url;
+    }
+    
     protected function getNewPhotoSize($photo_size, $photo_type) {
         $new_size = array();
         switch ($photo_type) {
@@ -448,6 +454,7 @@ class PhotosController extends Controller {
             ));
         }
     }
+
 
     public function removeS3Record($mega) {
         $bucket = 's3.hubsrv.com';

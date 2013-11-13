@@ -41,7 +41,7 @@ HubStar.DropdownListView = Ember.View.extend({
                $('#categoryDropdown > .ite').click(function() {
                 that.get('controller').set('categorySelection', $(this).text());
             });
-            
+        
               $('#is_actvie > .ite').click(function() {
                 that.get('controller').set('projectActiveDropdownContent', $(this).text());
             });

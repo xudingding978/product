@@ -2,7 +2,7 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         if (model.id === undefined || model.id === "") {
             var address = document.URL;
-            var id = address.split("#")[1].split("/")[3];
+            var id = address.split("#")[1].split("/")[4];
         }
         else {
             var id = model.id;
@@ -15,9 +15,10 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
         this.controllerFor('profile').set('switchPhoto', false);
         this.controllerFor('masonryCollectionItems').set('uploadStuff', true);
         this.controllerFor('masonryCollectionItems').set('canEditbyOwner', true);
-   setTimeout(function() {
+        setTimeout(function() {
             $('#masonry_photo_collection_container').masonry("reload");
         }, 3000);
+
     },
     model: function(params) {
         this.controllerFor('profile').set('switchPhoto', false);

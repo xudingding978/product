@@ -1,5 +1,4 @@
 <?php
-
 header("Access-Control-Allow-Origin: *");
 header('Content-type: *');
 header('Access-Control-Request-Method: *');
@@ -10,6 +9,7 @@ class LogoutController extends Controller {
     
     public function actionCreate(){
         
+
         $this->sendResponse(200,'OK');
         
         
@@ -24,7 +24,6 @@ class LogoutController extends Controller {
       public function actionDelete(){
         
     }
-    
     
 }
 ?>

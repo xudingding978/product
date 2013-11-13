@@ -62,7 +62,7 @@
                     <div style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -50px;  z-index: -1;"></div>
                     {{#each controller.user.collections}}
 
-                    <li><a  href="{{unbound controller.myUserProfile}}/{{unbound id}}" > {{title}}</a></li>
+                    <li><a  href="{{unbound controller.myUserProfile}}/collections/{{unbound id}}" > {{title}}</a></li>
 
                     {{/each}}
                 </ul>
@@ -97,21 +97,21 @@
 
 <script>
 
-                function logout() {
+                    function logout() {
 
-                    var address = document.URL;
-                    var domain = address.split("/")[2];
-                    $.ajax({
-                        type: 'POST',
-                        url: 'http://api.' + domain + '/logout',
-                        contentType: 'application/json; charset=uft-8',
-                        dataType: 'json',
-                        success: function() {
+                        $.ajax({
+                            type: 'POST',
+                            url: getRestAPIURL()+ '/logout',
+                            contentType: 'application/json; charset=uft-8',
+                            dataType: 'json',
+                            success: function(para) {
+                               
 
-                        }
-                    });
-                    localStorage.clear();
-                }
+                            }
+                        });
+
+                        localStorage.clear();
 
 
+                    }
 </script>

@@ -1,10 +1,9 @@
+
 <div id="user-header-menu" style="top: 10px; width: 45px;">
 
     <div class="profilepic-container" data-toggle="dropdown" style="margin:5px;width: 35px;height:35px;">
         <a ><img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg" class="profilepic_user " style='width: 35px;height:35px;'/></a>           
-
-        <a {{bindAttr href="controller.myUserProfile"}} ><img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user profilepic_effect easing" style='width: 35px;height:35px;margin: -57px 0 0 0;'/></a>              
-
+        <a ><img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user profilepic_effect easing" style='width: 35px;height:35px;margin: -57px 0 0 0;'/></a>              
     </div>
 
     <ul id="user-dd-menu" class="hideClass edit-object-ul" style=" padding: 0; left: 64px; top: 5px; width: 165px; float: right;">
@@ -12,14 +11,15 @@
                 <k class="icon-user" style="">&nbsp;&nbsp;</k>
                 <span>My Trends</span>
             </a></li>
+        <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myMessageBoard"}}>
+                <k class="icon-envelope" style="">&nbsp;&nbsp;</k>
+                <span>Messages</span>
+            </a></li>
         <li class='ite'><a tabindex="-1" href="http://about.trendsideas.com/" target="blank">
                 <k class="icon-question-sign" style="">&nbsp;&nbsp;</k>
                 <span>Help</span>
             </a></li>
-       <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myMessageBoard"}}>
-                <k class="icon-user" style="">&nbsp;&nbsp;</k>
-                <span>Messages</span>
-            </a></li>
+
         <li class="ite"><a tabindex="-1" href="#" onclick="logout();">
                 <k class="icon-off" style="">&nbsp;&nbsp;</k>
                 <span>Logout</span> 
@@ -31,25 +31,21 @@
 
 <script>
 
-                    function logout() {
+            function logout() {
 
-                        var address = document.URL;
-                        var domain = address.split("/")[2];
-
-
-
-                        $.ajax({
-                            type: 'POST',
-                            url: 'http://api.' + domain + '/logout',
-                            contentType: 'application/json; charset=uft-8',
-                            dataType: 'json',
-                            success: function() {
-
-                            }
-                        });
-
-                        localStorage.clear();
+                $.ajax({
+                    type: 'POST',
+                    url: getRestAPIURL() + '/logout',
+                    contentType: 'application/json; charset=uft-8',
+                    dataType: 'json',
+                    success: function(para) {
 
 
                     }
+                });
+
+                localStorage.clear();
+
+
+            }
 </script>

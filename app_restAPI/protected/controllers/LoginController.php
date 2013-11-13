@@ -276,7 +276,6 @@ class LoginController extends Controller {
                     $this->sendResponse(200, 0);
                 } else if ($currentUser->PWD_HASH === $request_array[1]) {
                 
-                 error_log(  Yii::app()->session['couchbase_id']);
                     $this->sendResponse(200, CJSON::encode($currentUser));
                 }
             } else {

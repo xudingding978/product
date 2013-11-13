@@ -70,7 +70,6 @@ class ProfilesController extends Controller {
             $request_json = file_get_contents('php://input');
             $request_arr = CJSON::decode($request_json, true);
             $tempProfile = $request_arr['profile'];
-            sleep(1);
             $cb = $this->couchBaseConnection();
             $id = $tempProfile['id'];
             $domain = $this->getDomain();
@@ -140,8 +139,21 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_is_active'] = $newRecord['profile_is_active'];
             $oldRecord['profile'][0]['profile_is_deleted'] = $newRecord['profile_is_deleted'];
             $oldRecord['profile'][0]['profile_keywords'] = $newRecord['profile_keywords'];
+            $oldRecord['keywords'] = $newRecord['profile_keywords'];
+            $oldRecord['profile'][0]['profile_keywords_num'] = $newRecord['profile_keywords_num'];
+            $oldRecord['keyword_num'] = $newRecord['profile_keywords_num'];
+            $oldRecord['profile'][0]['show_keyword_id'] = $newRecord['show_keyword_id'];
+//            $oldRecord['profile'][0]['keywords'] = $newRecord['keywords'] ;
+//            $oldRecord['keyword'] = $newRecord['keywords'];
+            
             $oldRecord['profile'][0]['profile_name'] = $newRecord['profile_name'];
-            $oldRecord['profile'][0]['profile_package_name'] = $newRecord['profile_package_name'];
+            if ($oldRecord['profile'][0]['profile_package_name'] !== $newRecord['profile_package_name']){
+                $oldRecord['profile'][0]['profile_package_name'] = $newRecord['profile_package_name'];
+                $boost = $this->setBoost($newRecord['profile_package_name']);
+                $oldRecord['profile'][0]['profile_boost'] = $boost;
+                $oldRecord['boost'] = $boost;
+                $this->setPhotoBoost($boost, $oldRecord['profile'][0]['id']);
+            }
             $oldRecord['profile'][0]['profile_partner_ids'] = $newRecord['profile_partner_ids'];
             $oldRecord['profile'][0]['profile_physical_address'] = $newRecord['profile_physical_address'];
             $oldRecord['profile'][0]['profile_suburb'] = $newRecord['profile_suburb'];
@@ -156,6 +168,8 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_linkedin_link'] = $newRecord['profile_linkedin_link'];
             $oldRecord['profile'][0]['profile_youtube_link'] = $newRecord['profile_youtube_link'];
             $oldRecord['profile'][0]['profile_analytics_code'] = $newRecord['profile_analytics_code'];
+              $oldRecord['profile'][0]['profile_google_map'] = $newRecord['profile_google_map'];
+             
             
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
@@ -164,7 +178,56 @@ class ProfilesController extends Controller {
             
         }
     }
+    
+    public function setBoost($package_name) {
+        $domain = $this->getDomain();
+        $configuration = $this->getProviderConfigurationByName($domain, "package_details");
+        $boost = $configuration[$package_name]['boost'];
+        return $boost;
+    }
+    
+    public function setPhotoBoost($boost, $profile_id) {
+        $response = $this->getProfileReults($profile_id);
+        $responseArray = array();
+        foreach ($response as $hit) {
+            $id = $hit['source']['doc']['id'];
+            $profileId = $hit['source']['doc']['owner_id'];
+            if ($profileId === $profile_id){
+                $cb = $this->couchBaseConnection();
+                $docID = $this->getDomain() .'/'. $id;
+                $profileOwn = $cb->get($docID);
+                $owner = CJSON::decode($profileOwn, true);
+                $owner['boost'] = $boost;
+                
+                if ($cb->set($docID, CJSON::encode($owner))) {
+                    array_unshift($responseArray,$id.' update succeed');
+                } else {
+                    array_unshift($responseArray,$id.' delete failed');
+                }                
+            }
+        }
+    }
 
+      public function actionGoogleMap() {
+        $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+      error_log(var_export($payloads_arr,true));
+     $googleMap=$payloads_arr[0];
+       $id=$payloads_arr[1];
+        $cb = $this->couchBaseConnection();
+        $docID = $this->getDomain() . '/profiles/' . $id;
+        $oldRecord = CJSON::decode($cb->get($docID));
+               
+           $oldRecord['profile'][0]['profile_google_map'] = $googleMap;
+
+            if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, 'something wrong');
+            }
+        
+    }
+   
+    
     public function actionDelete() {
         try {
             

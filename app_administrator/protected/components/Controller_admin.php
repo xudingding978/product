@@ -35,7 +35,12 @@ class Controller_admin extends CConsoleCommand {
     }
     
 
-
+public function writeProgressLog($message){
+      //   $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+      //  $start_time = date('M-d-Y');
+          $import_log="/var/log/yii/ImportProgress/Progress.log";
+          $this->writeToLog($import_log, $message);
+}
     
     public function writeMySQLLog($log_arr){
                 $model = new Trendsideas_import_log;

@@ -2,7 +2,7 @@
 return array (
   'template' => 'default',
   'connectionId' => 'db_hubsrv',
-  'tablePrefix' => 'dbo',
+  'tablePrefix' => '',
   'modelPath' => 'application.models',
   'baseClass' => 'CActiveRecord',
   'buildRelations' => '1',

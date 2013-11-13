@@ -12,12 +12,12 @@ class ProfileCommand extends Controller_admin {
         echo $start_time . "\r\n";
 
         if ($action == "import") {
-            $this->importProfile();
+            $this->outputData();
         } else if ($action == 'insert') {
             $this->insertProfileToMSDB();
         } elseif ($action == 'gj-gardner') {
             //$this->importProfilesToCouchbase();
-        } elseif ($action == 'flooring_foundation') {
+        } elseif ($action == 'profile') {
             $this->outputData();
         } elseif ($action == 'update') {
             $this->updateCouchbasePhoto();
@@ -82,8 +82,10 @@ class ProfileCommand extends Controller_admin {
     }
 
     protected function outputData() {
+        $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = "/var/log/yii/$start_time.log";
         echo "I am outputting data..... ";
-        $profiles_arr = $this->selectProfilesFromSQLDB(profiles_flooring_foundation::model());
+        $profiles_arr = $this->selectProfilesFromSQLDB(import_profile_trends_Hunter_Douglas_Partners::model());
         // $profiles_arr = $this->selectProfilesFromSQLDB(Profiles_Gj_Gardner::model());
         //  echo var_export($profiles_arr, true);
         //   if (isset($profiles_arr['keywords'])) {
@@ -102,9 +104,16 @@ class ProfileCommand extends Controller_admin {
                 for ($i = 0; $i < $total_amount; $i++) {
                     $couchbase_id = 'trendsideas.com/profiles/' . $profiles_arr[$i]['profile_url'];
                     $obj_arr = $this->createObjectArr($profiles_arr[$i]);
+                 //   echo "\n".var_export($obj_arr);
+                      $cb = $this->couchBaseConnection("test");
+                       if ($cb->set($couchbase_id, CJSON::encode($obj_arr))){
+                            $message=$couchbase_id."     is added"."\n";
+                         $this->writeToLog($log_path, $message);
+                       }
+                      
 
                     //create Couchbase object ready for inserting into bucket
-                    if ($this->addCouchbaseObject($couchbase_id, $obj_arr, 'production')) {
+                  //  if ($this->addCouchbaseObject($couchbase_id, $obj_arr, 'temp')) {
 //                        //set the API endpoint
 //                        $url = "http://develop-api.trendsideas.com/profiles";
 //                        //building an array for CURL call to endpoint
@@ -113,13 +122,15 @@ class ProfileCommand extends Controller_admin {
 //                            'function' => 'addProfileFolder',
 //                            'obj_ID' => $obj_arr['id']
 //                        );
+                        
 //
 //                        if ($this->getData($url, $list_arr)) {
 //                            $message = $couchbase_id . " ---have been add to couchbase! \r\n";
 //                        } else {
 //                            $message = "add folder in S3 server fail------------------------------ \r\n";
 //                        }
-                    } else {
+   //                 } 
+                    else {
                         $message = "add object fail ------------------------------- \r\n";
                         $this->writeToLog($this->error_path, $message);
                     }
@@ -544,7 +555,11 @@ class ProfileCommand extends Controller_admin {
             } elseif (sizeof($name) > 3) {
                 $firstName = $name[0];
                 $lastName = $name[1];
-            } else {
+            } elseif ($name[2] === 'or') {
+                $firstName = $name[0];
+                $lastName = $name[1];
+            }
+            else {
                 $firstName = $name[0];
                 $lastName = $name[1];
             }
@@ -554,7 +569,7 @@ class ProfileCommand extends Controller_admin {
 
 
         $mega_arr = array(
-            "id" => $profile_arr['profile_url'],
+            "id" => strtolower($profile_arr['profile_url']),
             "authority" => "*@trendsideas.com",
             "accessed" => $now,
             "accessed_readable" => date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')',
@@ -564,19 +579,20 @@ class ProfileCommand extends Controller_admin {
             "category" => $profile_arr['category'],
             "categories" => array(),
             "collection_id" => null,
-            "creator" => $profile_arr['admin2'],
+            "creator" => $profile_arr['admin'],
             "creator_type" => 'user',
             "creator_profile_pic" => null,
             "country" => $profile_arr['country'],
             "collection_count" => null,
             "deleted" => null,
             "domains" => "trendsideas.com",
-            "editors" => $profile_arr['admin2'],
+            "editors" => $profile_arr['admin'],
             "geography" => null,
             "likes_count" => null,
             "is_active" => true,
             "is_indexed" => true,
-            "keywords" => str_replace("-", ", ", $profile_arr['keywords']),
+            //"keywords" => str_replace("-", ", ", $profile_arr['keywords']),
+            "keywords" => NULL,
             "object_image_linkto" => return_hero,
             "object_image_url" => null,
             "object_title" => null,
@@ -585,7 +601,7 @@ class ProfileCommand extends Controller_admin {
             "owner_profile_pic" => $profile_pic_url,
             "owner_title" => $profile_arr['profile_name'],
             "owner_id" => $profile_arr['profile_url'],
-            "owner_contact_email" => $profile_arr['admin2'],
+            "owner_contact_email" => $profile_arr['admin'],
             "owner_contact_cc_emails" => null,
             "owner_contact_bcc_emails" => null,
             "people_like" => null,
@@ -611,9 +627,9 @@ class ProfileCommand extends Controller_admin {
             "article" => array(),
         );
 
-        $name_arr = preg_split("/\s/", $profile_arr['ProfileContact']);
+    
         $model_arr = array(
-            "id" => $profile_arr['profile_url'],
+            "id" => strtolower($profile_arr['profile_url']),
             "profile_name" => $profile_arr['profile_name'],
             "profile_bg_url" => $profile_bg_url,
             "profile_hero_url" => $profile_hero_url,
@@ -631,7 +647,8 @@ class ProfileCommand extends Controller_admin {
             "profile_about_us" => $profile_arr['ProfileAboutUs'],
             "profile_physical_address" => $profile_arr['address'] . "," . $profile_arr['suburb'] . "," . $profile_arr['region'] . "," . $profile_arr['country'],
             "profile_contact_number" => $profile_arr['contact_no'],
-            "profile_keywords" => str_replace("-", ", ", $profile_arr['keywords']),
+           // "profile_keywords" => str_replace("-", ", ", $profile_arr['keywords']),
+            "profile_keywords" => NULL,
             "profile_package_name" => "Gold",
             "profile_areas_serviced" => null,
             "profile_website" => $profile_arr['website_url'],
@@ -647,7 +664,7 @@ class ProfileCommand extends Controller_admin {
             "profile_creater" => null,
             "profile_street_address" => $profile_arr['address'],
             "profile_suburb" => $profile_arr['suburb'],
-            "profile_editors" => '*@trendsideas.com, support@trendsideas.com,' . $profile_arr['admin2'],
+            "profile_editors" => '*@trendsideas.com, support@trendsideas.com,' . $profile_arr['admin'],
             "profile_boost" => $profile_arr['boost'],
             "profile_regoin" => $profile_arr['region'],
             "profile_domains" => null,

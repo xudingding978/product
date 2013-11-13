@@ -69,7 +69,8 @@ class ArticleCommand extends Controller_admin {
             $creditEntry_arr['credits_id'] = $this->getNewID();
             $creditEntry_arr['credits_name'] = $creditEntry['categoryText'];
             $creditEntry_arr['credits_text'] = $creditEntry['clientText'];
-            //       $creditEntry_arr['credits_optional'] = $articleId;
+            $creditEntry_arr['optional'] = NULL;
+         
             if ($creditEntry['subCategoryId']) {
                 $creditEntry_arr['credits_sub_category_name'] = $this->findCreditListSubCategory($creditEntry['subCategoryId']);
                 $creditEntry_arr['credits_category_name'] = $this->findCreditListCategorybySubCategory($creditEntry['subCategoryId']);
@@ -285,9 +286,17 @@ class ArticleCommand extends Controller_admin {
         echo "\n" . var_export($topic_list) . "topic list done------------------\n";
         //get subcategory
         $subcategory = SubCategorySearchNames::model()->getArticleSubCategorybyId($val['id']);
+        $subcategory_names = array();
+        foreach($subcategory as $subcategory_entry){
+            array_push($subcategory_names, $subcategory_entry['name']);
+        }
         echo var_export($subcategory) . "\nsubcate done  -----------\n";
         // get category 
         $category = Article::model()->getArticleCategorybyId($val['id']);
+        $category_names = array();
+        foreach($category as $category_entry){
+            array_push($category_names, $category_entry['name']);
+        }
         echo var_export($category) . "\n category done  -------------------\n";
         //get book details
         $book_arr = $this->getBookDetails($val['id']);
@@ -330,7 +339,7 @@ class ArticleCommand extends Controller_admin {
             foreach ($book_list as $book) {
                 array_push($book_id, $book['id']);
                 $date_live = $book['dateLive'];
-                $title = str_replace(" & ", "-", $book['title']);
+                $title = str_replace(" & ", "-and-", $book['title']);
                 $title = str_replace(" ", "-", $title);
                 $time_array = $this->getUTC($date_live, $region_book);
                 if (sizeof($time_array) > 0) {
@@ -372,7 +381,7 @@ class ArticleCommand extends Controller_admin {
             "accessed" => $now,
             "boost" => null, // serach engine ranking... integer ie 6(?)
             "created" => $book_arr['date'], // UTC date time timezone format(?)
-            "category" => $category,
+            "category" => $category_names,
             "categories" => array(),
             "collection_id" => $val['id'],
             "creator" => $book_arr['title'], //Book Title ie: Home & Architectural Trends - Atlanta(?)
@@ -403,7 +412,7 @@ class ArticleCommand extends Controller_admin {
             "region" => $book_arr['region'],
             "suburb" => null,
             "status_id" => null,
-            "subcategories" => $subcategory,
+            "subcategories" => $subcategory_names,
             "timezone" => $book_arr['timezone'],
             "topics" => $topic_list,
             "type" => "article",
@@ -467,15 +476,11 @@ class ArticleCommand extends Controller_admin {
                 $couchbase_id = $existPhoto;
                 $article_arr['id'] = $existId;
                 $article_arr['article'][0]['id'] = $existId;
-                //    echo "\n\n\ncredit list: ".sizeof($article_arr['article'][0]['article_credits'][0])."\n";
-                for ($i = 0; $i < sizeof($article_arr['article'][0]['article_credits']); $i++) {
-                    //  $article_arr['article'][0]['article_credits'][$i]['optional']=$existId;
-                    $credit_arr = CJSON::encode($article_arr['article'][0]['article_credits'][$i]);
-                    $credit_arr = substr($credit_arr, 0, -1);
-                    $credit_arr.=',"optional":"' . $existId . '"}';
-                    $article_arr['article'][0]['article_credits'][$i] = CJSON::decode($credit_arr);
-//                          print_r("\n\n".$credit_arr);
-//                          print_r("\n\n".var_export($article_arr['article'][0]['article_credits'][$i]));
+                    echo "\n\n\ncredit list: ".sizeof($article_arr['article'][0]['credits'])."\n";
+                for ($i = 0; $i < sizeof($article_arr['article'][0]['credits']); $i++) {
+
+                     $article_arr['article'][0]['credits'][$i]['optional']=$existId ;
+
                 }
 
                 $cb = $this->couchBaseConnection($bucket);
@@ -495,10 +500,11 @@ class ArticleCommand extends Controller_admin {
                 $couchbase_id = 'trendsideas.com/' . $newId;
                 $article_arr['id'] = $newId;
                 $article_arr['article'][0]['id'] = $newId;
-                for ($i = 0; $i < sizeof($article_arr['article'][0]['article_credits']); $i++) {
-                    $credit_arr = CJSON::encode($article_arr['article'][0]['article_credits'][$i]);
-                    array_push($credit_arr, '"optional":"' . $existId);
-                    $article_arr['article'][0]['article_credits'][$i] = CJSON::decode($credit_arr);
+                for ($i = 0; $i < sizeof($article_arr['article'][0]['credits']); $i++) {
+                     $article_arr['article'][0]['credits'][$i]['optional']=$newId ;
+//                    $credit_arr = CJSON::encode($article_arr['article'][0]['article_credits'][$i]);
+//                    array_push($credit_arr, '"optional":"' . $existId);
+//                    $article_arr['article'][0]['article_credits'][$i] = CJSON::decode($credit_arr);
 //                    $credit_arr = substr($credit_arr, 0, -1);
 //                    $credit_arr.=',"optional":"' . $existId . '"}';
 //                    $article_arr['article'][0]['article_credits'][$i] = CJSON::decode($credit_arr);
@@ -525,9 +531,10 @@ class ArticleCommand extends Controller_admin {
             $this->createRecord($message);
         }
         $this->writeMySQLLog($SQL_arr);
+        
+        return $couchbase_id;
         unset($article_arr);
         unset($SQL_arr);
-        return $couchbase_id;
     }
 
 }

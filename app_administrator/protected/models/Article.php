@@ -194,7 +194,7 @@ class Article extends CActiveRecord {
 
                                        order by dbo.Articles.id ASC ";
             
-                       echo $sql;
+                   //    echo $sql;
             $data_list = Yii::app() ->db->createCommand($sql)->queryAll();
             
 //            print_r("<pre>");

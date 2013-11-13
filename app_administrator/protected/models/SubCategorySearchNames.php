@@ -112,7 +112,7 @@ class SubCategorySearchNames extends CActiveRecord
                         
 //                        print_r("<pre>");
 //                        print_r($data_list);
-                        
+                        $category_list=array();
                         if(sizeof($data_list)>0) {
                             foreach($data_list as $val) {
                                 array_push($category_list, $val['name']);                       
@@ -202,6 +202,7 @@ dbo.SubCategorySearchNames.subCategoryId=dbo.ArticleSubCategoryMaps.subCategoryI
 and
 dbo.ArticleSubCategoryMaps.articleId= '. $article_id;
         $data_arr = Yii::app()->db->createCommand($sql)->queryAll();
+        
         return $data_arr;
         
         

@@ -15,13 +15,16 @@ class ImportdataCommand extends Controller_admin {
             $this->getPhotoDataByDate();
         } elseif ($action == "test") {
             $this->test();
-        }elseif ($action == "date") {
+        } elseif ($action == "all") {
             $this->importArticleandImagefromTrends();
+        } elseif ($action == "replicate") {
+            $this->replicateArticleandImagefromDevelop();
         }
     }
-    function __construct()
-     {
-     }
+
+    function __construct() {
+        
+    }
 
     public $image_amount = 0;
     public $obj_amount = 0;
@@ -55,48 +58,139 @@ class ImportdataCommand extends Controller_admin {
 //    }
     public function test() {
 
-        $id = $this->checkImageExisting('24046', 'home-and-architectural-trends','5260');
-        echo $id;
+        // $id = $this->checkImageExisting('24046', 'home-and-architectural-trends', '5260');
+        $this->correctImageData();
+        // echo $id;
     }
-    
-    public function importArticleandImagefromTrends(){
-                  // Set timezone
-	//date_default_timezone_set('UTC');
-            $bucket="develop";
-            $article_list=array();
-	// Start date
+
+    public function replicateArticleandImagefromDevelop() {
+        // Set timezone
+        //date_default_timezone_set('UTC');
+        $bucket = "develop";
+        $article_list = array();
+        $replication=true;
+
         echo "start \n";
-        $classArticleImport=new ArticleCommand();
+        $classArticleImport = new ArticleCommand();
         echo "create class \n";
-	$date = '2013-10-18';
-        
+        // Start date. Set this date to desired starting date you want to grab data from trends database 
+        // The function will import data from this date, inculding this day        
+        $date = '2013-03-07';
         echo "call method \n";
-	// End date
-                $end_date ='2013-10-22';
-	//$end_date =date('Y-m-d');
-// echo $date."\n".$newdate;
-	while (strtotime($date) <= strtotime($end_date)) {
-		//echo "$date\n";
+        // End date. Set this date to desired ending date you want to grab data from trends database. 
+        // The function will only import data before this date, but not importing data on this date
+        $end_date = '2013-11-06';
+
+        //Set end date to current date
+        //$end_date =date('Y-m-d');
+        while (strtotime($date) < strtotime($end_date)) {
             $start = $date;
             $to = date("Y-m-d", strtotime("+1 day", strtotime($date)));
-            $message = "\nIMPORT DATA FOR ".$start."\n";
+            $message = "\nIMPORT DATA FOR " . $start . "---------------------------------------------------------------------\n";
             $this->createRecord($message);
-            $this->getPhotoDataByDate($start,$to,$bucket);
+            $this->correctImageData($start, $to, $bucket,$replication);
             sleep(2);
-            $artical_on_date=$classArticleImport->importArticleToProduction($start,$to,$bucket);
-            if(sizeof($artical_on_date)>0){
-                array_merge($article_list,$artical_on_date);
+            $artical_on_date = $classArticleImport->importArticleToProduction($start, $to, $bucket);
+            echo "\narticles number: " . sizeof($artical_on_date) . "\n";
+            if (sizeof($artical_on_date) > 0) {
+                $article_list[$date] = $artical_on_date;
+                $progress_message = "\nIMPORT DATA FOR " . $start . "---------------------------------------------------------------------\n";
+                $progress = print_r($artical_on_date, true);
+                $this->writeProgressLog($progress_message);
+                $this->writeProgressLog($progress);
             }
-            
-		$date = date ("Y-m-d", strtotime("+1 day", strtotime($date)));
-                
-                echo $start."     ".$to."\n";
-	}
-        $message=  $article_list;
+            $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
+            echo $start . "     " . $to . "\n";
+        }
+        $message = var_export($article_list, true);
         $this->createRecord($message);
     }
 
-    
+    public function correctImageData($from, $to, $bucket,$replication) {
+        // $bucket= 'develop';
+//         $sql = "select dbo.articleImages.*, dbo.SparkJobNotes.dateCreated, dbo.SparkJobNotes.sparkJobId, dbo.SparkJobNotes.comment, dbo.Articles.headline, dbo.Articles.subHeadline, dbo.Articles.body, dbo.Articles.creditText, dbo.Articles.photography, dbo.HeliumMedia.keywords from dbo.ArticleImages
+//                                       inner join dbo.HeliumMedia on  dbo.ArticleImages.heliumMediaId = dbo.HeliumMedia.heliumId
+//                                       inner join dbo.Articles on dbo.Articles.id=dbo.ArticleImages.articleId
+//                                       left join dbo.SparkJobNotes on dbo.Articles.sparkJobId =dbo.SparkJobNotes.sparkJobId
+//
+//                                      where 
+//dbo.SparkJobNotes.comment like 'Success'
+//and dbo.SparkJobNotes.sparkJobId=40776
+//and dbo.ArticleImages.heliumMediaId=130769
+//                                       order by dbo.Articles.id ASC
+//                             ";
+
+        $sql = "select dbo.articleImages.*, dbo.SparkJobNotes.dateCreated, dbo.SparkJobNotes.sparkJobId, dbo.SparkJobNotes.comment, dbo.Articles.headline, dbo.Articles.subHeadline, dbo.Articles.body, dbo.Articles.creditText, dbo.Articles.photography, dbo.HeliumMedia.keywords from dbo.ArticleImages
+                                       inner join dbo.HeliumMedia on  dbo.ArticleImages.heliumMediaId = dbo.HeliumMedia.heliumId
+                                       inner join dbo.Articles on dbo.Articles.id=dbo.ArticleImages.articleId
+                                       left join dbo.SparkJobNotes on dbo.Articles.sparkJobId =dbo.SparkJobNotes.sparkJobId
+
+                                      where (dbo.SparkJobNotes.dateCreated between " . "'" . $from . "'" . " and " . "'" . $to . "'" . ")
+                                       and dbo.SparkJobNotes.comment like 'Success'
+                                       order by dbo.Articles.id ASC
+                             ";
+
+        $dataDuringDates = Yii::app()->db->createCommand($sql)->queryAll();
+        //   echo var_export($dataDuringDates). "over";
+        echo "-------------------" . sizeof($dataDuringDates) . "\r\n";
+        if (sizeof($dataDuringDates) > 0) {
+            $message = "\nFound " . sizeof($dataDuringDates) . " images on this date.";
+
+            foreach ($dataDuringDates as $data) {
+                $obj = $this->structureUpdateArray($data);
+
+                if ($obj != NULL) {
+                    $this->writeCouchbaseRecord($obj, $bucket,$replication);
+                }
+            }
+        } else {
+            $message = "\nNo image found on this date.";
+        }
+        $this->createRecord($message);
+    }
+
+    public function importArticleandImagefromTrends() {
+        // Set timezone
+        //date_default_timezone_set('UTC');
+        $bucket = "develop";
+        $article_list = array();
+        $replication=false;
+
+        echo "start \n";
+        $classArticleImport = new ArticleCommand();
+        echo "create class \n";
+        // Start date. Set this date to desired starting date you want to grab data from trends database 
+        // The function will import data from this date, inculding this day        
+        $date = '2013-03-07';
+        echo "call method \n";
+        // End date. Set this date to desired ending date you want to grab data from trends database. 
+        // The function will only import data before this date, but not importing data on this date
+        $end_date = '2013-11-06';
+
+        //Set end date to current date
+        //$end_date =date('Y-m-d');
+        while (strtotime($date) < strtotime($end_date)) {
+            $start = $date;
+            $to = date("Y-m-d", strtotime("+1 day", strtotime($date)));
+            $message = "\nIMPORT DATA FOR " . $start . "---------------------------------------------------------------------\n";
+            $this->createRecord($message);
+            $this->getPhotoDataByDate($start, $to, $bucket,$replication);
+            sleep(2);
+            $artical_on_date = $classArticleImport->importArticleToProduction($start, $to, $bucket);
+            echo "\narticles number: " . sizeof($artical_on_date) . "\n";
+            if (sizeof($artical_on_date) > 0) {
+                $article_list[$date] = $artical_on_date;
+                $progress_message = "\nIMPORT DATA FOR " . $start . "---------------------------------------------------------------------\n";
+                $progress = print_r($artical_on_date, true);
+                $this->writeProgressLog($progress_message);
+                $this->writeProgressLog($progress);
+            }
+            $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
+            echo $start . "     " . $to . "\n";
+        }
+        $message = var_export($article_list, true);
+        $this->createRecord($message);
+    }
 
     public function createArticleCover() {
         $data_list = array();
@@ -145,7 +239,7 @@ class ImportdataCommand extends Controller_admin {
 //                                    left join  dbo.HeliumMedia on dbo.ArticleImages.heliumMediaId = dbo.HeliumMedia.heliumId
     //       order by dbo.ArticleImages.id asc
 
-    public function getPhotoDataByDate($from,$to,$bucket) {
+    public function getPhotoDataByDate($from, $to, $bucket,$replication) {
 //        $from = "2013-10-20";
 //        $to = "2013-10-25";
         $sql = "select dbo.articleImages.*, dbo.SparkJobNotes.dateCreated, dbo.SparkJobNotes.sparkJobId, dbo.SparkJobNotes.comment, dbo.Articles.headline, dbo.Articles.subHeadline, dbo.Articles.body, dbo.Articles.creditText, dbo.Articles.photography, dbo.HeliumMedia.keywords from dbo.ArticleImages
@@ -153,22 +247,35 @@ class ImportdataCommand extends Controller_admin {
                                        inner join dbo.Articles on dbo.Articles.id=dbo.ArticleImages.articleId
                                        left join dbo.SparkJobNotes on dbo.Articles.sparkJobId =dbo.SparkJobNotes.sparkJobId
 
-                                      where (dbo.SparkJobNotes.dateCreated between "."'".$from."'"." and "."'".$to."'".")
+                                      where (dbo.SparkJobNotes.dateCreated between " . "'" . $from . "'" . " and " . "'" . $to . "'" . ")
                                        and dbo.SparkJobNotes.comment like 'Success'
 
                                        order by dbo.Articles.id ASC
                              ";
+//
+//        $sql="select dbo.articleImages.*, dbo.SparkJobNotes.dateCreated, dbo.SparkJobNotes.sparkJobId, dbo.SparkJobNotes.comment, dbo.Articles.headline, dbo.Articles.subHeadline, dbo.Articles.body, dbo.Articles.creditText, dbo.Articles.photography, dbo.HeliumMedia.keywords from dbo.ArticleImages
+//                                       inner join dbo.HeliumMedia on  dbo.ArticleImages.heliumMediaId = dbo.HeliumMedia.heliumId
+//                                       inner join dbo.Articles on dbo.Articles.id=dbo.ArticleImages.articleId
+//                                       left join dbo.SparkJobNotes on dbo.Articles.sparkJobId =dbo.SparkJobNotes.sparkJobId
+//
+//                                      where
+//dbo.SparkJobNotes.comment like 'Success'
+//and dbo.SparkJobNotes.sparkJobId=40776
+//and dbo.ArticleImages.heliumMediaId=130769
+//                                       order by dbo.Articles.id ASC";
+//        
+//        $bucket='develop';
 
         $dataDuringDates = Yii::app()->db->createCommand($sql)->queryAll();
         //   echo var_export($dataDuringDates). "over";
         echo "-------------------" . sizeof($dataDuringDates) . "\r\n";
         if (sizeof($dataDuringDates) > 0) {
-$message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
+            $message = "\nFound " . sizeof($dataDuringDates) . " images on this date.";
 
 
-            $this->getMegaData($dataDuringDates,$bucket);
-        }else{
-            $message="\nNo image found on this date.";
+            $this->getMegaData($dataDuringDates, $bucket,$replication);
+        } else {
+            $message = "\nNo image found on this date.";
         }
         $this->createRecord($message);
     }
@@ -213,7 +320,7 @@ $message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
 //        ));
     }
 
-    public function getMegaData($image_data,$bucket) {
+    public function getMegaData($image_data, $bucket,$replication) {
 
         foreach ($image_data as $val) {
             $return_hero = array();
@@ -298,7 +405,7 @@ $message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
             // echo "\n\n55555555".var_export($image_details_array)."\n66666666\n";
 
             if (sizeof($image_details_array) > 0) {
-                $message="\n     image stored to S3";
+                $message = "\n     image stored to S3";
                 $this->createRecord($message);
                 $return_hero = json_decode($image_details_array['hero']);
                 $return_thumbnail = json_decode($image_details_array['thumbnail']);
@@ -306,14 +413,14 @@ $message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
                 $return_original = json_decode($image_details_array['original']);
                 //  print_r(json_decode($image_details_array['hero']) );
                 //   print_r($return_hero );
-            //    print_r('hero: ' . var_export($return_hero) . "\n" . 'thumbnail: ' . var_export($return_thumbnail) . "\n" . 'preview: ' . var_export($return_preview) . "\n" . 'original: ' . var_export($return_original) . "\n");
+                //    print_r('hero: ' . var_export($return_hero) . "\n" . 'thumbnail: ' . var_export($return_thumbnail) . "\n" . 'preview: ' . var_export($return_preview) . "\n" . 'original: ' . var_export($return_original) . "\n");
 
                 $obj = $this->structureArray($val, $return_hero, $return_thumbnail, $return_preview, $return_original);
                 //        $this->importMegaObj($obj, $val['id']);
-                $this->writeCouchbaseRecord($obj,$bucket);
+                $this->writeCouchbaseRecord($obj, $bucket,$replication);
             } else {
                 echo "http://trendsideas.com/media/article/preview/" . $val['preview'] . "--- DO NOT have return value from S3!--ID:" . $val['id'] . " \r\n";
-                $message="\n     http://trendsideas.com/media/article/original/" . $val['original'] . "--- DOES NOT have return value from S3!--ID:" . $val['id'] . " \r\n";
+                $message = "\n     http://trendsideas.com/media/article/original/" . $val['original'] . "--- DOES NOT have return value from S3!--ID:" . $val['id'] . " \r\n";
                 $this->createRecord($message);
             }
         }
@@ -431,43 +538,39 @@ $message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
         return $id;
     }
 
-
-    public function writeCouchbaseRecord($obj,$bucket) {
+    public function writeCouchbaseRecord($obj, $bucket,$replication) {
 
         $image_arr = $obj;
-        
-        
+
+
 
         $imageAdded_arr = array();
         $total_amount = sizeof($image_arr);
-        $SQL_arr=array();
+        $SQL_arr = array();
 
         if ($total_amount > 0) {
-            $exist_arr = $this->checkImageExisting($image_arr['photo'][0]['photo_heliumMediaId'], $image_arr['owner_id'], $image_arr['collection_id'],$bucket);
+            $exist_arr = $this->checkImageExisting($image_arr['photo'][0]['photo_heliumMediaId'], $image_arr['owner_id'], $image_arr['collection_id'], $bucket);
             if (sizeof($exist_arr) > 0) {
-                 $existPhoto=$exist_arr[0];
-                 $existId = substr($existPhoto,  16);
-                    $couchbase_id = $existPhoto;
-                    $image_arr['id'] = $existId;
-                    $image_arr['photo'][0]['id'] = $existId;
-                    $cb = $this->couchBaseConnection($bucket);
+                $existPhoto = $exist_arr[0];
+                $existId = substr($existPhoto, 16);
+                $couchbase_id = $existPhoto;
+                $image_arr['id'] = $existId;
+                $image_arr['photo'][0]['id'] = $existId;
+                $cb = $this->couchBaseConnection($bucket);
 
-                    if ($cb->set($couchbase_id, CJSON::encode($image_arr))) {
-                        array_push($imageAdded_arr, $couchbase_id);
-                          echo "\nupdate record successful " . $couchbase_id . " \n";
-                          $message="\n   update record successful " . $couchbase_id . " \n";
-                          $this->createRecord($message);
-                          
-                          array_push($SQL_arr, $couchbase_id,$existId,"1",$image_arr['photo'][0]['photo_sparkJobId'],$image_arr['photo'][0]['photo_heliumMediaId'],$image_arr['collection_id'],$image_arr['photo'][0]['photo_image_hero_url'],$image_arr['photo'][0]['photo_image_original_url'],$image_arr['photo'][0]['photo_image_thumbnail_url'],$image_arr['photo'][0]['photo_image_preview_url'],NULL);
+                if ($cb->set($couchbase_id, CJSON::encode($image_arr))) {
+                    array_push($imageAdded_arr, $couchbase_id);
+                    echo "\nupdate record successful " . $couchbase_id . " \n";
+                    $message = "\n   update record successful " . $couchbase_id . " \n";
+                    $this->createRecord($message);
 
-                    }
-                    else{
-                         $message = "\n   update object fail ".$couchbase_id."------------------------------- \n";
-                         echo "\nupdate record failed " . $couchbase_id . "\n";
-              //      $this->writeToLog($this->error_path, $message);
-                         $this->createRecord($message);
-                    }
-                
+                    array_push($SQL_arr, $couchbase_id, $existId, "1", $image_arr['photo'][0]['photo_sparkJobId'], $image_arr['photo'][0]['photo_heliumMediaId'], $image_arr['collection_id'], $image_arr['photo'][0]['photo_image_hero_url'], $image_arr['photo'][0]['photo_image_original_url'], $image_arr['photo'][0]['photo_image_thumbnail_url'], $image_arr['photo'][0]['photo_image_preview_url'], NULL);
+                } else {
+                    $message = "\n   update object fail " . $couchbase_id . "------------------------------- \n";
+                    echo "\nupdate record failed " . $couchbase_id . "\n";
+                    //      $this->writeToLog($this->error_path, $message);
+                    $this->createRecord($message);
+                }
             } else {
                 $newId = $this->getNewID();
                 $couchbase_id = 'trendsideas.com/' . $newId;
@@ -478,26 +581,26 @@ $message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
                 //create Couchbase object ready for inserting into bucket
                 if ($cb->add($couchbase_id, CJSON::encode($image_arr))) {
                     array_push($imageAdded_arr, $couchbase_id);
-                       array_push($SQL_arr, $couchbase_id,$newId,"1",$image_arr['photo'][0]['photo_sparkJobId'],$image_arr['photo'][0]['photo_heliumMediaId'],$image_arr['collection_id'],$image_arr['photo'][0]['photo_image_hero_url'],$image_arr['photo'][0]['photo_image_original_url'],$image_arr['photo'][0]['photo_image_thumbnail_url'],$image_arr['photo'][0]['photo_image_preview_url'],NULL);
+                    array_push($SQL_arr, $couchbase_id, $newId, "1", $image_arr['photo'][0]['photo_sparkJobId'], $image_arr['photo'][0]['photo_heliumMediaId'], $image_arr['collection_id'], $image_arr['photo'][0]['photo_image_hero_url'], $image_arr['photo'][0]['photo_image_original_url'], $image_arr['photo'][0]['photo_image_thumbnail_url'], $image_arr['photo'][0]['photo_image_preview_url'], NULL);
 
-                 //   echo "\n   add record successful " . $couchbase_id . "\n";
-                    $message="\n   add record successful " . $couchbase_id . "\n";
+                    //   echo "\n   add record successful " . $couchbase_id . "\n";
+                    $message = "\n   add record successful " . $couchbase_id . "\n";
                     $this->createRecord($message);
                 } else {
-                    $message = "\n   add object failed ".$couchbase_id. "------------------------------- \n";
+                    $message = "\n   add object failed " . $couchbase_id . "------------------------------- \n";
                     $this->createRecord($message);
                 }
 
                 echo $message;
-
             }
         }
-        $this->writeMySQLLog($SQL_arr);
+        if($replication!=TRUE){
+            $this->writeMySQLLog($SQL_arr);
+        }
+        
         unset($SQL_arr);
         unset($image_arr);
     }
-
-
 
     public function structureArray($val, $return_hero, $return_thumbnail, $return_preview, $return_original) {
         // get size of image
@@ -540,9 +643,9 @@ $message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
                 array_push($book_id, $book['id']);
                 $date_live = $book['dateLive'];
 
-                $title = str_replace(" & ", "-", $book['title']);
+                $title = str_replace(" & ", "-and-", $book['publication']);
                 $title = str_replace(" ", "-", $title);
-                $time_array = $this->getUTC($date_live, $region_book);
+                $time_array = $this->getUTC($date_live, $country);
                 if (sizeof($time_array) > 0) {
                     $UTC = $time_array['utc'];
                     $timezone = $time_array['timezone'];
@@ -550,6 +653,7 @@ $message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
                 }
             }
         }
+        $object_title = $val['heliumMediaId'];
 
 
 
@@ -582,7 +686,7 @@ $message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
             "keywords" => $keywords,
             "object_image_linkto" => null, //
             "object_image_url" => $return_hero->url,
-            "object_title" => null, //
+            "object_title" => $object_title, //
             "object_description" => $val['caption'],
             "owner_type" => 'profile', //
             "owner_profile_pic" => "http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg", //
@@ -607,8 +711,8 @@ $message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
 
         $photo_list = array(
             "id" => null, //
-            "photo_title" => null, //
-            "photo_sparkJobId"=>$val['sparkJobId'],
+            "photo_title" => $val['headline'], //
+            "photo_sparkJobId" => $val['sparkJobId'],
             "photo_caption" => $val['caption'],
             "photo_articleId" => $val['articleId'],
             "photo_heliumMediaId" => $val['heliumMediaId'],
@@ -621,7 +725,7 @@ $message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
             "photo_image_thumbnail_url" => $return_thumbnail->url,
             "photo_image_preview_url" => $return_preview->url,
             "photo_type" => "image/jpeg", //
-            "photo_collection_name" => null, //
+            "photo_collection_name" => $val['headline'], //
             "photo_categories" => null, //
             "photo_keywords" => $keywords,
             "photo_brands" => null, //
@@ -638,6 +742,161 @@ $message = "\nFound ".sizeof($dataDuringDates)." images on this date.";
         print_r(var_export($obj));
         unset($photo_list, $photo_list, $keywords, $category, $subcategory, $topic_list, $country, $pos, $region, $original_size, $size, $val, $return_hero, $return_thumbnail, $return_preview, $return_original);
         return $obj;
+    }
+
+    public function structureUpdateArray($val) {
+        $obj = NULL;
+        $log_arr = Trendsideas_import_log::model()->queryByHeiliummediaId($val['heliumMediaId']);
+        // get size of image
+        if (sizeof($log_arr) > 0) {
+
+
+            $imageInfo = getimagesize($log_arr[0]['photo_image_original_url']);
+            $size = "_" . $imageInfo[0] . 'x' . $imageInfo[1] . ".jpg";
+            $original_size = str_replace(".jpg", $size, $val['original']);
+            echo $original_size . "\n";
+            echo $val['id'] . " \n";
+
+
+
+            //      get region and country
+            $region = Regions::model()->selectRegionByImage($val['id']);
+            $country = $region;
+            $pos = strripos($country, ",");
+            if ($pos) {
+                $country = substr($country, 0, -2);
+            }
+            echo $country . "\n";
+
+            // get topic
+
+
+            $topic_list = TopicSearchNames::model()->selectTopicName($val['articleId']);
+            print_r(var_export($topic_list) . "\n");
+            echo "Done with image " . $val["id"] . "\n\n\n\n";
+
+
+            //get subcategory
+            $subcategory = SubCategorySearchNames::model()->selectSubCategory($val['id']);
+
+            // get category 
+            $category = Categories::model()->selectCategory($val['id']);
+
+            //     get book infor 
+            $book_id = array();
+            $book_date = 0;
+            $book_title = "";
+            $book_list = Books::model()->getBookByPhotoID($val['id']);
+            $timezone = "";
+            if (sizeof($book_list) > 0) {
+                foreach ($book_list as $book) {
+                    array_push($book_id, $book['id']);
+                    $date_live = $book['dateLive'];
+                    $this->createRecord($book['publication']);
+                    $title = str_replace(" & ", "-and-", $book['publication']);
+                    $this->createRecord($title);
+                    $title = str_replace(" ", "-", $title);
+                    $this->createRecord($title);
+                    $time_array = $this->getUTC($date_live, $country);
+                    if (sizeof($time_array) > 0) {
+                        $UTC = $time_array['utc'];
+                        $timezone = $time_array['timezone'];
+                        $book_title = $title;
+                    }
+                }
+            }
+            $object_title = $val['heliumMediaId'];
+
+
+
+
+
+            // get current datetime
+            $accessed = strtotime(date('Y-m-d H:i:s'));
+
+            // get keywords imfor
+            $keywords = mb_check_encoding($val['keywords'], 'UTF-8') ? $val['keywords'] : utf8_encode($val['keywords']);
+            $obj = array(
+                "id" => null, //
+                "accessed" => $accessed, //the creating UTC datatime of a obj
+                "created" => $UTC, //the UTC datatime of book datelive from books table of MS SQL
+                "boost" => '5', //
+                "categories" => $category,
+                "collection_id" => $val['articleId'],
+                "creator" => $book_title,
+                "creator_type" => 'user', //
+                "creator_profile_pic" => "http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg", //
+                "country" => $country, //region from table, could be multiple
+                "collection_count" => null, //
+                "deleted" => null, //
+                "domains" => array(),
+                "editors" => "*@trendsideas.com, support@trendsideas.com", //
+                "geography" => null, //
+                "like_count" => null, //
+                "is_indexed" => TRUE, //
+                "is_active" => true, //
+                "keywords" => $keywords,
+                "object_image_linkto" => null, //
+                "object_title" => $object_title, //
+                "object_description" => $val['caption'],
+                "owner_type" => 'profile', //
+                "owner_profile_pic" => "http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg", //
+                "owner_title" => "Trends Ideas", //
+                "owner_id" => strtolower($title), //"home-and-apartment-trends-nz"
+                "owner_contact_email" => "enquiries@trendsideas.com", //
+                "owner_contact_cc_emails" => null, //
+                "owner_contact_bcc_emails" => null, //
+                "people_like" => null, //
+                "region" => $country,
+                "suburb" => null, //
+                "status_id" => null, //
+                "subcategories" => $subcategory,
+                "timezone" => $timezone,
+                "topics" => $topic_list,
+                "type" => "photo", //
+                "updated" => null, //
+                "uri_url" => null, //
+                "view_count" => null, //
+                "photo" => array()                      //
+            );
+
+            $photo_list = array(
+                "id" => null, //
+                "photo_title" => $val['headline'], //
+                "photo_sparkJobId" => $val['sparkJobId'],
+                "photo_caption" => $val['caption'],
+                "photo_articleId" => $val['articleId'],
+                "photo_heliumMediaId" => $val['heliumMediaId'],
+                "photo_technicalSpecification" => $val['technicalSpecification'],
+                "photo_sequence" => $val['sequence'],
+                "photo_isExtra" => $val['isExtra'],
+                "photo_image_url" => $log_arr[0]['photo_image_original_url'],
+                "photo_image_original_url" => $log_arr[0]['photo_image_original_url'],
+                "photo_image_hero_url" => $log_arr[0]['photo_image_hero_url'],
+                "photo_image_thumbnail_url" => $log_arr[0]['photo_image_thumbnail_url'],
+                "photo_image_preview_url" => $log_arr[0]['photo_image_preview_url'],
+                "photo_type" => "image/jpeg", //
+                "photo_collection_name" => $val['headline'], //
+                "photo_categories" => null, //
+                "photo_keywords" => $keywords,
+                "photo_brands" => null, //
+                "photo_products" => null, //
+                "photo_original_filename" => $original_size,
+                "photo_original_width" => $imageInfo[0],
+                "photo_original_height" => $imageInfo[1],
+                "photo_book_id" => $book_id
+            );
+
+            array_push($obj['photo'], $photo_list);
+            $domains_arr = array("beta.trendsides.com", "trendsideas.com");
+            array_push($obj['domains'], $domains_arr);
+            print_r(var_export($obj));
+        } else {
+            $message = "\n can not find log record for this job: " . $val['heliumMediaId'] . "\n";
+            $this->createRecord($message);
+        }
+        return $obj;
+        unset($photo_list, $photo_list, $keywords, $category, $subcategory, $topic_list, $country, $pos, $region, $log_arr, $val);
     }
 
     public function getUTC($datetime, $region) {

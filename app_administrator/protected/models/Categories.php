@@ -140,17 +140,17 @@ class Categories extends CActiveRecord
                         
 //                        print_r("<pre>");
 //                        print_r($data_list);
-                        
+                        $category_list=array();
                         if(sizeof($data_list)>0) {
                             foreach($data_list as $val) {
-                                array_push($topic_list, $val['name']);                       
+                                array_push($category_list, $val['name']);                       
                             }
                         }
                     } catch (Exception $e) {
                         error_log("Cannot get topic infor: ".$e->getMessage());
                     }
                     
-                    return $topic_list;
+                    return $category_list;
                 }
                 
                 

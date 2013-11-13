@@ -156,9 +156,10 @@ class Books extends CActiveRecord
                 public function getBookByPhotoID($id) {
                     $data_list = array();
                     $sql = "select 
-                                    Bs.*, IR.regionId as region
+                                    Bs.*, IR.regionId as region, Pu.name as publication
                                  from 
                                     dbo.Books as Bs,
+                                    dbo.Publications as Pu,
                                     dbo.SparkJobInternalReferenceMaps as SJIRM,
                                     dbo.Articles as Ar,
                                     dbo.ArticleImages as AI,
@@ -166,13 +167,15 @@ class Books extends CActiveRecord
                                 where 
                                     Bs.internalReferenceId = SJIRM.internalReferenceId 
                                 and
+                                    Bs.PublicationId = Pu.id
+                                and
                                     IR.id = SJIRM.internalReferenceId
                                 and
                                     SJIRM.sparkJobId = Ar.sparkJobId
                                 and
                                     Ar.id = AI.articleId
                                 and 
-                                    AI.id = ".$id; 
+                                    AI.id =".$id; 
 //                    error_log($sql); 
                     try {
                          $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 

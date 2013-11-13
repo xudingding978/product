@@ -28,6 +28,15 @@ return array(
 //                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
 //                    'enableParamLogging' => YII_DEBUG,
             'charset' => 'utf8'),
+         'db_hubsrv_import' => array(
+            'class' => 'CDbConnection',
+            'connectionString' => 'mysql:host=db1.hubsrv.com;dbname=import_profile_trends_Hunter_Douglas_Partners;',
+            'username' => 'db_user',
+            'password' => 'Pa55word',
+            // 'tablePrefix'=>'dbo',
+//                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
+//                    'enableParamLogging' => YII_DEBUG,
+            'charset' => 'utf8'),
 // uncomment the following to use a MySQL database
         /*
           'db'=>array(

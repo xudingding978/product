@@ -7,6 +7,7 @@ HubStar.CommentView = Ember.View.extend({
 
         if (localStorage.loginStatus) {
             this.get('controller').getCommentsById(id);
+            this.get('controller').set("commentContent","");
             $('#comment_' + id).attr('style', 'display:none');
             $('#commentBox_' + id).attr('style', 'display:block');
 
@@ -19,6 +20,7 @@ HubStar.CommentView = Ember.View.extend({
         }
     },
     closeComment: function(id) {    
+        this.get('controller').set("commentContent","");
         $('#comment_' + id).attr('style', 'display:block');
         $('#commentBox_' + id).attr('style', 'display:none');
         $('#masonry_container').masonry("reload");

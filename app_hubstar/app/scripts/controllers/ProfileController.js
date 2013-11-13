@@ -1143,7 +1143,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     dropdownPhotoSetting: function() {
         //  this.set('sharePhotoUrl', this.get('selectedPhoto').get('photo_image_thumbnail_url'));
         //  this.set('sharePhotoName', this.get('selectedPhoto').get('photo_title'));
-        $('#dropdown_id_').toggleClass('hideClass');
+          $("#dropdown_id_").toggleClass('hideClass');
+        $("#dropdown_id_").click(function() {
+            $(this).removeClass('hideClass');
+        }).mouseleave(function() {
+            $(this).addClass('hideClass');
+        });
     },
     // share to social facebook
     fbShare: function() {

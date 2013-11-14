@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="posttime-container">
-                        <span class="posttime" style="font-size: 9px; line-height: 10px;">{{this.time}}</span>
+                        <span class="posttime" style="font-size: 9px; line-height: 10px;">{{date this.time}}</span>
                     </div>
 
                 </div>
@@ -65,13 +65,13 @@
                     </div>
 
                     <div class="posttime-container">
-                        <span class="posttime" style="font-size: 9px; line-height: 10px;">{{this.time}}</span>
+                        <span class="posttime" style="font-size: 9px; line-height: 10px;" >{{date this.time}}</span>
                     </div>
 
                 </div>
             </div>
             <div class="reply-comment easing" style="right:25px;position: relative;float: right;top: -60px;font-size: 10px;">  
-                <i class="icon-ok-sign" {{action markRead this.notification_id}}></i>                 
+                <i class="icon-ok-sign  " {{action markRead this.notification_id}}></i>                 
                 <i class="icon-remove-sign" {{action deleteNotification this.notification_id}}></i>
             </div>
         </div>

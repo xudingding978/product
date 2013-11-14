@@ -24,18 +24,20 @@
 
         <div id ="routeMode" class="message-btn easing" style="border: none; border-right: 1px solid #ddd;border-left: 1px solid #ddd; width: 34%;height: 45px;line-height: 45px;border-radius: 0;" {{action dropdownRoute target="view" on="click"}}>
             <span id="routeModeSelection">{{view.routeModeSelection}}</span>
-            <span class="caret"></span>
         </div>
 
-        <div id="routeModeDropdown" class="hideClass Dropdownstyle1" style="width: 100px; z-index: 1000; position: fixed;text-align: center;margin-left: 300px;margin-top: -160px;" {{action selectRoute target="view" on="click"}}>
+        <div id="routeModeDropdown" class="hideClass Dropdownstyle1" style=" z-index: 1000; position: fixed;text-align: center;margin: 42px 264px;" {{action selectRoute target="view" on="click"}}>
             <li class="ite" value="DRIVING" >DRIVING</li>
             <li class='ite' value="WALKING">WALKING</li>
             <li class='ite' value="BICYCLING">BICYCLING</li>
             <li class="ite" value="TRANSIT">TRANSIT</li>
         </div>
-        
-       <div  id="routeGo" class="message-btn easing" style='width: 33%;height: 45px;line-height: 45px;'>Get Direction <k class='icon-long-arrow-right'>&nbsp;</k></div>
-       <div  id="routeClear" class="message-btn easing" style='display:none;width: 33%;height: 45px;line-height: 45px;'>Clear</div>
+        {{#if fromAddress}}
+        <div  id="routeGo" class="message-btn easing" style='width: 33%;height: 45px;line-height: 45px;'>Get Direction <k class='icon-long-arrow-right'>&nbsp;</k></div>
+        {{else}}
+        <div  class="message-btn-x easing" style='width: 33%;height: 45px;line-height: 45px;'>Get Direction <k class='icon-long-arrow-right'>&nbsp;</k></div>
+        {{/if}}
+        <div  id="routeClear" class="message-btn easing" style='display:none;width: 33%;height: 45px;line-height: 45px;'><k class='icon-long-arrow-left'>&nbsp;</k>Clear</div>
     </div>
 
 </div>
@@ -50,7 +52,7 @@
                 document.body.innerHTML = printContents;
                 window.print();
                 document.body.innerHTML = originalContents;
-   
+
             }
 
 </script>

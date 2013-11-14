@@ -60,6 +60,7 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
                         dataNew["isAdd"] = false;
                         dataNew["id"] = params[i]["record_id"];
                         dataNew["name"] = params[i]["name"];
+                        
                         dataNew["photo_url"] = params[i]["photo_url"];
                         that.get("contentFollowerPhoto").pushObject(dataNew);
                     }

@@ -459,17 +459,16 @@ div.search-loading-invisible{
 
 
 .contact-container {
-
     overflow: visible;
     position: fixed;
     left: 0;
     right: 0;
     width: 500px;
-    height: 300px;
+    height: 20px;
     margin: auto;
     top: 0;
     bottom:-100%;
-
+    cursor: move;
 
     z-index: 100;
     background-color: white;
@@ -602,7 +601,7 @@ div.search-loading-invisible{
 .head {
     border-radius: 3px 3px 0 0;
     padding: 20px 30px;
-    cursor: move;
+    cursor: default;
 }
 
 .head > .closeview:hover{
@@ -612,6 +611,21 @@ div.search-loading-invisible{
 .content {
     padding: 15px 30px 20px;
     border-radius: 0 0 3px 3px;
+    cursor: default;
+}
+
+.panelcircle{
+    position: relative;
+    display: inline-block;
+    margin: 0 65px;
+    font-weight: bold;
+    background-color: #427fed;
+    z-index: 1;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    color: white;
+    cursor: pointer;
 }
 
 .lineuptextbox{

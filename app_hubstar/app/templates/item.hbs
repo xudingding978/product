@@ -74,7 +74,7 @@
                          <k class="icon-cog" style="font-size: 16px; margin: 0px 5px"></k>
                         <k class='icon-caret-down'></k>
                     </div>
-                    <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
+                    <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">{{controller}}
                         {{#if controller.is_profile_editing_mode}}
                         <li class="ite" {{action  removeCollectedItem controller.title id "profile"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>
                         <li class='ite'  {{action changeCollectionCover id controller.collection_id HubStar.Profile}}> <k class="icon-ok-sign" style="font-size: 16px;  margin: 0px 5px;"></k>Set as collection cover</li>
@@ -123,7 +123,6 @@
 {{#if getVideo}}
 
 <div class="box col2 noStyle1">
-
     <div class="masonry-object">
         <div class="masonry-object_poster">
              <div class="profilepic-on-masonry">
@@ -188,7 +187,7 @@
                     </div>
                     <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
                         {{#if controller.is_profile_editing_mode}}
-                        <li class="ite"  {{action  removeCollectedItem id}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>
+                        <li class="ite" id="delete_video_{{unbound id}}"  {{action  removeCollectedItem id}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>
                         {{/if}}        
                         {{#if controller.is_user_editing_mode}}
                         <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
@@ -338,9 +337,4 @@
 {{/if}}
 
 
-{{#if controller.isRenderDeleteItemTemplate}}
-
-{{view HubStar.DeleteFunctionView}}
-
-{{/if}}
 

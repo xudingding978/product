@@ -474,14 +474,6 @@ div#appfeedback .fresh-message > k.icon-remove{
     margin:15px;
 
 }
-div#appfeedback .fresh-message k.icon-ok-sign{
-    position:absolute;
-    top:11.5px;
-    left:2.5%;
-    width:5%;
-}
-
-
 
 .fresh-message{
     position:relative;

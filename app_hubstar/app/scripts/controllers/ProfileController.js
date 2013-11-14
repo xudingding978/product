@@ -1252,6 +1252,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     partnerSearchReset: function(model)
     {
         var profilePartnersController = this.get("controllers.profilePartners");
+        this.set('partnerSearchString', '');
         profilePartnersController.getClientId(model);
     }
 }

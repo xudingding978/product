@@ -427,21 +427,21 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     {
         var that = this;
 //        if (that.get('adPageNo') === 1) {
-        googletag.cmd.push(function() {
-            for (var i = 0; i < ads.length; i++) {
-                var ad = ads[i];
-                googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
-            }
-            googletag.pubads().enableSingleRequest();
-            googletag.enableServices();
-        });
-        googletag.cmd.push(function() {
-            for (var i = 0; i < ads.length; i++) {
-                var ad = ads[i];
-                googletag.display(ad.div);
-            }
-        });
-        that.set('googletagCmd', googletag.cmd);
+//        googletag.cmd.push(function() {
+//            for (var i = 0; i < ads.length; i++) {
+//                var ad = ads[i];
+//                googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+//            }
+//            googletag.pubads().enableSingleRequest();
+//            googletag.enableServices();
+//        });
+//        googletag.cmd.push(function() {
+//            for (var i = 0; i < ads.length; i++) {
+//                var ad = ads[i];
+//                googletag.display(ad.div);
+//            }
+//        });
+//        that.set('googletagCmd', googletag.cmd);
 
 
 
@@ -507,6 +507,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 //            }
 //            that.display(ads);
 //        });
+//        
+//        DFP code
         var adSlots = HubStar.get('ads');
         var ads = new Array();
         for (var i = 0; i < adSlots.length; i++) {
@@ -517,7 +519,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }
         }
         this.set('ads', ads);
-        var masonryContainer = document.getElementById('masonry_container');
+//        var masonryContainer = document.getElementById('masonry_container');
         try
         {
             for (var i = 0; i < ads.length; i++) {

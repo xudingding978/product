@@ -124,10 +124,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     popUpMap: false,
     willDelete: false,
     profile_partner_ids: null,
+    partnerSearchString: '',
     isTracking: false,
-    goBackType:false,
+    goBackType: false,
     cropsize: null,
-        fromAddress: '',
+    fromAddress: '',
     toAddress: '',
     init: function() {
 
@@ -138,9 +139,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     goToProfileRoute: function(id)
     {
         //this.transitionToRoute('user');
-      this.set("goBackType", true);
-     var model = {id:id};
-        this.transitionToRoute('profile',model);
+        this.set("goBackType", true);
+        var model = {id: id};
+        this.transitionToRoute('profile', model);
     },
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);
@@ -216,8 +217,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set("keywords_array", profile.get('keywords'));
         this.set("show_keyword_id", profile.get('show_keyword_id'));
 
-        if (profile.get("show_keyword_id") !==null && profile.get("show_keyword_id") !== "undefined" && profile.get("show_keyword_id") !=='') {
-            this.setShowKeywordsArray(profile.get('show_keyword_id'),profile.get('keywords'));
+        if (profile.get("show_keyword_id") !== null && profile.get("show_keyword_id") !== "undefined" && profile.get("show_keyword_id") !== '') {
+            this.setShowKeywordsArray(profile.get('show_keyword_id'), profile.get('keywords'));
         } else {
             this.set('show_keyword_id', '');
             this.set('show_keyword_array', []);
@@ -265,7 +266,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
 
 
-  },
+    },
     createGooglemap: function() {
 
         var geocoder = new google.maps.Geocoder();
@@ -275,7 +276,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         geocoder.geocode({'address': addressmap}, function(results) {
             var imageMap = "http://maps.googleapis.com/maps/api/staticmap?center=" + results[0].geometry.location.nb + "," + results[0].geometry.location.ob + "&markers=" + results[0].geometry.location.nb + "," + results[0].geometry.location.ob + "&zoom=15&size=300x250&maptype=roadmap&sensor=false";
             that.set('profile_google_map', imageMap);
-            
+
             requiredBackEnd('profiles', 'googleMap', [that.get('profile_google_map'), that.get('model').get('id')], 'POST', function(params) {
             });
         });
@@ -691,20 +692,20 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
     },
     selectVideo: function(model) {
-  if (this.get("controllers.checkingLoginStatus").popupLogin())
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-        $(window).scrollTop(1500);
-        this.sendEventTracking('event', 'button', 'click', 'Video');
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#video').addClass('selected-user-stats');
-        this.set('profileSelectionStatus', 'Videos');
-        this.get('controllers.profileVideos').getClientId(model);
-        this.set('videoTag', true);
-        this.set('partnerTag', false);
-        this.set('collectionTag', false);
-        this.set('followerProfileTag', false);
-        this.transitionToRoute('profileVideos');
-                }
+            $(window).scrollTop(1500);
+            this.sendEventTracking('event', 'button', 'click', 'Video');
+            $('#user-stats > li').removeClass('selected-user-stats');
+            $('#video').addClass('selected-user-stats');
+            this.set('profileSelectionStatus', 'Videos');
+            this.get('controllers.profileVideos').getClientId(model);
+            this.set('videoTag', true);
+            this.set('partnerTag', false);
+            this.set('collectionTag', false);
+            this.set('followerProfileTag', false);
+            this.transitionToRoute('profileVideos');
+        }
 
     },
     selectPartner: function(model) {
@@ -866,7 +867,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
                 if (this.get('show_keyword_array').objectAt(i).get('keyword_id') === keyword_id) {
                     this.get('show_keyword_array').removeObject(this.get('show_keyword_array').objectAt(i));
-                    this.set('show_keyword_id', this.get('show_keyword_id').replace(','+keyword_id, ''));
+                    this.set('show_keyword_id', this.get('show_keyword_id').replace(',' + keyword_id, ''));
                 }
             }
         }
@@ -1242,9 +1243,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.get('controllers.applicationFeedback').statusObserver(null, "This keyword has already been in the show list.", "warnning");
             }
         }
+    },
+
+    partnerSearch: function()
+    {
+     var  profilePartnersController=  this.get("controllers.profilePartners");
+     profilePartnersController.searchPartner(this.get('partnerSearchString'));
+
     }
-
-
 
 
 

@@ -3,17 +3,19 @@
 
     <div class="style-box t-style-box" style="width: 87%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
 
-        <div style="margin: 4px 20px 4px 40px; font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;" >{{controller.profileSelectionStatus}}</div>
-
-
+        <div style="margin: 3px 20px 3px 40px; font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;" >{{controller.profileSelectionStatus}}</div>
+        {{#if partnerTag}}
+        <div style="width: 200px;float: left;height: 45px;margin: 1px;">
+            {{view HubStar.SearchRequireTextFieldView valueBinding="partnerSearchString"  id="search_business" placeholder="Search for Partners" style="width: 200px;"}}
+        </div>
+        <div style="  line-height: 48px; float: left; font-size: 13px;margin: 0 5px;" {{action partnerSearch}}>Search</div>
+        {{/if}} 
         {{#if controller.partnerPage}}
         <ul class="user-stats" id="user-stats">
             <li id="defualt" ><a {{action selectCollection}}> Collections <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileCollectionStatistics}}</a></li>
             <li id="video" ><a {{action selectVideo this}}> Videos <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span></a></li>
-
             <li id="partners"><a {{action selectPartner this}}>Network <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profilePartnerStatistics}}</a></li>
             <li id="follow"><a {{action selectFollower this}}>Followers <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileFollowerStatistics}}</a></li>           
-
         </ul>
         {{/if}}
 
@@ -23,7 +25,7 @@
             <li id ="ufollowing"><a {{action selectFollowing this}}> Following<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowingStatistics}}</a></li>
             <li id ="ufollower"><a {{action selectFollower this}}> Followers<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowerStatistics}}</a></li>
             <li id ="message"><a {{action selectMessage this}}> Messages<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp;</span></a></li>
-            
+
         </ul>
         {{/if}}    
     </div>
@@ -53,7 +55,7 @@
         {{#if followingTag}}
         {{render userFollowings}}
         {{/if}} 
-        
+
         {{#if messageTag}}
         {{render messageCenter}}
         {{/if}}

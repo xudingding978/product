@@ -103,6 +103,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     isProfilePicture: false,
     isProfileHero: false,
     isProfileBackground: false,
+    isKeywordObjecttExist: false,
     CurrentImageSize: "",
     RequiredImageSize: "",
     isAdmin: false,
@@ -205,14 +206,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
 
         this.labelBarRefresh();
-
-
+        this.flipFrontBack();
+        
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
         this.initStastics(profile);
         this.followerPhoto(id);
 
 //        if (profile.get("keywords") !==null && profile.get("keywords") !== "undefined" && profile.get("keywords").get('length') > 0) {
+        this.checkKeywordObjectExist();
         this.set("keywords_array", profile.get('keywords'));
         this.set("show_keyword_id", profile.get('show_keyword_id'));
 
@@ -231,6 +233,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.setKeywordsNum(this.get('model').get('profile_package_name'));
         }
         this.set('keyword_left', parseInt(this.get("keyword_num")) - profile.get('keywords').get('length'));
+    },
+    checkKeywordObjectExist: function() {
+        if (this.get('model').get('keywords') !== null && this.get('model').get('keywords') !== 'undefined' && this.get('model').get('keywords').get('length') >0) {
+            this.set('isKeywordObjecttExist', true);
+        } else {
+            this.set('isKeywordObjecttExist', false);
+        }
     },
     setShowKeywordsArray: function(show_keywords_id, keywords) {
         var newArray = [];
@@ -691,6 +700,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
     },
     selectVideo: function(model) {
+  if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Video');
         $('#user-stats > li').removeClass('selected-user-stats');
@@ -702,6 +713,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('collectionTag', false);
         this.set('followerProfileTag', false);
         this.transitionToRoute('profileVideos');
+                }
+
     },
     selectPartner: function(model) {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
@@ -1139,7 +1152,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     dropdownPhotoSetting: function() {
         //  this.set('sharePhotoUrl', this.get('selectedPhoto').get('photo_image_thumbnail_url'));
         //  this.set('sharePhotoName', this.get('selectedPhoto').get('photo_title'));
-        $('#dropdown_id_').toggleClass('hideClass');
+          $("#dropdown_id_").toggleClass('hideClass');
+        $("#dropdown_id_").click(function() {
+            $(this).removeClass('hideClass');
+        }).mouseleave(function() {
+            $(this).addClass('hideClass');
+        });
     },
     // share to social facebook
     fbShare: function() {
@@ -1220,6 +1238,22 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 ).focus();
         return false;
     },
+            
+        pShare: function() {
+    
+         var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
+                var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+                '&media=' + encodeURIComponent( this.get('profile_pic_url')) +
+                '&description=' + encodeURIComponent(this.get('profile_name'));
+                window.open(
+                url,
+                'popupwindow',
+                'height=436,width=626'
+                ).focus();
+        return false;
+    },    
+            
+            
     keywordSearch: function(keyword) {
         this.transitionToRoute('searchIndex');
         this.get("controllers.application").set('search_string', keyword);

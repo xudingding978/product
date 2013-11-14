@@ -208,6 +208,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
     },
     editingContactForm: function() {
+ if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var contactController = this.get('controllers.contact');
 
         this.get("controllers.contact").set("firstStepOfContactEmail",false);      
@@ -215,8 +217,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         var selectid = this.get('selectedPhoto').id;
         contactController.setSelectedMega(selectid);
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
+       
             this.set('contact', !this.get('contact'));
         }
     },

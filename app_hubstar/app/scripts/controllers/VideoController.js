@@ -4,7 +4,10 @@ HubStar.VideoController = Ember.Controller.extend({
     video_iframe_code: null,
     currentUser: null,
     enableToEdit: false,
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission','editComment'],
+
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission','editComment','checkingLoginStatus'],
+
+
     getinitdata: function(videoObject)
     {
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
@@ -76,6 +79,8 @@ HubStar.VideoController = Ember.Controller.extend({
         HubStar.set("updateCommentmsg", msg);
     },
     switchCollection: function() {
+ if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var addCollectionController = this.get('controllers.addCollection');
         var selectid = this.get('megaResouce').id;
         addCollectionController.setImageID(selectid);
@@ -84,13 +89,20 @@ HubStar.VideoController = Ember.Controller.extend({
         addCollectionController.setUser();
         addCollectionController.setRelatedController('video');
         this.set('collectable', !this.get('collectable'));
+        }
     },
     editingContactForm: function() {
+
+
+ if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var contactController = this.get('controllers.contact');
         var selectid = this.get('megaResouce').id;
         contactController.setSelectedMega(selectid);
         contactController.selectionCheckBox();
+         
         this.set('contact', !this.get('contact'));
+        }
     },
     closeContact: function() {
         this.set('contact', false);

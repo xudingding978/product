@@ -282,7 +282,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var that = this;
 
         geocoder.geocode({'address': addressmap}, function(results) {
-            var imageMap = "http://maps.googleapis.com/maps/api/staticmap?center=" + results[0].geometry.location.nb + "," + results[0].geometry.location.ob + "&markers=" + results[0].geometry.location.nb + "," + results[0].geometry.location.ob + "&zoom=15&size=300x250&maptype=roadmap&sensor=false";
+            var imageMap = "http://maps.googleapis.com/maps/api/staticmap?center=" + results[0].geometry.location.lat() + "," + results[0].geometry.location.lng() + "&markers=" + results[0].geometry.location.lat() + "," + results[0].geometry.location.lng() + "&zoom=15&size=300x250&maptype=roadmap&sensor=false";
             that.set('profile_google_map', imageMap);
             
             requiredBackEnd('profiles', 'googleMap', [that.get('profile_google_map'), that.get('model').get('id')], 'POST', function(params) {

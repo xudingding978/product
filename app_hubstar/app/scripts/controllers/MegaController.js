@@ -72,7 +72,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
         if (this.get("isArticle") === true)
         {
-            this.get("controllers.masonryCollectionItems").set("isUser", false);
             var photoUrl = megaObject.get("article").objectAt(0).get("article_image_url");
             var photoObj = megaObject.set('photo_image_original_url', photoUrl);
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
@@ -88,8 +87,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
             this.addRelatedCollectionItemData(megaObject);
             this.set("isArticle", false);
-            console.log(this.get("isArticle")+"#######################");
-            this.get("controllers.masonryCollectionItems").set("isUser", false);
+            //this.get("controllers.masonryCollectionItems").set("isUser", false);
         }
         else if (this.get("isVideo") === true)
         {
@@ -107,7 +105,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.set("photo_thumb_id", "thumb_" + megaObject.id);
             this.addRelatedCollectionItemData(megaObject);
             this.set("isVideo", false);
-            this.get("controllers.masonryCollectionItems").set("isUser", false);
+            //this.get("controllers.masonryCollectionItems").set("isUser", false);
         }
         else
         {

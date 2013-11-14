@@ -8,7 +8,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     is_profile_editing_mode: false,
     uploadOrsubmit: false,
     is_user_editing_mode: false,
-    isUser:false,
+    isUser:true,
     isVideoPhoto:false,
     collectionID: "",
     itemID: "",
@@ -52,7 +52,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.resetContent();
         this.set('type', "profile");
         this.set("isUser", false);
-        this.set("isVideoPhoto", false);
+       
         if (title === undefined)
         {
             var arrayUrl;

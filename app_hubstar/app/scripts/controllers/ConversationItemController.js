@@ -21,7 +21,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversation', 'invitePeople', 'newConversation'],
     isUploadPhoto: false,
     isNewPeople: false,
-    isPosting:true,
+    isPosting: true,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -103,111 +103,109 @@ HubStar.ConversationItemController = Ember.Controller.extend({
     },
     addComment: function() {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
-        
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var conversationtContent = this.get('messageContent');
-        if (conversationtContent) {
-            this.set("isPosting",false);
-            var commenter_id = this.get("currentUser").get('id');
-            var conversationId = this.get("id");
-            var date = new Date();
-            var newStyleImage = "";
-            var imageStyleName = "";
-            if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
-            {
-                newStyleImage = this.get("newStyleImageSource");
-            }
-            else
-            {
-                newStyleImage = null;
-            }
-            if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
-            {
-                imageStyleName = this.get('newStyleImageName');
+        this.set("isPosting", false);
+        var commenter_id = this.get("currentUser").get('id');
+        var conversationId = this.get("id");
+        var date = new Date();
+        var newStyleImage = "";
+        var imageStyleName = "";
+        if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
+        {
+            newStyleImage = this.get("newStyleImageSource");
+        }
+        else
+        {
+            newStyleImage = null;
+        }
+        if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
+        {
+            imageStyleName = this.get('newStyleImageName');
 
-            }
-            else
+        }
+        else
+        {
+            imageStyleName = "";
+        }
+        var imageName = "";
+        var imageType = "";
+        if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
+        {
+            var imageName = imageStyleName.split('.');
+            var imageType = imageName[imageName.length - 1];
+        }
+        var conversationItemId = createMessageid();
+        var participation_ids = '';
+        if (this.get("contentFollowerPhoto") !== null) {
+            for (var i = 0; i < this.get("contentFollowerPhoto").length; i++)
             {
-                imageStyleName = "";
-            }
-            var imageName = "";
-            var imageType = "";
-            if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
-            {
-                var imageName = imageStyleName.split('.');
-                var imageType = imageName[imageName.length - 1];
-            }
-            var conversationItemId = createMessageid();
-            var participation_ids = '';
-            if (this.get("contentFollowerPhoto") !== null) {
-                for (var i = 0; i < this.get("contentFollowerPhoto").length; i++)
+                if (this.get("contentFollowerPhoto").objectAt(i).get("isAdd") === true)
                 {
-                    if (this.get("contentFollowerPhoto").objectAt(i).get("isAdd") === true)
+                    if (participation_ids === "")
                     {
-                        if (participation_ids === "")
-                        {
-                            participation_ids = participation_ids + this.get("contentFollowerPhoto").objectAt(i).get("id");
-                        }
-                        else
-                        {
-                            participation_ids = participation_ids + ',' + this.get("contentFollowerPhoto").objectAt(i).get("id");
-                        }
+                        participation_ids = participation_ids + this.get("contentFollowerPhoto").objectAt(i).get("id");
+                    }
+                    else
+                    {
+                        participation_ids = participation_ids + ',' + this.get("contentFollowerPhoto").objectAt(i).get("id");
                     }
                 }
             }
-            var tempComment = [commenter_id, date.toString(), conversationtContent, conversationItemId, newStyleImage, imageType, imageStyleName, conversationId, participation_ids];
+        }
+        var tempComment = [commenter_id, date.toString(), conversationtContent, conversationItemId, newStyleImage, imageType, imageStyleName, conversationId, participation_ids];
 
-            tempComment = JSON.stringify(tempComment);
-            var that = this;
+        tempComment = JSON.stringify(tempComment);
+        var that = this;
 
-            //var dataNew = new Array();
+        //var dataNew = new Array();
 
-            requiredBackEnd('conversations', 'AddConversationItem', tempComment, 'POST', function(params) {
-                  that.set("isPosting",true);
-                var conversationContent = that.get('controllers.conversation').get("conversationContent");
-                for (var i = 0; i < conversationContent.length; i++)
+        requiredBackEnd('conversations', 'AddConversationItem', tempComment, 'POST', function(params) {
+            that.set("isPosting", true);
+            var conversationContent = that.get('controllers.conversation').get("conversationContent");
+            for (var i = 0; i < conversationContent.length; i++)
+            {
+                if (conversationContent[i]["conversationID"] === conversationId)
                 {
-                    if (conversationContent[i]["conversationID"] === conversationId)
+
+
+                    var conversationItems = new Array();
+
+                    conversationItems = params;
+
+                    if (params["url"] !== null)
                     {
+                        conversationItems["isUrl"] = true;
+                    }
+                    else
+                    {
+                        conversationItems["isUrl"] = false;
+                    }
 
-
-                        var conversationItems = new Array();
-
-                        conversationItems = params;
-
-                        if (params["url"] !== null)
+                    that.get('controllers.conversation').get("conversationContent").objectAt(i).get("ConversationCollection").insertAt(0, conversationItems);
+                    if (that.get("contentFollowerPhoto") !== null) {
+                        for (var j = 0; j < that.get("contentFollowerPhoto").length; j++)
                         {
-                            conversationItems["isUrl"] = true;
-                        }
-                        else
-                        {
-                            conversationItems["isUrl"] = false;
-                        }
-
-                        that.get('controllers.conversation').get("conversationContent").objectAt(i).get("ConversationCollection").insertAt(0, conversationItems);
-                        if (that.get("contentFollowerPhoto") !== null) {
-                            for (var j = 0; j < that.get("contentFollowerPhoto").length; j++)
+                            if (that.get("contentFollowerPhoto").objectAt(j).get("isAdd") === true)
                             {
-                                if (that.get("contentFollowerPhoto").objectAt(j).get("isAdd") === true)
-                                {
-                                    that.get('controllers.conversation').get("conversationContent").objectAt(i).get("conversationPhoto").pushObject(that.get("contentFollowerPhoto").objectAt(j));
-                                }
+                                that.get('controllers.conversation').get("conversationContent").objectAt(i).get("conversationPhoto").pushObject(that.get("contentFollowerPhoto").objectAt(j));
                             }
                         }
-                        that.getClientIdAdd(conversationId);
-                        break;
                     }
+                    that.getClientIdAdd(conversationId);
+                    break;
                 }
-                that.set("contentFollowerPhoto", null);
-                that.set("isUploadPhoto", false);
-                that.set('messageContent', "");
-                that.set('newStyleImageSource', null);
-                that.set('newStyleImageName', "");
-                setTimeout(function() {
-                    $('#masonry_user_container').masonry("reloadItems");
-                }, 200);
-            });
-        }
+            }
+            that.set("contentFollowerPhoto", null);
+            that.set("isUploadPhoto", false);
+            that.set('messageContent', "");
+            that.set('newStyleImageSource', null);
+            that.set('newStyleImageName', "");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+            }, 200);
+        });
+
     },
     invitePeople: function(id)
     {

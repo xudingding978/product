@@ -7,7 +7,7 @@
         <!--            <div  class='create-conversation easing' style=" font-size: 15px; line-height: 50px; font-weight: bold; width: 50px;height: 49px;"><k class="icon-search"></k></div>-->
     </div>
 
-    <div style="position: relative; width: 100%;min-height: 100px;max-height: 500px;overflow: hidden;padding: 10px  45px;">
+    <div style="position: relative; width: 100%;min-height: 100px;max-height: 520px;padding: 0 45px;">
 
         {{#if controller.loadingTime}}
         <div style="position: relative; width: 100%;text-align: center;height: 190px;padding-top: 70px;float: left;">
@@ -25,8 +25,9 @@
             <img class="profilepic_comment radius-circle"  style=" box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;" {{bindAttr src= this.photo_url}} /> 
         </div>
         {{/each}}
+         
     </div>
-
+ <br/><br/>
     <div class="" style="height: 41px;position: relative;border-top: 1px solid #ddd;bottom: 0;width: 100%;display: block;clear: both;">
         <div  class="message-btn easing" style="font-size: 15px; height: 40px; line-height: 40px; border-right: 1px solid #ddd;" {{action reviewCancel }}><k class="icon-remove">&nbsp;</k>Cancel</div>
         <div class="message-btn easing" style="font-size: 15px; height: 40px; line-height: 40px;"{{action  reviewPost}}><k class='icon-smile'>&nbsp;</k>Invite</div>

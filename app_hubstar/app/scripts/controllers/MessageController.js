@@ -216,7 +216,8 @@ HubStar.MessageController = Ember.Controller.extend({
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var replyContent = this.get('replyContent'); //replyContent is just the user input txt, it is not a whole reply object
-        if (replyContent) {
+      //  if (replyContent)
+        {
             this.set("isReply", false);
             var commenter_id = this.get("currentUser").get('id');
             var date = new Date();

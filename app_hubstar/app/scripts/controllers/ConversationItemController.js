@@ -106,7 +106,8 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var conversationtContent = this.get('messageContent');
-        if (conversationtContent) {
+       // if (conversationtContent) 
+        {
             this.set("isPosting",false);
             var commenter_id = this.get("currentUser").get('id');
             var conversationId = this.get("id");

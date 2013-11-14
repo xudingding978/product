@@ -171,12 +171,14 @@
 
 
     <div class="collapes-container"  id="article_action" style="display:block;">
-        <div class="collapes-container_inner">
-            {{#each articleResouce.credits}}
-            <div class="article-text">{{credits_name}}: {{credits_text}}</div>
-            {{/each}}
+            <div class="collapes-container_inner">
+                {{#each articleResouce.credits}}
+                <div class="article-text">
+                    <a style="font-weight: bold">{{credits_name}}:</a>
+                    <span style="font-size: 13px">{{credits_text}}</span></div>
+                {{/each}}
+            </div>
         </div>
-    </div>
     </div>
    {{/if}}
 

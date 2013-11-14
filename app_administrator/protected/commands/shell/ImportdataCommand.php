@@ -801,7 +801,7 @@ class ImportdataCommand extends Controller_admin {
                     if (sizeof($time_array) > 0) {
                         $UTC = $time_array['utc'];
                         $timezone = $time_array['timezone'];
-                        $book_title = $title;
+                        $book_title = $book['publication'];
                     }
                 }
             }
@@ -839,6 +839,7 @@ class ImportdataCommand extends Controller_admin {
                 "object_image_linkto" => null, //
                 "object_title" => $object_title, //
                 "object_description" => $val['caption'],
+                "object_image_url" => $log_arr[0]['photo_image_hero_url'],
                 "owner_type" => 'profile', //
                 "owner_profile_pic" => "http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg", //
                 "owner_title" => "Trends Ideas", //

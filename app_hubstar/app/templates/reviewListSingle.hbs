@@ -24,8 +24,8 @@
         <div  style="background-color: #fff; padding: 10px 40px; font-size: 13px;">
             <div id="review_content_{{unbound model.review_id}}" {{action 'upContent' model.review_id target='view' on="click"}} style="width: 390px; max-height:100px;line-height:20px; position: relative; display: inline-block; overflow: hidden; ">{{model.review_content}}  </div>   
 
-            <span {{action 'showOneReview' model.review_id target='view' on="click"}} role="button"  style="position: relative;  font-size: 18px; color: #888;margin: 0 10px;"  id="down_button_{{unbound model.review_id}}"  ><k class="icon-caret-down"></k></span>
-            <span {{action 'upContent' model.review_id target='view' on="click"}} role="button" style="position: relative; display: none;  font-size: 18px; color: #888;margin: 0 10px;"  id="up_button_{{unbound model.review_id}}" ><k class="icon-caret-up"></k></span>
+            <span {{action 'showOneReview' model.review_id target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:inline-block;"  id="down_button_{{unbound model.review_id}}"  ><k class="icon-caret-down">&nbsp;</k>more</span>
+            <span {{action 'upContent' model.review_id target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:none;"  id="up_button_{{unbound model.review_id}}" ><k class="icon-caret-up">&nbsp;</k>collapse</span>
 
 
             <div style="position: relative; display: block;margin: 15px 0 10px;height: 20px;width: 100%;">
@@ -71,7 +71,10 @@
                 </div>
             </div>
         </div>
-        <div id="view-comments_{{unbound model.review_id}}" {{action 'viewComments' model.review_id target='view' on="click"}} style="text-align: center;">view comments {{this.model.reply_reviews.length}}</div>
+    </div>
+    <div id="view-comments_{{unbound model.review_id}}" {{action 'viewComments' model.review_id target='view' on="click"}} style="background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;">
+        view comments {{this.model.reply_reviews.length}}
+        <i class="icon-caret-down">&nbsp;</i>
     </div>
     <div  id="reply_{{unbound model.review_id}}"  style="display:none; max-height:200px;height:auto;">
 
@@ -81,7 +84,10 @@
 
     </div>
 
-    <div id="up-comments_{{unbound model.review_id}}" {{action 'upComments' model.review_id target='view' on="click"}} style="display: none; max-height:0;text-align: center;">up comments {{this.model.reply_reviews.length}}</div>
+    <div id="up-comments_{{unbound model.review_id}}" {{action 'upComments' model.review_id target='view' on="click"}} style="display: none; max-height:0;text-align: center">
+        collapse comments {{this.model.reply_reviews.length}}
+        <i class="icon-caret-up">&nbsp;</i>
+    </div>
 
 </div>
 

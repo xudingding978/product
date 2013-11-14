@@ -1,10 +1,32 @@
 
 
 
- 
-<div id="reply_{{unbound model.review_reply_id}}" class="your-relpy">
 
-   {{#if model.review_userself}}
+<div id="reply_{{unbound model.review_reply_id}}" class="your-relpy" style="padding: 10px 75px 10px 35px;">
+
+    {{#if model.review_userself}}
+    <a class="your-relpy_profilepic" style="left: 6.5%; right: initial;" href="#/users/{{unbound model.review_user_id}}">
+        <img class="profilepic_comment"  {{bindAttr src= model.review_photo_url_large}} />
+    </a>
+
+    <div style="">
+        <div class="comment-namentime" style="text-align: left;">
+            <div class="namentime_position" style="" >        
+                <a class="comment-username" href="#/users/{{unbound model.review_user_id}}">
+                    {{model.review_user_name}}                
+                </a>
+                <div class="posttime-container">
+                    <span class="posttime">{{date model.review_time_stamp}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="comment-content" style="text-align: left;">
+            {{model.review_msg}}<br>
+
+        </div>
+    </div>
+
+    {{else}}
     <a class="your-relpy_profilepic" href="#/users/{{unbound model.review_user_id}}">
         <img class="profilepic_comment"  {{bindAttr src= model.review_photo_url_large}} />
     </a> 
@@ -24,29 +46,6 @@
 
         </div>
     </div>
-
-    {{else}}
- <a class="your-relpy_profilepic" href="#/users/{{unbound model.review_user_id}}">
-        <img class="profilepic_comment"  {{bindAttr src= model.review_photo_url_large}} />
-    </a>
-
-       
- <div style="">
-        <div class="comment-namentime">
-            <div class="namentime_position" style="float: left;" >        
-                <a class="comment-username"  href="#/users/{{unbound model.review_user_id}}">
-                    {{model.review_user_name}}                
-                </a>
-                <div class="posttime-container">
-                    <span class="posttime">{{date model.review_time_stamp}}</span>
-                </div>
-            </div>
-        </div>
-        <div class="comment-content">
-            {{model.review_msg}}<br>
-
-        </div>
- </div>
     {{/if}}
 
 </div>

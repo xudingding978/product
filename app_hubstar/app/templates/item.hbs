@@ -172,7 +172,12 @@
                 </div>
                 {{/linkTo}}
                 <a class="mainfeature-container">
-                    {{#linkTo 'video' this}} <img {{bindAttr src="object_image_url" }} class="this-is-the-object"/>{{/linkTo}}
+                    {{#if controller.isUser}}
+                    <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToPhoto id}} />
+                         {{else}}
+                         {{#linkTo 'video' this}} <img {{bindAttr src="object_image_url" }} class="this-is-the-object"/>{{/linkTo}}
+                    {{/if}}
+
                 </a>
                 <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
 
@@ -270,9 +275,11 @@
             <div class="masonry-object_mainfeature">             
                 <div class="mainfeature-wrapper">
                     <a class="mainfeature-container">
-
-                        <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} />
-
+                        {{#if controller.isUser}}
+                        <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToPhoto id}} />
+                             {{else}}
+                             <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} />
+                             {{/if}}
                     </a>          
                     <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
                         {{#if controller.is_authentic_user}}
@@ -298,22 +305,22 @@
                 <div class="masonry-object_text-container">
                     <a style="font-size: 16px; font-weight: bold;cursor: pointer" {{action transitionToArticle id}}>{{object_title}}</a>
                     <p style="text-overflow: ellipsis;" {{action transitionToArticle id}}>{{{object_description}}}</p>
-                       </div>
+                </div>
 
-                       <div class="more_detail" {{bindAttr id="id"}} style="display:none;width:auto">
-                <h1>{{object_title}}</h1>
-                {{{object_description}}}
+                <div class="more_detail" {{bindAttr id="id"}} style="display:none;width:auto">
+                    <h1>{{object_title}}</h1>
+                    {{{object_description}}}
 
+                </div>
+                {{#linkTo 'article' this}}
+                <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
+                {{/linkTo}}
             </div>
-            {{#linkTo 'article' this}}
-            <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
-            {{/linkTo}}
         </div>
+        {{render "comment" this}}
+
+
     </div>
-    {{render "comment" this}}
-
-
-</div>
 
 </div>
 {{/if}}

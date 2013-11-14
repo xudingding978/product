@@ -7,7 +7,7 @@ var Router = Ember.Router.extend(
 HubStar.Router.map(function() {
     this.resource("index", {path: '/'}, function() {
         this.resource("indexIndex", {path: '/'});
-            this.resource("article", {path: '/articles/:article_id'});
+         //   this.resource("article", {path: '/articles/:article_id'});
         // this.resource("video", {path: '/videos/:video_id'});
 //        this.resource("videoes", function() {
 //            this.resource("video", {path: ':video_id'});

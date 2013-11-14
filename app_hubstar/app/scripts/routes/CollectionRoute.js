@@ -18,18 +18,17 @@ HubStar.CollectionRoute = Ember.Route.extend({
     },
     events: {
         transitionToPhoto: function(id) {
-            if (this.controllerFor('masonryCollectionItems').get("isUser") === true)
+            var obj = HubStar.Mega.find(id);
+            console.log(obj);
+            if (obj.get("type") === 'article')
             {
-                this.transitionTo("photo", HubStar.Mega.find(id)); //article 's photo
+                this.controllerFor('mega').set('isArticle', true);
             }
-            else if (this.controllerFor('masonryCollectionItems').get("isVideoPhoto") === true)
+            else if (obj.get("type") === 'video')
             {
-                this.transitionTo("photo", HubStar.Mega.find(id)); //video 's photo
+                this.controllerFor('mega').set('isVideo', true);
             }
-            else
-            {
-                this.transitionTo("photo", HubStar.Mega.find(id));//photo
-            }
+            this.transitionTo("photo", obj);//photo          
         },
         transitionToProfile: function(id) {
 

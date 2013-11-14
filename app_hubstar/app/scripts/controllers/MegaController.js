@@ -68,9 +68,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
         this.selectedImage(this.get('selectedPhoto').id);
     },
-     getInitData: function(megaObject) {
+    getInitData: function(megaObject) {
 
-        if (this.get("controllers.masonryCollectionItems").get("isUser") === true)
+        if (this.get("isArticle") === true)
         {
             this.get("controllers.masonryCollectionItems").set("isUser", false);
             var photoUrl = megaObject.get("article").objectAt(0).get("article_image_url");
@@ -87,9 +87,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
 
             this.addRelatedCollectionItemData(megaObject);
+            this.set("isArticle", false);
+            console.log(this.get("isArticle")+"#######################");
             this.get("controllers.masonryCollectionItems").set("isUser", false);
         }
-        else if (this.get("controllers.masonryCollectionItems").get("isVideoPhoto") === true)
+        else if (this.get("isVideo") === true)
         {
             this.get("controllers.masonryCollectionItems").set("isVideoPhoto", false);
             var photoUrl = megaObject.get("videoes").objectAt(0).get("videoImg");
@@ -104,10 +106,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.set("photo_album_id", "album_" + megaObject.id);
             this.set("photo_thumb_id", "thumb_" + megaObject.id);
             this.addRelatedCollectionItemData(megaObject);
-            this.get("controllers.masonryCollectionItems").set("isVideoPhoto", false);
+            this.set("isVideo", false);
+            this.get("controllers.masonryCollectionItems").set("isUser", false);
         }
-        else 
-{
+        else
+        {
             var photoObj = megaObject.get('photo').objectAt(0);
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("content", []);
@@ -212,7 +215,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
         this.set("clickOrRoute", false);
     },
-
     selectImage: function(e) {
 
         this.set('megaResouce', HubStar.Mega.find(e));

@@ -6,7 +6,7 @@ DS.RESTAdapter.map('HubStar.Mega', {
     profile: {embedded: 'load'},
     keyword: {embedded: 'always'},
     videoes: {embedded: 'always'},
-    article: {embedded: 'always'},
+    article: {embedded: 'always'}
 });
 
 HubStar.Mega = DS.Model.extend(Ember.Copyable, {

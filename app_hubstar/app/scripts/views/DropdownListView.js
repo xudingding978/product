@@ -33,9 +33,19 @@ HubStar.DropdownListView = Ember.View.extend({
                 that.get('controller').get('controllers.applicationFeedback').statusObserver(null, "You geographic location has been changed into "+HubStar.get('geoLocation'));
            });
              
-           $('#packgetDropdown > .ite').click(function() {
+           $('#countryDropdown > .ite').click(function() {
 
-                that.get('controller').set('packgeSelection', $(this).text());
+                that.get('controller').set('countrySelection', $(this).text());
+            });
+            
+                  $('#regionDropdown > .ite').click(function() {
+
+                that.get('controller').set('regionSelection', $(this).text());
+            });
+            
+                  $('#numberDropdown > .ite').click(function() {
+
+                that.get('controller').set('numberSelection', $(this).text());
             });
           
                $('#categoryDropdown > .ite').click(function() {

@@ -4,15 +4,19 @@ var multiEmail1 = true;
 var multiEmail2 = true;
 HubStar.ProfileNewController = Ember.ObjectController.extend({
     profile_name: "",
-    categorySelection: "category",
-    packgeSelection: "package",
+    categorySelection: "Apartment Design",
+    countrySelection: "New Zealand",
+    regionSelection: "Auckland",
+    numberSelection: "021",
     profile_url: "",
     first_name: "",
     last_name: "",
     address: "",
-    suburb:"",
+    suburb: "",
     categoryDropdown: false,
-    packgetDropdown: false,
+    countryDropdown: false,
+    regionDropdown: false,
+    numberDropdown: false,
     contact_number: "",
     website: "",
     website_url: "",
@@ -24,9 +28,9 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     editors: "",
     country: "",
     boost: "",
-    package: "",
+    profile_package: "",
     profile_contact_number: "",
-    secondary_email: "",
+  //  secondary_email: "",
     direct_enquiry_provide_email: "",
     profile_bg_url: "",
     profile_hero_url: "",
@@ -92,11 +96,11 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     },
     fillInChecking: function() {
 
-        multiEmail2 = this.multiEmailChecking($('.mustFill6').val(), '#emailFormat6', multiEmail2);
-        var boost = this.numberChecking('#number1', $('.mustFill7').val());
+        multiEmail2 = this.multiEmailChecking($('.admins').val(), '#emailFormat6', multiEmail2);
+      //  var boost = this.numberChecking('#number1', $('.mustFill7').val());
 
-        if ($('.profileName').val() !== "" && $('.profileURL').val() !== "" && $('.country').val() !== "" && $('.region').val() !== "" && $('.mustFill3').val() !== "" && multiEmail1
-                && $('.mustFill5').val() !== "" && $('.mustFill4').val() !== "" && $('.mustFill6').val() !== "" && boost && $('.mustFill7').val() !== "" && multiEmail2 && this.validateEmail($('.mustFill5').val())
+        if ($('.profileName').val() !== "" && $('.profileURL').val() !== "" && $('.country').val() !== "" && $('.region').val() !== "" && $('.clientEmail').val() !== "" && multiEmail1
+                 && $('.contactEmail').val() !== "" && $('.admins').val() !== ""  && multiEmail2
                 && this.validateEmail($('.clientEmail').val())) {
             passSubmit = true;
         } else {
@@ -113,19 +117,19 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
         }
         if (this.validateEmail($('.clientEmail').val())) {
 
-            $('#emailFormat3').attr('style', 'display:none');
+            $('#clientEmailFormat').attr('style', 'display:none');
         } else {
 
-            $('#emailFormat3').attr('style', 'display:block');
+            $('#clientEmailFormat').attr('style', 'display:block');
         }
 
-        if (this.validateEmail($('.mustFill5').val())) {
-
-            $('#emailFormat5').attr('style', 'display:none');
-        } else {
-
-            $('#emailFormat5').attr('style', 'display:block');
-        }
+//        if (this.validateEmail($('.mustFill5').val())) {
+//
+//            $('#emailFormat5').attr('style', 'display:none');
+//        } else {
+//
+//            $('#emailFormat5').attr('style', 'display:block');
+//        }
         if ($('.region').val() === "") {
 
             $('#region').attr('style', 'display:block');
@@ -152,17 +156,17 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
         } else {
             $('#profileURL').attr('style', 'display:none');
         }
-        if ($('.mustFill3').val() === "") {
-            $('#emailFormat3').attr('style', 'display:none');
+        if ($('.clientEmail').val() === "") {
+            $('#clientEmailFormat').attr('style', 'display:none');
             $('#clientEmail').attr('style', 'display:block');
         } else {
             $('#clientEmail').attr('style', 'display:none');
         }
-        if ($('.mustFill4').val() === "") {
+        if ($('.contactEmail').val() === "") {
 
-            $('#mustFill4').attr('style', 'display:block');
+            $('#contactEmail').attr('style', 'display:block');
         } else {
-            $('#mustFill4').attr('style', 'display:none');
+            $('#contactEmail').attr('style', 'display:none');
         }
 //        if ($('.mustFill5').val() === "") {
 //
@@ -172,11 +176,11 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
 //            $('#mustFill5').attr('style', 'display:none');
 //        }
 //
-        if ($('.mustFill6').val() === "") {
+        if ($('.admins').val() === "") {
 
-            $('#mustFill6').attr('style', 'display:block');
+            $('#admins').attr('style', 'display:block');
         } else {
-            $('#mustFill6').attr('style', 'display:none');
+            $('#admins').attr('style', 'display:none');
         }
 //
 //        if ($('.mustFill7').val() === "") {
@@ -207,14 +211,14 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 "id": this.spaceChecking(this.get("profile_url").toLowerCase()),
                 "type": "profile",
                 accessed: null,
-                boost: this.get("boost"),
+             //   boost: this.get("boost"),
                 is_active: "true",
                 is_indexed: "true",
                 category: $('#categorySelection').text(),
                 created: "",
                 creator: this.get("creater"),
-                country: this.get("country"),
-                region: this.get("region"),
+                country: $('#countrySelection').text(),
+                region:$('#regionSelection').text(),
                 domains: getDomain(),
                 editors: this.get("editors"),
                 keywords: this.get("keywords"),
@@ -223,8 +227,8 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 owner_title: this.get("profile_name"), //profile name
                 owner_id: this.get("profile_url"), //profile id
                 owner_contact_email: this.get("direct_enquiry_emails"),
-                owner_contact_cc_emails: this.get("secondary_email"),
-                owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
+//                owner_contact_cc_emails: this.get("secondary_email"),
+//                owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
                 updated: ""
             });
             newMega.store.save();
@@ -234,25 +238,25 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 profile_contact_last_name: this.get("last_name"),
                 profile_contact_first_name: this.get("first_name"),
                 profile_about_us: "<br>Welcome!<br>",
-                profile_package_name: $('#packgeSelection').text(),
+                profile_package_name: this.get("profile_package"),
                 profile_bg_url: this.get("profile_bg_url"),
                 profile_hero_url: this.get("profile_hero_url"),
                 profile_pic_url: this.get("profile_pic_url"),
                 owner: this.get("owner"),
                 profile_creater: this.get("creater"),
                 profile_editors: this.get("editors"),
-                profile_contact_number: this.get("profile_contact_number"),
+                profile_contact_number: $('#numberSelection').text() + this.get("profile_contact_number"),
                 owner_contact_email: this.get("direct_enquiry_emails"),
-                owner_contact_cc_emails: this.get("secondary_email"),
-                owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
+//                owner_contact_cc_emails: this.get("secondary_email"),
+//                owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
                 profile_category: $('#categorySelection').text(),
                 profile_physical_address: this.get("address"),
                 profile_suburb: this.get("suburb"),
                 profile_keywords: this.get("keywords"),
-                profile_regoin: this.get("region"),
-                profile_country: this.get("country"),
+                profile_regoin: $('#regionSelection').text(),
+                profile_country: $('#countrySelection').text(),
                 profile_hours: "Monday=9:00am-5:00pm,Tuesday=9:00am-5:00pm,Wednesday=9:00am-5:00pm,Thursday=9:00am-5:00pm,Friday=9:00am-5:00pm,Saturday=closed,Sunday=closed,Holidays=closed",
-                phone_number: this.get("contact_number"),
+                phone_number: $('#numberSelection').text() + this.get("profile_contact_number"),
                 profile_partner_ids: null,
                 collections: [],
                 profile_website_url: this.get("website_url"),
@@ -281,11 +285,53 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     dropdown: function(checking) {
 
         if (checking === "category") {
-            this.set('packgetDropdown', false);
+            this.set('countryDropdown', false);
+            this.set('numberDropdown', false);
+            this.set('regionDropdown', false);
             this.set('categoryDropdown', !this.get('categoryDropdown'));
-        } else if (checking === "package") {
-            this.set('categoryDropdown', false);
-            this.set('packgetDropdown', !this.get('packgetDropdown'));
         } 
+        else if (checking === "country") {
+            this.set('categoryDropdown', false);
+            this.set('numberDropdown', false);
+            this.set('regionDropdown', false);
+            this.set('countryDropdown', !this.get('countryDropdown'));
+        }
+        else if (checking === "region") {
+            this.set('countryDropdown', false);
+            this.set('numberDropdown', false);
+            this.set('categoryDropdown', false);
+            this.set('regionDropdown', !this.get('regionDropdown'));
+        }
+        else if (checking === "number") {
+            this.set('countryDropdown', false);
+                    this.set('categoryDropdown', false);
+            this.set('regionDropdown', false);
+            this.set('numberDropdown', !this.get('numberDropdown'));
+        }
+    },
+            
+       packageSelection: function(checking){
+   
+    if (checking === "gold") {
+        
+        console.log("gold");
+        this.set("profile_package", "gold");
+        
+    }else if (checking === "silver") {
+        
+         console.log("silver");
+         this.set("profile_package", "silver");
+        
+    }else if (checking === "bronze") {
+        
+            console.log("bronze");
+            this.set("profile_package", "bronze");
+        
     }
+   
+       }     
+            
+            
+            
 });
+

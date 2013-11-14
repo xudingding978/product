@@ -55,7 +55,7 @@ HubStar.UserController = Ember.Controller.extend({
     first_name: "",
     last_name: "",
     subcateMethod: [{list_id: 0, isSelection: false, category_topic: "email"}],
-    subcate: [{list_id: 1, isSelection: false, category_topic: "message"}, {list_id: 2, isSelection: false, category_topic: "follow"}, {list_id: 3, isSelection: false, category_topic: "conversation"}],
+    subcate: [{list_id: 0, isSelection: false, category_topic: "message"}, {list_id: 1, isSelection: false, category_topic: "follow"}, {list_id: 2, isSelection: false, category_topic: "conversation"}],
     is_Photoclick: false,
     is_click: false,
     photo_url_large: "",
@@ -95,11 +95,11 @@ HubStar.UserController = Ember.Controller.extend({
             if (this.get("subcateMethod").objectAt(i)["isSelection"] === true) {
                 if (notification === "")
                 {
-                    notification = this.get("subcate").objectAt(i)["category_topic"];
+                    notification = this.get("subcateMethod").objectAt(i)["category_topic"];
                 }
                 else
                 {
-                    notification = notification + "," + this.get("subcate").objectAt(i)["category_topic"];
+                    notification = notification + "," + this.get("subcateMethod").objectAt(i)["category_topic"];
                 }
             }
         }

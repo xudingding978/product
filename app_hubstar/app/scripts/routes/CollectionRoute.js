@@ -18,7 +18,18 @@ HubStar.CollectionRoute = Ember.Route.extend({
     },
     events: {
         transitionToPhoto: function(id) {
-            this.transitionTo("photo", HubStar.Mega.find(id));
+            if (this.controllerFor('masonryCollectionItems').get("isUser") === true)
+            {
+                this.transitionTo("photo", HubStar.Mega.find(id)); //article 's photo
+            }
+            else if (this.controllerFor('masonryCollectionItems').get("isVideoPhoto") === true)
+            {
+                this.transitionTo("photo", HubStar.Mega.find(id)); //video 's photo
+            }
+            else
+            {
+                this.transitionTo("photo", HubStar.Mega.find(id));//photo
+            }
         },
         transitionToProfile: function(id) {
 

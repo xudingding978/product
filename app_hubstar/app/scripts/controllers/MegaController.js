@@ -68,28 +68,67 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
         this.selectedImage(this.get('selectedPhoto').id);
     },
-    getInitData: function(megaObject) {
+     getInitData: function(megaObject) {
 
-        var photoObj = megaObject.get('photo').objectAt(0);
-        this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-        this.set("content", []);
-        this.set('image_no', 1);
-        this.set("selectedPhoto", photoObj);
-        this.get("content").pushObject(photoObj);
-        var megaResouce = HubStar.Mega.find(megaObject.id);
-        this.set('megaResouce', megaResouce);
-        this.set("photo_album_id", "album_" + megaObject.id);
-        this.set("photo_thumb_id", "thumb_" + megaObject.id);
-        if (this.get("controllers.masonryCollectionItems").get("type") === "user") //it is for user's collection
+        if (this.get("controllers.masonryCollectionItems").get("isUser") === true)
         {
+            this.get("controllers.masonryCollectionItems").set("isUser", false);
+            var photoUrl = megaObject.get("article").objectAt(0).get("article_image_url");
+            var photoObj = megaObject.set('photo_image_original_url', photoUrl);
+            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+            this.set("content", []);
+            this.set('image_no', 1);
+            this.set("selectedPhoto", photoObj);
+            this.get("content").pushObject(photoObj);
+            var megaResouce = HubStar.Mega.find(megaObject.id);
+            this.set('megaResouce', megaResouce);
+            this.set("photo_album_id", "album_" + megaObject.id);
+            this.set("photo_thumb_id", "thumb_" + megaObject.id);
+
+
             this.addRelatedCollectionItemData(megaObject);
+            this.get("controllers.masonryCollectionItems").set("isUser", false);
         }
-        else
+        else if (this.get("controllers.masonryCollectionItems").get("isVideoPhoto") === true)
         {
-            this.addRelatedData(megaObject);  //it is for profile's collection
+            this.get("controllers.masonryCollectionItems").set("isVideoPhoto", false);
+            var photoUrl = megaObject.get("videoes").objectAt(0).get("videoImg");
+            var photoObj = megaObject.set('photo_image_original_url', photoUrl);
+            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+            this.set("content", []);
+            this.set('image_no', 1);
+            this.set("selectedPhoto", photoObj);
+            this.get("content").pushObject(photoObj);
+            var megaResouce = HubStar.Mega.find(megaObject.id);
+            this.set('megaResouce', megaResouce);
+            this.set("photo_album_id", "album_" + megaObject.id);
+            this.set("photo_thumb_id", "thumb_" + megaObject.id);
+            this.addRelatedCollectionItemData(megaObject);
+            this.get("controllers.masonryCollectionItems").set("isVideoPhoto", false);
         }
-        this.checkAuthenticUser();
-        this.getCommentsById(megaObject.id);
+        else 
+{
+            var photoObj = megaObject.get('photo').objectAt(0);
+            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+            this.set("content", []);
+            this.set('image_no', 1);
+            this.set("selectedPhoto", photoObj);
+            this.get("content").pushObject(photoObj);
+            var megaResouce = HubStar.Mega.find(megaObject.id);
+            this.set('megaResouce', megaResouce);
+            this.set("photo_album_id", "album_" + megaObject.id);
+            this.set("photo_thumb_id", "thumb_" + megaObject.id);
+            if (this.get("controllers.masonryCollectionItems").get("type") === "user") //it is for user's collection
+            {
+                this.addRelatedCollectionItemData(megaObject);
+            }
+            else
+            {
+                this.addRelatedData(megaObject);  //it is for profile's collection
+            }
+            this.checkAuthenticUser();
+            this.getCommentsById(megaObject.id);
+        }
     },
     addRelatedCollectionItemData: function(mega)
     {
@@ -173,6 +212,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
         this.set("clickOrRoute", false);
     },
+
     selectImage: function(e) {
 
         this.set('megaResouce', HubStar.Mega.find(e));

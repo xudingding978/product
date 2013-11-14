@@ -7,8 +7,8 @@ var Router = Ember.Router.extend(
 HubStar.Router.map(function() {
     this.resource("index", {path: '/'}, function() {
         this.resource("indexIndex", {path: '/'});
-        this.resource("article", {path: '/articles/:article_id'});
-       // this.resource("video", {path: '/videos/:video_id'});
+            this.resource("article", {path: '/articles/:article_id'});
+        // this.resource("video", {path: '/videos/:video_id'});
 //        this.resource("videoes", function() {
 //            this.resource("video", {path: ':video_id'});
 //        });
@@ -37,9 +37,10 @@ HubStar.Router.map(function() {
             this.resource("followers", {path: '/followers'});
             this.resource("userCollections", {path: '/collections'}, function() {
                 this.resource("collection", {path: ':collection_id'}, function() {
-                    this.resource("photo", {path: ':photo_id'});
-                    this.resource("video", {path: ':video_id'});
-                });  
+                    this.resource("photo", {path: '/photoes/:photo_id'});
+                    this.resource("video", {path: '/videoes/:video_id'});
+                    this.resource("article", {path: '/articles/:article_id'});
+                });
             });
 
 

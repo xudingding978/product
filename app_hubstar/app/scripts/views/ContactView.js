@@ -5,7 +5,7 @@ HubStar.ContactView = Ember.View.extend({
 
         $.fx.speeds.speedDemon = 800;
         this.$().animate({
-            bottom: "45%"
+            bottom: "80%"
         }, "speedDemon");
         this.$().before('<div id="contactMeBlur" class="blur_black" />');
         var that = this;

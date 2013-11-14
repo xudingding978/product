@@ -69,12 +69,15 @@ class ProfilesController extends Controller {
         try {
             $request_json = file_get_contents('php://input');
             $request_arr = CJSON::decode($request_json, true);
+        //    error_log(var_export($request_arr,true));
             $tempProfile = $request_arr['profile'];
             $cb = $this->couchBaseConnection();
             $id = $tempProfile['id'];
             $domain = $this->getDomain();
             $docID = $domain . "/profiles/" . $id;
             $tempMega = $cb->get($docID);
+            error_log(var_export($tempMega,true));
+            
             $mega = CJSON::decode($tempMega, true);
             $mega['profile'][0] = $tempProfile;
             $mega['profile'][0]['followers'] = array();

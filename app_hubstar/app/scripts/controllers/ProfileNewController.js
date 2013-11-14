@@ -99,16 +99,17 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
         multiEmail2 = this.multiEmailChecking($('.admins').val(), '#emailFormat6', multiEmail2);
       //  var boost = this.numberChecking('#number1', $('.mustFill7').val());
 
-        if ($('.profileName').val() !== "" && $('.profileURL').val() !== "" && $('.country').val() !== "" && $('.region').val() !== "" && $('.clientEmail').val() !== "" && multiEmail1
+        if ($('.profileName').val() !== ""  && $('.country').val() !== "" && $('.region').val() !== "" && $('.clientEmail').val() !== "" && multiEmail1
                  && $('.contactEmail').val() !== "" && $('.admins').val() !== ""  && multiEmail2
                 && this.validateEmail($('.clientEmail').val())) {
             passSubmit = true;
         } else {
             passSubmit = false;
         }
-
-        if (this.specialCharactersChecking(this.spaceChecking($('.profileURL').val()))) {
-
+         this.set("profile_url", this.get("profile_name") + "-" +  $('#countrySelection').text() + "-" +  $('#regionSelection').text());
+         
+        if (this.specialCharactersChecking(this.spaceChecking(this.get("profile_url")))) {
+                   
             $('#invalide').attr('style', 'display:none');
         } else {
 
@@ -264,7 +265,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             });
 
             newMega.get("profile").addObject(newProfile);
-
+            console.log(newMega);
             var that = this;
 
             setTimeout(function() {

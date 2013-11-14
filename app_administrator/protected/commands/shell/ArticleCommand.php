@@ -68,7 +68,7 @@ class ArticleCommand extends Controller_admin {
             //        print_r("this is credit entry: " . $creditEntry);
             $creditEntry_arr['credits_id'] = $this->getNewID();
             $creditEntry_arr['credits_name'] = $creditEntry['categoryText'];
-            $creditEntry_arr['credits_text'] = $creditEntry['clientText'];
+            $creditEntry_arr['credits_text'] =  $creditEntry['clientText'];
             $creditEntry_arr['optional'] = NULL;
          
             if ($creditEntry['subCategoryId']) {

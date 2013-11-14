@@ -1244,17 +1244,16 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
         }
     },
-
     partnerSearch: function()
     {
-     var  profilePartnersController=  this.get("controllers.profilePartners");
-     profilePartnersController.searchPartner(this.get('partnerSearchString'));
-
+        var profilePartnersController = this.get("controllers.profilePartners");
+        profilePartnersController.searchPartner(this.get('partnerSearchString'));
+    },
+    partnerSearchReset: function(model)
+    {
+        var profilePartnersController = this.get("controllers.profilePartners");
+        profilePartnersController.getClientId(model);
     }
-
-
-
-
 }
 );
 

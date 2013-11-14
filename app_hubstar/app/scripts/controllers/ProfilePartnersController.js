@@ -170,16 +170,17 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         this.set('content', []);
         var data = HubStar.Mega.find({RequireType: "partnerSearch", profile_partner_ids: this.get('partnerID'), "keyword": searchKeyWord});
         var that = this;
+        this.set('loadingTime', true);
         data.addObserver('isLoaded', function() {
             that.checkAuthenticUser();
             if (data.get('isLoaded')) {
                 that.setContent(data);
+                that.set('loadingTime', false);
                 setTimeout(function() {
                     $('#masonry_user_container').masonry("reload");
                 }, 200);
             }
         });
-
     },
     setContent: function(data)
     {
@@ -206,5 +207,6 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             that.get("content").pushObject(tempmega);
         }
     }
+
 }
 );

@@ -5,14 +5,14 @@ HubStar.BeforeLoginView = Ember.View.extend({
 
         if (HubStar.get('isLogin')) {
 
-            $('#login_icon').attr("style", "display:block;position:absolute;right:90px;");
+            $('#login_icon').attr("style", "display:block;position: relative;float: right;");
             $('#login_detail').attr("style", "display:block;");
 
 
 
         } else {
 
-            $('#login_icon').attr("style", "display:block;position:absolute;right:90px;");
+            $('#login_icon').attr("style", "display:block;position: relative;float: right;");
             $('#login_detail').attr("style", "display:block;");
 
         }

@@ -1,4 +1,4 @@
-photoUpdate<?php
+<?php
 
 header('Content-type: *');
 header("Access-Control-Allow-Origin: *");
@@ -178,6 +178,9 @@ class PhotosController extends Controller {
             $oldRecord['object_description'] = $newRecord['photo']['photo_caption'];
             $oldRecord['photo'][0]['photo_title'] = $newRecord['photo']['photo_title'];
             $oldRecord['photo'][0]['photo_caption'] = $newRecord['photo']['photo_caption'];
+            
+            $keyword = $this->getProfileKeyword($oldRecord['owner_id']);
+            $oldRecord['keyword'] = $keyword;
 
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
@@ -187,6 +190,14 @@ class PhotosController extends Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
+    }
+    
+    public function getProfileKeyword($owner_id) {
+        $cb = $this->couchBaseConnection();
+        $url = $this->getDomain() . "/profiles/" . $owner_id;
+        $tempProfile = $cb->get($url);
+        $profile = CJSON::decode($tempProfile, true);
+        return $profile['keyword'];       
     }
 
     public function updateCouchbasePhoto($id) {
@@ -301,13 +312,7 @@ class PhotosController extends Controller {
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
         //$new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
         $bucket = 's3.hubsrv.com';
-        
-        error_log(var_export($owner_id, true));
-        error_log(var_export($message_id, true));
-        error_log(var_export($photo_type, true));
-        error_log(var_export($photo_name, true));
-        
-        
+
             $url = $this->getDomain(). '/users' . "/" . $owner_id . "/" ."message/".$message_id."/".$photo_type . "/" . $photo_name;
             
         $this->saveImageToS3($url, $new_photo_data, $bucket, $type);
@@ -315,6 +320,20 @@ class PhotosController extends Controller {
         return $s3url;
     }
 
+      public function saveConversationPhotoInTypes($orig_size , $photo_type , $photo_name , $compressed_photo , $data_arr, $type = null, $message_id) {
+                                                                        
+        $new_size = $this->getNewPhotoSize($orig_size, $photo_type);
+        $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
+        //$new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
+        $bucket = 's3.hubsrv.com';
+
+            $url = $this->getDomain(). '/conversations'  . "/" .$message_id."/".$photo_type . "/" . $photo_name;
+            
+        $this->saveImageToS3($url, $new_photo_data, $bucket, $type);
+        $s3url = 'http://' . $bucket . '/' . $url;
+        return $s3url;
+    }
+    
     protected function getNewPhotoSize($photo_size, $photo_type) {
         $new_size = array();
         switch ($photo_type) {
@@ -446,6 +465,7 @@ class PhotosController extends Controller {
             ));
         }
     }
+
 
     public function removeS3Record($mega) {
         $bucket = 's3.hubsrv.com';

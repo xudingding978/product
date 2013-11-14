@@ -1,11 +1,16 @@
 HubStar.ProfileRoute = Ember.Route.extend({
     setupController: function(ProfileController, model) {
         HubStar.set('editingMode', 'profile');
-          if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
+        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
         {
             HubStar.set("isLogin", false);
-        }else{
-                    HubStar.set("isLogin", true);               
+        } else {
+            HubStar.set("isLogin", true);
+        }
+        if (ProfileController.get('goBackType') === true)
+        {
+            model = HubStar.Profile.find(model.id);
+            ProfileController.set('goBackType', false);
         }
         ProfileController.setLocalLoginRecrod();
         /******************  partner cehcking*******************/
@@ -13,34 +18,29 @@ HubStar.ProfileRoute = Ember.Route.extend({
         ProfileController.set('collectionTag', true);
         ProfileController.set('partnerTag', false);
         /*************************            partner cehcking           ***********8*/
-       
+
         this.controllerFor('application').set('islogin', true);
-     this.controllerFor('application').set('popup', false);
+        this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', true);
         this.controllerFor('searchs').setLoginImge();
         this.controllerFor('profile').set('switchPhoto', true);
-      $('#user-stats > li').removeClass('selected-user-stats');
+        $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
-//            $('#user-stats > li').click(function() {
-//                $('#user-stats > li').removeClass('selected-user-stats');
-//                $(this).addClass('selected-user-stats');
-//            });
         if (model.get('profile_analytics_code') !== null && model.get('profile_analytics_code') !== '' && model.get('profile_analytics_code') !== undefined) {
             this.sendGAMessage(model.get('profile_analytics_code'), model.get('id').split('-').join(''));
         }
 
-
         var lastPositionId = HubStar.get('lastPositionId');
         var lastPosition = HubStar.get("scrollPartenerPosition");
-        if (model.id === lastPositionId)
-        {
-            this.controllerFor('profile').selectPartner(model);
-            ProfileController.setProfile(lastPositionId);
-        }
-        else {
-            ProfileController.setProfile(model.id);
-        }
 
+        ProfileController.setProfile(model.id);
+
+
+
+    },
+    model: function(params) {
+
+        return HubStar.Profile.find(params.profile_id);
     },
     events: {
         transitionToCollectionPhoto: function(collection_id) {
@@ -66,7 +66,6 @@ HubStar.ProfileRoute = Ember.Route.extend({
 //
 //        }
 
-
     },
     deactivate: function() {
 
@@ -79,6 +78,10 @@ HubStar.ProfileRoute = Ember.Route.extend({
         $(function() {
             $('#masonry_container').masonry('remove', $('.noStyle1'));
         });
+        
+        
+        
+        
     },
     renderTemplate: function() {
         this.render('profile', {
@@ -100,11 +103,11 @@ HubStar.ProfileRoute = Ember.Route.extend({
                 m.parentNode.insertBefore(a, m)
             })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
             ga('create', profile_analytics_code, {'name': dom_url});
-            ga(dom_url+'.send', 'pageview');
-            this.controller.set('isTracking',true);
+            ga(dom_url + '.send', 'pageview');
+            this.controller.set('isTracking', true);
         } catch (err) {
             this.controller.set('isTracking', false);
-            
+
         }
     }
 

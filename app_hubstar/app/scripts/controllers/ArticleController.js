@@ -7,6 +7,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     readCaption: true,
     caption: '',
     checkLoginStatus:false,
+    isCreditListExist: false,
     needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus'],
     init: function() {
   
@@ -81,9 +82,18 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('image_no', 1);
         var megaResouce = HubStar.Mega.find(megaObject.id);
         this.set('articleResouce', megaResouce.get('article').objectAt(0));
+        this.set('articleID', megaObject.id);
         this.set('megaResouce', megaResouce);
         this.addRelatedData(megaObject);
         this.getCommentsById(megaObject.id);
+        this.checkCreditExist(megaResouce.get('article').objectAt(0).get('credits'));
+    },
+    checkCreditExist: function(credits) {
+        if (credits !== null && credits !== 'undefined' && credits.get('length') >0) {
+            this.set('isCreditListExist', true);
+        } else {
+            this.set('isCreditListExist', false);
+        }
     },
     addComment: function() {
         var commentContent = this.get('commentContent');
@@ -153,7 +163,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         window.history.back();
     },
     switchCollection: function() {
-
+ if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var addCollectionController = this.get('controllers.addCollection');
         var selectid = this.get('articleResouce').id;
         addCollectionController.setImageID(selectid);
@@ -162,14 +173,19 @@ HubStar.ArticleController = Ember.Controller.extend({
         addCollectionController.setRelatedController('article');
         addCollectionController.setUser();
         this.set('collectable', !this.get('collectable'));
+        }
     },
     editingContactForm: function() {
+ if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var contactController = this.get('controllers.contact');
+
+        this.get("controllers.contact").set("firstStepOfContactEmail",false);      
+        this.get("controllers.contact").set('secondStepOfContactEmail', false);
 
         var selectid = this.get('selectedPhoto').id;
         contactController.setSelectedMega(selectid);
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
+       
             this.set('contact', !this.get('contact'));
         }
     },
@@ -203,8 +219,10 @@ HubStar.ArticleController = Ember.Controller.extend({
         $('#dropdown_id_').toggleClass('hideClass');
     },
     fbShare: function() {
+        this.dropdownPhotoSetting();
         var that = this;
-        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
+        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('articleID');
+
         var caption = '';
 
         if (this.get('articleResouce').get("article_body") !== null)
@@ -219,7 +237,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         var obj = {
             method: 'feed',
             link: currntUrl,
-            picture: this.get('selectedPhoto').photo_image_thumbnail_url,
+            picture: this.get('selectedPhoto').photo_image_original_url,
             name: this.get('articleResouce').get("article_headline"),
             caption: 'Trends Ideas',
             description: caption
@@ -239,6 +257,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     //share to social google plus
     gpShare: function() {
+        this.dropdownPhotoSetting();
         var caption = '';
         if (this.get('articleResouce').get("article_body") !== null)
         {
@@ -256,10 +275,10 @@ HubStar.ArticleController = Ember.Controller.extend({
 //        }
         $("meta[property='og\\:title']").attr("content", this.get('articleResouce').get("article_headline"));
         $("meta[property='og\\:description']").attr("content", caption);
-        $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').photo_image_thumbnail_url);
+        $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').photo_image_original_url);
 
 
-        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
+        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('articleID');
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
         window.open(
@@ -272,7 +291,10 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     //share to social twitter
     tShare: function() {
-        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
+        this.dropdownPhotoSetting();
+
+        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('articleID');
+
         var url = 'https://twitter.com/share?text=' + this.get('articleResouce').get("article_headline") + '&url=' + encodeURIComponent(currntUrl);
         window.open(
                 url,
@@ -282,9 +304,13 @@ HubStar.ArticleController = Ember.Controller.extend({
         return false;
     },
     pShare: function() {
-        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').id;
+
+        this.dropdownPhotoSetting();
+
+        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('articleID');
+
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
-                '&media=' + encodeURIComponent(this.get('selectedPhoto').photo_image_thumbnail_url) +
+                '&media=' + encodeURIComponent(this.get('selectedPhoto').photo_image_original_url) +
                 '&description=' + encodeURIComponent(this.get('articleResouce').get("article_headline"));
         window.open(
                 url,

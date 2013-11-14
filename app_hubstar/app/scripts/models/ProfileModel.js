@@ -1,7 +1,8 @@
 
 DS.RESTAdapter.map('HubStar.Profile', {
     collections: {embedded: 'load'},
-    followers: {embedded: 'load'}
+    followers: {embedded: 'load'},
+    keywords: {embedded: 'load'}
 });
 HubStar.Profile = DS.Model.extend({
     profile_category: DS.attr('string'),
@@ -21,6 +22,7 @@ HubStar.Profile = DS.Model.extend({
     profile_contact_last_name: DS.attr('string'),
     profile_contact_email: DS.attr('string'),
     profile_keywords: DS.attr('string'),
+    profile_keywords_num: DS.attr('number'),
     profile_package_name: DS.attr('string'),
     profile_regoin: DS.attr('string'),
     profile_country: DS.attr('string'),
@@ -42,13 +44,19 @@ HubStar.Profile = DS.Model.extend({
     profile_linkedin_link: DS.attr('string'),
     profile_youtube_link: DS.attr('string'),
     profile_analytics_code: DS.attr('string'),
-
+    profile_google_map:DS.attr('string'),
     owner: DS.attr('string'),
     owner_contact_email: DS.attr('string'),
     owner_contact_cc_emails: DS.attr('string'),
     owner_contact_bcc_emails: DS.attr('string'),
     followers: DS.hasMany('HubStar.Follower'),
-    collections: DS.hasMany('HubStar.Collection')
+    collections: DS.hasMany('HubStar.Collection'),
+    keywords: DS.hasMany('HubStar.Keyword'),
+    show_keyword_id: DS.attr('string')
+//    getTenKeywords: function() {
+//        var tenKeywords =  this.get('keywords').slice(0,10);
+//        return tenKeywords;
+//    }.property('keywords')
 });
 
 

@@ -13,6 +13,7 @@ HubStar.UserController = Ember.Controller.extend({
     followerTag: false,
     followingTag: false,
     messageTag: false,
+    postTag: false,
     newDesc: '',
     newTitle: '',
     selectedDesc: "",
@@ -260,6 +261,8 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('collectionTag', true);
         this.set('followerTag', false);
         this.set('messageTag', false);
+         this.set('postTag', false);
+        
         this.labelBarRefresh();
 
     },
@@ -816,7 +819,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('followingTag', false);
         this.set('collectionTag', true);
         this.set('followerTag', false);
-
+this.set('postTag', false);
         this.set('messageTag', false);
         this.transitionToRoute('userCollections');
 
@@ -828,7 +831,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('followingTag', true);
         this.set('collectionTag', false);
         this.set('followerTag', false);
-
+this.set('postTag', false);
         this.set('messageTag', false);
 
         this.transitionToRoute('following', model);
@@ -847,7 +850,7 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', true);
-
+this.set('postTag', false);
         this.set('messageTag', false);
         this.transitionToRoute('followers');
         setTimeout(function() {
@@ -860,9 +863,24 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('collectionTag', false);
         this.set('followerTag', false);
         this.set('messageTag', true);
-
+        this.set('postTag', false);
 
         this.transitionToRoute('messageCenter');
+
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+        }, 200);
+
+    },
+     selectPost: function(model) {
+        this.set('profileSelectionStatus', 'Post');
+        this.set('followingTag', false);
+        this.set('collectionTag', false);
+        this.set('followerTag', false);
+        this.set('messageTag', false);
+         this.set('postTag', true);
+
+        this.transitionToRoute('post');
 
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");

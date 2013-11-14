@@ -42,6 +42,14 @@ HubStar.UserView = Ember.View.extend({
                 $(this).addClass('selected-user-stats');
             });
         }
+        else if (user_id==="posts") {
+            $('#user-stats > li').removeClass('selected-user-stats');
+            $('#post').addClass('selected-user-stats');
+            $('#user-stats > li').click(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $(this).addClass('selected-user-stats');
+            });
+        }
         else {
             $('#user-stats > li').removeClass('selected-user-stats');
             $('#defualt').addClass('selected-user-stats');

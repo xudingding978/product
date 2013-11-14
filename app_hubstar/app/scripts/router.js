@@ -51,7 +51,7 @@ HubStar.Router.map(function() {
            
                 });
             });
-
+             this.resource("post", {path: '/post'});
         });
         this.resource("users", function() {
             this.resource("usersIndex", {path: '/'});

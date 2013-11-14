@@ -23,6 +23,7 @@
             <li id ="ufollowing"><a {{action selectFollowing this}}> Following<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowingStatistics}}</a></li>
             <li id ="ufollower"><a {{action selectFollower this}}> Followers<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowerStatistics}}</a></li>
             <li id ="message"><a {{action selectMessage this}}> Messages<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp;</span></a></li>
+            <li id ="post"><a {{action selectPost this}}> Posts<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp;</span></a></li>
             
         </ul>
         {{/if}}    
@@ -56,6 +57,10 @@
         
         {{#if messageTag}}
         {{render messageCenter}}
+        {{/if}}
+        
+        {{#if postTag}}
+        {{render post}}
         {{/if}}
     </div>
 

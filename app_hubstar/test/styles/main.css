@@ -778,12 +778,12 @@ body {
 }
 
 a {
-    color: #0088cc;
+/*    color: #0088cc;*/
     text-decoration: none;
 }
 
 a:hover {
-    color: #005580;
+    /*    color: #005580;*/
     text-decoration: none;
 }
 
@@ -4452,10 +4452,6 @@ input[type="submit"].btn.btn-mini {
     display: block;
 }
 
-.nav > li > a:hover {
-    text-decoration: none;
-    background-color: #eeeeee;
-}
 
 .nav > li > a > img {
     max-width: none;
@@ -5078,24 +5074,9 @@ input[type="submit"].btn.btn-mini {
     float: left;
 }
 
-.navbar .nav > li > a {
-    position: relative;
-    line-height: 19px;
-    padding: 13px 15px;
-    color: #777777;
-    text-decoration: none;
-    text-shadow: 0 1px 0 #ffffff;
-}
 
 .navbar .nav .dropdown-toggle .caret {
     margin-top: 8px;
-}
-
-.navbar .nav > li > a:focus,
-.navbar .nav > li > a:hover {
-    color: #333333;
-    text-decoration: none;
-    background-color: transparent;
 }
 
 .navbar .nav > .active > a,
@@ -7360,6 +7341,17 @@ body > div.ember-view{
     position: fixed;
     height: 100%;
     background-color: transparent;
+}
+
+.blur_white{
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    opacity: .6;
+    background-color: white;
 }
 
 .blur_black{

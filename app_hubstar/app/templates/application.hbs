@@ -9,7 +9,7 @@
     {{outlet profiles}}
 
     {{outlet user}}
-    {{render "footer"}}
+    
 
 
     {{#unless controller.isotherpage}}
@@ -43,6 +43,7 @@
     
     
     {{#if HubStar.isLogin}}
+    {{render "footer"}}
     {{render platformBar}}
     {{/if}}
 

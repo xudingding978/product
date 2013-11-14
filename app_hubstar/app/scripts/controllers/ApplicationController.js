@@ -426,7 +426,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     display: function(ads)
     {
         var that = this;
-<<<<<<< HEAD
+
 //        if (that.get('adPageNo') === 1) {
 //        googletag.cmd.push(function() {
 //            for (var i = 0; i < ads.length; i++) {
@@ -460,43 +460,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 //                }
 //            });
 //        }
-=======
-        Ember.run.later(function() {
-            if (that.get('adPageNo') === 1) {
-                googletag.cmd.push(function() {
-                    for (var i = 0; i < ads.length; i++) {
-                        var ad = ads[i];
-                        googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
-                    }
-                    googletag.pubads().enableSingleRequest();
-                    googletag.enableServices();
-                });
-                googletag.cmd.push(function() {
-                    for (var i = 0; i < ads.length; i++) {
-                        var ad = ads[i];
-                        googletag.display(ad.div);
-                    }
-                });
-                that.set('googletagCmd', googletag.cmd);
-            }
-            else {
-//                googletag.cmd = that.get('googletagCmd');
-//                googletag.cmd.ua = 2;
-//                googletag.cmd.bb = 0;
-//                console.log(googletag.cmd);
-                googletag.cmd.push(function() {
-                    for (var i = 0; i < ads.length; i++) {
-                        var ad = ads[i];
-                         slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
 
-                        googletag.pubads().enableSingleRequest();
-                        googletag.enableServices();
-                        googletag.display(ad.div);
-                        googletag.pubads().refresh([slot1]);
-                    }
-                });
-            }
->>>>>>> origin/develop
 
 // googletag.cmd.push(function() {
 //        var slot1 = googletag.defineSlot("/12345678/Refresh_Example", [728, 90],

@@ -3,7 +3,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
     currentUser: "",
     review_id: null,
     profileReview: "",
-    userPhoto:"",
+    userPhoto: "",
     replyReviewContent: "",
     currentOwner: "",
     isSelf: false,
@@ -12,11 +12,11 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
     {
         if (localStorage.loginStatus !== null && localStorage.loginStatus !== 'undefined' && localStorage.loginStatus !== '') {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-            
-            this.set("userPhoto", this.get("currentUser").get("photo_url_large"));
-            console.log(this.get("userPhoto"));
+
+            //  this.set("userPhoto", this.get("currentUser").get("photo_url_large"));
+
         }
-        
+
     },
     addLike: function()
     {
@@ -60,12 +60,16 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
             this.get('model').get('reply_reviews').insertAt(0, tempReply);
             HubStar.store.save();
 
-            $('#reply_' + reviewID).attr('style', 'display: block;max-height:0; text-align: center;');
-            $('#up-comments_' + reviewID).attr('style', 'display: block;max-height:0;');
+            $('#reply_' + reviewID).attr('style', 'display: block;max-height:0;');
+            $('#view-comments_' + reviewID).attr('style', 'display:none; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px');
+            $('#view-comments_' + reviewID).animate({display: 'none'}, 500);
+            $('#up-comments_' + reviewID).attr('style', 'background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
             $('#up-comments_' + reviewID).animate({display: 'none'}, 500);
-            $('#viewComments_' + reviewID).attr('style', 'display: none;max-height:0; text-align: center;');
-            $('#viewComments_' + reviewID).animate({display: 'none'}, 500);
+
             $('#reply_' + reviewID).animate({maxHeight: '200px'}, 500);
+
+
+
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reload");
             }, 500);
@@ -79,7 +83,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
         this.set('newStyleImageSource', null);
         this.set('newStyleImageName', "");
     },
-   dropdownPhotoSetting: function(event) {
+    dropdownPhotoSetting: function(event) {
         var id = "#dropdown_id_" + event;
         $(id).toggleClass('hideClass');
         $(id).click(function() {

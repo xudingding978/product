@@ -15,7 +15,7 @@ HubStar.ReviewRoute = Ember.Route.extend({
 
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#reviewList').addClass('selected-user-stats');
-        $(window).scrollTop(1500);
+     //   $(window).scrollTop(1500);
     },
     model: function(params) {
 

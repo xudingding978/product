@@ -1,20 +1,9 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 HubStar.ConversationController = Ember.Controller.extend({
     conversationContent: null,
     commenter_photo_url: null,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem'],
     isUploadPhoto: false,
+    isNewConversation: false,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -22,34 +11,31 @@ HubStar.ConversationController = Ember.Controller.extend({
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
         }
-        setTimeout(function() {
-            $("#conversation_content").mCustomScrollbar({
-                scrollButtons: {
-                    enable: false,
-                    scrollSpeed: "auto"
-                },
-                advanced: {
-                    updateOnBrowserResize: true,
-                    updateOnContentResize: true,
-                    autoScrollOnFocus: false,
-                    normalizeMouseWheelDelta: false
-                },
-                autoHideScrollbar: true,
-                mouseWheel: true,
-                theme: "dark-2",
-                set_height: 950
-            });
-        }, 200);
     },
     selectConversation: function(id) {
         var idOld = this.get("selectId");
+        this.get("controllers.messageCenter").selectedNone();
         $('#conversation_' + idOld).removeClass('selected-conversation');
         $('#conversation_' + id).addClass('selected-conversation');
         this.set("selectId", id);
         if (id !== null && id !== undefined) {
-            this.get('controllers.messageCenter').selectConversationItem();
-
+            setTimeout(function() {
+                var s = '#conversation_' + id;
+                $(document).ready(function() {
+                    setTimeout(function() {
+                        $("#conversation_content").mCustomScrollbar("scrollTo", s);
+                        setTimeout(function() {
+                            $('#conversation_' + idOld).removeClass('selected-conversation');
+                            $('#conversation_' + id).addClass('selected-conversation');
+                        }, 10);
+                    }, 10);
+                });
+            }, 50);
+            if (this.get("isNewConversation") === false)
+            {
+            this.get('controllers.messageCenter').selectConversationItem(id);
             this.get('controllers.conversationItem').getClientId(id);
+        }
         }
     },
     deleteConversationItem: function(id)
@@ -74,7 +60,8 @@ HubStar.ConversationController = Ember.Controller.extend({
             }
         });
     },
-    getClientId: function(id) {
+    getClientId: function(id, conversation_id) {
+        this.set("routerFlag", false);
         this.set('clientID', id);
         var data = this.get('clientID');
         var dataNew = new Array();
@@ -84,6 +71,7 @@ HubStar.ConversationController = Ember.Controller.extend({
         var that = this;
         this.set("conversationContent", []);
         requiredBackEnd('conversations', 'ReadConversation', tempComment, 'POST', function(params) {
+            that.set("routerFlag", true);
             if (params !== undefined) {
                 that.set("conversationContent", []);
                 for (var i = 0; i < params.length; i++)
@@ -169,12 +157,14 @@ HubStar.ConversationController = Ember.Controller.extend({
 
             }, 200);
             that.set('loadingTime', false);
+            if (conversation_id !== "" && conversation_id !== null && conversation_id !== undefined)
+            {
+                that.selectConversation(conversation_id);
+            }
         });
     },
-
     profileStyleImageDrop: function(e, name)
     {
-
         this.set("isUploadPhoto", true);
         var target = getTarget(e, "single");
         var src = target.result;

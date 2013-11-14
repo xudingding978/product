@@ -15,11 +15,13 @@ HubStar.Router.map(function() {
         this.resource("ideabooks", {path: '/ideabooks/:ideabook_id'});
         this.resource("profile", {path: '/profiles/:profile_id'}, function() {
 
+
             this.resource("profileFollowers", {path: '/followers'});
             this.resource("profileVideos", {path: '/videos'});
             this.resource("profileCollections", {path: '/collections'}, function() {
                 this.resource("profileCollection", {path: ':profileCollection_id'});
             });
+
             this.resource("partners", {path: '/network'});
             this.resource("reviews", {path: '/reviews'}, function() {
                 this.resource("review", {path: ':review_id'}, function() {
@@ -28,6 +30,7 @@ HubStar.Router.map(function() {
                     });
                 });
             });
+
 
         });
         this.resource("profiles", function() {
@@ -41,7 +44,19 @@ HubStar.Router.map(function() {
             this.resource("userCollections", {path: '/collections'}, function() {
                 this.resource("collection", {path: ':collection_id'});
             });
-            this.resource("userMessage", {path: '/messages'});
+
+
+            this.resource("messageCenter", {path: '/messagecenter'}, function() {
+                //  this.resource("messageCenter.index", {path: '/messages'});
+                this.resource("messages", {path: '/messages'});
+                this.resource("notifications", {path: '/notifications'});
+                this.resource("conversations", {path: '/conversations'}, function() {
+         this.resource("newConversation", {path: '/new'});
+                    this.resource("conversation", {path: ':conversation_id'});
+           
+                });
+            });
+
         });
         this.resource("users", function() {
             this.resource("usersIndex", {path: '/'});

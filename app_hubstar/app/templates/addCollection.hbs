@@ -15,8 +15,8 @@
     <div class="contactmebox-wapper" style="width: 500px;height: 190px;font-size: 13px;margin: 0 20px;">
         <div style="display:inline-block; ">
 
-            <div class="new-btn" style="display:block;" id="recordID" {{action collectionSwitch }} {{bindAttr text="controller.selectedTitle" }}>
-                 Choose your Collection 
+            <div class="new-btn" style="display:block;"  {{action collectionSwitch }} {{bindAttr text="controller.selectedTitle" }}>
+                {{controller.selectedTitle}}
                  &nbsp;<i class="icon-caret-down"></i>
             </div>
             <div style="height: 150px;">

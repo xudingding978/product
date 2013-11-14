@@ -664,4 +664,17 @@ class Controller extends CController {
         return $docID;
     }
 
+    public function getDomainWihoutAPI() {
+        $host = $_SERVER['HTTP_HOST'];
+        $pieces = explode(".", $host);
+        $domain = "";
+        for ($i = 1; $i < sizeof($pieces); $i++) {
+            $domain.= $pieces[$i];
+            if ($i != sizeof($pieces)-1) {
+                $domain .= ".";
+            }
+        }
+        return $domain;
+    }
+
 }

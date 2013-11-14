@@ -1,15 +1,3 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 HubStar.NewConversationController = Ember.Controller.extend({
     contentMsg: null,
     commenter_photo_url: null,
@@ -29,7 +17,6 @@ HubStar.NewConversationController = Ember.Controller.extend({
     removePic: function() {
         this.set('newStyleImageSource', null);
         this.set('newStyleImageName', "");
-
         this.set("isUploadPhoto", false);
     },
     addComment: function() {
@@ -169,7 +156,8 @@ HubStar.NewConversationController = Ember.Controller.extend({
                     dataNew["ConversationCollection"].pushObject(conversationItem);
                 }
 
-
+                        console.log("qqqqqqqqqqqqqqqqqqq");
+                        console.log(dataNew);
                 that.get('controllers.conversation').get("conversationContent").insertAt(0, dataNew);
                 dataNew = new Array();
 
@@ -181,13 +169,11 @@ HubStar.NewConversationController = Ember.Controller.extend({
                 that.set("contentFollowerPhoto",null);
                 that.set('newStyleImageSource', null);
                 that.set('newStyleImageName', "");
-            });
-
-
-
-            setTimeout(function() {
+                setTimeout(function() {
                 $('#masonry_container').masonry("reloadItems");
             }, 200);
+            });
+           
         }
     },
     invitePeople: function()

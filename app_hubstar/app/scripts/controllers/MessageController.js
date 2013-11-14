@@ -1,10 +1,8 @@
 
 HubStar.MessageController = Ember.Controller.extend({
     commenter_photo_url: null,
-
-    messagecms:'',
+    messagecms: '',
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'userMessage'],
-
     isUserself: false,
     isUploadPhoto: false,
     isReply: true,
@@ -23,11 +21,10 @@ HubStar.MessageController = Ember.Controller.extend({
         this.set("isEdit", true);
     },
     setEditReply: function() {
-       
+
 
         this.set("isEdit", true);
     },
-
     editingCommentData: function(id, msg) {
 
 
@@ -73,8 +70,8 @@ HubStar.MessageController = Ember.Controller.extend({
             }
         }
 
-        HubStar.set('message',msg);
-      
+        HubStar.set('message', msg);
+
 
     },
     editingReplyData: function(id, msg) {
@@ -194,7 +191,6 @@ HubStar.MessageController = Ember.Controller.extend({
         $('#commentBox').attr('style', 'display:none');
         setTimeout(function() {
             $('#masonry_container').masonry("reloadItems");
-
         }, 200);
     },
     addReply: function(message_id) {
@@ -324,6 +320,18 @@ HubStar.MessageController = Ember.Controller.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
+    },
+    seeMore: function(id) {        
+        $('#closeComment_' + id).attr('style', 'display:inline-block;cursor: pointer');
+        $('#showMoreComment_' + id).attr('style', 'display:none;cursor: pointer');
+        $('#messageData_' + id).attr('style', 'display: block');
+        $('#masonry_user_container').masonry("reload");     
+    },
+    closeMore: function(id) {
+        $('#closeComment_' + id).attr('style', 'display:none;cursor: pointer');
+        $('#showMoreComment_' + id).attr('style', 'display:inline-block;cursor: pointer');
+        $('#messageData_' + id).attr('style', 'display: none');
+        $('#masonry_user_container').masonry("reload");
     }
 }
 );

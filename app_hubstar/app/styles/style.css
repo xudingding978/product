@@ -52,6 +52,9 @@ body > div.ember-view{
     margin-top: 85px;
 }
 
+
+.masonry-ad{background-color: transparent; border: none;text-align: center;}
+
 .plaform_bar:hover{
     box-shadow: none;
     background-color: transparent;
@@ -367,6 +370,17 @@ body > div.ember-view{
     background-color: transparent;
 }
 
+.blur_white{
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    opacity: .6;
+    background-color: white;
+}
+
 .blur_black{
     z-index: 10;
     left: 0;
@@ -417,6 +431,11 @@ div.search-loading-invisible{
 
 }
 
+.masonry_show-comment .addCollection-container{
+    top:20%;
+    margin-left:-240px;
+    left:50%;
+}
 
 /*/WindowContainer-------------------/*/
 .window-container {
@@ -1091,32 +1110,6 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 
 
-div.loading-visible{
-    /*make visible*/
-    z-index:500;
-    display:block;
-
-    /*position it at the very top-left corner*/
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    text-align:center;
-
-    /*in supporting browsers, make it
-      a little transparent*/
-    background:#fff;
-    _background:none; /*this line removes the background in IE*/
-    opacity:.95;
-    border-top:1px solid #ddd;
-    border-bottom:1px solid #ddd;
-
-    /*set the padding, so that the content
-      of the div is centered vertically*/
-    padding-top:12%;
-}
-
 
 .deletecomment-btn{
     cursor: pointer;
@@ -1134,308 +1127,18 @@ div.loading-visible{
 
 
 
+
+
+
+
 /*SPINNER*/
-
-
-#followingBallsG{
-    position:relative;
-    width:200px;
-    height:16px;
-}
-
-.followingBallsG{
-    background-color:#555;
-    position:absolute;
-    top:0;
-    left:0;
-    width:11px;
-    height:11px;
-    -moz-border-radius:8px;
-    -moz-animation-name:bounce_followingBallsG;
-    -moz-animation-duration:2.5s;
-    -moz-animation-iteration-count:infinite;
-    -moz-animation-direction:linear;
-    -webkit-border-radius:8px;
-    -webkit-animation-name:bounce_followingBallsG;
-    -webkit-animation-duration:2.5s;
-    -webkit-animation-iteration-count:infinite;
-    -webkit-animation-direction:linear;
-    -ms-border-radius:8px;
-    -ms-animation-name:bounce_followingBallsG;
-    -ms-animation-duration:2.5s;
-    -ms-animation-iteration-count:infinite;
-    -ms-animation-direction:linear;
-    -o-border-radius:8px;
-    -o-animation-name:bounce_followingBallsG;
-    -o-animation-duration:2.5s;
-    -o-animation-iteration-count:infinite;
-    -o-animation-direction:linear;
-    border-radius:8px;
-    animation-name:bounce_followingBallsG;
-    animation-duration:2.5s;
-    animation-iteration-count:infinite;
-    animation-direction:linear;
-}
-
-#followingBallsG_1{
-    -moz-animation-delay:0s;
-}
-
-#followingBallsG_1{
-    -webkit-animation-delay:0s;
-}
-
-#followingBallsG_1{
-    -ms-animation-delay:0s;
-}
-
-#followingBallsG_1{
-    -o-animation-delay:0s;
-}
-
-#followingBallsG_1{
-    animation-delay:0s;
-}
-
-#followingBallsG_2{
-    -moz-animation-delay:0.25s;
-    -webkit-animation-delay:0.25s;
-    -ms-animation-delay:0.25s;
-    -o-animation-delay:0.25s;
-    animation-delay:0.25s;
-}
-
-#followingBallsG_3{
-    -moz-animation-delay:0.5s;
-    -webkit-animation-delay:0.5s;
-    -ms-animation-delay:0.5s;
-    -o-animation-delay:0.5s;
-    animation-delay:0.5s;
-}
-
-#followingBallsG_4{
-    -moz-animation-delay:0.75s;
-    -webkit-animation-delay:0.75s;
-    -ms-animation-delay:0.75s;
-    -o-animation-delay:0.75s;
-    animation-delay:0.75s;
-}
-
-@-moz-keyframes bounce_followingBallsG{
-    0%{
-    left:0px;
-    background-color:#000000;
-}
-
-50%{
-    left:185px;
-    background-color:#FFFFFF;
-}
-
-100%{
-    left:0px;
-    background-color:#000000;
-}
-
-}
-
-@-webkit-keyframes bounce_followingBallsG{
-    0%{
-    left:0px;
-    background-color:#000000;
-}
-
-50%{
-    left:185px;
-    background-color:#FFFFFF;
-}
-
-100%{
-    left:0px;
-    background-color:#000000;
-}
-
-}
-
-@-ms-keyframes bounce_followingBallsG{
-    0%{
-    left:0px;
-    background-color:#000000;
-}
-
-50%{
-    left:185px;
-    background-color:#FFFFFF;
-}
-
-100%{
-    left:0px;
-    background-color:#000000;
-}
-
-}
-
-@-o-keyframes bounce_followingBallsG{
-    0%{
-    left:0px;
-    background-color:#000000;
-}
-
-50%{
-    left:185px;
-    background-color:#FFFFFF;
-}
-
-100%{
-    left:0px;
-    background-color:#000000;
-}
-
-}
-
-@keyframes bounce_followingBallsG{
-    0%{
-    left:0px;
-    background-color:#000000;
-}
-
-50%{
-    left:185px;
-    background-color:#FFFFFF;
-}
-
-100%{
-    left:0px;
-    background-color:#000000;
-}
-
-}
-
-
-#blurringTextG1{
-    width: 128px;
-    position: relative;
-    top: -40px;
-    left: 60px;
-}
-
-.blurringTextG1{
-    color:transparent;
-    ;
-    font-family:Arial;
-    font-size:18px;
-    text-decoration:none;
-    font-weight:bold;
-    font-style:normal;
-    float:left;
-    text-shadow: #555555 0 0 0;
-    -moz-animation-name:bounce_blurringTextG;
-    -moz-animation-duration:1.82s;
-    -moz-animation-iteration-count:infinite;
-    -moz-animation-direction:linear;
-    -webkit-animation-name:bounce_blurringTextG;
-    -webkit-animation-duration:1.82s;
-    -webkit-animation-iteration-count:infinite;
-    -webkit-animation-direction:linear;
-    -ms-animation-name:bounce_blurringTextG;
-    -ms-animation-duration:1.82s;
-    -ms-animation-iteration-count:infinite;
-    -ms-animation-direction:linear;
-    -o-animation-name:bounce_blurringTextG;
-    -o-animation-duration:1.82s;
-    -o-animation-iteration-count:infinite;
-    -o-animation-direction:linear;
-    animation-name:bounce_blurringTextG;
-    animation-duration:1.82s;
-    animation-iteration-count:infinite;
-    animation-direction:linear;
-}
-
-@-moz-keyframes bounce_blurringTextG1{
-    0%{
-    text-shadow: #555555 0 0 0;
-}
-
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
-
-100%{
-    text-shadow: #555555 0 0 0;
-}
-
-}
-
-@-webkit-keyframes bounce_blurringTextG1{
-    0%{
-    text-shadow: #555555 0 0 0;
-}
-
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
-
-100%{
-    text-shadow: #555555 0 0 0;
-}
-
-}
-
-@-ms-keyframes bounce_blurringTextG1{
-    0%{
-    text-shadow: #555555 0 0 0;
-}
-
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
-
-100%{
-    text-shadow: #555555 0 0 0;
-}
-
-}
-
-@-o-keyframes bounce_blurringTextG1{
-    0%{
-    text-shadow: #555555 0 0 0;
-}
-
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
-
-100%{
-    text-shadow: #555555 0 0 0;
-}
-
-}
-
-@keyframes bounce_blurringTextG1{
-    0%{
-    text-shadow: #555555 0 0 0;
-}
-
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
-
-100%{
-    text-shadow: #555555 0 0 0;
-}
-
-}
-
-
-
-
 #blurringTextG{
     width: 190px;
     margin: auto;
     position: relative;
     left: 0;
     right: 0;
-    top: 25%;
+    top: 40%;
 }
 
 .blurringTextG{
@@ -1542,5 +1245,117 @@ div.loading-visible{
     text-shadow: #555555 0 0 0;
 }
 
+}
+
+
+
+/*NEW SPINNER 2013/11/4*/
+
+.spinner {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    position: relative;
+    vertical-align: top;
+    top: 7px;
+    margin-right: 10px;
+    border: 2px solid rgba(0,0,0,0.7);
+    border-top-color: transparent;
+    border-radius: 100%;
+    -webkit-animation: spin 1s infinite linear;
+    -moz-animation: spin 1s infinite linear;
+    -ms-animation: spin 1s infinite linear;
+    -o-animation: spin 1s infinite linear;
+    animation: spin 1s infinite linear;
+}
+
+.spinner:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -5px;
+    left: 0px;
+
+    border: 4px solid transparent;
+    border-bottom-color: rgba(0,0,0,0.5);
+
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+@-webkit-keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+}
+
+@-moz-keyframes spin {
+    to { -moz-transform: rotate(360deg); }
+}
+
+@-ms-keyframes spin {
+    to { -ms-transform: rotate(360deg); }
+}
+
+@-o-keyframes spin {
+    to { -o-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+
+
+
+
+
+.loading {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin: -60px 0 0 -60px;
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    z-index: 11;
+}
+.loading:after {
+    content: '';
+    background: transparent;
+    width: 140%;
+    height: 140%;
+    position: absolute;
+    border-radius: 100%;
+    top: -20%;
+    left: -20%;
+    opacity: 0.7;
+    box-shadow: rgba(0, 0, 0, 0.4) -8px -4px 12px -5px;
+
+    animation: rotating 3s linear infinite;
+    -webkit-animation: rotating 3s linear infinite;
+    -moz-animation: rotating 3s linear infinite;
+    -o-animation: rotating 3s linear infinite;
+}
+
+@-webkit-keyframes rotating {
+    from{
+    -webkit-transform: rotate(0deg);
+}
+to{
+    -webkit-transform: rotate(360deg);
+}
+}
+
+@-moz-keyframes rotating {
+    from{
+    -webkit-transform: rotate(0deg);
+}
+to{
+    -webkit-transform: rotate(360deg);
+}
 }
 

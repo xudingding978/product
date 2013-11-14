@@ -17,10 +17,13 @@ HubStar.ContactController = Ember.Controller.extend({
     emailSubject: null,
     emailDestination: null,
     emaiCCDestination: null,
+    rememberMessage: true,
+    owner_profile_pic: null,
     emaiBCCDestination: null,
     projectCategory: null,
     projectTimeframe: null,
     categorys: [],
+    showCate: false,
     temp: [],
     subcate: [],
     projectBudget: null,
@@ -28,6 +31,7 @@ HubStar.ContactController = Ember.Controller.extend({
     email_title: "",
     needs: ["mega", "profile", 'article', 'applicationFeedback', 'video'],
     init: function() {
+
         this.set('categorys', []);
 
         this.set('categorys', HubStar.Cate.find());
@@ -42,10 +46,10 @@ HubStar.ContactController = Ember.Controller.extend({
             for (var i = 0; i < this.get('temp').get('subcate').get('length'); i++) {
                 this.get('subcate').pushObject({'list_id': "checkbox" + i, 'category_topic': this.get('temp').get('subcate').objectAt(i).get('category_topic'), "isSelection": this.get("checkbox" + i)});
             }
-
         }
     },
     topicSelection: function(data) {
+        this.set('showCate', true);
         this.set('temp', []);
         this.set('temp', data);
         this.set('subcate', []);
@@ -66,6 +70,7 @@ HubStar.ContactController = Ember.Controller.extend({
     setSelectedMega: function(id)
     {
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+
         if (this.get("currentUser").get("first_name") !== null && this.get("currentUser").get("last_name")) {
             this.set("displayName", this.get("currentUser").get("first_name") + " " + this.get("currentUser").get("last_name"));
         }
@@ -76,44 +81,44 @@ HubStar.ContactController = Ember.Controller.extend({
         this.set("displayEmail", this.get("currentUser").get("email"));
         var idProfile;
         var tempMega = HubStar.Mega.find(id);
-
-
         this.set("selectedMega", tempMega);
 
+        if (this.get("selectedMega").get("type") === 'profile')
+        {
+            this.set("owner_profile_pic", this.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
+        }
+        else {
+            this.set("owner_profile_pic", this.get("selectedMega").get("owner_profile_pic"));
+        }
         this.set("recieveProfile", this.get("selectedMega").get("id"));
-
-        //console.log(this.get("recieveProfile"));
-
         this.set("emailDestination", this.get("selectedMega").get("owner_contact_email"));
-        //console.log(tempMega);
-        //console.log(this.get("selectedMega").get("owner_contact_email"));
-
         this.set("emaiCCDestination", this.get("selectedMega").get("owner_contact_cc_emails"));
         var that = this;
-//            console.log(this.get("selectedMega"));
-//            console.log( that.get("selectedMega").get("owner_id"));
         tempMega.addObserver('isLoaded', function() {
 
             if (tempMega.get('isLoaded')) {
-                //console.log(tempMega);
+                
                 that.set("selectedMega", tempMega);
                 that.set("emailDestination", that.get("selectedMega").get("owner_contact_email"));
                 that.set("emaiCCDestination", that.get("selectedMega").get("owner_contact_cc_emails"));
                 idProfile = that.get("selectedMega").get("owner_id");
-                //console.log(that.get('selectedMega').get('owner_title'));
+
+                if (that.get("selectedMega").get("type") === 'profile')
+                {
+                    that.set("owner_profile_pic", that.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
+                }
+                else {
+                    that.set("owner_profile_pic", that.get("selectedMega").get("owner_profile_pic"));
+                }
                 var tempProfile = HubStar.Profile.find(idProfile);
                 var those = that;
                 tempProfile.addObserver('isLoaded', function() {
                     if (tempProfile.get('isLoaded')) {
                         those.get('selectedMega').set('owner_title', tempProfile.get('profile_name'));
-                        //console.log(those.get('selectedMega').get('owner_title'));
-                        //console.log(tempProfile.get('profile_name'));
                         those.set("emailDestination", tempProfile.get("owner_contact_email"));
-
                         those.set("emaiCCDestination", tempProfile.get("owner_contact_cc_emails"));
                     }
                 });
-                //console.log(idProfile);
             }
         });
 
@@ -128,6 +133,8 @@ HubStar.ContactController = Ember.Controller.extend({
         this.set('projectTimeframeDropdown', false);
         this.set('projectBudgetDropdown', false);
         this.set('projectExperienceDropdown', false);
+        this.set('showCate', false);
+
         videoController.closeContact();
         megaController.closeContact();
         profileController.closeContact();
@@ -155,7 +162,6 @@ HubStar.ContactController = Ember.Controller.extend({
             }
         }
         projectSubCategoryItem = projectSubCategoryItem.substring(0, projectSubCategoryItem.length - 1);
-
         var tempEmail = HubStar.Email.createRecord({
             "displayName": this.get("displayName"),
             "displayEmail": this.get("displayEmail"),
@@ -173,7 +179,19 @@ HubStar.ContactController = Ember.Controller.extend({
         });
         tempEmail.store.commit();
         this.get('controllers.applicationFeedback').statusObserver(null, "Email has been sent.");
+        if (!this.get('rememberMessage')) {
+            this.set("emailBody", "");
+            this.set("emailSubject", "");
+
+        }
+
+        this.set('projectCategorySelection', 'Please Select One ...');
+        this.set('timeframeSelection', 'Please Select One ...');
+        this.set('projectBudgetSelection', 'Please Select One ...');
+        this.set('projectExperienceSelection', 'Please Select One ...');
+        this.set('showCate', false);
         this.closeContact();
+
     },
     dropdown: function(checking) {
         if (checking === "Category") {
@@ -207,10 +225,19 @@ HubStar.ContactController = Ember.Controller.extend({
         } else {
         }
     },
+    canelDropDown: function()
+    {
+        this.set('projectCategoryDropdown', false);
+        this.set('projectTimeframeDropdown', false);
+        this.set('projectBudgetDropdown', false);
+        this.set('projectExperienceDropdown', false);
+    },
     nextSendingEmailProcess: function() {
+
         this.set('secondStepOfContactEmail', true);
         this.set('firstStepOfContactEmail', true);
         this.selectionCheckBox();
+
     },
     proviousSendingEmailProcess: function() {
         this.set('secondStepOfContactEmail', false);

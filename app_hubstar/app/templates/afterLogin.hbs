@@ -11,14 +11,15 @@
                 <k class="icon-user" style="">&nbsp;&nbsp;</k>
                 <span>My Trends</span>
             </a></li>
+        <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myMessageBoard"}}>
+                <k class="icon-envelope" style="">&nbsp;&nbsp;</k>
+                <span>Messages</span>
+            </a></li>
         <li class='ite'><a tabindex="-1" href="http://about.trendsideas.com/" target="blank">
                 <k class="icon-question-sign" style="">&nbsp;&nbsp;</k>
                 <span>Help</span>
             </a></li>
-       <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myMessageBoard"}}>
-                <k class="icon-user" style="">&nbsp;&nbsp;</k>
-                <span>Messages</span>
-            </a></li>
+
         <li class="ite"><a tabindex="-1" href="#" onclick="logout();">
                 <k class="icon-off" style="">&nbsp;&nbsp;</k>
                 <span>Logout</span> 
@@ -31,21 +32,21 @@
 
 <script>
 
-                    function logout() {
+            function logout() {
 
-                        $.ajax({
-                            type: 'POST',
-                            url: getRestAPIURL()+ '/logout',
-                            contentType: 'application/json; charset=uft-8',
-                            dataType: 'json',
-                            success: function(para) {
-                              
+                $.ajax({
+                    type: 'POST',
+                    url: getRestAPIURL() + '/logout',
+                    contentType: 'application/json; charset=uft-8',
+                    dataType: 'json',
+                    success: function(para) {
 
-                            }
-                        });
-
-                        localStorage.clear();
-                       
 
                     }
+                });
+
+                localStorage.clear();
+
+
+            }
 </script>

@@ -6,7 +6,6 @@
         {{/if}}
 
         <div class="top-controlbar easing" >
-            <!--            <div class="icon-on-black" style="left: 8px;"><i class="icon-thumbs-up"></i></div>-->
 
             <div class="icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." style="position:relative;margin: 0 5px;" {{action switchCollection on="click" target="controller"}} >
                 <i class="icon-save"></i><span class="pretooltip">Save</span>
@@ -196,6 +195,8 @@
                 <div class="addcommnetbox" role="button" {{action openComment target="view" on="click"}} id="addcommetBut" >
                     add comment...
                 </div>
+                
+                {{#unless HubStar.checkLoginStatus}}
                 <div class="addcommnetbox-container" id="commentBox" style="display: none">
                     <div style="margin:0 auto; padding: 0 0 15px 38px;">
                         <a> 
@@ -210,6 +211,8 @@
 
                     </div>
                 </div>
+                  {{/unless}}
+                
                 {{#each controller.megaResouce.comments}}
                 <div class="comment-item">
 
@@ -259,4 +262,8 @@
 
 </div>
 
+{{#if HubStar.checkLoginStatus}}
 
+{{render loginModal}}       
+
+{{/if}}

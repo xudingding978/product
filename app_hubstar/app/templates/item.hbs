@@ -21,7 +21,7 @@
                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
             </div>
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer; width: auto;" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <a class="poster-name" style="cursor: pointer; width: auto;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <div class="posttime-container">
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
@@ -130,10 +130,12 @@
                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
             </div>
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer; width: auto;" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+
+                <a class="poster-name" style="cursor: pointer; width: auto;"  href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <div class="posttime-container">
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
+
             </div>
 
             <div class="object-tags-box">
@@ -233,8 +235,8 @@
                 <div class="profilepic-on-masonry">
                     <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
                 </div>
-                <div class="object_username">
-                    <a class="poster-name" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{creator}}</a>
+                <div class="object_username">  
+                    <a class="poster-name" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{creator}}</a>
                     <div class="posttime-container" style="display:none;">
                         <span class="posttime">{{date created}}</span>
                     </div>
@@ -298,7 +300,7 @@
             <div class="masonry-object_text">
                 <div class="masonry-object_text-container">
                     <a style="font-size: 16px; font-weight: bold;cursor: pointer" {{action transitionToArticle id}}>{{object_title}}</a>
-                    <p style="text-overflow: ellipsis; {{action transitionToArticle id}}>{{{object_description}}}</p>
+                    <p style="text-overflow: ellipsis"; {{action transitionToArticle id}}>{{{object_description}}}</p>
                        </div>
 
                        <div class="more_detail" {{bindAttr id="id"}} style="display:none;width:auto">

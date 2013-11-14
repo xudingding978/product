@@ -11,7 +11,7 @@ var HubStar = window.HubStar = Ember.Application.createWithMixins({
                 return [value];
             });
             HubStar.set('ads', array);
-            console.log(HubStar.get('ads'));
+            //console.log(HubStar.get('ads'));
         });
         HubStar.set('chooseCollection', null);
         HubStar.set('isMansonryPageLoad', false);

@@ -1357,7 +1357,7 @@ textarea.add-interests{
     top: -10px;
     right: -12px;
     cursor: pointer;
-
+    line-height: 20px;
     opacity: .6;
 }
 

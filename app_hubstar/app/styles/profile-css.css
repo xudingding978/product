@@ -465,24 +465,15 @@ div#appfeedback div.fresh-profile-pic > img:last-child
     top: -3px;
     left: 0;
 }
-div#appfeedback .fresh-message > span.feed-back{float:left;max-width:85%;overflow:hidden;margin-left:10%;text-align:left;}
+div#appfeedback .fresh-message > span.feed-back{float:left;max-width:85%;overflow:hidden;text-align:left;}
 
 div#appfeedback .fresh-message > k.icon-remove{
-    position:absolute;
-    top:1px;
-    right:2px;
+    position:relative;
+    float:right;
     font-size:16px;
-    margin:0;
+    margin:15px;
 
 }
-div#appfeedback .fresh-message k.icon-ok-sign{
-    position:absolute;
-    top:11.5px;
-    left:2.5%;
-    width:5%;
-}
-
-
 
 .fresh-message{
     position:relative;
@@ -514,9 +505,9 @@ div#appfeedback .fresh-message k.icon-ok-sign{
 }
 
 .fresh-message > k{
+    float:left; 
+    margin:13px 20px 13px 40px;
     font-size: 23px;
-    margin: 0 10px;
-    vertical-align: middle;
 }
 
 

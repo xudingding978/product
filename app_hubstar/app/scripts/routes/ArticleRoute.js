@@ -14,7 +14,6 @@ HubStar.ArticleRoute = Ember.Route.extend({
         },
         model: function(params) {
             var model = HubStar.Mega.find({"RequireType": "articles", "article_id": params.article_id});
-            console.log(model);
 
             return model;
         },

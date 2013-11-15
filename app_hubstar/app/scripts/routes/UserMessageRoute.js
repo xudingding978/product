@@ -13,9 +13,10 @@ HubStar.UserMessageRoute = Ember.Route.extend({
         this.controllerFor('user').set('followerTag', false);
         this.controllerFor('user').set('followingTag', false);
         this.controllerFor('user').set('messageTag', true);
+        this.controllerFor('user').set('postTag', true);
         // The following two line is used to change the selection with dark 
         $('#user-stats > li').removeClass('selected-user-stats');
-        $('#message').addClass('selected-user-stats');      
+        $('#post').addClass('selected-user-stats');
         this.controllerFor('userMessage').setUserMessage(model);
 
         $(window).scrollTop(0);

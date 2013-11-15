@@ -1,7 +1,98 @@
+
+
+{{#if controller.loadingTime}}
+
+{{render loadingSpinner}}
+
+{{/if}}
+
+
+
+<div class="Message-Board box" style="">
+    <div style="background-color: #f3f3f3; width:100%;height: 70px; border-bottom: 1px solid #ddd;padding: 0 20px;">
+        <div style="color: #555;font-size: 18px;line-height: 70px;font-weight: bold;float: left;"><i class="icon-comments-alt">&nbsp;&nbsp;&nbsp;</i>Message Board</div>
+    </div>
+
+    <div  style="width: 100%;padding: 20px 6.5%;margin: 0 auto;overflow: hidden;border-bottom: 1px solid #ddd;">
+        <div style="margin:0 auto; padding: 0 0 0 45px;">
+            <a>
+                <img class="profilepic_comment"  style="float: left; margin: 4px 0 0 -45px; margin-top: 0;" {{bindAttr src= this.commenter_photo_url}} /> 
+                <div class='user-says-angle-before'></div>
+                <div class='user-says-angle-after'></div>
+            </a>
+
+            <div class="post-comment-container">
+                <div   style="margin: 0;width: 100%; height:80px;">
+                    {{view Ember.TextArea valueBinding="messageContent" class="no-resize" placeholder="What's up!" }}                                          
+                </div>
+                {{#if controller.isUploadPhoto}}
+                <div style='max-width: 100%;max-height: 100px;padding: 10px 12px;text-align: center;border-top: 1px solid #ddd;'>
+                    <div class='remove-comment-photo easing' {{action removePic}}><i class="icon-remove"></i></div>
+                    <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 100%; max-height: 80px;">
+                </div>
+                {{/if}}
+                <div class="" style="height: 30px;position: relative;border-top: 1px solid #ddd;top: -1px;">
+                    <div  class="message-btn easing" style=" border-right: 1px solid #ddd;"><k class='icon-picture'>&nbsp;</k>Add Photo
+                        <div style="opacity:0;position: relative;height:30px;top:-30px;overflow: hidden;"> 
+                            {{view HubStar.SingleImageInputButtonView }}
+                        </div>
+                    </div>
+                    {{#if controller.isPosting}}
+                    <div class="message-btn easing" style=''{{action addComment}}><k class='icon-ok'>&nbsp;</k>Post </div>
+                    {{else}}
+                    <div class="message-btn-x easing" style=''><i class="spinner">&nbsp;</i>Posting </div>
+                    {{/if}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div  id="content_message" class='Message-Board_comment-container' style=" ">
+        {{#each  contentMsg}}
+
+        <div  id="message_{{unbound this.message_id}}">          
+            {{render "message" this}}
+        </div>
+        <script>
+            $(function() {
+                var $container = $('#masonry_user_container');
+                window.setTimeout(function() {
+                    $container.masonry();
+                    $container.masonry('reloadItems');
+                }, 200);
+            });
+        </script>
+        {{/each}}
+    </div>
+</div>
+<script>
+    $(function() {
+        $("#content_message").mCustomScrollbar({
+            scrollButtons: {
+                enable: false,
+                scrollSpeed: "auto"
+            },
+            advanced: {
+                updateOnBrowserResize: true,
+                updateOnContentResize: true,
+                autoScrollOnFocus: false,
+                normalizeMouseWheelDelta: false
+            },
+            autoHideScrollbar: true,
+            mouseWheel: true,
+            theme: "dark-2",
+            set_height: 1000
+        });
+    });
+</script>
+
 <div class="box col2" style="background-color: #fafafa">
      {{#unless model.enableToEdit}}
     <div style="padding: 10px 0 10px 70px;position: relative;  background-color: #f3f3f3;  border-bottom: 1px solid #ddd;">
-        <div style="float: right;color: #888;margin: 18px 20px;font-size: 13px; position: relative;z-index: 1">
+        <div style="float: right;color: #888;margin: 18px 20px;font-size: 13px;">
             {{#if model.isUserself}} <!--model.isUserself is used to judge whether the reply message is written by the current login user-->
 
             <i class="icon-trash"  style="margin: 0 10px;"{{action removeMessage model.message_id}}></i>                 
@@ -23,10 +114,10 @@
             <img class="profilepic_comment" href="#/users/{{unbound model.user_id}}" style="width: 45px; height: 45px; " {{bindAttr src= model.photo_url_large}} /> 
         </div>
 
-        <div class="comment-namentime" style="margin: 8px 0; z-index: 0">
+        <div class="comment-namentime" style="margin: 8px 0;">
             <div class="namentime_position">
                 <a class="comment-username"   href="#/users/{{unbound model.user_id}}">
-                    {{model.user_name}}
+                    {{model.user_name }}
                 </a>
                 <div class="posttime-container">
                     <span class="posttime">{{date model.time_stamp}}</span>
@@ -77,11 +168,11 @@
 
             <!--please disable the following div when it's got not content-->
             {{#if controller.isUploadPhoto}}
-                <div style='max-width: 100%;max-height: 100px;padding: 10px 12px;text-align: center;border-top: 1px solid #ddd;'>
-                    <div class='remove-comment-photo easing' {{action removePic}}><i class="icon-remove"></i></div>
-                    <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 100%; max-height: 80px;">
-                </div>
-                {{/if}}
+            <div style='width: 380px;max-height: 100px;padding: 10px 12px;text-align: center;background-color: #fff;border-radius: 0 0 3px 3px;border: 1px solid #ddd;border-top: none;'>
+                <div class='remove-comment-photo easing' ><i class="icon-remove"></i></div>
+                <img  {{bindAttr src= "newStyleImageSource"}}  style="max-height: 80px;max-width: 300px">
+            </div>
+            {{/if}}
         </div>
     </div>
 

@@ -37,9 +37,15 @@ HubStar.MessageController = Ember.Controller.extend({
 
         this.set("isEdit", true);
     },
+   removePic: function() {
+        this.set('newStyleImageSource', null);
+        this.set('newStyleImageName', "");
+        this.set("isUploadPhoto", false);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+        }, 200);
+    },
     editingCommentData: function(id, msg) {
-
-
         var enableEditCount = 0;
         var messageId = null;
 

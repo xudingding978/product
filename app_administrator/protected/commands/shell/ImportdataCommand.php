@@ -75,7 +75,7 @@ class ImportdataCommand extends Controller_admin {
         echo "create class \n";
         // Start date. Set this date to desired starting date you want to grab data from trends database 
         // The function will import data from this date, inculding this day        
-        $date = '2013-03-07';
+        $date = '2013-08-18';
         echo "call method \n";
         // End date. Set this date to desired ending date you want to grab data from trends database. 
         // The function will only import data before this date, but not importing data on this date
@@ -89,7 +89,7 @@ class ImportdataCommand extends Controller_admin {
             $message = "\nIMPORT DATA FOR " . $start . "---------------------------------------------------------------------\n";
             $this->createRecord($message);
             $this->correctImageData($start, $to, $bucket,$replication);
-            sleep(2);
+            sleep(1);
             $artical_on_date = $classArticleImport->importArticleToProduction($start, $to, $bucket);
             echo "\narticles number: " . sizeof($artical_on_date) . "\n";
             if (sizeof($artical_on_date) > 0) {
@@ -842,7 +842,7 @@ class ImportdataCommand extends Controller_admin {
                 "object_image_url" => $log_arr[0]['photo_image_hero_url'],
                 "owner_type" => 'profile', //
                 "owner_profile_pic" => "http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg", //
-                "owner_title" => "Trends Ideas", //
+                "owner_title" => $book_title, //
                 "owner_id" => strtolower($title), //"home-and-apartment-trends-nz"
                 "owner_contact_email" => "enquiries@trendsideas.com", //
                 "owner_contact_cc_emails" => null, //

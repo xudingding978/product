@@ -8,7 +8,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     caption: '',
     checkLoginStatus:false,
     isCreditListExist: false,
-    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus'],
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus','editComment'],
     init: function() {
   
     },
@@ -82,6 +82,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('image_no', 1);
         var megaResouce = HubStar.Mega.find(megaObject.id);
         this.set('articleResouce', megaResouce.get('article').objectAt(0));
+        this.set('article',megaResouce);
         this.set('articleID', megaObject.id);
         this.set('megaResouce', megaResouce);
         this.addRelatedData(megaObject);
@@ -98,20 +99,51 @@ HubStar.ArticleController = Ember.Controller.extend({
     addComment: function() {
         var commentContent = this.get('commentContent');
         if (commentContent) {
-            var comments = this.get('megaResouce').get('comments');
+            var comments = this.get('article').get('comments');
             var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
-            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
+            var message_id = createMessageid() + commenter_id;
+            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,"message_id":message_id,
                 "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
-                "is_delete": false, optional: this.get('megaResouce').get('type') + '/' + this.get('megaResouce').get('id')});
+                "is_delete": false, optional: this.get('article').get('type') + '/' + this.get('article').get('id')});
             comments.insertAt(0, tempComment);
             comments.store.save();
             this.set('commentContent', '');
             $('#addcommetBut').attr('style', 'display:block');
             $('#commentBox').attr('style', 'display:none');
         }
+    },
+     removeComment: function(object)
+    {
+        var id = this.get('article').get("id");
+        var message_id = object.get("message_id");
+        var delInfo = [id, message_id];
+
+        delInfo = JSON.stringify(delInfo);
+        var that = this;
+        this.get('article').get('comments').removeObject(object);
+        requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function(params) {
+        });
+    },
+    updateComment: function(object) {
+        this.get("controllers.editComment").setRelatedController("article");
+        var comments = this.get('article').get('comments');
+        for (var i = 0; i < comments.get("length"); i++)
+        {        
+            if (comments.objectAt(i).get("message_id") === object.get("message_id"))
+            {            
+                object.set("isEdit", !object.get("isEdit"));
+                console.log
+            }
+            else
+            {
+                comments.objectAt(i).set("isEdit", false);
+            }
+        }
+        var msg = object.get("content");
+        HubStar.set("updateCommentmsg", msg);
     },
     addRelatedData: function(mega) {
 
@@ -176,6 +208,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
     },
     editingContactForm: function() {
+ if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var contactController = this.get('controllers.contact');
 
         this.get("controllers.contact").set("firstStepOfContactEmail",false);      
@@ -183,8 +217,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         var selectid = this.get('selectedPhoto').id;
         contactController.setSelectedMega(selectid);
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
+       
             this.set('contact', !this.get('contact'));
         }
     },

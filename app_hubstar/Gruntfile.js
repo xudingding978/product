@@ -39,7 +39,8 @@ module.exports = function(grunt) {
                     'images/welcomepage/*',
                     'images/defaultbg/*',
                     'images/defaultpic/*',
-                    'images/defaultcover/*'
+                    'images/defaultcover/*',
+                    'images/adsImages/*'            
                 ],
                 dest: "<%= yeoman.dist %>/cache.manifest"
             }
@@ -267,7 +268,8 @@ module.exports = function(grunt) {
                      '<%= yeoman.app %>/bower_components/wysihtml5/parser_rules/advanced.js',
                     '<%= yeoman.app %>/bower_components/wysihtml5/dist/wysihtml5-0.3.0.js',
                     '<%= yeoman.app %>/bower_components/google-maps/google_maps.js',
-                    '<%= yeoman.app %>/bower_components/mousetrap.min.js',                  
+                    '<%= yeoman.app %>/bower_components/mousetrap.min.js',       
+                   '<%= yeoman.app %>/bower_components/starrating/jquery.ratings.js',
                    '<%= yeoman.app %>/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js',
                    '<%= yeoman.app %>/bower_components/dfp.js'
                 ],
@@ -289,7 +291,8 @@ module.exports = function(grunt) {
                      '<%= yeoman.app %>/bower_components/wysihtml5/parser_rules/advanced.js',
                     '<%= yeoman.app %>/bower_components/wysihtml5/dist/wysihtml5-0.3.0.js',
                     '<%= yeoman.app %>/bower_components/google-maps/google_maps.js',
-                    '<%= yeoman.app %>/bower_components/mousetrap.min.js',                  
+                    '<%= yeoman.app %>/bower_components/mousetrap.min.js',            
+                    '<%= yeoman.app %>/bower_components/starrating/jquery.ratings.js',
                    '<%= yeoman.app %>/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js',
                    '<%= yeoman.app %>/bower_components/dfp.js'
                 ],

@@ -2,6 +2,12 @@
 
 Yii::import("application.models.*");
 Yii::import("application.components.*");
+//header("Access-Control-Allow-Origin: *");
+//header('Content-type: *');
+//
+//header('Access-Control-Request-Method: *');
+//header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
+//header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
 class PhotoCommand extends Controller_admin {
 
@@ -18,7 +24,10 @@ class PhotoCommand extends Controller_admin {
             $this->insertCouchbaseIdToSQLserver();
         } else if ($action == "add-new-doc") {
             $this->addNewDocToCouchbase();
-        } else if ($action == "insert-url-to-sqlserver") {
+        }
+         else if ($action == "changeid") {
+            $this->changePhotoUrlforchangeProfileId();
+        }else if ($action == "insert-url-to-sqlserver") {
             $this->insertURL();
         } else if ($action == "resize-hero") {
             $this->resizingHero();
@@ -38,7 +47,92 @@ class PhotoCommand extends Controller_admin {
         $end_time = microtime(true);
         echo "totally spend: " . ($end_time - $start_time);
     }
+    
 
+    
+        protected function getImageIdentifier($imageInfo, $url) {
+
+        if (strpos($imageInfo['mime'], 'jpeg')) {
+            error_log('getImageIdentifier = jpeg');
+            $im = imagecreatefromjpeg($url);
+        } elseif (strpos($imageInfo['mime'], 'png')) {
+            $im = imagecreatefrompng($url);
+        } elseif (strpos($imageInfo['mime'], 'gif')) {
+            $im = imagecreatefromgif($url);
+        } elseif (strpos($imageInfo['mime'], 'bmp')) {
+            $im = imagecreatefrombmp($url);
+        }
+
+
+        return $im;
+    }
+    
+           public function createResizedImage($data, $photo_type) {
+
+                    ob_start();
+        if ($photo_type == "image/png") {
+            imagepng($data);
+        } else if ($photo_type == "image/jpeg") {
+            imagejpeg($data);
+        }
+            else if($photo_type== "image/gif"){
+                imagegif($data);
+            }
+        $contents = ob_get_contents();
+        
+        ob_end_clean();
+    //    }
+        
+        return $contents;
+    }
+    
+     protected function changePhotoUrlforchangeProfileId(){
+         $url="http://trendsideas.com/Media/User/Images/platform.jpg";
+         $imageInfo=  getimagesize($url);
+         header("Access-Control-Allow-Origin: *");
+header('Content-type: *');
+
+header('Access-Control-Request-Method: *');
+header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+         echo $imageInfo[0]."   ".$imageInfo[1]."111111111111111111111111111111\n";
+         print_r($imageInfo);
+         $data = $this->getImageIdentifier($imageInfo, $url);
+         $data1=$this->createResizedImage($data,$imageInfo['mime']);
+         echo $data;
+         $newURL="trendsideas.com/profiles/aspining-walls-nz/hero/whites%20&%20neutrals%20-%20bracken_350x532.jpg";
+         $this->putImagetoS3($newURL, $data1);
+     }
+
+     protected function putImagetoS3($url, $data) {
+        //connect to default bucket of couchbase
+        $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
+        //'HTTP_HOST"="api.develop.trendsideas.com"
+       // $key = explode(".", $_SERVER['HTTP_HOST']);
+
+        error_log("the http_host".$_SERVER['HTTP_HOST']);
+        //key=trendsideas.com, find the s3client configration from it
+       // $key = $key[2] . '.' . $key[3];
+        $key="trendsideas.com";
+        error_log("the key used for couchbase is " . $key);
+        $result = $cb->get($key);
+        //  error_log(var_export($result));
+        $result_arr = CJSON::decode($result, true);
+        error_log("S3 configration: \n".var_export($result_arr["providers"]["S3Client"], true));
+        $client = Aws\S3\S3Client::factory(
+                        $result_arr["providers"]["S3Client"]
+        );
+
+        //saving
+        $client->putObject(array(
+            'Bucket' => "s3.hubsrv.com",
+            'Key' => $url,
+            'Body' => $data,
+            'ACL' => 'public-read',
+        ));
+        error_log('put into s3');
+    }
+    
     protected function fixPhotoURL() {
 //        echo "-------------------in fixPhotoURL function \r\n";
         $error_image = array();

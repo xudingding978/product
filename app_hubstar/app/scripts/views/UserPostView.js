@@ -3,8 +3,8 @@
  * and open the template in the editor.
  */
 
-HubStar.PostView = Ember.View.extend({
+HubStar.UserPostView = Ember.View.extend({
 
-  templateName: 'post'
+  templateName: 'userPost'
     });
 

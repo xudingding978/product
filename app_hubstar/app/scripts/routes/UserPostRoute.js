@@ -4,7 +4,7 @@
  */
 
 
-HubStar.PostRoute = Ember.Route.extend({
+HubStar.UserPostRoute = Ember.Route.extend({
     setupController: function(controller, model) {
  
         this.controllerFor('user').set('profileSelectionStatus', 'Post');

@@ -18,7 +18,7 @@ class UsersController extends Controller {
         $urlController = new UrlController();
 
         $link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-        
+
         $domain = $urlController->getDomain($link);
 
         $settings['log.enabled'] = true;
@@ -66,11 +66,33 @@ class UsersController extends Controller {
         $request_arr = CJSON::decode($request_json, true);
     }
 
+    public function actionSaveNotification() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request_array = CJSON::decode($request_array);
+        $commenter_id = $request_array[0]; // it is the  login in user
+        $notification = $request_array[1]; // it is the page owner
+
+        try {
+            $docIDDeep = $this->getDomain() . "/users/" . $commenter_id; //$id  is the page owner
+            $cb = $this->couchBaseConnection();
+            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+            $oldRecordDeep = CJSON::decode($oldDeep, true);
+
+            $oldRecordDeep['user'][0]["notification_setting"] = $notification;
+
+            if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
+    }
+
     public function actionRead() {
         try {
-
-
-
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
@@ -207,21 +229,17 @@ class UsersController extends Controller {
 
             $oldRecord['user'][0]['photo_url_large'] = null;
             $oldRecord['user'][0]['photo_url_large'] = $url;
-            
-        }  elseif
-            ($mode == 'user_cover') {
+        } elseif
+        ($mode == 'user_cover') {
 
             $oldRecord['user'][0]['cover_url'] = null;
             $oldRecord['user'][0]['cover_url'] = $url;
-
-            
-        } 
+        }
 
         if ($mode == 'user_cover') {
             $smallimage = $photoController->savePhotoInTypes($orig_size, 'user_cover_small', $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
             $oldRecord['user'][0]['cover_url_small'] = null;
             $oldRecord['user'][0]['cover_url_small'] = $smallimage;
-
         }
 
         $url = $this->getDomain() . '/users/' . $user_id;

@@ -1,4 +1,5 @@
 HubStar.ProfileView = Ember.View.extend({
+    
     templateName: 'profile',
     didInsertElement: function() {
 
@@ -9,14 +10,16 @@ HubStar.ProfileView = Ember.View.extend({
                 isFitWidth: true
             });
         });
-
         var address = document.URL;
         var displayTap = address.split("#")[1].split("/")[3];
 
-        if (displayTap === "network")
+        if (displayTap === "partners")
         {
+
             $('#user-stats > li').removeClass('selected-user-stats');
-            $('#network').addClass('selected-user-stats');
+
+            $('#partners').addClass('selected-user-stats');
+
             $('#user-stats > li').click(function() {
                 $('#user-stats > li').removeClass('selected-user-stats');
                 $(this).addClass('selected-user-stats');
@@ -24,7 +27,10 @@ HubStar.ProfileView = Ember.View.extend({
         }
         else if (displayTap === "followers")
         {
+
+
             $('#user-stats > li').removeClass('selected-user-stats');
+
             $('#follow').addClass('selected-user-stats');
             $('#user-stats > li').click(function() {
                 $('#user-stats > li').removeClass('selected-user-stats');
@@ -41,7 +47,10 @@ HubStar.ProfileView = Ember.View.extend({
             });
         }
         else {
+
+
             $('#user-stats > li').removeClass('selected-user-stats');
+
             $('#defualt').addClass('selected-user-stats');
             $('#user-stats > li').click(function() {
                 $('#user-stats > li').removeClass('selected-user-stats');
@@ -51,4 +60,6 @@ HubStar.ProfileView = Ember.View.extend({
 
 
     }
+     
+    
 });

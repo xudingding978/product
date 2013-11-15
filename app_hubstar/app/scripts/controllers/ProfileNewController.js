@@ -5,6 +5,7 @@ var multiEmail2 = true;
 HubStar.ProfileNewController = Ember.ObjectController.extend({
     profile_name: "",
     categorySelection: "Apartment Design",
+    subcategorySelection: "Bathroom",
     countrySelection: "New Zealand",
     regionSelection: "Auckland",
     numberSelection: "021",
@@ -14,6 +15,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     address: "",
     suburb: "",
     categoryDropdown: false,
+    subcategoryDropdown: false,
     countryDropdown: false,
     regionDropdown: false,
     numberDropdown: false,
@@ -30,7 +32,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     boost: "",
     profile_package: "",
     profile_contact_number: "",
-  //  secondary_email: "",
+    //  secondary_email: "",
     direct_enquiry_provide_email: "",
     profile_bg_url: "",
     profile_hero_url: "",
@@ -97,19 +99,19 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     fillInChecking: function() {
 
         multiEmail2 = this.multiEmailChecking($('.admins').val(), '#emailFormat6', multiEmail2);
-      //  var boost = this.numberChecking('#number1', $('.mustFill7').val());
+        //  var boost = this.numberChecking('#number1', $('.mustFill7').val());
 
-        if ($('.profileName').val() !== ""  && $('.country').val() !== "" && $('.region').val() !== "" && $('.clientEmail').val() !== "" && multiEmail1
-                 && $('.contactEmail').val() !== "" && $('.admins').val() !== ""  && multiEmail2
+        if ($('.profileName').val() !== "" && $('.country').val() !== "" && $('.region').val() !== "" && $('.clientEmail').val() !== "" && multiEmail1
+                && $('.contactEmail').val() !== "" && $('.admins').val() !== "" && multiEmail2
                 && this.validateEmail($('.clientEmail').val())) {
             passSubmit = true;
         } else {
             passSubmit = false;
         }
-         this.set("profile_url", this.get("profile_name") + "-" +  $('#countrySelection').text() + "-" +  $('#regionSelection').text());
-         
+        this.set("profile_url", this.get("profile_name") + "-" + $('#countrySelection').text() + "-" + $('#regionSelection').text());
+
         if (this.specialCharactersChecking(this.spaceChecking(this.get("profile_url")))) {
-                   
+
             $('#invalide').attr('style', 'display:none');
         } else {
 
@@ -208,18 +210,19 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
 
         this.fillInChecking();
         if (passSubmit) {
-            var newMega = HubStar.store.createRecord(HubStar.Mega, {//15
+            var newMegaNewModel = HubStar.store.createRecord(HubStar.Meganew, {//15
                 "id": this.spaceChecking(this.get("profile_url").toLowerCase()),
                 "type": "profile",
                 accessed: null,
-             //   boost: this.get("boost"),
+                //   boost: this.get("boost"),
                 is_active: "true",
                 is_indexed: "true",
                 category: $('#categorySelection').text(),
+                subcategories: $('#subCategorySelection').text(),
                 created: "",
                 creator: this.get("creater"),
                 country: $('#countrySelection').text(),
-                region:$('#regionSelection').text(),
+                region: $('#regionSelection').text(),
                 domains: getDomain(),
                 editors: this.get("editors"),
                 keywords: this.get("keywords"),
@@ -232,7 +235,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
 //                owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
                 updated: ""
             });
-            newMega.store.save();
+
             var newProfile = HubStar.store.createRecord(HubStar.Profile, {
                 id: this.spaceChecking(this.get("profile_url").toLowerCase()),
                 profile_name: this.get("profile_name"),
@@ -251,6 +254,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
 //                owner_contact_cc_emails: this.get("secondary_email"),
 //                owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
                 profile_category: $('#categorySelection').text(),
+                profile_subcategory: $('#subCategorySelection').text(),
                 profile_physical_address: this.get("address"),
                 profile_suburb: this.get("suburb"),
                 profile_keywords: this.get("keywords"),
@@ -264,17 +268,13 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 profile_website: this.get("website")
             });
 
-            newMega.get("profile").addObject(newProfile);
-            console.log(newMega);
+
+            newMegaNewModel.get("profile").addObject(newProfile);
             var that = this;
+            newMegaNewModel.store.save();
 
-            setTimeout(function() {
-                newProfile.store.save();
-            }, 500);
-
-
-            newMega.addObserver('isDirty', function() {
-                if (!newMega.get('isDirty')) {
+            newMegaNewModel.addObserver('isDirty', function() {
+                if (!newMegaNewModel.get('isDirty')) {
 
                     that.transitionToRoute('profile', newProfile);
                 } else {
@@ -289,50 +289,60 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             this.set('countryDropdown', false);
             this.set('numberDropdown', false);
             this.set('regionDropdown', false);
+            this.set('subcategoryDropdown', false);
             this.set('categoryDropdown', !this.get('categoryDropdown'));
-        } 
+        }
         else if (checking === "country") {
             this.set('categoryDropdown', false);
             this.set('numberDropdown', false);
             this.set('regionDropdown', false);
+            this.set('subcategoryDropdown', false);
             this.set('countryDropdown', !this.get('countryDropdown'));
         }
         else if (checking === "region") {
             this.set('countryDropdown', false);
             this.set('numberDropdown', false);
             this.set('categoryDropdown', false);
+            this.set('subcategoryDropdown', false);
             this.set('regionDropdown', !this.get('regionDropdown'));
         }
         else if (checking === "number") {
             this.set('countryDropdown', false);
-                    this.set('categoryDropdown', false);
+            this.set('categoryDropdown', false);
             this.set('regionDropdown', false);
+            this.set('subcategoryDropdown', false);
             this.set('numberDropdown', !this.get('numberDropdown'));
         }
+        else if (checking === "subcategory") {
+            this.set('categoryDropdown', false);
+            this.set('numberDropdown', false);
+            this.set('regionDropdown', false);
+            this.set('countryDropdown', false);
+            this.set('subcategoryDropdown', !this.get('subcategoryDropdown'));
+        }
     },
-            
-       packageSelection: function(checking){
-   
-    if (checking === "gold") {
-        
-        console.log("gold");
-        this.set("profile_package", "gold");
-        
-    }else if (checking === "silver") {
-        
-         console.log("silver");
-         this.set("profile_package", "silver");
-        
-    }else if (checking === "bronze") {
-        
+    packageSelection: function(checking) {
+
+        if (checking === "gold") {
+
+            console.log("gold");
+            this.set("profile_package", "gold");
+
+        } else if (checking === "silver") {
+
+            console.log("silver");
+            this.set("profile_package", "silver");
+
+        } else if (checking === "bronze") {
+
             console.log("bronze");
             this.set("profile_package", "bronze");
-        
+
+        }
+
     }
-   
-       }     
-            
-            
-            
+
+
+
 });
 

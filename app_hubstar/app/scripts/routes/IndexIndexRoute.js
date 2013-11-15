@@ -8,9 +8,7 @@ HubStar.IndexIndexRoute = Ember.Route.extend({
             this.controllerFor('application').set('isotherpage', false);
 
             if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-//                this.controllerFor('application').newSearch();
             }
-
         },
         events: {
             transitionToProfile: function() {
@@ -30,7 +28,7 @@ HubStar.IndexIndexRoute = Ember.Route.extend({
               //  this.transitionTo('indexIndex');
 
             } else {
-
+                
                 this.transitionTo('searchIndex');
 
             }

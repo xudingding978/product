@@ -8,7 +8,7 @@
 
 
 
-<div class="Message-Board box" style="position: absolute; width: 545px; margin: 10px; border-radius:5px; overflow: hidden; background-color: rgb(255, 255, 255); top: 0px; left: 0px;">
+<div class="Message-Board box" style="">
     <div style="background-color: #f3f3f3; width:100%;height: 70px; border-bottom: 1px solid #ddd;padding: 0 20px;">
         <div style="color: #555;font-size: 18px;line-height: 70px;font-weight: bold;float: left;"><i class="icon-comments-alt">&nbsp;&nbsp;&nbsp;</i>Message Board</div>
     </div>
@@ -38,12 +38,11 @@
                         </div>
                     </div>
                     {{#if controller.isPosting}}
-                    <div class="message-btn easing" style=''{{action addComment}}><k class='icon-ok'>&nbsp;</k>Post</div>
+                    <div class="message-btn easing" style=''{{action addComment}}><k class='icon-ok'>&nbsp;</k>Post </div>
                     {{else}}
-                    <div class="message-btn easing" style=''><k class='icon-ok'>&nbsp;</k>Posting</div>
+                    <div class="message-btn-x easing" style=''><i class="spinner">&nbsp;</i>Posting </div>
                     {{/if}}
                 </div>
-
             </div>
 
         </div>
@@ -54,22 +53,39 @@
     <div  id="content_message" class='Message-Board_comment-container' style=" ">
         {{#each  contentMsg}}
 
-        {{render "message" this}}
+        <div  id="message_{{unbound this.message_id}}">          
+            {{render "message" this}}
+        </div>
         <script>
             $(function() {
                 var $container = $('#masonry_user_container');
                 window.setTimeout(function() {
                     $container.masonry();
                     $container.masonry('reloadItems');
-                }, 10);
+                }, 200);
             });
         </script>
         {{/each}}
-
     </div>
 </div>
 <script>
-
+    $(function() {
+        $("#content_message").mCustomScrollbar({
+            scrollButtons: {
+                enable: false,
+                scrollSpeed: "auto"
+            },
+            advanced: {
+                updateOnBrowserResize: true,
+                updateOnContentResize: true,
+                autoScrollOnFocus: false,
+                normalizeMouseWheelDelta: false
+            },
+            autoHideScrollbar: true,
+            mouseWheel: true,
+            theme: "dark-2",
+            set_height: 1000
+        });
+    });
 </script>
-
 

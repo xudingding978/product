@@ -21,7 +21,7 @@
                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
             </div>
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer; width: auto;" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <a class="poster-name" style="cursor: pointer; width: auto;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <div class="posttime-container">
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
@@ -67,7 +67,7 @@
                 <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
 
                     {{#if controller.is_authentic_user}}
-                    
+
 
 
                     <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
@@ -101,7 +101,7 @@
                 <div class="more_detail" {{bindAttr id="id"}} >
                     <div class="more_text-container" >
                         <div style="display:block;">
-                            {{object_description}}
+                            {{{object_description}}}
                         </div>
                     </div>
 
@@ -126,12 +126,15 @@
 
     <div class="masonry-object">
         <div class="masonry-object_poster">
-            <div class="profilepic-on-masonry">
-                <img {{bindAttr src="profile_pic_url"}} class="profilepic-on-masonry" />
+             <div class="profilepic-on-masonry">
                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
             </div>
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer; width: auto;" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+
+                <a class="poster-name" style="cursor: pointer; width: auto;"  href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <div class="posttime-container">
+                    <span class="posttime" style="display:none;">{{date created}}</span>
+                </div>
 
             </div>
 
@@ -187,9 +190,9 @@
                         {{#if controller.is_profile_editing_mode}}
                         <li class="ite"  {{action  removeCollectedItem id}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>
                         {{/if}}        
-                                  {{#if controller.is_user_editing_mode}}
+                        {{#if controller.is_user_editing_mode}}
                         <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
-                   
+
                         {{/if}}
                     </ul>
 
@@ -212,9 +215,6 @@
     </div>
 </div>
 {{/if}}
-
-
-
 {{#if getFile}}
 <div class="box col2 noStyle1">
     <img {{bindAttr src="profile_pic_url"}} />
@@ -222,69 +222,72 @@
 </div>
 {{/if}}
 
+{{#if getAd}}
 
+<div class="box col2 masonry-ad" style="">
+    <div  id={{unbound id}} >  </div>    
+    </div>
+    {{/if}}
+    {{#if getArticle}}
+    <div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}}>
+        <div class="masonry-object">
+            <div class="masonry-object_poster">  
+                <div class="profilepic-on-masonry">
+                    <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
+                </div>
+                <div class="object_username">  
+                    <a class="poster-name" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{creator}}</a>
+                    <div class="posttime-container" style="display:none;">
+                        <span class="posttime">{{date created}}</span>
+                    </div>
+                </div>
+                <div class="object-tags-box">
 
-{{#if getArticle}}
-<div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}}>
+                    <div class="object-tags">
+                        <span class="tags-mark" style="background-color: #427fed"></span>
+                            <div class="tags easing">
 
-    <div class="masonry-object">
-        <div class="masonry-object_poster">  
-            <div class="profilepic-on-masonry">
-                <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
+                                <div class="object-tpye hint--left hint--rounded" data-hint="Article">
+                                    <i class="icon-book"></i>
+                                </div>                      
+                            </div>
+                        </div>
+
+                        <div class="object-tags " style="display:none;">
+                        <span class="tags-mark" style="background-color: #76a7fa"></span>
+                            <div class="tags easing tagsappear">
+                                <div class="tags-new">#{{region}}</div>                   
+                            </div>
+                        </div>
+
+                        <div class="object-tags ">
+                            <span class="tags-mark" style="background-color: #a0c3ff"></span>
+                            <div class="tags easing tagsappear"  style="overflow: hidden;">
+                            <div class="tags-new">#{{categories}}</div>                   
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
-            <div class="object_username">
-                <a class="poster-name" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{creator}}</a>
-                <div class="posttime-container" style="display:none;">
-                    <span class="posttime">{{date created}}</span>
-                </div>
-            </div>
-            <div class="object-tags-box">
+            <div class="masonry-object_mainfeature">             
+                <div class="mainfeature-wrapper">
+                    <a class="mainfeature-container">
 
-                <div class="object-tags">
-                    <span class="tags-mark" style="background-color: #427fed"></span>
-                    <div class="tags easing">
+                        <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} />
 
-                        <div class="object-tpye hint--left hint--rounded" data-hint="Article">
-                            <i class="icon-book"></i>
-                        </div>                      
-                    </div>
-                </div>
-
-                <div class="object-tags " style="display:none;">
-                    <span class="tags-mark" style="background-color: #76a7fa"></span>
-                    <div class="tags easing tagsappear">
-                        <div class="tags-new">#{{region}}</div>                   
-                    </div>
-                </div>
-
-                <div class="object-tags ">
-                    <span class="tags-mark" style="background-color: #a0c3ff"></span>
-                    <div class="tags easing tagsappear"  style="overflow: hidden;">
-                        <div class="tags-new">#{{categories}}</div>                   
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-        <div class="masonry-object_mainfeature">             
-            <div class="mainfeature-wrapper">
-                <a class="mainfeature-container">
-
-                    <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} />
-
-                </a>          
-                <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
-                    {{#if controller.is_authentic_user}}
+                    </a>          
+                    <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
+                        {{#if controller.is_authentic_user}}
 
 
-                    <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
-                         <k class="icon-cog" style="font-size: 16px; margin: 0px 5px"></k>
-                        <k class='icon-caret-down'></k>
-                    </div>
-                    <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">                     
-                        {{#if controller.is_user_editing_mode}}
-                        <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
+                        <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
+                             <k class="icon-cog" style="font-size: 16px; margin: 0px 5px"></k>
+                                 <k class='icon-caret-down'></k>
+                             </div>
+                             <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">                     
+                            {{#if controller.is_user_editing_mode}}
+                            <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
                         <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User "article"}}><k class="icon-camera" style="font-size: 16px; margin: 0px 5px;"></k>Set as Cover</li>
                         {{/if}}
                     </ul>
@@ -297,7 +300,7 @@
             <div class="masonry-object_text">
                 <div class="masonry-object_text-container">
                     <a style="font-size: 16px; font-weight: bold;cursor: pointer" {{action transitionToArticle id}}>{{object_title}}</a>
-                    <p style="text-overflow: ellipsis; {{action transitionToArticle id}}>{{{object_description}}}</p>
+                    <p style="text-overflow: ellipsis"; {{action transitionToArticle id}}>{{{object_description}}}</p>
                        </div>
 
                        <div class="more_detail" {{bindAttr id="id"}} style="display:none;width:auto">
@@ -310,7 +313,7 @@
             {{/linkTo}}
         </div>
     </div>
-
+    {{render "comment" this}}
 
 
 </div>

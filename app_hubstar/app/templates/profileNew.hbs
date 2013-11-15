@@ -1,16 +1,15 @@
 <div class="profilegb" style="background: #fff url('../images/texture.png') repeat;width: 100%;height: auto;">
     <div style="width: 100%; height: 1000px; overflow: hidden; position: fixed;"> 
-        <img src="../images/defaultbg/defaultbg6.jpg" style="width: 100%; height:100%; ">
+        <img src="../../../images/landingpagebg.jpg" style="width: 100%; height:100%; ">
     </div>
 
-    <div style="position: relative; height: 400px; padding: 150px 0; width: 650px; margin-left: 500px;">
+    <div style="position: relative; height: 400px; top: 200px; width: 715px; margin: auto;">
 
-        <img src="../images/defaultpic/defaultpic1.jpg" style="width: 150px; height:auto;border:5px solid white;box-shadow: 0px 0px 15px #555; float: left;">
+        <img src="http://s3.hubsrv.com/trendsideas.com/profiles/trends-media-sales-marketing-services/profile_picture/Screen%20Shot%202013-09-05%20at%209_286x284.51" style="width: 150px; height:auto;border: 3px solid white;box-shadow: 0px 0px 15px #555; float: left;">
 
-        <div style="margin-left: 180px;">
-            <span style="color: white; text-shadow: 0px 0px 15px #000;font-size: 35px;line-height: 35px; position: relative;display: inline-block;margin-top: 50px;">
-                <b>SIGN UP NOW!</b> <br/><b>TO TRENDS IDEAS SPACE</b>        
-            </span>
+        <div style="float: left;color: white; text-shadow: 0px 0px 15px #000;font-size: 40px;line-height: 50px;letter-spacing: 1px;margin: 24px 0 0 30px;">
+            <p><b>SIGN UP NOW</b></p> 
+            <p><b>TO TRENDS IDEAS SPACE</b></p>        
         </div>
     </div>
 
@@ -110,9 +109,9 @@
 
                     <tr>
                         <td>Profile Category:</td> 
-                        <td  id="categorySelection" style="width: 48%;">{{controller.categorySelection}}</td>        
+                               
                         <td>
-                            <div class="new-btn" style="display: block;" {{action dropdown "category"}}>
+                            <div class="new-btn" style="display: inline-block; width:100%;" {{action dropdown "category"}}>
                                  <span id="categorySelection">{{controller.categorySelection}}</span>
                                 <span class="caret"></span>
                             </div>
@@ -120,13 +119,23 @@
                             {{view HubStar.DropdownListView}}
                             {{/if}}
                         </td>
+                        
+                         <td>
+                            <div class="new-btn" style="display:inline-block; width:100%;" {{action dropdown "subcategory"}}>
+                                 <span id="subcategorySelection">{{controller.subcategorySelection}}</span>
+                                <span class="caret"></span>
+                            </div>
+                            {{#if controller.subcategoryDropdown}}
+                            {{view HubStar.DropdownListView}}
+                            {{/if}}
+                        </td>
+                        
                     </tr>
 
 
 
                     <tr>
-                        <td>Physical Address:</td>
-                        <td>Country*:</td>
+                        <td>Physical Address:</td>                      
                         <td>
                             <div class="new-btn" style="display: block;" {{action dropdown "country"}}>
                                  <span id="countrySelection">{{controller.countrySelection}}</span>
@@ -140,7 +149,6 @@
 
                     <tr>
                         <td></td>
-                        <td>Region*:</td>
                         <td>
                             <div class="new-btn" style="display: block;" {{action dropdown "region"}}>
                                  <span id="regionSelection">{{controller.regionSelection}}</span>
@@ -154,7 +162,6 @@
 
                     <tr>
                         <td></td>
-                        <td>Suburb*:</td>
                         <td> 
                             <div style="display: block;">
                                 <div   style="margin: 0;width: 100%;">
@@ -167,7 +174,6 @@
 
                     <tr>
                         <td></td>
-                        <td>Street Name*:</td>
                         <td> 
 
                             <div   style="margin: 0;width: 100%;">
@@ -255,8 +261,8 @@
                             <div style="display: block;">
                                 {{controller.profile_name}}-{{ controller.countrySelection}}-{{controller.regionSelection}}
                             </div>
-                                                        <div class="mustfull" id="profileURL" style="display: none">please fill in info... </div>
-                                                        <div class="mustfull" id="invalide" style="display: none">invalide characters... </div>
+                            <div class="mustfull" id="profileURL" style="display: none">please fill in info... </div>
+                            <div class="mustfull" id="invalide" style="display: none">invalide characters... </div>
                         </td> 
                     </tr>
 
@@ -320,7 +326,7 @@
                                             </td>
                                         </tr>
                     
-                                       -->
+                    -->
 
 
 

@@ -58,8 +58,6 @@ class MegasController extends Controller {
             $this->createUploadedPhoto($mega);
         } elseif ($mega['type'] == "video") {
 
-
-
             $mega['videoes'][0]['id'] = $mega['id'];
             $this->createUploadedVideo($mega);
         }

@@ -6,6 +6,7 @@ DS.RESTAdapter.map('HubStar.Profile', {
 });
 HubStar.Profile = DS.Model.extend({
     profile_category: DS.attr('string'),
+    profile_subcategory: DS.attr('string'),
     profile_hero_url: DS.attr('string'),
     profile_pic_url: DS.attr('string'),
     profile_bg_url: DS.attr('string'),
@@ -44,10 +45,11 @@ HubStar.Profile = DS.Model.extend({
     profile_linkedin_link: DS.attr('string'),
     profile_youtube_link: DS.attr('string'),
     profile_analytics_code: DS.attr('string'),
+    profile_google_map:DS.attr('string'),
     owner: DS.attr('string'),
     owner_contact_email: DS.attr('string'),
-    owner_contact_cc_emails: DS.attr('string'),
-    owner_contact_bcc_emails: DS.attr('string'),
+//    owner_contact_cc_emails: DS.attr('string'),
+//    owner_contact_bcc_emails: DS.attr('string'),
     followers: DS.hasMany('HubStar.Follower'),
     collections: DS.hasMany('HubStar.Collection'),
     keywords: DS.hasMany('HubStar.Keyword'),

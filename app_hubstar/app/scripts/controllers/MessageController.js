@@ -13,10 +13,8 @@
 
 HubStar.MessageController = Ember.Controller.extend({
     commenter_photo_url: null,
-
-    messagecms:'',
+    messagecms: '',
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'userMessage'],
-
     isUserself: false,
     isUploadPhoto: false,
     isReply: true,
@@ -35,11 +33,10 @@ HubStar.MessageController = Ember.Controller.extend({
         this.set("isEdit", true);
     },
     setEditReply: function() {
-       
+
 
         this.set("isEdit", true);
     },
-
     editingCommentData: function(id, msg) {
 
 
@@ -84,10 +81,7 @@ HubStar.MessageController = Ember.Controller.extend({
                 }
             }
         }
-
-        HubStar.set('message',msg);
-      
-
+        HubStar.set('message', msg);
     },
     editingReplyData: function(id, msg) {
         var enableEditReply = 0;
@@ -135,6 +129,12 @@ HubStar.MessageController = Ember.Controller.extend({
 
 
         HubStar.set('reply', msg);
+    },
+    removePic: function(id) {
+        this.set('newStyleImageSource', null);
+        this.set('newStyleImageName', "");
+
+        this.set("isUploadPhoto", false);
     },
     removeReply: function(reply_id)
     {
@@ -206,7 +206,6 @@ HubStar.MessageController = Ember.Controller.extend({
         $('#commentBox').attr('style', 'display:none');
         setTimeout(function() {
             $('#masonry_container').masonry("reloadItems");
-
         }, 200);
     },
     addReply: function(message_id) {
@@ -214,112 +213,110 @@ HubStar.MessageController = Ember.Controller.extend({
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var replyContent = this.get('replyContent'); //replyContent is just the user input txt, it is not a whole reply object
-        if (replyContent) {
-            this.set("isReply", false);
-            var commenter_id = this.get("currentUser").get('id');
-            var date = new Date();
-            var owner_id = this.get("currentOwner").get("id");
-            var newStyleImage = "";
-            var imageStyleName = "";
-            if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
-            {
-                newStyleImage = this.get("newStyleImageSource");
-            }
-            else
-            {
-                newStyleImage = null;
-            }
-            if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
-            {
-                imageStyleName = this.get('newStyleImageName');
-
-            }
-            else
-            {
-                imageStyleName = "";
-            }
-            var imageName = "";
-            var imageType = "";
-            if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
-            {
-                var imageName = imageStyleName.split('.');
-                var imageType = imageName[imageName.length - 1];
-            }
-            var messageID = createMessageid();
-            var tempComment = [commenter_id, date.toString(), replyContent, owner_id, newStyleImage, imageType, imageStyleName, messageID, message_id];
-
-            tempComment = JSON.stringify(tempComment);
-            var that = this;
-
-            var dataNew = new Array();
-            requiredBackEnd('messages', 'CreateReply', tempComment, 'POST', function(params) {
-//params just one message
-                that.set("isReply", true);
-                for (var i = 0; i < that.get('controllers.userMessage').get("contentMsg").length; i++)
-                {
-                    if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === params["message_id"])
-                    {
-
-                        dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
-                        dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
-                        dataNew["time_stamp"] = params["replyMessageCollection"][0]["time_stamp"];
-                        dataNew["msg"] = params["replyMessageCollection"][0]["msg"];
-                        dataNew["user_name"] = params["replyMessageCollection"][0]["user_name"];
-                        dataNew["photo_url_large"] = params["replyMessageCollection"][0]["photo_url_large"];
-                        dataNew["url"] = params["replyMessageCollection"][0]["url"];
-                        dataNew["enableToEdit"] = false;
-
-                        var replyLength = that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyCount") + 1;
-                        that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
-
-                        that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
-                        if (params["replyMessageCollection"][0]["user_id"] === localStorage.loginStatus)
-                        {
-                            dataNew["isUserself"] = true;
-                        }
-                        if (params["replyMessageCollection"][0]["url"] !== null)
-                        {
-                            dataNew["isUrl"] = true;
-                        }
-                        else
-                        {
-                            dataNew["isUrl"] = false;
-                        }
-
-
-                        if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection") !== undefined)
-                        {
-                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").insertAt(0, dataNew);
-                        }
-                        else
-                        {
-                            //   that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").pushObject(dataNew);
-//                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", null);
-                            //  that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", new Array());
-                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", dataNew);
-                        }
-                        dataNew["replyMessageCollection"] = new Array();
-
-                    }
-                    that.set("isUploadPhoto", false);
-                }
-                dataNew = new Array();
-                setTimeout(function() {
-                    $('#masonry_user_container').masonry("reload");
-                }, 200);
-                that.set('replyContent', "");
-                that.set('newStyleImageSource', null);
-                that.set('newStyleImageName', "");
-            });
-
-
-            $('#addcommetBut').attr('style', 'display:block');
-            $('#commentBox').attr('style', 'display:none');
-            setTimeout(function() {
-                $('#masonry_container').masonry("reloadItems");
-
-            }, 200);
+        this.set("isReply", false);
+        var commenter_id = this.get("currentUser").get('id');
+        var date = new Date();
+        var owner_id = this.get("currentOwner").get("id");
+        var newStyleImage = "";
+        var imageStyleName = "";
+        if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
+        {
+            newStyleImage = this.get("newStyleImageSource");
         }
+        else
+        {
+            newStyleImage = null;
+        }
+        if (this.get('newStyleImageName') !== undefined && this.get('newStyleImageName') !== null && this.get('newStyleImageName') !== "")
+        {
+            imageStyleName = this.get('newStyleImageName');
+
+        }
+        else
+        {
+            imageStyleName = "";
+        }
+        var imageName = "";
+        var imageType = "";
+        if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
+        {
+            var imageName = imageStyleName.split('.');
+            var imageType = imageName[imageName.length - 1];
+        }
+        var messageID = createMessageid();
+        var tempComment = [commenter_id, date.toString(), replyContent, owner_id, newStyleImage, imageType, imageStyleName, messageID, message_id];
+
+        tempComment = JSON.stringify(tempComment);
+        var that = this;
+
+        var dataNew = new Array();
+        requiredBackEnd('messages', 'CreateReply', tempComment, 'POST', function(params) {
+//params just one message
+            that.set("isReply", true);
+            for (var i = 0; i < that.get('controllers.userMessage').get("contentMsg").length; i++)
+            {
+                if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === params["message_id"])
+                {
+
+                    dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
+                    dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
+                    dataNew["time_stamp"] = params["replyMessageCollection"][0]["time_stamp"];
+                    dataNew["msg"] = params["replyMessageCollection"][0]["msg"];
+                    dataNew["user_name"] = params["replyMessageCollection"][0]["user_name"];
+                    dataNew["photo_url_large"] = params["replyMessageCollection"][0]["photo_url_large"];
+                    dataNew["url"] = params["replyMessageCollection"][0]["url"];
+                    dataNew["enableToEdit"] = false;
+
+                    var replyLength = that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyCount") + 1;
+                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
+
+                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
+                    if (params["replyMessageCollection"][0]["user_id"] === localStorage.loginStatus)
+                    {
+                        dataNew["isUserself"] = true;
+                    }
+                    if (params["replyMessageCollection"][0]["url"] !== null)
+                    {
+                        dataNew["isUrl"] = true;
+                    }
+                    else
+                    {
+                        dataNew["isUrl"] = false;
+                    }
+
+
+                    if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection") !== undefined)
+                    {
+                        that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").insertAt(0, dataNew);
+                    }
+                    else
+                    {
+                        //   that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").pushObject(dataNew);
+//                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", null);
+                        //  that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", new Array());
+                        that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", dataNew);
+                    }
+                    dataNew["replyMessageCollection"] = new Array();
+
+                }
+                that.set("isUploadPhoto", false);
+            }
+            dataNew = new Array();
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reload");
+            }, 200);
+            that.set('replyContent', "");
+            that.set('newStyleImageSource', null);
+            that.set('newStyleImageName', "");
+        });
+
+
+        $('#addcommetBut').attr('style', 'display:block');
+        $('#commentBox').attr('style', 'display:none');
+        setTimeout(function() {
+            $('#masonry_container').masonry("reloadItems");
+
+        }, 200);
     },
     close: function() {
         this.set('replyContent', "");
@@ -336,6 +333,18 @@ HubStar.MessageController = Ember.Controller.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
+    },
+    seeMore: function(id) {
+        $('#closeComment_' + id).attr('style', 'display:inline-block;cursor: pointer');
+        $('#showMoreComment_' + id).attr('style', 'display:none;cursor: pointer');
+        $('#messageData_' + id).attr('style', 'display: block');
+        $('#masonry_user_container').masonry("reload");
+    },
+    closeMore: function(id) {
+        $('#closeComment_' + id).attr('style', 'display:none;cursor: pointer');
+        $('#showMoreComment_' + id).attr('style', 'display:inline-block;cursor: pointer');
+        $('#messageData_' + id).attr('style', 'display: none');
+        $('#masonry_user_container').masonry("reload");
     }
 }
 );

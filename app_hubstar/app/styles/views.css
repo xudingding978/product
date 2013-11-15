@@ -23,17 +23,13 @@
     font-size: 16px;
 }
 
-
-
-
-
 .easing {
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
 }
 
-.hover-opacity{opacity:.6}
+.hover-opacity{opacity:.6; cursor: pointer}
 .hover-opacity:hover{opacity:1}
 
 
@@ -853,7 +849,7 @@ div.album-description-bg{
 
 .masonry-object_interact{
     margin: 20px 0 0 0; /* was margin: 20px 0 10px 0; */
-    overflow:hidden;
+    /* overflow:hidden; */
     border-top: 1px solid #e5e5e5;
     /* border-bottom: 1px solid #e5e5e5; */
     -webkit-border-radius: 0 0 2px 2px;
@@ -868,6 +864,23 @@ div.album-description-bg{
     margin: 16px auto 12px;
     width: 87%;
 }
+.masonry_show-comment .edit-object-ul{
+    position:absolute;
+    left:-61px!important;
+    top:40px;
+}
+.masonry_show-comment .edit-object-ul:after{
+    content: "";
+    position: absolute;
+    left: 65px;
+    top: -21px;
+    border-color: transparent transparent #ccc transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: -1;	
+}
+
+
 
 .masonry_dropdownicon{
     display: inline-block;
@@ -1532,9 +1545,9 @@ div.album-description-bg{
 
 
 .article-title{
-    font-size: 28px;
+    font-size: 26px;
     font-weight: bold;
-    line-height: 20px;
+    line-height: 30px;
     margin-bottom: 10px;
 }
 
@@ -1574,7 +1587,7 @@ div.album-description-bg{
 
 
 .show-comment{
-    padding-bottom: 12px;
+    padding-bottom: 30px;
 }
 
 .show-comment_container{
@@ -1582,6 +1595,7 @@ div.album-description-bg{
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #aaa;
+    float:left;
 }
 
 .show-comment_inner{
@@ -1591,6 +1605,8 @@ div.album-description-bg{
     transition: color .218s;
     font-size: 12px;
     padding-right: 5px;
+    
+    cursor: pointer;
 }
 
 

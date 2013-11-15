@@ -12,7 +12,7 @@
     top: 0;
     display: block;
     background-color: transparent;
-   
+
 }
 
 
@@ -127,6 +127,13 @@
     display: inline-block;
 }
 
+.search-bar-ontop{
+    position: absolute;
+    width: 800px;
+    margin: 12px auto;
+    left: 0;
+    right: 0;
+}
 
 .Search-box > input {
     font-size: 20px;
@@ -138,6 +145,7 @@
     border: 1px solid #eee;
     width: 692px;
     padding-left: 10px;
+    vertical-align: top;
 }
 
 .popular-topics{

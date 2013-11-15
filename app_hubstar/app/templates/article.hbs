@@ -159,26 +159,32 @@
     <!-- OBJECT CREDIT LIST SECTION -->
     {{#if controller.isCreditListExist}}
     <div>
-    <div>
-        <div class="object-collapes-title" >
-            <div class="collapes-title_inner">
-                Credit List
-            </div>
-        </div> 
+        <div>
+            <div class="object-collapes-title" >
+                <div class="collapes-title_inner">
+                    Credit List
+                </div>
+            </div> 
 
-    </div>
+        </div>
+
 
 
 
     <div class="collapes-container"  id="article_action" style="display:block;">
-        <div class="collapes-container_inner">
-            {{#each articleResouce.credits}}
-            <div class="article-text">{{credits_name}}: {{credits_text}}</div>
-            {{/each}}
+            <div class="collapes-container_inner">
+                {{#each articleResouce.credits}}
+                <div class="article-text">
+                    <a style="font-weight: bold">{{credits_name}}:</a>
+                    <span style="font-size: 13px">{{credits_text}}</span></div>
+
+                {{/each}}
+            </div>
         </div>
     </div>
-    </div>
-   {{/if}}
+
+    {{/if}}
+
 
 
 
@@ -202,7 +208,7 @@
                     <div class="show-comment">
                         <div class="show-comment_container">
                             <span class="show-comment_inner">
-                                <span class="comment-amount" > {{controller.megaResouce.comments.length}} </span>
+                                <span class="comment-amount" > {{controller.article.comments.length}} </span>
                                 <span class="comment-amount" > comments   </span> 
                             </span>
                         </div>
@@ -233,7 +239,8 @@
 
                     {{/unless}}
 
-                    {{#each controller.megaResouce.comments}}
+                    {{#each controller.article.comments}}
+                    {{#unless this.isEdit}}
                     <div class="comment-item">
 
                         <div class="comment-position">
@@ -246,6 +253,10 @@
                                         <a class="comment-username" href="" >
                                             {{name}}
                                         </a>
+                                        {{#if this.getUser}}
+                                        <i class="icon-trash"  {{action removeComment this}}></i>                 
+                                        <i class="icon-pencil" {{action updateComment this}}></i>
+                                        {{/if}}
                                         <div class="posttime-container">
                                             <span class="posttime">{{date time_stamp}}</span>
                                         </div>
@@ -271,7 +282,9 @@
                         </div>
 
                     </div>
-
+                    {{else}}
+                    {{render editComment this}}   
+                    {{/unless}}
 
                     {{/each}}
 

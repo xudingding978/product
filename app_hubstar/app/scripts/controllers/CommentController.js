@@ -39,6 +39,7 @@ HubStar.CommentController = Ember.Controller.extend({
             addCollectionController.setRelatedController('comment');
             $('#addCollection_' + model.id).attr('style', 'display: block');
         }
+
         else if (model.get("type") === "video")
         {
             var addCollectionController = this.get('controllers.addCollection');
@@ -56,6 +57,7 @@ HubStar.CommentController = Ember.Controller.extend({
         var commentContent = this.get('commentContent');
         if (commentContent) {
             var comments = this.get('mega').get('comments');
+            
             var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
@@ -126,6 +128,8 @@ HubStar.CommentController = Ember.Controller.extend({
         }, 200);
 
     },
+
+ 
     removeComment: function(object)
     {
 
@@ -196,6 +200,7 @@ HubStar.CommentController = Ember.Controller.extend({
                 $('#masonry_container').masonry("reloadItems");
             });
         }
+
     },
 //    deleteComment: function(object) {
 //        var message = "Do you wish to delete this comment ?";

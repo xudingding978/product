@@ -1,0 +1,38 @@
+.jquery-ratings-star {
+    width: 25px;
+    height: 20px;
+    background-image: url('star-rating(empty).png');
+    background-repeat: no-repeat;
+    position: relative;
+    float: left;
+
+    cursor: pointer
+}
+
+.jquery-ratings-full {
+    background-image: url('star-rating(full).png');
+}
+
+
+span.stars, span.stars span {
+    display: block;
+    background: url(star-rating.png) 0 -22px repeat-x;
+    width: 200px;
+    height: 20px;
+}
+
+span.stars span {
+    background-position: 0 0;
+}
+
+
+span.starsview, span.starsview span {
+    display: block;
+    background: url(star-rating.png) 0 -22px repeat-x;
+    width: 200px;
+    height: 20px;
+}
+
+span.starsview span {
+    background-position: 0 0;
+}

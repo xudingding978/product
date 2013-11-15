@@ -18,6 +18,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
         ProfileController.set('contactChecking', false);
         ProfileController.set('collectionTag', true);
         ProfileController.set('partnerTag', false);
+        ProfileController.set('reviewTag', false);
         /*************************            partner cehcking           ***********8*/
 
         this.controllerFor('application').set('islogin', true);
@@ -34,9 +35,8 @@ HubStar.ProfileRoute = Ember.Route.extend({
         var lastPositionId = HubStar.get('lastPositionId');
         var lastPosition = HubStar.get("scrollPartenerPosition");
 
+
         ProfileController.setProfile(model.id);
-
-
 
     },
     model: function(params) {

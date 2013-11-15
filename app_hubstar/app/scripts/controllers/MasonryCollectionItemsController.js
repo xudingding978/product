@@ -78,8 +78,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var user_id = address.split("#")[1].split("/")[1];
         if (user_id === "profiles")
         {
+
             // this.
             this.get('controllers.profile').goToProfileRoute(address.split("#")[1].split("/")[2]);
+
         }
         else if (user_id === "users")
         {
@@ -171,6 +173,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         }
     },
     reLayout: function() {
+
 
         setTimeout(function() {
             $('#masonry_photo_collection_container').masonry("reload");

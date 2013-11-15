@@ -1,5 +1,6 @@
 HubStar.ProfileRoute = Ember.Route.extend({
     setupController: function(ProfileController, model) {
+
         HubStar.set('editingMode', 'profile');
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
         {
@@ -44,7 +45,6 @@ HubStar.ProfileRoute = Ember.Route.extend({
     },
     events: {
         transitionToCollectionPhoto: function(collection_id) {
-
             HubStar.set("scrollCollectionPosition", $(window).scrollTop());
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];

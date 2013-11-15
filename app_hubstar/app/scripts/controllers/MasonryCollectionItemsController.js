@@ -44,7 +44,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                         that.get("content").pushObject(tempObject);
                 }
             }
-        });
+            });
         this.checkEditingMode();
     },
     selectModelForProfile: function(collection_id, title) {

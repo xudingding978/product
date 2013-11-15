@@ -1,5 +1,6 @@
 HubStar.CollectionRoute = Ember.Route.extend({
     setupController: function(controller, model) {
+        console.log(model);
         if (model.get('id') === undefined || model.get('id') === "") {
             var address = document.URL;
             var id = address.split("#")[1].split("/")[3];
@@ -18,7 +19,7 @@ HubStar.CollectionRoute = Ember.Route.extend({
     events: {
         transitionToPhoto: function(id) {
             var obj = HubStar.Mega.find(id);
-            this.transitionTo("photo", obj);//photo          
+            this.transitionTo("userPhoto", obj);//photo          
         },
         transitionToProfile: function(id) {
 

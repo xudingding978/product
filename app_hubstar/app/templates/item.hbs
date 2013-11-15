@@ -60,8 +60,11 @@
         <div class="masonry-object_mainfeature">             
             <div class="mainfeature-wrapper">
                 <a class="mainfeature-container" style="cursor: pointer">
-
+                    {{#if controller.isUser}}
                     <img class="this-is-the-object"{{bindAttr src="object_image_url" }} {{action transitionToPhoto id}} />
+                         {{else}}
+                         <img class="this-is-the-object"{{bindAttr src="object_image_url" }} {{action transitionToPhoto id}} />
+                         {{/if}}
                 </a>            
 
                 <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
@@ -174,7 +177,7 @@
                 <a class="mainfeature-container">
                     {{#if controller.isUser}}
                     <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToPhoto id}} />
-                      {{else}}
+                         {{else}}
                          {{#linkTo 'video' this}} <img {{bindAttr src="object_image_url" }} class="this-is-the-object"/>{{/linkTo}}
                     {{/if}}
 
@@ -182,8 +185,6 @@
                 <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
 
                     {{#if controller.is_authentic_user}}
-
-
                     <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
                          <k class="icon-cog" style="font-size: 16px; margin: 0px 5px"></k>
                         <k class='icon-caret-down'></k>

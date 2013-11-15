@@ -179,13 +179,9 @@ class Controller extends CController {
               $videoOwnerId = $this->getUserInput($requireParams[1]);
             $response = $this->getVideoesByOwner($returnType,$videoOwnerId);
         } elseif ($requireType == 'singleVideo') {
-            $videoid = $this->getUserInput($requireParams[1]);
-             
+            $videoid = $this->getUserInput($requireParams[1]);            
             $response = $this->getRequestResultByID($returnType, $videoid);
-
         } else {
-
-
             $response = $this->getSearchResults("", "huang");
         }
         return $response;

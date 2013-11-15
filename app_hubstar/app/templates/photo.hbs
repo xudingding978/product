@@ -13,8 +13,8 @@
             </div>       
             {{/if}}
             {{#if controller.megaResouce.getVideo}}
-            <div class="icon-on-black hint--rounded hint--bottom" data-hint="Video" style="position:relative;margin: 0 5px;"  {{action transitionToVideo controller.megaResouce}}>
-                <i class="icon-film"></i>
+            <div class="icon-on-black hint--rounded hint--bottom" data-hint="Watch this Video" style="position:relative;margin: 0 5px;"  {{action transitionToVideo controller.megaResouce}}>
+                 <i class="icon-film"></i><span class="pretooltip">Watch</span>
             </div>    
             {{/if}}
             <div class="icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." style="position:relative;margin: 0 5px;"  {{action switchCollection on="click" target="controller"}}>

@@ -33,8 +33,6 @@ HubStar.UserRoute = Ember.Route.extend({
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
             var user = HubStar.User.find(user_id);
-
-
             for (var i = 0; i < user.get('collections').get("length"); i++) {
                 var data = user.get('collections').objectAt(i);
                 if (data.id === collection_id) {
@@ -44,7 +42,7 @@ HubStar.UserRoute = Ember.Route.extend({
             this.transitionTo("collection", data);
         },
         transitionToArticle: function(article_id) {
-            this.transitionTo("article", article_id);
+            this.transitionTo("userArticle", article_id);
         },
         transitionToVideo: function(video_id) {
             this.transitionTo("video", video_id);

@@ -1,5 +1,5 @@
 
-<div id="google_pop" class="blur_black" style=""></div>
+<div id="google_pop" class="blur_black" style=""{{action setGooglePopup on="click" target="view"}}></div>
 
 
 <div  id ="google_map_pop" class="aside-container radius-rounded-corner box" style="position: fixed; top: 15%; z-index: 10; margin: auto; left: 0px; right: 0px; width: 800px;height: 565px;background-color: #fff;overflow: hidden;border: 0;" >
@@ -33,11 +33,11 @@
             <li class="ite" value="TRANSIT">TRANSIT</li>
         </div>
         {{#if fromAddress}}
-        <div  id="routeGo" class="message-btn easing" style='width: 33%;height: 45px;line-height: 45px;'>Get Direction <k class='icon-long-arrow-right'>&nbsp;</k></div>
+        <div id="routeGo" class="message-btn easing" style='width: 33%;height: 45px;line-height: 45px;'{{action routeGo on="click" target="view"}}>Get Direction <k class='icon-long-arrow-right'>&nbsp;</k></div>
         {{else}}
         <div  class="message-btn-x easing" style='width: 33%;height: 45px;line-height: 45px;'>Get Direction <k class='icon-long-arrow-right'>&nbsp;</k></div>
         {{/if}}
-        <div  id="routeClear" class="message-btn easing" style='display:none;width: 33%;height: 45px;line-height: 45px;'><k class='icon-long-arrow-left'>&nbsp;</k>Clear</div>
+        <div  id="routeClear" class="message-btn easing" style='display:none;width: 33%;height: 45px;line-height: 45px;'{{action routeClear on="click" target="view"}}><k class='icon-long-arrow-left'>&nbsp;</k>Clear</div>
     </div>
 
 </div>

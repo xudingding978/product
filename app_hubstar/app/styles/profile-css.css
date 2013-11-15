@@ -465,24 +465,15 @@ div#appfeedback div.fresh-profile-pic > img:last-child
     top: -3px;
     left: 0;
 }
-div#appfeedback .fresh-message > span.feed-back{float:left;max-width:85%;overflow:hidden;margin-left:10%;text-align:left;}
+div#appfeedback .fresh-message > span.feed-back{float:left;max-width:85%;overflow:hidden;text-align:left;}
 
 div#appfeedback .fresh-message > k.icon-remove{
-    position:absolute;
-    top:1px;
-    right:2px;
+    position:relative;
+    float:right;
     font-size:16px;
-    margin:0;
+    margin:15px;
 
 }
-div#appfeedback .fresh-message k.icon-ok-sign{
-    position:absolute;
-    top:11.5px;
-    left:2.5%;
-    width:5%;
-}
-
-
 
 .fresh-message{
     position:relative;
@@ -514,9 +505,9 @@ div#appfeedback .fresh-message k.icon-ok-sign{
 }
 
 .fresh-message > k{
+    float:left; 
+    margin:13px 20px 13px 40px;
     font-size: 23px;
-    margin: 0 10px;
-    vertical-align: middle;
 }
 
 
@@ -962,216 +953,6 @@ textarea.add-interests{
     background-color: #e3e3e3;
     color: #999;
 }
-.message-btn{
-    width: 50%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}.message-btn{
-    width: 50%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}.message-btn{
-    width: 50%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}.message-btn{
-    width: 50%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}.message-btn{
-    width: 50%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}.message-btn{
-    width: 50%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}.message-btn{
-    width: 50%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}.message-btn{
-    width: 50%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}.message-btn{
-    width: 50%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}.message-btn{
-    width: 50%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}.message-btn{
-    width: 50%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}.message-btn{
-    width: 50%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}.message-btn{
-    width: 50%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}.message-btn{
-    width: 50%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}.message-btn{
-    width: 50%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}.message-btn{
-    width: 50%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}.message-btn{
-    width: 50%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}.message-btn{
-    width: 50%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}.message-btn-fx{
-    width: 100%; 
-    float: left; 
-    height:30px; 
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f3f3f3;
-    opacity: .8;
-}
 
 .message-btn:hover{
     opacity: 1;
@@ -1470,7 +1251,7 @@ textarea.add-interests{
 
 /*MAP SECTION*/
 
-.enlarge-map{width: 45px;height: 45px;line-height: 45px; background-color: #fff; color: #555;opacity: 0;position: absolute;right: 13px;text-align: center;font-size: 15px;}
+.enlarge-map{width: 45px;height: 45px;line-height: 45px; background-color: #fff; color: #555;opacity: 0;position: absolute;right: 9px;text-align: center;font-size: 15px;}
 
 #google-map:hover > .enlarge-map{
     opacity: .8;
@@ -1537,3 +1318,7 @@ textarea.add-interests{
 
 #directionsPanel .adp-directions > tbody > tr:nth-child(odd){background-color: #fff}
 #directionsPanel .adp-directions > tbody > tr:nth-child(even){background-color: #f3f3f3}
+
+
+
+#routeModeDropdown > .ite {width: 270px;}

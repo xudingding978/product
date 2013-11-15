@@ -1039,6 +1039,8 @@ textarea.add-interests{
     cursor: pointer;
 }
 
+.your-relpy:hover .reply-comment{opacity: .8}
+
 .Message-Board_comment-item .masonry_addcommnetbox-container{width: 430px; margin-left: 20px;}
 
 
@@ -1293,7 +1295,6 @@ textarea.add-interests{
                             -moz-transition: all 0.5s ease;
                             -o-transition: all 0.5s ease;}
 
-.mCSB_container > div:hover .reply-comment{opacity: .8}
 
 .Message-Board_comment-container .profilepic-comment-container{ left: 6.5%; top: 18px;}
 .your-relpy_profilepic{
@@ -1324,7 +1325,7 @@ textarea.add-interests{
 }
 
 .reply-comment{
-    font-size: 13px;
+    font-size: 11px;
     position: absolute;
     right: 0;
     top: 0;

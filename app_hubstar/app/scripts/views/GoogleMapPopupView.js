@@ -18,13 +18,14 @@ HubStar.GoogleMapPopupView = Ember.View.extend({
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 }
                 map = new google.maps.Map(document.getElementById('map_canvas_pop'), map_options);
-                directionsDisplay.setMap(map);
-               // directionsDisplay.setPanel(document.getElementById("directionsPanel"));
-                var marker = new google.maps.Marker({
+                      var marker = new google.maps.Marker({
                     map: map,
                     position: results[0].geometry.location,
                     title: 'Destination'
                 });
+                directionsDisplay.setMap(map);
+              directionsDisplay.setPanel(document.getElementById("directionsPanel"));
+          
 
             });
 
@@ -40,10 +41,10 @@ HubStar.GoogleMapPopupView = Ember.View.extend({
 
     },
     setGooglePopup: function() {
- 
+  this.get('controller').set('fromAddress', "");
         this.get('controller').set('popUpMap', false);
-         $('#directionsPanel').attr({"style": "display:none;"}); 
-         //directionsDisplay.setDirections({routes: []});
+           $('#directionsPanel').attr({"style": "display:none; position: absolute; width: 265px; direction: ltr; height: 425px; overflow: auto; overflow-x: hidden;right: 0px; top: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(221, 221, 221); border-bottom: 1px solid #ddd;"});
+      directionsDisplay.setDirections({routes: []});
     },
     routeClear: function() {
         $("#map_canvas_pop").animate({width: "800px"}, 1000, 'linear');

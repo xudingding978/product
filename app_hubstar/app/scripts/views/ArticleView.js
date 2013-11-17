@@ -1,4 +1,4 @@
-HubStar.UserArticleView = Ember.View.extend({
+HubStar.ArticleView = Ember.View.extend({
     classNames: ["lightbox"],
     templateName: 'article',
     readContent: true,

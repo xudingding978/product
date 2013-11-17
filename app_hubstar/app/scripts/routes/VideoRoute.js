@@ -17,7 +17,6 @@ HubStar.VideoRoute = Ember.Route.extend({
         return params;
     },
     activate: function() {
-
         setTimeout(function() {
             $("body").css("overflow", "hidden");
             $('#footer').attr("style", "display:none");
@@ -26,21 +25,17 @@ HubStar.VideoRoute = Ember.Route.extend({
     },
     events: {
         transitionToProfile: function(id) {
-
             this.transitionTo("profile", HubStar.Profile.find(id));
         }
 
     },
     deactivate: function() {
-
         setTimeout(function() {
             $("body").css("overflow", "auto");
             $('#footer').attr("style", "display:block");
         }, 100);
     },
     renderTemplate: function() {
-
-
         this.render("video", {
             outlet: "videoes",
             into: "application"

@@ -11,7 +11,7 @@ HubStar.UserVideoRoute = Ember.Route.extend({
         } else {
             tempid = model.id;
         }
-        controller.getinitdata(tempid);
+          this.controllerFor('video').getinitdata(tempid);
     },
     model: function(params) {
         return params;
@@ -39,8 +39,6 @@ HubStar.UserVideoRoute = Ember.Route.extend({
         }, 100);
     },
     renderTemplate: function() {
-
-
         this.render("video", {
             outlet: "videoes",
             into: "application"

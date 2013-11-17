@@ -82,8 +82,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var user_id = address.split("#")[1].split("/")[1];
         if (user_id === "profiles")
         {
+
             // this.
             this.get('controllers.profile').goToProfileRoute(address.split("#")[1].split("/")[2]);
+
         }
         else if (user_id === "users")
         {
@@ -173,6 +175,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     },
     reLayout: function() {
 
+
         setTimeout(function() {
             $('#masonry_photo_collection_container').masonry("reloadItems");
         }, 1000);
@@ -212,6 +215,31 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         else {
             var coverImge = Mega.get('photo').objectAt(0).get('photo_image_original_url');
         }
+
+
+
+        // var that = this;
+        for (var i = 0; i < userOrprofile.get('content').length; i++) {
+
+            if (userOrprofile.objectAt(i).id === collection_id) {
+
+                var currentCollection = userOrprofile.objectAt(i);
+                currentCollection.set('cover', coverImge);
+                currentCollection.set('optional', owner_id);
+                HubStar.store.save();
+                this.get('controllers.applicationFeedback').statusObserver(null, "Updated successfully.");
+                break;
+            }
+        }
+    },
+    changeCollectionArticleCover: function(id, collection_id, HubStarModel) {
+        this.dropdownPhotoSetting(id);
+        var Mega = HubStar.Mega.find(id);
+        var coverImge = Mega.get('article').objectAt(0).get('article_image_url');
+        var address = document.URL;
+        var owner_id = address.split("#")[1].split("/")[2];
+        var userOrprofile = HubStarModel.find(owner_id).get('collections');
+        // var that = this;
 
         for (var i = 0; i < userOrprofile.get('content').length; i++) {
 

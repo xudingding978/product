@@ -195,6 +195,8 @@
                 <div class="addcommnetbox" role="button" {{action openComment target="view" on="click"}} id="addcommetBut" >
                     add comment...
                 </div>
+                
+                {{#unless HubStar.checkLoginStatus}}
                 <div class="addcommnetbox-container" id="commentBox" style="display: none">
                     <div style="margin:0 auto; padding: 0 0 15px 38px;">
                         <a> 
@@ -209,7 +211,10 @@
 
                     </div>
                 </div>
+                  {{/unless}}
+                
                 {{#each controller.megaResouce.comments}}
+                {{#unless this.isEdit}}
                 <div class="comment-item">
 
                     <div class="comment-position">
@@ -222,6 +227,10 @@
                                     <a class="comment-username"  href="#/users/{{unbound commenter_id}}">
                                         {{name}}
                                     </a>
+                                     {{#if this.getUser}}
+                                        <i class="icon-trash"  {{action removeComment this}}></i>                 
+                                        <i class="icon-pencil" {{action updateComment this}}></i>
+                                   {{/if}}
                                     <div class="posttime-container">
                                         <span class="posttime">{{date time_stamp}}</span>                  
                                     </div>
@@ -242,6 +251,9 @@
                         </div>
                     </div>
                 </div>
+                 {{else}}
+              {{render editComment this}}   
+              {{/unless}}
                 {{/each}}
 
 
@@ -258,4 +270,8 @@
 
 </div>
 
+{{#if HubStar.checkLoginStatus}}
 
+{{render loginModal}}       
+
+{{/if}}

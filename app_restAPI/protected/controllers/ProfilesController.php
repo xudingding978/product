@@ -170,7 +170,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_analytics_code'] = $newRecord['profile_analytics_code'];
               $oldRecord['profile'][0]['profile_google_map'] = $newRecord['profile_google_map'];
              
-            
+
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
             }

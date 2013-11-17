@@ -37,6 +37,7 @@ HubStar.ItemView = Ember.View.extend({
         moreContent: function(event) {
 
             var id = "#" + event.id;
+            
             var collape_button = "#collape_button_" + event.id;
             var more_button = "#more_button_" + event.id;
 

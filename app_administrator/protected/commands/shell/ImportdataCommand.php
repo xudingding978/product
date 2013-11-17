@@ -66,7 +66,7 @@ class ImportdataCommand extends Controller_admin {
     public function replicateArticleandImagefromDevelop() {
         // Set timezone
         //date_default_timezone_set('UTC');
-        $bucket = "test";
+        $bucket = "production";
         $article_list = array();
         $replication=true;
 
@@ -75,7 +75,7 @@ class ImportdataCommand extends Controller_admin {
         echo "create class \n";
         // Start date. Set this date to desired starting date you want to grab data from trends database 
         // The function will import data from this date, inculding this day        
-        $date = '2013-08-18';
+        $date = '2013-03-07';
         echo "call method \n";
         // End date. Set this date to desired ending date you want to grab data from trends database. 
         // The function will only import data before this date, but not importing data on this date

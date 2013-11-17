@@ -11,9 +11,14 @@ HubStar.VideoRoute = Ember.Route.extend({
         } else {
             tempid = model.id;
         }
+        if (tempid.indexOf("test") !== -1) {
+                tempid = tempid.replace("test", "");
+      
+        }
         controller.getinitdata(tempid);
     },
     model: function(params) {
+
         return params;
     },
     activate: function() {

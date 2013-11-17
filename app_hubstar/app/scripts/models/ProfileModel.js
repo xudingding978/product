@@ -2,6 +2,7 @@
 DS.RESTAdapter.map('HubStar.Profile', {
     collections: {embedded: 'load'},
     followers: {embedded: 'load'},
+    reviews:{embedded: 'load'},
     keywords: {embedded: 'load'}
 });
 HubStar.Profile = DS.Model.extend({
@@ -44,6 +45,8 @@ HubStar.Profile = DS.Model.extend({
     profile_linkedin_link: DS.attr('string'),
     profile_youtube_link: DS.attr('string'),
     profile_analytics_code: DS.attr('string'),
+    profile_average_review: DS.attr('string'),
+    profile_average_review_length: DS.attr('string'),
     profile_google_map:DS.attr('string'),
     owner: DS.attr('string'),
     owner_contact_email: DS.attr('string'),
@@ -51,6 +54,7 @@ HubStar.Profile = DS.Model.extend({
     owner_contact_bcc_emails: DS.attr('string'),
     followers: DS.hasMany('HubStar.Follower'),
     collections: DS.hasMany('HubStar.Collection'),
+    reviews: DS.hasMany('HubStar.Review'),
     keywords: DS.hasMany('HubStar.Keyword'),
     show_keyword_id: DS.attr('string')
 //    getTenKeywords: function() {

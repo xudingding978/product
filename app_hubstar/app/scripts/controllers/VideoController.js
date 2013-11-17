@@ -4,7 +4,10 @@ HubStar.VideoController = Ember.Controller.extend({
     video_iframe_code: null,
     currentUser: null,
     enableToEdit: false,
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'checkingLoginStatus'],
+
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission','editComment','checkingLoginStatus'],
+
+
     getinitdata: function(videoObject)
     {
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
@@ -28,7 +31,8 @@ HubStar.VideoController = Ember.Controller.extend({
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
-            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
+            var message_id = createMessageid() + commenter_id;
+            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,"message_id":message_id,
                 "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
                 "is_delete": false, optional: this.get('megaResouce').get('type') + '/' + this.get('megaResouce').get('id')});
             comments.insertAt(0, tempComment);
@@ -42,6 +46,37 @@ HubStar.VideoController = Ember.Controller.extend({
         this.set('collectable', false);
         this.set('contact', false);
         window.history.back();
+    },
+    removeComment: function(object)
+    {
+        var id = this.get('megaResouce').get("id");
+        var message_id = object.get("message_id");
+        var delInfo = [id, message_id];
+
+        delInfo = JSON.stringify(delInfo);
+        var that = this;
+        this.get('megaResouce').get('comments').removeObject(object);
+        requiredBackEnd('comments', 'DeleteVideoComment', delInfo, 'POST', function(params) {
+        });
+    },
+    updateComment: function(object) {
+       
+        this.get("controllers.editComment").setRelatedController("video");
+        var comments = this.get('megaResouce').get('comments');
+       
+        for (var i = 0; i < comments.get("length"); i++)
+        {
+            if (comments.objectAt(i).get("message_id") === object.get("message_id"))
+            {
+                object.set("isEdit", !object.get("isEdit"));
+            }
+            else
+            {
+                comments.objectAt(i).set("isEdit", false);
+            }
+        }
+        var msg = object.get("content");
+        HubStar.set("updateCommentmsg", msg);
     },
     switchCollection: function() {
  if (this.get("controllers.checkingLoginStatus").popupLogin())
@@ -86,12 +121,13 @@ HubStar.VideoController = Ember.Controller.extend({
     // share to social facebook
     fbShare: function() {
         var that = this;
-        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('megaResouce').get('id');
+        var currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('megaResouce').get('id');
         var caption = '';
-
-        if (this.get('megaResouce').get('photo_caption') !== null)
+        
+        if (this.get('megaResouce').get('object_description') !== null)
         {
-            caption = this.get('megaResouce').get('photo_caption');
+            console.log(this.get('megaResouce').get('object_description'));
+            caption = this.get('megaResouce').get('object_description');
         }
         else
         {
@@ -122,9 +158,9 @@ HubStar.VideoController = Ember.Controller.extend({
     //share to social google plus
     gpShare: function() {
         var caption = '';
-        if (this.get('megaResouce').get('photo_caption') !== null)
+        if (this.get('megaResouce').get('object_description') !== null)
         {
-            caption = this.get('megaResouce').get('photo_caption');
+            caption = this.get('megaResouce').get('object_description');
         }
         else
         {
@@ -134,7 +170,7 @@ HubStar.VideoController = Ember.Controller.extend({
         $("meta[property='og\\:title']").attr("content", this.get('videoObject').data.video_title);
         $("meta[property='og\\:description']").attr("content", caption);
         $("meta[property='og\\:image']").attr("content", this.getImageURL());
-        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('megaResouce').get('id');
+        var currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('megaResouce').get('id');
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
         window.open(
@@ -147,7 +183,7 @@ HubStar.VideoController = Ember.Controller.extend({
     },
     //share to social twitter
     tShare: function() {
-        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('megaResouce').get('id');
+        var currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('megaResouce').get('id');
         var url = 'https://twitter.com/share?text=' + this.get('videoObject').data.video_title + '&url=' + encodeURIComponent(currntUrl);
         window.open(
                 url,
@@ -157,7 +193,7 @@ HubStar.VideoController = Ember.Controller.extend({
         return false;
     },
     pShare: function() {
-        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('megaResouce').get('id');
+        var currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('megaResouce').get('id');
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.getImageURL()) +
                 '&description=' + encodeURIComponent(this.get('videoObject').data.video_title);
@@ -176,7 +212,7 @@ HubStar.VideoController = Ember.Controller.extend({
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
-        console.log(that.get("megaResouce").get("owner_contact_email"));
+
         var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
         that.set("is_authentic_user", is_authentic_user);
         currentUser.addObserver('isLoaded', function() {

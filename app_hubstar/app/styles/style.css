@@ -370,6 +370,17 @@ body > div.ember-view{
     background-color: transparent;
 }
 
+.blur_white{
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    opacity: .6;
+    background-color: white;
+}
+
 .blur_black{
     z-index: 10;
     left: 0;
@@ -448,17 +459,16 @@ div.search-loading-invisible{
 
 
 .contact-container {
-
     overflow: visible;
     position: fixed;
     left: 0;
     right: 0;
     width: 500px;
-    height: 300px;
+    height: 20px;
     margin: auto;
     top: 0;
     bottom:-100%;
-
+    cursor: move;
 
     z-index: 100;
     background-color: white;
@@ -590,7 +600,7 @@ div.search-loading-invisible{
 .head {
     border-radius: 3px 3px 0 0;
     padding: 20px 30px;
-    cursor: move;
+    cursor: default;
 }
 
 .head > .closeview:hover{
@@ -600,6 +610,21 @@ div.search-loading-invisible{
 .content {
     padding: 15px 30px 20px;
     border-radius: 0 0 3px 3px;
+    cursor: default;
+}
+
+.panelcircle{
+    position: relative;
+    display: inline-block;
+    margin: 0 65px;
+    font-weight: bold;
+    background-color: #427fed;
+    z-index: 1;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    color: white;
+    cursor: pointer;
 }
 
 .lineuptextbox{
@@ -730,7 +755,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     margin: 0 10px;
 }
 
-.contactmebtn a {
+.contactmeicon{
     width: 40px;
     height: 40px;
     display: inline-block;
@@ -751,9 +776,12 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
 
     color: #555;
+    cursor: pointer;
 }
 
-.contactmebtn a:active {
+.contactmeicon:hover{box-shadow: 0 0 10px #e3cf7a; color:#ad9424}
+
+.contactmeicon:active {
     top: 1px;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#eaeaea), to(#f6f6f6));
     background-image: -webkit-linear-gradient(top, #eaeaea, #f6f6f6);
@@ -765,7 +793,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 
 
-.contactmebtn a::before{
+.contactmeicon::before{
     content: '';
     position: absolute;
     z-index: -1;
@@ -785,11 +813,11 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     box-shadow: inset 0px 8px 48px #ddd;
 }
 
-.contactmebtn a:active::before {
+.contactmeicon:active::before {
     top: -6px;
 }
 
-.contactmebtn a:hover::before {
+.contactmeicon:hover::before {
     opacity: 0.8;
     background-color: #6399cd;
 }

@@ -23,10 +23,6 @@
     font-size: 16px;
 }
 
-
-
-
-
 .easing {
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -1549,9 +1545,9 @@ div.album-description-bg{
 
 
 .article-title{
-    font-size: 28px;
+    font-size: 26px;
     font-weight: bold;
-    line-height: 20px;
+    line-height: 30px;
     margin-bottom: 10px;
 }
 
@@ -1591,7 +1587,7 @@ div.album-description-bg{
 
 
 .show-comment{
-    padding-bottom: 12px;
+    padding-bottom: 30px;
 }
 
 .show-comment_container{
@@ -1662,6 +1658,7 @@ div.album-description-bg{
     border-radius: 50%;
     width: 33px;
     height: 33px;
+    border: 1px solid #f3f3f3;
 }
 
 .comment-insert-field{

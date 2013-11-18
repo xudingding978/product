@@ -4,20 +4,40 @@
 <div class="Navigator-box" style="">
     <div style="background-color: #f3f3f3; height: 35px; line-height: 35px;width: 100%; border-bottom: 1px solid #ddd;padding: 0 15px;border-radius: 3px 3px 0 0;"><span style="font-size: 18px;font-weight: bold;color: #555;">Navigator</span></div>
 
-    <div id="navigator-content" class="Navigator-content" style="">
-        
+    <div class="Navigator-content" style="">
+        <div class="" style="width: 33%;height: 100%;float: left;padding: 8px 0;overflow: auto">
 
-                <ul class="firstList" >
-                    <li>&nbsp;</li>
-                    <div id="shuai" style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -155px; z-index: -1;"></div>
-                    {{#each controller.categorys}}
+            {{#each controller.categorys}}
+            <ul>
+                <li {{action topicSelection this}}> {{topic}}<i class="icon-search"></i></li>
+            </ul>
+            {{/each}}
 
-                    <li> <span><a href="#" {{action topicSearch topic}} > {{topic}}</a></span>
-                        
-                    </li>
-                    {{/each}}
-                </ul>
-          
+        </div>
+
+
+
+        <div id ="category_topic" style="width: 33.5%;height: 100%;border-left: 1px solid #ddd; border-right: 1px solid #ddd;float: left;padding: 8px 0;overflow: auto">
+
+
+            {{#each  controller.subcate}}
+
+            <ul>
+                <li {{action searchTopicSelection subcategories}}> {{category_topic}} <i class="icon-search"></i></li>
+
+            </ul>
+            {{/each}}
+        </div>
+
+        <div id="search_topic" style="width: 33.5%;height: 100%;float: left;padding: 8px 0;overflow: auto">
+            {{#each  controller.subcategories}}
+
+            <ul>
+                <li> {{search_topic}} </li>
+
+            </ul>
+            {{/each}}
+        </div>
 
 
     </div>
@@ -39,15 +59,6 @@
 
 
 <script>
-    
-       $("#navigator-content > ul > li >span").hover(function() {
-                    $("#navigator-content > ul > li").not(this).removeClass('sidebar-hover');
-                });
-                $("#navigator-content > ul > li> ul ").hover(function() {
-                    $(this).parent().addClass("sidebar-hover");
-                });
-    
-    
     $(function() {
         $("#category_topic").mCustomScrollbar({
             scrollButtons: {

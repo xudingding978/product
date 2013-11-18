@@ -42,7 +42,7 @@ HubStar.UserView = Ember.View.extend({
                 $(this).addClass('selected-user-stats');
             });
         }
-        else if (user_id==="posts") {
+        else if (user_id==="post") {
             $('#user-stats > li').removeClass('selected-user-stats');
             $('#post').addClass('selected-user-stats');
             $('#user-stats > li').click(function() {

@@ -22,7 +22,9 @@
             <li id="defualt" ><a {{action selectCollection}}> Collections<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userCollectionStatistics}}</a></li>
             <li id ="ufollowing"><a {{action selectFollowing this}}> Following<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowingStatistics}}</a></li>
             <li id ="ufollower"><a {{action selectFollower this}}> Followers<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowerStatistics}}</a></li>
+             {{#if controller.isUserSelf}}
             <li id ="message"><a {{action selectMessage this}}> Messages<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp;</span></a></li>
+           {{/if}}
             <li id ="post"><a {{action selectPost this}}> Posts<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp;</span></a></li>
             
         </ul>

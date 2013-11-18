@@ -39,7 +39,7 @@ HubStar.MessageController = Ember.Controller.extend({
 
         for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
         {
-
+            
             var enableEdit = this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("enableToEdit");
             if (enableEdit === true)
             {
@@ -76,6 +76,9 @@ HubStar.MessageController = Ember.Controller.extend({
             }
         }
         HubStar.set('message', msg);
+        setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+            }, 200);
     },
     editingReplyData: function(id, msg) {
         var enableEditReply = 0;
@@ -100,6 +103,7 @@ HubStar.MessageController = Ember.Controller.extend({
                 for (var j = 0; j < this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
                     if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
                     {
+                        
                         reply_id.set("enableToEdit", false);
                         this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("enableToEdit", true);
                         this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyEdit", false);
@@ -123,13 +127,16 @@ HubStar.MessageController = Ember.Controller.extend({
 
 
         HubStar.set('reply', msg);
+        setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+            }, 200);
     },
-    removePic: function(id) {
-        this.set('newStyleImageSource', null);
-        this.set('newStyleImageName', "");
-
-        this.set("isUploadPhoto", false);
-    },
+//    removePic: function(id) {
+//        this.set('newStyleImageSource', null);
+//        this.set('newStyleImageName', "");
+//
+//        this.set("isUploadPhoto", false);
+//    },
     removeReply: function(reply_id)
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());

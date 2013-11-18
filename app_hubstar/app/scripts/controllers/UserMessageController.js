@@ -34,15 +34,11 @@ HubStar.UserMessageController = Ember.Controller.extend({
     },
     setUserMessage: function(message) {
 
-//        var model = HubStar.User.find(message);
-//          var msg = model.get("messages");
-//          this.set("contentMsg",msg);
-//          
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         if (localStorage.loginStatus) {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
-        }
+        }       
         this.getClientId(message); // It is used to get the mesage model      
     },
     getClientId: function(id) {
@@ -54,8 +50,8 @@ HubStar.UserMessageController = Ember.Controller.extend({
         var data = this.get('clientID');
         var dataNew = new Array();
         var that = this;
-        requiredBackEnd('messages', 'Read', data, 'POST', function(params) {
-
+        requiredBackEnd('messages', 'Read', data, 'POST', function(params) {       
+            
             that.set("contentMsg", []);
             for (var i = 0; i < params.length; i++)
             {
@@ -114,10 +110,11 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 }
                 that.get("contentMsg").pushObject(dataNew);
                 dataNew = new Array();
-            }
+            }             
             that.set('loadingTime', false);
+           
             if (that.get('controllers.notification').get("goMessage") !== undefined && that.get('controllers.notification').get("goMessage") !== null && that.get('controllers.notification').get("goMessage") !== "") {
-                var s = that.get('controllers.notification').get("goMessage");
+                var s = that.get('controllers.notification').get("goMessage");              
                 that.goToMessage(s);
             }
             if (that.get('controllers.notificationTop').get("goMessage") !== undefined && that.get('controllers.notificationTop').get("goMessage") !== null && that.get('controllers.notificationTop').get("goMessage") !== "") {
@@ -125,18 +122,21 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 that.goToMessageTop(s);
             }
             setTimeout(function() {
+                $('#masonry_user_container').masonry();
                 $('#masonry_user_container').masonry("reloadItems");
             }, 200);
         });
     },
     goToMessage: function(s)
-    {
+    {     
         var that = this;
         $(document).ready(function() {
-            setTimeout(function() {
-                $("#content_message").mCustomScrollbar("scrollTo", s);
+            setTimeout(function() {            
+                $('#masonry_user_container').scrollTo(s);
+             
                 if (that.get("controllers.notification").get("reply_ids") !== undefined && that.get("controllers.notification").get("reply_ids") !== null && that.get("controllers.notification").get("reply_ids") !== "")
                 {
+                    
                     var thatthat = that;
                     setTimeout(function() {
                         thatthat.get('controllers.message').seeMore(that.get("controllers.notification").get("reply"));

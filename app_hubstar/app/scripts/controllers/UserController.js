@@ -879,7 +879,7 @@ this.set('postTag', false);
         this.set('messageTag', false);
          this.set('postTag', true);
 
-        this.transitionToRoute('post');
+        this.transitionToRoute('userPost');
 
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");

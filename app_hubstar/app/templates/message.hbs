@@ -42,7 +42,7 @@
         </div>
         {{/if}}
     </div>
-
+{{#if model.replyEdit}}
     <div class="reply-comment-frame"  style="padding: 15px;">
         <div style="margin:0 auto; padding: 0 45px 0 0;">
             <a  href="#/users/{{unbound model.user_id}}">
@@ -83,7 +83,7 @@
             {{/if}}
         </div>
     </div>
-
+{{/if}}
 
 
     <div id="messageData_{{unbound model.message_id}}"  style="display: none">
@@ -131,7 +131,6 @@
 
         {{render editReply this}}
         {{/unless}}
-
         {{/each}}         
     </div>
 

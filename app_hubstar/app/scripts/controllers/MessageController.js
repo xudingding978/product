@@ -128,7 +128,7 @@ HubStar.MessageController = Ember.Controller.extend({
 
         HubStar.set('reply', msg);
         setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");
+                $('#masonry_user_container').masonry("reload");
             }, 200);
     },
 //    removePic: function(id) {
@@ -339,13 +339,18 @@ HubStar.MessageController = Ember.Controller.extend({
         $('#closeComment_' + id).attr('style', 'display:inline-block;cursor: pointer');
         $('#showMoreComment_' + id).attr('style', 'display:none;cursor: pointer');
         $('#messageData_' + id).attr('style', 'display: block');
-        $('#masonry_user_container').masonry("reload");
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 50);
+        
     },
     closeMore: function(id) {
         $('#closeComment_' + id).attr('style', 'display:none;cursor: pointer');
         $('#showMoreComment_' + id).attr('style', 'display:inline-block;cursor: pointer');
         $('#messageData_' + id).attr('style', 'display: none');
-        $('#masonry_user_container').masonry("reload");
+         setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 50);
     }
 }
 );

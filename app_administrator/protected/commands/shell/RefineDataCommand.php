@@ -46,6 +46,7 @@ class RefineDataCommand extends Controller_admin {
                             $url_arr = explode("/", $s3_url_arr[$k]);
                             $file_name = $url_arr[sizeof($url_arr) - 1];
 
+                            
                             $url = 'http://api.develop.devbox/PhotoMoving?style=' . $k . '&name=' . $file_name . '&id=' . $id;
 
                             $ch = curl_init($url);

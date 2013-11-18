@@ -1,294 +1,277 @@
-
-
-
-<div class="objectview-wrapper">
+<div class="objectview-wrapper" >
 
     <div class="objectview-left">
+        {{#if controller.collectable}}
+        {{render addCollection}}
+        {{/if}}
 
-        <div class="exit">
-            <div class="closeview" onclick="window.history.back();" >
-                <i class="icon-remove"></i>
+        <div class="top-controlbar easing" >
+
+            <div class="icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." style="position:relative;margin: 0 5px;" {{action switchCollection on="click" target="controller"}} >
+                <i class="icon-save"></i><span class="pretooltip">Save</span>
             </div>
-        </div>
-
-
-        <div class="top-controlbar" >
-            <div class="icon-on-black" style="left: 8px;"><i class="icon-question-sign"></i></div>
-            <div class="icon-on-black hint--rounded hint--bottom" data-hint="Collect this photo to your own collection." style="left: 50px;">
-                <i class="icon-folder-close"></i>
+            <div class="icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting}}>
+                 <i class="icon-share-alt"></i><span class="pretooltip">Share</span> 
             </div>
-            <!--    <div class="icon-on-black" style="height: 44px;position: absolute;width: 44px;"><i class="icon-share-alt"></i></div>     -->
-        </div>
+            <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
+                <li class="ite" {{action  fbShare}} >
+            <k class="icon-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
+            </li>
+            <li class='ite' {{action tShare}} >
+        <k class="icon-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span>
+        </li>
+        <li class='ite' {{action pShare}} >
+    <k class="icon-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Pinterest</span>
+    </li>
+    <li class="ite" {{action gpShare}}>
+<k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
+</li>
+</ul>
+
+<script type="text/javascript">
+    (function(d) {
+        var f = d.getElementsByTagName('SCRIPT')[0], p = d.createElement('SCRIPT');
+        p.type = 'text/javascript';
+        p.async = true;
+        p.src = '//assets.pinterest.com/js/pinit.js';
+        f.parentNode.insertBefore(p, f);
+    }(document));
+</script>
+
+<div class="closeview" {{action closeWindow on="click" target="controller"}} >
+    <i class="icon-remove"></i>
+</div>
+</div>
+
+<div class="mainfeature">
+
+    <!--<div class="previous" style="width: 50%; height: 100%; float: left;" ></div>-->
+    <!--    <div class="next" style="width: 50%; height: 100%; float: right;"  ></div>-->
+    <div class="mainfeature_object" style="z-index: 0;text-align: center;line-height: 70;">{{{controller.video_iframe_code}}}</div>
+
+</div>
+<!--THIS IS THE ALBUM BOX-->
 
 
-        <div class="mainfeature">
-            <iframe class="mainfeature_object" width="640" height="390" src="http://www.youtube.com/embed/xcLagrZP24w" frameborder="0" allowfullscreen></iframe>
-        </div>
 
+<!--THIS IS THE ALBUM BOX-->
 
-        <div class="bottom-controlbar" >
-            <div class="text-on-black" style="right: 132px;"> object Name</div>
-            <div class="icon-on-black" >
-                <i class="icon-arrow-left"></i>
-            </div>
-            <div class="icon-on-black" style="left: 44px;">
-                <i class="icon-th"></i>
-            </div>
-            <div class="icon-on-black" style="left: 88px;">
-                <i class="icon-arrow-right"></i>
-            </div>
-            <div class="text-on-black" style="left: 132px;"> 18/30 </div>
-        </div>
-
+<div class="bottom-controlbar easing" >
+    <div class="text-on-black" style="right: 132px;"></div>
+    <div class="icon-on-black"  style="display:inline-block; vertical-align: top; position:relative; left:44px;">
+        <i class="icon-arrow-left"></i>
     </div>
-
-
-
-
-    <div class="objectview-right">
-
-        <!-- USER SECTION -->
-        <div style="cursor: pointer;">
-            <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
-                <div class="profilepic-container">
-                    <a href="#"><img {{bindAttr src="profile_pic_url"}} class="profilepic"/></a>              
-                </div>
-                <div class="poster_user" >
-                    <a class="poster-name" href="#">NAME</a>
-                    <span class="posttime">yesterday 8:37</span>
-                </div>
-
-                <div class="contactmebtn hint--rounded hint--left" data-hint="Contact us!" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
-                    <a class="contactmeicon" href="#" style=" width: 35px; height: 35px;">
-                        <img src="../images/mail_24dark.png" style="vertical-align: 6px; width: 15px;"/>
-                    </a>
-                </div>
-            </div>
-            {{#if view.nameTag}}
-
-            <div class="collapes-container">
-                <table style="padding: 15px; width: 100%;font-size: 13px;  display: table;border-collapse: separate;border-spacing: 4px;">
-                    <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-                        <tr>
-                            <td>Contact:</td>
-                            <td>--</td>
-                        </tr>
-                        <tr>
-                            <td>Category:</td>
-                            <td>--</td>
-                        </tr>
-                        <tr>
-                            <td>Address:</td>
-                            <td>--</td>
-                        </tr>
-                        <tr>
-                            <td>Phone:</td>
-                            <td>--</td>
-                        </tr>
-                        <tr>
-                            <td>Website:</td>
-                            <td>--</td>
-                        </tr>
-                    </tbody>
-                </table>                
-            </div>
-            {{/if}}
-
-        </div>
-
-        <!-- OBJECT DESCRIBTION SECTION -->
-        <div   >
-            <div class="object-collapes-title" {{action setTitleTag  on="click" target="view"}}>
-                <div class="collapes-title_inner">
-                    About
-                </div>
-                <div class="dropdownicon" >
-                    <i class="icon-angle-down"></i>
-                </div>
-            </div>
-
-
-
-            {{#unless view.titleTag}}
-
-
-
-            <div class="collapes-container">
-                <div  class="collapes-container_inner">
-                    <div class="article-title">Title</div>
-                    <div class="article-text">{{description}}</div>
-                </div>
-            </div>
-
-            {{/unless}}
-
-
-        </div>
-
-        <!-- OBJECT PARTNER SECTION -->
-        <div>
-            <div>
-                <div class="object-collapes-title" {{action setPartnerTag on="click" target="view"}}>
-                    <div class="collapes-title_inner">
-                        Partner
-                    </div>
-                    <div class="dropdownicon" >
-                        <i class="icon-angle-down"></i>
-                    </div>      
-                </div>
-            </div>
-
-            {{#if view.partnerTag}}
-
-
-            <div class="collapes-container" style="height: 150px;overflow-y: auto;">
-                <div class="collapes-container_inner">
-                    <a class="sml-partner" href="#" ><img src="../images/profilepic1.jpg" /></a>
-                    <a class="sml-partner" href="#" ><img src="../images/profilepic2.jpg" /></a>
-                    <a class="sml-partner" href="#" ><img src="../images/profilepic3.jpg" /></a>
-                    <a class="sml-partner" href="#" ><img src="../images/profilepic4.jpg" /></a>
-                    <a class="sml-partner" href="#" ><img src="../images/profilepic5.jpg" /></a>
-                    <a class="sml-partner" href="#" ><img src="../images/profilepic6.jpg" /></a>
-                    <a class="sml-partner" href="#" ><img src="../images/profilepic7.jpg" /></a>
-                    <a class="sml-partner" href="#" ><img src="../images/profilepic8.jpg" /></a>          
-                </div>
-            </div>
-            {{/if}}
-        </div>
-
-
-
-
-        <!-- OBJECT DISCUSSION SECTION -->
-        <div>
-            <div>
-                <div class="object-collapes-title" {{action setDiscussionTag on="click" target="view"}} >
-                    <div class="collapes-title_inner">
-                        Discussion
-                    </div>
-                    <div class="dropdownicon">
-                        <i class="icon-angle-down" style="height: 16px; width: 16px;"></i>
-                    </div>      
-                </div>
-                {{#if view.discussionTag}}
-
-
-                <div class="collapes-container" >
-                    <div class="collapes-container_inner">
-
-                        <div class="show-comment">
-                            <div class="show-comment_container">
-                                <span class="show-comment_inner">
-                                    <span class="comment-amount" > 10 </span>
-                                    <span class="comment-amount" > comments</span>
-                                </span>
-                            </div>
-
-                            <div class="object-like" style=""></div>
-                            <div class="object-save" style=""></div>
-                        </div>
-
-                        <div class="addcommnetbox-container">
-                            <div class="addcommnetbox">
-                                Add comments
-                            </div>
-                        </div>
-
-
-                        <div class="comment-item">
-
-                            <div class="comment-position">
-                                <a class="profilepic-comment-container" href="#">
-                                    <img class="profilepic_comment" src="../images/profilepic1.jpg" />
-                                </a>
-                                <div style="">
-                                    <div class="comment-namentime">
-                                        <div class="namentime_position">
-                                            <a class="comment-username" href="" >
-                                                Carmilita Zotomayor-Riveral 
-                                            </a>
-                                            <div class="posttime-container">
-                                                <span class="posttime">yesterday 10:14 pm</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="reply-comment">
-                                            <!--this div for reply-->
-                                        </div>
-
-                                    </div>
-
-                                    <div class="comment-content">
-                                        Thanks. I love vintage photos. More than half a century later, Manhattan has transformed and evolved into what it is today. 
-
-                                        <!-- for +someone into the conversation-->
-                                        <span>
-                                            <span></span>
-                                            <a></a>
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-
-
-                        <div class="comment-item">
-
-                            <div class="comment-position">
-                                <a class="profilepic-comment-container" href="#">
-                                    <img class="profilepic_comment" src="../images/profilepic3.jpg" />
-                                </a>
-                                <div style="">
-                                    <div class="comment-namentime">
-                                        <div class="namentime_position">
-                                            <a class="comment-username" href="" >
-                                                John Patrick Anthony Cummins
-                                            </a>
-                                            <div class="posttime-container">
-                                                <span class="posttime">yesterday 10:14 pm</span>
-                                                <span class="like-amount">+1</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="reply-comment">
-                                            <!--this div for reply-->
-                                        </div>
-
-                                    </div>
-
-                                    <div class="comment-content">
-                                        My pleasure! I thought a New Yorker would like it, the island has changed lot in 50 yrs. 
-
-                                        <!-- for +someone into the conversation-->
-                                        <span>
-                                            <span></span>
-                                            <a></a>
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-
-
-
-
-                    </div>
-                </div>
-                {{/if}}
-            </div>
-        </div>
-
-
-
-
-
-
-
+    <div class="icon-on-black hint--rounded hint--top" data-hint="Show other photos in this collection." style="left: 44px; display:inline-block; vertical-align: top; position:relative;" >
+        <i class="icon-th"></i>
     </div>
+    <div class="icon-on-black" style="left: 44px;position: relative;vertical-align: top;display: inline-block;" >
+        <i class="icon-arrow-right"></i>
+    </div>
+    <div class="text-on-black" style="left: 88px; top:0;position: relative;display: inline-block;vertical-align: top;">  </div>
+</div>
+
+
 
 
 </div>
+
+
+<div class="objectview-right">
+
+    <!-- USER SECTION -->
+    <div style="cursor: pointer;">
+        <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
+            <div class="profilepic-container">
+                <a class="profilepic" href="#" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} /></a>      
+
+            </div>
+            <div class="poster_user" >
+
+                <a class="poster-name" href="#" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
+                <span class="posttime">{{date controller.megaResouce.created}} </span>
+
+            </div>        
+            <div class="contactmebtn hint--left hint--rounded easing" data-hint="Contact us!" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
+                <a class="contactmeicon easing" {{action editingContactForm }}><i class="icon-envelope easing" style="font-size: 18px;"></i></a>
+            </div>
+        </div>
+
+        {{#if controller.contact}}
+        {{render contact}}
+        {{/if}}
+
+
+
+    </div>
+
+    <!-- OBJECT DESCRIBTION SECTION -->
+    <div>
+        <div class="object-collapes-title" {{action setTitleTag  on="click" target="view"}}>
+            <div class="collapes-title_inner">
+                About
+            </div>
+
+
+
+            <div class="dropdownicon" >
+                <i class="icon-angle-down"></i>
+            </div>
+        </div>
+
+
+
+
+        <div class="collapes-container"   id="article_action" style="display:block">
+            <div  class="collapes-container_inner">
+
+
+
+                {{#unless controller.enableToEdit}}
+
+                <div class="article-title">     {{controller.megaResouce.object_title}}
+
+                    {{#if controller.is_authentic_user}}
+                    <div class='hint--left hint--rounded' data-hint='Edit Photo Info' style="position: absolute;font-size: 15px;right: 10px;margin: 1px;">
+                        <i class="icon-edit" {{action editingPhotoMegaData}}></i>
+                    </div>
+                    {{/if}}
+
+                </div>
+
+                <div class="article-text">     {{controller.megaResouce.object_description}}</div>
+
+
+
+                {{else}}
+
+                {{view Ember.TextField valueBinding="controller.megaResouce.object_title"  id="" class="edit_photo-titile_field"  }} 
+                {{view Ember.TextArea valueBinding="controller.megaResouce.object_description"  id="" class="edit_photo-caption_field"}} 
+
+
+                <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
+
+                    <div  type="button" class="new-btn blue-btn" {{action yes}}> <i class="icon-ok icon-white"></i></div>
+
+                    <div  type="button" class="new-btn" {{action no }}> <i class="icon-remove"></i></div>
+
+                </div>
+
+                {{/unless}}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- OBJECT DISCUSSION SECTION -->
+
+    <div>
+        <div class="object-collapes-title" {{action setDiscussionTag on="click" target="view"}} >
+            <div class="collapes-title_inner">
+                Discussion
+            </div>
+            <div class="dropdownicon">
+                <i class="icon-angle-down" style="height: 16px; width: 16px;"></i>
+            </div>      
+        </div>
+
+
+
+        <div class="collapes-container"  id="discuss_action" style="display:block">
+            <div class="collapes-container_inner">
+
+                <div class="show-comment">
+                    <div class="show-comment_container">
+                        <span class="show-comment_inner">
+                            <span class="comment-amount" >  </span>
+                            <span class="comment-amount" > comments   </span> 
+                        </span>
+                    </div>
+
+                    <div class="object-like" style=""></div>
+                    <div class="object-save" style=""></div>
+                </div>
+                <div class="addcommnetbox" role="button" {{action openComment target="view" on="click"}} id="addcommetBut" >
+                    add comment...
+                </div>
+                
+                {{#unless HubStar.checkLoginStatus}}
+                <div class="addcommnetbox-container" id="commentBox" style="display: none">
+                    <div style="margin:0 auto; padding: 0 0 15px 38px;">
+                        <a> 
+                            <img class="profilepic_comment"  style="float: left; margin: 4px 0 0 -38px; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url_large"}} /> 
+                        </a>
+
+                        {{view HubStar.SearchRequireTextFieldView valueBinding="commentContent"  id="AddRecord" class="comment-insert-field"  placeholder="" }}   
+                        <span class="" style="margin-top: 7px;float: right;">
+                            <div  class="new-btn"{{action closeComment target="view" on="click"}}>Cancel</div>
+                            <div class="new-btn green-btn" {{action addComment}}>Post</div>
+                        </span>
+
+                    </div>
+                </div>
+                  {{/unless}}
+                
+                {{#each controller.megaResouce.comments}}
+                {{#unless this.isEdit}}
+                <div class="comment-item">
+
+                    <div class="comment-position">
+                        <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}">
+                            <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
+                        </a>
+                        <div style="">
+                            <div class="comment-namentime">
+                                <div class="namentime_position">
+                                    <a class="comment-username"  href="#/users/{{unbound commenter_id}}">
+                                        {{name}}
+                                    </a>
+                                     {{#if this.getUser}}
+                                        <i class="icon-trash"  {{action removeComment this}}></i>                 
+                                        <i class="icon-pencil" {{action updateComment this}}></i>
+                                   {{/if}}
+                                    <div class="posttime-container">
+                                        <span class="posttime">{{date time_stamp}}</span>                  
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="comment-content">
+                                {{content}}
+
+                                <!-- for +someone into the conversation-->
+                                <span>
+                                    <span></span>
+                                    <a></a>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                 {{else}}
+              {{render editComment this}}   
+              {{/unless}}
+                {{/each}}
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+
+</div>
+
+{{#if HubStar.checkLoginStatus}}
+
+{{render loginModal}}       
+
+{{/if}}

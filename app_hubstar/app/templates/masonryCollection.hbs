@@ -9,21 +9,23 @@
         {{#if controller.partnerPage}}
         <ul class="user-stats" id="user-stats">
             <li id="defualt" ><a {{action selectCollection}}> Collections <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileCollectionStatistics}}</a></li>
-            <li ><a {{action selectPartner this}}>Network <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profilePartnerStatistics}}</a></li>
-            <li id="follow"><a {{action selectFollower this}}>Followers <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileFollowerStatistics}}</a></li>           
+            <li id="video" ><a {{action selectVideo this}}> Videos <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span></a></li>
+            <li id="network""><a {{action selectPartner this}}>Network <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profilePartnerStatistics}}</a></li>
+            <li id="follow"><a {{action selectFollower this}}>Followers <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileFollowerStatistics}}</a></li>  
+            <li id="reviewList"><a {{action selectReview this}}>Reviews <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileReviewStatistics}}</a></li> 
+
         </ul>
         {{/if}}
 
         {{#if controller.userTage}}
         <ul class="user-stats" id="user-stats">
             <li id="defualt" ><a {{action selectCollection}}> Collections<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userCollectionStatistics}}</a></li>
-            <li ><a {{action selectFollowing this}}> Following<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowingStatistics}}</a></li>
-            <li><a {{action selectFollower this}}> Followers<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowerStatistics}}</a></li>
+            <li id ="ufollowing"><a {{action selectFollowing this}}> Following<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowingStatistics}}</a></li>
+            <li id ="ufollower"><a {{action selectFollower this}}> Followers<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowerStatistics}}</a></li>
+            <li id ="message"><a {{action selectMessage this}}> Messages<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp;</span></a></li>
+            
         </ul>
         {{/if}}    
-
-
-
     </div>
 
     <div id="masonry_user_container" class="centered clearfix masonry_push_down" >
@@ -31,14 +33,21 @@
         {{#if collectionTag}}
         {{view HubStar.CollectionsView}}
         {{/if}} 
+        {{#if videoTag}}
+        {{render profileVideos}}
+        {{/if}} 
+
 
         {{#if partnerTag}}
         {{render profilePartners}}
-
         {{/if}} 
 
         {{#if followerProfileTag}}
         {{render userFollowers}}
+        {{/if}} 
+        
+        {{#if reviewTag}}
+       {{render reviewList}}
         {{/if}} 
         
         {{#if followerTag}}
@@ -48,6 +57,10 @@
         {{#if followingTag}}
         {{render userFollowings}}
         {{/if}} 
+        
+        {{#if messageTag}}
+        {{render messageCenter}}
+        {{/if}}
     </div>
 
 

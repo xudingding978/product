@@ -1,5 +1,4 @@
 <?php
-
 header("Access-Control-Allow-Origin: *");
 header('Content-type: *');
 header('Access-Control-Request-Method: *');
@@ -49,24 +48,11 @@ class LoginController extends Controller {
         }
     }
 
-    public function actionTest() {
-
-
-        // renders the view file 'protected/views/site/index.php'
-        // using the default layout 'protected/views/layouts/main.php'
-        //    $this->render('test');
-    }
-
     /**
      * This is the action to handle external exceptions.
      */
     public function actionError() {
-//        if ($error == Yii::app()->errorHandler->error) {
-//            if (Yii::app()->request->isAjaxRequest)
-//                echo $error['message'];
-//            else
-//                $this->render('error', $error);
-//        }
+
     }
 
     public function actionClose() {
@@ -96,24 +82,12 @@ class LoginController extends Controller {
         $this->render('contact', array('model' => $model));
     }
 
-//    public function actionLogin() {
-//          
-//        $this->layout = '//layouts/signup';
-//        
-//        $this->defaultLogin();
-//    }
-//    public function actionLogin() {
-//        $model = new LoginForm;
-//        $this->render('login', array('model' => $model));
-//
-//
-//    }
 
+    public function actionRead() {
+        
+    }
 
     public function actionCreate() {
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
 
         $model = new User;
 
@@ -128,8 +102,8 @@ class LoginController extends Controller {
         $model->PWD_HASH = $request_array[2];
         $model->EMAIL_ADDRESS = $request_array[3];
         $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
- 
-       $cb = $this->couchBaseConnection();
+
+        $cb = $this->couchBaseConnection();
         $rand_id = $model->COUCHBASE_ID;
         $temp = $this->getMega();
         $temp["id"] = $rand_id;
@@ -154,7 +128,7 @@ class LoginController extends Controller {
         $temp['user'][0]['youtube_link'] = null;
         $temp['user'][0]['region'] = $request_array[4];
         $temp['user'][0]['password'] = null;
-        
+
         $urlController = new UrlController();
         $link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         $domain = $urlController->getDomain($link);
@@ -164,7 +138,7 @@ class LoginController extends Controller {
 
                 $this->sendResponse(200, CJSON::encode($model));
             }
-        } 
+        }
     }
 
     public function actionGetmodel() {
@@ -223,11 +197,10 @@ class LoginController extends Controller {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $currentUser = User::model()
                 ->findByAttributes(array('COUCHBASE_ID' => $request_array[0]));
-//          if($currentUser->PWD_HASH===$request_array[1]&&$request_array[2]===$request_array[3])
-//          {   
+
         $currentUser->PWD_HASH = $request_array[2];
         $currentUser->save($request_array[4]);
-//          }
+
     }
 
     public function getMega() {
@@ -276,15 +249,19 @@ class LoginController extends Controller {
     }
 
     public function actionLogin() {
+
+       Yii::app()->session['couchbase_id'] = "value";
         $request_array = CJSON::decode(file_get_contents('php://input'));
+
+
         if ($request_array[2] === true) {
             $currentUser = User::model()
                     ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
-
             if (isset($currentUser)) {
                 if ($currentUser->PWD_HASH === "blankblankblank") {
                     $this->sendResponse(200, 0);
                 } else if ($currentUser->PWD_HASH === $request_array[1]) {
+               //     $_SESSION['couchbase_id'] = $currentUser->COUCHBASE_ID;
                     $this->sendResponse(200, CJSON::encode($currentUser));
                 }
             } else {
@@ -298,6 +275,7 @@ class LoginController extends Controller {
                 if ($currentUser->PWD_HASH === "blankblankblank") {
                     $this->sendResponse(200, 0);
                 } else if ($currentUser->PWD_HASH === $request_array[1]) {
+                
                     $this->sendResponse(200, CJSON::encode($currentUser));
                 }
             } else {
@@ -305,7 +283,6 @@ class LoginController extends Controller {
             }
         }
     }
-
 
     public function actionAjax() {
         $model = new LoginForm;

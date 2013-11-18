@@ -61,15 +61,16 @@ HubStar.CollectionController = Ember.Controller.extend({
  
             
         specialCharactersChecking: function(str) {
-        var re = /^[a-zA-Z-][a-zA-Z0-9-]*$/;
+        var re = /^[a-zA-Z0-9-][a-zA-Z0-9-]*$/;
         return re.test(str);
     },
     getUpdateCollection: function(selectedCollection) {
 
         var desc = selectedCollection.get('desc');
 
-        
+
         if (selectedCollection.get('desc') !== undefined) {
+            
 
             desc = selectedCollection.get("desc");
       }

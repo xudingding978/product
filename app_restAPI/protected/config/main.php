@@ -44,8 +44,8 @@ return CMap::mergeArray(
             'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
             'name' => 'API Application',
             // preloading 'log' component
-            // 'preload' => array('log'),
-            // autoloading model and component classes
+// 'preload' => array('log'),
+// autoloading model and component classes
             'import' => array(
                 'common.components.*',
                 'common.components.auth.*',
@@ -54,18 +54,19 @@ return CMap::mergeArray(
                 'application.components.RestController',
                 'application.components.HttpRequest',
                 'application.vendor.autoload',
-                'application.controllers.*'
+                'application.controllers.*',
+                'application.components.*'
             ),
             // application components
             'components' => array(
-                // url rules needed by CUrlManager
+// url rules needed by CUrlManager
                 'urlManager' => array(
                     'urlFormat' => 'path',
                     'showScriptName' => false,
                     'rules' => array(
-                        //REST AP
+//REST AP
                         array('<controller>/options', 'pattern' => '<controller>', 'verb' => 'OPTIONS'),
-                        array('<controller>/options', 'pattern' => '<controller>/<id>', 'verb' => 'OPTIONS'),                     
+                        array('<controller>/options', 'pattern' => '<controller>/<id>', 'verb' => 'OPTIONS'),
                         array('<controller>/', 'pattern' => '<controller>', 'verb' => 'GET'),
                         array('<controller>/create', 'pattern' => '<controller>', 'verb' => 'POST'),
                         array('<controller>/read', 'pattern' => '<controller>/<id>', 'verb' => 'GET'),
@@ -73,7 +74,7 @@ return CMap::mergeArray(
                         array('<controller>/delete', 'pattern' => '<controller>/<id>', 'verb' => 'DELETE'),
                     )
                 ),
-                            'db' => array(
+                'db' => array(
                     'class' => 'CDbConnection',
                     'connectionString' => $params['db_live.connectionString'],
                     'username' => $params['db_live.username'],
@@ -82,15 +83,44 @@ return CMap::mergeArray(
                     'enableParamLogging' => YII_DEBUG,
                     'charset' => 'utf8'
                 ),
+//                'session' => array(
+//                    'sessionName' => 'Session',
+//                    'class' => 'CDbHttpSession',
+//                    //  'autoCreateSessionTable' => true,
+//                    'connectionID' => 'db',
+//                    'sessionTableName' => 'usersession',
+//                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+//                    'useTransparentSessionID' => true,
+//                    'autoStart' => 'true',
+//                    'cookieMode' => 'only',
+//                    'cookieParams' => array(
+//                        'path' => '/',
+//                        'domain' => $domain,
+//                        'httpOnly' => true,
+//                    ),
+//                //        'timeout' => 1800,
+//                ),
+                
+                                'user' => array(
+// enable cookie-based authentication
+                    'allowAutoLogin' => true,
+                    //        'class' => 'MyWebUser',
+                    'class' => 'AuthWebUser',
+                    'identityCookie' => array(
+                        'domain' => $domain
+                    ),
+                ),
+                
+
 //        'errorHandler' => array(
 //            // use 'site/error' action to display errors
 //            'errorAction' => 'site/error',
 //        ),
             ),
             // application-level parameters that can be accessed
-            // using Yii::app()->params['paramName']
+// using Yii::app()->params['paramName']
             'params' => array(
-                // this is used in contact page
+// this is used in contact page
                 'adminEmail' => 'webmaster@example.com',
                 // this the primary elastic search server and index
                 'elasticSearchNode' => $params['elasticSearch.node'], //'es1.hubsrv.com'

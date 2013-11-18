@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 class Controller extends CController {
 
     public $cb = null;
@@ -144,7 +146,8 @@ class Controller extends CController {
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
-            $response = $this->getSearchResults($region, $searchString, $from, $size);
+            $location = $this->getUserInput($requireParams[5]);
+            $response = $this->getSearchResults($region, $searchString, $from, $size, $location);
             $response = $this->getReponseResult($response, $returnType);
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
@@ -164,20 +167,45 @@ class Controller extends CController {
             $searchString = $this->getUserInput($requireParams[2]);
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
-            $response = $this->getSearchResultsWithAnalysis($region, $searchString, $from, $size);
+            $location = $this->getUserInput($requireParams[5]);
+            $response = $this->getSearchResultsWithAnalysis($region, $searchString, $from, $size, $location);
         } elseif ($requireType == 'personalCollection') {
             $userid = $this->getUserInput($requireParams[1]);
             $collection_id = $this->getUserInput($requireParams[2], false);
-            $response = $this->searchCollectionItem($userid,$collection_id,$returnType);
+            $response = $this->searchCollectionItem($userid, $collection_id, $returnType);
         } elseif ($requireType == 'defaultSearch') {
-            $response = $this->searchCollectionItem('21051211514','editor-picks',$returnType);          
+            $response = $this->searchCollectionItem('21051211514', 'editor-picks', $returnType);
+        } elseif ($requireType == 'video') {
+              $videoOwnerId = $this->getUserInput($requireParams[1]);
+            $response = $this->getVideoesByOwner($returnType,$videoOwnerId);
+        } elseif ($requireType == 'singleVideo') {
+            $videoid = $this->getUserInput($requireParams[1]);
+             
+            $response = $this->getRequestResultByID($returnType, $videoid);
+
         } else {
+
+
             $response = $this->getSearchResults("", "huang");
         }
         return $response;
     }
-    
-    protected function searchCollectionItem($userid,$collection_id,$returnType) {
+
+    protected function getVideoesByOwner($returnType,$videoOwnerId) {
+        $conditions = array();
+        $requestStringOne = 'couchbaseDocument.doc.type=video';
+        array_push($conditions, $requestStringOne);
+              $requestStringTwo = 'couchbaseDocument.doc.owner_id=' . $videoOwnerId;
+        array_push($conditions, $requestStringTwo);
+        
+        
+        $tempResult = $this->searchWithCondictions($conditions, 'must');
+        $response = $this->getReponseResult($tempResult, $returnType);
+
+        return $response;
+    }
+
+    protected function searchCollectionItem($userid, $collection_id, $returnType) {
         $conditions = array();
         $requestStringOne = 'couchbaseDocument.doc.user.id=' . $userid;
         array_push($conditions, $requestStringOne);
@@ -192,11 +220,11 @@ class Controller extends CController {
             $collections = $mega['megas'][0]['user'][0]['collections'];
         }
         $response = $this->getCollections($collections, $collection_id, $returnType);
-        
+
         return $response;
     }
 
-    protected function getSearchResults($region, $requestString, $from = 0, $size = 50) {
+    protected function getSearchResults($region, $requestString, $from = 0, $size = 50, $location = 'Global') {
 
         $conditions = array();
         if ($region != null && $region != "") {
@@ -208,7 +236,7 @@ class Controller extends CController {
             array_push($conditions, $requestStringTwo);
         }
 
-        $results = $this->searchWithCondictions($conditions, 'must', $from, $size);
+        $results = $this->searchWithCondictions($conditions, 'must', $from, $size, $location);
 
         return $results;
     }
@@ -217,28 +245,77 @@ class Controller extends CController {
         $mustQuery = explode('=', $queryString);
         $should = Sherlock\Sherlock::queryBuilder()->QueryString()->query($mustQuery[1])//$collection_id
                 ->default_field($mustQuery[0])
-                // ->default_field($mustQuery[0])
                 ->default_operator('AND');
         return $should;
     }
     
-//    protected function getsortQuestWithQueryString($sortString) {
-//        $should = Sherlock\Sherlock::sortBuilder()->Field()->name($sortString)
-//                ->order('desc');
-//        return $should;
-//    }
+    protected function searchWithMultiMatch($queryString, $from = 0, $size = 50, $location = 'Global') {
+        $request = $this->getElasticSearch();
+        $request->from($from)
+                ->size($size);
+        if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
+            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{"query": {
+                "queryString": {
+                  "default_field": "couchbaseDocument.doc.country",
+                  "query": "'. $location .'"
+                }
+              }}');
+            $request->filter($filter);            
+        }
+//        if ($region != null && $region != "") {
+//            $request->filter(Sherlock\Sherlock::filterBuilder()
+//                    ->Term()
+//                    ->field('couchbaseDocument.doc.region')
+//                    ->term($region)
+//                );
+//        }
+        
+//        $sort = Sherlock\Sherlock::sortBuilder();
+//        $sort1 = $sort->Field()->name("type")->order('desc');
+//        $sort2 = $sort->Field()->name("_score");
+//                
+        
+        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
+                "bool": {
+                    "must": [
+                        {
+                            "multi_match": {
+                                "query": "' . $queryString . '",
+                                "fields": [
+                                                "keywords^8",
+                                                "couchbaseDocument.doc.keyword.keyword_name^10",
+                                                "owner_title^2",
+                                                "country",
+                                                "region",
+                                                "object_title^2",
+                                                "object_description^4"]
+                                                    }
+                        }
+                    ]
+                }
+            }');
+        
+//        $request->sort($sort1, $sort2);
+//        error_log($request->toJSON());
+        $response = $request->query($termQuery)->execute();
+        
+        return $response;
+    }
     
-    protected function searchWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50) {
+        
+    protected function searchWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50, $location = 'Global') {
         $request = $this->getElasticSearch();
         $request->from($from);
         $request->size($size);
-//        $sortArray=array('couchbaseDocument.doc.created');
-//        $length = sizeof($sortArray);
-//        for ($i = 0; $i < $length; $i++) {
-//            $sort = $this->getsortQuestWithQueryString($sortArray[$i]);
-//                $request->sort($sort);            
-//        }
-//        $request->sort($sortArray);
+        if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
+            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{"query": {
+                "queryString": {
+                  "default_field": "couchbaseDocument.doc.country",
+                  "query": "' . $location . '"
+                }
+              }}');
+            $request->filter($filter);
+        }
         $max = sizeof($conditions);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
         for ($i = 0; $i < $max; $i++) {
@@ -253,7 +330,7 @@ class Controller extends CController {
         }
         $request->query($bool);
         $response = $request->execute();
-        
+
         return $response;
     }
 
@@ -263,7 +340,7 @@ class Controller extends CController {
                 ->field('couchbaseDocument.doc.id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->should($should);
         $response = $request->query($bool)->execute();
-        if ($returnType == "mega" || $returnType == "megas") {
+        if ($returnType == "mega") {
             $results = '{"' . $returnType . '":';
             $i = 0;
             foreach ($response as $hit) {
@@ -274,6 +351,17 @@ class Controller extends CController {
                 }
             }
             $results .= '}';
+        } else if ($returnType == "megas") {
+            $results = '{"' . $returnType . '":[';
+            $i = 0;
+            foreach ($response as $hit) {
+                $results .= CJSON::encode($hit['source']['doc']);
+
+                if (++$i < count($response)) {
+                    $results .= ',';
+                }
+            }
+            $results .= ']}';
         } else {
             $results = '{"' . $returnType . '":';
             $i = 0;
@@ -312,7 +400,7 @@ class Controller extends CController {
         return $results;
     }
 
-    protected function RequireByIds($ids,$size) {
+    protected function RequireByIds($ids, $size) {
 
         $request = $this->getElasticSearch();
         $request->from(0)
@@ -326,7 +414,6 @@ class Controller extends CController {
         $request->query($termQuery);
 
         $response = $request->execute();
-
         return $response;
     }
 
@@ -346,6 +433,20 @@ class Controller extends CController {
         $response = $request->query($bool)->execute();
 
 
+        return $response;
+    }
+    
+    protected function getProfileReults($owner_profile_id) {
+
+        $request = $this->getElasticSearch();
+        $request->from(0)
+                ->size(1000);
+
+        $must = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()->query('"' . $owner_profile_id . '"')
+                ->default_field('couchbaseDocument.doc.owner_id');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        $response = $request->query($bool)->execute();
         return $response;
     }
 
@@ -369,7 +470,7 @@ class Controller extends CController {
         $owner_contact_bcc_emails = $mega_profile["profile"][0]["owner_contact_bcc_emails"];
         $profile_regoin = $mega_profile["profile"][0]["profile_regoin"];
         $profile_pic_url = $mega_profile["profile"][0]["profile_pic_url"];
-   
+
         $results = '{"' . $returnType . '":[';
         $i = 0;
         foreach ($tempResult as $hit) {
@@ -388,21 +489,11 @@ class Controller extends CController {
         }
 
         $results .= ']}';
-
         return $results;
     }
 
-    protected function getSearchResultsWithAnalysis($region, $requestString, $from = 0, $size = 50) {
-        $conditions = array();
-        if ($region != null && $region != "") {
-            $requestStringOne = 'couchbaseDocument.doc.region=' . $region;
-            array_push($conditions, $requestStringOne);
-        }
-        if ($requestString != null && $requestString != "") {
-            $requestStringTwo = '_all=' . $requestString;
-            array_push($conditions, $requestStringTwo);
-        }
-        $tempResponse = $this->searchWithCondictions($conditions, 'must', $from, $size);
+    protected function getSearchResultsWithAnalysis($region, $requestString, $from = 0, $size = 50, $location) {
+        $tempResponse = $this->searchWithMultiMatch($requestString, $from, $size, $location);
         $numberofresults = $tempResponse->total;
         $tempResponse = CJSON::encode($tempResponse);
         $tempResponse = CJSON::decode($tempResponse);
@@ -410,7 +501,7 @@ class Controller extends CController {
         for ($int = 0; $int < sizeof($tempResponse); $int++) {
             $tempObject = $tempResponse[$int]['source']['doc'];
             if (isset($tempResponse[$int]['source']['doc']['comments'])) {
-                error_log(var_export($tempResponse[$int]['source']['doc']['comments'], true));
+                
             }
             array_push($array, $tempObject);
         }
@@ -482,8 +573,8 @@ class Controller extends CController {
         $request = $this->getElasticSearch();
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
         $request->query($termQuery)
-                      ->from(0)
-                      ->size(sizeof($id_arr));
+                ->from(0)
+                ->size(sizeof($id_arr));
         $response = $request->execute();
         $results = $this->getReponseResult($response, $returnType);
         return $results;
@@ -567,8 +658,23 @@ class Controller extends CController {
             $docID = $this->getDomain() . "/" . $id;
         } elseif ($type == "article") {
             $docID = $this->getDomain() . "/" . $id;
+        } elseif ($type == "video") {
+            $docID = $this->getDomain() . "/" . $id;
         }
         return $docID;
+    }
+
+    public function getDomainWihoutAPI() {
+        $host = $_SERVER['HTTP_HOST'];
+        $pieces = explode(".", $host);
+        $domain = "";
+        for ($i = 1; $i < sizeof($pieces); $i++) {
+            $domain.= $pieces[$i];
+            if ($i != sizeof($pieces)-1) {
+                $domain .= ".";
+            }
+        }
+        return $domain;
     }
 
 }

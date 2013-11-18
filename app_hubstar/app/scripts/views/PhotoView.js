@@ -8,7 +8,7 @@ HubStar.PhotoView = Ember.View.extend({
     DiscussionTag: false,
     NameTag: false,
     didInsertElement: function() {
-
+        $()
     },
     setTitleTag: function() {
         $('#article_action').slideToggle(1000);
@@ -38,13 +38,12 @@ HubStar.PhotoView = Ember.View.extend({
         $('#commentBox').attr('style', 'display:block');
 
         $('.comment-insert-field').focus();
+          this.get("controller").get("controllers.checkingLoginStatus").popupLogin();
     },
+            
     closeComment: function() {
-
         $('#addcommetBut').attr('style', 'display:block');
         $('#commentBox').attr('style', 'display:none');
-
-
     }
 });
 

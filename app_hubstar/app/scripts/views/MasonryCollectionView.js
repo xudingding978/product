@@ -16,8 +16,7 @@ HubStar.MasonryCollectionView = Ember.View.extend({
 
         },
         editCollectionButton: function(id, desc) {
-    
-        console.log('masonry');
+            
             var userController = this.get('controller');
             userController.setSelectedCollection(id);
            

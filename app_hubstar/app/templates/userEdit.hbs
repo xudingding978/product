@@ -10,6 +10,7 @@
                 {{#unless identifier}}
                 <li class="easing" ><a href="#tab4" data-toggle="tab">SECURITY</a></li>
                 {{/unless}}
+                <li class="easing" ><a href="#tab5" data-toggle="tab">NOTIFICATION</a></li>
             </ul>
         </div>
         <div class="tab-content easing">
@@ -46,10 +47,15 @@
                             <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view HubStar.SingleImageInputButtonView }}</div>
                     </div>
 
-                    <div style="margin: auto;width: 180px;float: right;">
+                    <div style="margin: auto;width: 250px;float: right;">
 
                         {{#if controller.isCrop}}
-                        <span id="photoUploadbtn" class="new-btn green-btn" {{action cropButton}}><k class='icon-save '> &nbsp;</k>Upload</span>
+                        <span id="photoUploadbtn" class="new-btn blue-btn" {{action cropButton}}><k class='icon-cut '> &nbsp;</k>Crop</span>
+                        {{else}}
+                        <span  class="disabled-btn" ><k class='icon-cut'> &nbsp;</k>Crop</span>
+                        {{/if}} 
+                        {{#if controller.isUpload}}
+                        <span id="photoUploadbtn" class="new-btn green-btn" {{action savePhotoUpdate}}><k class='icon-save '> &nbsp;</k>Upload</span>
                         {{else}}
                         <span  class="disabled-btn" ><k class='icon-save '> &nbsp;</k>Upload</span>
                         {{/if}} 
@@ -275,8 +281,40 @@
                     <span class='new-btn flip-back'{{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
                 </div>
 
-            </div>
+            </div>          
             {{/unless}}
+            <div class="tab-pane" id="tab5">
+
+
+
+                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">NOTIFICATION</div>
+                <div style="margin: 10px 40px;"> 
+                    <span style="font-size: 15px; font-weight: bold; color: #555;">How You Get Notifications:</span>
+                    {{#each controller.subcateMethod}}
+                    <li class="checkbox-container" style="width: 100%;" {{action checkedMethodAction list_id this}}>
+                        <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox"   >
+                        <label for="{{unbound list_id}}" name="{{unbound list_id}}" class="css-label lite-blue-check {{unbound list_id}}">{{category_topic}}</label>
+                    </li>
+                    {{/each}}
+                </div>
+                <hr>
+                <div style="margin: 10px 40px 30px"> 
+                    <span style="font-size: 15px; font-weight: bold; color: #555;">What You Get Notified About:</span>
+                    {{#each controller.subcate}}
+                    <li class="checkbox-container" style="width: 100%;" {{action checkedAction list_id this}}>
+                        <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox"   >
+                        <label for="{{unbound list_id}}" name="{{unbound list_id}}" class="css-label lite-blue-check {{unbound list_id}}">{{category_topic}}</label>
+                    </li>
+                    {{/each}}
+                </div>
+
+
+                <div style="right: 0;margin:10px auto 0;width: 150px;">
+                    <span class="new-btn green-btn" {{action saveNotification}}>Save</span>
+                    <span class='new-btn flip-back' {{action userDashboardBackButton }}><k class='icon-group'> &nbsp;</k>Back</span>
+                </div>
+
+            </div>
 
         </div>
 
@@ -285,12 +323,17 @@
     {{/view}}
     {{/if}}
 
+    {{#if controller.loadingTime}}
 
+    {{render loadingSpinner}}
+
+    {{/if}}
     {{#if controller.isPhotoEditingMode}}
-    <div class='' style='position:relative;height: 55px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
+    <div class='' style='position:relative;height: 65px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
         <span style="position: relative;display: inline-block;font-size: 40px; vertical-align: top;"><k class='icon-ok-circle'></k></span>
-        <span style="position: relative;width: 87%;display: inline-block;margin: 5px 15px;">
-            <span style='font-size: 20px;display: block;line-height: 25px;'>Crop your picture now!</span>
+        <span style="position: relative;width: 87%;display: inline-block;margin: 0 15px;">
+            <span style='font-size: 20px;display: block;line-height: 25px;font-weight: bold'>Crop your picture now!</span>
+            <span style='font-size: 15px;display: block;line-height: 15px;'> Image Size: <span id="log"></span> </span>  
         </span>
     </div>
 
@@ -307,4 +350,9 @@
 
     </div>
     {{/if}}
+
+
+
+
+
 </div>

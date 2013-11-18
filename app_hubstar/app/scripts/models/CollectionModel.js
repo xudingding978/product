@@ -8,5 +8,10 @@ HubStar.Collection = DS.Model.extend({
     optional:DS.attr('string'),
     type:DS.attr('string'),
     didLoad: function() {
-    }
+    },
+        getCollectionId: function()
+    {
+        var id = "C" + this.get('id');
+        return id;
+    }.property('id')
 });

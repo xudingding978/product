@@ -1,11 +1,6 @@
- 
-
-
 <div class="objectview-wrapper" >
 
     <div class="objectview-left">
-
-
         {{#if controller.collectable}}
         {{render addCollection}}
         {{/if}}
@@ -25,12 +20,23 @@
             <li class='ite' {{action tShare}} >
         <k class="icon-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span>
         </li>
-        <li class="ite" {{action gpShare}}>
-    <k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
+        <li class='ite' {{action pShare}} >
+    <k class="icon-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Pinterest</span>
     </li>
+    <li class="ite" {{action gpShare}}>
+<k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
+</li>
 </ul>
 
-
+<script type="text/javascript">
+    (function(d) {
+        var f = d.getElementsByTagName('SCRIPT')[0], p = d.createElement('SCRIPT');
+        p.type = 'text/javascript';
+        p.async = true;
+        p.src = '//assets.pinterest.com/js/pinit.js';
+        f.parentNode.insertBefore(p, f);
+    }(document));
+</script>
 
 <div class="closeview" {{action closeWindow on="click" target="controller"}} >
     <i class="icon-remove"></i>
@@ -61,15 +67,9 @@
     </div>
     <div class="text-on-black" style="left: 88px; top:0;position: relative;display: inline-block;vertical-align: top;"> {{controller.image_no}}/{{content.length}} </div>
 </div>
-
-
-
-
 </div>
 
-
 <div class="objectview-right">
-
     <!-- USER SECTION -->
     <div style="cursor: pointer;">
         <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
@@ -84,32 +84,21 @@
                 <a class="contactmeicon easing" {{action editingContactForm }}><i class="icon-envelope easing" style="font-size: 18px;"></i></a>
             </div>
         </div>
-
         {{#if controller.contact}}
         {{render contact}}
         {{/if}}
-
-
-
     </div>
 
-    <!-- OBJECT DESCRIBTION SECTION -->
+    <!-- OBJECT DESCRIPTION SECTION -->
     <div>
         <div class="object-collapes-title" {{action setTitleTag  on="click" target="view"}}>
             <div class="collapes-title_inner">
                 About
             </div>
-
-
-
             <div class="dropdownicon" >
                 <i class="icon-angle-down"></i>
             </div>
         </div>
-
-
-
-
         <div class="collapes-container"   id="article_action" style="display:block">
             <div  class="collapes-container_inner">
 
@@ -122,17 +111,13 @@
                         <i class="icon-edit" {{action editingPhotoMegaData}}></i>
                     </div>
                     {{/if}}
-
-                </div>
-
-                <div class="article-text">{{{controller.selectedPhoto.photo_caption}}}</div>
-
-
-
-                {{else}}
-
-                {{view Ember.TextField valueBinding="controller.selectedPhoto.photo_title"  id="" class="edit_photo-titile_field"  }} 
-                {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_caption"  id="" class="edit_photo-caption_field"}} 
+                        </div>
+                        <div class="article-text">
+                            <p>{{{controller.selectedPhoto.photo_caption}}}</p>
+                        </div>
+                    {{else}}
+                        {{view Ember.TextField valueBinding="controller.selectedPhoto.photo_title"  id="" class="edit_photo-titile_field"  }} 
+                        {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_caption"  id="" class="edit_photo-caption_field"}} 
 
 
                 <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
@@ -193,6 +178,8 @@
                 <div class="addcommnetbox" role="button" {{action openComment target="view" on="click"}} id="addcommetBut" >
                     add comment...
                 </div>
+
+                {{#unless HubStar.checkLoginStatus}}
                 <div class="addcommnetbox-container" id="commentBox" style="display: none">
                     <div style="margin:0 auto; padding: 0 0 15px 38px;">
                         <a> 
@@ -207,8 +194,12 @@
 
                     </div>
                 </div>
-                {{#each controller.megaResouce.comments}}
-                <div class="comment-item">
+                {{/unless}}
+
+
+             {{#each controller.megaResouce.comments}}
+              {{#unless this.isEdit}}
+              <div class="comment-item"}}>
 
                     <div class="comment-position">
                         <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}">
@@ -220,13 +211,14 @@
                                     <a class="comment-username"  href="#/users/{{unbound commenter_id}}">
                                         {{name}}
                                     </a>
+                                     {{#if this.getUser}}
+                                        <i class="icon-trash"  {{action removeComment this}}></i>                 
+                                        <i class="icon-pencil" {{action updateComment this}}></i>
+                                   {{/if}}
+
                                     <div class="posttime-container">
                                         <span class="posttime">{{date time_stamp}}</span>                  
                                     </div>
-                                </div>
-
-                                <div class="reply-comment">
-                                    <!--this div for reply-->
                                 </div>
 
                             </div>
@@ -243,14 +235,12 @@
 
                         </div>
                     </div>
-
                 </div>
-
-
+              {{else}}
+              {{render editComment this}}   
+              {{/unless}}
+               
                 {{/each}}
-
-
-
             </div>
         </div>
 
@@ -268,4 +258,8 @@
 
 </div>
 
+{{#if HubStar.checkLoginStatus}}
 
+{{render loginModal}}       
+
+{{/if}}

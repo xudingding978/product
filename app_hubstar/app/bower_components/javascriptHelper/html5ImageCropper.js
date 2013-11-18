@@ -150,10 +150,13 @@ function crop(imageSrc) {
 
 
     $('#panel').mousemove(function(e) { // binding mouse move event
+        
         var canvasOffset = $(canvas).offset();
         iMouseX = Math.floor(e.pageX - canvasOffset.left);
         iMouseY = Math.floor(e.pageY - canvasOffset.top);
-
+     $ ('#log').text( "width: " + parseInt(theSelection.w * xRation) + ", Height: " +  parseInt(theSelection.h * yRation) );
+   
+      
         // in case of drag of whole selector and limit for the size of selection
         if (theSelection.bDragAll) {
 
@@ -340,6 +343,9 @@ function crop(imageSrc) {
         }
 
         drawScene();
+          
+        
+        
     });
 
     $('#panel').mousedown(function(e) { // binding mousedown event

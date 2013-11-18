@@ -1,29 +1,23 @@
-  
 
-<div id="login_lightbox" onclick="document.getElementById('login_lightbox').style.display = 'none';
-        document.getElementById('savePhoto').style.display = 'none';">&nbsp;F</div>
-<div id ="savePhoto"class="t-style-box" style="z-index: 1002; position: relative;">
-    <div class="contactmebox-wapper" style="width: 700px;height: 270px;font-size: 13px;padding: 20px;">
-        <div>
-            <div style=' color: #333; font-size: 20px; font-weight: bold; margin: 5px 0 30px; text-align: center;'>Save to Collections</div>
-            <div class="exit">
-                <div class="closeview" {{action exit }}>
-                     <i class="icon-remove"></i>
-                </div> 
-            </div>  
-        </div> 
+<div id="login_lightbox" class="blur_black" onclick="document.getElementById('login_lightbox').style.display = 'none';
+        document.getElementById('savePhoto').style.display = 'none';">&nbsp;</div>
+<div id ="savePhoto"class="t-style-box" style="z-index: 1002; position: relative;overflow: hidden;border-radius: 3px;">
 
+    <div style="margin: 0 0 20px; position: relative; background-color: #f3f3f3; height: 45px;border-bottom: 1px solid #ddd;">
+        <div style=' color: #555; font-size: 18px; font-weight: bold; text-align: center; line-height: 45px;'>Save to Collections</div>
+        <div class="exit">
+            <div class="closeview" {{action exit }}>
+                 <i class="icon-remove"></i>
+            </div> 
+        </div>  
+    </div> 
 
-        <div style="display: inline-block; color:#555; font-size: 16px; font-weight: bold;vertical-align: top;margin-right: 20px;"> 
-            <div style="margin-bottom: 10px;">Collections</div>
-            <div> </div>
-        </div>
+    <div class="contactmebox-wapper" style="width: 500px;height: 190px;font-size: 13px;margin: 0 20px;">
+        <div style="display:inline-block; ">
 
-        <div style="display:inline-block; margin: 0 15px;">
-
-            <div {{action collectionSwitch }} class="new-btn" style="display:block;" id="recordID" {{bindAttr text="controller.selectedTitle" }}>
-                Choose your Collection 
-                &nbsp;<i class="icon-caret-down"></i>
+            <div class="new-btn" style="display:block;"  {{action collectionSwitch }} {{bindAttr text="controller.selectedTitle" }}>
+                {{controller.selectedTitle}}
+                 &nbsp;<i class="icon-caret-down"></i>
             </div>
             <div style="height: 150px;">
                 {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70" class="collect_descriptionbox" placeholder="Say something about it!"}}
@@ -52,16 +46,17 @@
         {{/if}}
     </div>
     <div style="display:inline-block;margin-left:15px; vertical-align: top;">
-        <div style="max-width: 180px; max-height: 180px; overflow: hidden;padding: 10px;background-color: rgba(0,0,0,0.03);top: -4px;position: relative;">
-            <img {{bindAttr src="controller.selectedPhotoThumbnailUrl" }}>
+        <div style="width: 174px; height: 174px; overflow: hidden;padding: 10px;background-color: rgba(0,0,0,0.03);top: -4px;position: relative;">
+            <img style="height: 154px;width: 154px;" {{bindAttr src="controller.selectedPhotoThumbnailUrl" }}>
         </div>
     </div>
 
 </div>
-<div class="controlbtn-field" style="height: 50px;">
-    <div style="display: block; float: right;top: 13px;position: relative;right: 20px;">
-        <div type="button" {{action exit }} class="new-btn">Cancel</div>
-        <div type="button" {{action submit }}  class="new-btn green-btn">Submit</div>
-    </div>
+
+
+<div class="" style="height: 45px;position: relative;border-top: 1px solid #ddd;top: -1px;">
+    <div  class="message-btn easing" style="height:45px;line-height: 45px; border-right: 1px solid #ddd;" {{action exit }}><k class='icon-picture'>&nbsp;</k>Cancel</div>
+    <div class="message-btn easing" style='height:45px;line-height: 45px;'{{action submit }}><k class='icon-ok'>&nbsp;</k>Submit</div>
 </div>
+
 </div>

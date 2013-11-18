@@ -5,33 +5,36 @@
             <div class="user-profilepic-container" id="profile-picture"> 
                 {{#if controller.is_authentic_user}}
                 <div id="change_profile" class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture" {{action userPhotoEditButton "User Picture"}}>
-                     <k class="icon-edit" {{action showInterests  target="view" on="click"}}></k>         
+                     <k class="icon-edit"></k>         
                 </div>  
 
                 {{/if}}
-
                 <img {{bindAttr src="controller.model.photo_url_large"}} style="width: 180px;height: 180px;"/>
-
-
             </div>
-            {{#if controller.isUserSelf}}
-            <div href="#question_modal" role="button" class="disabled-btn follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;">Follow</div>
 
-            {{else}}
-            {{#if controller.follow_status}}
-            {{#if controller.following_status}}
-            <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-exchange' >&nbsp; </i> Following</div>
-            {{else}}
-            <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
-            {{/if}}
+            <div style="margin: 30px auto 20px;display: block; text-align: center;">
+                {{#if controller.isUserSelf}}
+                    <div href="#question_modal" role="button" class="disabled-btn follow-btn" data-toggle="modal" style="">Follow</div>
 
-            {{else}}
-            {{#if controller.following_status}}
-            <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-ok' >&nbsp; </i> Follow</div>
-            {{else}}
-            <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style="margin: 30px auto 20px;width: 130px;display: block;"{{action followThisUser}}><i class='icon-plus' >&nbsp; </i> Follow</div>
-            {{/if}}
-            {{/if}}
+                {{else}}
+                    {{#if controller.follow_status}}
+                        {{#if controller.following_status}}
+                            <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='icon-exchange' >&nbsp; </i> Following</div>
+                        {{else}}
+                            <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
+                        {{/if}}
+                    {{else}}
+                        {{#if controller.following_status}}
+                            <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='icon-ok' >&nbsp; </i> Follow</div>
+                        {{else}}
+                            <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='icon-plus' >&nbsp; </i> Follow</div>
+                        {{/if}}
+                    {{/if}}
+                    <div class="new-btn blue-btn" {{action talkToPeople}}><k class="icon-envelope" ></k></div>
+                {{/if}}           
+            </div>
+            {{#if isTalk}}
+            {{render talk}}
             {{/if}}
 
             <div id="show_interest" >
@@ -124,12 +127,12 @@
                         <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
                     </div>
                     {{else}}
-                    
-                    
+
+
                     {{#if controller.is_authentic_user}}
-                                        <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing controller.about_me controller.aboutMe}}>
-                                             <i class="icon-edit"></i>
-                                        </div>
+                    <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing controller.about_me controller.aboutMe}}>
+                         <i class="icon-edit"></i>
+                    </div>
                     {{/if}}
 
                     <div style="display: block;" >{{{about_me}}}</div>
@@ -198,7 +201,7 @@
 
 
 {{#if controller.switchPhoto}}
-
+ 
 {{view HubStar.MasonryCollectionView}}
 
 {{else}}

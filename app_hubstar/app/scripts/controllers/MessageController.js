@@ -1,16 +1,4 @@
 
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 HubStar.MessageController = Ember.Controller.extend({
     commenter_photo_url: null,
     messagecms: '',
@@ -257,7 +245,6 @@ HubStar.MessageController = Ember.Controller.extend({
             {
                 if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === params["message_id"])
                 {
-
                     dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
                     dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
                     dataNew["time_stamp"] = params["replyMessageCollection"][0]["time_stamp"];
@@ -266,6 +253,7 @@ HubStar.MessageController = Ember.Controller.extend({
                     dataNew["photo_url_large"] = params["replyMessageCollection"][0]["photo_url_large"];
                     dataNew["url"] = params["replyMessageCollection"][0]["url"];
                     dataNew["enableToEdit"] = false;
+
 
                     var replyLength = that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyCount") + 1;
                     that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);

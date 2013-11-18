@@ -23,6 +23,18 @@ function createGuid() {
     return "test" + result.toString();
 }
 
+function createReviewid() {
+
+    var dateObject = new Date();
+    var randomnumber = Math.random().toString().slice(2, 3);
+    randomnumber = randomnumber.toString();
+    randomnumber = removeZero(randomnumber);
+    var result = randomnumber +
+            dateObject.getTime().toString();
+
+    return result.toString();
+}
+
 function createMessageid() {
 
     var dateObject = new Date();
@@ -31,6 +43,7 @@ function createMessageid() {
     randomnumber = removeZero(randomnumber);
     var result = randomnumber +
             dateObject.getTime().toString();
+
     return  result.toString();
 }
 

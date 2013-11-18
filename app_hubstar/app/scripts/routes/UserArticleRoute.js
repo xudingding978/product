@@ -10,7 +10,7 @@ HubStar.UserArticleRoute = Ember.Route.extend({
             temp = model.id;
         }
         var d = HubStar.Mega.find(temp);
-        this.controllerFor("mega").getInitData(d);
+        this.controllerFor("article").getInitData(d);
     },
     model: function(params) {
         var model = HubStar.Mega.find({"RequireType": "articles", "article_id": params.article_id});

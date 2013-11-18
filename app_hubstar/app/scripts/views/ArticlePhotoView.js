@@ -1,6 +1,6 @@
-HubStar.ArticleView = Ember.View.extend({
+HubStar.ArticlePhotoView = Ember.View.extend({
     classNames: ["lightbox"],
-    templateName: 'article',
+    templateName: 'showAlbum',
     readContent: true,
     fullName: (function() {
         return "test";
@@ -55,14 +55,12 @@ HubStar.ArticleView = Ember.View.extend({
 
     },
     setPartnerTag: function() {
-
         $('#partner_action').slideToggle("slow");
         //       this.set('partnerTag', !this.get('partnerTag'));
 
     },
-    popupAibum: function(id) {
-        HubStar.set('what', true);
-        $("#collection_tab1").slideToggle("slow");
+    popupAibum: function() {
+       $("#collection_tab1").slideToggle("slow");
     },
     openComment: function() {
 

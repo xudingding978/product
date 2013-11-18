@@ -21,15 +21,14 @@ HubStar.CollectionRoute = Ember.Route.extend({
             this.transitionTo("userPhoto", obj);//photo          
         },
         transitionToProfile: function(id) {
-
-
             this.controllerFor('user').set('switchPhoto', false);
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
             return HubStar.Mega.find({RquireType: "firstsearch", user_id: user_id, collection_id: params.collection_id});
         },
         transitionToArticle: function(id) {
-            this.transitionTo("article", HubStar.Article.find(id));
+            this.controllerFor("article").set("collectionArticleId", id);
+            this.transitionTo("userArticle", HubStar.Article.find(id));
         },
         transitionToVideo: function(video_id) {
             this.transitionTo("userVideo", video_id);

@@ -43,7 +43,9 @@ HubStar.Router.map(function() {
             this.resource("userCollections", {path: '/collections'}, function() {
                 this.resource("collection", {path: ':collection_id'}, function() {
                     this.resource("userPhoto", {path: '/photos/:photo_id'});
-                    this.resource("article", {path: '/article/:article_id'});
+                    this.resource("userArticle", {path: '/article/:article_id'},function() {
+                          this.resource("articlePhoto", {path: '/photos/:photo_id'});
+                    });
                     this.resource("userVideo", {path: '/video/:video_id'});
                 });
             });

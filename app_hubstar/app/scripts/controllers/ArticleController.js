@@ -2,15 +2,16 @@
 HubStar.ArticleController = Ember.Controller.extend({
     content: [],
     image_no: 1,
-    selectedPhoto: null,         
+    selectedPhoto: null,
     captionTitle: "",
     readCaption: true,
     caption: '',
-    checkLoginStatus:false,
+    collectionArticleId: null,
+    checkLoginStatus: false,
     isCreditListExist: false,
-    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus','editComment'],
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment'],
     init: function() {
-  
+
     },
     findSelectedItemIndex: function() {
         content = this.get('content');
@@ -34,6 +35,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('image_no', selectedIndex + 1);
         this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
         this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
+        this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
         this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
         this.selectedImage(this.get('selectedPhoto').id);
@@ -55,6 +57,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('image_no', selectedIndex + 1);
         this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
         this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
+        this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
         this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
         this.selectedImage(this.get('selectedPhoto').id);
@@ -82,7 +85,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('image_no', 1);
         var megaResouce = HubStar.Mega.find(megaObject.id);
         this.set('articleResouce', megaResouce.get('article').objectAt(0));
-        this.set('article',megaResouce);
+        this.set('article', megaResouce);
         this.set('articleID', megaObject.id);
         this.set('megaResouce', megaResouce);
         this.addRelatedData(megaObject);
@@ -90,7 +93,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.checkCreditExist(megaResouce.get('article').objectAt(0).get('credits'));
     },
     checkCreditExist: function(credits) {
-        if (credits !== null && credits !== 'undefined' && credits.get('length') >0) {
+        if (credits !== null && credits !== 'undefined' && credits.get('length') > 0) {
             this.set('isCreditListExist', true);
         } else {
             this.set('isCreditListExist', false);
@@ -105,7 +108,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
             var message_id = createMessageid() + commenter_id;
-            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,"message_id":message_id,
+            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url, "message_id": message_id,
                 "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
                 "is_delete": false, optional: this.get('article').get('type') + '/' + this.get('article').get('id')});
             comments.insertAt(0, tempComment);
@@ -115,7 +118,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             $('#commentBox').attr('style', 'display:none');
         }
     },
-     removeComment: function(object)
+    removeComment: function(object)
     {
         var id = this.get('article').get("id");
         var message_id = object.get("message_id");
@@ -131,11 +134,10 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.get("controllers.editComment").setRelatedController("article");
         var comments = this.get('article').get('comments');
         for (var i = 0; i < comments.get("length"); i++)
-        {        
+        {
             if (comments.objectAt(i).get("message_id") === object.get("message_id"))
-            {            
+            {
                 object.set("isEdit", !object.get("isEdit"));
-                console.log
             }
             else
             {
@@ -163,9 +165,10 @@ HubStar.ArticleController = Ember.Controller.extend({
                             that.get("content").pushObject(temp.data.photo.objectAt(0));                                  //find the object which contain photos and push it into model
                         }
                     }
+                    that.transitionTo("articlePhoto", that.get('content').objectAt(0));
                     that.set('selectedPhoto', that.get('content').objectAt(0));                                                  //set selectedPhoto to the first photo
-
                     that.set('captionTitle', that.get('selectedPhoto').photo_title);
+         
                     that.set('caption', that.get('selectedPhoto').photo_caption);
                 }
             });
@@ -188,29 +191,29 @@ HubStar.ArticleController = Ember.Controller.extend({
         window.history.back();
     },
     switchCollection: function() {
- if (this.get("controllers.checkingLoginStatus").popupLogin())
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-        var addCollectionController = this.get('controllers.addCollection');
-        var selectid = this.get('articleResouce').id;
-        addCollectionController.setImageID(selectid);
-        var tempUrl = this.get('selectedPhoto').photo_image_thumbnail_url;
-        addCollectionController.setThumbnailUrl(tempUrl);
-        addCollectionController.setRelatedController('article');
-        addCollectionController.setUser();
-        this.set('collectable', !this.get('collectable'));
+            var addCollectionController = this.get('controllers.addCollection');
+            var selectid = this.get('articleResouce').id;
+            addCollectionController.setImageID(selectid);
+            var tempUrl = this.get('selectedPhoto').photo_image_thumbnail_url;
+            addCollectionController.setThumbnailUrl(tempUrl);
+            addCollectionController.setRelatedController('article');
+            addCollectionController.setUser();
+            this.set('collectable', !this.get('collectable'));
         }
     },
     editingContactForm: function() {
- if (this.get("controllers.checkingLoginStatus").popupLogin())
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-        var contactController = this.get('controllers.contact');
+            var contactController = this.get('controllers.contact');
 
-        this.get("controllers.contact").set("firstStepOfContactEmail",false);      
-        this.get("controllers.contact").set('secondStepOfContactEmail', false);
+            this.get("controllers.contact").set("firstStepOfContactEmail", false);
+            this.get("controllers.contact").set('secondStepOfContactEmail', false);
 
-        var selectid = this.get('selectedPhoto').id;
-        contactController.setSelectedMega(selectid);
-       
+            var selectid = this.get('selectedPhoto').id;
+            contactController.setSelectedMega(selectid);
+
             this.set('contact', !this.get('contact'));
         }
     },

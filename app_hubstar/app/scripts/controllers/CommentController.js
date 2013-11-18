@@ -452,7 +452,6 @@ HubStar.CommentController = Ember.Controller.extend({
             var that = this;
             var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedArticle').get('id');
             var caption = '';
-
             if (this.get('selectedArticle').get('article_body') !== null)
             {
                 caption = this.get('selectedArticle').get('article_body');

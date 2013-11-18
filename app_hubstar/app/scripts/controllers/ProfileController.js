@@ -203,15 +203,17 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.updateWorkingHourData(profile.get('profile_hours'));
         this.set("collections", profile.get("collections"));
         this.set("reviews", profile.get("reviews"));
-        this.set("profile_average_review", profile.get("profile_average_review"));
+        
 
         this.set('profile_average_review_length', profile.get("profile_average_review_length"));
        // document.getElementById("starsize").style.width="156px";
        if(profile.get("profile_average_review_length")!=="" && profile.get("profile_average_review_length") !==null && profile.get("profile_average_review_length")!== undefined ){
             $('#starsize').attr("style", "width:" + profile.get("profile_average_review_length") + "px");
+            this.set("profile_average_review", profile.get("profile_average_review"));
        }
        else {
            $('#starsize').attr("style", "width:100px");
+           this.set("profile_average_review", "5");
        }
        
         var collections = profile.get("collections");

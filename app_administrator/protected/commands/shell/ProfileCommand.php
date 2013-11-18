@@ -141,7 +141,7 @@ class ProfileCommand extends Controller_admin {
     }
     
     public function changePhotoOwnerID($bucket){
-       //       $bucket="develop";
+            //  $bucket="test";
          $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode("es1.hubsrv.com", 9200);
@@ -171,8 +171,12 @@ class ProfileCommand extends Controller_admin {
             $result_arr = CJSON::decode($result, true);
              if ($result_arr != null && $result_arr["owner_id"] != null && $result_arr["owner_id"] != "") {
                 $result_arr["owner_id"] = "aspiring-walls-nz";
-                $result_arr['object_image_url']=str_replace("vision-wallcoverings-nz", "aspiring-walls-nz", $result_arr["object_image_url"]);
+                $result_arr["owner_title"] = "Aspiring Walls NZ";
+
+              $result_arr['object_image_url']=str_replace("vision-wallcoverings-nz", "aspiring-walls-nz", $result_arr["object_image_url"]);
                 $result_arr['owner_profile_pic']=str_replace("vision-wallcoverings-nz", "aspiring-walls-nz", $result_arr["owner_profile_pic"]);
+
+                
                 $result_arr["photo"][0]["photo_image_original_url"] = str_replace("vision-wallcoverings-nz", "aspiring-walls-nz", $result_arr["photo"][0]["photo_image_original_url"]);
                 $result_arr["photo"][0]["photo_image_hero_url"] = str_replace("vision-wallcoverings-nz", "aspiring-walls-nz", $result_arr["photo"][0]["photo_image_hero_url"]);
                 $result_arr["photo"][0]["photo_image_thumbnail_url"] = str_replace("vision-wallcoverings-nz", "aspiring-walls-nz", $result_arr["photo"][0]["photo_image_thumbnail_url"]);
@@ -309,7 +313,7 @@ class ProfileCommand extends Controller_admin {
     }
     
     public function profileChangeId(){
-        $bucket="test";
+        $bucket="production";
         $record="vision-wallcoverings-nz";
         $replace="aspiring-walls-nz";
         $replaced_name="Aspiring Walls NZ";

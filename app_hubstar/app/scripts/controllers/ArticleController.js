@@ -6,8 +6,10 @@ HubStar.ArticleController = Ember.Controller.extend({
     captionTitle: "",
     readCaption: true,
     caption: '',
+    searchFromRoute:false,
     collectionArticleId: null,
     checkLoginStatus: false,
+    accessFromSearchBoard: false,
     isCreditListExist: false,
     needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment'],
     init: function() {
@@ -35,7 +37,10 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('image_no', selectedIndex + 1);
         this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
         this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
-        this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+        if (this.get("accessFromSearchBoard") === false)
+        {
+            this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+        }
         this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
         this.selectedImage(this.get('selectedPhoto').id);
@@ -57,7 +62,10 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('image_no', selectedIndex + 1);
         this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
         this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
-        this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+        if (this.get("accessFromSearchBoard") === false)
+        {
+            this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+        }
         this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
         this.selectedImage(this.get('selectedPhoto').id);
@@ -165,10 +173,14 @@ HubStar.ArticleController = Ember.Controller.extend({
                             that.get("content").pushObject(temp.data.photo.objectAt(0));                                  //find the object which contain photos and push it into model
                         }
                     }
-                    that.transitionTo("articlePhoto", that.get('content').objectAt(0));
+
+                    if (that.get("accessFromSearchBoard") === false)
+                    {
+                        that.transitionTo("articlePhoto", that.get('content').objectAt(0));
+                    }
                     that.set('selectedPhoto', that.get('content').objectAt(0));                                                  //set selectedPhoto to the first photo
                     that.set('captionTitle', that.get('selectedPhoto').photo_title);
-         
+
                     that.set('caption', that.get('selectedPhoto').photo_caption);
                 }
             });
@@ -297,10 +309,6 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
 
 
-//        var meta = document.getElementsByTagName('meta');
-//        for (var i = 0; i < meta.length; i++) {
-//            console.log(meta[i]);
-//        }
         $("meta[property='og\\:title']").attr("content", this.get('articleResouce').get("article_headline"));
         $("meta[property='og\\:description']").attr("content", caption);
         $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').photo_image_original_url);

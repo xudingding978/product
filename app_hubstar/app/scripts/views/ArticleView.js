@@ -62,7 +62,7 @@ HubStar.ArticleView = Ember.View.extend({
     },
     popupAibum: function(id) {
         HubStar.set('what', true);
-        $("#collection_tab1").slideToggle("slow");
+        $("#collection_tab_"+id).slideToggle("slow");
     },
     openComment: function() {
 

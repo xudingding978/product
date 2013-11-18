@@ -9,12 +9,19 @@ HubStar.UserArticleRoute = Ember.Route.extend({
         } else {
             temp = model.id;
         }
+        if (this.controllerFor("article").get("searchFromRoute") === true)
+        {
+
+            var address = document.URL;
+            var temp = address.split("#")[1].split("/")[6];
+        }
+
         var d = HubStar.Mega.find(temp);
         this.controllerFor("article").getInitData(d);
     },
     model: function(params) {
         var model = HubStar.Mega.find({"RequireType": "articles", "article_id": params.article_id});
-
+        model.set("id", params.article_id);
         return model;
     },
     activate: function() {

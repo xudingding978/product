@@ -8,7 +8,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     is_profile_editing_mode: false,
     uploadOrsubmit: false,
     is_user_editing_mode: false,
-    isUser:true,
+    isUser:false,
     isVideoPhoto:false,
     collectionID: "",
     itemID: "",

@@ -6,7 +6,6 @@
 
 HubStar.MessageCenterRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-
         this.controllerFor('user').set('profileSelectionStatus', 'Messages');
         this.controllerFor('user').set('collectionTag', false);
 
@@ -17,7 +16,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#message').addClass('selected-user-stats');
         var address = document.URL;
-         
+
         var conversation_id = "";
         if (this.controllerFor('notificationTop').get("goReply") === true)
         {
@@ -29,7 +28,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
         if (this.controllerFor('notificationTop').get("notificationSeeAll") === true)
         {
             model = localStorage.loginStatus;
-            this.controllerFor('notificationTop').set("notificationSeeAll",false) ;          
+            this.controllerFor('notificationTop').set("notificationSeeAll", false);
         }
         if (this.controllerFor('notificationTop').get("goMessage") !== undefined && this.controllerFor('notificationTop').get("goMessage") !== null && this.controllerFor('notificationTop').get("goMessage") !== "")
         {
@@ -49,7 +48,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
         }
         if (this.controllerFor('notificationTop').get("goConversation") === true)
         {
-           
+
             model = localStorage.loginStatus;
             this.controllerFor('notificationTop').set("goConversation", false);
             this.controllerFor('messageCenter').getClientId(localStorage.loginStatus);
@@ -58,23 +57,19 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             conversation_id = address.split("#")[1].split("/")[5];
             this.controllerFor('messageCenter').getClientId(localStorage.loginStatus, conversation_id);
         }
-        else {      
+        else {
             this.controllerFor('messageCenter').getClientId(model);
         }
         $(window).scrollTop(550);
     },
     model: function(params) {
-
-
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
-       
+
         return user_id;
     },
     events: {
         transitionToConversation: function(conversation_id) {
-
-
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
             var user = HubStar.User.find(user_id);
@@ -82,6 +77,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             var data = null;
             var isNewConversation = HubStar.get("newConversation");
             var isTalk = HubStar.get("talkConversation");
+            this.controllerFor('conversation').set("isNewConversation", false);
             if (isNewConversation || isTalk)
             {
                 data = this.controllerFor('conversation').get("conversationContent").objectAt(0);

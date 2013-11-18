@@ -9,7 +9,7 @@
     {{outlet profiles}}
 
     {{outlet user}}
-    {{render "footer"}}
+    
 
 
     {{#unless controller.isotherpage}}
@@ -30,19 +30,15 @@
     {{view HubStar.RegisterView}}
     {{/if}}
     
-    
 
     {{outlet profile}}
-    {{outlet photos}}
+     {{outlet photos}}
     {{outlet articles}}
     {{outlet videoes}}
     {{outlet "profileNew"}}
-    
-    
-    
-    
-    
+
     {{#if HubStar.isLogin}}
+    {{render "footer"}}
     {{render platformBar}}
     {{/if}}
 
@@ -172,4 +168,8 @@
             $('.wrapper-dropdown-3').removeClass('active');
         });
     });
+    
+    
+ 
+    
 </script>

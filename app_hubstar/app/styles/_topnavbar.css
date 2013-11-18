@@ -12,7 +12,7 @@
     top: 0;
     display: block;
     background-color: transparent;
-    background: url(../../images/landingpagebg.jpg);
+
 }
 
 
@@ -22,6 +22,13 @@
     padding: 0px;
     margin: 0;
     position: relative;
+}
+.navbar > #version-no
+{
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    max-width:6.5%;
 }
 
 .navbar-inner {
@@ -127,6 +134,13 @@
     display: inline-block;
 }
 
+.search-bar-ontop{
+    position: absolute;
+    width: 800px;
+    margin: 12px auto;
+    left: 0;
+    right: 0;
+}
 
 .Search-box > input {
     font-size: 20px;
@@ -138,6 +152,7 @@
     border: 1px solid #eee;
     width: 692px;
     padding-left: 10px;
+    vertical-align: top;
 }
 
 .popular-topics{
@@ -587,6 +602,16 @@ div#forgot-password-container{
     opacity: 1
 }
 
+/* Clint Lewis's style's 29/10/13 */
+
+div#login_detail{
+    width:35px;
+    margin-right: 50px;
+    float:right;
+    cursor: pointer;
+    vertical-align: top;
+}
+
 
 
 .Notification-top{
@@ -624,3 +649,4 @@ div#forgot-password-container{
 
 .Notification-top > div:first-child{border-radius: 3px 3px 0 0}
 .Notification-top > div:last-child{border-radius: 0 0 3px 3px}
+

@@ -60,6 +60,7 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
                         dataNew["isAdd"] = false;
                         dataNew["id"] = params[i]["record_id"];
                         dataNew["name"] = params[i]["name"];
+                        
                         dataNew["photo_url"] = params[i]["photo_url"];
                         that.get("contentFollowerPhoto").pushObject(dataNew);
                     }
@@ -104,6 +105,8 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
         if (this.get("owner") === "newConversation") {
             this.get("controllers.newConversation").set("isAdded", true);
             this.get("controllers.newConversation").set("contentFollowerPhoto", this.get("contentFollowerPhoto"));
+            //console.log(this.get("contentFollowerPhoto"));
+          //  this.get("controllers.conversationItem").set("contentFollowerPhotoOld", this.get("contentFollowerPhoto"));
             this.get("controllers.newConversation").set("isInvitePeople", false);
 
         }

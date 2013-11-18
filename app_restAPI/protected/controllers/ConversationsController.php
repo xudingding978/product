@@ -194,7 +194,7 @@ class ConversationsController extends Controller {
                 $mega_currentUser["participation_ids"] = $mega_currentUser["participation_ids"] . "," . $participantIds;
             }
             $participantions = explode(",", $mega_currentUser["participation_ids"]);
-            $this->createNotification($commenter_id, $participantions, $time_stamp, $conversationId, $conversationtContent);
+            
 
             for ($i = 0; $i < sizeof($participation_id); $i++) {
 
@@ -217,6 +217,7 @@ class ConversationsController extends Controller {
                     echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
                 }
             }
+            $this->createNotification($commenter_id, $participantions, $time_stamp, $conversationId, $conversationtContent);
             if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
                 return $newConversationItem;
             } else {
@@ -256,7 +257,7 @@ class ConversationsController extends Controller {
                             $tdocID_currentUserNew = CJSON::decode($docID_currentUserNew, true);
                             $tempPhoto = array();
                             $tempPhoto['isAdd'] = true;
-
+                            $tempPhoto['name'] = $tdocID_currentUserNew['user'][0]["display_name"];
                             $tempPhoto['photo_url'] = $tdocID_currentUserNew['user'][0]["photo_url_large"];
                             array_push($contentParticipation, $tempPhoto);
                             if ($k === 0) {
@@ -328,6 +329,7 @@ class ConversationsController extends Controller {
     }
 
     public function createNotification($commenter_id, $participantions, $date, $conversationID, $commentContent) {
+        
         for ($i = 0; $i < sizeof($participantions); $i++) {
             if ($participantions[$i] !== $commenter_id) {
                 $ownerId = $participantions[$i];
@@ -343,7 +345,6 @@ class ConversationsController extends Controller {
                 $notificationObject["content"] = $commentContent;
                 $notificationObject["action_id"] = $conversationID;
                 $notificationObject["isRead"] = false;
-
                 $notificationInfo = $this->getDomain() . "/users/" . $ownerId;
                 $cbs = $this->couchBaseConnection();
                 $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
@@ -354,20 +355,19 @@ class ConversationsController extends Controller {
                         $userInfo['user'][0]['notifications'] = array();
                     }
                     array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
-                    if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
-                        if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
-                            $receiveEmail = $userInfo['user'][0]['email'];
-                            $receiveName = $userInfo['user'][0]['display_name'];
-                            $notificationCount = 0;
-                            for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
-                                if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
-                                    $notificationCount++;
-                                }
+                }
+                
+                if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
+                    if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
+                        $receiveEmail = $userInfo['user'][0]['email'];
+                        $receiveName = $userInfo['user'][0]['display_name'];
+                        $notificationCount = 0;
+                        for ($j = 0; $j < sizeof($userInfo['user'][0]['notifications']); $j++) {
+                            if ($userInfo['user'][0]['notifications'][$j]["isRead"] === false) {
+                                $notificationCount++;
                             }
-                            $this->sendEmail($receiveEmail, $receiveName, $notificationCount, $ownerId);
-                        }
-                    } else {
-                        echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                        } 
+                        $this->sendEmail($receiveEmail, $receiveName, $notificationCount, $ownerId);
                     }
                 }
             }
@@ -565,7 +565,7 @@ class ConversationsController extends Controller {
 
                 $tempPhoto = array();
                 $tempPhoto['isAdd'] = true;
-
+                $tempPhoto['name'] = $oldcommenterInfo['user'][0]["display_name"];
                 $tempPhoto['photo_url'] = $oldcommenterInfo['user'][0]["photo_url_large"];
                 array_push($addResult['conversationPhoto'], $tempPhoto);
                 if ($i === 0) {

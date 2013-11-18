@@ -170,7 +170,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_analytics_code'] = $newRecord['profile_analytics_code'];
               $oldRecord['profile'][0]['profile_google_map'] = $newRecord['profile_google_map'];
              
-            
+
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
             }
@@ -216,8 +216,7 @@ class ProfilesController extends Controller {
         $cb = $this->couchBaseConnection();
         $docID = $this->getDomain() . '/profiles/' . $id;
         $oldRecord = CJSON::decode($cb->get($docID));
-                error_log($googleMap);
-                error_log($oldRecord['profile'][0]['profile_google_map']);
+               
            $oldRecord['profile'][0]['profile_google_map'] = $googleMap;
 
             if ($cb->set($docID, CJSON::encode($oldRecord))) {

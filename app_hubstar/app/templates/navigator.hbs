@@ -4,31 +4,22 @@
 <div class="Navigator-box" style="">
     <div style="background-color: #f3f3f3; height: 35px; line-height: 35px;width: 100%; border-bottom: 1px solid #ddd;padding: 0 15px;border-radius: 3px 3px 0 0;"><span style="font-size: 18px;font-weight: bold;color: #555;">Navigator</span></div>
 
-    <div class="Navigator-content" style="">
-        <div class="" style="width: 33%;height: 100%;float: left;padding: 8px 0;overflow: auto">
-            <ul>
-                <li>Apartment Design <i class="icon-angle-right"></i></li>
-                <li>Bathroom<i class="icon-angle-right"></i></li>
-                <li>Civic design<i class="icon-angle-right"></i></li>
-                <li>Educational design<i class="icon-angle-right"></i></li>
-                <li>Home theatre<i class="icon-angle-right"></i></li>
-                <li>Hospitality design<i class="icon-angle-right"></i></li>
-                <li>Interior living<i class="icon-angle-right"></i></li>
-                <li>Kitchen<i class="icon-angle-right"></i></li>
-                <li>New homes<i class="icon-angle-right"></i></li>
-                <li>Office design<i class="icon-angle-right"></i></li>
-                <li>Outdoor living<i class="icon-angle-right"></i></li>
-                <li>Refurbishment<i class="icon-angle-right"></i></li>
-                <li>Revonations<i class="icon-angle-right"></i></li>
-                <li>Retail design<i class="icon-angle-right"></i></li>
-            </ul>
-        </div>
-        <div style="width: 33.5%;height: 100%;border-left: 1px solid #ddd; border-right: 1px solid #ddd;float: left;padding: 8px 12px;overflow: auto">
+    <div id="navigator-content" class="Navigator-content" style="">
+        
 
-        </div>
-        <div style="width: 33%;height: 100%;float: left;padding: 8px 12px;overflow: auto">
+                <ul class="firstList" >
+                    <li>&nbsp;</li>
+                    <div id="shuai" style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -155px; z-index: -1;"></div>
+                    {{#each controller.categorys}}
 
-        </div>
+                    <li> <span><a href="#" {{action topicSearch topic}} > {{topic}}</a></span>
+                        
+                    </li>
+                    {{/each}}
+                </ul>
+          
+
+
     </div>
 
     <div class="Navigator_links" style="">
@@ -48,5 +39,31 @@
 
 
 <script>
-
+    
+       $("#navigator-content > ul > li >span").hover(function() {
+                    $("#navigator-content > ul > li").not(this).removeClass('sidebar-hover');
+                });
+                $("#navigator-content > ul > li> ul ").hover(function() {
+                    $(this).parent().addClass("sidebar-hover");
+                });
+    
+    
+    $(function() {
+        $("#category_topic").mCustomScrollbar({
+            scrollButtons: {
+                enable: false,
+                scrollSpeed: "auto"
+            },
+            advanced: {
+                updateOnBrowserResize: true,
+                updateOnContentResize: true,
+                autoScrollOnFocus: false,
+                normalizeMouseWheelDelta: false
+            },
+            autoHideScrollbar: true,
+            mouseWheel: true,
+            theme: "dark-2",
+            set_height: 388
+        });
+    });
 </script>

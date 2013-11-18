@@ -18,6 +18,7 @@
                     <li> <span><a href="#" {{action topicSearch topic}} > {{topic}}</a></span>
                         <ul>
                             <li>&nbsp;</li>
+                  
                             <div style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -80px;  z-index: -1;"></div>
                             {{#each subcate}}
                             <li> <span><a href="#" {{action topicSearch category_topic}} > {{category_topic}}</a></span>
@@ -63,7 +64,7 @@
                     <div style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -50px;  z-index: -1;"></div>
                     {{#each controller.user.collections}}
 
-                    <li><a  href="{{unbound controller.myUserProfile}}/{{unbound id}}" > {{title}}</a></li>
+                    <li><a  href="{{unbound controller.myUserProfile}}/collections/{{unbound id}}" > {{title}}</a></li>
 
                     {{/each}}
                 </ul>

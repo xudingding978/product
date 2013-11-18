@@ -1373,3 +1373,5 @@ to{
 }
 }
 
+
+.post-focus > div > div{box-shadow: 0 0 10px rgba(85,170,255,.8);}

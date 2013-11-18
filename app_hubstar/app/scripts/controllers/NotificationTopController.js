@@ -235,12 +235,12 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         this.reviewCancel();
     },
     gotoMessage: function(id)
-    {
+    {       
         this.set("goMessage", '#message_' + id);
 
         var address = document.URL;
-        if (address.split("#")[1].split("/").length >= 5) {
-            var page = address.split("#")[1].split("/")[4];
+        if (address.split("#")[1].split("/").length >= 4) {
+            var page = address.split("#")[1].split("/")[3];
             if (page === "post")
             {
                 this.get("controllers.userMessage").goToMessageTop(this.get("goMessage"));
@@ -287,8 +287,8 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             this.transitionToRoute('userPost');
         }
         var address = document.URL;
-        if (address.split("#")[1].split("/").length >= 5) {
-            var page = address.split("#")[1].split("/")[4];
+        if (address.split("#")[1].split("/").length >= 4) {
+            var page = address.split("#")[1].split("/")[3];
             if (page === "post")
             {
                 this.get("controllers.userMessage").goToMessageTop(this.get("goMessage"));

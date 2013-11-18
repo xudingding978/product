@@ -17,6 +17,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
     isUploadPhoto: false,
     isEdit: true,
     isPosting: true,
+    oldPost:"",
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -119,6 +120,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             }
             if (that.get('controllers.notificationTop').get("goMessage") !== undefined && that.get('controllers.notificationTop').get("goMessage") !== null && that.get('controllers.notificationTop').get("goMessage") !== "") {
                 var s = that.get('controllers.notificationTop').get("goMessage");
+                
                 that.goToMessageTop(s);
             }
             setTimeout(function() {
@@ -129,43 +131,47 @@ HubStar.UserMessageController = Ember.Controller.extend({
     },
     goToMessage: function(s)
     {     
-//        var that = this;
-//        $(document).ready(function() {
-//            setTimeout(function() {       
-//                console.log($(s));
-//                $(s).scrollTo();
-//                
-//                if (that.get("controllers.notification").get("reply_ids") !== undefined && that.get("controllers.notification").get("reply_ids") !== null && that.get("controllers.notification").get("reply_ids") !== "")
-//                {
-//                    
-//                    var thatthat = that;
-//                    setTimeout(function() {
-//                        thatthat.get('controllers.message').seeMore(that.get("controllers.notification").get("reply"));
-//                    }, 50);
-//                    that.get('controllers.notification').set("reply_ids", "");
-//                }
-//                that.get('controllers.notification').set("goMessage", "");
-//            });
-//        }, 50);
+        var that = this;
+        $(document).ready(function() {
+            setTimeout(function() {       
+                 var old = that.get("oldPost");
+                $(old).removeClass("post-focus");
+                $(s).addClass("post-focus");
+                that.set("oldPost",s);
+                if (that.get("controllers.notification").get("reply_ids") !== undefined && that.get("controllers.notification").get("reply_ids") !== null && that.get("controllers.notification").get("reply_ids") !== "")
+                {
+                    
+                    var thatthat = that;
+                    setTimeout(function() {
+                        thatthat.get('controllers.message').seeMore(that.get("controllers.notification").get("reply"));
+                    }, 50);
+                    that.get('controllers.notification').set("reply_ids", "");
+                }
+                that.get('controllers.notification').set("goMessage", "");
+            });
+        }, 50);
     },
     goToMessageTop: function(s)
     {
-//        var that = this;
-//        $(document).ready(function() {
-//            setTimeout(function() {
-//                //$("#content_message").message_("scrollTo", s);
-//                if (that.get("controllers.notificationTop").get("reply_ids") !== undefined && that.get("controllers.notificationTop").get("reply_ids") !== null && that.get("controllers.notificationTop").get("reply_ids") !== "")
-//                {
-//                    var thatthat = that;
-//                    setTimeout(function() {
-//                        thatthat.get('controllers.message').seeMore(that.get("controllers.notificationTop").get("reply"));
-//                    }, 50);
-//                    that.get('controllers.notificationTop').set("reply_ids", "");
-//                }
-//
-//                that.get('controllers.notificationTop').set("goMessage", "");
-//            }, 50);
-//        });
+        var that = this;
+        $(document).ready(function() {
+            setTimeout(function() {
+                var old = that.get("oldPost");
+                $(old).removeClass("post-focus");
+                $(s).addClass("post-focus");
+                that.set("oldPost",s);
+                if (that.get("controllers.notificationTop").get("reply_ids") !== undefined && that.get("controllers.notificationTop").get("reply_ids") !== null && that.get("controllers.notificationTop").get("reply_ids") !== "")
+                {
+                    var thatthat = that;
+                    setTimeout(function() {
+                        thatthat.get('controllers.message').seeMore(that.get("controllers.notificationTop").get("reply"));
+                    }, 50);
+                    that.get('controllers.notificationTop').set("reply_ids", "");
+                }
+
+                that.get('controllers.notificationTop').set("goMessage", "");
+            }, 50);
+        });
     }
     ,
     removeMessage: function(Message_id)

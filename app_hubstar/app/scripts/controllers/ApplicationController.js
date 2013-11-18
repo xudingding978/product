@@ -354,7 +354,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
         this.set('categorys', HubStar.Cate.find({}));
         this.set('subcate', []);
-   this.set('subcategories', []);
+        this.set('subcategories', []);
+        
+        setTimeout(function() {
+            $('.Navigator-box').fadeIn("fast");
+        }, 30);
     },
     topicSelection: function(data) {
        

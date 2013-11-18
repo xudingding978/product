@@ -374,12 +374,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
 
     },
-                topicSearch: function(search_topic) {
-            console.log(search_topic);
+       topicSearch: function(search_topic) {
         this.transitionToRoute('searchIndex');
         this.set('search_string', search_topic);
         this.newSearch();
-this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
+this.set('isNavigatorDropdown',false);
     },
     canelDropDown: function()
     {

@@ -11,7 +11,7 @@
 
     <div class="search-bar" style="">
         <div class="Search-box easing" style="">
-            {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_business" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
+            {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search  by keyword" }}
             <div class="Nav-btn easing" style="position: absolute;right: -5px;border-radius: 0 3px 3px 0;top: 0; border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
                 <i class="icon-search"></i>
             </div>
@@ -24,12 +24,12 @@
 
     <div class="popular-topics" style="">
         <span style="float: left;color: white;font-family: Georgia, serif;font-style: italic;margin: 5px 15px;">Most Popular Topics:</span>
-        <div>New Homes</div>
-        <div>Kitchens</div>
-        <div>Bathrooms</div>
-        <div>Renovations</div>
-        <div>Outdoor Living</div>
-        <div>Interior</div>
+        <div {{action topicSearch "New Homes"}} >New Homes</div>
+        <div {{action topicSearch "Kitchens"}} >Kitchens</div>
+        <div {{action topicSearch "Bathrooms"}} >Bathrooms</div>
+        <div {{action topicSearch "Renovations"}} >Renovations</div>
+        <div {{action topicSearch "Outdoor Living"}} >Outdoor Living</div>
+        <div {{action topicSearch "Interior"}} >Interior</div>
     </div>
 
 </div>

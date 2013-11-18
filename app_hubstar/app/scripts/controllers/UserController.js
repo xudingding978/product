@@ -631,7 +631,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     deleteSelectedCollection: function()
     {
-        var message = "Do you wish to delete " + this.get("selectedCollection").get('id') + " ?";
+        var message = "Deleting '" + this.get("selectedCollection").get('id') + "' will also delete the contents within this collection.\n\rAre you sure you want to delete '" + this.get("selectedCollection").get('id') + "'?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {

@@ -181,6 +181,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('projectCategoryDropdownContent', profile.get('profile_package_name'));
         this.set('first_name', profile.get('profile_contact_first_name'));
         this.set('address', profile.get('profile_physical_address'));
+        this.set('partnerSearchString', '');
         if (profile.get('profile_google_map') === null || profile.get('profile_google_map') === 'undefined' || profile.get('profile_google_map') === "") {
             this.createGooglemap();
         }
@@ -208,7 +209,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         this.labelBarRefresh();
         this.flipFrontBack();
-        
+
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
         this.initStastics(profile);
@@ -236,7 +237,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('keyword_left', parseInt(this.get("keyword_num")) - profile.get('keywords').get('length'));
     },
     checkKeywordObjectExist: function() {
-        if (this.get('model').get('keywords') !== null && this.get('model').get('keywords') !== 'undefined' && this.get('model').get('keywords').get('length') >0) {
+        if (this.get('model').get('keywords') !== null && this.get('model').get('keywords') !== 'undefined' && this.get('model').get('keywords').get('length') > 0) {
             this.set('isKeywordObjecttExist', true);
         } else {
             this.set('isKeywordObjecttExist', false);
@@ -1153,7 +1154,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     dropdownPhotoSetting: function() {
         //  this.set('sharePhotoUrl', this.get('selectedPhoto').get('photo_image_thumbnail_url'));
         //  this.set('sharePhotoName', this.get('selectedPhoto').get('photo_title'));
-          $("#dropdown_id_").toggleClass('hideClass');
+        $("#dropdown_id_").toggleClass('hideClass');
         $("#dropdown_id_").click(function() {
             $(this).removeClass('hideClass');
         }).mouseleave(function() {
@@ -1239,22 +1240,19 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 ).focus();
         return false;
     },
-            
-        pShare: function() {
-    
-         var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
-                var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
-                '&media=' + encodeURIComponent( this.get('profile_pic_url')) +
+    pShare: function() {
+
+        var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
+        var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+                '&media=' + encodeURIComponent(this.get('profile_pic_url')) +
                 '&description=' + encodeURIComponent(this.get('profile_name'));
-                window.open(
+        window.open(
                 url,
                 'popupwindow',
                 'height=436,width=626'
                 ).focus();
         return false;
-    },    
-            
-            
+    },
     keywordSearch: function(keyword) {
         this.transitionToRoute('searchIndex');
         this.get("controllers.application").set('search_string', keyword);
@@ -1276,8 +1274,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     partnerSearch: function()
     {
-        var profilePartnersController = this.get("controllers.profilePartners");
-        profilePartnersController.searchPartner(this.get('partnerSearchString'));
+        if (this.get('partnerSearchString') !== null && this.get('partnerSearchString') !== '') {
+            var profilePartnersController = this.get("controllers.profilePartners");
+            profilePartnersController.searchPartner(this.get('partnerSearchString'));
+        }
     },
     partnerSearchReset: function(model)
     {

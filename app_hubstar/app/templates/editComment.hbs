@@ -1,0 +1,10 @@
+<div style="margin:0 auto; padding: 0 0 15px 45px;">
+    <a>
+        <img class="profilepic_comment"  style="float: left; margin: 4px 0 0 -45px; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url_large"}} /> 
+    </a>    
+    {{view HubStar.SearchRequireTextFieldView valueBinding="commentContent"  id="" class="comment-insert-field"  placeholder="" }}
+    <span class="" style="margin:7px 0;float: right;">
+        <div  class="new-btn"{{action closeCommentItem this}}>Cancel</div>
+        <div class="new-btn green-btn" {{action updateComment this}}>Post</div>
+    </span>
+</div>

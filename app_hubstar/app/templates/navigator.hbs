@@ -7,30 +7,13 @@
     <div id="navigator-content" class="Navigator-content" style="">
         
 
-                <ul class="secondList" >
+                <ul class="firstList" >
                     <li>&nbsp;</li>
                     <div id="shuai" style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -155px; z-index: -1;"></div>
                     {{#each controller.categorys}}
 
                     <li> <span><a href="#" {{action topicSearch topic}} > {{topic}}</a></span>
-                        <ul>
-                            <li>&nbsp;</li>
-                  
-                            <div id="shuai1" style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -80px;  z-index: -1;"></div>
-                            {{#each subcate}}
-                            <li> <span><a href="#" {{action topicSearch category_topic}} > {{category_topic}}</a></span>
-                                <ul>
-                                    <li>&nbsp;</li>
-                                    <div id="shuai2" style="width: 140%; height: 150%; position: absolute;margin-left: -20px; margin-top: -70px;  z-index: -1;"></div>
-                                    {{#each subcategories}}
-                                    <li class="search_topic"> <a href="#" {{action topicSearch search_topic}} >{{search_topic}}</a></li>
-
-
-                                    {{/each}}
-                                </ul>
-                            </li>
-                            {{/each}}
-                        </ul>
+                        
                     </li>
                     {{/each}}
                 </ul>

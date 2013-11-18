@@ -131,9 +131,10 @@ HubStar.UserMessageController = Ember.Controller.extend({
     {     
         var that = this;
         $(document).ready(function() {
-            setTimeout(function() {            
-                $('#masonry_user_container').scrollTo(s);
-             
+            setTimeout(function() {       
+                console.log($(s));
+                $(s).scrollTo();
+                
                 if (that.get("controllers.notification").get("reply_ids") !== undefined && that.get("controllers.notification").get("reply_ids") !== null && that.get("controllers.notification").get("reply_ids") !== "")
                 {
                     
@@ -152,7 +153,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
         var that = this;
         $(document).ready(function() {
             setTimeout(function() {
-                $("#content_message").mCustomScrollbar("scrollTo", s);
+                //$("#content_message").message_("scrollTo", s);
                 if (that.get("controllers.notificationTop").get("reply_ids") !== undefined && that.get("controllers.notificationTop").get("reply_ids") !== null && that.get("controllers.notificationTop").get("reply_ids") !== "")
                 {
                     var thatthat = that;

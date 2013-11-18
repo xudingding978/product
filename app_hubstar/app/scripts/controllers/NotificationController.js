@@ -273,8 +273,7 @@ HubStar.NotificationController = Ember.Controller.extend({
         }
     },
     gotoMessage: function(id)
-    {
-        console.log(id);
+    {     
         this.set("goMessage", '#message_' + id);
         this.transitionToRoute('userPost');
         $(window).scrollTop(550);

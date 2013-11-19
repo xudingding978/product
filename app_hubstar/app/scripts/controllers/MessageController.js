@@ -258,6 +258,7 @@ HubStar.MessageController = Ember.Controller.extend({
             {
                 if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === params["message_id"])
                 {
+                    that.seeMore(params["message_id"]);
                     dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
                     dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
                     dataNew["time_stamp"] = params["replyMessageCollection"][0]["time_stamp"];

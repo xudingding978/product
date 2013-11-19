@@ -67,7 +67,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.selectedImage(this.get('selectedPhoto').id);
     },
     getInitData: function(megaObject) {
-console.log(megaObject);
         var photoObj = megaObject.get('photo').objectAt(0);
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         this.set("content", []);

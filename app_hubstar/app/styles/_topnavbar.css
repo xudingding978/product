@@ -238,12 +238,13 @@
     font-size: 13px;
     font-weight: bold;
     color: #555;
+    overflow: hidden;
 }
 
 .Navigator-content  li {padding: 3px 15px;cursor: pointer;}
 .Navigator-content  li:hover {background-color: #d2d2d2}
 
-.Navigator-content  li >.icon-angle-right{
+.Navigator-content  li >.icon-search{
     font-size: 18px;
     color: white;
     float: right;
@@ -652,3 +653,6 @@ div#login_detail{
 .Notification-top > div:first-child{border-radius: 3px 3px 0 0}
 .Notification-top > div:last-child{border-radius: 0 0 3px 3px}
 
+
+
+.user-face-size{width: 45px; height: 45px;}

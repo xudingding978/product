@@ -6,15 +6,14 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
     userPhoto: "",
     replyReviewContent: "",
     currentOwner: "",
+    isUserself:false,
     isSelf: false,
     needs: ['permission', 'applicationFeedback', 'profile', 'applicationFeedback', 'user', 'reviewList', 'review'],
     init: function()
     {
         if (localStorage.loginStatus !== null && localStorage.loginStatus !== 'undefined' && localStorage.loginStatus !== '') {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-
-            //  this.set("userPhoto", this.get("currentUser").get("photo_url_large"));
-
+ 
         }
 
     },

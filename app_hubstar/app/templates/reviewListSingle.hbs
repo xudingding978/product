@@ -15,6 +15,10 @@
                     <div class="posttime-container">
                         <span class="posttime">{{date model.review_time_stamp}} </span>
                     </div>
+                    {{#if model.getUser}}
+                         <i class="icon-trash"  {{action removeMessage model.review_id}}></i>                 
+                    <i class="icon-pencil" {{action editingCommentData model.review_id model.review_msg}}></i>
+                    {{/if}}
                 </div>
 
                 <div style="position: absolute; right: 0; margin: 7px;"><span class="starsview" ><span style="width:{{unbound model.review_length}}px;"></span></span></div>

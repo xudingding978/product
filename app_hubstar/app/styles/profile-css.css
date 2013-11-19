@@ -1217,6 +1217,13 @@ textarea.add-interests{
 .selected-conversation .comment-username, .selected-conversation .comment-content, .selected-conversation .icon-trash{color: #fff !important}
 
 
+#search_business{vertical-align: top;}
+
+
+
+
+
+
 /*STAR RATING STYLE*/
 
 
@@ -1333,7 +1340,7 @@ textarea.add-interests{
     opacity: 0;
 }
 
-.reply-comment > i{
+.reply-comment i{
     cursor: pointer;
 }
 
@@ -1452,7 +1459,7 @@ textarea.add-interests{
     width: 500px;
     height: 350px;
     margin: 0 auto; 
-    position: absolute; 
+    position: fixed; 
     top: 15%;
     left: 0;
     right: 0;

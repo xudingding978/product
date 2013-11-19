@@ -74,10 +74,10 @@
     <div style="cursor: pointer;">
         <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
             <div class="profilepic-container">
-                <a class="profilepic" href="#" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}}/></a>              
+                <a class="profilepic" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} /></a>              
             </div>
             <div class="poster_user" >
-                <a class="poster-name" href="#" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
+                <a class="poster-name" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
                 <span class="posttime">{{date controller.megaResouce.created}} </span>
             </div>        
             <div class="contactmebtn hint--left hint--rounded easing" data-hint="Contact us!" style="position: absolute; right: 15px; top: 23px; bottom: auto;">

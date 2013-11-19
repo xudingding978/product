@@ -7,7 +7,6 @@ HubStar.ShowAlbumView = Ember.View.extend({
         {
            setTimeout(function() {
             $('.collection_tab1').attr('style', 'bottom: 0px; right: 0px; height: 300px;background-color: black;overflow:hidden;display:none; position: absolute;z-index: 5; width: 100%; opacity: .9;');
-            //$("#collection_tab1").attr('style', 'display: block');
         }, 200);
         }
         {

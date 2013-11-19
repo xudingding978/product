@@ -256,14 +256,26 @@ HubStar.MegaController = Ember.ArrayController.extend({
         if (this.get('megaResouce').get("type") === "photo")
         {
             this.set('selectedPhoto', this.get('megaResouce').get('photo').objectAt(0));
+            if (this.get("controllers.masonryCollectionItems").get("type") === "user")
+            {
+                this.transitionTo("userPhoto", this.get("megaResouce").get('photo').objectAt(0));
+            }
         }
-        else if (this.get('megaResouce').get("type") === "article")
+        else if (this.get('megaResouce').get("type") === "article") //different types of photo in mega
         {
             this.set('selectedPhoto', this.get('megaResouce'));
+            if (this.get("controllers.masonryCollectionItems").get("type") === "user")
+            {
+                this.transitionTo("userPhoto", this.get("megaResouce"));
+            }
         }
         else if (this.get('megaResouce').get("type") === "video")
         {
             this.set('selectedPhoto', this.get('megaResouce'));
+            if (this.get("controllers.masonryCollectionItems").get("type") === "user")
+            {
+                this.transitionTo("userPhoto", this.get("megaResouce"));
+            }
         }
         this.set("selectedPhoto", this.get('selectedPhoto'));
         this.selectedImage(e);
@@ -340,7 +352,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set('collectable', false);
         this.set('contact', false);
         var address = document.URL;
-        var collection_id = address.split("#")[1].split("/")[4];
+        var collection_id = address.split("#")[1].split("/")[6];
         var user_id = address.split("#")[1].split("/")[2];
         var type = address.split("#")[1].split("/")[1];
         var user = HubStar.User.find(user_id);
@@ -351,7 +363,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
         }
         this.set("selectPhoto", false);
-        if (type === "photos")
+        if ( this.get('controllers.masonryCollectionItems') === "profile")
         {
             this.transitionTo("indexIndex"); //search page
         }

@@ -77,7 +77,15 @@ HubStar.ArticleController = Ember.Controller.extend({
     selectImage: function(e) {
         this.set('megaResouce', HubStar.Mega.find(e));
         this.set('selectedPhoto', HubStar.Mega.find(e).get('photo').objectAt(0));
-
+        if (this.get("accessFromSearchBoard") === false)
+        {
+            this.transitionTo("articlePhoto", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo
+        }
+        else
+        {
+            this.transitionTo("article", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo
+            //                                                               // as it use the fix id to refresh the route so it will have problem when fresh (change the id)
+        }
         this.selectedImage(e);
     },
     selectedImage: function(id) {
@@ -200,7 +208,25 @@ HubStar.ArticleController = Ember.Controller.extend({
     closeWindow: function() {
         this.set('collectable', false);
         this.set('contact', false);
-        window.history.back();
+        var address = document.URL;
+        var collection_id = address.split("#")[1].split("/")[4];
+        var user_id = address.split("#")[1].split("/")[2];
+        var user = HubStar.User.find(user_id);
+        for (var i = 0; i < user.get('collections').get("length"); i++) {
+            var data = user.get('collections').objectAt(i);
+            if (data.id === collection_id) {
+                break;
+            }
+        }
+        if (collection_id === undefined) //search from the seach board
+        {
+            this.transitionTo("indexIndex"); // go to search page
+        }
+        else
+        {
+            this.transitionTo("collection", data); //user or profile
+        }
+        // window.history.back();
     },
     switchCollection: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())

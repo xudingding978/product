@@ -19,7 +19,7 @@ HubStar.VideoController = Ember.Controller.extend({
         megaResouce.addObserver('isLoaded', function() {
             if (megaResouce.get('isLoaded')) {
                 that.set('megaResouce', megaResouce.objectAt(0));
-                        console.log(   that.get('megaResouce'));
+          //              console.log(   that.get('megaResouce'));
                 var tempVideoObject = megaResouce.objectAt(0).get('videoes').get("content").objectAt(0);
                 that.set('videoObject', tempVideoObject);
                 that.set('video_iframe_code', tempVideoObject.data.video_iframe_code);

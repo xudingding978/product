@@ -1,5 +1,4 @@
 <div class="navbar">
-
     <div id="search-bar" class="search-bar-ontop" style="display:none;">
         <div class="Search-box easing" style="">
             {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_business" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
@@ -11,6 +10,7 @@
         {{#if controller.isNavigatorDropdown}}
         {{view HubStar.NavigatorView}}
         {{/if}}
+
     </div>
 
     <div class="navbar-inner">

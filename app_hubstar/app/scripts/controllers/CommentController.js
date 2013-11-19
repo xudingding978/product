@@ -7,7 +7,7 @@ HubStar.CommentController = Ember.Controller.extend({
     count: null,
     isUserSelf: false,
     objID: "",
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment'],
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus'],
     init: function()
     {
         if (localStorage.loginStatus) {
@@ -16,40 +16,42 @@ HubStar.CommentController = Ember.Controller.extend({
     },
     switchCollection: function(model) {
 
-        if (model.get("type") === "photo") {
-            var photoObj = model.get("photo").objectAt(0);
-            var addCollectionController = this.get('controllers.addCollection');
-            var selectid = model.id;
-            addCollectionController.setImageID(selectid);
-            var tempUrl = photoObj.get('photo_image_thumbnail_url');
-            addCollectionController.setThumbnailUrl(tempUrl);
-            addCollectionController.setUser();
-            addCollectionController.setRelatedController('comment');
-            $('#addCollection_' + model.id).attr('style', 'display: block');
-        }
-        else if (model.get("type") === "article")
-        {
-            var photoObj = model.get("article").objectAt(0);
-            var addCollectionController = this.get('controllers.addCollection');
-            var selectid = model.id;
-            addCollectionController.setImageID(selectid);
-            var tempUrl = photoObj.get('article_image_url');
-            addCollectionController.setThumbnailUrl(tempUrl);
-            addCollectionController.setUser();
-            addCollectionController.setRelatedController('comment');
-            $('#addCollection_' + model.id).attr('style', 'display: block');
-        }
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+            if (model.get("type") === "photo") {
+                var photoObj = model.get("photo").objectAt(0);
+                var addCollectionController = this.get('controllers.addCollection');
+                var selectid = model.id;
+                addCollectionController.setImageID(selectid);
+                var tempUrl = photoObj.get('photo_image_thumbnail_url');
+                addCollectionController.setThumbnailUrl(tempUrl);
+                addCollectionController.setUser();
+                addCollectionController.setRelatedController('comment');
+                $('#addCollection_' + model.id).attr('style', 'display: block');
+            }
+            else if (model.get("type") === "article")
+            {
+                var photoObj = model.get("article").objectAt(0);
+                var addCollectionController = this.get('controllers.addCollection');
+                var selectid = model.id;
+                addCollectionController.setImageID(selectid);
+                var tempUrl = photoObj.get('article_image_url');
+                addCollectionController.setThumbnailUrl(tempUrl);
+                addCollectionController.setUser();
+                addCollectionController.setRelatedController('comment');
+                $('#addCollection_' + model.id).attr('style', 'display: block');
+            }
 
-        else if (model.get("type") === "video")
-        {
-            var addCollectionController = this.get('controllers.addCollection');
-            var selectid = model.id;
-            addCollectionController.setImageID(selectid);
-            var tempUrl = model.get('object_image_url');
-            addCollectionController.setThumbnailUrl(tempUrl);
-            addCollectionController.setUser();
-            addCollectionController.setRelatedController('comment');
-            $('#addCollection_' + model.id).attr('style', 'display: block');
+            else if (model.get("type") === "video")
+            {
+                var addCollectionController = this.get('controllers.addCollection');
+                var selectid = model.id;
+                addCollectionController.setImageID(selectid);
+                var tempUrl = model.get('object_image_url');
+                addCollectionController.setThumbnailUrl(tempUrl);
+                addCollectionController.setUser();
+                addCollectionController.setRelatedController('comment');
+                $('#addCollection_' + model.id).attr('style', 'display: block');
+            }
         }
     },
     addComment: function() {
@@ -57,7 +59,7 @@ HubStar.CommentController = Ember.Controller.extend({
         var commentContent = this.get('commentContent');
         if (commentContent) {
             var comments = this.get('mega').get('comments');
-            
+
             var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
@@ -128,8 +130,6 @@ HubStar.CommentController = Ember.Controller.extend({
         }, 200);
 
     },
-
- 
     removeComment: function(object)
     {
 
@@ -224,30 +224,32 @@ HubStar.CommentController = Ember.Controller.extend({
 //    },
     addLike: function(id)
     {
-        var mega = HubStar.Mega.find(id);
-        var type = mega.get("type");
-        var people_like = mega.get("people_like");
-        if (people_like === null || people_like === undefined) {
-            people_like = "";
-        }
-        if (localStorage.loginStatus !== null && localStorage.loginStatus !== undefined && localStorage.loginStatus !== "")
-        {
-            if (people_like.indexOf(localStorage.loginStatus) !== -1)
-            {
-                this.count = mega.get('likes_count');
-
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+            var mega = HubStar.Mega.find(id);
+            var type = mega.get("type");
+            var people_like = mega.get("people_like");
+            if (people_like === null || people_like === undefined) {
+                people_like = "";
             }
-            else {
-                var likeArray = [localStorage.loginStatus, id, type];
-                likeArray = JSON.stringify(likeArray);
-                var that = this;
-                requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
-                    params = params + "";
-                    var like = params.split(",");
-                    mega.set("likes_count", like.length);
-                    mega.set("people_like", params);
-                    that.count = like.length;
-                });
+            if (localStorage.loginStatus !== null && localStorage.loginStatus !== undefined && localStorage.loginStatus !== "")
+            {
+                if (people_like.indexOf(localStorage.loginStatus) !== -1)
+                {
+                    this.count = mega.get('likes_count');
+
+                }
+                else {
+                    var likeArray = [localStorage.loginStatus, id, type];
+                    likeArray = JSON.stringify(likeArray);
+                    var that = this;
+                    requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
+                        params = params + "";
+                        var like = params.split(",");
+                        mega.set("likes_count", like.length);
+                        mega.set("people_like", params);
+                        that.count = like.length;
+                    });
+                }
             }
         }
     },
@@ -413,11 +415,11 @@ HubStar.CommentController = Ember.Controller.extend({
 
             return false;
         }
-         if (model.get("type") === "video") {           
+        if (model.get("type") === "video") {
             this.set("selectedVideo", model._data.videoes[0]);
             var that = this;
             var currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('selectedVideo')['id'];
-            var caption = '';       
+            var caption = '';
             if (this.get('selectedVideo').data.video_desc !== null)
             {
                 caption = this.get('selectedVideo').data.video_desc;
@@ -609,7 +611,7 @@ HubStar.CommentController = Ember.Controller.extend({
                     ).focus();
             return false;
         }
-         else if (model.get("type") === "video") {
+        else if (model.get("type") === "video") {
             this.set("selectedVideo", model._data.videoes[0]);
             var currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('selectedVideo')['id'];
             var url = 'https://twitter.com/share?text=' + this.get('selectedVideo').data.video_title + '&url=' + encodeURIComponent(currntUrl);

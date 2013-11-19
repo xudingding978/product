@@ -8,7 +8,7 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
             }
             else if (controller._debugContainerKey.indexOf("application") !== -1)
             {
-                controller.newSearch();
+                controller.transitionToRoute('search', {id: controller.get('search_string')});
             }
             else if (controller._debugContainerKey.indexOf("mega") !== -1) {
                 controller.addComment();

@@ -8315,8 +8315,13 @@ to{
     -o-transition: all 0.3s ease;
 }
 
+<<<<<<< HEAD
 .hover-opacity{opacity:.6}
 .hover-opacity:hover, .hover-opacity:focus, .hover-opacity:active{opacity:1}
+=======
+.hover-opacity{opacity:.6; cursor: pointer}
+.hover-opacity:hover{opacity:1}
+>>>>>>> f6041454ac441f1885facb27ee2348a4ac59f868
 
 
 
@@ -11344,6 +11349,13 @@ textarea.add-interests{
 .selected-conversation .comment-username, .selected-conversation .comment-content, .selected-conversation .icon-trash{color: #fff !important}
 
 
+#search_business{vertical-align: top;}
+
+
+
+
+
+
 /*STAR RATING STYLE*/
 
 
@@ -11742,6 +11754,13 @@ textarea.add-interests{
     padding: 0px;
     margin: 0;
     position: relative;
+}
+.navbar > #version-no
+{
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    max-width:6.5%;
 }
 .navbar > #version-no
 {

@@ -1,4 +1,15 @@
 /*BASIC STYLE*/
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+a:visited{color: #555;}
+
+a:hover {
+    color: #aaa;
+}
+
 
 #master_bg
 {
@@ -282,7 +293,7 @@
     position: absolute;
     right: 0;
     top: 0;
-    z-index: 100;
+    z-index: 10;
 }
 .object-tags-box div{position:relative;z-index:100;}
 .object-tags{

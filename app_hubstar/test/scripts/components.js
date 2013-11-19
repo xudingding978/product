@@ -2476,6 +2476,18 @@ function createGuid() {
     return "test" + result.toString();
 }
 
+function createReviewid() {
+
+    var dateObject = new Date();
+    var randomnumber = Math.random().toString().slice(2, 3);
+    randomnumber = randomnumber.toString();
+    randomnumber = removeZero(randomnumber);
+    var result = randomnumber +
+            dateObject.getTime().toString();
+
+    return result.toString();
+}
+
 function createMessageid() {
 
     var dateObject = new Date();
@@ -2484,6 +2496,7 @@ function createMessageid() {
     randomnumber = removeZero(randomnumber);
     var result = randomnumber +
             dateObject.getTime().toString();
+
     return  result.toString();
 }
 
@@ -12980,10 +12993,10 @@ google.maps = google.maps || {};
   
   google.maps.Load = function(apiLoad) {
     delete google.maps.Load;
-    apiLoad([0.009999999776482582,[[["http://mt0.googleapis.com/vt?lyrs=m@241000000\u0026src=api\u0026hl=en-US\u0026","http://mt1.googleapis.com/vt?lyrs=m@241000000\u0026src=api\u0026hl=en-US\u0026"],null,null,null,null,"m@241000000",["https://mts0.google.com/vt?lyrs=m@241000000\u0026src=api\u0026hl=en-US\u0026","https://mts1.google.com/vt?lyrs=m@241000000\u0026src=api\u0026hl=en-US\u0026"]],[["http://khm0.googleapis.com/kh?v=140\u0026hl=en-US\u0026","http://khm1.googleapis.com/kh?v=140\u0026hl=en-US\u0026"],null,null,null,1,"140",["https://khms0.google.com/kh?v=140\u0026hl=en-US\u0026","https://khms1.google.com/kh?v=140\u0026hl=en-US\u0026"]],[["http://mt0.googleapis.com/vt?lyrs=h@241000000\u0026src=api\u0026hl=en-US\u0026","http://mt1.googleapis.com/vt?lyrs=h@241000000\u0026src=api\u0026hl=en-US\u0026"],null,null,null,null,"h@241000000",["https://mts0.google.com/vt?lyrs=h@241000000\u0026src=api\u0026hl=en-US\u0026","https://mts1.google.com/vt?lyrs=h@241000000\u0026src=api\u0026hl=en-US\u0026"]],[["http://mt0.googleapis.com/vt?lyrs=t@131,r@241000000\u0026src=api\u0026hl=en-US\u0026","http://mt1.googleapis.com/vt?lyrs=t@131,r@241000000\u0026src=api\u0026hl=en-US\u0026"],null,null,null,null,"t@131,r@241000000",["https://mts0.google.com/vt?lyrs=t@131,r@241000000\u0026src=api\u0026hl=en-US\u0026","https://mts1.google.com/vt?lyrs=t@131,r@241000000\u0026src=api\u0026hl=en-US\u0026"]],null,null,[["http://cbk0.googleapis.com/cbk?","http://cbk1.googleapis.com/cbk?"]],[["http://khm0.googleapis.com/kh?v=82\u0026hl=en-US\u0026","http://khm1.googleapis.com/kh?v=82\u0026hl=en-US\u0026"],null,null,null,null,"82",["https://khms0.google.com/kh?v=82\u0026hl=en-US\u0026","https://khms1.google.com/kh?v=82\u0026hl=en-US\u0026"]],[["http://mt0.googleapis.com/mapslt?hl=en-US\u0026","http://mt1.googleapis.com/mapslt?hl=en-US\u0026"]],[["http://mt0.googleapis.com/mapslt/ft?hl=en-US\u0026","http://mt1.googleapis.com/mapslt/ft?hl=en-US\u0026"]],[["http://mt0.googleapis.com/vt?hl=en-US\u0026","http://mt1.googleapis.com/vt?hl=en-US\u0026"]],[["http://mt0.googleapis.com/mapslt/loom?hl=en-US\u0026","http://mt1.googleapis.com/mapslt/loom?hl=en-US\u0026"]],[["https://mts0.googleapis.com/mapslt?hl=en-US\u0026","https://mts1.googleapis.com/mapslt?hl=en-US\u0026"]],[["https://mts0.googleapis.com/mapslt/ft?hl=en-US\u0026","https://mts1.googleapis.com/mapslt/ft?hl=en-US\u0026"]]],["en-US","US",null,0,null,null,"http://maps.gstatic.com/mapfiles/","http://csi.gstatic.com","https://maps.googleapis.com","http://maps.googleapis.com"],["http://maps.gstatic.com/intl/en_us/mapfiles/api-3/14/12","3.14.12"],[1989699517],1,null,null,null,null,0,"",null,null,0,"http://khm.googleapis.com/mz?v=140\u0026",null,"https://earthbuilder.googleapis.com","https://earthbuilder.googleapis.com",null,"http://mt.googleapis.com/vt/icon",[["http://mt0.googleapis.com/vt","http://mt1.googleapis.com/vt"],["https://mts0.googleapis.com/vt","https://mts1.googleapis.com/vt"],[null,[[0,"m",241000000]],[null,"en-US","US",null,18,null,null,null,null,null,null,[[47],[37,[["smartmaps"]]]]],0],[null,[[0,"m",241000000]],[null,"en-US","US",null,18,null,null,null,null,null,null,[[47],[37,[["smartmaps"]]]]],3],[null,[[0,"h",241000000]],[null,"en-US","US",null,18,null,null,null,null,null,null,[[50],[37,[["smartmaps"]]]]],0],[null,[[0,"h",241000000]],[null,"en-US","US",null,18,null,null,null,null,null,null,[[50],[37,[["smartmaps"]]]]],3],[null,[[4,"t",131],[0,"r",131000000]],[null,"en-US","US",null,18,null,null,null,null,null,null,[[5],[37,[["smartmaps"]]]]],0],[null,[[4,"t",131],[0,"r",131000000]],[null,"en-US","US",null,18,null,null,null,null,null,null,[[5],[37,[["smartmaps"]]]]],3],[null,null,[null,"en-US","US",null,18],0],[null,null,[null,"en-US","US",null,18],3],[null,null,[null,"en-US","US",null,18],6],[null,null,[null,"en-US","US",null,18],0],["https://mts0.google.com/vt","https://mts1.google.com/vt"]],2,500], loadScriptTime);
+    apiLoad([0.009999999776482582,[[["http://mt0.googleapis.com/vt?lyrs=m@244000000\u0026src=api\u0026hl=en-US\u0026","http://mt1.googleapis.com/vt?lyrs=m@244000000\u0026src=api\u0026hl=en-US\u0026"],null,null,null,null,"m@244000000",["https://mts0.google.com/vt?lyrs=m@244000000\u0026src=api\u0026hl=en-US\u0026","https://mts1.google.com/vt?lyrs=m@244000000\u0026src=api\u0026hl=en-US\u0026"]],[["http://khm0.googleapis.com/kh?v=141\u0026hl=en-US\u0026","http://khm1.googleapis.com/kh?v=141\u0026hl=en-US\u0026"],null,null,null,1,"141",["https://khms0.google.com/kh?v=141\u0026hl=en-US\u0026","https://khms1.google.com/kh?v=141\u0026hl=en-US\u0026"]],[["http://mt0.googleapis.com/vt?lyrs=h@244000000\u0026src=api\u0026hl=en-US\u0026","http://mt1.googleapis.com/vt?lyrs=h@244000000\u0026src=api\u0026hl=en-US\u0026"],null,null,null,null,"h@244000000",["https://mts0.google.com/vt?lyrs=h@244000000\u0026src=api\u0026hl=en-US\u0026","https://mts1.google.com/vt?lyrs=h@244000000\u0026src=api\u0026hl=en-US\u0026"]],[["http://mt0.googleapis.com/vt?lyrs=t@131,r@244000000\u0026src=api\u0026hl=en-US\u0026","http://mt1.googleapis.com/vt?lyrs=t@131,r@244000000\u0026src=api\u0026hl=en-US\u0026"],null,null,null,null,"t@131,r@244000000",["https://mts0.google.com/vt?lyrs=t@131,r@244000000\u0026src=api\u0026hl=en-US\u0026","https://mts1.google.com/vt?lyrs=t@131,r@244000000\u0026src=api\u0026hl=en-US\u0026"]],null,null,[["http://cbk0.googleapis.com/cbk?","http://cbk1.googleapis.com/cbk?"]],[["http://khm0.googleapis.com/kh?v=82\u0026hl=en-US\u0026","http://khm1.googleapis.com/kh?v=82\u0026hl=en-US\u0026"],null,null,null,null,"82",["https://khms0.google.com/kh?v=82\u0026hl=en-US\u0026","https://khms1.google.com/kh?v=82\u0026hl=en-US\u0026"]],[["http://mt0.googleapis.com/mapslt?hl=en-US\u0026","http://mt1.googleapis.com/mapslt?hl=en-US\u0026"]],[["http://mt0.googleapis.com/mapslt/ft?hl=en-US\u0026","http://mt1.googleapis.com/mapslt/ft?hl=en-US\u0026"]],[["http://mt0.googleapis.com/vt?hl=en-US\u0026","http://mt1.googleapis.com/vt?hl=en-US\u0026"]],[["http://mt0.googleapis.com/mapslt/loom?hl=en-US\u0026","http://mt1.googleapis.com/mapslt/loom?hl=en-US\u0026"]],[["https://mts0.googleapis.com/mapslt?hl=en-US\u0026","https://mts1.googleapis.com/mapslt?hl=en-US\u0026"]],[["https://mts0.googleapis.com/mapslt/ft?hl=en-US\u0026","https://mts1.googleapis.com/mapslt/ft?hl=en-US\u0026"]]],["en-US","US",null,0,null,null,"http://maps.gstatic.com/mapfiles/","http://csi.gstatic.com","https://maps.googleapis.com","http://maps.googleapis.com"],["http://maps.gstatic.com/intl/en_us/mapfiles/api-3/14/14","3.14.14"],[3590934129],1,null,null,null,null,0,"",null,null,0,"http://khm.googleapis.com/mz?v=141\u0026",null,"https://earthbuilder.googleapis.com","https://earthbuilder.googleapis.com",null,"http://mt.googleapis.com/vt/icon",[["http://mt0.googleapis.com/vt","http://mt1.googleapis.com/vt"],["https://mts0.googleapis.com/vt","https://mts1.googleapis.com/vt"],[null,[[0,"m",244000000]],[null,"en-US","US",null,18,null,null,null,null,null,null,[[47],[37,[["smartmaps"]]]]],0],[null,[[0,"m",244000000]],[null,"en-US","US",null,18,null,null,null,null,null,null,[[47],[37,[["smartmaps"]]]]],3],[null,[[0,"h",244000000]],[null,"en-US","US",null,18,null,null,null,null,null,null,[[50],[37,[["smartmaps"]]]]],0],[null,[[0,"h",244000000]],[null,"en-US","US",null,18,null,null,null,null,null,null,[[50],[37,[["smartmaps"]]]]],3],[null,[[4,"t",131],[0,"r",131000000]],[null,"en-US","US",null,18,null,null,null,null,null,null,[[5],[37,[["smartmaps"]]]]],0],[null,[[4,"t",131],[0,"r",131000000]],[null,"en-US","US",null,18,null,null,null,null,null,null,[[5],[37,[["smartmaps"]]]]],3],[null,null,[null,"en-US","US",null,18],0],[null,null,[null,"en-US","US",null,18],3],[null,null,[null,"en-US","US",null,18],6],[null,null,[null,"en-US","US",null,18],0],["https://mts0.google.com/vt","https://mts1.google.com/vt"]],2,500], loadScriptTime);
   };
   var loadScriptTime = (new Date).getTime();
-  getScript("http://maps.gstatic.com/intl/en_us/mapfiles/api-3/14/12/main.js");
+  getScript("http://maps.gstatic.com/intl/en_us/mapfiles/api-3/14/14/main.js");
 })();
 
 /* mousetrap v1.4.5 craig.is/killing/mice */
@@ -12995,6 +13008,92 @@ d,a,e),l[c.key][d?"unshift":"push"]({callback:b,modifiers:c.modifiers,action:c.a
 "@":"2","#":"3",$:"4","%":"5","^":"6","&":"7","*":"8","(":"9",")":"0",_:"-","+":"=",":":";",'"':"'","<":",",">":".","?":"/","|":"\\"},G={option:"alt",command:"meta","return":"enter",escape:"esc",mod:/Mac|iPod|iPhone|iPad/.test(navigator.platform)?"meta":"ctrl"},p,l={},q={},n={},D,z=!1,I=!1,u=!1;for(f=1;20>f;++f)h[111+f]="f"+f;for(f=0;9>=f;++f)h[f+96]=f;s(r,"keypress",y);s(r,"keydown",y);s(r,"keyup",y);var m={bind:function(a,b,c){a=a instanceof Array?a:[a];for(var d=0;d<a.length;++d)F(a[d],b,c);return this},
 unbind:function(a,b){return m.bind(a,function(){},b)},trigger:function(a,b){if(q[a+":"+b])q[a+":"+b]({},a);return this},reset:function(){l={};q={};return this},stopCallback:function(a,b){return-1<(" "+b.className+" ").indexOf(" mousetrap ")?!1:"INPUT"==b.tagName||"SELECT"==b.tagName||"TEXTAREA"==b.tagName||b.isContentEditable},handleKey:function(a,b,c){var d=C(a,b,c),e;b={};var f=0,g=!1;for(e=0;e<d.length;++e)d[e].seq&&(f=Math.max(f,d[e].level));for(e=0;e<d.length;++e)d[e].seq?d[e].level==f&&(g=!0,
 b[d[e].seq]=1,x(d[e].callback,c,d[e].combo)):g||x(d[e].callback,c,d[e].combo);d="keypress"==c.type&&I;c.type!=u||w(a)||d||t(b);I=g&&"keydown"==c.type}};J.Mousetrap=m;"function"===typeof define&&define.amd&&define(m)})(window,document);
+
+jQuery.fn.ratings = function(stars, initialRating) {
+
+  //Save  the jQuery object for later use.
+  var elements = this;
+  
+  //Go through each object in the selector and create a ratings control.
+  return this.each(function() {
+  
+    //Make sure intialRating is set.
+    if(!initialRating)
+      initialRating = 0;
+      
+    //Save the current element for later use.
+    var containerElement = this;
+    
+    //grab the jQuery object for the current container div
+    var container = jQuery(this);
+    
+    //Create an array of stars so they can be referenced again.
+    var starsCollection = Array();
+    
+    //Save the initial rating.
+    containerElement.rating = initialRating;
+    
+    //Set the container div's overflow to auto.  This ensure it will grow to
+    //hold all of its children.
+    container.css('overflow', 'auto');
+    
+    //create each star
+    for(var starIdx = 0; starIdx < stars; starIdx++) {
+      
+      //Create a div to hold the star.
+      var starElement = document.createElement('div');
+      
+      //Get a jQuery object for this star.
+      var star = jQuery(starElement);
+      
+      //Store the rating that represents this star.
+      starElement.rating = starIdx + 1;
+      
+      //Add the style.
+      star.addClass('jquery-ratings-star');
+      
+      //Add the full css class if the star is beneath the initial rating.
+      if(starIdx < initialRating) {
+        star.addClass('jquery-ratings-full');
+      }
+      
+      //add the star to the container
+      container.append(star);
+      starsCollection.push(star);
+      
+      //hook up the click event
+      star.click(function() {
+        //When clicked, fire the 'ratingchanged' event handler.  Pass the rating through as the data argument.
+        elements.triggerHandler("ratingchanged", {rating: this.rating});
+        containerElement.rating = this.rating;
+      });
+      
+      star.mouseenter(function() {
+        //Highlight selected stars.
+        for(var index = 0; index < this.rating; index++) {
+          starsCollection[index].addClass('jquery-ratings-full');
+        }
+        //Unhighlight unselected stars.
+        for(var index = this.rating; index < stars; index++) {
+          starsCollection[index].removeClass('jquery-ratings-full');
+        }
+      });
+      
+      container.mouseleave(function() {
+        //Highlight selected stars.
+        for(var index = 0; index < containerElement.rating; index++) {
+          starsCollection[index].addClass('jquery-ratings-full');
+        }
+        //Unhighlight unselected stars.
+        for(var index = containerElement.rating; index < stars ; index++) {
+          starsCollection[index].removeClass('jquery-ratings-full');
+        }
+      });
+    }
+  });
+};
+
+
 
 /*mousewheel*/
 (function(a){function d(b){var c=b||window.event,d=[].slice.call(arguments,1),e=0,f=!0,g=0,h=0;return b=a.event.fix(c),b.type="mousewheel",c.wheelDelta&&(e=c.wheelDelta/120),c.detail&&(e=-c.detail/3),h=e,c.axis!==undefined&&c.axis===c.HORIZONTAL_AXIS&&(h=0,g=-1*e),c.wheelDeltaY!==undefined&&(h=c.wheelDeltaY/120),c.wheelDeltaX!==undefined&&(g=-1*c.wheelDeltaX/120),d.unshift(b,e,g,h),(a.event.dispatch||a.event.handle).apply(this,d)}var b=["DOMMouseScroll","mousewheel"];if(a.event.fixHooks)for(var c=b.length;c;)a.event.fixHooks[b[--c]]=a.event.mouseHooks;a.event.special.mousewheel={setup:function(){if(this.addEventListener)for(var a=b.length;a;)this.addEventListener(b[--a],d,!1);else this.onmousewheel=d},teardown:function(){if(this.removeEventListener)for(var a=b.length;a;)this.removeEventListener(b[--a],d,!1);else this.onmousewheel=null}},a.fn.extend({mousewheel:function(a){return a?this.bind("mousewheel",a):this.trigger("mousewheel")},unmousewheel:function(a){return this.unbind("mousewheel",a)}})})(jQuery);

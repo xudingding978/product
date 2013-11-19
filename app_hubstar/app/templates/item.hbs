@@ -15,8 +15,65 @@
 {{#if getPhoto}}
 <div class="box col2 noStyle1" {{action checkingLoginStatus target="view" on="click"}}>
 
-    <div class="masonry-object">
-        <div class="masonry-object_poster">
+    <div class="object-tags-box">
+        <div class="object-tags">
+            <span class="tags-mark" style="background-color: #427fed"></span>
+            <div class="tags easing">
+                <!--                        <div class="tags-new">New </div>-->
+                <div class="object-tpye hint--left hint--rounded" data-hint="Image">
+                    <i class="icon-picture" ></i>
+                </div>                    
+            </div>
+        </div>
+
+        <div class="object-tags ">
+            <span class="tags-mark" style="background-color: #76a7fa"></span>
+            <div class="tags easing tagsappear">
+                <div class="tags-new">#{{region}}</div>                   
+            </div>
+        </div>
+        <div class="object-tags " style="display:none;">
+            <span class="tags-mark" style="background-color: #a0c3ff"></span>
+            <div class="tags easing tagsappear">
+                <div class="tags-new">#{{timezone}} </div>                   
+            </div>
+        </div>
+    </div>
+
+    <div class="masonry-object_mainfeature">             
+        <div class="mainfeature-wrapper">
+            <a class="mainfeature-container" href="#/photos/{{unbound id}}" style="cursor: pointer">
+
+                <img class="this-is-the-object" {{bindAttr src="object_image_url" }} {{action transitionToPhoto id}} />
+            </a>            
+
+            <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
+
+                {{#if controller.is_authentic_user}}
+
+
+
+                <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
+                     <k class="icon-cog" style="font-size: 16px; margin: 0px 5px"></k>
+                    <k class='icon-caret-down'></k>
+                </div>
+                <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">{{controller}}
+                    {{#if controller.is_profile_editing_mode}}
+                    <li class="ite" {{action  removeCollectedItem controller.title id "profile"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>
+                    <li class='ite'  {{action changeCollectionCover id controller.collection_id HubStar.Profile}}> <k class="icon-ok-sign" style="font-size: 16px;  margin: 0px 5px;"></k>Set as collection cover</li>
+                    {{/if}}
+                    {{#if controller.is_user_editing_mode}}
+                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
+                    <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User}}><k class="icon-camera" style="font-size: 16px; margin: 0px 5px;"></k>Set as Cover</li>
+                    {{/if}}
+                </ul>
+
+                {{/if}}
+            </span>
+        </div>
+
+        <div class="masonry-object_poster">  
+
             <div class="profilepic-on-masonry">
                 <a class="poster-name" style="cursor: pointer; width: auto;" href="#/profiles/{{unbound owner_id}}">  <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
             </div>
@@ -25,124 +82,62 @@
                 <div class="posttime-container">
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
-            </div>
 
+                <ul class="itemprofile" style="margin: 5px 0 0;">
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
+                        <div><k class="icon-eye-open"> &nbsp;{{this.collections.length}}</k></div>
+                    </li>
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
+                        <div><k class="icon-group">&nbsp;{{ length this.profile_partner_ids}}</k></div>  
+                    </li>
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
+                        <div><k class="icon-film">&nbsp;{{ videolength this.profile_about_us}}</k></div>  
+                    </li>
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
+                        <div><k class="icon-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>  
+                    </li>
+                </ul>
 
-            <div class="object-tags-box">
-
-                <div class="object-tags" >
-                    <span class="tags-mark" style="background-color: #427fed"></span>
-                    <div class="tags easing">
-                        <!--                        <div class="tags-new">New </div>-->
-                        <div class="object-tpye hint--left hint--rounded" data-hint="Image">
-                            <i class="icon-picture" ></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="object-tags ">
-                    <span class="tags-mark" style="background-color: #76a7fa"></span>
-                    <div class="tags easing tagsappear">
-                        <div class="tags-new">#{{region}}</div>                   
-                    </div>
-                </div>
-                <div class="object-tags " style="display:none;">
-                    <span class="tags-mark" style="background-color: #a0c3ff"></span>
-                    <div class="tags easing tagsappear">
-                        <div class="tags-new">#{{timezone}} </div>                   
-                    </div>
-                </div>
-
-            </div>
-
-
-        </div>
-        <div class="masonry-object_mainfeature">             
-            <div class="mainfeature-wrapper">
-                <a class="mainfeature-container" href="#/photos/{{unbound id}}">  style="cursor: pointer">
-
-                    <img class="this-is-the-object" {{bindAttr src="object_image_url" }} {{action transitionToPhoto id}} />
-                </a>            
-
-                <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
-
-                    {{#if controller.is_authentic_user}}
-
-
-
-                    <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
-                         <k class="icon-cog" style="font-size: 16px; margin: 0px 5px"></k>
-                        <k class='icon-caret-down'></k>
-                    </div>
-                    <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">{{controller}}
-                        {{#if controller.is_profile_editing_mode}}
-                        <li class="ite" {{action  removeCollectedItem controller.title id "profile"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>
-                        <li class='ite'  {{action changeCollectionCover id controller.collection_id HubStar.Profile}}> <k class="icon-ok-sign" style="font-size: 16px;  margin: 0px 5px;"></k>Set as collection cover</li>
-                        {{/if}}
-                        {{#if controller.is_user_editing_mode}}
-                        <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
-                        <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User}}><k class="icon-camera" style="font-size: 16px; margin: 0px 5px;"></k>Set as Cover</li>
-                        {{/if}}
-                    </ul>
-
-                    {{/if}}
-                </span>
-
-            </div>
-
-
-
-            <div class="masonry-object_text">
-                <div class="masonry-object_text-container">
-                    <p>    {{photo_title}}  </p>
-
-                </div>
-
-                <div class="more_detail" {{bindAttr id="id"}} >
-                    <div class="more_text-container" >
-                        <div style="display:block;">
-
-                            {{{object_description}}}
-                        </div>
-                    </div>
-
-                    <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more &nbsp;<i class="icon-angle-down"></i></span>
-                    <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapse &nbsp;<i class="icon-angle-up"></i></span>
-
-                </div>
             </div>
         </div>
-        {{render "comment" this}}
+
+        <div class="masonry-object_text">
+            <div class="masonry-object_text-container">
+                <p>    {{photo_title}}  </p>
+            </div>
+
+            <div class="more_detail" {{bindAttr id="id"}} >
+                <div class="more_text-container" >
+                    <div style="display:block;">
+                        {{{object_description}}}
+                    </div>
+                </div>
+
+                <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more &nbsp;<i class="icon-angle-down"></i></span>
+                <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapse &nbsp;<i class="icon-angle-up"></i></span>
+
+            </div>
+        </div>
     </div>
-
-
+    {{render "comment" this}}
 </div>
+
 
 
 {{/if}}
 
+
+
+
+
+
+
 {{#if getVideo}}
-
-<div class="box col2 noStyle1">
-    <div class="masonry-object_poster">
-        <div class="profilepic-on-masonry">
-            <a  href="#/profiles/{{unbound owner_id}}">
-                <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
-            </a>
-        </div>
-        <div class="object_username">
-
-            <a class="poster-name" style="cursor: pointer; width: auto;"  href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
-            <div class="posttime-container">
-                <span class="posttime" style="display:none;">{{date created}}</span>
-            </div>
-
-        </div>
-
-        <div class="object-tags-box">
-
-            <div class="object-tags">
-                <span class="tags-mark" style="background-color: #427fed"></span>
+<div class="box col2 noStyle1" >
+    <div class="object-tags-box">
+        <div class="object-tags">
+            <span class="tags-mark" style="background-color: #427fed"></span>
+            <div class="tags easing">  
                 <div class="tags easing">
                     <div class="tags-new">New</div>
                     <div class="object-tpye hint--left hint--rounded" data-hint="Video">
@@ -150,25 +145,24 @@
                     </div>                      
                 </div>
             </div>
-
-            <div class="object-tags ">
-                <span class="tags-mark" style="background-color: #76a7fa"></span>
-                <div class="tags easing tagsappear">
-                    <div class="tags-new">#Auckland</div>                   
-                </div>
-            </div>
-
-            <div class="object-tags ">
-                <span class="tags-mark" style="background-color: #a0c3ff"></span>
-                <div class="tags easing tagsappear">
-                    <div class="tags-new">#Kitchen</div>                   
-                </div>
-            </div>
-
         </div>
 
+        <div class="object-tags " style="display:none;">
+            <span class="tags-mark" style="background-color: #76a7fa"></span>
+            <div class="tags easing tagsappear">
+                <div class="tags-new">#{{region}}</div>                   
+            </div>
+        </div>
+
+        <div class="object-tags ">
+            <span class="tags-mark" style="background-color: #a0c3ff"></span>
+            <div class="tags easing tagsappear"  style="overflow: hidden;">
+                <div class="tags-new">#{{categories}}</div>                   
+            </div>
+        </div>
     </div>
-    <div class="masonry-object_mainfeature">
+
+    <div class="masonry-object_mainfeature">             
         <div class="mainfeature-wrapper">
             {{#linkTo 'video' this}} 
             <div class="hover-opacity radius-circle easing" style="position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 0;right: 0;box-shadow: 0 0 10px #f3f3f3;">
@@ -178,40 +172,63 @@
             <a class="mainfeature-container">
                 {{#linkTo 'video' this}} <img {{bindAttr src="object_image_url" }} class="this-is-the-object"/>{{/linkTo}}
             </a>
+
             <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
-
                 {{#if controller.is_authentic_user}}
-
-
                 <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
                      <k class="icon-cog" style="font-size: 16px; margin: 0px 5px"></k>
                     <k class='icon-caret-down'></k>
                 </div>
-                <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
-                    {{#if controller.is_profile_editing_mode}}
-                    <li class="ite" id="delete_video_{{unbound id}}"  {{action  removeCollectedItem id}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>
-                    {{/if}}        
+                <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">                     
                     {{#if controller.is_user_editing_mode}}
                     <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
-
+                    <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User "article"}}><k class="icon-camera" style="font-size: 16px; margin: 0px 5px;"></k>Set as Cover</li>
                     {{/if}}
                 </ul>
-
                 {{/if}}
             </span>
+        </div>
 
-        </div>              
+        <div class="masonry-object_poster">
+            <div class="profilepic-on-masonry">
+                <a  href="#/profiles/{{unbound owner_id}}">
+                    <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
+                </a>
+            </div>
+            <div class="object_username">
 
+                <a class="poster-name" style="cursor: pointer; width: auto;"  href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <div class="posttime-container">
+                    <span class="posttime" style="display:none;">{{date created}}</span>
+                </div>
+
+                <ul class="itemprofile" style="margin: 5px 0 0;">
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
+                        <div><k class="icon-eye-open"> &nbsp;{{this.collections.length}}</k></div>
+                    </li>
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
+                        <div><k class="icon-group">&nbsp;{{ length this.profile_partner_ids}}</k></div>  
+                    </li>
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
+                        <div><k class="icon-film">&nbsp;{{ videolength this.profile_about_us}}</k></div>  
+                    </li>
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
+                        <div><k class="icon-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>  
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
 
         <div class="masonry-object_text">
             <div style="">
                 <p style="font-weight: bold;margin-bottom: 5px;">  {{#linkTo 'video' this}}{{object_title}}{{/linkTo}} </p>
                 <p class="masonry-object_text-container" style="font-size: 11px; max-height: 50px;">{{object_description}}</p>
             </div>
-
         </div>
-
     </div>
+
     {{render "comment" this}}
 </div>
 {{/if}}
@@ -222,69 +239,55 @@
 
 
 
-{{#if getFile}}
-<div class="box col2 noStyle1">
-    <img {{bindAttr src="profile_pic_url"}} />
-    {{#linkTo 'files' this}}<h1>{{type}}</h1>{{/linkTo}}
-</div>
-{{/if}}
-
-{{#if getAd}}
-
-<div class="box col2 masonry-ad" style="">
-    <div  id={{unbound id}} >  </div>    
-    </div>
-    {{/if}}
 
 
 
+{{#if getArticle}}
+<div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}}>
 
-    {{#if getArticle}}
-    <div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}}>
+    <div class="object-tags-box">
+        <div class="object-tags">
+            <span class="tags-mark" style="background-color: #427fed"></span>
+            <div class="tags easing">
 
-        <div class="object-tags-box">
-            <div class="object-tags">
-                <span class="tags-mark" style="background-color: #427fed"></span>
-                    <div class="tags easing">
-
-                        <div class="object-tpye hint--left hint--rounded" data-hint="Article">
-                            <i class="icon-book"></i>
-                        </div>                      
-                    </div>
-                </div>
-
-                <div class="object-tags " style="display:none;">
-                <span class="tags-mark" style="background-color: #76a7fa"></span>
-                    <div class="tags easing tagsappear">
-                        <div class="tags-new">#{{region}}</div>                   
-                    </div>
-                </div>
-
-                <div class="object-tags ">
-                    <span class="tags-mark" style="background-color: #a0c3ff"></span>
-                    <div class="tags easing tagsappear"  style="overflow: hidden;">
-                    <div class="tags-new">#{{categories}}</div>                   
-                </div>
+                <div class="object-tpye hint--left hint--rounded" data-hint="Article">
+                    <i class="icon-book"></i>
+                </div>                      
             </div>
         </div>
 
-        <div class="masonry-object_mainfeature">             
-            <div class="mainfeature-wrapper">
-                <a class="mainfeature-container" href="#/articles/{{unbound id}}" >
+        <div class="object-tags " style="display:none;">
+            <span class="tags-mark" style="background-color: #76a7fa"></span>
+            <div class="tags easing tagsappear">
+                <div class="tags-new">#{{region}}</div>                   
+            </div>
+        </div>
 
-                    <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} />
+        <div class="object-tags ">
+            <span class="tags-mark" style="background-color: #a0c3ff"></span>
+            <div class="tags easing tagsappear"  style="overflow: hidden;">
+                <div class="tags-new">#{{categories}}</div>                   
+            </div>
+        </div>
+    </div>
 
-                </a> 
+    <div class="masonry-object_mainfeature">             
+        <div class="mainfeature-wrapper">
+            <a class="mainfeature-container" href="#/articles/{{unbound id}}" >
 
-                <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
-                    {{#if controller.is_authentic_user}}
-                    <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
-                         <k class="icon-cog" style="font-size: 16px; margin: 0px 5px"></k>
-                             <k class='icon-caret-down'></k>
-                         </div>
-                         <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">                     
-                        {{#if controller.is_user_editing_mode}}
-                        <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
+                <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} />
+
+            </a> 
+
+            <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
+                {{#if controller.is_authentic_user}}
+                <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
+                     <k class="icon-cog" style="font-size: 16px; margin: 0px 5px"></k>
+                    <k class='icon-caret-down'></k>
+                </div>
+                <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">                     
+                    {{#if controller.is_user_editing_mode}}
+                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
                     <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User "article"}}><k class="icon-camera" style="font-size: 16px; margin: 0px 5px;"></k>Set as Cover</li>
                     {{/if}}
                 </ul>
@@ -301,6 +304,22 @@
                 <div class="posttime-container" style="display:none;">
                     <span class="posttime">{{date created}}</span>
                 </div>
+
+                <ul class="itemprofile" style="margin: 5px 0 0;">
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
+                        <div><k class="icon-eye-open"> &nbsp;{{this.collections.length}}</k></div>
+                    </li>
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
+                        <div><k class="icon-group">&nbsp;{{ length this.profile_partner_ids}}</k></div>  
+                    </li>
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
+                        <div><k class="icon-film">&nbsp;{{ videolength this.profile_about_us}}</k></div>  
+                    </li>
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
+                        <div><k class="icon-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>  
+                    </li>
+                </ul>
+
             </div>
 
         </div>
@@ -326,22 +345,3 @@
     {{render "comment" this}}
 </div>
 {{/if}}
-
-
-
-{{#if getIdeabook}}
-<div class="box col2 noStyle1">
-    <img {{bindAttr src="profile_pic_url"}} />
-    {{#linkTo 'ideabooks' this}}<h1>{{type}}</h1>{{/linkTo}}
-</div>
-{{/if}}
-
-{{#if getDiscussion}}
-<div class="box col2 noStyle1">
-    <img {{bindAttr src="profile_pic_url"}} />
-    {{#linkTo 'discussions' this}}<h1>{{type}}</h1>{{/linkTo}}
-</div>
-{{/if}}
-
-
-

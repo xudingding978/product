@@ -28,41 +28,17 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             data.addObserver('isLoaded', function() {
                 that.checkAuthenticUser();
                 if (data.get('isLoaded')) {
-                    for (var i = 0; i < data.get("length"); i++) {
-                        var tempmega = data.objectAt(i);
-                        if (i !== data.get("length") - 1) {
-                            that.set("partnerNew", that.get('partnerNew') + tempmega.get("profile").objectAt(0).get("id") + ",");
-                        }
-                        else
-                        {
-                            that.set("partnerNew", that.get('partnerNew') + tempmega.get("profile").objectAt(0).get("id"));
-                        }
-                        var isFollow = false;
-                        for (var j = 0; j < tempmega.get("profile").objectAt(0).get("followers").get("length"); j++)
-                        {
-                            if (tempmega.get("profile").objectAt(0).get("followers").objectAt(j).get("follower_id") === localStorage.loginStatus)
-                            {
-                                isFollow = true;
-                                break;
-                            }
-                        }
-                        tempmega.get("profile").objectAt(0).set("isFollowCurrentUser", isFollow);
-                        //    tempmega.set("isFollow", true);
-                        //console.log( tempmega.get("profile").objectAt(0).get("isFollowCurrentUser"));
-                        that.get("content").pushObject(tempmega);
-      
-                    }
+                    that.setContent(data);
                     that.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
                     var lastPositionId = HubStar.get('lastPositionId');
                     var lastPosition = HubStar.get("scrollPartenerPosition");
-                    if (model.id === lastPositionId)
-                    {
+                    if (model.id === lastPositionId) {
                         $(window).scrollTop(lastPosition);
                     }
                     that.set('loadingTime', false);
-                            setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+                    setTimeout(function() {
+                        $('#masonry_user_container').masonry("reload");
+                    }, 200);
                 }
             });
         }
@@ -89,7 +65,6 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         var message = "Do you wish to remove this partner ?";
         this.set("message", message);
         this.set('makeSureDelete', true);
-        //console.log(this.get('partnerID'));       
         if (this.get('willDelete')) {
             var ids = this.get("partnerID").split(",");
             var delResult = "";
@@ -102,13 +77,9 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             }
             delResult = delResult.substr(0, delResult.length - 1);
             this.set('partnerID', delResult);
-            //console.log(this.get('partnerID'));
-
             var profileOwner = HubStar.Profile.find(this.get('clientID'));
             profileOwner.set('profile_partner_ids', this.get('partnerID'));
-            //+console.log(profileOwner.get("profile_partner_ids"));
             this.removePartnerObject(idDel);
-            // HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);
             HubStar.store.commit();
             this.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
             $('#masonry_user_container').masonry("reload");
@@ -132,7 +103,6 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     cancelDelete: function() {
         this.set('willDelete', false);
         this.set('makeSureDelete', false);
-        //HubStar.set('data', null);
     },
     submit: function() {
         var client_input = this.get("currentAddPartnerPic");
@@ -185,19 +155,58 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
-
         var that = this;
         var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
         that.set("is_authentic_user", is_authentic_user);
-
         currentUser.addObserver('isLoaded', function() {
             var current_user_email = currentUser.get('email');
             if (currentUser.get('isLoaded')) {
                 var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
                 that.set("is_authentic_user", is_authentic_user);
-
             }
         });
+    },
+    searchPartner: function(searchKeyWord) {
+        this.set('content', []);
+        var data = HubStar.Mega.find({RequireType: "partnerSearch", profile_partner_ids: this.get('partnerID'), "keyword": searchKeyWord});
+        var that = this;
+        this.set('loadingTime', true);
+        data.addObserver('isLoaded', function() {
+            that.checkAuthenticUser();
+            if (data.get('isLoaded')) {
+                that.setContent(data);
+                that.set('loadingTime', false);
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry("reload");
+                }, 200);
+            }
+        });
+    },
+    setContent: function(data)
+    {
+        var that = this;
+        for (var i = 0; i < data.get("length"); i++) {
+            var tempmega = data.objectAt(i);
+            if (i !== data.get("length") - 1) {
+                that.set("partnerNew", that.get('partnerNew') + tempmega.get("profile").objectAt(0).get("id") + ",");
+            }
+            else
+            {
+                that.set("partnerNew", that.get('partnerNew') + tempmega.get("profile").objectAt(0).get("id"));
+            }
+            var isFollow = false;
+            for (var j = 0; j < tempmega.get("profile").objectAt(0).get("followers").get("length"); j++)
+            {
+                if (tempmega.get("profile").objectAt(0).get("followers").objectAt(j).get("follower_id") === localStorage.loginStatus)
+                {
+                    isFollow = true;
+                    break;
+                }
+            }
+            tempmega.get("profile").objectAt(0).set("isFollowCurrentUser", isFollow);
+            that.get("content").pushObject(tempmega);
+        }
     }
+
 }
 );

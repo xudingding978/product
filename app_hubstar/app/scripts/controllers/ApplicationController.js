@@ -28,6 +28,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     isWaiting: "",
     isGeoDropdown: false,
     isNavigatorDropdown: false,
+    isHeaderNavigatorDropdown: false,
     adPageNo: 0,
     googletagCmd: null,
     unReadCount: 0,
@@ -360,6 +361,19 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $('.Navigator-box').fadeIn("fast");
         }, 30);
     },
+           
+             dropdownHeaderNavigator: function() {
+
+        this.set(' isHeaderNavigatorDropdown', !this.get(' isHeaderNavigatorDropdown'));
+        this.set('categorys', HubStar.Cate.find({}));
+        this.set('subcate', []);
+        this.set('subcategories', []);
+        
+        setTimeout(function() {
+            $('.Navigator-box').fadeIn("fast");
+        }, 30);
+    },   
+            
     topicSelection: function(data) {
        
         this.set('temp', []);
@@ -368,7 +382,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('subcategories', []);
         for (var i = 0; i < data.get('subcate').get('length'); i++) {
             this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')});
-        }
+        }    
+        
     },
     searchTopicSelection: function(data) {
         this.set('temp', []);

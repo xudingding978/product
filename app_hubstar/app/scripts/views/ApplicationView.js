@@ -10,6 +10,9 @@ HubStar.ApplicationView = Ember.View.extend({
         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
        
         var scroll_pos_test = 440;
+        
+    
+        
 
         $(document).ready(function() {
             $(window).scroll(function() {
@@ -27,6 +30,8 @@ HubStar.ApplicationView = Ember.View.extend({
                     $(".Navigator-box").fadeOut("320");
                 }
             });
+            
+     
         });
 
 

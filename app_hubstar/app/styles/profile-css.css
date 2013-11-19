@@ -1451,7 +1451,7 @@ textarea.add-interests{
     width: 500px;
     height: 350px;
     margin: 0 auto; 
-    position: absolute; 
+    position: fixed; 
     top: 15%;
     left: 0;
     right: 0;

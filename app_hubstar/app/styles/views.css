@@ -274,12 +274,11 @@
 .object-tags-box{
     -webkit-transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
     transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
-    margin: 45px 0 0 0;
+    margin: 15px 0 0 0;
     max-width: 5%;
     position: absolute;
     right: 0;
     top: 0;
-    /*    cursor: pointer;*/
     z-index: 100;
 }
 .object-tags-box div{position:relative;z-index:100;}
@@ -717,19 +716,7 @@ div.album-description-bg{
 
 
 
-.masonry-object{
-    -webkit-border-radius:2px;
-    -o-border-radius: 2px;
-    -ms-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    background-color: #fff;
-    box-shadow: inset 0px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
-}
-
 .masonry-object_poster{
-    margin-bottom: 20px;
-    padding: 0 20px 0 20px;
     position: relative;
     z-index: 1;
 }
@@ -754,24 +741,23 @@ div.album-description-bg{
 
 .object_username{
     margin: 0 0 15px 61px;
-    padding: 23px 0 0 0;
+    padding: 15px 0 0 0;
     text-overflow: ellipsis;
 }
 
 .masonry-object_mainfeature{
-    padding: 0 20px 0 20px;
+    padding: 0 13px;
     text-overflow: ellipsis;
 }
 
 .mainfeature-wrapper{
-    margin: 0 -14px 20px -14px;
+    margin: 0 -13px;
     clear: both;
     line-height: 0;
     overflow: hidden;
     position: relative;
-    vertical-align:central;
-    /* background:#e5e5e5; */
-    min-height:150px
+    min-height: 150px;
+    border-radius: 3px 3px 0 0;
 }
 
 .mainfeature-wrapper:hover > .hover-opacity{opacity: 1}
@@ -798,8 +784,7 @@ div.album-description-bg{
 
 .this-is-the-object{
     cursor: pointer;
-    min-width: 338px;
-    /* max-height: 100%; */
+    min-width: 350px;
     max-width: 100%;
     display: inline-block;
 }
@@ -810,6 +795,7 @@ div.album-description-bg{
     line-height: 144%;
     min-height: 0;
     overflow: hidden;
+    width: 322px;
 }
 
 .masonry-object_text-container{
@@ -839,10 +825,6 @@ div.album-description-bg{
 }
 
 /* clint */
-.masonry-brick .masonry_more-btn{
-    padding-bottom:12.5px;
-
-}
 .masonry_more-btn:hover{
     color: #333;
 }
@@ -1597,7 +1579,7 @@ div.album-description-bg{
     transition: color .218s;
     font-size: 12px;
     padding-right: 5px;
-    
+
     cursor: pointer;
 }
 

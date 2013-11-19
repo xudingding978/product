@@ -6,8 +6,8 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     profile_name: "",
     categorySelection: "Apartment Design",
     subcategorySelection: "Bathroom",
-    countrySelection: "New Zealand",
-    regionSelection: "Auckland",
+    countrySelection: "",
+    regionSelection: "",
     numberSelection: "021",
     profile_url: "",
     first_name: "",
@@ -25,10 +25,10 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     client_name: "",
     owner: "",
     direct_enquiry_emails: "",
-    region: "",
+    region: "Auckland",
     creater: "",
     editors: "",
-    country: "",
+    country: "New Zealand",
     boost: "",
     profile_package: "",
     profile_contact_number: "",
@@ -38,6 +38,12 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     profile_hero_url: "",
     profile_pic_url: "",
     keywords: "",
+    categorys: [],
+    subcate: [],
+    init: function()
+    {
+        this.setTopicModel(HubStar.Cate.find({}));
+    },
     validateEmail: function(email)
     {
 
@@ -108,7 +114,6 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
         } else {
             passSubmit = false;
         }
-        this.set("profile_url", this.get("profile_name") + "-" + $('#countrySelection').text() + "-" + $('#regionSelection').text());
 
         if (this.specialCharactersChecking(this.spaceChecking(this.get("profile_url")))) {
 
@@ -133,19 +138,19 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
 //
 //            $('#emailFormat5').attr('style', 'display:block');
 //        }
-        if ($('.region').val() === "") {
-
-            $('#region').attr('style', 'display:block');
-        } else {
-            $('#region').attr('style', 'display:none');
-        }
-
-        if ($('.country').val() === "") {
-
-            $('#country').attr('style', 'display:block');
-        } else {
-            $('#country').attr('style', 'display:none');
-        }
+//        if ($('.region').val() === "") {
+//
+//            $('#region').attr('style', 'display:block');
+//        } else {
+//            $('#region').attr('style', 'display:none');
+//        }
+//
+//        if ($('.country').val() === "") {
+//
+//            $('#country').attr('style', 'display:block');
+//        } else {
+//            $('#country').attr('style', 'display:none');
+//        }
 
         if ($('.profileName').val() === "") {
 
@@ -153,12 +158,14 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
         } else {
             $('#profileName').attr('style', 'display:none');
         }
-        if ($('.profileURL').val() === "") {
 
-            $('#profileURL').attr('style', 'display:block');
-        } else {
-            $('#profileURL').attr('style', 'display:none');
-        }
+        this.set("country", $('#country').val());
+        this.set("region", $('#state').val());
+
+        this.set("profile_url", this.get("profile_name") + "-" + this.get("country") + "-" + this.get("region"));
+        console.log(this.get("profile_url"));
+
+
         if ($('.clientEmail').val() === "") {
             $('#clientEmailFormat').attr('style', 'display:none');
             $('#clientEmail').attr('style', 'display:block');
@@ -206,6 +213,21 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             this.set('profile_pic_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg");
         }
     },
+    setTopicModel: function(model) {
+        this.set('categorys', null);
+        this.set('categorys', model);
+  
+    },
+    topicSelection: function(data) {
+
+        this.set('subcate', []);
+        for (var i = 0; i < data.get('subcate').get('length'); i++)
+        {
+            this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')
+            });
+        }
+      
+    },
     save: function() {
 
         this.fillInChecking();
@@ -218,11 +240,11 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 is_active: "true",
                 is_indexed: "true",
                 category: $('#categorySelection').text(),
-                subcategories: $('#subCategorySelection').text(),
+                subcategories: $('#subcategorySelection').text(),
                 created: "",
                 creator: this.get("creater"),
-                country: $('#countrySelection').text(),
-                region: $('#regionSelection').text(),
+                country: this.get("country"),
+                region: this.get("region"),
                 domains: getDomain(),
                 editors: this.get("editors"),
                 keywords: this.get("keywords"),
@@ -254,16 +276,16 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
 //                owner_contact_cc_emails: this.get("secondary_email"),
 //                owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
                 profile_category: $('#categorySelection').text(),
-                profile_subcategory: $('#subCategorySelection').text(),
+                profile_subcategory: $('#subcategorySelection').text(),
                 profile_physical_address: this.get("address"),
                 profile_suburb: this.get("suburb"),
                 profile_keywords: this.get("keywords"),
-                profile_regoin: $('#regionSelection').text(),
-                profile_country: $('#countrySelection').text(),
+                profile_regoin: this.get("region"),
+                profile_country: this.get("country"),
                 profile_hours: "Monday=9:00am-5:00pm,Tuesday=9:00am-5:00pm,Wednesday=9:00am-5:00pm,Thursday=9:00am-5:00pm,Friday=9:00am-5:00pm,Saturday=closed,Sunday=closed,Holidays=closed",
-                phone_number: $('#numberSelection').text() + this.get("profile_contact_number"),
+                phone_number: "(" + $('#numberSelection').text() + ")"+ " " + this.get("profile_contact_number"),
                 profile_partner_ids: null,
-                collections: [],
+           //     collections: [],
                 profile_website_url: this.get("website_url"),
                 profile_website: this.get("website")
             });

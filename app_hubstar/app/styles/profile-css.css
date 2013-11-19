@@ -1242,6 +1242,278 @@ textarea.add-interests{
 }
 
 
+/*MESSAGE CENTER STYLE FROM HERE*/
+
+.message-btn{
+    width: 50%; 
+    float: left; 
+    height:30px; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    opacity: .8;
+}
+
+.message-btn:hover{
+    opacity: 1;
+
+    -webkit-box-shadow: inset 0 -2px 0 #ddd;
+    -o-box-shadow: inset 0 -2px 0 #ddd;
+    -ms-box-shadow: inset 0 -2px 0 #ddd;
+    -moz-box-shadow: inset 0 -2px 0 #ddd;
+    box-shadow: inset 0 -2px 0 #ddd;
+    background-color: #fff;
+}
+
+.message-btn:active{
+    opacity: 1;
+    background-color: #08c;
+    color: #fff;
+
+    -webkit-box-shadow: inset 0 2px 0 #ddd;
+    -o-box-shadow: inset 0 2px 0 #ddd;
+    -ms-box-shadow: inset 0 2px 0 #ddd;
+    -moz-box-shadow: inset 0 2px 0 #ddd;
+    box-shadow: inset 0 2px 0 #ddd;
+}
+
+
+.Message-Board_comment-item{
+    position: relative;
+    width: auto;
+    display: block;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+    padding: 10px 6.5%;
+
+    border-bottom: 1px solid #eee;
+    border-top: #f3f3f3;
+}
+
+.mCSB_container > div:nth-child(odd){background-color: #fff}
+.mCSB_container > div:nth-child(even){background-color: #f4f6f8}
+.mCSB_container > div:hover{background-color: rgba(220,220,220,.1);
+                            -webkit-transition: all 0.5s ease;
+                            -moz-transition: all 0.5s ease;
+                            -o-transition: all 0.5s ease;}
+
+.mCSB_container > div:hover .reply-comment{opacity: .8}
+
+.Message-Board_comment-container .profilepic-comment-container{ left: 6.5%; top: 18px;}
+.your-relpy_profilepic{
+    position: absolute;
+    right: 6.5%;
+    margin: 3px 0 0;
+}
+
+
+.your-relpy{
+    padding: 10px 50px 10px 0;
+    vertical-align: top;
+    text-align: right;
+    border-top: 1px solid #eee;
+}
+
+.your-relpy .namentime_position{margin:0 0 0 40px}
+.your-relpy .comment-content{margin-left: 40px;}
+.Message-Board_comment-item .comment-position{
+    padding: 10px 0 10px 43px;
+    min-height: 90px;
+}
+
+.reply-comment-frame{
+    padding: 15px 0 0 40px;
+    border-top: 1px solid #eee;
+    width: 100%;
+}
+
+.reply-comment{
+    font-size: 13px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #333;
+    opacity: 0;
+}
+
+.reply-comment > i{
+    cursor: pointer;
+}
+
+.Message-Board_comment-item .masonry_addcommnetbox-container{width: 430px; margin-left: 20px;}
+
+
+.post-comment-container{
+    width: 430px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+.post-comment-container textarea, .post-comment-container textarea:focus{
+    background-color: rgba(255,255,255,0);
+    box-shadow: none;
+    border: none;
+
+    height: 70px;
+}
+
+.reply-comment-container {
+    width: 390px;
+    height: 100px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+.reply-comment-container input, .reply-comment-container input:focus{
+    background-color: rgba(255,255,255,0);
+    box-shadow: none;
+    border: none;
+    height: 35px;
+}
+
+.user-says-angle-before{
+    width: 0px;
+    height: 0px;
+    margin-top: 3px;
+    left: 67px;
+    border-top: 15px solid transparent;
+    border-bottom: 0px solid transparent;
+    border-left: 0px solid transparent;
+    border-right: 15px solid #fff;
+    position: absolute;
+    z-index: 2;
+}
+
+.user-says-angle-after{
+    width: 0px;
+    height: 0px;
+    margin-top: 4px;
+    left: 65px;
+    border-top: 15px solid transparent;
+    border-bottom: 0px solid transparent;
+    border-left: 0px solid transparent;
+    border-right: 15px solid #ddd;	
+
+    position: absolute;
+    z-index: 1;
+}
+
+.user-reply-angle-before{
+    width: 0px;
+    height: 0px;
+    margin-top: 3px;
+    border-top: 15px solid transparent;
+    border-bottom: 0px solid transparent;
+    border-left: 15px solid #f3f3f3;
+    border-right: 0px solid transparent;
+    right: 74px;
+    position: absolute;
+    z-index: 2;
+}
+
+.user-reply-angle-after{
+    width: 0px;
+    height: 0px;
+    margin-top: 4px;
+    border-top: 15px solid transparent;
+    border-bottom: 0px solid transparent;
+    border-left: 15px solid #ddd;
+    border-right: 0px solid transparent;
+    right: 72px;
+
+    position: absolute;
+    z-index: 1;
+}
+
+
+.remove-comment-photo{
+    float: right;
+    position: relative;
+    background-color: #fff;
+    color: #888;
+    width: 20px;
+    height: 20px;
+    font-size: 13px;
+    top: -10px;
+    right: -12px;
+
+    opacity: .6;
+}
+
+.remove-comment-photo:hover{opacity: 1;}
+
+
+/*REVIEW PART STYLE*/
+
+.Add-review{
+    z-index: 11;
+    background-color: white;  
+    border-radius: 5px;
+    box-shadow: 0 0 20px #bbb;  
+    width: 500px;
+    height: 350px;
+    margin: 0 auto; 
+    position: absolute; 
+    top: 15%;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+}
+
+.Add-review .message-btn{
+    height: 40px; 
+    line-height: 40px;
+
+    width: 33%;
+}
+
+
+
+.review-list{
+    width: 535px; 
+    position: absolute; 
+    margin: 10px auto; 
+    background-color: transparent; 
+    border: 0;
+    padding: 0 5px;
+}
+
+
+.review-list-profile-pic{
+    height: 80px;
+    width: 80px;
+    z-index: 22;
+    position: relative; 
+    border: 3px solid #f3f3f3; 
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 5px #aaa;
+    top: -5px;
+    float:left;
+}
+
+.review-list-content{
+    top: 50px; 
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 3px #aaa;
+    width: 500px;
+    margin: 5px 0px 5px 25px;
+    opacity: .7;
+    cursor: pointer;
+
+}
+
+.review-list-content:hover, .review-list-content.active{
+    opacity: 1!important;
+}
+
+
 .profilegb div.profile-wallpaper{
     top:45px;
     left:0;

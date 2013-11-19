@@ -5,7 +5,6 @@ HubStar.ProfileFollowersController = Ember.Controller.extend({
             this.set('clientID', model.id);
             this.set('followers', model.get('followers'));
             this.set('content', this.get('followers'));
-
         }
 
     });

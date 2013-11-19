@@ -1,0 +1,102 @@
+
+
+<div class="review-list box" style="">
+    <div class="" style="height: 80px;width: 80px;position: relative;border: 3px solid #f3f3f3;border-radius: 50%;overflow: hidden;box-shadow: 0 0 5px #aaa;top: -5px;float: left;z-index: 1">
+        <img {{bindAttr src="model.review_user_photo_url"}} style=""/>
+    </div>
+
+    <div  id="review_{{unbound model.review_id}}"class="review-list-content easing" style="">
+        <div style="background-color: #f3f3f3;padding: 5px 5px 5px 70px;">
+            <div {{action 'showOneReview' model.review_id target='view' on="click"}} class="comment-namentime" style="display: block;position: relative;height: 35px;">
+                <div class="namentime_position" style="margin: 0;float: left;">
+                    <a class="comment-username" href="#/users/{{unbound model.review_user_id}}"  >
+                        {{model.review_user_name}}
+                    </a>
+                    <div class="posttime-container">
+                        <span class="posttime">{{date model.review_time_stamp}} </span>
+                    </div>
+                </div>
+
+                <div style="position: absolute; right: 0; margin: 7px;"><span class="starsview" ><span style="width:{{unbound model.review_length}}px;"></span></span></div>
+            </div>
+        </div>
+
+        <div  style="background-color: #fff; padding: 10px 40px; font-size: 13px;">
+            <div id="review_content_{{unbound model.review_id}}" {{action 'upContent' model.review_id target='view' on="click"}} style="width: 390px; max-height:100px;line-height:20px; position: relative; display: inline-block; overflow: hidden; ">{{model.review_content}}  </div>   
+
+            <span {{action 'showOneReview' model.review_id target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:inline-block;"  id="down_button_{{unbound model.review_id}}"  ><k class="icon-caret-down">&nbsp;</k>more</span>
+            <span {{action 'upContent' model.review_id target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:none;"  id="up_button_{{unbound model.review_id}}" ><k class="icon-caret-up">&nbsp;</k>collapse</span>
+
+
+            <div style="position: relative; display: block;margin: 15px 0 10px;height: 20px;width: 100%;">
+                <div id="review_like_{{unbound model.review_id}}"  style="float: right; font-size: 13px;" class="new-btn" {{action addLike}}>
+                     <i class="icon-thumbs-up-alt" {{action addLike model}}>&nbsp</i>
+                    {{model.review_like_count}}</div>
+                <div id="review_share_{{unbound model.review_id}}"  style="float: right; font-size: 13px;margin-right: 5px;" class="new-btn" {{action dropdownPhotoSetting model.review_id}}>
+                     <i class="icon-share" >&nbsp</i></div>          
+                <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound model.review_id}}" style="width: 150px;  padding: 0;right: 45px;top: 70px;position: absolute;">
+                    <li class="ite" {{action  fbShare model}} >
+                <k class="icon-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
+                </li>
+                <li class='ite' {{action tShare model}} >
+            <k class="icon-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span>
+            </li>
+            <li class="ite" {{action gpShare model}}>
+        <k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
+        </li>
+    </ul>
+</div>
+</div>  
+
+<!--the following comment-frame is used to show the reply box for the second level reply-->
+<div id="reviewReplyData_{{unbound model.review_id}}">
+    <div class="reply-comment-frame"  style="">
+        <div style="margin:0 auto; padding: 0 45px 15px 0;">
+            <a  href="#/users/{{unbound controller.currentUser.id}}">
+                <img class="profilepic_comment"  style="float: right; margin: 4px -10px 0 0; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url_large"}} /> 
+                <div class='user-reply-angle-before'></div>
+                <div class='user-reply-angle-after'></div>
+            </a>
+
+            <div class="reply-comment-container" style="width: 382px;height: 32px;">
+                <div style="margin: 0;width: 320px; height: 30px;float: left;">
+
+                    {{view Ember.TextField  valueBinding="controller.replyReviewContent"  class="no-resize"  placeholder="What's up!" }}                                                   
+                </div>
+                <div style="float: right;height: 34px;position: relative;">
+                    <div class="message-btn easing" style='width: 30px;'{{action addReviewReply model.review_id}}>
+                         <k class='icon-ok'></k>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="view-comments_{{unbound model.review_id}}" {{action 'viewComments' model.review_id target='view' on="click"}} class="hover-opacity" style="display:block; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;">
+        view comments {{this.model.reply_reviews.length}}
+        <i class="icon-caret-down">&nbsp;</i>
+    </div>
+    <div  id="reply_{{unbound model.review_id}}"  style="display:none; max-height:200px;height:auto;">
+
+        {{#each model.reply_reviews}} 
+        {{render reviewReplyListSingle this}}
+        {{/each}} 
+
+    </div>
+
+    <div id="up-comments_{{unbound model.review_id}}" {{action 'upComments' model.review_id target='view' on="click"}}  class="hover-opacity" style="display: none; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;">
+        collapse comments {{this.model.reply_reviews.length}}
+        <i class="icon-caret-up">&nbsp;</i>
+    </div>
+
+</div>
+
+
+</div>
+</div>
+
+
+
+
+
+

@@ -755,7 +755,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     margin: 0 10px;
 }
 
-.contactmebtn a {
+.contactmeicon{
     width: 40px;
     height: 40px;
     display: inline-block;
@@ -776,9 +776,12 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
 
     color: #555;
+    cursor: pointer;
 }
 
-.contactmebtn a:active {
+.contactmeicon:hover{box-shadow: 0 0 10px #e3cf7a; color:#ad9424}
+
+.contactmeicon:active {
     top: 1px;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#eaeaea), to(#f6f6f6));
     background-image: -webkit-linear-gradient(top, #eaeaea, #f6f6f6);
@@ -790,7 +793,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 
 
-.contactmebtn a::before{
+.contactmeicon::before{
     content: '';
     position: absolute;
     z-index: -1;
@@ -810,11 +813,11 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     box-shadow: inset 0px 8px 48px #ddd;
 }
 
-.contactmebtn a:active::before {
+.contactmeicon:active::before {
     top: -6px;
 }
 
-.contactmebtn a:hover::before {
+.contactmeicon:hover::before {
     opacity: 0.8;
     background-color: #6399cd;
 }

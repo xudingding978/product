@@ -91,7 +91,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     var a = document.createElement('a');
                     var elem = document.createElement("img");
                     if (position / 4 === 1) {
-                        elem.setAttribute("src", "images/adsImages/Resene_336x280.jpg");
+                        elem.setAttribute("src", "images/adsImages/resene_336x280.jpg");
                         a.href = "http://www.resene.co.nz/";
                     }
                     else if (position / 4 === 2)

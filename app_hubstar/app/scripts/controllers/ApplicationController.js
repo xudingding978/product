@@ -361,6 +361,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('temp', []);
         this.set('temp', data);
         this.set('subcate', []);
+        this.set('subcategories', []);
         for (var i = 0; i < data.get('subcate').get('length'); i++) {
             this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')});
         }

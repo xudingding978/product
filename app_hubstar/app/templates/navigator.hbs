@@ -9,7 +9,7 @@
 
             {{#each controller.categorys}}
             <ul>
-                <li {{action topicSelection this}}> {{topic}}<i class="icon-search"></i></li>
+                <li {{action topicSelection this}}> {{topic}}<i class="icon-search" {{action topicSearch topic}} ></i></li>
             </ul>
             {{/each}}
 
@@ -23,7 +23,7 @@
             {{#each  controller.subcate}}
 
             <ul>
-                <li {{action searchTopicSelection subcategories}}> {{category_topic}} <i class="icon-search"></i></li>
+                <li {{action searchTopicSelection subcategories}}> {{category_topic}} <i class="icon-search" {{action topicSearch category_topic}} ></i></li>
 
             </ul>
             {{/each}}
@@ -33,7 +33,7 @@
             {{#each  controller.subcategories}}
 
             <ul>
-                <li> {{search_topic}} </li>
+                <li {{action topicSearch search_topic}} > {{search_topic}} </li>
 
             </ul>
             {{/each}}

@@ -356,7 +356,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('categorys', HubStar.Cate.find({}));
         this.set('subcate', []);
         this.set('subcategories', []);
-        
+        console.log(this.get('categorys'));
         setTimeout(function() {
             $('.Navigator-box').fadeIn("fast");
         }, 30);
@@ -366,6 +366,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         this.set(' isHeaderNavigatorDropdown', !this.get(' isHeaderNavigatorDropdown'));
         this.set('categorys', HubStar.Cate.find({}));
+        
         this.set('subcate', []);
         this.set('subcategories', []);
         
@@ -381,6 +382,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('subcate', []);
         this.set('subcategories', []);
         for (var i = 0; i < data.get('subcate').get('length'); i++) {
+           var str= data.get('subcate').objectAt(i).get('category_topic');
+           str=str.substr(0,str.indexOf(' '));
+           console.log(str);
             this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')});
         }    
         

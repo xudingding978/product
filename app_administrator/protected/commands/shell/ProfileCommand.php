@@ -27,7 +27,10 @@ class ProfileCommand extends Controller_admin {
             $this->checkNumber();
         } elseif ($action == 'desc') {
             $this->correctCollectionDescription();
-        } else {
+        }elseif ($action == 'test') {
+            $this->profileChangeId();
+        }
+        else {
             echo "please input an action!!";
         }
 
@@ -160,6 +163,222 @@ class ProfileCommand extends Controller_admin {
             $this->writeToLog($this->log_path, $message);
         }
     }
+    
+    public function changePhotoOwnerID($bucket){
+            //  $bucket="test";
+         $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = $bucket;
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"vision-wallcoverings-nz\"")
+                ->default_field('couchbaseDocument.doc.owner_id');
+        $must2 = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()->query("photo")
+                ->default_field('couchbaseDocument.doc.type');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
+                must($must2);
+        $request->index($index)->type("couchbaseDocument");
+        $request->from(0)
+                ->size(1000);
+        $request->query($bool);
+        //   print_r($bool);
+
+        $response = $request->execute();
+
+        echo "number of file: " . count($response);
+        foreach($response as $photo){
+             $id = $photo['id'];
+            $ch = $this->couchBaseConnection($bucket);
+            $result = $ch->get($id);
+            //   if($result!= null){
+            $result_arr = CJSON::decode($result, true);
+             if ($result_arr != null && $result_arr["owner_id"] != null && $result_arr["owner_id"] != "") {
+                $result_arr["owner_id"] = "aspiring-walls-nz";
+                $result_arr["owner_title"] = "Aspiring Walls NZ";
+
+              $result_arr['object_image_url']=str_replace("vision-wallcoverings-nz", "aspiring-walls-nz", $result_arr["object_image_url"]);
+                $result_arr['owner_profile_pic']=str_replace("vision-wallcoverings-nz", "aspiring-walls-nz", $result_arr["owner_profile_pic"]);
+
+                
+                $result_arr["photo"][0]["photo_image_original_url"] = str_replace("vision-wallcoverings-nz", "aspiring-walls-nz", $result_arr["photo"][0]["photo_image_original_url"]);
+                $result_arr["photo"][0]["photo_image_hero_url"] = str_replace("vision-wallcoverings-nz", "aspiring-walls-nz", $result_arr["photo"][0]["photo_image_hero_url"]);
+                $result_arr["photo"][0]["photo_image_thumbnail_url"] = str_replace("vision-wallcoverings-nz", "aspiring-walls-nz", $result_arr["photo"][0]["photo_image_thumbnail_url"]);
+                $result_arr["photo"][0]["photo_image_preview_url"] = str_replace("vision-wallcoverings-nz", "aspiring-walls-nz", $result_arr["photo"][0]["photo_image_preview_url"]);
+                echo $result_arr["owner_id"]."\n";
+            } else {
+                $message .= $id . " Does not have owner_id in its data";
+            }
+              if ($ch->set($id, CJSON::encode($result_arr))) {
+                echo "Document: " . $id . "\r\n" . "owner_id has been changed to " . $result_arr["owner_id"]. "\r\n" .
+             
+                $message .= $id ." ". $result_arr["owner_id"]."\n";
+            } else {
+                echo $id . " fail to set the value into couchbase document! \r\n";
+                $message .= $id . " fail to set the value into couchbase document! \r\n";
+            }
+
+        }
+        return $message;
+    }
+    
+       public function changePartnerID($bucket){
+        //   $bucket="develop";
+           
+         $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = $bucket;
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"vision-wallcoverings-nz\"")
+                ->default_field('couchbaseDocument.doc.profile.profile_partner_ids');
+        $must2 = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()->query("profile")
+                ->default_field('couchbaseDocument.doc.type');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
+                must($must2);
+        $request->index($index)->type("couchbaseDocument");
+        $request->from(0)
+                ->size(500);
+        $request->query($bool);
+        //   print_r($bool);
+
+        $response = $request->execute();
+
+        echo "number of file: " . count($response);
+        foreach($response as $profile){
+             $id = $profile['id'];
+            $ch = $this->couchBaseConnection($bucket);
+            $result = $ch->get($id);
+            //   if($result!= null){
+            $result_arr = CJSON::decode($result, true);
+             if ($result_arr != null && $result_arr["profile"][0]["profile_partner_ids"] != null && $result_arr["profile"][0]["profile_partner_ids"] != "") {
+                $result_arr["profile"][0]["profile_partner_ids"] = str_replace("vision-wallcoverings-nz", "aspiring-walls-nz", $result_arr["profile"][0]["profile_partner_ids"]);
+                echo $result_arr["profile"][0]["profile_partner_ids"]."\n";
+            } else {
+                $message .= $id . " Does not have profile_partner_ids in its profile";
+            }
+              if ($ch->set($id, CJSON::encode($result_arr))) {
+                echo "Document: " . $id . "\r\n" . "partner_id has been changed to " . $result_arr["profile"][0]["profile_partner_ids"] . "\r\n" .
+             
+                $message .= $id ." ". $result_arr["profile"][0]["profile_partner_ids"]."\n";
+            } else {
+                echo $id . " fail to set the value into couchbase document! \r\n";
+                $message .= $id . " fail to set the value into couchbase document! \r\n";
+            }
+
+        }
+        return $message;
+    }
+    
+    
+         public function changeFollowerID($bucket){
+                 //     $bucket="develop";
+         $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = $bucket;
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"vision-wallcoverings-nz\"")
+                ->default_field('couchbaseDocument.doc.user.followings.follower_id');
+        $must2 = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()->query("user")
+                ->default_field('couchbaseDocument.doc.type');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
+                must($must2);
+        $request->index($index)->type("couchbaseDocument");
+        $request->from(0)
+                ->size(1000);
+        $request->query($bool);
+        //   print_r($bool);
+
+        $response = $request->execute();
+
+        echo "number of file: " . count($response);
+        foreach($response as $user){
+             $id = $user['id'];
+
+            $ch = $this->couchBaseConnection($bucket);
+            $result = $ch->get($id);
+            //   if($result!= null){
+            $result_arr = CJSON::decode($result, true);
+            print_r($result_arr);
+            if($result_arr != null ){
+                echo "result_arr != null \n";
+            }if($result_arr["followings"]  != null ){
+                echo "esult_arr[followings] != null \n";
+            }if($result_arr["followings"]  != "" ){
+                echo "esult_arr[followings] != '' \n";
+            }
+                            print_r(var_export($result_arr["followings"])."1111111111111");
+            
+             if ($result_arr != null && $result_arr["followings"] != null && $result_arr["followings"] != "") {
+ 
+                // foreach($result_arr["followings"] as $following){
+                 for($i=0;$i<sizeof($result_arr["followings"]); $i++){                   
+                     $result_arr["followings"][$i]["follower_id"] = str_replace("vision-wallcoverings-nz", "aspiring-walls-nz", $result_arr["photo"][$i]["follower_id"]);
+                     echo $$result_arr["followings"][$i]["follower_id"] ."\n";
+                 }
+
+            } else {
+                $message .= $id . " Does not have following in its data";
+            }
+              if ($ch->set($id, CJSON::encode($result_arr))) {
+                echo "Document: " . $id . "\r\n" . "following has been changed ". "\r\n" ;
+             
+               // $message .= $id ." ". $result_arr["owner_id"]."\n";
+            } else {
+                echo $id . " fail to set the value into couchbase document! \r\n";
+                $message .= $id . " fail to set the value into couchbase document! \r\n";
+            }
+
+        }
+        return $message;
+    }
+    
+    public function profileChangeId(){
+        $bucket="production";
+        $record="vision-wallcoverings-nz";
+        $replace="aspiring-walls-nz";
+        $replaced_name="Aspiring Walls NZ";
+        $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = "/var/log/yii/$start_time.log";
+        $ImageMessage=$this->changePhotoOwnerID($bucket);
+        $this->writeToLog($log_path, $ImageMessage);
+        $partnerMessage=$this->changePartnerID($bucket);
+        $this->writeToLog($log_path, $partnerMessage);
+   //     $this->changeFollowerID();
+         $ch = $this->couchBaseConnection($bucket);
+            $result = $ch->get("trendsideas.com/profiles/".$record);
+            //   if($result!= null){
+            $result_arr = CJSON::decode($result, true);
+            $result_arr['id']=$replace;
+            $result_arr['owner_title']=$replaced_name;
+            $result_arr['profile'][0]['id']= str_replace($record, $replace, $result_arr["profile"][0]["id"]);
+            $result_arr['profile'][0]['profile_hero_url']= str_replace($record, $replace, $result_arr["profile"][0]["profile_hero_url"]);
+            $result_arr['profile'][0]['profile_pic_url']= str_replace($record,$replace, $result_arr["profile"][0]["profile_pic_url"]);
+            $result_arr['profile'][0]['profile_bg_url']= str_replace($record, $replace, $result_arr["profile"][0]["profile_bg_url"]);
+            $result_arr['profile'][0]['profile_hero_cover_url']= str_replace($record, $replace, $result_arr["profile"][0]["profile_hero_cover_url"]);
+            $result_arr['profile'][0]['profile_about_us']=str_replace($record, $replace, $result_arr["profile"][0]["profile_about_us"]);
+            $result_arr['profile'][0]['profile_name']=$replaced_name;
+            $result_arr['profile'][0]['profile_keywords']=str_replace($record, $replace, $result_arr["profile"][0]["profile_keywords"]);
+            for($i=0; $i<sizeof($result_arr['profile'][0]['collections']); $i++){
+                $result_arr['profile'][0]['collections'][$i]['cover']=str_replace($record, $replace, $result_arr['profile'][0]['collections'][$i]['cover']);
+                 $result_arr['profile'][0]['collections'][$i]['optional']=str_replace($record, $replace, $result_arr['profile'][0]['collections'][$i]['optional']);
+          
+            }
+            $new_id="trendsideas.com/profiles/".$replace;
+            if($ch->add($new_id, CJSON::encode($result_arr))){
+                echo "change id successful";
+            }
+
+      //      $message=  var_export($collection_arr,TRUE);
+            //$this->writeToLog($log_path, $message);
+    }
+    
+    
+  
+
 
     public function updateCouchbasePhoto() {
         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';

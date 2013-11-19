@@ -116,6 +116,7 @@ HubStar.ConversationController = Ember.Controller.extend({
                         dataNew["two"] = false;
                         dataNew["three"] = false;
                         dataNew["four"] = true;
+
                         dataNew["onePic"] = params[i]["conversationPhoto"][0]["photo_url"];
                         dataNew["twoPic"] = params[i]["conversationPhoto"][1]["photo_url"];
                         dataNew["threePic"] = params[i]["conversationPhoto"][2]["photo_url"];

@@ -178,6 +178,9 @@ class PhotosController extends Controller {
             $oldRecord['object_description'] = $newRecord['photo']['photo_caption'];
             $oldRecord['photo'][0]['photo_title'] = $newRecord['photo']['photo_title'];
             $oldRecord['photo'][0]['photo_caption'] = $newRecord['photo']['photo_caption'];
+            
+            $keyword = $this->getProfileKeyword($oldRecord['owner_id']);
+            $oldRecord['keyword'] = $keyword;
 
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
@@ -187,6 +190,14 @@ class PhotosController extends Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
+    }
+    
+    public function getProfileKeyword($owner_id) {
+        $cb = $this->couchBaseConnection();
+        $url = $this->getDomain() . "/profiles/" . $owner_id;
+        $tempProfile = $cb->get($url);
+        $profile = CJSON::decode($tempProfile, true);
+        return $profile['keyword'];       
     }
 
     public function updateCouchbasePhoto($id) {

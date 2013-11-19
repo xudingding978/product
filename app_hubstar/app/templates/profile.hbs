@@ -58,6 +58,18 @@
                                 {{/if}}
                             </div>
 
+
+
+                            <!--STAR RATING-->
+                            <div style="position: absolute;width: 500px;">
+                                <span class="stars" style="float: left;margin: 5px 15px 5px 0;" ><span id="starsize" ></span></span>  
+                                <div class="hint--right hint--rounded" data-hint="Review this profile!"  {{action rateEditing model.id}} >
+                                     <div class="contactmeicon easing" style="float: left;  width: 35px; height: 35px;line-height: 31px;text-align: center;font-weight: bold;font-size: 13px;border: 2px solid #aaa;">{{this.profile_average_review}}</div>
+                                    <div class="hover-opacity" style="font-size: 13px; font-weight: bold; color: #fff; cursor: pointer;  float: left;  margin: 8px 10px;">{{this.reviews.length}} • Reviews</div> 
+                                </div>
+                            </div>   
+
+
                             <!--contact me-->
                             <div class="contactmebtn hint--bottom hint--rounded easing" data-hint="Contact us!">
                                 <a class="contactmeicon easing" {{action editingContactForm }}><i class="icon-envelope easing" style="font-size: 18px;"></i></a>
@@ -76,6 +88,9 @@
                             <li class='ite' {{action tShare}} >
                         <k class="icon-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span>
                         </li>
+                        <li class='ite' {{action pShare}} >
+                    <k class="icon-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Pinterest</span>
+                    </li>
                         <li class="ite" {{action gpShare}}>
                     <k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
                     </li>
@@ -234,6 +249,7 @@
                                 </table>
                                 {{#unless controller.editingContact}}
 
+
                                 {{else}}
                                 <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
                                     <div  type="button" class="new-btn blue-btn" {{action yes controller.contact }}> <i class="icon-ok icon-white"></i></div>
@@ -298,7 +314,8 @@
                             </div>
                         </div>
                     </div>
-                </td><!--LEFT COL ENDS -->
+                </td>
+                <!--LEFT COL ENDS -->
 
                 <!--RIGHT COL BEGINS -->
                 <td class="right_col" width="70%" valign="top">
@@ -379,27 +396,21 @@
                                 </ul>
                             </div>
 
-
-
-
-
-
-
                         </div>
 
-
-
-
                     </div>
-                </td><!--RIGHT COL ENDS -->
+                </td>
+
+
+                <!--RIGHT COL ENDS -->
             </tr>
         </tbody>
     </table>
 </div>
 </div>
-<!-- wrapper   end-->
 
 </div>
+
 
 <div class="back t-style-box"  style='width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0;;'>
     <div style="position: relative; top: 0; width: 100%;height: 300px;overflow: hidden; border-radius: 3px 3px 0 0;">
@@ -418,9 +429,11 @@
                 <li class="easing" {{action changeSize}}><a href="#tab3" data-toggle="tab">Account Settings</a></li>
                 <li class="easing" {{action changeSize}}><a href="#tab7" data-toggle="tab">Social Link</a></li>
                 {{#if controller.isAdmin}}
-                <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>
-                <li class="easing" {{action changeSize}}><a href="#tab5" data-toggle="tab">Keywords Settings</a></li>
+                <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>                
                 {{/if}}   
+                {{#if controller.isKeywordObjecttExist}}
+                <li class="easing" {{action changeSize}}><a href="#tab5" data-toggle="tab">Keywords Settings</a></li>
+                {{/if}}
             </ul>
         </div>
 
@@ -521,7 +534,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
+
 
                         <tr>
                             <td>Contact Number:</td>
@@ -986,7 +999,6 @@
 
                         <div class="" style="margin-top: 5px;">
 
-
                             <div class="controlbtn" style="left: 34%;">
                                 <span class="new-btn green-btn " {{action photoUpload}} ><k class='icon-save'> &nbsp;Save</span>
                                 <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" >Back</span> </a>
@@ -1023,10 +1035,8 @@
             </div>
 
         </div>
-
-
-
     </div>
+
 
 
 
@@ -1058,6 +1068,15 @@
     {{/if}}
 
 
+
+    {{#if controller.rateTime}}
+
+    {{render review this}}
+
+
+    {{/if}}
+    
+
     {{#unless HubStar.isLogin}}
     {{render "footer"}}
     {{/unless}}
@@ -1072,9 +1091,3 @@
     {{/if}}
 
 
-
-    <script>
-        $(document).on("mousemove", function(event) {
-            $("#panel").text("pageX: " + event.pageX + ", pageY: " + event.pageY);
-        });
-    </script>

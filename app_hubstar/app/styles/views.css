@@ -29,7 +29,7 @@
     -o-transition: all 0.5s ease;
 }
 
-.hover-opacity{opacity:.6}
+.hover-opacity{opacity:.6; cursor: pointer}
 .hover-opacity:hover{opacity:1}
 
 
@@ -1658,6 +1658,7 @@ div.album-description-bg{
     border-radius: 50%;
     width: 33px;
     height: 33px;
+    border: 1px solid #f3f3f3;
 }
 
 .comment-insert-field{

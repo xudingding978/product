@@ -10,7 +10,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     image_no: 1,
     selectedPhoto: null,
     isSelected: false,
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'checkingLoginStatus'],
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'checkingLoginStatus', 'editComment'],
     currentUser: null,
     currentUserProfile: null,
     photo_album_id: null,
@@ -110,6 +110,7 @@ console.log(megaObject);
                         if (HubStar.Mega.find(id).get('photo').get('length') === 1 && mega.get('id') !== id)
                         {
                             if (HubStar.Mega.find(id).get('collection_id') === collection_id) {
+                                // that.setPhotoStatus(HubStar.Mega.find(id).get("comments"));
                                 that.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
                             }
                         }
@@ -145,12 +146,12 @@ console.log(megaObject);
     keydown: function(e) {
         var currKey = 0, e = e || event;
 
+
         currKey = e.keyCode || e.which || e.charCode;    //支持IE、FF 
         if (currKey === 27) {
             window.history.back();
 
         }
-
     },
     closeWindow: function() {
         this.set('collectable', false);
@@ -169,12 +170,17 @@ console.log(megaObject);
             contactController.selectionCheckBox();
 
             this.set('contact', !this.get('contact'));
-            }
-
         }
-        ,
-                closeContact: function() {
+
+    }
+    ,
+    closeContact: function() {
         this.set('contact', false);
+    },
+    EditDelete: function(id, time_stamp) {
+    },
+    EditDeleteLeave: function(id, time_stamp) {
+       
     },
     addComment: function() {
         var commentContent = this.get('commentContent');
@@ -184,7 +190,8 @@ console.log(megaObject);
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
-            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
+            var message_id = createMessageid() + commenter_id;
+            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url, "message_id": message_id,
                 "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
                 "is_delete": false, optional: this.get('megaResouce').get('type') + '/' + this.get('megaResouce').get('id')});
             comments.insertAt(0, tempComment);
@@ -194,15 +201,62 @@ console.log(megaObject);
             $('#commentBox').attr('style', 'display:none');
         }
     },
+    removeComment: function(object)
+    {
+        var id = this.get('megaResouce').get("id");
+        var message_id = object.get("message_id");
+        var delInfo = [id, message_id];
+
+        delInfo = JSON.stringify(delInfo);
+        var that = this;
+        this.get('megaResouce').get('comments').removeObject(object);
+        requiredBackEnd('comments', 'DeletePhotoComment', delInfo, 'POST', function(params) {
+        });
+    },
+    updateComment: function(object) {
+        this.get("controllers.editComment").setRelatedController("mega");
+        var comments = this.get('megaResouce').get('comments');
+        for (var i = 0; i < comments.get("length"); i++)
+        {        
+            if (comments.objectAt(i).get("message_id") === object.get("message_id"))
+            {            
+                object.set("isEdit", !object.get("isEdit"));
+            }
+            else
+            {
+                comments.objectAt(i).set("isEdit", false);
+            }
+        }
+        var msg = object.get("content");
+        HubStar.set("updateCommentmsg", msg);
+    },
     getCommentsById: function(id)
     {
         var mega = HubStar.Mega.find(id);
         var comments = mega.get('comments');
+        for (var i = 0; i < comments.get("length"); i++)
+        {
+            if (comments.objectAt(i).get("commenter_id") === localStorage.loginStatus)
+            {
+                comments.objectAt(i).set("isUserSelf", true);
+            }
+        }
         this.set('thisComments', comments);
+    },
+    dateTImeStamp: function(date) {
+        if (date === "" || date === null || date === undefined) {
+            return "";
+        } else {
+            var matches = date.match('^[0-9]+$');
+            if (matches !== null) {
+                return moment.unix(date).valueOf();
+            } else {
+                return moment(date).valueOf();
+            }
+        }
     },
     editingPhotoMegaData: function() {
         this.set('enableToEdit', !this.get('enableToEdit'));
-
     },
     yes: function(photoObject) {
         var photo_title = this.get('selectedPhoto.photo_title');
@@ -310,16 +364,15 @@ console.log(megaObject);
                 ).focus();
         return false;
     },
-
-      pShare: function() {
+    pShare: function() {
         this.dropdownPhotoSetting();
 
         var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
 
-                var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+        var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_original_url')) +
                 '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title'));
-                window.open(
+        window.open(
                 url,
                 'popupwindow',
                 'height=436,width=626'

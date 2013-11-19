@@ -62,7 +62,11 @@ HubStar.ArticleView = Ember.View.extend({
     },
     popupAibum: function(id) {
         HubStar.set('what', true);
-        $("#collection_tab_"+id).slideToggle("slow");
+       // $("#collection_tab1").slideToggle("slow");
+       setTimeout(function() {
+            $('.collection_tab1').attr('style', 'bottom: 0px; right: 0px; height: 300px;background-color: black;overflow:hidden;display:block; position: absolute;z-index: 5; width: 100%; opacity: .9;');
+            //$("#collection_tab1").attr('style', 'display: block');
+        }, 200);
     },
     openComment: function() {
 

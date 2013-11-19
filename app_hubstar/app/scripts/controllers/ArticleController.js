@@ -6,7 +6,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     captionTitle: "",
     readCaption: true,
     caption: '',
-    searchFromRoute:false,
+    searchFromRoute: false,
     collectionArticleId: null,
     checkLoginStatus: false,
     accessFromSearchBoard: false,

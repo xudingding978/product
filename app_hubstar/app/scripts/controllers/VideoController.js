@@ -13,10 +13,13 @@ HubStar.VideoController = Ember.Controller.extend({
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var that = this;
         var megaResouce = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": videoObject});
+
+
         this.set('megaResouce', megaResouce.objectAt(0));
         megaResouce.addObserver('isLoaded', function() {
             if (megaResouce.get('isLoaded')) {
                 that.set('megaResouce', megaResouce.objectAt(0));
+                        console.log(   that.get('megaResouce'));
                 var tempVideoObject = megaResouce.objectAt(0).get('videoes').get("content").objectAt(0);
                 that.set('videoObject', tempVideoObject);
                 that.set('video_iframe_code', tempVideoObject.data.video_iframe_code);

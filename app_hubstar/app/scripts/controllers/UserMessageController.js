@@ -17,7 +17,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
     isUploadPhoto: false,
     isEdit: true,
     isPosting: true,
-    oldPost:"",
+    oldPost: "",
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -39,7 +39,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
         if (localStorage.loginStatus) {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
-        }       
+        }
         this.getClientId(message); // It is used to get the mesage model      
     },
     getClientId: function(id) {
@@ -51,8 +51,8 @@ HubStar.UserMessageController = Ember.Controller.extend({
         var data = this.get('clientID');
         var dataNew = new Array();
         var that = this;
-        requiredBackEnd('messages', 'Read', data, 'POST', function(params) {       
-            
+        requiredBackEnd('messages', 'Read', data, 'POST', function(params) {
+
             that.set("contentMsg", []);
             for (var i = 0; i < params.length; i++)
             {
@@ -110,17 +110,19 @@ HubStar.UserMessageController = Ember.Controller.extend({
                     dataNew["replyMessageCollection"][j] = dataReply;
                 }
                 that.get("contentMsg").pushObject(dataNew);
+            
+
                 dataNew = new Array();
-            }             
+            }
             that.set('loadingTime', false);
-           
+
             if (that.get('controllers.notification').get("goMessage") !== undefined && that.get('controllers.notification').get("goMessage") !== null && that.get('controllers.notification').get("goMessage") !== "") {
-                var s = that.get('controllers.notification').get("goMessage");              
+                var s = that.get('controllers.notification').get("goMessage");
                 that.goToMessage(s);
             }
             if (that.get('controllers.notificationTop').get("goMessage") !== undefined && that.get('controllers.notificationTop').get("goMessage") !== null && that.get('controllers.notificationTop').get("goMessage") !== "") {
                 var s = that.get('controllers.notificationTop').get("goMessage");
-                
+
                 that.goToMessageTop(s);
             }
             setTimeout(function() {
@@ -130,17 +132,17 @@ HubStar.UserMessageController = Ember.Controller.extend({
         });
     },
     goToMessage: function(s)
-    {     
+    {
         var that = this;
         $(document).ready(function() {
-            setTimeout(function() {       
-                 var old = that.get("oldPost");
+            setTimeout(function() {
+                var old = that.get("oldPost");
                 $(old).removeClass("post-focus");
                 $(s).addClass("post-focus");
-                that.set("oldPost",s);
+                that.set("oldPost", s);
                 if (that.get("controllers.notification").get("reply_ids") !== undefined && that.get("controllers.notification").get("reply_ids") !== null && that.get("controllers.notification").get("reply_ids") !== "")
                 {
-                    
+
                     var thatthat = that;
                     setTimeout(function() {
                         thatthat.get('controllers.message').seeMore(that.get("controllers.notification").get("reply"));
@@ -159,7 +161,8 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 var old = that.get("oldPost");
                 $(old).removeClass("post-focus");
                 $(s).addClass("post-focus");
-                that.set("oldPost",s);
+                console.log(s);
+                that.set("oldPost", s);
                 if (that.get("controllers.notificationTop").get("reply_ids") !== undefined && that.get("controllers.notificationTop").get("reply_ids") !== null && that.get("controllers.notificationTop").get("reply_ids") !== "")
                 {
                     var thatthat = that;
@@ -261,7 +264,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             var that = this;
             var dataNew = new Array();
             requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
-               
+
                 that.set("isPosting", true);
                 dataNew["message_id"] = params["message_id"];
                 dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
@@ -288,6 +291,15 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 }
                 dataNew["replyMessageCollection"] = new Array();
                 that.get("contentMsg").insertAt(0, dataNew);
+                var thatthat = that;
+                var s = '#message_' + dataNew["message_id"];
+                setTimeout(function() {
+                    var old = thatthat.get("oldPost");
+                    $(old).removeClass("post-focus");
+                    console.log(s);
+                    $(s).addClass("post-focus");
+                    thatthat.set("oldPost", s);
+                }, 200);
                 that.set("isUploadPhoto", false);
                 dataNew = new Array();
                 setTimeout(function() {

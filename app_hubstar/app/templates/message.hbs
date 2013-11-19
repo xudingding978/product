@@ -94,6 +94,7 @@
 
 
     <div id="messageData_{{unbound model.message_id}}"  style="display: none">
+        <div id="messageScrollBar_{{unbound model.message_id}}">
         {{#each  model.replyMessageCollection}} 
         {{#unless this.enableToEdit}}
         <div class="your-relpy" style="padding: 10px 60px 10px 0;">
@@ -138,8 +139,9 @@
 
         {{render editReply this}}
         {{/unless}}
-        {{/each}}         
+        {{/each}}     
     </div>
+</div>
 
 
     <div class="hover-opacity easing" style="height: 20px; width: 100%; background-color: #f3f3f3;text-align: center;color: #555; border-top: 1px solid #ddd">  

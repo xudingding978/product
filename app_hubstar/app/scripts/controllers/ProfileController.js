@@ -914,6 +914,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     this.set('keyword_left', this.get('keyword_left') + 1);
                 }
             }
+            if (this.get('show_keyword_id').indexOf(keyword_id) > -1) {
+                this.set('show_keyword_id', this.get('show_keyword_id').replace(',' + keyword_id, ''));
+                for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
+                    if (this.get('show_keyword_array').objectAt(i).get('keyword_id') === keyword_id) {
+                        this.get('show_keyword_array').removeObject(this.get('show_keyword_array').objectAt(i));
+                        this.set('show_keyword_id', this.get('show_keyword_id').replace(',' + keyword_id, ''));
+                    }
+                }
+            }
         } else {
             for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
                 if (this.get('show_keyword_array').objectAt(i).get('keyword_id') === keyword_id) {

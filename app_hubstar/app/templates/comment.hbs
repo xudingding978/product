@@ -89,15 +89,16 @@
                         <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
                            {{name}}
                     </a>
-                    {{#if this.getUser}}
-                    <i class="icon-trash"  {{action removeComment this}}></i>                 
-                    <i class="icon-pencil" {{action editingCommentData this}}></i>
-                    {{/if}}
                     <div class="posttime-container">
                         <span class="posttime">{{date  time_stamp}}</span>
                     </div>
                 </div>
-
+                {{#if this.getUser}}
+                <span class="edit-comment easing">
+                    <i class="icon-trash"  {{action removeComment this}}></i>                 
+                    <i class="icon-pencil" {{action editingCommentData this}}></i>
+                </span>
+                {{/if}}
             </div>
 
             <div class="comment-content">

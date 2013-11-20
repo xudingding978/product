@@ -808,7 +808,11 @@ function program24(depth0,data) {
     'on': ("click"),
     'target': ("view")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n            <div class=\"profilepic-container\" >                   \n                <a href=\"#\" ");
+  data.buffer.push(">\n            <div class=\"profilepic-container\" >                   \n                <a href=\"#/profiles/");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "controller.megaResouce.owner_id", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "transitionToProfile", "megaResouce.owner_id", {hash:{},contexts:[depth0,depth0],types:["ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -818,7 +822,11 @@ function program24(depth0,data) {
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
     'src': ("controller.megaResouce.creator_profile_pic")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" class=\"profilepic\"/></a>                              \n            </div>\n            <div class=\"poster_user\">\n                <a class=\"poster-name\" href=\"#\" ");
+  data.buffer.push(" class=\"profilepic\"/></a>                              \n            </div>\n            <div class=\"poster_user\">\n                <a class=\"poster-name\" href=\"#/profiles/");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "controller.megaResouce.owner_id", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "transitionToProfile", "megaResouce.owner_id", {hash:{},contexts:[depth0,depth0],types:["ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -3283,7 +3291,17 @@ function program3(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "id", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+<<<<<<< HEAD
   data.buffer.push("\">  style=\"cursor: pointer\">\n                    ");
+=======
+  data.buffer.push("\">  style=\"cursor: pointer\">\n\n                    <img class=\"this-is-the-object\" ");
+  hashContexts = {'src': depth0};
+  hashTypes = {'src': "STRING"};
+  data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
+    'src': ("object_image_url")
+  },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push(" ");
+>>>>>>> 94fb5806f903d369a6c2be1968ae053a49981adf
   hashTypes = {};
   hashContexts = {};
   stack2 = helpers['if'].call(depth0, "controller.isUser", {hash:{},inverse:self.program(6, program6, data),fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
@@ -3649,7 +3667,11 @@ function program31(depth0,data) {
     'target': ("view"),
     'on': ("click")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n        <div class=\"masonry-object\">\n            <div class=\"masonry-object_poster\">  \n                <div class=\"profilepic-on-masonry\">\n                    <img  ");
+  data.buffer.push(">\n        <div class=\"masonry-object\">\n            <div class=\"masonry-object_poster\">  \n                <div class=\"profilepic-on-masonry\">\n                    <a href=\"#/profiles/");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "owner_id", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\">\n                        <img  ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "transitionToProfile", "owner_id", {hash:{},contexts:[depth0,depth0],types:["ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -3659,7 +3681,7 @@ function program31(depth0,data) {
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
     'src': ("owner_profile_pic")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push("/>\n                </div>\n                <div class=\"object_username\">  \n                    <a class=\"poster-name\" href=\"#/profiles/");
+  data.buffer.push("/>\n                    </a>\n                </div>\n                <div class=\"object_username\">  \n                    <a class=\"poster-name\" href=\"#/profiles/");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "owner_id", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -3688,7 +3710,17 @@ function program31(depth0,data) {
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "id", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+<<<<<<< HEAD
   data.buffer.push("\" >\n                        ");
+=======
+  data.buffer.push("\" >\n\n                        <img class=\"this-is-the-object\"");
+  hashContexts = {'src': depth0};
+  hashTypes = {'src': "STRING"};
+  data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
+    'src': ("object_image_url")
+  },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push(" ");
+>>>>>>> 94fb5806f903d369a6c2be1968ae053a49981adf
   hashTypes = {};
   hashContexts = {};
   stack2 = helpers['if'].call(depth0, "controller.isUser", {hash:{},inverse:self.program(34, program34, data),fn:self.program(32, program32, data),contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data});
@@ -5905,7 +5937,11 @@ function program22(depth0,data) {
     'on': ("click"),
     'target': ("view")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n            <div class=\"profilepic-container\">\n                <a class=\"profilepic\" href=\"#\" ");
+  data.buffer.push(">\n            <div class=\"profilepic-container\">\n                <a class=\"profilepic\" href=\"#/profiles/");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "megaResouce.owner_id", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "transitionToProfile", "megaResouce.owner_id", {hash:{},contexts:[depth0,depth0],types:["ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -5915,7 +5951,11 @@ function program22(depth0,data) {
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
     'src': ("controller.megaResouce.owner_profile_pic")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" /></a>              \n            </div>\n            <div class=\"poster_user\" >\n                <a class=\"poster-name\" href=\"#\" ");
+  data.buffer.push(" /></a>              \n            </div>\n            <div class=\"poster_user\" >\n                <a class=\"poster-name\" href=\"#/profiles/");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "megaResouce.owner_id", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "transitionToProfile", "megaResouce.owner_id", {hash:{},contexts:[depth0,depth0],types:["ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -11034,7 +11074,11 @@ function program18(depth0,data) {
     'on': ("click"),
     'target': ("view")
   },contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(">\n            <div class=\"profilepic-container\">\n                <a class=\"profilepic\" href=\"#\" ");
+  data.buffer.push(">\n            <div class=\"profilepic-container\">\n                <a class=\"profilepic\" href=\"#/profiles/");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "megaResouce.owner_id", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "transitionToProfile", "megaResouce.owner_id", {hash:{},contexts:[depth0,depth0],types:["ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
@@ -11044,7 +11088,11 @@ function program18(depth0,data) {
   data.buffer.push(escapeExpression(helpers.bindAttr.call(depth0, {hash:{
     'src': ("controller.megaResouce.owner_profile_pic")
   },contexts:[],types:[],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
-  data.buffer.push(" /></a>      \n\n            </div>\n            <div class=\"poster_user\" >\n\n                <a class=\"poster-name\" href=\"#\" ");
+  data.buffer.push(" /></a>      \n\n            </div>\n            <div class=\"poster_user\" >\n\n                <a class=\"poster-name\" href=\"#/profiles/");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "megaResouce.owner_id", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\" ");
   hashTypes = {};
   hashContexts = {};
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "transitionToProfile", "megaResouce.owner_id", {hash:{},contexts:[depth0,depth0],types:["ID","ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));

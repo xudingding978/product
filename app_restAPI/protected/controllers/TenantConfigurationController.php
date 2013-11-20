@@ -57,10 +57,22 @@ class TenantConfigurationController extends Controller {
     }
 
     public function actionDoesAdDisplay() {
-        $domain = $this->getDomain();
-        $configuration = $this->getProviderConfigurationByName($domain, "doesAdDisplay");
-        $configuration = CJSON::encode($configuration);
-        $this->sendResponse(200, $configuration);
+
+        $request_json = file_get_contents('php://input');
+        $request = CJSON::decode($request_json, true);
+        $feedback = null;
+            $domain = $this->getDomainWihoutAPI();
+            $configuration = $this->getProviderConfigurationByName($domain, "ads");
+        if (isset($request['adPageNo'])) {
+            $adPageNo = $request['adPageNo'];       
+            if ($adPageNo < sizeof($configuration)) {
+                $feedback = CJSON::encode($configuration[$adPageNo]);
+            }
+        }
+        else{
+               $feedback = CJSON::encode($configuration);
+        }
+        $this->sendResponse(200, $feedback);
     }
 
 }

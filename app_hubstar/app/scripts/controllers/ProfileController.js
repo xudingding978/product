@@ -14,17 +14,19 @@ var collection_title_record;
 var collection_desc_record;
 
 
-
 HubStar.ProfileController = Ember.ObjectController.extend({
     model: null,
     aboutMe: "aboutMe",
     isAboutUs: false,
     about_me: "",
+    rateTime: false,
+    google_map: "",
     address: "",
     suburb: "",
     boost: '',
     currentUserID: "",
     collections: [],
+    reviews: [],
     contentFollowerPhoto: [],
     contactChecking: false,
     collectionTag: true,
@@ -47,8 +49,17 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     hours: [],
     is_authentic_user: false,
     keywords: "",
+    keywords_array: [],
+    keyword_num: 0,
+    keyword_left: 0,
+    add_keywords: "",
+    show_keyword_id: "",
+    show_keyword_array: [],
+    dragTargetIndex: -1,
     last_name: "",
-    needs: ["profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor'],
+
+    needs: ["profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review','keywords', 'profileVideos', 'checkingLoginStatus'],
+
     name: "",
     facebook: "",
     twitter: "",
@@ -64,11 +75,16 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     profile_hero_url: "",
     profile_pic_url: "",
     profile_contact_number: "",
+    profile_google_map: "",
     profile_name: "",
     partnerTag: false,
+    reviewTag: false,
+    videoTag: false,
     partnerPage: true,
+    profile_average_review: '',
     profileSelectionStatus: "Collections",
     profileCollectionStatistics: "",
+    profileReviewStatistics: "",
     profilePartnerStatistics: "",
     profileFollowerStatistics: "",
     region: "",
@@ -80,7 +96,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     selectedTitle: "",
     timeSetting: "timeSetting",
     temp: [],
-    //  tempdesc: [],
     website: "",
     website_url: "",
     UploadImageMode: "",
@@ -89,14 +104,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     isPhotoUploadMode: false,
     isPhotoEditingMode: false,
     isCrop: false,
-
     isUpload: false,
     loadingTime: false,
-
     isFinished: false,
     isProfilePicture: false,
     isProfileHero: false,
     isProfileBackground: false,
+    isKeywordObjecttExist: false,
     CurrentImageSize: "",
     RequiredImageSize: "",
     isAdmin: false,
@@ -115,22 +129,27 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     projectDeleteDropdownContent: '',
     message: null,
     makeSureDelete: false,
+    popUpMap: false,
     willDelete: false,
     profile_partner_ids: null,
+    partnerSearchString: '',
     isTracking: false,
+    goBackType: false,
     cropsize: null,
+        fromAddress: '',
+        isInreview: false,
+         profile_average_review_length: '',
+    toAddress: '',
     init: function() {
 
         this.set('is_authentic_user', false);
-
     },
     goToProfileRoute: function(id)
     {
-     //   $('#user-stats > li').removeClass('selected-user-stats');
-//this.setProfile(id);
-      this.transitionToRoute('profile');
-//       $('#user-stats > li').removeClass('selected-user-stats');
-//        $('#defualt').addClass('selected-user-stats');
+        //this.transitionToRoute('user');
+        this.set("goBackType", true);
+        var model = {id: id};
+        this.transitionToRoute('profile', model);
     },
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);
@@ -169,6 +188,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('projectCategoryDropdownContent', profile.get('profile_package_name'));
         this.set('first_name', profile.get('profile_contact_first_name'));
         this.set('address', profile.get('profile_physical_address'));
+        this.set('partnerSearchString', '');
+        if (profile.get('profile_google_map') === null || profile.get('profile_google_map') === 'undefined' || profile.get('profile_google_map') === "") {
+            this.createGooglemap();
+        }
+        else {
+            this.set('profile_google_map', profile.get('profile_google_map'));
+        }
+        this.set('toAddress', profile.get('profile_physical_address') + ", " + profile.get('profile_suburb') + ", " + profile.get('profile_regoin') + ", " + profile.get('profile_country'));
+
         this.set('suburb', profile.get('profile_suburb'));
         this.set('last_name', profile.get('profile_contact_last_name'));
         this.set("profile_name", profile.get("profile_name"));
@@ -176,7 +204,20 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set("projectDeleteDropdownContent", profile.get("profile_isDeleted"));
         this.updateWorkingHourData(profile.get('profile_hours'));
         this.set("collections", profile.get("collections"));
+        this.set("reviews", profile.get("reviews"));
+        
 
+        this.set('profile_average_review_length', profile.get("profile_average_review_length"));
+       // document.getElementById("starsize").style.width="156px";
+       if(profile.get("profile_average_review_length")!=="" && profile.get("profile_average_review_length") !==null && profile.get("profile_average_review_length")!== undefined ){
+            $('#starsize').attr("style", "width:" + profile.get("profile_average_review_length") + "px");
+            this.set("profile_average_review", profile.get("profile_average_review"));
+       }
+       else {
+           $('#starsize').attr("style", "width:100px");
+           this.set("profile_average_review", "5");
+       }
+       
         var collections = profile.get("collections");
         if (this.get('controllers.profilePartners').get("partnerNew") !== undefined && this.get('controllers.profilePartners').get("partnerNew") !== null && this.get('controllers.profilePartners').get("partnerNew") !== "")
         {
@@ -184,14 +225,96 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.isFollowed();
         this.checkAuthenticUser();
-      this.labelBarRefresh();
 
-        //  this.set('profileSelectionStatus', 'Collections');
-        //this.selectCollection();
+
+        this.labelBarRefresh();
+        this.flipFrontBack();
+
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
         this.initStastics(profile);
         this.followerPhoto(id);
+
+//        if (profile.get("keywords") !==null && profile.get("keywords") !== "undefined" && profile.get("keywords").get('length') > 0) {
+        this.checkKeywordObjectExist();
+        this.set("keywords_array", profile.get('keywords'));
+        this.set("show_keyword_id", profile.get('show_keyword_id'));
+
+        if (profile.get("show_keyword_id") !== null && profile.get("show_keyword_id") !== "undefined" && profile.get("show_keyword_id") !== '') {
+            this.setShowKeywordsArray(profile.get('show_keyword_id'), profile.get('keywords'));
+        } else {
+            this.set('show_keyword_id', '');
+            this.set('show_keyword_array', []);
+        }
+//        } else {            
+//            this.setKeywordsArray(this.get('model').get('profile_keywords'));
+//        }
+        if (profile.get("profile_keywords_num") !== null && profile.get("profile_keywords_num") !== "undefined" && profile.get("profile_keywords_num") !== "") {
+            
+            this.set("keyword_num", profile.get("profile_keywords_num"));
+        } else {
+            this.setKeywordsNum(this.get('model').get('profile_package_name'));
+        }
+        this.set('keyword_left', parseInt(this.get("keyword_num")) - profile.get('keywords').get('length'));
+    },
+    checkKeywordObjectExist: function() {
+        if (this.get('model').get('keywords') !== null && this.get('model').get('keywords') !== 'undefined' && this.get('model').get('keywords').get('length') > 0) {
+            this.set('isKeywordObjecttExist', true);
+        } else {
+            this.set('isKeywordObjecttExist', false);
+        }
+    },
+    setShowKeywordsArray: function(show_keywords_id, keywords) {
+        var newArray = [];
+        for (var i = 0; i < keywords.get('length'); i++) {
+            if (show_keywords_id.indexOf(keywords.objectAt(i).get('keyword_id')) !== -1) {
+                newArray.push(keywords.objectAt(i));
+            }
+        }
+        this.set('show_keyword_array', newArray);
+    },
+//    setKeywordsArray: function(keywords) {
+//        if (keywords !== undefined && keywords !== null && keywords !== '') {
+//            this.set('keywords_array', []);
+//            var keywords_array = keywords.split(",");
+//            for (var i = 0; i < keywords_array.get('length'); i++) {
+//                var keyword = HubStar.Keyword.createRecord({"keyword_id": i, "keyword_name": keywords_array[i], "create_date": new Date().getTime(), 
+//                                                                                            "expire_date": null, "value": null, 'profile_id': this.get('model').get('id'), 'collection_id': null, "is_delete": false});
+//                this.get('keywords_array').insertAt(i,keyword);
+//            }
+//        }
+//    },
+    setKeywordsNum: function(profile_package_name) {
+        if (profile_package_name === 'Platinum') {
+            this.set('keyword_num', 200);
+        } else if (profile_package_name === 'Gold') {
+            this.set('keyword_num', 100);
+        } else if (profile_package_name === 'Silver') {
+            this.set('keyword_num', 50);
+        } else if (profile_package_name === 'Bronze') {
+            this.set('keyword_num', 25);
+        }
+
+
+
+    },
+    createGooglemap: function() {
+
+        var geocoder = new google.maps.Geocoder();
+        var addressmap = this.get('model').get("profile_physical_address") + ", " + this.get('model').get("profile_suburb") + ", " + this.get('model').get("profile_regoin") + ", " + this.get('model').get('profile_country');
+        var that = this;
+
+        geocoder.geocode({'address': addressmap}, function(results) {
+            var imageMap = "http://maps.googleapis.com/maps/api/staticmap?center=" + results[0].geometry.location.lat() + "," + results[0].geometry.location.lng() + "&markers=" + results[0].geometry.location.lat() + "," + results[0].geometry.location.lng() + "&zoom=15&size=300x250&maptype=roadmap&sensor=false";
+            that.set('profile_google_map', imageMap);
+
+            requiredBackEnd('profiles', 'googleMap', [that.get('profile_google_map'), that.get('model').get('id')], 'POST', function(params) {
+            });
+        });
+    },
+    popUpGoogleMap: function() {
+
+        this.set('popUpMap', true);
     },
     followerPhoto: function(id)
     {
@@ -221,7 +344,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     labelBarRefresh: function() {
         this.set("profileSelectionStatus", "Collections");
-
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
         $('#user-stats > li').click(function() {
@@ -410,6 +532,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         {
             this.set('profileCollectionStatistics', 0);
         }
+
+        if (this.get("reviews").get("length") !== 0) {
+            this.set('profileReviewStatistics', this.get("reviews").get("length"));
+        }
+        else
+        {
+            this.set('profileReviewStatistics', 0);
+        }
     },
     paternsStatistics: function(length) {
         this.set('profilePartnerStatistics', length);
@@ -443,9 +573,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     updateCollectionInfo: function() {
         if (this.get('newDesc').length < 256) {
             this.get('selectedCollection').set('title', this.get('newTitle'));
-
             this.get('selectedCollection').set('desc', this.get('newDesc'));
-
             var collectionController = this.get('controllers.collection');
             var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
             collection.set('optional', this.get('model').get('id'));
@@ -468,11 +596,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('uploadChecking', !this.get('uploadChecking'));
     },
     editingContactForm: function() {
-        this.sendEventTracking('event', 'button', 'click', 'Contact us');
-        var contactController = this.get('controllers.contact');
 
-        contactController.setSelectedMega(this.get('currentUserID'));
-        this.set('contactChecking', !this.get('contactChecking'));
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            this.sendEventTracking('event', 'button', 'click', 'Contact us');
+            var contactController = this.get('controllers.contact');
+
+            this.get("controllers.contact").set('secondStepOfContactEmail', false);
+            this.get("controllers.contact").set('firstStepOfContactEmail', false);
+
+            contactController.setSelectedMega(this.get('currentUserID'));
+            this.set('contactChecking', !this.get('contactChecking'));
+        }
     },
     closeContact: function() {
         this.set('contactChecking', false);
@@ -525,17 +660,19 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     followThisProfile: function() {
-        var profile_id = this.get('model').get('id');
-        if (this.checkFollowStatus() === false) {
-            this.get("controllers.userFollowings").followProfile(profile_id);
-            this.sendEventTracking('event', 'button', 'click', 'Follow');
-            this.set('follow_status', true);
-        } else {
-            this.get("controllers.userFollowings").unFollowProfile(profile_id);
-            this.sendEventTracking('event', 'button', 'click', 'unFollow');
-            this.set('follow_status', false);
-        }
 
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+            var profile_id = this.get('model').get('id');
+            if (this.checkFollowStatus() === false) {
+                this.get("controllers.userFollowings").followProfile(profile_id);
+                this.sendEventTracking('event', 'button', 'click', 'Follow');
+                this.set('follow_status', true);
+            } else {
+                this.get("controllers.userFollowings").unFollowProfile(profile_id);
+                this.sendEventTracking('event', 'button', 'click', 'unFollow');
+                this.set('follow_status', false);
+            }
+        }
 
     },
     socialLink: function(link) {
@@ -576,8 +713,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectCollection: function() {
 
-     $('#user-stats > li').removeClass('selected-user-stats');
+        $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
+
 
         this.sendEventTracking('event', 'button', 'click', 'Collections');
         this.set('partnerPage', 'Collections');
@@ -585,50 +723,88 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('partnerTag', false);
         this.set('followerProfileTag', false);
         this.set('collectionTag', true);
+        this.set('reviewTag', false);
+        this.set('videoTag', false);
         this.transitionToRoute('profileCollections');
+
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
+
+    },
+    selectVideo: function(model) {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+        this.sendEventTracking('event', 'button', 'click', 'Video');
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#video').addClass('selected-user-stats');
+        this.set('profileSelectionStatus', 'Videos');
+        this.get('controllers.profileVideos').getClientId(model);
+        this.set('videoTag', true);
+        this.set('partnerTag', false);
+        this.set('collectionTag', false);
+          this.set('reviewTag', false);
+        this.set('followerProfileTag', false);
+        this.transitionToRoute('profileVideos');
+                }
+
     },
     selectPartner: function(model) {
-       // $(window).scrollTop(1500);
+
+ if (this.get("controllers.checkingLoginStatus").popupLogin())
+{
         this.sendEventTracking('event', 'button', 'click', 'Partners');
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#network').addClass('selected-user-stats');
         HubStar.set("lastPositionId", model.id);
-        this.set('profileSelectionStatus', 'Partners');
-        //   this.get('controllers.profilePartners').getClientId(model);
+        this.set('profileSelectionStatus', 'Network');
         this.set('partnerTag', true);
         this.set('collectionTag', false);
         this.set('followerProfileTag', false);
+        this.set('reviewTag', false);
         this.get('controllers.itemProfiles').setPartnerRemove();
-
+        this.set('videoTag', false);
         this.transitionToRoute('partners');
+       
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
 
+}
     },
     selectFollower: function(model) {
-      //  $(window).scrollTop(1500);
+
+ if (this.get("controllers.checkingLoginStatus").popupLogin())
+     {
         this.sendEventTracking('event', 'button', 'click', 'Followers');
         this.set('profileSelectionStatus', 'Followers');
-         //this.get('controllers.userFollowers').getProfileId(model);
-        
         this.set('partnerTag', false);
         this.set('collectionTag', false);
         this.set('followerProfileTag', true);
-
+          this.set('reviewTag', false);
+        this.set('videoTag', false);
         this.transitionToRoute('profileFollowers');
-
+       setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    }
+    },
+    selectReview: function(model) {
+        this.sendEventTracking('event', 'button', 'click', 'Reviews');
+        this.set('profileSelectionStatus', 'Reviews');
+        this.set('partnerTag', false);
+        this.set('collectionTag', false);
+        this.set('followerProfileTag', false);
+        this.set('reviewTag', true);
+       this.set('videoTag', false);
+       this.transitionToRoute('reviews');
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
-
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
-        //update_About_record.set("profile_about_us", $('iframe').contents().find('.wysihtml5-editor').html());
         update_About_record.set("profile_about_us", editor.getValue());
-
         this.get('controllers.applicationFeedback').statusObserver(null, "Update successful");
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
         HubStar.store.save();
@@ -637,6 +813,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
         update_profile_record.set('profile_editors', this.get('editors'));
         update_profile_record.set('profile_keywords', this.get('keywords'));
+        update_profile_record.set('profile_keywords_num', parseInt(this.get('keyword_num')));
         update_profile_record.set('profile_regoin', this.get('region'));
         update_profile_record.set('profile_country', this.get('country'));
         update_profile_record.set('profile_boost', this.get('boost'));
@@ -644,7 +821,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set('profile_hero_url', this.get('profile_hero_url'));
         update_profile_record.set('profile_pic_url', this.get('profile_pic_url'));
         update_profile_record.set('profile_bg_url', this.get('profile_bg_url'));
-
+        update_profile_record.set('show_keyword_id', this.get('show_keyword_id'));
         this.saveLink('profile_facebook_link', 'facebook');
         this.saveLink('profile_twitter_link', 'twitter');
         this.saveLink('profile_googleplus_link', 'googleplus');
@@ -677,7 +854,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_name", this.get('profile_name'));
         update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
-
+        this.createGooglemap();
+        this.set('toAddress', update_profile_record.get('profile_physical_address') + ", " + update_profile_record.get('profile_suburb') + ", " + update_profile_record.get('profile_regoin') + ", " + update_profile_record.get('profile_country'));
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
@@ -685,6 +863,56 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.get('controllers.applicationFeedback').statusObserver(null, "Update successful");
 
         HubStar.store.save();
+    },
+//    saveShowKeywords: function() {
+//        var show_keyword_id = '';
+//        for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
+//            show_keyword_id = show_keyword_id+','+ this.get('keywords_array').objectAt(i).get('keyword_id');
+//        }
+//        this.set('show_keyword_id',show_keyword_id);
+//        this.saveUpdate();
+//    },
+    addKeywords: function() {
+        var keywords_JSON = [];
+        var add_keywords_array = this.get('add_keywords').split(',');
+        if (this.get('keywords_array').get('length') + add_keywords_array.get('length') <= this.get('keyword_num')) {
+            for (var i = 0; i < add_keywords_array.get('length'); i++) {
+                var keyword = this.addKeyword(add_keywords_array[i]);
+                keywords_JSON.push(JSON.stringify(keyword));
+            }
+            requiredBackEnd('keywords', 'addKeywords', keywords_JSON, 'POST', function(params) {
+            });
+            this.set('add_keywords', "");
+            this.set('keyword_left', this.get('keyword_left') - add_keywords_array.get('length'));
+        } else {
+            this.get('controllers.applicationFeedback').statusObserver(null, "You can not add keywords more than " + this.get('keyword_num'), 'failed');
+        }
+    },
+    addKeyword: function(keyword_name) {
+        var keyword_id = new Date().getTime() + Math.random().toString().substring(2, 7);
+        var keyword = HubStar.Keyword.createRecord({"keyword_id": keyword_id, "keyword_name": keyword_name, "create_date": new Date().getTime(),
+            "expire_date": null, "value": null, 'profile_id': this.get('model').get('id'), 'collection_id': null, "is_delete": false});
+        this.get('keywords_array').pushObject(keyword);
+        return keyword;
+    },
+    deleteKeywords: function(keyword_id, type) {
+        if (type === "all") {
+            for (var i = 0; i < this.get('keywords_array').get('length'); i++) {
+                if (this.get('keywords_array').objectAt(i).get('keyword_id') === keyword_id) {
+                    requiredBackEnd('keywords', 'delete', JSON.stringify(this.get('keywords_array').objectAt(i)), 'POST', function(params) {
+                    });
+                    this.get('keywords_array').removeObject(this.get('keywords_array').objectAt(i));
+                    this.set('keyword_left', this.get('keyword_left') + 1);
+                }
+            }
+        } else {
+            for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
+                if (this.get('show_keyword_array').objectAt(i).get('keyword_id') === keyword_id) {
+                    this.get('show_keyword_array').removeObject(this.get('show_keyword_array').objectAt(i));
+                    this.set('show_keyword_id', this.get('show_keyword_id').replace(',' + keyword_id, ''));
+                }
+            }
+        }
     },
     flipFrontClick: function() {
         $(".hover").addClass('flip');
@@ -731,12 +959,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             {
                 var size = "Your image size is " + width + "x" + height;
                 that.set('CurrentImageSize', size);
-
                 that.set('isCrop', true);
                 that.set('isUpload', true);
+
             }
         });
     },
+    
     saveLink: function(link_url, link) {
 
         var http = "http://";
@@ -762,22 +991,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('isPhotoUploadMode', false);
         this.set('isPhotoEditingMode', true);
         this.set('isFinished', false);
-
         this.set('isUpload', false);
 
         if (this.get('UploadImageMode') === "Profile Picture")
         {
             this.set('isProfilePicture', true);
             this.set('isProfileHero', false);
-            this.set('isProfileBackground', false);
-
-
+            this.set('isProfileBackground', false);         
         } else if (this.get('UploadImageMode') === "Profile Hero")
         {
             this.set('isProfilePicture', false);
             this.set('isProfileHero', true);
             this.set('isProfileBackground', false);
-
         } else if (this.get('UploadImageMode') === "Background")
         {
             this.set('isProfilePicture', false);
@@ -805,12 +1030,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 that.set('currentWidth', width);
                 that.set('currentHeight', height);
                 var data = {"RequireIamgeType": that.get('UploadImageMode')};
-
-               
                 requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
                     if ((width >= params.width) && (height >= params.height))
                     {
-                           
+
                         if (that.get('isUpload') === true) {
                             //    that.set('isCrop', false);
                             that.setTempImage();
@@ -821,19 +1044,19 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             that.setCropImage();
                         }
 
+
                         var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
                             'newStyleImageName': that.get('newStyleImageName'),
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': that.get('model.id')};
-                         that.set('loadingTime', true);
+                        that.set('loadingTime', true);
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
-                     //     $('#uploadStyleImg').attr("style", "display:none");
+                            //     $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoEditingMode', false);
                             that.set('isPhotoUploadMode', false);
                             that.set('isFinished', true);
                             that.set("isCrop", false);
                             HubStar.store.save();
-
                             that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
                             that.set('loadingTime', false);
                         });
@@ -842,15 +1065,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
 
                     else if (width < params.width || height < params.height) {
-                        that.set('loadingTime', false);  
+                        that.set('loadingTime', false);
                         that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height);
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
                         that.set('isCrop', false);
-
-
                         that.set('isUpload', false);
+
 
                     }
 
@@ -869,7 +1091,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     setTempImage: function() {
         var model = this.get('model');
-
         if (this.get('UploadImageMode') === "Profile Picture")
         {
             this.set('isProfilePicture', true);
@@ -901,7 +1122,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('newStyleImageName', "");
         this.set('CurrentImageSize', "");
         this.set('isCrop', false);
-
         this.set('isUpload', false);
 
         this.changeSize();
@@ -925,6 +1145,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         return "test";
 
+    },
+    rateEditing: function(id) {
+
+        this.set("rateTime", true);
+
+        if (this.get('reviewTag') === true) {
+            this.set('reviewTag', false);
+            this.set('isInreview', true);
+        }
     },
     setCollectionAttr: function() {
         this.set("newTitle", this.get('selectedCollection').get('title'));
@@ -957,12 +1186,17 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     dropdownPhotoSetting: function() {
         //  this.set('sharePhotoUrl', this.get('selectedPhoto').get('photo_image_thumbnail_url'));
         //  this.set('sharePhotoName', this.get('selectedPhoto').get('photo_title'));
-        $('#dropdown_id_').toggleClass('hideClass');
+
+          $("#dropdown_id_").toggleClass('hideClass');
+        $("#dropdown_id_").click(function() {
+            $(this).removeClass('hideClass');
+        }).mouseleave(function() {
+            $(this).addClass('hideClass');
+        });
     },
     // share to social facebook
     fbShare: function() {
         var that = this;
-
         var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
         var caption = '';
         if (this.get('profile_cover_text') !== null)
@@ -1038,8 +1272,52 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 'height=436,width=626'
                 ).focus();
         return false;
-    }
+    },
+    pShare: function() {
 
+        var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
+        var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+                '&media=' + encodeURIComponent(this.get('profile_pic_url')) +
+                '&description=' + encodeURIComponent(this.get('profile_name'));
+        window.open(
+                url,
+                'popupwindow',
+                'height=436,width=626'
+                ).focus();
+        return false;
+    },
+    keywordSearch: function(keyword) {
+        this.transitionToRoute('searchIndex');
+        this.get("controllers.application").set('search_string', keyword);
+        this.get("controllers.application").newSearch();
+    },
+    dragIntoFront: function() {
+        if (this.get('dragTargetIndex') < 0) {
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please drag keywords from the keywords list below.", "warnning");
+        } else if (this.get('show_keyword_array').get('length') > 9) {
+            this.get('controllers.applicationFeedback').statusObserver(null, "Your can maximum show 10 keywords on the profile.", "warnning");
+        } else {
+            if (this.get('show_keyword_id').indexOf(this.get('keywords_array').objectAt(this.get('dragTargetIndex')).get('keyword_id')) === -1) {
+                this.get('show_keyword_array').pushObject(this.get('keywords_array').objectAt(this.get('dragTargetIndex')));
+                this.set('show_keyword_id', this.get('show_keyword_id') + ',' + this.get('keywords_array').objectAt(this.get('dragTargetIndex')).get('keyword_id'));
+            } else {
+                this.get('controllers.applicationFeedback').statusObserver(null, "This keyword has already been in the show list.", "warnning");
+            }
+        }
+    },
+    partnerSearch: function()
+    {
+        if (this.get('partnerSearchString') !== null && this.get('partnerSearchString') !== '') {
+            var profilePartnersController = this.get("controllers.profilePartners");
+            profilePartnersController.searchPartner(this.get('partnerSearchString'));
+        }
+    },
+    partnerSearchReset: function(model)
+    {
+        var profilePartnersController = this.get("controllers.profilePartners");
+        this.set('partnerSearchString', '');
+        profilePartnersController.getClientId(model);
+    }
 }
 );
 

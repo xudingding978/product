@@ -1,285 +1,609 @@
-
-<div id="login_lightbox" onclick="document.getElementById('login_lightbox').style.display = 'none';
-        document.getElementById('login_container').style.display = 'none';">&nbsp;</div>
-<div class="hover panel" id="login_container">
-    <div class="front easing">
+<div  id="loginModal"class="blur_black" style=""></div>
 
 
-        <div class="head controlbtn-field">
-            <div type="button" {{action popupModal }} class="closeview"><i class="icon-remove"></i></div>
-            <img class="logonew"  style="margin: 30px auto 0; width: 92px; display: block;" src="../../../images/trendslogo(black).png"></img>
-            <div class="logincopy">
-                <p><strong>COLLECT YOUR ONLINE RESOURCE FOR KITCHENS, PRODUCTS, SERVICES & IDEAS</strong></p>
-                <p>
-                    Hundreds of videos+, thousands of articles and tens of thousands of high quality images from around the world showcasing: Architecture, Kitchen Design, Bathroom Design, Interiors, Landscape Design and Commercial Design. 
-                </p>
-            </div>
+<div id="profiles-main-container" class="Login-box" style="background-color: transparent;position: fixed; top: 30%; z-index: 10; margin: auto; left: 0px; right: 0px; width: 300px;height: 565px;border: 0;text-align: center;">   
 
-            <div id="dd" class="wrapper-dropdown-3" tabindex="1" style="height:45px;">
-
-                <div>
-                    <div id="dropdown-cover" class="dropdown_test"  style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px; border-radius: 3px 0 0 3px;">
-                        <div class="login-icon">
-                            <i class="icon-facebook icon-large">
-                            </i>
-                        </div>   
-                    </div>
-                    <div  id="dropdown-cover" onclick="Facebook(650, 400);" style="float: right; bottom: 10px; position: relative; width: 204.5px; height: 45px; margin-right: -9.5px; border-radius: 0 3px 3px 0;">
-                        <div class="sign-in-with" >Sign In with Facebook</div>
-                    </div>
-                </div>
-                <ul class="dropdown"  style="width:270px">
-                    <li  onclick="LinkedIn(650, 400);" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-linkedin-sign icon-large"></i>Sign in with LinkedIn</a></li>
-                    <li  onclick="Google(650, 400);" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
-                    <li  onclick="Yahoo(650, 400);" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
-                    <!--                    <li  onclick="Sina(650, 400);" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>-->
-                    <li  onclick="QQ(650, 400);" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
-                    <li  class='signup'><a style="color:rgb(0,153,68)" href="#email_login" {{action email_login}}><i class="icon-envelope icon-large"></i>Sign in with Email</a></li>
-                </ul>
-            </div>
-            <div class="panelcircle"><strong>OR</strong></div>
-        </div>
-        <div class="content ">
-            {{#unless mail}}
-            <div style="margin: 20px auto 0; font-weight: bold;">Other platforms you might prefer:</div>
-
-            <div style="margin: 10px auto 5px; width: 100%;">
-                <a  class="square-button" href='#' onclick="LinkedIn(650, 400);" >
-                    <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
-                    <div class="square-button-twitter"><i class="icon-linkedin-sign icon-large" style="float: left; margin: 11px 15px; width: auto; height:22px; line-height: 20px;"></i></div></a>
-
-                <a  class="square-button"  href='#' onclick="Google(650, 400);" >
-                    <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
-                    <div class="square-button-google"><i class="icon-google-plus icon-large" style="float: left; margin: 11px 15px; width: auto; height:22px; "></i></div></a>
-
-                <a  class="square-button"  href='#' onclick="Yahoo(650, 400);">
-                    <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
-                    <div class="square-button-yahoo"><img src="../../../images/yahoo(white).png" style="float: left; margin: 10px 0px; width: auto; height:22px;  "></img></div></a>
-
-
-
-                <a  class="square-button"  href='#' onclick="QQ(650, 400);">
-                    <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
-                    <div class="square-button-qq"><img src="../../../images/QQ(white).png" style="float: left; margin: 11px 9px; width: auto; height:22px;"></img></div></a>
-
-                <a  class="square-button" href="#email_login" {{action email_login}} >
-                    <div id="dropdown-cover" style="position: absolute; width: 45px; height: 45px; border-radius: 3px;"></div>
-                    <div class="square-button-email"><i class="icon-envelope icon-large" style="float: left; margin: 11px 13px; width: auto; height:22px; "></i></div></a> 
-
-            </div>
-            {{else}}
-
-
-
-            <div>
-
-                <tr>
-                    <td>
-                        <div style="display: block;">
-                            <div   style="margin: 0;width: 100%;">
-                                {{input type="text" value=loginusername placeholder="Username"}}
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                
-                <tr>
-                    <td>
-                        <div style="display: block;">
-                            <div   style="margin: 0;width: 100%;">
-                                {{input type="password" value=loginpassword placeholder="Password"}}
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </div>
-
-
-
-            <div style="position: absolute;top: 517px;left: 179px;">
-                <div  type="button" class="new-btn" {{action email_login }}>
-                      Cancel 
-            </div>
-            <div  type="button" class="new-btn green-btn"{{action login }} >
-                  Login
-        </div>
+    <div id="click-register-social" class="register-with easing social-active" style="border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;">
+        <i class="icon-facebook">&nbsp</i><a style="color: #888"> Register with social account</a>
     </div>
-    <div style="font-size: 11px;">
-        <a href='#'>Forgot your username or password?</a>
+
+    <div id="social-link" class="social-links-container" style="display: block;">
+
+        <div onclick="Facebook(650, 400);"class="social-login-iconbox">
+            <i  class="icon-facebook"></i>
+        </div>
+
+        <div onclick="Twitter(650, 400);" class="social-login-iconbox">
+            <i class="icon-twitter"></i>
+        </div>
+
+        <div onclick="Google(650, 400);" class="social-login-iconbox" style="">
+            <i  class="icon-google-plus"></i>
+        </div>
+
+        <div onclick="LinkedIn(650, 400);" class="social-login-iconbox">
+            <i  class="icon-linkedin"></i>
+        </div>
+
+        <div onclick="Sina(650, 400);" class="social-login-iconbox">
+            <i class="icon-weibo"></i>
+        </div>
+
     </div>
 
 
-
-
-    {{/unless}}
-
-    <div style="position: relative; text-align: center; font-size: 12px; margin-bottom: 15px;"> 
-        Don't have an account? Click <a  href="#" class='signup' {{action flipFrontClick}}>here </a> to sign up!
-    </div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<div class="back easing">
-
-    <div class="head controlbtn-field">
-        <div type="button" {{action popupModal }} class="closeview"><i class="icon-remove"></i></div>
-        <div style="font-size: 22px;margin: 20px auto 15px;"> 
-            <strong>Sign Up for your Free Account!</strong>
+    <!--This is the email register section-->
+    <div>
+        <div id="click-register" class="register-with easing register-clicker">
+            <i class="icon-envelope">&nbsp </i><a style="color: #888"> Register with Email</a>
         </div>
 
-        <div id="dd2" class="wrapper-dropdown-3" tabindex="1" style="top: 3px; height: 45px;">
-            <div>
-                <div id="dropdown-cover" class="dropdown_test_2"  style="float: left; bottom: 10px; position: relative; width: 64px; height: 45px; margin-left: -11px; padding-left: 35px; border-radius: 3px 0 0 3px;">
-                    <div class="login-icon">
-                        <i class="icon-facebook icon-large">
-                        </i>
-                    </div>   
+        <div   id="register-with-email-drop-down" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
+            <div style="padding: 0 8px;position: relative;">
+
+                <div style="border-bottom: 1px solid #e3e3e3; border-top:1px solid #e3e3e3;">
+                    <div id="first_name" class="login-textfield" style="width: 49%;display: inline-block;border: none">
+                        {{view Ember.TextField valueBinding="first_name" placeholder="First Name" }}
+                    </div>
+
+                    <div id="last_name" class="login-textfield" style="width: 49%;display: inline-block;border: none">
+                        {{view Ember.TextField valueBinding="last_name" placeholder="Last Name" }}
+                    </div>
                 </div>
-                <div  id="dropdown-cover" onclick="Facebook(650, 400);" style="float: right; bottom: 10px; position: relative; width: 204.5px; height: 45px; margin-right: -9.5px; border-radius: 0 3px 3px 0;">
-                    <div class="sign-in-with" >Sign In with Facebook</div>
+
+                <div  id="email" class="login-textfield" style="">
+                    {{view Ember.TextField valueBinding="email" placeholder="Your Email" }}
+                </div>
+
+                <div id="password" class="login-textfield"  style="">
+                    {{view Ember.TextField type="password" valueBinding="password" placeholder="Password" }}
                 </div>
             </div>
-            <ul class="dropdown"  style="width:270px">
-                <li  onclick="LinkedIn(650, 400);" ><a style="color:rgb(0,172,237)" href="#"><i class="icon-linkedin-sign icon-large"></i>Sign in with LinkedIn</a></li>
-                <li  onclick="Google(650, 400);" ><a style="color:rgb(211,72,54)" href="#"><i class="icon-google-plus icon-large"></i>Sign in with Google+</a></li>
-                <li  onclick="Yahoo(650, 400);" ><a style="color:rgb(123,0,153)" href="#"><img src='../../../images/yahoo.png' style='width: auto; height: 35px; float:left;margin: -3% -5% 0 6%;'>Sign in with Yahoo</a></li>
-                <!--                <li  onclick="Sina(650, 400);" ><a style="color:rgb(245,213,0)" href="#"><img src='../../../images/sina.png' style='width: auto; height: 35px; float:left;margin: -3% -3% 0 6%;'>Sign in with Sina</a></li>-->
-                <li  onclick="QQ(650, 400);" ><a style="color:rgb(62,59,62)" href="#"><img src='../../../images/qq.png' style='width: auto; height: 35px; float:left;margin: -3% -2% 0 7%;'>Sign in with QQ</a></li>
-            </ul>
+
+            <div id="register-btn" class="register-btn easing" style="" {{action signUp}} > Register</div>
         </div>
-        <div style="font-size: 11px; margin-bottom: 10px;">
-            Don't worry , we'll never post without your permission.
+
+
+        <div id="register-with-email-step-2" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
+            <div style="padding: 0 8px;position: relative;">
+
+                <div  class="login-textfield" style="border-top:1px solid #e3e3e3;">
+                    {{view Ember.TextField valueBinding="region" placeholder="Region" }}
+                </div>
+
+                <div style="border-bottom: 1px solid #e3e3e3;">
+                    <div class="login-select easing" style=""{{action setmale}}>
+                         Male
+                </div>
+
+                <div class="login-select easing" style=""{{action setfemale}}>
+                     Female
+            </div>
+        </div>
+
+        <div class="login-textfield"  style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;">
+            {{view Ember.TextField valueBinding="age" placeholder="How old are you?" }}
         </div>
     </div>
-    <div class="panelcircle" style="position: absolute; right: 0; top: 160px; margin: auto;left: 0; font-weight: bold">OR</div>
+    <div class="back-btn easing" style="" >Back</div>
+    <div class="register-btn easing register-btn-small"  {{action done}}>Done</div>
 
-    <div class="content">
+</div>
+<div id="missing-fields" class="black-tool-tip" style="display:none;">
+    <p>Please fill the mandatory fields.</p>
+</div>
+<div id="invalid-user-name-register" class="black-tool-tip" style="display:none;">
+    <p>The email address  you have entered is invalid.</p>
+</div>
+<div id="invalid-password" class="black-tool-tip" style="display:none;">
+    <p>Your password length should be between 6-40 characters long.</p>
+</div>
+<div id="email-in-use" class="black-tool-tip" style="display:none;">
+    <p>The email address you have entered is already in use.</p>
+</div>
+<div id="email-used-by-social" class="black-tool-tip" style="display:none;">
+    <p>The email address you have entered is already in use by a social account.</p>
+</div>
 
-        <div style="font-size: 14px; font-weight: bold; margin: 20px auto 0 auto;float:left;">
-            Sign Up with your Email Address:
-        </div>
+</div>
+<!--End of email register section-->
 
+<div id="user-login-pane"  style="display:none;border-radius: 5px 5px 0 0;">
 
-        <div>
-            <tr>
-                <td>
-                    <div  style="display: block; margin-bottom: 5px;" >
-
-                        <div  id="first_name" style="margin: 0;width: 49%;display: inline-block;">
-                            {{input type="text" value=first_name placeholder="First Name"}}
-                        </div>
-                        <div id="last_name" style="margin: 0;width: 49%;display: inline-block;">
-                            {{input type="text" value=last_name placeholder="Last Name"}}
-                        </div>
-
-                    </div>
-                </td>
-            </tr>
-            <td>
-                <div style="display: block;">
-                    <div   style="margin: 0;width: 100%;">
-                        {{input type="password" value=password placeholder="Password"}}
-                    </div>
-                </div>
-            </td>
-            </tr>  
-
-            <td>
-                <div style="display: block;">
-                    <div   style="margin: 0;width: 100%;">             
-                        {{input type="text" value=email placeholder="Your Email"}}
-                    </div>
-                </div>
-            </td>
-            <tr>
-        </div>
-
-
-
-
-        <div  type="button" class="new-btn" id="goback" style="position: absolute;top: 473px;left: 142px;" {{action flipFrontBack}}>
-              Go Back
+    <div id="social-login" class="register-with easing" style="border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;">
+        <i id="social-login" class="icon-facebook">&nbsp</i><a style="color: #888"> Login with social account</a>
     </div>
-    <div  type="button" class="new-btn green-btn" id="goback" style="position: absolute;top: 473px;left:284px;" {{action signUp}}>
-          Sign Up
-</div>
+    <div id="social-login-container" class="social-links-container" style="display: none;">
+
+        <div onclick="Facebook(650, 400);" class="social-login-iconbox">
+            <i  class="icon-facebook"></i>
+        </div>
+
+        <div onclick="Twitter(650, 400);" class="social-login-iconbox">
+            <i class="icon-twitter"></i>
+        </div>
+
+        <div onclick="Google(650, 400);" class="social-login-iconbox" >
+            <i  class="icon-google-plus"></i>
+        </div>
+
+        <div onclick="LinkedIn(650, 400);" class="social-login-iconbox">
+            <i class="icon-linkedin"></i>
+        </div>
+
+        <div onclick="Sina(650, 400);" class="social-login-iconbox">
+            <i class="icon-weibo"></i>
+        </div>
+
+    </div>
+
+
+    <div id="click-login" class="register-with easing active-tab" style="border-bottom: 1px solid #e3e3e3;">
+        <i class="icon-envelope">&nbsp </i><a style="color: #888"> Login with Email</a>
+    </div>
+
+    <div id="login-with-email-drop-down" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;">
+        <div style="padding: 0 8px;position: relative;">
+
+
+            <div id="loginUsername" class="login-textfield" style="">
+                {{view HubStar.LoginEnterKeyTextFieldView valueBinding="loginUsername" placeholder="Your Email" }}
+            </div>
+
+            <div id="loginPassword" class="login-textfield"  style="">
+                {{view HubStar.LoginEnterKeyTextFieldView type="password" valueBinding="loginPassword" placeholder="Password" }}
+                <div class="hint--right hint--rounded" data-hint="forgot password?" style="cursor:pointer;float: right;margin-top: -40px;height: 30px;color:#888;">
+                    <i class="icon-question-sign">&nbsp</i>
+                </div>
+            </div>
+        </div>
+
+        <div id="register-btn" class="register-btn easing" style="" {{action login}}> Login</div>
+    </div>
+    <div id="user-forgot-password-pane" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
+        <div  id="resetPasswordEmail"class="login-textfield" style="padding: 0 10px">
+            {{view Ember.TextField valueBinding="resetPasswordEmail" placeholder="Your Email" }}
+        </div>
+        <div class="back-btn easing" style="" >Back</div>
+        <div id='reset-btn' class="register-btn easing register-btn-small" {{action emailSend}}>Reset password</div>
+    </div>
+
+    <div class="black-tool-tip"id="forgot-message-container" style="display:none;">
+        <p>  We've sent you an email with instructions to reset your password.</p><br/>
+        <p>Please make sure it didn't wind up in your Junk Mail. If you aren't receiving our password reset emails, see our
+            <a class="white-text-hover easing" href="http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1" target="blank" style="text-decoration: underline"><b>help documents.</b></a>
+        </p>
+    </div>
+
+
+    <div id="invalid-user-name" class="black-tool-tip" style="display:none;">
+        <p>The email address  you have entered is invalid.</p>
+    </div>
+    <div id="invalid-account-type" class="black-tool-tip" style="display:none;">
+        <p>You are attempting to login with a social network account, please use the "Login with social account" link above.</p>
+    </div>
+    <div id="incorrect-password" class="black-tool-tip" style="display:none;">
+        <p>Incorrect password.</p>
+    </div>
+    <div id="invalid-account-type-reset" class="black-tool-tip" style="display:none;">
+        <p>You are attempting to reset your password with a social network account, please use the "Login with social account" link above.</p>
+    </div>
+    <div id="new-password" class="black-tool-tip" style="display:none;">
+        <p>  We've sent you an email with instructions to reset your password.</p><br/>
+        <p>Please make sure it didn't wind up in your Junk Mail. If you aren't receiving our password reset emails, see our
+            <a class="white-text-hover easing" href="http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1" target="blank" style="text-decoration: underline"><b>help documents.</b></a>
+        </p>
+    </div>
+
+
 
 </div>
 
+<a href="http://about.trendsideas.com" target="blank">
+    <div class="learnmore-btn easing" style="">Learn more</div>
+</a>
 
-
-
-
-
+<div style="margin: 15px 0;cursor:pointer;color: #fff; font-size: 12px;" onClick="loginPane();" id="login-btn" class="hover-opacity easing">Already had an acount? Click here to Login!</div>
 
 </div>
-</div>
-
-
-
 
 <script>
 
 
 
 
+            $('.Login-box #login-btn').text('Sign up for a new account!');
+            $('.Login-box .black-tool-tip').css('display', 'none');
+            $('.Login-box #click-register-social').css('display', 'none');
+            $('.Login-box #click-register').css('display', 'none');
+            $('.Login-box #social-link').css('display', 'none');
+            $('.Login-box #login-with-email-drop-down').css('display', 'block');
+            $('.Login-box #social-login-container').css('display', 'none');
+            $('.Login-box #click-login').addClass('active-tab');
+            $('.Login-box #social-login').removeClass('social-active');
+            $('.Login-box #user-forgot-password-pane').css('display', 'none');
+            $('.Login-box #forgot-message-container').css('display', 'none');
+            $('.Login-box #invalid-username').css('display', 'none');
 
-    function DropDown(el) {
-        this.dd = el;
-        this.placeholder = this.dd.children('span');
-        this.opts = this.dd.find('ul.dropdown > li');
-        this.val = '';
-        this.index = -1;
-        this.initEvents();
-    }
-    DropDown.prototype = {
-        initEvents: function() {
-            var obj = this;
+            $('.Login-box #register-with-email-drop-down').css('display', 'none');
+            $('.Login-box #register-with-email-step-2').css('display', 'none');
+            $('.Login-box #user-login-pane').css('display', 'block');
 
-            obj.dd.on('click', function(event) {
-                $(this).parents('div .wrapper-dropdown-3').toggleClass('active');
-                return false;
+            var loginState = true;
+            $(".Login-box #social-login").click(function() {
+
+                $('.Login-box #social-login').removeClass('social-active');
+                $('.Login-box #click-login').removeClass('active-tab');
+                if ($('.Login-box #social-login-container').css('display') === 'block') {
+                    $('.Login-box #social-login-container').animate({height: 'toggle'});
+                }
+                /* LOGIN TAB:  hiding social login */
+
+                if ($('.Login-box #social-login-container').css('display') === 'none') {
+                    $('.Login-box #social-login-container').animate({height: 'toggle'});
+                    $('.Login-box #social-login').addClass('social-active');
+                    if ($('.Login-box #login-with-email-drop-down').css('display') === 'block') {
+                        $('.Login-box #login-with-email-drop-down').animate({height: 'toggle'});
+                    }
+                    if ($('.Login-box #forgot-message-container').css('display') === 'block') {
+                        $('.Login-box #forgot-message-container').animate({opacity: 'toggle'});
+                    }
+                    if ($('.Login-box #invalid-username').css('display') === 'block') {
+                        $('.Login-box #invalid-username').animate({opacity: 'toggle'});
+                    }
+                    if ($('.Login-box #click-login').css('display') === 'none') {
+                        $('.Login-box #click-login').animate({opacity: 'toggle'});
+                    }
+                    if ($('.Login-box #user-forgot-password-pane').css('display') === 'block') {
+                        $('.Login-box #user-forgot-password-pane').animate({height: 'toggle'});
+                    }
+
+                    /* LOGIN TAB:  showing social login */
+
+                }
+            });
+            $(".Login-box #click-login").click(function() {
+                if ($('.Login-box #login-with-email-drop-down').css('display') === 'block' && $('#click-login').hasClass('active-tab')) {
+                    $('.Login-box #click-login').removeClass('active-tab');
+
+                    $('.Login-box #login-with-email-drop-down').animate({height: 'toggle'});
+
+                    if ($('.Login-box #social-login-container').css('display') === 'block') {
+                        $('.Login-box #social-login-container').animate({height: 'toggle'});
+                    }
+                }
+                /* LOGIN TAB: closing login with email */
+
+
+                if ($('.Login-box #login-with-email-drop-down').css('display') === 'none') {
+                    $('.Login-box #social-login').removeClass('social-active');
+                    $('.Login-box #click-login').addClass('active-tab');
+                    $('.Login-box #login-with-email-drop-down').animate({height: 'toggle'});
+
+                    if ($('.Login-box #social-login-container').css('display') === 'block') {
+                        $('.Login-box #social-login-container').animate({height: 'toggle'});
+                    }
+                } /* LOGIN TAB: clicking login*/
+            });
+            $('.Login-box #loginPassword > div').click(function() {
+                if ($('.Login-box #login-with-email-drop-down').css('display')) {
+                    $('.Login-box #click-login').removeClass('active-tab');
+
+                    $('.Login-box #login-with-email-drop-down').animate({height: 'toggle'});
+                    $('.Login-box #user-forgot-password-pane').animate({height: 'toggle'});
+
+                    if ($('.Login-box #social-login-container').css('display') === 'block') {
+                        $('.Login-box #social-login-container').animate({height: 'toggle'});
+
+                    }
+                    if ($('.Login-box #forgot-message-container').css('display') === 'block') {
+                        $('.Login-box #forgot-message-container').animate({opacity: 'toggle'});
+                    }
+                    if ($('.Login-box #click-login').css('display') === 'block') {
+                        $('.Login-box #click-login').animate({height: 'toggle'});
+
+                    }
+                }
+            });
+            /*  LOGIN TAB: show forget password pane */
+
+            $('.Login-box #user-forgot-password-pane .back-btn').click(function() {
+                $('.Login-box #user-forgot-password-pane').animate({height: 'toggle'});
+                $('.Login-box #login-with-email-drop-down').animate({height: 'toggle'});
+
+                if ($('.Login-box #social-login-container').css('display') === 'block') {
+                    $('.Login-box #social-login-container').animate({height: 'toggle'});
+
+                }
+
+
+            });
+            /* Back to login with email from forget password pane */
+
+
+            $('.Login-box #reset-btn').click(function() {
+
+            });
+            /* forgot password function showing thank you message */
+
+
+            $('.Login-box #user-forgot-password-pane .back-btn').click(function() {
+                if ($('.Login-box #forgot-message-container').css('display') === 'block') {
+                    $('.Login-box #forgot-message-container').animate({opacity: 'toggle'});
+                }
+            });
+            /* hiding thank you message when the user clicks the back btn */
+
+
+
+
+
+
+            $(".Login-box #click-register-social").click(function() {
+
+                $('.Login-box #click-register-social').removeClass('social-active');
+                $('.Login-box #click-register').removeClass('active-tab');
+                if ($('.Login-box #social-link').css('display') === 'block') {
+                    $('.Login-box #social-link').animate({height: 'toggle'});
+                    if ($('.Login-box #register-with-email-drop-down').css('display') === 'block') {
+                        $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
+                    }
+                    if ($('.Login-box #register-with-email-step-2').css('display') === 'block') {
+                        $('.Login-box #register-with-email-step-2').animate({height: 'toggle'});
+                    }
+                }
+                /* hiding social login */
+
+                if ($('.Login-box #social-link').css('display') === 'none') {
+                    $('.Login-box #social-link').animate({height: 'toggle'});
+                    $('.Login-box #click-register-social').addClass('social-active');
+                    if ($('.Login-box #register-with-email-drop-down').css('display') === 'block') {
+                        $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
+                    }
+                    if ($('.Login-box #register-with-email-step-2').css('display') === 'block') {
+                        $('.Login-box #register-with-email-step-2').animate({height: 'toggle'});
+                    }
+                }
+                /*  REGISTER TAB: showing social login section*/
+
             });
 
 
-            obj.opts.on('click', function() {
-                var opt = $(this);
-                obj.val = opt.text();
-                obj.index = opt.index();
-                obj.placeholder.text(obj.val);
+
+            $('.Login-box #register-with-email-step-2 .back-btn').click(function() {
+                $('.Login-box #register-with-email-step-2').removeClass('active-step');
+                $('.Login-box #register-with-email-step-2').animate({height: 'toggle'});
+                $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
+                checkSocial();
             });
-        },
-        getValue: function() {
-            return this.val;
-        },
-        getIndex: function() {
-            return this.index;
-        }
-    };
-    $(function() {
+            /* going back to step 1 function*/
 
 
-        var dd = new DropDown($('.dropdown_test'));
+            $(".Login-box .register-clicker").click(function() {
 
-        $(document).click(function() {
-            // all dropdowns
-            $('.wrapper-dropdown-3').removeClass('active');
-        });
-        var dd2 = new DropDown($('.dropdown_test_2'));
+                if ($('.Login-box #register-with-email-step-2').hasClass('active-step')) {
+                    //alert('closing step2');
 
-        $(document).click(function() {
-            // all dropdowns
-            $('.wrapper-dropdown-3').removeClass('active');
-        });
+                    $('.Login-box #social-link').animate({height: 'toggle'});
+                    $('.Login-box #register-with-email-step-2').animate({height: 'toggle'});
+                    if ($('.Login-box #click-register').hasClass('active-tab')) {
+                        $('.Login-box #click-register').removeClass('active-tab');
+                        /* closing step */
+                    }
 
-    });
+                    else {
+                        $('.Login-box #click-register').addClass('active-tab');
+                        /* opening step */
+                    }
 
+                }
+                /* closing/opening register section while on step 2 function */
+
+                if ($('.Login-box #register-with-email-drop-down').css('display') === 'block' && $('#click-register').hasClass('active-tab')) {
+                    //alert('closing step1');
+                    $('.Login-box #click-register').removeClass('active-tab');
+                    $('.Login-box #social-link').animate({height: 'toggle'});
+                    $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
+                    $('.Login-box #click-register-social').addClass('social-active');
+                }
+                /* closing register section while on step 1 function */
+
+
+                if ($('.Login-box #register-with-email-drop-down').css('display') === 'none' && $('#register-with-email-step-2').hasClass('')) {
+                    //alert('opening step 1');
+                    $('.Login-box #click-register-social').removeClass('social-active');
+                    $('.Login-box #click-register').addClass('active-tab');
+                    $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
+                    checkSocial();
+                }
+                /* clicking register step 1 function*/
+
+            });
+
+
+
+
+
+
+            function checkSocial() {
+                if ($('.Login-box #social-link').css('display') === 'block') {
+                    $('.Login-box #social-link').animate({height: 'toggle'});
+                }
+                else {
+                }
+            }
+            /* close social login checker function */
+
+
+            $('.Login-box .login-select').click(function() {
+                $('.Login-box .login-select').removeClass('login-selected');
+                $(this).addClass('login-selected');
+            });
+            /* select gender function */
+
+
+            function loginPane() {
+
+                if (loginState === false) {
+                    $('.Login-box #login-btn').text('Sign up for a new account!');
+                    $('.Login-box .black-tool-tip').css('display', 'none');
+                    $('.Login-box #click-register-social').css('display', 'none');
+                    $('.Login-box #click-register').css('display', 'none');
+                    $('.Login-box #social-link').css('display', 'none');
+                    $('.Login-box #login-with-email-drop-down').css('display', 'block');
+                    $('.Login-box #social-login-container').css('display', 'none');
+                    $('.Login-box #click-login').addClass('active-tab');
+                    $('.Login-box #social-login').removeClass('social-active');
+                    $('.Login-box #user-forgot-password-pane').css('display', 'none');
+                    $('.Login-box #forgot-message-container').css('display', 'none');
+                    $('.Login-box #invalid-username').css('display', 'none');
+
+                    $('.Login-box #register-with-email-drop-down').css('display', 'none');
+                    $('.Login-box #register-with-email-step-2').css('display', 'none');
+                    $('.Login-box #user-login-pane').css('display', 'block');
+                    loginState = true;
+                }
+                else {
+
+                    $('.Login-box #login-btn').text('Already had an acount? Click here to Login!');
+                    $('.Login-box .black-tool-tip').css('display', 'none');
+                    $('.Login-box #click-register-social').css('display', 'block');
+                    $('.Login-box #social-link').css('display', 'block');
+                    $('.Login-box #click-register').css('display', 'block');
+                    $('.Login-box #click-register-social').addClass('social-active');
+                    $('.Login-box #click-register').removeClass('active-tab');
+                    $('.Login-box #register-with-email-step-2').removeClass('active-step');
+                    $('.Login-box #user-login-pane').css('display', 'none');
+
+                    loginState = false;
+                }
+            }
+
+
+
+
+
+
+
+            function DropDown(el) {
+                this.dd = el;
+                this.placeholder = this.dd.children('span');
+                this.opts = this.dd.find('ul.dropdown > li');
+                this.val = '';
+                this.index = -1;
+                this.initEvents();
+            }
+            DropDown.prototype = {
+                initEvents: function() {
+                    var obj = this;
+
+                    obj.dd.on('click', function(event) {
+                        $(this).parents('div .wrapper-dropdown-3').toggleClass('active');
+                        return false;
+                    });
+                    obj.opts.on('click', function() {
+                        var opt = $(this);
+                        obj.val = opt.text();
+                        obj.index = opt.index();
+                        obj.placeholder.text(obj.val);
+                    });
+                },
+                getValue: function() {
+                    return this.val;
+                },
+                getIndex: function() {
+                    return this.index;
+                }
+            };
+
+            $(function() {
+
+                var dd3 = new DropDown($('.dropdown_test_3'));
+                $(document).click(function() {
+                    $('.wrapper-dropdown-3').removeClass('active');
+                });
+
+            });
+
+            function setDomain() {
+
+                var api_url = document.domain;
+                var api_domain_start_pos = api_url.indexOf('.');
+                var api_url = api_url.slice(api_domain_start_pos);
+
+                return api_url;
+            }
+
+
+            function Facebook(popupWidth, popupHeight) {
+
+                var left = (screen.width / 2) - (popupWidth / 2);
+                var top = (screen.height / 2) - (popupHeight / 2);
+                var address = document.URL;
+                //   HubStar.set('currentState',address);
+                // console.log(HubStar.get('currentState'));
+                //   console.log(address);
+                var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook#_=_";
+                newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                if (window.focus) {
+                    newwindow.focus();
+                }
+
+
+
+            }
+            function Yahoo(popupWidth, popupHeight) {
+                var left = (screen.width / 2) - (popupWidth / 2);
+                var top = (screen.height / 2) - (popupHeight / 2);
+                var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Yahoo";
+                newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                if (window.focus) {
+                    newwindow.focus();
+                }
+            }
+            function QQ(popupWidth, popupHeight) {
+                var left = (screen.width / 2) - (popupWidth / 2);
+                var top = (screen.height / 2) - (popupHeight / 2);
+                var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=QQ";
+                newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                if (window.focus) {
+                    newwindow.focus();
+                }
+            }
+            function Twitter(popupWidth, popupHeight) {
+                var left = (screen.width / 2) - (popupWidth / 2);
+                var top = (screen.height / 2) - (popupHeight / 2);
+                var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Twitter";
+                newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                if (window.focus) {
+                    newwindow.focus();
+                }
+            }
+            function Sina(popupWidth, popupHeight) {
+                var left = (screen.width / 2) - (popupWidth / 2);
+                var top = (screen.height / 2) - (popupHeight / 2);
+                var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Sina";
+                newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                if (window.focus) {
+                    newwindow.focus();
+                }
+            }
+            function LinkedIn(popupWidth, popupHeight) {
+                var left = (screen.width / 2) - (popupWidth / 2);
+                var top = (screen.height / 2) - (popupHeight / 2);
+                var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=LinkedIn";
+                newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                if (window.focus) {
+                    newwindow.focus();
+                }
+            }
+            function Google(popupWidth, popupHeight) {
+                var left = (screen.width / 2) - (popupWidth / 2);
+                var top = (screen.height / 2) - (popupHeight / 2);
+                var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Google";
+                newwindow = window.open(api_url, 'name', 'height=' + popupHeight * 1.5 + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                if (window.focus) {
+                    newwindow.focus();
+                }
+            }
 </script>

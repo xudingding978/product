@@ -4,14 +4,11 @@
     {{#if controller.islogin}}
     {{view HubStar.HeaderView}}
 
-    {{outlet profile}}
-
     {{outlet profiles}}
 
     {{outlet user}}
-
+    
     {{#unless controller.isotherpage}}
-
 
     {{view HubStar.DiscoveryView}}
 
@@ -23,19 +20,20 @@
 
     {{/unless}}
 
-
-    {{render "footer"}}
-
     {{else}}
 
     {{view HubStar.RegisterView}}
     {{/if}}
+    
 
-    {{outlet photos}}
+    {{outlet profile}}
+     {{outlet photos}}
     {{outlet articles}}
+    {{outlet videoes}}
     {{outlet "profileNew"}}
 
-    {{#if controller.islogin}}
+    {{#if HubStar.isLogin}}
+    {{render "footer"}}
     {{render platformBar}}
     {{/if}}
 
@@ -49,8 +47,8 @@
 
     {{render applicationFeedback}}
 
-    <div id="loading" class="loading-visible" >
-        <img style="width: 300px;position: relative;margin: auto;left: 0;right: 0; " src="../images/loading.gif" />
+
+    <div id="loading" class="loading" >
         <div id="blurringTextG">
             <div id="blurringTextG_1" class="blurringTextG">
                 C</div>
@@ -116,6 +114,7 @@
                 .</div>
         </div>
     </div>
+
 
 </div>
 <div style="background:#fff url('../images/bgtexture.png') repeat;width:100%;height:100%;position:fixed;z-index:1;top:0;left:0;"></div>

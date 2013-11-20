@@ -18,13 +18,12 @@ HubStar.UserMessageRoute = Ember.Route.extend({
         $('#message').addClass('selected-user-stats');      
         this.controllerFor('userMessage').setUserMessage(model);
 
-        $(window).scrollTop(0);
     },
     model: function(params) {
 
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
         return user_id;
-        
+
     }
 });

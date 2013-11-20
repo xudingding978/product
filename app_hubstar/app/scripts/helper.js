@@ -24,6 +24,11 @@ Handlebars.registerHelper('checkInputFilesSize', function(object) {
 
 });
 
+//Handlebars.registerHelper('subtraction', function(minuend, subtrahend) {
+//    minuend = Ember.getPath(this, minuend);
+//    subtrahend = Ember.getPath(this, subtrahend);
+//    return parseInt(minuend) - parseInt(subtrahend);
+//});
 
 
 
@@ -88,6 +93,20 @@ Ember.Handlebars.registerBoundHelper('date', function(date) {
         }
     }
 });
+
+Ember.Handlebars.registerBoundHelper('dateTImeStamp', function(date) {
+    if (date === "" || date === null || date === undefined) {
+        return "";
+    } else {
+        var matches = date.match('^[0-9]+$');
+        if (matches !== null) {
+            return moment.unix(date).valueOf();
+        } else {
+            return moment(date).valueOf();
+        }
+    }
+});
+
 Ember.Handlebars.registerBoundHelper('isThumbUped', function(userids, megaId) {
     if (userids === null || userids === undefined)
     {
@@ -110,4 +129,8 @@ Ember.Handlebars.registerBoundHelper('isThumbUped', function(userids, megaId) {
 
 Ember.Handlebars.registerBoundHelper('test', function(test) {
 });
+
+
+
+
 

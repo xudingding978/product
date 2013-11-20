@@ -23,17 +23,13 @@
     font-size: 16px;
 }
 
-
-
-
-
 .easing {
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
 }
 
-.hover-opacity{opacity:.6}
+.hover-opacity{opacity:.6; cursor: pointer}
 .hover-opacity:hover{opacity:1}
 
 
@@ -739,10 +735,11 @@ div.album-description-bg{
 }
 
 .profilepic-on-masonry{
-    width: 46px;
-    height: 46px;
+    max-width: 46px;
+    max-height: 60px;
+
     float: left;
-    margin: 20px 15px 0 0;
+    margin: 15px 15px 12px 0;
     padding: 0;
     -webkit-border-radius: 5px;
     -o-border-radius: 5px;
@@ -750,9 +747,9 @@ div.album-description-bg{
     -moz-border-radius: 5px;
     border-radius: 5px;
     overflow: hidden;
-    margin-bottom:12px;
     position:relative;
     z-index:1;
+    cursor: pointer;
 }
 
 .object_username{
@@ -776,6 +773,8 @@ div.album-description-bg{
     /* background:#e5e5e5; */
     min-height:150px
 }
+
+.mainfeature-wrapper:hover > .hover-opacity{opacity: 1}
 
 .edit-object{
     opacity: 0;
@@ -814,9 +813,10 @@ div.album-description-bg{
 }
 
 .masonry-object_text-container{
-
+    overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .more_detail{
     color: #555;
     width: 300px;
@@ -849,7 +849,7 @@ div.album-description-bg{
 
 .masonry-object_interact{
     margin: 20px 0 0 0; /* was margin: 20px 0 10px 0; */
-    overflow:hidden;
+    /* overflow:hidden; */
     border-top: 1px solid #e5e5e5;
     /* border-bottom: 1px solid #e5e5e5; */
     -webkit-border-radius: 0 0 2px 2px;
@@ -864,6 +864,23 @@ div.album-description-bg{
     margin: 16px auto 12px;
     width: 87%;
 }
+.masonry_show-comment .edit-object-ul{
+    position:absolute;
+    left:-61px!important;
+    top:40px;
+}
+.masonry_show-comment .edit-object-ul:after{
+    content: "";
+    position: absolute;
+    left: 65px;
+    top: -21px;
+    border-color: transparent transparent #ccc transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: -1;	
+}
+
+
 
 .masonry_dropdownicon{
     display: inline-block;
@@ -1161,8 +1178,8 @@ div.album-description-bg{
 }
 
 .profilepic/* for a*/{
-    width: 46px;
-    height: 46px;
+    max-width: 46px;
+    max-height: 60px;
     float: left;
     padding: 0px;
     border-radius: 5px 5px 5px 5px;
@@ -1241,7 +1258,7 @@ div.album-description-bg{
 }
 
 .collapes-container_inner{
-    padding: 15px 0;
+    padding: 30px 0;
     width: 87%;
     margin: auto;
     border-bottom: 1px solid rgba(0,0,0,.03)
@@ -1528,9 +1545,9 @@ div.album-description-bg{
 
 
 .article-title{
-    font-size: 18px;
+    font-size: 26px;
     font-weight: bold;
-    line-height: 20px;
+    line-height: 30px;
     margin-bottom: 10px;
 }
 
@@ -1539,10 +1556,22 @@ div.album-description-bg{
     line-height: 16px;
 }
 
-.article-text > p{
+.caption-title{
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+
+.caption-text{
     font-size: 13px;
-    color: #555;
     line-height: 16px;
+}
+
+.article-text > p{
+    font-size: 15px;
+    color: #555;
+    line-height: 20px;
     margin-bottom: 12px;
 }
 
@@ -1558,7 +1587,7 @@ div.album-description-bg{
 
 
 .show-comment{
-    padding-bottom: 12px;
+    padding-bottom: 30px;
 }
 
 .show-comment_container{
@@ -1566,6 +1595,7 @@ div.album-description-bg{
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #aaa;
+    float:left;
 }
 
 .show-comment_inner{
@@ -1575,6 +1605,8 @@ div.album-description-bg{
     transition: color .218s;
     font-size: 12px;
     padding-right: 5px;
+    
+    cursor: pointer;
 }
 
 
@@ -1603,6 +1635,7 @@ div.album-description-bg{
 .comment-item{
     position: relative;
     width: auto;
+    height: auto;
     display: block;
     margin: 5px 0;
     overflow-wrap: break-word;
@@ -1625,6 +1658,7 @@ div.album-description-bg{
     border-radius: 50%;
     width: 33px;
     height: 33px;
+    border: 1px solid #f3f3f3;
 }
 
 .comment-insert-field{

@@ -95,9 +95,6 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                 }
                 dataNew = new Array();
             }
-
-
-
             that.set('loadingTime', false);
             that.relayout();
 
@@ -161,7 +158,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
 
             if (type === "user")
             {
-                console.log(this.get("controllers.user").get('user'));
+                
                 if (localStorage.loginStatus === this.get("controllers.user").get('user').id)
                 {
                     this.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));

@@ -47,11 +47,11 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
             }
             else
             {
-                
+
                 if (conversationID !== undefined) {
                     var participation_id = new Array();
                     participation_id = that.get("conversationItem").get("participation_ids").split(',');
-                    
+
                 }
                 for (var i = 0; i < params.length; i++)
                 {
@@ -60,6 +60,7 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
                         dataNew["isAdd"] = false;
                         dataNew["id"] = params[i]["record_id"];
                         dataNew["name"] = params[i]["name"];
+                        
                         dataNew["photo_url"] = params[i]["photo_url"];
                         that.get("contentFollowerPhoto").pushObject(dataNew);
                     }
@@ -71,7 +72,7 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
                             if (participation_id[j] === params[i]["record_id"])
                             {
                                 flag = true;
-                                
+
                                 break;
                             }
                         }
@@ -104,6 +105,8 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
         if (this.get("owner") === "newConversation") {
             this.get("controllers.newConversation").set("isAdded", true);
             this.get("controllers.newConversation").set("contentFollowerPhoto", this.get("contentFollowerPhoto"));
+            //console.log(this.get("contentFollowerPhoto"));
+          //  this.get("controllers.conversationItem").set("contentFollowerPhotoOld", this.get("contentFollowerPhoto"));
             this.get("controllers.newConversation").set("isInvitePeople", false);
 
         }
@@ -111,6 +114,7 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
         {
             this.get("controllers.conversationItem").set("isAdded", true);
             this.get("controllers.conversationItem").set("contentFollowerPhoto", this.get("contentFollowerPhoto"));
+            this.get("controllers.conversationItem").set("isNewPeople", true);
             this.get("controllers.conversationItem").set("isInvitePeople", false);
         }
         this.set("contentFollowerPhoto", null);

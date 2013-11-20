@@ -10,7 +10,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     first_name: "",
     last_name: "",
     address: "",
-    suburb:"",
+    suburb: "",
     categoryDropdown: false,
     packgetDropdown: false,
     contact_number: "",
@@ -203,7 +203,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
 
         this.fillInChecking();
         if (passSubmit) {
-            var newMega = HubStar.store.createRecord(HubStar.Mega, {//15
+            var newMegaNewModel = HubStar.store.createRecord(HubStar.Meganew, {//15
                 "id": this.spaceChecking(this.get("profile_url").toLowerCase()),
                 "type": "profile",
                 accessed: null,
@@ -227,7 +227,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
                 updated: ""
             });
-            newMega.store.save();
+
             var newProfile = HubStar.store.createRecord(HubStar.Profile, {
                 id: this.spaceChecking(this.get("profile_url").toLowerCase()),
                 profile_name: this.get("profile_name"),
@@ -259,17 +259,16 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 profile_website: this.get("website")
             });
 
-            newMega.get("profile").addObject(newProfile);
-
+            newMegaNewModel.get("profile").addObject(newProfile);
             var that = this;
 
-            setTimeout(function() {
-                newProfile.store.save();
-            }, 500);
+
+            newMegaNewModel.store.save();
 
 
-            newMega.addObserver('isDirty', function() {
-                if (!newMega.get('isDirty')) {
+
+            newMegaNewModel.addObserver('isDirty', function() {
+                if (!newMegaNewModel.get('isDirty')) {
 
                     that.transitionToRoute('profile', newProfile);
                 } else {
@@ -286,6 +285,6 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
         } else if (checking === "package") {
             this.set('categoryDropdown', false);
             this.set('packgetDropdown', !this.get('packgetDropdown'));
-        } 
+        }
     }
 });

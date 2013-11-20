@@ -2,6 +2,8 @@
 
 
 
+
+
 <div style="width: 100%; margin: 100px auto; left: 0;right: 0;position: relative;display: block;">
     <!-- masonry from here -->
 
@@ -102,14 +104,30 @@
         {{#each controller.content}}
         {{view HubStar.ItemView}}
 
-
+<script>
+    $(function() {
+        var $container = $('#masonry_user_container');
+        window.setTimeout(function() {
+            $container.masonry();
+            $container.masonry('reloadItems');
+        }, 10);
+    });
+</script>
         {{/each}}
 
 
 
 
     </div>
-
+<script>
+    $(function() {
+        var $container = $('#masonry_user_container');
+        window.setTimeout(function() {
+            $container.masonry();
+            $container.masonry('reloadItems');
+        }, 10);
+    });
+</script>
 </div>
 
 

@@ -1,4 +1,13 @@
-.navbar .brand {
+.search_input{width: 25%;display: inline-block}
+.search_business{width: 73.5%}
+
+.navbar-inner{
+    width: 87%;
+    margin: auto;
+}
+
+
+.brand {
     display: block;
     float: left;
     padding: 10px;
@@ -10,22 +19,6 @@
     position: relative;
 }
 
-.title-strapline{
-    width: auto;
-    display: inline-block;
-    vertical-align: top;
-
-}
-
-.titleText{
-    width: auto;
-    padding: 13px;
-    margin: 0;
-}
-.navbar-inner > .container {
-    min-width:600px;
-    height:45px;
-}
 
 
 .navbar {
@@ -55,12 +48,16 @@
     background-image: linear-gradient(top, #07b7ea , #02a6dc);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#07b7ea', endColorstr='#02a6dc', GradientType=0);
 }
-
-
-
-.logonew{
-    height: 25px;
+.navbar > #version-no
+{
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    max-width:6.5%;
 }
+
+
+
 
 #user-dd-menu > li {padding:0}
 
@@ -396,6 +393,34 @@ div#forgot-password-container{
 .learnmore-btn:hover{opacity: 1;}
 
 
+
+
+
+.crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
+
+
+
+
+/*STAR RATING STYLE*/
+
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    font-size: 20px;
+}
+
+.rating > span.star {
+    content: "";
+    color: #999999;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+    content: "";
+}
+
+
+
+
 .Geo-Filter{
     position: relative;
     float: right;
@@ -421,3 +446,52 @@ div#forgot-password-container{
     color: #888;
     opacity: 1
 }
+
+/* Clint Lewis's style's 29/10/13 */
+
+div#login_detail{
+    width:35px;
+    margin-right: 50px;
+    float:right;
+    cursor: pointer;
+    vertical-align: top;
+}
+
+
+
+.Notification-top{
+    position: absolute;
+    width: 410px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    top: 45px;
+    right: 0px;
+    box-shadow: 0 0 10px #555;
+}
+
+.Notification-top:before{
+    content: "";
+    position: absolute;
+    left: 204px;
+    top: -19px;
+    border-color: transparent transparent #f3f3f3 transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: 0;
+}
+
+.Notification-top:after{
+    content: "";
+    position: absolute;
+    left: 204px;
+    top: -20px;
+    border-color: transparent transparent #888 transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: -1;
+}
+
+.Notification-top > div:first-child{border-radius: 3px 3px 0 0}
+.Notification-top > div:last-child{border-radius: 0 0 3px 3px}
+

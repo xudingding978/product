@@ -398,7 +398,7 @@ class Controller extends CController {
         if (isset($keyword)) {
             $filter = Sherlock\Sherlock::filterBuilder()->Raw('{"query": {
                 "queryString": {
-                  "default_field": "couchbaseDocument.doc.profile.id",
+                  "default_field": "couchbaseDocument.doc.profile.profile_name",
                   "query": "' . $keyword . '"
                 }
               }}');

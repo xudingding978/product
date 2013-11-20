@@ -2351,33 +2351,74 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
 (function() {
 
 HubStar.SearchRoute = Ember.Route.extend({
-        setupController: function(controller, model) {
+    setupController: function(controller, model) {
+        HubStar.set('isLogin', true);
+        this.controllerFor('searchs').set("loginInfo", localStorage.loginStatus);
+        this.controllerFor('searchs').setLoginImge();
+        console.log(model);
+        this.controllerFor('application').set('search_string',model.id);
+        this.controllerFor('application').newSearch();        
+        this.controllerFor('index').setLogin();
 
-            if (($('#search_key').val() === model.region) || ($('#search_business').val() === model.result)) {
-                if (model.result !== "" || model.region !== "") {
-         
-                    this.controllerFor('search').set('model', HubStar.Mega.find({keywords: model.result, region: model.region}));
-                }
-            }
-          
-        },
-        model: function(params) {
+        this.controllerFor('application').set('islogin', true);
+        this.controllerFor('status').set('islogin', true);
+        this.controllerFor('application').set('popup', false);
+        this.controllerFor('application').set('isotherpage', false);
+        localStorage.checkUser = "";
 
-            var result = params.search_id;
-            var separate = result.indexOf('+');
-            var getKey = result.slice(separate + 1);
-            var getRegion = result.slice(0, separate);
-            $('#search_key').val(getRegion);
-            $('#search_business').val(getKey);
-            return HubStar.Mega.find({keywords: getKey, region: getRegion});
-        },
-        renderTemplate: function() {
-
-            this.render('searchs', {
-                into: "index"
-            });
+    },
+    model: function(params) {
+        var address = document.URL;
+        var search_id = address.split("#")[1].split("/")[2];
+        if (search_id === null || search_id === undefined || search_id === '') {
+            search_id = '';
         }
-    });
+        return {id:search_id};
+    },
+    events: {
+        transitionToPhoto: function(id) {
+            this.transitionTo("photo", HubStar.Mega.find(id));
+        },
+        transitionToProfile: function(id) {
+            this.transitionTo("profile", HubStar.Profile.find(id));
+        },
+        transitionToArticle: function(id) {
+
+            this.transitionTo("article", HubStar.Article.find(id));
+        }
+    },
+    redirect: function() {
+
+    },
+    activate: function() {
+        $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
+        $('#masonry_container').attr('style', "display:block;position:relative");
+        if (HubStar.get("setHight") === null || HubStar.get("setHight") === "null") {
+            HubStar.set("setHight", 0);
+        }
+
+        $(function() {
+            $('#masonry_container').masonry({
+                itemSelector: '.box',
+                columnWidth: 185,
+                isInitLayout: false,
+                isFitWidth: true
+            });
+        });
+        $(window).scrollTop(HubStar.get("setHight"));
+        HubStar.set("setHight", 0);
+
+        localStorage.checkUser = "";
+    },
+    deactivate: function() {
+        HubStar.set("setHight", $(window).scrollTop());
+
+    },
+    renderTemplate: function() {
+
+
+    }
+});
 
 
 })();
@@ -4080,9 +4121,29 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('readCaption', false);
         this.setCaption();
     },
-    selectImage: function(e) {
+    selectImage: function(e) { // it is click the photo
         this.set('megaResouce', HubStar.Mega.find(e));
         this.set('selectedPhoto', HubStar.Mega.find(e).get('photo').objectAt(0));
+
+        this.set('captionTitle', this.get('selectedPhoto').get("photo_title"));
+        this.set('caption', this.get('selectedPhoto').get("photo_caption"));
+
+        var contents = this.get('content');
+        var selectedIndex = 0;
+        for (var index = 0; index <= contents.get('length')-1; index++) {
+            if (this.get('selectedPhoto').get("id") === contents.objectAt(index).id ) {
+                selectedIndex = index;
+            }
+        }
+   
+        if (selectedIndex >= (this.get('content').get('length'))) {
+            this.set('image_no', 1);
+            selectedIndex = 0;
+        }
+
+        this.set('image_no', selectedIndex);
+        
+        
         if (this.get("accessFromSearchBoard") === false)
         {
             this.transitionTo("articlePhoto", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo
@@ -14587,10 +14648,13 @@ HubStar.VideoController = Ember.Controller.extend({
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var that = this;
         var megaResouce = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": videoObject});
+
+
         this.set('megaResouce', megaResouce.objectAt(0));
         megaResouce.addObserver('isLoaded', function() {
             if (megaResouce.get('isLoaded')) {
                 that.set('megaResouce', megaResouce.objectAt(0));
+          //              console.log(   that.get('megaResouce'));
                 var tempVideoObject = megaResouce.objectAt(0).get('videoes').get("content").objectAt(0);
                 that.set('videoObject', tempVideoObject);
                 that.set('video_iframe_code', tempVideoObject.data.video_iframe_code);
@@ -15429,7 +15493,8 @@ HubStar.DiscoveryView = Ember.View.extend({
         } else {
             object = {"region": "", "search_string": ""};
         }
-        this.get("controller").send("newSearch", area, search_key);
+        this.get("controller").transitionToRoute('search', {id: search_key});
+//        this.get("controller").send("newSearch", area, search_key);
     }
 
 
@@ -17085,7 +17150,7 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
         }
         else if (controller._debugContainerKey.indexOf("application") !== -1)
         {
-            controller.newSearch();
+            controller.transitionToRoute('search', {id: controller.get('search_string')});
         }
         else if (controller._debugContainerKey.indexOf("mega") !== -1) {
             controller.addComment();
@@ -17101,7 +17166,6 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
             controller.partnerSearch();
         }
         else {
-
             console.log(controller);
         }
     },

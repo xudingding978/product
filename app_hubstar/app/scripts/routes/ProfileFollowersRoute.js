@@ -7,8 +7,7 @@
 HubStar.ProfileFollowersRoute = Ember.Route.extend({
     setupController: function(controller, model) {
 
-       $(window).scrollTop(1500);
-        console.log("sddddddddddddddd");
+    //   $(window).scrollTop(1500);
          this.controllerFor('profile').sendEventTracking('event', 'button', 'click', 'Followers');
          this.controllerFor('profile').set('profileSelectionStatus', 'Followers');
 

@@ -591,7 +591,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }, 200);
     },
     selectPartner: function(model) {
-        $(window).scrollTop(1500);
+       // $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Partners');
         HubStar.set("lastPositionId", model.id);
         this.set('profileSelectionStatus', 'Partners');
@@ -608,7 +608,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
     },
     selectFollower: function(model) {
-        $(window).scrollTop(1500);
+      //  $(window).scrollTop(1500);
         this.sendEventTracking('event', 'button', 'click', 'Followers');
         this.set('profileSelectionStatus', 'Followers');
          //this.get('controllers.userFollowers').getProfileId(model);

@@ -1,6 +1,8 @@
 <?php
+
 Yii::import("application.models.*");
 Yii::import("application.components.*");
+
 class RefineDataCommand extends Controller_admin {
 
     public $total_num = 0;
@@ -14,7 +16,9 @@ class RefineDataCommand extends Controller_admin {
             $this->addCommentId();
         } elseif ($action == "fixurl") {
             $this->fixPhoto_url_largeofLisa();
-        }
+        }elseif($action == "fixcate"){
+            $this->fixcategories();
+        } 
         elseif ($action == "refinearticle") {
             $this->refineArticle();
             echo "finish~~~~~~~~~~~~~~~~~~~~~~~~";
@@ -46,7 +50,7 @@ class RefineDataCommand extends Controller_admin {
                             $url_arr = explode("/", $s3_url_arr[$k]);
                             $file_name = $url_arr[sizeof($url_arr) - 1];
 
-                            
+
                             $url = 'http://api.develop.devbox/PhotoMoving?style=' . $k . '&name=' . $file_name . '&id=' . $id;
 
                             $ch = curl_init($url);
@@ -68,49 +72,146 @@ class RefineDataCommand extends Controller_admin {
             echo "*******************************" . ($end_time - $start_time);
         }
     }
-    
-    
-    public function fixPhoto_url_largeofLisa(){
-        $bucket='production';
+
+    public function fixcategories() {
+        $bucket = 'develop';
+        $setting['log.enabled'] = true;
+        $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = '/var/log/yii/' . $datetime . '.log';
+        $Sherlock = new \Sherlock\Sherlock($setting);
+        $Sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $Sherlock->search();
+        $index = $bucket;
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"photo\"")->default_field('couchbaseDocument.doc.type');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        $progress = 0;
+        $record_arr = array();
+        for ($i = 0; $i < 2000; $i++) {
+
+            $progress = $i;
+            $request->index($index)->type('couchbaseDocument')->from(50 * $i)->size(50)->query($bool);
+            $response = $request->execute();
+            foreach ($response as $find) {
+                array_push($record_arr, $find['id']);
+                $progess+=1;
+                echo "\n finding data from couchbase NO.".$progess."\n";
+            }
+        }
+        echo sizeof($record_arr);
+        print_r(var_export($record_arr, TRUE) );
+        foreach($record_arr as $record){
+            $count+=1;
+            $message="\nprocessing No.".$count." id: ".$record."\n";
+
+            $id=$record;
+
+            $cb=$this->couchBaseConnection($bucket);
+            $result=$cb->get($id);
+            if($result!=null){
+                $result_arr=CJSON::decode($result);
+                $categories=$result_arr['categories'];
+                $category=$result_arr['category'];
+                $subcategories=$result_arr['subcategories'];
+                $topics=$result_arr['topics'];
+                if($categories!=null&&$categories!=""){
+                    $result_arr['categories']=array();
+                    $uniqe_arr=array_unique($categories, SORT_STRING);
+                    foreach($uniqe_arr as $value){
+                        array_push($result_arr['categories'], $value);
+                    }
+                  //  $result_arr['categories']=  array_unique($categories, SORT_STRING);
+                }else{
+                    echo "\n".$id." does not have categories record in couchbase \n";
+                   $message.="\n".$id." does not have categories record in couchbase \n";
+                }
+                 if($category!=null&&$category!=""){
+                     $result_arr['category']=array();
+                     $uniqe_arr=array_unique($category, SORT_STRING);
+                    foreach($uniqe_arr as $value){
+                        array_push($result_arr['category'], $value);
+                    }
+            //        $result_arr['category']=  array_unique($category, SORT_STRING);
+                }else{
+                    echo "\n".$id." does not have category record in couchbase \n";
+                   $message.="\n".$id." does not have category record in couchbase \n";
+                }
+                 if($subcategories!=null&&$subcategories!=""){
+                     $result_arr['subcategories']=array();
+                     $uniqe_arr=array_unique($subcategories, SORT_STRING);
+                    foreach($uniqe_arr as $value){
+                        array_push($result_arr['subcategories'], $value);
+                    }
+           //         $result_arr['subcategories']=  array_unique($subcategories, SORT_STRING);
+                }else{
+                    echo "\n".$id." does not have subcategories record in couchbase \n";
+                   $message.="\n".$id." does not have subcategories record in couchbase \n";
+                }
+                 if($topics!=null&&$topics!=""){
+                      $result_arr['topics']=array();
+                    foreach(array_unique($topics, SORT_STRING) as $value){
+                        array_push($result_arr['topics'], $value);
+                    }
+                //    $result_arr['topics']=  array_unique($topics, SORT_STRING);
+                }else{
+                    echo "\n".$id." does not have topics record in couchbase\n";
+                   $message.="\n".$id." does not have topics record in couchbase \n";
+                }     
+                if($cb->set($id,CJSON::encode($result_arr))){
+                    echo "\n".$id." update category record in couchbase \n";
+                    $message.="\n".$id." update category record in couchbase \n";
+                }
+                else{
+                    "\n".$id." can not updatecatrgory record in couchbase----------------------- \n";
+                    $message.="\n".$id." can not updatecatrgory record in couchbase ---------------------------\n";
+                }
+                
+            }else{
+                echo "\n".$id." Can not find record in couchbase -----------------------\n";
+                $message = "\n".$id." Can not find record in couchbase -------------------------\n";
+            }
+            $this->writeToLog($log_path, $message);
+        }
+    }
+
+    public function fixPhoto_url_largeofLisa() {
+        $bucket = 'production';
         $settings['log.enabled'] = true;
-         $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode("es1.hubsrv.com", 9200);
         $request = $sherlock->search();
         $index = $bucket;
-   //     $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('55959331448')
+        //     $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('55959331448')
         $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"55959331448\"")
                 ->default_field('couchbaseDocument.doc.comments.commenter_id');
 //        $must2 = Sherlock\Sherlock::queryBuilder()
 //                ->QueryString()->query("photo")
 //                ->default_field('couchbaseDocument.doc.type');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
-     //           ->must($must2);
+        //           ->must($must2);
         $request->index($index)->type("couchbaseDocument");
         $request->from(0)
                 ->size(500);
         $request->query($bool);
-        echo "\n".$request->toJSON()."\n";
+        echo "\n" . $request->toJSON() . "\n";
         $response = $request->execute();
 
         echo "number of file: " . count($response);
-        foreach($response as $found){
-            $id=$found['id'];
-            $cb=$this->couchBaseConnection($bucket);
-            $result=$cb->get($id);
-            $result_arr=  CJSON::decode($result);
-            if($result_arr['comments']!=null&&$result_arr['comments']!=""){
-                $comment_arr=$result_arr['comments'];
-                foreach($comment_arr as $comment){
-                    $comment['commenter_profile_pic_url']="http://s3.hubsrv.com/trendsideas.com/users/".$comment['commenter_id']."/user_picture/user_picture";
+        foreach ($response as $found) {
+            $id = $found['id'];
+            $cb = $this->couchBaseConnection($bucket);
+            $result = $cb->get($id);
+            $result_arr = CJSON::decode($result);
+            if ($result_arr['comments'] != null && $result_arr['comments'] != "") {
+                $comment_arr = $result_arr['comments'];
+                foreach ($comment_arr as $comment) {
+                    $comment['commenter_profile_pic_url'] = "http://s3.hubsrv.com/trendsideas.com/users/" . $comment['commenter_id'] . "/user_picture/user_picture";
                 }
-                $result_arr['comments']=$comment_arr;
-                if($cb->set($id, CJSON::encode($result_arr))){
-                    echo "change made to ".$id."\n";
+                $result_arr['comments'] = $comment_arr;
+                if ($cb->set($id, CJSON::encode($result_arr))) {
+                    echo "change made to " . $id . "\n";
                 }
             }
-                    
         }
-        
     }
 
     public function addCommentId() {
@@ -137,7 +238,7 @@ class RefineDataCommand extends Controller_admin {
 //        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
 //        $request->query($termQuery);
 //        $response = $request->execute();
-            $query='{
+        $query = '{
   "query": {
     "filtered": {
       "filter": {
@@ -149,55 +250,52 @@ class RefineDataCommand extends Controller_admin {
   },
   "size": "500"
 }';
-            $ch = curl_init("http://es1.hubsrv.com:9200/develop/_search");
-            
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-            
-            $result = curl_exec($ch);
+        $ch = curl_init("http://es1.hubsrv.com:9200/develop/_search");
+
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
+        $result = curl_exec($ch);
 //            foreach($result as $found){
 //                echo $found['id'];
 //            }
-            $result_arr=CJSON::decode($result,true);
-            $data_arr=$result_arr['hits']['hits'];
-        
+        $result_arr = CJSON::decode($result, true);
+        $data_arr = $result_arr['hits']['hits'];
+
         // echo "number of file: " . var_export($result_arr);
- 
-      //   $message=  var_export($result_arr,TRUE);
-         //$record_arr=array();
-                     foreach($data_arr as $found){
-                         
-                $data_arr=$found['_source']['doc'];
+        //   $message=  var_export($result_arr,TRUE);
+        //$record_arr=array();
+        foreach ($data_arr as $found) {
+
+            $data_arr = $found['_source']['doc'];
             //    $message=  var_export($data_arr,true)."\n---------------------------------------------------------\n";
-                $id=$data_arr['id'];
-                $message=$id;
-                $this->writeToLog($log_path, $message);
-           //     $message.="\n".$id;
-                if($data_arr['type']==="profile"){
-                    $couchbase_id="trendsideas.com/profiles/".$id;
-                }else{
-                    $couchbase_id="trendsideas.com/".$id;
-                }
-                $cb=$this->couchBaseConnection($bucket);
-                $couchbase_data=$cb->get($couchbase_id);
-                $couchbase_data_arr=CJSON::decode($couchbase_data);
-                $comment_arr=$couchbase_data_arr['comments'];
-                  foreach($comment_arr as $comment){
-                      if($comment['message_id']==NULL)
-                    $comment['message_id']=rand(100, 999).strtotime(date('Y-m-d H:i:s')).$comment['commenter_id'];
-                      $comment['optional']=$data_arr['type']."/".$id;
-                }
-                $couchbase_data_arr['comments']=$comment_arr;
-                
+            $id = $data_arr['id'];
+            $message = $id;
+            $this->writeToLog($log_path, $message);
+            //     $message.="\n".$id;
+            if ($data_arr['type'] === "profile") {
+                $couchbase_id = "trendsideas.com/profiles/" . $id;
+            } else {
+                $couchbase_id = "trendsideas.com/" . $id;
             }
-            
-            
+            $cb = $this->couchBaseConnection($bucket);
+            $couchbase_data = $cb->get($couchbase_id);
+            $couchbase_data_arr = CJSON::decode($couchbase_data);
+            $comment_arr = $couchbase_data_arr['comments'];
+            foreach ($comment_arr as $comment) {
+                if ($comment['message_id'] == NULL)
+                    $comment['message_id'] = rand(100, 999) . strtotime(date('Y-m-d H:i:s')) . $comment['commenter_id'];
+                $comment['optional'] = $data_arr['type'] . "/" . $id;
+            }
+            $couchbase_data_arr['comments'] = $comment_arr;
+        }
+
+
         // $message=var_export($result_arr);
-     //    echo $message;
-                 echo "number of file: " . sizeof($data_arr);
-         
+        //    echo $message;
+        echo "number of file: " . sizeof($data_arr);
     }
 
     public function refineArticle() {

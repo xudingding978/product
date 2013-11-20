@@ -29,9 +29,6 @@
     -o-transition: all 0.3s ease;
 }
 
-
-
-
 .hover-opacity{opacity:.6; }
 .hover-opacity:hover, .hover-opacity:focus, .hover-opacity:active{opacity:1}
 

@@ -1,8 +1,10 @@
 <?php
 
+
 Yii::import("application.models.*");
 Yii::import("application.components.*");
 require_once("ArticleCommand.php");
+
 
 class RefineDataCommand extends Controller_admin {
 
@@ -11,66 +13,116 @@ class RefineDataCommand extends Controller_admin {
     public $image_amount = 0;
 
     public function actionIndex($action = null) {
-        
-        if($action=="fixcredit"){
+
+
+        if ($action == "comment") {
+            $this->addCommentId();
+        } elseif($action=="fixcredit"){
             $this->importCreditList();
-        }elseif($action=="refinearticle"){
-            
+        }elseif ($action == "fixurl") {
+            $this->fixPhoto_url_largeofLisa();
+        }
+        elseif ($action == "refinearticle") {
+            $this->refineArticle();
+            echo "finish~~~~~~~~~~~~~~~~~~~~~~~~";
+            exit();
 
-        
+            $startid = 0;
+            echo (isset($startid) ? 'Start position is... ' . $startid : 'No start defined');
+            $data_list = ArticleImages::model()->getDatabyid($startid);
+            $this->total_num = sizeof($data_list);
+            echo "Totally: " . $this->total_num . "\r\n";
 
-        $this->refineArticle();
-        echo "finish~~~~~~~~~~~~~~~~~~~~~~~~";
-        exit();
+            $start_time = microtime(TRUE);
+            if (sizeof($data_list) > 0) {
+                foreach ($data_list as $val) {
+                    //     echo $val['heliumMediaId']." start\r\n";;
+                    $photo_heliumMediaId = $val['heliumMediaId'];
+                    if ($photo_heliumMediaId != "") {
 
-        $startid = 0;
-        echo (isset($startid) ? 'Start position is... ' . $startid : 'No start defined');
-        $data_list = ArticleImages::model()->getDatabyid($startid);
-        $this->total_num = sizeof($data_list);
-        echo "Totally: " . $this->total_num . "\r\n";
+                        $url = "http://api.develop.devbox/GetResultByKeyValue/?type=photo&photo_heliumMediaId=" . $photo_heliumMediaId;
+                        $elastic_return_str = $this->callAPI($url);
+                        $s3_url_arr = $this->getUrlFromElastic($elastic_return_str);
 
-        $start_time = microtime(TRUE);
-        if (sizeof($data_list) > 0) {
-            foreach ($data_list as $val) {
-                //     echo $val['heliumMediaId']." start\r\n";;
-                $photo_heliumMediaId = $val['heliumMediaId'];
-                if ($photo_heliumMediaId != "") {
+                        $mega_obj_arr = $this->structureArray($val, $s3_url_arr);
+                        echo $mega_obj_arr . $val['heliumMediaId'] . "\r\n";
+                        $id = $this->importMegaObj($mega_obj_arr, $val['id']);
+                        $photo_array = $this->getValidPhoto($photo_heliumMediaId, $id, $val['id']);
+                        $handle_array = array();
+                        foreach ($photo_array as $k => $val) {
+                            $url_arr = explode("/", $s3_url_arr[$k]);
+                            $file_name = $url_arr[sizeof($url_arr) - 1];
 
-                    $url = "http://api.develop.devbox/GetResultByKeyValue/?type=photo&photo_heliumMediaId=" . $photo_heliumMediaId;
-                    $elastic_return_str = $this->callAPI($url);
-                    $s3_url_arr = $this->getUrlFromElastic($elastic_return_str);
+                            
+                            $url = 'http://api.develop.devbox/PhotoMoving?style=' . $k . '&name=' . $file_name . '&id=' . $id;
 
-                    $mega_obj_arr = $this->structureArray($val, $s3_url_arr);
-                    echo $mega_obj_arr . $val['heliumMediaId'] . "\r\n";
-                    $id = $this->importMegaObj($mega_obj_arr, $val['id']);
-                    $photo_array = $this->getValidPhoto($photo_heliumMediaId, $id, $val['id']);
-                    $handle_array = array();
-                    foreach ($photo_array as $k => $val) {
-                        $url_arr = explode("/", $s3_url_arr[$k]);
-                        $file_name = $url_arr[sizeof($url_arr) - 1];
+                            $ch = curl_init($url);
+                            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
-                        $url = 'http://api.develop.devbox/PhotoMoving?style=' . $k . '&name=' . $file_name . '&id=' . $id;
-
-                        $ch = curl_init($url);
-                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-
-                        $handle_array[$k] = $ch;
+                            $handle_array[$k] = $ch;
+                        }
+                        $this->movingPhotoList($handle_array);
+                    } else {
+                        $message = date("Y-m-d H:i:s") . " -- " . $val['id'] . " --Does not have helium media id!!";
+                        $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
                     }
-                    $this->movingPhotoList($handle_array);
-                } else {
-                    $message = date("Y-m-d H:i:s") . " -- " . $val['id'] . " --Does not have helium media id!!";
-                    $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
+
                 }
             }
+
+            $end_time = microtime(TRUE);
+            echo "*******************************" . ($end_time - $start_time);
         }
-
-        $end_time = microtime(TRUE);
-        echo "*******************************" . ($end_time - $start_time);
-                }
-
     }
+    
+    
+    public function fixPhoto_url_largeofLisa(){
+        $bucket='production';
+        $settings['log.enabled'] = true;
+         $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = $bucket;
+   //     $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('55959331448')
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"55959331448\"")
+                ->default_field('couchbaseDocument.doc.comments.commenter_id');
+//        $must2 = Sherlock\Sherlock::queryBuilder()
+//                ->QueryString()->query("photo")
+//                ->default_field('couchbaseDocument.doc.type');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+     //           ->must($must2);
+        $request->index($index)->type("couchbaseDocument");
+        $request->from(0)
+                ->size(500);
+        $request->query($bool);
+        echo "\n".$request->toJSON()."\n";
+        $response = $request->execute();
+
+        echo "number of file: " . count($response);
+        foreach($response as $found){
+            $id=$found['id'];
+            $cb=$this->couchBaseConnection($bucket);
+            $result=$cb->get($id);
+            $result_arr=  CJSON::decode($result);
+            if($result_arr['comments']!=null&&$result_arr['comments']!=""){
+                $comment_arr=$result_arr['comments'];
+                foreach($comment_arr as $comment){
+                    $comment['commenter_profile_pic_url']="http://s3.hubsrv.com/trendsideas.com/users/".$comment['commenter_id']."/user_picture/user_picture";
+                }
+                $result_arr['comments']=$comment_arr;
+                if($cb->set($id, CJSON::encode($result_arr))){
+                    echo "change made to ".$id."\n";
+                }
+            }
+                    
+        }
+        
+    }
+
+
+
 
     function __construct() {
         
@@ -82,7 +134,7 @@ class RefineDataCommand extends Controller_admin {
 
         $log_path = "/var/log/yii/$start_time.log";
 
-        $bucket = "test";
+        $bucket = "temp";
         $settings['log.enabled'] = true;
         $Sherlock = new \Sherlock\Sherlock($settings);
         $Sherlock->addNode("es1.hubsrv.com", 9200);
@@ -143,6 +195,94 @@ class RefineDataCommand extends Controller_admin {
             }
             $this->writeToLog($log_path, $message);
         }
+    }
+
+    public function addCommentId() {
+        $bucket = 'develop';
+        $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = "/var/log/yii/$start_time.log";
+        $message = "";
+//        $settings['log.enabled'] = true;
+//        $sherlock = new \Sherlock\Sherlock($settings);
+//        $sherlock->addNode("es1.hubsrv.com", 9200);
+//        $request = $sherlock->search();
+//        $index = $bucket;
+//        $request->index($index)->type("couchbaseDocument");
+//        $request->from(0)
+//                ->size(1000);
+//        $rawRequest = ' 
+//    "filtered": {
+//      "filter": {
+//        "exists": {
+//          "field": "couchbaseDocument.doc.comments.content"
+//        }
+//      }
+// }';
+//        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
+//        $request->query($termQuery);
+//        $response = $request->execute();
+            $query='{
+  "query": {
+    "filtered": {
+      "filter": {
+        "exists": {
+          "field": "couchbaseDocument.doc.comments.content"
+        }
+      }
+    }
+  },
+  "size": "500"
+}';
+            $ch = curl_init("http://es1.hubsrv.com:9200/develop/_search");
+            
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            
+            $result = curl_exec($ch);
+//            foreach($result as $found){
+//                echo $found['id'];
+//            }
+            $result_arr=CJSON::decode($result,true);
+            $data_arr=$result_arr['hits']['hits'];
+        
+        // echo "number of file: " . var_export($result_arr);
+ 
+      //   $message=  var_export($result_arr,TRUE);
+         //$record_arr=array();
+                     foreach($data_arr as $found){
+                         
+                $data_arr=$found['_source']['doc'];
+            //    $message=  var_export($data_arr,true)."\n---------------------------------------------------------\n";
+                $id=$data_arr['id'];
+                $message=$id;
+                $this->writeToLog($log_path, $message);
+           //     $message.="\n".$id;
+                if($data_arr['type']==="profile"){
+                    $couchbase_id="trendsideas.com/profiles/".$id;
+                }else{
+                    $couchbase_id="trendsideas.com/".$id;
+                }
+                $cb=$this->couchBaseConnection($bucket);
+                $couchbase_data=$cb->get($couchbase_id);
+                $couchbase_data_arr=CJSON::decode($couchbase_data);
+                $comment_arr=$couchbase_data_arr['comments'];
+                  foreach($comment_arr as $comment){
+                      if($comment['message_id']==NULL)
+                    $comment['message_id']=rand(100, 999).strtotime(date('Y-m-d H:i:s')).$comment['commenter_id'];
+                      $comment['optional']=$data_arr['type']."/".$id;
+                }
+                $couchbase_data_arr['comments']=$comment_arr;
+                
+            }
+            
+            
+        // $message=var_export($result_arr);
+     //    echo $message;
+                 echo "number of file: " . sizeof($data_arr);
+         
+
     }
 
     public function refineArticle() {

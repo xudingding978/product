@@ -6,19 +6,6 @@
 
 HubStar.UserMessageRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-
-        this.controllerFor('user').set('profileSelectionStatus', 'Messages');
-        this.controllerFor('user').set('collectionTag', false);
-
-        this.controllerFor('user').set('followerTag', false);
-        this.controllerFor('user').set('followingTag', false);
-        this.controllerFor('user').set('messageTag', true);
-        // The following two line is used to change the selection with dark 
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#message').addClass('selected-user-stats');      
-        this.controllerFor('userMessage').setUserMessage(model);
-
-        $(window).scrollTop(0);
     },
     model: function(params) {
 

@@ -30,8 +30,20 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     adPageNo: 0,
     googletagCmd: null,
     unReadCount: 0,
+    pageCount:1,
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
+        var that = this;
+        
+        requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
+            var array = $.map(callbck, function(value, index) {
+                return [value];
+            });
+            HubStar.set('ads', array);
+            that.getAds();
+            that.set("pageCount",1);
+            //console.log(HubStar.get('ads'));
+        });
         this.defaultSearch();
         this.set('search_string', '');
     },
@@ -61,6 +73,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     scrollDownAction: function() {
         this.set('loadingTime', true);
         this.set("size", 20);
+        this.set("pageCount",this.get("pageCount")+1);
         this.set("from", this.get("from") + this.get("size"));
         var results = HubStar.Mega.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation')});
         var that = this;
@@ -144,10 +157,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
         var that = this;
         setTimeout(function() {
-            if (that.get('from') === 0)
-            {
-                that.getAds();
-            }
+//            if (that.get('from') === 0)
+//            {
+//                that.getAds();
+//            }
             that.relayout();
         }, 300);
 
@@ -426,40 +439,39 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     display: function(ads)
     {
         var that = this;
+        if (that.get('adPageNo') === that.get("pageCount")) {
+            googletag.cmd.push(function() {
+                if (that.get("pageCount") * 4 <= ads.length)
+                {
+                    for (var i = 0; i < this.get("pageCount") * 4; i++) {
+                        var ad = ads[i];
+                        googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                    }
+                    googletag.pubads().enableSingleRequest();
+                    googletag.enableServices();
+                }
+            });
+            googletag.cmd.push(function() {
+                for (var i = 0; i < that.get("pageCount") * 4; i++) {
+                    var ad = ads[i];
+                    googletag.display(ad.div);
+                }
+            });
+            that.set('googletagCmd', googletag.cmd);
+        }
+        else {
+            googletag.cmd.push(function() {
+                for (var i = 0; i < that.get("pageCount") * 4; i++) {
+                    var ad = ads[i];
+                    var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
 
-//        if (that.get('adPageNo') === 1) {
-//        googletag.cmd.push(function() {
-//            for (var i = 0; i < ads.length; i++) {
-//                var ad = ads[i];
-//                googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
-//            }
-//            googletag.pubads().enableSingleRequest();
-//            googletag.enableServices();
-//        });
-//        googletag.cmd.push(function() {
-//            for (var i = 0; i < ads.length; i++) {
-//                var ad = ads[i];
-//                googletag.display(ad.div);
-//            }
-//        });
-//        that.set('googletagCmd', googletag.cmd);
-
-
-
-//        }
-//        else {
-//            googletag.cmd.push(function() {
-//                for (var i = 0; i < ads.length; i++) {
-//                    var ad = ads[i];
-//                    slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
-//
-//                    googletag.pubads().enableSingleRequest();
-//                    googletag.enableServices();
-//                    googletag.display(ad.div);
-//                    googletag.pubads().refresh([slot1]);
-//                }
-//            });
-//        }
+                    googletag.pubads().enableSingleRequest();
+                    googletag.enableServices();
+                    googletag.display(ad.div);
+                    googletag.pubads().refresh([slot1]);
+                }
+            });
+        }
 
 
 // googletag.cmd.push(function() {
@@ -512,6 +524,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 //        
 //        DFP code
         var adSlots = HubStar.get('ads');
+        var that = this;
         var ads = new Array();
         for (var i = 0; i < adSlots.length; i++) {
             var adslot = adSlots[i];
@@ -520,8 +533,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 ads.push(ad);
             }
         }
-        this.set('ads', ads);
-//        var masonryContainer = document.getElementById('masonry_container');
+        that.set('ads', ads);
+        var masonryContainer = document.getElementById('masonry_container');
+
         try
         {
             for (var i = 0; i < ads.length; i++) {
@@ -540,12 +554,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 masonrybox.appendChild(adDiv);
                 masonryContainer.insertBefore(masonrybox, child);
             }
-            this.display(ads);
+            that.display(ads);
         }
         catch (err) {
             console.log("container is empty");
         }
-
     },
     getPageNo: function()
     {

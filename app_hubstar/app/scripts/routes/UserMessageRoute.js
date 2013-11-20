@@ -6,19 +6,41 @@
 
 HubStar.UserMessageRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-
-        this.controllerFor('user').set('profileSelectionStatus', 'Messages');
-        this.controllerFor('user').set('collectionTag', false);
-
-        this.controllerFor('user').set('followerTag', false);
-        this.controllerFor('user').set('followingTag', false);
-        this.controllerFor('user').set('messageTag', true);
-        // The following two line is used to change the selection with dark 
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#message').addClass('selected-user-stats');      
-        this.controllerFor('userMessage').setUserMessage(model);
-
-        $(window).scrollTop(0);
+//        
+//        this.controllerFor('user').set('profileSelectionStatus', 'Post');
+//        this.controllerFor('user').set('collectionTag', false);
+//
+//        this.controllerFor('user').set('followerTag', true);
+//        this.controllerFor('user').set('followingTag', false);
+//        this.controllerFor('user').set('messageTag', false);
+//         this.controllerFor('user').set('postTag', true);
+//         this.controllerFor('userMessage').setUserMessage(model);
+//         if (this.controllerFor('notificationTop').get("goReply") === true)
+//        {
+//            model = localStorage.loginStatus;
+//            var replyID = this.controllerFor('notificationTop').get("reply_ids");
+//            model = replyID;
+//            this.controllerFor('notificationTop').set("goReply", false);
+//        }
+//         if (this.controllerFor('notificationTop').get("goMessage") !== undefined && this.controllerFor('notificationTop').get("goMessage") !== null && this.controllerFor('notificationTop').get("goMessage") !== "")
+//        {
+//            model = localStorage.loginStatus;
+//        }
+//        if (this.controllerFor('notification').get("reply_ids") !== undefined && this.controllerFor('notification').get("reply_ids") !== null && this.controllerFor('notification').get("reply_ids") !== "")
+//        {
+//
+//            model = this.controllerFor('notification').get("reply_ids");
+//            //this.controllerFor('notification').set("reply_ids", "");
+//        }
+//        if (this.controllerFor('notificationTop').get("reply_ids") !== undefined && this.controllerFor('notificationTop').get("reply_ids") !== null && this.controllerFor('notificationTop').get("reply_ids") !== "")
+//        {
+//            model = this.controllerFor('notificationTop').get("reply_ids");
+//            //this.controllerFor('notification').set("reply_ids", "");
+//
+//        }
+//        $('#user-stats > li').removeClass('selected-user-stats');
+//        $('#post').addClass('selected-user-stats');
+//        $(window).scrollTop(0);
     },
     model: function(params) {
 

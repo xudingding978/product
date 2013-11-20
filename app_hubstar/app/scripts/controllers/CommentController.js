@@ -70,6 +70,7 @@ HubStar.CommentController = Ember.Controller.extend({
             comments.insertAt(0, tempComment);
             comments.store.save();
             this.set('commentContent', "");
+            this.closeComment(this.get('mega').get('id'));
             $('#addcommetBut').attr('style', 'display:block');
             $('#commentBox').attr('style', 'display:none');
             setTimeout(function() {
@@ -79,6 +80,15 @@ HubStar.CommentController = Ember.Controller.extend({
             }, 200);
         }
     },
+    closeComment: function(id) {    
+        this.set("commentContent","");
+        $('#comment_' + id).attr('style', 'display:block');
+        $('#commentBox_' + id).attr('style', 'display:none');
+        $('#masonry_container').masonry("reload");
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 200);
+    },        
     editingCommentData: function(obj)
     {
         this.get("controllers.editComment").setRelatedController("comment");

@@ -193,6 +193,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     defaultSearch: function() {
         this.set("loginInfo", localStorage.loginStatus);
+        this.set("googletagCmd", []);
+        this.set("content", []);
+        this.set("adPageNo", 0);
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
         results.addObserver('isLoaded', function() {
@@ -356,12 +359,18 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('categorys', HubStar.Cate.find({}));
         this.set('subcate', []);
         this.set('subcategories', []);
-        console.log(this.get('categorys'));
+       
         setTimeout(function() {
             $('.Navigator-box').fadeIn("fast");
         }, 30);
     },
-           
+           showDiscoveryBar:function(){
+                     HubStar.set("showDiscoveryBar", true);
+                    this.transitionToRoute('searchIndex');
+                    $("#top-about-menu").fadeIn("320");
+                    $("#search-bar").fadeOut("320");
+                    $(".Navigator-box").fadeOut("320");
+           },
              dropdownHeaderNavigator: function() {
 
         this.set(' isHeaderNavigatorDropdown', !this.get(' isHeaderNavigatorDropdown'));
@@ -433,7 +442,8 @@ this.set('isNavigatorDropdown',false);
 
                     if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
                         localStorage.loginStatus = params.COUCHBASE_ID;
-                        that.transitionToRoute('search');
+                        HubStar.set("isLogin", true);
+                        that.transitionToRoute('searchIndex');
                         that.set('loginUsername', "");
                         that.set('loginPassword', "");
                         that.set('isWaiting', false);
@@ -615,6 +625,16 @@ this.set('isNavigatorDropdown',false);
         var increaseby0ne = pageNo + 1;
         this.set('adPageNo', increaseby0ne);
         return pageNo;
+    },
+    backToDefault: function() {        
+        this.defaultSearch();
+        this.set('search_string', '');
+        this.transitionToRoute('searchIndex');
+        
+    },
+    clearSearch: function() {
+        this.set('search_string', '');
+        this.transitionToRoute('searchIndex');
     }
 });
 

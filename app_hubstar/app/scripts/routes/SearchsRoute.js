@@ -1,6 +1,11 @@
 HubStar.SearchsRoute = Ember.Route.extend({
     setupController: function() {
-        
+        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+            HubStar.set('isLogin', false);
+
+        } else {
+            HubStar.set('isLogin', true);
+        }
         this.controllerFor('searchs').defaultSearch();
         this.controllerFor('index').setLogin();
 
@@ -9,7 +14,8 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
         localStorage.checkUser = "";
-
+                    $("#top-about-menu").css('display', 'block');
+                    $("#search-bar").css('display', 'none');
     },
     events: {
         transitionToPhoto: function(id) {

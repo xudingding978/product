@@ -17,6 +17,8 @@ HubStar.CommentView = Ember.View.extend({
                 $('.comment-insert-field').focus();
                 
             }, 200);
+        } else {
+            HubStar.set('checkLoginStatus', true);
         }
     },
     closeComment: function(id) {    

@@ -16,7 +16,8 @@ HubStar.DiscoveryView = Ember.View.extend({
         } else {
             object = {"region": "", "search_string": ""};
         }
-        this.get("controller").send("newSearch", area, search_key);
+        this.get("controller").transitionToRoute('search', {id: search_key});
+//        this.get("controller").send("newSearch", area, search_key);
     }
 
 

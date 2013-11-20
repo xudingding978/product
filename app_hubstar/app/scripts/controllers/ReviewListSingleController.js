@@ -43,18 +43,30 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
     },
     editReview: function() {
 
-        this.set("review_is_edit", true);
+        this.set("review_is_edit", !this.get('review_is_edit'));
+//         console.log(review.get('review_content'));
+        this.set("review_content", this.get("model").get('review_content'));
     },
-    removeReview: function(review) {
+    saveReview: function() {
+        this.get("model").set('review_content', this.get('review_content'));
+        requiredBackEnd('reviews', 'Update', this.get("model"), 'POST', function(params) {
+        });
+        this.set("review_is_edit", !this.get('review_is_edit'));
+    },
+    cancelReview: function() {
+        this.set("review_is_edit", !this.get('review_is_edit'));
+    },
+    removeReview: function() {
         this.set('message', "Are you going to delete this Review?");
         this.set('makeSureDelete', !this.get('makeSureDelete'));
-        this.set("delete_id", review.get("review_id"));
+        this.set("delete_id", this.get('model').get("review_id"));
     },
     deleteConfirm: function()
     {
 
         this.deleteSelectedCollection();
         this.cancelDelete();
+        this.get("controllers.profile").set("profileReviewStatistics", this.get("controllers.profile").get('profileReviewStatistics') - 1);
     },
     deleteSelectedCollection: function()
     {
@@ -64,8 +76,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
             {
                 review.deleteRecord();
                 this.get("controllers.profile").get('reviews').removeObject(review);
-                console.log("gege");
-                 requiredBackEnd('reviews', 'Delete', review, 'POST', function(params) {
+                requiredBackEnd('reviews', 'Delete', review, 'POST', function(params) {
 
                 });
                 break;
@@ -87,19 +98,6 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 500);
-    },
-    saveReview: function(review) {
-
-        review.set("review_content", this.get("review_content"));
-
-        requiredBackEnd('reviews', 'Update', review, 'POST', function(params) {
-
-        });
-        this.set("review_is_edit", false);
-
-    },
-    cancelReview: function() {
-        this.set("review_is_edit", false);
     },
     addReviewReply: function(reviewID) {
 

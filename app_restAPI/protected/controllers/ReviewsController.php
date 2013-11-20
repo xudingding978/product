@@ -12,7 +12,7 @@ class ReviewsController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'reviews';
 
     public function actionIndex() {
-        $this->sendResponse(200, "ok");
+        $this->sendResponse(204);
     }
 
     public function actionCreate() {
@@ -93,7 +93,7 @@ class ReviewsController extends Controller {
 
         $request_json = file_get_contents('php://input');
         $newRecord = CJSON::decode($request_json, true);
-
+        error_log(var_export($newRecord, true));
         $owner_id = $newRecord ['optional'];
         $id = $newRecord['review_id'];
         try {
@@ -122,7 +122,7 @@ class ReviewsController extends Controller {
 
 
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
-                $this->sendResponse(204);
+          $this->sendResponse(204);
             } else {
                 $this->sendResponse(500, "some thing wrong");
             }

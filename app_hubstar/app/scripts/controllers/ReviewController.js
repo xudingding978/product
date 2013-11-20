@@ -31,11 +31,6 @@ HubStar.ReviewController = Ember.Controller.extend({
     },
     reviewCancel: function() {
         this.get("controllers.profile").set("rateTime", false);
-        if (this.get("controllers.profile").get('isInreview') === true)
-        {
-            this.get("controllers.profile").set('reviewTag', true);
-            this.get("controllers.profile").set('isInreview', false);
-        }
 
     },
     reviewPost: function(id) {

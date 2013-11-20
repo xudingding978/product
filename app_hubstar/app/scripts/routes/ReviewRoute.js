@@ -2,6 +2,8 @@
 
 HubStar.ReviewRoute = Ember.Route.extend({
     setupController: function(controller, model) {
+         if (this.controllerFor('checkingLoginStatus').popupLogin())
+        {
         this.controllerFor('profile').sendEventTracking('event', 'button', 'click', 'Reviews');
         this.controllerFor('profile').set('profileSelectionStatus', 'Reviews');
 
@@ -9,6 +11,8 @@ HubStar.ReviewRoute = Ember.Route.extend({
         this.controllerFor('profile').set('collectionTag', false);
         this.controllerFor('profile').set('followerProfileTag', false);
         this.controllerFor('profile').set('reviewTag', true);
+        this.controllerFor('reviewListSingle').set('model', model);
+      //  this.controllerFor('reviewListSingle').set('review_content', model.review_content);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -16,6 +20,7 @@ HubStar.ReviewRoute = Ember.Route.extend({
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#reviewList').addClass('selected-user-stats');
      //   $(window).scrollTop(1500);
+        }
     },
     model: function(params) {
 

@@ -8378,7 +8378,7 @@ to{
     -o-transition: all 0.5s ease;
 }
 
-.hover-opacity{opacity:.6}
+.hover-opacity{opacity:.6; cursor: pointer}
 .hover-opacity:hover{opacity:1}
 
 
@@ -11414,6 +11414,13 @@ textarea.add-interests{
 .selected-conversation .comment-username, .selected-conversation .comment-content, .selected-conversation .icon-trash{color: #fff !important}
 
 
+#search_business{vertical-align: top;}
+
+
+
+
+
+
 /*STAR RATING STYLE*/
 
 
@@ -11650,7 +11657,7 @@ textarea.add-interests{
     width: 500px;
     height: 350px;
     margin: 0 auto; 
-    position: absolute; 
+    position: fixed; 
     top: 15%;
     left: 0;
     right: 0;
@@ -11837,6 +11844,13 @@ textarea.add-interests{
     background-image: -o-linear-gradient(top, #07b7ea , #02a6dc);
     background-image: linear-gradient(top, #07b7ea , #02a6dc);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#07b7ea', endColorstr='#02a6dc', GradientType=0);
+}
+.navbar > #version-no
+{
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    max-width:6.5%;
 }
 
 
@@ -12230,6 +12244,16 @@ div#forgot-password-container{
     opacity: 1
 }
 
+/* Clint Lewis's style's 29/10/13 */
+
+div#login_detail{
+    width:35px;
+    margin-right: 50px;
+    float:right;
+    cursor: pointer;
+    vertical-align: top;
+}
+
 
 
 .Notification-top{
@@ -12267,6 +12291,8 @@ div#forgot-password-container{
 
 .Notification-top > div:first-child{border-radius: 3px 3px 0 0}
 .Notification-top > div:last-child{border-radius: 0 0 3px 3px}
+
+
 * {
     box-sizing: border-box;
     -moz-box-sizing: border-box;

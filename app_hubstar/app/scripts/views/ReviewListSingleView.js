@@ -76,6 +76,7 @@ HubStar.ReviewListSingleView = Ember.View.extend({
                 if (this.get("controller").get("controllers.profile").get('reviews').objectAt(i).get('review_id') !== event) {
                     this.upContent(this.get("controller").get("controllers.profile").get('reviews').objectAt(i).get("review_id"));
                     this.upComments(this.get("controller").get("controllers.profile").get('reviews').objectAt(i).get("review_id"));
+//                    this.get("controller").set("review_is_edit", false);
                 }
             }
         }
@@ -104,7 +105,10 @@ upComments: function(event) {
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 400);
-    }
+    },
+            willSetProperty: function(){
+        
+            }
 
 });
 

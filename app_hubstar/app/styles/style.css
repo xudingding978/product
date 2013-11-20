@@ -1323,7 +1323,13 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 }
 
 
+.spinner-sml{
+    margin-left: 8px;
+    width: 12px;
+    height: 12px;
+}
 
+.spinner-sml:after{top: -6px;}
 
 
 

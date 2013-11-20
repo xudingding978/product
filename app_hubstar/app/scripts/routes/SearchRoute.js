@@ -1,6 +1,12 @@
 HubStar.SearchRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-        HubStar.set('isLogin', true);
+        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+            HubStar.set('isLogin', false);
+
+        } else {
+            HubStar.set('isLogin', true);
+        }
+//        HubStar.set('isLogin', true);
         this.controllerFor('searchs').set("loginInfo", localStorage.loginStatus);
         this.controllerFor('searchs').setLoginImge();
         console.log(model);
@@ -36,7 +42,7 @@ HubStar.SearchRoute = Ember.Route.extend({
         }
     },
     redirect: function() {
-
+        
     },
     activate: function() {
         $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");

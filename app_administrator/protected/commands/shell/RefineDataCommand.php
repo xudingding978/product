@@ -82,7 +82,7 @@ class RefineDataCommand extends Controller_admin {
 
         $log_path = "/var/log/yii/$start_time.log";
 
-        $bucket = "develop";
+        $bucket = "test";
         $settings['log.enabled'] = true;
         $Sherlock = new \Sherlock\Sherlock($settings);
         $Sherlock->addNode("es1.hubsrv.com", 9200);

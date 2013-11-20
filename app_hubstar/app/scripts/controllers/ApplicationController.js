@@ -377,21 +377,19 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             
     topicSelection: function(data) {
        
-        this.set('temp', []);
-        this.set('temp', data);
+
         this.set('subcate', []);
         this.set('subcategories', []);
         for (var i = 0; i < data.get('subcate').get('length'); i++) {
            var str= data.get('subcate').objectAt(i).get('category_topic');
-           str=str.substr(0,str.indexOf(' '));
+           str=str.slice(0,5);
            console.log(str);
-            this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')});
+            this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'),'id': i+str, 'subcategories': data.get('subcate').objectAt(i).get('subcategories')});
         }    
         
     },
     searchTopicSelection: function(data) {
-        this.set('temp', []);
-        this.set('temp', data);
+    
         this.set('subcategories', []);
         for (var i = 0; i < data.get('length'); i++) {
             this.get('subcategories').pushObject({'search_topic': data.objectAt(i).get('search_topic')});

@@ -74,9 +74,29 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('readCaption', false);
         this.setCaption();
     },
-    selectImage: function(e) {
+    selectImage: function(e) { // it is click the photo
         this.set('megaResouce', HubStar.Mega.find(e));
         this.set('selectedPhoto', HubStar.Mega.find(e).get('photo').objectAt(0));
+
+        this.set('captionTitle', this.get('selectedPhoto').get("photo_title"));
+        this.set('caption', this.get('selectedPhoto').get("photo_caption"));
+
+        var contents = this.get('content');
+        var selectedIndex = 0;
+        for (var index = 0; index <= contents.get('length')-1; index++) {
+            if (this.get('selectedPhoto').get("id") === contents.objectAt(index).id ) {
+                selectedIndex = index;
+            }
+        }
+   
+        if (selectedIndex >= (this.get('content').get('length'))) {
+            this.set('image_no', 1);
+            selectedIndex = 0;
+        }
+
+        this.set('image_no', selectedIndex);
+        
+        
         if (this.get("accessFromSearchBoard") === false)
         {
             this.transitionTo("articlePhoto", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo

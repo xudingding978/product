@@ -36,6 +36,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         return 0;
     },
     previesImage: function() {
+        console.log(this.get("model"));
         if (!this.get('selectedPhoto')) {
             this.set('selectedPhoto', this.get('content').get('lastObject'));
 

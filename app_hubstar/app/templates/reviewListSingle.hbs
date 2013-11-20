@@ -16,8 +16,8 @@
                         <span class="posttime">{{date model.review_time_stamp}} </span>
                     </div>
                     {{#if model.getUser}}
-                         <i class="icon-trash"  {{action removeMessage model.review_id}}></i>                 
-                    <i class="icon-pencil" {{action editingCommentData model.review_id model.review_msg}}></i>
+                    <i class="icon-trash"  {{action removeReview model}}></i>                 
+                    <i class="icon-pencil" {{action editReview}}></i>
                     {{/if}}
                 </div>
 
@@ -26,8 +26,16 @@
         </div>
 
         <div  style="background-color: #fff; padding: 10px 40px; font-size: 13px;">
+            {{#if controller.review_is_edit}}       
+            <div id="review_content_{{unbound model.review_id}}" style="width: 390px; max-height:100px;line-height:20px; position: relative; display: inline-block; overflow: hidden; ">
+                {{view Ember.TextArea valueBinding="controller.review_content"  class="no-resize"  placeholder="hehe" }}  
+                <i class="icon-thumbs-up-alt"  {{action saveReview model}}></i>                 
+                    <i class="icon-share" {{action cancelReview}}></i>
+            </div>
+            {{else}}
             <div id="review_content_{{unbound model.review_id}}" {{action 'upContent' model.review_id target='view' on="click"}} style="width: 390px; max-height:100px;line-height:20px; position: relative; display: inline-block; overflow: hidden; ">{{model.review_content}}  </div>   
 
+            {{/if}}    
             <span {{action 'showOneReview' model.review_id target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:inline-block;"  id="down_button_{{unbound model.review_id}}"  ><k class="icon-caret-down">&nbsp;</k>more</span>
             <span {{action 'upContent' model.review_id target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:none;"  id="up_button_{{unbound model.review_id}}" ><k class="icon-caret-up">&nbsp;</k>collapse</span>
 
@@ -101,6 +109,10 @@
 
 
 
+{{#if controller.makeSureDelete}}
 
+{{view HubStar.DeleteFunctionView}}
+
+{{/if}}
 
 

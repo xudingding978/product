@@ -436,6 +436,8 @@ class Controller extends CController {
         return $response;
     }
     
+   
+    
     protected function getProfileReults($owner_profile_id) {
 
         $request = $this->getElasticSearch();

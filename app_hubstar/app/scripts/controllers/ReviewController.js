@@ -23,7 +23,7 @@ HubStar.ReviewController = Ember.Controller.extend({
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             var currentUser = HubStar.User.find(localStorage.loginStatus);
             this.set('review_user_photo_url', currentUser.get('photo_url_large'));
-            this.set('review_user_name', currentUser.get('first_name') + currentUser.get('last_name'));
+            this.set('review_user_name', currentUser.get('display_name'));
         }
         this.set("profile", this.get("controllers.profile").get('currentUserID'));
         this.set("profileReview", this.get("controllers.profile").get('reviews'));
@@ -49,7 +49,7 @@ HubStar.ReviewController = Ember.Controller.extend({
             var reviewUserID = this.get("currentUser").get('id');
             var reviewStarValue = $('#post-star-rating').text();
             var reviewStarValueLength = reviewStarValue * 20;
-            var reviewUserName = this.get("currentUser").get('first_name') + this.get("currentUser").get('last_name');
+            var reviewUserName = this.get("currentUser").get('display_name');
             var replyReviewCollection = this.get("replyReviewCollection");
             var reviewDate = new Date();
             var reviewId = localStorage.loginStatus + createReviewid();

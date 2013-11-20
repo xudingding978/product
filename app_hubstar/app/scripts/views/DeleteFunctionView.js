@@ -14,6 +14,10 @@ HubStar.DeleteFunctionView = Ember.View.extend({
           
             controller.deleteConfirm();
         }
+        else if (controller._debugContainerKey.indexOf("reviewListSingle") !== -1) {
+          
+            controller.deleteConfirm();
+        }
         else if (controller._debugContainerKey.indexOf("application") !== -1)
         {
 
@@ -64,6 +68,14 @@ HubStar.DeleteFunctionView = Ember.View.extend({
         if (controller._debugContainerKey.indexOf("addCollection") !== -1)
         {
             //     controller.addNewCollection();
+        }
+         else if (controller._debugContainerKey.indexOf("profileVideos") !== -1) {
+          
+             controller.cancelDelete();
+        }
+        else if (controller._debugContainerKey.indexOf("reviewListSingle") !== -1) {
+          
+             controller.cancelDelete();
         }
         else if (controller._debugContainerKey.indexOf("application") !== -1)
         {

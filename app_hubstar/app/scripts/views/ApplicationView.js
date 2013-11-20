@@ -22,11 +22,11 @@ HubStar.ApplicationView = Ember.View.extend({
                    
                 }
 
-//                if (y_scroll_pos < scroll_pos_test && $('#top-about-menu').css('display') === 'none') {
-//                    $("#top-about-menu").fadeIn("320");
-//                    $("#search-bar").fadeOut("320");
-//                    $(".Navigator-box").fadeOut("320");
-//                }
+                if (y_scroll_pos < scroll_pos_test && $('#top-about-menu').css('display') === 'none') {
+                    $("#top-about-menu").fadeIn("320");
+                    $("#search-bar").fadeOut("320");
+                    $(".Navigator-box").fadeOut("320");
+                }
             });
             
      

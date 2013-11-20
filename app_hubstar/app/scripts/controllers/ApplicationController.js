@@ -187,6 +187,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     defaultSearch: function() {
         this.set("loginInfo", localStorage.loginStatus);
+        this.set("googletagCmd", []);
+        this.set("content", []);
+        this.set("adPageNo", 0);
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
         results.addObserver('isLoaded', function() {
@@ -554,6 +557,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var increaseby0ne = pageNo + 1;
         this.set('adPageNo', increaseby0ne);
         return pageNo;
+    },
+    backToDefault: function() {        
+        this.defaultSearch();
+        this.set('search_string', '');
+        this.transitionToRoute('searchIndex');
+        
+    },
+    clearSearch: function() {
+        this.set('search_string', '');
+        this.transitionToRoute('searchIndex');
     }
 });
 

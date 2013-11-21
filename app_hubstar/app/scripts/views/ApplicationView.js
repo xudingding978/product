@@ -15,6 +15,8 @@ HubStar.ApplicationView = Ember.View.extend({
 
             var ifsearch = document.URL.split("#")[1];
             if (ifsearch === "/search") {
+                console.log(HubStar.get('showDiscoveryBar'));
+                if(HubStar.get('showDiscoveryBar')===true){
                 if (y_scroll_pos > scroll_pos_test) {
                     $(".Navigator-box").css('display', 'none');
                     $("#top-about-menu").fadeOut("320");
@@ -25,6 +27,7 @@ HubStar.ApplicationView = Ember.View.extend({
                     $("#top-about-menu").fadeIn("320");
                     $("#search-bar").fadeOut("320");
                     $(".Navigator-box").fadeOut("320");
+                }
                 }
             }
         });

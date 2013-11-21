@@ -6,9 +6,11 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     profile_name: "",
     categorySelection: "Apartment Design",
     subcategorySelection: "Bathroom",
-    countrySelection: "",
-    regionSelection: "",
+    countrySelection: "New Zealand",
+    regionSelection: "Auckland",
     numberSelection: "021",
+    keywordNumber: "",
+    heroImage:false,
     profile_url: "",
     first_name: "",
     last_name: "",
@@ -25,10 +27,10 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     client_name: "",
     owner: "",
     direct_enquiry_emails: "",
-    region: "Auckland",
+    //region: "Auckland",
     creater: "",
     editors: "",
-    country: "New Zealand",
+  // country: "New Zealand",
     boost: "",
     profile_package: "",
     profile_contact_number: "",
@@ -159,10 +161,9 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             $('#profileName').attr('style', 'display:none');
         }
 
-        this.set("country", $('#country').val());
-        this.set("region", $('#state').val());
-
-        this.set("profile_url", this.get("profile_name") + "-" + this.get("country") + "-" + this.get("region"));
+    
+       console.log(this.get("country"));
+        this.set("profile_url", this.get("profile_name") + "-" +$('#countrySelection').text() + "-" +$('#regionSelection').text());
         console.log(this.get("profile_url"));
 
 
@@ -201,11 +202,12 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
 //        }
 
         if ($('.background').val() === "") {
+     
 
             this.set('profile_bg_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_bg/default/defaultbg6.jpg");
         }
         if ($('.hero').val() === "") {
-
+       this.set('heroImage', true);
             this.set('profile_hero_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg");
         }
         if ($('.picture').val() === "") {
@@ -243,8 +245,8 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 subcategories: $('#subcategorySelection').text(),
                 created: "",
                 creator: this.get("creater"),
-                country: this.get("country"),
-                region: this.get("region"),
+                country: $('#countrySelection').text(),
+                region: $('#regionSelection').text(),
                 domains: getDomain(),
                 editors: this.get("editors"),
                 keywords: this.get("keywords"),
@@ -280,8 +282,8 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 profile_physical_address: this.get("address"),
                 profile_suburb: this.get("suburb"),
                 profile_keywords: this.get("keywords"),
-                profile_regoin: this.get("region"),
-                profile_country: this.get("country"),
+                profile_regoin: $('#regionSelection').text(),
+                profile_country: $('#countrySelection').text(),
                 profile_hours: "Monday=9:00am-5:00pm,Tuesday=9:00am-5:00pm,Wednesday=9:00am-5:00pm,Thursday=9:00am-5:00pm,Friday=9:00am-5:00pm,Saturday=closed,Sunday=closed,Holidays=closed",
                 phone_number: "(" + $('#numberSelection').text() + ")"+ " " + this.get("profile_contact_number"),
                 profile_partner_ids: null,
@@ -349,16 +351,19 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
 
             console.log("gold");
             this.set("profile_package", "gold");
+            this.set("keywordNumber", "100");
 
         } else if (checking === "silver") {
 
             console.log("silver");
             this.set("profile_package", "silver");
+            this.set("keywordNumber", "50");
 
         } else if (checking === "bronze") {
 
             console.log("bronze");
             this.set("profile_package", "bronze");
+            this.set("keywordNumber", "25");
 
         }
 

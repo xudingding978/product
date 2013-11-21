@@ -43,20 +43,17 @@
 {{/if}}
 
 {{#if controller.countryDropdown}}
-<div id="countryDropdown" class="Dropdownstyle1" style="width: 500px;" {{action dropdown "country"}}>
-
-<!--<div  id ="country" class="ite "></div>-->
+<div id="countryDropdown" class="Dropdownstyle1" onchange="print_state();" style="width: 500px;" {{action dropdown "country"}}>
 </div>
 {{/if}}
 
 {{#if controller.regionDropdown}}
 <div id="regionDropdown" class="Dropdownstyle1" style="width: 500px;" {{action dropdown "region"}}>
-     
-</div>
+ </div>
 {{/if}}
 
 {{#if controller.categoryDropdown}}
-<div id="categoryDropdown"  class="Dropdownstyle1" {{action dropdown "category"}}>
+<div id="categoryDropdown"  class="Dropdownstyle1"  style="width: 500px;" {{action dropdown "category"}}>
      {{#each controller.categorys}}
      <div  class="ite " {{action topicSelection this}}>{{topic}}</div>
     {{/each}}
@@ -125,7 +122,7 @@
 
 <script language="javascript">
 
-//    print_country("country");
+   print_country();
 //print_state('state');
 
 </script>

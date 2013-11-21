@@ -255,30 +255,31 @@ city_states['Venezuela'] = 'Caracas|Amazonas|Anzoategui|Apure|Aragua|Barinas|Bol
 ////////////////////////////////////////////////////////////////////////////
 
 
-function print_country(country_id)
+function print_country()
 {
-    var option_str = document.getElementById(country_id);
-    console.log(country_id);
-    option_str.length = 0;
-    option_str.options[0] = new Option('Select Country', '');
-    option_str.selectedIndex = 0;
+  var html = "";
     for (var i = 0; i < country_arr.length; i++) {
-        option_str.options[option_str.length] = new Option(country_arr[i], country_arr[i]);
+        
+       // option_str.options[option_str.length] = new Option(country_arr[i], country_arr[i]);
+        html+='<div class="ite">' + country_arr[i]+ '</div>';  
+    }
+    if(document.getElementById("countryDropdown") !== null){
+    document.getElementById("countryDropdown").innerHTML+= html;
     }
 }
 
-function print_state(state_id)
+function print_state()
 {
-
-    var option_str = document.getElementById(state_id);
-    option_str.length = 0;	// Fixed by Julian Woods
-    option_str.options[0] = new Option('Select State', '');
-
-    var country = $('#country').val();
+    console.log(country);
+    var country = $('#countrySelection').text();
+    console.log(country);
+     var html = "";
     if (city_states[country])
     {
         var city_stateArr = city_states[country].split('|');
         for (var i = 0; i < city_stateArr.length; i++)
-            option_str.options[i + 1] = new Option(city_stateArr[i], city_stateArr[i]);
+            //option_str.options[i + 1] = new Option(city_stateArr[i], city_stateArr[i]);
+                html+='<div class="ite ">' + country_arr[i]+ '</div>';
     }
+    document.getElementById("regionDropdown").innerHTML+= html;
 }

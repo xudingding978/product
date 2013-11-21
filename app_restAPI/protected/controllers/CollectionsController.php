@@ -51,7 +51,7 @@ class CollectionsController extends Controller {
             $tempCollection = $request_arr['collection'];
             $type = $tempCollection['type'];
             $id = $tempCollection['optional'];
-            
+            $tempCollection['id']=(string)$tempCollection['id'];
             $cb = $this->couchBaseConnection();
             $domain = $this->getDomain();
             if ($type === "profile") {

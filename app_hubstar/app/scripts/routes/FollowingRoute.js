@@ -22,7 +22,6 @@ HubStar.FollowingRoute = Ember.Route.extend({
 
         this.controllerFor('userFollowings').setUserFollowings(model);
 
-        $(window).scrollTop(0);
     },
     model: function(params) {
 

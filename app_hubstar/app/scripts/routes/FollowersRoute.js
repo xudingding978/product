@@ -20,7 +20,6 @@ HubStar.FollowersRoute = Ember.Route.extend({
         $('#ufollower').addClass('selected-user-stats');
    this.controllerFor('userFollowers').setUserFollowers(model);
 
-        $(window).scrollTop(0);
     },
     model: function(params) {
 

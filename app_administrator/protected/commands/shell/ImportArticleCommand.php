@@ -1,6 +1,7 @@
 <?php
-
-class ImportArticleCommand extends CConsoleCommand {
+Yii::import("application.models.*");
+Yii::import("application.components.*");
+class ImportArticleCommand extends ArticleCommand {
 
     public $total_amount = 0;
 
@@ -88,7 +89,7 @@ class ImportArticleCommand extends CConsoleCommand {
 
         Yii::import("application.models.*");
 
-        $artical_data_arr = Article::model()->getArticalRange();//????
+        $artical_data_arr = Article::model()->getArticalbyDate();//????
         $this->total_amount = sizeof($artical_data_arr);  //elements in the array
         echo $this->total_amount . "\r\n";
         

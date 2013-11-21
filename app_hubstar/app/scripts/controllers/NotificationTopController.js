@@ -208,8 +208,9 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                 }
             }
             this.transitionToRoute('user', user);
-            this.transitionToRoute('conversation', data);
+            
             this.get('controllers.messageCenter').getClientId(localStorage.loginStatus, conversationID);
+            this.transitionToRoute('conversation', data);
             //   $(window).scrollTop(2000);
         }
         user.addObserver('isLoaded', function() {
@@ -235,13 +236,13 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         this.reviewCancel();
     },
     gotoMessage: function(id)
-    {
+    {       
         this.set("goMessage", '#message_' + id);
 
         var address = document.URL;
-        if (address.split("#")[1].split("/").length >= 5) {
-            var page = address.split("#")[1].split("/")[4];
-            if (page === "messages")
+        if (address.split("#")[1].split("/").length >= 4) {
+            var page = address.split("#")[1].split("/")[3];
+            if (page === "post")
             {
                 this.get("controllers.userMessage").goToMessageTop(this.get("goMessage"));
             }
@@ -249,8 +250,8 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         this.reviewCancel();
         var user = HubStar.User.find(localStorage.loginStatus);
         this.transitionToRoute('user', user);
-        this.transitionToRoute('messageCenter');
-        this.transitionToRoute('messages');
+        //this.transitionToRoute('messageCenter');
+        this.transitionToRoute('userPost');
         $(window).scrollTop(550);
     },
     gotoReply: function(id)
@@ -266,7 +267,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
            
             if (user.get('isLoaded')) {
                 this.set("goMessage", '#message_' + reply[1]);
-                this.transitionToRoute('messageCenter', user);
+                this.transitionToRoute('userPost');
 
             }
             user.addObserver('isLoaded', function() {
@@ -274,7 +275,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                     that.set("goMessage", '#message_' + reply[1]);
                     var userID = HubStar.User.find(reply[2]);
                     that.transitionToRoute('user', userID);
-                    that.transitionToRoute('messageCenter', user);
+                    that.transitionToRoute('userPost');
                 }
             });
         }
@@ -283,13 +284,13 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             this.set("goMessage", '#message_' + reply[1]);
             var userID = HubStar.User.find(reply[2]);
             this.transitionToRoute('user', userID);
-            this.transitionToRoute('messageCenter');
-            this.transitionToRoute('messages');
+            //this.transitionToRoute('messageCenter');
+            this.transitionToRoute('userPost');
         }
         var address = document.URL;
-        if (address.split("#")[1].split("/").length >= 5) {
-            var page = address.split("#")[1].split("/")[4];
-            if (page === "messages")
+        if (address.split("#")[1].split("/").length >= 4) {
+            var page = address.split("#")[1].split("/")[3];
+            if (page === "post")
             {
                 this.get("controllers.userMessage").goToMessageTop(this.get("goMessage"));
             }

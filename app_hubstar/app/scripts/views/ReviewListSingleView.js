@@ -47,7 +47,7 @@ HubStar.ReviewListSingleView = Ember.View.extend({
 
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
-        }, 500);
+        }, 400);
 
     },
     upContent: function(event) {
@@ -66,7 +66,7 @@ HubStar.ReviewListSingleView = Ember.View.extend({
 
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
-        }, 500);
+        }, 400);
     },
     showOneReview: function(event) {
 
@@ -91,7 +91,7 @@ HubStar.ReviewListSingleView = Ember.View.extend({
         $('#reply_' + event).animate({maxHeight: '200px'}, 500);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
-        }, 500);
+        }, 400);
     },
      
 upComments: function(event) {
@@ -103,7 +103,7 @@ upComments: function(event) {
         $('#reply_' + event).animate({maxHeight: '0px'}, 500);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
-        }, 500);
+        }, 400);
     }
 
 });

@@ -18,7 +18,7 @@ HubStar.MessagesRoute = Ember.Route.extend({
         {
             model = this.controllerFor('notificationTop').get("reply_ids");
         }
-        $(window).scrollTop(550);
+        $(window).scrollTop(600);
     },
     model: function(params) {
         var user_id = "";

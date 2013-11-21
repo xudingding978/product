@@ -13,7 +13,7 @@
                  <i class="icon-search"></i>
             </div>
         </div>
-        <div style="float: left;margin: 3px;" class="hover-opacity"{{action partnerSearchReset this}}><i class="icon-remove-sign"></i></div>
+        <div style="float: left;margin: 3px;" class="hover-opacity"{{action partnerSearchReset this}}><i class="icon-repeat"></i></div>
         {{/if}} 
         {{#if controller.partnerPage}}
         <ul class="user-stats" id="user-stats">
@@ -30,7 +30,11 @@
             <li id="defualt" ><a {{action selectCollection}}> Collections<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userCollectionStatistics}}</a></li>
             <li id ="ufollowing"><a {{action selectFollowing this}}> Following<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowingStatistics}}</a></li>
             <li id ="ufollower"><a {{action selectFollower this}}> Followers<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowerStatistics}}</a></li>
+             {{#if controller.isUserSelf}}
             <li id ="message"><a {{action selectMessage this}}> Messages<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp;</span></a></li>
+           {{/if}}
+            <li id ="post"><a {{action selectPost this}}> Posts<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp;</span></a></li>
+            
 
         </ul>
         {{/if}}    
@@ -68,6 +72,10 @@
 
         {{#if messageTag}}
         {{render messageCenter}}
+        {{/if}}
+        
+        {{#if postTag}}
+        {{render userMessage}}
         {{/if}}
     </div>
 

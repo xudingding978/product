@@ -736,7 +736,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     selectVideo: function(model) {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-            $(window).scrollTop(1500);
             this.sendEventTracking('event', 'button', 'click', 'Video');
             $('#user-stats > li').removeClass('selected-user-stats');
             $('#video').addClass('selected-user-stats');
@@ -752,9 +751,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
     },
     selectPartner: function(model) {
+
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-            $(window).scrollTop(1500);
             this.sendEventTracking('event', 'button', 'click', 'Partners');
             $('#user-stats > li').removeClass('selected-user-stats');
             $('#network').addClass('selected-user-stats');
@@ -772,13 +771,17 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 $('#masonry_user_container').masonry("reload");
             }, 200);
 
+
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reload");
+            }, 200);
+
         }
     },
     selectFollower: function(model) {
 
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-            $(window).scrollTop(1500);
             this.sendEventTracking('event', 'button', 'click', 'Followers');
             this.set('profileSelectionStatus', 'Followers');
             this.set('partnerTag', false);
@@ -793,20 +796,19 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     selectReview: function(model) {
-  if (this.get("controllers.checkingLoginStatus").popupLogin())
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-        $(window).scrollTop(1500);
-        this.sendEventTracking('event', 'button', 'click', 'Reviews');
-        this.set('profileSelectionStatus', 'Reviews');
-        this.set('partnerTag', false);
-        this.set('collectionTag', false);
-        this.set('followerProfileTag', false);
-        this.set('reviewTag', true);
-        this.set('videoTag', false);
-        this.transitionToRoute('reviews');
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+            this.sendEventTracking('event', 'button', 'click', 'Reviews');
+            this.set('profileSelectionStatus', 'Reviews');
+            this.set('partnerTag', false);
+            this.set('collectionTag', false);
+            this.set('followerProfileTag', false);
+            this.set('reviewTag', true);
+            this.set('videoTag', false);
+            this.transitionToRoute('reviews');
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reload");
+            }, 200);
         }
     },
     saveUpdateAboutUs: function() {
@@ -911,6 +913,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     });
                     this.get('keywords_array').removeObject(this.get('keywords_array').objectAt(i));
                     this.set('keyword_left', this.get('keyword_left') + 1);
+                }
+            }
+            if (this.get('show_keyword_id').indexOf(keyword_id) > -1) {
+                this.set('show_keyword_id', this.get('show_keyword_id').replace(',' + keyword_id, ''));
+                for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
+                    if (this.get('show_keyword_array').objectAt(i).get('keyword_id') === keyword_id) {
+                        this.get('show_keyword_array').removeObject(this.get('show_keyword_array').objectAt(i));
+                        this.set('show_keyword_id', this.get('show_keyword_id').replace(',' + keyword_id, ''));
+                    }
                 }
             }
         } else {

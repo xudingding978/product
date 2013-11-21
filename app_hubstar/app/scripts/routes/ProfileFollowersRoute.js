@@ -10,7 +10,7 @@ HubStar.ProfileFollowersRoute = Ember.Route.extend({
  if (this.controllerFor('checkingLoginStatus').popupLogin())
         {
 
-       $(window).scrollTop(1500);      
+        
 
          this.controllerFor('profile').sendEventTracking('event', 'button', 'click', 'Followers');
          this.controllerFor('profile').set('profileSelectionStatus', 'Followers');

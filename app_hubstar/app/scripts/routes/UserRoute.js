@@ -1,11 +1,11 @@
 HubStar.UserRoute = Ember.Route.extend({
-    setupController: function(controller, model) {       
+    setupController: function(controller, model) {
         HubStar.set('editingMode', 'user');
-         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
+        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
         {
             HubStar.set("isLogin", false);
-        }else{
-                    HubStar.set("isLogin", true);               
+        } else {
+            HubStar.set("isLogin", true);
         }
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('application').set('popup', false);
@@ -21,10 +21,11 @@ HubStar.UserRoute = Ember.Route.extend({
         this.controller.set('messageTag', false);
         this.controllerFor('user').set("model", model);
         this.controllerFor('user').setUser();
-
+        $("#top-about-menu").css('display', 'none');
+        $("#search-bar").css('display', 'block');
         $(window).scrollTop(0);
     },
-    model: function(params) {   
+    model: function(params) {
         return HubStar.User.find(params.user_id);
     },
     events: {

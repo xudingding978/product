@@ -51,9 +51,9 @@ HubStar.Router.map(function() {
                 this.resource("messages", {path: '/messages'});
                 this.resource("notifications", {path: '/notifications'});
                 this.resource("conversations", {path: '/conversations'}, function() {
-         this.resource("newConversation", {path: '/new'});
+                    this.resource("newConversation", {path: '/new'});
                     this.resource("conversation", {path: ':conversation_id'});
-           
+
                 });
             });
 

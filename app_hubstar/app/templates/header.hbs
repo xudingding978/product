@@ -1,6 +1,24 @@
 <div class="navbar">
-{{#if !HubStar.showDiscoveryBar}}
-    <div id="search-bar" class="search-bar-ontop" style="display:block;">
+
+    <div class="navbar-inner">
+        <div class="brand" >
+            <a href="/#" > <img class="logonew" {{action showDiscoveryBar}} style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png"></a>
+
+            <div style="position: relative;display: inline-block;top: 12px;font-weight: normal;font-style: italic;color: white;font-size: 11px;">
+                <span>Beta</span> <span id="lastidentifie">0.3-93</span>
+            </div>
+        </div>
+
+
+        <div id="top-about-menu" class="top-about-menu" style="display:block">
+            <span><a target="blank" href="http://about.trendsideas.com/">About</a></span>
+            <span><a target="blank" href="http://about.trendsideas.com/business/">Business</a></span>
+            <span><a target="blank" href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span>
+            <span><a target="blank" href="http://about.trendsideas.com/contact-us/">Contact us</a></span>
+        </div>
+
+
+   <div id="search-bar" class="search-bar-ontop" style="display:none">
         <div class="Search-box easing" style="">
             {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_business" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
             <div class="Nav-btn easing" style="position: absolute;right: -5px;border-radius: 0 3px 3px 0;top: 0; border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
@@ -12,24 +30,8 @@
         {{view HubStar.NavigatorView}}
         {{/if}}
     </div>
-{{/if}}
-    <div class="navbar-inner">
-        <div class="brand" >
-            <a href="/#" > <img class="logonew" {{action showDiscoveryBar}} style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png"></a>
 
-            <div style="position: relative;display: inline-block;top: 12px;font-weight: normal;font-style: italic;color: white;font-size: 11px;">
-                <span>Beta</span> <span id="lastidentifie">0.3-93</span>
-            </div>
-        </div>
 
-{{#if HubStar.showDiscoveryBar}}
-        <div id="top-about-menu" class="top-about-menu" style="display:none;">
-            <span><a target="blank" href="http://about.trendsideas.com/">About</a></span>
-            <span><a target="blank" href="http://about.trendsideas.com/business/">Business</a></span>
-            <span><a target="blank" href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span>
-            <span><a target="blank" href="http://about.trendsideas.com/contact-us/">Contact us</a></span>
-        </div>
-{{/if}}
 
 
         {{#if HubStar.isLogin}}

@@ -3,18 +3,13 @@ HubStar.NavigatorView = Ember.View.extend({
 
     didInsertElement: function() {
 
-
-
-        
-$(".Navigator-content ul").click(function() {
-         
-       $(this).css("background-color","#d2d2d2");
-       //$(this).addClass('active-item');
-        });
+//$(".Navigator-content ul").click(function() {
+//         
+//       $(this).css("background-color","#d2d2d2");
+//       //$(this).addClass('active-item');
+//        });
         
     }
-
-
     
 
 

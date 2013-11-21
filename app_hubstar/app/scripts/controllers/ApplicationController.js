@@ -373,7 +373,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
            },
              dropdownHeaderNavigator: function() {
 
-        this.set(' isHeaderNavigatorDropdown', !this.get(' isHeaderNavigatorDropdown'));
+        this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
+ 
         this.set('categorys', HubStar.Cate.find({}));
         
         this.set('subcate', []);
@@ -410,6 +411,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('search_string', search_topic);
         this.newSearch();
 this.set('isNavigatorDropdown',false);
+ this.set('isHeaderNavigatorDropdown', false);
+  HubStar.set("showDiscoveryBar", false);
     },
     canelDropDown: function()
     {

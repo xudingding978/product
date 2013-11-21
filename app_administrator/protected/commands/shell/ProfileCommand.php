@@ -29,7 +29,10 @@ class ProfileCommand extends Controller_admin {
             $this->correctCollectionDescription();
         }elseif ($action == 'test') {
             $this->profileChangeId();
+        }elseif($action=='find'){
+            $this->findProfiles();
         }
+        
         else {
             echo "please input an action!!";
         }
@@ -574,6 +577,7 @@ class ProfileCommand extends Controller_admin {
     }
 
     public function findProfiles($bucket) {
+
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode("es1.hubsrv.com", 9200);
@@ -584,12 +588,12 @@ class ProfileCommand extends Controller_admin {
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
         $request->index($index)->type("couchbaseDocument");
         $request->from(0)
-                ->size(10000);
+                ->size(1000);
         $request->query($bool);
         $response = $request->execute();
         $profile_arr = array();
         foreach ($response as $hit) {
-            echo $hit["score"] . ' - ' . $hit['id'] . "\r\n";
+       //     echo $hit["score"] . ' - ' . $hit['id'] . "\r\n";
             array_push($profile_arr, $hit['id']);
         }
 
@@ -603,6 +607,8 @@ class ProfileCommand extends Controller_admin {
         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $log_path = "/var/log/yii/$start_time.log";
         $profile_arr = $this->findProfiles($bucket);
+        print_r(var_export($profile_arr, true));
+
 
         foreach ($profile_arr as $profile_id) {
             $message = "";

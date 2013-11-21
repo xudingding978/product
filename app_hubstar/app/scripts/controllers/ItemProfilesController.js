@@ -12,7 +12,7 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
     is_authentic_user: false,
     is_profile_editing_mode: false,
     follow_status: false,
-    needs: ['profile', 'permission', 'profilePartners', 'userFollowings'],
+    needs: ['profile', 'permission', 'profilePartners', 'userFollowings','checkingLoginStatus'],
     init: function() {
         var address = document.URL;
 
@@ -28,16 +28,18 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
     },
     followThisUser: function(profile)
     {
-        if (profile.get("isFollowCurrentUser") === false)
-        {
-            this.get("controllers.userFollowings").followProfile(profile.get("id"));
-            profile.set('isFollowCurrentUser', true);
-        }
-        else
-        {
-            this.get("controllers.userFollowings").unFollowProfile(profile.get("id"));
-            profile.set('isFollowCurrentUser', false);
-        }
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+            if (profile.get("isFollowCurrentUser") === false)
+            {
+                this.get("controllers.userFollowings").followProfile(profile.get("id"));
+                profile.set('isFollowCurrentUser', true);
+            }
+            else
+            {
+                this.get("controllers.userFollowings").unFollowProfile(profile.get("id"));
+                profile.set('isFollowCurrentUser', false);
+            }
+    }         
     },
     checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
@@ -56,7 +58,6 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
         return is_authentic_user;
     },
     dropdownPhotoSetting: function(id) {
-
         $('#dropdown_id_' + id).toggleClass('hideClass');
     },
     checkEditingMode: function()
@@ -82,7 +83,6 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
 
         HubStar.set("scrollPartenerPosition", $(window).scrollTop());
         this.transitionToRoute('profile', model);
-        console.log(model);
         $(window).scrollTop(0);
     },
     setPartnerRemove: function() {

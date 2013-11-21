@@ -51,7 +51,7 @@ class CollectionsController extends Controller {
             $tempCollection = $request_arr['collection'];
             $type = $tempCollection['type'];
             $id = $tempCollection['optional'];
-            
+            $tempCollection['id']=(string)$tempCollection['id'];
             $cb = $this->couchBaseConnection();
             $domain = $this->getDomain();
             if ($type === "profile") {
@@ -204,6 +204,8 @@ class CollectionsController extends Controller {
         $responseArray = array();
         foreach ($response as $hit) {
             $id = $hit['id'];
+            error_log(var_export($hit, TRUE));
+            error_log("11111111111");
             $collectionId = $hit['collection_id'];
             $profileId = $hit['owner_id'];
             $type = $hit['type'];

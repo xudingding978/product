@@ -133,22 +133,22 @@ class Controller_data extends Controller {
     }
 
     
-    public function saveImageToS3($url, $data, $bucket) {
-        $provider_arr['key'] = 'AKIAJKVKLIJWCJBKMJUQ';
-        $provider_arr['secret'] = '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';
-        $provider_arr['region'] = 'ap-southeast-2';
-        $client = Aws\S3\S3Client::factory(
-                        $provider_arr
-        );
-        $result = $client->putObject(array(
-                            'Bucket' => $bucket, //"s3.hubsrv.com"
-                            'Key' => $url,
-                            'Body' => $data,
-                            'ACL' => 'public-read'
-                        ));
-        return $result;
-    }
-    
+//    public function saveImageToS3($url, $data, $bucket) {
+//        $provider_arr['key'] = 'AKIAJKVKLIJWCJBKMJUQ';
+//        $provider_arr['secret'] = '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';
+//        $provider_arr['region'] = 'ap-southeast-2';
+//        $client = Aws\S3\S3Client::factory(
+//                        $provider_arr
+//        );
+//        $result = $client->putObject(array(
+//                            'Bucket' => $bucket, //"s3.hubsrv.com"
+//                            'Key' => $url,
+//                            'Body' => $data,
+//                            'ACL' => 'public-read'
+//                        ));
+//        return $result;
+//    }
+//    
 }
 
 ?>

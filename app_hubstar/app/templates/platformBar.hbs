@@ -37,17 +37,21 @@
                 </ul>
             </li>
             <li><div class="hint--right hint--rounded" data-hint="Search for Location"><a href="#"> <i class="icon-globe" style="font-size: 20px;"></i></a></div>
-                <ul>
+                <ul class="nav-geo-ul">
                     <li>&nbsp;</li>
                     <div style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -50px;  z-index: -1;"></div>
 
 
-                    <li><a  href="#" {{action topicSearch userLocation}} >Your location</br>
+                    <li><div  {{action changeLocation userLocation}} >Your location</br>
                             ({{userLocation}})
-                        </a></li>
-                    <li><a  href="#" {{action topicSearch 'Global'}} >Global</a></li>
-                    <li><a  href="#" {{action topicSearch 'Australia'}} >Australia</a></li>
-                    <li><a  href="#" {{action topicSearch 'New Zealand'}} >New Zealand</a></li>
+                        </div></li>
+                        <li><div  {{action changeLocation 'Global'}} >Global</div></li>
+                    <li><div  {{action changeLocation 'Australia'}} >Australia</div></li>
+                    <li><div {{action changeLocation 'New Zealand'}} >New Zealand</div></li>
+                    <li><div {{action changeLocation 'United States'}} >United States</div></li>
+                    <li><div {{action changeLocation 'India'}} >India</div></li>
+                    <li><div {{action changeLocation 'China'}} >China</div></li>
+                    <li><div {{action changeLocation 'Asia'}} >Asia</div></li>
                 </ul>
             </li>
 
@@ -58,7 +62,7 @@
                     <div style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -50px;  z-index: -1;"></div>
                     {{#each controller.user.collections}}
 
-                    <li><a  href="{{unbound controller.myUserProfile}}/{{unbound id}}" > {{title}}</a></li>
+                    <li><a  href="{{unbound controller.myUserProfile}}/collections/{{unbound id}}" > {{title}}</a></li>
 
                     {{/each}}
                 </ul>
@@ -93,21 +97,21 @@
 
 <script>
 
-                function logout() {
+                    function logout() {
 
-                    var address = document.URL;
-                    var domain = address.split("/")[2];
-                    $.ajax({
-                        type: 'POST',
-                        url: 'http://api.' + domain + '/logout',
-                        contentType: 'application/json; charset=uft-8',
-                        dataType: 'json',
-                        success: function() {
+                        $.ajax({
+                            type: 'POST',
+                            url: getRestAPIURL()+ '/logout',
+                            contentType: 'application/json; charset=uft-8',
+                            dataType: 'json',
+                            success: function(para) {
+                               
 
-                        }
-                    });
-                    localStorage.clear();
-                }
+                            }
+                        });
+
+                        localStorage.clear();
 
 
+                    }
 </script>

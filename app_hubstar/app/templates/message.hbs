@@ -1,0 +1,175 @@
+<div class="box col2" style="background-color: #fafafa">
+    {{#unless model.enableToEdit}}
+    <div style="padding: 10px 0 10px 70px;position: relative;  background-color: #f3f3f3;  border-bottom: 1px solid #ddd;">
+        <div style="float: right;color: #888;margin: 18px 20px;font-size: 13px; position: relative;z-index: 1">
+            {{#if model.isUserself}} <!--model.isUserself is used to judge whether the reply message is written by the current login user-->
+
+            <span style="margin: 0 10px; cursor: pointer" class="hint--bottom hint--rounded" data-hint="Delete">
+                <i class="icon-trash"  {{action removeMessage model.message_id}}></i>
+            </span>                 
+            <span style="cursor: pointer" class="hint--bottom hint--rounded" data-hint="Edit">
+                <i class="icon-pencil"  {{action editingCommentData model.message_id model.msg}}></i>
+            </span>
+
+            {{else}}
+            {{#if controller.isUserself}} 
+
+            <!--controller.isUserself is used to judge whether it is the page owner who have right to delete every message-->
+            <span style="margin: 0 10px; cursor: pointer" class="hint--bottom hint--rounded" data-hint="Delete">
+                <i class="icon-trash" {{action removeMessage model.message_id}}></i>    
+            </span>
+            <span style="cursor: pointer" class="hint--bottom hint--rounded" data-hint="Edit">
+                <i class="icon-pencil" {{action editingCommentData model.message_id model.msg}}></i>   
+            </span>
+            {{/if}}
+            {{/if}}
+        </div>
+
+
+        <div class="radius-circle" style="position: absolute; top: 15px;margin: 0 0 0 -55px;border: 1px solid #f3f3f3;width: 45px;height: 45px;overflow: hidden">
+            <img class="profilepic_comment" href="#/users/{{unbound model.user_id}}" style="width: 45px; height: 45px; " {{bindAttr src= model.photo_url_large}} /> 
+        </div>
+
+        <div class="comment-namentime" style="margin: 8px 0; z-index: 0">
+            <div class="namentime_position">
+                <a class="comment-username"   href="#/users/{{unbound model.user_id}}">
+                    {{model.user_name}}
+                </a>
+                <div class="posttime-container">
+                    <span class="posttime">{{date model.time_stamp}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="comment-content" style="font-size: 12px;margin: 10px 20px;">
+        {{model.msg}}
+        {{#if model.isUrl }}
+        <div style='margin: 5px auto;max-width: 300px;max-height: 300px;'>
+            <img {{bindAttr src= model.url}} style="border: 4px solid #fff;"/>
+        </div>
+        {{/if}}
+    </div>
+    {{#if model.replyEdit}}
+    <div class="reply-comment-frame"  style="padding: 15px;">
+        <div style="margin:0 auto; padding: 0 45px 0 0;">
+            <a  href="#/users/{{unbound model.user_id}}">
+                <img class="profilepic_comment" style="float: right; margin: 4px -45px 0 0; margin-top: 0;" {{bindAttr src="controller.commenter_photo_url"}} /> 
+                <div class='user-reply-angle-before' style="right: 47px;"></div>
+                <div class='user-reply-angle-after' style="right: 45px;"></div>
+            </a>
+
+            <div class="reply-comment-container" style="width: 100%;height: 32px;">
+                <div id ="reply_{{unbound model.message_id}}"style="margin: 0;width: 210px; height: 30px;float: left;">
+                    {{view HubStar.SearchRequireTextFieldView valueBinding="replyContent" class="no-resize" placeholder="What's up!" }}                                          
+                </div>
+                <div style="float: right;height: 34px;position: relative;">
+                    <div  class="message-btn easing" style="width:30px; border-right: 1px solid #ddd; border-left: 1px solid #ddd;"><k class='icon-picture'></k>
+                        <div style="opacity:0;position: relative;height:30px;top:-30px;overflow: hidden;"> 
+                            {{view HubStar.SingleImageInputButtonView }}
+
+                        </div>
+                    </div>
+                    {{#if controller.isReply}}
+                    <div class="message-btn easing" style='width: 30px;'{{action addReply model.message_id}}>
+                         <k class='icon-ok'></k>
+                    </div>
+                    {{else}}
+                    <div class="message-btn easing" style='width: 30px;'>
+                        <i class="spinner spinner-sml"></i>
+                    </div>
+                    {{/if}}
+                   
+                    
+                </div>
+            </div>
+
+            <!--please disable the following div when it's got not content-->
+            {{#if controller.isUploadPhoto}}
+            <div style='max-width: 100%;max-height: 100px;padding: 10px 12px;text-align: center;border:1px solid #ddd;'>
+                <div class='remove-comment-photo easing' {{action removePic}}><i class="icon-remove"></i></div>
+                <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 100%; max-height: 80px;">
+            </div>
+            {{/if}}
+        </div>
+    </div>
+    {{/if}}
+
+
+    <div id="messageData_{{unbound model.message_id}}"  style="display: none">
+        <div id="messageScrollBar_{{unbound model.message_id}}">
+        {{#each  model.replyMessageCollection}} 
+        {{#unless this.enableToEdit}}
+        <div class="your-relpy" style="padding: 10px 60px 10px 0;">
+            <a class="your-relpy_profilepic" style="right: 15px;" href="#/users/{{unbound this.user_id}}">
+                <img class="profilepic_comment"  {{bindAttr src= this.photo_url_large}} />
+            </a>
+            <div style="">
+                <div class="comment-namentime">
+                    <div class="namentime_position">
+                        {{#if this.isUserself}}
+                        <div class="reply-comment" style="left: 40px;right: initial;">
+                            <span class="hint--bottom hint--rounded" data-hint="Delete"><i class="icon-trash"  {{action removeReply this.reply_id}}></i></span>
+                            <span class="hint--bottom hint--rounded" data-hint="Edit"><i class="icon-pencil" {{action editingReplyData this.reply_id this.msg}}></i></span>
+                        </div>
+                        {{else}}
+                        {{#if controller.isUserself}}
+                        <div class="reply-comment" style="left: 40px;right: initial;">   
+                            <span class="hint--bottom hint--rounded" data-hint="Delete"><i class="icon-trash"  {{action removeReply this.reply_id}}></i></span>
+                            <span class="hint--bottom hint--rounded" data-hint="Edit"><i class="icon-pencil" {{action editingReplyData this.reply_id this.msg}}></i></span>
+                        </div>
+                        {{/if}}
+                        {{/if}}
+                        <a class="comment-username"  href="#/users/{{unbound this.user_id}}">
+                            {{this.user_name}}    
+                        </a>
+                        <div class="posttime-container">
+                            <span class="posttime">{{date this.time_stamp}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment-content">
+                    {{this.msg}}<br>
+                    {{#if this.isUrl }}   <!-- if the isUrl is not null which mean it has the picture url, so it can show the image-->
+                    <div style='margin: 5px auto;max-width: 300px;max-height: 300px;float: right;'>
+                        <img {{bindAttr src= this.url}} style="border: 4px solid #fff;"/>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        {{else}}
+
+        {{render editReply this}}
+        {{/unless}}
+        {{/each}}     
+    </div>
+</div>
+
+
+    <div class="hover-opacity easing" style="height: 20px; width: 100%; background-color: #f3f3f3;text-align: center;color: #555; border-top: 1px solid #ddd">  
+        <div id="showMoreComment_{{unbound model.message_id}}" style="display: inline-block; cursor: pointer"  {{action seeMore model.message_id target="controller" on="click"}}>
+            <span style="font-size: 11px;font-weight: bold">view comment &nbsp; {{model.replyCount}}</span>
+            <i class="icon-caret-down show-comment_inner" ></i>   
+        </div>
+        <div id="closeComment_{{unbound model.message_id}}"   style="display: none;cursor: pointer" {{action closeMore model.message_id  target="controller" on="click"}}>
+            <span style="font-size: 11px;font-weight: bold">collapse comment &nbsp; {{model.replyCount}}</span>
+            <i class="icon-caret-up show-comment_inner" ></i>
+        </div>
+    </div>
+
+
+
+    <script>
+        $(function() {
+            var $container = $('#masonry_user_container');
+            window.setTimeout(function() {
+                $container.masonry();
+                $container.masonry('reloadItems');
+            }, 200);
+        });
+    </script>
+    {{else}}
+
+    {{render editMessage model}}
+    {{/unless}}
+</div>

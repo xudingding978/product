@@ -65,20 +65,20 @@
 
                     <div style="border-bottom: 1px solid #e3e3e3; border-top:1px solid #e3e3e3;">
                         <div id="first_name" class="login-textfield" style="width: 49%;display: inline-block;border: none">
-                            {{view Ember.TextField valueBinding="first_name" placeholder="First Name" }}
+                            {{view HubStar.RegisterEnterKeyTextFieldView valueBinding="first_name" placeholder="First Name" }}
                         </div>
 
                         <div id="last_name" class="login-textfield" style="width: 49%;display: inline-block;border: none">
-                            {{view Ember.TextField valueBinding="last_name" placeholder="Last Name" }}
+                            {{view HubStar.RegisterEnterKeyTextFieldView valueBinding="last_name" placeholder="Last Name" }}
                         </div>
                     </div>
 
                     <div  id="email" class="login-textfield" style="">
-                        {{view Ember.TextField valueBinding="email" placeholder="Your Email" }}
+                        {{view HubStar.RegisterEnterKeyTextFieldView valueBinding="email" placeholder="Your Email" }}
                     </div>
 
                     <div id="password" class="login-textfield"  style="">
-                        {{view Ember.TextField type="password" valueBinding="password" placeholder="Password" }}
+                        {{view HubStar.RegisterEnterKeyTextFieldView type="password" valueBinding="password" placeholder="Password" }}
                     </div>
                 </div>
 
@@ -90,7 +90,7 @@
                 <div style="padding: 0 8px;position: relative;">
 
                     <div  class="login-textfield" style="border-top:1px solid #e3e3e3;">
-                        {{view Ember.TextField valueBinding="region" placeholder="Region" }}
+                        {{view HubStar.DoneEnterKeyTextFieldView valueBinding="region" placeholder="Region" }}
                     </div>
 
                     <div style="border-bottom: 1px solid #e3e3e3;">
@@ -104,7 +104,7 @@
             </div>
 
             <div class="login-textfield"  style="margin: 0;width: 100%;height: 45px;line-height: 45px;border-bottom: 1px solid #e3e3e3;">
-                {{view Ember.TextField valueBinding="age" placeholder="How old are you?" }}
+                {{view HubStar.DoneEnterKeyTextFieldView valueBinding="age" placeholder="How old are you?" }}
             </div>
         </div>
         <div class="back-btn easing" style="" >Back</div>
@@ -169,11 +169,11 @@
 
 
             <div id="loginUsername" class="login-textfield" style="">
-                {{view Ember.TextField valueBinding="loginUsername" placeholder="Your Email" }}
+                {{view HubStar.LoginEnterKeyTextFieldView valueBinding="loginUsername" placeholder="Your Email" }}
             </div>
 
             <div id="loginPassword" class="login-textfield"  style="">
-                {{view Ember.TextField type="password" valueBinding="loginPassword" placeholder="Password" }}
+                {{view HubStar.LoginEnterKeyTextFieldView type="password" valueBinding="loginPassword" placeholder="Password" }}
                 <div class="hint--right hint--rounded" data-hint="forgot password?" style="cursor:pointer;float: right;margin-top: -40px;height: 30px;color:#888;">
                     <i class="icon-question-sign">&nbsp</i>
                 </div>
@@ -216,9 +216,6 @@
             <a class="white-text-hover easing" href="http://trendsideas.com/ViewPage.aspx?pageName=Contact%20Us&region=1" target="blank" style="text-decoration: underline"><b>help documents.</b></a>
         </p>
     </div>
-
-
-
 </div>
 
 
@@ -321,7 +318,7 @@
                     /* LOGIN TAB:  hiding social login */
 
                     if ($('#social-login-container').css('display') === 'none') {
-                        $('#social-login-container').animate({height: 'toggle'});
+                        $('#social-login-container').animate({height: 'toggle'}); 
                         $('#social-login').addClass('social-active');
                         if ($('#login-with-email-drop-down').css('display') === 'block') {
                             $('#login-with-email-drop-down').animate({height: 'toggle'});
@@ -565,7 +562,7 @@
 
 
                 function loginPane() {
-
+                    
                     if (loginState === false) {
                         $('#login-btn').text('REGISTER');
                         $('.black-tool-tip').css('display', 'none');
@@ -666,6 +663,8 @@
 
                     var left = (screen.width / 2) - (popupWidth / 2);
                     var top = (screen.height / 2) - (popupHeight / 2);
+                    
+                    
                     var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook#_=_";
                     newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
                     if (window.focus) {
@@ -729,7 +728,6 @@
                         newwindow.focus();
                     }
                 }
-
+                
 </script>
-
 

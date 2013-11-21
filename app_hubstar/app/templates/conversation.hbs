@@ -1,0 +1,115 @@
+{{#if controller.loadingTime}}
+
+{{render loadingSpinner}}
+
+{{/if}}
+<div id="conversation_content" class="">
+    {{#each conversationContent}} 
+    <div id="conversation_{{unbound this.conversationID}}"class='each-conversation easing' {{action transitionToConversation this.conversationID}}>
+
+         <div style="  padding: 15px 0 10px 95px;position: relative;">
+            <div style='position: absolute;right: 35px;top: 40px;color: #888;' {{action deleteConversationItem this.conversationID}}><i class='icon-trash'></i></div>
+
+
+            <div class="radius-circle" style="position: absolute; top: 20px;margin: 0 0 0 -55px;border: 1px solid #f3f3f3;width: 45px;height: 45px;overflow: hidden">
+                {{#if this.one}}
+                
+                <img style="width: 45px;height: 45px;float: left;" {{bindAttr src=  this.onePic}} />
+                
+                {{/if}}
+                {{#if this.two}}
+                
+                <img style="width: 45px;height: 45px;float: left; margin-left: -22.5px;" {{bindAttr src=  this.onePic}} />
+                <img style="width: 45px;height: 45px;float: left;vertical-align: top;margin-right: -22.5px;" {{bindAttr src=  this.twoPic}} />
+                
+                {{/if}}
+                {{#if this.three}}
+                
+                <img style="width: 22.5px;height: 22.5px;float: left;" {{bindAttr src=  this.onePic}} />
+                <img style="width: 22.5px;height: 22.5px;float: left;" {{bindAttr src=  this.twoPic}} />
+                <img style="width: 45px;height: 45px;vertical-align: top;margin-right: -22.5px;" {{bindAttr src=  this.threePic}} />
+                
+                {{/if}}
+                {{#if this.four}}
+                
+                <img style="width: 22.5px;height: 22.5px;float: left;" {{bindAttr src=  this.onePic}} />
+                <img style="width: 22.5px;height: 22.5px;float: left;" {{bindAttr src= this.twoPic}} />
+                <img style="width: 22.5px;height: 22.5px;position: absolute;" {{bindAttr src=  this.threePic}} />
+                <img style="width: 22.5px;height: 22.5px;position: absolute;top: 22.5px;" {{bindAttr src=  this.fourPic}} />
+                
+                {{/if}}
+                
+            </div>
+
+
+            <div style="">
+                <div class="comment-namentime">
+                    <div class="namentime_position">
+                        <span class="comment-username"  >
+                            {{this.names}}
+                        </span>
+                        <div class="posttime-container">
+                            <span class="posttime">{{date this.time_stamp}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comment-content" style=" width: 400px; height: 35px; text-overflow: ellipsis;">
+                    {{this.msg}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {{/each}}
+</div>
+
+
+<!--one user-->
+<div class="radius-circle" style="position: absolute; top: 20px;margin: 0 0 0 -55px;border: 1px solid #f3f3f3;width: 45px;height: 45px;overflow: hidden">
+    <img style="width: 45px;height: 45px;float: left;" {{bindAttr src= controller.commenter_photo_url}} />
+</div>
+
+
+<!--two users-->
+<div class="radius-circle" style="position: absolute; top: 20px;margin: 0 0 0 -55px;border: 1px solid #f3f3f3;width: 45px;height: 45px;overflow: hidden">
+    <img style="width: 45px;height: 45px;float: left; margin-left: -22.5px;" {{bindAttr src= controller.commenter_photo_url}} />
+    <img style="width: 45px;height: 45px;float: left;vertical-align: top;margin-right: -22.5px;" {{bindAttr src= controller.commenter_photo_url}} />
+</div>
+
+
+<!--three users-->
+<div class="radius-circle" style="position: absolute; top: 20px;margin: 0 0 0 -55px;border: 1px solid #f3f3f3;width: 45px;height: 45px;overflow: hidden">
+    <img style="width: 22.5px;height: 22.5px;float: left;" {{bindAttr src= controller.commenter_photo_url}} />
+    <img style="width: 22.5px;height: 22.5px;float: left;" {{bindAttr src= controller.commenter_photo_url}} />
+    <img style="width: 45px;height: 45px;vertical-align: top;margin-right: -22.5px;" {{bindAttr src= controller.commenter_photo_url}} />
+</div>
+
+<!--four users-->
+<div class="radius-circle" style="position: absolute; top: 20px;margin: 0 0 0 -55px;border: 1px solid #f3f3f3;width: 45px;height: 45px;overflow: hidden">
+    <img style="width: 22.5px;height: 22.5px;float: left;" {{bindAttr src= controller.commenter_photo_url}} />
+    <img style="width: 22.5px;height: 22.5px;float: left;" {{bindAttr src= controller.commenter_photo_url}} />
+    <img style="width: 22.5px;height: 22.5px;position: absolute;" {{bindAttr src= controller.commenter_photo_url}} />
+    <img style="width: 22.5px;height: 22.5px;position: absolute;top: 22.5px;" {{bindAttr src= controller.commenter_photo_url}} />
+</div>
+
+<script>
+    $(function() {
+        $("#conversation_content").mCustomScrollbar({
+            scrollButtons: {
+                enable: false,
+                scrollSpeed: "auto"
+            },
+            advanced: {
+                updateOnBrowserResize: true,
+                updateOnContentResize: true,
+                autoScrollOnFocus: false,
+                normalizeMouseWheelDelta: false
+            },
+            autoHideScrollbar: true,
+            mouseWheel: true,
+            theme: "dark-2",
+            set_height: 1000
+        });
+    });
+</script>

@@ -1,0 +1,106 @@
+<div class="blur_black" style="background-color: initial"  {{action reviewCancel on="click" target="controller"}}>&nbsp;</div>
+<div  class="Notification-Board Notification-top" style="z-index: 20;height: 440px;">
+    <div style="background-color: #f3f3f3; width:100%;height: 35px; border-bottom: 1px solid #ddd;padding: 0 20px;position: relative;display: block;clear: both;">
+        <div style="color: #666;font-size: 13px;line-height: 38px;font-weight: bold;float: left;"><i class="icon-bell-alt">&nbsp;&nbsp;&nbsp;</i>Notification</div>
+        <div class="create-conversation easing hint--left hint--rounded" data-hint="Set all as read" style="height: 34px; width: 34px; line-height: 36px; font-size: 13px;"{{action markAllRead}}>
+             <i class="icon-th-list"></i>
+        </div>
+    </div>
+
+    <div id="notititopbar" style="position: absolute">
+        {{#each controller.notificationTopContent}}
+        {{#if this.isRead}}
+        <div class='each-conversation easing' style="min-height: 0;">
+            <div style="padding: 10px 10px 10px 70px;position: relative;" {{action go this.notification_id}}>
+                 <a class="" style="position: absolute; top: 15px;margin: 0 0 0 -50px;" >
+                    <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.photo_url}} /> 
+                </a>
+                <div style="">
+                    <div class="comment-namentime">
+                        <div class="" style="color: #555">
+                            <span class="comment-username" >
+                                {{this.name}}
+                            </span>
+                            <span style="display: inline-block; vertical-align: bottom; font-size: 11px;"> {{this.typeDisplay}}</span>               
+
+                        </div>
+                    </div>
+
+                    <div class="comment-content" style=" width: 330px; height: 15px; font-size: 11px;">
+                        <span style="text-overflow: ellipsis">
+                            {{this.content}}
+                        </span>
+                    </div>
+
+                    <div class="posttime-container">
+                        <span class="posttime" style="font-size: 9px; line-height: 10px;">{{date this.time}}</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="reply-comment easing" style="right:25px;position: relative;float: right;top: -60px;font-size: 10px;">  
+                <i class="icon-ok-sign"></i>                 
+                <i class="icon-remove-sign" {{action deleteNotification this.notification_id}}></i>
+            </div>
+        </div>
+        {{else}}
+        <div class='each-conversation easing unread-style' style="min-height: 0;">
+            <div style="padding: 10px 10px 10px 70px;position: relative;" {{action go this.notification_id}}>
+                 <a class="" style="position: absolute; top: 15px;margin: 0 0 0 -50px;" >
+                    <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.photo_url}} /> 
+                </a>
+                <div style="">
+                    <div class="comment-namentime">
+                        <div class="" style="color: #555">
+                            <span class="comment-username" >
+                                {{this.name}}
+                            </span>
+                            <span style="display: inline-block; vertical-align: bottom; font-size: 11px;"> {{this.typeDisplay}}</span>               
+
+                        </div>
+                    </div>
+
+                    <div class="comment-content" style=" width: 330px; height: 15px; font-size: 11px;">
+                        <span style="text-overflow: ellipsis">
+                            {{this.content}}
+                        </span>
+                    </div>
+
+                    <div class="posttime-container">
+                        <span class="posttime" style="font-size: 9px; line-height: 10px;" >{{date this.time}}</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="reply-comment easing" style="right:25px;position: relative;float: right;top: -60px;font-size: 10px;">  
+                <i class="icon-ok-sign  " {{action markRead this.notification_id}}></i>                 
+                <i class="icon-remove-sign" {{action deleteNotification this.notification_id}}></i>
+            </div>
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
+    <div style="background-color: #f3f3f3; width:100%;height: 35px; border-top: 1px solid #ddd;padding: 0 20px; text-align: center;position: absolute;top: 405px;">
+        <div style="color: #666;font-size: 13px;line-height: 38px;font-weight: bold;">   <i class="icon-ok-sign hover-opacity easing" style="cursor: pointer" {{action seeAll}}>  See all</i>  </div>
+    </div>
+</div>
+<script>
+    $(function() {
+        $("#notititopbar").mCustomScrollbar({
+            scrollButtons: {
+                enable: false,
+                scrollSpeed: "auto"
+            },
+            advanced: {
+                updateOnBrowserResize: true,
+                updateOnContentResize: true,
+                autoScrollOnFocus: false,
+                normalizeMouseWheelDelta: false
+            },
+            autoHideScrollbar: true,
+            mouseWheel: true,
+            theme: "dark-2",
+            set_height: 370
+        });
+    });
+</script>

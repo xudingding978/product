@@ -1,57 +1,60 @@
 <div class="navbar">
     <div style="position: absolute;right: 0;z-index: 1;">
-        <img src="../../../images/beta-version.png"/>
+        <img style="" src="../../../images/beta-version.png"/>
+        <span style="position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;" id="lastidentifie">0.3-113</span>
+    </div>
+    <div style="margin: 0 auto; width: 87%; height: 45px;">
+        <div class="brand" {{action backToDefault}}>
+            <a href="/#">
+                <img style="position: relative; top: 0; margin:0;height: 25px;" src="../../../images/landing-trends.png">
+            </a>
+        </div>
+
+        <!-- show if not logged into platform-->
+        {{#if HubStar.isLogin}}
+
+        <div id="login_detail" style="position: relative;float: right;cursor: pointer;text-align: right;">
+            {{view HubStar.AfterLoginView}}
+        </div>
+
+          <div class="Geo-Filter easing"  style="margin-right: 20px;" {{action dropdownPhotoSetting}}>
+             <i class="icon-bell-alt icon-large"></i>
+            <div style="cursor: pointer;position: absolute;top: 7px;right: 2px;width: auto;padding: 0 5px 0 4px;height: 15px;background-color: red;line-height: 15px;border-radius: 2px;font-size: 11px;font-weight: bold;">{{unReadCount}}</div>
+        </div>
+        {{else}}
 
 
-        <span style="position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;" id="lastidentifie">0.3-57</span>
+        <div id="login_icon" style="display:block;position: relative;float: right;">
 
+            {{view HubStar.BeforeLoginView}}
 
-
-      </div>
-    <div class="navbar-inner">
-        <div class="container">
-            <div class="brand">
-                <a href="/#">
-                    <img class="logonew" style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png">
-                </a>
-            </div>
-
-            <!-- show if not logged into platform-->
-            {{#if controller.islogin}}
-
-            <div id="login_detail" style="position: absolute;right: 170px;cursor: pointer;vertical-align: top;display: inline-block;">
-                {{view HubStar.AfterLoginView}}
-            </div>
-
-
-            {{else}}
-
-
-            <div id="login_icon" style="position: absolute; right: 80px;">
-
-                {{view HubStar.BeforeLoginView}}
-
-                {{#if controller.popup}}
-
-
-                {{view HubStar.LoginModalView}}
-
-
-                {{/if}}
-
-            </div>
-
-
-            {{/if}}
-
-
-            <!-- user is logged in -->
-
-            <div class="smallIcon">
-                <a href="#" class="icon_c"><i class="icon-search icon-large"></i></a>
-            </div>
+           
 
         </div>
+
+        {{/if}}
+
+
+        <!-- user is logged in -->
+
+      
+        {{#if isNotification}}
+        {{render notificationTop}}
+        {{/if}}
+
+        <div class="Geo-Filter easing" style="">
+            <i class="icon-search icon-large"></i>
+        </div>
+
+        <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdown controller.projectCategoryDropdownType}}>
+             <i class="icon-globe icon-large">&nbsp;</i>
+            <span style="font-weight: bold;font-size: 15px;">{{HubStar.geoLocation}}</span>
+        </div>
+        {{#if controller.isGeoDropdown}}
+        {{view HubStar.DropdownListView}}
+        {{/if}}
+
+
     </div>
 </div>
 
@@ -61,13 +64,8 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
-        $('.smallIcon').attr("style", "display:none");
-        $('#main-nav span').removeClass('caret');
-
-
         // left hiding menu bar
 
-        $('.main-nav ').attr("style", "opacity:0.4;width:10px;overflow:hidden");
         // hide #back-top first
         $("#back-top").hide();
         $(window).scroll(function() {
@@ -78,11 +76,6 @@
                 $('#back-top').fadeOut();
             }
 
-            if ($(this).scrollTop() > 150) {
-                $('.smallIcon').fadeIn();
-            } else {
-                $('.smallIcon').fadeOut();
-            }
         });
         $('#back-top a').click(function() {
             $('body,html').animate({
@@ -109,62 +102,4 @@
 
 
 
-
-    function Facebook(popupWidth, popupHeight) {
-        var left = (screen.width / 2) - (popupWidth / 2);
-        var top = (screen.height / 2) - (popupHeight / 2);
-        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook";
-        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-        if (window.focus) {
-            newwindow.focus();
-        }
-
-
-    }
-    function Yahoo(popupWidth, popupHeight) {
-        var left = (screen.width / 2) - (popupWidth / 2);
-        var top = (screen.height / 2) - (popupHeight / 2);
-        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Yahoo";
-        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-        if (window.focus) {
-            newwindow.focus();
-        }
-    }
-    function QQ(popupWidth, popupHeight) {
-        var left = (screen.width / 2) - (popupWidth / 2);
-        var top = (screen.height / 2) - (popupHeight / 2);
-        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=QQ";
-        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-        if (window.focus) {
-            newwindow.focus();
-        }
-    }
-    function Sina(popupWidth, popupHeight) {
-        var left = (screen.width / 2) - (popupWidth / 2);
-        var top = (screen.height / 2) - (popupHeight / 2);
-
-        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Sina";
-        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-        if (window.focus) {
-            newwindow.focus();
-        }
-    }
-    function LinkedIn(popupWidth, popupHeight) {
-        var left = (screen.width / 2) - (popupWidth / 2);
-        var top = (screen.height / 2) - (popupHeight / 2);
-        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=LinkedIn";
-        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-        if (window.focus) {
-            newwindow.focus();
-        }
-    }
-    function Google(popupWidth, popupHeight) {
-        var left = (screen.width / 2) - (popupWidth / 2);
-        var top = (screen.height / 2) - (popupHeight / 2);
-        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Google";
-        newwindow = window.open(api_url, 'name', 'height=' + popupHeight * 1.5 + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-        if (window.focus) {
-            newwindow.focus();
-        }
-    }
 </script>

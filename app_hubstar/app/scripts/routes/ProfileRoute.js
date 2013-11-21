@@ -32,10 +32,8 @@ HubStar.ProfileRoute = Ember.Route.extend({
             this.sendGAMessage(model.get('profile_analytics_code'), model.get('id').split('-').join(''));
         }
 
-        var lastPositionId = HubStar.get('lastPositionId');
-        var lastPosition = HubStar.get("scrollPartenerPosition");
-
-
+        $("#top-about-menu").css('display', 'none');
+        $("#search-bar").css('display', 'block');
         ProfileController.setProfile(model.id);
 
     },
@@ -78,10 +76,10 @@ HubStar.ProfileRoute = Ember.Route.extend({
         $(function() {
             $('#masonry_container').masonry('remove', $('.noStyle1'));
         });
-        
-        
-        
-        
+
+
+
+
     },
     renderTemplate: function() {
         this.render('profile', {

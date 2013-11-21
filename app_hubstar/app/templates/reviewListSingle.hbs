@@ -15,10 +15,6 @@
                     <div class="posttime-container">
                         <span class="posttime">{{date model.review_time_stamp}} </span>
                     </div>
-                    {{#if model.getUser}}
-                    <i class="icon-trash"  {{action removeReview}}></i>                 
-                    <i class="icon-pencil" {{action editReview}}></i>
-                    {{/if}}
                 </div>
 
                 <div style="position: absolute; right: 0; margin: 7px;"><span class="starsview" ><span style="width:{{unbound model.review_length}}px;"></span></span></div>
@@ -26,16 +22,9 @@
         </div>
 
         <div  style="background-color: #fff; padding: 10px 40px; font-size: 13px;">
-            {{#if controller.review_is_edit}}       
-            <div id="review_content_{{unbound model.review_id}}" style="width: 390px; max-height:100px;line-height:20px; position: relative; display: inline-block; overflow: hidden; ">
-                {{view Ember.TextArea valueBinding="controller.review_content"  class="no-resize"  placeholder="hehe" }}  
-                <i class="icon-thumbs-up-alt"  {{action saveReview}}></i>                 
-                    <i class="icon-share" {{action cancelReview}}></i>
-            </div>
-            {{else}}
+            
             <div id="review_content_{{unbound model.review_id}}" {{action 'upContent' model.review_id target='view' on="click"}} style="width: 390px; max-height:100px;line-height:20px; position: relative; display: inline-block; overflow: hidden; ">{{model.review_content}}  </div>   
-
-            {{/if}}    
+ 
             <span {{action 'showOneReview' model.review_id target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:inline-block;"  id="down_button_{{unbound model.review_id}}"  ><k class="icon-caret-down">&nbsp;</k>more</span>
             <span {{action 'upContent' model.review_id target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:none;"  id="up_button_{{unbound model.review_id}}" ><k class="icon-caret-up">&nbsp;</k>collapse</span>
 
@@ -57,6 +46,10 @@
         <k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
         </li>
     </ul>
+    {{#if model.getUser}}
+    <div class="new-btn" style="float: left; font-size: 13px;margin-right: 5px;"  {{action removeReview}}><i class="icon-trash"></i></div>                 
+    <div class="new-btn" style="float: left; font-size: 13px;" {{action editReview}}><i class="icon-pencil"></i></div>
+    {{/if}}
 </div>
 </div>  
 
@@ -115,4 +108,10 @@
 
 {{/if}}
 
+
+{{#if controller.review_is_edit}}  
+
+{{render editReview}}
+
+{{/if}}
 

@@ -259,27 +259,25 @@ function print_country()
 {
   var html = "";
     for (var i = 0; i < country_arr.length; i++) {
-        
-       // option_str.options[option_str.length] = new Option(country_arr[i], country_arr[i]);
         html+='<div class="ite">' + country_arr[i]+ '</div>';  
     }
     if(document.getElementById("countryDropdown") !== null){
     document.getElementById("countryDropdown").innerHTML+= html;
-    }
+    } 
+    this.print_state();
 }
 
 function print_state()
 {
-    console.log(country);
     var country = $('#countrySelection').text();
-    console.log(country);
      var html = "";
     if (city_states[country])
     {
         var city_stateArr = city_states[country].split('|');
         for (var i = 0; i < city_stateArr.length; i++)
-            //option_str.options[i + 1] = new Option(city_stateArr[i], city_stateArr[i]);
-                html+='<div class="ite ">' + country_arr[i]+ '</div>';
+                html+='<div class="ite ">' + city_stateArr[i]+ '</div>';
     }
+     if(document.getElementById("regionDropdown") !== null){
     document.getElementById("regionDropdown").innerHTML+= html;
+     }
 }

@@ -4,10 +4,10 @@ var multiEmail1 = true;
 var multiEmail2 = true;
 HubStar.ProfileNewController = Ember.ObjectController.extend({
     profile_name: "",
-    categorySelection: "Apartment Design",
-    subcategorySelection: "Bathroom",
-    countrySelection: "New Zealand",
-    regionSelection: "Auckland",
+    categorySelection: "Category",
+    subcategorySelection: "Subcategory",
+    countrySelection: "Country",
+    regionSelection: "Regoin/State",
     numberSelection: "021",
     keywordNumber: "",
     heroImage:false,
@@ -253,7 +253,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 owner_type: "profiles", // profiles or user can upload files, this could help to link back to their profile.
                 owner_profile_pic: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
                 owner_title: this.get("profile_name"), //profile name
-                owner_id: this.get("profile_url"), //profile id
+                owner_id: this.spaceChecking(this.get("profile_url").toLowerCase()), //profile id
                 owner_contact_email: this.get("direct_enquiry_emails"),
 //                owner_contact_cc_emails: this.get("secondary_email"),
 //                owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),

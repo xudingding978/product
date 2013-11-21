@@ -60,7 +60,8 @@ HubStar.CommentController = Ember.Controller.extend({
         if (commentContent) {
             var comments = this.get('mega').get('comments');
 
-            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
+//            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
+            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus +'/user_picture/user_picture';
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
@@ -70,6 +71,7 @@ HubStar.CommentController = Ember.Controller.extend({
             comments.insertAt(0, tempComment);
             comments.store.save();
             this.set('commentContent', "");
+            this.closeComment(this.get('mega').get('id'));
             $('#addcommetBut').attr('style', 'display:block');
             $('#commentBox').attr('style', 'display:none');
             setTimeout(function() {
@@ -79,6 +81,15 @@ HubStar.CommentController = Ember.Controller.extend({
             }, 200);
         }
     },
+    closeComment: function(id) {    
+        this.set("commentContent","");
+        $('#comment_' + id).attr('style', 'display:block');
+        $('#commentBox_' + id).attr('style', 'display:none');
+        $('#masonry_container').masonry("reload");
+        setTimeout(function() {
+            $('#masonry_container').masonry("reload");
+        }, 200);
+    },        
     editingCommentData: function(obj)
     {
         this.get("controllers.editComment").setRelatedController("comment");

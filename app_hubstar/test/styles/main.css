@@ -8283,7 +8283,10 @@ to{
 }
 }
 
+.comment-namentime:hover > .edit-comment{opacity: 1;}
 
+.edit-comment{font-size: 11px;top: 0;right: 0;position: absolute; opacity: 0;}
+.edit-comment > i {cursor: pointer}
 /*BASIC STYLE*/
 
 #master_bg

@@ -26,6 +26,14 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
         else if (controller._debugContainerKey.indexOf("profile") !== -1) {
             controller.partnerSearch();
         }
+        else if (controller._debugContainerKey.indexOf("message") !== -1) {
+            var s = this.$().parents()[0].id.split("_")[1];
+            controller.addReply(s);
+        }
+         else if (controller._debugContainerKey.indexOf("editReply") !== -1) {
+            var s = this.$().parents()[0].id.split("_")[1];
+            controller.updateReply(s);
+        }
         else {
             console.log(controller);
         }

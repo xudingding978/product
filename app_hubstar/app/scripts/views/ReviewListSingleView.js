@@ -100,10 +100,7 @@ upComments: function(event) {
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 400);
-    },
-            willSetProperty: function(){
-        
-            }
+    }
 
 });
 

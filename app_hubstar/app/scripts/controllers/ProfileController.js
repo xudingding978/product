@@ -137,7 +137,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     fromAddress: '',
     isInreview: false,
     profile_average_review_length: '',
-    toAddress: '',
+    toAddress: '',    
     init: function() {
 
         this.set('is_authentic_user', false);

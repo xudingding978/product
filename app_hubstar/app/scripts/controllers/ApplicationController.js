@@ -45,11 +45,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             for (var i = 0; i < array.length; i++) {
                 array[i]["isNew"] = true;
             }
-            console.log(array);
             HubStar.set('ads', array);
             that.set("pageCount", 0);
             that.defaultSearch();
-            //console.log(HubStar.get('ads'));
         });
 
         this.set('search_string', '');
@@ -133,7 +131,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("content", []);
 
         this.set("oldChildren", 0);
-        console.log(this.get("oldChildren"));
         this.set("from", 0);
         this.set("size", 20);
         this.set('loadingTime', true);
@@ -166,10 +163,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
     },
     defaultSearch: function() {
-        console.log("search");
         this.set("adPageNo", 0);
         this.set("pageCount", 0);
         this.set("loginInfo", localStorage.loginStatus);
+        this.set("googletagCmd", []);
+        this.set("content", []);
+        this.set("adPageNo", 0);
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
         results.addObserver('isLoaded', function() {
@@ -354,7 +353,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
                     if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
                         localStorage.loginStatus = params.COUCHBASE_ID;
-                        that.transitionToRoute('search');
+                        HubStar.set("isLogin", true);
+                        that.transitionToRoute('searchIndex');
                         that.set('loginUsername', "");
                         that.set('loginPassword', "");
                         that.set('isWaiting', false);
@@ -454,9 +454,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var adSlots = HubStar.get('ads');
         var that = this;
         var pageCount = this.get("pageCount");
-        console.log("333333333333333");
-        console.log(pageCount);
-        console.log(adSlots[pageCount]);
         var masonryContainer = document.getElementById('masonry_container');
         try
         {
@@ -478,7 +475,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 masonryContainer.insertBefore(masonrybox, child);
             }
             that.set("oldChildren", masonryContainer.children.length);
-            console.log(that.get("oldChildren"));
             that.display(adSlots[pageCount]);
         }
         catch (err) {
@@ -491,6 +487,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var increaseby0ne = pageNo + 1;
         this.set('adPageNo', increaseby0ne);
         return pageNo;
+    },
+    backToDefault: function() {        
+        this.defaultSearch();
+        this.set('search_string', '');
+        this.transitionToRoute('searchIndex');
+        
+    },
+    clearSearch: function() {
+        this.set('search_string', '');
+        this.transitionToRoute('searchIndex');
     }
 });
 

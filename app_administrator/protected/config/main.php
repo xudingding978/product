@@ -22,7 +22,6 @@ Yii::setPathOfAlias('app_administrator', $root . DIRECTORY_SEPARATOR . 'app_admi
 //Yii::setPathOfAlias('app_dashboard', $root . DIRECTORY_SEPARATOR . 'app_dashboard');
 //Yii::setPathOfAlias('app_authentication', $root . DIRECTORY_SEPARATOR . 'app_authentication');
 //Yii::setPathOfAlias('app_useraccount', $root . DIRECTORY_SEPARATOR . 'app_useraccount');
-
 // The configuation tree overides in the following way...
 // local settings below > environment specific > main configuration
 
@@ -59,11 +58,10 @@ return CMap::mergeArray(
                 'common.extensions.*',
                 'common.models.*',
                 'common.modules.*',
-                 'application.vendor.autoload',
+                'application.vendor.autoload',
                 'application.models.*',
                 'application.components.app_restAPI',
                 'application.controllers.*'
-                
             ),
             'modules' => array(
                 'gii' => array(
@@ -121,14 +119,23 @@ return CMap::mergeArray(
                 ),
                 'db' => array(
                     'class' => 'CDbConnection',
-                    'connectionString' => 'dblib:host=192.168.2.100;dbname=Trends;port:1433;',
-                    'username' => 'sa',
-                    'password' => 'Pa55word',
-                   // 'tablePrefix'=>'dbo',
+                    'connectionString' => 'dblib:host=125.236.58.231;dbname=Trends2012;port:1433;',
+                    'username' => 'platform',
+                    'password' => 'L86wBWVeKYKuqKZQ',
+                    // 'tablePrefix'=>'dbo',
 //                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
 //                    'enableParamLogging' => YII_DEBUG,
                     'charset' => 'utf8'
                 ),
+                'db_hubsrv' => array(
+                    'class' => 'CDbConnection',
+                    'connectionString' => 'mysql:host=db1.hubsrv.com;dbname=hubstar_import_logger;',
+                    'username' => 'db_user',
+                    'password' => 'Pa55word',
+                    // 'tablePrefix'=>'dbo',
+//                    'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
+//                    'enableParamLogging' => YII_DEBUG,
+                    'charset' => 'utf8')
 //                'db' => array(
 //                    'class' => 'CDbConnection',
 //                    'connectionString' => $params['db_admin.connectionString'],

@@ -96,7 +96,7 @@ class SubCategorySearchNames extends CActiveRecord
                     $data_list = array();
                     $topic_list = array();
                     $sql = "select 
-                                     SCSN.*
+                                     DISTINCT SCSN.*
                                 from 
                                     dbo.ArticleImages as AI,
                                     dbo.ArticleSubCategoryMaps as ASCM,
@@ -107,6 +107,39 @@ class SubCategorySearchNames extends CActiveRecord
                                     AI.articleId = ASCM.articleId
                                 AND
                                     AI.id = ".$id;
+                    try {
+                        $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
+                        
+//                        print_r("<pre>");
+//                        print_r($data_list);
+                        $category_list=array();
+                        if(sizeof($data_list)>0) {
+                            foreach($data_list as $val) {
+                                array_push($category_list, $val['name']);                       
+                            }
+                        }
+                    } catch (Exception $e) {
+                        error_log("Cannot get category infor: ".$e->getMessage());
+                    }
+                    
+                    return $category_list;
+                }
+                
+                public function selectSubCategoryByArticalID($id) {
+                    $data_list = array();
+                    $topic_list = array();
+                    $sql = "select 
+                                  dbo.ArticleSubCategoryMaps.*
+                                from 
+                                   dbo.Articles,
+                                   dbo.ArticleSubCategoryMaps,
+                                   dbo.SubCategorySearchNames 
+                                where
+                                   SubCategorySearchNames.subCategoryId = ArticleSubCategoryMaps.subCategoryId
+                                AND
+                                   dbo.Articles.id = ArticleSubCategoryMaps.articleId
+                                AND
+                                   dbo.Articles.id = ".$id;
                     try {
                         $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
                         
@@ -125,37 +158,54 @@ class SubCategorySearchNames extends CActiveRecord
                     return $topic_list;
                 }
                 
-                public function selectSubCategoryByArticalID($id) {
-                    $data_list = array();
-                    $topic_list = array();
-                    $sql = "select 
-                                    SCSN.*
-                                from 
-                                   dbo.Articles as Ar,
-                                   dbo.ArticleSubCategoryMaps as ASCM,
-                                   dbo.SubCategorySearchNames as SCSN
-                                where
-                                   SCSN.subCategoryId = ASCM.subCategoryId
-                                AND
-                                   Ar.id = ASCM.articleId
-                                AND
-                                   Ar.id = ".$id;
+                public function findSubCategorybyId($subCategoryId){
+                     $data_list = array();
+                   
+                    $sql = "select dbo.SubCategorySearchNames.*
+                           from
+                           dbo.SubCategorySearchNames
+                           where 
+                           dbo.SubCategorySearchNames.subCategoryId= ".$subCategoryId;
                     try {
                         $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
-                        
-//                        print_r("<pre>");
-//                        print_r($data_list);
-                        
-                        if(sizeof($data_list)>0) {
-                            foreach($data_list as $val) {
-                                array_push($topic_list, $val['name']);                       
+                        if(sizeof($data_list)>0){
+                            foreach($data_list as $list){
+                                $SubCategory_str .= $list['name'] .", ";
+                               
                             }
-                        }
-                    } catch (Exception $e) {
-                        error_log("Cannot get topic infor: ".$e->getMessage());
+                             $SubCategory_str= substr($SubCategory_str, 0,  -2);
+
+                        } 
+
+                            }
+
+                            
+                            
+                            
+                        
+                     catch (Exception $e) {
+                        error_log("Cannot get SubCategory infor: ".$e->getMessage());
                     }
                     
-                    return $topic_list;
+                    return $SubCategory_str;
+            
                 }
+                
+                      public function getArticleSubCategorybyId($article_id){
+        
+        $data_arr = array();
+        $sql = 'select DISTINCT dbo.SubCategorySearchNames.* from 
+dbo.ArticleSubCategoryMaps,
+dbo.SubCategorySearchNames 
+                    where 
+dbo.SubCategorySearchNames.subCategoryId=dbo.ArticleSubCategoryMaps.subCategoryId
+and
+dbo.ArticleSubCategoryMaps.articleId= '. $article_id;
+        $data_arr = Yii::app()->db->createCommand($sql)->queryAll();
+        
+        return $data_arr;
+        
+        
+    }
         
 }

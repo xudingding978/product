@@ -136,13 +136,30 @@ class Books extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+        public function getBookTitlebyId($id){
+              $data_list = array();
+                    $sql = "select * from dbo.Books 
+                     where dbo.Books.id = ".$id; 
+//                    error_log($sql); 
+                    try {
+                         $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
+                         return $data_list['title'];
+                    } catch (Exception $e) {
+                         $response = $e->getMessage();
+                        $message = date("Y-m-d H:i:s")." ----cannot get owner from book -> getBookTitlebyId!! \r\n".$response;
+                        $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
+                    }        
+                }
+        
                 
                 public function getBookByPhotoID($id) {
                     $data_list = array();
                     $sql = "select 
-                                    Bs.*, IR.regionId as region
+                                    Bs.*, IR.regionId as region, Pu.name as publication
                                  from 
                                     dbo.Books as Bs,
+                                    dbo.Publications as Pu,
                                     dbo.SparkJobInternalReferenceMaps as SJIRM,
                                     dbo.Articles as Ar,
                                     dbo.ArticleImages as AI,
@@ -150,13 +167,15 @@ class Books extends CActiveRecord
                                 where 
                                     Bs.internalReferenceId = SJIRM.internalReferenceId 
                                 and
+                                    Bs.PublicationId = Pu.id
+                                and
                                     IR.id = SJIRM.internalReferenceId
                                 and
                                     SJIRM.sparkJobId = Ar.sparkJobId
                                 and
                                     Ar.id = AI.articleId
                                 and 
-                                    AI.id = ".$id; 
+                                    AI.id =".$id; 
 //                    error_log($sql); 
                     try {
                          $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 

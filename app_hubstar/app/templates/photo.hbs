@@ -74,10 +74,10 @@
     <div style="cursor: pointer;">
         <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
             <div class="profilepic-container">
-                <a class="profilepic" href="#" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} /></a>              
+                <a class="profilepic" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} /></a>              
             </div>
             <div class="poster_user" >
-                <a class="poster-name" href="#" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
+                <a class="poster-name" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
                 <span class="posttime">{{date controller.megaResouce.created}} </span>
             </div>        
             <div class="contactmebtn hint--left hint--rounded easing" data-hint="Contact us!" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
@@ -111,13 +111,13 @@
                         <i class="icon-edit" {{action editingPhotoMegaData}}></i>
                     </div>
                     {{/if}}
-                        </div>
-                        <div class="article-text">
-                            <p>{{{controller.selectedPhoto.photo_caption}}}</p>
-                        </div>
-                    {{else}}
-                        {{view Ember.TextField valueBinding="controller.selectedPhoto.photo_title"  id="" class="edit_photo-titile_field"  }} 
-                        {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_caption"  id="" class="edit_photo-caption_field"}} 
+                </div>
+                <div class="article-text">
+                    <p>{{{controller.selectedPhoto.photo_caption}}}</p>
+                </div>
+                {{else}}
+                {{view Ember.TextField valueBinding="controller.selectedPhoto.photo_title"  id="" class="edit_photo-titile_field"  }} 
+                {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_caption"  id="" class="edit_photo-caption_field"}} 
 
 
                 <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
@@ -197,9 +197,9 @@
                 {{/unless}}
 
 
-             {{#each controller.megaResouce.comments}}
-              {{#unless this.isEdit}}
-              <div class="comment-item"}}>
+                {{#each controller.megaResouce.comments}}
+                {{#unless this.isEdit}}
+                <div class="comment-item"}}>
 
                     <div class="comment-position">
                         <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}">
@@ -211,16 +211,16 @@
                                     <a class="comment-username"  href="#/users/{{unbound commenter_id}}">
                                         {{name}}
                                     </a>
-                                     {{#if this.getUser}}
-                                        <i class="icon-trash"  {{action removeComment this}}></i>                 
-                                        <i class="icon-pencil" {{action updateComment this}}></i>
-                                   {{/if}}
-
                                     <div class="posttime-container">
                                         <span class="posttime">{{date time_stamp}}</span>                  
                                     </div>
                                 </div>
-
+                                {{#if this.getUser}}
+                                <span class="edit-comment easing">
+                                    <i class="icon-trash"  {{action removeComment this}}></i>                 
+                                    <i class="icon-pencil" {{action updateComment this}}></i>
+                                </span>
+                                {{/if}}
                             </div>
 
                             <div class="comment-content">
@@ -236,10 +236,10 @@
                         </div>
                     </div>
                 </div>
-              {{else}}
-              {{render editComment this}}   
-              {{/unless}}
-               
+                {{else}}
+                {{render editComment this}}   
+                {{/unless}}
+
                 {{/each}}
                 <!-- test1 -->
 <div id='div-gpt-ad-1384896082386-0' style='width:336px; height:280px;'>

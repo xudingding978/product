@@ -235,7 +235,9 @@
         <div class="masonry-object">
             <div class="masonry-object_poster">  
                 <div class="profilepic-on-masonry">
-                    <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
+                    <a href="#/profiles/{{unbound owner_id}}">
+                        <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
+                    </a>
                 </div>
                 <div class="object_username">  
                     <a class="poster-name" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{creator}}</a>

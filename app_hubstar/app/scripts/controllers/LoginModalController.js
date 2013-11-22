@@ -49,6 +49,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                         localStorage.loginStatus = params.COUCHBASE_ID;
              
                  location.reload();
+                  HubStar.set("isLogin", true);
                  HubStar.set('checkLoginStatus', false);
                         that.set('loginUsername', "");
                         that.set('loginPassword', "");

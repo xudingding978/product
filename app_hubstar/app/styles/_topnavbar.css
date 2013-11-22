@@ -100,12 +100,13 @@
 }
 
 .search-bar{
-    width: 800px; 
-    position:absolute; 
-    top: 300px; 
+    width: 45%;
+    position: absolute;
+    top: 300px;
     margin: auto;
     left: 0;
     right: 0;
+    min-width: 700px;
 }
 
 
@@ -125,7 +126,7 @@
 .Nav-btn:hover{opacity: 1}
 
 .Search-box{
-    width: 85%; 
+    width: 90%; 
     height: 50px; 
     float: right;
     display: inline-block;
@@ -137,6 +138,7 @@
     margin: 12px auto;
     left: 0;
     right: 0;
+    min-width: 550px;
 }
 
 .Search-box > input {

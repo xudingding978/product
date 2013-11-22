@@ -29,6 +29,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     isWaiting: "",
     isGeoDropdown: false,
     adPageNo: 0,
+    searchFromTopic: false, //call the applicationView is true. new search or search
+    topicSearch:false,
     googletagCmd: null,
     unReadCount: 0,
     pageCount: 0,
@@ -78,9 +80,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     scrollDownAction: function() {
         this.set('loadingTime', true);
         this.set("size", 20);
-        this.set("pageCount", this.get("pageCount") + 1);
+
+        if (this.get("searchFromTopic") === false)
+        {
+            this.set("pageCount", this.get("pageCount") + 1);
+        }
+        else
+        {
+            this.set("searchFromTopic", false);
+        }
         this.getPageNo();
-        console.log("scrollDownAction");
         this.set("from", this.get("from") + this.get("size"));
         var results = HubStar.Mega.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation')});
         var that = this;
@@ -92,56 +101,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
                 }
             }
-//            var ads = that.get('ads');
-//            var masonryContainer = document.getElementById('masonry_container');
-//            for (var i = 0; i < ads.length; i++) {
-//                var ad = ads[i];
-//                var position = ad.slot_position;
-//                var p = masonryContainer.children.length - position;
-//                if (p > 0) {
-//                    var child = masonryContainer.children[p];
-//                    var masonrybox = document.createElement('div');
-//                    masonrybox.border = 0;
-//                    masonrybox.backgroundColor = 'transparent';
-//                    masonrybox.textAlign = "center";
-//                    masonrybox.className = "colAd noStyle1 box";
-//                    masonrybox.style.display = "block";
-//
-//                    var adDiv = document.createElement('div');
-//                    var a = document.createElement('a');
-//                    var elem = document.createElement("img");
-//                    if (position / 4 === 1) {
-//                        elem.setAttribute("src", "images/adsImages/resene_336x280.jpg");
-//                        a.href = "http://www.resene.co.nz/";
-//                    }
-//                    else if (position / 4 === 2)
-//                    {
-//                        elem.setAttribute("src", "images/adsImages/metroglasstech_300x600.jpg");
-//                        a.href = "http://www.hettich.co.nz/";
-//                    }
-//                    else if (position / 4 === 3)
-//                    {
-//                        elem.setAttribute("src", "images/adsImages/hettich.jpg");
-//                        a.href = "http://www.hettich.co.nz/";
-//
-//                    }
-//                    a.appendChild(elem);
-//                    adDiv.appendChild(a);
-//                    masonrybox.appendChild(adDiv);
-//                    masonryContainer.insertBefore(masonrybox, child);
-//                }
-//            }
-
         });
-//        var ads = this.get('ads');
-//        var ad = ads[2];
-//        var div_id = ad.div + "_box";
-//        var x = document.getElementById(div_id);
-//        x.style.display = "block";
-//        x.className += " box";
-//            var child = masonryContainer.children[3];
-//            masonryContainer.insertBefore(x, child);
-
 
     },
     setContent: function(results)
@@ -164,11 +124,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
         var that = this;
         setTimeout(function() {
-//             
-//            if (that.get('from') === 0)
-//            {
             that.getAds();
-//            }
             that.relayout();
         }, 200);
     },
@@ -195,7 +151,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 that.setContent(megasResults);
                 that.set('isWaiting', false);
                 that.set('loadingTime', false);
-                //this.set("from", this.get("size"));
+                that.set("from", that.get("size"));
 
                 var d = new Date();
                 var end = d.getTime();
@@ -453,32 +409,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     display: function(ads)
     {
         var that = this;
-//        if (that.get('adPageNo') === that.get("pageCount")) {
-//            googletag.cmd.push(function() {               
-//                if (that.get("pageCount") * 4 <= ads.length)
-//                {
-//                    for (var i = (that.get("pageCount")-1) * 4; i < that.get("pageCount") * 4; i++) {
-//                        var ad = ads[i];
-//                        googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
-//                    }
-//                    googletag.pubads().enableSingleRequest();
-//                    googletag.enableServices();
-//                }
-//            });
-//            googletag.cmd.push(function() {
-//                for (var i = 0; i < that.get("pageCount") * 4; i++) {
-//                    var ad = ads[i];
-//                    googletag.display(ad.div);
-//                }
-//            });
-//            that.set('googletagCmd', googletag.cmd);
-//        }
-//        else {
-        if (ads["isNew"] === true) {        
+        if (ads["isNew"] === true) {
             googletag.cmd.push(function() {
                 for (var i = 0; i < ads.length; i++) {
                     var ad = ads[i];
-                    console.log(ad);
                     var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
 
                     googletag.pubads().enableSingleRequest();
@@ -496,40 +430,18 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     var ad = ads[i];
                     googletag.pubads().enableSingleRequest();
                     googletag.enableServices();
-                    googletag.display(ad.div);                   
+                    googletag.display(ad.div);
                 }
             });
         }
-//        }
 
-
-// googletag.cmd.push(function() {
-//        var slot1 = googletag.defineSlot("/12345678/Refresh_Example", [728, 90],
-//        "div-gpt-ad-1327312723268-0").addService(googletag.pubads());
-//        googletag.enableServices();
-//        googletag.display("div-gpt-ad-1327312723268-0");
-//        setInterval(function(){googletag.pubads().refresh([slot1]);}, 30000);
-//        });
-//        
-//     
-//        var masonryContainer = document.getElementById('masonry_container');
-
-
-//        setTimeout(function() {
-            for (var i = 0; i < ads.length; i++) {
-                var ad = ads[i];
-                var div_id = ad.div + "_box";
-                var x = document.getElementById(div_id);
-                x.style.display = "block";
-                x.className += " box";
-//            var child = masonryContainer.children[3];
-//            masonryContainer.insertBefore(x, child);
-            }
-//        }, 100);
-
-
-
-//        this.relayout();
+        for (var i = 0; i < ads.length; i++) {
+            var ad = ads[i];
+            var div_id = ad.div + "_box";
+            var x = document.getElementById(div_id);
+            x.style.display = "block";
+            x.className += " box";
+        }
     },
     relayout: function()
     {
@@ -537,36 +449,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $('#masonry_container').masonry("reload");
         }, 1000);
     },
-    getAds: function() {
-//        var requiredNumber = {"adPageNo": this.getPageNo()};
-//        var that = this;
-//        requiredBackEnd('tenantConfiguration', 'doesAdDisplay', requiredNumber, 'post', function(callbck) {
-//            var ads = $.map(callbck, function(value, index) {
-//                return [value];
-//            });
-//            for (var i = 0; i < ads.length; i++) {
-//                var ad = ads[i];
-//                var mega = HubStar.Mega.createRecord({"id": ad.div, "type": "ad"});
-//                mega.store.save();
-//                that.insertAt(ad.slot_position, mega);
-//            }
-//            that.display(ads);
-//        });
-//        
+    getAds: function() {   
 //        DFP code
         var adSlots = HubStar.get('ads');
-
         var that = this;
-//        var ads = new Array();
-//        for (var i = 0; i < adSlots.length; i++) {
-//            var adslot = adSlots[i];
-//            for (var n = 0; n < adslot.length; n++) {
-//                var ad = adslot[n];
-//                ads.push(ad);
-//            }
-//        }
-//        that.set('ads', ads);
         var pageCount = this.get("pageCount");
+        console.log("333333333333333");
+        console.log(pageCount);
         console.log(adSlots[pageCount]);
         var masonryContainer = document.getElementById('masonry_container');
         try

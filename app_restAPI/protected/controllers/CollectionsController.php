@@ -204,8 +204,6 @@ class CollectionsController extends Controller {
         $responseArray = array();
         foreach ($response as $hit) {
             $id = $hit['id'];
-            error_log(var_export($hit, TRUE));
-            error_log("11111111111");
             $collectionId = $hit['collection_id'];
             $profileId = $hit['owner_id'];
             $type = $hit['type'];

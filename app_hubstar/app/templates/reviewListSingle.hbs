@@ -22,9 +22,9 @@
         </div>
 
         <div  style="background-color: #fff; padding: 10px 40px; font-size: 13px;">
-            
+
             <div id="review_content_{{unbound model.review_id}}" {{action 'upContent' model.review_id target='view' on="click"}} style="width: 390px; max-height:100px;line-height:20px; position: relative; display: inline-block; overflow: hidden; ">{{model.review_content}}  </div>   
- 
+
             <span {{action 'showOneReview' model.review_id target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:inline-block;"  id="down_button_{{unbound model.review_id}}"  ><k class="icon-caret-down">&nbsp;</k>more</span>
             <span {{action 'upContent' model.review_id target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:none;"  id="up_button_{{unbound model.review_id}}" ><k class="icon-caret-up">&nbsp;</k>collapse</span>
 
@@ -111,7 +111,39 @@
 
 {{#if controller.review_is_edit}}  
 
-{{render editReview}}
+<div class="blur_black"></div>
 
-{{/if}}
+<div style="margin:0 auto; padding: 0 0 15px 15px;">
+
+    <div class="Add-review" style="overflow:visible">
+
+        <div class="" style="height: 80px;width: 80px;position: relative;border: 3px solid #f3f3f3;border-radius: 50%;overflow: hidden;box-shadow: 0 0 5px #aaa;top: -10px;left: -20px;float: left;z-index: 1">
+            <img {{bindAttr src="model.review_user_photo_url"}} style=""/>
+        </div>
+
+            <div id="review_{{unbound model.review_id}}" style="background-color: #f3f3f3;padding: 5px 5px 5px 70px;">
+                <div {{action 'showOneReview' model.review_id target='view' on="click"}} class="comment-namentime" style="display: block;position: relative;height: 35px;">
+                    <div class="namentime_position" style="margin: 0;float: left;">
+                        <a class="comment-username" href="#/users/{{unbound model.review_user_id}}"  >
+                            {{model.review_user_name}}
+                        </a>
+                        <div class="posttime-container">
+                            <span class="posttime">{{date model.review_time_stamp}} </span>
+                        </div>
+                    </div>
+
+                    <div style="position: absolute; right: 0; margin: 7px;"><span class="starsview" ><span style="width:{{unbound model.review_length}}px;"></span></span></div>
+                </div>
+            </div>
+            <div id ="" style="margin: 5px auto; padding: 0 15px;height: 200px;">
+                {{view Ember.TextArea valueBinding="controller.review_content"  class="no-resize no-effect"  placeholder="Please edit review here" }}  
+            </div>
+
+            <div class="" style="height: 41px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
+                <div  class="message-btn easing"  style="width: 50%;" {{action cancelReview }}><k class="icon-remove">&nbsp;</k>Cancel</div>
+                <div class="message-btn easing" style="width: 50%;" {{action  saveReview }}><k class='icon-ok'>&nbsp;</k>Post</div>
+            </div>
+    </div>
+
+    {{/if}}
 

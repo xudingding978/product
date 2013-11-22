@@ -44,11 +44,13 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
     editReview: function() {
 
         this.set("review_is_edit", !this.get('review_is_edit'));
-//         console.log(review.get('review_content'));
         this.set("review_content", this.get("model").get('review_content'));
+         this.transitionToRoute('review', {id: this.get("model").get("review_id")});
     },
     saveReview: function() {
+       var reviewDate = new Date();
         this.get("model").set('review_content', this.get('review_content'));
+        this.get("model").set('review_time_stamp', reviewDate.toString());
         requiredBackEnd('reviews', 'Update', this.get("model"), 'POST', function(params) {
         });
         this.set("review_is_edit", !this.get('review_is_edit'));
@@ -63,7 +65,6 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
     },
     deleteConfirm: function()
     {
-
         this.deleteSelectedCollection();
         this.cancelDelete();
         this.get("controllers.profile").set("profileReviewStatistics", this.get("controllers.profile").get('profileReviewStatistics') - 1);

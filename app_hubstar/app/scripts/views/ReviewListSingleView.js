@@ -34,17 +34,12 @@ HubStar.ReviewListSingleView = Ember.View.extend({
         var review_reply = "#reviewReplyData_" + event;
 
        this.get("controller").transitionToRoute('review', {id: event});
-        var reviewContent = "#review_content_" + event;
         var content = "#review_content_" + event;
         $(up_button).attr("style", "position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:inline-block;;");
         $(down_button).attr("style", "position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:none;");
         $(content).animate({width: '420px', maxHeight: '600px', position: 'relative', display: 'inline-block', overflow: 'auto'}, 500);
         $(content).parent().parent().addClass('active');
-
         $(review_reply).show(10);
-
-        // $(review_reply).animate({height: '63px', overflow: 'hidden'}, 500);
-
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 400);

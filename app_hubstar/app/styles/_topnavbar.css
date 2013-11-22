@@ -1,6 +1,6 @@
 
 .navbar {
-    min-width: 692px;
+    min-width: 1200px;
     height: 75px;
     line-height: 75px;
     overflow: visible;
@@ -11,9 +11,7 @@
     width: 100%;
     top: 0;
     display: block;
-    background-color: transparent;
-    -webkit-transform: translateZ(0)
-
+    background-size: 100% auto !important;
 }
 
 
@@ -127,7 +125,7 @@
 .Nav-btn:hover{opacity: 1}
 
 .Search-box{
-    width: 742px; 
+    width: 85%; 
     height: 50px; 
     float: right;
     display: inline-block;
@@ -135,7 +133,7 @@
 
 .search-bar-ontop{
     position: absolute;
-    width: 800px;
+    width: 45%;
     margin: 12px auto;
     left: 0;
     right: 0;
@@ -146,10 +144,9 @@
     font-weight: bold;
     color: #333;
     height: 50px;
-    border-radius: 3px 0 0 3px;
+    border-radius: 3px;
     background-color: #fff;
     border: 1px solid #eee;
-    width: 692px;
     padding-left: 10px;
     vertical-align: top;
 }
@@ -607,7 +604,6 @@ div#forgot-password-container{
 
 div#login_detail{
     width:35px;
-    margin-right: 50px;
     float:right;
     cursor: pointer;
     vertical-align: top;

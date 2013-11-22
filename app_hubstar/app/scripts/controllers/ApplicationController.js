@@ -359,60 +359,64 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('categorys', HubStar.Cate.find({}));
         this.set('subcate', []);
         this.set('subcategories', []);
-       
+
         setTimeout(function() {
             $('.Navigator-box').fadeIn("fast");
         }, 30);
     },
-           showDiscoveryBar:function(){
-                     HubStar.set("showDiscoveryBar", true);
-                    this.transitionToRoute('searchIndex');
-                    $("#top-about-menu").fadeIn("320");
-                    $("#search-bar").fadeOut("320");
-                    $(".Navigator-box").fadeOut("320");
-           },
-             dropdownHeaderNavigator: function() {
-
+    showDiscoveryBar: function() {
+        HubStar.set("showDiscoveryBar", true);
+        this.transitionToRoute('searchIndex');
+        $("#top-about-menu").fadeIn("320");
+        $("#search-bar").fadeOut("320");
+        $(".Navigator-box").fadeOut("320");
+        $(".navbar").css("box-shadow", "");
+         $(window).scrollTop(0);
+    },
+    dropdownHeaderNavigator: function() {
+console.log('bbbb');
         this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
- 
+        console.log(this.get('isHeaderNavigatorDropdown'));
+
         this.set('categorys', HubStar.Cate.find({}));
-        
+
         this.set('subcate', []);
         this.set('subcategories', []);
-        
+
         setTimeout(function() {
             $('.Navigator-box').fadeIn("fast");
         }, 30);
-    },   
-            
+    },
     topicSelection: function(data) {
-       
+
 
         this.set('subcate', []);
         this.set('subcategories', []);
         for (var i = 0; i < data.get('subcate').get('length'); i++) {
-           var str= data.get('subcate').objectAt(i).get('category_topic');
+            var str = data.get('subcate').objectAt(i).get('category_topic');
 //           str=str.slice(0,5);
 //           console.log(str);
             this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')});
-        }    
-        
+        }
+
     },
     searchTopicSelection: function(data) {
-    
+
         this.set('subcategories', []);
         for (var i = 0; i < data.get('length'); i++) {
             this.get('subcategories').pushObject({'search_topic': data.objectAt(i).get('search_topic')});
         }
 
     },
-       topicSearch: function(search_topic) {
+    topicSearch: function(search_topic) {
         this.transitionToRoute('searchIndex');
+        $("#top-about-menu").css('display', 'none');
+        $("#search-bar").css('display', 'block');
         this.set('search_string', search_topic);
         this.newSearch();
-this.set('isNavigatorDropdown',false);
- this.set('isHeaderNavigatorDropdown', false);
-  HubStar.set("showDiscoveryBar", false);
+        this.set('isNavigatorDropdown', false);
+        this.set('isHeaderNavigatorDropdown', false);
+        HubStar.set("showDiscoveryBar", false);
     },
     canelDropDown: function()
     {
@@ -629,11 +633,11 @@ this.set('isNavigatorDropdown',false);
         this.set('adPageNo', increaseby0ne);
         return pageNo;
     },
-    backToDefault: function() {        
+    backToDefault: function() {
         this.defaultSearch();
         this.set('search_string', '');
         this.transitionToRoute('searchIndex');
-        
+
     },
     clearSearch: function() {
         this.set('search_string', '');

@@ -7,11 +7,12 @@ HubStar.ApplicationView = Ember.View.extend({
             view.didScroll();
         });
 
-          $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+//         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
 
         var scroll_pos_test = 290;
         
-     $(document).ready(function() {    
+     $(document).ready(function() {  
+          
         $(window).scroll(function() {
             var y_scroll_pos = window.pageYOffset;
 

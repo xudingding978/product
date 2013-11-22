@@ -373,8 +373,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $(".navbar").css("box-shadow", "");
          $(window).scrollTop(0);
     },
+            closeDropdownNavigator:function(){
+         this.set('isNavigatorDropdown', false);
+        this.set('isHeaderNavigatorDropdown', false);
+            },
     dropdownHeaderNavigator: function() {
-console.log('bbbb');
+
         this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
         console.log(this.get('isHeaderNavigatorDropdown'));
 

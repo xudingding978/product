@@ -34,6 +34,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     init: function() {
         this.defaultSearch();
         this.set('search_string', '');
+        console.log('applicationcontroller');
+       this.set('loginUsername',localStorage.userName);
     },
     dropdownPhotoSetting: function() {
         this.set("isNotification", !this.get("isNotification"));
@@ -374,9 +376,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
                     if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
                         localStorage.loginStatus = params.COUCHBASE_ID;
+                         localStorage.userName = params.USER_NAME;
+                         localStorage.userType = "email";
                         HubStar.set("isLogin", true);
                         that.transitionToRoute('searchIndex');
-                        that.set('loginUsername', "");
+                      //  that.set('loginUsername', "");
                         that.set('loginPassword', "");
                         that.set('isWaiting', false);
                     }

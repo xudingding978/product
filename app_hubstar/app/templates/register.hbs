@@ -307,7 +307,26 @@
                  *   This javascript will need to be cleaned up via setting some of the elements as preset variables etc, once 100% tested.
                  */
 
-                var loginState = false;
+           $('#login-btn').text('REGISTER');
+            $('.black-tool-tip').css('display', 'none');
+            $('#click-register-social').css('display', 'none');
+            $('#click-register').css('display', 'none');
+            $('#social-link').css('display', 'none');
+            $('#login-with-email-drop-down').css('display', 'block');
+            $('#social-login-container').css('display', 'none');
+            $('#click-login').addClass('active-tab');
+            $('#social-login').removeClass('social-active');
+            $('#user-forgot-password-pane').css('display', 'none');
+            $('#forgot-message-container').css('display', 'none');
+            $('#invalid-username').css('display', 'none');
+
+            $('#register-with-email-drop-down').css('display', 'none');
+            $('#register-with-email-step-2').css('display', 'none');
+            $('#user-login-pane').css('display', 'block');
+
+
+
+                var loginState = true;
                 $("#social-login").click(function() {
 
                     $('#social-login').removeClass('social-active');

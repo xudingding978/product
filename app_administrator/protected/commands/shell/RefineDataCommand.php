@@ -134,13 +134,12 @@ class RefineDataCommand extends Controller_admin {
 
         $log_path = "/var/log/yii/$start_time.log";
 
-        $bucket = "temp";
+        $bucket = "production";
         $settings['log.enabled'] = true;
         $Sherlock = new \Sherlock\Sherlock($settings);
         $Sherlock->addNode("es1.hubsrv.com", 9200);
         $article_arr = array();
         for ($i = 0; $i < 280; $i++) {
-            $request = null;
             $request = $Sherlock->search();
             $must = \Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"article\"")
                     ->default_field("couchbaseDocument.doc.type");

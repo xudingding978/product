@@ -18,6 +18,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
     is_authentic_user: false,
     sharePhotoUrl: '',
     sharePhotoName: '',
+    makeSureDelete: false,
+    willDelete: false,
     init: function()
     {
 
@@ -179,14 +181,14 @@ HubStar.MegaController = Ember.ArrayController.extend({
     EditDelete: function(id, time_stamp) {
     },
     EditDeleteLeave: function(id, time_stamp) {
-       
+
     },
     addComment: function() {
         var commentContent = this.get('commentContent');
         if (commentContent) {
             var comments = this.get('megaResouce').get('comments');
 //            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
-            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus +'/user_picture/user_picture';
+            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
@@ -203,6 +205,26 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     removeComment: function(object)
     {
+        var message = "Do you want to delete this comment";
+        this.set("message", message);
+        this.set('makeSureDelete', true);
+        if (this.get('willDelete')) {
+            this.removeCommentItem(object);
+            this.cancelDelete();
+        } else {
+            this.set("obj", object);
+            this.set('willDelete', true);
+        }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelDelete: function() {
+        this.set('willDelete', false);
+        this.set('makeSureDelete', false);
+    },
+    removeCommentItem: function(object)
+    {
         var id = this.get('megaResouce').get("id");
         var message_id = object.get("message_id");
         var delInfo = [id, message_id];
@@ -213,13 +235,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
         requiredBackEnd('comments', 'DeletePhotoComment', delInfo, 'POST', function(params) {
         });
     },
-    updateComment: function(object) {
+            updateComment: function(object) {
         this.get("controllers.editComment").setRelatedController("mega");
         var comments = this.get('megaResouce').get('comments');
         for (var i = 0; i < comments.get("length"); i++)
-        {        
+        {
             if (comments.objectAt(i).get("message_id") === object.get("message_id"))
-            {            
+            {
                 object.set("isEdit", !object.get("isEdit"));
             }
             else

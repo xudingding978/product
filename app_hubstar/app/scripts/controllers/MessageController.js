@@ -60,6 +60,17 @@ HubStar.MessageController = Ember.Controller.extend({
                 if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
                 {
                     messageId.set("enableToEdit", false);
+                    var s = '#message_' + id;
+                    var thatthat = this;
+                    setTimeout(function() {
+                        var old = thatthat.get("controllers.userMessage").get("oldPost");
+                        console.log(old);
+                        console.log(s);
+                        $(old).removeClass("post-focus");
+
+                        $(s).addClass("post-focus");
+                        thatthat.get("controllers.userMessage").set("oldPost", s);
+                    }, 200);
                     this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("enableToEdit", true);
 
                     break;
@@ -72,8 +83,18 @@ HubStar.MessageController = Ember.Controller.extend({
             {
                 if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
                 {
-                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("enableToEdit", true);
+                    var s = '#message_' + id;
+                    var thatthat = this;
+                    setTimeout(function() {
+                        var old = thatthat.get("controllers.userMessage").get("oldPost");
+                        console.log(old);
+                        console.log(s);
+                        $(old).removeClass("post-focus");
 
+                        $(s).addClass("post-focus");
+                        thatthat.get("controllers.userMessage").set("oldPost", s);
+                    }, 200);
+                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("enableToEdit", true);
                     break;
                 }
             }
@@ -106,7 +127,15 @@ HubStar.MessageController = Ember.Controller.extend({
                 for (var j = 0; j < this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
                     if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
                     {
+                        var s = '#message_' + this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id");
+                        var thatthat = this;
+                        setTimeout(function() {
+                            var old = thatthat.get("controllers.userMessage").get("oldPost");
+                            $(old).removeClass("post-focus");
 
+                            $(s).addClass("post-focus");
+                            thatthat.get("controllers.userMessage").set("oldPost", s);
+                        }, 200);
                         reply_id.set("enableToEdit", false);
                         this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("enableToEdit", true);
                         this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyEdit", false);
@@ -121,6 +150,15 @@ HubStar.MessageController = Ember.Controller.extend({
                 for (var j = 0; j < this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
                     if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
                     {
+                        var s = '#message_' + this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id");
+                        var thatthat = this;
+                        setTimeout(function() {
+                            var old = thatthat.get("controllers.userMessage").get("oldPost");
+                            $(old).removeClass("post-focus");
+
+                            $(s).addClass("post-focus");
+                            thatthat.get("controllers.userMessage").set("oldPost", s);
+                        }, 200);
                         this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("enableToEdit", true);
                         this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyEdit", false);
                         break;
@@ -311,6 +349,15 @@ HubStar.MessageController = Ember.Controller.extend({
                         dataNew["isUrl"] = false;
                     }
 
+                    var thatthat = that;
+                    var s = '#message_' + params["message_id"];
+                    setTimeout(function() {
+                        var old = thatthat.get("controllers.userMessage").get("oldPost");
+                        $(old).removeClass("post-focus");
+
+                        $(s).addClass("post-focus");
+                        thatthat.get("controllers.userMessage").set("oldPost", s);
+                    }, 200);
 
                     if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection") !== undefined)
                     {
@@ -318,9 +365,6 @@ HubStar.MessageController = Ember.Controller.extend({
                     }
                     else
                     {
-                        //   that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").pushObject(dataNew);
-//                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", null);
-                        //  that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", new Array());
                         that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", dataNew);
                     }
                     dataNew["replyMessageCollection"] = new Array();

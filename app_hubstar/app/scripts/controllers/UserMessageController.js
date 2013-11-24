@@ -319,7 +319,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 setTimeout(function() {
                     var old = thatthat.get("oldPost");
                     $(old).removeClass("post-focus");
-                    console.log(s);
+                   
                     $(s).addClass("post-focus");
                     thatthat.set("oldPost", s);
                 }, 200);

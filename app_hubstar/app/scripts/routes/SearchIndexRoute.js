@@ -12,7 +12,7 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
         },
         activate: function() {
 
-            HubStar.set("isLogin", true);
+//            HubStar.set("isLogin", true);
 
         },
         deactivate: function() {

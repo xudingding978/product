@@ -180,15 +180,25 @@ class Article extends CActiveRecord {
         ));
     }
     
-    function getAll() {
+    function getAll($from,$to) {
             $data_list = array();
-            $sql = "select * from Trends.dbo.Articles order by Trends.dbo.Articles.id asc";
+//        $from = "2013-10-20";
+//        $to = "2013-10-25";
+            $sql = "select  dbo.SparkJobNotes.dateCreated, dbo.SparkJobNotes.sparkJobId, dbo.SparkJobNotes.comment, dbo.Articles.* , dbo.HeliumMedia.keywords from dbo.Articles 
+                                       inner join dbo.HeliumMedia on  dbo.Articles.heliumMediaId = dbo.HeliumMedia.heliumId
+                                       left join dbo.SparkJobNotes on dbo.Articles.sparkJobId =dbo.SparkJobNotes.sparkJobId
+
+
+                                       where (dbo.SparkJobNotes.dateCreated between "."'".$from."'"." and "."'".$to."'".")
+                                       and dbo.SparkJobNotes.comment like 'Success'
+
+                                       order by dbo.Articles.id ASC ";
             
-//                        echo $sql;
+                   //    echo $sql;
             $data_list = Yii::app() ->db->createCommand($sql)->queryAll();
             
 //            print_r("<pre>");
-//            echo sizeof($data_list);
+            echo sizeof($data_list);
             
             return $data_list;
     }
@@ -241,10 +251,12 @@ class Article extends CActiveRecord {
          
     public function getCoverPage($article_id) {
         $data_arr = array();
-        $sql = "select * from 
+        $sql = "select AI.* from 
                         dbo.ArticleImages as AI, 
                         dbo.Articles as Ar
                     where 
+                        AI.isExtra=0
+                    and
                         Ar.id = AI.articleId 
                     and 
                         AI.sequence = 1
@@ -252,5 +264,57 @@ class Article extends CActiveRecord {
                     Ar.id = ". $article_id;
         $data_arr = Yii::app()->db->createCommand($sql)->queryAll();
         return $data_arr;
+    }
+    
+    public function getArticalbyDate(){
+          $dataDuringDates = array();
+            $sql = "select dbo.articleImages.*, dbo.SparkJobNotes.dateCreated, dbo.SparkJobNotes.sparkJobId, dbo.SparkJobNotes.comment, dbo.Articles.headline, dbo.Articles.subHeadline, dbo.Articles.body, dbo.Articles.creditText, dbo.Articles.photography, dbo.HeliumMedia.keywords from dbo.ArticleImages
+                                       inner join dbo.HeliumMedia on  dbo.ArticleImages.heliumMediaId = dbo.HeliumMedia.heliumId
+                                       inner join dbo.Articles on dbo.Articles.id=dbo.ArticleImages.articleId
+                                       left join dbo.SparkJobNotes on dbo.Articles.sparkJobId =dbo.SparkJobNotes.sparkJobId
+
+                                       where (dbo.SparkJobNotes.dateCreated between '2013-10-21' and '2013-10-29')
+                                       and dbo.SparkJobNotes.comment like 'Success'
+
+                                       order by dbo.Articles.id ASC
+                             ";
+        $from = "2013-10-01";
+        $to = "2013-10-30";
+        $dataDuringDates = Yii::app()->db->createCommand($sql)->queryAll();
+    }
+    
+    public function getArticleCategorybyId($article_id){
+        
+        $data_arr = array();
+        $sql = 'select DISTINCT dbo.CategorySearchNames.* from 
+             dbo.CategorySearchNames,
+             dbo.SubCategories,
+             dbo.ArticleSubCategoryMaps  
+                        where 
+             dbo.SubCategories.categoryId=dbo.CategorySearchNames.categoryId
+             and
+             dbo.SubCategories.id=dbo.ArticleSubCategoryMaps.subCategoryId
+             and
+                      dbo.ArticleSubCategoryMaps.articleId= '. $article_id;
+        $data_arr = Yii::app()->db->createCommand($sql)->queryAll();
+        return $data_arr;
+        
+        
+    }
+    
+      public function getArticleSubCategorybyId($article_id){
+        
+        $data_arr = array();
+        $sql = 'select DISTINCT dbo.SubCategorySearchNames.* from 
+dbo.ArticleSubCategoryMaps,
+dbo.SubCategorySearchNames 
+                    where 
+dbo.SubCategorySearchNames.subCategoryId=dbo.ArticleSubCategoryMaps.subCategoryId
+and
+dbo.ArticleSubCategoryMaps.articleId= '. $article_id;
+        $data_arr = Yii::app()->db->createCommand($sql)->queryAll();
+        return $data_arr;
+        
+        
     }
 }

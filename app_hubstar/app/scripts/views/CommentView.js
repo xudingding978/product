@@ -17,15 +17,17 @@ HubStar.CommentView = Ember.View.extend({
                 $('.comment-insert-field').focus();
                 
             }, 200);
+        } else {
+            HubStar.set('checkLoginStatus', true);
         }
     },
-    closeComment: function(id) {    
-        this.get('controller').set("commentContent","");
-        $('#comment_' + id).attr('style', 'display:block');
-        $('#commentBox_' + id).attr('style', 'display:none');
-        $('#masonry_container').masonry("reload");
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-        }, 200);
-    }                 
+//    closeComment: function(id) {    
+//        this.get('controller').set("commentContent","");
+//        $('#comment_' + id).attr('style', 'display:block');
+//        $('#commentBox_' + id).attr('style', 'display:none');
+//        $('#masonry_container').masonry("reload");
+//        setTimeout(function() {
+//            $('#masonry_container').masonry("reload");
+//        }, 200);
+//    }                 
 });

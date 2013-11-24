@@ -47,7 +47,7 @@ HubStar.EditReplyController = Ember.Controller.extend({
         }
         this.set("isUploadPhoto", false);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
+            $('#masonry_user_container').masonry("reload");
         }, 200);
     },
     removePic: function(id) {
@@ -56,7 +56,7 @@ HubStar.EditReplyController = Ember.Controller.extend({
         this.set('newStyleImageName', "");
         this.set("isUploadPhoto", false);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
+            $('#masonry_user_container').masonry("reload");
         }, 200);
     },
     removeOriginPic: function(id) {
@@ -72,7 +72,7 @@ HubStar.EditReplyController = Ember.Controller.extend({
                 }
         }
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
+            $('#masonry_user_container').masonry("reload");
         }, 200);
     },
     updateReply: function(id) {
@@ -154,10 +154,8 @@ HubStar.EditReplyController = Ember.Controller.extend({
                         that.set('newStyleImageName', "");
                         that.set("isUploadPhoto", true);
                         setTimeout(function() {
-                            $('#masonry_user_container').masonry("reloadItems");
+                            $('#masonry_user_container').masonry("reload");
                         }, 200);
-
-
                     });
                 }
             }
@@ -171,8 +169,8 @@ HubStar.EditReplyController = Ember.Controller.extend({
         this.set('newStyleImageSource', src);
         this.set('newStyleImageName', name);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-        }, 200);
+            $('#masonry_user_container').masonry("reload");
+        }, 100);
     }
 }
 );

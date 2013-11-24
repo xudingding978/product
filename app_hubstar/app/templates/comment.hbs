@@ -16,34 +16,33 @@
         </div>
     </div>
 
-</div>
 
 
-<div id="addCollection_{{unbound model.id}}"  style="display: none">
-    {{render addCollection}}
-    <!--<div style="position:fixed; background-color: red; width: 100px;height: 100px;top:100px">asdfasdfasdfasdfasdfsd</div>-->
-</div>       
-{{#if model.getProfile}}
-{{else}}
-<div style="margin-right: 20px;float: right; font-size: 13px;">
-    <div  id="thumbUpBtn_{{unbound model.id}}" style="display:inline-block;vertical-align: top;" class="new-btn" {{action addLike model.id}}><i class="icon-thumbs-up-alt">&nbsp</i>{{model.likes_count}}</div>
-    <div data-hint="Add to your own collection." id="saveBtn_{{unbound model.id}}"  style="display:inline-block;vertical-align: top;" class="new-btn hint--top hint--rounded" {{action switchCollection model}}><i class="icon-save" >&nbsp</i></div>
-    <div id="share_{{unbound model.id}}" class="new-btn"  style="position:relative;">
+    <div id="addCollection_{{unbound model.id}}"  style="display: none">
+        {{render addCollection}}
+        <!--<div style="position:fixed; background-color: red; width: 100px;height: 100px;top:100px">asdfasdfasdfasdfasdfsd</div>-->
+    </div>       
+    {{#if model.getProfile}}
+    {{else}}
+    <div style="margin-right: 20px;float: right; font-size: 13px;">
+        <div  id="thumbUpBtn_{{unbound model.id}}" style="display:inline-block;vertical-align: top;" class="new-btn" {{action addLike model.id}}><i class="icon-thumbs-up-alt">&nbsp</i>{{model.likes_count}}</div>
+        <div data-hint="Add to your own collection." id="saveBtn_{{unbound model.id}}"  style="display:inline-block;vertical-align: top;" class="new-btn hint--top hint--rounded" {{action switchCollection model}}><i class="icon-save" >&nbsp</i></div>
+        <div id="share_{{unbound model.id}}" class="new-btn"  style="position:relative;">
 
-        <div data-hint="Share this photo to other social platform." style="display:inline-block;vertical-align: top;" class="hint--top hint--rounded" {{action shareDisplay model.id on="click"}}><i class="icon-share-alt" >&nbsp</i></div>
+            <div data-hint="Share this photo to other social platform." style="display:inline-block;vertical-align: top;" class="hint--top hint--rounded" {{action shareDisplay model.id on="click"}}><i class="icon-share-alt" >&nbsp</i></div>
 
-        <ul class="hideClass edit-object-ul" style="width: 150px; margin: 0 auto; left: 0px;padding: 0;z-index:2; position: absolute;">
-            <li style="position:fixed;top:0;left:0;height:100%;width:100%;z-index:-1;" {{action shareHide model.id on="click"}}></li>
-            <li class="ite" {{action  fbShare model}} >
-        <k class="icon-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
+            <ul class="hideClass edit-object-ul" style="width: 150px; margin: 0 auto; left: 0px;padding: 0;z-index:2; position: absolute;">
+                <li style="position:fixed;top:0;left:0;height:100%;width:100%;z-index:-1;" {{action shareHide model.id on="click"}}></li>
+                <li class="ite" {{action  fbShare model}} >
+            <k class="icon-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
+            </li>
+            <li class='ite' {{action tShare model }} >
+        <k class="icon-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span>
         </li>
-        <li class='ite' {{action tShare model }} >
-    <k class="icon-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span>
+        <li class='ite' {{action pShare model}} >
+    <k class="icon-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Pinterest</span>
     </li>
-    <li class='ite' {{action pShare model}} >
-<k class="icon-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Pinterest</span>
-</li>
-<li class="ite" {{action gpShare model}}>
+    <li class="ite" {{action gpShare model}}>
 <k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
 </li>
 </ul>
@@ -66,7 +65,7 @@
 
         {{view HubStar.SearchRequireTextFieldView valueBinding="commentContent"  id="" class="comment-insert-field"  placeholder="" }}
         <span class="" style="margin:7px 0;float: right;">
-            <div  class="new-btn"{{action closeComment model.id target="view" on="click"}}>Cancel</div>
+            <div  class="new-btn"{{action closeComment model.id target="controller" on="click"}}>Cancel</div>
             <div class="new-btn green-btn" {{action addComment}}>Post</div>
         </span>
 
@@ -162,7 +161,7 @@
 
 
 
-</div>
+
 
 
 
@@ -173,3 +172,5 @@
 {{/if}}
 
 {{isThumbUped model.people_like model.id}}
+
+</div>

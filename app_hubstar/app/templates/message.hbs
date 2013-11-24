@@ -5,7 +5,7 @@
             {{#if model.isUserself}} <!--model.isUserself is used to judge whether the reply message is written by the current login user-->
 
             <span style="margin: 0 10px; cursor: pointer" class="hint--bottom hint--rounded" data-hint="Delete Post">
-                <i class="icon-trash"  {{action removeMessage model.message_id}}></i>
+                <i class="icon-trash"  {{action removeMessageItem model.message_id}}></i>
             </span>                 
             <span style="cursor: pointer" class="hint--bottom hint--rounded" data-hint="Edit Post">
                 <i class="icon-pencil"  {{action editingCommentData model.message_id model.msg}}></i>
@@ -16,11 +16,11 @@
 
             <!--controller.isUserself is used to judge whether it is the page owner who have right to delete every message-->
             <span style="margin: 0 10px; cursor: pointer" class="hint--bottom hint--rounded" data-hint="Delete Post">
-                <i class="icon-trash" {{action removeMessage model.message_id}}></i>    
+                <i class="icon-trash" {{action removeMessageItem model.message_id}}></i>    
             </span>
-<!--            <span style="cursor: pointer" class="hint--bottom hint--rounded" data-hint="Edit Post">
-                <i class="icon-pencil" {{action editingCommentData model.message_id model.msg}}></i>   
-            </span>-->
+            <!--            <span style="cursor: pointer" class="hint--bottom hint--rounded" data-hint="Edit Post">
+                            <i class="icon-pencil" {{action editingCommentData model.message_id model.msg}}></i>   
+                        </span>-->
             {{/if}}
             {{/if}}
         </div>
@@ -79,8 +79,8 @@
                         <i class="spinner spinner-sml"></i>
                     </div>
                     {{/if}}
-                   
-                    
+
+
                 </div>
             </div>
 
@@ -98,53 +98,53 @@
 
     <div id="messageData_{{unbound model.message_id}}"  style="display: none">
         <div id="messageScrollBar_{{unbound model.message_id}}">
-        {{#each  model.replyMessageCollection}} 
-        {{#unless this.enableToEdit}}
-        <div class="your-relpy" style="padding: 10px 60px 10px 0;">
-            <a class="your-relpy_profilepic" style="right: 15px;" href="#/users/{{unbound this.user_id}}">
-                <img class="profilepic_comment"  {{bindAttr src= this.photo_url_large}} />
-            </a>
-            <div style="">
-                <div class="comment-namentime">
-                    <div class="namentime_position">
-                        {{#if this.isUserself}}
-                        <div class="reply-comment" style="left: 40px;right: initial;">
-                            <span class="hint--bottom hint--rounded" data-hint="Delete"><i class="icon-trash"  {{action removeReply this.reply_id}}></i></span>
-                            <span class="hint--bottom hint--rounded" data-hint="Edit"><i class="icon-pencil" {{action editingReplyData this.reply_id this.msg}}></i></span>
-                        </div>
-                        {{else}}
-                        {{#if controller.isUserself}}
-                        <div class="reply-comment" style="left: 40px;right: initial;">   
-                            <span class="hint--bottom hint--rounded" data-hint="Delete"><i class="icon-trash"  {{action removeReply this.reply_id}}></i></span>
-<!--                            <span class="hint--bottom hint--rounded" data-hint="Edit"><i class="icon-pencil" {{action editingReplyData this.reply_id this.msg}}></i></span>-->
-                        </div>
-                        {{/if}}
-                        {{/if}}
-                        <a class="comment-username"  href="#/users/{{unbound this.user_id}}">
-                            {{this.user_name}}    
-                        </a>
-                        <div class="posttime-container">
-                            <span class="posttime">{{date this.time_stamp}}</span>
+            {{#each  model.replyMessageCollection}} 
+            {{#unless this.enableToEdit}}
+            <div class="your-relpy" style="padding: 10px 60px 10px 0;">
+                <a class="your-relpy_profilepic" style="right: 15px;" href="#/users/{{unbound this.user_id}}">
+                    <img class="profilepic_comment"  {{bindAttr src= this.photo_url_large}} />
+                </a>
+                <div style="">
+                    <div class="comment-namentime">
+                        <div class="namentime_position">
+                            {{#if this.isUserself}}
+                            <div class="reply-comment" style="left: 40px;right: initial;">
+                                <span class="hint--bottom hint--rounded" data-hint="Delete"><i class="icon-trash"  {{action removeReplyItem this.reply_id}}></i></span>
+                                <span class="hint--bottom hint--rounded" data-hint="Edit"><i class="icon-pencil" {{action editingReplyData this.reply_id this.msg}}></i></span>
+                            </div>
+                            {{else}}
+                            {{#if controller.isUserself}}
+                            <div class="reply-comment" style="left: 40px;right: initial;">   
+                                <span class="hint--bottom hint--rounded" data-hint="Delete"><i class="icon-trash"  {{action removeReplyItem this.reply_id}}></i></span>
+                                <!--                            <span class="hint--bottom hint--rounded" data-hint="Edit"><i class="icon-pencil" {{action editingReplyData this.reply_id this.msg}}></i></span>-->
+                            </div>
+                            {{/if}}
+                            {{/if}}
+                            <a class="comment-username"  href="#/users/{{unbound this.user_id}}">
+                                {{this.user_name}}    
+                            </a>
+                            <div class="posttime-container">
+                                <span class="posttime">{{date this.time_stamp}}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="comment-content">
-                    {{this.msg}}<br>
-                    {{#if this.isUrl }}   <!-- if the isUrl is not null which mean it has the picture url, so it can show the image-->
-                    <div style='margin: 5px auto;max-width: 300px;max-height: 300px;float: right;'>
-                        <img {{bindAttr src= this.url}} style="border: 4px solid #fff;"/>
+                    <div class="comment-content">
+                        {{this.msg}}<br>
+                        {{#if this.isUrl }}   <!-- if the isUrl is not null which mean it has the picture url, so it can show the image-->
+                        <div style='margin: 5px auto;max-width: 300px;max-height: 300px;float: right;'>
+                            <img {{bindAttr src= this.url}} style="border: 4px solid #fff;"/>
+                        </div>
+                        {{/if}}
                     </div>
-                    {{/if}}
                 </div>
             </div>
-        </div>
-        {{else}}
+            {{else}}
 
-        {{render editReply this}}
-        {{/unless}}
-        {{/each}}     
+            {{render editReply this}}
+            {{/unless}}
+            {{/each}}     
+        </div>
     </div>
-</div>
 
 
     <div class="hover-opacity easing" style="height: 20px; width: 100%; background-color: #f3f3f3;text-align: center;color: #555; border-top: 1px solid #ddd">  
@@ -157,7 +157,6 @@
             <i class="icon-caret-up show-comment_inner" ></i>
         </div>
     </div>
-
 
 
     <script>
@@ -174,3 +173,10 @@
     {{render editMessage model}}
     {{/unless}}
 </div>
+
+    {{#if controller.makeSureDelete}}
+
+    {{view HubStar.DeleteFunctionView}}
+
+
+    {{/if}}

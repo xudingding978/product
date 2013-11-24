@@ -40,7 +40,7 @@
             </div>
             <div class="reply-comment easing" style="right:25px;position: relative;float: right;top: -60px;font-size: 10px;">  
                 <i class="icon-ok-sign"></i>                 
-                <i class="icon-remove-sign" {{action deleteNotification this.notification_id}}></i>
+                <i class="icon-remove-sign" {{action removeNotificationItem this.notification_id}}></i>
             </div>
         </div>
         {{else}}
@@ -74,7 +74,7 @@
             </div>
             <div class="reply-comment easing" style="right:25px;position: relative;float: right;top: -60px;font-size: 10px;">  
                 <i class="icon-ok-sign  " {{action markRead this.notification_id}}></i>                 
-                <i class="icon-remove-sign" {{action deleteNotification this.notification_id}}></i>
+                <i class="icon-remove-sign" {{action removeNotificationItem this.notification_id}}></i>
             </div>
         </div>
         {{/if}}
@@ -84,6 +84,12 @@
         <div style="color: #666;font-size: 13px;line-height: 38px;font-weight: bold;">   <i  style="cursor: pointer" {{action seeAll}}>  See all</i>  </div>
     </div>
 </div>
+{{#if controller.makeSureDelete}}
+
+{{view HubStar.DeleteFunctionView}}
+
+
+{{/if}}
 <script>
     $(function() {
         $("#notititopbar").mCustomScrollbar({

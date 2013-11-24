@@ -17,6 +17,9 @@ HubStar.UserMessageController = Ember.Controller.extend({
     isUploadPhoto: false,
     isEdit: true,
     isPosting: true,
+    makeSureDelete:false,
+    isUserMessage:false,
+    willDelete:false,
     oldPost: "",
     init: function()
     {
@@ -110,7 +113,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                     dataNew["replyMessageCollection"][j] = dataReply;
                 }
                 that.get("contentMsg").pushObject(dataNew);
-            
+
 
                 dataNew = new Array();
             }
@@ -161,7 +164,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 var old = that.get("oldPost");
                 $(old).removeClass("post-focus");
                 $(s).addClass("post-focus");
-                console.log(s);
                 that.set("oldPost", s);
                 if (that.get("controllers.notificationTop").get("reply_ids") !== undefined && that.get("controllers.notificationTop").get("reply_ids") !== null && that.get("controllers.notificationTop").get("reply_ids") !== "")
                 {
@@ -177,6 +179,27 @@ HubStar.UserMessageController = Ember.Controller.extend({
         });
     }
     ,
+    removeMessageItem: function(s)
+    {
+        var message = "Are you sure you want to delete this notification?";
+        this.set("message", message);
+        this.set('makeSureDelete', true);
+        this.set('isUserMessage',true);
+        if (this.get('willDelete') === true) {
+            this.removeMessage(s);
+            this.cancelDelete();
+        } else {
+            this.set("s", s);        
+            this.set('willDelete', true);
+        }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelDelete: function() {
+        this.set('willDelete', false);
+        this.set('makeSureDelete', false);
+    },
     removeMessage: function(Message_id)
     {
 

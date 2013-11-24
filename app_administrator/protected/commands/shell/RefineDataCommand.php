@@ -1,6 +1,11 @@
 <?php
+
+
 Yii::import("application.models.*");
 Yii::import("application.components.*");
+require_once("ArticleCommand.php");
+
+
 class RefineDataCommand extends Controller_admin {
 
     public $total_num = 0;
@@ -9,10 +14,12 @@ class RefineDataCommand extends Controller_admin {
 
     public function actionIndex($action = null) {
 
-        Yii::import("application.models.*");
+
         if ($action == "comment") {
             $this->addCommentId();
-        } elseif ($action == "fixurl") {
+        } elseif($action=="fixcredit"){
+            $this->importCreditList();
+        }elseif ($action == "fixurl") {
             $this->fixPhoto_url_largeofLisa();
         }
         elseif ($action == "refinearticle") {
@@ -61,6 +68,7 @@ class RefineDataCommand extends Controller_admin {
                         $message = date("Y-m-d H:i:s") . " -- " . $val['id'] . " --Does not have helium media id!!";
                         $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
                     }
+
                 }
             }
 
@@ -111,6 +119,82 @@ class RefineDataCommand extends Controller_admin {
                     
         }
         
+    }
+
+
+
+
+    function __construct() {
+        
+    }
+
+    public function importCreditList() {
+        $classArticleImport = new ArticleCommand();
+        $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+
+        $log_path = "/var/log/yii/$start_time.log";
+
+        $bucket = "temp";
+        $settings['log.enabled'] = true;
+        $Sherlock = new \Sherlock\Sherlock($settings);
+        $Sherlock->addNode("es1.hubsrv.com", 9200);
+        $article_arr = array();
+        for ($i = 0; $i < 280; $i++) {
+            $request = null;
+            $request = $Sherlock->search();
+            $must = \Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"article\"")
+                    ->default_field("couchbaseDocument.doc.type");
+            $bool = \Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+            $request->index($bucket)
+                    ->type("couchbaseDocument")
+                    ->from(50 * $i)
+                    ->size(50);
+            $request->query($bool);
+            $response = $request->execute();
+            $progress = 50 * $i;
+            foreach ($response as $hit) {
+                $progress+=1;
+                echo "Job carrying to: " . $progress;
+                array_push($article_arr, $hit['id']);
+                $message.=$hit['id'] . "\n";
+            }
+        }
+        $progress = 0;
+        foreach ($article_arr as $article) {
+            $progress+=1;
+            echo "Job carrying to: " . $progress;
+            $message = 'Job carrying to: ' . $progress . "\n";
+            $timeStamp = $this->setUTC();
+            $cb = $this->couchBaseConnection($bucket);
+            $result = $cb->get($article);
+            $result_arr = CJSON::decode($result, TRUE);
+            $article_id = $result_arr['collection_id'];
+            $credit_of_article = $classArticleImport->buildCreditListObject($article_id);
+            if($credit_of_article!=null &&$credit_of_article!=""){  
+            for($i=0;$i<sizeof($credit_of_article); $i++){
+                $credit_of_article[$i]['optional']=$result_arr['article'][0]['id'];
+            }
+            $result_arr['article'][0]['credits'] = $credit_of_article;
+            $result_arr["accessed"] = $timeStamp;
+            $result_arr["updated"] = $timeStamp;
+            $result_arr["accessed_readable"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+            $result_arr["updated_readable"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+            $message.=$article . '\n Credit list object\n: ' . var_export($result_arr['article'][0]['credits'], TRUE) . "\n";
+            if ($cb->set($article, CJSON::encode($result_arr))) {
+                echo "\n\nCredit List: " . $message . "\n";
+
+                echo $article . " update body successful\n";
+            } else {
+                echo $article . " fail to update couchbase record~~~~~~~~~~~~~~~~\n";
+                $message = $article . " fail to update couchbase record~~~~~~~~~~~~~~~~\n";
+            }
+            
+            }else{
+                echo $article . " does not have credit list record~~~~~~~~~~~~~~~~\n";
+                $message = $article . " does not have credit list record~~~~~~~~~~~~~~~~\n";
+            }
+            $this->writeToLog($log_path, $message);
+        }
     }
 
     public function addCommentId() {
@@ -198,6 +282,7 @@ class RefineDataCommand extends Controller_admin {
      //    echo $message;
                  echo "number of file: " . sizeof($data_arr);
          
+
     }
 
     public function refineArticle() {

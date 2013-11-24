@@ -1337,7 +1337,6 @@ HubStar.FollowersRoute = Ember.Route.extend({
         $('#ufollower').addClass('selected-user-stats');
    this.controllerFor('userFollowers').setUserFollowers(model);
 
-        $(window).scrollTop(0);
     },
     model: function(params) {
 
@@ -1376,7 +1375,6 @@ HubStar.FollowingRoute = Ember.Route.extend({
 
         this.controllerFor('userFollowings').setUserFollowings(model);
 
-        $(window).scrollTop(0);
     },
     model: function(params) {
 
@@ -1611,7 +1609,7 @@ HubStar.MessagesRoute = Ember.Route.extend({
         {
             model = this.controllerFor('notificationTop').get("reply_ids");
         }
-        $(window).scrollTop(550);
+        $(window).scrollTop(600);
     },
     model: function(params) {
         var user_id = "";
@@ -1872,7 +1870,7 @@ HubStar.ProfileFollowersRoute = Ember.Route.extend({
  if (this.controllerFor('checkingLoginStatus').popupLogin())
         {
 
-       $(window).scrollTop(1500);      
+        
 
          this.controllerFor('profile').sendEventTracking('event', 'button', 'click', 'Followers');
          this.controllerFor('profile').set('profileSelectionStatus', 'Followers');
@@ -2287,7 +2285,7 @@ HubStar.ReviewsRoute = Ember.Route.extend({
     
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#reviewList').addClass('selected-user-stats');
-       $(window).scrollTop(1500);
+
         }
     },
             model: function(params) {
@@ -2604,41 +2602,6 @@ HubStar.UserIndexRoute = Ember.Route.extend({
 
 HubStar.UserMessageRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-//        
-//        this.controllerFor('user').set('profileSelectionStatus', 'Post');
-//        this.controllerFor('user').set('collectionTag', false);
-//
-//        this.controllerFor('user').set('followerTag', true);
-//        this.controllerFor('user').set('followingTag', false);
-//        this.controllerFor('user').set('messageTag', false);
-//         this.controllerFor('user').set('postTag', true);
-//         this.controllerFor('userMessage').setUserMessage(model);
-//         if (this.controllerFor('notificationTop').get("goReply") === true)
-//        {
-//            model = localStorage.loginStatus;
-//            var replyID = this.controllerFor('notificationTop').get("reply_ids");
-//            model = replyID;
-//            this.controllerFor('notificationTop').set("goReply", false);
-//        }
-//         if (this.controllerFor('notificationTop').get("goMessage") !== undefined && this.controllerFor('notificationTop').get("goMessage") !== null && this.controllerFor('notificationTop').get("goMessage") !== "")
-//        {
-//            model = localStorage.loginStatus;
-//        }
-//        if (this.controllerFor('notification').get("reply_ids") !== undefined && this.controllerFor('notification').get("reply_ids") !== null && this.controllerFor('notification').get("reply_ids") !== "")
-//        {
-//
-//            model = this.controllerFor('notification').get("reply_ids");
-//            //this.controllerFor('notification').set("reply_ids", "");
-//        }
-//        if (this.controllerFor('notificationTop').get("reply_ids") !== undefined && this.controllerFor('notificationTop').get("reply_ids") !== null && this.controllerFor('notificationTop').get("reply_ids") !== "")
-//        {
-//            model = this.controllerFor('notificationTop').get("reply_ids");
-//            //this.controllerFor('notification').set("reply_ids", "");
-//
-//        }
-//        $('#user-stats > li').removeClass('selected-user-stats');
-//        $('#post').addClass('selected-user-stats');
-//        $(window).scrollTop(0);
     },
     model: function(params) {
 
@@ -4279,7 +4242,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         var commentContent = this.get('commentContent');
         if (commentContent) {
             var comments = this.get('article').get('comments');
-            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
+//            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
+            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus +'/user_picture/user_picture';
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
@@ -4739,7 +4703,8 @@ HubStar.CommentController = Ember.Controller.extend({
         if (commentContent) {
             var comments = this.get('mega').get('comments');
 
-            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
+//            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
+            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus +'/user_picture/user_picture';
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
@@ -5629,6 +5594,7 @@ HubStar.ConversationController = Ember.Controller.extend({
         }
     },
     selectConversation: function(id) {
+
         var idOld = this.get("selectId");
         this.get("controllers.messageCenter").selectedNone();
         $('#conversation_' + idOld).removeClass('selected-conversation');
@@ -7929,7 +7895,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var commentContent = this.get('commentContent');
         if (commentContent) {
             var comments = this.get('megaResouce').get('comments');
-            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
+//            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
+            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus +'/user_picture/user_picture';
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
@@ -9441,8 +9408,9 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                 }
             }
             this.transitionToRoute('user', user);
-            this.transitionToRoute('conversation', data);
+            
             this.get('controllers.messageCenter').getClientId(localStorage.loginStatus, conversationID);
+            this.transitionToRoute('conversation', data);
             //   $(window).scrollTop(2000);
         }
         user.addObserver('isLoaded', function() {
@@ -10668,7 +10636,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     selectVideo: function(model) {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-            $(window).scrollTop(1500);
             this.sendEventTracking('event', 'button', 'click', 'Video');
             $('#user-stats > li').removeClass('selected-user-stats');
             $('#video').addClass('selected-user-stats');
@@ -10684,9 +10651,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
     },
     selectPartner: function(model) {
+
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-            $(window).scrollTop(1500);
             this.sendEventTracking('event', 'button', 'click', 'Partners');
             $('#user-stats > li').removeClass('selected-user-stats');
             $('#network').addClass('selected-user-stats');
@@ -10704,13 +10671,17 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 $('#masonry_user_container').masonry("reload");
             }, 200);
 
+
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reload");
+            }, 200);
+
         }
     },
     selectFollower: function(model) {
 
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-            $(window).scrollTop(1500);
             this.sendEventTracking('event', 'button', 'click', 'Followers');
             this.set('profileSelectionStatus', 'Followers');
             this.set('partnerTag', false);
@@ -10725,20 +10696,19 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     selectReview: function(model) {
-  if (this.get("controllers.checkingLoginStatus").popupLogin())
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-        $(window).scrollTop(1500);
-        this.sendEventTracking('event', 'button', 'click', 'Reviews');
-        this.set('profileSelectionStatus', 'Reviews');
-        this.set('partnerTag', false);
-        this.set('collectionTag', false);
-        this.set('followerProfileTag', false);
-        this.set('reviewTag', true);
-        this.set('videoTag', false);
-        this.transitionToRoute('reviews');
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+            this.sendEventTracking('event', 'button', 'click', 'Reviews');
+            this.set('profileSelectionStatus', 'Reviews');
+            this.set('partnerTag', false);
+            this.set('collectionTag', false);
+            this.set('followerProfileTag', false);
+            this.set('reviewTag', true);
+            this.set('videoTag', false);
+            this.transitionToRoute('reviews');
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reload");
+            }, 200);
         }
     },
     saveUpdateAboutUs: function() {
@@ -10842,6 +10812,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     });
                     this.get('keywords_array').removeObject(this.get('keywords_array').objectAt(i));
                     this.set('keyword_left', this.get('keyword_left') + 1);
+                }
+            }
+            if (this.get('show_keyword_id').indexOf(keyword_id) > -1) {
+                this.set('show_keyword_id', this.get('show_keyword_id').replace(',' + keyword_id, ''));
+                for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
+                    if (this.get('show_keyword_array').objectAt(i).get('keyword_id') === keyword_id) {
+                        this.get('show_keyword_array').removeObject(this.get('show_keyword_array').objectAt(i));
+                        this.set('show_keyword_id', this.get('show_keyword_id').replace(',' + keyword_id, ''));
+                    }
                 }
             }
         } else {

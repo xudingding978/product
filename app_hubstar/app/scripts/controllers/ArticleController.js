@@ -139,7 +139,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         var commentContent = this.get('commentContent');
         if (commentContent) {
             var comments = this.get('article').get('comments');
-            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
+//            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
+            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus +'/user_picture/user_picture';
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();

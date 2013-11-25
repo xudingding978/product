@@ -6,6 +6,8 @@ HubStar.ArticleController = Ember.Controller.extend({
     captionTitle: "",
     readCaption: true,
     caption: '',
+    makeSureDelete: false,
+    willDelete: false,
     checkLoginStatus:false,
     isCreditListExist: false,
     needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus','editComment'],
@@ -100,7 +102,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         var commentContent = this.get('commentContent');
         if (commentContent) {
             var comments = this.get('article').get('comments');
-            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
+//            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
+            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus +'/user_picture/user_picture';
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
@@ -115,7 +118,27 @@ HubStar.ArticleController = Ember.Controller.extend({
             $('#commentBox').attr('style', 'display:none');
         }
     },
-     removeComment: function(object)
+   removeComment: function(object)
+    {
+        var message = "Do you want to delete this comment";
+        this.set("message", message);
+        this.set('makeSureDelete', true);
+        if (this.get('willDelete')) {
+            this.removeCommentItem(object);
+            this.cancelDelete();
+        } else {
+            this.set("obj", object);
+            this.set('willDelete', true);
+        }       
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelDelete: function() {
+        this.set('willDelete', false);
+        this.set('makeSureDelete', false);
+    },
+     removeCommentItem: function(object)
     {
         var id = this.get('article').get("id");
         var message_id = object.get("message_id");

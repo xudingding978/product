@@ -811,6 +811,12 @@ div.album-description-bg{
     overflow: hidden;
     width: 322px;
 }
+.masonry-object_text a{
+    color:#08C;
+    font-size:16px;
+}
+.masonry-object_text a:hover, .masonry-object_text a:focus{color:#005580;}
+
 
 .masonry-object_text-container{
     overflow: hidden;
@@ -844,10 +850,8 @@ div.album-description-bg{
 }
 
 .masonry-object_interact{
-    margin: 20px 0 0 0; /* was margin: 20px 0 10px 0; */
-    /* overflow:hidden; */
+    margin: 20px 0 0;
     border-top: 1px solid #e5e5e5;
-    /* border-bottom: 1px solid #e5e5e5; */
     -webkit-border-radius: 0 0 2px 2px;
     -o-border-radius: 0 0 2px 2px;
     -ms-border-radius: 0 0 2px 2px;
@@ -1203,7 +1207,10 @@ div.album-description-bg{
     font-weight: bold;
     display: block;
     unicode-bidi: normal;
+    color:#08c;
 }
+.poster-name:hover, .poster-name:focus{color:#005580;}
+
 
 .posttime{
     color: #aaa;
@@ -1602,6 +1609,7 @@ div.album-description-bg{
     overflow: hidden;
     vertical-align: top;
 }
+.comment-amount i{text-indent:.5em;}
 
 .addcommnetbox-container{
     /* padding: 0 0 20px 0; */

@@ -100,10 +100,10 @@
     <div style="cursor: pointer;">
         <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
             <div class="profilepic-container" >                   
-                <a href="#" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.creator_profile_pic"}} class="profilepic"/></a>                              
+                <a href="#/profiles/{{unbound controller.megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.creator_profile_pic"}} class="profilepic"/></a>                              
             </div>
             <div class="poster_user">
-                <a class="poster-name" href="#" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
+                <a class="poster-name" href="#/profiles/{{unbound controller.megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
                 <span class="posttime">{{date controller.megaResouce.created}}</span>
             </div>
 
@@ -171,7 +171,7 @@
 
 
 
-    <div class="collapes-container"  id="article_action" style="display:block;">
+        <div class="collapes-container"  id="article_action" style="display:block;">
             <div class="collapes-container_inner">
                 {{#each articleResouce.credits}}
                 <div class="article-text">
@@ -253,20 +253,16 @@
                                         <a class="comment-username" href="" >
                                             {{name}}
                                         </a>
-                                        {{#if this.getUser}}
-                                        <i class="icon-trash"  {{action removeComment this}}></i>                 
-                                        <i class="icon-pencil" {{action updateComment this}}></i>
-                                        {{/if}}
                                         <div class="posttime-container">
                                             <span class="posttime">{{date time_stamp}}</span>
                                         </div>
                                     </div>
-
-                                    <div class="reply-comment">
-                                        <!--this div for reply-->
-
-                                    </div>
-
+                                    {{#if this.getUser}}
+                                    <span class="edit-comment easing">
+                                        <i class="icon-trash"  {{action removeComment this}}></i>                 
+                                        <i class="icon-pencil" {{action updateComment this}}></i>
+                                    </span>
+                                    {{/if}}
                                 </div>
 
                                 <div class="comment-content">
@@ -307,5 +303,10 @@
 {{#if HubStar.checkLoginStatus}}
 
 {{render loginModal}}       
+
+{{/if}}
+{{#if controller.makeSureDelete}}
+
+{{view HubStar.DeleteFunctionView}}
 
 {{/if}}

@@ -11,7 +11,7 @@ HubStar.DeleteFunctionView = Ember.View.extend({
             //     controller.addNewCollection();
         }
         else if (controller._debugContainerKey.indexOf("profileVideos") !== -1) {
-          
+
             controller.deleteConfirm();
         }
         else if (controller._debugContainerKey.indexOf("application") !== -1)
@@ -20,11 +20,18 @@ HubStar.DeleteFunctionView = Ember.View.extend({
             //       controller.newSearch();
         }
         else if (controller._debugContainerKey.indexOf("mega") !== -1) {
+            var obj = controller.get("obj");
 
+            controller.removeComment(obj);
 
-            //    controller.addComment();
+        }
+        else if (controller._debugContainerKey.indexOf("article") !== -1) {
+            var obj = controller.get("obj");
 
-        } else if (controller._debugContainerKey.indexOf("user") !== -1) {
+            controller.removeComment(obj);
+
+        }
+        else if (controller._debugContainerKey.indexOf("user") !== -1) {
 
 
             controller.deleteSelectedCollection();
@@ -43,8 +50,9 @@ HubStar.DeleteFunctionView = Ember.View.extend({
 
         else if (controller._debugContainerKey.indexOf("comment") !== -1) {
 
+            var obj = controller.get("obj");
 
-            controller.deleteComment();
+            controller.removeComment(obj);
 
         }
 
@@ -71,11 +79,12 @@ HubStar.DeleteFunctionView = Ember.View.extend({
             //       controller.newSearch();
         }
         else if (controller._debugContainerKey.indexOf("mega") !== -1) {
-
-
-            //    controller.addComment();
-
-        } else if (controller._debugContainerKey.indexOf("user") !== -1) {
+            controller.cancelDelete();
+        }
+        else if (controller._debugContainerKey.indexOf("article") !== -1) {
+            controller.cancelDelete();
+        }
+        else if (controller._debugContainerKey.indexOf("user") !== -1) {
 
 
             controller.cancelDelete();

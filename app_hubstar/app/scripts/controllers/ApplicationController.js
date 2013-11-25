@@ -4,7 +4,7 @@
 /*global $:false */
 
 HubStar.ApplicationController = Ember.ArrayController.extend({
-    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop'],
+    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop','checkingLoginStatus','addCollection'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -62,6 +62,77 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));
+    },
+    switchCollection: function(model) {
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+            if (model.get("type") === "photo") {
+                var photoObj = model.get("photo").objectAt(0);
+                var addCollectionController = this.get('controllers.addCollection');
+                var selectid = model.id;
+                addCollectionController.setImageID(selectid);
+                var tempUrl = photoObj.get('photo_image_thumbnail_url');
+                addCollectionController.setThumbnailUrl(tempUrl);
+                addCollectionController.setUser();
+                addCollectionController.setRelatedController('application');
+                $('#addCollection_' + model.id).attr('style', 'display: block');
+            }
+            else if (model.get("type") === "article")
+            {
+                var photoObj = model.get("article").objectAt(0);
+                var addCollectionController = this.get('controllers.addCollection');
+                var selectid = model.id;
+                addCollectionController.setImageID(selectid);
+                var tempUrl = photoObj.get('article_image_url');
+                addCollectionController.setThumbnailUrl(tempUrl);
+                addCollectionController.setUser();
+                addCollectionController.setRelatedController('application');
+                $('#addCollection_' + model.id).attr('style', 'display: block');
+            }
+
+            else if (model.get("type") === "video")
+            {
+                var addCollectionController = this.get('controllers.addCollection');
+                var selectid = model.id;
+                addCollectionController.setImageID(selectid);
+                var tempUrl = model.get('object_image_url');
+                addCollectionController.setThumbnailUrl(tempUrl);
+                addCollectionController.setUser();
+                addCollectionController.setRelatedController('application');
+                $('#addCollection_' + model.id).attr('style', 'display: block');
+            }
+        }
+    },
+    addLike: function(id)
+    {
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+            var mega = HubStar.Mega.find(id);
+            console.log(mega);
+            var type = mega.get("type");
+            var people_like = mega.get("people_like");
+            if (people_like === null || people_like === undefined) {
+                people_like = "";
+            }
+            if (localStorage.loginStatus !== null && localStorage.loginStatus !== undefined && localStorage.loginStatus !== "")
+            {
+                if (people_like.indexOf(localStorage.loginStatus) !== -1)
+                {
+                    this.count = mega.get('likes_count');
+
+                }
+                else {
+                    var likeArray = [localStorage.loginStatus, id, type];
+                    likeArray = JSON.stringify(likeArray);
+                    var that = this;
+                    requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
+                        params = params + "";
+                        var like = params.split(",");
+                        mega.set("likes_count", like.length);
+                        mega.set("people_like", params);
+                        that.count = like.length;
+                    });
+                }
+            }
+        }
     },
     scrollDownAction: function() {
         this.set('loadingTime', true);
@@ -192,6 +263,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     defaultSearch: function() {
         this.set("loginInfo", localStorage.loginStatus);
+        this.set("googletagCmd", []);
+        this.set("content", []);
+        this.set("adPageNo", 0);
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
         results.addObserver('isLoaded', function() {
@@ -416,7 +490,8 @@ this.set('isNavigatorDropdown',false);
 
                     if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
                         localStorage.loginStatus = params.COUCHBASE_ID;
-                        that.transitionToRoute('search');
+                        HubStar.set("isLogin", true);
+                        that.transitionToRoute('searchIndex');
                         that.set('loginUsername', "");
                         that.set('loginPassword', "");
                         that.set('isWaiting', false);
@@ -598,6 +673,16 @@ this.set('isNavigatorDropdown',false);
         var increaseby0ne = pageNo + 1;
         this.set('adPageNo', increaseby0ne);
         return pageNo;
+    },
+    backToDefault: function() {        
+        this.defaultSearch();
+        this.set('search_string', '');
+        this.transitionToRoute('searchIndex');
+        
+    },
+    clearSearch: function() {
+        this.set('search_string', '');
+        this.transitionToRoute('searchIndex');
     }
 });
 

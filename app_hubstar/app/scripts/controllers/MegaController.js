@@ -20,6 +20,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     selectPhoto: false,
     parentControler: null,
     accessFromProfile: false,
+    is_article_video: true,
     sharePhotoUrl: '',
     sharePhotoName: '',
     init: function()
@@ -36,7 +37,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
         return 0;
     },
     previesImage: function() {
-        console.log(this.get("model"));
         if (!this.get('selectedPhoto')) {
             this.set('selectedPhoto', this.get('content').get('lastObject'));
 
@@ -85,17 +85,23 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     getInitData: function(megaObject) {
         if (megaObject.get("isLoaded")) {
-
+            this.set("is_article_video", true);
             if (megaObject.get("type") === 'article')
             {
                 var photoUrl = megaObject.get("article").objectAt(0).get("article_image_url");
                 var photoObj = megaObject.set('photo_image_original_url', photoUrl);
+                photoObj.set("photo_title", megaObject.get("article").objectAt(0).get("article_headline"));
+                photoObj.set("photo_caption", megaObject.get("article").objectAt(0).get("article_credits_text"));
+                this.set("is_article_video", false);
                 photoObj.set("photo_image_thumbnail_url", photoUrl);
             }
             else if (megaObject.get("type") === 'video')
             {
                 var photoUrl = megaObject.get("videoes").objectAt(0).get("videoImg");
                 var photoObj = megaObject.set('photo_image_original_url', photoUrl);
+                photoObj.set("photo_title", megaObject.get("videoes").objectAt(0).get("videoTitle"));
+                photoObj.set("photo_caption", megaObject.get("videoes").objectAt(0).get("videoDesc"));
+                this.set("is_article_video", false);
                 photoObj.set("photo_image_thumbnail_url", photoUrl);
             }
             else
@@ -137,7 +143,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     addRelatedCollectionItemData: function(mega)
     {
-
         var collection_id = mega.get("collection_id");
         var owner_profile_id = mega.get("owner_id");
 
@@ -165,22 +170,31 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     else if (photoContent.objectAt(i).get("type") === "article")
                     {
                         var id = photoContent.objectAt(i).get("id");
+
                         if (this.get("content").objectAt(0).get('id') !== id)
                         {
                             var photoUrl = photoContent.objectAt(i).get("article").objectAt(0).get("article_image_url");
+                            photoContent.objectAt(i).set("photo_title", photoContent.objectAt(i).get("article").objectAt(0).get("article_headline"));
+                            photoContent.objectAt(i).set("photo_caption", photoContent.objectAt(i).get("article").objectAt(0).get("article_credits_text"));
                             photoContent.objectAt(i).set("photo_image_original_url", photoUrl);
                             photoContent.objectAt(i).set("photo_image_thumbnail_url", photoUrl);
+
                             this.get("content").pushObject(photoContent.objectAt(i));
                         }
                     }
                     else if (photoContent.objectAt(i).get("type") === "video")
                     {
+
                         var id = photoContent.objectAt(i).get("id");
                         if (this.get("content").objectAt(0).get('id') !== id)
                         {
                             var photoUrl = photoContent.objectAt(i).get("videoes").objectAt(0).get("videoImg");
+                            var object_title = photoContent.objectAt(i).get("videoes").objectAt(0).get("videoTitle");
+                            var photo_caption = photoContent.objectAt(i).get("videoes").objectAt(0).get("videoDesc");
                             photoContent.objectAt(i).set("photo_image_original_url", photoUrl);
                             photoContent.objectAt(i).set("photo_image_thumbnail_url", photoUrl);
+                            photoContent.objectAt(i).set("photo_title", object_title);
+                            photoContent.objectAt(i).set("photo_caption", photo_caption);
                             this.get("content").pushObject(photoContent.objectAt(i));
                         }
                     }
@@ -364,7 +378,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
         }
         this.set("selectPhoto", false);
-        if ( this.get('controllers.masonryCollectionItems') === "profile")
+        if (this.get('controllers.masonryCollectionItems') === "profile")
         {
             this.transitionTo("indexIndex"); //search page
         }
@@ -403,7 +417,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         if (commentContent) {
             var comments = this.get('megaResouce').get('comments');
 //            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
-            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus +'/user_picture/user_picture';
+            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();

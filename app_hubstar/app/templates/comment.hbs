@@ -23,7 +23,7 @@
 </div>
 
 <div id="commentData_{{unbound model.id}}" class="comment-frame" style="max-height:88px;">
-
+    <div id="commentScrollBar_{{unbound model.id}}" >
     {{#each model.comments}}
     {{#unless this.isEdit}}
     <div class="comment-item" id="commentItem_{{unbound message_id}}" style="display: block">
@@ -106,7 +106,7 @@
 {{/each}}
 
 
-
+</div>
 </div>
 <div class="masonry_show-comment">
         <div class="show-comment_container" >

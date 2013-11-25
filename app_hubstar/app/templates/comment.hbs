@@ -1,24 +1,6 @@
 
 <div class="masonry-object_interact" >
-    <div class="masonry_show-comment">
-        <div class="show-comment_container" >
-            <div class="show-comment_inner"  id="showMoreComment_{{unbound model.id}}"   {{action seeMore model.id target="controller" on="click"}}>
-                <span class="comment-amount text-anchor easing">  {{model.comments.length}}</span>
-                <span class="comment-amount text-anchor easing"> comments<i class="icon-angle-down"></i></span>
-            </div>
-
-
-            <div class="show-comment_inner" id="closeComment_{{unbound model.id}}"   style="display: none" {{action closeMore model.id  target="controller" on="click"}}>
-                <span class="comment-amount text-anchor easing">  {{model.comments.length}} </span>
-                <span class="comment-amount text-anchor easing"> comments  <i class="icon-angle-up"></i></span>
-            </div>
-
-        </div>
-    </div>
-
-
-
-
+ 
 <div class="masonry_addcommnetbox-container" {{action openComment model.id target="view" on="click"}} id="comment_{{unbound model.id}}">
     <div class="addcommnetbox">
         Add comments 
@@ -126,7 +108,21 @@
 
 
 </div>
+<div class="masonry_show-comment">
+        <div class="show-comment_container" >
+            <div class="show-comment_inner"  id="showMoreComment_{{unbound model.id}}"   {{action seeMore model.id target="controller" on="click"}}>
+                <span class="comment-amount text-anchor easing">  {{model.comments.length}}</span>
+                <span class="comment-amount text-anchor easing"> comments<i class="icon-angle-down"></i></span>
+            </div>
 
+
+            <div class="show-comment_inner" id="closeComment_{{unbound model.id}}"   style="display: none" {{action closeMore model.id  target="controller" on="click"}}>
+                <span class="comment-amount text-anchor easing">  {{model.comments.length}} </span>
+                <span class="comment-amount text-anchor easing"> comments  <i class="icon-angle-up"></i></span>
+            </div>
+
+        </div>
+    </div>
 
 
 

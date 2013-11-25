@@ -144,7 +144,7 @@ HubStar.CommentController = Ember.Controller.extend({
     },
     removeComment: function(object)
     {
-        var message = "Do you want to delete this comment";
+        var message = "Do you want to delete this comment?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {
@@ -486,7 +486,6 @@ HubStar.CommentController = Ember.Controller.extend({
             var that = this;
             var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedArticle').get('id');
             var caption = '';
-
             if (this.get('selectedArticle').get('article_body') !== null)
             {
                 caption = this.get('selectedArticle').get('article_body');

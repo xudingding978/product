@@ -1,4 +1,4 @@
-HubStar.PhotoRoute = Ember.Route.extend({
+HubStar.ArticlePhotoRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         var temp;
         var url = window.location.href;
@@ -10,12 +10,12 @@ HubStar.PhotoRoute = Ember.Route.extend({
         }
         this.controllerFor("masoryCollectionItems").set("type", "user");
         var megaModel = HubStar.Mega.find(temp);
-     //   this.controllerFor('mega').set("selectPhoto", true);
         this.controllerFor('mega').getInitData(megaModel);
 
     },
     model: function(params) {
         var model = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
+         this.controllerFor("article").set("searchFromRoute", true); //only use in userarticle route to get the temp id; 
         this.controllerFor("mega").set("clickOrRoute", true);
         return model;
     },

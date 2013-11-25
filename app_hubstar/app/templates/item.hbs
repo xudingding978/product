@@ -14,7 +14,7 @@
 
 {{#if getPhoto}}
 <div class="box col2 noStyle1" {{action checkingLoginStatus target="view" on="click"}}>
-
+    {{render itemFunction this}}
     <div class="object-tags-box">
         <div class="object-tags">
             <span class="tags-mark" style="background-color: #427fed"></span>
@@ -39,7 +39,7 @@
             </div>
         </div>
     </div>
-    {{render itemFunction this}}
+
     <div class="masonry-object_mainfeature">             
         <div class="mainfeature-wrapper">
             <a class="mainfeature-container" href="#/photos/{{unbound id}}" style="cursor: pointer">
@@ -161,7 +161,7 @@
             </div>
         </div>
     </div>
-     {{render itemFunction this}}
+    {{render itemFunction this}}
     <div class="masonry-object_mainfeature">             
         <div class="mainfeature-wrapper">
             {{#linkTo 'video' this}} 
@@ -270,7 +270,7 @@
             </div>
         </div>
     </div>
-     {{render itemFunction this}}
+    {{render itemFunction this}}
     <div class="masonry-object_mainfeature">             
         <div class="mainfeature-wrapper">
             <a class="mainfeature-container" href="#/articles/{{unbound id}}" >

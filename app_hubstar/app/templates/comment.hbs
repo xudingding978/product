@@ -1,14 +1,10 @@
 
 <div class="masonry-object_interact" >
  
-<div class="masonry_addcommnetbox-container" {{action openComment model.id target="view" on="click"}} id="comment_{{unbound model.id}}">
-    <div class="addcommnetbox">
-        Add comments 
-    </div>
-</div>
 
-<div class="addcommnetbox-container comment-frame" id="commentBox_{{unbound model.id}}" style="display: none">
-    <div style="margin:0 auto; padding: 0 0 15px 45px;">
+
+<div class="addcommnetbox-container comment-frame" id="commentBox_{{unbound model.id}}" style="display: block">
+    <div id="commentKeyBoard_{{unbound model.id}}" style="margin:0 auto; padding: 0 0 15px 45px;">
         <a>
             <img class="profilepic_comment"  style="float: left; margin: 4px 0 0 -45px; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url_large"}} /> 
         </a>
@@ -16,13 +12,13 @@
         {{view HubStar.SearchRequireTextFieldView valueBinding="commentContent"  id="" class="comment-insert-field"  placeholder="" }}
         <span class="" style="margin:7px 0;float: right;">
             <div  class="new-btn"{{action closeComment model.id target="controller" on="click"}}>Cancel</div>
-            <div class="new-btn green-btn" {{action addComment}}>Post</div>
+            <div class="new-btn green-btn" {{action openComment model.id}}>Post</div>
         </span>
 
     </div>
 </div>
 
-<div id="commentData_{{unbound model.id}}" class="comment-frame" style="max-height:88px;">
+<div id="commentData_{{unbound model.id}}" class="comment-frame" style="display: none">
     <div id="commentScrollBar_{{unbound model.id}}" >
     {{#each model.comments}}
     {{#unless this.isEdit}}

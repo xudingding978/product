@@ -19,28 +19,11 @@ HubStar.CommentView = Ember.View.extend({
                 autoHideScrollbar: true,
                 mouseWheel: true,
                 theme: "dark-2",
-                set_height: 300
+                set_height: 350
             });
         });
-    },
-    openComment: function(id) {
-
-        if (localStorage.loginStatus) {
-            this.get('controller').getCommentsById(id);
-            this.get('controller').set("commentContent","");
-            $('#comment_' + id).attr('style', 'display:none');
-            $('#commentBox_' + id).attr('style', 'display:block');
-
-            setTimeout(function() {
-                $('#masonry_user_container').masonry("reload");
-                $('#masonry_container').masonry("reload");
-                $('.comment-insert-field').focus();
-                
-            }, 200);
-        } else {
-            HubStar.set('checkLoginStatus', true);
-        }
-    },
+    }
+    
 //    closeComment: function(id) {    
 //        this.get('controller').set("commentContent","");
 //        $('#comment_' + id).attr('style', 'display:block');

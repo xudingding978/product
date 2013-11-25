@@ -1,6 +1,5 @@
 
 var passSubmit = true;
-var multiEmail1 = true;
 var multiEmail2 = true;
 HubStar.ProfileNewController = Ember.ObjectController.extend({
     profile_name: "",
@@ -10,7 +9,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     regionSelection: "Regoin/State",
     numberSelection: "021",
     keywordNumber: "",
-    heroImage:false,
+    heroImage: false,
     profile_url: "",
     first_name: "",
     last_name: "",
@@ -27,14 +26,11 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     client_name: "",
     owner: "",
     direct_enquiry_emails: "",
-    //region: "Auckland",
     creater: "",
     editors: "",
-  // country: "New Zealand",
     boost: "",
     profile_package: "",
     profile_contact_number: "",
-    //  secondary_email: "",
     direct_enquiry_provide_email: "",
     profile_bg_url: "",
     profile_hero_url: "",
@@ -52,37 +48,37 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
     },
-    multiEmailChecking: function(cleanEmail, divInfo, multiEmail) {
-
-
-        if (cleanEmail.indexOf(',') === -1) {
-            if (this.validateEmail(cleanEmail)) {
-
-                multiEmail = true;
-                $(divInfo).attr('style', 'display:none');
-            } else {
-                multiEmail = false;
-                $(divInfo).attr('style', 'display:block');
-            }
-
-        } else {
-            multiEmail = true;
-            var emails = cleanEmail.split(',');
-            for (var i = 0; i < emails.length; i++) {
-
-                if (!this.validateEmail(emails.objectAt(i))) {
-                    multiEmail = false;
-                    $(divInfo).attr('style', 'display:block');
-                }
-            }
-            if (multiEmail) {
-
-                $(divInfo).attr('style', 'display:none');
-            }
-
-        }
-        return multiEmail;
-    },
+//    multiEmailChecking: function(cleanEmail, divInfo, multiEmail) {
+//
+//
+//        if (cleanEmail.indexOf(',') === -1) {
+//            if (this.validateEmail(cleanEmail)) {
+//
+//                multiEmail = true;
+//                $(divInfo).attr('style', 'display:none');
+//            } else {
+//                multiEmail = false;
+//                $(divInfo).attr('style', 'display:block');
+//            }
+//
+//        } else {
+//            multiEmail = true;
+//            var emails = cleanEmail.split(',');
+//            for (var i = 0; i < emails.length; i++) {
+//
+//                if (!this.validateEmail(emails.objectAt(i))) {
+//                    multiEmail = false;
+//                    $(divInfo).attr('style', 'display:block');
+//                }
+//            }
+//            if (multiEmail) {
+//
+//                $(divInfo).attr('style', 'display:none');
+//            }
+//
+//        }
+//        return multiEmail;
+//    },
     numberChecking: function(divInfo, number) {
         var matches = number.match('^[0-9]+$');
         if (matches !== null) {
@@ -106,119 +102,134 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     },
     fillInChecking: function() {
 
-        multiEmail2 = this.multiEmailChecking($('.admins').val(), '#emailFormat6', multiEmail2);
-        //  var boost = this.numberChecking('#number1', $('.mustFill7').val());
+        // multiEmail2 = this.multiEmailChecking($('.admins').val(), '#emailFormat6', multiEmail2);
 
-        if ($('.profileName').val() !== "" && $('.country').val() !== "" && $('.region').val() !== "" && $('.clientEmail').val() !== "" && multiEmail1
-                && $('.contactEmail').val() !== "" && $('.admins').val() !== "" && multiEmail2
-                && this.validateEmail($('.clientEmail').val())) {
+        if ($('.clientEmail').val() !== ""
+                && $('.clientName').val() !== ""
+                && $('.profileName').val() !== ""
+                && $('#categorySelection').text() !== "Category"
+                && $('#subcategorySelection').text() !== "Subcategory"
+                && $('#countrySelection').text() !== "Country"
+                && $('#regionSelection').text() !== "Regoin/State"
+                && $('.contactEmail').val() !== ""
+                && $('.admins').val() !== "")
+        {
             passSubmit = true;
-        } else {
+        }
+        else {
             passSubmit = false;
         }
 
-        if (this.specialCharactersChecking(this.spaceChecking(this.get("profile_url")))) {
-
-            $('#invalide').attr('style', 'display:none');
-        } else {
-
-            $('#invalide').attr('style', 'display:block');
-            passSubmit = false;
-        }
         if (this.validateEmail($('.clientEmail').val())) {
-
+            $('#clientEmail').attr('style', 'display:none');
             $('#clientEmailFormat').attr('style', 'display:none');
-        } else {
-
-            $('#clientEmailFormat').attr('style', 'display:block');
+            document.getElementById('clientEmailField').setAttribute("class", "");
         }
-
-//        if (this.validateEmail($('.mustFill5').val())) {
-//
-//            $('#emailFormat5').attr('style', 'display:none');
-//        } else {
-//
-//            $('#emailFormat5').attr('style', 'display:block');
-//        }
-//        if ($('.region').val() === "") {
-//
-//            $('#region').attr('style', 'display:block');
-//        } else {
-//            $('#region').attr('style', 'display:none');
-//        }
-//
-//        if ($('.country').val() === "") {
-//
-//            $('#country').attr('style', 'display:block');
-//        } else {
-//            $('#country').attr('style', 'display:none');
-//        }
-
-        if ($('.profileName').val() === "") {
-
-            $('#profileName').attr('style', 'display:block');
-        } else {
-            $('#profileName').attr('style', 'display:none');
-        }
-
-    
-       console.log(this.get("country"));
-        this.set("profile_url", this.get("profile_name") + "-" +$('#countrySelection').text() + "-" +$('#regionSelection').text());
-        console.log(this.get("profile_url"));
-
-
-        if ($('.clientEmail').val() === "") {
+        else if ($('.clientEmail').val() === "") {
             $('#clientEmailFormat').attr('style', 'display:none');
             $('#clientEmail').attr('style', 'display:block');
-        } else {
+            document.getElementById('clientEmailField').setAttribute("class", "error-textfield");
+        }
+        else {
+            $('#clientEmailFormat').attr('style', 'display:block');
             $('#clientEmail').attr('style', 'display:none');
+            document.getElementById('clientEmailField').setAttribute("class", "error-textfield");
+        }
+        if ($('.clientName').val() === "") {
+            // passSubmit = false;
+            $('#clientName').attr('style', 'display:block');
+            console.log("hehe");
+            document.getElementById('clientNameField').setAttribute("class", "error-textfield");
+        }
+        else {
+            $('#clientName').attr('style', 'display:none');
+            document.getElementById('clientNameField').setAttribute("class", "");
+
+        }
+        if ($('.profileName').val() === "") {
+            //  passSubmit = false;
+            $('#profileName').attr('style', 'display:block');
+            document.getElementById('profileNameField').setAttribute("class", "error-textfield");
+        } else {
+            $('#profileName').attr('style', 'display:none');
+            document.getElementById('profileNameField').setAttribute("class", "");
+
+        }
+        if ($('#categorySelection').text() === "Category") {
+            //   passSubmit = false;
+            $('#categoryCheck').attr('style', 'display:block');
+        } else {
+            $('#categoryCheck').attr('style', 'display:none');
+        }
+        if ($('#subcategorySelection').text() === "Subcategory") {
+            //    passSubmit = false;
+            $('#subcategoryCheck').attr('style', 'display:block');
+        } else {
+            $('#subcategoryCheck').attr('style', 'display:none');
+        }
+        if ($('#countrySelection').text() === "Country") {
+            //    passSubmit = false;
+            $('#countryCheck').attr('style', 'display:block');
+        } else {
+            $('#countryCheck').attr('style', 'display:none');
+        }
+        if ($('#regionSelection').text() === "Regoin/State") {
+            //  passSubmit = false;
+            $('#regionCheck').attr('style', 'display:block');
+        } else {
+            $('#regionCheck').attr('style', 'display:none');
         }
         if ($('.contactEmail').val() === "") {
-
+            //  passSubmit = false;
             $('#contactEmail').attr('style', 'display:block');
-        } else {
+            document.getElementById('contactEmailField').setAttribute("class", "error-textfield");
+        }
+        else if (this.validateEmail($('.contactEmail').val())) {
+            $('#contactEmailFormat').attr('style', 'display:block');
+            document.getElementById('contactEmailField').setAttribute("class", "error-textfield");
+        }
+        else {
             $('#contactEmail').attr('style', 'display:none');
+            document.getElementById('contactEmailField').setAttribute("class", "");
         }
-//        if ($('.mustFill5').val() === "") {
-//
-//            $('#emailFormat5').attr('style', 'display:none');
-//            $('#mustFill5').attr('style', 'display:block');
-//        } else {
-//            $('#mustFill5').attr('style', 'display:none');
-//        }
-//
         if ($('.admins').val() === "") {
-
+            //   passSubmit = false;
             $('#admins').attr('style', 'display:block');
-        } else {
-            $('#admins').attr('style', 'display:none');
+            document.getElementById('adminsField').setAttribute("class", "error-textfield");
         }
-//
-//        if ($('.mustFill7').val() === "") {
-//
-//            $('#mustFill7').attr('style', 'display:block');
-//        } else {
-//            $('#mustFill7').attr('style', 'display:none');
-//        }
+        else if (this.validateEmail($('.admins').val())) {
+            $('#adminsEmailFormat').attr('style', 'display:block');
+            document.getElementById('adminsField').setAttribute("class", "error-textfield");
+        }
+        else {
+            $('#admins').attr('style', 'display:none');
+            document.getElementById('adminsField').setAttribute("class", "");
+        }
 
         if ($('.background').val() === "") {
-     
 
             this.set('profile_bg_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_bg/default/defaultbg6.jpg");
         }
         if ($('.hero').val() === "") {
-       this.set('heroImage', true);
+
+            // this.set('heroImage', true);
             this.set('profile_hero_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg");
         }
         if ($('.picture').val() === "") {
 
             this.set('profile_pic_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg");
         }
+
+
+        this.set("profile_url", this.get("profile_name").toLowerCase() + "-" + this.spaceChecking($('#regionSelection').text().toLowerCase())) + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase());
+        console.log(this.get("profile_url"));
+
+
     },
     setTopicModel: function(model) {
         this.set('categorys', null);
         this.set('categorys', model);
-  
+
     },
     topicSelection: function(data) {
 
@@ -228,17 +239,18 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')
             });
         }
-      
+
     },
     save: function() {
 
         this.fillInChecking();
+        console.log("finish");
         if (passSubmit) {
-            var newMegaNewModel = HubStar.store.createRecord(HubStar.Meganew, {//15
-                "id": this.spaceChecking(this.get("profile_url").toLowerCase()),
+            console.log("ddd");
+            var newMegaNewModel = HubStar.store.createRecord(HubStar.Meganew, {
+                "id": this.get("profile_url"),
                 "type": "profile",
                 accessed: null,
-                //   boost: this.get("boost"),
                 is_active: "true",
                 is_indexed: "true",
                 category: $('#categorySelection').text(),
@@ -253,15 +265,13 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 owner_type: "profiles", // profiles or user can upload files, this could help to link back to their profile.
                 owner_profile_pic: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
                 owner_title: this.get("profile_name"), //profile name
-                owner_id: this.spaceChecking(this.get("profile_url").toLowerCase()), //profile id
+                owner_id: this.get("profile_url"), //profile id
                 owner_contact_email: this.get("direct_enquiry_emails"),
-//                owner_contact_cc_emails: this.get("secondary_email"),
-//                owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
                 updated: ""
             });
 
             var newProfile = HubStar.store.createRecord(HubStar.Profile, {
-                id: this.spaceChecking(this.get("profile_url").toLowerCase()),
+                id: this.get("profile_url"),
                 profile_name: this.get("profile_name"),
                 profile_contact_last_name: this.get("last_name"),
                 profile_contact_first_name: this.get("first_name"),
@@ -275,8 +285,6 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 profile_editors: this.get("editors"),
                 profile_contact_number: $('#numberSelection').text() + this.get("profile_contact_number"),
                 owner_contact_email: this.get("direct_enquiry_emails"),
-//                owner_contact_cc_emails: this.get("secondary_email"),
-//                owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
                 profile_category: $('#categorySelection').text(),
                 profile_subcategory: $('#subcategorySelection').text(),
                 profile_physical_address: this.get("address"),
@@ -285,9 +293,8 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 profile_regoin: $('#regionSelection').text(),
                 profile_country: $('#countrySelection').text(),
                 profile_hours: "Monday=9:00am-5:00pm,Tuesday=9:00am-5:00pm,Wednesday=9:00am-5:00pm,Thursday=9:00am-5:00pm,Friday=9:00am-5:00pm,Saturday=closed,Sunday=closed,Holidays=closed",
-                phone_number: "(" + $('#numberSelection').text() + ")"+ " " + this.get("profile_contact_number"),
+                phone_number: "(" + $('#numberSelection').text() + ")" + " " + this.get("profile_contact_number"),
                 profile_partner_ids: null,
-           //     collections: [],
                 profile_website_url: this.get("website_url"),
                 profile_website: this.get("website")
             });
@@ -350,19 +357,19 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
         if (checking === "gold") {
 
             console.log("gold");
-            this.set("profile_package", "gold");
+            this.set("profile_package", "Gold");
             this.set("keywordNumber", "100");
 
         } else if (checking === "silver") {
 
             console.log("silver");
-            this.set("profile_package", "silver");
+            this.set("profile_package", "Silver");
             this.set("keywordNumber", "50");
 
         } else if (checking === "bronze") {
 
             console.log("bronze");
-            this.set("profile_package", "bronze");
+            this.set("profile_package", "Bronze");
             this.set("keywordNumber", "25");
 
         }

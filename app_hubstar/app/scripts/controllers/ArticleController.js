@@ -10,12 +10,9 @@ HubStar.ArticleController = Ember.Controller.extend({
     makeSureDelete: false,
     willDelete: false,
     checkLoginStatus:false,
-
     searchFromRoute: false,
     collectionArticleId: null,
-    checkLoginStatus: false,
     accessFromSearchBoard: false,
-
     isCreditListExist: false,
     needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment'],
     init: function() {

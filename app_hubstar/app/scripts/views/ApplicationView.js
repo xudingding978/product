@@ -1,7 +1,6 @@
 HubStar.ApplicationView = Ember.View.extend({
     templateName: 'application',
     didInsertElement: function() {
-        console.log("application view");
         $("#loading").attr('style', 'display:none');
         var view = this;
         $(window).bind("scroll", function() {

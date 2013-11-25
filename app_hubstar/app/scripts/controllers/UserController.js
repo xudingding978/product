@@ -184,9 +184,12 @@ HubStar.UserController = Ember.Controller.extend({
 
         }
     },
+            
+            getIdentifier:function(){
+        
+            },
     setUser: function()
     {
-
         var user = this.get('model');
         this.setIntersetsArr(user);
         this.set("user", user);

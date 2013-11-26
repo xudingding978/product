@@ -55,7 +55,8 @@
 
 <!--the following comment-frame is used to show the reply box for the second level reply-->
 <div id="reviewReplyData_{{unbound model.review_id}}">
-    <div class="reply-comment-frame"  style="">
+    
+    <div class="reply-comment-frame"  style="" id="ReplyData_{{unbound model.review_id}}">
         <div style="margin:0 auto; padding: 0 45px 15px 0;">
             <a  href="#/users/{{unbound controller.currentUser.id}}">
                 <img class="profilepic_comment"  style="float: right; margin: 4px -10px 0 0; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url_large"}} /> 
@@ -77,6 +78,8 @@
             </div>
         </div>
     </div>
+
+
     <div id="view-comments_{{unbound model.review_id}}" {{action 'showOneReview' model.review_id "viewReply" target='view' on="click"}} class="hover-opacity" style="display:block; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;">
         view comments {{this.model.reply_reviews.length}}
         <i class="icon-caret-down">&nbsp;</i>

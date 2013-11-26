@@ -1167,15 +1167,24 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     rateEditing: function(id) {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-           
-            if (this.get('model').get('reviews').objectAt(0).get("review_user_id").indexOf(localStorage.loginStatus) !== -1)
-            {
-                this.get('controllers.applicationFeedback').statusObserver(null, "You have already review this profile, Thank you!.", "warnning");
+            if (this.get('model').get('reviews').get('length') === 0) {
+                this.set("rateTime", true);
+            }
+            else if (this.get('model').get('reviews').get('length') > 0) {
+                for (var i = 0; i < this.get('model').get('reviews').get('length'); i++) {
+                    if (this.get('model').get('reviews').objectAt(i).get("review_user_id").indexOf(localStorage.loginStatus) !== -1)
+                    {
+                        this.get('controllers.applicationFeedback').statusObserver(null, "You have already review this profile, Thank you!.", "warnning");
+                    } else {
 
-            } else {
+                    }
+                }
                 this.set("rateTime", true);
             }
         }
+
+
+
     },
     setCollectionAttr: function() {
         this.set("newTitle", this.get('selectedCollection').get('title'));

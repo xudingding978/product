@@ -1,0 +1,89 @@
+{{#if controller.editingAbout}}
+<div>
+    {{#each about_us}}
+    <div>Description: </div>
+    <div>{{view Ember.TextArea valueBinding="about_desc" class="no-resize"  placeholder="*"}}</div> 
+    <hr> 
+    <div style="display:inline-block;margin: 15px 0; width:560px; vertical-align:top;"> 
+        <a rel="nofollow" target="_blank" href="http://www.youtube.com/trendspublishing" style="cursor:pointer;"> 
+            <h4>View the Latest Video from the Trends YouTube channel</h4></a><br><br><br><br><br><br><br> 
+        {{#each about_video}}
+        <div>Video URL: </div>
+        <div>{{view Ember.TextArea valueBinding="video_url" class="no-resize"  placeholder="*"}}</div> 
+        <iframe width="560" height="315" {{bindAttr src="video_url"}} frameborder="0" allowfullscreen=""></iframe> 
+        <div>Video Title: </div>
+        <div>{{view Ember.TextArea valueBinding="video_title" class="no-resize"  placeholder="*"}}</div>
+        <div>Video Desc: </div>
+        <div>{{view Ember.TextArea valueBinding="video_desc" class="no-resize"  placeholder="*"}}</div>
+        {{/each}}
+
+        {{#each about_image}}
+        <div>Image URL: </div>
+        <div>{{view Ember.TextArea valueBinding="image_url" class="no-resize"  placeholder="*"}}</div> 
+        <div style="padding: 10px 15px; margin: 10px 0;font-size:13px;background: #f3f3f3;width: 273px;line-height: 18px; display:inline-block;"> 
+            <img alt="" {{bindAttr src="image_url"}}>  
+        </div>
+        <div>Image Title: </div>
+        <div>{{view Ember.TextArea valueBinding="image_title" class="no-resize"  placeholder="*"}}</div>
+        <div>Image Link: </div>
+        <div>{{view Ember.TextArea valueBinding="image_link" class="no-resize"  placeholder="*"}}</div>
+        <div>Image Desc: </div>
+        <div>{{view Ember.TextArea valueBinding="image_desc" class="no-resize"  placeholder="*"}}</div>
+        <div>{{image_desc}}</div>
+        {{/each}}
+    </div>
+    <div style="display:inline-block; margin: 15px 0 15px 30px;"><a rel="nofollow" target="_blank" href="http://library.trendsideas.com/Home.aspx" style="cursor:pointer;">
+            <h4>Our Latest Titles</h4></a> <h5><font color="FF00FF">On Sale Now...<h5></h5><h4>Buy your copy here!</h4></font></h5><h4><font color="FF00FF"></font> 
+            {{#each about_book}}
+            <div>Book URL: </div>
+            <div>{{view Ember.TextArea valueBinding="book_image_url" class="no-resize"  placeholder="*"}}</div> 
+            <div class="latestebook"> <img alt="" {{bindAttr src="book_image_url"}}>             
+            </div> 
+            <div class="latestebook-control easing">
+                <div>Book Read Link: </div>
+                <div>{{view Ember.TextArea valueBinding="book_read_url" class="no-resize"  placeholder="*"}}</div>
+                <div>Book Buy Link: </div>
+                <div>{{view Ember.TextArea valueBinding="book_buy_url" class="no-resize"  placeholder="*"}}</div>
+            </div>
+            {{/each}}
+
+    </div>
+    {{/each}}
+</div>
+{{else}}
+<div>
+    {{#each about_us}}
+    <div>{{about_desc}}</div> 
+    <hr> 
+    <div style="display:inline-block;margin: 15px 0; width:560px; vertical-align:top;"> 
+        <a rel="nofollow" target="_blank" href="http://www.youtube.com/trendspublishing" style="cursor:pointer;"> 
+            <h4>View the Latest Video from the Trends YouTube channel</h4></a><br><br><br><br><br><br><br> 
+        {{#each about_video}}
+        <iframe width="560" height="315" {{bindAttr src="video_url"}} frameborder="0" allowfullscreen=""></iframe> 
+        <div>{{video_title}}</div>
+        <div>{{video_desc}}</div>
+        {{/each}}
+
+        {{#each about_image}}
+        <div style="padding: 10px 15px; margin: 10px 0;font-size:13px;background: #f3f3f3;width: 273px;line-height: 18px; display:inline-block;"> 
+            <img alt="" {{bindAttr src="image_url"}}>  
+        </div>
+        <div><a rel="nofollow" target="_blank" {{bindAttr href="image_link"}}> {{image_title}}</a></div>
+        <div>{{image_desc}}</div>
+        {{/each}}
+    </div>
+    <div style="display:inline-block; margin: 15px 0 15px 30px;"><a rel="nofollow" target="_blank" href="http://library.trendsideas.com/Home.aspx" style="cursor:pointer;">
+            <h4>Our Latest Titles</h4></a> <h5><font color="FF00FF">On Sale Now...<h5></h5><h4>Buy your copy here!</h4></font></h5><h4><font color="FF00FF"></font> 
+            {{#each about_book}}
+            <div class="latestebook"> <img alt="" {{bindAttr src="book_image_url"}}> 
+                <div class="latestebook-control easing">
+                    <a rel="nofollow" target="_blank" {{bindAttr href="book_read_url"}} class="new-btn">Read</a> 
+                    <a rel="nofollow" target="_blank" {{bindAttr href="book_buy_url"}} class="new-btn green-btn">Buy</a> 
+                </div>
+            </div> 
+            {{/each}}
+
+    </div>
+    {{/each}}
+</div>
+{{/if}}

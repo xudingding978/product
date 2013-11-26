@@ -12,7 +12,12 @@
 
                                         {{#if controller.editingAbout}}
                                         <div style="height: 300px;">
+                                            {{#if controller.isAboutUsObjectExist}}
+                                            {{view HubStar.AboutUsView1}}
+                                            {{else}}
                                             {{view HubStar.HtmlEditorView}}
+                                            {{/if}}
+                                            
                                         </div>   
                                     </div>
                                     <div style="right: 40px;bottom: 25px;position: absolute;">
@@ -29,7 +34,11 @@
 
                                     {{/if}}
                                 </div>
-                                <div style="display: block; width: 100%" >{{{model.profile_about_us}}}</div>
+                                    {{#if controller.isAboutUsObjectExist}}
+                                        <div style="display: block; width: 100%" >{{view HubStar.AboutUsView1}}</div>
+                                    {{else}}
+                                        <div style="display: block; width: 100%" >{{{model.profile_about_us}}}</div>
+                                    {{/if}}
                                 {{/if}}
                             </div>
 
@@ -76,3 +85,8 @@
                         </div>
 
                     </div>
+{{#if controller.makeSelection}}
+
+{{view HubStar.SelectFunctionView}}
+
+{{/if}}

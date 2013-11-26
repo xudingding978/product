@@ -126,6 +126,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     projectDeleteDropdownType: 'delete',
     projectDeleteDropdownContent: '',
     message: null,
+    select_one: null,
+    select_two: null,
+    makeSelection: false,
     makeSureDelete: false,
     popUpMap: false,
     willDelete: false,
@@ -137,7 +140,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     fromAddress: '',
     isInreview: false,
     profile_average_review_length: '',
-    toAddress: '',    
+    toAddress: '',
+    isAboutUsObjectExist: false,
+    about_us:[],
+    about_video:[],
+    about_image: [],
+    about_book:[],
     init: function() {
 
         this.set('is_authentic_user', false);
@@ -253,7 +261,33 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         } else {
             this.setKeywordsNum(this.get('model').get('profile_package_name'));
         }
-        this.set('keyword_left', parseInt(this.get("keyword_num")) - profile.get('keywords').get('length'));
+        this.set('keyword_left', parseInt(this.get("keyword_num")) - profile.get('keywords').get('length'));        
+        this.setAboutUsObject();
+    },
+    setAboutUsObject: function() {
+        console.log(this.get('model').get('about_us').objectAt(0).get('about_video'));
+        if (this.get('model').get('about_us') !== null && this.get('model').get('about_us') !== 'undefined' && this.get('model').get('about_us').get('length') > 0 ) {
+            this.set("about_us", this.get('model').get("about_us"));
+            this.set("isAboutUsObjectExist", true);
+        } else {
+            this.set("isAboutUsObjectExist", false);
+        }
+//        var about_us = HubStar.AboutUs.createRecord({"about_id": profile.get('id'), "about_desc": 'just description', "about_template_id": '1', 
+//                                                                                            "about_video": [], "about_image": [], 'about_book': []});
+//        var about_video = HubStar.AboutVideo.createRecord({"video_id": '1', "video_title": 'video title', "video_desc": 'video description', 
+//                                                                                            "video_url": '', "optional": profile.get('id')});
+//        about_us.get('about_video').pushObject(about_video);
+//        for (var i = 0; i < 2; i ++) {
+//            var about_image = HubStar.AboutImage.createRecord({"image_id": i.toString(), "image_title": 'image title', "image_desc": 'image description', 
+//                                                                                            "image_url": '',"image_link": '', "optional": profile.get('id')});
+//        about_us.get('about_image').pushObject(about_image);
+//        }
+//        for (var i = 0; i < 3; i ++) {
+//            var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": 'book title', "book_image_url": '', 
+//                                                                                            "book_read_url": '',"book_buy_url": '', "optional": profile.get('id')});
+//        about_us.get('about_book').pushObject(about_book);
+//        }
+//        this.set('about_us', about_us);
     },
     checkKeywordObjectExist: function() {
         if (this.get('model').get('keywords') !== null && this.get('model').get('keywords') !== 'undefined' && this.get('model').get('keywords').get('length') > 0) {
@@ -425,11 +459,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             profile_record = data;
             this.set('editing', !this.get('editing'));
         } else if (checkingInfo === "aboutMe") {
-
             about_record = data;
-            this.set('editingAbout', !this.get('editingAbout'));
-
-
+            this.selectAboutVersion();
         } else if (checkingInfo === "contact") {
             first_name_record = this.get('first_name');
             last_name_record = this.get('last_name');
@@ -448,12 +479,51 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('editingTime', !this.get('editingTime'));
         }
     },
+    selectAboutVersion: function() {
+        if (this.get('isAboutUsObjectExist')) {
+            this.selectNewAbout();
+        } else {
+            var message = "Do you wish to modify the about us by using template?";
+            this.set("message", message);
+            this.set('select_one', 'Html5 editor');
+            this.set('select_two', 'Template');
+            this.set('makeSelection', true);
+        }
+    },
+    selectOldAbout: function() {
+        console.log('old');
+        this.set('makeSelection', false);
+        this.set('isAboutUsObjectExist', false);
+        this.set('editingAbout', !this.get('editingAbout'));
+    },
+    selectNewAbout: function() {
+//        var about_us = HubStar.AboutUs.createRecord({"about_id": this.get('model').get('id'), "about_desc": 'just description', "about_template_id": '1', 
+//                                                                                            "about_video": [], "about_image": [], 'about_book': []});
+//        var about_video = HubStar.AboutVideo.createRecord({"video_id": '1', "video_title": 'video title', "video_desc": 'video description', 
+//                                                                                            "video_url": '', "optional": this.get('model').get('id')});
+//        about_us.get('about_video').pushObject(about_video);
+//        for (var i = 0; i < 2; i ++) {
+//            var about_image = HubStar.AboutImage.createRecord({"image_id": i.toString(), "image_title": 'image title', "image_desc": 'image description', 
+//                                                                                            "image_url": '',"image_link": '', "optional": this.get('model').get('id')});
+//        about_us.get('about_image').pushObject(about_image);
+//        }
+//        for (var i = 0; i < 3; i ++) {
+//            var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": 'book title', "book_image_url": '', 
+//                                                                                            "book_read_url": '',"book_buy_url": '', "optional": this.get('model').get('id')});
+//        about_us.get('about_book').pushObject(about_book);
+//        }
+//        this.set('about_us', about_us);
+        console.log('new');
+        this.set('makeSelection', false);
+        this.set('isAboutUsObjectExist', true);        
+        this.set('editingAbout', !this.get('editingAbout'));
+    },        
     yesAbout: function(checkingInfo) {
         if (checkingInfo === "aboutMe") {
 
             this.set('editingAbout', !this.get('editingAbout'));
         }
-        this.saveUpdateAboutUs();
+        this.get('about_us').objectAt(0).save();
     },
     yes: function(checkingInfo) {
         if (checkingInfo === "profileName") {

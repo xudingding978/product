@@ -378,7 +378,7 @@ class EmailsController extends Controller {
                                                     If this request was not you please immediately contact: <a href="mailto:support@trendsideas.com"
                                                                    <tr>
                                                             <td valign="top">
-                                                        <a href="http://develop.trendsideas.com:9000/#/verify/'. $username.'?'.$password . '">  Click here to activate your account  </a>
+                                                        <a href="http://develop.trendsideas.com:9000/#/verify/' . $username . '?' . $password . '">  Click here to activate your account  </a>
                                                             </td>
                                                         </tr>                                                       style="color: #05B1E5;">support@trendsideas.com</a> &nbsp;<br />&nbsp;<br />
                                                     <hr style="height: 1px; color: #0088CC; background: #0088CC; width: 100%; border: 0 none;margin:0;" />
@@ -464,6 +464,11 @@ class EmailsController extends Controller {
                                                    Thank you for registering with Trendsideas. The purpose of this email is to ensure we have your correct email address. Click on the link below to activate your account and return to Trendsideas. 
                                                 </td>
                                             </tr>
+                                                                 <tr>
+                                                            <td valign="top">
+                                                        <a href="http://develop.trendsideas.com:9000/#/verify/' . $username . '?' . $password . '">  Click here to activate your account  </a>
+                                                            </td>
+                                                        </tr> 
                                                   <tr>
                                                             <td valign="top">
                                                         <a href="http://develop.trendsideas.com:9000/#/users/' . $username . '">  Click here to activate your account  </a>

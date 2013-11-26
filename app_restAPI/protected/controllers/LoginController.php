@@ -115,6 +115,7 @@ class LoginController extends Controller {
         $temp["user"][0]["first_name"] = $model->FIRST_NAME;
         $temp["user"][0]["last_name"] = $model->LAST_NAME;
         $temp["user"][0]["email"] = $model->EMAIL_ADDRESS;
+        $temp["user"][0]["email_verified"] = false;
         $temp['user'][0]['selected_topics'] = "";
         $temp['user'][0]['gender'] = $request_array[5];
         $temp['user'][0]['age'] = $request_array[6];
@@ -286,29 +287,34 @@ class LoginController extends Controller {
     public function actionVerify() {
 
         Yii::app()->session['couchbase_id'] = "value";
+
         $request_array = CJSON::decode(file_get_contents('php://input'));
- 
-
-        $currentUser->PWD_HASH = $request_array[2];
-        $currentUser->save($request_array[4]);
-
-
         $currentUser = User::model()
                 ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
-        error_log(var_export($currentUser, true));
-         error_log(var_export( $currentUser->COUCHBASE_ID, true));
-         $response = $currentUser->COUCHBASE_ID;
-           return $response;
-//        if (isset($currentUser)) {
-//            if ($currentUser->PWD_HASH === "blankblankblank") {
-//                $this->sendResponse(200, 0);
-//            } else if ($currentUser->PWD_HASH === $request_array[1]) {
-//                //     $_SESSION['couchbase_id'] = $currentUser->COUCHBASE_ID;
-//                $this->sendResponse(200, CJSON::encode($currentUser));
-//            }
-//        } else {
-//            $this->sendResponse(200, 1);
-//        }
+        $response = $currentUser->COUCHBASE_ID;
+      //  $this->setEmailVerify($response);
+        $this->sendResponse(200, CJSON::encode($response));
+    }
+
+    public function setEmailVerify($commenter_id) {
+
+        try {
+            $docIDDeep = $this->getDomain() . "/users/" . $commenter_id; //$id  is the page owner
+            $cb = $this->couchBaseConnection();
+            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+            $oldRecordDeep = CJSON::decode($oldDeep, true);
+
+            $oldRecordDeep['user'][0]["email_verified"] = true;
+
+            if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
     }
 
     public function actionAjax() {

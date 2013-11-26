@@ -17,8 +17,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     photo_url: null,
     userName: "",
     password: "",
-    verifyAccount: null,
-    varifyPassword: null,
     repeat: "",
     email: "",
     loginUsername: "",
@@ -222,17 +220,21 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
     },
-    verify: function(verifyAccount,verifyPassword)
+    verify: function(verifyAccount, verifyPassword)
     {
         var emailVerify = [verifyAccount, verifyPassword];
         var that = this;
-
         requiredBackEnd('login', 'verify', emailVerify, 'POST', function(params) {
-                    localStorage.loginStatus = params.COUCHBASE_ID;
-                    HubStar.set("isLogin", true);
-                    that.transitionToRoute(localStorage.loginStatus);
-
-                console.log("5555555555");
+            localStorage.loginStatus = params;
+            HubStar.set("isLogin", true);
+            var s = HubStar.User.find(localStorage.loginStatus);
+            var thatthat = that;
+            s.addObserver('isLoaded', function() {
+                if (s.get('isLoaded')) { 
+                    //  var model = {id: localStorage.loginStatus};
+                    thatthat.transitionToRoute("user", s);
+                }
+            });
         });
     },
     signUp: function() {
@@ -430,8 +432,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }
             else {
                 var emailInfo = [that.get('resetPasswordEmail'), params.USER_NAME, params.PWD_HASH];
-                that.set("verifyAccount", params.USER_NAME);
-                that.set("verifyPassword", params.PWD_HASH);
                 requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
                     if (params === 1) {
                         $('.black-tool-tip').stop();

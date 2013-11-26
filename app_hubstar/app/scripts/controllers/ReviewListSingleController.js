@@ -65,11 +65,11 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
     },
     deleteConfirm: function()
     {
-        this.deleteSelectedCollection();
+        this.deleteSelectedReview();
         this.cancelDelete();
         this.get("controllers.profile").set("profileReviewStatistics", this.get("controllers.profile").get('profileReviewStatistics') - 1);
     },
-    deleteSelectedCollection: function()
+    deleteSelectedReview: function()
     {
         for (var i = 0; i < this.get("controllers.profile").get('reviews').get('length'); i++) {
             var review = this.get("controllers.profile").get('reviews').objectAt(i);
@@ -128,7 +128,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
             $('#up-comments_' + reviewID).animate({display: 'none'}, 500);
 
             $('#reply_' + reviewID).animate({maxHeight: '200px'}, 500);
-
+           this.get("controller").transitionToRoute('review', {id: event}); 
 
 
             setTimeout(function() {

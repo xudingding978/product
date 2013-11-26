@@ -2,7 +2,7 @@
 
 
 
-<div id="reply_{{unbound model.review_reply_id}}" class="your-relpy" style="padding: 10px 75px 10px 35px;">
+<div id="reply_{{unbound model.review_reply_id}}" class="your-relpy" style="padding: 10px 75px 10px 35px;"{{action 'replyView' model.review_reply_id target='view' on="click"}}>
 
     {{#if model.review_userself}}
     <a class="your-relpy_profilepic" style="left: 6.5%; right: initial;" href="#/users/{{unbound model.review_user_id}}">
@@ -24,6 +24,10 @@
             {{model.review_msg}}<br>
 
         </div>
+        {{#if model.getUser}}
+<div class="hint--bottom hint--rounded" style="left: 40px;right: initial;" data-hint="Delete" "  {{action removeReviewReply}}><i class="icon-trash"></i></div>                 
+    <div class="hint--bottom hint--rounded" style="left: 40px;right: initial;" data-hint="Edit" {{action editReviewReply}}><i class="icon-pencil"></i></div>
+    {{/if}}
     </div>
 
     {{else}}
@@ -45,10 +49,51 @@
             {{model.review_msg}}<br>
 
         </div>
+         {{#if model.getUser}}
+    <div class="hint--bottom hint--rounded" style="right: 40px;left: initial;" data-hint="Delete" "  {{action removeReviewReply}}><i class="icon-trash"></i></div>                 
+    <div class="hint--bottom hint--rounded" style="right: 40px;left: initial;" data-hint="Edit" {{action editReviewReply}}><i class="icon-pencil"></i></div>
+    {{/if}}
     </div>
     {{/if}}
 
 </div>
+
+{{#if controller.makeSureDelete}}
+
+{{view HubStar.DeleteFunctionView}}
+
+{{/if}}
+
+
+{{#if controller.review_enableToEdit}}  
+
+
+<div id="reply_{{unbound model.review_reply_id}}" class="your-relpy" style="padding: 10px 75px 10px 35px;">
+        <a class="your-relpy_profilepic" style="left: 6.5%; right: initial;" href="#/users/{{unbound model.review_user_id}}">
+        <img class="profilepic_comment"  {{bindAttr src= model.review_photo_url_large}} />
+    </a>
+        <div class="comment-namentime" style="text-align: left;">
+            <div class="namentime_position" style="" >        
+                <a class="comment-username" href="#/users/{{unbound model.review_user_id}}">
+                    {{model.review_user_name}}                
+                </a>
+                <div class="posttime-container">
+                    <span class="posttime">{{date model.review_time_stamp}}</span>
+                </div>
+            </div>
+        </div>
+
+            <div id ="" style="margin: 5px auto; padding: 0 15px;height: 40px;">
+                {{view Ember.TextArea valueBinding="controller.review_msg"  class="no-resize no-effect"  placeholder="Please edit reply here" }}  
+            </div>
+
+            <div class="" style="height: 41px;position: relative;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
+                <div  class="message-btn easing"  style="width: 50%;" {{action cancelReviewReply }}><k class="icon-remove">&nbsp;</k>Cancel</div>
+                <div class="message-btn easing" style="width: 50%;" {{action  saveReviewReply }}><k class='icon-ok'>&nbsp;</k>Post</div>
+            </div>
+</div >
+
+    {{/if}}
 
 <script>
     $(function() {

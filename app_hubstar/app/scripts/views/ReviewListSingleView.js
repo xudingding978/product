@@ -6,7 +6,7 @@ HubStar.ReviewListSingleView = Ember.View.extend({
         var that = this;
         $(document).ready(function() {
             var id = "#reply_" + that.get("controller").get('model').get('review_id');
-         
+
             $(id).mCustomScrollbar({
                 scrollButtons: {
                     enable: false,
@@ -32,8 +32,7 @@ HubStar.ReviewListSingleView = Ember.View.extend({
         var up_button = "#up_button_" + event;
         var down_button = "#down_button_" + event;
         var review_reply = "#reviewReplyData_" + event;
-
-       this.get("controller").transitionToRoute('review', {id: event});
+        this.get("controller").transitionToRoute('review', {id: event});
         var content = "#review_content_" + event;
         $(up_button).attr("style", "position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:inline-block;;");
         $(down_button).attr("style", "position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:none;");
@@ -55,47 +54,52 @@ HubStar.ReviewListSingleView = Ember.View.extend({
         $(up_button).attr("style", "position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:none;");
         $(down_button).attr("style", "position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:inline-block;");
         $(content).animate({width: '390px', maxHeight: '100px', position: 'relative', dispaly: 'none', overflow: 'hidden'}, 500);
-        //$(review_reply).animate({height: '0', overflow: 'hidden'}, 500);
-        //$(review_reply).hide(10);
 
 
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 400);
     },
-    showOneReview: function(event) {
+    showOneReview: function(event, checking) {
 
         if (this.get("controller").get('model').get('review_id') === event) {
-            this.downContent(event);
+            if (checking === "content") {
+                this.downContent(event);
+            }
+            else if (checking === "viewReply") {
+                this.viewComments(event);
+            }
             for (var i = 0; i < this.get("controller").get("controllers.profile").get('reviews').get('length'); i++) {
                 if (this.get("controller").get("controllers.profile").get('reviews').objectAt(i).get('review_id') !== event) {
                     this.upContent(this.get("controller").get("controllers.profile").get('reviews').objectAt(i).get("review_id"));
                     this.upComments(this.get("controller").get("controllers.profile").get('reviews').objectAt(i).get("review_id"));
-//                    this.get("controller").set("review_is_edit", false);
                 }
             }
         }
 
+
+
+
+
     },
     viewComments: function(event) {
         $('#reply_' + event).attr('style', 'display: block;max-height:0;');
-       $('#view-comments_' + event).attr('style', ' display: none; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
-        $('#view-comments_' + event).animate({display: 'none'},500);
-         $('#up-comments_' + event).attr('style', 'display: block;background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
-          $('#up-comments_' + event).animate({display: 'block'},500);
-
+        $('#view-comments_' + event).attr('style', ' display: none; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
+        $('#view-comments_' + event).animate({display: 'none'}, 500);
+        $('#up-comments_' + event).attr('style', 'display: block;background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
+        $('#up-comments_' + event).animate({display: 'block'}, 500);
+        this.get("controller").transitionToRoute('review', {id: event});
         $('#reply_' + event).animate({maxHeight: '200px'}, 500);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 400);
     },
-     
-upComments: function(event) {
+    upComments: function(event) {
         $('#reply_' + event).attr('style', 'display: none; max-height:0;');
         $('#up-comments_' + event).attr('style', 'display: none;background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
-        $('#up-comments_' + event).animate({display: 'none'},500);
-         $('#view-comments_' + event).attr('style', ' display:block; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
-        $('#view-comments_' + event).animate({display: 'block'},500);
+        $('#up-comments_' + event).animate({display: 'none'}, 500);
+        $('#view-comments_' + event).attr('style', ' display:block; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
+        $('#view-comments_' + event).animate({display: 'block'}, 500);
         $('#reply_' + event).animate({maxHeight: '0px'}, 500);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");

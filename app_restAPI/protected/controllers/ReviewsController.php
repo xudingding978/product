@@ -162,7 +162,7 @@ class ReviewsController extends Controller {
             error_log(var_export($records, true));
             $review_num = $this->getSelectedreview($records, $id);
             if ($review_num !== -1) {
-  array_splice($oldRecord["profile"][0]["reviews"], $review_num, 1);
+                  array_splice($oldRecord["profile"][0]["reviews"], $review_num, 1);
  
             }
 

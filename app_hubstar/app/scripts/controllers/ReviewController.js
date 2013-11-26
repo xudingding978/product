@@ -68,7 +68,7 @@ HubStar.ReviewController = Ember.Controller.extend({
            this.transitionToRoute('reviews');
             this.set('reviewContent', "");
 
-
+            
 
         }
         else {

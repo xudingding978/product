@@ -25,10 +25,6 @@ HubStar.Review = DS.Model.extend({
     optional: DS.attr('string'),
     getUser: function() {
         return this.get('review_user_id') === localStorage.loginStatus;
-    }.property('isUserSelf'),
-    didLoad: function() {
-
-    }
-
-
+    }.property('isUserSelf')
+ 
 });

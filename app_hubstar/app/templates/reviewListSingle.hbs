@@ -7,7 +7,7 @@
 
     <div  id="review_{{unbound model.review_id}}"class="review-list-content easing" style="">
         <div style="background-color: #f3f3f3;padding: 5px 5px 5px 70px;">
-            <div {{action 'showOneReview' model.review_id target='view' on="click"}} class="comment-namentime" style="display: block;position: relative;height: 35px;">
+            <div {{action 'showOneReview' model.review_id "content" target='view' on="click"}} class="comment-namentime" style="display: block;position: relative;height: 35px;">
                 <div class="namentime_position" style="margin: 0;float: left;">
                     <a class="comment-username" href="#/users/{{unbound model.review_user_id}}"  >
                         {{model.review_user_name}}
@@ -25,7 +25,7 @@
 
             <div id="review_content_{{unbound model.review_id}}" {{action 'upContent' model.review_id target='view' on="click"}} style="width: 390px; max-height:100px;line-height:20px; position: relative; display: inline-block; overflow: hidden; ">{{model.review_content}}  </div>   
 
-            <span {{action 'showOneReview' model.review_id target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:inline-block;"  id="down_button_{{unbound model.review_id}}"  ><k class="icon-caret-down">&nbsp;</k>more</span>
+            <span {{action 'showOneReview' model.review_id "content" target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:inline-block;"  id="down_button_{{unbound model.review_id}}"  ><k class="icon-caret-down">&nbsp;</k>more</span>
             <span {{action 'upContent' model.review_id target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:none;"  id="up_button_{{unbound model.review_id}}" ><k class="icon-caret-up">&nbsp;</k>collapse</span>
 
 
@@ -77,7 +77,7 @@
             </div>
         </div>
     </div>
-    <div id="view-comments_{{unbound model.review_id}}" {{action 'viewComments' model.review_id target='view' on="click"}} class="hover-opacity" style="display:block; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;">
+    <div id="view-comments_{{unbound model.review_id}}" {{action 'showOneReview' model.review_id "viewReply" target='view' on="click"}} class="hover-opacity" style="display:block; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;">
         view comments {{this.model.reply_reviews.length}}
         <i class="icon-caret-down">&nbsp;</i>
     </div>

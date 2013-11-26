@@ -15,7 +15,6 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
     {
         if (localStorage.loginStatus !== null && localStorage.loginStatus !== 'undefined' && localStorage.loginStatus !== '') {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-
         }
 
     },
@@ -45,10 +44,10 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
 
         this.set("review_is_edit", !this.get('review_is_edit'));
         this.set("review_content", this.get("model").get('review_content'));
-         this.transitionToRoute('review', {id: this.get("model").get("review_id")});
+        this.transitionToRoute('review', {id: this.get("model").get("review_id")});
     },
     saveReview: function() {
-       var reviewDate = new Date();
+        var reviewDate = new Date();
         this.get("model").set('review_content', this.get('review_content'));
         this.get("model").set('review_time_stamp', reviewDate.toString());
         requiredBackEnd('reviews', 'Update', this.get("model"), 'POST', function(params) {
@@ -126,18 +125,32 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
             $('#view-comments_' + reviewID).animate({display: 'none'}, 500);
             $('#up-comments_' + reviewID).attr('style', 'background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
             $('#up-comments_' + reviewID).animate({display: 'none'}, 500);
-
-            $('#reply_' + reviewID).animate({maxHeight: '200px'}, 500);
-        //   this.get("controller").transitionToRoute('review', {id: event}); 
-
+            $('#reply_' + reviewID).animate({maxHeight: '200px'}, 10);
+            
+            for (var i = 0; i < this.get("controllers.profile").get('reviews').get('length'); i++) {
+                if (this.get("controllers.profile").get('reviews').objectAt(i).get('review_id') !== reviewID) {
+                    this.upComments(this.get("controllers.profile").get('reviews').objectAt(i).get("review_id"));
+                }
+            }
 
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reload");
-            }, 500);
+            }, 10);
 
         }
         this.set("replyReviewContent", "");
 
+    },
+    upComments: function(event) {
+        $('#reply_' + event).attr('style', 'display: none; max-height:0;');
+        $('#up-comments_' + event).attr('style', 'display: none;background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
+        $('#up-comments_' + event).animate({display: 'none'}, 500);
+        $('#view-comments_' + event).attr('style', ' display:block; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
+        $('#view-comments_' + event).animate({display: 'block'}, 500);
+        $('#reply_' + event).animate({maxHeight: '0px'}, 10);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 10);
     },
     close: function() {
         this.set("replyReviewContent", "");

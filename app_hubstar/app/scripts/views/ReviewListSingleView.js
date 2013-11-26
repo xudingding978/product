@@ -41,7 +41,7 @@ HubStar.ReviewListSingleView = Ember.View.extend({
         $(review_reply).show(10);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
-        }, 400);
+        }, 100);
 
     },
     upContent: function(event) {
@@ -58,7 +58,7 @@ HubStar.ReviewListSingleView = Ember.View.extend({
 
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
-        }, 400);
+        }, 10);
     },
     showOneReview: function(event, checking) {
 
@@ -78,32 +78,29 @@ HubStar.ReviewListSingleView = Ember.View.extend({
         }
 
 
-
-
-
     },
     viewComments: function(event) {
         $('#reply_' + event).attr('style', 'display: block;max-height:0;');
         $('#view-comments_' + event).attr('style', ' display: none; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
         $('#view-comments_' + event).animate({display: 'none'}, 500);
         $('#up-comments_' + event).attr('style', 'display: block;background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
-        $('#up-comments_' + event).animate({display: 'block'}, 500);
+        $('#up-comments_' + event).animate({display: 'block'}, 10);
         this.get("controller").transitionToRoute('review', {id: event});
-        $('#reply_' + event).animate({maxHeight: '200px'}, 500);
+        $('#reply_' + event).animate({maxHeight: '200px'}, 10);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
-        }, 400);
+        }, 10);
     },
     upComments: function(event) {
         $('#reply_' + event).attr('style', 'display: none; max-height:0;');
         $('#up-comments_' + event).attr('style', 'display: none;background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
         $('#up-comments_' + event).animate({display: 'none'}, 500);
         $('#view-comments_' + event).attr('style', ' display:block; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
-        $('#view-comments_' + event).animate({display: 'block'}, 500);
-        $('#reply_' + event).animate({maxHeight: '0px'}, 500);
+        $('#view-comments_' + event).animate({display: 'block'}, 10);
+        $('#reply_' + event).animate({maxHeight: '0px'}, 10);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
-        }, 400);
+        }, 10);
     }
 
 });

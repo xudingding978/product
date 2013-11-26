@@ -11,8 +11,10 @@ HubStar.ReviewReplyListSingleController = Ember.Controller.extend({
         }
     },
     editReviewReply: function() {
-
-       var id = "#ReplyData_" + this.get("controllers.reviewListSingle").get('model').id;
+        
+        if(this.get("controllers.reviewListSingle").get("model").id !==null && this.get("controllers.reviewListSingle").get("model").id !== undefined ){
+            var id = "#ReplyData_" + this.get("controllers.reviewListSingle").get("model").id;
+        }
        $(id).attr("style", "display:none");
         this.set("review_enableToEdit", !this.get('review_enableToEdit'));
         this.set("review_msg", this.get("model").get('review_msg'));
@@ -25,7 +27,9 @@ HubStar.ReviewReplyListSingleController = Ember.Controller.extend({
         requiredBackEnd('replys', 'Update', this.get("model"), 'POST', function(params) {
         });
         this.set("review_enableToEdit", !this.get('review_enableToEdit'));
-         var id = "#ReplyData_" + this.get("controllers.reviewListSingle").get('model').id;
+       if(this.get("controllers.reviewListSingle").get("model").id !==null && this.get("controllers.reviewListSingle").get("model").id !== undefined)  {
+            var id = "#ReplyData_" + this.get("controllers.reviewListSingle").get("model").id;
+        }
        $(id).attr("style", "display:block");
     },
     cancelReviewReply: function() {

@@ -98,6 +98,7 @@ class ReplysController extends Controller {
              $reply_num =$this-> getSelectedReply($oldRecord['profile'][0]['reviews'][$review_num]['reply_reviews'], $reply_id);
              
             if ($review_num !== -1 && $reply_num !== -1) {
+                $oldRecord['profile'][0]['reviews'][$review_num]['reply_reviews'][$reply_num]["review_user_name"] = $newRecord["review_user_name"];     
                  $oldRecord['profile'][0]['reviews'][$review_num]['reply_reviews'][$reply_num]["review_time_stamp"] = $newRecord["review_time_stamp"];          
                     $oldRecord['profile'][0]['reviews'][$review_num]['reply_reviews'][$reply_num]["review_msg"] = $newRecord["review_msg"];
             }

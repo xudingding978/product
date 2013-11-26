@@ -1,5 +1,6 @@
 HubStar.SearchsRoute = Ember.Route.extend({
     setupController: function() {
+
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
             HubStar.set('isLogin', false);
 
@@ -18,17 +19,26 @@ HubStar.SearchsRoute = Ember.Route.extend({
     },
     events: {
         transitionToPhoto: function(id) {
+            this.controllerFor('mega').set("selectPhoto", false);
+            this.controllerFor('masonryCollectionItems').set("type", "profile");
             this.transitionTo("photo", HubStar.Mega.find(id));
         },
         transitionToProfile: function(id) {
             this.transitionTo("profile", HubStar.Profile.find(id));
         },
         transitionToArticle: function(id) {
-
+            this.controllerFor('article').set("accessFromSearchBoard", true);
             this.transitionTo("article", HubStar.Article.find(id));
         }
     },
     redirect: function() {
+
+        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+            this.transitionTo('indexIndex');
+
+        } else {
+            this.transitionTo('searchIndex');
+        }
 
     },
     activate: function() {

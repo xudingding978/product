@@ -19,11 +19,18 @@ HubStar.DeleteFunctionView = Ember.View.extend({
             //       controller.newSearch();
         }
         else if (controller._debugContainerKey.indexOf("mega") !== -1) {
+            var obj = controller.get("obj");
 
-
-            //    controller.addComment();
+            controller.removeComment(obj);
 
         }
+        else if (controller._debugContainerKey.indexOf("article") !== -1) {
+            var obj = controller.get("obj");
+
+            controller.removeComment(obj);
+
+        }
+
         else if (controller._debugContainerKey.indexOf("Message") !== -1 &&controller._debugContainerKey.indexOf("user")!==-1) { //userMessage must be before user
             var s = controller.get("s");
             controller.removeMessageItem(s);
@@ -33,6 +40,7 @@ HubStar.DeleteFunctionView = Ember.View.extend({
             controller.removeReplyItem(s);
         }
         else if (controller._debugContainerKey.indexOf("user") !== -1) {
+
             controller.deleteSelectedCollection();
         }
         else if (controller._debugContainerKey.indexOf("profilePartners") !== -1) {
@@ -48,8 +56,9 @@ HubStar.DeleteFunctionView = Ember.View.extend({
 
         else if (controller._debugContainerKey.indexOf("comment") !== -1) {
 
+            var obj = controller.get("obj");
 
-            controller.deleteComment();
+            controller.removeComment(obj);
 
         }
 
@@ -101,6 +110,9 @@ HubStar.DeleteFunctionView = Ember.View.extend({
         else if (controller._debugContainerKey.indexOf("message") !== -1) {
 
             var s = this.$().parents()[0].id.split("_")[1];
+            controller.cancelDelete();
+        }
+        else if (controller._debugContainerKey.indexOf("article") !== -1) {
             controller.cancelDelete();
 
         }

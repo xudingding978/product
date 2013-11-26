@@ -14,7 +14,7 @@ class About_ussController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'about_uss';
 
     public function actionIndex() {
-        error_log('index here');
+        $this -> actionCreate();
     }
 
     public function actionCreate() {
@@ -55,7 +55,6 @@ class About_ussController extends Controller {
     }
     
     public function actionUpdate() {
-        error_log('upload here!!');
         $this->sendResponse(204);
     }
 

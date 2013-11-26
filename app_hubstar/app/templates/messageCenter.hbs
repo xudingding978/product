@@ -3,19 +3,19 @@
 
     <div class="Message-Board box" style="">
         <div style="background-color: #f3f3f3; width:100%;height: 70px; border-bottom: 1px solid #ddd;padding: 0 20px;">
-            <div style="color: #555;font-size: 18px;line-height: 70px;font-weight: bold;float: left;" ><i class="icon-envelope" >&nbsp;&nbsp;&nbsp;</i>Message Center</div>
-            <div class='create-conversation easing hint--left hint--rounded' data-hint="Create a new conversation" {{action selectNewConversation}}><i class='icon-plus'></i></div>
+            <div style="color: #555;font-size: 18px;line-height: 70px;font-weight: bold;float: left;" ><i class="icon-envelope" >&nbsp;&nbsp;&nbsp;</i>Message Centre</div>
+            <div class='create-conversation easing hint--left hint--rounded' data-hint="Start" {{action selectNewConversation}}><i class='icon-plus'></i></div>
         </div>
 
         <div class='Message-menu-messages-container' >
 
-            <div id="notificationselected" class='each-conversation easing' {{action selectNotification controller.id}}>
+<!--            <div id="notificationselected" class='each-conversation easing' {{action selectNotification controller.id}}>
                  <div style="position: relative;color: #555;font-size: 20px;font-weight: bold;line-height: 50px;float: left;margin: 25px 0 0px 50px;">
                     <i class="icon-bell-alt" style='margin-right: 20px;' >&nbsp;</i>
                     <div style="position: absolute;top: 10px;left: 12px;width: auto;padding: 0 5px 0 4px;height: 15px;background-color: red;line-height: 15px;border-radius: 2px;font-size: 11px;font-weight: bold;color: white;cursor: pointer;">{{unReadCount}}</div>
-                    Notification</div>
+                    Notifications</div>
 
-            </div>
+            </div>-->
 
             {{render conversation }}
 

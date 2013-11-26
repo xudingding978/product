@@ -1,4 +1,5 @@
 <?php
+
 header("Access-Control-Allow-Origin: *");
 header('Content-type: *');
 header('Access-Control-Request-Method: *');
@@ -52,7 +53,7 @@ class LoginController extends Controller {
      * This is the action to handle external exceptions.
      */
     public function actionError() {
-
+        
     }
 
     public function actionClose() {
@@ -81,7 +82,6 @@ class LoginController extends Controller {
         }
         $this->render('contact', array('model' => $model));
     }
-
 
     public function actionRead() {
         
@@ -200,7 +200,6 @@ class LoginController extends Controller {
 
         $currentUser->PWD_HASH = $request_array[2];
         $currentUser->save($request_array[4]);
-
     }
 
     public function getMega() {
@@ -250,7 +249,7 @@ class LoginController extends Controller {
 
     public function actionLogin() {
 
-       Yii::app()->session['couchbase_id'] = "value";
+        Yii::app()->session['couchbase_id'] = "value";
         $request_array = CJSON::decode(file_get_contents('php://input'));
 
 
@@ -261,7 +260,7 @@ class LoginController extends Controller {
                 if ($currentUser->PWD_HASH === "blankblankblank") {
                     $this->sendResponse(200, 0);
                 } else if ($currentUser->PWD_HASH === $request_array[1]) {
-               //     $_SESSION['couchbase_id'] = $currentUser->COUCHBASE_ID;
+                    //     $_SESSION['couchbase_id'] = $currentUser->COUCHBASE_ID;
                     $this->sendResponse(200, CJSON::encode($currentUser));
                 }
             } else {
@@ -275,13 +274,41 @@ class LoginController extends Controller {
                 if ($currentUser->PWD_HASH === "blankblankblank") {
                     $this->sendResponse(200, 0);
                 } else if ($currentUser->PWD_HASH === $request_array[1]) {
-                
+
                     $this->sendResponse(200, CJSON::encode($currentUser));
                 }
             } else {
                 $this->sendResponse(200, 1);
             }
         }
+    }
+
+    public function actionVerify() {
+
+        Yii::app()->session['couchbase_id'] = "value";
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+ 
+
+        $currentUser->PWD_HASH = $request_array[2];
+        $currentUser->save($request_array[4]);
+
+
+        $currentUser = User::model()
+                ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
+        error_log(var_export($currentUser, true));
+         error_log(var_export( $currentUser->COUCHBASE_ID, true));
+         $response = $currentUser->COUCHBASE_ID;
+           return $response;
+//        if (isset($currentUser)) {
+//            if ($currentUser->PWD_HASH === "blankblankblank") {
+//                $this->sendResponse(200, 0);
+//            } else if ($currentUser->PWD_HASH === $request_array[1]) {
+//                //     $_SESSION['couchbase_id'] = $currentUser->COUCHBASE_ID;
+//                $this->sendResponse(200, CJSON::encode($currentUser));
+//            }
+//        } else {
+//            $this->sendResponse(200, 1);
+//        }
     }
 
     public function actionAjax() {

@@ -1,7 +1,6 @@
 HubStar.IndexIndexRoute = Ember.Route.extend({
         setupController: function() {
 
-
             this.controllerFor('application').set('islogin', false);
 
             this.controllerFor('status').set('islogin', false);

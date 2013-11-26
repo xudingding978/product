@@ -5,16 +5,16 @@
     <div style="margin: 0 0 20px; position: relative; background-color: #f3f3f3; height: 45px;border-bottom: 1px solid #ddd;">
         <div style=' color: #555; font-size: 18px; font-weight: bold; text-align: center; line-height: 45px;'>Save to 
 
-            <div class="new-btn" style="display:inline-block;"  {{action collectionSwitch }} {{bindAttr text="ghjghjghj" }}>
+            <div class="" style="display:inline-block;cursor: pointer;"  {{action collectionSwitch }} {{bindAttr text="ghjghjghj" }}>
                  {{controller.selectedTitle}}
                  &nbsp;<i class="icon-caret-down"></i>
             </div>
             {{#if controller.selectionPop}}
 
-            <div class="add-collection_select-collection" style="">
-                <div style="margin:10px; font-size: 16px; font-weight: bold; overflow: auto; overflow-x:hidden; width: 93%;height: 150px;">
+            <div class="select-profile-save" style="top: 50px;">
+                <div class="" style="height: auto; font-size: 13px; font-weight: bold; overflow: auto; overflow-x:hidden; ">
                     {{#each controller.collections}}
-                    <div class="choose-exist-collection easing" {{action chooseRecord title id}}>
+                    <div class="choose-exist-collection easing" style="width: auto;line-height: 27px; padding: 0 20px;border-bottom: 1px solid #ddd;border-top: 1px solid #fff;" {{action chooseRecord title id}}>
                          <a class="exist-name easing"> {{title}}</a>
                     </div>
                     {{/each}}
@@ -26,7 +26,7 @@
 
 
 
-        <div class="exit">
+        <div class="exit" style="float: right; position: relative; top: -46px;">
             <div class="closeview" {{action exit }}>
                  <i class="icon-remove"></i>
             </div> 

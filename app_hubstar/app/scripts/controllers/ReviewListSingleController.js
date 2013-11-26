@@ -128,7 +128,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
             $('#up-comments_' + reviewID).animate({display: 'none'}, 500);
 
             $('#reply_' + reviewID).animate({maxHeight: '200px'}, 500);
-           this.get("controller").transitionToRoute('review', {id: event}); 
+        //   this.get("controller").transitionToRoute('review', {id: event}); 
 
 
             setTimeout(function() {

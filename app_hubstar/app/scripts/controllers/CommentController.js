@@ -5,6 +5,8 @@ HubStar.CommentController = Ember.Controller.extend({
     mega: null,
     count: null,
     isUserSelf: false,
+    makeSureDelete: false,
+    willDelete: false,
     objID: "",
     needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus'],
     init: function()
@@ -60,7 +62,7 @@ HubStar.CommentController = Ember.Controller.extend({
             var comments = this.get('mega').get('comments');
 
 //            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
-            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus +'/user_picture/user_picture';
+            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
@@ -81,7 +83,9 @@ HubStar.CommentController = Ember.Controller.extend({
         }
     },
     closeComment: function(id) {
-        this.set("commentContent","");
+
+        this.set("commentContent", "");
+
         $('#comment_' + id).attr('style', 'display:block');
         $('#commentBox_' + id).attr('style', 'display:none');
         $('#masonry_container').masonry("reload");
@@ -138,9 +142,28 @@ HubStar.CommentController = Ember.Controller.extend({
             $('#masonry_container').masonry("reload");
             $('#masonry_user_container').masonry("reload");
         }, 200);
-
     },
     removeComment: function(object)
+    {
+        var message = "Do you want to delete this comment?";
+        this.set("message", message);
+        this.set('makeSureDelete', true);
+        if (this.get('willDelete')) {
+            this.removeCommentItem(object);
+            this.cancelDelete();
+        } else {
+            this.set("obj", object);
+            this.set('willDelete', true);
+        }       
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelDelete: function() {
+        this.set('willDelete', false);
+        this.set('makeSureDelete', false);
+    },
+    removeCommentItem: function(object)
     {
 
         var id = this.get('content').id;

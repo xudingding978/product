@@ -16,6 +16,7 @@ HubStar.SearchsController = Ember.ArrayController.extend({
 //            var stats = Stat.find({"RquireType": "status", "region": this.get("search_area"), "search_string": this.get("search_string")});
 //            var that = this;
 
+
     },
         
     defaultSearch: function() {    
@@ -38,6 +39,7 @@ HubStar.SearchsController = Ember.ArrayController.extend({
         /***/          st.grapData();                                                        /***/
         /***/      }                                                                                /***/
     //get user model data after login
+
 
 });
 

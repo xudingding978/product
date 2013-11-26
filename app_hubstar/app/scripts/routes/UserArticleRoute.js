@@ -1,27 +1,31 @@
-HubStar.VideoRoute = Ember.Route.extend({
+HubStar.UserArticleRoute = Ember.Route.extend({
     //     controller: HubStarlicationController,
     setupController: function(controller, model) {
-        var tempid;
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#video').addClass('selected-user-stats');
-        if (model.id === undefined) {          //reload the page model id can not be find...
+        var temp;
+        if (model.id === undefined) {                        //reload the page model id can not be find...
             var url = window.location.href;
             urlArray = url.split("/");
-            tempid = urlArray[urlArray.length - 1];
+            temp = urlArray[urlArray.length - 1];
         } else {
-            tempid = model.id;
+            temp = model.id;
         }
-        if (tempid.indexOf("test") !== -1) {
-            tempid = tempid.replace("test", "");
+        if (this.controllerFor("article").get("searchFromRoute") === true)
+        {
 
+            var address = document.URL;
+            var temp = address.split("#")[1].split("/")[6];
         }
-        controller.getinitdata(tempid);
+
+        var d = HubStar.Mega.find(temp);
+        this.controllerFor("article").getInitData(d);
     },
     model: function(params) {
-
-        return params;
+        var model = HubStar.Mega.find({"RequireType": "articles", "article_id": params.article_id});
+        model.set("id", params.article_id);
+        return model;
     },
     activate: function() {
+
         setTimeout(function() {
             $("body").css("overflow", "hidden");
             $('#footer').attr("style", "display:none");
@@ -36,18 +40,20 @@ HubStar.VideoRoute = Ember.Route.extend({
 
     },
     deactivate: function() {
+
+
         setTimeout(function() {
             $("body").css("overflow", "auto");
             $('#footer').attr("style", "display:block");
         }, 100);
     },
     renderTemplate: function() {
-        this.render("video", {
-            outlet: "videoes",
+
+
+        this.render("article", {
+            outlet: "articles",
             into: "application"
         });
     }
 
-
 });
-

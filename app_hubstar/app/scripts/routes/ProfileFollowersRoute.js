@@ -7,8 +7,10 @@
 HubStar.ProfileFollowersRoute = Ember.Route.extend({
     setupController: function(controller, model) {
 
+ if (this.controllerFor('checkingLoginStatus').popupLogin())
+        {
 
-       $(window).scrollTop(1500);      
+        
 
          this.controllerFor('profile').sendEventTracking('event', 'button', 'click', 'Followers');
          this.controllerFor('profile').set('profileSelectionStatus', 'Followers');
@@ -18,7 +20,7 @@ HubStar.ProfileFollowersRoute = Ember.Route.extend({
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#follow').addClass('selected-user-stats');
           this.controllerFor('userFollowers').getProfileId(model);
-
+        }
     },
     model: function(params) {
 

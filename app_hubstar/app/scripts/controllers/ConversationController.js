@@ -3,6 +3,8 @@ HubStar.ConversationController = Ember.Controller.extend({
     commenter_photo_url: null,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem'],
     isUploadPhoto: false,
+    makeSureDelete:false,
+    willDelete:false,
     isNewConversation: false,
     init: function()
     {
@@ -13,6 +15,7 @@ HubStar.ConversationController = Ember.Controller.extend({
         }
     },
     selectConversation: function(id) {
+
         var idOld = this.get("selectId");
         this.get("controllers.messageCenter").selectedNone();
         $('#conversation_' + idOld).removeClass('selected-conversation');
@@ -33,10 +36,31 @@ HubStar.ConversationController = Ember.Controller.extend({
             }, 50);
             if (this.get("isNewConversation") === false)
             {
-            this.get('controllers.messageCenter').selectConversationItem(id);
-            this.get('controllers.conversationItem').getClientId(id);
+                this.get('controllers.messageCenter').selectConversationItem(id);
+                this.get('controllers.conversationItem').getClientId(id);
+            }
         }
+    },
+    removeConversationItem: function(s)
+    {
+        var message = "Are you sure you want to delete this conversation?";
+        this.set("message", message);
+
+        this.set('makeSureDelete', true);
+        if (this.get('willDelete') === true) {
+            this.deleteConversationItem(s);
+            this.cancelDelete();
+        } else {
+            this.set("s", s);
+            this.set('willDelete', true);
         }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelDelete: function() {
+        this.set('willDelete', false);
+        this.set('makeSureDelete', false);
     },
     deleteConversationItem: function(id)
     {

@@ -18,7 +18,7 @@
     <div class="masonry-object">
         <div class="masonry-object_poster">
             <div class="profilepic-on-masonry">
-                <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
+                <a class="poster-name" style="cursor: pointer; width: auto;" href="#/profiles/{{unbound owner_id}}">  <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
                 <a class="poster-name" style="cursor: pointer; width: auto;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
@@ -59,9 +59,12 @@
         </div>
         <div class="masonry-object_mainfeature">             
             <div class="mainfeature-wrapper">
-                <a class="mainfeature-container" style="cursor: pointer">
-
+                <a class="mainfeature-container" href="#/photos/{{unbound id}}">  style="cursor: pointer">
+                    {{#if controller.isUser}}
                     <img class="this-is-the-object"{{bindAttr src="object_image_url" }} {{action transitionToPhoto id}} />
+                         {{else}}
+                         <img class="this-is-the-object"{{bindAttr src="object_image_url" }} {{action transitionToPhoto id}} />
+                         {{/if}}
                 </a>            
 
                 <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
@@ -126,16 +129,17 @@
 <div class="box col2 noStyle1">
     <div class="masonry-object">
         <div class="masonry-object_poster">
-             <div class="profilepic-on-masonry">
-                <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
+            <div class="profilepic-on-masonry">
+                <a  href="#/profiles/{{unbound owner_id}}">
+                    <img {{bindAttr src="profile_pic_url"}} class="profilepic-on-masonry" />
+                    <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
+                </a>
             </div>
             <div class="object_username">
-
                 <a class="poster-name" style="cursor: pointer; width: auto;"  href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <div class="posttime-container">
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
-
             </div>
 
             <div class="object-tags-box">
@@ -175,13 +179,16 @@
                 </div>
                 {{/linkTo}}
                 <a class="mainfeature-container">
-                    {{#linkTo 'video' this}} <img {{bindAttr src="object_image_url" }} class="this-is-the-object"/>{{/linkTo}}
+                    {{#if controller.isUser}}
+                    <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToPhoto id}} />
+                         {{else}}
+                         {{#linkTo 'video' this}} <img {{bindAttr src="object_image_url" }} class="this-is-the-object"/>{{/linkTo}}
+                    {{/if}}
+
                 </a>
                 <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
 
                     {{#if controller.is_authentic_user}}
-
-
                     <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
                          <k class="icon-cog" style="font-size: 16px; margin: 0px 5px"></k>
                         <k class='icon-caret-down'></k>
@@ -233,7 +240,9 @@
         <div class="masonry-object">
             <div class="masonry-object_poster">  
                 <div class="profilepic-on-masonry">
-                    <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
+                    <a href="#/profiles/{{unbound owner_id}}">
+                        <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
+                    </a>
                 </div>
                 <div class="object_username">  
                     <a class="poster-name" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{creator}}</a>
@@ -272,10 +281,12 @@
             </div>
             <div class="masonry-object_mainfeature">             
                 <div class="mainfeature-wrapper">
-                    <a class="mainfeature-container">
-
-                        <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} />
-
+                    <a class="mainfeature-container" href="#/articles/{{unbound id}}" >
+                        {{#if controller.isUser}}
+                        <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToPhoto id}} />
+                             {{else}}
+                             <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} />
+                             {{/if}}              
                     </a>          
                     <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
                         {{#if controller.is_authentic_user}}
@@ -300,23 +311,25 @@
             <div class="masonry-object_text">
                 <div class="masonry-object_text-container">
                     <a style="font-size: 16px; font-weight: bold;cursor: pointer" {{action transitionToArticle id}}>{{object_title}}</a>
+
                     <p style="text-overflow: ellipsis"; {{action transitionToArticle id}}>{{{object_description}}}</p>
-                       </div>
+                </div>
 
-                       <div class="more_detail" {{bindAttr id="id"}} style="display:none;width:auto">
-                <h1>{{object_title}}</h1>
-                {{{object_description}}}
+                <div class="more_detail" {{bindAttr id="id"}} style="display:none;width:auto">
+                    <h1>{{object_title}}</h1>
+                    {{{object_description}}}
 
+
+                </div>
+                {{#linkTo 'article' this}}
+                <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
+                {{/linkTo}}
             </div>
-            {{#linkTo 'article' this}}
-            <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
-            {{/linkTo}}
         </div>
+        {{render "comment" this}}
+
+
     </div>
-    {{render "comment" this}}
-
-
-</div>
 
 </div>
 {{/if}}
@@ -337,5 +350,9 @@
 </div>
 {{/if}}
 
+{{#if controller.isRenderDeleteItemTemplate}}
 
+{{view HubStar.DeleteFunctionView}}
+
+{{/if}}
 

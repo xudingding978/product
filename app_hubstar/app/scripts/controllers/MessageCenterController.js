@@ -42,44 +42,47 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         {
             this.set("isUserself", false);
         }
-        this.selectMessage(id, true);
+        this.selectNotification(id, true);
         this.set("id", id);
 
     },
-    selectMessage: function(id, b) {
-
-
-        this.set("isMessageBoard", true);
-        this.set("isNotification", false);
-        this.set("isNewConversation", false);
-        this.set("isConversationItem", false);
-        this.get("controllers.conversation").selectConversation();
-
-        $('#notificationselected').removeClass('selected-conversation');
-        $('#messageBoardselected').addClass('selected-conversation');
-        this.get('controllers.userMessage').getClientId(id);
-        if (b !== true) {
-            this.transitionToRoute("messages");
-        }
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
-    },
+//    selectMessage: function(id, b) {
+//
+//
+//        this.set("isMessageBoard", true);
+//        this.set("isNotification", false);
+//        this.set("isNewConversation", false);
+//        this.set("isConversationItem", false);
+//        this.get("controllers.conversation").selectConversation();
+//
+//        $('#notificationselected').removeClass('selected-conversation');
+//        $('#messageBoardselected').addClass('selected-conversation');
+//        this.get('controllers.userMessage').getClientId(id);
+//        if (b !== true) {
+//            this.transitionToRoute("messages");
+//        }
+//        setTimeout(function() {
+//            $('#masonry_user_container').masonry("reload");
+//        }, 200);
+//    },
     selectedNone: function() {
-        $('#messageBoardselected').removeClass('selected-conversation');
+        //$('#messageBoardselected').removeClass('selected-conversation');
         $('#notificationselected').removeClass('selected-conversation');
     },
-    selectNotification: function(id) {
+    selectNotification: function(id,b) {
         this.set("isNewConversation", false);
         this.set("isConversationItem", false);
         this.set("isNotification", true);
         this.set("isMessageBoard", false);
         this.get("controllers.conversation").selectConversation();
 
-        $('#messageBoardselected').removeClass('selected-conversation');
+        //$('#messageBoardselected').removeClass('selected-conversation');
         $('#notificationselected').addClass('selected-conversation');
         this.get("controllers.notification").getClientId(id);
-        this.transitionToRoute("notifications");
+        if (b !== true) {
+            this.transitionToRoute("notifications");
+        }
+        
 
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");

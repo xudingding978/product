@@ -27,7 +27,7 @@ HubStar.NotificationController = Ember.Controller.extend({
         var displayString = '';
         if (type === "follow")
         {
-            displayString = " has followed you";
+            displayString = " is now follwoing you";
         }
         else if (type === "unFollow")
         {
@@ -35,15 +35,15 @@ HubStar.NotificationController = Ember.Controller.extend({
         }
         else if (type === "conversation")
         {
-            displayString = " has say something in this conversation";
+            displayString = " sent you a message";
         }
         else if (type === "addMessage")
         {
-            displayString = " has leave a message for you";
+            displayString = " sent you a message";
         }
         else if (type === "addReply")
         {
-            displayString = " has reply you in this message";
+            displayString = " sent you a message";
         }
         return displayString;
     },
@@ -273,10 +273,9 @@ HubStar.NotificationController = Ember.Controller.extend({
         }
     },
     gotoMessage: function(id)
-    {
-
+    {     
         this.set("goMessage", '#message_' + id);
-        this.transitionToRoute('messages');
+        this.transitionToRoute('userPost');
         $(window).scrollTop(550);
     },
     gotoReply: function(id)
@@ -289,19 +288,19 @@ HubStar.NotificationController = Ember.Controller.extend({
             var that = this;
             if (user.get('isLoaded')) {
                 this.set("goMessage", '#message_' + reply[1]);
-                this.transitionToRoute('messageCenter', user);
+                this.transitionToRoute('userPost');
             }
             user.addObserver('isLoaded', function() {
                 if (user.get('isLoaded')) {
                     that.set("goMessage", '#message_' + reply[1]);
-                    that.transitionToRoute('messageCenter', user);
+                    that.transitionToRoute('userPost');
                 }
             });
         }
         else
         {
             this.set("goMessage", '#message_' + reply[1]);
-            this.transitionToRoute('messages');
+            this.transitionToRoute('userPost');
         }
         $(window).scrollTop(550);
     }

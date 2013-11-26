@@ -1039,6 +1039,8 @@ textarea.add-interests{
     cursor: pointer;
 }
 
+.your-relpy:hover .reply-comment{opacity: .8}
+
 .Message-Board_comment-item .masonry_addcommnetbox-container{width: 430px; margin-left: 20px;}
 
 
@@ -1138,7 +1140,7 @@ textarea.add-interests{
     top: -10px;
     right: -12px;
     cursor: pointer;
-
+    line-height: 20px;
     opacity: .6;
 }
 
@@ -1213,6 +1215,13 @@ textarea.add-interests{
 .selected-conversation > div {color: #fff !important;}
 
 .selected-conversation .comment-username, .selected-conversation .comment-content, .selected-conversation .icon-trash{color: #fff !important}
+
+
+#search_business{vertical-align: top;}
+
+
+
+
 
 
 /*STAR RATING STYLE*/
@@ -1293,7 +1302,6 @@ textarea.add-interests{
                             -moz-transition: all 0.5s ease;
                             -o-transition: all 0.5s ease;}
 
-.mCSB_container > div:hover .reply-comment{opacity: .8}
 
 .Message-Board_comment-container .profilepic-comment-container{ left: 6.5%; top: 18px;}
 .your-relpy_profilepic{
@@ -1324,7 +1332,7 @@ textarea.add-interests{
 }
 
 .reply-comment{
-    font-size: 13px;
+    font-size: 11px;
     position: absolute;
     right: 0;
     top: 0;
@@ -1332,7 +1340,7 @@ textarea.add-interests{
     opacity: 0;
 }
 
-.reply-comment > i{
+.reply-comment i{
     cursor: pointer;
 }
 
@@ -1451,7 +1459,7 @@ textarea.add-interests{
     width: 500px;
     height: 350px;
     margin: 0 auto; 
-    position: absolute; 
+    position: fixed; 
     top: 15%;
     left: 0;
     right: 0;

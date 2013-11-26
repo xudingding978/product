@@ -17,6 +17,10 @@ HubStar.UserMessageController = Ember.Controller.extend({
     isUploadPhoto: false,
     isEdit: true,
     isPosting: true,
+    makeSureDelete:false,
+    isUserMessage:false,
+    willDelete:false,
+    oldPost: "",
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -34,10 +38,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
     },
     setUserMessage: function(message) {
 
-//        var model = HubStar.User.find(message);
-//          var msg = model.get("messages");
-//          this.set("contentMsg",msg);
-//          
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         if (localStorage.loginStatus) {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
@@ -113,18 +113,23 @@ HubStar.UserMessageController = Ember.Controller.extend({
                     dataNew["replyMessageCollection"][j] = dataReply;
                 }
                 that.get("contentMsg").pushObject(dataNew);
+
+
                 dataNew = new Array();
             }
             that.set('loadingTime', false);
+
             if (that.get('controllers.notification').get("goMessage") !== undefined && that.get('controllers.notification').get("goMessage") !== null && that.get('controllers.notification').get("goMessage") !== "") {
                 var s = that.get('controllers.notification').get("goMessage");
                 that.goToMessage(s);
             }
             if (that.get('controllers.notificationTop').get("goMessage") !== undefined && that.get('controllers.notificationTop').get("goMessage") !== null && that.get('controllers.notificationTop').get("goMessage") !== "") {
                 var s = that.get('controllers.notificationTop').get("goMessage");
+
                 that.goToMessageTop(s);
             }
             setTimeout(function() {
+                $('#masonry_user_container').masonry();
                 $('#masonry_user_container').masonry("reloadItems");
             }, 200);
         });
@@ -134,9 +139,13 @@ HubStar.UserMessageController = Ember.Controller.extend({
         var that = this;
         $(document).ready(function() {
             setTimeout(function() {
-                $("#content_message").mCustomScrollbar("scrollTo", s);
+                var old = that.get("oldPost");
+                $(old).removeClass("post-focus");
+                $(s).addClass("post-focus");
+                that.set("oldPost", s);
                 if (that.get("controllers.notification").get("reply_ids") !== undefined && that.get("controllers.notification").get("reply_ids") !== null && that.get("controllers.notification").get("reply_ids") !== "")
                 {
+
                     var thatthat = that;
                     setTimeout(function() {
                         thatthat.get('controllers.message').seeMore(that.get("controllers.notification").get("reply"));
@@ -152,7 +161,10 @@ HubStar.UserMessageController = Ember.Controller.extend({
         var that = this;
         $(document).ready(function() {
             setTimeout(function() {
-                $("#content_message").mCustomScrollbar("scrollTo", s);
+                var old = that.get("oldPost");
+                $(old).removeClass("post-focus");
+                $(s).addClass("post-focus");
+                that.set("oldPost", s);
                 if (that.get("controllers.notificationTop").get("reply_ids") !== undefined && that.get("controllers.notificationTop").get("reply_ids") !== null && that.get("controllers.notificationTop").get("reply_ids") !== "")
                 {
                     var thatthat = that;
@@ -167,6 +179,27 @@ HubStar.UserMessageController = Ember.Controller.extend({
         });
     }
     ,
+    removeMessageItem: function(s)
+    {
+        var message = "Are you sure you want to delete this notification?";
+        this.set("message", message);
+        this.set('makeSureDelete', true);
+        this.set('isUserMessage',true);
+        if (this.get('willDelete') === true) {
+            this.removeMessage(s);
+            this.cancelDelete();
+        } else {
+            this.set("s", s);        
+            this.set('willDelete', true);
+        }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelDelete: function() {
+        this.set('willDelete', false);
+        this.set('makeSureDelete', false);
+    },
     removeMessage: function(Message_id)
     {
 
@@ -254,7 +287,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             var that = this;
             var dataNew = new Array();
             requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
-               
+
                 that.set("isPosting", true);
                 dataNew["message_id"] = params["message_id"];
                 dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
@@ -281,6 +314,15 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 }
                 dataNew["replyMessageCollection"] = new Array();
                 that.get("contentMsg").insertAt(0, dataNew);
+                var thatthat = that;
+                var s = '#message_' + dataNew["message_id"];
+                setTimeout(function() {
+                    var old = thatthat.get("oldPost");
+                    $(old).removeClass("post-focus");
+                   
+                    $(s).addClass("post-focus");
+                    thatthat.set("oldPost", s);
+                }, 200);
                 that.set("isUploadPhoto", false);
                 dataNew = new Array();
                 setTimeout(function() {

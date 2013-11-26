@@ -82,12 +82,12 @@
     <div style="cursor: pointer;">
         <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
             <div class="profilepic-container">
-                <a class="profilepic" href="#" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} /></a>      
+                <a class="profilepic" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} /></a>      
 
             </div>
             <div class="poster_user" >
 
-                <a class="poster-name" href="#" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
+                <a class="poster-name" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
                 <span class="posttime">{{date controller.megaResouce.created}} </span>
 
             </div>        
@@ -131,13 +131,15 @@
                 <div class="article-title">     {{controller.megaResouce.object_title}}
 
                     {{#if controller.is_authentic_user}}
+                    {{#if controller.is_article_video}}
                     <div class='hint--left hint--rounded' data-hint='Edit Photo Info' style="position: absolute;font-size: 15px;right: 10px;margin: 1px;">
                         <i class="icon-edit" {{action editingPhotoMegaData}}></i>
                     </div>
                     {{/if}}
+                    {{/if}}
 
                 </div>
-
+                
                 <div class="article-text">     {{controller.megaResouce.object_description}}</div>
 
 
@@ -195,7 +197,7 @@
                 <div class="addcommnetbox" role="button" {{action openComment target="view" on="click"}} id="addcommetBut" >
                     add comment...
                 </div>
-                
+
                 {{#unless HubStar.checkLoginStatus}}
                 <div class="addcommnetbox-container" id="commentBox" style="display: none">
                     <div style="margin:0 auto; padding: 0 0 15px 38px;">
@@ -211,8 +213,8 @@
 
                     </div>
                 </div>
-                  {{/unless}}
-                
+                {{/unless}}
+
                 {{#each controller.megaResouce.comments}}
                 {{#unless this.isEdit}}
                 <div class="comment-item">
@@ -227,15 +229,16 @@
                                     <a class="comment-username"  href="#/users/{{unbound commenter_id}}">
                                         {{name}}
                                     </a>
-                                     {{#if this.getUser}}
-                                        <i class="icon-trash"  {{action removeComment this}}></i>                 
-                                        <i class="icon-pencil" {{action updateComment this}}></i>
-                                   {{/if}}
                                     <div class="posttime-container">
                                         <span class="posttime">{{date time_stamp}}</span>                  
                                     </div>
                                 </div>
-
+                                {{#if this.getUser}}
+                                <span class="edit-comment easing">
+                                    <i class="icon-trash"  {{action removeComment this}}></i>                 
+                                    <i class="icon-pencil" {{action updateComment this}}></i>
+                                </span>
+                                {{/if}}
                             </div>
 
                             <div class="comment-content">
@@ -251,9 +254,9 @@
                         </div>
                     </div>
                 </div>
-                 {{else}}
-              {{render editComment this}}   
-              {{/unless}}
+                {{else}}
+                {{render editComment this}}   
+                {{/unless}}
                 {{/each}}
 
 

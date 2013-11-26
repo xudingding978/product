@@ -8296,7 +8296,13 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 }
 
 
+.spinner-sml{
+    margin-left: 8px;
+    width: 12px;
+    height: 12px;
+}
 
+.spinner-sml:after{top: -6px;}
 
 
 
@@ -8347,6 +8353,15 @@ to{
 }
 
 
+
+.post-focus > div > div{box-shadow: 0 0 10px rgba(85,170,255,.8);}
+
+.comment-namentime:hover > .edit-comment{opacity: 1;}
+
+.edit-comment{font-size: 11px;top: 0;right: 0;position: absolute; opacity: 0;}
+.edit-comment > i {cursor: pointer}
+
+
 /*BASIC STYLE*/
 
 #master_bg
@@ -8378,7 +8393,7 @@ to{
     -o-transition: all 0.5s ease;
 }
 
-.hover-opacity{opacity:.6}
+.hover-opacity{opacity:.6; cursor: pointer}
 .hover-opacity:hover{opacity:1}
 
 
@@ -9160,6 +9175,12 @@ div.album-description-bg{
     min-height: 0;
     overflow: hidden;
 }
+.masonry-object_text a{
+    color:#08C;
+    font-size:16px;
+}
+.masonry-object_text a:hover, .masonry-object_text a:focus{color:#005580;}
+
 
 .masonry-object_text-container{
     overflow: hidden;
@@ -9197,10 +9218,8 @@ div.album-description-bg{
 }
 
 .masonry-object_interact{
-    margin: 20px 0 0 0; /* was margin: 20px 0 10px 0; */
-    /* overflow:hidden; */
+    margin: 20px 0 0;
     border-top: 1px solid #e5e5e5;
-    /* border-bottom: 1px solid #e5e5e5; */
     -webkit-border-radius: 0 0 2px 2px;
     -o-border-radius: 0 0 2px 2px;
     -ms-border-radius: 0 0 2px 2px;
@@ -9564,7 +9583,10 @@ div.album-description-bg{
     font-weight: bold;
     display: block;
     unicode-bidi: normal;
+    color:#08c;
 }
+.poster-name:hover, .poster-name:focus{color:#005580;}
+
 
 .posttime{
     color: #aaa;
@@ -9963,6 +9985,7 @@ div.album-description-bg{
     overflow: hidden;
     vertical-align: top;
 }
+.comment-amount i{text-indent:.5em;}
 
 .addcommnetbox-container{
     /* padding: 0 0 20px 0; */
@@ -11238,6 +11261,8 @@ textarea.add-interests{
     cursor: pointer;
 }
 
+.your-relpy:hover .reply-comment{opacity: .8}
+
 .Message-Board_comment-item .masonry_addcommnetbox-container{width: 430px; margin-left: 20px;}
 
 
@@ -11337,7 +11362,7 @@ textarea.add-interests{
     top: -10px;
     right: -12px;
     cursor: pointer;
-
+    line-height: 20px;
     opacity: .6;
 }
 
@@ -11412,6 +11437,13 @@ textarea.add-interests{
 .selected-conversation > div {color: #fff !important;}
 
 .selected-conversation .comment-username, .selected-conversation .comment-content, .selected-conversation .icon-trash{color: #fff !important}
+
+
+#search_business{vertical-align: top;}
+
+
+
+
 
 
 /*STAR RATING STYLE*/
@@ -11492,7 +11524,6 @@ textarea.add-interests{
                             -moz-transition: all 0.5s ease;
                             -o-transition: all 0.5s ease;}
 
-.mCSB_container > div:hover .reply-comment{opacity: .8}
 
 .Message-Board_comment-container .profilepic-comment-container{ left: 6.5%; top: 18px;}
 .your-relpy_profilepic{
@@ -11523,7 +11554,7 @@ textarea.add-interests{
 }
 
 .reply-comment{
-    font-size: 13px;
+    font-size: 11px;
     position: absolute;
     right: 0;
     top: 0;
@@ -11531,7 +11562,7 @@ textarea.add-interests{
     opacity: 0;
 }
 
-.reply-comment > i{
+.reply-comment i{
     cursor: pointer;
 }
 
@@ -11650,7 +11681,7 @@ textarea.add-interests{
     width: 500px;
     height: 350px;
     margin: 0 auto; 
-    position: absolute; 
+    position: fixed; 
     top: 15%;
     left: 0;
     right: 0;
@@ -11837,6 +11868,13 @@ textarea.add-interests{
     background-image: -o-linear-gradient(top, #07b7ea , #02a6dc);
     background-image: linear-gradient(top, #07b7ea , #02a6dc);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#07b7ea', endColorstr='#02a6dc', GradientType=0);
+}
+.navbar > #version-no
+{
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    max-width:6.5%;
 }
 
 
@@ -12230,6 +12268,16 @@ div#forgot-password-container{
     opacity: 1
 }
 
+/* Clint Lewis's style's 29/10/13 */
+
+div#login_detail{
+    width:35px;
+    margin-right: 50px;
+    float:right;
+    cursor: pointer;
+    vertical-align: top;
+}
+
 
 
 .Notification-top{
@@ -12239,7 +12287,7 @@ div#forgot-password-container{
     border-radius: 5px;
     background-color: rgb(255, 255, 255);
     top: 45px;
-    right: 0px;
+    right: 40px;
     box-shadow: 0 0 10px #555;
 }
 
@@ -12267,6 +12315,8 @@ div#forgot-password-container{
 
 .Notification-top > div:first-child{border-radius: 3px 3px 0 0}
 .Notification-top > div:last-child{border-radius: 0 0 3px 3px}
+
+
 * {
     box-sizing: border-box;
     -moz-box-sizing: border-box;

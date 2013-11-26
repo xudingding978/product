@@ -120,37 +120,37 @@ class Categories extends CActiveRecord
                 public function selectCategory($id) {
                     $data_list = array();
                     $topic_list = array();
-                    $sql = "select 
-                                    CSN.*
+                    $sql = "select DISTINCT 
+                                    dbo.CategorySearchNames.*
                                 from 
-                                    dbo.ArticleImages as AI,
-                                    dbo.ArticleSubCategoryMaps as ASCM,
-                                    dbo.CategorySearchNames as CSN,
-                                    dbo.SubCategories as SC
+                                    dbo.ArticleImages,
+                                    dbo.ArticleSubCategoryMaps,
+                                    dbo.CategorySearchNames,
+                                    dbo.SubCategories 
                                 where
-                                    CSN.categoryId = SC.categoryId
+                                    dbo.CategorySearchNames.categoryId = dbo.SubCategories.categoryId
                                 AND
-                                    ASCM.subCategoryId=SC.id
+                                    dbo.ArticleSubCategoryMaps.subCategoryId=dbo.SubCategories.id
                                 AND
-                                    AI.articleId = ASCM.articleId
+                                    dbo.ArticleImages.articleId = dbo.ArticleSubCategoryMaps.articleId
                                 AND
-                                    AI.id = ".$id;
+                                    dbo.ArticleImages.id = ".$id;
                     try {
                         $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
                         
 //                        print_r("<pre>");
 //                        print_r($data_list);
-                        
+                        $category_list=array();
                         if(sizeof($data_list)>0) {
                             foreach($data_list as $val) {
-                                array_push($topic_list, $val['name']);                       
+                                array_push($category_list, $val['name']);                       
                             }
                         }
                     } catch (Exception $e) {
                         error_log("Cannot get topic infor: ".$e->getMessage());
                     }
                     
-                    return $topic_list;
+                    return $category_list;
                 }
                 
                 

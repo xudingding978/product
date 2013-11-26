@@ -7,8 +7,8 @@
 HubStar.MessageCenterRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         this.controllerFor('user').set('profileSelectionStatus', 'Messages');
-        this.controllerFor('user').set('collectionTag', false);
-
+        this.controllerFor('user').set('collectionTag', false); 
+        this.controllerFor('user').set('postTag', false);  //it is used to solve the problem of visit conversation from notificationTop,but show the posts
         this.controllerFor('user').set('followerTag', false);
         this.controllerFor('user').set('followingTag', false);
         this.controllerFor('user').set('messageTag', true);
@@ -18,34 +18,12 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
         var address = document.URL;
 
         var conversation_id = "";
-        if (this.controllerFor('notificationTop').get("goReply") === true)
-        {
-            model = localStorage.loginStatus;
-            var replyID = this.controllerFor('notificationTop').get("reply_ids");
-            model = replyID;
-            this.controllerFor('notificationTop').set("goReply", false);
-        }
+       
         if (this.controllerFor('notificationTop').get("notificationSeeAll") === true)
         {
             model = localStorage.loginStatus;
             this.controllerFor('notificationTop').set("notificationSeeAll", false);
-        }
-        if (this.controllerFor('notificationTop').get("goMessage") !== undefined && this.controllerFor('notificationTop').get("goMessage") !== null && this.controllerFor('notificationTop').get("goMessage") !== "")
-        {
-            model = localStorage.loginStatus;
-        }
-        if (this.controllerFor('notification').get("reply_ids") !== undefined && this.controllerFor('notification').get("reply_ids") !== null && this.controllerFor('notification').get("reply_ids") !== "")
-        {
-
-            model = this.controllerFor('notification').get("reply_ids");
-            //this.controllerFor('notification').set("reply_ids", "");
-        }
-        if (this.controllerFor('notificationTop').get("reply_ids") !== undefined && this.controllerFor('notificationTop').get("reply_ids") !== null && this.controllerFor('notificationTop').get("reply_ids") !== "")
-        {
-            model = this.controllerFor('notificationTop').get("reply_ids");
-            //this.controllerFor('notification').set("reply_ids", "");
-
-        }
+        }      
         if (this.controllerFor('notificationTop').get("goConversation") === true)
         {
 

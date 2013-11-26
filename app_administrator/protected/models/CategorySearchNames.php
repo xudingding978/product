@@ -91,4 +91,73 @@ class CategorySearchNames extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+        public function findCategoryNamebyCategoryId($categoryId){
+                   $data_list = array();
+                   
+                    $sql = "select dbo.CategorySearchNames.*
+                         from
+                        dbo.CategorySearchNames
+                        where 
+                        dbo.CategorySearchNames.categoryId= ".$categoryId;
+                    try {
+                        $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
+
+                        if(sizeof($data_list)>0){
+                            foreach($data_list as $list){
+                                $category_str .= $list['name'] .", ";
+                               
+                            }
+                             $category_str= substr($category_str, 0,  -2);
+
+                        } 
+
+                            }
+
+                            
+                            
+                            
+                        
+                     catch (Exception $e) {
+                        error_log("Cannot get creditlist infor: ".$e->getMessage());
+                    }
+                    
+                    return $category_str;
+            
+        }
+        
+        public function findCategoryNamebySubCategoryId($subCategoryId){
+                   $data_list = array();
+                   
+                    $sql = "select dbo.CategorySearchNames.* from dbo.CategorySearchNames, dbo.SubCategories
+                    where dbo.CategorySearchNames.categoryId = dbo.SubCategories.categoryId
+                    and 
+                    dbo.SubCategories.id= ".$subCategoryId;
+                    try {
+                        $data_list = Yii::app() ->db->createCommand($sql)->queryAll(); 
+
+                        if(sizeof($data_list)>0){
+                            foreach($data_list as $list){
+                                $category_str .= $list['name'] .", ";
+                               
+                            }
+                             $category_str= substr($category_str, 0,  -2);
+
+                        } 
+
+                            }
+
+                            
+                            
+                            
+                        
+                     catch (Exception $e) {
+                        error_log("Cannot get creditlist infor: ".$e->getMessage());
+                    }
+                    
+                    return $category_str;
+            
+        }
+        
+        
 }

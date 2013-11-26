@@ -13,6 +13,7 @@ HubStar.UserController = Ember.Controller.extend({
     followerTag: false,
     followingTag: false,
     messageTag: false,
+    postTag: false,
     newDesc: '',
     newTitle: '',
     selectedDesc: "",
@@ -257,6 +258,8 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('collectionTag', true);
         this.set('followerTag', false);
         this.set('messageTag', false);
+         this.set('postTag', false);
+        
         this.labelBarRefresh();
 
     },
@@ -718,7 +721,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     deleteSelectedCollection: function()
     {
-        var message = "Do you wish to delete " + this.get("selectedCollection").get('id') + " ?";
+        var message = "Deleting '" + this.get("selectedCollection").get('title') + "' will also delete the contents within this collection. Are you sure you want to delete '" + this.get("selectedCollection").get('title') + "'?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {
@@ -805,9 +808,13 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('followingTag', false);
         this.set('collectionTag', true);
         this.set('followerTag', false);
+
+this.set('postTag', false);
+
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
+
 
         this.set('messageTag', false);
         this.transitionToRoute('userCollections');
@@ -820,6 +827,9 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('followingTag', true);
         this.set('collectionTag', false);
         this.set('followerTag', false);
+
+this.set('postTag', false);
+
         this.set('messageTag', false);
 
         this.transitionToRoute('following', model);
@@ -837,6 +847,9 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', true);
+
+this.set('postTag', false);
+
         this.set('messageTag', false);
         this.transitionToRoute('followers');
         setTimeout(function() {
@@ -849,9 +862,24 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('collectionTag', false);
         this.set('followerTag', false);
         this.set('messageTag', true);
-
+        this.set('postTag', false);
 
         this.transitionToRoute('messageCenter');
+
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+        }, 200);
+
+    },
+     selectPost: function(model) {
+        this.set('profileSelectionStatus', 'Posts');
+        this.set('followingTag', false);
+        this.set('collectionTag', false);
+        this.set('followerTag', false);
+        this.set('messageTag', false);
+         this.set('postTag', true);
+
+        this.transitionToRoute('userPost');
 
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");

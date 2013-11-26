@@ -7,8 +7,8 @@
 HubStar.MessageCenterRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         this.controllerFor('user').set('profileSelectionStatus', 'Messages');
-        this.controllerFor('user').set('collectionTag', false);
-        this.controllerFor('user').set('postTag', false);  
+        this.controllerFor('user').set('collectionTag', false); 
+        this.controllerFor('user').set('postTag', false);  //it is used to solve the problem of visit conversation from notificationTop,but show the posts
         this.controllerFor('user').set('followerTag', false);
         this.controllerFor('user').set('followingTag', false);
         this.controllerFor('user').set('messageTag', true);

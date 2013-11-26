@@ -872,7 +872,7 @@ this.set('postTag', false);
 
     },
      selectPost: function(model) {
-        this.set('profileSelectionStatus', 'Post');
+        this.set('profileSelectionStatus', 'Posts');
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', false);

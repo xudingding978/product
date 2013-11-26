@@ -1,7 +1,7 @@
 (function() {
 
 var HubStar = window.HubStar = Ember.Application.createWithMixins({
-    LOG_TRANSITIONS: false,
+    LOG_TRANSITIONS: true,
     LOG_BINDINGS: false,
     ready: function() {
         HubStar.set("isLogin", false);
@@ -1509,8 +1509,8 @@ HubStar.IndexRoute = Ember.Route.extend({
 HubStar.MessageCenterRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         this.controllerFor('user').set('profileSelectionStatus', 'Messages');
-        this.controllerFor('user').set('collectionTag', false);
-        this.controllerFor('user').set('postTag', false);  
+        this.controllerFor('user').set('collectionTag', false); 
+        this.controllerFor('user').set('postTag', false);  //it is used to solve the problem of visit conversation from notificationTop,but show the posts
         this.controllerFor('user').set('followerTag', false);
         this.controllerFor('user').set('followingTag', false);
         this.controllerFor('user').set('messageTag', true);
@@ -2425,11 +2425,18 @@ HubStar.SearchsRoute = Ember.Route.extend({
         }
         this.controllerFor('searchs').defaultSearch();
         this.controllerFor('index').setLogin();
-
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('status').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
+
+//        var testObject = {'one': 1, 'two': 2, 'three': 3};
+//// Put the object into storage
+//        localStorage.setItem('testObject', JSON.stringify(testObject));
+//        var item = JSON.parse(localStorage.testObject);
+//        for (var key in item) {
+//            console.log(item[key]);
+//        }
         localStorage.checkUser = "";
 
     },
@@ -2684,7 +2691,7 @@ HubStar.UserPhotoRoute = Ember.Route.extend({
 HubStar.UserPostRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         
-        this.controllerFor('user').set('profileSelectionStatus', 'Post');
+        this.controllerFor('user').set('profileSelectionStatus', 'Posts');
         this.controllerFor('user').set('collectionTag', false);
 
         this.controllerFor('user').set('followerTag', false);
@@ -3408,6 +3415,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeURL: "",
     iframeLoginURL: "",
     isWaiting: "",
+    loginTime: false,
     isGeoDropdown: false,
     adPageNo: 0,
     googletagCmd: null,
@@ -3416,6 +3424,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     init: function() {
         this.defaultSearch();
         this.set('search_string', '');
+        this.set('loginUsername', localStorage.userName);
     },
     dropdownPhotoSetting: function() {
         this.set("isNotification", !this.get("isNotification"));
@@ -3553,7 +3562,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 var megasResults = stat.get("megas");
                 HubStar.set('itemNumber', megasResults.get("length"));
                 that.setContent(megasResults);
-                that.set('isWaiting', false);
+                // that.set('isWaiting', false);
                 that.set('loadingTime', false);
                 this.set("from", this.get("size"));
                 var d = new Date();
@@ -3631,7 +3640,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
     },
     done: function() {
-        this.set('isWaiting', true);
+        //   this.set('isWaiting', true);
+        this.set('loginTime', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;
         requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
@@ -3649,7 +3659,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 that.set('region', "");
                 that.set('gender', "");
                 that.set('age', "");
-                that.set('isWaiting', false);
+                //  that.set('isWaiting', false);
+                that.set('loginTime', false);
             }, 2000);
         });
     },
@@ -3734,7 +3745,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {
-            this.set('isWaiting', true);
+            //   this.set('isWaiting', true);
+            this.set('loginTime', true);
             document.getElementById("loginUsername").setAttribute("class", "login-textfield");
             document.getElementById("loginPassword").setAttribute("class", "login-textfield");
             var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
@@ -3742,14 +3754,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             requiredBackEnd('login', 'login', loginInfo, 'POST', function(params) {
                 if (params === 1) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-                    that.set('isWaiting', false);
+                    //  that.set('isWaiting', false);
+                    this.set('loginTime', false);
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                 }// INVALID user name when the user attempts to login.
                 else if (params === 0) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-                    that.set('isWaiting', false);
+//                    that.set('isWaiting', false);
+                    that.set('loginTime', false);
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is a social network login account
@@ -3757,15 +3771,19 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
                     if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
                         localStorage.loginStatus = params.COUCHBASE_ID;
+                        localStorage.userName = params.USER_NAME;
+                        localStorage.userType = "email";
                         HubStar.set("isLogin", true);
                         that.transitionToRoute('searchIndex');
-                        that.set('loginUsername', "");
+                        //  that.set('loginUsername', "");
                         that.set('loginPassword', "");
-                        that.set('isWaiting', false);
+//                        that.set('isWaiting', false);
+                        that.set('loginTime', false);
                     }
                     else {
                         document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
-                        that.set('isWaiting', false);
+//                        that.set('isWaiting', false);
+                         that.set('loginTime', false);
                         if ($('#incorrect-password').css('display') === 'none') {
 
                             $('.black-tool-tip').stop();
@@ -3941,11 +3959,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('adPageNo', increaseby0ne);
         return pageNo;
     },
-    backToDefault: function() {        
+    backToDefault: function() {
         this.defaultSearch();
         this.set('search_string', '');
         this.transitionToRoute('searchIndex');
-        
+
     },
     clearSearch: function() {
         this.set('search_string', '');
@@ -4109,9 +4127,12 @@ HubStar.ArticleController = Ember.Controller.extend({
     captionTitle: "",
     readCaption: true,
     caption: '',
+
+    makeSureDelete: false,
+    willDelete: false,
+    checkLoginStatus:false,
     searchFromRoute: false,
     collectionArticleId: null,
-    checkLoginStatus: false,
     accessFromSearchBoard: false,
     isCreditListExist: false,
     needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment'],
@@ -4258,7 +4279,27 @@ HubStar.ArticleController = Ember.Controller.extend({
             $('#commentBox').attr('style', 'display:none');
         }
     },
-    removeComment: function(object)
+   removeComment: function(object)
+    {
+        var message = "Do you want to delete this comment?";
+        this.set("message", message);
+        this.set('makeSureDelete', true);
+        if (this.get('willDelete')) {
+            this.removeCommentItem(object);
+            this.cancelDelete();
+        } else {
+            this.set("obj", object);
+            this.set('willDelete', true);
+        }       
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelDelete: function() {
+        this.set('willDelete', false);
+        this.set('makeSureDelete', false);
+    },
+     removeCommentItem: function(object)
     {
         var id = this.get('article').get("id");
         var message_id = object.get("message_id");
@@ -4649,6 +4690,8 @@ HubStar.CommentController = Ember.Controller.extend({
     mega: null,
     count: null,
     isUserSelf: false,
+    makeSureDelete: false,
+    willDelete: false,
     objID: "",
     needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus'],
     init: function()
@@ -4704,7 +4747,7 @@ HubStar.CommentController = Ember.Controller.extend({
             var comments = this.get('mega').get('comments');
 
 //            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
-            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus +'/user_picture/user_picture';
+            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
@@ -4724,15 +4767,15 @@ HubStar.CommentController = Ember.Controller.extend({
             }, 200);
         }
     },
-    closeComment: function(id) {    
-        this.set("commentContent","");
+    closeComment: function(id) {
+        this.set("commentContent", "");
         $('#comment_' + id).attr('style', 'display:block');
         $('#commentBox_' + id).attr('style', 'display:none');
         $('#masonry_container').masonry("reload");
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
         }, 200);
-    },        
+    },
     editingCommentData: function(obj)
     {
         this.get("controllers.editComment").setRelatedController("comment");
@@ -4782,9 +4825,28 @@ HubStar.CommentController = Ember.Controller.extend({
             $('#masonry_container').masonry("reload");
             $('#masonry_user_container').masonry("reload");
         }, 200);
-
     },
     removeComment: function(object)
+    {
+        var message = "Do you want to delete this comment?";
+        this.set("message", message);
+        this.set('makeSureDelete', true);
+        if (this.get('willDelete')) {
+            this.removeCommentItem(object);
+            this.cancelDelete();
+        } else {
+            this.set("obj", object);
+            this.set('willDelete', true);
+        }       
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelDelete: function() {
+        this.set('willDelete', false);
+        this.set('makeSureDelete', false);
+    },
+    removeCommentItem: function(object)
     {
 
         var id = this.get('content').id;
@@ -5584,6 +5646,8 @@ HubStar.ConversationController = Ember.Controller.extend({
     commenter_photo_url: null,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem'],
     isUploadPhoto: false,
+    makeSureDelete:false,
+    willDelete:false,
     isNewConversation: false,
     init: function()
     {
@@ -5615,10 +5679,31 @@ HubStar.ConversationController = Ember.Controller.extend({
             }, 50);
             if (this.get("isNewConversation") === false)
             {
-            this.get('controllers.messageCenter').selectConversationItem(id);
-            this.get('controllers.conversationItem').getClientId(id);
+                this.get('controllers.messageCenter').selectConversationItem(id);
+                this.get('controllers.conversationItem').getClientId(id);
+            }
         }
+    },
+    removeConversationItem: function(s)
+    {
+        var message = "Are you sure you want to delete this conversation?";
+        this.set("message", message);
+
+        this.set('makeSureDelete', true);
+        if (this.get('willDelete') === true) {
+            this.deleteConversationItem(s);
+            this.cancelDelete();
+        } else {
+            this.set("s", s);
+            this.set('willDelete', true);
         }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelDelete: function() {
+        this.set('willDelete', false);
+        this.set('makeSureDelete', false);
     },
     deleteConversationItem: function(id)
     {
@@ -7513,8 +7598,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
     selectPhoto: false,
     parentControler: null,
     accessFromProfile: false,
+    is_article_video: true,
     sharePhotoUrl: '',
     sharePhotoName: '',
+    makeSureDelete: false,
+    willDelete: false,
     init: function()
     {
 
@@ -7529,7 +7617,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
         return 0;
     },
     previesImage: function() {
-        console.log(this.get("model"));
         if (!this.get('selectedPhoto')) {
             this.set('selectedPhoto', this.get('content').get('lastObject'));
 
@@ -7578,17 +7665,23 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     getInitData: function(megaObject) {
         if (megaObject.get("isLoaded")) {
-
+            this.set("is_article_video", true);
             if (megaObject.get("type") === 'article')
             {
                 var photoUrl = megaObject.get("article").objectAt(0).get("article_image_url");
                 var photoObj = megaObject.set('photo_image_original_url', photoUrl);
+                photoObj.set("photo_title", megaObject.get("article").objectAt(0).get("article_headline"));
+                photoObj.set("photo_caption", megaObject.get("article").objectAt(0).get("article_credits_text"));
+                this.set("is_article_video", false);
                 photoObj.set("photo_image_thumbnail_url", photoUrl);
             }
             else if (megaObject.get("type") === 'video')
             {
                 var photoUrl = megaObject.get("videoes").objectAt(0).get("videoImg");
                 var photoObj = megaObject.set('photo_image_original_url', photoUrl);
+                photoObj.set("photo_title", megaObject.get("videoes").objectAt(0).get("videoTitle"));
+                photoObj.set("photo_caption", megaObject.get("videoes").objectAt(0).get("videoDesc"));
+                this.set("is_article_video", false);
                 photoObj.set("photo_image_thumbnail_url", photoUrl);
             }
             else
@@ -7630,7 +7723,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     addRelatedCollectionItemData: function(mega)
     {
-
         var collection_id = mega.get("collection_id");
         var owner_profile_id = mega.get("owner_id");
 
@@ -7658,22 +7750,31 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     else if (photoContent.objectAt(i).get("type") === "article")
                     {
                         var id = photoContent.objectAt(i).get("id");
+
                         if (this.get("content").objectAt(0).get('id') !== id)
                         {
                             var photoUrl = photoContent.objectAt(i).get("article").objectAt(0).get("article_image_url");
+                            photoContent.objectAt(i).set("photo_title", photoContent.objectAt(i).get("article").objectAt(0).get("article_headline"));
+                            photoContent.objectAt(i).set("photo_caption", photoContent.objectAt(i).get("article").objectAt(0).get("article_credits_text"));
                             photoContent.objectAt(i).set("photo_image_original_url", photoUrl);
                             photoContent.objectAt(i).set("photo_image_thumbnail_url", photoUrl);
+
                             this.get("content").pushObject(photoContent.objectAt(i));
                         }
                     }
                     else if (photoContent.objectAt(i).get("type") === "video")
                     {
+
                         var id = photoContent.objectAt(i).get("id");
                         if (this.get("content").objectAt(0).get('id') !== id)
                         {
                             var photoUrl = photoContent.objectAt(i).get("videoes").objectAt(0).get("videoImg");
+                            var object_title = photoContent.objectAt(i).get("videoes").objectAt(0).get("videoTitle");
+                            var photo_caption = photoContent.objectAt(i).get("videoes").objectAt(0).get("videoDesc");
                             photoContent.objectAt(i).set("photo_image_original_url", photoUrl);
                             photoContent.objectAt(i).set("photo_image_thumbnail_url", photoUrl);
+                            photoContent.objectAt(i).set("photo_title", object_title);
+                            photoContent.objectAt(i).set("photo_caption", photo_caption);
                             this.get("content").pushObject(photoContent.objectAt(i));
                         }
                     }
@@ -7857,7 +7958,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
         }
         this.set("selectPhoto", false);
-        if ( this.get('controllers.masonryCollectionItems') === "profile")
+        if (this.get('controllers.masonryCollectionItems') === "profile")
         {
             this.transitionTo("indexIndex"); //search page
         }
@@ -7896,7 +7997,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         if (commentContent) {
             var comments = this.get('megaResouce').get('comments');
 //            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
-            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus +'/user_picture/user_picture';
+            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
@@ -7913,6 +8014,26 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     removeComment: function(object)
     {
+        var message = "Do you want to delete this comment?";
+        this.set("message", message);
+        this.set('makeSureDelete', true);
+        if (this.get('willDelete')) {
+            this.removeCommentItem(object);
+            this.cancelDelete();
+        } else {
+            this.set("obj", object);
+            this.set('willDelete', true);
+        }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelDelete: function() {
+        this.set('willDelete', false);
+        this.set('makeSureDelete', false);
+    },
+    removeCommentItem: function(object)
+    {
         var id = this.get('megaResouce').get("id");
         var message_id = object.get("message_id");
         var delInfo = [id, message_id];
@@ -7923,7 +8044,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         requiredBackEnd('comments', 'DeletePhotoComment', delInfo, 'POST', function(params) {
         });
     },
-    updateComment: function(object) {
+            updateComment: function(object) {
         this.get("controllers.editComment").setRelatedController("mega");
         var comments = this.get('megaResouce').get('comments');
         for (var i = 0; i < comments.get("length"); i++)
@@ -8316,6 +8437,9 @@ HubStar.MessageController = Ember.Controller.extend({
     isUserself: false,
     isUploadPhoto: false,
     isReply: true,
+    makeSureDelete:false,
+    isMessage:false,
+    willDelete:false,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -8335,7 +8459,7 @@ HubStar.MessageController = Ember.Controller.extend({
 
         this.set("isEdit", true);
     },
-   removePic: function() {
+    removePic: function() {
         this.set('newStyleImageSource', null);
         this.set('newStyleImageName', "");
         this.set("isUploadPhoto", false);
@@ -8349,7 +8473,7 @@ HubStar.MessageController = Ember.Controller.extend({
 
         for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
         {
-            
+
             var enableEdit = this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("enableToEdit");
             if (enableEdit === true)
             {
@@ -8367,6 +8491,17 @@ HubStar.MessageController = Ember.Controller.extend({
                 if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
                 {
                     messageId.set("enableToEdit", false);
+                    var s = '#message_' + id;
+                    var thatthat = this;
+                    setTimeout(function() {
+                        var old = thatthat.get("controllers.userMessage").get("oldPost");
+                        console.log(old);
+                        console.log(s);
+                        $(old).removeClass("post-focus");
+
+                        $(s).addClass("post-focus");
+                        thatthat.get("controllers.userMessage").set("oldPost", s);
+                    }, 200);
                     this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("enableToEdit", true);
 
                     break;
@@ -8379,16 +8514,26 @@ HubStar.MessageController = Ember.Controller.extend({
             {
                 if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
                 {
-                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("enableToEdit", true);
+                    var s = '#message_' + id;
+                    var thatthat = this;
+                    setTimeout(function() {
+                        var old = thatthat.get("controllers.userMessage").get("oldPost");
+                        console.log(old);
+                        console.log(s);
+                        $(old).removeClass("post-focus");
 
+                        $(s).addClass("post-focus");
+                        thatthat.get("controllers.userMessage").set("oldPost", s);
+                    }, 200);
+                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("enableToEdit", true);
                     break;
                 }
             }
         }
         HubStar.set('message', msg);
         setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");
-            }, 200);
+            $('#masonry_user_container').masonry("reloadItems");
+        }, 200);
     },
     editingReplyData: function(id, msg) {
         var enableEditReply = 0;
@@ -8413,7 +8558,15 @@ HubStar.MessageController = Ember.Controller.extend({
                 for (var j = 0; j < this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
                     if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
                     {
-                        
+                        var s = '#message_' + this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id");
+                        var thatthat = this;
+                        setTimeout(function() {
+                            var old = thatthat.get("controllers.userMessage").get("oldPost");
+                            $(old).removeClass("post-focus");
+
+                            $(s).addClass("post-focus");
+                            thatthat.get("controllers.userMessage").set("oldPost", s);
+                        }, 200);
                         reply_id.set("enableToEdit", false);
                         this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("enableToEdit", true);
                         this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyEdit", false);
@@ -8428,6 +8581,15 @@ HubStar.MessageController = Ember.Controller.extend({
                 for (var j = 0; j < this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
                     if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
                     {
+                        var s = '#message_' + this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id");
+                        var thatthat = this;
+                        setTimeout(function() {
+                            var old = thatthat.get("controllers.userMessage").get("oldPost");
+                            $(old).removeClass("post-focus");
+
+                            $(s).addClass("post-focus");
+                            thatthat.get("controllers.userMessage").set("oldPost", s);
+                        }, 200);
                         this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("enableToEdit", true);
                         this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyEdit", false);
                         break;
@@ -8438,8 +8600,8 @@ HubStar.MessageController = Ember.Controller.extend({
 
         HubStar.set('reply', msg);
         setTimeout(function() {
-                $('#masonry_user_container').masonry("reload");
-            }, 200);
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
     },
 //    removePic: function(id) {
 //        this.set('newStyleImageSource', null);
@@ -8447,6 +8609,28 @@ HubStar.MessageController = Ember.Controller.extend({
 //
 //        this.set("isUploadPhoto", false);
 //    },
+    removeReplyItem: function(s)
+    {
+        var message = "Are you sure you want to delete this notification?";
+        this.set("message", message);
+
+        this.set('makeSureDelete', true); 
+         this.set('isMessage', true);
+        if (this.get('willDelete') === true) {
+            this.removeReply(s);
+            this.cancelDelete();
+        } else {
+            this.set("s", s);
+            this.set('willDelete', true);
+        }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelDelete: function() {
+        this.set('willDelete', false);
+        this.set('makeSureDelete', false);
+    },
     removeReply: function(reply_id)
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -8596,6 +8780,15 @@ HubStar.MessageController = Ember.Controller.extend({
                         dataNew["isUrl"] = false;
                     }
 
+                    var thatthat = that;
+                    var s = '#message_' + params["message_id"];
+                    setTimeout(function() {
+                        var old = thatthat.get("controllers.userMessage").get("oldPost");
+                        $(old).removeClass("post-focus");
+
+                        $(s).addClass("post-focus");
+                        thatthat.get("controllers.userMessage").set("oldPost", s);
+                    }, 200);
 
                     if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection") !== undefined)
                     {
@@ -8603,9 +8796,6 @@ HubStar.MessageController = Ember.Controller.extend({
                     }
                     else
                     {
-                        //   that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").pushObject(dataNew);
-//                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", null);
-                        //  that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", new Array());
                         that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", dataNew);
                     }
                     dataNew["replyMessageCollection"] = new Array();
@@ -8653,13 +8843,13 @@ HubStar.MessageController = Ember.Controller.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 50);
-        
+
     },
     closeMore: function(id) {
         $('#closeComment_' + id).attr('style', 'display:none;cursor: pointer');
         $('#showMoreComment_' + id).attr('style', 'display:inline-block;cursor: pointer');
         $('#messageData_' + id).attr('style', 'display: none');
-         setTimeout(function() {
+        setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 50);
     }
@@ -8913,7 +9103,7 @@ HubStar.NotificationController = Ember.Controller.extend({
         var displayString = '';
         if (type === "follow")
         {
-            displayString = " has followed you";
+            displayString = " is now follwoing you";
         }
         else if (type === "unFollow")
         {
@@ -8921,15 +9111,15 @@ HubStar.NotificationController = Ember.Controller.extend({
         }
         else if (type === "conversation")
         {
-            displayString = " has say something in this conversation";
+            displayString = " sent you a message";
         }
         else if (type === "addMessage")
         {
-            displayString = " has leave a message for you";
+            displayString = " sent you a message";
         }
         else if (type === "addReply")
         {
-            displayString = " has reply you in this message";
+            displayString = " sent you a message";
         }
         return displayString;
     },
@@ -9213,6 +9403,8 @@ HubStar.NotificationController = Ember.Controller.extend({
 HubStar.NotificationTopController = Ember.Controller.extend({
     notificationTopContent: null,
     commenter_photo_url: null,
+    makeSureDelete: false,
+    willDelete:false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'application', 'notification', 'userMessage', 'application'],
     isUploadPhoto: false,
     init: function()
@@ -9249,7 +9441,29 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             that.unReadCount();
         });
     },
+    removeNotificationItem: function(s)
+    {
+        var message = "Are you sure you want to delete this notification?";
+        this.set("message", message);
+        
+        this.set('makeSureDelete', true);
+        if (this.get('willDelete')===true) {
+            this.deleteNotification(s);
+            this.cancelDelete();
+        } else {
+            this.set("s",s);
+            this.set('willDelete', true);
+        }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelDelete: function() {
+        this.set('willDelete', false);
+        this.set('makeSureDelete', false);
+    },
     deleteNotification: function(id) {
+     
         var tempComment = [localStorage.loginStatus, id];
         tempComment = JSON.stringify(tempComment);
         var that = this;
@@ -9274,8 +9488,8 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     {
         var user = HubStar.User.find(localStorage.loginStatus);
         this.transitionToRoute('user', user);
-       this.set("notificationSeeAll", true);
-       this.transitionToRoute('messageCenter');
+        this.set("notificationSeeAll", true);
+        this.transitionToRoute('messageCenter');
         this.transitionToRoute("notifications");
         this.reviewCancel();
     },
@@ -9436,7 +9650,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         this.reviewCancel();
     },
     gotoMessage: function(id)
-    {       
+    {
         this.set("goMessage", '#message_' + id);
 
         var address = document.URL;
@@ -9464,7 +9678,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         this.set("goReply", false);
         if (localStorage.loginStatus !== reply[2]) {
             var that = this;
-           
+
             if (user.get('isLoaded')) {
                 this.set("goMessage", '#message_' + reply[1]);
                 this.transitionToRoute('userPost');
@@ -10450,7 +10664,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     deleteSelectedCollection: function()
     {
-        var message = "You will delete every photos in this collection when you delete this collection. Are you sure to delete " + this.get("selectedCollection").get('title') + " ?";
+        var message = "Deleting '" + this.get("selectedCollection").get('title') + "' will also delete the contents within this collection. Are you sure you want to delete '" + this.get("selectedCollection").get('title') + "'?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {
@@ -12218,7 +12432,7 @@ HubStar. SearchController = Ember.ObjectController.extend({
 (function() {
 
 HubStar.SearchsController = Ember.ArrayController.extend({
-    needs: ['application', 'status', 'platformBar'],
+    needs: ['application', 'status', 'platformBar','user'],
     loginInfo: "",
     content: [],
     search_string: "",
@@ -12237,6 +12451,7 @@ HubStar.SearchsController = Ember.ArrayController.extend({
 
 
     },
+        
     defaultSearch: function() {    
         this.set("loginInfo", localStorage.loginStatus);
         this.setLoginImge();
@@ -12720,9 +12935,12 @@ HubStar.UserController = Ember.Controller.extend({
 
         }
     },
+            
+            getIdentifier:function(){
+        
+            },
     setUser: function()
     {
-
         var user = this.get('model');
         this.setIntersetsArr(user);
         this.set("user", user);
@@ -13257,7 +13475,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     deleteSelectedCollection: function()
     {
-        var message = "Deleting '" + this.get("selectedCollection").get('id') + "' will also delete the contents within this collection.\n\rAre you sure you want to delete '" + this.get("selectedCollection").get('id') + "'?";
+        var message = "Deleting '" + this.get("selectedCollection").get('title') + "' will also delete the contents within this collection. Are you sure you want to delete '" + this.get("selectedCollection").get('title') + "'?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {
@@ -13408,7 +13626,7 @@ this.set('postTag', false);
 
     },
      selectPost: function(model) {
-        this.set('profileSelectionStatus', 'Post');
+        this.set('profileSelectionStatus', 'Posts');
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', false);
@@ -14467,6 +14685,9 @@ HubStar.UserMessageController = Ember.Controller.extend({
     isUploadPhoto: false,
     isEdit: true,
     isPosting: true,
+    makeSureDelete:false,
+    isUserMessage:false,
+    willDelete:false,
     oldPost: "",
     init: function()
     {
@@ -14560,7 +14781,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                     dataNew["replyMessageCollection"][j] = dataReply;
                 }
                 that.get("contentMsg").pushObject(dataNew);
-            
+
 
                 dataNew = new Array();
             }
@@ -14611,7 +14832,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 var old = that.get("oldPost");
                 $(old).removeClass("post-focus");
                 $(s).addClass("post-focus");
-                console.log(s);
                 that.set("oldPost", s);
                 if (that.get("controllers.notificationTop").get("reply_ids") !== undefined && that.get("controllers.notificationTop").get("reply_ids") !== null && that.get("controllers.notificationTop").get("reply_ids") !== "")
                 {
@@ -14627,6 +14847,27 @@ HubStar.UserMessageController = Ember.Controller.extend({
         });
     }
     ,
+    removeMessageItem: function(s)
+    {
+        var message = "Are you sure you want to delete this notification?";
+        this.set("message", message);
+        this.set('makeSureDelete', true);
+        this.set('isUserMessage',true);
+        if (this.get('willDelete') === true) {
+            this.removeMessage(s);
+            this.cancelDelete();
+        } else {
+            this.set("s", s);        
+            this.set('willDelete', true);
+        }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelDelete: function() {
+        this.set('willDelete', false);
+        this.set('makeSureDelete', false);
+    },
     removeMessage: function(Message_id)
     {
 
@@ -14746,7 +14987,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 setTimeout(function() {
                     var old = thatthat.get("oldPost");
                     $(old).removeClass("post-focus");
-                    console.log(s);
+                   
                     $(s).addClass("post-focus");
                     thatthat.set("oldPost", s);
                 }, 200);
@@ -15338,7 +15579,7 @@ HubStar.BeforeLoginView = Ember.View.extend({
 
         }
     }
-})
+});
 
 })();
 
@@ -15521,13 +15762,12 @@ HubStar.DeleteFunctionView = Ember.View.extend({
     },
     deleteSelection: function() {
         var controller = this.get('controller');
-
         if (controller._debugContainerKey.indexOf("addCollection") !== -1)
         {
             //     controller.addNewCollection();
         }
         else if (controller._debugContainerKey.indexOf("profileVideos") !== -1) {
-          
+
             controller.deleteConfirm();
         }
         else if (controller._debugContainerKey.indexOf("application") !== -1)
@@ -15536,15 +15776,29 @@ HubStar.DeleteFunctionView = Ember.View.extend({
             //       controller.newSearch();
         }
         else if (controller._debugContainerKey.indexOf("mega") !== -1) {
+            var obj = controller.get("obj");
 
+            controller.removeComment(obj);
 
-            //    controller.addComment();
+        }
+        else if (controller._debugContainerKey.indexOf("article") !== -1) {
+            var obj = controller.get("obj");
 
-        } else if (controller._debugContainerKey.indexOf("user") !== -1) {
+            controller.removeComment(obj);
 
+        }
+
+        else if (controller._debugContainerKey.indexOf("Message") !== -1 &&controller._debugContainerKey.indexOf("user")!==-1) { //userMessage must be before user
+            var s = controller.get("s");
+            controller.removeMessageItem(s);
+        }
+        else if (controller._debugContainerKey.indexOf("message") !== -1) { //userMessage must be before user
+            var s = controller.get("s");
+            controller.removeReplyItem(s);
+        }
+        else if (controller._debugContainerKey.indexOf("user") !== -1) {
 
             controller.deleteSelectedCollection();
-
         }
         else if (controller._debugContainerKey.indexOf("profilePartners") !== -1) {
 
@@ -15559,8 +15813,9 @@ HubStar.DeleteFunctionView = Ember.View.extend({
 
         else if (controller._debugContainerKey.indexOf("comment") !== -1) {
 
+            var obj = controller.get("obj");
 
-            controller.deleteComment();
+            controller.removeComment(obj);
 
         }
 
@@ -15570,7 +15825,18 @@ HubStar.DeleteFunctionView = Ember.View.extend({
             controller.removeCollectedItem();
 
         }
+        else if (controller._debugContainerKey.indexOf("notificationTop") !== -1) {
 
+            var s = controller.get("s");
+            controller.removeNotificationItem(s);
+
+        }
+        else if (controller._debugContainerKey.indexOf("conversation") !== -1) {
+
+            var s = controller.get("s");
+            controller.removeConversationItem(s);
+
+        }
         else {
             console.log("this is a deleete");
         }
@@ -15591,7 +15857,23 @@ HubStar.DeleteFunctionView = Ember.View.extend({
 
             //    controller.addComment();
 
-        } else if (controller._debugContainerKey.indexOf("user") !== -1) {
+        }
+        else if (controller._debugContainerKey.indexOf("user") !== -1&&controller._debugContainerKey.indexOf("Message") !== -1) {
+
+            var s = this.$().parents()[0].id.split("_")[1];
+            controller.cancelDelete();
+
+        }
+        else if (controller._debugContainerKey.indexOf("message") !== -1) {
+
+            var s = this.$().parents()[0].id.split("_")[1];
+            controller.cancelDelete();
+        }
+        else if (controller._debugContainerKey.indexOf("article") !== -1) {
+            controller.cancelDelete();
+
+        }
+        else if (controller._debugContainerKey.indexOf("user") !== -1) {
 
 
             controller.cancelDelete();
@@ -15621,7 +15903,18 @@ HubStar.DeleteFunctionView = Ember.View.extend({
             controller.cancelDelete();
 
         }
+        else if (controller._debugContainerKey.indexOf("notificationTop") !== -1) {
 
+            var s = this.$().parents()[0].id.split("_")[1];
+            controller.cancelDelete();
+
+        }
+        else if (controller._debugContainerKey.indexOf("conversation") !== -1) {
+
+            var s = this.$().parents()[0].id.split("_")[1];
+            controller.cancelDelete();
+
+        }
 
         else {
 
@@ -16279,7 +16572,10 @@ HubStar.LoadingSpinnerView = Ember.View.extend({
 (function() {
 
 HubStar.LoginEnterKeyTextFieldView = Ember.TextField.extend({
-
+  didInsertElement: function() {
+      
+    this.$().focus();
+  },
        
    keyDown: function(event) {
     if (event.keyCode === 13) { 
@@ -16297,11 +16593,10 @@ HubStar.LoginEnterKeyTextFieldView = Ember.TextField.extend({
 HubStar.LoginModalView = Ember.View.extend({
     templateName: 'loginModal',
     didInsertElement: function() {
-
-        $("#loginModal").on("click", function() {
-            HubStar.set('checkLoginStatus', false);
-
-        });
+//        $("#loginModal").on("click", function() {
+//            HubStar.set('checkLoginStatus', false);
+//
+//        });
 
     }
 

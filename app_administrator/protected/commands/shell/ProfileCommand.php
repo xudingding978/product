@@ -29,6 +29,8 @@ class ProfileCommand extends Controller_admin {
             $this->correctCollectionDescription();
         }elseif ($action == 'test') {
             $this->profileChangeId();
+        }elseif($action == 'compare'){
+            $this->compareProfiles();
         }
         else {
             echo "please input an action!!";
@@ -573,6 +575,29 @@ class ProfileCommand extends Controller_admin {
         echo "over";
     }
 
+    public function compareProfiles(){
+        $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = "/var/log/yii/$start_time.log";
+        $production_arr=$this->findProfiles('production');
+        $develop_arr=$this->findProfiles('develop');
+        $test_arr=$this->findProfiles('test');
+        $result_production=  array_diff($production_arr, $test_arr);
+        $message="These profiles are exists in production but not in test\n\n".var_export($result_production, TRUE);
+        echo $message;
+        $this->writeToLog($log_path, $message);
+                
+        
+        $result_develop=  array_diff($develop_arr, $test_arr);
+        $message="\n\n----------------------------------------------------------\n\nThese profiles are exists in develop but not in test\n\n".var_export($result_develop, TRUE);
+        echo $message;
+        $this->writeToLog($log_path, $message);
+        $merged= array_merge($result_production, $result_develop);
+        $message="\n\n----------------------------------------------------------\n\nThese profiles are exists in Other burket but not in test\n\n".var_export($merged, TRUE);
+        echo $message;
+        $this->writeToLog($log_path, $message);
+    }
+    
+    
     public function findProfiles($bucket) {
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
@@ -599,7 +624,7 @@ class ProfileCommand extends Controller_admin {
     }
 
     public function checkNumber() {
-        $bucket='test';
+        $bucket='production';
         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $log_path = "/var/log/yii/$start_time.log";
         $profile_arr = $this->findProfiles($bucket);

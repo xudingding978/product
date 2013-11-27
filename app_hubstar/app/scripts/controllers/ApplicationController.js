@@ -1,4 +1,3 @@
-
 /*global HubStar */
 /*global Ember */
 /*global $:false */
@@ -27,6 +26,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeURL: "",
     iframeLoginURL: "",
     isWaiting: "",
+    loginTime: false,
     isGeoDropdown: false,
     adPageNo: 0,
     searchFromTopic: false, //call the applicationView is true. new search or search
@@ -51,6 +51,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         });
 
         this.set('search_string', '');
+        this.set('loginUsername', localStorage.userName);
     },
     dropdownPhotoSetting: function() {
         this.set("isNotification", !this.get("isNotification"));
@@ -146,7 +147,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 var megasResults = stat.get("megas");
                 HubStar.set('itemNumber', megasResults.get("length"));
                 that.setContent(megasResults);
-                that.set('isWaiting', false);
+                // that.set('isWaiting', false);
                 that.set('loadingTime', false);
                 that.set("from", that.get("size"));
 
@@ -171,6 +172,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("adPageNo", 0);
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
+
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
                 that.setContent(results);
@@ -227,7 +229,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
     },
     done: function() {
-        this.set('isWaiting', true);
+        //   this.set('isWaiting', true);
+        this.set('loginTime', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;
         requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
@@ -245,7 +248,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 that.set('region', "");
                 that.set('gender', "");
                 that.set('age', "");
-                that.set('isWaiting', false);
+                //  that.set('isWaiting', false);
+                that.set('loginTime', false);
             }, 2000);
         });
     },
@@ -330,7 +334,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {
-            this.set('isWaiting', true);
+            //   this.set('isWaiting', true);
+            this.set('loginTime', true);
             document.getElementById("loginUsername").setAttribute("class", "login-textfield");
             document.getElementById("loginPassword").setAttribute("class", "login-textfield");
             var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
@@ -338,14 +343,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             requiredBackEnd('login', 'login', loginInfo, 'POST', function(params) {
                 if (params === 1) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-                    that.set('isWaiting', false);
+                    //  that.set('isWaiting', false);
+                    this.set('loginTime', false);
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                 }// INVALID user name when the user attempts to login.
                 else if (params === 0) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-                    that.set('isWaiting', false);
+//                    that.set('isWaiting', false);
+                    that.set('loginTime', false);
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is a social network login account
@@ -353,15 +360,19 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
                     if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
                         localStorage.loginStatus = params.COUCHBASE_ID;
+                        localStorage.userName = params.USER_NAME;
+                        localStorage.userType = "email";
                         HubStar.set("isLogin", true);
                         that.transitionToRoute('searchIndex');
-                        that.set('loginUsername', "");
+                        //  that.set('loginUsername', "");
                         that.set('loginPassword', "");
-                        that.set('isWaiting', false);
+//                        that.set('isWaiting', false);
+                        that.set('loginTime', false);
                     }
                     else {
                         document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
-                        that.set('isWaiting', false);
+//                        that.set('isWaiting', false);
+                         that.set('loginTime', false);
                         if ($('#incorrect-password').css('display') === 'none') {
 
                             $('.black-tool-tip').stop();
@@ -435,6 +446,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             });
         }
 
+
         for (var i = 0; i < ads.length; i++) {
             var ad = ads[i];
             var div_id = ad.div + "_box";
@@ -449,7 +461,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $('#masonry_container').masonry("reload");
         }, 1000);
     },
+
     getAds: function() {   
+
 //        DFP code
         var adSlots = HubStar.get('ads');
         var that = this;
@@ -488,16 +502,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('adPageNo', increaseby0ne);
         return pageNo;
     },
-    backToDefault: function() {        
+    backToDefault: function() {
         this.defaultSearch();
         this.set('search_string', '');
         this.transitionToRoute('searchIndex');
-        
+
     },
     clearSearch: function() {
         this.set('search_string', '');
         this.transitionToRoute('searchIndex');
     }
 });
-
-

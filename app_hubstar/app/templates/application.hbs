@@ -48,6 +48,13 @@
     {{render applicationFeedback}}
 
 
+    {{#if controller.loginTime}}
+
+{{render loadingSpinner}}
+
+{{/if}}
+    
+    
     <div id="loading" class="loading" >
         <div id="blurringTextG">
             <div id="blurringTextG_1" class="blurringTextG">

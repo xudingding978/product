@@ -8,6 +8,8 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     is_profile_editing_mode: false,
     uploadOrsubmit: false,
     is_user_editing_mode: false,
+    isUser:false,
+    isVideoPhoto:false,
     collectionID: "",
     itemID: "",
     type: "",
@@ -17,8 +19,11 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     },
     selectModelForUser: function(collection_id) {
         this.set('content', []);
+        this.set('type', "user");
         this.set('collection_id', collection_id);
         this.set('');
+        this.set("isUser", true);
+        
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
         this.set('user_id', user_id);
@@ -36,19 +41,18 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             if (results.get('isLoaded')) {
                 for (var i = 0; i < this.get("content").length; i++) {
                     var tempObject = results.objectAt(i);
-                    that.get("content").pushObject(tempObject);
-
+                        that.get("content").pushObject(tempObject);
                 }
-
             }
-        });
+            });
         this.checkEditingMode();
-
     },
     selectModelForProfile: function(collection_id, title) {
         this.set('collection_id', collection_id);
         this.resetContent();
-
+        this.set('type', "profile");
+        this.set("isUser", false);
+       
         if (title === undefined)
         {
             var arrayUrl;
@@ -95,9 +99,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             $(window).scrollTop(lastposition);
 
         }, 200);
-
-
-
     }
     ,
     newUpload: function() {
@@ -176,7 +177,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
 
         setTimeout(function() {
-            $('#masonry_photo_collection_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reloadItems");
         }, 1000);
     },
     cancelDelete: function() {

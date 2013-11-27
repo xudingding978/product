@@ -27,7 +27,7 @@ HubStar.VideoView = Ember.View.extend({
 
     },
     popupAibum: function() {
-
+    HubStar.set('what', false);
         $("#collection_tab").slideToggle("slow");
     },
     openComment: function() {

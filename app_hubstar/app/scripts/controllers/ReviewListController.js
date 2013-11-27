@@ -8,8 +8,11 @@ HubStar.ReviewListController = Ember.Controller.extend({
         
         if (localStorage.loginStatus !== null && localStorage.loginStatus !== 'undefined' && localStorage.loginStatus !== '') {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-
+          
         }
         
+
+        
     }
+          
 });

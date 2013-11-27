@@ -58,7 +58,7 @@ class ReviewsController extends Controller {
 
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-
+        error_log(var_export($request_arr, true)); 
         try {
             $cb = $this->couchBaseConnection();
             //$ownerID= $request_arr['optional'];
@@ -93,7 +93,6 @@ class ReviewsController extends Controller {
 
         $request_json = file_get_contents('php://input');
         $newRecord = CJSON::decode($request_json, true);
-        error_log(var_export($newRecord, true));
         $owner_id = $newRecord ['optional'];
         $id = $newRecord['review_id'];
         try {
@@ -104,7 +103,7 @@ class ReviewsController extends Controller {
             $cbRecord = $cb->get($docID); // get the old profile record from the database according to the docID string
             $oldRecord = CJSON::decode($cbRecord, true);
             $records = $oldRecord["profile"][0]["reviews"];
-            error_log(var_export($records, true));
+           
             $review_num = $this->getSelectedreview($records, $id);
             if ($review_num !== -1) {
 

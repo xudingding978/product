@@ -380,7 +380,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
             var that = this;
             requiredBackEnd('login', 'login', loginInfo, 'POST', function(params) {
-                console.log(params);
                 if (params === 1) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                     //  that.set('isWaiting', false);

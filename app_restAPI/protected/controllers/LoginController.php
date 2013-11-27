@@ -253,13 +253,11 @@ class LoginController extends Controller {
         Yii::app()->session['couchbase_id'] = "value";
         $request_array = CJSON::decode(file_get_contents('php://input'));
 
- error_log("ddd1111111dddddddd");
-        if ($request_array[2] === true) {             
+        if ($request_array[2] === true) {
             $currentUser = User::model()
                     ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
             if (isset($currentUser)) {
-                
-                error_log("ddddd222222dddddd");
+
                 if ($currentUser->PWD_HASH === "blankblankblank") {
                     $this->sendResponse(200, 0);
                 } else if ($currentUser->PWD_HASH === $request_array[1]) {
@@ -267,27 +265,20 @@ class LoginController extends Controller {
                     $data = array();
                     $data[0] = $currentUser;
                     $user_id = $currentUser->COUCHBASE_ID;
-    
+
 
                     try {
                         $cb = $this->couchBaseConnection();
                         $docID = $this->getDomain() . "/users/" . $user_id;
                         $old = $cb->get($docID); // get the old user record from the database according to the docID string
                         $oldRecord = CJSON::decode($old, true);
-                        error_log(var_export($oldRecord['user'][0]["email_activate"],true));
                         if (!isset($oldRecord['user'][0]["email_activate"])) {
                             $data[1] = true;
-                            error_log("ddddddddddd",true);
-                        }
-                        else
-                        {
-                            if($oldRecord['user'][0]["email_activate"]===true)
-                            {
+                        } else {
+                            if ($oldRecord['user'][0]["email_activate"] === true) {
                                 $data[1] = true;
-                            }
-                            else
-                            {
-                              $data[1] = false;
+                            } else {
+                                $data[1] = false;
                             }
                         }
                     } catch (Exception $exc) {
@@ -307,30 +298,23 @@ class LoginController extends Controller {
                 if ($currentUser->PWD_HASH === "blankblankblank") {
                     $this->sendResponse(200, 0);
                 } else if ($currentUser->PWD_HASH === $request_array[1]) {
-  $data = array();
+                    $data = array();
                     $data[0] = $currentUser;
                     $user_id = $currentUser->COUCHBASE_ID;
-    
+
 
                     try {
                         $cb = $this->couchBaseConnection();
                         $docID = $this->getDomain() . "/users/" . $user_id;
                         $old = $cb->get($docID); // get the old user record from the database according to the docID string
                         $oldRecord = CJSON::decode($old, true);
-                        error_log(var_export(isset($oldRecord['user'][0]["email_activate"]),true));
                         if (!isset($oldRecord['user'][0]["email_activate"])) {
                             $data[1] = true;
-                            error_log("ddddddddddd",true);
-                        }
-                        else
-                        {
-                            if($oldRecord['user'][0]["email_activate"]===true)
-                            {
+                        } else {
+                            if ($oldRecord['user'][0]["email_activate"] === true) {
                                 $data[1] = true;
-                            }
-                            else
-                            {
-                              $data[1] = false;
+                            } else {
+                                $data[1] = false;
                             }
                         }
                     } catch (Exception $exc) {

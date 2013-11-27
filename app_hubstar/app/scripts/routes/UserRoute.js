@@ -1,11 +1,11 @@
 HubStar.UserRoute = Ember.Route.extend({
-    setupController: function(controller, model) {       
+    setupController: function(controller, model) {
         HubStar.set('editingMode', 'user');
-         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
+        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
         {
             HubStar.set("isLogin", false);
-        }else{
-                    HubStar.set("isLogin", true);               
+        } else {
+            HubStar.set("isLogin", true);
         }
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('application').set('popup', false);
@@ -19,21 +19,23 @@ HubStar.UserRoute = Ember.Route.extend({
         this.controller.set('followerTag', false);
         this.controller.set('followingTag', false);
         this.controller.set('messageTag', false);
+        this.controller.set('messageTag', false);
+         this.controller.set('postTag', false);
+        
         this.controllerFor('user').set("model", model);
         this.controllerFor('user').setUser();
 
         $(window).scrollTop(0);
     },
-    model: function(params) {   
+    model: function(params) {
         return HubStar.User.find(params.user_id);
     },
     events: {
         transitionToCollectionPhoto: function(collection_id) {
-
+            
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
             var user = HubStar.User.find(user_id);
-
 
             for (var i = 0; i < user.get('collections').get("length"); i++) {
                 var data = user.get('collections').objectAt(i);
@@ -42,7 +44,14 @@ HubStar.UserRoute = Ember.Route.extend({
                 }
             }
             this.transitionTo("collection", data);
+        },
+        transitionToArticle: function(article_id) {
+            this.transitionTo("article", article_id);
+            this.transitionTo("articlePhoto");
         }
+//        transitionToVideo: function(video_id) {
+//            this.transitionTo("userVideo", video_id);
+//        }
     },
     redirect: function() {
 

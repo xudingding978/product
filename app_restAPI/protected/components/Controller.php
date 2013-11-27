@@ -182,12 +182,10 @@ class Controller extends CController {
             $videoOwnerId = $this->getUserInput($requireParams[1]);
             $response = $this->getVideoesByOwner($returnType, $videoOwnerId);
         } elseif ($requireType == 'singleVideo') {
-            $videoid = $this->getUserInput($requireParams[1]);
 
+            $videoid = $this->getUserInput($requireParams[1]);
             $response = $this->getRequestResultByID($returnType, $videoid);
         } else {
-
-
             $response = $this->getSearchResults("", "huang");
         }
         return $response;
@@ -400,7 +398,7 @@ class Controller extends CController {
         if (isset($keyword)) {
             $filter = Sherlock\Sherlock::filterBuilder()->Raw('{"query": {
                 "queryString": {
-                  "default_field": "couchbaseDocument.doc.profile.id",
+                  "default_field": "couchbaseDocument.doc.profile.profile_name",
                   "query": "' . $keyword . '"
                 }
               }}');

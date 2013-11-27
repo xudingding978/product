@@ -1,13 +1,18 @@
 {{#if isInvitePeople}}       
 {{render invitePeople}}      
 {{/if}}
-<div class="Message-Board box" style="width: 545px; margin: 10px; border-radius:5px; overflow: hidden; background-color: rgb(255, 255, 255); top: 0px; left: 0px;">
+<div class="Message-Board box" style="">
     <div style="background-color: #f3f3f3; width:100%;height: 70px; border-bottom: 1px solid #ddd;padding: 0 20px;">
-        <div style="color: #555;font-size: 18px;line-height: 70px;font-weight: bold;float: left;" data-hint="{{unbound this.name}}>
-            <a><img class="profilepic_comment"  style="float: left; margin: 12px; box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;" {{bindAttr src= controller.commenter_photo_url}} /> </a>
+        <div style="color: #555;font-size: 18px;line-height: 70px;font-weight: bold;float: left;">
+             <a><img class="profilepic_comment"  style="float: left; margin: 12px; box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;" {{bindAttr src= controller.commenter_photo_url}} /> </a>
             &nbsp;Conversation
         </div>
-        <div class="create-conversation easing hint--left hint--rounded" data-hint="Invite friends to this conversation!" style=""{{action invitePeople}}><i class="icon-smile"></i></div>
+        <div class="create-conversation easing hint--left hint--rounded" data-hint="Invite friends to this conversation!" {{action invitePeople id}}>
+             <span style="position: relative">
+                <i class="icon-user" style=""></i>
+                <i class="icon-plus" style="position: absolute;font-size: 8px;top: 8px;left: 10px;color: white;background-color: #888;height: 12px;width: 12px;line-height: 11px;border: 1px solid #fff;border-radius: 50%;"></i>
+            </span>
+        </div>
     </div>
 
 

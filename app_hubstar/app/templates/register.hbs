@@ -307,7 +307,29 @@
                  *   This javascript will need to be cleaned up via setting some of the elements as preset variables etc, once 100% tested.
                  */
 
-                var loginState = false;
+
+
+                if (localStorage.userType === "email") {
+                    $('#login-btn').text('REGISTER');
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#click-register-social').css('display', 'none');
+                    $('#click-register').css('display', 'none');
+                    $('#social-link').css('display', 'none');
+                    $('#login-with-email-drop-down').css('display', 'block');
+                    $('#social-login-container').css('display', 'none');
+                    $('#click-login').addClass('active-tab');
+                    $('#social-login').removeClass('social-active');
+                    $('#user-forgot-password-pane').css('display', 'none');
+                    $('#forgot-message-container').css('display', 'none');
+                    $('#invalid-username').css('display', 'none');
+
+                    $('#register-with-email-drop-down').css('display', 'none');
+                    $('#register-with-email-step-2').css('display', 'none');
+                    $('#user-login-pane').css('display', 'block');
+                    var loginState = true;
+                } else {
+                         loginState = false;
+                }
                 $("#social-login").click(function() {
 
                     $('#social-login').removeClass('social-active');
@@ -318,7 +340,7 @@
                     /* LOGIN TAB:  hiding social login */
 
                     if ($('#social-login-container').css('display') === 'none') {
-                        $('#social-login-container').animate({height: 'toggle'}); 
+                        $('#social-login-container').animate({height: 'toggle'});
                         $('#social-login').addClass('social-active');
                         if ($('#login-with-email-drop-down').css('display') === 'block') {
                             $('#login-with-email-drop-down').animate({height: 'toggle'});
@@ -562,7 +584,7 @@
 
 
                 function loginPane() {
-                    
+
                     if (loginState === false) {
                         $('#login-btn').text('REGISTER');
                         $('.black-tool-tip').css('display', 'none');
@@ -663,16 +685,12 @@
 
                     var left = (screen.width / 2) - (popupWidth / 2);
                     var top = (screen.height / 2) - (popupHeight / 2);
-                    
-                    
                     var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook#_=_";
                     newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
                     if (window.focus) {
                         newwindow.focus();
                     }
-
-
-
+                    localStorage.userType = "facebook";
                 }
                 function Yahoo(popupWidth, popupHeight) {
                     var left = (screen.width / 2) - (popupWidth / 2);
@@ -682,6 +700,7 @@
                     if (window.focus) {
                         newwindow.focus();
                     }
+                    localStorage.userType = "yahoo";
                 }
                 function QQ(popupWidth, popupHeight) {
                     var left = (screen.width / 2) - (popupWidth / 2);
@@ -691,6 +710,7 @@
                     if (window.focus) {
                         newwindow.focus();
                     }
+                    localStorage.userType = "qq";
                 }
                 function Twitter(popupWidth, popupHeight) {
                     var left = (screen.width / 2) - (popupWidth / 2);
@@ -700,6 +720,7 @@
                     if (window.focus) {
                         newwindow.focus();
                     }
+                    localStorage.userType = "twitter";
                 }
                 function Sina(popupWidth, popupHeight) {
                     var left = (screen.width / 2) - (popupWidth / 2);
@@ -709,6 +730,7 @@
                     if (window.focus) {
                         newwindow.focus();
                     }
+                    localStorage.userType = "sina";
                 }
                 function LinkedIn(popupWidth, popupHeight) {
                     var left = (screen.width / 2) - (popupWidth / 2);
@@ -718,6 +740,7 @@
                     if (window.focus) {
                         newwindow.focus();
                     }
+                    localStorage.userType = "linkedIn";
                 }
                 function Google(popupWidth, popupHeight) {
                     var left = (screen.width / 2) - (popupWidth / 2);
@@ -727,7 +750,8 @@
                     if (window.focus) {
                         newwindow.focus();
                     }
+                    localStorage.userType = "google";
                 }
-                
+
 </script>
 

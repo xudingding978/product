@@ -12,12 +12,12 @@ class ProfileCommand extends Controller_admin {
         echo $start_time . "\r\n";
 
         if ($action == "import") {
-            $this->outputData();
+            $this->importProfile();
         } else if ($action == 'insert') {
             $this->insertProfileToMSDB();
         } elseif ($action == 'gj-gardner') {
             //$this->importProfilesToCouchbase();
-        } elseif ($action == 'profile') {
+        } elseif ($action == 'flooring_foundation') {
             $this->outputData();
         } elseif ($action == 'update') {
             $this->updateCouchbasePhoto();
@@ -25,15 +25,25 @@ class ProfileCommand extends Controller_admin {
             $this->updateCouchbasePofileKeywords();
         } elseif ($action == 'count') {
             $this->checkNumber();
+
+        }elseif ($action == 'time') {
+            $this->updateTimeStamp();
         } elseif ($action == 'desc') {
             $this->correctCollectionDescription();
         }elseif ($action == 'test') {
             $this->profileChangeId();
+
         }elseif($action=='find'){
             $this->findProfiles();
         }
         
-        else {
+elseif($action == 'compare'){
+            $this->compareProfiles();
+        }elseif ($action == 'keywords') {
+            $this->buildKeywordObject();
+        }
+         else{
+
             echo "please input an action!!";
         }
 
@@ -166,6 +176,66 @@ class ProfileCommand extends Controller_admin {
             $this->writeToLog($this->log_path, $message);
         }
     }
+    
+        public function buildKeywordObject() {
+        $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = "/var/log/yii/$start_time.log";
+        $bucket='test';
+        $keyword_arr = array();
+        $profile_arr = $this->findProfiles($bucket);
+//        $profile_arr = array(
+//            "0" => 'trendsideas.com/profiles/new-home-trends',
+//            "1" => "trendsideas.com/profiles/charisnew",
+
+    //  );
+        foreach ($profile_arr as $profile) {
+            $message = "";
+            $message = "\n\nIn the keyword list of: " . $profile . "\n";
+            echo "\n\nThis is the keyword list of: " . $profile . "\n";
+            $cb = $this->couchBaseConnection("$bucket");
+            $result = $cb->get($profile);
+            $result_arr = CJSON::decode($result, true);
+            $keyword_str=$result_arr["profile"][0]["profile_keywords"];
+            echo "\n".$keyword_str."\n";
+            if ($keyword_str != null && $keyword_str != "") {
+                echo "\nkeyword is existing\n";
+                $keyword_arr = explode(",", $keyword_str);
+                echo sizeof($keyword_arr)."\n".$keyword_arr;
+                $newkeywords_arr=array();
+                foreach($keyword_arr as $keyword){
+                    
+                $newKeyword_arr['keyword_id'] = $this->getNewID();
+                $newKeyword_arr['keyword_name'] = $keyword;
+                $newKeyword_arr['create_date'] = strtotime(date('Y-m-d H:i:s'));
+                $newKeyword_arr['expire_date'] = NULL;
+                $newKeyword_arr['value'] = NULL;
+                $newKeyword_arr['profile_id'] = $result_arr['id'];
+                $newKeyword_arr['collection_id'] = NULL;
+                $newKeyword_arr['is_delete'] = false;
+                
+                array_push($newkeywords_arr, $newKeyword_arr);
+                
+                 }
+                 $result_arr['keyword']=$newkeywords_arr;
+                $result_arr["profile"][0]["keywords"]=$newkeywords_arr; 
+                if ($cb->set($profile, CJSON::encode($result_arr, true))) {
+                    echo $profile . " is corrected\n";
+                    $message.="keyword obj has been created from " . $keyword_str . " to " . var_export($newkeywords_arr) . "\r\n" ;
+                   
+                } else {
+                    $message .= $profile . "is not corrected\n";
+                    echo $profile . "is not corrected\n";
+                    
+                }
+           
+            }else{
+                $message = $profile . "doesn't have keyword";
+                echo $profile . "doesn't have keyword";
+            } 
+            $this->writeToLog($log_path, $message);
+         }      
+    }
+      
     
     public function changePhotoOwnerID($bucket){
             //  $bucket="test";
@@ -576,6 +646,90 @@ class ProfileCommand extends Controller_admin {
         echo "over";
     }
 
+
+    
+    public function updateTimeStamp(){
+            $timeStamp = $this->setUTC();
+            $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+            $log_path = "/var/log/yii/$start_time.log";
+            $id = $hit['id'];
+            $ch = $this->couchBaseConnection("temp");
+            $result = $ch->get("trendsideas.com/481376534221498");
+            //   if($result!= null){
+            $result_arr = CJSON::decode($result, true);
+            $record_created= $result_arr["created"];
+            $record_updated = $result_arr["updated"];
+            $record_accessed=$result_arr["accessed"];
+            $record_accessed_readable = $result_arr["accessed_readable"];
+            $record_updated_readable = $result_arr["updated_readable"];
+            $record_created_readable = $result_arr["created_readable"];
+            if ($result_arr != null) {
+                 $result_arr["updated"] = $timeStamp;
+                 $result_arr["updated_readable"]=  date('D M d Y H:i:s'). ' GMT' . date('O') . ' (' . date('T') . ')';  
+                if($result_arr["created"]!=null && $result_arr["created"]!=""){          
+                      $result_arr["created_readable"]=  date('D M d Y H:i:s', $result_arr["created"]). ' GMT' . date('O',$result_arr["created"]) . ' (' . date('T',$result_arr["created"]) . ')';                                 
+                }
+                else{
+                    $result_arr["created"]=$timeStamp;
+                    $result_arr["created_readable"]=  date('D M d Y H:i:s'). ' GMT' . date('O') . ' (' . date('T') . ')';  
+                }
+                 if($result_arr["accessed"]!=null && $result_arr["accessed"]!=""){          
+                      $result_arr["accessed_readable"]=  date('D M d Y H:i:s', $result_arr["accessed"]). ' GMT' . date('O',$result_arr["accessed"]) . ' (' . date('T',$result_arr["accessed"]) . ')';                                 
+                }
+                else{
+                    $result_arr["accessed"]=$timeStamp;
+                    $result_arr["accessed_readable"]=  date('D M d Y H:i:s'). ' GMT' . date('O') . ' (' . date('T') . ')';  
+                }       
+            } else {
+                $message = $id . "|" . $result_arr["type"] . "|" . "Does not have keyword in its profile";
+            }
+            if ($ch->set($id, CJSON::encode($result_arr))) {
+                echo "Document: " . $id . "\r\n" . "created has been changed from " . $record_created . " to " . $result_arr["created"] . "\r\n" .
+                "accessed has been changed from " . $record_accessed . " to " . $result_arr["accessed"] . "\r\n" .
+                "updated has been changed from " . $record_updated . " to " . $result_arr["updated"] . "\r\n" .
+                "created_readable has been changed from " . $record_created_readable . " to " . $result_arr["created_readable"] . "\r\n" .
+                "accessed_readable has been changed from " . $record_accessed_readable . " to " . $result_arr["accessed_readable"] . "\r\n" .
+                "updated_readable has been changed from " . $record_updated_readable . " to " . $result_arr["updated_readable"] . "\r\n" .
+                "\r\n";
+                $message = $id . "|" . $result_arr["type"] . "|" . '{"old_keywords": ' . '"' . $record_created . '"' . '; "new_keywords": ' . '"' .$result_arr["created"] . '"' . "}\n".
+                        $id . "|" . $result_arr["type"] . "|" . '{"old_accessed": ' . '"' . $record_accessed . '"' . '; "new_keywords": ' . '"' .$result_arr["created"] . '"' . "}\n".
+                        $id . "|" . $result_arr["type"] . "|" . '{"old_keywords": ' . '"' . $record_created . '"' . '; "new_keywords": ' . '"' .$result_arr["created"] . '"' . "}\n".
+                        $id . "|" . $result_arr["type"] . "|" . '{"old_keywords": ' . '"' . $record_updated_readable . '"' . '; "new_keywords": ' . '"' .$result_arr["updated_readable"] . '"' . "}\n".
+                        $id . "|" . $result_arr["type"] . "|" . '{"old_keywords": ' . '"' . $record_accessed_readable . '"' . '; "new_keywords": ' . '"' .$result_arr["accessed_readable"] . '"' . "}\n".
+                         $id . "|" . $result_arr["type"] . "|" . '{"old_keywords": ' . '"' . $record_created_readable . '"' . '; "new_keywords": ' . '"' .$result_arr["created_readable"] . '"' . "}";
+            } else {
+                echo $id . " fail to set the value into couchbase document! \r\n";
+                $message = $id . " fail to set the value into couchbase document! \r\n";
+            }
+            $this->writeToLog($log_path, $message);
+    }
+
+
+
+    public function compareProfiles(){
+        $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = "/var/log/yii/$start_time.log";
+        $production_arr=$this->findProfiles('production');
+        $develop_arr=$this->findProfiles('develop');
+        $test_arr=$this->findProfiles('test');
+        $result_production=  array_diff($production_arr, $test_arr);
+        $message="These profiles are exists in production but not in test\n\n".var_export($result_production, TRUE);
+        echo $message;
+        $this->writeToLog($log_path, $message);
+                
+        
+        $result_develop=  array_diff($develop_arr, $test_arr);
+        $message="\n\n----------------------------------------------------------\n\nThese profiles are exists in develop but not in test\n\n".var_export($result_develop, TRUE);
+        echo $message;
+        $this->writeToLog($log_path, $message);
+        $merged= array_merge($result_production, $result_develop);
+        $message="\n\n----------------------------------------------------------\n\nThese profiles are exists in Other burket but not in test\n\n".var_export($merged, TRUE);
+        echo $message;
+        $this->writeToLog($log_path, $message);
+    }
+    
+    
+
     public function findProfiles($bucket) {
 
         $settings['log.enabled'] = true;
@@ -603,7 +757,7 @@ class ProfileCommand extends Controller_admin {
     }
 
     public function checkNumber() {
-        $bucket='test';
+        $bucket='production';
         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $log_path = "/var/log/yii/$start_time.log";
         $profile_arr = $this->findProfiles($bucket);
@@ -662,6 +816,7 @@ class ProfileCommand extends Controller_admin {
             }
         }
         echo "Scanning Completed";
+
     }
 
     /*

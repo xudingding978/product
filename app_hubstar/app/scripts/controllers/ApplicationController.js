@@ -360,7 +360,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
                     if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
                         localStorage.loginStatus = params.COUCHBASE_ID;
-                        localStorage.userName = params.USER_NAME;
+                        localStorage.userName = that.get('loginUsername');
                         localStorage.userType = "email";
                         HubStar.set("isLogin", true);
                         that.transitionToRoute('searchIndex');

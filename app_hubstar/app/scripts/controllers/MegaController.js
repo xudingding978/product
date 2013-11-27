@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -22,6 +22,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     accessFromProfile: false,
     is_article_video: true,
     sharePhotoUrl: '',
+    type: null,
     sharePhotoName: '',
     makeSureDelete: false,
     willDelete: false,
@@ -61,6 +62,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.transitionTo("userPhoto", this.get("megaResouce"));
         }
         this.selectedImage(this.get('selectedPhoto').id);
+        this.transitionTo("photo", this.get("megaResouce"));
     },
     nextImage: function() {
         if (!this.get('selectedPhoto')) {
@@ -84,6 +86,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
 
         this.selectedImage(this.get('selectedPhoto').id);
+        this.transitionTo("photo", this.get("megaResouce"));
     },
     getInitData: function(megaObject) {
         if (megaObject.get("isLoaded")) {
@@ -277,6 +280,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
             {
                 this.transitionTo("userPhoto", this.get("megaResouce").get('photo').objectAt(0));
             }
+            else
+            {
+                this.transitionTo("photo", this.get("megaResouce"));
+            }
         }
         else if (this.get('megaResouce').get("type") === "article") //different types of photo in mega
         {
@@ -359,7 +366,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var currKey = 0, e = e || event;
 
 
-        currKey = e.keyCode || e.which || e.charCode;    //支持IE、FF 
+        currKey = e.keyCode || e.which || e.charCode;    //支持IE、FF
         if (currKey === 27) {
             window.history.back();
 
@@ -380,9 +387,19 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
         }
         this.set("selectPhoto", false);
-        if (this.get('controllers.masonryCollectionItems') === "profile")
+        if (this.get('controllers.masonryCollectionItems').get("type") === "profile")
         {
-            this.transitionTo("indexIndex"); //search page
+            window.history.back();
+//            if (this.get("type") === "profile")
+//            {
+//                this.transitionTo("profileCollection", data);
+//
+//                this.set("type", null);
+//            }
+//            else
+//            {
+//                this.transitionTo("indexIndex"); //search page
+//            }
         }
         else
         {
@@ -541,7 +558,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     fbShare: function() {
         this.dropdownPhotoSetting();
         var that = this;
-        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+        var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
         var caption = '';
 
         if (this.get('selectedPhoto').get('photo_caption') !== null)
@@ -553,16 +570,16 @@ HubStar.MegaController = Ember.ArrayController.extend({
             caption = '';
         }
         var descript = this.get('selectedPhoto').get('photo_title');
-        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+        var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
         if (this.get('selectedPhoto').get("type") === "article")
         {
             descript = this.get('selectedPhoto').get('article').objectAt(0).get("article_headline");
-            currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').get('id');
+            currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('selectedPhoto').get('id');
         }
         else if (this.get('selectedPhoto').get("type") === "video")
         {
             descript = this.get('selectedPhoto').get('videoes').objectAt(0).get("videoTitle");
-            currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('selectedPhoto').get('id');
+            currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('selectedPhoto').get('id');
         }
 
 
@@ -600,17 +617,17 @@ HubStar.MegaController = Ember.ArrayController.extend({
         {
             caption = '';
         }
-        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+        var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
         var descript = this.get('selectedPhoto').get('photo_title');
         if (this.get('selectedPhoto').get("type") === "article")
         {
             descript = this.get('selectedPhoto').get('article').objectAt(0).get("article_headline");
-            currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').get('id');
+            currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('selectedPhoto').get('id');
         }
         else if (this.get('selectedPhoto').get("type") === "video")
         {
             descript = this.get('selectedPhoto').get('videoes').objectAt(0).get("videoTitle");
-            currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('selectedPhoto').get('id');
+            currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('selectedPhoto').get('id');
         }
         $("meta[property='og\\:title']").attr("content", descript);
         $("meta[property='og\\:description']").attr("content", caption);
@@ -632,16 +649,16 @@ HubStar.MegaController = Ember.ArrayController.extend({
     tShare: function() {
         this.dropdownPhotoSetting();
         var descript = this.get('selectedPhoto').get('photo_title');
-        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+        var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
         if (this.get('selectedPhoto').get("type") === "article")
         {
             descript = this.get('selectedPhoto').get('article').objectAt(0).get("article_headline");
-            currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').get('id');
+            currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('selectedPhoto').get('id');
         }
         else if (this.get('selectedPhoto').get("type") === "video")
         {
             descript = this.get('selectedPhoto').get('videoes').objectAt(0).get("videoTitle");
-            currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('selectedPhoto').get('id');
+            currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('selectedPhoto').get('id');
         }
         var url = 'https://twitter.com/share?text=' + descript + '&url=' + encodeURIComponent(currntUrl);
         window.open(
@@ -654,19 +671,19 @@ HubStar.MegaController = Ember.ArrayController.extend({
     pShare: function() {
         this.dropdownPhotoSetting();
 
-        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+        var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
 
         var descript = this.get('selectedPhoto').get('photo_title');
 
         if (this.get('selectedPhoto').get("type") === "article")
         {
             descript = this.get('selectedPhoto').get('article').objectAt(0).get("article_headline");
-            currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedPhoto').get('id');
+            currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('selectedPhoto').get('id');
         }
         else if (this.get('selectedPhoto').get("type") === "video")
         {
             descript = this.get('selectedPhoto').get('videoes').objectAt(0).get("videoTitle");
-            currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('selectedPhoto').get('id');
+            currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('selectedPhoto').get('id');
         }
 
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +

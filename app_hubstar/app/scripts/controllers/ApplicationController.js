@@ -1,4 +1,3 @@
-
 /*global HubStar */
 /*global Ember */
 /*global $:false */
@@ -194,7 +193,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("adPageNo", 0);
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
-               
+
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
                 that.setContent(results);
@@ -485,8 +484,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 //        googletag.display("div-gpt-ad-1327312723268-0");
 //        setInterval(function(){googletag.pubads().refresh([slot1]);}, 30000);
 //        });
-//        
-//     
+//
+//
 //        var masonryContainer = document.getElementById('masonry_container');
         for (var i = 0; i < ads.length; i++) {
             var ad = ads[i];
@@ -525,7 +524,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 //            }
 //            that.display(ads);
 //        });
-//        
+//
 //        DFP code
         var adSlots = HubStar.get('ads');
         var ads = new Array();
@@ -581,5 +580,3 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.transitionToRoute('searchIndex');
     }
 });
-
-

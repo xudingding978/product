@@ -33,11 +33,10 @@ HubStar.UserRoute = Ember.Route.extend({
     },
     events: {
         transitionToCollectionPhoto: function(collection_id) {
-
+            
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
             var user = HubStar.User.find(user_id);
-
 
             for (var i = 0; i < user.get('collections').get("length"); i++) {
                 var data = user.get('collections').objectAt(i);
@@ -46,7 +45,14 @@ HubStar.UserRoute = Ember.Route.extend({
                 }
             }
             this.transitionTo("collection", data);
+        },
+        transitionToArticle: function(article_id) {
+            this.transitionTo("article", article_id);
+            this.transitionTo("articlePhoto");
         }
+//        transitionToVideo: function(video_id) {
+//            this.transitionTo("userVideo", video_id);
+//        }
     },
     redirect: function() {
 

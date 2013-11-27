@@ -26,10 +26,11 @@ HubStar.SearchRoute = Ember.Route.extend({
         if (search_id === null || search_id === undefined || search_id === '') {
             search_id = '';
         }
-        return {id:search_id};
+        return {id: search_id};
     },
     events: {
         transitionToPhoto: function(id) {
+            this.controllerFor('masonryCollectionItems').set("type", "profile");
             this.transitionTo("photo", HubStar.Mega.find(id));
         },
         transitionToProfile: function(id) {
@@ -41,7 +42,7 @@ HubStar.SearchRoute = Ember.Route.extend({
         }
     },
     redirect: function() {
-        
+
     },
     activate: function() {
         $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");

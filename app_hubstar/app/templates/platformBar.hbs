@@ -47,7 +47,7 @@
                     <li><div  {{action changeLocation userLocation}} >Your location</br>
                             ({{userLocation}})
                         </div></li>
-                        <li><div  {{action changeLocation 'Global'}} >Global</div></li>
+                    <li><div  {{action changeLocation 'Global'}} >Global</div></li>
                     <li><div  {{action changeLocation 'Australia'}} >Australia</div></li>
                     <li><div {{action changeLocation 'New Zealand'}} >New Zealand</div></li>
                     <li><div {{action changeLocation 'United States'}} >United States</div></li>
@@ -99,21 +99,21 @@
 
 <script>
 
-                    function logout() {
+                function logout() {
 
-                        $.ajax({
-                            type: 'POST',
-                            url: getRestAPIURL()+ '/logout',
-                            contentType: 'application/json; charset=uft-8',
-                            dataType: 'json',
-                            success: function(para) {
-                               
-
-                            }
-                        });
-
-                        localStorage.clear();
+                    $.ajax({
+                        type: 'POST',
+                        url: getRestAPIURL() + '/logout',
+                        contentType: 'application/json; charset=uft-8',
+                        dataType: 'json',
+                        success: function(para) {
 
 
-                    }
+                        }
+                    });
+
+//                        localStorage.clear();
+                    localStorage.removeItem('loginStatus');
+
+                }
 </script>

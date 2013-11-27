@@ -1,5 +1,5 @@
 HubStar.SearchsController = Ember.ArrayController.extend({
-    needs: ['application', 'status', 'platformBar'],
+    needs: ['application', 'status', 'platformBar','user'],
     loginInfo: "",
     content: [],
     search_string: "",
@@ -16,7 +16,9 @@ HubStar.SearchsController = Ember.ArrayController.extend({
 //            var stats = Stat.find({"RquireType": "status", "region": this.get("search_area"), "search_string": this.get("search_string")});
 //            var that = this;
 
+
     },
+        
     defaultSearch: function() {    
         this.set("loginInfo", localStorage.loginStatus);
         this.setLoginImge();
@@ -37,6 +39,7 @@ HubStar.SearchsController = Ember.ArrayController.extend({
         /***/          st.grapData();                                                        /***/
         /***/      }                                                                                /***/
     //get user model data after login
+
 
 });
 

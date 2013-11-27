@@ -17,4 +17,4 @@ HubStar.BeforeLoginView = Ember.View.extend({
 
         }
     }
-})
+});

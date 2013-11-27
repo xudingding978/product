@@ -7,7 +7,7 @@
 HubStar.UserPostRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         
-        this.controllerFor('user').set('profileSelectionStatus', 'Post');
+        this.controllerFor('user').set('profileSelectionStatus', 'Posts');
         this.controllerFor('user').set('collectionTag', false);
 
         this.controllerFor('user').set('followerTag', false);

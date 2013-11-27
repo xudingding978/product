@@ -1,3 +1,4 @@
+
 <div class="objectview-wrapper" >
 
     <div class="objectview-left">
@@ -7,6 +8,16 @@
         <div class="top-controlbar easing" >
             <!--            <div class="icon-on-black" style="left: 8px;"><i class="icon-thumbs-up"></i></div>-->
 
+            {{#if controller.megaResouce.getArticle}}
+            <div class="icon-on-black hint--rounded hint--bottom" data-hint="Read this article" style="position:relative;margin: 0 5px;" {{action transitionToArticle controller.megaResouce.id}}>
+                 <i class="icon-book"></i><span class="pretooltip">Read</span>
+            </div>       
+            {{/if}}
+            {{#if controller.megaResouce.getVideo}}
+            <div class="icon-on-black hint--rounded hint--bottom" data-hint="Watch this Video" style="position:relative;margin: 0 5px;"  {{action transitionToVideo controller.megaResouce}}>
+                 <i class="icon-film"></i><span class="pretooltip">Watch</span>
+            </div>    
+            {{/if}}
             <div class="icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." style="position:relative;margin: 0 5px;"  {{action switchCollection on="click" target="controller"}}>
                 <i class="icon-save"></i><span class="pretooltip">Save</span>
             </div>
@@ -46,6 +57,7 @@
 <div class="mainfeature">
     <div class="previous" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="controller"}}></div>
     <div class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="controller"}}></div>
+
     {{view HubStar.PhotoDisplayAreaView}}
 </div>
 <!--THIS IS THE ALBUM BOX-->
@@ -168,7 +180,7 @@
                     <div class="show-comment_container">
                         <span class="show-comment_inner">
                             <span class="comment-amount" > {{controller.megaResouce.comments.length}} </span>
-                            <span class="comment-amount" > comments   </span> 
+                            <span class="comment-amount" > comments {{model.type}}  </span> 
                         </span>
                     </div>
 
@@ -241,6 +253,13 @@
                 {{/unless}}
 
                 {{/each}}
+                <!-- test1 -->
+<div id='div-gpt-ad-1384896082386-0' style='width:336px; height:280px;'>
+<script type='text/javascript'>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1384896082386-0'); });
+</script>
+</div>
+
             </div>
         </div>
 
@@ -261,5 +280,10 @@
 {{#if HubStar.checkLoginStatus}}
 
 {{render loginModal}}       
+
+{{/if}}
+{{#if controller.makeSureDelete}}
+
+{{view HubStar.DeleteFunctionView}}
 
 {{/if}}

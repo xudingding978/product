@@ -115,7 +115,7 @@ class LoginController extends Controller {
         $temp["user"][0]["first_name"] = $model->FIRST_NAME;
         $temp["user"][0]["last_name"] = $model->LAST_NAME;
         $temp["user"][0]["email"] = $model->EMAIL_ADDRESS;
-        $temp["user"][0]["email_verified"] = false;
+        $temp["user"][0]["email_activate"] = false;
         $temp['user'][0]['selected_topics'] = "";
         $temp['user'][0]['gender'] = $request_array[5];
         $temp['user'][0]['age'] = $request_array[6];
@@ -253,16 +253,50 @@ class LoginController extends Controller {
         Yii::app()->session['couchbase_id'] = "value";
         $request_array = CJSON::decode(file_get_contents('php://input'));
 
-
+ error_log("ddd1111111dddddddd");
         if ($request_array[2] === true) {
+           
+                error_log(var_export($reuqest_array[2],true);
             $currentUser = User::model()
                     ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
             if (isset($currentUser)) {
+                
+                error_log("ddddd222222dddddd");
                 if ($currentUser->PWD_HASH === "blankblankblank") {
                     $this->sendResponse(200, 0);
                 } else if ($currentUser->PWD_HASH === $request_array[1]) {
                     //     $_SESSION['couchbase_id'] = $currentUser->COUCHBASE_ID;
-                    $this->sendResponse(200, CJSON::encode($currentUser));
+                    $data = array();
+                    $data[0] = $currentUser;
+                    $user_id = $currentUser->COUCHBASE_ID;
+    
+
+                    try {
+                        $cb = $this->couchBaseConnection();
+                        $docID = $this->getDomain() . "/users/" . $user_id;
+                        $old = $cb->get($docID); // get the old user record from the database according to the docID string
+                        $oldRecord = CJSON::decode($old, true);
+                        error_log(var_export($oldRecord['user'][0]["email_activate"],true));
+                        if (!isset($oldRecord['user'][0]["email_activate"])) {
+                            $data[1] = true;
+                            error_log("ddddddddddd",true);
+                        }
+                        else
+                        {
+                            if($oldRecord['user'][0]["email_activate"]===true)
+                            {
+                                $data[1] = true;
+                            }
+                            else
+                            {
+                              $data[1] = false;
+                            }
+                        }
+                    } catch (Exception $exc) {
+                        echo $exc->getTraceAsString();
+                    }
+
+                    $this->sendResponse(200, CJSON::encode($data));
                 }
             } else {
                 $this->sendResponse(200, 1);
@@ -292,7 +326,7 @@ class LoginController extends Controller {
         $currentUser = User::model()
                 ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
         $response = $currentUser->COUCHBASE_ID;
-      //  $this->setEmailVerify($response);
+        $this->setEmailVerify($response);
         $this->sendResponse(200, CJSON::encode($response));
     }
 
@@ -304,7 +338,7 @@ class LoginController extends Controller {
             $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
             $oldRecordDeep = CJSON::decode($oldDeep, true);
 
-            $oldRecordDeep['user'][0]["email_verified"] = true;
+            $oldRecordDeep['user'][0]["email_activate"] = true;
 
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
                 

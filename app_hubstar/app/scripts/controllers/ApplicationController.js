@@ -230,7 +230,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             var s = HubStar.User.find(localStorage.loginStatus);
             var thatthat = that;
             s.addObserver('isLoaded', function() {
-                if (s.get('isLoaded')) { 
+                if (s.get('isLoaded')) {
                     //  var model = {id: localStorage.loginStatus};
                     thatthat.transitionToRoute("user", s);
                 }
@@ -275,7 +275,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
             });
             setTimeout(function() {
-                that.transitionToRoute('search');
+                //that.transitionToRoute('search');
                 that.set('first_name', "");
                 that.set('last_name', "");
                 that.set('email', "");
@@ -284,6 +284,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 that.set('gender', "");
                 that.set('age', "");
                 that.set('isWaiting', false);
+                alert("Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!");
             }, 2000);
         });
     },
@@ -374,6 +375,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
             var that = this;
             requiredBackEnd('login', 'login', loginInfo, 'POST', function(params) {
+                console.log(params);
                 if (params === 1) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                     that.set('isWaiting', false);
@@ -391,11 +393,20 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
                     if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
                         localStorage.loginStatus = params.COUCHBASE_ID;
-                        HubStar.set("isLogin", true);
-                        that.transitionToRoute('searchIndex');
-                        that.set('loginUsername', "");
-                        that.set('loginPassword', "");
-                        that.set('isWaiting', false);
+//                        var email_activate = params[1];
+
+                        if (email_activate === true)
+                        {
+                            HubStar.set("isLogin", true);
+                            that.transitionToRoute('searchIndex');
+                            that.set('loginUsername', "");
+                            that.set('loginPassword', "");
+                            that.set('isWaiting', false);
+                        }
+                        else
+                        {
+                            alert("Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!");
+                        }
                     }
                     else {
                         document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");

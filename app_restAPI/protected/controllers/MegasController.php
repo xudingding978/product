@@ -243,7 +243,7 @@ class MegasController extends Controller {
             } catch (Exception $exc) {
                 echo $exc->getTraceAsString();
             }
-        } elseif ($like_type === "photo") {
+        } else {
             try {
                 $cb = $this->couchBaseConnection();
                 $docID = $this->getDomain() . "/" . $like_profile;

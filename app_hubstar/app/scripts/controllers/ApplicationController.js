@@ -62,78 +62,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));
-    },
-    switchCollection: function(model) {
-        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
-            if (model.get("type") === "photo") {
-                var photoObj = model.get("photo").objectAt(0);
-                var addCollectionController = this.get('controllers.addCollection');
-                var selectid = model.id;
-                addCollectionController.setImageID(selectid);
-                var tempUrl = photoObj.get('photo_image_thumbnail_url');
-                addCollectionController.setThumbnailUrl(tempUrl);
-                addCollectionController.setUser();
-                addCollectionController.setRelatedController('application');
-                $('#addCollection_' + model.id).attr('style', 'display: block');
-            }
-            else if (model.get("type") === "article")
-            {
-                var photoObj = model.get("article").objectAt(0);
-                var addCollectionController = this.get('controllers.addCollection');
-                var selectid = model.id;
-                addCollectionController.setImageID(selectid);
-                var tempUrl = photoObj.get('article_image_url');
-                addCollectionController.setThumbnailUrl(tempUrl);
-                addCollectionController.setUser();
-                addCollectionController.setRelatedController('application');
-                $('#addCollection_' + model.id).attr('style', 'display: block');
-            }
-
-            else if (model.get("type") === "video")
-            {
-                var addCollectionController = this.get('controllers.addCollection');
-                var selectid = model.id;
-                addCollectionController.setImageID(selectid);
-                var tempUrl = model.get('object_image_url');
-                addCollectionController.setThumbnailUrl(tempUrl);
-                addCollectionController.setUser();
-                addCollectionController.setRelatedController('application');
-                $('#addCollection_' + model.id).attr('style', 'display: block');
-            }
-        }
-    },
-    addLike: function(id)
-    {
-        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
-            var mega = HubStar.Mega.find(id);
-            console.log(mega);
-            var type = mega.get("type");
-            var people_like = mega.get("people_like");
-            if (people_like === null || people_like === undefined) {
-                people_like = "";
-            }
-            if (localStorage.loginStatus !== null && localStorage.loginStatus !== undefined && localStorage.loginStatus !== "")
-            {
-                if (people_like.indexOf(localStorage.loginStatus) !== -1)
-                {
-                    this.count = mega.get('likes_count');
-
-                }
-                else {
-                    var likeArray = [localStorage.loginStatus, id, type];
-                    likeArray = JSON.stringify(likeArray);
-                    var that = this;
-                    requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
-                        params = params + "";
-                        var like = params.split(",");
-                        mega.set("likes_count", like.length);
-                        mega.set("people_like", params);
-                        that.count = like.length;
-                    });
-                }
-            }
-        }
-    },
+    },   
     scrollDownAction: function() {
         this.set('loadingTime', true);
         this.set("size", 20);

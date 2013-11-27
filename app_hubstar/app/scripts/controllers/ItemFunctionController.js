@@ -75,11 +75,11 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                     this.count = mega.get('likes_count');
 
                 }
-                else {
+                else {                  
                     var likeArray = [localStorage.loginStatus, id, type];
                     likeArray = JSON.stringify(likeArray);
                     var that = this;
-                    requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
+                    requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {                       
                         params = params + "";
                         var like = params.split(",");
                         mega.set("likes_count", like.length);

@@ -201,6 +201,23 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
     },
+    verify: function(verifyAccount, verifyPassword)
+    {
+        var emailVerify = [verifyAccount, verifyPassword];
+        var that = this;
+        requiredBackEnd('login', 'verify', emailVerify, 'POST', function(params) {
+            localStorage.loginStatus = params;
+            HubStar.set("isLogin", true);
+            var s = HubStar.User.find(localStorage.loginStatus);
+            var thatthat = that;
+            s.addObserver('isLoaded', function() {
+                if (s.get('isLoaded')) {
+                    //  var model = {id: localStorage.loginStatus};
+                    thatthat.transitionToRoute("user", s);
+                }
+            });
+        });
+    },
     signUp: function() {
 
         if (this.checkSignupInfo()) {
@@ -240,7 +257,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
             });
             setTimeout(function() {
-                that.transitionToRoute('search');
+                //that.transitionToRoute('search');
                 that.set('first_name', "");
                 that.set('last_name', "");
                 that.set('email', "");
@@ -248,8 +265,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 that.set('region', "");
                 that.set('gender', "");
                 that.set('age', "");
-                //  that.set('isWaiting', false);
+//                that.set('isWaiting', false);
                 that.set('loginTime', false);
+                alert("Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!");
             }, 2000);
         });
     },
@@ -344,7 +362,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 if (params === 1) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                     //  that.set('isWaiting', false);
-                    this.set('loginTime', false);
+                    that.set('loginTime', false);
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
@@ -358,21 +376,35 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is a social network login account
                 else {
 
-                    if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
-                        localStorage.loginStatus = params.COUCHBASE_ID;
-                        localStorage.userName = that.get('loginUsername');
-                        localStorage.userType = "email";
-                        HubStar.set("isLogin", true);
-                        that.transitionToRoute('searchIndex');
-                        //  that.set('loginUsername', "");
-                        that.set('loginPassword', "");
-//                        that.set('isWaiting', false);
-                        that.set('loginTime', false);
+
+                    if (that.get('loginPassword') === params[0]["PWD_HASH"] && that.get('loginPassword') !== undefined) {
+
+                        var email_activate = params[1];
+
+
+                        if (email_activate === true)
+                        {
+                            localStorage.loginStatus = params[0].COUCHBASE_ID;
+                            HubStar.set("isLogin", true);
+                            that.transitionToRoute('searchIndex');
+                            that.set('loginUsername', "");
+                            that.set('loginPassword', "");
+//                            that.set('isWaiting', false);
+                            that.set('loginTime', false);
+                        }
+                        else
+                        {
+                            that.set('loginTime', false);
+                            $('.black-tool-tip').css('display', 'none');
+                            $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                              alert("Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!");
+                        }
+
                     }
                     else {
                         document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
 //                        that.set('isWaiting', false);
-                         that.set('loginTime', false);
+                        that.set('loginTime', false);
                         if ($('#incorrect-password').css('display') === 'none') {
 
                             $('.black-tool-tip').stop();

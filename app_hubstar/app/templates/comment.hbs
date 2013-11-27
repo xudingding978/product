@@ -20,16 +20,10 @@
 
                         </div>
                     </div>
-                    {{#if controller.isReply}}
+
                     <div class="message-btn easing" style='width: 30px;'{{action openComment model.id}}>
                          <k class='icon-ok'></k>
                     </div>
-                    {{else}}
-                    <div class="message-btn easing" style='width: 30px;'>
-                        <i class="spinner spinner-sml"></i>
-                    </div>
-                    {{/if}}
-
 
                 </div>
             </div>
@@ -53,36 +47,30 @@
             {{#unless this.isEdit}}
             <div class="comment-item comment-frame" id="commentItem_{{unbound message_id}}" style="display: block">
 
-                <div class="comment-position" style="padding: 4.5px 0 4.5px 35px;">
-                    <a class="profilepic-comment-container" style="margin: 8px 15px;" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
+                <div class="comment-position" style="">
+                    <a class="profilepic-comment-container" style="" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
                        <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
                     </a>
                     <div style="">
 
                         <div class="comment-namentime">
-                            <div class="namentime_position">
-                                {{#if this.getUser}}
-                                <span class="edit-comment easing">
-                                    <i class="icon-trash"  {{action removeComment this}}></i>                 
-                                    <i class="icon-pencil" {{action editingCommentData this}}></i>
-                                </span>
-                                {{/if}}
-                                <a class="comment-username"  href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
-                                   {{name}}    
-                            </a>
-                            <div class="posttime-container">
-                                <span class="posttime">{{date  time_stamp}}</span>
-                            </div>
+                            {{#if this.getUser}}
+                            <span class="edit-comment easing">
+                                <i class="icon-trash"  {{action removeComment this}}></i>                 
+                                <i class="icon-pencil" {{action editingCommentData this}}></i>
+                            </span>
+                            {{/if}}
+                            <a class="comment-username"  href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
+                               {{name}}    
+                        </a>
+                        <div class="posttime-container">
+                            <span class="posttime">{{date  time_stamp}}</span>
                         </div>
                     </div>
 
 
                     <div class="comment-content">
                         {{content}} 
-
-                        <span>
-                            <span></span>
-                        </span>
                     </div>
 
                 </div>
@@ -116,17 +104,13 @@
 
                 <div class="comment-content">
                     {{content}} 
-
-                    <span>
-                        <span></span>
-                    </span>
                 </div>
 
             </div>
         </div>
 
     </div>
-    <div class="addcommnetbox-container comment-frame" id="commentEdit_{{unbound message_id}}" style="display: none">
+    <div  id="commentEdit_{{unbound message_id}}" style="display: none">
         {{render editComment this}}       
     </div>
     {{/unless}}
@@ -146,7 +130,7 @@
         <i class="icon-caret-up show-comment_inner" ></i>
     </div>
 </div>
-    
+
 
 {{#if controller.makeSureDelete}}
 

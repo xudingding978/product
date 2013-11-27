@@ -1653,7 +1653,7 @@ div.album-description-bg{
 }
 
 .comment-position{
-    padding: 4.50px 0px 4.5px 43px;
+    padding: 4.5px 0 4.5px 35px;
     vertical-align: top;
 }
 
@@ -1661,7 +1661,7 @@ div.album-description-bg{
     cursor: pointer;
     position: absolute;
     left: 0px;
-    top: 5px;
+    margin: 5px 3.5%;
 }
 
 .profilepic_comment{

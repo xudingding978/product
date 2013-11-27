@@ -820,6 +820,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     saveUpdate: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
+
         update_profile_record.set('profile_editors', this.get('editors'));
         update_profile_record.set('profile_keywords', this.get('keywords'));
         update_profile_record.set('profile_keywords_num', parseInt(this.get('keyword_num')));
@@ -1166,14 +1167,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     rateEditing: function(id) {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-
-            this.set("rateTime", true);
-
-            if (this.get('reviewTag') === true) {
-                this.set('reviewTag', false);
-                this.set('isInreview', true);
+            if (this.get('model').get('reviews').get('length') === 0) {
+                this.set("rateTime", true);
             }
-
+            else if (this.get('model').get('reviews').get('length') > 0) {
+                if (this.get('model').get('reviews').objectAt(0).get("review_user_id").indexOf(localStorage.loginStatus) !== -1)
+                {
+                    this.set("rateTime", false);
+                    this.get('controllers.applicationFeedback').statusObserver(null, "You have already review this profile, Thank you!.", "warnning");
+                } else {
+                    this.set("rateTime", true);
+                }
+            }
         }
     },
     setCollectionAttr: function() {

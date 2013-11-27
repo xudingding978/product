@@ -5,21 +5,22 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
     profileReview: "",
     userPhoto: "",
     replyReviewContent: "",
+    review_content: "",
     currentOwner: "",
+    review_is_edit: false,
+    isUserself: false,
     isSelf: false,
     needs: ['permission', 'applicationFeedback', 'profile', 'applicationFeedback', 'user', 'reviewList', 'review'],
     init: function()
     {
         if (localStorage.loginStatus !== null && localStorage.loginStatus !== 'undefined' && localStorage.loginStatus !== '') {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-
-            //  this.set("userPhoto", this.get("currentUser").get("photo_url_large"));
-
         }
 
     },
     addLike: function()
     {
+
         var review = this.get('model');
         var review_people_like = review.get("review_people_like");
         if (review_people_like === null || review_people_like === 'undefined') {
@@ -39,13 +40,72 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
             }
         }
     },
+    editReview: function() {
+
+        this.set("review_is_edit", !this.get('review_is_edit'));
+        this.set("review_content", this.get("model").get('review_content'));
+        this.transitionToRoute('review', {id: this.get("model").get("review_id")});
+    },
+    saveReview: function() {
+        var reviewDate = new Date();
+        this.get("model").set('review_content', this.get('review_content'));
+        this.get("model").set('review_time_stamp', reviewDate.toString());
+        requiredBackEnd('reviews', 'Update', this.get("model"), 'POST', function(params) {
+        });
+        this.set("review_is_edit", !this.get('review_is_edit'));
+    },
+    cancelReview: function() {
+        this.set("review_is_edit", !this.get('review_is_edit'));
+    },
+    removeReview: function() {
+        this.set('message', "Are you going to delete this Review?");
+        this.set('makeSureDelete', !this.get('makeSureDelete'));
+        this.set("delete_id", this.get('model').get("review_id"));
+    },
+    deleteConfirm: function()
+    {
+        this.deleteSelectedReview();
+        this.cancelDelete();
+        this.get("controllers.profile").set("profileReviewStatistics", this.get("controllers.profile").get('profileReviewStatistics') - 1);
+    },
+    deleteSelectedReview: function()
+    {
+        for (var i = 0; i < this.get("controllers.profile").get('reviews').get('length'); i++) {
+            var review = this.get("controllers.profile").get('reviews').objectAt(i);
+            if (review.get('review_id') === this.get('delete_id'))
+            {
+                review.deleteRecord();
+                this.get("controllers.profile").get('reviews').removeObject(review);
+                requiredBackEnd('reviews', 'Delete', review, 'POST', function(params) {
+
+                });
+                break;
+            }
+        }
+
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+        }, 500);
+
+
+    },
+    cancelDelete: function() {
+        this.set('makeSureDelete', !this.get('makeSureDelete'));
+        this.set('message', "");
+        HubStar.set('data', null);
+        this.set('delete_id', null);
+
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 500);
+    },
     addReviewReply: function(reviewID) {
 
         var replyContent = this.get("replyReviewContent");
-        var review = this.get('model');
+
         if (replyContent) {
             var replyUserID = this.get("currentUser").get('id');
-            if (replyUserID === review.get("review_user_id")) {
+            if (replyUserID === this.get('model').get("review_user_id")) {
                 this.set("isSelf", true);
             } else
             {
@@ -65,18 +125,32 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
             $('#view-comments_' + reviewID).animate({display: 'none'}, 500);
             $('#up-comments_' + reviewID).attr('style', 'background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
             $('#up-comments_' + reviewID).animate({display: 'none'}, 500);
-
-            $('#reply_' + reviewID).animate({maxHeight: '200px'}, 500);
-
-
+            $('#reply_' + reviewID).animate({maxHeight: '200px'}, 10);
+            
+            for (var i = 0; i < this.get("controllers.profile").get('reviews').get('length'); i++) {
+                if (this.get("controllers.profile").get('reviews').objectAt(i).get('review_id') !== reviewID) {
+                    this.upComments(this.get("controllers.profile").get('reviews').objectAt(i).get("review_id"));
+                }
+            }
 
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reload");
-            }, 500);
+            }, 10);
 
         }
         this.set("replyReviewContent", "");
 
+    },
+    upComments: function(event) {
+        $('#reply_' + event).attr('style', 'display: none; max-height:0;');
+        $('#up-comments_' + event).attr('style', 'display: none;background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
+        $('#up-comments_' + event).animate({display: 'none'}, 500);
+        $('#view-comments_' + event).attr('style', ' display:block; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
+        $('#view-comments_' + event).animate({display: 'block'}, 500);
+        $('#reply_' + event).animate({maxHeight: '0px'}, 10);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 10);
     },
     close: function() {
         this.set("replyReviewContent", "");

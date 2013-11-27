@@ -47,7 +47,7 @@ class CollectionsController extends Controller {
     public function actionSaveCollection() {
         $request_json = CJSON::decode(file_get_contents('php://input'), true);
         $request_arr = CJSON::decode($request_json, true);
-        error_log(var_export($request_arr, true));
+
         $docIDDeep = $this->getDomain() . "/profiles/" . $request_arr["optional"]; //$id  is the page owner
         $cb = $this->couchBaseConnection();
         $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
@@ -57,7 +57,7 @@ class CollectionsController extends Controller {
         }
         for ($i = 0; $i < sizeof($oldRecordDeep['profile'][0]['collections']); $i++) {
             if ($oldRecordDeep['profile'][0]['collections'][$i]["id"] === $request_arr["id"]) {
-                $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"]=$request_arr["collection_ids"];
+                $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] = $request_arr["collection_ids"];
             }
         }
         if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
@@ -66,6 +66,8 @@ class CollectionsController extends Controller {
             echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
         }
     }
+
+    
 
     public function actionCreate() {
         try {

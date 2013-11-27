@@ -392,7 +392,7 @@ a:hover {
 }
 
 
-.object-tpye{
+.object-type{
     display: inline-block;
     text-align: center;
     background-color: #427fed;
@@ -400,7 +400,7 @@ a:hover {
     border-bottom: 2px solid #427fed;
 }
 
-.object-tpye:hover{
+.object-type:hover{
     border-bottom: 2px solid #fff;
     opacity: 1;
 }
@@ -413,7 +413,7 @@ a:hover {
     opacity: 1;
 }
 
-.object-tpye > i {
+.object-type > i {
     padding: 10px;
 }
 

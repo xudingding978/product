@@ -25,6 +25,9 @@ class ProfileCommand extends Controller_admin {
             $this->updateCouchbasePofileKeywords();
         } elseif ($action == 'count') {
             $this->checkNumber();
+
+        }elseif ($action == 'time') {
+            $this->updateTimeStamp();
         } elseif ($action == 'desc') {
             $this->correctCollectionDescription();
         }elseif ($action == 'test') {
@@ -637,6 +640,66 @@ class ProfileCommand extends Controller_admin {
         echo "over";
     }
 
+
+    
+    public function updateTimeStamp(){
+            $timeStamp = $this->setUTC();
+            $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+            $log_path = "/var/log/yii/$start_time.log";
+            $id = $hit['id'];
+            $ch = $this->couchBaseConnection("temp");
+            $result = $ch->get("trendsideas.com/481376534221498");
+            //   if($result!= null){
+            $result_arr = CJSON::decode($result, true);
+            $record_created= $result_arr["created"];
+            $record_updated = $result_arr["updated"];
+            $record_accessed=$result_arr["accessed"];
+            $record_accessed_readable = $result_arr["accessed_readable"];
+            $record_updated_readable = $result_arr["updated_readable"];
+            $record_created_readable = $result_arr["created_readable"];
+            if ($result_arr != null) {
+                 $result_arr["updated"] = $timeStamp;
+                 $result_arr["updated_readable"]=  date('D M d Y H:i:s'). ' GMT' . date('O') . ' (' . date('T') . ')';  
+                if($result_arr["created"]!=null && $result_arr["created"]!=""){          
+                      $result_arr["created_readable"]=  date('D M d Y H:i:s', $result_arr["created"]). ' GMT' . date('O',$result_arr["created"]) . ' (' . date('T',$result_arr["created"]) . ')';                                 
+                }
+                else{
+                    $result_arr["created"]=$timeStamp;
+                    $result_arr["created_readable"]=  date('D M d Y H:i:s'). ' GMT' . date('O') . ' (' . date('T') . ')';  
+                }
+                 if($result_arr["accessed"]!=null && $result_arr["accessed"]!=""){          
+                      $result_arr["accessed_readable"]=  date('D M d Y H:i:s', $result_arr["accessed"]). ' GMT' . date('O',$result_arr["accessed"]) . ' (' . date('T',$result_arr["accessed"]) . ')';                                 
+                }
+                else{
+                    $result_arr["accessed"]=$timeStamp;
+                    $result_arr["accessed_readable"]=  date('D M d Y H:i:s'). ' GMT' . date('O') . ' (' . date('T') . ')';  
+                }       
+            } else {
+                $message = $id . "|" . $result_arr["type"] . "|" . "Does not have keyword in its profile";
+            }
+            if ($ch->set($id, CJSON::encode($result_arr))) {
+                echo "Document: " . $id . "\r\n" . "created has been changed from " . $record_created . " to " . $result_arr["created"] . "\r\n" .
+                "accessed has been changed from " . $record_accessed . " to " . $result_arr["accessed"] . "\r\n" .
+                "updated has been changed from " . $record_updated . " to " . $result_arr["updated"] . "\r\n" .
+                "created_readable has been changed from " . $record_created_readable . " to " . $result_arr["created_readable"] . "\r\n" .
+                "accessed_readable has been changed from " . $record_accessed_readable . " to " . $result_arr["accessed_readable"] . "\r\n" .
+                "updated_readable has been changed from " . $record_updated_readable . " to " . $result_arr["updated_readable"] . "\r\n" .
+                "\r\n";
+                $message = $id . "|" . $result_arr["type"] . "|" . '{"old_keywords": ' . '"' . $record_created . '"' . '; "new_keywords": ' . '"' .$result_arr["created"] . '"' . "}\n".
+                        $id . "|" . $result_arr["type"] . "|" . '{"old_accessed": ' . '"' . $record_accessed . '"' . '; "new_keywords": ' . '"' .$result_arr["created"] . '"' . "}\n".
+                        $id . "|" . $result_arr["type"] . "|" . '{"old_keywords": ' . '"' . $record_created . '"' . '; "new_keywords": ' . '"' .$result_arr["created"] . '"' . "}\n".
+                        $id . "|" . $result_arr["type"] . "|" . '{"old_keywords": ' . '"' . $record_updated_readable . '"' . '; "new_keywords": ' . '"' .$result_arr["updated_readable"] . '"' . "}\n".
+                        $id . "|" . $result_arr["type"] . "|" . '{"old_keywords": ' . '"' . $record_accessed_readable . '"' . '; "new_keywords": ' . '"' .$result_arr["accessed_readable"] . '"' . "}\n".
+                         $id . "|" . $result_arr["type"] . "|" . '{"old_keywords": ' . '"' . $record_created_readable . '"' . '; "new_keywords": ' . '"' .$result_arr["created_readable"] . '"' . "}";
+            } else {
+                echo $id . " fail to set the value into couchbase document! \r\n";
+                $message = $id . " fail to set the value into couchbase document! \r\n";
+            }
+            $this->writeToLog($log_path, $message);
+    }
+
+
+
     public function compareProfiles(){
         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $log_path = "/var/log/yii/$start_time.log";
@@ -660,6 +723,7 @@ class ProfileCommand extends Controller_admin {
     }
     
     
+
     public function findProfiles($bucket) {
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
@@ -743,6 +807,7 @@ class ProfileCommand extends Controller_admin {
             }
         }
         echo "Scanning Completed";
+
     }
 
     /*

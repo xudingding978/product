@@ -1,70 +1,74 @@
 
 
 
-<div id="discovery_search_bar_wrapper" style="height: 200px; margin: 0 0 100px 0;">
-    <div style="width: 100%; height: 200px; background-color: black; opacity: 0.05;"></div>
-    <P style="position: absolute; font-size: 25px; top: 100px;z-index: 600; width: 600px; color: white; left:0; right: 0; margin: auto; line-height: 25px; text-align: center;">
-        What are you looking for?
-    </P>
-    <div style="position: absolute; left: 0; right: 0; margin: auto; width: 100px; text-align: center; bottom: 15px;">
-        {{#linkTo quickstart}}<div class="new-btn green-btn" {{action submitSelection}}>Next</div>{{/linkTo}}
-    </div>
-</div>
+<div style="width:100%;height:100%;z-index: 1000;position: fixed;">
+    <img src="../../../images/landingpagebg.jpg" style="width:100%; position:fixed;"/>
 
-
-
-<div id="masonry_welcome_container"  class="centered clearfix" >
-
-    {{#linkTo quickstart}} <div class="box col3" {{action submitSelection}}>
-                                <div class="masonry-object" style=" height: 350px; width: 300px;">
-            <div class="usersobject-hoverarea easing" style="height: 350px; width: 300px;">
-                <div class="usersobject-hoverarea_bg">                
-                    <i class="icon-ok" style="font-size: 140px;  line-height: 300px;  text-align: center;display: block; color: white;"></i>
-                </div>
-
-
-            </div>
-            <div style="position: relative;">
-                <div style="width: 300px; height: 300px; overflow: hidden; background-color: rgb(242,240,240);">
-                    <div style="font-size: 11em;line-height: 300px;font-weight: bold;text-align: center; text-shadow: 1px 1px 0px #fff, -1px -1px 0px #333;color: #555;">?</div>
-                </div>
-            </div>
-
-            <div class="masonry-object_username" style="height: 50px;">
-                <div class="object-username" style=" font-size: 16px; padding: 15px 0;">
-                    Not Sure Yet!
-                </div>
-            </div>
-        </div>
-    </div>{{/linkTo}}
-
-    {{#each controller.content}}
-
-    <div class="box col3">
-        <div class="masonry-object" style=" height: 350px; width: 300px;">
-            <div class="usersobject-hoverarea easing" style="height: 350px; width: 300px;" {{bindAttr id="id"}} {{action selectTopic id topic }}>
-                 <div class="usersobject-hoverarea_bg"   >
-                    <i class="icon-ok" style="font-size: 140px;  line-height: 300px;  text-align: center;display: block; color: white;"></i>
-                </div>
-            </div>
-            <div style="position: relative;">
-                <div style="width: 300px; height: 300px; overflow: hidden;">
-                    <img {{bindAttr src="image"}} style="min-height:300px; width: 300px; max-width: none;"/>
-                </div>
-            </div>
-            <div class="masonry-object_username" style="height: 50px;">
-                <div class="object-username" style=" font-size: 16px; padding: 15px 0;">
-                    {{topic}}
-                </div>
-            </div>
+    <div style="width: 87%;margin: 40px auto;display: block;">
+        <img class="logonew" style="position: relative; height: 30px;display: inline-block;vertical-align: top;margin: 8px;" src="../../../images/landing-trends.png">
+        <div style="position:relative; float:right; color:white; font-size:15px;font-weight: bold;">
+            <div style="margin-right:10px;display: inline-block;background-color: #777;padding: 0 20px;text-align: center;height: 45px;line-height: 45px;letter-spacing: 1px;">SIGN UP</div>
+            <span style="letter-spacing: 1px; margin: 0 0 0 10px;">LOGIN</span>
         </div>
     </div>
 
-    {{/each}}
+    <div style="position: absolute; vertical-align: middle; color: #fff; width: 40%; text-align: center;margin: auto;left: 0;right: 0;top: 50px;font-size: 14px; font-family: 'Montserrat', sans-serif; letter-spacing: 2px;opacity: .9;">
+        <span>2,100,000 IDEAS</span>
+        <span>&nbsp | &nbsp</span>
+        <span>1,200,000 PRODUCTS</span>
+    </div>
+
+
+
+    <div style="overflow:hidden; z-index: 11;background-color: white;border-radius: 5px;box-shadow: 0 0 20px #bbb;width: 635px;height: 500px;margin: 0 auto;position: fixed;top: 15%;left: 0;right: 0;">
+
+        <div  style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
+            <div  class="comment-namentime" style="display: block;position: relative;height: 35px;">
+                <div style="position: absolute;  text-align: center;line-height: 40px;margin: 0 auto;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
+                    Please choose a topic that will sustain your interest.
+
+                </div>
+            </div>
+        </div>
+        <div id ="" style="margin: 20px auto 5px; padding: 0 15px;height: 150px;">
+
+            {{#each controller.content}}
+
+            <div class="" style="height: 100px;width: 100px;position: relative;border: 3px solid #f3f3f3;border-radius: 50%;overflow: hidden;box-shadow: 0 0 5px #aaa;top: -5px;float: left;z-index: 1; margin-left: 10px; margin-right: 10px; margin-top: 15px;">
+
+
+                <div class="masonry-object" style=" height: 100px; width: 100px;">
+                    <div  style="height: 100px; width: 100px;" >
+                         {{#if controller.isAdd}}
+                         <div class="invite-this-friend radius-circle easing" style="opacity: .8;" ><k class="icon-minus" ></k></div>
+                        {{/if}}
+                        <div class="invite-this-friend radius-circle easing" {{bindAttr id="id"}} {{action selectTopic id topic }}><k class="icon-plus" ></k></div>
+
+                    </div>
+                    <div style="position: relative;">
+                        <div style="width: 100px; height: 100px; overflow: hidden;">
+                            <img {{bindAttr src="image"}} style="min-height:100px; width: 100px; max-width: none;"/>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="masonry-object_username" style="height: 15px;">
+                        <div class="object-username" style=" font-size: 10px; padding: 5px 0;">
+                            {{topic}}
+                        </div>
+                    </div>
+            </div>
+
+            {{/each}}
+
+        </div>
+
+        <div class="" style="height: 30px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
+            <div  class="message-btn easing"  style="width: 50%;border-right: 1px solid #ddd;" ><k class="icon-remove">&nbsp;</k>Back</div>
+            {{#linkTo quickstart}}<div class="message-btn easing" style="width: 50%;border-right: 1px solid #ddd;"{{action submitSelection}}>Next</div>{{/linkTo}}
+        </div>
+    </div>
+
+
+
 </div>
-
-
-<div style="position: relative;  left: 0;right: 0; margin: 40px auto 20px; width: 100px; text-align: right; ">
-    {{#linkTo quickstart}}<div class="new-btn green-btn" style="width: 200px;" {{action submitSelection}}>Next</div>{{/linkTo}}
-</div>
-

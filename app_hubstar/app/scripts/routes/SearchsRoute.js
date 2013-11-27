@@ -21,7 +21,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
 //        for (var key in item) {
 //            console.log(item[key]);
 //        }
-        localStorage.checkUser = "";
+        localStorage.checkUser = "newUser";
 
     },
     events: {

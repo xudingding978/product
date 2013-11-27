@@ -1,5 +1,6 @@
 HubStar.TopicSelectionController = Ember.ArrayController.extend({
         selected_topics: "",
+        isAdd:false,
         content: [
             {id: "1", image: '../images/welcomepage/bedroom.jpg', topic: 'Bedrooms'},
             {id: "2", image: '../images/welcomepage/home-theatre.jpg', topic: 'Home Theatre'},
@@ -19,7 +20,8 @@ HubStar.TopicSelectionController = Ember.ArrayController.extend({
         ],
         selectTopic: function(id, topic) {
             if (HubStar.get(id)) {
-                $('#' + id).attr("style", "opacity:0;height: 350px; width: 300px;");
+                this.set("isAdd", false);
+              //  $('#' + id).attr("style", "opacity:0;height: 350px; width: 300px;");
                 if (this.get('selected_topics').indexOf(topic) !== -1) {
 
                     this.set('selected_topics', this.get('selected_topics').replace(topic + ",", ""));
@@ -28,8 +30,8 @@ HubStar.TopicSelectionController = Ember.ArrayController.extend({
       
                 HubStar.set(id, false);
             } else {
-                $('#' + id).attr("style", "opacity:1;height: 350px; width: 300px;");
-
+             //   $('#' + id).attr("style", "opacity:1;height: 350px; width: 300px;");
+ this.set("isAdd", true);
                 this.set('selected_topics', this.get('selected_topics') + topic + ",");
 
                 HubStar.set(id, true);

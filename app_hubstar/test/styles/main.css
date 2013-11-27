@@ -11727,7 +11727,7 @@ textarea.add-interests{
     box-shadow: 0 0 3px #aaa;
     width: 500px;
     margin: 5px 0px 5px 25px;
-    opacity: .7;
+    opacity: .8.5;
     cursor: pointer;
 
 }
@@ -11818,6 +11818,36 @@ textarea.add-interests{
 
 #routeModeDropdown > .ite {width: 270px;}
 
+
+
+
+
+
+
+.clear-all{
+    width: 25px;
+    height: 25px;
+    margin: 10px;
+    line-height: 25px;
+    border-radius: 2px;
+    background-color: #333;
+    float: left;
+    cursor: pointer;
+    text-align: center;
+}
+
+.clear-all:before{
+    content:"";
+    float:left;
+    position:absolute;
+    top:0;
+    left:-17px;
+    width:0;
+    height:0;
+    border-color:transparent #333 transparent transparent;
+    border-style:solid;
+    border-width:17px 17px 17px 0;
+}
 
 .search_input{width: 25%;display: inline-block}
 .search_business{width: 73.5%}

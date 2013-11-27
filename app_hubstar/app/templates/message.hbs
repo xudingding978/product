@@ -63,14 +63,14 @@
                     {{view HubStar.SearchRequireTextFieldView valueBinding="replyContent" class="no-resize" placeholder="Add a comment..." }}                                          
                 </div>
                 <div style="float: right;height: 34px;position: relative;">
-                    <div  class="message-btn easing" style="width:30px; border-right: 1px solid #ddd; border-left: 1px solid #ddd;" data-hint="Add Photo"><k class='icon-picture'></k>
+                    <div  class="message-btn easing hint--bottom hint--rounded" style="width:30px; border-right: 1px solid #ddd; border-left: 1px solid #ddd;" data-hint="Add Photo"><k class='icon-picture'></k>
                         <div style="opacity:0;position: relative;height:30px;top:-30px;overflow: hidden;"> 
                             {{view HubStar.SingleImageInputButtonView }}
 
                         </div>
                     </div>
                     {{#if controller.isReply}}
-                    <div class="message-btn easing" style='width: 30px;' data-hint="Post" {{action addReply model.message_id}}>
+                    <div class="message-btn easing hint--bottom hint--rounded" style='width: 30px;' data-hint="Post" {{action addReply model.message_id}}>
                          <k class='icon-ok' ></k>
                     </div>
                     {{else}}

@@ -94,7 +94,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
     },
     fbShare: function(event) {
         var that = this;
-        var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get("controllers.profile").get('currentUserID') + '/reviews/' + event.get("review_id");
+        var currntUrl = 'http://'+document.domain+'/#/profiles/' + this.get("controllers.profile").get('currentUserID') + '/reviews/' + event.get("review_id");
         var caption = '';
         if (event.get('review_content') !== null)
         {
@@ -144,7 +144,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
         $("meta[property='og\\:image']").attr("content", event.get('review_user_photo_url'));
 
 
-        var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get("controllers.profile").get('currentUserID') + '/reviews/' + event.get("review_id");
+        var currntUrl = 'http://'+document.domain+'/#/profiles/' + this.get("controllers.profile").get('currentUserID') + '/reviews/' + event.get("review_id");
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
         window.open(
@@ -157,7 +157,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
     },
     //share to social twitter
     tShare: function(event) {
-        var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get("controllers.profile").get('currentUserID') + '/reviews/' + event.get("review_id");
+        var currntUrl = 'http://'+document.domain+'/#/profiles/' + this.get("controllers.profile").get('currentUserID') + '/reviews/' + event.get("review_id");
         var url = 'https://twitter.com/share?text=' + event.get('review_user_name') + '&url=' + encodeURIComponent(currntUrl);
         window.open(
                 url,

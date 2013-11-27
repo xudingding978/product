@@ -1223,7 +1223,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     // share to social facebook
     fbShare: function() {
         var that = this;
-        var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
+        var currntUrl = 'http://'+document.domain+'/#/profiles/' + this.get('currentUserID');
         var caption = '';
         if (this.get('profile_cover_text') !== null)
         {
@@ -1277,7 +1277,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         $("meta[property='og\\:image']").attr("content", this.get('profile_pic_url'));
 
 
-        var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
+        var currntUrl = 'http://'+document.domain+'/#/profiles/' + this.get('currentUserID');
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
         window.open(
@@ -1290,7 +1290,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     //share to social twitter
     tShare: function() {
-        var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
+        var currntUrl = 'http://'+document.domain+'/#/profiles/' + this.get('currentUserID');
         var url = 'https://twitter.com/share?text=' + this.get('profile_name') + '&url=' + encodeURIComponent(currntUrl);
         window.open(
                 url,
@@ -1301,7 +1301,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     pShare: function() {
 
-        var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
+        var currntUrl = 'http://'+document.domain+'/#/profiles/' + this.get('currentUserID');
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.get('profile_pic_url')) +
                 '&description=' + encodeURIComponent(this.get('profile_name'));

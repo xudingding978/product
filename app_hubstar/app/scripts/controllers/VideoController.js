@@ -125,7 +125,7 @@ HubStar.VideoController = Ember.Controller.extend({
     // share to social facebook
     fbShare: function() {
         var that = this;
-        var currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('megaResouce').get('id');
+        var currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('megaResouce').get('id');
         var caption = '';
         
         if (this.get('megaResouce').get('object_description') !== null)
@@ -174,7 +174,7 @@ HubStar.VideoController = Ember.Controller.extend({
         $("meta[property='og\\:title']").attr("content", this.get('videoObject').data.video_title);
         $("meta[property='og\\:description']").attr("content", caption);
         $("meta[property='og\\:image']").attr("content", this.getImageURL());
-        var currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('megaResouce').get('id');
+        var currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('megaResouce').get('id');
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
         window.open(
@@ -187,7 +187,7 @@ HubStar.VideoController = Ember.Controller.extend({
     },
     //share to social twitter
     tShare: function() {
-        var currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('megaResouce').get('id');
+        var currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('megaResouce').get('id');
         var url = 'https://twitter.com/share?text=' + this.get('videoObject').data.video_title + '&url=' + encodeURIComponent(currntUrl);
         window.open(
                 url,
@@ -197,7 +197,7 @@ HubStar.VideoController = Ember.Controller.extend({
         return false;
     },
     pShare: function() {
-        var currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('megaResouce').get('id');
+        var currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('megaResouce').get('id');
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.getImageURL()) +
                 '&description=' + encodeURIComponent(this.get('videoObject').data.video_title);

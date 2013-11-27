@@ -415,7 +415,7 @@ HubStar.CommentController = Ember.Controller.extend({
         if (model.get("type") === "photo") {
             this.set("selectedPhoto", model.get("photo").objectAt(0));
             var that = this;
-            var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+            var currntUrl =  'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
             var caption = '';
 
             if (this.get('selectedPhoto').get('photo_caption') !== null)
@@ -450,7 +450,7 @@ HubStar.CommentController = Ember.Controller.extend({
         if (model.get("type") === "video") {
             this.set("selectedVideo", model._data.videoes[0]);
             var that = this;
-            var currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('selectedVideo')['id'];
+            var currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('selectedVideo')['id'];
             var caption = '';
             if (this.get('selectedVideo').data.video_desc !== null)
             {
@@ -484,7 +484,7 @@ HubStar.CommentController = Ember.Controller.extend({
         if (model.get("type") === "article") {
             this.set("selectedArticle", model.get("article").objectAt(0));
             var that = this;
-            var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedArticle').get('id');
+            var currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('selectedArticle').get('id');
             var caption = '';
             if (this.get('selectedArticle').get('article_body') !== null)
             {
@@ -541,7 +541,7 @@ HubStar.CommentController = Ember.Controller.extend({
             $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_thumbnail_url'));
 
 
-            var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+            var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
             var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
             window.open(
@@ -573,7 +573,7 @@ HubStar.CommentController = Ember.Controller.extend({
             $("meta[property='og\\:image']").attr("content", this.get('selectedArticle').get('article_image_url'));
 
 
-            var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedArticle').get('id');
+            var currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('selectedArticle').get('id');
             var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
             window.open(
@@ -605,7 +605,7 @@ HubStar.CommentController = Ember.Controller.extend({
             $("meta[property='og\\:image']").attr("content", this.get('selectedVideo').data.video_img);
 
 
-            var currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('selectedVideo')['id'];
+            var currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('selectedVideo')['id'];
             var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
             window.open(
@@ -622,7 +622,7 @@ HubStar.CommentController = Ember.Controller.extend({
         this.shareHide(model.id);
         if (model.get("type") === "photo") {
             this.set("selectedPhoto", model.get("photo").objectAt(0));
-            var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+            var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
             var url = 'https://twitter.com/share?text=' + this.get('selectedPhoto').get('photo_title') + '&url=' + encodeURIComponent(currntUrl);
             window.open(
                     url,
@@ -633,7 +633,7 @@ HubStar.CommentController = Ember.Controller.extend({
         }
         else if (model.get("type") === "article") {
             this.set("selectedArticle", model.get("article").objectAt(0));
-            var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedArticle').get('id');
+            var currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('selectedArticle').get('id');
             var url = 'https://twitter.com/share?text=' + this.get('selectedArticle').get('article_headline') + '&url=' + encodeURIComponent(currntUrl);
             window.open(
                     url,
@@ -644,7 +644,7 @@ HubStar.CommentController = Ember.Controller.extend({
         }
         else if (model.get("type") === "video") {
             this.set("selectedVideo", model._data.videoes[0]);
-            var currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('selectedVideo')['id'];
+            var currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('selectedVideo')['id'];
             var url = 'https://twitter.com/share?text=' + this.get('selectedVideo').data.video_title + '&url=' + encodeURIComponent(currntUrl);
             window.open(
                     url,
@@ -658,7 +658,7 @@ HubStar.CommentController = Ember.Controller.extend({
         this.shareHide(model.id);
         if (model.get("type") === "photo") {
             this.set("selectedPhoto", model.get("photo").objectAt(0));
-            var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+            var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
             var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                     '&media=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_original_url')) +
                     '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title'));
@@ -672,7 +672,7 @@ HubStar.CommentController = Ember.Controller.extend({
         }
         else if (model.get("type") === "video") {
             this.set("selectedVideo", model._data.videoes[0]);
-            var currntUrl = 'http://beta.trendsideas.com/#/videos/' + this.get('selectedVideo')['id'];
+            var currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('selectedVideo')['id'];
             var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                     '&media=' + encodeURIComponent(this.get('selectedVideo').data.video_img) +
                     '&description=' + encodeURIComponent(this.get('selectedVideo').data.video_title);
@@ -685,7 +685,7 @@ HubStar.CommentController = Ember.Controller.extend({
         }
         else if (model.get("type") === "article") {
             this.set("selectedArticle", model.get("article").objectAt(0));
-            var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('selectedArticle').get('id');
+            var currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('selectedArticle').get('id');
             var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                     '&media=' + encodeURIComponent(this.get('selectedArticle').get('article_image_url')) +
                     '&description=' + encodeURIComponent(this.get('selectedArticle').get('article_headline'));

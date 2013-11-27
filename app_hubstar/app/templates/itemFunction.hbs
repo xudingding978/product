@@ -6,7 +6,7 @@
 {{else}}
 <div class="item-function-control easing" style="">
     <div  id="thumbUpBtn_{{unbound model.id}}" style="float: left;" class="object-tpye easing" {{action addLike model.id}}>
-          <i class="icon-thumbs-up">&nbsp<span style="font-size: 11px;">{{model.likes_count}}</span></i>
+          <i class="icon-thumbs-up">&nbsp;<span style="font-size: 11px;">{{model.likes_count}}</span>&nbsp;</i>
     </div>
     <div data-hint="Add to your own collection." id="saveBtn_{{unbound model.id}}"  style="float: left;" class="object-tpye easing hint--top hint--rounded" {{action switchCollection model}}>
          <i class="icon-folder-close" >&nbsp</i>

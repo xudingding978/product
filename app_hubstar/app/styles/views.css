@@ -1590,8 +1590,6 @@ div.album-description-bg{
     padding:0 6.5%;
     margin: 0 auto;
     overflow:hidden;
-    border-bottom:12.5px solid #f8f8f8;
-
 }
 
 
@@ -1646,10 +1644,12 @@ div.album-description-bg{
     position: relative;
     width: auto;
     height: auto;
-    display: block;
-    margin: 5px 0;
     overflow-wrap: break-word;
     overflow-x: hidden;
+    display: block;
+    border-top: 1px solid #eee;
+    margin: 0;
+    padding: 5px 6.5%;
 }
 
 .comment-position{

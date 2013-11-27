@@ -1,4 +1,3 @@
-
 HubStar.ArticleController = Ember.Controller.extend({
     content: [],
     image_no: 1,
@@ -91,15 +90,15 @@ HubStar.ArticleController = Ember.Controller.extend({
                 selectedIndex = index;
             }
         }
-   
+
         if (selectedIndex >= (this.get('content').get('length'))) {
             this.set('image_no', 1);
             selectedIndex = 0;
         }
 
         this.set('image_no', selectedIndex);
-        
-        
+
+
         if (this.get("accessFromSearchBoard") === false)
         {
             this.transitionTo("articlePhoto", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo

@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -22,6 +22,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     accessFromProfile: false,
     is_article_video: true,
     sharePhotoUrl: '',
+    type: null,
     sharePhotoName: '',
     makeSureDelete: false,
     willDelete: false,
@@ -61,6 +62,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.transitionTo("userPhoto", this.get("megaResouce"));
         }
         this.selectedImage(this.get('selectedPhoto').id);
+        this.transitionTo("photo", this.get("megaResouce"));
     },
     nextImage: function() {
         if (!this.get('selectedPhoto')) {
@@ -84,6 +86,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
 
         this.selectedImage(this.get('selectedPhoto').id);
+        this.transitionTo("photo", this.get("megaResouce"));
     },
     getInitData: function(megaObject) {
         if (megaObject.get("isLoaded")) {
@@ -277,6 +280,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
             {
                 this.transitionTo("userPhoto", this.get("megaResouce").get('photo').objectAt(0));
             }
+            else
+            {
+                this.transitionTo("photo", this.get("megaResouce"));
+            }
         }
         else if (this.get('megaResouce').get("type") === "article") //different types of photo in mega
         {
@@ -359,7 +366,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var currKey = 0, e = e || event;
 
 
-        currKey = e.keyCode || e.which || e.charCode;    //支持IE、FF 
+        currKey = e.keyCode || e.which || e.charCode;    //支持IE、FF
         if (currKey === 27) {
             window.history.back();
 
@@ -380,9 +387,19 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
         }
         this.set("selectPhoto", false);
-        if (this.get('controllers.masonryCollectionItems') === "profile")
+        if (this.get('controllers.masonryCollectionItems').get("type") === "profile")
         {
-            this.transitionTo("indexIndex"); //search page
+            window.history.back();
+//            if (this.get("type") === "profile")
+//            {
+//                this.transitionTo("profileCollection", data);
+//
+//                this.set("type", null);
+//            }
+//            else
+//            {
+//                this.transitionTo("indexIndex"); //search page
+//            }
         }
         else
         {

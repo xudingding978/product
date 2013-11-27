@@ -64,10 +64,10 @@ HubStar.VideoController = Ember.Controller.extend({
         });
     },
     updateComment: function(object) {
-       
+
         this.get("controllers.editComment").setRelatedController("video");
         var comments = this.get('megaResouce').get('comments');
-       
+
         for (var i = 0; i < comments.get("length"); i++)
         {
             if (comments.objectAt(i).get("message_id") === object.get("message_id"))
@@ -104,7 +104,7 @@ HubStar.VideoController = Ember.Controller.extend({
         var selectid = this.get('megaResouce').id;
         contactController.setSelectedMega(selectid);
         contactController.selectionCheckBox();
-         
+
         this.set('contact', !this.get('contact'));
         }
     },
@@ -127,7 +127,7 @@ HubStar.VideoController = Ember.Controller.extend({
         var that = this;
         var currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('megaResouce').get('id');
         var caption = '';
-        
+
         if (this.get('megaResouce').get('object_description') !== null)
         {
             console.log(this.get('megaResouce').get('object_description'));

@@ -1,18 +1,18 @@
 
 
-<div class="blur_black" style="background-color: initial"  {{action dropdownNavigator on="click" target="controller"}}>&nbsp;</div>
+<div class="blur_black" style="background-color: initial"  {{action closeDropdownNavigator on="click" target="controller"}}>&nbsp;</div>
 <div class="Navigator-box" style="">
     <div style="background-color: #f3f3f3; height: 35px; line-height: 35px;width: 100%; border-bottom: 1px solid #ddd;padding: 0 15px;border-radius: 3px 3px 0 0;"><span style="font-size: 18px;font-weight: bold;color: #555;">Navigator</span></div>
 
     <div class="Navigator-content" style="">
         <div class="" style="width: 33%;height: 100%;float: left;padding: 8px 0;overflow: auto">
-
+ <ul>
             {{#each controller.categorys}}
-            <ul>
-                <li {{action topicSelection this}}> {{topic}}<i class="icon-search" {{action topicSearch topic}} ></i></li>
-            </ul>
+           
+                <li id="{{unbound topic}}.substr(0,str.indexOf(''))" {{action topicSelection this}}> {{topic}}<i class="icon-search" {{action topicSearch topic}} ></i></li>
+            
             {{/each}}
-
+</ul>
         </div>
 
 
@@ -23,7 +23,7 @@
             {{#each  controller.subcate}}
 
             <ul>
-                <li {{action searchTopicSelection subcategories}}> {{category_topic}} <i class="icon-search" {{action topicSearch category_topic}} ></i></li>
+                <li id="{{unbound id}}" {{action searchTopicSelection subcategories}}> {{category_topic}} <i class="icon-search" {{action topicSearch category_topic}} ></i></li>
 
             </ul>
             {{/each}}
@@ -77,4 +77,7 @@
             set_height: 388
         });
     });
+    
+ 
+       
 </script>

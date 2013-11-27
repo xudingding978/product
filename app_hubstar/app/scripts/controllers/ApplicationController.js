@@ -383,7 +383,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 if (params === 1) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                     //  that.set('isWaiting', false);
-                    this.set('loginTime', false);
+                    that.set('loginTime', false);
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
@@ -397,7 +397,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is a social network login account
                 else {
 
-                    if (that.get('loginPassword') === params[0].PWD_HASH && that.get('loginPassword') !== undefined) {
+                    if (that.get('loginPassword') === params[0]["PWD_HASH"] && that.get('loginPassword') !== undefined) {
 
                         var email_activate = params[1];
 
@@ -414,7 +414,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         }
                         else
                         {
-                            alert("Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!");
+                            that.set('loginTime', false);
+                            $('.black-tool-tip').css('display', 'none');
+                            $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                              alert("Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!");
                         }
                     }
                     else {

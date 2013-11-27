@@ -553,7 +553,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             caption = '';
         }
         var descript = this.get('selectedPhoto').get('photo_title');
-        var currntUrl = 'http://beta.trendsideas.com/#/photos/' + this.get('selectedPhoto').get('id');
+        var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
         if (this.get('selectedPhoto').get("type") === "article")
         {
             descript = this.get('selectedPhoto').get('article').objectAt(0).get("article_headline");

@@ -174,7 +174,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
         $args = array(
             'message' => $name . ', has just registered for the Trends Global Web Platform. Click to see what the excitement is about',
             'picture' => 'http://s3.hubsrv.com/trendsideas.com/profiles/commercial-design-trends/profile_pic.jpg',
-            'link' => 'http://beta.trendsideas.com',
+            'link' => 'http://my.trendsideas.com',
             'description' => 'Join the design community; CONNECT with products and services, COLLECT and SHARE Ideas and COLLABORATE with professionals - Become a part of Trends Ideas Space',
             'caption' => 'Trends Global Web Platform'
         );

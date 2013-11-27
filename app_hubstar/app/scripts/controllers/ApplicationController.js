@@ -1,4 +1,3 @@
-
 /*global HubStar */
 /*global Ember */
 /*global $:false */
@@ -26,6 +25,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeURL: "",
     iframeLoginURL: "",
     isWaiting: "",
+    loginTime: false,
     isGeoDropdown: false,
     adPageNo: 0,
     googletagCmd: null,
@@ -34,6 +34,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     init: function() {
         this.defaultSearch();
         this.set('search_string', '');
+        this.set('loginUsername', localStorage.userName);
     },
     dropdownPhotoSetting: function() {
         this.set("isNotification", !this.get("isNotification"));
@@ -171,7 +172,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 var megasResults = stat.get("megas");
                 HubStar.set('itemNumber', megasResults.get("length"));
                 that.setContent(megasResults);
-                that.set('isWaiting', false);
+                // that.set('isWaiting', false);
                 that.set('loadingTime', false);
                 this.set("from", this.get("size"));
                 var d = new Date();
@@ -192,6 +193,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("adPageNo", 0);
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
+
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
                 that.setContent(results);
@@ -265,7 +267,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
     },
     done: function() {
-        this.set('isWaiting', true);
+        //   this.set('isWaiting', true);
+        this.set('loginTime', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;
         requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
@@ -283,7 +286,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 that.set('region', "");
                 that.set('gender', "");
                 that.set('age', "");
-                that.set('isWaiting', false);
+//                that.set('isWaiting', false);
+                that.set('loginTime', false);
                 alert("Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!");
             }, 2000);
         });
@@ -369,7 +373,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {
-            this.set('isWaiting', true);
+            //   this.set('isWaiting', true);
+            this.set('loginTime', true);
             document.getElementById("loginUsername").setAttribute("class", "login-textfield");
             document.getElementById("loginPassword").setAttribute("class", "login-textfield");
             var loginInfo = [this.get('loginUsername'), this.get('loginPassword'), this.validateEmail(this.get('loginUsername'))];
@@ -378,31 +383,35 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 console.log(params);
                 if (params === 1) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-                    that.set('isWaiting', false);
+                    //  that.set('isWaiting', false);
+                    this.set('loginTime', false);
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                 }// INVALID user name when the user attempts to login.
                 else if (params === 0) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-                    that.set('isWaiting', false);
+//                    that.set('isWaiting', false);
+                    that.set('loginTime', false);
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is a social network login account
                 else {
 
                     if (that.get('loginPassword') === params[0].PWD_HASH && that.get('loginPassword') !== undefined) {
-                     
+
                         var email_activate = params[1];
-                       
+
 
                         if (email_activate === true)
-                        {   localStorage.loginStatus = params[0].COUCHBASE_ID;
+                        {
+                            localStorage.loginStatus = params[0].COUCHBASE_ID;
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndex');
                             that.set('loginUsername', "");
                             that.set('loginPassword', "");
-                            that.set('isWaiting', false);
+//                            that.set('isWaiting', false);
+                            that.set('loginTime', false);
                         }
                         else
                         {
@@ -411,7 +420,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     }
                     else {
                         document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
-                        that.set('isWaiting', false);
+//                        that.set('isWaiting', false);
+                        that.set('loginTime', false);
                         if ($('#incorrect-password').css('display') === 'none') {
 
                             $('.black-tool-tip').stop();
@@ -502,8 +512,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 //        googletag.display("div-gpt-ad-1327312723268-0");
 //        setInterval(function(){googletag.pubads().refresh([slot1]);}, 30000);
 //        });
-//        
-//     
+//
+//
 //        var masonryContainer = document.getElementById('masonry_container');
         for (var i = 0; i < ads.length; i++) {
             var ad = ads[i];
@@ -542,7 +552,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 //            }
 //            that.display(ads);
 //        });
-//        
+//
 //        DFP code
         var adSlots = HubStar.get('ads');
         var ads = new Array();
@@ -598,5 +608,3 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.transitionToRoute('searchIndex');
     }
 });
-
-

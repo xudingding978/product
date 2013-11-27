@@ -80,7 +80,7 @@
     <div class="icon-on-black"  {{action previesImage on="click" target="controller"}} style="display:inline-block; vertical-align: top; position:relative; left:44px;">
         <i class="icon-arrow-left"></i>
     </div>
-    <div class="icon-on-black hint--rounded hint--top" data-hint="Show other photos in this collection." style="left: 44px; display:inline-block; vertical-align: top; position:relative;" {{action popupAibum on="click" target="view"}}>
+    <div class="icon-on-black hint--rounded hint--top" data-hint="Show other photos in this collection." style="left: 44px; display:inline-block; vertical-align: top; position:relative;" {{action popupAibum controller.selectedPhoto.id on="click" target="view"}}>
         <i class="icon-th"></i>
     </div>
     <div class="icon-on-black" style="left: 44px;position: relative;vertical-align: top;display: inline-block;" {{action nextImage on="click" target="controller"}}>
@@ -303,5 +303,10 @@
 {{#if HubStar.checkLoginStatus}}
 
 {{render loginModal}}       
+
+{{/if}}
+{{#if controller.makeSureDelete}}
+
+{{view HubStar.DeleteFunctionView}}
 
 {{/if}}

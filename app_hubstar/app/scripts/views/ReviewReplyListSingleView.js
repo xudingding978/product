@@ -3,7 +3,12 @@ HubStar.ReviewReplyListSingleView = Ember.View.extend({
     didInsertElement: function() {
 
     
+    },
+    replyView: function(event) {
+
+          this.get("controller").transitionToRoute('reply', {id: event});
     }
+   
     
 
 });

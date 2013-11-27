@@ -131,13 +131,15 @@
                 <div class="article-title">     {{controller.megaResouce.object_title}}
 
                     {{#if controller.is_authentic_user}}
+                    {{#if controller.is_article_video}}
                     <div class='hint--left hint--rounded' data-hint='Edit Photo Info' style="position: absolute;font-size: 15px;right: 10px;margin: 1px;">
                         <i class="icon-edit" {{action editingPhotoMegaData}}></i>
                     </div>
                     {{/if}}
+                    {{/if}}
 
                 </div>
-
+                
                 <div class="article-text">     {{controller.megaResouce.object_description}}</div>
 
 

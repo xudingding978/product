@@ -54,7 +54,11 @@
 
                 <div style="margin:10px; font-size: 16px; font-weight: bold; overflow: auto; overflow-x:hidden; width: 93%;height: 150px;">
                     {{#if controller.isProfile}}
-                    
+                    {{#each controller.profileCollection}}
+                    <div class="choose-exist-collection easing" {{action chooseRecord title id}}>
+                         <a class="exist-name easing"> {{title}}</a>
+                    </div>
+                    {{/each}}
                     {{else}}
                     {{#each controller.collections}}
                     <div class="choose-exist-collection easing" {{action chooseRecord title id}}>

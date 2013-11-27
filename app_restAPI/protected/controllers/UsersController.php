@@ -89,18 +89,20 @@ class UsersController extends Controller {
                 } else {
                     $collection = array();
                 }
-                $items = array();                
+                $items = array();
+                $collectionItem = array();
                 for ($j = 0; $j < sizeof($collection); $j++) {
-                    $item = array();
-                    $item["id"] = $collection[$j]["id"];
-                    $item["title"] = $collection[$j]["title"];
-                    array_unshift($items, $item);                
+//                    $item = array();
+//                    $item["id"] = $collection[$j]["id"];
+//                    $item["title"] = $collection[$j]["title"];                   
+                    array_unshift($collectionItem, $collection[$j]);                
                 }
+                $items["collection"]=$collectionItem;
                 $items["profile_id"]=$profiles[$i]["profile_id"];
                 $items["profile_name"]=$profileData['profile'][0]["profile_name"];
                 array_unshift($collections, $items);               
             }
-            error_log(var_export($collections, true));
+            
             $this->sendResponse(200, CJSON::encode($collections));
         } catch (Exception $exc) {
              

@@ -391,12 +391,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is a social network login account
                 else {
 
-                    if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
-                        localStorage.loginStatus = params.COUCHBASE_ID;
-//                        var email_activate = params[1];
+                    if (that.get('loginPassword') === params[0].PWD_HASH && that.get('loginPassword') !== undefined) {
+                     
+                        var email_activate = params[1];
+                       
 
                         if (email_activate === true)
-                        {
+                        {   localStorage.loginStatus = params[0].COUCHBASE_ID;
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndex');
                             that.set('loginUsername', "");

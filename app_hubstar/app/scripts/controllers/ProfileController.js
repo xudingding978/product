@@ -26,6 +26,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     boost: '',
     currentUserID: "",
     collections: [],
+    Id: "",
+    type:"profiles",
     reviews: [],
     contentFollowerPhoto: [],
     contactChecking: false,
@@ -157,6 +159,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setProfile: function(id) {
         var profile = this.getCurrentProfile(id);
         this.set("model", profile);
+        this.set("Id", this.get('model').get('id'));
         this.set("about_me", profile.get('profile_about_us'));
         this.set("domains", profile.get('profile_domains'));
         this.set("boost", profile.get('profile_boost'));
@@ -202,6 +205,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set("projectDeleteDropdownContent", profile.get("profile_isDeleted"));
         this.updateWorkingHourData(profile.get('profile_hours'));
         this.set("collections", profile.get("collections"));
+
         this.set("reviews", profile.get("reviews"));
 
 
@@ -721,6 +725,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.sendEventTracking('event', 'button', 'click', 'Collections');
         this.set('partnerPage', 'Collections');
         this.set('profileSelectionStatus', 'Collections');
+        this.set("Id", this.get('collections').objectAt(0).get('optional'));
         this.set('partnerTag', false);
         this.set('followerProfileTag', false);
         this.set('collectionTag', true);

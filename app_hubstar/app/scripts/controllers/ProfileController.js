@@ -505,7 +505,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             about_us.get('about_image').pushObject(about_image);
             }
             for (var i = 0; i < 3; i ++) {
-                var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": 'book title', "book_image_url": '', 
+                var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": 'book title',"book_description": 'Previous Issue', "book_image_url": '', 
                                                                                                 "book_read_url": '',"book_buy_url": '', "optional": this.get('model').get('id')});
             about_us.get('about_book').pushObject(about_book);
             }
@@ -513,7 +513,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         console.log('new');
         this.set('makeSelection', false);
-        this.set('isAboutUsObjectExist', true);        
+        this.set('isAboutUsObjectExist', true);        //www.youtube.com/embed/0nlJuwO0GDs
         this.set('editingAbout', !this.get('editingAbout'));
     },        
     yesAbout: function(checkingInfo) {
@@ -521,6 +521,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
             this.set('editingAbout', !this.get('editingAbout'));
         }
+//        for (var i = 0; i < this.get('about_us').objectAt(0).get('about_video').get('length'); i ++) {
+//            var video_url = this.get('about_us').objectAt(0).get('about_video').objectAt(i).get('video_url').split('?');
+//            if (video_url.lenth >1) {
+//                this.get('about_us').objectAt(0).get('about_video').objectAt(i).set('video_url', '//www.youtube.com/embed/'+video_url[1].split('=')[1]);
+//            }
+//        }
         this.get('about_us').objectAt(0).save();
     },
     yes: function(checkingInfo) {

@@ -17,7 +17,7 @@
         {{#each about_video}}
         <div>Video URL: </div>
         <div>{{view Ember.TextArea valueBinding="video_url" class="no-resize"  placeholder="*"}}</div> 
-        <iframe width="560" height="315" {{bindAttr src="video_url"}} frameborder="0" allowfullscreen=""></iframe> 
+        <iframe width="560" height="315" {{bindAttr src="getVideoURL"}} frameborder="0" allowfullscreen=""></iframe> 
         <div>Video Title: </div>
         <div>{{view Ember.TextArea valueBinding="video_title" class="no-resize"  placeholder="*"}}</div>
         <div>Video Desc: </div>
@@ -37,7 +37,6 @@
             <div>{{view Ember.TextArea valueBinding="image_link" class="no-resize"  placeholder="*"}}</div>
             <div>Image Desc: </div>
             <div>{{view Ember.TextArea valueBinding="image_desc" class="no-resize"  placeholder="*"}}</div>
-            <div>{{image_desc}}</div>
         </div>
         {{/each}}
     </div>
@@ -46,6 +45,8 @@
     <div style="float: left; margin: 15px 0 15px 10px;"><a rel="nofollow" target="_blank" href="http://library.trendsideas.com/Home.aspx" style="cursor:pointer;">
             <h4>Our Latest Titles</h4></a> <h5><font color="FF00FF">On Sale Now...<h5></h5><h4>Buy your copy here!</h4></font></h5><h4><font color="FF00FF"></font> 
             {{#each about_book}}
+            <div>Book Desc: </div>
+            <div>{{view Ember.TextArea valueBinding="book_description" class="no-resize"  placeholder="*"}}</div> 
             <div>Book URL: </div>
             <div>{{view Ember.TextArea valueBinding="book_image_url" class="no-resize"  placeholder="*"}}</div> 
             <div class="latestebook"> <img alt="" {{bindAttr src="book_image_url"}}>             
@@ -97,6 +98,7 @@
         <a rel="nofollow" target="_blank" href="http://library.trendsideas.com/Home.aspx" style="cursor:pointer;"><h4>Our Latest Titles</h4></a> 
         <h5><font color="FF00FF">On Sale Now...<h4>Buy your copy here!</h4></font></h5>
         {{#each about_book}}
+        <div>{{book_description}} </div> 
         <div class="latestebook"> <img alt="" {{bindAttr src="book_image_url"}}> 
             <div class="latestebook-control easing">
                 <a rel="nofollow" target="_blank" {{bindAttr href="book_read_url"}} class="new-btn">Read</a> 

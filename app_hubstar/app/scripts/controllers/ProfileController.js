@@ -513,7 +513,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         console.log('new');
         this.set('makeSelection', false);
-        this.set('isAboutUsObjectExist', true);        //www.youtube.com/embed/0nlJuwO0GDs
+        this.set('isAboutUsObjectExist', true);       
         this.set('editingAbout', !this.get('editingAbout'));
     },        
     yesAbout: function(checkingInfo) {

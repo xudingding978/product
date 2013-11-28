@@ -87,11 +87,13 @@
         {{/each}}
 
         {{#each about_image}}
+        <a rel="nofollow" target="_blank" {{bindAttr href="image_link"}}>
         <div style="padding: 10px 10px; margin: 10px 5px 10px 0; font-size:13px;background: #f3f3f3;width: 273px;line-height: 18px; float: left"> 
             <img alt="" {{bindAttr src="image_url"}}>  
-            <h4><a rel="nofollow" target="_blank" {{bindAttr href="image_link"}}> {{image_title}}</a></h4>
+            <h4> {{image_title}}</h4>
             <div>{{image_desc}}</div>
         </div>
+            </a>
         {{/each}}
     </div>
     <div style="float: left;margin: 15px 0 15px 30px;">

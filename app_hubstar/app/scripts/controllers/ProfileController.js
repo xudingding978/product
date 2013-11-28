@@ -26,6 +26,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     boost: '',
     currentUserID: "",
     collections: [],
+    Id: "",
+    type:"profiles",
     reviews: [],
     contentFollowerPhoto: [],
     contactChecking: false,
@@ -157,6 +159,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setProfile: function(id) {
         var profile = this.getCurrentProfile(id);
         this.set("model", profile);
+        this.set("Id", this.get('model').get('id'));
         this.set("about_me", profile.get('profile_about_us'));
         this.set("domains", profile.get('profile_domains'));
         this.set("boost", profile.get('profile_boost'));
@@ -202,6 +205,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set("projectDeleteDropdownContent", profile.get("profile_isDeleted"));
         this.updateWorkingHourData(profile.get('profile_hours'));
         this.set("collections", profile.get("collections"));
+
         this.set("reviews", profile.get("reviews"));
 
 
@@ -387,6 +391,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 collection.set('type', 'profile');
                 collection.set('optional', this.get('model').get('id'));
                 this.get("collections").insertAt(0, collection);
+                console.log(collection);
                 HubStar.store.commit();
                 $(".Targeting_Object_front").attr("style", "display:inline-block");
                 $(" #uploadArea").attr('style', "display:none");
@@ -721,6 +726,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.sendEventTracking('event', 'button', 'click', 'Collections');
         this.set('partnerPage', 'Collections');
         this.set('profileSelectionStatus', 'Collections');
+        this.set("Id", this.get('collections').objectAt(0).get('optional'));
         this.set('partnerTag', false);
         this.set('followerProfileTag', false);
         this.set('collectionTag', true);
@@ -1223,7 +1229,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     // share to social facebook
     fbShare: function() {
         var that = this;
-        var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
+        var currntUrl = 'http://'+document.domain+'/#/profiles/' + this.get('currentUserID');
         var caption = '';
         if (this.get('profile_cover_text') !== null)
         {
@@ -1277,7 +1283,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         $("meta[property='og\\:image']").attr("content", this.get('profile_pic_url'));
 
 
-        var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
+        var currntUrl = 'http://'+document.domain+'/#/profiles/' + this.get('currentUserID');
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
         window.open(
@@ -1290,7 +1296,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     //share to social twitter
     tShare: function() {
-        var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
+        var currntUrl = 'http://'+document.domain+'/#/profiles/' + this.get('currentUserID');
         var url = 'https://twitter.com/share?text=' + this.get('profile_name') + '&url=' + encodeURIComponent(currntUrl);
         window.open(
                 url,
@@ -1301,7 +1307,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     pShare: function() {
 
-        var currntUrl = 'http://beta.trendsideas.com/#/profiles/' + this.get('currentUserID');
+        var currntUrl = 'http://'+document.domain+'/#/profiles/' + this.get('currentUserID');
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.get('profile_pic_url')) +
                 '&description=' + encodeURIComponent(this.get('profile_name'));

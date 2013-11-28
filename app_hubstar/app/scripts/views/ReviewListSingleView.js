@@ -23,6 +23,12 @@ HubStar.ReviewListSingleView = Ember.View.extend({
                 theme: "dark-2",
                 set_height: 200
             });
+           var ids = "#ok_" + that.get("controller").get('model').get('review_id'); 
+   
+  $(ids).click(function(){
+   that.get("controller").transitionToRoute('review', {id: that.get("controller").get('model').get('review_id')});
+  });
+
 
         });
 

@@ -1,4 +1,3 @@
-
 HubStar.ArticleController = Ember.Controller.extend({
     content: [],
     image_no: 1,
@@ -91,15 +90,15 @@ HubStar.ArticleController = Ember.Controller.extend({
                 selectedIndex = index;
             }
         }
-   
+
         if (selectedIndex >= (this.get('content').get('length'))) {
             this.set('image_no', 1);
             selectedIndex = 0;
         }
 
         this.set('image_no', selectedIndex);
-        
-        
+
+
         if (this.get("accessFromSearchBoard") === false)
         {
             this.transitionTo("articlePhoto", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo
@@ -331,7 +330,8 @@ HubStar.ArticleController = Ember.Controller.extend({
     fbShare: function() {
         this.dropdownPhotoSetting();
         var that = this;
-        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('articleID');
+            
+            var currntUrl = 'http://'+document.domain+'/#/articles/' +  this.get('articleID');
 
         var caption = '';
 
@@ -384,7 +384,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').photo_image_original_url);
 
 
-        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('articleID');
+        var currntUrl =  'http://'+document.domain+'/#/articles/'  + this.get('articleID');
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
         window.open(
@@ -399,7 +399,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     tShare: function() {
         this.dropdownPhotoSetting();
 
-        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('articleID');
+        var currntUrl = 'http://'+document.domain+'/#/articles/'+ this.get('articleID');
 
         var url = 'https://twitter.com/share?text=' + this.get('articleResouce').get("article_headline") + '&url=' + encodeURIComponent(currntUrl);
         window.open(
@@ -413,7 +413,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         this.dropdownPhotoSetting();
 
-        var currntUrl = 'http://beta.trendsideas.com/#/articles/' + this.get('articleID');
+         var currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('articleID');
 
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.get('selectedPhoto').photo_image_original_url) +

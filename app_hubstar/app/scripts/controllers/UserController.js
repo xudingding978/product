@@ -15,6 +15,8 @@ HubStar.UserController = Ember.Controller.extend({
     messageTag: false,
     postTag: false,
     newDesc: '',
+    Id: "",
+    type: "users",
     newTitle: '',
     selectedDesc: "",
     selectedTitle: "",
@@ -189,6 +191,7 @@ HubStar.UserController = Ember.Controller.extend({
         var user = this.get('model');
         this.setIntersetsArr(user);
         this.set("user", user);
+        this.set("Id", this.get('model').get('id'));
         //console.log(this.get("user"));
         this.set("collections", user.get("collections"));
         this.set("description", user.get("description"));
@@ -257,8 +260,8 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('collectionTag', true);
         this.set('followerTag', false);
         this.set('messageTag', false);
-         this.set('postTag', false);
-        
+        this.set('postTag', false);
+
         this.labelBarRefresh();
 
     },
@@ -808,11 +811,12 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('collectionTag', true);
         this.set('followerTag', false);
 
-this.set('postTag', false);
+        this.set('postTag', false);
 
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
+        this.set("Id", this.get('collections').objectAt(0).get('optional'));
 
 
         this.set('messageTag', false);
@@ -827,7 +831,7 @@ this.set('postTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', false);
 
-this.set('postTag', false);
+        this.set('postTag', false);
 
         this.set('messageTag', false);
 
@@ -847,7 +851,7 @@ this.set('postTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', true);
 
-this.set('postTag', false);
+        this.set('postTag', false);
 
         this.set('messageTag', false);
         this.transitionToRoute('followers');
@@ -870,13 +874,13 @@ this.set('postTag', false);
         }, 200);
 
     },
-     selectPost: function(model) {
+    selectPost: function(model) {
         this.set('profileSelectionStatus', 'Posts');
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', false);
         this.set('messageTag', false);
-         this.set('postTag', true);
+        this.set('postTag', true);
 
         this.transitionToRoute('userPost');
 

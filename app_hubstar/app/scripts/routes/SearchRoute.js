@@ -9,9 +9,8 @@ HubStar.SearchRoute = Ember.Route.extend({
 //        HubStar.set('isLogin', true);
         this.controllerFor('searchs').set("loginInfo", localStorage.loginStatus);
         this.controllerFor('searchs').setLoginImge();
-        console.log(model);
-        this.controllerFor('application').set('search_string',model.id);
-        this.controllerFor('application').newSearch();        
+        this.controllerFor('application').set('search_string', model.id);
+        this.controllerFor('application').newSearch();
         this.controllerFor('index').setLogin();
 
         this.controllerFor('application').set('islogin', true);
@@ -27,14 +26,15 @@ HubStar.SearchRoute = Ember.Route.extend({
         if (search_id === null || search_id === undefined || search_id === '') {
             search_id = '';
         }
-        return {id:search_id};
+        return {id: search_id};
     },
     events: {
         transitionToPhoto: function(id) {
+            this.controllerFor('masonryCollectionItems').set("type", "profile");
             this.transitionTo("photo", HubStar.Mega.find(id));
         },
         transitionToProfile: function(id) {
-            this.transitionTo("profile", HubStar.Profile.find(id));
+            this.transitionTo("profileCollections", HubStar.Profile.find(id));
         },
         transitionToArticle: function(id) {
 
@@ -42,7 +42,7 @@ HubStar.SearchRoute = Ember.Route.extend({
         }
     },
     redirect: function() {
-        
+
     },
     activate: function() {
         $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");

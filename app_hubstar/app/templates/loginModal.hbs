@@ -1,4 +1,4 @@
-<div  id="loginModal"class="blur_black" style=""></div>
+<div  id="loginModal" class="blur_black" style="" onClick="closePane();"></div>
 
 
 <div id="profiles-main-container" class="Login-box" style="background-color: transparent;position: fixed; top: 30%; z-index: 10; margin: auto; left: 0px; right: 0px; width: 300px;height: 565px;border: 0;text-align: center;">   
@@ -606,4 +606,11 @@
                     newwindow.focus();
                 }
             }
+            
+              function closePane() {
+                  
+ HubStar.set('checkLoginStatus', false);
+                }
+
+            
 </script>

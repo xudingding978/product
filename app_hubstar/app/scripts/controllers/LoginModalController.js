@@ -1,19 +1,18 @@
 HubStar.LoginModalController = Ember.Controller.extend({
- needs: ['application'],
-
+    needs: ['application'],
     init: function() {
 
     },
-    closePopupLogin:function(){
-      HubStar.set('checkLoginStatus',false);
+    closePopupLogin: function() {
+        HubStar.set('checkLoginStatus', false);
     },
-     validateEmail: function(email)
+    validateEmail: function(email)
     {
 
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
     },
-     login: function() {
+    login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {
             this.set('isWaiting', true);
@@ -47,10 +46,10 @@ HubStar.LoginModalController = Ember.Controller.extend({
 
                     if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
                         localStorage.loginStatus = params.COUCHBASE_ID;
-             
-                 location.reload();
-                  HubStar.set("isLogin", true);
-                 HubStar.set('checkLoginStatus', false);
+
+                        location.reload();
+                        HubStar.set("isLogin", true);
+                        HubStar.set('checkLoginStatus', false);
                         that.set('loginUsername', "");
                         that.set('loginPassword', "");
 
@@ -72,7 +71,6 @@ HubStar.LoginModalController = Ember.Controller.extend({
             });
         }
     },
-    
     signUp: function() {
 
         if (this.checkSignupInfo()) {
@@ -217,6 +215,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
         this.set('isGeoDropdown', !this.get('isGeoDropdown'));
         $('#geo-filter').toggleClass('Geo-Filter-active');
     },
+    
     emailSend: function()
     {
 
@@ -242,6 +241,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                 var emailInfo = [that.get('resetPasswordEmail'), params.USER_NAME, params.PWD_HASH];
                 requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
                     if (params === 1) {
+
                         $('.black-tool-tip').stop();
                         $('.black-tool-tip').css('display', 'none');
                         $('#new-password').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
@@ -252,6 +252,6 @@ HubStar.LoginModalController = Ember.Controller.extend({
             }
         });
     }
-    
-    
+
+
 });

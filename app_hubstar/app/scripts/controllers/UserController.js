@@ -969,7 +969,7 @@ HubStar.UserController = Ember.Controller.extend({
                         that.set('isCrop', false);
                         that.set('isUpload', false);
                     }
-                    else if (width > 150 || height > 150) {
+                    else if (width >= 150 || height >= 150) {
                         that.set('isCrop', true);
                         that.set('isUpload', true);
 

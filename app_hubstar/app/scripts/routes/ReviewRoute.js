@@ -11,6 +11,8 @@ HubStar.ReviewRoute = Ember.Route.extend({
         this.controllerFor('profile').set('collectionTag', false);
         this.controllerFor('profile').set('followerProfileTag', false);
         this.controllerFor('profile').set('reviewTag', true);
+        this.controllerFor('reviewListSingle').set('model', model);
+      //  this.controllerFor('reviewListSingle').set('review_content', model.review_content);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);

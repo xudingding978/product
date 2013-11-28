@@ -22,7 +22,7 @@
                         id: raw_id,
                         url: content.objectAt(i).get('photo_image_original_url'),
                         title: content.objectAt(i).get('photo_title'),
-                        caption: content.objectAt(i).get('photo_caption'),
+                        caption: content.objectAt(i).get('photo_caption')
                     });
                 }
             }

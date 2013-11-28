@@ -51,7 +51,7 @@
             <div>{{view Ember.TextArea valueBinding="book_image_url" class="no-resize"  placeholder="*"}}</div> 
             <div class="latestebook"> <img alt="" {{bindAttr src="book_image_url"}}>             
             </div> 
-            <div class="latestebook-control easing">
+            <div>
                 <div>Book Read Link: </div>
                 <div>{{view Ember.TextArea valueBinding="book_read_url" class="no-resize"  placeholder="*"}}</div>
                 <div>Book Buy Link: </div>
@@ -79,10 +79,11 @@
         <a rel="nofollow" target="_blank" href="http://www.youtube.com/trendspublishing" style="cursor:pointer;"> 
             <h4>View the Latest Video from the Trends YouTube channel</h4></a>
         {{#each about_video}}
-        <iframe width="560" height="315" {{bindAttr src="video_url"}} frameborder="0" allowfullscreen=""></iframe> 
+        <iframe width="560" height="315" {{bindAttr src="getVideoURL"}} frameborder="0" allowfullscreen=""></iframe> 
         <div style="margin: 5px 0 5px;background: #f3f3f3;line-height:18px; padding:6px 8px;">
             <h4><a rel="nofollow" target="_blank" {{bindAttr href="image_link"}}> {{video_title}}</a></h4>
             <div>{{video_desc}}</div>
+            <a rel="nofollow" target="_blank" {{bindAttr href="video_url"}}>more</a>
         </div>
         {{/each}}
 

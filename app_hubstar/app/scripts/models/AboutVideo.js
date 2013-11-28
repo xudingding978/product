@@ -12,12 +12,14 @@ HubStar.AboutVideo = DS.Model.extend({
             var video_url = this.get('video_url').split('?');
             if (video_url.get('length') >1) {
                 if (video_url[1].split('=')[1].length >10) {
-                    this.set('video_url', '//www.youtube.com/embed/'+video_url[1].split('=')[1]);
+                    var VideoURL = '//www.youtube.com/embed/'+video_url[1].split('=')[1];
+                    return VideoURL;
                 }
-                console.log(video_url[1].split('=')[1].length);
+                return '';
+            } else {
+                return '';
             }
 //        }
-        return this.get('video_url');
     }.property('video_url')
 });
 

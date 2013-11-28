@@ -9,8 +9,6 @@ HubStar.CollectionsView = Ember.View.extend({
         $(".Targeting_Object_front").attr("style", "display:inline-block");
         $(" #uploadArea").attr('style', "display:none");
         $(" #uploadObject").attr('style', "display:block");
-
-
         $(div_id).attr("style", "display:none");
         $(div_class).attr('style', "display:inline-block");
         var createCollection = ".C" + id + "  #createCollection";

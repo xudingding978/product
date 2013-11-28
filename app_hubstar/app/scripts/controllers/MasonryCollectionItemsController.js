@@ -23,7 +23,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.set('collection_id', collection_id);
         this.set('');
         this.set("isUser", true);
-        
+   
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
         this.set('user_id', user_id);

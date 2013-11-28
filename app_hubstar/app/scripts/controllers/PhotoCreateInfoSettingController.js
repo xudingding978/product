@@ -50,6 +50,7 @@
             photoInfo.addObserver('isLoaded', function() {
                 if (photoInfo.get('isLoaded')) {
                     photoInfo.set('photo_title', data.title);
+                    photoInfo.set('photo_caption', data.caption);
                     photoInfo.store.save();
                 }
             });

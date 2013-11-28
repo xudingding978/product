@@ -20,7 +20,7 @@
 
 
 
-    <div style="overflow:hidden; z-index: 11;background-color: white;border-radius: 5px;box-shadow: 0 0 20px #bbb;width: 635px;height: 500px;margin: 0 auto;position: fixed;top: 15%;left: 0;right: 0;">
+    <div style="overflow:hidden; z-index: 11;background-color: white;border-radius: 5px;box-shadow: 0 0 20px #bbb;width: 635px;height: 550px;margin: 0 auto;position: fixed;top: 15%;left: 0;right: 0;">
 
         <div  style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
             <div  class="comment-namentime" style="display: block;position: relative;height: 35px;">
@@ -30,19 +30,14 @@
                 </div>
             </div>
         </div>
-        <div id ="" style="margin: 20px auto 5px; padding: 0 15px;height: 150px;">
-
+        <div id ="" style="margin: 20px auto 5px; padding: 0 15px;height: 450px;" >
             {{#each controller.content}}
+            <div  style=" height: 150px; width: 120px;position: relative; float: left;"{{action selectTopic id topic}}>
+                <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="opacity: .8; z-index: 10; right: 0; margin: 10px;" {{action selectTopic id topic}}><k class="icon-plus" ></k></div>
+                <div class="" style="height: 100px;width: 100px;position: relative;border: 3px solid #f3f3f3;border-radius: 50%;overflow: hidden;box-shadow: 0 0 5px #aaa;top: -5px;float: left;z-index: 1; margin-left: 10px; margin-right: 10px; margin-top: 15px;">
 
-            <div class="" style="height: 100px;width: 100px;position: relative;border: 3px solid #f3f3f3;border-radius: 50%;overflow: hidden;box-shadow: 0 0 5px #aaa;top: -5px;float: left;z-index: 1; margin-left: 10px; margin-right: 10px; margin-top: 15px;">
+                    <div  class="usersobject-hoverarea easing" style="height: 100px; width: 100px;" >
 
-
-                <div class="masonry-object" style=" height: 100px; width: 100px;">
-                    <div  style="height: 100px; width: 100px;" >
-                         {{#if controller.isAdd}}
-                         <div class="invite-this-friend radius-circle easing" style="opacity: .8;" ><k class="icon-minus" ></k></div>
-                        {{/if}}
-                        <div class="invite-this-friend radius-circle easing" {{bindAttr id="id"}} {{action selectTopic id topic }}><k class="icon-plus" ></k></div>
 
                     </div>
                     <div style="position: relative;">
@@ -50,13 +45,15 @@
                             <img {{bindAttr src="image"}} style="min-height:100px; width: 100px; max-width: none;"/>
                         </div>
                     </div>
-                    
+
                 </div>
-                <div class="masonry-object_username" style="height: 15px;">
-                        <div class="object-username" style=" font-size: 10px; padding: 5px 0;">
-                            {{topic}}
-                        </div>
+
+                <div style="position: relative;">
+                    <div style=" font-size: 15px; padding: 5px 0;text-align: center;">
+                        {{topic}}
                     </div>
+
+                </div>
             </div>
 
             {{/each}}
@@ -64,11 +61,11 @@
         </div>
 
         <div class="" style="height: 30px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
-            <div  class="message-btn easing"  style="width: 50%;border-right: 1px solid #ddd;" ><k class="icon-remove">&nbsp;</k>Back</div>
-            {{#linkTo quickstart}}<div class="message-btn easing" style="width: 50%;border-right: 1px solid #ddd;"{{action submitSelection}}>Next</div>{{/linkTo}}
+            {{#linkTo quickstart}}<div class="message-btn easing" style="width: 100%;border-right: 1px solid #ddd;"{{action submitSelection}}>Next&nbsp<k class="icon-arrow-right" ></k></div>{{/linkTo}}
         </div>
     </div>
 
 
 
 </div>
+

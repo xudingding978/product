@@ -374,6 +374,7 @@ input{
 .latestebook{
     margin-bottom: 20px;
     position: relative;
+    max-width: 200px;
 }
 
 .latestebook-control{

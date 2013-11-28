@@ -7,6 +7,8 @@ HubStar.Photo = DS.Model.extend({
         photo_sequence: DS.attr('string'),
         photo_isExtra: DS.attr('string'),
         photo_caption: DS.attr('string'),
+        link_text: DS.attr('string'),
+        link_url: DS.attr('string'),
         photo_original_filename: DS.attr('string'),
         photo_original_width: DS.attr('string'),
         photo_original_height: DS.attr('string'),

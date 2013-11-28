@@ -531,8 +531,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
     yes: function(photoObject) {
         var photo_title = this.get('selectedPhoto.photo_title');
         var photo_caption = this.get('selectedPhoto.photo_caption');
+        var link_text=this.get('selectedPhoto.link_text');
+        var link_url=this.get('selectedPhoto.link_url');
         photoObject.set('photo_title', photo_title);
         photoObject.set('photo_caption', photo_caption);
+        photoObject.set('link_text', link_text);
+        photoObject.set('link_url', link_url);
+        console.log(photoObject);
         photoObject.store.save();
         this.set('enableToEdit', !this.get('enableToEdit'));
     },

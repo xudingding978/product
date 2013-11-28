@@ -121,16 +121,60 @@
                     {{#if controller.is_authentic_user}}
                     <div class='hint--left hint--rounded' data-hint='Edit Photo Info' style="position: absolute;font-size: 15px;right: 10px;margin: 1px;">
                         <i class="icon-edit" {{action editingPhotoMegaData}}></i>
+
                     </div>
+
                     {{/if}}
                 </div>
                 <div class="article-text">
                     <p>{{{controller.selectedPhoto.photo_caption}}}</p>
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" class='profilesnew-table' style="padding-right: 0px; font-size: 12px;  display: table;border-collapse: separate;border-spacing: 4px;margin:10px auto;">
+                        <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+                        <tr>
+                         <td style = "font-size: 14px;font-weight: bold;width: 90px;">Link: </td>
+                         <td>
+                         <a target="_blank" {{bindAttr href=controller.selectedPhoto.link_url }} style = "font-size: 14px;font-weight: normal;width: 90px; alignment-adjust: central; ">{{{controller.selectedPhoto.link_text}}}</a>   
+                         </td>
+                    </tr>
+                       </tbody>
+                  </table>
+                    
+
                 </div>
                 {{else}}
                 {{view Ember.TextField valueBinding="controller.selectedPhoto.photo_title"  id="" class="edit_photo-titile_field"  }} 
                 {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_caption"  id="" class="edit_photo-caption_field"}} 
-                {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_url_linkto"  id="" class="edit_photo-linkto_field"}} 
+                <table cellpadding="0" cellspacing="0" border="0" width="100%" class='profilesnew-table' style="padding-right: 0px; font-size: 12px;  display: table;border-collapse: separate;border-spacing: 4px;margin:10px auto;">
+                    <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+
+                        <tr>
+                            <td style = "font-weight: bold; font-size: 12px;width: 60px;">Link Text:</td>
+                            <td>
+                                <div style="display: block;height:40px ;">
+                                    <div  id="displayName"  style="margin: 0;height:40px ;width: 100%;">
+                                        {{view Ember.TextArea valueBinding="controller.selectedPhoto.link_text"}} 
+
+                                    </div>
+                                </div>
+                            </td>
+                            </tr>
+                        <tr >
+
+
+                            <th style = "font-size: 12px;font-weight: bold;width: 60px; margin-top: 10px">Link Url:</th>       
+                             <td>
+                                <div style="display: block; height:40px ; margin-top: 10px">
+                                    <div  id="displayName"  style="margin: 0;height:40px ;width: 100%;">
+                                        {{view Ember.TextArea valueBinding="controller.selectedPhoto.link_url"}} 
+                                    </div>
+                                </div>
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+                </table>
 
 
 
@@ -256,11 +300,13 @@
 
                 {{/each}}
                 <!-- test1 -->
-<div id='div-gpt-ad-1384896082386-0' style='width:336px; height:280px;'>
-<script type='text/javascript'>
-googletag.cmd.push(function() { googletag.display('div-gpt-ad-1384896082386-0'); });
-</script>
-</div>
+                <div id='div-gpt-ad-1384896082386-0' style='width:336px; height:280px;'>
+                    <script type='text/javascript'>
+                        googletag.cmd.push(function() {
+                            googletag.display('div-gpt-ad-1384896082386-0');
+                        });
+                    </script>
+                </div>
 
             </div>
         </div>

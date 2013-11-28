@@ -215,14 +215,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 if (s.get('isLoaded')) {
                     //  var model = {id: localStorage.loginStatus};
 //                    thatthat.transitionToRoute("user", s);
-                   localStorage.checkUser = "newUser";
+          //         localStorage.checkUser = "newUser";
                     thatthat.transitionToRoute("welcome");
             
                        console.log("register");
                 }
             });
-             localStorage.checkUser = "";
+            
         });
+         localStorage.checkUser = "";
        
     },
     signUp: function() {

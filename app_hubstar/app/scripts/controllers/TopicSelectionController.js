@@ -19,30 +19,30 @@ HubStar.TopicSelectionController = Ember.ArrayController.extend({
 
     ],
     selectTopic: function(id, topic) {
-      
+
         if (HubStar.get(id)) {
             $('#plus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; margin: 10px; display:none");
             if (this.get('selected_topics').indexOf(topic) !== -1) {
-
                 this.set('selected_topics', this.get('selected_topics').replace(topic + ",", ""));
-
+              
             }
 
             HubStar.set(id, false);
         } else {
             $('#plus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; margin: 10px; display:none");
-     
-            this.set('selected_topics', this.get('selected_topics') + topic + ",");
 
+            this.set('selected_topics', this.get('selected_topics') + topic + ",");
             HubStar.set(id, true);
+
         }
 
     },
     submitSelection: function() {
-        var data = this.get('selected_topics');
-        var user = HubStar.User.find(localStorage.loginStatus);
- user.set('selected_topics', data.substring(0, data.length - 1));
-        user.store.commit();
+//        var data = this.get('selected_topics');
+//        var user = HubStar.User.find(localStorage.loginStatus);
+//        user.set('selected_topics', data.substring(0, data.length - 1));
+//        user.store.commit();
+         this.transitionToRoute('quickstart');
     }
 }
 );

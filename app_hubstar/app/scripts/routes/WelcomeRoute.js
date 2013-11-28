@@ -6,12 +6,12 @@ HubStar.WelcomeRoute = Ember.Route.extend({
 
             if (localStorage.checkUser === "newUser") {
 
-                     console.log("welcome");
+
              
 
             } else {
 
-                this.transitionTo('searchIndex');
+              this.transitionTo('searchIndex');
 
             }
 

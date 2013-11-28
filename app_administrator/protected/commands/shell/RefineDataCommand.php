@@ -17,12 +17,18 @@ class RefineDataCommand extends Controller_admin {
             $this->updateArticleKeyword();
         } elseif ($action == "photokeyword") {
             $this->updatePhotoKeyword();
-        } elseif($action=="fixcredit"){
+        } elseif($action=="comment"){
+            $this->addCommentId();
+        }elseif($action=="fixcredit"){
             $this->importCreditList();
         } elseif ($action == "fixurl") {
             $this->fixPhoto_url_largeofLisa();
+ }elseif ($action == "cate") {
+            $this->fixcategories();
 
-        } elseif ($action == 'fixboost') {
+        }
+
+         elseif ($action == 'fixboost') {
             $this->fixBoostNumber();
         }elseif($action=='test'){
             $this->fixProfileRelatedImages('home', 200, 'develop') ;
@@ -30,6 +36,7 @@ class RefineDataCommand extends Controller_admin {
           elseif($action=="comment"){
             $this->addCommentId();
         }elseif ($action == "refineArticle") {
+
 
 
 
@@ -89,6 +96,112 @@ class RefineDataCommand extends Controller_admin {
             echo "*******************************" . ($end_time - $start_time);
         }
     }
+
+
+    public function fixcategories() {
+        $bucket = 'test';
+        $setting['log.enabled'] = true;
+        $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = '/var/log/yii/' . $datetime . '.log';
+        $Sherlock = new \Sherlock\Sherlock($setting);
+        $Sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $Sherlock->search();
+        $index = $bucket;
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"photo\"")->default_field('couchbaseDocument.doc.type');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        $progress = 0;
+        $record_arr = array();
+        for ($i = 0; $i < 2000; $i++) {
+
+            $progress = $i;
+            $request->index($index)->type('couchbaseDocument')->from(50 * $i)->size(50)->query($bool);
+            $response = $request->execute();
+            foreach ($response as $find) {
+                array_push($record_arr, $find['id']);
+                $progess+=1;
+                echo "\n finding data from couchbase NO.".$progess."\n";
+            }
+        }
+        echo sizeof($record_arr);
+        print_r(var_export($record_arr, TRUE) );
+        foreach($record_arr as $record){
+            $count+=1;
+            if($count % 500===0){
+                sleep(2);
+                echo "\nSleep for 2seconds\n";
+            }
+            $message="\nprocessing No.".$count." id: ".$record."\n";
+
+            $id=$record;
+
+            $cb=$this->couchBaseConnection($bucket);
+            $result=$cb->get($id);
+            if($result!=null){
+                $result_arr=CJSON::decode($result);
+                $categories=$result_arr['categories'];
+                $category=$result_arr['category'];
+                $subcategories=$result_arr['subcategories'];
+                $topics=$result_arr['topics'];
+                if($categories!=null&&$categories!=""){
+                    $result_arr['categories']=array();
+                    $uniqe_arr=array_unique($categories, SORT_STRING);
+                    foreach($uniqe_arr as $value){
+                        array_push($result_arr['categories'], $value);
+                    }
+                  //  $result_arr['categories']=  array_unique($categories, SORT_STRING);
+                }else{
+                    echo "\n".$id." does not have categories record in couchbase \n";
+                   $message.="\n".$id." does not have categories record in couchbase \n";
+                }
+                 if($category!=null&&$category!=""){
+                     $result_arr['category']=array();
+                     $uniqe_arr=array_unique($category, SORT_STRING);
+                    foreach($uniqe_arr as $value){
+                        array_push($result_arr['category'], $value);
+                    }
+            //        $result_arr['category']=  array_unique($category, SORT_STRING);
+                }else{
+                    echo "\n".$id." does not have category record in couchbase \n";
+                   $message.="\n".$id." does not have category record in couchbase \n";
+                }
+                 if($subcategories!=null&&$subcategories!=""){
+                     $result_arr['subcategories']=array();
+                     $uniqe_arr=array_unique($subcategories, SORT_STRING);
+                    foreach($uniqe_arr as $value){
+                        array_push($result_arr['subcategories'], $value);
+                    }
+           //         $result_arr['subcategories']=  array_unique($subcategories, SORT_STRING);
+                }else{
+                    echo "\n".$id." does not have subcategories record in couchbase \n";
+                   $message.="\n".$id." does not have subcategories record in couchbase \n";
+                }
+                 if($topics!=null&&$topics!=""){
+                      $result_arr['topics']=array();
+                    foreach(array_unique($topics, SORT_STRING) as $value){
+                        array_push($result_arr['topics'], $value);
+                    }
+                //    $result_arr['topics']=  array_unique($topics, SORT_STRING);
+                }else{
+                    echo "\n".$id." does not have topics record in couchbase\n";
+                   $message.="\n".$id." does not have topics record in couchbase \n";
+                }     
+                if($cb->set($id,CJSON::encode($result_arr))){
+                    echo "\n".$id." update category record in couchbase \n";
+                    $message.="\n".$id." update category record in couchbase \n";
+                }
+                else{
+                    "\n".$id." can not updatecatrgory record in couchbase----------------------- \n";
+                    $message.="\n".$id." can not updatecatrgory record in couchbase ---------------------------\n";
+                }
+                
+            }else{
+                echo "\n".$id." Can not find record in couchbase -----------------------\n";
+                $message = "\n".$id." Can not find record in couchbase -------------------------\n";
+            }
+            $this->writeToLog($log_path, $message);
+        }
+    }
+
 
     public function fixBoostForUsers($bucket) {
         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
@@ -219,11 +332,13 @@ class RefineDataCommand extends Controller_admin {
         $log_path = "/var/log/yii/$start_time.log";
         $data_arr = array();
         $message = "";
+
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode("es1.hubsrv.com", 9200);
         $request = $sherlock->search();
         $index = $bucket;
+
         for ($i = 0; $i < 3000; $i++) {
 
             $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"$id\"")
@@ -283,6 +398,7 @@ class RefineDataCommand extends Controller_admin {
         $sherlock->addNode("es1.hubsrv.com", 9200);
         $request = $sherlock->search();
         $index = $bucket;
+
         //     $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('55959331448')
         $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"55959331448\"")
                 ->default_field('couchbaseDocument.doc.comments.commenter_id');
@@ -327,13 +443,12 @@ class RefineDataCommand extends Controller_admin {
 
         $log_path = "/var/log/yii/$start_time.log";
 
-        $bucket = "temp";
+        $bucket = "production";
         $settings['log.enabled'] = true;
         $Sherlock = new \Sherlock\Sherlock($settings);
         $Sherlock->addNode("es1.hubsrv.com", 9200);
         $article_arr = array();
         for ($i = 0; $i < 280; $i++) {
-            $request = null;
             $request = $Sherlock->search();
             $must = \Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"article\"")
                     ->default_field("couchbaseDocument.doc.type");
@@ -466,6 +581,8 @@ class RefineDataCommand extends Controller_admin {
             }
             $couchbase_data_arr['comments'] = $comment_arr;
         }
+
+         
 
 
         // $message=var_export($result_arr);

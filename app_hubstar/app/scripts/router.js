@@ -35,6 +35,7 @@ HubStar.Router.map(function() {
 
         });
         this.resource("profiles", function() {
+            this.resource("index", {path: '/'});
             this.resource("profileNew", {path: '/new'});
 
         });

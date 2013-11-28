@@ -1,0 +1,92 @@
+      <div class="profilemain" style="">
+
+                        <div class="profile-main-content" style="margin: 20px auto;width: 90%;">
+
+                            <div class="main_aboutus" style="">
+
+                                <div class="editor-content">
+                                    <div style="display: inline-block;">
+                                        <p style='display: inline-block; font-size: 18px;'>
+                                            <i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About Us
+                                        </p>
+
+                                        {{#if controller.editingAbout}}
+                                        <div style="height: 300px;">
+                                            {{#if controller.isAboutUsObjectExist}}
+                                            {{view HubStar.AboutUsView1}}
+                                            {{else}}
+                                            {{view HubStar.HtmlEditorView}}
+                                            {{/if}}
+                                            
+                                        </div>   
+                                    </div>
+                                    <div style="right: 40px;bottom: 25px;position: absolute;">
+                                        <div class="new-btn blue-btn" {{action yesAbout controller.aboutMe}}><i class="icon-ok icon-white"></i></div>
+                                        <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
+                                    </div>
+                                    {{else}}
+                                    {{#if controller.is_authentic_user}}
+
+                                    <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing controller.about_me controller.aboutMe}}>
+
+                                         <i class="icon-edit"></i>
+                                    </div>
+
+                                    {{/if}}
+                                </div>
+                                    {{#if controller.isAboutUsObjectExist}}
+                                        <div style="display: block; width: 100%" >{{view HubStar.AboutUsView1}}</div>
+                                    {{else}}
+                                        <div style="display: block; width: 100%" >{{{model.profile_about_us}}}</div>
+                                    {{/if}}
+                                {{/if}}
+                            </div>
+
+
+
+
+                            <div style="height: 40px; bottom: 0;width: 700px;position: absolute;margin-bottom: 15px;">
+                                <ul class="locationandlinks">
+
+                                    {{#if facebook}}
+                                    <li class="location_li">
+                                        <a href="#" target="_blank" {{action socialLink 'facebook'}}>&nbsp <k class="icon-facebook"> </k></a>
+                                    </li>
+                                    {{/if}}
+                                    {{#if twitter}}
+                                    <li class="location_li">
+                                        <a href="#" target="_blank" {{action socialLink 'twitter'}}>&nbsp <k class="icon-twitter"> </k></a>
+                                    </li>
+                                    {{/if}}
+                                    {{#if googleplus}}
+                                    <li class="location_li">
+                                        <a href="#" target="_blank"{{action socialLink 'googleplus'}}>&nbsp <k class="icon-google-plus"> </k></a>
+                                    </li>
+                                    {{/if}}
+                                    {{#if pinterest}}
+                                    <li class="location_li">
+                                        <a href="#" target="_blank" {{action socialLink 'pinterest'}}>&nbsp <k class="icon-pinterest"> </k></a>
+                                    </li>
+                                    {{/if}}
+                                    {{#if linkedin}}
+                                    <li class="location_li">
+                                        <a href="#" target="_blank"{{action socialLink 'linkedin'}}>&nbsp <k class="icon-linkedin"> </k></a>
+                                    </li>
+                                    {{/if}}
+                                    {{#if youtube}}
+                                    <li class="location_li">
+                                        <a href="#" target="_blank" {{action socialLink 'youtube'}}>&nbsp <k class="icon-youtube-play"> </k></a>
+                                    </li>
+                                    {{/if}}
+
+                                </ul>
+                            </div>
+
+                        </div>
+
+                    </div>
+{{#if controller.makeSelection}}
+
+{{view HubStar.SelectFunctionView}}
+
+{{/if}}

@@ -32,7 +32,7 @@ $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
             this.transitionTo("photo", HubStar.Mega.find(id));
         },
         transitionToProfile: function(id) {
-            this.transitionTo("profile", HubStar.Profile.find(id));
+            this.transitionTo("profileCollections", HubStar.Profile.find(id));
         },
         transitionToArticle: function(id) {
             this.controllerFor('article').set("accessFromSearchBoard", true);

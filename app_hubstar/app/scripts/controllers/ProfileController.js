@@ -145,6 +145,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     toAddress: '',
     isAboutUsObjectExist: false,
     about_us:[],
+    embeded_url: '',
     init: function() {
 
         this.set('is_authentic_user', false);
@@ -268,6 +269,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setAboutUsObject: function() {
         if (this.get('model').get('about_us') !== null && this.get('model').get('about_us') !== 'undefined' && this.get('model').get('about_us').get('length') > 0 ) {
             this.set("about_us", this.get('model').get("about_us"));
+            this.getVideoURL();
             this.set("isAboutUsObjectExist", true);
         } else {
             this.set("isAboutUsObjectExist", false);
@@ -499,18 +501,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectNewAbout: function() {
         if (!this.get('isAboutUsObjectExist')) {
-            var about_us = HubStar.AboutUs.createRecord({"about_id": this.get('model').get('id'), "about_desc": 'just description', "about_template_id": '1', 
+            var about_us = HubStar.AboutUs.createRecord({"about_id": this.get('model').get('id'), "about_desc": '', "about_template_id": '1', 
                                                                                                 "about_video": [], "about_image": [], 'about_book': []});
-            var about_video = HubStar.AboutVideo.createRecord({"video_id": '1', "video_title": 'video title', "video_desc": 'video description', 
+            var about_video = HubStar.AboutVideo.createRecord({"video_id": '1', "video_title": '', "video_desc": '', 
                                                                                                 "video_url": '', "optional": this.get('model').get('id')});
             about_us.get('about_video').pushObject(about_video);
             for (var i = 0; i < 2; i ++) {
-                var about_image = HubStar.AboutImage.createRecord({"image_id": i.toString(), "image_title": 'image title', "image_desc": 'image description', 
+                var about_image = HubStar.AboutImage.createRecord({"image_id": i.toString(), "image_title": '', "image_desc": '', 
                                                                                                 "image_url": '',"image_link": '', "optional": this.get('model').get('id')});
             about_us.get('about_image').pushObject(about_image);
             }
             for (var i = 0; i < 3; i ++) {
-                var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": 'book title',"book_description": 'Previous Issue', "book_image_url": '', 
+                var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '',"book_description": '', "book_image_url": '', 
                                                                                                 "book_read_url": '',"book_buy_url": '', "optional": this.get('model').get('id')});
             about_us.get('about_book').pushObject(about_book);
             }
@@ -1423,6 +1425,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var profilePartnersController = this.get("controllers.profilePartners");
         this.set('partnerSearchString', '');
         profilePartnersController.getClientId(model);
+    },
+    getVideoURL: function() {
+        var video_url = this.get('about_us').objectAt(0).get('about_video').objectAt(0).get('video_url').split('?');
+        if (video_url.get('length') >1) {            
+            var VideoURL = '//www.youtube.com/embed/'+video_url[1].split('=')[1];
+            this.set('embeded_url', VideoURL);
+        } else {
+            this.set('embeded_url', '');
+        }
     }
 }
 );

@@ -17,7 +17,8 @@
         {{#each about_video}}
         <div>Video URL: </div>
         <div>{{view Ember.TextArea valueBinding="video_url" class="no-resize"  placeholder="*"}}</div> 
-        <iframe width="560" height="315" {{bindAttr src="getVideoURL"}} frameborder="0" allowfullscreen=""></iframe> 
+        <div class="new-btn green-btn" {{action getVideoURL}}>apply</div>
+        <iframe width="560" height="315" {{bindAttr src="controller.embeded_url"}} frameborder="0" allowfullscreen=""></iframe> 
         <div>Video Title: </div>
         <div>{{view Ember.TextArea valueBinding="video_title" class="no-resize"  placeholder="*"}}</div>
         <div>Video Desc: </div>
@@ -32,11 +33,11 @@
                 <img alt="" {{bindAttr src="image_url"}}>  
             </div>
             <div>Image Title: </div>
-            <div>{{view Ember.TextArea valueBinding="image_title" class="no-resize"  placeholder="*"}}</div>
-            <div>Image Link: </div>
-            <div>{{view Ember.TextArea valueBinding="image_link" class="no-resize"  placeholder="*"}}</div>
+            <div>{{view Ember.TextArea valueBinding="image_title" class="no-resize"  placeholder="*"}}</div>            
             <div>Image Desc: </div>
             <div>{{view Ember.TextArea valueBinding="image_desc" class="no-resize"  placeholder="*"}}</div>
+            <div>Image Link: </div>
+            <div>{{view Ember.TextArea valueBinding="image_link" class="no-resize"  placeholder="*"}}</div>
         </div>
         {{/each}}
     </div>
@@ -79,7 +80,7 @@
         <a rel="nofollow" target="_blank" href="http://www.youtube.com/trendspublishing" style="cursor:pointer;"> 
             <h4>View the Latest Video from the Trends YouTube channel</h4></a>
         {{#each about_video}}
-        <iframe width="560" height="315" {{bindAttr src="getVideoURL"}} frameborder="0" allowfullscreen=""></iframe> 
+        <iframe width="560" height="315" {{bindAttr src="controller.embeded_url"}} frameborder="0" allowfullscreen=""></iframe> 
         <div style="margin: 5px 0 5px;background: #f3f3f3;line-height:18px; padding:6px 8px;">
             <h4><a rel="nofollow" target="_blank" {{bindAttr href="image_link"}}> {{video_title}}</a></h4>
             <div>{{video_desc}}</div>

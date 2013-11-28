@@ -121,29 +121,14 @@
     {{render "comment" this}}
 </div>
 
-        <div class="masonry-object_mainfeature">    
-            <div class="mainfeature-wrapper">
-                <a class="mainfeature-container" href="#/photos/{{unbound id}}">  style="cursor: pointer">
-                    {{#if controller.isUser}}
-                    <img class="this-is-the-object"{{bindAttr src="object_image_url" }} {{action transitionToPhoto id}} />
-                         {{else}}
-                         <img class="this-is-the-object"{{bindAttr src="object_image_url" }} {{action transitionToPhoto id}} />
-                         {{/if}}
-                </a>            
-
-                <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">
-
-
-
-
 {{/if}}
 
 
-            
-            <div class="masonry-object_text">
-                <div class="masonry-object_text-container">
 
-                    <p>    {{photo_title}}  </p>
+
+
+
+
 
 {{#if getVideo}}
 <div class="box col2 noStyle1" >

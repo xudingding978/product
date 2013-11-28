@@ -35,8 +35,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
         for (var index = 0; index <= content.get('length'); index++) {
             if (this.get('selectedPhoto') === content.objectAt(index)) {
                 return index;
+                console.log("1111");
             }
         }
+         console.log("2222222");
         return 0;
     },
     previesImage: function() {
@@ -97,6 +99,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
     },
     getInitData: function(megaObject) {
+
         if (megaObject.get("isLoaded")) {
             this.set("is_article_video", true);
             if (megaObject.get("type") === 'article')
@@ -280,19 +283,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     selectImage: function(e) {
 
         this.set('megaResouce', HubStar.Mega.find(e));
-        var selectedIndex = 0;
-        for (var index = 0; index <= this.get('content').get('length') - 1; index++) {
-            if (this.get('selectedPhoto').get("id") === this.get('content').objectAt(index).id) {
-                selectedIndex = index;
-            }
-        }
 
-        if (selectedIndex >= (this.get('content').get('length'))) {
-            this.set('image_no', 1);
-            selectedIndex = 0;
-        }
-
-        this.set('image_no', selectedIndex);
 
         if (this.get('megaResouce').get("type") === "photo")
         {
@@ -323,22 +314,23 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
         }
         this.set("selectedPhoto", this.get('selectedPhoto'));
-        var contents = this.get('content');
-        var selectedIndex = 0;
-        for (var index = 0; index <= contents.get('length') - 1; index++) {
-            if (this.get('selectedPhoto').get("id") === contents.objectAt(index).id) {
-                selectedIndex = index;
-                console.log("ddd" + index);
+
+  var contents = this.get('content');
+        var selectedIndex = 1;
+        for (var index = 0; index <= contents.get('length')-1; index++) {
+            if (this.get('selectedPhoto').get("id") === contents.objectAt(index).id ) {
+                selectedIndex = index+1;
             }
         }
 
-        if (selectedIndex >= (this.get('content').get('length'))) {
+        if (selectedIndex >= (this.get('content').get('length')+1)) {
             this.set('image_no', 1);
-            selectedIndex = 0;
+            selectedIndex = 1;
         }
 
-
         this.set('image_no', selectedIndex);
+console.log(selectedIndex);
+
         this.selectedImage(e);
 
 

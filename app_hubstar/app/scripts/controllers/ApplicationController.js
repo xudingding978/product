@@ -30,7 +30,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     isGeoDropdown: false,
     adPageNo: 0,
     searchFromTopic: false, //call the applicationView is true. new search or search
-    topicSearch:false,
+    topicSearch: false,
     googletagCmd: null,
     unReadCount: 0,
     pageCount: 0,
@@ -207,24 +207,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var that = this;
         requiredBackEnd('login', 'verify', emailVerify, 'POST', function(params) {
             localStorage.loginStatus = params;
-           
             HubStar.set("isLogin", true);
-            var s = HubStar.User.find(localStorage.loginStatus);
-            var thatthat = that;
-            s.addObserver('isLoaded', function() {
-                if (s.get('isLoaded')) {
-                    //  var model = {id: localStorage.loginStatus};
-//                    thatthat.transitionToRoute("user", s);
-          //         localStorage.checkUser = "newUser";
-                    thatthat.transitionToRoute("welcome");
-            
-                       console.log("register");
-                }
-            });
-            
+            localStorage.checkUser = "newUser";
+            that.transitionToRoute("welcome");
         });
-         localStorage.checkUser = "";
-       
+
     },
     signUp: function() {
 
@@ -393,9 +380,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         if (email_activate === true)
                         {
                             localStorage.loginStatus = params[0].COUCHBASE_ID;
+                            localStorage.userName = that.get('loginUsername');
+                            localStorage.userType = "email";
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndex');
-                            
+
 
                             that.set('loginPassword', "");
                             that.set('loginTime', false);
@@ -405,7 +394,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             that.set('loginTime', false);
                             $('.black-tool-tip').css('display', 'none');
                             $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
-                              alert("Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!");
+                            alert("Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!");
                         }
 
                     }
@@ -501,8 +490,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $('#masonry_container').masonry("reload");
         }, 1000);
     },
-
-    getAds: function() {   
+    getAds: function() {
 
 //        DFP code
         var adSlots = HubStar.get('ads');

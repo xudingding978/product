@@ -564,10 +564,12 @@ div#appfeedback .fresh-message > k.icon-remove{
 {
     display: inline-block;
     width: 100%;
-    left:0;
-    right:0;
-    margin:auto;
-    min-width:553px;
+    left: 0;
+    right: 0;
+    background-color: white;
+    margin: auto;
+    min-width: 553px;
+    padding-bottom: 30px;
 }
 
 .premium > div > table  .profileaside > .profileaside_content .aside-container{

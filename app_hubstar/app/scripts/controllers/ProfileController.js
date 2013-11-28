@@ -509,7 +509,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                                                                                                 "book_read_url": '',"book_buy_url": '', "optional": this.get('model').get('id')});
             about_us.get('about_book').pushObject(about_book);
             }
-            this.set('about_us', about_us);
+            this.get('about_us').pushObject(about_us);
         }
         console.log('new');
         this.set('makeSelection', false);

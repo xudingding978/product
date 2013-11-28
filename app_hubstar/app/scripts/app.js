@@ -6,13 +6,13 @@ var HubStar = window.HubStar = Ember.Application.createWithMixins({
         HubStar.set("checkLoginStatus", false);
         HubStar.set("afterSearch", false);
         HubStar.set("setHight", null);
-        requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
-            var array = $.map(callbck, function(value, index) {
-                return [value];
-            });
-            HubStar.set('ads', array);
-            //console.log(HubStar.get('ads'));
-        });
+//        requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
+//            var array = $.map(callbck, function(value, index) {
+//                return [value];
+//            });
+//            HubStar.set('ads', array);
+//            //console.log(HubStar.get('ads'));
+//        });
         HubStar.set('chooseCollection', null);
         HubStar.set('isMansonryPageLoad', false);
         HubStar.set('searchStart', false);

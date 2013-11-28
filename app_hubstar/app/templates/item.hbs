@@ -14,7 +14,7 @@
 
 {{#if getPhoto}}
 <div class="box col2 noStyle1" {{action checkingLoginStatus target="view" on="click"}}>
-
+    
     <div class="masonry-object">
         <div class="masonry-object_poster">
             <div class="profilepic-on-masonry">
@@ -57,7 +57,7 @@
 
 
         </div>
-        <div class="masonry-object_mainfeature">             
+        <div class="masonry-object_mainfeature">    
             <div class="mainfeature-wrapper">
                 <a class="mainfeature-container" href="#/photos/{{unbound id}}">  style="cursor: pointer">
                     {{#if controller.isUser}}
@@ -94,9 +94,10 @@
             </div>
 
 
-
+            
             <div class="masonry-object_text">
                 <div class="masonry-object_text-container">
+
                     <p>    {{photo_title}}  </p>
 
                 </div>
@@ -107,6 +108,7 @@
 
                             {{{object_description}}}
                         </div>
+                         
                     </div>
 
                     <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more &nbsp;<i class="icon-angle-down"></i></span>

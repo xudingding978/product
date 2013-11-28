@@ -130,15 +130,17 @@
                     <p>{{{controller.selectedPhoto.photo_caption}}}</p>
                     <table cellpadding="0" cellspacing="0" border="0" width="100%" class='profilesnew-table' style="padding-right: 0px; font-size: 12px;  display: table;border-collapse: separate;border-spacing: 4px;margin:10px auto;">
                         <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-                        <tr>
-                         <td style = "font-size: 14px;font-weight: bold;width: 90px;">Link: </td>
-                         <td>
-                         <a target="_blank" {{bindAttr href=controller.selectedPhoto.link_url }} style = "font-size: 14px;font-weight: normal;width: 90px; alignment-adjust: central; ">{{{controller.selectedPhoto.link_text}}}</a>   
-                         </td>
-                    </tr>
-                       </tbody>
-                  </table>
-                    
+                            {{#if controller.selectedPhoto.photo_link_url}}
+                            <tr>
+                                <td style = "font-size: 14px;font-weight: bold;width: 90px;">Link: </td>
+                                <td>                      
+                                    <a target="_blank" {{bindAttr href=controller.selectedPhoto.photo_link_url }} style = "font-size: 14px;font-weight: normal;width: 90px; alignment-adjust: central; ">{{{controller.selectedPhoto.photo_link_text}}}</a>   
+                                </td>
+                            </tr>
+                            {{/if}}
+                        </tbody>
+                    </table>
+
 
                 </div>
                 {{else}}
@@ -152,20 +154,20 @@
                             <td>
                                 <div style="display: block;height:40px ;">
                                     <div  id="displayName"  style="margin: 0;height:40px ;width: 100%;">
-                                        {{view Ember.TextArea valueBinding="controller.selectedPhoto.link_text"}} 
+                                        {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_link_text"  placeholder="Type Your Link Text here"}} 
 
                                     </div>
                                 </div>
                             </td>
-                            </tr>
+                        </tr>
                         <tr >
 
 
                             <th style = "font-size: 12px;font-weight: bold;width: 60px; margin-top: 10px">Link Url:</th>       
-                             <td>
+                            <td>
                                 <div style="display: block; height:40px ; margin-top: 10px">
                                     <div  id="displayName"  style="margin: 0;height:40px ;width: 100%;">
-                                        {{view Ember.TextArea valueBinding="controller.selectedPhoto.link_url"}} 
+                                        {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_link_url" placeholder="http://example.com"}} 
                                     </div>
                                 </div>
                             </td>

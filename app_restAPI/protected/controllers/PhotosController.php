@@ -483,8 +483,8 @@ class PhotosController extends Controller {
             $id = $temp [sizeof($temp) - 1];
             $photoTitle = $mega['mega']['photo'][0]['photo_title'];
             $photoCaption = $mega['mega']['photo'][0]['photo_caption'];
-            $linkText = $mega['mega']['photo'][0]['link_text'];
-            $linkUrl = $mega['mega']['photo'][0]['link_url'];
+            $linkText = $mega['mega']['photo'][0]['photo_link_text'];
+            $linkUrl = $mega['mega']['photo'][0]['photo_link_url'];
             
             
             $url = $this->getDomain() . "/" . $id;
@@ -493,8 +493,8 @@ class PhotosController extends Controller {
             $oldRecord['object_description'] = $photoCaption;
             $oldRecord['photo'][0]['photo_title'] = $photoTitle;
             $oldRecord['photo'][0]['photo_caption'] = $photoCaption;
-            $oldRecord['photo'][0]['link_text'] = $linkText;
-            $oldRecord['photo'][0]['link_url'] = $linkUrl;         
+            $oldRecord['photo'][0]['photo_link_text'] = $linkText;
+            $oldRecord['photo'][0]['photo_link_url'] = $linkUrl;         
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {

@@ -35,8 +35,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
         for (var index = 0; index <= content.get('length'); index++) {
             if (this.get('selectedPhoto') === content.objectAt(index)) {
                 return index;
+                console.log("1111");
             }
         }
+         console.log("2222222");
         return 0;
     },
     previesImage: function() {
@@ -61,8 +63,12 @@ HubStar.MegaController = Ember.ArrayController.extend({
         {
             this.transitionTo("userPhoto", this.get("megaResouce"));
         }
+        else
+        {
+            this.transitionTo("photo", this.get("megaResouce"));
+        }
         this.selectedImage(this.get('selectedPhoto').id);
-        this.transitionTo("photo", this.get("megaResouce"));
+
     },
     nextImage: function() {
         if (!this.get('selectedPhoto')) {
@@ -82,13 +88,18 @@ HubStar.MegaController = Ember.ArrayController.extend({
         {
             this.transitionTo("userPhoto", this.get("megaResouce"));
         }
+        else
+        {
+            this.transitionTo("photo", this.get("megaResouce"));
+        }
         this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
 
         this.selectedImage(this.get('selectedPhoto').id);
-        this.transitionTo("photo", this.get("megaResouce"));
+
     },
     getInitData: function(megaObject) {
+
         if (megaObject.get("isLoaded")) {
             this.set("is_article_video", true);
             if (megaObject.get("type") === 'article')
@@ -273,6 +284,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
         this.set('megaResouce', HubStar.Mega.find(e));
 
+
         if (this.get('megaResouce').get("type") === "photo")
         {
             this.set('selectedPhoto', this.get('megaResouce').get('photo').objectAt(0));
@@ -302,6 +314,23 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
         }
         this.set("selectedPhoto", this.get('selectedPhoto'));
+
+  var contents = this.get('content');
+        var selectedIndex = 1;
+        for (var index = 0; index <= contents.get('length')-1; index++) {
+            if (this.get('selectedPhoto').get("id") === contents.objectAt(index).id ) {
+                selectedIndex = index+1;
+            }
+        }
+
+        if (selectedIndex >= (this.get('content').get('length')+1)) {
+            this.set('image_no', 1);
+            selectedIndex = 1;
+        }
+
+        this.set('image_no', selectedIndex);
+console.log(selectedIndex);
+
         this.selectedImage(e);
 
 
@@ -483,7 +512,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         requiredBackEnd('comments', 'DeletePhotoComment', delInfo, 'POST', function(params) {
         });
     },
-            updateComment: function(object) {
+    updateComment: function(object) {
         this.get("controllers.editComment").setRelatedController("mega");
         var comments = this.get('megaResouce').get('comments');
         for (var i = 0; i < comments.get("length"); i++)

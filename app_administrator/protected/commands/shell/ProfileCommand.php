@@ -26,7 +26,10 @@ class ProfileCommand extends Controller_admin {
         } elseif ($action == 'count') {
             $this->checkNumber();
 
-        }elseif ($action == 'time') {
+        }elseif($action=='package'){
+            $this->findprofileandpackages();
+        }
+        elseif ($action == 'time') {
             $this->updateTimeStamp();
         } elseif ($action == 'desc') {
             $this->correctCollectionDescription();
@@ -51,6 +54,9 @@ elseif($action == 'compare'){
         $end_time = microtime(true);
         echo "totally spend: " . ($end_time - $start_time);
     }
+    
+    
+
 
     protected function importProfilesToCouchbase() {
 // select data from DB table
@@ -234,6 +240,55 @@ elseif($action == 'compare'){
             } 
             $this->writeToLog($log_path, $message);
          }      
+    }
+    
+    
+        public function findprofileandpackages(){
+          $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = "/var/log/yii/$start_time.log";
+        $bucket='production';
+        $settings['log.enabled']=true;
+        $sherlock= new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request=$sherlock->search();
+        
+        $index=$bucket;
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"profile\"")
+                ->default_field('couchbaseDocument.doc.type');
+        $bool=  Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        $request->index($index)->type('couchbaseDocument')
+                ->from(0)->size(1000);
+        $request->query($bool);
+                $response=$request->execute();
+                echo "\nnumber of file: " . count($response)."\n";
+                sleep(4);
+               // $output_arr=array();
+                $output_str="";
+                foreach($response as $profile){
+                    $id=$profile['id'];
+                    
+                    $cb=$this->couchBaseConnection($bucket);
+                    $result=$cb->get($id);
+                    if($result!=null){
+                        $result_arr=CJSON::decode($result);
+                        $package=$result_arr['profile'][0]['profile_package_name'];
+                        if($package!=null){
+                            $output_str.="\n".$id.":".$package."\n";
+                                echo "\n".$id." : ".$package."\n";
+                        }else{
+                            $output_str.="\n".$id.":"."no package set\n";
+                            echo "\n".$id.":". " no package set\n";
+                        }
+                        
+                    }
+                    else{
+                        echo "\ncan not find result from couchbase\n";
+                    }
+                    
+                    
+                }
+                $this->writeToLog($log_path, $output_str);
+        
     }
       
     

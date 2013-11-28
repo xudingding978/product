@@ -6,7 +6,7 @@ HubStar.WelcomeRoute = Ember.Route.extend({
 
             if (localStorage.checkUser === "newUser") {
 
-
+                     console.log("welcome");
              
 
             } else {

@@ -5,7 +5,7 @@ HubStar.QuickstartRoute = Ember.Route.extend({
 
 
             if (localStorage.checkUser === "newUser") {
-
+                  console.log("qudjkflsdfd");
 
 
             } else {

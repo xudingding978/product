@@ -207,16 +207,23 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var that = this;
         requiredBackEnd('login', 'verify', emailVerify, 'POST', function(params) {
             localStorage.loginStatus = params;
+           
             HubStar.set("isLogin", true);
             var s = HubStar.User.find(localStorage.loginStatus);
             var thatthat = that;
             s.addObserver('isLoaded', function() {
                 if (s.get('isLoaded')) {
                     //  var model = {id: localStorage.loginStatus};
-                    thatthat.transitionToRoute("user", s);
+//                    thatthat.transitionToRoute("user", s);
+                   localStorage.checkUser = "newUser";
+                    thatthat.transitionToRoute("welcome");
+            
+                       console.log("register");
                 }
             });
+             localStorage.checkUser = "";
         });
+       
     },
     signUp: function() {
 
@@ -387,9 +394,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             localStorage.loginStatus = params[0].COUCHBASE_ID;
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndex');
-                            that.set('loginUsername', "");
+                            
+
                             that.set('loginPassword', "");
-//                            that.set('isWaiting', false);
                             that.set('loginTime', false);
                         }
                         else

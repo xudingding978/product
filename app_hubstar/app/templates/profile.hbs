@@ -1,19 +1,11 @@
 
 
-<div class="profilegb" style="background: #fff url('../images/texture.png') repeat;width: 100%;height: auto; ">
-
-    <div class="profile-wallpaper" style="width: 100%; height: 500px; overflow: hidden; position: fixed;">
-        <img  {{bindAttr src= model.profile_bg_url}} style="width: 100%; height:auto;">
-    </div>
-    <div style="width: 100%; height:170px; position: relative; display: block; opacity: 0;">
-    </div>
-    <div style="position: absolute;">
-        {{#if controller.contactChecking}}
-        {{render contact}}
-        {{/if}}
-    </div>
-
+<div class="profile-wallpaper" style="width: 100%; height: 500px; overflow: hidden; position: fixed; top: 70px;">
+    <img  {{bindAttr src= model.profile_bg_url}} style="width: 100%; height:auto;">
 </div>
+<div style="width: 100%; height:250px; position: relative; display: block; opacity: 0;">
+</div>
+
 
 <div class="hover panel" style='z-index: 0; float: none;position: relative; width: 87%; height: auto; margin:  auto; background: #fff; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;max-width: 1260px;min-width: 1250px;overflow: hidden;'>
 
@@ -91,14 +83,14 @@
                         <li class='ite' {{action pShare}} >
                     <k class="icon-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Pinterest</span>
                     </li>
-                        <li class="ite" {{action gpShare}}>
-                    <k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
-                    </li>
-                </ul>
+                    <li class="ite" {{action gpShare}}>
+                <k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
+                </li>
+            </ul>
 
-            </div>
         </div>
     </div>
+</div>
 </div>
 
 
@@ -106,7 +98,7 @@
 
     <!--PROFILE PAGE LEFT SIDE-->
 
-    
+
     <table cellpadding="0" cellspacing="0" width="100%">
         <tbody>
             <tr>
@@ -243,6 +235,7 @@
                                         {{input type="text" class="insert-contactdetails" value=website_url }}                        
                                         {{else}}
 
+                                        
                                         {{/if}}
                                     </tr>
 
@@ -318,87 +311,9 @@
                 <!--LEFT COL ENDS -->
 
                 <!--RIGHT COL BEGINS -->
+                <!--PROFILE PAGE MAIN PART-->
                 <td class="right_col" width="70%" valign="top">
-                    <!--PROFILE PAGE MAIN PART-->
-
-                    <div class="profilemain" style="display: inline-block; width: 100%;left: 0;right: 0; background-color: white;margin: auto; min-width: 553px;">
-
-                        <div class="profile-main-content" style="margin: 20px auto;width: 90%;">
-
-                            <div class="main_aboutus" style="">
-
-                                <div class="editor-content">
-                                    <div style="display: inline-block;">
-                                        <p style='display: inline-block; font-size: 18px;'>
-                                            <i class='icon-group' style='margin-right: 10px;display: inline-block;'></i>About Us
-                                        </p>
-
-                                        {{#if controller.editingAbout}}
-                                        <div style="height: 300px;">
-                                            {{view HubStar.HtmlEditorView}}
-                                        </div>   
-                                    </div>
-                                    <div style="right: 40px;bottom: 25px;position: absolute;">
-                                        <div class="new-btn blue-btn" {{action yesAbout controller.aboutMe}}><i class="icon-ok icon-white"></i></div>
-                                        <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
-                                    </div>
-                                    {{else}}
-                                    {{#if controller.is_authentic_user}}
-
-                                    <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing controller.about_me controller.aboutMe}}>
-
-                                         <i class="icon-edit"></i>
-                                    </div>
-
-                                    {{/if}}
-                                </div>
-                                <div style="display: block; width: 100%" >{{{model.profile_about_us}}}</div>
-                                {{/if}}
-                            </div>
-
-
-
-
-                            <div style="height: 40px; bottom: 0;width: 700px;position: absolute;margin-bottom: 15px;">
-                                <ul class="locationandlinks">
-
-                                    {{#if facebook}}
-                                    <li class="location_li">
-                                        <a href="#" target="_blank" {{action socialLink 'facebook'}}>&nbsp <k class="icon-facebook"> </k></a>
-                                    </li>
-                                    {{/if}}
-                                    {{#if twitter}}
-                                    <li class="location_li">
-                                        <a href="#" target="_blank" {{action socialLink 'twitter'}}>&nbsp <k class="icon-twitter"> </k></a>
-                                    </li>
-                                    {{/if}}
-                                    {{#if googleplus}}
-                                    <li class="location_li">
-                                        <a href="#" target="_blank"{{action socialLink 'googleplus'}}>&nbsp <k class="icon-google-plus"> </k></a>
-                                    </li>
-                                    {{/if}}
-                                    {{#if pinterest}}
-                                    <li class="location_li">
-                                        <a href="#" target="_blank" {{action socialLink 'pinterest'}}>&nbsp <k class="icon-pinterest"> </k></a>
-                                    </li>
-                                    {{/if}}
-                                    {{#if linkedin}}
-                                    <li class="location_li">
-                                        <a href="#" target="_blank"{{action socialLink 'linkedin'}}>&nbsp <k class="icon-linkedin"> </k></a>
-                                    </li>
-                                    {{/if}}
-                                    {{#if youtube}}
-                                    <li class="location_li">
-                                        <a href="#" target="_blank" {{action socialLink 'youtube'}}>&nbsp <k class="icon-youtube-play"> </k></a>
-                                    </li>
-                                    {{/if}}
-
-                                </ul>
-                            </div>
-
-                        </div>
-
-                    </div>
+                    {{view HubStar.ProfileAboutUsEditView}}
                 </td>
 
 
@@ -1075,7 +990,7 @@
 
 
     {{/if}}
-    
+
 
     {{#unless HubStar.isLogin}}
     {{render "footer"}}

@@ -1,168 +1,120 @@
 
 <div class="masonry-object_interact" >
-    <div class="masonry_show-comment">
-        <div class="show-comment_container" >
-            <div class="show-comment_inner"  id="showMoreComment_{{unbound model.id}}"   {{action seeMore model.id target="controller" on="click"}}>
-                <span class="comment-amount text-anchor easing">  {{model.comments.length}}</span>
-                <span class="comment-amount text-anchor easing"> comments<i class="icon-angle-down"></i></span>
-            </div>
 
-
-            <div class="show-comment_inner" id="closeComment_{{unbound model.id}}"   style="display: none" {{action closeMore model.id  target="controller" on="click"}}>
-                <span class="comment-amount text-anchor easing">  {{model.comments.length}} </span>
-                <span class="comment-amount text-anchor easing"> comments  <i class="icon-angle-up"></i></span>
-            </div>
-
-        </div>
-    </div>
-
-
-
-    <div id="addCollection_{{unbound model.id}}"  style="display: none">
-        {{render addCollection}}
-        <!--<div style="position:fixed; background-color: red; width: 100px;height: 100px;top:100px">asdfasdfasdfasdfasdfsd</div>-->
-    </div>       
-    {{#if model.getProfile}}
-    {{else}}
-    <div style="margin-right: 20px;float: right; font-size: 13px;">
-        <div  id="thumbUpBtn_{{unbound model.id}}" style="display:inline-block;vertical-align: top;" class="new-btn" {{action addLike model.id}}><i class="icon-thumbs-up-alt">&nbsp</i>{{model.likes_count}}</div>
-        <div data-hint="Add to your own collection." id="saveBtn_{{unbound model.id}}"  style="display:inline-block;vertical-align: top;" class="new-btn hint--top hint--rounded" {{action switchCollection model}}><i class="icon-save" >&nbsp</i></div>
-        <div id="share_{{unbound model.id}}" class="new-btn"  style="position:relative;">
-
-            <div data-hint="Share this photo to other social platform." style="display:inline-block;vertical-align: top;" class="hint--top hint--rounded" {{action shareDisplay model.id on="click"}}><i class="icon-share-alt" >&nbsp</i></div>
-
-            <ul class="hideClass edit-object-ul" style="width: 150px; margin: 0 auto; left: 0px;padding: 0;z-index:2; position: absolute;">
-                <li style="position:fixed;top:0;left:0;height:100%;width:100%;z-index:-1;" {{action shareHide model.id on="click"}}></li>
-                <li class="ite" {{action  fbShare model}} >
-            <k class="icon-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
-            </li>
-            <li class='ite' {{action tShare model }} >
-        <k class="icon-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span>
-        </li>
-        <li class='ite' {{action pShare model}} >
-    <k class="icon-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Pinterest</span>
-    </li>
-    <li class="ite" {{action gpShare model}}>
-<k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
-</li>
-</ul>
-</div>
-
-</div>
-{{/if}}
-
-<div class="masonry_addcommnetbox-container" {{action openComment model.id target="view" on="click"}} id="comment_{{unbound model.id}}">
-    <div class="addcommnetbox">
-        Add comments 
-    </div>
-</div>
-
-<div class="addcommnetbox-container comment-frame" id="commentBox_{{unbound model.id}}" style="display: none">
-    <div style="margin:0 auto; padding: 0 0 15px 45px;">
-        <a>
-            <img class="profilepic_comment"  style="float: left; margin: 4px 0 0 -45px; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url_large"}} /> 
-        </a>
-
-        {{view HubStar.SearchRequireTextFieldView valueBinding="commentContent"  id="" class="comment-insert-field"  placeholder="" }}
-        <span class="" style="margin:7px 0;float: right;">
-            <div  class="new-btn"{{action closeComment model.id target="controller" on="click"}}>Cancel</div>
-            <div class="new-btn green-btn" {{action addComment}}>Post</div>
-        </span>
-
-    </div>
-</div>
-
-<div id="commentData_{{unbound model.id}}" class="comment-frame" style="max-height:88px;">
-
-    {{#each model.comments}}
-    {{#unless this.isEdit}}
-    <div class="comment-item" id="commentItem_{{unbound message_id}}" style="display: block">
-
-        <div class="comment-position">
-            <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
-               <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
+    <div class="reply-comment-frame"  style="padding: 15px;">
+        <div style="margin:0 auto; padding: 0 45px 0 0;">
+            <a  href="#/users/{{unbound model.user_id}}">
+                <img class="profilepic_comment" style="float: right; margin: 4px -45px 0 0; margin-top: 0;"{{bindAttr src="controller.currentUser.photo_url_large"}}  /> 
+                <div class='user-reply-angle-before' style="right: 47px;"></div>
+                <div class='user-reply-angle-after' style="right: 45px;"></div>
             </a>
-            <div style="">
-                <div class="comment-namentime">
-                    <div class="namentime_position">
-                        <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
-                           {{name}}
-                    </a>
-                    <div class="posttime-container">
-                        <span class="posttime">{{date  time_stamp}}</span>
+
+            <div class="reply-comment-container" style="width: 100%;height: 32px;">
+                <div id ="commentnew_{{unbound model.id}}"style="margin: 0;width: 210px; height: 30px;float: left;">
+                    {{view HubStar.SearchRequireTextFieldView valueBinding="commentContent" class="no-resize" placeholder="What's up!" }}                                          
+                </div>
+                <div style="float: right;height: 34px;position: relative;">
+
+                    <div class="message-btn easing" style='width: 30px;'{{action openComment model.id}}>
+                         <k class='icon-ok'></k>
                     </div>
+
                 </div>
-                {{#if this.getUser}}
-                <span class="edit-comment easing">
-                    <i class="icon-trash"  {{action removeComment this}}></i>                 
-                    <i class="icon-pencil" {{action editingCommentData this}}></i>
-                </span>
-                {{/if}}
             </div>
-
-            <div class="comment-content">
-                {{content}} 
-
-                <span>
-                    <span></span>
-                </span>
-            </div>
-
         </div>
     </div>
 
-</div>
 
-{{else}}
-<div class="comment-item" id="commentItemIn_{{unbound message_id}}" style="display: block">
 
-    <div class="comment-position">
-        <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
-           <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
-        </a>
-        <div style="">
-            <div class="comment-namentime">
-                <div class="namentime_position">
-                    <a class="comment-username" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}} >
-                       {{name}}
+
+    <div id="commentData_{{unbound model.id}}" class="" style="display: none; border-top: 1px solid #ddd;">
+        <div id="commentScrollBar_{{unbound model.id}}" >
+            {{#each model.comments}}
+            {{#unless this.isEdit}}
+            <div class="comment-item comment-frame" id="commentItem_{{unbound message_id}}" style="display: block">
+
+                <div class="comment-position" style="">
+                    <a class="profilepic-comment-container" style="" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
+                       <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
+                    </a>
+                    <div style="">
+
+                        <div class="comment-namentime">
+                            {{#if this.getUser}}
+                            <span class="edit-comment easing">
+                                <i class="icon-trash"  {{action removeComment this}}></i>                 
+                                <i class="icon-pencil" {{action editingCommentData this}}></i>
+                            </span>
+                            {{/if}}
+                            <a class="comment-username"  href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
+                               {{name}}    
+                        </a>
+                        <div class="posttime-container">
+                            <span class="posttime">{{date  time_stamp}}</span>
+                        </div>
+                    </div>
+
+
+                    <div class="comment-content">
+                        {{content}} 
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        {{else}}
+        <div class="comment-item" id="commentItemIn_{{unbound message_id}}" style="display: block">
+
+            <div class="comment-position">
+                <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
+                   <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
                 </a>
-                {{#if this.getUser}}
-                <i class="icon-trash"  {{action removeComment this}}></i>                 
-                <i class="icon-pencil" {{action editingCommentData this}}></i>
-                {{/if}}
-                <div class="posttime-container">
-                    <span class="posttime">{{date  time_stamp}}</span>
+                <div style="">
+                    <div class="comment-namentime">
+                            {{#if this.getUser}}
+                            <span class="edit-comment easing">
+                                <i class="icon-trash"  {{action removeComment this}}></i>                 
+                                <i class="icon-pencil" {{action editingCommentData this}}></i>
+                            </span>
+                            {{/if}}
+                            <a class="comment-username"  href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
+                               {{name}}    
+                        </a>
+                        <div class="posttime-container">
+                            <span class="posttime">{{date  time_stamp}}</span>
+                        </div>
+                    </div>
+
+                <div class="comment-content">
+                    {{content}} 
                 </div>
+
             </div>
-
-        </div>
-
-        <div class="comment-content">
-            {{content}} 
-
-            <span>
-                <span></span>
-            </span>
         </div>
 
     </div>
-</div>
-
-</div>
-<div class="addcommnetbox-container comment-frame" id="commentEdit_{{unbound message_id}}" style="display: none">
-    {{render editComment this}}       
-</div>
-{{/unless}}
-{{/each}}
-
+    <div  id="commentEdit_{{unbound message_id}}" style="display: none">
+        {{render editComment this}}       
+    </div>
+    {{/unless}}
+    {{/each}}
 
 
 </div>
+</div>
 
-
-
-
-
+<div class="hover-opacity easing" style="height: 20px; width: 100%; background-color: #f3f3f3;text-align: center;color: #555; border-top: 1px solid #ddd;cursor: pointer">  
+    <div id="showMoreComment_{{unbound model.id}}" style="display: inline-block; cursor: pointer"  {{action seeMore model.id target="controller" on="click"}}>
+        <span style="font-size: 11px;font-weight: bold">view comment &nbsp; {{model.comments.length}}</span>
+        <i class="icon-caret-down show-comment_inner" ></i>   
+    </div>
+    <div id="closeComment_{{unbound model.id}}"    style="display: none;cursor: pointer" {{action closeMore model.id  target="controller" on="click"}}>
+        <span style="font-size: 11px;font-weight: bold">collapse comment &nbsp; {{model.comments.length}}</span>
+        <i class="icon-caret-up show-comment_inner" ></i>
+    </div>
+</div>
 
 
 {{#if controller.makeSureDelete}}

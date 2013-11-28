@@ -1,4 +1,15 @@
 /*BASIC STYLE*/
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+a:visited{color: #555;}
+
+a:hover {
+    color: #aaa;
+}
+
 
 #master_bg
 {
@@ -24,13 +35,13 @@
 }
 
 .easing {
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
 }
 
-.hover-opacity{opacity:.6; cursor: pointer}
-.hover-opacity:hover{opacity:1}
+.hover-opacity{opacity:.6; }
+.hover-opacity:hover, .hover-opacity:focus, .hover-opacity:active{opacity:1}
 
 
 
@@ -83,12 +94,10 @@
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
 }
-#login_icon .panel .front{
-    -moz-box-shadow: 0 0 0 0;
-    -webkit-box-shadow: 0 0 0 0;
-    box-shadow:0 0 0 0;
 
-}
+
+
+
 .panel.flip .front {
     z-index: 900;
     height: 0;
@@ -274,13 +283,12 @@
 .object-tags-box{
     -webkit-transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
     transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
-    margin: 45px 0 0 0;
+    margin: 15px 0 0 0;
     max-width: 5%;
     position: absolute;
     right: 0;
     top: 0;
-    /*    cursor: pointer;*/
-    z-index: 100;
+    z-index: 10;
 }
 .object-tags-box div{position:relative;z-index:100;}
 .object-tags{
@@ -379,16 +387,17 @@
 }
 
 
-.object-tpye{
+.object-type{
     display: inline-block;
     text-align: center;
     background-color: #427fed;
-    color: white
+    color: white;
+    border-bottom: 2px solid #427fed;
 }
 
-.object-tpye:hover{
-    background-color: #eee;
-    color: #999;
+.object-type:hover{
+    border-bottom: 2px solid #fff;
+    opacity: 1;
 }
 
 .tagsappear{
@@ -399,7 +408,7 @@
     opacity: 1;
 }
 
-.object-tpye > i {
+.object-type > i {
     padding: 10px;
 }
 
@@ -477,6 +486,19 @@
     opacity: 1;
 }
 
+.item-function-control{
+    position: absolute;
+    z-index: 1;
+    top: 15px;
+    line-height: 30px;
+    background-color: #427fed;
+    opacity: 0;
+    cursor: pointer;
+    height: 30px;
+}
+
+.item-function-control:hover{opacity: 1!important}
+.col2:hover .item-function-control{opacity: .6}
 
 /*MANSONRY user OBJECT STYLE               END*/
 
@@ -717,19 +739,7 @@ div.album-description-bg{
 
 
 
-.masonry-object{
-    -webkit-border-radius:2px;
-    -o-border-radius: 2px;
-    -ms-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    background-color: #fff;
-    box-shadow: inset 0px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
-}
-
 .masonry-object_poster{
-    margin-bottom: 20px;
-    padding: 0 20px 0 20px;
     position: relative;
     z-index: 1;
 }
@@ -754,24 +764,23 @@ div.album-description-bg{
 
 .object_username{
     margin: 0 0 15px 61px;
-    padding: 23px 0 0 0;
+    padding: 15px 0 0 0;
     text-overflow: ellipsis;
 }
 
 .masonry-object_mainfeature{
-    padding: 0 20px 0 20px;
+    padding: 0 13px;
     text-overflow: ellipsis;
 }
 
 .mainfeature-wrapper{
-    margin: 0 -14px 20px -14px;
+    margin: 0 -13px;
     clear: both;
     line-height: 0;
     overflow: hidden;
     position: relative;
-    vertical-align:central;
-    /* background:#e5e5e5; */
-    min-height:150px
+    min-height: 150px;
+    border-radius: 3px 3px 0 0;
 }
 
 .mainfeature-wrapper:hover > .hover-opacity{opacity: 1}
@@ -798,8 +807,7 @@ div.album-description-bg{
 
 .this-is-the-object{
     cursor: pointer;
-    min-width: 338px;
-    /* max-height: 100%; */
+    min-width: 350px;
     max-width: 100%;
     display: inline-block;
 }
@@ -810,6 +818,7 @@ div.album-description-bg{
     line-height: 144%;
     min-height: 0;
     overflow: hidden;
+    width: 322px;
 }
 .masonry-object_text a{
     color:#08C;
@@ -845,10 +854,6 @@ div.album-description-bg{
 }
 
 /* clint */
-.masonry-brick .masonry_more-btn{
-    padding-bottom:12.5px;
-
-}
 .masonry_more-btn:hover{
     color: #333;
 }
@@ -1197,14 +1202,6 @@ div.album-description-bg{
     border: 1px solid #f3f3f3;
 }
 
-.profilepic_effect{
-    opacity: 0.8;
-}
-
-.profilepic_effect:hover{
-    box-shadow: 0px 0px 10px #fff;
-    opacity: 1;
-}
 
 .poster_user{
     position: relative;
@@ -1588,8 +1585,6 @@ div.album-description-bg{
     padding:0 6.5%;
     margin: 0 auto;
     overflow:hidden;
-    border-bottom:12.5px solid #f8f8f8;
-
 }
 
 
@@ -1612,7 +1607,7 @@ div.album-description-bg{
     transition: color .218s;
     font-size: 12px;
     padding-right: 5px;
-    
+
     cursor: pointer;
 }
 
@@ -1644,14 +1639,16 @@ div.album-description-bg{
     position: relative;
     width: auto;
     height: auto;
-    display: block;
-    margin: 5px 0;
     overflow-wrap: break-word;
     overflow-x: hidden;
+    display: block;
+    border-top: 1px solid #eee;
+    margin: 0;
+    padding: 5px 6.5%;
 }
 
 .comment-position{
-    padding: 4.50px 0px 4.5px 43px;
+    padding: 4.5px 0 4.5px 35px;
     vertical-align: top;
 }
 
@@ -1659,7 +1656,7 @@ div.album-description-bg{
     cursor: pointer;
     position: absolute;
     left: 0px;
-    top: 5px;
+    margin: 5px 3.5%;
 }
 
 .profilepic_comment{

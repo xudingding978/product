@@ -55,12 +55,21 @@ HubStar.CommentController = Ember.Controller.extend({
             }
         }
     },
-    addComment: function() {
-
+    openComment: function(id) {
+       
+        if (localStorage.loginStatus) {
+            this.getCommentsById(id);
+            this.addComment();
+        } else {
+            HubStar.set('checkLoginStatus', true);
+        }
+    },
+    addComment: function() {             
         var commentContent = this.get('commentContent');
         if (commentContent) {
+            
             var comments = this.get('mega').get('comments');
-
+           
 //            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
             var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
             var commenter_id = this.get("currentUser").get('id');
@@ -72,6 +81,7 @@ HubStar.CommentController = Ember.Controller.extend({
             comments.insertAt(0, tempComment);
             comments.store.save();
             this.set('commentContent', "");
+            this.seeMore(this.get('mega').get('id'));
             this.closeComment(this.get('mega').get('id'));
             $('#addcommetBut').attr('style', 'display:block');
             $('#commentBox').attr('style', 'display:none');
@@ -120,7 +130,7 @@ HubStar.CommentController = Ember.Controller.extend({
     },
     getCommentsById: function(id)
     {
-        var mega = HubStar.Mega.find(id);
+        var mega = HubStar.Mega.find(id);     
         var comments = mega.get('comments');
         this.set('mega', mega);
 //        for (var i = 0; i < comments.get("length"); i++)
@@ -300,110 +310,111 @@ HubStar.CommentController = Ember.Controller.extend({
     seeMore: function(id) {
         $('#closeComment_' + id).attr('style', 'display:block');
         $('#showMoreComment_' + id).attr('style', 'display:none');
-        $('#commentData_' + id).attr('style', 'max-height: 88px;');
-        $('#commentData_' + id).stop().animate({
-            maxHeight: '350px'
-        }, 420, function() {
-            $('#commentData_' + id).css('overflow', 'auto');
-            $('#masonry_container').masonry("reload");
-        });
-
-        /* this will need to be cleaned up, using a timed for loop etc (to not repeat code) */
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('#masonry_photo_collection_container').masonry("reload");
-
-        }, 52.5);
+        $('#commentData_' + id).attr('style', 'display:block');
+        
+//        $('#commentData_' + id).stop().animate({
+//            maxHeight: '350px'
+//        }, 420, function() {
+//            $('#commentData_' + id).css('overflow', 'auto');
+//            $('#masonry_container').masonry("reload");
+//        });
+//
+//        /* this will need to be cleaned up, using a timed for loop etc (to not repeat code) */
+//        setTimeout(function() {
+//            $('#masonry_container').masonry("reload");
+//            $('#masonry_photo_collection_container').masonry("reload");
+//
+//        }, 52.5);
+//        setTimeout(function() {
+//            $('#masonry_container').masonry("reload");
+//            $('#masonry_photo_collection_container').masonry("reload");
+//            $('#masonry_user_container').masonry("reload");
+//        }, 105);
+//        setTimeout(function() {
+//            $('#masonry_container').masonry("reload");
+//            $('#masonry_photo_collection_container').masonry("reload");
+//            $('#masonry_user_container').masonry("reload");
+//        }, 158);
+//        setTimeout(function() {
+//            $('#masonry_container').masonry("reload");
+//            $('#masonry_photo_collection_container').masonry("reload");
+//            $('#masonry_user_container').masonry("reload");
+//        }, 210.5);
+//        setTimeout(function() {
+//            $('#masonry_container').masonry("reload");
+//            $('#masonry_photo_collection_container').masonry("reload");
+//            $('#masonry_user_container').masonry("reload");
+//        }, 263);
+//        setTimeout(function() {
+//            $('#masonry_container').masonry("reload");
+//            $('#masonry_photo_collection_container').masonry("reload");
+//            $('#masonry_user_container').masonry("reload");
+//        }, 315);
+//        setTimeout(function() {
+//            $('#masonry_container').masonry("reload");
+//            $('#masonry_photo_collection_container').masonry("reload");
+//            $('#masonry_user_container').masonry("reload");
+//        }, 368);
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
             $('#masonry_photo_collection_container').masonry("reload");
             $('#masonry_user_container').masonry("reload");
-        }, 105);
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('#masonry_photo_collection_container').masonry("reload");
-            $('#masonry_user_container').masonry("reload");
-        }, 158);
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('#masonry_photo_collection_container').masonry("reload");
-            $('#masonry_user_container').masonry("reload");
-        }, 210.5);
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('#masonry_photo_collection_container').masonry("reload");
-            $('#masonry_user_container').masonry("reload");
-        }, 263);
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('#masonry_photo_collection_container').masonry("reload");
-            $('#masonry_user_container').masonry("reload");
-        }, 315);
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('#masonry_photo_collection_container').masonry("reload");
-            $('#masonry_user_container').masonry("reload");
-        }, 368);
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('#masonry_photo_collection_container').masonry("reload");
-            $('#masonry_user_container').masonry("reload");
-        }, 420);
+        }, 200);
     },
     closeMore: function(id) {
         $('#closeComment_' + id).attr('style', 'display:none');
         $('#showMoreComment_' + id).attr('style', 'display:block');
-
-        $('#commentData_' + id).stop().animate({
-            maxHeight: '88px'
-        }, 380, function() {
-            $('#commentData_' + id).css('overflow', 'hidden');
-            $('#masonry_container').masonry("reload");
-        });
-
-
-        /* this will need to be cleaned up, using a timed for loop etc (to not repeat code) */
+        $('#commentData_' + id).attr('style', 'display:none');
+//        $('#commentData_' + id).stop().animate({
+//            maxHeight: '88px'
+//        }, 380, function() {
+//            $('#commentData_' + id).css('overflow', 'hidden');
+//            $('#masonry_container').masonry("reload");
+//        });
+//
+//
+//        /* this will need to be cleaned up, using a timed for loop etc (to not repeat code) */
+//        setTimeout(function() {
+//            $('#masonry_container').masonry("reload");
+//            $('#masonry_photo_collection_container').masonry("reload");
+//            $('#masonry_user_container').masonry("reload");
+//
+//        }, 47.5);
+//        setTimeout(function() {
+//            $('#masonry_container').masonry("reload");
+//            $('#masonry_photo_collection_container').masonry("reload");
+//            $('#masonry_user_container').masonry("reload");
+//        }, 95);
+//        setTimeout(function() {
+//            $('#masonry_container').masonry("reload");
+//            $('#masonry_photo_collection_container').masonry("reload");
+//            $('#masonry_user_container').masonry("reload");
+//        }, 142.5);
+//        setTimeout(function() {
+//            $('#masonry_container').masonry("reload");
+//            $('#masonry_photo_collection_container').masonry("reload");
+//            $('#masonry_user_container').masonry("reload");
+//        }, 190);
+//        setTimeout(function() {
+//            $('#masonry_container').masonry("reload");
+//            $('#masonry_photo_collection_container').masonry("reload");
+//            $('#masonry_user_container').masonry("reload");
+//        }, 237.5);
+//        setTimeout(function() {
+//            $('#masonry_container').masonry("reload");
+//            $('#masonry_photo_collection_container').masonry("reload");
+//            $('#masonry_user_container').masonry("reload");
+//        }, 285);
+//        setTimeout(function() {
+//            $('#masonry_container').masonry("reload");
+//            $('#masonry_photo_collection_container').masonry("reload");
+//            $('#masonry_user_container').masonry("reload");
+//        }, 332.5);
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
             $('#masonry_photo_collection_container').masonry("reload");
             $('#masonry_user_container').masonry("reload");
-
-        }, 47.5);
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('#masonry_photo_collection_container').masonry("reload");
-            $('#masonry_user_container').masonry("reload");
-        }, 95);
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('#masonry_photo_collection_container').masonry("reload");
-            $('#masonry_user_container').masonry("reload");
-        }, 142.5);
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('#masonry_photo_collection_container').masonry("reload");
-            $('#masonry_user_container').masonry("reload");
-        }, 190);
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('#masonry_photo_collection_container').masonry("reload");
-            $('#masonry_user_container').masonry("reload");
-        }, 237.5);
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('#masonry_photo_collection_container').masonry("reload");
-            $('#masonry_user_container').masonry("reload");
-        }, 285);
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('#masonry_photo_collection_container').masonry("reload");
-            $('#masonry_user_container').masonry("reload");
-        }, 332.5);
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('#masonry_photo_collection_container').masonry("reload");
-            $('#masonry_user_container').masonry("reload");
-        }, 368);
+        }, 250);
     },
     shareDisplay: function(id) {
         $('#share_' + id).children('ul').removeClass("hideClass");

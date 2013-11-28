@@ -1,0 +1,83 @@
+
+
+<div class="blur_black" style="background-color: initial"  {{action closeDropdownNavigator on="click" target="controller"}}>&nbsp;</div>
+<div class="Navigator-box" style="">
+    <div style="background-color: #f3f3f3; height: 35px; line-height: 35px;width: 100%; border-bottom: 1px solid #ddd;padding: 0 15px;border-radius: 3px 3px 0 0;"><span style="font-size: 18px;font-weight: bold;color: #555;">Navigator</span></div>
+
+    <div class="Navigator-content" style="">
+        <div class="" style="width: 33%;height: 100%;float: left;padding: 8px 0;overflow: auto">
+ <ul>
+            {{#each controller.categorys}}
+           
+                <li id="{{unbound topic}}.substr(0,str.indexOf(''))" {{action topicSelection this}}> {{topic}}<i class="icon-search" {{action topicSearch topic}} ></i></li>
+            
+            {{/each}}
+</ul>
+        </div>
+
+
+
+        <div id ="category_topic" style="width: 33.5%;height: 100%;border-left: 1px solid #ddd; border-right: 1px solid #ddd;float: left;padding: 8px 0;overflow: auto">
+
+
+            {{#each  controller.subcate}}
+
+            <ul>
+                <li id="{{unbound id}}" {{action searchTopicSelection subcategories}}> {{category_topic}} <i class="icon-search" {{action topicSearch category_topic}} ></i></li>
+
+            </ul>
+            {{/each}}
+        </div>
+
+        <div id="search_topic" style="width: 33.5%;height: 100%;float: left;padding: 8px 0;overflow: auto">
+            {{#each  controller.subcategories}}
+
+            <ul>
+                <li {{action topicSearch search_topic}} > {{search_topic}} </li>
+
+            </ul>
+            {{/each}}
+        </div>
+
+
+    </div>
+
+    <div class="Navigator_links" style="">
+        <div style="float: left">
+            <span><a target="blank" href="http://about.trendsideas.com/">About</a></span>
+            <span><a target="blank" href="http://about.trendsideas.com/business/">Business</a></span>
+            <span><a target="blank" href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span>
+            <span><a target="blank" href="http://about.trendsideas.com/contact-us/">Contact us</a></span>
+        </div>
+        <div style="float: right">
+            <span><a target="blank" href="http://about.trendsideas.com/terms-of-use-agreement/">Terms of Use</a></span>
+            <span><a target="blank" href="http://about.trendsideas.com/Privacy-policy/">Privacy Policy</a></span>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(function() {
+        $("#category_topic").mCustomScrollbar({
+            scrollButtons: {
+                enable: false,
+                scrollSpeed: "auto"
+            },
+            advanced: {
+                updateOnBrowserResize: true,
+                updateOnContentResize: true,
+                autoScrollOnFocus: false,
+                normalizeMouseWheelDelta: false
+            },
+            autoHideScrollbar: true,
+            mouseWheel: true,
+            theme: "dark-2",
+            set_height: 388
+        });
+    });
+    
+ 
+       
+</script>

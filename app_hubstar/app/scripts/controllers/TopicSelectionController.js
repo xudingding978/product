@@ -30,7 +30,6 @@ HubStar.TopicSelectionController = Ember.ArrayController.extend({
             HubStar.set(id, false);
         } else {
             $('#plus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; margin: 10px; display:none");
-
             this.set('selected_topics', this.get('selected_topics') + topic + ",");
             HubStar.set(id, true);
 

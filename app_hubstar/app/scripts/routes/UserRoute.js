@@ -7,6 +7,7 @@ HubStar.UserRoute = Ember.Route.extend({
         } else {
             HubStar.set("isLogin", true);
         }
+   
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', true);
@@ -24,7 +25,8 @@ HubStar.UserRoute = Ember.Route.extend({
         
         this.controllerFor('user').set("model", model);
         this.controllerFor('user').setUser();
-
+        $("#top-about-menu").css('display', 'none');
+        $("#search-bar").css('display', 'block');
         $(window).scrollTop(0);
     },
     model: function(params) {

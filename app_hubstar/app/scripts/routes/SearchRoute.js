@@ -9,8 +9,8 @@ HubStar.SearchRoute = Ember.Route.extend({
 //        HubStar.set('isLogin', true);
         this.controllerFor('searchs').set("loginInfo", localStorage.loginStatus);
         this.controllerFor('searchs').setLoginImge();
-        this.controllerFor('application').set('search_string', model.id);
-        this.controllerFor('application').newSearch();
+        this.controllerFor('application').set('search_string',model.id);
+        this.controllerFor('application').newSearch();        
         this.controllerFor('index').setLogin();
 
         this.controllerFor('application').set('islogin', true);
@@ -18,7 +18,7 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
         localStorage.checkUser = "";
-
+ $(window).scrollTop(0);
     },
     model: function(params) {
         var address = document.URL;
@@ -34,7 +34,7 @@ HubStar.SearchRoute = Ember.Route.extend({
             this.transitionTo("photo", HubStar.Mega.find(id));
         },
         transitionToProfile: function(id) {
-            this.transitionTo("profile", HubStar.Profile.find(id));
+            this.transitionTo("profileCollections", HubStar.Profile.find(id));
         },
         transitionToArticle: function(id) {
 

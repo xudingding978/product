@@ -27,7 +27,12 @@ HubStar.DropdownListView = Ember.View.extend({
              $('#profilePackgetDropdown > .ite').click(function() {
                 that.get('controller').set('projectCategoryDropdownContent', $(this).text());
            });
-            
+           
+           $('#geoDropdown > .ite').click(function() {
+                HubStar.set('geoLocation', $(this).text());
+                that.get('controller').get('controllers.applicationFeedback').statusObserver(null, "You geographic location has been changed into "+HubStar.get('geoLocation'));
+           });
+             
            $('#packgetDropdown > .ite').click(function() {
 
                 that.get('controller').set('packgeSelection', $(this).text());
@@ -36,7 +41,7 @@ HubStar.DropdownListView = Ember.View.extend({
                $('#categoryDropdown > .ite').click(function() {
                 that.get('controller').set('categorySelection', $(this).text());
             });
-            
+        
               $('#is_actvie > .ite').click(function() {
                 that.get('controller').set('projectActiveDropdownContent', $(this).text());
             });

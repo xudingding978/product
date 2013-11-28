@@ -1,16 +1,13 @@
 HubStar.IndexIndexRoute = Ember.Route.extend({
         setupController: function() {
 
-
             this.controllerFor('application').set('islogin', false);
 
             this.controllerFor('status').set('islogin', false);
             this.controllerFor('application').set('isotherpage', false);
 
             if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-                this.controllerFor('application').newSearch();
             }
-
         },
         events: {
             transitionToProfile: function() {
@@ -20,6 +17,7 @@ HubStar.IndexIndexRoute = Ember.Route.extend({
                 this.controllerFor('application').set("popup", true);
             },
             transitionToArticle: function() {
+        console.log("tomtomt");
                 this.controllerFor('application').set("popup", true);
             }
         },
@@ -27,10 +25,10 @@ HubStar.IndexIndexRoute = Ember.Route.extend({
 
 
             if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-                this.transitionTo('indexIndex');
+              //  this.transitionTo('indexIndex');
 
             } else {
-
+                
                 this.transitionTo('searchIndex');
 
             }

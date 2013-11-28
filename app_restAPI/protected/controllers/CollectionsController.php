@@ -51,7 +51,7 @@ class CollectionsController extends Controller {
             $tempCollection = $request_arr['collection'];
             $type = $tempCollection['type'];
             $id = $tempCollection['optional'];
-            
+            $tempCollection['id']=(string)$tempCollection['id'];
             $cb = $this->couchBaseConnection();
             $domain = $this->getDomain();
             if ($type === "profile") {
@@ -204,10 +204,9 @@ class CollectionsController extends Controller {
         $responseArray = array();
         foreach ($response as $hit) {
             $id = $hit['id'];
-            $collectionId = $hit['collection_id'];
-            $profileId = $hit['owner_id'];
-            $type = $hit['type'];
-            if ($collectionId === $collection_id && $profileId === $profile_id && $type === 'photo'){
+            $collectionId = $hit['source']['doc']['collection_id'];
+            $profileId = $hit['source']['doc']['owner_id'];
+            if ($collectionId === $collection_id && $profileId === $profile_id){
                 $cb = $this->couchBaseConnection();
                 if ($cb->delete($id)) {
                     array_unshift($responseArray,$id.' delete succeed');

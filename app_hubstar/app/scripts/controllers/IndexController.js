@@ -35,7 +35,9 @@
             var st = this.get("controllers.status");
             ac.grapData();
             st.grapData();
-            var results = HubStar.Mega.find({});
+
+            var results = HubStar.Mega.find({});           
+
             this.set("content", results);
         },
         getResponseTime: function(start, end)

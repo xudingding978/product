@@ -57,7 +57,6 @@
 
 <div class="caption-container" id="caption_action">
     <div style="margin-bottom: 5px;">
-        <span class="article-title">{{captionTitle}}</span>
         <span class="hover-opacity easing" style="float: right; cursor:pointer;">
             {{#if controller.readCaption}}
             <i class="icon-double-angle-left"{{action setCaption  on="click" target="controller"}}></i>
@@ -66,7 +65,7 @@
             {{/if}}                       
         </span>
     </div>
-    <div class="article-text" style="width: 300px;">{{caption}} </div>
+    <div class="caption-text" style="width: 300px;font-size: 13px;line-height: 16px;">{{caption}} </div>
 </div>
 
 
@@ -81,7 +80,7 @@
     <div class="icon-on-black"  {{action previesImage on="click" target="controller"}} style="display:inline-block; vertical-align: top; position:relative; left:44px;">
         <i class="icon-arrow-left"></i>
     </div>
-    <div class="icon-on-black hint--rounded hint--top" data-hint="Show other photos in this collection." style="left: 44px; display:inline-block; vertical-align: top; position:relative;" {{action popupAibum on="click" target="view"}}>
+    <div class="icon-on-black hint--rounded hint--top" data-hint="Show other photos in this collection." style="left: 44px; display:inline-block; vertical-align: top; position:relative;" {{action popupAibum controller.selectedPhoto.id on="click" target="view"}}>
         <i class="icon-th"></i>
     </div>
     <div class="icon-on-black" style="left: 44px;position: relative;vertical-align: top;display: inline-block;" {{action nextImage on="click" target="controller"}}>
@@ -101,10 +100,10 @@
     <div style="cursor: pointer;">
         <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
             <div class="profilepic-container" >                   
-                <a href="#" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.creator_profile_pic"}} class="profilepic"/></a>                              
+                <a href="#/profiles/{{unbound controller.megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.creator_profile_pic"}} class="profilepic"/></a>                              
             </div>
             <div class="poster_user">
-                <a class="poster-name" href="#" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_id}}</a>
+                <a class="poster-name" href="#/profiles/{{unbound controller.megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
                 <span class="posttime">{{date controller.megaResouce.created}}</span>
             </div>
 
@@ -157,7 +156,34 @@
         </div>
     </div>
 
+    <!-- OBJECT CREDIT LIST SECTION -->
+    {{#if controller.isCreditListExist}}
+    <div>
+        <div>
+            <div class="object-collapes-title" >
+                <div class="collapes-title_inner">
+                    Credit List
+                </div>
+            </div> 
 
+        </div>
+
+
+
+
+        <div class="collapes-container"  id="article_action" style="display:block;">
+            <div class="collapes-container_inner">
+                {{#each articleResouce.credits}}
+                <div class="article-text">
+                    <a style="font-weight: bold">{{credits_name}}:</a>
+                    <span style="font-size: 13px">{{credits_text}}</span></div>
+
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+    {{/if}}
 
 
 
@@ -182,7 +208,7 @@
                     <div class="show-comment">
                         <div class="show-comment_container">
                             <span class="show-comment_inner">
-                                <span class="comment-amount" > {{controller.megaResouce.comments.length}} </span>
+                                <span class="comment-amount" > {{controller.article.comments.length}} </span>
                                 <span class="comment-amount" > comments   </span> 
                             </span>
                         </div>
@@ -193,6 +219,9 @@
                     <div class="addcommnetbox" role="button" {{action openComment target="view" on="click"}} id="addcommetBut" >
                         add comment...
                     </div >
+
+                    {{#unless HubStar.checkLoginStatus}}
+
                     <div class="addcommnetbox-container" id="commentBox" style="display: none">
                         <div style="margin:0 auto; padding: 0 0 15px 38px;">
                             <a> 
@@ -207,7 +236,11 @@
 
                         </div>
                     </div>
-                    {{#each controller.megaResouce.comments}}
+
+                    {{/unless}}
+
+                    {{#each controller.article.comments}}
+                    {{#unless this.isEdit}}
                     <div class="comment-item">
 
                         <div class="comment-position">
@@ -224,11 +257,12 @@
                                             <span class="posttime">{{date time_stamp}}</span>
                                         </div>
                                     </div>
-
-                                    <div class="reply-comment">
-                                        <!--this div for reply-->
-                                    </div>
-
+                                    {{#if this.getUser}}
+                                    <span class="edit-comment easing">
+                                        <i class="icon-trash"  {{action removeComment this}}></i>                 
+                                        <i class="icon-pencil" {{action updateComment this}}></i>
+                                    </span>
+                                    {{/if}}
                                 </div>
 
                                 <div class="comment-content">
@@ -244,7 +278,9 @@
                         </div>
 
                     </div>
-
+                    {{else}}
+                    {{render editComment this}}   
+                    {{/unless}}
 
                     {{/each}}
 
@@ -263,3 +299,14 @@
 
 
 </div>
+
+{{#if HubStar.checkLoginStatus}}
+
+{{render loginModal}}       
+
+{{/if}}
+{{#if controller.makeSureDelete}}
+
+{{view HubStar.DeleteFunctionView}}
+
+{{/if}}

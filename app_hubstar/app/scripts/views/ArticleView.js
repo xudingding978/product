@@ -55,20 +55,27 @@ HubStar.ArticleView = Ember.View.extend({
 
     },
     setPartnerTag: function() {
+
         $('#partner_action').slideToggle("slow");
         //       this.set('partnerTag', !this.get('partnerTag'));
 
     },
-    popupAibum: function() {
-
-        $("#collection_tab").slideToggle("slow");
+    popupAibum: function(id) {
+        HubStar.set('what', true);
+       // $("#collection_tab1").slideToggle("slow");
+       setTimeout(function() {
+            $('.collection_tab1').attr('style', 'bottom: 0px; right: 0px; height: 300px;background-color: black;overflow:hidden;display:block; position: absolute;z-index: 5; width: 100%; opacity: .9;');
+            //$("#collection_tab1").attr('style', 'display: block');
+        }, 200);
     },
     openComment: function() {
 
+
         $('#addcommetBut').attr('style', 'display:none');
         $('#commentBox').attr('style', 'display:block');
-
         $('.comment-insert-field').focus();
+        this.get("controller").get("controllers.checkingLoginStatus").popupLogin();
+
     },
     closeComment: function() {
 
@@ -77,7 +84,7 @@ HubStar.ArticleView = Ember.View.extend({
 
 
     }
-           
+
 //    someAction: function(e) {
 //        alert('You pressed the escape button!');
 //    }

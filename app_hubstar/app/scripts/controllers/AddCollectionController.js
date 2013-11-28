@@ -2,30 +2,29 @@
 HubStar.AddCollectionController = Ember.ObjectController.extend({
     collections: [],
     selectedDesc: "",
-    selectedTitle: "",
+    selectedTitle: "Choose your Collection",
     selectedCollection: "",
     selectionPop: false,
-    needs: ["mega", "article", "collection", "applicationFeedback"],
+    needs: ["mega", "article", "collection", "applicationFeedback", "comment", "video"],
     newCollectionName: null,
     objectID: "",
     selectedPhotoThumbnailUrl: "",
     parentController: "",
     commentObject: '',
+    isComment: false,
     init: function()
     {
     },
     setUser: function()
     {
         var user = HubStar.User.find(localStorage.loginStatus);
-      //  user.addObserver('isLoaded', function() {
-       //     if (user.get('isLoaded')) {
+        //  user.addObserver('isLoaded', function() {
+        //     if (user.get('isLoaded')) {
         this.set("collections", user.get("collections"));
         if (this.get("collections").objectAt(0) !== null && this.get("collections").objectAt(0) !== undefined) {
             this.setDesc("");
-            this.setTitle(this.get("collections").objectAt(0).get("title"));
+            this.setTitle("Choose your Collection");
         }
-        //    }
-      //  });
     },
     setImageID: function(id) {
         this.set("objectID", id);
@@ -40,31 +39,37 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         this.set("selectedPhotoThumbnailUrl", photo_image_thumbnail_url);
     },
     submit: function()
-    {        
-        if (this.get("selectionPop") !==true) {
+    {
+        if (this.get("selectionPop") !== true) {
             var collectionController = this.get('controllers.collection');
             var collection = collectionController.getUpdateCollection(this.get('selectedCollection'));
             var content = collection.get("collection_ids");
             this.addCollection(collection, content);
-
             this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
             this.addComment();
-
             collection.set('optional', localStorage.loginStatus);
             collection.set('type', 'user');
             collection.store.save();
-            this.get('controllers.applicationFeedback').statusObserver(null, "Saved photo successfully.");
+            this.sendFeedBack();
             this.exit();
         } else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose a collection.","warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose a collection.", "warnning");
         }
 
+    },
+    sendFeedBack: function() {
+        var message = "Added to your " + this.get('selectedTitle') + " collection successfully.";
+        if (this.get('parentController') === 'video') {
+            message = "Saved video successfully.";
+        } else if (this.get('parentController') === 'photo') {
+            message = "Saved photo successfully.";
+        }
+        this.get('controllers.applicationFeedback').statusObserver(null, message);
     },
     addComment: function() {
 
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         var commentContent = this.get('selectedDesc');
-
         if (commentContent) {
             var comments = this.get("commentObject").get('comments');
             var commenter_profile_pic_url = currentUser.get('photo_url_large');
@@ -74,7 +79,6 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
                 "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
                 "is_delete": false, optional: this.get("commentObject").get('type') + '/' + this.get("commentObject").get('id')});
-
             comments.insertAt(0, tempComment);
             comments.store.save();
             commentContent = '';
@@ -83,6 +87,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         }
     },
     setSelectedCollection: function(id) {
+       
         var selectedCollection = null;
         for (var i = 0; i < this.get("collections").get("length"); i++) {
             var thisCollection = this.get("collections").objectAt(i);
@@ -108,14 +113,26 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         }
     },
     exit: function() {
-
         if (this.get('parentController') === 'article')
         {
             this.get("controllers.article").switchCollection();
         }
+
+        else if (this.get('parentController') === 'comment')
+        {
+            var id = this.get("objectID");
+            //console.log(id);
+            $('#addCollection_' + id).attr('style', 'display: none');
+        }
+
+        else if (this.get('parentController') === 'video')
+        {
+            this.get("controllers.video").switchCollection();
+        }
         else {
             this.get("controllers.mega").switchCollection();
         }
+
     },
     addNewCollection: function()
     {
@@ -127,8 +144,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             this.get("collections").insertAt(0, collection);
             HubStar.store.save();
             this.set('selectedCollection', collection);
-            $('#recordID').text(this.get('newCollectionName'));
-
+            //$('#recordID').text(this.get('newCollectionName'));
         } else {
             selectedCollection.deleteRecord();
         }
@@ -137,13 +153,12 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     },
     collectionSwitch: function() {
         this.set('selectionPop', !this.get('selectionPop'));
-
     },
-    chooseRecord: function(title, id) {
+    chooseRecord: function(title, id) {        
         this.set('selectedTitle', title);
         this.setSelectedCollection(id);
         this.selectSelectedDesc();
-        $('#recordID').text(this.get('selectedTitle'));
+        //$('#recordID').text(this.get('selectedTitle'));
         HubStar.set('chooseCollection', this.get('selectedTitle'));
         this.set('selectionPop', !this.get('selectionPop'));
     },
@@ -155,7 +170,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             var collection = this.get("collections").objectAt(i);
             if (collection.get("title") === this.get("selectedTitle"))
             {
-                //desc = collection.get("desc");
+//desc = collection.get("desc");
             }
         }
         this.set("selectedDesc", desc);
@@ -166,14 +181,13 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             title = title.split(' ').join('-');
         }
         return title;
-
     },
     checkInput: function(title) {
         var isInputValid = false;
         if (title !== null && title !== "")
         {
             isInputValid = this.isTitleNotExist(title);
-   
+
         }
         else {
             isInputValid = false;
@@ -182,10 +196,12 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     },
     isTitleNotExist: function(title) {
         var isContainsTitle = true;
-         
+
+
         for (var i = 0; i < this.get("collections").get("length"); i++)
         {
-                
+
+
             var collection = this.get("collections").objectAt(i);
             if (collection.get("title") === title)
             {

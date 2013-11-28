@@ -1,0 +1,111 @@
+
+
+{{#if controller.review_enableToEdit}}  
+
+<div class="reply-comment-frame"  style="padding: 10px 35px;border-bottom: 1px solid #ddd;">
+    <div style="margin:0 auto; padding: 0 40px 0 0;">
+        <a  href="#/users/{{unbound model.review_user_id}}">
+            <img class="profilepic_comment" style="float: right; margin: 4px -40px 0 0; margin-top: 0;" {{bindAttr src="model.review_photo_url_large"}} /> 
+            <div class='user-reply-angle-before'></div>
+            <div class='user-reply-angle-after'></div>
+        </a>
+
+        <div class="reply-comment-container" style="width: 378px;height: 32px;">
+            <div style="margin: 0;width: 345px; height: 30px;float: left;">
+                {{view Ember.TextArea valueBinding="controller.review_msg"  class="no-resize no-effect"  placeholder="Please edit reply here" }}                                      
+            </div>
+            <div style="float: right;height: 34px;position: relative;">
+                <div class="message-btn easing" style='width: 30px;'{{action cancelReviewReply}}>
+                     <div class="message-btn easing" style='width: 30px;'{{action saveReviewReply}}>
+                     <k class='icon-ok'></k>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{else}}
+<div id="reply_{{unbound model.review_reply_id}}" class="your-relpy" style="padding: 10px 75px 10px 35px;"{{action 'replyView' model.review_reply_id target='view' on="click"}}>
+
+    {{#if model.review_userself}}
+    <a class="your-relpy_profilepic" style="left: 6.5%; right: initial;" href="#/users/{{unbound model.review_user_id}}">
+        <img class="profilepic_comment"  {{bindAttr src= model.review_photo_url_large}} />
+    </a>
+
+    <div style="">
+        <div class="comment-namentime" style="text-align: left;">
+            <div class="namentime_position" style="" >        
+                <a class="comment-username" href="#/users/{{unbound model.review_user_id}}">
+                    {{model.review_user_name}}                
+                </a>
+                <div class="posttime-container">
+                    <span class="posttime">{{date model.review_time_stamp}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="comment-content" style="text-align: left;">
+            {{model.review_msg}}<br>
+
+        </div>
+        {{#if model.getUser}}
+        <div style="float: right;bottom: 50px;position: relative;left: 15px;font-size: 12px;">
+            <div class="hint--bottom hint--rounded" style="left: 40px;right: initial;" data-hint="Delete" "  {{action removeReviewReply}}><i class="icon-trash"></i></div>                 
+            <div class="hint--bottom hint--rounded" style="left: 40px;right: initial;" data-hint="Edit" {{action editReviewReply}}><i class="icon-pencil"></i></div>
+        </div>
+        {{/if}}
+    </div>
+
+    {{else}}
+    <a class="your-relpy_profilepic" href="#/users/{{unbound model.review_user_id}}">
+        <img class="profilepic_comment"  {{bindAttr src= model.review_photo_url_large}} />
+    </a> 
+    <div style="">
+        <div class="comment-namentime">
+            <div class="namentime_position">        
+                <a class="comment-username"  href="#/users/{{unbound model.review_user_id}}">
+                    {{model.review_user_name}}                
+                </a>
+                <div class="posttime-container">
+                    <span class="posttime">{{date model.review_time_stamp}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="comment-content">
+            {{model.review_msg}}<br>
+
+        </div>
+        {{#if model.getUser}}
+        <div style="float: left;bottom: 50px;position: relative;left: 35px;font-size: 12px;">
+            <div class="hint--bottom hint--rounded" style="right: 40px;left: initial;" data-hint="Delete" "  {{action removeReviewReply}}><i class="icon-trash"></i></div>                 
+            <div class="hint--bottom hint--rounded" style="right: 40px;left: initial;" data-hint="Edit" {{action editReviewReply}}><i class="icon-pencil"></i></div>
+        </div>
+        {{/if}}
+    </div>
+    {{/if}}
+
+</div>
+
+{{/if}}
+
+
+
+
+<script>
+    $(function() {
+        var $container = $('#masonry_user_container');
+        window.setTimeout(function() {
+            $container.masonry();
+            $container.masonry('reload');
+        }, 10);
+    });
+
+
+</script>
+
+
+{{#if controller.makeSureDelete}}
+
+{{view HubStar.DeleteFunctionView}}
+
+{{/if}}

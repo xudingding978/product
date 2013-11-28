@@ -15,6 +15,25 @@ HubStar.UserFollowersController = Ember.Controller.extend({
     is_authentic_user: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings'],
     test: "test",
+    setUserFollowers: function(followers) {
+
+        var model = HubStar.User.find(followers);
+        this.getClientId(model); // It is used to get the mesage model
+
+    },
+    goToUserFollowerRoute: function()
+    {
+        this.transitionToRoute('user');
+        this.set('profileSelectionStatus', 'Collections');
+        this.set('followingTag', false);
+        this.set('collectionTag', true);
+        this.set('followerTag', false);
+        this.set('messageTag', false);
+
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
+
+    },
     getClientId: function(model) {
         //console.log(localStorage.loginStatus);
         this.set('loadingTime', true);
@@ -34,15 +53,10 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 dataNew["name"] = params[i]["name"];
                 dataNew["photo_url"] = params[i]["photo_url"];
                 dataNew["photo_url_large"] = params[i]["cover_url_small"];
-                //console.log(dataNew["photo_url_large"]);
-                //       dataNew["photo_url_large"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_cover_small/user_cover';
-                //       dataNew["photo_url"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_picture/user_picture';
-
                 dataNew["collections_size"] = params[i]["collections_size"];
                 dataNew["follower_size"] = params[i]["follower_size"];
                 dataNew["follow_status"] = params[i]["follow_status"];
                 dataNew["following_status"] = params[i]["following_status"];
-                //console.log(dataNew["follow_status"]);
                 dataNew["isUserSelf"] = false;
                 if (dataNew["id"] === localStorage.loginStatus) {
                     dataNew["isUserSelf"] = true;
@@ -50,13 +64,12 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 that.get("contentUser").pushObject(dataNew);
                 dataNew = new Array();
             }
-            //console.log(that.get("contentUser"));
             that.set('loadingTime', false);
+            that.relayout();
         });
 
     },
     getProfileId: function(model) {
-//console.log(localStorage.loginStatus);
         this.set('loadingTime', true);
         this.set("model", model);
         this.set('clientID', model.id);
@@ -74,9 +87,6 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 dataNew["name"] = params[i]["name"];
                 dataNew["photo_url"] = params[i]["photo_url"];
                 dataNew["photo_url_large"] = params[i]["cover_url_small"];
-                //console.log(dataNew["photo_url_large"]);
-                //       dataNew["photo_url_large"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_cover_small/user_cover';
-                //       dataNew["photo_url"] = HubStar.get('photoDomain')+'/users/'+dataNew["id"]+'/user_picture/user_picture';
 
                 dataNew["collections_size"] = params[i]["collections_size"];
                 dataNew["follower_size"] = params[i]["follower_size"];
@@ -92,6 +102,7 @@ HubStar.UserFollowersController = Ember.Controller.extend({
             }
             //console.log(that.get("contentUser"));
             that.set('loadingTime', false);
+            that.relayout();
         });
 
     },
@@ -259,7 +270,7 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                     var thatNewNew = thatNew;
                     followers.addObserver('isLoaded', function() {
 
-                        if (followers.get('isLoaded')) {                            
+                        if (followers.get('isLoaded')) {
                             //followers.get("followers").insertAt(0, tempComment);                         
                             thisThisThis.checkFollowStatus(currentUser, followers, follow_object);
                             if (thatNewNew === "follower") {
@@ -293,10 +304,8 @@ HubStar.UserFollowersController = Ember.Controller.extend({
     },
     unFollowUser: function(user_id, that, follow_object) {
         var currentUser = localStorage.loginStatus;
-
-        var followArray = [currentUser, user_id];
-
-
+        var date = new Date();
+        var followArray = [currentUser, user_id, date.toString()];
 
         var thatNew = that;
         var thisThis = this;
@@ -430,6 +439,13 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 }
             }
         });
+    },
+    relayout: function()
+    {
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 20);
     }
+
 }
 );

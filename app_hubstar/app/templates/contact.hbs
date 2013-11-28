@@ -1,14 +1,14 @@
     
 
-
-<div class="contactmebox-wapper" style="width: 500px;font-size: 13px;background-color: white;margin-top: 20px;z-index:11;">
+<p id="dragarea" style="position: relative;height: 20px; width: 100%;cursor: move"></p>
+<div class="contactmebox-wapper" style="width: 500px;font-size: 13px;background-color: white;z-index:11;">
 
 
     {{#unless controller.firstStepOfContactEmail}}
     <div class="head controlbtn-field">
         <div style="position: relative; text-align: center;">
-            <div class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold;background-color: #427fed;z-index: 1;">1</div>
-            <div {{action nextSendingEmailProcess}} class="panelcircle" style="cursor:pointer; position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; z-index: 1;">2</div>
+            <div class="panelcircle radius-circle" style="">1</div>
+            <div class="panelcircle radius-circle" style="background-color: #aaa" {{action nextSendingEmailProcess}} >2</div>
             <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
             <div style='font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);position: relative;top: 10px;right: 87px;font-weight: bold;margin-bottom: 10px;'> Send a message.</div>
         </div>
@@ -24,7 +24,7 @@
                 {{#unless controller.isDisplayNameEditable}}
                 <span style="display: inline-block;margin-right: 5px;">From: {{controller.displayName}}</span>
                 {{else}}
-                
+
                 {{view HubStar.SearchRequireTextFieldView valueBinding="controller.displayName" class="lineuptextbox"}}
                 {{/unless}}
                 <a style="display: inline-block; cursor: pointer;" {{action setEditable "Name"}}>{{editNameStatus}}</a>
@@ -39,7 +39,7 @@
             </div>
         </div>
         <div style="float: right;position: relative; display: inline-block; vertical-align: top;margin: 5px 0;">
-            <a href="#"><img {{bindAttr src="controller.selectedMega.owner_profile_pic"}} class="profilepic"/></a>              
+            <a href="#"><img {{bindAttr src="controller.owner_profile_pic"}} class="profilepic"/></a>              
         </div>
         <div>
             <span style="display: inline-block; margin-right: 10px;">Subject:</span>
@@ -54,8 +54,8 @@
     {{#if controller.secondStepOfContactEmail}}
     <div class="head controlbtn-field">
         <div style="position: relative;margin-bottom: 20px;text-align: center;">
-            <div class="panelcircle" style="position: relative; display: inline-block;  margin: 0 65px; font-weight: bold; z-index: 1;" {{action proviousSendingEmailProcess}}>1</div>
-            <div class="panelcircle" style="cursor:pointer; position: relative; display: inline-block;  margin: 0 65px; font-weight:bold; background-color: #427fed; z-index: 1;">2</div>
+            <div class="panelcircle radius-circle" style="background-color: #aaa" {{action proviousSendingEmailProcess}}>1</div>
+            <div class="panelcircle radius-circle" >2</div>
             <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
             <div style='font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);position: relative;top: 10px;left: 90px;font-weight: bold;margin-bottom: 10px;'>Help us help you.</div>
         </div>
@@ -126,10 +126,10 @@
                 </tbody>
             </table>    
 
-             <span style='color: #555;text-align: right;cursor: default;font-size: 15px;float: left;margin: 5px 0 0 55px;'> I need help on: (Please choose your category)</span>
-            
-            <ol class="checkbox-columncontainer" style="margin: 20px 0 10px 20px;max-height: 170px;overflow: auto;">
+            <span style='color: #555;text-align: right;cursor: default;font-size: 15px;float: left;margin: 5px 0 0 55px;'> I need help on: (Please choose your category)</span>
 
+            <ol  class="checkbox-columncontainer" style="margin: 20px 0 10px 20px;max-height: 170px;overflow: auto;">
+                {{#if controller.showCate}} 
                 {{#each controller.subcate}}
                 <li class="checkbox-container" {{action checkedAction list_id this}}>
 
@@ -139,7 +139,7 @@
 
                 </li>
                 {{/each}}
-
+                {{/if}}
             </ol>
 
 
@@ -171,18 +171,32 @@
 
 
     <div class="controlbtn-field">
+
+
         {{#if controller.secondStepOfContactEmail}}
         <span style="float: left;margin: 15px;position: relative;left: 15px;">
             <div type="button" {{action proviousSendingEmailProcess}}  class="new-btn blue-btn">
                  <k class='icon-arrow-left'>&nbsp;</k>Previous</div>
         </span>
         {{/if}}
+        {{#unless controller.firstStepOfContactEmail}}
+
+
+        <span style="float: left;margin: 10px;position: relative;left: 15px;">
+            <div>{{view Ember.Checkbox checkedBinding="rememberMessage"}}Remember My Message</div>
+        </span>
+
+        {{/unless}}
+
+
         <span class="controlbtn">
+
             <div type="button" {{action closeContact }} class="new-btn">Cancel</div>
             {{#if controller.secondStepOfContactEmail}}
-            <div type="button" {{action emailSend }}  class="new-btn green-btn">Submit</div>
+            <div type="button" {{action emailSend }}  class="new-btn green-btn">Submit </div>
             {{/if}}
             {{#unless controller.firstStepOfContactEmail}}
+
             <div type="button" {{action nextSendingEmailProcess}} class="new-btn green-btn">Next</div>
             {{/unless}}
         </span>

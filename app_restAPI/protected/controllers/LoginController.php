@@ -49,24 +49,11 @@ class LoginController extends Controller {
         }
     }
 
-    public function actionTest() {
-
-
-        // renders the view file 'protected/views/site/index.php'
-        // using the default layout 'protected/views/layouts/main.php'
-        //    $this->render('test');
-    }
-
     /**
      * This is the action to handle external exceptions.
      */
     public function actionError() {
-//        if ($error == Yii::app()->errorHandler->error) {
-//            if (Yii::app()->request->isAjaxRequest)
-//                echo $error['message'];
-//            else
-//                $this->render('error', $error);
-//        }
+        
     }
 
     public function actionClose() {
@@ -96,24 +83,11 @@ class LoginController extends Controller {
         $this->render('contact', array('model' => $model));
     }
 
-//    public function actionLogin() {
-//          
-//        $this->layout = '//layouts/signup';
-//        
-//        $this->defaultLogin();
-//    }
-//    public function actionLogin() {
-//        $model = new LoginForm;
-//        $this->render('login', array('model' => $model));
-//
-//
-//    }
-
+    public function actionRead() {
+        
+    }
 
     public function actionCreate() {
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
 
         $model = new User;
 
@@ -128,8 +102,8 @@ class LoginController extends Controller {
         $model->PWD_HASH = $request_array[2];
         $model->EMAIL_ADDRESS = $request_array[3];
         $model->COUCHBASE_ID = strval(rand(9999999999, 99999999999));
- 
-       $cb = $this->couchBaseConnection();
+
+        $cb = $this->couchBaseConnection();
         $rand_id = $model->COUCHBASE_ID;
         $temp = $this->getMega();
         $temp["id"] = $rand_id;
@@ -141,6 +115,7 @@ class LoginController extends Controller {
         $temp["user"][0]["first_name"] = $model->FIRST_NAME;
         $temp["user"][0]["last_name"] = $model->LAST_NAME;
         $temp["user"][0]["email"] = $model->EMAIL_ADDRESS;
+        $temp["user"][0]["email_activate"] = false;
         $temp['user'][0]['selected_topics'] = "";
         $temp['user'][0]['gender'] = $request_array[5];
         $temp['user'][0]['age'] = $request_array[6];
@@ -154,7 +129,7 @@ class LoginController extends Controller {
         $temp['user'][0]['youtube_link'] = null;
         $temp['user'][0]['region'] = $request_array[4];
         $temp['user'][0]['password'] = null;
-        
+
         $urlController = new UrlController();
         $link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         $domain = $urlController->getDomain($link);
@@ -164,7 +139,7 @@ class LoginController extends Controller {
 
                 $this->sendResponse(200, CJSON::encode($model));
             }
-        } 
+        }
     }
 
     public function actionGetmodel() {
@@ -223,11 +198,9 @@ class LoginController extends Controller {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $currentUser = User::model()
                 ->findByAttributes(array('COUCHBASE_ID' => $request_array[0]));
-//          if($currentUser->PWD_HASH===$request_array[1]&&$request_array[2]===$request_array[3])
-//          {   
+
         $currentUser->PWD_HASH = $request_array[2];
         $currentUser->save($request_array[4]);
-//          }
     }
 
     public function getMega() {
@@ -276,16 +249,43 @@ class LoginController extends Controller {
     }
 
     public function actionLogin() {
+
+        Yii::app()->session['couchbase_id'] = "value";
         $request_array = CJSON::decode(file_get_contents('php://input'));
+
         if ($request_array[2] === true) {
             $currentUser = User::model()
                     ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
-
             if (isset($currentUser)) {
+
                 if ($currentUser->PWD_HASH === "blankblankblank") {
                     $this->sendResponse(200, 0);
                 } else if ($currentUser->PWD_HASH === $request_array[1]) {
-                    $this->sendResponse(200, CJSON::encode($currentUser));
+                    //     $_SESSION['couchbase_id'] = $currentUser->COUCHBASE_ID;
+                    $data = array();
+                    $data[0] = $currentUser;
+                    $user_id = $currentUser->COUCHBASE_ID;
+
+
+                    try {
+                        $cb = $this->couchBaseConnection();
+                        $docID = $this->getDomain() . "/users/" . $user_id;
+                        $old = $cb->get($docID); // get the old user record from the database according to the docID string
+                        $oldRecord = CJSON::decode($old, true);
+                        if (!isset($oldRecord['user'][0]["email_activate"])) {
+                            $data[1] = true;
+                        } else {
+                            if ($oldRecord['user'][0]["email_activate"] === true) {
+                                $data[1] = true;
+                            } else {
+                                $data[1] = false;
+                            }
+                        }
+                    } catch (Exception $exc) {
+                        echo $exc->getTraceAsString();
+                    }
+
+                    $this->sendResponse(200, CJSON::encode($data));
                 }
             } else {
                 $this->sendResponse(200, 1);
@@ -298,7 +298,30 @@ class LoginController extends Controller {
                 if ($currentUser->PWD_HASH === "blankblankblank") {
                     $this->sendResponse(200, 0);
                 } else if ($currentUser->PWD_HASH === $request_array[1]) {
-                    $this->sendResponse(200, CJSON::encode($currentUser));
+                    $data = array();
+                    $data[0] = $currentUser;
+                    $user_id = $currentUser->COUCHBASE_ID;
+
+
+                    try {
+                        $cb = $this->couchBaseConnection();
+                        $docID = $this->getDomain() . "/users/" . $user_id;
+                        $old = $cb->get($docID); // get the old user record from the database according to the docID string
+                        $oldRecord = CJSON::decode($old, true);
+                        if (!isset($oldRecord['user'][0]["email_activate"])) {
+                            $data[1] = true;
+                        } else {
+                            if ($oldRecord['user'][0]["email_activate"] === true) {
+                                $data[1] = true;
+                            } else {
+                                $data[1] = false;
+                            }
+                        }
+                    } catch (Exception $exc) {
+                        echo $exc->getTraceAsString();
+                    }
+
+                    $this->sendResponse(200, CJSON::encode($data));
                 }
             } else {
                 $this->sendResponse(200, 1);
@@ -306,6 +329,38 @@ class LoginController extends Controller {
         }
     }
 
+    public function actionVerify() {
+
+        Yii::app()->session['couchbase_id'] = "value";
+
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $currentUser = User::model()
+                ->findByAttributes(array('EMAIL_ADDRESS' => $request_array[0]));
+        $response = $currentUser->COUCHBASE_ID;
+        $this->setEmailVerify($response);
+        $this->sendResponse(200, CJSON::encode($response));
+    }
+
+    public function setEmailVerify($commenter_id) {
+
+        try {
+            $docIDDeep = $this->getDomain() . "/users/" . $commenter_id; //$id  is the page owner
+            $cb = $this->couchBaseConnection();
+            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+            $oldRecordDeep = CJSON::decode($oldDeep, true);
+
+            $oldRecordDeep['user'][0]["email_activate"] = true;
+
+            if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
+    }
 
     public function actionAjax() {
         $model = new LoginForm;

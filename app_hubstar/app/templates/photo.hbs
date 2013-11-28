@@ -1,17 +1,23 @@
- 
-
 
 <div class="objectview-wrapper" >
 
     <div class="objectview-left">
-
-
         {{#if controller.collectable}}
         {{render addCollection}}
         {{/if}}
         <div class="top-controlbar easing" >
             <!--            <div class="icon-on-black" style="left: 8px;"><i class="icon-thumbs-up"></i></div>-->
 
+            {{#if controller.megaResouce.getArticle}}
+            <div class="icon-on-black hint--rounded hint--bottom" data-hint="Read this article" style="position:relative;margin: 0 5px;" {{action transitionToArticle controller.megaResouce.id}}>
+                 <i class="icon-book"></i><span class="pretooltip">Read</span>
+            </div>       
+            {{/if}}
+            {{#if controller.megaResouce.getVideo}}
+            <div class="icon-on-black hint--rounded hint--bottom" data-hint="Watch this Video" style="position:relative;margin: 0 5px;"  {{action transitionToVideo controller.megaResouce}}>
+                 <i class="icon-film"></i><span class="pretooltip">Watch</span>
+            </div>    
+            {{/if}}
             <div class="icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." style="position:relative;margin: 0 5px;"  {{action switchCollection on="click" target="controller"}}>
                 <i class="icon-save"></i><span class="pretooltip">Save</span>
             </div>
@@ -51,6 +57,7 @@
 <div class="mainfeature">
     <div class="previous" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="controller"}}></div>
     <div class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="controller"}}></div>
+
     {{view HubStar.PhotoDisplayAreaView}}
 </div>
 <!--THIS IS THE ALBUM BOX-->
@@ -72,55 +79,38 @@
     </div>
     <div class="text-on-black" style="left: 88px; top:0;position: relative;display: inline-block;vertical-align: top;"> {{controller.image_no}}/{{content.length}} </div>
 </div>
-
-
-
-
 </div>
 
-
 <div class="objectview-right">
-
     <!-- USER SECTION -->
     <div style="cursor: pointer;">
         <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
             <div class="profilepic-container">
-                <a class="profilepic" href="#" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} /></a>              
+                <a class="profilepic" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} /></a>              
             </div>
             <div class="poster_user" >
-                <a class="poster-name" href="#" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
+                <a class="poster-name" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
                 <span class="posttime">{{date controller.megaResouce.created}} </span>
             </div>        
             <div class="contactmebtn hint--left hint--rounded easing" data-hint="Contact us!" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
                 <a class="contactmeicon easing" {{action editingContactForm }}><i class="icon-envelope easing" style="font-size: 18px;"></i></a>
             </div>
         </div>
-
         {{#if controller.contact}}
         {{render contact}}
         {{/if}}
-
-
-
     </div>
 
-    <!-- OBJECT DESCRIBTION SECTION -->
+    <!-- OBJECT DESCRIPTION SECTION -->
     <div>
         <div class="object-collapes-title" {{action setTitleTag  on="click" target="view"}}>
             <div class="collapes-title_inner">
                 About
             </div>
-
-
-
             <div class="dropdownicon" >
                 <i class="icon-angle-down"></i>
             </div>
         </div>
-
-
-
-
         <div class="collapes-container"   id="article_action" style="display:block">
             <div  class="collapes-container_inner">
 
@@ -133,15 +123,11 @@
                         <i class="icon-edit" {{action editingPhotoMegaData}}></i>
                     </div>
                     {{/if}}
-
                 </div>
-
-                <div class="article-text">{{{controller.selectedPhoto.photo_caption}}}</div>
-
-
-
+                <div class="article-text">
+                    <p>{{{controller.selectedPhoto.photo_caption}}}</p>
+                </div>
                 {{else}}
-
                 {{view Ember.TextField valueBinding="controller.selectedPhoto.photo_title"  id="" class="edit_photo-titile_field"  }} 
                 {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_caption"  id="" class="edit_photo-caption_field"}} 
                 {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_url_linkto"  id="" class="edit_photo-linkto_field"}} 
@@ -196,7 +182,7 @@
                     <div class="show-comment_container">
                         <span class="show-comment_inner">
                             <span class="comment-amount" > {{controller.megaResouce.comments.length}} </span>
-                            <span class="comment-amount" > comments   </span> 
+                            <span class="comment-amount" > comments {{model.type}}  </span> 
                         </span>
                     </div>
 
@@ -206,6 +192,8 @@
                 <div class="addcommnetbox" role="button" {{action openComment target="view" on="click"}} id="addcommetBut" >
                     add comment...
                 </div>
+
+                {{#unless HubStar.checkLoginStatus}}
                 <div class="addcommnetbox-container" id="commentBox" style="display: none">
                     <div style="margin:0 auto; padding: 0 0 15px 38px;">
                         <a> 
@@ -220,8 +208,12 @@
 
                     </div>
                 </div>
+                {{/unless}}
+
+
                 {{#each controller.megaResouce.comments}}
-                <div class="comment-item">
+                {{#unless this.isEdit}}
+                <div class="comment-item"}}>
 
                     <div class="comment-position">
                         <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}">
@@ -237,11 +229,12 @@
                                         <span class="posttime">{{date time_stamp}}</span>                  
                                     </div>
                                 </div>
-
-                                <div class="reply-comment">
-                                    <!--this div for reply-->
-                                </div>
-
+                                {{#if this.getUser}}
+                                <span class="edit-comment easing">
+                                    <i class="icon-trash"  {{action removeComment this}}></i>                 
+                                    <i class="icon-pencil" {{action updateComment this}}></i>
+                                </span>
+                                {{/if}}
                             </div>
 
                             <div class="comment-content">
@@ -256,13 +249,18 @@
 
                         </div>
                     </div>
-
                 </div>
-
+                {{else}}
+                {{render editComment this}}   
+                {{/unless}}
 
                 {{/each}}
-
-
+                <!-- test1 -->
+<div id='div-gpt-ad-1384896082386-0' style='width:336px; height:280px;'>
+<script type='text/javascript'>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1384896082386-0'); });
+</script>
+</div>
 
             </div>
         </div>
@@ -281,4 +279,13 @@
 
 </div>
 
+{{#if HubStar.checkLoginStatus}}
 
+{{render loginModal}}       
+
+{{/if}}
+{{#if controller.makeSureDelete}}
+
+{{view HubStar.DeleteFunctionView}}
+
+{{/if}}

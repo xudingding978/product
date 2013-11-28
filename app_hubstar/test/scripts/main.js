@@ -1203,6 +1203,7 @@ HubStar.CollectionRoute = Ember.Route.extend({
         } else {
             var id = model.get('id');
         }
+             console.log("111111222222221111");
         this.controllerFor('user').set('switchPhoto', false);
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
@@ -1433,7 +1434,6 @@ HubStar.IdeabooksRoute = Ember.Route.extend({
 HubStar.IndexIndexRoute = Ember.Route.extend({
         setupController: function() {
 
-
             this.controllerFor('application').set('islogin', false);
 
             this.controllerFor('status').set('islogin', false);
@@ -1488,7 +1488,6 @@ HubStar.IndexIndexRoute = Ember.Route.extend({
 (function() {
 
 HubStar.IndexRoute = Ember.Route.extend({
-
 
 
 
@@ -2744,6 +2743,7 @@ HubStar.UserRoute = Ember.Route.extend({
         } else {
             HubStar.set("isLogin", true);
         }
+   
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', true);
@@ -2900,6 +2900,25 @@ HubStar.UsersRoute = Ember.Route.extend({
 
 
     });
+
+
+})();
+
+(function() {
+
+HubStar.VerifyIdRoute = Ember.Route.extend({
+    setupController: function(controller, model) {
+        var address = document.URL;
+        var user_id = address.split("#")[1].split("/")[2];
+        var account = user_id.split("?")[0];
+        var password = user_id.split("?")[1];
+        this.controllerFor('application').verify(account,password);
+
+    },
+    model: function() {
+        return 0;
+    }
+});
 
 
 })();
@@ -3586,6 +3605,23 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
     },
+    verify: function(verifyAccount, verifyPassword)
+    {
+        var emailVerify = [verifyAccount, verifyPassword];
+        var that = this;
+        requiredBackEnd('login', 'verify', emailVerify, 'POST', function(params) {
+            localStorage.loginStatus = params;
+            HubStar.set("isLogin", true);
+            var s = HubStar.User.find(localStorage.loginStatus);
+            var thatthat = that;
+            s.addObserver('isLoaded', function() {
+                if (s.get('isLoaded')) {
+                    //  var model = {id: localStorage.loginStatus};
+                    thatthat.transitionToRoute("user", s);
+                }
+            });
+        });
+    },
     signUp: function() {
 
         if (this.checkSignupInfo()) {
@@ -3625,7 +3661,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
             });
             setTimeout(function() {
-                that.transitionToRoute('search');
+                //that.transitionToRoute('search');
                 that.set('first_name', "");
                 that.set('last_name', "");
                 that.set('email', "");
@@ -3633,8 +3669,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 that.set('region', "");
                 that.set('gender', "");
                 that.set('age', "");
-                //  that.set('isWaiting', false);
+//                that.set('isWaiting', false);
                 that.set('loginTime', false);
+                alert("Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!");
             }, 2000);
         });
     },
@@ -3729,7 +3766,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 if (params === 1) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                     //  that.set('isWaiting', false);
-                    this.set('loginTime', false);
+                    that.set('loginTime', false);
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
@@ -3743,21 +3780,35 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is a social network login account
                 else {
 
-                    if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
-                        localStorage.loginStatus = params.COUCHBASE_ID;
-                        localStorage.userName = params.USER_NAME;
-                        localStorage.userType = "email";
-                        HubStar.set("isLogin", true);
-                        that.transitionToRoute('searchIndex');
-                        //  that.set('loginUsername', "");
-                        that.set('loginPassword', "");
-//                        that.set('isWaiting', false);
-                        that.set('loginTime', false);
+
+                    if (that.get('loginPassword') === params[0]["PWD_HASH"] && that.get('loginPassword') !== undefined) {
+
+                        var email_activate = params[1];
+
+
+                        if (email_activate === true)
+                        {
+                            localStorage.loginStatus = params[0].COUCHBASE_ID;
+                            HubStar.set("isLogin", true);
+                            that.transitionToRoute('searchIndex');
+                            that.set('loginUsername', "");
+                            that.set('loginPassword', "");
+//                            that.set('isWaiting', false);
+                            that.set('loginTime', false);
+                        }
+                        else
+                        {
+                            that.set('loginTime', false);
+                            $('.black-tool-tip').css('display', 'none');
+                            $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                              alert("Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!");
+                        }
+
                     }
                     else {
                         document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
 //                        that.set('isWaiting', false);
-                         that.set('loginTime', false);
+                        that.set('loginTime', false);
                         if ($('#incorrect-password').css('display') === 'none') {
 
                             $('.black-tool-tip').stop();
@@ -4509,6 +4560,7 @@ HubStar.CheckingLoginStatusController = Ember.Controller.extend({
 
 HubStar.CollectionController = Ember.Controller.extend({
     collections: null,
+ 
     needs: ['applicationFeedback'],
 
     init: function() {
@@ -4542,6 +4594,7 @@ HubStar.CollectionController = Ember.Controller.extend({
 
     },
     checkingValidInput: function(title) {
+console.log("dddddd222");
         if (title === null || title === "") {
         } else {
             if (title.indexOf(" ") !== -1) {
@@ -6917,21 +6970,20 @@ HubStar.KeywordController.Dragable = Ember.Mixin.create(HubStar.KeywordControlle
 (function() {
 
 HubStar.LoginModalController = Ember.Controller.extend({
- needs: ['application'],
-
+    needs: ['application'],
     init: function() {
 
     },
-    closePopupLogin:function(){
-      HubStar.set('checkLoginStatus',false);
+    closePopupLogin: function() {
+        HubStar.set('checkLoginStatus', false);
     },
-     validateEmail: function(email)
+    validateEmail: function(email)
     {
 
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
     },
-     login: function() {
+    login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {
             this.set('isWaiting', true);
@@ -6965,10 +7017,10 @@ HubStar.LoginModalController = Ember.Controller.extend({
 
                     if (that.get('loginPassword') === params.PWD_HASH && that.get('loginPassword') !== undefined) {
                         localStorage.loginStatus = params.COUCHBASE_ID;
-             
-                 location.reload();
-                  HubStar.set("isLogin", true);
-                 HubStar.set('checkLoginStatus', false);
+
+                        location.reload();
+                        HubStar.set("isLogin", true);
+                        HubStar.set('checkLoginStatus', false);
                         that.set('loginUsername', "");
                         that.set('loginPassword', "");
 
@@ -6990,7 +7042,6 @@ HubStar.LoginModalController = Ember.Controller.extend({
             });
         }
     },
-    
     signUp: function() {
 
         if (this.checkSignupInfo()) {
@@ -7135,6 +7186,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
         this.set('isGeoDropdown', !this.get('isGeoDropdown'));
         $('#geo-filter').toggleClass('Geo-Filter-active');
     },
+    
     emailSend: function()
     {
 
@@ -7160,6 +7212,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                 var emailInfo = [that.get('resetPasswordEmail'), params.USER_NAME, params.PWD_HASH];
                 requiredBackEnd('emails', 'forgetpassword', emailInfo, 'POST', function(params) {
                     if (params === 1) {
+
                         $('.black-tool-tip').stop();
                         $('.black-tool-tip').css('display', 'none');
                         $('#new-password').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
@@ -7170,8 +7223,8 @@ HubStar.LoginModalController = Ember.Controller.extend({
             }
         });
     }
-    
-    
+
+
 });
 
 
@@ -7204,7 +7257,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.set('collection_id', collection_id);
         this.set('');
         this.set("isUser", true);
-        
+   
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
         this.set('user_id', user_id);
@@ -10082,6 +10135,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     boost: '',
     currentUserID: "",
     collections: [],
+    Id: "",
+    type:"profiles",
     reviews: [],
     contentFollowerPhoto: [],
     contactChecking: false,
@@ -10213,6 +10268,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setProfile: function(id) {
         var profile = this.getCurrentProfile(id);
         this.set("model", profile);
+        this.set("Id", this.get('model').get('id'));
         this.set("about_me", profile.get('profile_about_us'));
         this.set("domains", profile.get('profile_domains'));
         this.set("boost", profile.get('profile_boost'));
@@ -10258,6 +10314,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set("projectDeleteDropdownContent", profile.get("profile_isDeleted"));
         this.updateWorkingHourData(profile.get('profile_hours'));
         this.set("collections", profile.get("collections"));
+
         this.set("reviews", profile.get("reviews"));
 
 
@@ -10443,6 +10500,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 collection.set('type', 'profile');
                 collection.set('optional', this.get('model').get('id'));
                 this.get("collections").insertAt(0, collection);
+                console.log(collection);
                 HubStar.store.commit();
                 $(".Targeting_Object_front").attr("style", "display:inline-block");
                 $(" #uploadArea").attr('style', "display:none");
@@ -10777,6 +10835,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.sendEventTracking('event', 'button', 'click', 'Collections');
         this.set('partnerPage', 'Collections');
         this.set('profileSelectionStatus', 'Collections');
+        this.set("Id", this.get('collections').objectAt(0).get('optional'));
         this.set('partnerTag', false);
         this.set('followerProfileTag', false);
         this.set('collectionTag', true);
@@ -12860,6 +12919,8 @@ HubStar.UserController = Ember.Controller.extend({
     messageTag: false,
     postTag: false,
     newDesc: '',
+    Id: "",
+    type: "users",
     newTitle: '',
     selectedDesc: "",
     selectedTitle: "",
@@ -13034,6 +13095,7 @@ HubStar.UserController = Ember.Controller.extend({
         var user = this.get('model');
         this.setIntersetsArr(user);
         this.set("user", user);
+        this.set("Id", this.get('model').get('id'));
         //console.log(this.get("user"));
         this.set("collections", user.get("collections"));
         this.set("description", user.get("description"));
@@ -13102,8 +13164,8 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('collectionTag', true);
         this.set('followerTag', false);
         this.set('messageTag', false);
-         this.set('postTag', false);
-        
+        this.set('postTag', false);
+
         this.labelBarRefresh();
 
     },
@@ -13653,11 +13715,12 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('collectionTag', true);
         this.set('followerTag', false);
 
-this.set('postTag', false);
+        this.set('postTag', false);
 
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
+        this.set("Id", this.get('collections').objectAt(0).get('optional'));
 
 
         this.set('messageTag', false);
@@ -13672,7 +13735,7 @@ this.set('postTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', false);
 
-this.set('postTag', false);
+        this.set('postTag', false);
 
         this.set('messageTag', false);
 
@@ -13692,7 +13755,7 @@ this.set('postTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', true);
 
-this.set('postTag', false);
+        this.set('postTag', false);
 
         this.set('messageTag', false);
         this.transitionToRoute('followers');
@@ -13715,13 +13778,13 @@ this.set('postTag', false);
         }, 200);
 
     },
-     selectPost: function(model) {
+    selectPost: function(model) {
         this.set('profileSelectionStatus', 'Posts');
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', false);
         this.set('messageTag', false);
-         this.set('postTag', true);
+        this.set('postTag', true);
 
         this.transitionToRoute('userPost');
 
@@ -15710,8 +15773,6 @@ HubStar.CollectionsView = Ember.View.extend({
         $(".Targeting_Object_front").attr("style", "display:inline-block");
         $(" #uploadArea").attr('style', "display:none");
         $(" #uploadObject").attr('style', "display:block");
-
-
         $(div_id).attr("style", "display:none");
         $(div_class).attr('style', "display:inline-block");
         var createCollection = ".C" + id + "  #createCollection";
@@ -18359,6 +18420,8 @@ var Router = Ember.Router.extend( );
 HubStar.Router.map(function() {
     this.resource("index", {path: '/'}, function() {
         this.resource("indexIndex", {path: '/'});
+        this.resource("verifyId", {path: '/verify/:verify_id'});
+        this.resource("photo", {path: '/photos/:photo_id'});
         this.resource("article", {path: '/articles/:article_id'});
         this.resource("video", {path: '/videos/:video_id'});
         this.resource("photo", {path: '/photos/:photo_id'});

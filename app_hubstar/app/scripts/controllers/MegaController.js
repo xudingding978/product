@@ -35,10 +35,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
         for (var index = 0; index <= content.get('length'); index++) {
             if (this.get('selectedPhoto') === content.objectAt(index)) {
                 return index;
-                console.log("1111");
             }
         }
-         console.log("2222222");
         return 0;
     },
     previesImage: function() {
@@ -130,7 +128,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             {
                 this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
                 this.set("content", []);
-                this.set('image_no', 1);
+//                this.set('image_no', 1);
                 this.set("selectedPhoto", photoObj);
                 this.get("content").pushObject(photoObj);
                 var megaResouce = HubStar.Mega.find(megaObject.id);
@@ -156,6 +154,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
             }
         }
+   
     },
     addRelatedCollectionItemData: function(mega)
     {
@@ -327,10 +326,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.set('image_no', 1);
             selectedIndex = 1;
         }
-
         this.set('image_no', selectedIndex);
-console.log(selectedIndex);
-
         this.selectedImage(e);
 
 

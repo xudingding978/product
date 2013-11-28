@@ -29,7 +29,7 @@ HubStar.PhotoView = Ember.View.extend({
 
     },
     popupAibum: function() {
-       HubStar.set('what', false);
+        HubStar.set('what', false);
         $("#collection_tab").slideToggle("slow");
     },
     openComment: function() {
@@ -38,9 +38,8 @@ HubStar.PhotoView = Ember.View.extend({
         $('#commentBox').attr('style', 'display:block');
 
         $('.comment-insert-field').focus();
-          this.get("controller").get("controllers.checkingLoginStatus").popupLogin();
+        this.get("controller").get("controllers.checkingLoginStatus").popupLogin();
     },
-            
     closeComment: function() {
         $('#addcommetBut').attr('style', 'display:block');
         $('#commentBox').attr('style', 'display:none');
@@ -50,6 +49,31 @@ HubStar.PhotoView = Ember.View.extend({
 $(document).keyup(function(e) {
     if (e.which === 27)
     { // pressed 'esc'
+        var address = document.URL;
+        var type = address.split("#")[1].split("/")[1];
+        var id = address.split("#")[1].split("/")[2];
+        var collection_id = address.split("#")[1].split("/")[4];
+        var photo_id = address.split("#")[1].split("/")[6];
+        if (type === "users")
+        {
+            if (collection_id !== undefined)
+            {
+                if (photo_id !== undefined)
+                {
+
+                }
+                else
+                {
+
+                }
+
+            } else
+            {
+
+            }
+        }
+
+   
         // HubStar.PhotoView.prototype.closeComment();
         // HubStar.PhotoView.get('controller').closeWindow();
         window.history.back();
@@ -57,11 +81,11 @@ $(document).keyup(function(e) {
     else if ((e.which === 38) || (e.which === 37))
     {
         //press up  or left
-       // this.get('controller').prototype.previesImage();
+        // this.get('controller').prototype.previesImage();
     }
     else if ((e.which === 39) || (e.which === 40))
     {
-         //press down  or  right 
+        //press down  or  right 
         //this.get('controller').prototype.nextImage();
     }
 });

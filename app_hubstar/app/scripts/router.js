@@ -9,7 +9,6 @@ HubStar.Router.map(function() {
         this.resource("photo", {path: '/photos/:photo_id'});
         this.resource("article", {path: '/articles/:article_id'});
         this.resource("video", {path: '/videos/:video_id'});
-        this.resource("photo", {path: '/photos/:photo_id'});
 //        this.resource("videoes", function() {
 //            this.resource("video", {path: ':video_id'});
 //        });
@@ -19,7 +18,6 @@ HubStar.Router.map(function() {
             this.resource("profileFollowers", {path: '/followers'});
             this.resource("profileVideos", {path: '/videos'});
             this.resource("profileCollections", {path: '/collections'}, function() {
-                //this.resource("photo", {path: '/photoes/:photo_id'});
                 this.resource("profileCollection", {path: ':profileCollection_id'});
             });
 

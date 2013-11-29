@@ -65,6 +65,7 @@ $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
                 isFitWidth: true
             });
         });
+        
         $(window).scrollTop(HubStar.get("setHight"));
         HubStar.set("setHight", 0);
 

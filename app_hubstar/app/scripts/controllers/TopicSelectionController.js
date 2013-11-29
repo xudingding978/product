@@ -41,7 +41,7 @@ HubStar.TopicSelectionController = Ember.ArrayController.extend({
         var user = HubStar.User.find(localStorage.loginStatus);
         user.set('selected_topics', data.substring(0, data.length - 1));
         user.store.commit();
-         this.transitionToRoute('quickstart');
+         this.transitionToRoute('searchIndex');
     }
 }
 );

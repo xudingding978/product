@@ -24,13 +24,59 @@
 
     <div class="popular-topics" style="">
         <span style="float: left;color: white;font-family: Georgia, serif;font-style: italic;margin: 5px 15px;">Most Popular Topics:</span>
-        <div {{action topicSearch "New Homes"}} >New Homes</div>
-        <div {{action topicSearch "Kitchens"}} >Kitchens</div>
-        <div {{action topicSearch "Bathrooms"}} >Bathrooms</div>
-        <div {{action topicSearch "Renovations"}} >Renovations</div>
-        <div {{action topicSearch "Outdoor Living"}} >Outdoor Living</div>
-        <div {{action topicSearch "Interior"}} >Interior</div>
+        <div id="1" {{action topicSearch "New Homes"}} >New Homes</div>
+        <div id="2"  {{action topicSearch "Kitchens"}} >Kitchens</div>
+        <div  id="3"  {{action topicSearch "Bathrooms"}} >Bathrooms</div>
+        <div id="4"  {{action topicSearch "Renovations"}} >Renovations</div>
+        <div  id="5"  {{action topicSearch "Outdoor Living"}} >Outdoor Living</div>
+        <div id="6"  {{action topicSearch "Interior"}} >Interior</div>
     </div>
 
 </div>
 
+
+    <ol id="joyRideTipContent">
+      <li data-id="6" data-text="Next"  data-options="tipLocation:right">
+        <h2>Stop #1</h2>
+        <p>Our navigator will help you to find what you want</p>
+      </li>
+<!--      <li data-id="discovery_search_bar_wrapper" data-button="Next" data-options="tipLocation:top;tipAnimation:fade">
+        <h2>Stop #2</h2>
+        <p>Get the details right by styling Joyride with a custom stylesheet!</p>
+      </li>-->
+      <li data-id="1" data-button="Next" data-options="tipLocation:right">
+        <h2>Stop #3</h2>
+        <p>It works right aligned.</p>
+      </li>
+      <li data-id="2" data-button="Next">
+        <h2>Stop #4</h2>
+        <p>It works as a modal too!</p>
+      </li>
+      <li data-id="3" data-button="Next" data-options="tipLocation:right">
+        <h2>Stop #4.5</h2>
+        <p>It works with classes, and only on the first visible element with that class.</p>
+      </li>
+      <li data-id="4" data-button="Next">
+        <h2>Stop #5</h2>
+        <p>Now what are you waiting for? Add this to your projects and get the most out of your apps!</p>
+      </li>
+    </ol>
+
+
+
+
+<script>
+      
+            $(window).load(function() {
+        $('#joyRideTipContent').joyride({
+          autoStart : true,
+          postStepCallback : function (index, tip) {
+          if (index == 2) {
+            $(this).joyride('set_li', false, 1);
+          }
+        },
+        modal:true,
+        expose: true
+        });
+      });
+</script>

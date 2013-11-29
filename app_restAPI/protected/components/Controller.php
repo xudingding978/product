@@ -285,7 +285,10 @@ class Controller extends CController {
               }}');
             $request->filter($filter);
         }
-
+        $sort = Sherlock\Sherlock::sortBuilder();
+        $sort1 = $sort->Field()->name("boost")->order('desc');
+        $sort2 = $sort->Field()->name("_score");
+        
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
                 "bool": {
                     "must": [
@@ -306,7 +309,7 @@ class Controller extends CController {
                 }
             }');
 
-//        $request->sort($sort1, $sort2);
+        $request->sort($sort1, $sort2);
 
         $response = $request->query($termQuery)->execute();
 

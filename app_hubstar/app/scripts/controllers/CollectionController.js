@@ -1,6 +1,8 @@
 HubStar.CollectionController = Ember.Controller.extend({
     collections: null,
+
     needs: ['applicationFeedback', 'addCollection'],
+
     init: function() {
 
     },
@@ -32,6 +34,7 @@ HubStar.CollectionController = Ember.Controller.extend({
 
     },
     checkingValidInput: function(title) {
+
         if (title === null || title === "") {
         } else {
             if (title.indexOf(" ") !== -1) {

@@ -372,9 +372,9 @@ input{
 }
 
 .latestebook{
-    margin-bottom: 20px;
     position: relative;
-    max-width: 200px;
+    max-width: 220px;
+    margin: 10px 5px;
 }
 
 .latestebook-control{
@@ -728,7 +728,20 @@ textarea.add-interests{
     display:inline-block;
 
 }
+
+
+
+
+
+
+.aboutus-attr{font-size: 13px; font-weight: bold;margin: 5px;}
+
+.aboutus-thisvideo{margin: 5px 0;background: #f3f3f3;line-height:18px; padding: 6px 8px;}
 /* client profile content styling ENDS */
+
+
+
+
 
 
 

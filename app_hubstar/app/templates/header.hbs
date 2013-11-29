@@ -1,17 +1,4 @@
 <div class="navbar">
-    <div id="search-bar" class="search-bar-ontop" style="display:none;">
-        <div class="Search-box easing" style="">
-            {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_business" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
-            <div class="Nav-btn easing" style="position: absolute;right: -5px;border-radius: 0 3px 3px 0;top: 0; border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
-                <i class="icon-search"></i>
-            </div>
-        </div>
-        <div id ="navigator" class="Nav-btn easing" style="float: right;" {{action dropdownNavigator}}><i class="icon-list"></i></div>
-        {{#if controller.isNavigatorDropdown}}
-        {{view HubStar.NavigatorView}}
-        {{/if}}
-
-    </div>
 
     <div class="navbar-inner">
         <div class="brand" >
@@ -31,18 +18,18 @@
         </div>
 
 
-   <div id="search-bar" class="search-bar-ontop" style="display:none">
-        <div class="Search-box easing" style="">
-            {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_business" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
-            <div class="Nav-btn easing" style="position: absolute;right: -5px;border-radius: 0 3px 3px 0;top: 0; border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
-                <i class="icon-search"></i>
+        <div id="search-bar" class="search-bar-ontop" style="display:none">
+            <div id ="navigator" class="Nav-btn easing" style="float: left;" {{action dropdownHeaderNavigator}}><i class="icon-list"></i></div>
+            {{#if controller.isHeaderNavigatorDropdown}}
+            {{view HubStar.NavigatorView}}
+            {{/if}}
+            <div class="Search-box easing" style="">
+                {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_business" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
+                <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -75px; right: -5px;border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
+                    <i class="icon-search"></i>
+                </div>
             </div>
         </div>
-        <div id ="navigator" class="Nav-btn easing" style="float: right;" {{action dropdownHeaderNavigator}}><i class="icon-list"></i></div>
-        {{#if controller.isHeaderNavigatorDropdown}}
-        {{view HubStar.NavigatorView}}
-        {{/if}}
-    </div>
 
 
 

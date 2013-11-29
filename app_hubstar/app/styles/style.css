@@ -833,10 +833,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .contactmebtn:hover > .contactmeicon > i {
     color: rgba(10,60,150, 0.8);
     text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;
-
 }
-::-moz-selection { background: #5af; color: #fff; text-shadow: none; }
-::selection { background: #5af; color: #fff; text-shadow: none; }
 
 
 

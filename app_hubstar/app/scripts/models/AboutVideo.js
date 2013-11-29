@@ -8,7 +8,7 @@ HubStar.AboutVideo = DS.Model.extend({
 
     },
     getVideoURL: function() {
-        console.log('11111111');
+//        console.log('11111111');
     }
 //    getVideoURL: function() {
 ////        for (var i = 0; i < this.get('about_us').objectAt(0).get('about_video').get('length'); i ++) {

@@ -89,7 +89,7 @@ HubStar.DeleteFunctionView = Ember.View.extend({
 
         }
         else {
-            console.log("this is a deleete");
+//            console.log("this is a deleete");
         }
     },
     cancelDelete: function() {

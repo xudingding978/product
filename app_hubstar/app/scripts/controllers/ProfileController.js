@@ -423,7 +423,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 collection.set('type', 'profile');
                 collection.set('optional', this.get('model').get('id'));
                 this.get("collections").insertAt(0, collection);
-                console.log(collection);
+//                console.log(collection);
                 HubStar.store.commit();
                 $(".Targeting_Object_front").attr("style", "display:inline-block");
                 $(" #uploadArea").attr('style', "display:none");
@@ -494,7 +494,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     selectOldAbout: function() {
-        console.log('old');
+//        console.log('old');
         this.set('makeSelection', false);
         this.set('isAboutUsObjectExist', false);
         this.set('editingAbout', !this.get('editingAbout'));
@@ -518,7 +518,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
             this.get('about_us').pushObject(about_us);
         }
-        console.log('new');
+//        console.log('new');
         this.set('makeSelection', false);
         this.set('isAboutUsObjectExist', true);       
         this.set('editingAbout', !this.get('editingAbout'));

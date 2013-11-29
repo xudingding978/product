@@ -130,7 +130,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     },
     removeCollectedItem: function(collectionID, itemID, type)
     {
-        var message = "Do you wish to delete this item ?";
+        var message = "Do you wish to delete this item?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         this.dropdownPhotoSetting(itemID);

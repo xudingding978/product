@@ -48,7 +48,7 @@ HubStar.CollectionController = Ember.Controller.extend({
         if (postOrPut === "create") {
             for (var i = 0; i < this.get("collections").get('length'); i++) {
                 if (this.get('controllers.addCollection').get("isProfile") === true)
-                {
+                {                  
                     if (this.get("collections").objectAt(i).id === id) {
                         isExsinting = false;
                     }

@@ -76,7 +76,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                 }
                 else {
                     var ids = content;
-                    ids = ids + ", " + this.get("objectID");
+                    ids = ids + "," + this.get("objectID");
                     this.get('selectedCollection').collection_ids = ids;
                 }
                 var data = JSON.stringify(this.get('selectedCollection'));

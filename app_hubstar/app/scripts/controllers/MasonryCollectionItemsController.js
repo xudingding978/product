@@ -59,11 +59,11 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var pics = HubStar.Mega.find({RquireType: "profileCollection", user_id: owner_id, collection_id: collection_id});
         var that = this;
         pics.addObserver('isLoaded', function() {
-            if (pics.get('isLoaded')) {            
+            if (pics.get('isLoaded')) {
                 for (var i = 0; i < this.get("content").length; i++) {
                     var tempObject = pics.objectAt(i);
                     that.get("content").pushObject(tempObject);
-                }             
+                }
             }
         });
         if (title === undefined)
@@ -146,6 +146,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.set('makeSureDelete', true);
         this.dropdownPhotoSetting(itemID);
         if (this.get('willDelete')) {
+
             var currentUser = HubStar.User.find(localStorage.loginStatus);
             var currentCollection = null;
             var collectedColletionids = null;
@@ -166,6 +167,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     break;
                 }
             }
+
             var profile = HubStar.Profile.find(this.get("profileId"));
             for (var i = 0; i < this.get('content').length; i++) {
                 if (this.get('content').objectAt(i).get('id') === this.get('itemID')) {
@@ -175,8 +177,8 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
                         if (this.get("profileId") !== item.get("owner_id") || item.get("collection_id") !== this.get('collectionID'))
                         {
-                           
-                            for (var j = 0; j < currentUser.get('collections').get('length'); j++) {
+
+                            for (var j = 0; j < profile.get('collections').get('length'); j++) {
                                 if (profile.get('collections').objectAt(j).get('id') === this.get('collectionID'))
                                 {
                                     currentCollection = profile.get('collections').objectAt(j);
@@ -200,6 +202,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     HubStar.store.save();
                     break;
                 }
+
             }
             this.reLayout();
             this.cancelDelete();

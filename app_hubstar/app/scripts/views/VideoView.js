@@ -47,21 +47,21 @@ HubStar.VideoView = Ember.View.extend({
     }
 });
 
-$(document).keyup(function(e) {
-    if (e.which === 27)
-    { // pressed 'esc'
-        // HubStar.PhotoView.prototype.closeComment();
-        // HubStar.PhotoView.get('controller').closeWindow();
-        window.history.back();
-    }
-    else if ((e.which === 38) || (e.which === 37))
-    {
-        //press up  or left
-        // this.get('controller').prototype.previesImage();
-    }
-    else if ((e.which === 39) || (e.which === 40))
-    {
-        //press down  or  right 
-        //this.get('controller').prototype.nextImage();
-    }
-});
+//$(document).keyup(function(e) {
+//    if (e.which === 27)
+//    { // pressed 'esc'
+//        // HubStar.PhotoView.prototype.closeComment();
+//        // HubStar.PhotoView.get('controller').closeWindow();
+//        gback();
+//    }
+//    else if ((e.which === 38) || (e.which === 37))
+//    {
+//        //press up  or left
+//        // this.get('controller').prototype.previesImage();
+//    }
+//    else if ((e.which === 39) || (e.which === 40))
+//    {
+//        //press down  or  right 
+//        //this.get('controller').prototype.nextImage();
+//    }
+//});

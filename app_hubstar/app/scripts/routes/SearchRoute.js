@@ -18,6 +18,7 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
         localStorage.checkUser = "";
+          $(window).scrollTop(0);
     },
     model: function(params) {
         var address = document.URL;

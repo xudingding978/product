@@ -11,7 +11,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     checkLoginStatus:false,
     searchFromRoute: false,
     collectionArticleId: null,
-    accessFromSearchBoard: false,
+    accessFromSearchBoard: false, //false: access the articlePhoto  true: access the article
     isCreditListExist: false,
     needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment'],
     init: function() {
@@ -84,20 +84,19 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('caption', this.get('selectedPhoto').get("photo_caption"));
 
         var contents = this.get('content');
-        var selectedIndex = 0;
+        var selectedIndex = 1;
         for (var index = 0; index <= contents.get('length')-1; index++) {
             if (this.get('selectedPhoto').get("id") === contents.objectAt(index).id ) {
-                selectedIndex = index;
+                selectedIndex = index+ 1;
             }
         }
 
-        if (selectedIndex >= (this.get('content').get('length'))) {
+        if (selectedIndex >= (this.get('content').get('length')+1)) {
             this.set('image_no', 1);
-            selectedIndex = 0;
+            selectedIndex = 1;
         }
 
         this.set('image_no', selectedIndex);
-
 
         if (this.get("accessFromSearchBoard") === false)
         {

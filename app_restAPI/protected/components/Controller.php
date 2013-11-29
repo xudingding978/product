@@ -450,7 +450,8 @@ class Controller extends CController {
         foreach ($tempResult as $hit) {
             $profile_id = $hit['source']['doc']['owner_id'];
         }
-
+ if($profile_id!=="")
+ {
         $cb = $this->couchBaseConnection();
         $domain = $this->getDomain();
         $docID_profile = $domain . "/profiles/" . $profile_id;
@@ -464,9 +465,12 @@ class Controller extends CController {
         $owner_contact_bcc_emails = $mega_profile["profile"][0]["owner_contact_bcc_emails"];
         $profile_regoin = $mega_profile["profile"][0]["profile_regoin"];
         $profile_pic_url = $mega_profile["profile"][0]["profile_pic_url"];
-
+ }
         $results = '{"' . $returnType . '":[';
+         if($profile_id!=="")
+ {
         $i = 0;
+ 
         foreach ($tempResult as $hit) {
 
             $hit['source']['doc']['editors'] = $profile_editors;
@@ -481,7 +485,7 @@ class Controller extends CController {
                 $results .= ',';
             }
         }
-
+ }
         $results .= ']}';
         return $results;
     }

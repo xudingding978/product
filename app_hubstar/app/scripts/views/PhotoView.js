@@ -49,31 +49,33 @@ HubStar.PhotoView = Ember.View.extend({
 $(document).keyup(function(e) {
     if (e.which === 27)
     { // pressed 'esc'
-        var address = document.URL;
-        var type = address.split("#")[1].split("/")[1];
-        var id = address.split("#")[1].split("/")[2];
-        var collection_id = address.split("#")[1].split("/")[4];
-        var photo_id = address.split("#")[1].split("/")[6];
-        if (type === "users")
-        {
-            if (collection_id !== undefined)
-            {
-                if (photo_id !== undefined)
-                {
+//        var address = document.URL;
+//        var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
+//        var id = address.split("#")[1].split("/")[2];
+//        var collection_id = address.split("#")[1].split("/")[4];
+//        var vary_id = address.split("#")[1].split("/")[6]; //it may be article id , photo id and video id
+//        var user_photo_id = address.split("#")[1].split("/")[8];
+//       // if ()
+//                if (type === "users")
+//        {
+//            if (collection_id !== undefined)
+//            {
+//                if (photo_id !== undefined)
+//                {
+//
+//                }
+//                else
+//                {
+//
+//                }
+//
+//            } else
+//            {
+//
+//            }
+//        }
 
-                }
-                else
-                {
 
-                }
-
-            } else
-            {
-
-            }
-        }
-
-   
         // HubStar.PhotoView.prototype.closeComment();
         // HubStar.PhotoView.get('controller').closeWindow();
         window.history.back();

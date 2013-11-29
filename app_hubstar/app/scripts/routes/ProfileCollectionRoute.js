@@ -3,8 +3,13 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
         if (model.id === undefined || model.id === "") {
             var address = document.URL;
             var id = address.split("#")[1].split("/")[4];
+            console.log("ddd");
+            console.log(model);
+            
         }
         else {
+                  console.log("11");
+            console.log(model);
             var id = model.id;
         }
 
@@ -12,7 +17,8 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
             var title = model.get('title');
         }
                  this.controllerFor('mega').set("type", "profile");
-                 console.log("11112221111");
+    
+        this.controllerFor('masonryCollectionItems').set("id",model.id);
         this.controllerFor('masonryCollectionItems').selectModelForProfile(id, title);
         this.controllerFor('profile').set('switchPhoto', false);
         this.controllerFor('masonryCollectionItems').set('uploadStuff', true);

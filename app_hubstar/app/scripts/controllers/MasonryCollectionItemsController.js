@@ -8,10 +8,11 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     is_profile_editing_mode: false,
     uploadOrsubmit: false,
     is_user_editing_mode: false,
-    isUser:false,
-    isVideoPhoto:false,
+    isUser: false,
+    isVideoPhoto: false,
     collectionID: "",
     itemID: "",
+    id: "",
     type: "",
     needs: ['photoCreate', 'profile', 'user', 'permission', 'photoCreateInfoSetting', 'applicationFeedback'],
     user_id: null,
@@ -23,9 +24,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.set('collection_id', collection_id);
         this.set('');
         this.set("isUser", true);
-        
+
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
+        this.set("id", user_id);
         this.set('user_id', user_id);
         this.set('collections', this.get('controllers.user').get('collections'));
         for (var i = 0; i < this.get("collections").get("length"); i++)
@@ -41,10 +43,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             if (results.get('isLoaded')) {
                 for (var i = 0; i < this.get("content").length; i++) {
                     var tempObject = results.objectAt(i);
-                        that.get("content").pushObject(tempObject);
+                    that.get("content").pushObject(tempObject);
                 }
             }
-            });
+        });
         this.checkEditingMode();
     },
     selectModelForProfile: function(collection_id, title) {
@@ -52,14 +54,13 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.resetContent();
         this.set('type', "profile");
         this.set("isUser", false);
-       
+            var address = document.URL;
+            var owner_id = address.split("#")[1].split("/")[2];
         if (title === undefined)
         {
-            var arrayUrl;
-            arrayUrl = (document.URL).split("/");
-            var locationUrl = arrayUrl.get("length") - 3;
 
-            var results = HubStar.Collection.find({RquireType: "personalCollection", profile_id: arrayUrl[locationUrl], collection_id: collection_id});
+            this.set("id", owner_id);
+            var results = HubStar.Collection.find({RquireType: "personalCollection", profile_id: owner_id, collection_id: collection_id});
             var that = this;
             results.addObserver('isLoaded', function() {
                 if (results.get('isLoaded')) {
@@ -69,6 +70,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             });
         }
         else {
+             this.set("id", owner_id);
             this.set('title', title);
         }
         this.checkEditingMode();

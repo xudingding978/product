@@ -9,7 +9,7 @@ HubStar.UserArticleRoute = Ember.Route.extend({
         } else {
             temp = model.id;
         }
-        if (this.controllerFor("article").get("searchFromRoute") === true)
+        if (this.controllerFor("article").get("searchFromRoute") === true) 
         {
 
             var address = document.URL;

@@ -3,7 +3,7 @@
 /*global $:false */
 
 HubStar.ApplicationController = Ember.ArrayController.extend({
-    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop'],
+    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop','article'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -72,6 +72,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
 
+    },
+            articleFromSearch:function()
+    {
+        this.get("controllers.article").set("accessFromSearchBoard",true);
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));

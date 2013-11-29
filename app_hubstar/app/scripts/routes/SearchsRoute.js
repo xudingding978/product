@@ -24,6 +24,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
         localStorage.checkUser = "";
 $(".navbar").css("box-shadow", "");
 $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+      $(window).scrollTop(0);
     },
     events: {
         transitionToPhoto: function(id) {

@@ -361,13 +361,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }, 30);
     },
     showDiscoveryBar: function() {
+$(window).scrollTop(0);
         HubStar.set("showDiscoveryBar", true);
         this.transitionToRoute('searchIndex');
         $("#top-about-menu").fadeIn("320");
         $("#search-bar").fadeOut("320");
         $(".Navigator-box").fadeOut("320");
         $(".navbar").css("box-shadow", "");
-         $(window).scrollTop(0);
+         
     },
             closeDropdownNavigator:function(){
          this.set('isNavigatorDropdown', false);

@@ -49,16 +49,18 @@
         <a rel="nofollow" target="_blank" href="http://library.trendsideas.com/Home.aspx" style="cursor:pointer;"><h4>Our Latest Titles</h4></a>
         <h5><font color="FF00FF">On Sale Now...<h4>Buy your copy here!</h4></font></h5> 
         {{#each about_book}}
-        <div class="aboutus-attr">Book Desc: </div>
-        <div>{{view Ember.TextArea valueBinding="book_description" class="no-resize"  placeholder="*"}}</div> 
-        <div class="aboutus-attr">Book URL: </div>
-        <div>{{view Ember.TextArea valueBinding="book_image_url" class="no-resize"  placeholder="*"}}</div> 
-        <div class="latestebook"> <img alt="" {{bindAttr src="book_image_url"}}>             </div> 
-        <div>
-            <div class="aboutus-attr">Book Read Link: </div>
-            <div>{{view Ember.TextArea valueBinding="book_read_url" class="no-resize"  placeholder="*"}}</div>
-            <div class="aboutus-attr">Book Buy Link: </div>
-            <div>{{view Ember.TextArea valueBinding="book_buy_url" class="no-resize"  placeholder="*"}}</div>
+        <div style="background-color: #f3f3f3;padding: 8px 6px;">
+            <div class="aboutus-attr">Book Desc: </div>
+            <div>{{view Ember.TextArea valueBinding="book_description" class="no-resize"  placeholder="*"}}</div> 
+            <div class="aboutus-attr">Book URL: </div>
+            <div>{{view Ember.TextArea valueBinding="book_image_url" class="no-resize"  placeholder="*"}}</div> 
+            <div class="latestebook"> <img alt="" {{bindAttr src="book_image_url"}}>             </div> 
+            <div>
+                <div class="aboutus-attr">Book Read Link: </div>
+                <div>{{view Ember.TextArea valueBinding="book_read_url" class="no-resize"  placeholder="*"}}</div>
+                <div class="aboutus-attr">Book Buy Link: </div>
+                <div>{{view Ember.TextArea valueBinding="book_buy_url" class="no-resize"  placeholder="*"}}</div>
+            </div>
         </div>
         <hr>
         {{/each}}
@@ -86,16 +88,16 @@
         <iframe width="560" height="315" {{bindAttr src="controller.embeded_url"}} frameborder="0" allowfullscreen=""></iframe> 
         <div class="aboutus-thisvideo">
             <h4><a rel="nofollow" target="_blank" {{bindAttr href="image_link"}}> {{video_title}}</a></h4>
-            <div>{{video_desc}}</div>
-            <a rel="nofollow" target="_blank" {{bindAttr href="video_url"}}>more</a>
+            <div style="height: 35px; overflow: hidden;margin-bottom: 5px;">{{video_desc}}</div>
+            <a rel="nofollow" target="_blank" style="color: #0088CC" class="hover-opacity" {{bindAttr href="video_url"}}>more</a>
         </div>
         {{/each}}
 
         {{#each about_image}}
         <a rel="nofollow" target="_blank" {{bindAttr href="image_link"}} style="padding: 10px 10px; margin: 10px 5px 10px 0; font-size:13px;background: #f3f3f3;width: 273px;line-height: 18px; float: left">
-            <img alt="" {{bindAttr src="image_url"}}>  
+            <div style="width: 253px; height: 174px; line-height: 174px;text-align: center;"><img alt="" {{bindAttr src="image_url"}}>  </div>
             <h4> {{image_title}}</h4>
-            <div>{{image_desc}}</div>
+            <div style="height: 55px; overflow: hidden;">{{image_desc}}</div>
         </a>
         {{/each}}
     </div>

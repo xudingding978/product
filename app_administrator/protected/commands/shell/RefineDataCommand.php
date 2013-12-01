@@ -365,8 +365,10 @@ class RefineDataCommand extends Controller_admin {
         if (sizeof($data_arr) > 0) {
             $cb = $this->couchBaseConnection($bucket);
             $count=0;
+           
             foreach ($data_arr as $data) {
                 $result = $cb->get($data);
+                 $message="";
                 $count++;
                 echo "\nfixing data for ".$count."\n";
                 if ($result != null && $result != "") {

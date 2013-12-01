@@ -1,7 +1,7 @@
 HubStar.ArticleView = Ember.View.extend({
     classNames: ["lightbox"],
     templateName: 'article',
-    readContent: true,
+    readContent: false,
     fullName: (function() {
         return "test";
     }).property(),
@@ -11,20 +11,22 @@ HubStar.ArticleView = Ember.View.extend({
     },
     checkReading: function() {
         $('.article-objectview-right').animate({
-            width: '45%'
+            width: '55%'
         }, 500, function() {
             // Animation complete.
         });
 
 
         $('.article-objectview-left').animate({
-            width: '55%'
+            width: '45%'
         }, 500, function() {
             // Animation complete.
         });
         $('.lightbox').attr("style", "min-width:700px");
         this.set('readContent', !this.get("readContent"));
-        $('#article_action').slideToggle(1000);
+        console.log(this.get("readContent"));
+        $('#article_action').attr("style", "display:block;overflow: hidden;");
+//        $('#article_action').slideToggle(1000);
     },
     checkClosed: function() {
 
@@ -40,10 +42,11 @@ HubStar.ArticleView = Ember.View.extend({
         }, 500, function() {
             // Animation complete.
         });
-
+         $('#article_action').attr("style", "display:block; max-height: 215px;overflow: hidden;");
+        //$('#article_action'),animate({height:"215px"},5000);
         $('.article-objectview-left').attr("style", "bottom: 0; top: 0; left: 0; margin: 0; position: absolute; right: 320px; overflow: hidden; transition:all 0.5 ease; ");
         this.set('readContent', !this.get("readContent"));
-        $('#article_action').slideToggle(1000);
+//        $('#article_action').slideToggle(1000);
     },
     setDiscussionTag: function() {
         $('#discuss_action').slideToggle("slow");

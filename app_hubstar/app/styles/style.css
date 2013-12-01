@@ -1390,3 +1390,33 @@ to{
 .edit-comment{font-size: 11px;top: 0;right: 0;position: absolute; opacity: 0;}
 .edit-comment > i {cursor: pointer}
 
+.select-profile-save{
+    z-index: 100; 
+    position: absolute; 
+    border: 1px solid #ddd; 
+    background-color: #fff; 
+    right: 140px; 
+    width: 200px;
+}
+
+.select-profile-save:before{
+    content: "";
+    position: absolute;
+    left: 90px;
+    top: -19px;
+    border-color: transparent transparent #fff transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: 0;
+}
+
+.select-profile-save:after{
+    content: "";
+    position: absolute;
+    left: 90px;
+    top: -20px;
+    border-color: transparent transparent #ddd transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: -1;
+}

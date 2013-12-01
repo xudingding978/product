@@ -66,6 +66,50 @@ class UsersController extends Controller {
         $request_arr = CJSON::decode($request_json, true);
     }
 
+    public function actionReadCollection() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $user_id = $request_array[0];
+        try {
+            $docIDDeep = $this->getDomain() . "/users/" . $user_id; //$id  is the page owner
+            $cb = $this->couchBaseConnection();
+            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+            $oldRecordDeep = CJSON::decode($oldDeep, true);
+            if (isset($oldRecordDeep['user'][0]["profiles"])) {
+                $profiles = $oldRecordDeep['user'][0]["profiles"];
+            } else {
+                $profiles = array();
+            }      
+            $collections = array();
+            for ($i = 0; $i < sizeof($profiles); $i++) {
+                $doc = $this->getDomain() . "/profiles/" . $profiles[$i]["profile_id"];
+                $profileString = $cb->get($doc);
+                $profileData = CJSON::decode($profileString, true);               
+                if (isset($profileData['profile'][0]["collections"])) {
+                    $collection = $profileData['profile'][0]["collections"];
+                } else {
+                    $collection = array();
+                }
+                $items = array();
+                $collectionItem = array();
+                for ($j = 0; $j < sizeof($collection); $j++) {
+//                    $item = array();
+//                    $item["id"] = $collection[$j]["id"];
+//                    $item["title"] = $collection[$j]["title"];                   
+                    array_unshift($collectionItem, $collection[$j]);                
+                }
+                $items["collection"]=$collectionItem;
+                $items["profile_id"]=$profiles[$i]["profile_id"];
+                $items["profile_name"]=$profileData['profile'][0]["profile_name"];
+                array_unshift($collections, $items);               
+            }
+            
+            $this->sendResponse(200, CJSON::encode($collections));
+        } catch (Exception $exc) {
+             
+            echo $exc->getTraceAsString();            
+        }
+    }
+
     public function actionSaveNotification() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request_array = CJSON::decode($request_array);
@@ -209,8 +253,8 @@ class UsersController extends Controller {
         $type = $payloads_arr['type'];
         $photoController = new PhotosController();
 
-        $data_arr = $photoController->convertToString64($photo_string);      
-        $photo = imagecreatefromstring($data_arr['data']);              
+        $data_arr = $photoController->convertToString64($photo_string);
+        $photo = imagecreatefromstring($data_arr['data']);
         $compressed_photo = $photoController->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);

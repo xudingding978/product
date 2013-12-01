@@ -44,84 +44,84 @@ HubStar.PhotoView = Ember.View.extend({
         $('#addcommetBut').attr('style', 'display:block');
         $('#commentBox').attr('style', 'display:none');
     },
-    keyDown: function(event) {
-        if (event.keyCode === 13) {
-           console.log("ddddddsss");
 
-        }
-           console.log("ddddddsss");
-    }
+
 });
+
 //
 //$(document).keyup(function(e) {
-//    if (e.which === 27)
-//    { // pressed 'esc'
-//        var address = document.URL;
-//        var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
-//        var id = address.split("#")[1].split("/")[2];
-//        var collection_id = address.split("#")[1].split("/")[4];
-//        var colectionType = address.split("#")[1].split("/")[5]; //it may be article id , photo id and video id
-//        var user_photo_id = address.split("#")[1].split("/")[8];
-//        if (type === "users")
-//        {
-//            var user = HubStar.User.find(id);
-//            if (user_photo_id !== undefined || colectionType === "article" || colectionType === "photo") //type:article means it 
-//            {
-//                for (var i = 0; i < user.get('collections').get("length"); i++) {
-//                    var data = user.get('collections').objectAt(i);
-//                    if (data.id === collection_id) {
-//                        break;
-//                    }
-//                }
-//                console.log(this.get("controller"));
-//                this.get("controller").transitionTo("collection", data); //user
-//            }
-//            else
-//            {
-//                window.history.back();
-//            }
-//        }
-//        else if (type === "photos")
-//        {
-//            this.get("controller").get("controllers.mega").closeWindow();
-//        }
-//        else
-//        {
-//            window.history.back();
-//        }
 //
-////                if (type === "users")
+//    if (e.which === 27)
+//    {
+//        HubStar.PhotoView.prototype.show();
+//    }
+////    { // pressed 'esc'
+////        var address = document.URL;
+////        var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
+////        var id = address.split("#")[1].split("/")[2];
+////        var collection_id = address.split("#")[1].split("/")[4];
+////        var colectionType = address.split("#")[1].split("/")[5]; //it may be article id , photo id and video id
+////        var user_photo_id = address.split("#")[1].split("/")[8];
+////        if (type === "users")
 ////        {
-////            if (collection_id !== undefined)
+////            var user = HubStar.User.find(id);
+////            if (user_photo_id !== undefined || colectionType === "article" || colectionType === "photo") //type:article means it 
 ////            {
-////                if (photo_id !== undefined)
-////                {
-////
+////                for (var i = 0; i < user.get('collections').get("length"); i++) {
+////                    var data = user.get('collections').objectAt(i);
+////                    if (data.id === collection_id) {
+////                        break;
+////                    }
 ////                }
-////                else
-////                {
-////
-////                }
-////
-////            } else
+////                console.log(this.get("controller"));
+////                this.get("controller").transitionTo("collection", data); //user
+////            }
+////            else
 ////            {
-////
+////                window.history.back();
 ////            }
 ////        }
-//
-//
-//        // HubStar.PhotoView.prototype.closeComment();
-//        // HubStar.PhotoView.get('controller').closeWindow();
-//
-//    }
-//    else if ((e.which === 38) || (e.which === 37))
-//    {
-//        //press up  or left
-//        // this.get('controller').prototype.previesImage();
-//    }
-//    else if ((e.which === 39) || (e.which === 40))
-//    {
-//        //press down  or  right 
-//        //this.get('controller').prototype.nextImage();
-//    }
+////        else if (type === "photos")
+////        {
+////            this.get("controller").get("controllers.mega").closeWindow();
+////        }
+////        else
+////        {
+////            window.history.back();
+////        }
+////
+//////                if (type === "users")
+//////        {
+//////            if (collection_id !== undefined)
+//////            {
+//////                if (photo_id !== undefined)
+//////                {
+//////
+//////                }
+//////                else
+//////                {
+//////
+//////                }
+//////
+//////            } else
+//////            {
+//////
+//////            }
+//////        }
+////
+////
+////        // HubStar.PhotoView.prototype.closeComment();
+////        // HubStar.PhotoView.get('controller').closeWindow();
+////
+////    }
+////    else if ((e.which === 38) || (e.which === 37))
+////    {
+////        //press up  or left
+////        // this.get('controller').prototype.previesImage();
+////    }
+////    else if ((e.which === 39) || (e.which === 40))
+////    {
+////        //press down  or  right 
+////        //this.get('controller').prototype.nextImage();
+////    }
 //});

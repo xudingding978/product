@@ -12,7 +12,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     from: null,
     selectedPhoto: null,
     isSelected: false,
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'checkingLoginStatus', 'masonryCollectionItems', 'editComment'],
+    needs: ['application', 'collection','applicationFeedback', 'addCollection', 'contact', 'permission', 'checkingLoginStatus', 'masonryCollectionItems', 'editComment'],
     currentUser: null,
     currentUserProfile: null,
     photo_album_id: null,
@@ -39,6 +39,89 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
         }
         return 0;
+    },
+    setBack: function()
+    {
+
+        alert("ddds");
+        var address = document.URL;
+        var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
+        var id = address.split("#")[1].split("/")[2];
+        var collection_id = address.split("#")[1].split("/")[4];
+        var colectionType = address.split("#")[1].split("/")[5]; //it may be article id , photo id and video id
+        var user_photo_id = address.split("#")[1].split("/")[8];
+        if (type === "users")
+        {
+            var user = HubStar.User.find(id);
+            if (user_photo_id !== undefined || colectionType === "article" || colectionType === "photo") //type:article means it 
+            {
+                for (var i = 0; i < user.get('collections').get("length"); i++) {
+                    var data = user.get('collections').objectAt(i);
+                    if (data.id === collection_id) {
+                        break;
+                    }
+                }
+
+                this.transitionTo("collection", data); //user
+            }
+            else
+            {
+                window.history.back();
+            }
+        }
+        else if (type === "photos")
+        {
+              alert("photos");
+             this.closeWindow();
+//            this.set('collectable', false);
+//            this.set('contact', false);
+//            var address = document.URL;
+//            if (this.get('controllers.masonryCollectionItems').get("type") === "profile")
+//            {
+//                if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
+//                {
+//
+//                    this.transitionTo("indexIndex"); //search page
+//                }
+//                else
+//                {
+//                    var collection_id = address.split("#")[1].split("/")[2];
+//                    var profile = HubStar.Profile.find(this.get("controllers.masonryCollectionItems").get("id"));
+//                    var data = null;
+//                    for (var i = 0; i < profile.get('collections').get("length"); i++) {
+//                        data = profile.get('collections').objectAt(i);
+//                        if (data.id === collection_id) {
+//                            break;
+//                        }
+//                    }
+//
+//                    this.set("selectPhoto", false);
+//                    this.transitionTo("profile", profile); // transition to profile
+//                    this.transitionTo("profileCollection", data);
+//
+//                }
+//            }
+//            else
+//            {
+//                var collection_id = address.split("#")[1].split("/")[6];
+//                var id = address.split("#")[1].split("/")[2]; //user id
+//                var user = HubStar.User.find(id);
+//                var data = null;
+//                for (var i = 0; i < user.get('collections').get("length"); i++) {
+//                    data = user.get('collections').objectAt(i);
+//                    if (data.id === collection_id) {
+//                        break;
+//                    }
+//                }
+//                this.set("selectPhoto", false);
+//                this.transitionTo("collection", data); //user
+//            }
+        }
+        else
+        {
+           alert("else");
+            window.history.back();
+        }
     },
     previesImage: function() {
         if (!this.get('selectedPhoto')) {
@@ -399,6 +482,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
     },
     closeWindow: function() {
+console.log("closeWind");
         this.set('collectable', false);
         this.set('contact', false);
         var address = document.URL;
@@ -406,12 +490,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
         {
             if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
             {
-
+                   console.log("no");
                 this.transitionTo("indexIndex"); //search page
             }
             else
             {
                 var collection_id = address.split("#")[1].split("/")[2];
+              
                 var profile = HubStar.Profile.find(this.get("controllers.masonryCollectionItems").get("id"));
                 var data = null;
                 for (var i = 0; i < profile.get('collections').get("length"); i++) {
@@ -433,9 +518,14 @@ HubStar.MegaController = Ember.ArrayController.extend({
             var id = address.split("#")[1].split("/")[2]; //user id
             var user = HubStar.User.find(id);
             var data = null;
+              alert(collection_id);
+                alert(id);
+                 console.log( user.get('collections'))
             for (var i = 0; i < user.get('collections').get("length"); i++) {
+                  console.log( user.get('collections'));
                 data = user.get('collections').objectAt(i);
                 if (data.id === collection_id) {
+                        
                     break;
                 }
             }
@@ -568,8 +658,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
     yes: function(photoObject) {
         var photo_title = this.get('selectedPhoto.photo_title');
         var photo_caption = this.get('selectedPhoto.photo_caption');
-        var link_text=this.get('selectedPhoto.link_text');
-        var link_url=this.get('selectedPhoto.link_url');
+        var link_text = this.get('selectedPhoto.link_text');
+        var link_url = this.get('selectedPhoto.link_url');
         photoObject.set('photo_title', photo_title);
         photoObject.set('photo_caption', photo_caption);
         photoObject.set('link_text', link_text);

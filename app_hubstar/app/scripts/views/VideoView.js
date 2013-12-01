@@ -27,7 +27,7 @@ HubStar.VideoView = Ember.View.extend({
 
     },
     popupAibum: function() {
-    HubStar.set('what', false);
+        HubStar.set('what', false);
         $("#collection_tab").slideToggle("slow");
     },
     openComment: function() {
@@ -36,7 +36,7 @@ HubStar.VideoView = Ember.View.extend({
         $('#commentBox').attr('style', 'display:block');
 
         $('.comment-insert-field').focus();
-         this.get("controller").get("controllers.checkingLoginStatus").popupLogin();
+        this.get("controller").get("controllers.checkingLoginStatus").popupLogin();
     },
     closeComment: function() {
 
@@ -44,9 +44,21 @@ HubStar.VideoView = Ember.View.extend({
         $('#commentBox').attr('style', 'display:none');
 
 
+    },
+    showd: function()
+    {        
+        alert("closesss");
+        this.get("controller").get("controllers.mega").setBack();
     }
 });
+$(document).keyup(function(e) {
 
+    if (e.which === 27)
+    {
+     HubStar.VideoView.prototype.showd();
+      //  HubStar.MegaController.prototype.setBack();
+    }
+});
 //$(document).keyup(function(e) {
 //    if (e.which === 27)
 //    { // pressed 'esc'

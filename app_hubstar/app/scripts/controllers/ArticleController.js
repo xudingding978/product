@@ -5,10 +5,9 @@ HubStar.ArticleController = Ember.Controller.extend({
     captionTitle: "",
     readCaption: true,
     caption: '',
-
     makeSureDelete: false,
     willDelete: false,
-    checkLoginStatus:false,
+    checkLoginStatus: false,
     searchFromRoute: false,
     collectionArticleId: null,
     accessFromSearchBoard: false, //false: access the articlePhoto  true: access the article
@@ -17,6 +16,89 @@ HubStar.ArticleController = Ember.Controller.extend({
     init: function() {
 
     },
+//    setBack: function()
+//    {
+//        console.log("dddddddddd");
+//        var address = document.URL;
+//        var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
+//        var id = address.split("#")[1].split("/")[2];
+//        var collection_id = address.split("#")[1].split("/")[4];
+//        var colectionType = address.split("#")[1].split("/")[5]; //it may be article id , photo id and video id
+//        var user_photo_id = address.split("#")[1].split("/")[8];
+//        console.log(type);
+//        if (type === "users")
+//        {
+//            var user = HubStar.User.find(id);
+//            if (user_photo_id !== undefined || colectionType === "article" || colectionType === "photo") //type:article means it 
+//            {
+//                for (var i = 0; i < user.get('collections').get("length"); i++) {
+//                    var data = user.get('collections').objectAt(i);
+//                    if (data.id === collection_id) {
+//                        break;
+//                    }
+//                }
+//
+//                this.transitionTo("collection", data); //user
+//            }
+//            else
+//            {
+//                window.history.back();
+//            }
+//        }
+//        else if (type === "photos")
+//        {
+//            console.log("bbb");
+//            this.closeWindow();
+////            this.set('collectable', false);
+////            this.set('contact', false);
+////            var address = document.URL;
+////            if (this.get('controllers.masonryCollectionItems').get("type") === "profile")
+////            {
+////                if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
+////                {
+////
+////                    this.transitionTo("indexIndex"); //search page
+////                }
+////                else
+////                {
+////                    var collection_id = address.split("#")[1].split("/")[2];
+////                    var profile = HubStar.Profile.find(this.get("controllers.masonryCollectionItems").get("id"));
+////                    var data = null;
+////                    for (var i = 0; i < profile.get('collections').get("length"); i++) {
+////                        data = profile.get('collections').objectAt(i);
+////                        if (data.id === collection_id) {
+////                            break;
+////                        }
+////                    }
+////
+////                    this.set("selectPhoto", false);
+////                    this.transitionTo("profile", profile); // transition to profile
+////                    this.transitionTo("profileCollection", data);
+////
+////                }
+////            }
+////            else
+////            {
+////                var collection_id = address.split("#")[1].split("/")[6];
+////                var id = address.split("#")[1].split("/")[2]; //user id
+////                var user = HubStar.User.find(id);
+////                var data = null;
+////                for (var i = 0; i < user.get('collections').get("length"); i++) {
+////                    data = user.get('collections').objectAt(i);
+////                    if (data.id === collection_id) {
+////                        break;
+////                    }
+////                }
+////                this.set("selectPhoto", false);
+////                this.transitionTo("collection", data); //user
+////            }
+//        }
+//        else
+//        {
+//            console.log("sss");
+//            window.history.back();
+//        }
+//    },
     findSelectedItemIndex: function() {
         content = this.get('content');
         for (var index = 0; index <= content.get('length'); index++) {
@@ -85,13 +167,13 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         var contents = this.get('content');
         var selectedIndex = 1;
-        for (var index = 0; index <= contents.get('length')-1; index++) {
-            if (this.get('selectedPhoto').get("id") === contents.objectAt(index).id ) {
-                selectedIndex = index+ 1;
+        for (var index = 0; index <= contents.get('length') - 1; index++) {
+            if (this.get('selectedPhoto').get("id") === contents.objectAt(index).id) {
+                selectedIndex = index + 1;
             }
         }
 
-        if (selectedIndex >= (this.get('content').get('length')+1)) {
+        if (selectedIndex >= (this.get('content').get('length') + 1)) {
             this.set('image_no', 1);
             selectedIndex = 1;
         }
@@ -141,7 +223,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         if (commentContent) {
             var comments = this.get('article').get('comments');
 //            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
-            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus +'/user_picture/user_picture';
+            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
@@ -156,7 +238,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             $('#commentBox').attr('style', 'display:none');
         }
     },
-   removeComment: function(object)
+    removeComment: function(object)
     {
         var message = "Do you want to delete this comment?";
         this.set("message", message);
@@ -167,7 +249,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         } else {
             this.set("obj", object);
             this.set('willDelete', true);
-        }       
+        }
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -176,7 +258,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('willDelete', false);
         this.set('makeSureDelete', false);
     },
-     removeCommentItem: function(object)
+    removeCommentItem: function(object)
     {
         var id = this.get('article').get("id");
         var message_id = object.get("message_id");
@@ -329,8 +411,8 @@ HubStar.ArticleController = Ember.Controller.extend({
     fbShare: function() {
         this.dropdownPhotoSetting();
         var that = this;
-            
-            var currntUrl = 'http://'+document.domain+'/#/articles/' +  this.get('articleID');
+
+        var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
 
         var caption = '';
 
@@ -383,7 +465,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').photo_image_original_url);
 
 
-        var currntUrl =  'http://'+document.domain+'/#/articles/'  + this.get('articleID');
+        var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
         window.open(
@@ -398,7 +480,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     tShare: function() {
         this.dropdownPhotoSetting();
 
-        var currntUrl = 'http://'+document.domain+'/#/articles/'+ this.get('articleID');
+        var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
 
         var url = 'https://twitter.com/share?text=' + this.get('articleResouce').get("article_headline") + '&url=' + encodeURIComponent(currntUrl);
         window.open(
@@ -412,7 +494,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         this.dropdownPhotoSetting();
 
-         var currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('articleID');
+        var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
 
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.get('selectedPhoto').photo_image_original_url) +

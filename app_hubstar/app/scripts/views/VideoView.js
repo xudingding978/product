@@ -45,20 +45,20 @@ HubStar.VideoView = Ember.View.extend({
 
 
     },
-    showd: function()
-    {        
-        alert("closesss");
-        this.get("controller").get("controllers.mega").setBack();
-    }
+//    showd: function()
+//    {        
+//        alert("closesss");
+//        this.get("controller").get("controllers.mega").setBack();
+//    }
 });
-$(document).keyup(function(e) {
-
-    if (e.which === 27)
-    {
-     HubStar.VideoView.prototype.showd();
-      //  HubStar.MegaController.prototype.setBack();
-    }
-});
+//$(document).keyup(function(e) {
+//
+//    if (e.which === 27)
+//    {
+//     HubStar.VideoView.prototype.showd();
+//      //  HubStar.MegaController.prototype.setBack();
+//    }
+//});
 //$(document).keyup(function(e) {
 //    if (e.which === 27)
 //    { // pressed 'esc'

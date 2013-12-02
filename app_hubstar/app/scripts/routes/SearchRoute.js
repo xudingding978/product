@@ -31,7 +31,7 @@ HubStar.SearchRoute = Ember.Route.extend({
         transitionToPhoto: function(id) {
 
             this.controllerFor('masonryCollectionItems').set("type", "profile");
-               this.controllerFor('mega').set("from", "profile");
+          //     this.controllerFor('mega').set("from", "profile");
             this.transitionTo("photo", HubStar.Mega.find(id));
         },
         transitionToProfile: function(id) {

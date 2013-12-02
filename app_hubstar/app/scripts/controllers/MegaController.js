@@ -40,9 +40,92 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
         return 0;
     },
+//    setBack: function()
+//    {
+//
+//        alert("ddds");
+//        var address = document.URL;
+//        var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
+//        var id = address.split("#")[1].split("/")[2];
+//        var collection_id = address.split("#")[1].split("/")[4];
+//        var colectionType = address.split("#")[1].split("/")[5]; //it may be article id , photo id and video id
+//        var user_photo_id = address.split("#")[1].split("/")[8];
+//        if (type === "users")
+//        {
+//            var user = HubStar.User.find(id);
+//            if (user_photo_id !== undefined || colectionType === "article" || colectionType === "photo") //type:article means it 
+//            {
+//                for (var i = 0; i < user.get('collections').get("length"); i++) {
+//                    var data = user.get('collections').objectAt(i);
+//                    if (data.id === collection_id) {
+//                        break;
+//                    }
+//                }
+//
+//                this.transitionTo("collection", data); //user
+//            }
+//            else
+//            {
+//                window.history.back();
+//            }
+//        }
+//        else if (type === "photos")
+//        {
+//              alert("photos");
+//             this.closeWindow();
+////            this.set('collectable', false);
+////            this.set('contact', false);
+////            var address = document.URL;
+////            if (this.get('controllers.masonryCollectionItems').get("type") === "profile")
+////            {
+////                if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
+////                {
+////
+////                    this.transitionTo("indexIndex"); //search page
+////                }
+////                else
+////                {
+////                    var collection_id = address.split("#")[1].split("/")[2];
+////                    var profile = HubStar.Profile.find(this.get("controllers.masonryCollectionItems").get("id"));
+////                    var data = null;
+////                    for (var i = 0; i < profile.get('collections').get("length"); i++) {
+////                        data = profile.get('collections').objectAt(i);
+////                        if (data.id === collection_id) {
+////                            break;
+////                        }
+////                    }
+////
+////                    this.set("selectPhoto", false);
+////                    this.transitionTo("profile", profile); // transition to profile
+////                    this.transitionTo("profileCollection", data);
+////
+////                }
+////            }
+////            else
+////            {
+////                var collection_id = address.split("#")[1].split("/")[6];
+////                var id = address.split("#")[1].split("/")[2]; //user id
+////                var user = HubStar.User.find(id);
+////                var data = null;
+////                for (var i = 0; i < user.get('collections').get("length"); i++) {
+////                    data = user.get('collections').objectAt(i);
+////                    if (data.id === collection_id) {
+////                        break;
+////                    }
+////                }
+////                this.set("selectPhoto", false);
+////                this.transitionTo("collection", data); //user
+////            }
+//        }
+//        else
+//        {
+//           alert("else");
+//            window.history.back();
+//        }
+//    },
     setBack: function()
     {
-
+console.log("dddddddddddddd");
         alert("ddds");
         var address = document.URL;
         var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
@@ -73,49 +156,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
         {
               alert("photos");
              this.closeWindow();
-//            this.set('collectable', false);
-//            this.set('contact', false);
-//            var address = document.URL;
-//            if (this.get('controllers.masonryCollectionItems').get("type") === "profile")
-//            {
-//                if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
-//                {
-//
-//                    this.transitionTo("indexIndex"); //search page
-//                }
-//                else
-//                {
-//                    var collection_id = address.split("#")[1].split("/")[2];
-//                    var profile = HubStar.Profile.find(this.get("controllers.masonryCollectionItems").get("id"));
-//                    var data = null;
-//                    for (var i = 0; i < profile.get('collections').get("length"); i++) {
-//                        data = profile.get('collections').objectAt(i);
-//                        if (data.id === collection_id) {
-//                            break;
-//                        }
-//                    }
-//
-//                    this.set("selectPhoto", false);
-//                    this.transitionTo("profile", profile); // transition to profile
-//                    this.transitionTo("profileCollection", data);
-//
-//                }
-//            }
-//            else
-//            {
-//                var collection_id = address.split("#")[1].split("/")[6];
-//                var id = address.split("#")[1].split("/")[2]; //user id
-//                var user = HubStar.User.find(id);
-//                var data = null;
-//                for (var i = 0; i < user.get('collections').get("length"); i++) {
-//                    data = user.get('collections').objectAt(i);
-//                    if (data.id === collection_id) {
-//                        break;
-//                    }
-//                }
-//                this.set("selectPhoto", false);
-//                this.transitionTo("collection", data); //user
-//            }
         }
         else
         {
@@ -482,7 +522,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
     },
     closeWindow: function() {
-console.log("closeWind");
+
         this.set('collectable', false);
         this.set('contact', false);
         var address = document.URL;
@@ -490,7 +530,6 @@ console.log("closeWind");
         {
             if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
             {
-                   console.log("no");
                 this.transitionTo("indexIndex"); //search page
             }
             else
@@ -514,18 +553,15 @@ console.log("closeWind");
         }
         else
         {
-            var collection_id = address.split("#")[1].split("/")[6];
+            var collection_id = address.split("#")[1].split("/")[4];
             var id = address.split("#")[1].split("/")[2]; //user id
             var user = HubStar.User.find(id);
             var data = null;
-              alert(collection_id);
-                alert(id);
-                 console.log( user.get('collections'))
+            
             for (var i = 0; i < user.get('collections').get("length"); i++) {
-                  console.log( user.get('collections'));
                 data = user.get('collections').objectAt(i);
                 if (data.id === collection_id) {
-                        
+                              console.log( collection_id);
                     break;
                 }
             }

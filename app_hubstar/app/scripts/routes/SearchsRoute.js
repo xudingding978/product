@@ -44,7 +44,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
             this.transitionTo('indexIndex');
 
         } else {
-            this.transitionTo('searchIndex');
+           // this.transitionTo('searchIndex');
         }
 
     },

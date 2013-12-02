@@ -521,9 +521,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                                                 "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=483&w=300&tabid=101&h=0', 
                                                 "book_read_url": 'http://ebooks.trendsideas.com/Book873',"book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/447/New_Home_Trends_Vol_2910.aspx', "optional": this.get('model').get('id')});
                 } else {
-                    var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '',"book_description": 'Kitchen & Bath Trends (29/08)', 
-                                                "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=476&w=300&tabid=101&h=0', 
-                                                "book_read_url": 'http://ebooks.trendsideas.com/Book862',"book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/440/Kitchen__Bath_Trends_Vol_2908.aspx', "optional": this.get('model').get('id')});
+                    var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '',"book_description": 'Limited Edition!', 
+                                                "book_image_url": 'http://library.trendsideas.com/Portals/0/productimages/418_06894.jpg', 
+                                                "book_read_url": '',"book_buy_url": 'http://shop.trendsideas.co.nz/homeseries.aspx?prodid=418', "optional": this.get('model').get('id')});
                 }
             about_us.get('about_book').pushObject(about_book);
             }

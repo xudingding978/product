@@ -39,10 +39,10 @@ body > div.ember-view{
 #masonry_photo_collection_container[style='position: relative; height: 0px; width: 185px;'],
 #masonry_photo_collection_container[style='position:relative;height:0px;width: 185px;'],
 
-#masonry_container[style="position: relative; height: 177px; width: 370px;"],
-#masonry_container[style="position:relative;height:177px;width:370px;"],
-#masonry_container[style='position: relative; height: 177px; width: 370px;'],
-#masonry_container[style='position:relative;height:177px;width:370px;']{
+#masonry_container[style="position: relative; height: 157px; width: 370px;"],
+#masonry_container[style="position:relative;height:157px;width:370px;"],
+#masonry_container[style='position: relative; height: 157px; width: 370px;'],
+#masonry_container[style='position:relative;height:157px;width:370px;']{
     width:0!important;
     overflow:hidden;
     margin-left:4000px;
@@ -877,11 +877,13 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 .main_aboutus{
     text-align: left;
-    padding:20px 0;
+    padding: 20px 0;
     font-size: 15px;
+    width: 100%;
     min-height: 650px;
     max-width: 800px;
-    word-wrap:break-word;
+    word-wrap: break-word;
+    float: right;
 }
 
 .main_aboutus p{

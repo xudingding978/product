@@ -512,8 +512,19 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             about_us.get('about_image').pushObject(about_image);
             }
             for (var i = 0; i < 3; i ++) {
-                var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '',"book_description": '', "book_image_url": '', 
-                                                                                                "book_read_url": '',"book_buy_url": '', "optional": this.get('model').get('id')});
+                if (i === 0) {
+                    var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '',"book_description": 'Renovation Trends (29/11)', 
+                                                "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0', 
+                                                "book_read_url": 'http://ebooks.trendsideas.com/Book885',"book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/455/Renovation_Ideas_Trends_Vol_2911.aspx', "optional": this.get('model').get('id')});
+                } else if (i === 1) {
+                    var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '',"book_description": 'ew Home Trends (29/10)', 
+                                                "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=483&w=300&tabid=101&h=0', 
+                                                "book_read_url": 'http://ebooks.trendsideas.com/Book873',"book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/447/New_Home_Trends_Vol_2910.aspx', "optional": this.get('model').get('id')});
+                } else {
+                    var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '',"book_description": 'Kitchen & Bath Trends (29/08)', 
+                                                "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=476&w=300&tabid=101&h=0', 
+                                                "book_read_url": 'http://ebooks.trendsideas.com/Book862',"book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/440/Kitchen__Bath_Trends_Vol_2908.aspx', "optional": this.get('model').get('id')});
+                }
             about_us.get('about_book').pushObject(about_book);
             }
             this.get('about_us').pushObject(about_us);

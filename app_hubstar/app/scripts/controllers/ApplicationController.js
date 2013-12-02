@@ -603,7 +603,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             that.display(adSlots[pageCount]);
         }
         catch (err) {
-            console.log("container is empty");
+//            console.log("container is empty");
         }
     },
     getPageNo: function()

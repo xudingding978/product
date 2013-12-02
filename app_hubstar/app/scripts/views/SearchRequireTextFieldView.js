@@ -36,7 +36,7 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
             controller.updateReply(s);
         }
         else {
-            console.log(controller);
+//            console.log(controller);
         }
     },
     didInsertElement: function() {

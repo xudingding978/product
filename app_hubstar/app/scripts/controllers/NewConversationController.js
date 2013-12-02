@@ -156,15 +156,11 @@ HubStar.NewConversationController = Ember.Controller.extend({
                     dataNew["ConversationCollection"].pushObject(conversationItem);
                 }
 
-                        console.log("qqqqqqqqqqqqqqqqqqq");
-                        console.log(dataNew);
                 that.get('controllers.conversation').get("conversationContent").insertAt(0, dataNew);
                 dataNew = new Array();
 
                 that.set("isUploadPhoto", false);
-
                 that.set("isAdded",false);
-
                 that.set('messageContent', "");
                 that.set("contentFollowerPhoto",null);
                 that.set('newStyleImageSource', null);

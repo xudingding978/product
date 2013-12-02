@@ -877,11 +877,13 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 .main_aboutus{
     text-align: left;
-    padding:20px 0;
+    padding: 20px 0;
     font-size: 15px;
+    width: 100%;
     min-height: 650px;
     max-width: 800px;
-    word-wrap:break-word;
+    word-wrap: break-word;
+    float: right;
 }
 
 .main_aboutus p{

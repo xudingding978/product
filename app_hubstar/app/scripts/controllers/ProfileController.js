@@ -272,6 +272,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.getVideoURL();
             this.set("isAboutUsObjectExist", true);
         } else {
+            this.set('about_us', []);
             this.set("isAboutUsObjectExist", false);
         }
 //        var about_us = HubStar.AboutUs.createRecord({"about_id": profile.get('id'), "about_desc": 'just description', "about_template_id": '1', 

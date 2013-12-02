@@ -130,7 +130,7 @@ HubStar.VideoController = Ember.Controller.extend({
 
         if (this.get('megaResouce').get('object_description') !== null)
         {
-            console.log(this.get('megaResouce').get('object_description'));
+//            console.log(this.get('megaResouce').get('object_description'));
             caption = this.get('megaResouce').get('object_description');
         }
         else

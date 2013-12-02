@@ -6,7 +6,7 @@ HubStar.CollectionRoute = Ember.Route.extend({
         } else {
             var id = model.get('id');
         }
-             console.log("111111222222221111");
+//             console.log("111111222222221111");
         this.controllerFor('user').set('switchPhoto', false);
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');

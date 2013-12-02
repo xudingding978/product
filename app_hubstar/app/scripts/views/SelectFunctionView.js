@@ -11,7 +11,7 @@ HubStar.SelectFunctionView = Ember.View.extend({
                  controller.selectOldAbout();
         }
         else {
-            console.log("this is a select");
+//            console.log("this is a select");
         }
     },
     selectionTwo: function() {

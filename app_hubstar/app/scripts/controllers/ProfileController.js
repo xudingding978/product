@@ -423,7 +423,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 collection.set('type', 'profile');
                 collection.set('optional', this.get('model').get('id'));
                 this.get("collections").insertAt(0, collection);
-                console.log(collection);
+//                console.log(collection);
                 HubStar.store.commit();
                 $(".Targeting_Object_front").attr("style", "display:inline-block");
                 $(" #uploadArea").attr('style', "display:none");
@@ -494,7 +494,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     selectOldAbout: function() {
-        console.log('old');
+//        console.log('old');
         this.set('makeSelection', false);
         this.set('isAboutUsObjectExist', false);
         this.set('editingAbout', !this.get('editingAbout'));
@@ -518,7 +518,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
             this.get('about_us').pushObject(about_us);
         }
-        console.log('new');
+//        console.log('new');
         this.set('makeSelection', false);
         this.set('isAboutUsObjectExist', true);       
         this.set('editingAbout', !this.get('editingAbout'));
@@ -631,7 +631,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     deleteSelectedCollection: function()
     {
-        var message = "You will delete every photos in this collection when you delete this collection. Are you sure to delete " + this.get("selectedCollection").get('title') + " ?";
+
+        var message = "'Do you wish to remove your '" + this.get("selectedCollection").get('title') + "' collection from your '" + this.get("selectedCollection").get('title') + "' profile?";
+
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {

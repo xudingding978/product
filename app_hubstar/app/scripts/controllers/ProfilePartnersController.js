@@ -62,7 +62,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         {
             idDel = this.get("delID");
         }
-        var message = "Do you wish to remove this partner ?";
+        var message = "Do you wish to remove this partner?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {

@@ -452,9 +452,6 @@ console.log("dddddddddddddd");
         }
         this.set('image_no', selectedIndex);
         this.selectedImage(e);
-
-
-
     },
     selectedImage: function(id) {
         var selectedImage_id = "#" + id;
@@ -700,7 +697,6 @@ console.log("dddddddddddddd");
         photoObject.set('photo_caption', photo_caption);
         photoObject.set('link_text', link_text);
         photoObject.set('link_url', link_url);
-        console.log(photoObject);
         photoObject.store.save();
         this.set('enableToEdit', !this.get('enableToEdit'));
     },

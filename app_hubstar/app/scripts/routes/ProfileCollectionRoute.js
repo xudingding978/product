@@ -8,13 +8,18 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
 
             var id = model.id;
         }
-
+        console.log(address);
         if (model.get('title') !== undefined) {
             var title = model.get('title');
+
+
         }
+        alert(id);
+
                  this.controllerFor('mega').set("type", "profile");
     
         this.controllerFor('masonryCollectionItems').set("id",model.id);
+
         this.controllerFor('masonryCollectionItems').selectModelForProfile(id, title);
         this.controllerFor('profile').set('switchPhoto', false);
         this.controllerFor('masonryCollectionItems').set('uploadStuff', true);
@@ -33,8 +38,8 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
     },
     events: {
         transitionToPhoto: function(id) {
-      //      this.transitionTo("profile",HubStar.)
-          this.controllerFor('mega').set("type", "profile");
+            //      this.transitionTo("profile",HubStar.)
+            this.controllerFor('mega').set("type", "profile");
             this.transitionTo("photo", HubStar.Mega.find(id));
         },
         transitionToProfile: function(id) {

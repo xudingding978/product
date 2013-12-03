@@ -18,9 +18,9 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
         }
         else if (controller._debugContainerKey.indexOf("contact") !== -1) {
             controller.setEditable("DesplayName");
-        } else if (controller._debugContainerKey.indexOf("comment") !== -1) {
-            controller.addComment();
         } else if (controller._debugContainerKey.indexOf("article") !== -1) {
+            controller.addComment();
+        }else if (controller._debugContainerKey.indexOf("video") !== -1) {
             controller.addComment();
         }
         else if (controller._debugContainerKey.indexOf("profile") !== -1) {

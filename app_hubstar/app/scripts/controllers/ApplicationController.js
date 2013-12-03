@@ -3,7 +3,7 @@
 /*global $:false */
 
 HubStar.ApplicationController = Ember.ArrayController.extend({
-    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop'],
+    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop','checkingLoginStatus','addCollection'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -81,7 +81,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));
-    },
+    },   
     scrollDownAction: function() {
         this.set('loadingTime', true);
         this.set("size", 20);

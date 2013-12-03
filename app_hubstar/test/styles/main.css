@@ -8332,11 +8332,17 @@ to{
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> abf9f164eed68e5665139efba3de00296379903a
 .hover-opacity{opacity:.6}
 .hover-opacity:hover, .hover-opacity:focus, .hover-opacity:active{opacity:1}
 =======
 .hover-opacity{opacity:.6; cursor: pointer}
 .hover-opacity:hover{opacity:1}
+<<<<<<< HEAD
+>>>>>>> develop-602-comments-controller-UD
+=======
 >>>>>>> f6041454ac441f1885facb27ee2348a4ac59f868
 =======
 .hover-opacity{opacity:.6; cursor: pointer}
@@ -8346,6 +8352,7 @@ to{
 .hover-opacity:hover, .hover-opacity:focus, .hover-opacity:active{opacity:1}
 >>>>>>> 4f7796a2be3beb46411ee064e7f7362aa901504f
 >>>>>>> ad787fa098bbed072b96b4b0253613e8e20961d8
+>>>>>>> abf9f164eed68e5665139efba3de00296379903a
 
 
 
@@ -11817,7 +11824,11 @@ textarea.add-interests{
 }
 
 
+<<<<<<< HEAD
 >>>>>>> 0be922366e95518616d9fa09998923c847144b09
+=======
+>>>>>>> 1659e0677238fd86747b1757f2d9513d0619f794
+>>>>>>> develop-643-new-object-style
 
 .navbar {
     min-width: 692px;

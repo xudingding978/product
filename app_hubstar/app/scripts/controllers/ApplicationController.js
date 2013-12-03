@@ -292,8 +292,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $('#user-login-pane').css('display', 'none');
     },
     next: function() {
-        $('#user-login-pane').css('display', 'none');
+//        $('#fadein-image').css('display', 'none');
+//         $('#profiles-main-container').css('display', 'none');
         $('#register-with-email-step-3').css('display', 'block');
+        
+        
     },
     done: function() {
         this.set('loginTime', true);

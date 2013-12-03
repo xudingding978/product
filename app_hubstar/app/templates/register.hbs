@@ -110,8 +110,8 @@
         <div class="back-btn easing" style="" >Back</div>
         <div class="register-btn easing register-btn-small"  {{action next}}>Next</div>
 
-        <div id="register-with-email-step-3" style="overflow:hidden; z-index: 11;background-color: white;border-radius: 5px;box-shadow: 0 0 20px #bbb;width: 635px;height: 550px;margin: 0 auto;position: fixed;top: 15%;left: 0;right: 0; display:none;">
-            <div  style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
+        <div id="register-with-email-step-3" style="z-index: 1;overflow: hidden;  background-color: white;border-radius: 5px;  width: 800px; height: 600px; margin: 0px auto; position: fixed; top: 15%; left: 0px; right: 0px; display:none;">
+            <div   style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
                 <div  class="comment-namentime" style="display: block;position: relative;height: 35px;">
                     <div style="position: absolute;  text-align: center;line-height: 40px;margin: 0 auto;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
                         Please choose a topic that will sustain your interest.
@@ -119,11 +119,11 @@
                     </div>
                 </div>
             </div>
-            <div id ="" style="margin: 20px auto 5px; padding: 0 15px;height: 450px;" >
+            <div id ="" style="margin: 20px 30px 5px;height: 450px;" >
                 {{#each controller.contentTopic}}
-                <div  style=" height: 150px; width: 120px;position: relative; float: left;"{{action selectTopic id topic}}>
-                      <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="opacity: .8; z-index: 10; right: 0; margin: 10px;" {{action selectTopic id topic }}><k class="icon-plus" ></k></div>
-                    <div class="" style="height: 100px;width: 100px;position: relative;border: 3px solid #f3f3f3;border-radius: 50%;overflow: hidden;box-shadow: 0 0 5px #aaa;top: -5px;float: left;z-index: 1; margin-left: 10px; margin-right: 10px; margin-top: 15px;">
+                <div class="hover-opacity" style=" height: 150px; width: auto;position: relative; float: left; margin: 10px 20px;"{{action selectTopic id topic}}>
+                     <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="opacity: .8; z-index: 10; right: 0;" {{action selectTopic id topic }}><k class="icon-plus" ></k></div>
+                    <div class="" style="height: 100px;width: 100px;position: relative;border-radius: 50%;overflow: hidden;top: -5px;float: left; ">
                         <div  class="usersobject-hoverarea easing" style="height: 100px; width: 100px;" >
                         </div>
                         <div style="position: relative;">
@@ -132,34 +132,32 @@
                             </div>
                         </div>
                     </div>
-                    <div style="position: relative;">
-                        <div style=" font-size: 15px; padding: 5px 0;text-align: center;">
-                            {{topic}}
-                        </div>
+                    <div style="position: relative;text-align: center;font-size: 13px;width: 100px;line-height: 15px;">
+                        {{topic}}
                     </div>
                 </div>
                 {{/each}}
             </div>
 
-            <div class="" style="height: 30px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
-                <div class="message-btn easing" style="width: 50%;border-right: 1px solid #ddd;">Back&nbsp</div>
-                <div class="message-btn easing" style="width: 50%;border-right: 1px solid #ddd;"{{action submitSelection}}>Next&nbsp<k class="icon-arrow-right" ></k></div>
+            <div class="" style="height: 45px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
+                <div class="register-btn easing" style="width: 50%;border-right: 1px solid #ddd;float: left;"></div>
+                <div class="register-btn easing" style="width: 50%;float: left"{{action submitSelection}}>Next&nbsp;<k class="icon-long-arrow-right" style="font-size: 13px;"></k></div>
             </div> 
         </div>
-        
+
         <div id="register-with-email-step-4" style="overflow: hidden; z-index: 11; background-color: white; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; box-shadow: rgb(187, 187, 187) 0px 0px 20px; width: 430px; height: 220px; margin: 0px auto; position: fixed; top: 45%; left: 0px; right: 0px; display: none;">
-              <div  style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
+            <div  style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
                 <div  class="comment-namentime" style="display: block;position: relative;height: 35px;">
                     <div style="position: absolute;  text-align: center;line-height: 40px;margin: 0 auto;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
-                      </div>
+                    </div>
                 </div>
             </div>
             <div style="height: 140px; text-align: center; padding: 40px;">
                 Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!
-                      </div>
-            
-<!--         <div class="message-btn easing" style="width: 50%;border-right: 1px solid #ddd;">skip&nbsp<k class="icon-arrow-right" ></k></div>-->
-            <div class="message-btn easing" style="width: 100%;border-right: 1px solid #ddd;" {{action done}}>Done&nbsp<k class="icon-arrow-right" ></k></div>
+            </div>
+
+            <!--         <div class="message-btn easing" style="width: 50%;border-right: 1px solid #ddd;">skip&nbsp<k class="icon-arrow-right" ></k></div>-->
+            <div class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute;" {{action done}}>Done&nbsp;<k class="icon-long-arrow-right" style="font-size: 13px;"></k></div>
         </div>
 
     </div>

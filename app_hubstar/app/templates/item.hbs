@@ -13,7 +13,9 @@
 
 {{#if getPhoto}}
 <div class="box col2 noStyle1" {{action checkingLoginStatus target="view" on="click"}}>
+
     {{render itemFunction this}}
+
     <div class="object-tags-box">
         <div class="object-tags">
             <span class="tags-mark" style="background-color: #427fed"></span>
@@ -71,7 +73,9 @@
             </span>
         </div>
 
-        <div class="masonry-object_poster">
+
+        <div class="masonry-object_poster">  
+
 
             <div class="profilepic-on-masonry">
                 <a class="poster-name" style="cursor: pointer; width: auto;" href="#/profiles/{{unbound owner_id}}">  <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
@@ -188,15 +192,16 @@
             </span>
         </div>
 
-        <div class="masonry-object_poster">
+
+
+        <div class="masonry-object_poster">  
+
+
             <div class="profilepic-on-masonry">
-                <a  href="#/profiles/{{unbound owner_id}}">
-                    <img {{bindAttr src="profile_pic_url"}} class="profilepic-on-masonry" />
-                    <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
-                </a>
+                <a class="poster-name" style="cursor: pointer; width: auto;" href="#/profiles/{{unbound owner_id}}">  <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer; width: auto;"  href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <a class="poster-name" style="cursor: pointer; width: auto;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <div class="posttime-container">
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
@@ -217,7 +222,6 @@
                 </ul>
 
             </div>
-
         </div>
 
         <div class="masonry-object_text">
@@ -260,7 +264,9 @@
             <div class="tags easing tagsappear">
                 <div class="tags-new">#{{region}}</div>
             </div>
+
         </div>
+
 
         <div class="object-tags ">
             <span class="tags-mark" style="background-color: #a0c3ff"></span>
@@ -285,6 +291,10 @@
                     <k class='icon-caret-down'></k>
                 </div>
                 <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
+                    {{#if controller.is_profile_editing_mode}}
+                    <li class="ite" {{action  removeCollectedItem controller.title id "profile"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>
+                    <li class='ite'  {{action changeCollectionCover id controller.collection_id HubStar.Profile "article"}}> <k class="icon-ok-sign" style="font-size: 16px;  margin: 0px 5px;"></k>Set as collection cover</li>
+                    {{/if}}
                     {{#if controller.is_user_editing_mode}}
                     <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
                     <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User "article"}}><k class="icon-camera" style="font-size: 16px; margin: 0px 5px;"></k>Set as Cover</li>

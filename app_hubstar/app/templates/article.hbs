@@ -134,7 +134,7 @@
             {{#unless view.readContent}}
 
             <div class="readbtn new-btn" {{action checkReading on="click" target="view"}} >
-                Read
+                Read more
             </div>
             {{else}}
 
@@ -149,7 +149,7 @@
 
 
 
-    <div class="collapes-container"  id="article_action" style="display:block;">
+    <div class="collapes-container"  id="article_action" style="display:block; height: 215px;overflow: hidden;;">
         <div class="collapes-container_inner">
             <div class="article-title" >{{controller.articleResouce.article_headline}}</div>
             <div class="article-text">{{{controller.articleResouce.article_body}}</div>

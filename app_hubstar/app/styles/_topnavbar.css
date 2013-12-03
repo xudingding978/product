@@ -1,52 +1,27 @@
-.search_input{width: 25%;display: inline-block}
-.search_business{width: 73.5%}
-
-.navbar-inner{
-    width: 87%;
-    margin: auto;
-}
-
-
-.brand {
-    display: block;
-    float: left;
-    padding: 10px;
-    font-size: 20px;
-    color: rgb(119, 119, 119);
-    text-shadow: none;
-    margin: 0;
-    margin-right: 30px;
-    position: relative;
-}
-
-
 
 .navbar {
-    min-width: 692px;
-    height: 45px;
+    min-width: 1200px;
+    height: 75px;
+    line-height: 75px;
     overflow: visible;
     color: white;
     margin-bottom: 0px;
     position: fixed;
-    z-index: 1000;
+    z-index: 9999;
     width: 100%;
-    top:0;
+    top: 0;
     display: block;
+    background-size: 100% auto !important;
+    background-image: url(../../images/landingpagebg.jpg);
+}
 
 
-
-    -webkit-box-shadow: 0px 0px 10px rgb(0, 0, 0);
-    -moz-box-shadow: 0px 0px 10px rgb(0, 0, 0);
-    box-shadow: 0px 0px 10px rgb(0, 0, 0);
-
-    background-color: #07b7ea;
-    background-image: -moz-linear-gradient(top,#07b7ea , #02a6dc);
-    background-image: -ms-linear-gradient(top, #07b7ea , #02a6dc );
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#07b7ea ), to( #02a6dc));
-    background-image: -webkit-linear-gradient(top, #07b7ea , #02a6dc);
-    background-image: -o-linear-gradient(top, #07b7ea , #02a6dc);
-    background-image: linear-gradient(top, #07b7ea , #02a6dc);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#07b7ea', endColorstr='#02a6dc', GradientType=0);
+.navbar .brand {
+    display: block;
+    float: left;
+    padding: 0px;
+    margin: 0;
+    position: relative;
 }
 .navbar > #version-no
 {
@@ -56,16 +31,24 @@
     max-width:6.5%;
 }
 
+.navbar-inner {
+    min-width:600px;
+    height:75px;
+    width:87%;
+    margin:auto;
+}
 
-
+.logonew{
+    height: 35px;
+}
 
 #user-dd-menu > li {padding:0}
 
 #user-dd-menu > li > a >span {
     color: #555;
     font-size: 13px;
-    padding:6px 30px 6px 60px;
-    display:block;
+    padding: 10px 30px 10px 60px;
+    display: block;
 }
 
 #user-dd-menu > li >  a > k {
@@ -102,6 +85,194 @@
 }
 
 
+
+
+
+
+#discovery_search_bar_wrapper {
+    height: 520px;
+    width: 100%;
+    background: url(../../images/landingpagebg.jpg);
+    border-bottom: 1px solid #aaa;
+    background-size: 100% auto;
+    background-position: left top;
+    position: relative;
+    min-width: 1040px;
+}
+
+.search-bar{
+    width: 45%;
+    max-width: 800px;
+    position: absolute;
+    top: 300px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    min-width: 700px;
+}
+
+
+.Nav-btn{
+    width: 50px; 
+    height: 50px; 
+    border-radius: 3px; 
+    margin-right: 5px;
+    line-height: 50px; 
+    color: #555;
+    text-align: center;
+    background-color: #fff;
+    opacity: .9;
+    cursor: pointer;
+}
+
+.Nav-btn:hover{opacity: 1}
+
+.Search-box{
+    width: 90%;
+    height: 50px;
+    float: left;
+    display: inline-block;
+    max-width: 745px;
+}
+
+.search-bar-ontop{
+    position: absolute;
+    width: 45%;
+    max-width: 800px;
+    margin: 12px auto;
+    left: 0;
+    right: 0;
+    min-width: 550px;
+}
+
+.Search-box > input {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    height: 50px;
+    border-radius: 3px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    padding-left: 10px;
+    vertical-align: top;
+}
+
+.popular-topics{
+    top: 400px;
+    width: 850px; 
+    position:absolute; 
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+
+.popular-topics > div{
+    padding: 5px 15px;
+    border-radius: 2px;
+    color: #fff;
+    font-size: 1em;
+    margin: 0 10px 0 5px;
+    float: left;
+    cursor: pointer;
+    opacity: .8;
+
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
+
+.popular-topics > div:hover{
+    color: #555;
+    background-color: #fff;
+    opacity: 1;
+}
+
+
+.top-about-menu{position: relative; float: left; margin-left: 50px;}
+
+.top-about-menu > span{margin: 0 2em}
+
+.top-about-menu > span > a {font-size: 1em; color: white; opacity: .8;}
+
+.top-about-menu > span > a:hover {opacity: 1;}
+
+
+
+
+.Navigator-box{
+    margin-top: 60px;
+    width: 665px;
+    height: 450px;
+    border-radius: 3px;
+    box-shadow: 0 0 10px #aaa;
+    background-color: white;
+    z-index: 11;
+    position: absolute;
+    display:none;
+}
+
+.Navigator-box:before{
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: -19px;
+    border-color: transparent transparent #f3f3f3 transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: 0;
+}
+
+.Navigator-box:after{
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: -20px;
+    border-color: transparent transparent #888 transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: -1;
+}
+
+.Navigator-content{
+    height: 380px;
+    width: 100%;
+    font-size: 13px;
+    font-weight: bold;
+    color: #555;
+    overflow: hidden;
+}
+
+.Navigator-content  li {padding: 3px 15px;cursor: pointer;}
+.Navigator-content  li:hover {background-color: #d2d2d2}
+
+.Navigator-content  li >.icon-search{
+    font-size: 18px;
+    color: white;
+    float: right;
+    margin-top: 2px;
+}
+
+.Navigator_links{
+    background-color: #f3f3f3; 
+    height: 35px; 
+    line-height: 35px;
+    width: 100%; 
+    border-top: 1px solid #ddd;
+    padding: 0 15px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #555;
+    border-radius: 0 0 3px 3px;
+}
+
+.Navigator_links > div > span{margin: 0 5px;cursor: pointer;}
+
+
+
+
+
+
+
 /*new login style Colin Shaw 25/9/2013*/
 .Register-Page{
     width: 100%;
@@ -132,7 +303,6 @@
     background-color: #fff;
     text-align: center;
     color: #888;
-    font-weight: bold; 
     line-height: 45px; 
     font-size: 15px;
 
@@ -175,16 +345,16 @@
 }
 
 .login-textfield > input::-webkit-input-placeholder { /* WebKit browsers */
-    color:    #ccc;
+    color:    #ccc;   font-weight: normal;
 }
 .login-textfield > input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color:    #ccc;
+    color:    #ccc;   font-weight: normal;
 }
 .login-textfield > input::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color:    #ccc;
+    color:    #ccc;   font-weight: normal;
 }
 .login-textfield > input:-ms-input-placeholder { /* Internet Explorer 10+ */
-    color:    #ccc;
+    color:    #ccc;   font-weight: normal;
 }
 
 .social-login-iconbox{
@@ -210,7 +380,6 @@
     height: 45px;
     line-height: 45px;
     color: #888;
-    font-weight: bold;
     text-align: left;
     padding-left: 10px;
 
@@ -261,7 +430,6 @@ div > div > i.icon-envelope, div > div > #click-login
     background-color: #fff;
     text-align: center;
     color: #888;
-    font-weight: bold; 
     font-size: 15px;
     line-height: 45px; 
     -webkit-border-radius: 0 0 5px 5px;
@@ -285,7 +453,6 @@ div.register-btn-small{
     background:#fff;
     text-align: center;
     color: #9c9c9c;
-    font-weight: bold; 
     font-size: 15px;
     line-height: 45px; 
     -webkit-border-radius: 0 0 0 5px;
@@ -424,26 +591,18 @@ div#forgot-password-container{
 .Geo-Filter{
     position: relative;
     float: right;
-    padding: 12px;
-    color: #fff; 
-    line-height: 19px;
-
+    color: #fff;
     opacity: .7;
-    cursor:pointer
+    cursor: pointer;
+    margin-right: 40px;
 }
 
-.Geo-Filter:hover, .Geo-Filter:active{
-    opacity: 1
-}
+.Geo-Filter:hover, .Geo-Filter:active{opacity: 1}
 
-.Geo-Filter:active{
-    background-color: #fff;
-    color: #888;
-}
+.Geo-Filter:active{color: #fff;}
 
 .Geo-Filter-active{
-    background-color: #fff;
-    color: #888;
+    color: #fff;
     opacity: 1
 }
 
@@ -451,7 +610,6 @@ div#forgot-password-container{
 
 div#login_detail{
     width:35px;
-    margin-right: 50px;
     float:right;
     cursor: pointer;
     vertical-align: top;
@@ -495,3 +653,6 @@ div#login_detail{
 .Notification-top > div:first-child{border-radius: 3px 3px 0 0}
 .Notification-top > div:last-child{border-radius: 0 0 3px 3px}
 
+
+
+.user-face-size{width: 45px; height: 45px;}

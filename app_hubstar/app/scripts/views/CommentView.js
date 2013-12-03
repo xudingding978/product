@@ -2,25 +2,28 @@ HubStar.CommentView = Ember.View.extend({
     templateName: 'comment',
     didInsertElement: function() {
         $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
-    },
-    openComment: function(id) {
-
-        if (localStorage.loginStatus) {
-            this.get('controller').getCommentsById(id);
-            this.get('controller').set("commentContent","");
-            $('#comment_' + id).attr('style', 'display:none');
-            $('#commentBox_' + id).attr('style', 'display:block');
-
-            setTimeout(function() {
-                $('#masonry_user_container').masonry("reload");
-                $('#masonry_container').masonry("reload");
-                $('.comment-insert-field').focus();
-                
-            }, 200);
-        } else {
-            HubStar.set('checkLoginStatus', true);
-        }
-    },
+          var that =this;
+        $(document).ready(function() { 
+            
+            $("#commentScrollBar_" + that.get("controller").get('model').get('id')).mCustomScrollbar({
+                scrollButtons: {
+                    enable: false,
+                    scrollSpeed: "auto"
+                },
+                advanced: {
+                    updateOnBrowserResize: true,
+                    updateOnContentResize: true,
+                    autoScrollOnFocus: false,
+                    normalizeMouseWheelDelta: false
+                },
+                autoHideScrollbar: true,
+                mouseWheel: true,
+                theme: "dark-2",
+                set_height: 350
+            });
+        });
+    }
+    
 //    closeComment: function(id) {    
 //        this.get('controller').set("commentContent","");
 //        $('#comment_' + id).attr('style', 'display:block');

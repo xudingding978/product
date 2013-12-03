@@ -3,26 +3,35 @@
 
 
 
-<div id="discovery_search_bar_wrapper" style="margin: 0 0 100px 0;">
+<div id="discovery_search_bar_wrapper" style="z-index: 11;margin-bottom: -55px;">
 
-    <p style="position: absolute; font-size: 20px; top: 190px;z-index: 600; width: 600px; color: white; left:0; right: 0; margin: auto; line-height: 25px; text-align: center;text-shadow: 0 0 15px #000;">
-        Your online resource for homes, products, services & ideas   
-    </p>
-
-    <div id="discovery_search_bar">
-
-        {{view HubStar.SearchAreaTextFieldView valueBinding="search_area"  id="search_key" class="search_input" placeholder="Search by region" name="search_key"}}
-        {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_business" class="search_business" placeholder="Search by keyword" }}
-
-
-        <a  style="right: -35px;" class="cancleIcon"  href="#" ><i class="icon-remove-sign" {{action clearSearch}}></i></a>
-    </div>
-    <div style="margin: auto; width: 200px; top: 450px; position: relative;"></div>    
-
-    <div class="new-btn blue-btn" style="margin: auto; width: 100px; display: block; position: absolute;left: 0;right: 0;top: 310px; cursor:pointer;" {{action searching on="click" target="view"}}>
-        <i class="icon-search" style="margin-right: 10px;"></i> Search
+    <div style="position: absolute; top: 130px; width: 350px;left:0; right: 0; margin: auto;">
+        <img src="../../images/Welcometext.png"/>
     </div>
 
+    <div class="search-bar" style="">
+        <div id ="navigator" class="Nav-btn easing" style="float: left;" {{action dropdownNavigator}}><i class="icon-list"></i></div>
+        {{#if controller.isNavigatorDropdown}}
+        {{view HubStar.NavigatorView}}
+        {{/if}}
+
+        <div class="Search-box easing" style="">
+            {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
+            <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -50px; right: -5px;border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
+                <i class="icon-search"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="popular-topics" style="">
+        <span style="float: left;color: white;font-family: Georgia, serif;font-style: italic;margin: 5px 15px;">Most Popular Topics:</span>
+        <div {{action topicSearch "New Homes"}} >New Homes</div>
+        <div {{action topicSearch "Kitchens"}} >Kitchens</div>
+        <div {{action topicSearch "Bathrooms"}} >Bathrooms</div>
+        <div {{action topicSearch "Renovations"}} >Renovations</div>
+        <div {{action topicSearch "Outdoor Living"}} >Outdoor Living</div>
+        <div {{action topicSearch "Interior"}} >Interior</div>
+    </div>
 
 </div>
 

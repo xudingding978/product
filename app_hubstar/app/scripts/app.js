@@ -4,6 +4,7 @@ var HubStar = window.HubStar = Ember.Application.createWithMixins({
     ready: function() {
         HubStar.set("isLogin", false);
         HubStar.set("checkLoginStatus", false);
+          HubStar.set("showDiscoveryBar", true);
         HubStar.set("afterSearch", false);
         HubStar.set("setHight", null);
 //        requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {

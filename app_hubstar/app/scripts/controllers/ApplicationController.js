@@ -3,7 +3,7 @@
 /*global $:false */
 
 HubStar.ApplicationController = Ember.ArrayController.extend({
-    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop'],
+    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop','checkingLoginStatus','addCollection'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -28,11 +28,17 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     isWaiting: "",
     loginTime: false,
     isGeoDropdown: false,
+    isNavigatorDropdown: false,
+    isHeaderNavigatorDropdown: false,
     adPageNo: 0,
     searchFromTopic: false, //call the applicationView is true. new search or search
     topicSearch:false,
     googletagCmd: null,
     unReadCount: 0,
+    categorys: [],
+    temp: [],
+    subcate: [],
+    subcategories: [],
     pageCount: 0,
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
@@ -75,7 +81,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));
-    },
+    },   
     scrollDownAction: function() {
         this.set('loadingTime', true);
         this.set("size", 20);
@@ -341,8 +347,81 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('gender', "female");
     },
     dropdown: function(checking) {
-        this.set('isGeoDropdown', !this.get('isGeoDropdown'));
-        $('#geo-filter').toggleClass('Geo-Filter-active');
+        if (checking === "geoLocation") {
+            this.set('isGeoDropdown', !this.get('isGeoDropdown'));
+            $('#geo-filter').toggleClass('Geo-Filter-active');
+        } else {
+
+        }
+    },
+    dropdownNavigator: function() {
+
+        this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
+        this.set('categorys', HubStar.Cate.find({}));
+        this.set('subcate', []);
+        this.set('subcategories', []);
+
+        setTimeout(function() {
+            $('.Navigator-box').fadeIn("fast");
+        }, 30);
+    },
+    showDiscoveryBar: function() {
+        HubStar.set("showDiscoveryBar", true);
+        this.transitionToRoute('searchIndex');
+        $("#top-about-menu").fadeIn("320");
+        $("#search-bar").fadeOut("320");
+        $(".Navigator-box").fadeOut("320");
+        $(".navbar").css("box-shadow", "");
+         $(window).scrollTop(0);
+    },
+            closeDropdownNavigator:function(){
+         this.set('isNavigatorDropdown', false);
+        this.set('isHeaderNavigatorDropdown', false);
+            },
+    dropdownHeaderNavigator: function() {
+
+        this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
+        console.log(this.get('isHeaderNavigatorDropdown'));
+
+        this.set('categorys', HubStar.Cate.find({}));
+
+        this.set('subcate', []);
+        this.set('subcategories', []);
+
+        setTimeout(function() {
+            $('.Navigator-box').fadeIn("fast");
+        }, 30);
+    },
+    topicSelection: function(data) {
+
+
+        this.set('subcate', []);
+        this.set('subcategories', []);
+        for (var i = 0; i < data.get('subcate').get('length'); i++) {
+            var str = data.get('subcate').objectAt(i).get('category_topic');
+//           str=str.slice(0,5);
+//           console.log(str);
+            this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')});
+        }
+
+    },
+    searchTopicSelection: function(data) {
+
+        this.set('subcategories', []);
+        for (var i = 0; i < data.get('length'); i++) {
+            this.get('subcategories').pushObject({'search_topic': data.objectAt(i).get('search_topic')});
+        }
+
+    },
+    topicSearch: function(search_topic) {
+        this.transitionToRoute('searchIndex');
+        $("#top-about-menu").css('display', 'none');
+        $("#search-bar").css('display', 'block');
+        this.set('search_string', search_topic);
+        this.newSearch();
+        this.set('isNavigatorDropdown', false);
+        this.set('isHeaderNavigatorDropdown', false);
+        HubStar.set("showDiscoveryBar", false);
     },
     canelDropDown: function()
     {

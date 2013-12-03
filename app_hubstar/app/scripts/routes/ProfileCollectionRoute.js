@@ -1,7 +1,8 @@
 HubStar.ProfileCollectionRoute = Ember.Route.extend({
     setupController: function(controller, model) {
+         var address = document.URL;
         if (model.id === undefined || model.id === "") {
-            var address = document.URL;
+           
             var id = address.split("#")[1].split("/")[4];
         }
         else {
@@ -14,9 +15,19 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
 
         }
         this.controllerFor('mega').set("type", "profile");
+               
+        var owner_id = address.split("#")[1].split("/")[2];
+        
+        var profile = HubStar.Profile.find(owner_id);
+        var profileId ="";
+        for (var j = 0; j < profile.get('collections').get('length'); j++) {
+            if (profile.get('collections').objectAt(j).get('id') === id)
+            {
+                profileId = profile.get('collections').objectAt(j).get('optional');
+            }
+        }
 
-
-        this.controllerFor('masonryCollectionItems').selectModelForProfile(id, title);
+        this.controllerFor('masonryCollectionItems').selectModelForProfile(id, title,profileId);
         this.controllerFor('profile').set('switchPhoto', false);
         this.controllerFor('masonryCollectionItems').set('uploadStuff', true);
         this.controllerFor('masonryCollectionItems').set('canEditbyOwner', true);
@@ -29,7 +40,15 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
         this.controllerFor('profile').set('switchPhoto', false);
         var address = document.URL;
         var owner_id = address.split("#")[1].split("/")[2];
-        return HubStar.Mega.find({RquireType: "collection", collection_id: params.profileCollection_id, owner_profile_id: owner_id});
+        var profile = HubStar.Profile.find(owner_id);
+        var id ="";
+        for (var j = 0; j < profile.get('collections').get('length'); j++) {
+            if (profile.get('collections').objectAt(j).get('id') === params.profileCollection_id)
+            {
+                id = profile.get('collections').objectAt(j).get('optional');            
+            }
+        }
+        return HubStar.Mega.find({RquireType: "collection", collection_id: params.profileCollection_id, owner_profile_id: id});
 
     },
     events: {

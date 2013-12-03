@@ -277,6 +277,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.getVideoURL();
             this.set("isAboutUsObjectExist", true);
         } else {
+            this.set('about_us', []);
             this.set("isAboutUsObjectExist", false);
         }
 //        var about_us = HubStar.AboutUs.createRecord({"about_id": profile.get('id'), "about_desc": 'just description', "about_template_id": '1', 
@@ -428,7 +429,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 collection.set('type', 'profile');
                 collection.set('optional', this.get('model').get('id'));
                 this.get("collections").insertAt(0, collection);
-                console.log(collection);
+//                console.log(collection);
                 HubStar.store.commit();
                 $(".Targeting_Object_front").attr("style", "display:inline-block");
                 $(" #uploadArea").attr('style', "display:none");
@@ -491,15 +492,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (this.get('isAboutUsObjectExist')) {
             this.selectNewAbout();
         } else {
-            var message = "Do you wish to modify the about us by using template?";
+            var message = "Do you wish to modify the about us by using template? If you choose 'Template', you will lose the previous data.";
             this.set("message", message);
-            this.set('select_one', 'Html5 editor');
+            this.set('select_one', 'HTML5 editor');
             this.set('select_two', 'Template');
             this.set('makeSelection', true);
         }
     },
     selectOldAbout: function() {
-        console.log('old');
+//        console.log('old');
         this.set('makeSelection', false);
         this.set('isAboutUsObjectExist', false);
         this.set('editingAbout', !this.get('editingAbout'));
@@ -517,13 +518,24 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             about_us.get('about_image').pushObject(about_image);
             }
             for (var i = 0; i < 3; i ++) {
-                var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '',"book_description": '', "book_image_url": '', 
-                                                                                                "book_read_url": '',"book_buy_url": '', "optional": this.get('model').get('id')});
+                if (i === 0) {
+                    var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '',"book_description": 'Renovation Trends (29/11)', 
+                                                "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0', 
+                                                "book_read_url": 'http://ebooks.trendsideas.com/Book885',"book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/455/Renovation_Ideas_Trends_Vol_2911.aspx', "optional": this.get('model').get('id')});
+                } else if (i === 1) {
+                    var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '',"book_description": 'New Home Trends (29/10)', 
+                                                "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=483&w=300&tabid=101&h=0', 
+                                                "book_read_url": 'http://ebooks.trendsideas.com/Book873',"book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/447/New_Home_Trends_Vol_2910.aspx', "optional": this.get('model').get('id')});
+                } else {
+                    var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '',"book_description": 'Limited Edition!', 
+                                                "book_image_url": 'http://library.trendsideas.com/Portals/0/productimages/418_06894.jpg', 
+                                                "book_read_url": '',"book_buy_url": 'http://shop.trendsideas.co.nz/homeseries.aspx?prodid=418', "optional": this.get('model').get('id')});
+                }
             about_us.get('about_book').pushObject(about_book);
             }
             this.get('about_us').pushObject(about_us);
         }
-        console.log('new');
+//        console.log('new');
         this.set('makeSelection', false);
         this.set('isAboutUsObjectExist', true);       
         this.set('editingAbout', !this.get('editingAbout'));
@@ -636,7 +648,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     deleteSelectedCollection: function()
     {
-        var message = "You will delete every photos in this collection when you delete this collection. Are you sure to delete " + this.get("selectedCollection").get('title') + " ?";
+
+        var message = "'Do you wish to remove your '" + this.get("selectedCollection").get('title') + "' collection from your '" + this.get("selectedCollection").get('title') + "' profile?";
+
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {

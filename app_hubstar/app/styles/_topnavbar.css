@@ -102,6 +102,7 @@
 
 .search-bar{
     width: 45%;
+    max-width: 800px;
     position: absolute;
     top: 300px;
     margin: auto;
@@ -127,15 +128,17 @@
 .Nav-btn:hover{opacity: 1}
 
 .Search-box{
-    width: 90%; 
-    height: 50px; 
-    float: right;
+    width: 90%;
+    height: 50px;
+    float: left;
     display: inline-block;
+    max-width: 745px;
 }
 
 .search-bar-ontop{
     position: absolute;
     width: 45%;
+    max-width: 800px;
     margin: 12px auto;
     left: 0;
     right: 0;
@@ -156,7 +159,7 @@
 
 .popular-topics{
     top: 400px;
-    width: 910px; 
+    width: 850px; 
     position:absolute; 
     margin: auto;
     left: 0;
@@ -204,7 +207,7 @@
     box-shadow: 0 0 10px #aaa;
     background-color: white;
     z-index: 11;
-    position: relative;
+    position: absolute;
     display:none;
 }
 

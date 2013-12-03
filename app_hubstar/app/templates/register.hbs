@@ -108,7 +108,57 @@
             </div>
         </div>
         <div class="back-btn easing" style="" >Back</div>
-        <div class="register-btn easing register-btn-small"  {{action done}}>Done</div>
+        <div class="register-btn easing register-btn-small"  {{action next}}>Next</div>
+
+        <div id="register-with-email-step-3" style="z-index: 1;overflow: hidden;  background-color: white;border-radius: 5px;  width: 800px; height: 600px; margin: 0px auto; position: fixed; top: 15%; left: 0px; right: 0px; display:none;">
+            <div   style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
+                <div  class="comment-namentime" style="display: block;position: relative;height: 35px;">
+                    <div style="position: absolute;  text-align: center;line-height: 40px;margin: 0 auto;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
+                        Please choose a topic that will sustain your interest.
+
+                    </div>
+                </div>
+            </div>
+            <div id ="" style="margin: 20px 30px 5px;height: 450px;" >
+                {{#each controller.contentTopic}}
+                <div class="hover-opacity" style=" height: 150px; width: auto;position: relative; float: left; margin: 10px 20px;"{{action selectTopic id topic}}>
+                     <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="opacity: .8; z-index: 10; right: 0;" {{action selectTopic id topic }}><k class="icon-plus" ></k></div>
+                    <div class="" style="height: 100px;width: 100px;position: relative;border-radius: 50%;overflow: hidden;top: -5px;float: left; ">
+                        <div  class="usersobject-hoverarea easing" style="height: 100px; width: 100px;" >
+                        </div>
+                        <div style="position: relative;">
+                            <div style="width: 100px; height: 100px; overflow: hidden;">
+                                <img {{bindAttr src="image"}} style="min-height:100px; width: 100px; max-width: none;"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="position: relative;text-align: center;font-size: 13px;width: 100px;line-height: 15px;">
+                        {{topic}}
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+
+            <div class="" style="height: 45px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
+                <div class="register-btn easing" style="width: 50%;border-right: 1px solid #ddd;float: left;"></div>
+                <div class="register-btn easing" style="width: 50%;float: left"{{action submitSelection}}>Next&nbsp;<k class="icon-long-arrow-right" style="font-size: 13px;"></k></div>
+            </div> 
+        </div>
+
+        <div id="register-with-email-step-4" style="overflow: hidden; z-index: 11; background-color: white; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; box-shadow: rgb(187, 187, 187) 0px 0px 20px; width: 430px; height: 220px; margin: 0px auto; position: fixed; top: 45%; left: 0px; right: 0px; display: none;">
+            <div  style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
+                <div  class="comment-namentime" style="display: block;position: relative;height: 35px;">
+                    <div style="position: absolute;  text-align: center;line-height: 40px;margin: 0 auto;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
+                    </div>
+                </div>
+            </div>
+            <div style="height: 140px; text-align: center; padding: 40px;">
+                Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!
+            </div>
+
+            <!--         <div class="message-btn easing" style="width: 50%;border-right: 1px solid #ddd;">skip&nbsp<k class="icon-arrow-right" ></k></div>-->
+            <div class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute;" {{action done}}>Done&nbsp;<k class="icon-long-arrow-right" style="font-size: 13px;"></k></div>
+        </div>
 
     </div>
     <div id="missing-fields" class="black-tool-tip" style="display:none;">
@@ -207,7 +257,7 @@
     <div id="incorrect-password" class="black-tool-tip" style="display:none;">
         <p>Incorrect password.</p>
     </div>
-     <div id="incorrect-varify" class="black-tool-tip" style="display:none;">
+    <div id="incorrect-varify" class="black-tool-tip" style="display:none;">
         <p>Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!.</p>
     </div>
     <div id="invalid-account-type-reset" class="black-tool-tip" style="display:none;">
@@ -328,10 +378,11 @@
 
                     $('#register-with-email-drop-down').css('display', 'none');
                     $('#register-with-email-step-2').css('display', 'none');
+                    $('#register-with-email-step-3').css('display', 'none');
                     $('#user-login-pane').css('display', 'block');
                     var loginState = true;
                 } else {
-                         loginState = false;
+                    loginState = false;
                 }
                 $("#social-login").click(function() {
 

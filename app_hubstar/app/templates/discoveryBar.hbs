@@ -3,34 +3,36 @@
 
 
 
-<div id="discovery_search_bar_wrapper" style="z-index: 11">
+<div id="discovery_search_bar_wrapper" style="z-index: 11;margin-bottom: -55px;">
 
     <div style="position: absolute; top: 130px; width: 350px;left:0; right: 0; margin: auto;">
         <img src="../../images/Welcometext.png"/>
     </div>
 
     <div class="search-bar" style="">
-        <div class="Search-box easing" style="">
-            {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
-            <div class="Nav-btn easing" style="position: absolute;right: -5px;border-radius: 0 3px 3px 0;top: 0; border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
-                <i class="icon-search"></i>
-            </div>
-        </div>
-        <div id ="navigator" class="Nav-btn easing" style="float: right;" {{action dropdownNavigator}}><i class="icon-list"></i></div>
+        <div id ="navigator" class="Nav-btn easing" style="float: left;" {{action dropdownNavigator}}><i class="icon-list"></i></div>
         {{#if controller.isNavigatorDropdown}}
         {{view HubStar.NavigatorView}}
         {{/if}}
+
+        <div class="Search-box easing" style="">
+            {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
+            <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -50px; right: -5px;border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
+                <i class="icon-search"></i>
+            </div>
+        </div>
     </div>
 
     <div class="popular-topics" style="">
         <span style="float: left;color: white;font-family: Georgia, serif;font-style: italic;margin: 5px 15px;">Most Popular Topics:</span>
-        <div {{action topicSearch "New Homes"}} >New Homes</div>
-        <div {{action topicSearch "Kitchens"}} >Kitchens</div>
-        <div {{action topicSearch "Bathrooms"}} >Bathrooms</div>
-        <div {{action topicSearch "Renovations"}} >Renovations</div>
-        <div {{action topicSearch "Outdoor Living"}} >Outdoor Living</div>
-        <div {{action topicSearch "Interior"}} >Interior</div>
+        <div id="1" {{action topicSearch "New Homes"}} >New Homes</div>
+        <div id="2"  {{action topicSearch "Kitchens"}} >Kitchens</div>
+        <div  id="3"  {{action topicSearch "Bathrooms"}} >Bathrooms</div>
+        <div id="4"  {{action topicSearch "Renovations"}} >Renovations</div>
+        <div  id="5"  {{action topicSearch "Outdoor Living"}} >Outdoor Living</div>
+        <div id="6"  {{action topicSearch "Interior"}} >Interior</div>
     </div>
 
 </div>
+
 

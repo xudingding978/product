@@ -414,11 +414,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
     },
     topicSearch: function(search_topic) {
-        this.transitionToRoute('searchIndex');
+        this.transitionToRoute('search', {id: search_topic});
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
         this.set('search_string', search_topic);
-        this.newSearch();
+//        this.newSearch();
         this.set('isNavigatorDropdown', false);
         this.set('isHeaderNavigatorDropdown', false);
         HubStar.set("showDiscoveryBar", false);

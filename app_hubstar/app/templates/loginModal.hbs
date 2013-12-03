@@ -211,7 +211,7 @@
 
 
 
-
+ if (localStorage.userType === "email") {
             $('.Login-box #login-btn').text('Sign up for a new account!');
             $('.Login-box .black-tool-tip').css('display', 'none');
             $('.Login-box #click-register-social').css('display', 'none');
@@ -230,6 +230,9 @@
             $('.Login-box #user-login-pane').css('display', 'block');
 
             var loginState = true;
+              } else {
+                         loginState = false;
+                }
             $(".Login-box #social-login").click(function() {
 
                 $('.Login-box #social-login').removeClass('social-active');
@@ -535,77 +538,77 @@
             }
 
 
-            function Facebook(popupWidth, popupHeight) {
+              function Facebook(popupWidth, popupHeight) {
 
-                var left = (screen.width / 2) - (popupWidth / 2);
-                var top = (screen.height / 2) - (popupHeight / 2);
-                var address = document.URL;
-                //   HubStar.set('currentState',address);
-                // console.log(HubStar.get('currentState'));
-                //   console.log(address);
-                var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook#_=_";
-                newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                if (window.focus) {
-                    newwindow.focus();
+                    var left = (screen.width / 2) - (popupWidth / 2);
+                    var top = (screen.height / 2) - (popupHeight / 2);
+                    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook#_=_";
+                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                    if (window.focus) {
+                        newwindow.focus();
+                    }
+                    localStorage.userType = "facebook";
                 }
-
-
-
-            }
-            function Yahoo(popupWidth, popupHeight) {
-                var left = (screen.width / 2) - (popupWidth / 2);
-                var top = (screen.height / 2) - (popupHeight / 2);
-                var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Yahoo";
-                newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                if (window.focus) {
-                    newwindow.focus();
+                function Yahoo(popupWidth, popupHeight) {
+                    var left = (screen.width / 2) - (popupWidth / 2);
+                    var top = (screen.height / 2) - (popupHeight / 2);
+                    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Yahoo";
+                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                    if (window.focus) {
+                        newwindow.focus();
+                    }
+                    localStorage.userType = "yahoo";
                 }
-            }
-            function QQ(popupWidth, popupHeight) {
-                var left = (screen.width / 2) - (popupWidth / 2);
-                var top = (screen.height / 2) - (popupHeight / 2);
-                var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=QQ";
-                newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                if (window.focus) {
-                    newwindow.focus();
+                function QQ(popupWidth, popupHeight) {
+                    var left = (screen.width / 2) - (popupWidth / 2);
+                    var top = (screen.height / 2) - (popupHeight / 2);
+                    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=QQ";
+                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                    if (window.focus) {
+                        newwindow.focus();
+                    }
+                    localStorage.userType = "qq";
                 }
-            }
-            function Twitter(popupWidth, popupHeight) {
-                var left = (screen.width / 2) - (popupWidth / 2);
-                var top = (screen.height / 2) - (popupHeight / 2);
-                var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Twitter";
-                newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                if (window.focus) {
-                    newwindow.focus();
+                function Twitter(popupWidth, popupHeight) {
+                    var left = (screen.width / 2) - (popupWidth / 2);
+                    var top = (screen.height / 2) - (popupHeight / 2);
+                    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Twitter";
+                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                    if (window.focus) {
+                        newwindow.focus();
+                    }
+                    localStorage.userType = "twitter";
                 }
-            }
-            function Sina(popupWidth, popupHeight) {
-                var left = (screen.width / 2) - (popupWidth / 2);
-                var top = (screen.height / 2) - (popupHeight / 2);
-                var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Sina";
-                newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                if (window.focus) {
-                    newwindow.focus();
+                function Sina(popupWidth, popupHeight) {
+                    var left = (screen.width / 2) - (popupWidth / 2);
+                    var top = (screen.height / 2) - (popupHeight / 2);
+                    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Sina";
+                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                    if (window.focus) {
+                        newwindow.focus();
+                    }
+                    localStorage.userType = "sina";
                 }
-            }
-            function LinkedIn(popupWidth, popupHeight) {
-                var left = (screen.width / 2) - (popupWidth / 2);
-                var top = (screen.height / 2) - (popupHeight / 2);
-                var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=LinkedIn";
-                newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                if (window.focus) {
-                    newwindow.focus();
+                function LinkedIn(popupWidth, popupHeight) {
+                    var left = (screen.width / 2) - (popupWidth / 2);
+                    var top = (screen.height / 2) - (popupHeight / 2);
+                    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=LinkedIn";
+                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                    if (window.focus) {
+                        newwindow.focus();
+                    }
+                    localStorage.userType = "linkedIn";
                 }
-            }
-            function Google(popupWidth, popupHeight) {
-                var left = (screen.width / 2) - (popupWidth / 2);
-                var top = (screen.height / 2) - (popupHeight / 2);
-                var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Google";
-                newwindow = window.open(api_url, 'name', 'height=' + popupHeight * 1.5 + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                if (window.focus) {
-                    newwindow.focus();
+                function Google(popupWidth, popupHeight) {
+                    var left = (screen.width / 2) - (popupWidth / 2);
+                    var top = (screen.height / 2) - (popupHeight / 2);
+                    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Google";
+                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight * 1.5 + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+                    if (window.focus) {
+                        newwindow.focus();
+                    }
+                    localStorage.userType = "google";
                 }
-            }
             
               function closePane() {
                   

@@ -1,6 +1,7 @@
 HubStar.ArticlePhotoRoute = Ember.Route.extend({
      setupController: function(controller, model) {
         var temp;
+       console.log("dddddddd1111111");
         var url = window.location.href;
         var urlArray = url.split("/");
         if (model.id === undefined) {                               //reload page model id can not be find
@@ -8,6 +9,7 @@ HubStar.ArticlePhotoRoute = Ember.Route.extend({
         } else {
             temp = model.id;
         }
+       // var type= url []
         this.controllerFor("masoryCollectionItems").set("type", "user");
         var megaModel = HubStar.Mega.find(temp);
         this.controllerFor('mega').getInitData(megaModel);

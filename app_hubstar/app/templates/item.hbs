@@ -274,7 +274,7 @@
                         <div class="object-tags ">
                             <span class="tags-mark" style="background-color: #a0c3ff"></span>
                             <div class="tags easing tagsappear"  style="overflow: hidden;">
-                            <div class="tags-new">#{{categories}}</div>                   
+                            <div class="tags-new">#{{categories}}{{controller}}</div>                   
                         </div>
                     </div>
 
@@ -287,7 +287,7 @@
                         {{#if controller.isUser}}
                         <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToPhoto id}} />
                              {{else}}
-                             <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} />
+                             <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} /> <!--it is the cover of the article-->
                              {{/if}}              
                     </a>          
                     <span class='edit-object easing' style="position: absolute;margin: 10px; top:0;">

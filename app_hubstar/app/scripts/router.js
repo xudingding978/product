@@ -19,7 +19,13 @@ HubStar.Router.map(function() {
             this.resource("profileVideos", {path: '/videos'});
             this.resource("profileCollections", {path: '/collections'}, function() {
                 //this.resource("photo", {path: '/photoes/:photo_id'});
-                this.resource("profileCollection", {path: ':profileCollection_id'});
+                this.resource("profileCollection", {path: ':profileCollection_id'}, function() {
+                    this.resource("profilePhoto", {path: '/photos/:photo_id'});
+                    this.resource("profileArticle", {path: '/articles/:article_id'}, function() {
+                        this.resource("profileArticlePhoto", {path: '/photos/:photo_id'});
+                    });
+                    this.resource("profileVideo", {path: '/videos/:video_id'});
+                });
             });
 
             this.resource("partners", {path: '/network'});
@@ -45,8 +51,8 @@ HubStar.Router.map(function() {
             this.resource("userCollections", {path: '/collections'}, function() {
                 this.resource("collection", {path: ':collection_id'}, function() {
                     this.resource("userPhoto", {path: '/photos/:photo_id'});
-                    this.resource("userArticle", {path: '/article/:article_id'},function() {
-                          this.resource("articlePhoto", {path: '/photos/:photo_id'});
+                    this.resource("userArticle", {path: '/article/:article_id'}, function() {
+                        this.resource("articlePhoto", {path: '/photos/:photo_id'});
                     });
                     this.resource("userVideo", {path: '/video/:video_id'});
                 });

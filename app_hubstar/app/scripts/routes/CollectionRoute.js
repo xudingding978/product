@@ -18,6 +18,7 @@ HubStar.CollectionRoute = Ember.Route.extend({
     },
     events: {
         transitionToPhoto: function(id) {
+            
             this.controllerFor('mega').set("selectPhoto", false);
             var obj = HubStar.Mega.find(id);
             this.transitionTo("userPhoto", obj);//photo          

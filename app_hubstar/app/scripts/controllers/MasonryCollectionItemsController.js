@@ -53,7 +53,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.set('collection_id', collection_id);
         this.resetContent();
         this.set('type', "profile");
-        this.set("isUser", false);
+        this.set("isUser", true);
 
         var address = document.URL;
         var owner_id = address.split("#")[1].split("/")[2];
@@ -293,10 +293,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             }
         }
     },
-    transitionToArticle: function(id) {
-
-        this.transitionTo("article", HubStar.Article.find(id));
-    },
+//    transitionToArticle: function(id) {
+//
+//        this.transitionTo("article", HubStar.Article.find(id));
+//    },
     dropdownPhotoSetting: function(id) {
 
         $('#dropdown_id_' + id).toggleClass('hideClass');
@@ -308,7 +308,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.set('content', []);
         this.set('uploadImageContent', []);
         var address = document.URL;
-        console.log(address);
+       
         var owner_id = address.split("#")[1].split("/")[2];
         var title = this.get('collection_id');
         //console.log(title);

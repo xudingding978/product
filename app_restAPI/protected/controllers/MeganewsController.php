@@ -53,7 +53,7 @@ class MeganewsController extends Controller {
         $mega = $request_arr['meganew'];
         if ($mega['type'] == "profile") {
             $this->createProfile($mega);
-        } 
+        }
     }
 
     public function actionRead() {
@@ -90,14 +90,14 @@ class MeganewsController extends Controller {
             $videoController = new VideosController();
             $videoController->videoUpdate($newRecord);
         }  
-        
+
         else {
             $this->updateMega($newRecord);
         }
     }
 
     public function actionDelete() {
-
+        
     }
 
 

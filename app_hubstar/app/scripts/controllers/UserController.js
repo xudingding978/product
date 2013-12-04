@@ -492,7 +492,7 @@ HubStar.UserController = Ember.Controller.extend({
                         thatthatthat.set('newpassword', "");
                         thatthatthat.set('repeatnew', "");
                     }, 1000);
-                    thatthat.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully.");
+                    thatthat.get('controllers.applicationFeedback').statusObserver(null, "Password updated.");
                 });
             }
             else {
@@ -514,7 +514,7 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('email', this.get('email'));
             update_user_record.set('password', this.get('password'));
             update_user_record.set('about_me', this.get('about_me'));
-            this.get('controllers.applicationFeedback').statusObserver(null, "Update successfully.");
+            this.get('controllers.applicationFeedback').statusObserver(null, "General Settings updated.");
             HubStar.store.save();
         }
         else {
@@ -583,7 +583,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.saveLink('pinterest_link', 'pinterest');
             this.saveLink('linkedin_link', 'linkedin');
             this.saveLink('youtube_link', 'youtube');
-            this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully.");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Social Links updated.");
             HubStar.store.save();
         }
         else {
@@ -1023,7 +1023,7 @@ HubStar.UserController = Ember.Controller.extend({
                 HubStar.store.save();
                 that.userPhotoEditBackButton();
                 that.userDashboardBackButton();
-                that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Cover image updated.");
 
                 that.set('loadingTime', false);
             });

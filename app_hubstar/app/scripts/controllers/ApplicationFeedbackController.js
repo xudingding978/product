@@ -13,10 +13,10 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
             Ember.run.later(function() {
 
                 $('.fresh-message').show().animate({
-                    top: 100
+                    top: 160
                 }, 400);
                 $('.fresh-profile-pic').show().animate({
-                    top: 85
+                    top: 145
                 }, 400);
                 $('.fresh-message').show().delay(3000).animate({
                     top: -5

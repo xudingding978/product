@@ -1,19 +1,16 @@
 
 
-<div class="profilegb" style="background: #fff url('../images/texture.png') repeat;width: 100%;height: auto; ">
-
-    <div class="profile-wallpaper" style="width: 100%; height: 500px; overflow: hidden; position: fixed;">
-        <img  {{bindAttr src= model.profile_bg_url}} style="width: 100%; height:auto;">
-    </div>
-    <div style="width: 100%; height:170px; position: relative; display: block; opacity: 0;">
-    </div>
+<div class="profile-wallpaper" style="width: 100%; height: 500px; overflow: hidden; position: fixed; top: 70px;">
+    <img  {{bindAttr src= model.profile_bg_url}} style="width: 100%; height:auto;">
+</div>
+<div style="width: 100%; height:250px; position: relative; display: block; opacity: 0;">
+</div>
     <div style="position: absolute;">
         {{#if controller.contactChecking}}
         {{render contact}}
         {{/if}}
     </div>
 
-</div>
 
 <div class="hover panel" style='z-index: 0; float: none;position: relative; width: 87%; height: auto; margin:  auto; background: #fff; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;max-width: 1260px;min-width: 1250px;overflow: hidden;'>
 

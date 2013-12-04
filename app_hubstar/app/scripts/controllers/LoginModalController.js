@@ -170,8 +170,8 @@ this.set('loginUsername', localStorage.userName);
         this.set('loginTime', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age'), this.get('selected_topics')];
         var that = this;
-         $('#finishRegister').css('display', 'none');
-          $('#skipRegister').css('display', 'block');   
+   //      $('#finishRegister').css('display', 'none');
+   //       $('#skipRegister').css('display', 'block');   
         requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
             localStorage.loginStatus = params.COUCHBASE_ID;
             var emailInfo = [params.USER_NAME, params.PWD_HASH];
@@ -192,10 +192,10 @@ this.set('loginUsername', localStorage.userName);
         });
         
     },
-     skip: function(){
-      //  HubStar.set("isLogin", true);
-       this.transitionToRoute("searchIndex");//need to change to current state page
-    },
+//     skip: function(){
+//      //  HubStar.set("isLogin", true);
+//       this.transitionToRoute("searchIndex");//need to change to current state page
+//    },
     
     checkSignupInfo: function() {
         function checkObject(id, input, lengthMin, lengthMax, isEmailValid)

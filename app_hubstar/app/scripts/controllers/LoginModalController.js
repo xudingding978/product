@@ -82,7 +82,7 @@ this.set('loginUsername', localStorage.userName);
                             that.set('loginTime', false);
                             $('.black-tool-tip').css('display', 'none');
                             $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
-                              alert("Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!");
+                              alert("Registration successful! To activate your myTrends account, please click the activation link in the email we just sent you.");
                         }
                     }
                     else {

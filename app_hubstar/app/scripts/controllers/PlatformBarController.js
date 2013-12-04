@@ -32,6 +32,6 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     },
     changeLocation: function(location) {
         HubStar.set('geoLocation', location);
-        this.get('controllers.applicationFeedback').statusObserver(null, "You geographic location has been changed into " + location);
+        this.get('controllers.applicationFeedback').statusObserver(null, "You are now searching within " + location + " only.");
     }
 });

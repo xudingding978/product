@@ -318,7 +318,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 that.set('gender', "");
                 that.set('age', "");
                 that.set('loginTime', false);
-
             }, 2000);
         });
 

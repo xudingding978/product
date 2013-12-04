@@ -58,9 +58,9 @@ HubStar.Profile = DS.Model.extend({
     reviews: DS.hasMany('HubStar.Review'),
     keywords: DS.hasMany('HubStar.Keyword'),
     show_keyword_id: DS.attr('string'),
-    about_us: DS.hasMany('HubStar.AboutUs')
-//    getTenKeywords: function() {
-//        var tenKeywords =  this.get('keywords').slice(0,10);
+    about_us: DS.hasMany('HubStar.AboutUs'),
+//    getCountry: function() {
+//        var country =  this.get('keywords').slice(0,10);
 //        return tenKeywords;
 //    }.property('keywords')
 });

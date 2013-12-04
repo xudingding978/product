@@ -398,7 +398,7 @@ class PhotosController extends Controller {
         $mega['created'] = $this->getCurrentUTC();
         $mega['updated'] = $this->getCurrentUTC();
         $newMega = $this->doPhotoResizing($mega);
-        $cb = $this->couchBaseConnection();
+         $cb = $this->couchBaseConnection();
         if ($cb->add($docID, CJSON::encode($newMega))) {
             $this->sendResponse(204);
         } else {

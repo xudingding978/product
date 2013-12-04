@@ -62,9 +62,9 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             tempmega.addObserver('isLoaded', function() {
                 if (tempmega.get('isLoaded')) {
                     that.set("profileMega", tempmega);
+                        }
+                    });
                 }
-            });
-        }
     },
     setFileSize: function(size)
     {

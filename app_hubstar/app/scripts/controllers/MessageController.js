@@ -180,7 +180,7 @@ HubStar.MessageController = Ember.Controller.extend({
 //    },
     removeReplyItem: function(s)
     {
-        var message = "Are you sure you want to delete this notification?";
+        var message = "Delete this reply?";
         this.set("message", message);
 
         this.set('makeSureDelete', true); 

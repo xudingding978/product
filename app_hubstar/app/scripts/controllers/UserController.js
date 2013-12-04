@@ -496,7 +496,7 @@ HubStar.UserController = Ember.Controller.extend({
                 });
             }
             else {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Please check your input", "warnning");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Please check you have entered the correct information.", "warnning");
             }
         });
     },
@@ -587,7 +587,7 @@ HubStar.UserController = Ember.Controller.extend({
             HubStar.store.save();
         }
         else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have filled right links.", "warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have entered the correct URL.", "warnning");
         }
     },
     isSociallinkInputValid: function() {
@@ -1039,7 +1039,7 @@ HubStar.UserController = Ember.Controller.extend({
         var that = this;
         requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
 
-            var requiredSize = "Best Results Require A Minimum Image Size of " + params.width + "px" + " x " + params.height + "px";
+            var requiredSize = "For best results, the image should be at least " + params.width + " x " + params.height + " pixels";
             that.set('RequiredImageSize', requiredSize);
         });
     },

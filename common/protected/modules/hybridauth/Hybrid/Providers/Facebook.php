@@ -160,7 +160,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
             'message' => 'I\'m creating new ideas over on myTrends. Here\'s your invitation to come and join me. Thanks ' . $name . '.',
             'picture' => 'http://s3.hubsrv.com/trendsideas.com/profiles/commercial-design-trends/profile_pic.jpg',
             'link' => 'http://my.trendsideas.com',
-            'description' => 'Hi Facebook friends… I’ve just signed up to myTrends, New Zealand’s only social platform dedicated to architecture and design. Now it’s easy to find, save and share inspirational ideas for building and renovation projects. Join now for free…',
+            'description' => 'Hi Facebook friends… I’ve just signed up to myTrends, New Zealand’s only social platform dedicated to architecture and design. Now I can easily find, save and share inspirational ideas for building and renovation projects. Join now for free…',
             'caption' => 'myTrends'
         );
         try {
@@ -175,7 +175,7 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
             'message' => 'I am now a member of myTrends',
             'picture' => 'http://s3.hubsrv.com/trendsideas.com/profiles/commercial-design-trends/profile_pic.jpg',
             'link' => 'http://my.trendsideas.com',
-            'description' => 'Hi Facebook friends… I’ve just signed up to myTrends, New Zealand’s only social platform dedicated to architecture and design. Now it’s easy to find, save and share inspirational ideas for building and renovation projects. Join now for free…',
+            'description' => 'Hi Facebook friends… I’ve just signed up to myTrends, New Zealand’s only social platform dedicated to architecture and design. Now I can easily find, save and share inspirational ideas for building and renovation projects. Join now for free…',
             'caption' => 'myTrends'
         );
         try {

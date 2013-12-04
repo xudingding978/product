@@ -96,11 +96,11 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
 
     },
     sendFeedBack: function() {
-        var message = "Added to the " + this.get('selectedTitle') + " collection successfully.";
+        var message = "Saved to your " + this.get('selectedTitle') + " collection.";
         if (this.get('parentController') === 'video') {
-            message = "Saved video successfully.";
+            //message = "Saved video successfully.";
         } else if (this.get('parentController') === 'photo') {
-            message = "Saved photo successfully.";
+            //message = "Saved photo successfully.";
         }
         this.get('controllers.applicationFeedback').statusObserver(null, message);
     },

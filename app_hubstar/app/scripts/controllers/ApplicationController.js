@@ -269,7 +269,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 that.set('gender', "");
                 that.set('age', "");
                 that.set('loginTime', false);
-                alert("Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!");
+                alert("Registration successful! To activate your myTrends account, please click the activation link in the email we just sent you.");
             }, 2000);
         });
     },

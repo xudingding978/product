@@ -644,7 +644,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     deleteSelectedCollection: function()
     {
 
-        var message = "'Do you wish to remove your '" + this.get("selectedCollection").get('title') + "' collection from your '" + this.get("selectedCollection").get('title') + "' profile?";
+        var message = "'Delete this collection?";
 
         this.set("message", message);
         this.set('makeSureDelete', true);
@@ -905,7 +905,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
         update_About_record.set("profile_about_us", editor.getValue());
-        this.get('controllers.applicationFeedback').statusObserver(null, "Update successful");
+        this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
         HubStar.store.save();
     },
@@ -961,7 +961,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
         }
-        this.get('controllers.applicationFeedback').statusObserver(null, "Update successful");
+        this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
 
         HubStar.store.save();
     },
@@ -1166,7 +1166,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             that.set('isFinished', true);
                             that.set("isCrop", false);
                             HubStar.store.save();
-                            that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
+                            that.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
                             that.set('loadingTime', false);
                         });
 
@@ -1339,7 +1339,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             if (response && response.post_id) {
                 that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
             } else {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessfully.", "failed");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessful.", "failed");
             }
         }
 

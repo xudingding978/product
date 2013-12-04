@@ -478,7 +478,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     removeComment: function(object)
     {
-        var message = "Do you want to delete this comment?";
+        var message = "Delete this comment?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {
@@ -626,7 +626,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             if (response && response.post_id) {
                 that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
             } else {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessfully.", "failed");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessful.", "failed");
             }
         }
 

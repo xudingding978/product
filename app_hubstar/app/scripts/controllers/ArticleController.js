@@ -13,7 +13,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     collectionArticleId: null,
     accessFromSearchBoard: false,
     isCreditListExist: false,
-    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment'],
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment','itemFunction'],
     init: function() {
 
     },
@@ -424,5 +424,9 @@ HubStar.ArticleController = Ember.Controller.extend({
                 'height=436,width=626'
                 ).focus();
         return false;
+    },
+    addLike: function() {
+        var controller = this.get('controllers.itemFunction');
+        controller.addLike(this.get('megaResouce').get('id'));
     }
 });

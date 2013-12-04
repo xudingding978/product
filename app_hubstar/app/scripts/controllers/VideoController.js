@@ -5,7 +5,7 @@ HubStar.VideoController = Ember.Controller.extend({
     currentUser: null,
     enableToEdit: false,
 
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission','editComment','checkingLoginStatus'],
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission','editComment','checkingLoginStatus','itemFunction'],
 
 
     getinitdata: function(videoObject)
@@ -237,6 +237,10 @@ HubStar.VideoController = Ember.Controller.extend({
             this.get('megaResouce').rollback();
         }
         this.set('enableToEdit', !this.get('enableToEdit'));
+    },
+    addLike: function() {
+        var controller = this.get('controllers.itemFunction');
+        controller.addLike(this.get('megaResouce').get('id'));
     }
 }
 

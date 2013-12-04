@@ -21,9 +21,10 @@ HubStar.Router.map(function() {
                 //this.resource("photo", {path: '/photoes/:photo_id'});
                 this.resource("profileCollection", {path: ':profileCollection_id'}, function() {
                     this.resource("profilePhoto", {path: '/photos/:photo_id'});
-                    this.resource("profileArticle", {path: '/articles/:article_id'}, function() {
+                    this.resource("profileArticle", {path: '/article/:article_id'}, function() {
                         this.resource("profileArticlePhoto", {path: '/photos/:photo_id'});
                     });
+                    
                     this.resource("profileVideo", {path: '/videos/:video_id'});
                 });
             });

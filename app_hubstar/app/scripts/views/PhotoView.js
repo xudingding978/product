@@ -58,7 +58,7 @@ HubStar.PhotoView = Ember.View.extend({
             var user_photo_id = address.split("#")[1].split("/")[8];
             if (type === "users")
             {
-
+ alert("users");
                 var user = HubStar.User.find(id);
 
                 if (user_photo_id !== undefined || colectionType === "articles" || colectionType === "photos") //type:article means it 
@@ -78,7 +78,7 @@ HubStar.PhotoView = Ember.View.extend({
                     window.history.back();
                 }
             }
-            else if (type === "photos")
+            else if (type !== "photos")
             {
                 alert("photos");
                 this.get("controller").closeWindow();

@@ -49,15 +49,16 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         });
         this.checkEditingMode();
     },
-    selectModelForProfile: function(collection_id, title) {
+    selectModelForProfile: function(collection_id, title,profileId) {
         this.set('collection_id', collection_id);
+        var address = document.URL;
+        
+        var owner_id = profileId;
+        this.set("profileId", profileId);    
         this.resetContent();
         this.set('type', "profile");
-        this.set("isUser", true);
-
-        var address = document.URL;
-        var owner_id = address.split("#")[1].split("/")[2];
-        this.set("profileId", owner_id);      
+        this.set("isUser", true); //if click from search board, isUser is false
+          
         if (title === undefined)
         {
             var arrayUrl;
@@ -304,14 +305,14 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     },
     resetContent: function()
     {
-
+        
         this.set('content', []);
         this.set('uploadImageContent', []);
         var address = document.URL;
-       
-        var owner_id = address.split("#")[1].split("/")[2];
+
+        var owner_id = this.get("profileId");
         var title = this.get('collection_id');
-        //console.log(title);
+       
         var results = HubStar.Mega.find({RquireType: "collection", "collection_id": title, "owner_profile_id": owner_id});
         var that = this;
         results.addObserver('isLoaded', function() {

@@ -133,7 +133,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
         else
         {
-            this.transitionTo("article", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo
+            //this.transitionTo("article", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo
             //                                                               // as it use the fix id to refresh the route so it will have problem when fresh (change the id)
         }
         this.selectedImage(e);
@@ -256,7 +256,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                     if (that.get("accessFromSearchBoard") === false)
                     {
                         console.log("33333333333333333444444444");
-                        console.log(that.get("controllers.masonryCollectionItems").get("type"));
+
                         if (that.get("controllers.masonryCollectionItems").get("type") === "profile")
                         {
                             that.transitionTo("profileArticlePhoto", that.get('content').objectAt(0));
@@ -291,25 +291,46 @@ HubStar.ArticleController = Ember.Controller.extend({
     closeWindow: function() {
         this.set('collectable', false);
         this.set('contact', false);
+        alert("close windown");
         var address = document.URL;
         var collection_id = address.split("#")[1].split("/")[4];
         var user_id = address.split("#")[1].split("/")[2];
-        var user = HubStar.User.find(user_id);
-        for (var i = 0; i < user.get('collections').get("length"); i++) {
-            var data = user.get('collections').objectAt(i);
-            if (data.id === collection_id) {
-                break;
-            }
-        }
+        var type = address.split("#")[1].split("/")[1];
+        
+    
         if (collection_id === undefined) //search from the seach board
         {
-            this.transitionTo("indexIndex"); // go to search page
+            // this.transitionTo("indexIndex"); // go to search page, this can  work, but it is too slowlly.
+            window.history.back();
         }
         else
         {
-            this.transitionTo("collection", data); //user or profile
+            if (type === "users")
+            {
+                var user = HubStar.User.find(user_id);
+
+                for (var i = 0; i < user.get('collections').get("length"); i++) {
+                    var data = user.get('collections').objectAt(i);
+                    if (data.id === collection_id) {
+                        break;
+                    }
+                }
+                this.transitionTo("userPhoto", data); //user photo
+            }
+            else if (type === "profiles")
+            {
+                var user = HubStar.Profile.find(user_id);
+
+                for (var i = 0; i < user.get('collections').get("length"); i++) {
+                    var data = user.get('collections').objectAt(i);
+                    if (data.id === collection_id) {
+                        break;
+                    }
+                }
+                this.transitionTo("profilePhoto", data); // profile photo
+            }
         }
-        // window.history.back();
+
     },
     switchCollection: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())

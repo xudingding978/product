@@ -284,16 +284,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
     },
     submitSelection: function() {
-       
-        console.log("dd");
-        // this.transitionToRoute('searchIndex');
+
         $('#register-with-email-step-4').css('display', 'block');
         $('#register-with-email-step-3').css('display', 'none');
         $('#user-login-pane').css('display', 'none');
     },
     next: function() {
-//        $('#fadein-image').css('display', 'none');
-//         $('#profiles-main-container').css('display', 'none');
+
         $('#register-with-email-step-3').css('display', 'block');
         
         
@@ -316,7 +313,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 that.set('region', "");
                 that.set('gender', "");
                 that.set('age', "");
-                that.set('loginTime', true);
+                that.set('loginTime', false);
 
             }, 2000);
         });

@@ -853,7 +853,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.sendEventTracking('event', 'button', 'click', 'Partners');
             $('#user-stats > li').removeClass('selected-user-stats');
             $('#network').addClass('selected-user-stats');
-            HubStar.set("lastPositionId", model.id);
+//            HubStar.set("lastPositionId", model.id);
             this.set('profileSelectionStatus', 'Network');
             this.set('partnerTag', true);
             this.set('collectionTag', false);
@@ -862,11 +862,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.get('controllers.itemProfiles').setPartnerRemove();
             this.set('videoTag', false);
             this.transitionToRoute('partners');
-
-            setTimeout(function() {
-                $('#masonry_user_container').masonry("reload");
-            }, 200);
-
 
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reload");

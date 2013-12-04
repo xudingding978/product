@@ -138,6 +138,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
     },
     addComment: function() {
+if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var commentContent = this.get('commentContent');
         if (commentContent) {
             var comments = this.get('article').get('comments');
@@ -155,6 +157,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             this.set('commentContent', '');
             $('#addcommetBut').attr('style', 'display:block');
             $('#commentBox').attr('style', 'display:none');
+        }
         }
     },
    removeComment: function(object)

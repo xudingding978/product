@@ -1,17 +1,21 @@
-HubStar.CommentController = Ember.Controller.extend({
-    commentLength: null,
-    thisComments: null,
-    stringFiedTime_stamp: null,
-    mega: null,
-    count: null,
-    isUserSelf: false,
-    makeSureDelete: false,
-    willDelete: false,
-    objID: "",
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus'],
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+HubStar.ItemFunctionController = Ember.Controller.extend({
+    currentUser: null,
+    needs: ['checkingLoginStatus','addCollection','applicationFeedback'],
     init: function()
     {
-        if (localStorage.loginStatus) {
+       if (localStorage.loginStatus) {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         }
     },
@@ -26,7 +30,7 @@ HubStar.CommentController = Ember.Controller.extend({
                 var tempUrl = photoObj.get('photo_image_thumbnail_url');
                 addCollectionController.setThumbnailUrl(tempUrl);
                 addCollectionController.setUser();
-                addCollectionController.setRelatedController('comment');
+                addCollectionController.setRelatedController('itemFunction');
                 $('#addCollection_' + model.id).attr('style', 'display: block');
             }
             else if (model.get("type") === "article")
@@ -38,7 +42,7 @@ HubStar.CommentController = Ember.Controller.extend({
                 var tempUrl = photoObj.get('article_image_url');
                 addCollectionController.setThumbnailUrl(tempUrl);
                 addCollectionController.setUser();
-                addCollectionController.setRelatedController('comment');
+                addCollectionController.setRelatedController('itemFunction');
                 $('#addCollection_' + model.id).attr('style', 'display: block');
             }
 
@@ -50,202 +54,11 @@ HubStar.CommentController = Ember.Controller.extend({
                 var tempUrl = model.get('object_image_url');
                 addCollectionController.setThumbnailUrl(tempUrl);
                 addCollectionController.setUser();
-                addCollectionController.setRelatedController('comment');
+                addCollectionController.setRelatedController('itemFunction');
                 $('#addCollection_' + model.id).attr('style', 'display: block');
             }
         }
     },
-    openComment: function(id) {
-       
-        if (localStorage.loginStatus) {
-            this.getCommentsById(id);
-            this.addComment();
-        } else {
-            HubStar.set('checkLoginStatus', true);
-        }
-    },
-    addComment: function() {             
-        var commentContent = this.get('commentContent');
-        if (commentContent) {
-            
-            var comments = this.get('mega').get('comments');
-           
-//            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
-            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
-            var commenter_id = this.get("currentUser").get('id');
-            var name = this.get("currentUser").get('display_name');
-            var date = new Date();
-            var message_id = createMessageid() + commenter_id;
-            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url, "message_id": message_id,
-                "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), "is_delete": false, optional: this.get('mega').get('type') + '/' + this.get('mega').get('id')});
-            comments.insertAt(0, tempComment);
-            comments.store.save();
-            this.set('commentContent', "");
-            this.seeMore(this.get('mega').get('id'));
-            this.closeComment(this.get('mega').get('id'));
-            $('#addcommetBut').attr('style', 'display:block');
-            $('#commentBox').attr('style', 'display:none');
-            setTimeout(function() {
-                $('#masonry_container').masonry("reload");
-                $('#masonry_user_container').masonry("reload");
-                $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
-            }, 200);
-        }
-    },
-    closeComment: function(id) {
-
-        this.set("commentContent", "");
-
-        $('#comment_' + id).attr('style', 'display:block');
-        $('#commentBox_' + id).attr('style', 'display:none');
-        $('#masonry_container').masonry("reload");
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-        }, 200);
-    },
-    editingCommentData: function(obj)
-    {
-        this.get("controllers.editComment").setRelatedController("comment");
-        var id = obj.get("message_id");
-        var msg = obj.get("content");
-        $('#commentItem_' + id).attr('style', 'display:none');
-
-        obj.set("isEdit", true);
-
-        this.seeMore(this.get('content').id);
-
-        HubStar.set("updateCommentmsg", msg);
-
-        setTimeout(function() {
-            $('#commentEdit_' + id).attr('style', 'display:block');
-            $('#commentItemIn_' + id).attr('style', 'display:none');
-            $('#masonry_container').masonry("reload");
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
-    },
-    linkingUser: function(id) {
-
-        self.location = "#/users/" + id;
-
-    },
-    getCommentsById: function(id)
-    {
-        var mega = HubStar.Mega.find(id);     
-        var comments = mega.get('comments');
-        this.set('mega', mega);
-//        for (var i = 0; i < comments.get("length"); i++)
-//        {
-//            if (comments.objectAt(i).get("commenter_id") === localStorage.loginStatus)
-//            {
-//                comments.objectAt(i).set("isUserSelf", true);
-//            }
-//        }
-        this.set('thisComments', comments);
-    },
-    closeCommentItem: function(obj) {
-        obj.set("isEdit", false);
-        var id = obj.get("message_id");
-        setTimeout(function() {
-            $('#commentEdit_' + id).attr('style', 'display:none');
-            $('#commentItem_' + id).attr('style', 'display:block');
-            $('#commentItemIn_' + id).attr('style', 'display:block');
-            $('#masonry_container').masonry("reload");
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
-    },
-    removeComment: function(object)
-    {
-        var message = "Do you want to delete this comment?";
-        this.set("message", message);
-        this.set('makeSureDelete', true);
-        if (this.get('willDelete')) {
-            this.removeCommentItem(object);
-            this.cancelDelete();
-        } else {
-            this.set("obj", object);
-            this.set('willDelete', true);
-        }       
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
-    },
-    cancelDelete: function() {
-        this.set('willDelete', false);
-        this.set('makeSureDelete', false);
-    },
-    removeCommentItem: function(object)
-    {
-
-        var id = this.get('content').id;
-        var type = this.get('content').get('type');
-        this.getCommentsById(id);
-        if (type === 'photo') {
-            var commentId = object.get("commenter_id");
-            var time_stamp = object.get("time_stamp");
-            var message_id = object.get("message_id");
-            var delInfo = [id, message_id];
-            delInfo = JSON.stringify(delInfo);
-            var that = this;
-            that.get("thisComments").removeObject(object);
-            requiredBackEnd('comments', 'DeletePhotoComment', delInfo, 'POST', function(params) {
-
-
-                $('#masonry_user_container').masonry("reloadItems");
-                $('#masonry_container').masonry("reloadItems");
-
-            });
-        }
-        else if (type === "profile")
-        {
-            var commentId = object.get("commenter_id");
-            var time_stamp = object.get("time_stamp");
-            var message_id = object.get("message_id");
-            var delInfo = [id, message_id];
-            delInfo = JSON.stringify(delInfo);
-            var that = this;
-            that.get("thisComments").removeObject(object);
-            requiredBackEnd('comments', 'DeleteProfileComment', delInfo, 'POST', function(params) {
-
-
-                $('#masonry_user_container').masonry("reloadItems");
-                $('#masonry_container').masonry("reloadItems");
-
-            });
-        }
-        else if (type === "article")
-        {
-            var commentId = object.get("commenter_id");
-            var time_stamp = object.get("time_stamp");
-            var message_id = object.get("message_id");
-            var delInfo = [id, message_id];
-            delInfo = JSON.stringify(delInfo);
-            var that = this;
-            that.get("thisComments").removeObject(object);
-            requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function(params) {
-
-
-                $('#masonry_user_container').masonry("reloadItems");
-                $('#masonry_container').masonry("reloadItems");
-
-            });
-        }
-        else if (type === "video")
-        {
-            var commentId = object.get("commenter_id");
-            var time_stamp = object.get("time_stamp");
-            var message_id = object.get("message_id");
-            var delInfo = [id, message_id];
-            delInfo = JSON.stringify(delInfo);
-            var that = this;
-            requiredBackEnd('comments', 'DeleteVideoComment', delInfo, 'POST', function(params) {
-                that.get("thisComments").removeObject(object);
-                $('#masonry_user_container').masonry("reloadItems");
-                $('#masonry_container').masonry("reloadItems");
-            });
-        }
-
-    },
-
     addLike: function(id)
     {
         if (this.get("controllers.checkingLoginStatus").popupLogin()) {
@@ -262,11 +75,11 @@ HubStar.CommentController = Ember.Controller.extend({
                     this.count = mega.get('likes_count');
 
                 }
-                else {
+                else {                  
                     var likeArray = [localStorage.loginStatus, id, type];
                     likeArray = JSON.stringify(likeArray);
                     var that = this;
-                    requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
+                    requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {                       
                         params = params + "";
                         var like = params.split(",");
                         mega.set("likes_count", like.length);
@@ -276,39 +89,6 @@ HubStar.CommentController = Ember.Controller.extend({
                 }
             }
         }
-    },
-    pushComment: function(comment)
-    {
-        var tempurl = getRestAPIURL();
-        $.ajax({
-            url: tempurl + '/megas/addcomment',
-            type: 'POST',
-            data: JSON.stringify(comment),
-            success: function() {
-            }
-        });
-    },
-    seeMore: function(id) {
-        $('#closeComment_' + id).attr('style', 'display:block');
-        $('#showMoreComment_' + id).attr('style', 'display:none');
-        $('#commentData_' + id).attr('style', 'display:block');
-
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('#masonry_photo_collection_container').masonry("reload");
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
-    },
-    closeMore: function(id) {
-        $('#closeComment_' + id).attr('style', 'display:none');
-        $('#showMoreComment_' + id).attr('style', 'display:block');
-        $('#commentData_' + id).attr('style', 'display:none');
-
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-            $('#masonry_photo_collection_container').masonry("reload");
-            $('#masonry_user_container').masonry("reload");
-        }, 250);
     },
     shareDisplay: function(id) {
         $('#share_' + id).children('ul').removeClass("hideClass");
@@ -321,7 +101,7 @@ HubStar.CommentController = Ember.Controller.extend({
         if (model.get("type") === "photo") {
             this.set("selectedPhoto", model.get("photo").objectAt(0));
             var that = this;
-            var currntUrl =  'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
+            var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
             var caption = '';
 
             if (this.get('selectedPhoto').get('photo_caption') !== null)
@@ -392,6 +172,7 @@ HubStar.CommentController = Ember.Controller.extend({
             var that = this;
             var currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('selectedArticle').get('id');
             var caption = '';
+
             if (this.get('selectedArticle').get('article_body') !== null)
             {
                 caption = this.get('selectedArticle').get('article_body');
@@ -438,7 +219,10 @@ HubStar.CommentController = Ember.Controller.extend({
                 caption = '';
             }
 
-
+//        var meta = document.getElementsByTagName('meta');
+//        for (var i = 0; i < meta.length; i++) {
+//            console.log(meta[i]);
+//        }
             $("meta[property='og\\:title']").attr("content", this.get('selectedPhoto').get('photo_title'));
             $("meta[property='og\\:description']").attr("content", caption);
             $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_thumbnail_url'));
@@ -467,7 +251,10 @@ HubStar.CommentController = Ember.Controller.extend({
                 caption = '';
             }
 
-
+//        var meta = document.getElementsByTagName('meta');
+//        for (var i = 0; i < meta.length; i++) {
+//            console.log(meta[i]);
+//        }
             $("meta[property='og\\:title']").attr("content", this.get('selectedArticle').get('article_headline'));
             $("meta[property='og\\:description']").attr("content", caption);
             $("meta[property='og\\:image']").attr("content", this.get('selectedArticle').get('article_image_url'));
@@ -496,7 +283,10 @@ HubStar.CommentController = Ember.Controller.extend({
                 caption = '';
             }
 
-
+//        var meta = document.getElementsByTagName('meta');
+//        for (var i = 0; i < meta.length; i++) {
+//            console.log(meta[i]);
+//        }
             $("meta[property='og\\:title']").attr("content", this.get('selectedVideo').data.video_title);
             $("meta[property='og\\:description']").attr("content", caption);
             $("meta[property='og\\:image']").attr("content", this.get('selectedVideo').data.video_img);
@@ -594,4 +384,5 @@ HubStar.CommentController = Ember.Controller.extend({
             return false;
         }
     }
-});
+}
+);

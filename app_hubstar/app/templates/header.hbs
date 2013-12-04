@@ -1,56 +1,80 @@
 <div class="navbar">
-    <div style="position: absolute;right: 0;z-index: 1;">
-        <img style="" src="../../../images/beta-version.png"/>
 
-        <span style="position: absolute; top: 21px; left: 33px; font-size: 12px;font-weight: bold;color: #f3f3f3;" id="lastidentifie">0.3-121</span>
-    </div>
-    <div style="margin: 0 auto; width: 87%; height: 45px;">
-        <div class="brand" {{action backToDefault}}>
-            <a href="/#">
-                <img style="position: relative; top: 0; margin:0;height: 25px;" src="../../../images/landing-trends.png">
-            </a>
+
+    <div class="navbar-inner">
+        <div class="brand" >
+            <a href="/#" > <img class="logonew" {{action showDiscoveryBar}} style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png"></a>
+
+            <div style="position: relative;display: inline-block;top: 12px;font-weight: normal;font-style: italic;color: white;font-size: 11px;">
+                <span>Beta</span> <span id="lastidentifie">0.3-123</span>
+            </div>
         </div>
 
-        <!-- show if not logged into platform-->
+
+        <div id="top-about-menu" class="top-about-menu" style="display:block">
+            <span><a style="color: #fff" class="hover-opacity" target="blank" href="http://about.trendsideas.com/">About</a></span>
+            <span><a target="blank" href="http://about.trendsideas.com/business/">Business</a></span>
+            <span><a target="blank" href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span>
+            <span><a target="blank" href="http://about.trendsideas.com/contact-us/">Contact us</a></span>
+
+        </div>
+
+
+        <div id="search-bar" class="search-bar-ontop" style="display:none">
+            <div id ="navigator" class="Nav-btn easing" style="float: left;" {{action dropdownHeaderNavigator}}><i class="icon-list"></i></div>
+            {{#if controller.isHeaderNavigatorDropdown}}
+            {{view HubStar.NavigatorView}}
+            {{/if}}
+            <div class="Search-box easing" style="">
+                {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
+                <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -75px; right: -5px;border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
+                    <i class="icon-search"></i>
+                </div>
+            </div>
+        </div>
+
+
+
+
         {{#if HubStar.isLogin}}
 
         <div id="login_detail" style="position: relative;float: right;cursor: pointer;text-align: right;">
             {{view HubStar.AfterLoginView}}
         </div>
-
-          <div class="Geo-Filter easing"  style="margin-right: 20px;" {{action dropdownPhotoSetting}}>
+        <div class="Geo-Filter easing"  style="margin-right: 50px;font-size: 15px;" {{action dropdownPhotoSetting }}>
              <i class="icon-bell-alt icon-large"></i>
-            <div style="cursor: pointer;position: absolute;top: 7px;right: 2px;width: auto;padding: 0 5px 0 4px;height: 15px;background-color: red;line-height: 15px;border-radius: 2px;font-size: 11px;font-weight: bold;">{{unReadCount}}</div>
+            <div style="cursor: pointer;position: absolute;top: 20px;left: 15px;width: auto;padding: 0 5px 0 4px;height: 15px;background-color: red;line-height: 15px;border-radius: 2px;font-size: 11px;font-weight: bold;">{{unReadCount}}</div>
         </div>
+
+
+
         {{else}}
 
 
-        <div id="login_icon" style="display:block;position: relative;float: right;">
+        <div id="login_icon" class="Geo-Filter" style="position: absolute; right: 80px;">
 
             {{view HubStar.BeforeLoginView}}
 
-           
 
         </div>
 
         {{/if}}
+
 
 
         <!-- user is logged in -->
 
-      
+
+
         {{#if isNotification}}
         {{render notificationTop}}
         {{/if}}
 
-        <div class="Geo-Filter easing" style="">
-            <i class="icon-search icon-large"></i>
-        </div>
-
-        <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdown controller.projectCategoryDropdownType}}>
-             <i class="icon-globe icon-large">&nbsp;</i>
+        <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdown "geoLocation"}}>
+             <i class="icon-angle-down icon-large">&nbsp;</i>
             <span style="font-weight: bold;font-size: 15px;">{{HubStar.geoLocation}}</span>
         </div>
+
         {{#if controller.isGeoDropdown}}
         {{view HubStar.DropdownListView}}
         {{/if}}

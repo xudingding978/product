@@ -21,8 +21,10 @@ HubStar.SearchsRoute = Ember.Route.extend({
 //        for (var key in item) {
 //            console.log(item[key]);
 //        }
+  $(window).scrollTop(0);
         localStorage.checkUser = "";
-
+$(".navbar").css("box-shadow", "");
+$(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
     },
     events: {
         transitionToPhoto: function(id) {
@@ -44,7 +46,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
 //            this.transitionTo('indexIndex');
 
         } else {
-            this.transitionTo('searchIndex');
+           // this.transitionTo('searchIndex');
         }
 
     },

@@ -39,10 +39,10 @@ body > div.ember-view{
 #masonry_photo_collection_container[style='position: relative; height: 0px; width: 185px;'],
 #masonry_photo_collection_container[style='position:relative;height:0px;width: 185px;'],
 
-#masonry_container[style="position: relative; height: 177px; width: 370px;"],
-#masonry_container[style="position:relative;height:177px;width:370px;"],
-#masonry_container[style='position: relative; height: 177px; width: 370px;'],
-#masonry_container[style='position:relative;height:177px;width:370px;']{
+#masonry_container[style="position: relative; height: 157px; width: 370px;"],
+#masonry_container[style="position:relative;height:157px;width:370px;"],
+#masonry_container[style='position: relative; height: 157px; width: 370px;'],
+#masonry_container[style='position:relative;height:157px;width:370px;']{
     width:0!important;
     overflow:hidden;
     margin-left:4000px;
@@ -488,8 +488,9 @@ div.search-loading-invisible{
 .addCollection-container{
     overflow: visible;
     position: fixed;
-    left: 20%;
-    top: 10%;
+    text-align: center;
+    left: 36%;
+    top: 30%;
     z-index: 100;
     background-color: white;
     -webkit-border-radius: 3px;
@@ -541,8 +542,8 @@ div.search-loading-invisible{
 .Dropdownstyle2{
     width: 150px;  
     padding: 0;
-    left: 130px;
-    top: 50px;
+    left: 115px;
+    top: 65px;
     position: relative;
     float: right;
 }
@@ -557,10 +558,11 @@ div.search-loading-invisible{
 }
 
 .edit-object-ul > .ite{
-    padding:6px 15px 6px 30px;
+    padding: 6px 15px 6px 30px;
     color: #888;
     border-top: 1px solid #fff;
     border-bottom: 1px solid #ddd;
+    line-height: normal;
 }
 
 .edit-object-ul > .ite:first-child {border-radius: 3px 3px 0 0}
@@ -831,10 +833,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .contactmebtn:hover > .contactmeicon > i {
     color: rgba(10,60,150, 0.8);
     text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;
-
 }
-::-moz-selection { background: #5af; color: #fff; text-shadow: none; }
-::selection { background: #5af; color: #fff; text-shadow: none; }
 
 
 
@@ -877,11 +876,13 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 .main_aboutus{
     text-align: left;
-    padding:20px 0;
+    padding: 20px 0;
     font-size: 15px;
+    width: 100%;
     min-height: 650px;
     max-width: 800px;
-    word-wrap:break-word;
+    word-wrap: break-word;
+    float: right;
 }
 
 .main_aboutus p{
@@ -899,70 +900,6 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 
 
-
-
-#discovery_search_bar_wrapper {
-    margin: 0 0 100px 0;
-    z-index: 1;
-    height: 400px;
-    width: 100%;
-    min-width: 768px;
-    background: url(../../images/searchbar-bg.jpg) repeat scroll 0% 50% rgb(242, 240, 240);
-    border-bottom: 1px solid #aaa;
-    background-size: 100% auto;
-    top: 45px;
-    position: relative;
-    min-width: 1040px;
-}
-
-
-#discovery_search_bar_wrapper_moving {
-
-    z-index: 500;
-    margin-top: 36px;
-    height: 160px;
-    width: 100%;
-    min-width: 768px;
-    background: none repeat scroll 0% 0% rgb(235, 235, 235);
-    border-bottom: 1px solid #AFAFAF;
-}
-
-#discovery_search_bar{
-    min-width: 800px;
-    position: absolute;
-    width: 40%;
-    top: 250px;
-    display: block;
-    margin: auto;
-    left: 0;
-    right: 0;
-}
-
-
-
-#discovery_search_bar > a {
-    color: #ccc;
-    width: 37px;
-    height: 37px;
-    position: absolute;
-    float: right;
-    display: inline-block;
-    vertical-align: top;
-
-    -webkit-transition: all 0.8s ease;
-    -moz-transition: all 0.8s ease;
-    -o-transition: all 0.8s ease;
-}
-
-#discovery_search_bar > a:hover {
-    color: #333333;
-    text-decoration: none;
-}
-
-#discovery_search_bar > a > i {
-    margin: 9px;
-    position: absolute;
-}
 
 #addnew{
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";

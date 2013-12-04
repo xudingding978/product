@@ -20,7 +20,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
         ProfileController.set('partnerTag', false);
         ProfileController.set('reviewTag', false);
         /*************************            partner cehcking           ***********8*/
-
+        this.controllerFor('mega').set("from", "profile");
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', true);
@@ -39,6 +39,10 @@ HubStar.ProfileRoute = Ember.Route.extend({
         var lastPosition = HubStar.get("scrollPartenerPosition");
 
 
+        $("#top-about-menu").css('display', 'none');
+        $("#search-bar").css('display', 'block');
+         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+        
         ProfileController.setProfile(model.id);
 
     },
@@ -59,15 +63,15 @@ HubStar.ProfileRoute = Ember.Route.extend({
                 }
             }
             this.transitionTo("profileCollection", data);
+        },
+        transitionToArticle: function(article_id) {
+
+            this.transitionTo("profileArticle", article_id);
+            this.transitionTo("profileArticlePhoto");
         }
     },
     redirect: function() {
-//        if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
-//
-//            this.transitionTo('indexIndex');
-//            this.controllerFor('application').set('popup', true);
-//
-//        }
+
 
     },
     deactivate: function() {
@@ -81,10 +85,10 @@ HubStar.ProfileRoute = Ember.Route.extend({
         $(function() {
             $('#masonry_container').masonry('remove', $('.noStyle1'));
         });
-        
-        
-        
-        
+
+
+
+
     },
     renderTemplate: function() {
         this.render('profile', {

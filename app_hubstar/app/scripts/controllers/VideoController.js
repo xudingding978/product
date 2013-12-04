@@ -4,10 +4,7 @@ HubStar.VideoController = Ember.Controller.extend({
     video_iframe_code: null,
     currentUser: null,
     enableToEdit: false,
-
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission','editComment','checkingLoginStatus'],
-
-
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus'],
     getinitdata: function(videoObject)
     {
 
@@ -20,7 +17,7 @@ HubStar.VideoController = Ember.Controller.extend({
         megaResouce.addObserver('isLoaded', function() {
             if (megaResouce.get('isLoaded')) {
                 that.set('megaResouce', megaResouce.objectAt(0));
-          //              console.log(   that.get('megaResouce'));
+                //              console.log(   that.get('megaResouce'));
                 var tempVideoObject = megaResouce.objectAt(0).get('videoes').get("content").objectAt(0);
                 that.set('videoObject', tempVideoObject);
                 that.set('video_iframe_code', tempVideoObject.data.video_iframe_code);
@@ -28,22 +25,25 @@ HubStar.VideoController = Ember.Controller.extend({
             }
         });
     }, addComment: function() {
-        var commentContent = this.get('commentContent');
-        if (commentContent) {
-            var comments = this.get('megaResouce').get('comments');
-            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
-            var commenter_id = this.get("currentUser").get('id');
-            var name = this.get("currentUser").get('display_name');
-            var date = new Date();
-            var message_id = createMessageid() + commenter_id;
-            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,"message_id":message_id,
-                "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
-                "is_delete": false, optional: this.get('megaResouce').get('type') + '/' + this.get('megaResouce').get('id')});
-            comments.insertAt(0, tempComment);
-            comments.store.save();
-            this.set('commentContent', '');
-            $('#addcommetBut').attr('style', 'display:block');
-            $('#commentBox').attr('style', 'display:none');
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            var commentContent = this.get('commentContent');
+            if (commentContent) {
+                var comments = this.get('megaResouce').get('comments');
+                var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
+                var commenter_id = this.get("currentUser").get('id');
+                var name = this.get("currentUser").get('display_name');
+                var date = new Date();
+                var message_id = createMessageid() + commenter_id;
+                var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url, "message_id": message_id,
+                    "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
+                    "is_delete": false, optional: this.get('megaResouce').get('type') + '/' + this.get('megaResouce').get('id')});
+                comments.insertAt(0, tempComment);
+                comments.store.save();
+                this.set('commentContent', '');
+                $('#addcommetBut').attr('style', 'display:block');
+                $('#commentBox').attr('style', 'display:none');
+            }
         }
     },
     closeWindow: function() {
@@ -83,29 +83,29 @@ HubStar.VideoController = Ember.Controller.extend({
         HubStar.set("updateCommentmsg", msg);
     },
     switchCollection: function() {
- if (this.get("controllers.checkingLoginStatus").popupLogin())
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-        var addCollectionController = this.get('controllers.addCollection');
-        var selectid = this.get('megaResouce').id;
-        addCollectionController.setImageID(selectid);
-        var tempUrl = this.get('megaResouce').get('object_image_url');
-        addCollectionController.setThumbnailUrl(tempUrl);
-        addCollectionController.setUser();
-        addCollectionController.setRelatedController('video');
-        this.set('collectable', !this.get('collectable'));
+            var addCollectionController = this.get('controllers.addCollection');
+            var selectid = this.get('megaResouce').id;
+            addCollectionController.setImageID(selectid);
+            var tempUrl = this.get('megaResouce').get('object_image_url');
+            addCollectionController.setThumbnailUrl(tempUrl);
+            addCollectionController.setUser();
+            addCollectionController.setRelatedController('video');
+            this.set('collectable', !this.get('collectable'));
         }
     },
     editingContactForm: function() {
 
 
- if (this.get("controllers.checkingLoginStatus").popupLogin())
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-        var contactController = this.get('controllers.contact');
-        var selectid = this.get('megaResouce').id;
-        contactController.setSelectedMega(selectid);
-        contactController.selectionCheckBox();
+            var contactController = this.get('controllers.contact');
+            var selectid = this.get('megaResouce').id;
+            contactController.setSelectedMega(selectid);
+            contactController.selectionCheckBox();
 
-        this.set('contact', !this.get('contact'));
+            this.set('contact', !this.get('contact'));
         }
     },
     closeContact: function() {
@@ -125,7 +125,7 @@ HubStar.VideoController = Ember.Controller.extend({
     // share to social facebook
     fbShare: function() {
         var that = this;
-        var currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('megaResouce').get('id');
+        var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
         var caption = '';
 
         if (this.get('megaResouce').get('object_description') !== null)
@@ -174,7 +174,7 @@ HubStar.VideoController = Ember.Controller.extend({
         $("meta[property='og\\:title']").attr("content", this.get('videoObject').data.video_title);
         $("meta[property='og\\:description']").attr("content", caption);
         $("meta[property='og\\:image']").attr("content", this.getImageURL());
-        var currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('megaResouce').get('id');
+        var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
         window.open(
@@ -187,7 +187,7 @@ HubStar.VideoController = Ember.Controller.extend({
     },
     //share to social twitter
     tShare: function() {
-        var currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('megaResouce').get('id');
+        var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
         var url = 'https://twitter.com/share?text=' + this.get('videoObject').data.video_title + '&url=' + encodeURIComponent(currntUrl);
         window.open(
                 url,
@@ -197,7 +197,7 @@ HubStar.VideoController = Ember.Controller.extend({
         return false;
     },
     pShare: function() {
-        var currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('megaResouce').get('id');
+        var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.getImageURL()) +
                 '&description=' + encodeURIComponent(this.get('videoObject').data.video_title);

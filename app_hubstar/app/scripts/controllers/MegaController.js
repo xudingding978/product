@@ -313,15 +313,15 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
         this.set("selectedPhoto", this.get('selectedPhoto'));
 
-  var contents = this.get('content');
+        var contents = this.get('content');
         var selectedIndex = 1;
-        for (var index = 0; index <= contents.get('length')-1; index++) {
-            if (this.get('selectedPhoto').get("id") === contents.objectAt(index).id ) {
-                selectedIndex = index+1;
+        for (var index = 0; index <= contents.get('length') - 1; index++) {
+            if (this.get('selectedPhoto').get("id") === contents.objectAt(index).id) {
+                selectedIndex = index + 1;
             }
         }
 
-        if (selectedIndex >= (this.get('content').get('length')+1)) {
+        if (selectedIndex >= (this.get('content').get('length') + 1)) {
             this.set('image_no', 1);
             selectedIndex = 1;
         }
@@ -454,23 +454,26 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
     },
     addComment: function() {
-        var commentContent = this.get('commentContent');
-        if (commentContent) {
-            var comments = this.get('megaResouce').get('comments');
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            var commentContent = this.get('commentContent');
+            if (commentContent) {
+                var comments = this.get('megaResouce').get('comments');
 //            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
-            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
-            var commenter_id = this.get("currentUser").get('id');
-            var name = this.get("currentUser").get('display_name');
-            var date = new Date();
-            var message_id = createMessageid() + commenter_id;
-            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url, "message_id": message_id,
-                "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
-                "is_delete": false, optional: this.get('megaResouce').get('type') + '/' + this.get('megaResouce').get('id')});
-            comments.insertAt(0, tempComment);
-            comments.store.save();
-            this.set('commentContent', '');
-            $('#addcommetBut').attr('style', 'display:block');
-            $('#commentBox').attr('style', 'display:none');
+                var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
+                var commenter_id = this.get("currentUser").get('id');
+                var name = this.get("currentUser").get('display_name');
+                var date = new Date();
+                var message_id = createMessageid() + commenter_id;
+                var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url, "message_id": message_id,
+                    "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
+                    "is_delete": false, optional: this.get('megaResouce').get('type') + '/' + this.get('megaResouce').get('id')});
+                comments.insertAt(0, tempComment);
+                comments.store.save();
+                this.set('commentContent', '');
+                $('#addcommetBut').attr('style', 'display:block');
+                $('#commentBox').attr('style', 'display:none');
+            }
         }
     },
     removeComment: function(object)
@@ -553,8 +556,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
     yes: function(photoObject) {
         var photo_title = this.get('selectedPhoto.photo_title');
         var photo_caption = this.get('selectedPhoto.photo_caption');
-        var link_text=this.get('selectedPhoto.link_text');
-        var link_url=this.get('selectedPhoto.link_url');
+        var link_text = this.get('selectedPhoto.link_text');
+        var link_url = this.get('selectedPhoto.link_url');
         photoObject.set('photo_title', photo_title);
         photoObject.set('photo_caption', photo_caption);
         photoObject.set('link_text', link_text);
@@ -584,7 +587,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     fbShare: function() {
         this.dropdownPhotoSetting();
         var that = this;
-        var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
+        var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
         var caption = '';
 
         if (this.get('selectedPhoto').get('photo_caption') !== null)
@@ -596,16 +599,16 @@ HubStar.MegaController = Ember.ArrayController.extend({
             caption = '';
         }
         var descript = this.get('selectedPhoto').get('photo_title');
-        var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
+        var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
         if (this.get('selectedPhoto').get("type") === "article")
         {
             descript = this.get('selectedPhoto').get('article').objectAt(0).get("article_headline");
-            currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('selectedPhoto').get('id');
+            currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedPhoto').get('id');
         }
         else if (this.get('selectedPhoto').get("type") === "video")
         {
             descript = this.get('selectedPhoto').get('videoes').objectAt(0).get("videoTitle");
-            currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('selectedPhoto').get('id');
+            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedPhoto').get('id');
         }
 
 
@@ -643,17 +646,17 @@ HubStar.MegaController = Ember.ArrayController.extend({
         {
             caption = '';
         }
-        var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
+        var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
         var descript = this.get('selectedPhoto').get('photo_title');
         if (this.get('selectedPhoto').get("type") === "article")
         {
             descript = this.get('selectedPhoto').get('article').objectAt(0).get("article_headline");
-            currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('selectedPhoto').get('id');
+            currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedPhoto').get('id');
         }
         else if (this.get('selectedPhoto').get("type") === "video")
         {
             descript = this.get('selectedPhoto').get('videoes').objectAt(0).get("videoTitle");
-            currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('selectedPhoto').get('id');
+            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedPhoto').get('id');
         }
         $("meta[property='og\\:title']").attr("content", descript);
         $("meta[property='og\\:description']").attr("content", caption);
@@ -675,16 +678,16 @@ HubStar.MegaController = Ember.ArrayController.extend({
     tShare: function() {
         this.dropdownPhotoSetting();
         var descript = this.get('selectedPhoto').get('photo_title');
-        var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
+        var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
         if (this.get('selectedPhoto').get("type") === "article")
         {
             descript = this.get('selectedPhoto').get('article').objectAt(0).get("article_headline");
-            currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('selectedPhoto').get('id');
+            currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedPhoto').get('id');
         }
         else if (this.get('selectedPhoto').get("type") === "video")
         {
             descript = this.get('selectedPhoto').get('videoes').objectAt(0).get("videoTitle");
-            currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('selectedPhoto').get('id');
+            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedPhoto').get('id');
         }
         var url = 'https://twitter.com/share?text=' + descript + '&url=' + encodeURIComponent(currntUrl);
         window.open(
@@ -697,19 +700,19 @@ HubStar.MegaController = Ember.ArrayController.extend({
     pShare: function() {
         this.dropdownPhotoSetting();
 
-        var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
+        var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
 
         var descript = this.get('selectedPhoto').get('photo_title');
 
         if (this.get('selectedPhoto').get("type") === "article")
         {
             descript = this.get('selectedPhoto').get('article').objectAt(0).get("article_headline");
-            currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('selectedPhoto').get('id');
+            currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedPhoto').get('id');
         }
         else if (this.get('selectedPhoto').get("type") === "video")
         {
             descript = this.get('selectedPhoto').get('videoes').objectAt(0).get("videoTitle");
-            currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('selectedPhoto').get('id');
+            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedPhoto').get('id');
         }
 
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +

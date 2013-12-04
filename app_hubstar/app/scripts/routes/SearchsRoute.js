@@ -47,7 +47,7 @@ $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
 //            this.transitionTo('indexIndex');
 
         } else {
-            this.transitionTo('searchIndex');
+           // this.transitionTo('searchIndex');
         }
 
     },

@@ -438,10 +438,7 @@ HubStar.CommentController = Ember.Controller.extend({
                 caption = '';
             }
 
-//        var meta = document.getElementsByTagName('meta');
-//        for (var i = 0; i < meta.length; i++) {
-//            console.log(meta[i]);
-//        }
+
             $("meta[property='og\\:title']").attr("content", this.get('selectedPhoto').get('photo_title'));
             $("meta[property='og\\:description']").attr("content", caption);
             $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_thumbnail_url'));
@@ -470,10 +467,7 @@ HubStar.CommentController = Ember.Controller.extend({
                 caption = '';
             }
 
-//        var meta = document.getElementsByTagName('meta');
-//        for (var i = 0; i < meta.length; i++) {
-//            console.log(meta[i]);
-//        }
+
             $("meta[property='og\\:title']").attr("content", this.get('selectedArticle').get('article_headline'));
             $("meta[property='og\\:description']").attr("content", caption);
             $("meta[property='og\\:image']").attr("content", this.get('selectedArticle').get('article_image_url'));
@@ -502,10 +496,7 @@ HubStar.CommentController = Ember.Controller.extend({
                 caption = '';
             }
 
-//        var meta = document.getElementsByTagName('meta');
-//        for (var i = 0; i < meta.length; i++) {
-//            console.log(meta[i]);
-//        }
+
             $("meta[property='og\\:title']").attr("content", this.get('selectedVideo').data.video_title);
             $("meta[property='og\\:description']").attr("content", caption);
             $("meta[property='og\\:image']").attr("content", this.get('selectedVideo').data.video_img);

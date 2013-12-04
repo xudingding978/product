@@ -6,7 +6,6 @@ HubStar.Router.map(function() {
     this.resource("index", {path: '/'}, function() {
         this.resource("indexIndex", {path: '/'});
         this.resource("verifyId", {path: '/verify/:verify_id'});
-        this.resource("photo", {path: '/photos/:photo_id'});
         this.resource("article", {path: '/articles/:article_id'});
         this.resource("video", {path: '/videos/:video_id'});
 //        this.resource("videoes", function() {
@@ -18,7 +17,15 @@ HubStar.Router.map(function() {
             this.resource("profileFollowers", {path: '/followers'});
             this.resource("profileVideos", {path: '/videos'});
             this.resource("profileCollections", {path: '/collections'}, function() {
-                this.resource("profileCollection", {path: ':profileCollection_id'});
+                //this.resource("photo", {path: '/photoes/:photo_id'});
+                this.resource("profileCollection", {path: ':profileCollection_id'}, function() {
+                    this.resource("profilePhoto", {path: '/photos/:photo_id'});
+                    this.resource("profileArticle", {path: '/article/:article_id'}, function() {
+                        this.resource("profileArticlePhoto", {path: '/photos/:photo_id'});
+                    });
+                    
+                    this.resource("profileVideo", {path: '/videos/:video_id'});
+                });
             });
 
             this.resource("partners", {path: '/network'});
@@ -44,8 +51,8 @@ HubStar.Router.map(function() {
             this.resource("userCollections", {path: '/collections'}, function() {
                 this.resource("collection", {path: ':collection_id'}, function() {
                     this.resource("userPhoto", {path: '/photos/:photo_id'});
-                    this.resource("userArticle", {path: '/article/:article_id'},function() {
-                          this.resource("articlePhoto", {path: '/photos/:photo_id'});
+                    this.resource("userArticle", {path: '/article/:article_id'}, function() {
+                        this.resource("articlePhoto", {path: '/photos/:photo_id'});
                     });
                     this.resource("userVideo", {path: '/video/:video_id'});
                 });
@@ -72,9 +79,6 @@ HubStar.Router.map(function() {
         });
         this.resource("welcome", {
             path: "/welcome"
-        });
-        this.resource("quickstart", {
-            path: "/quickstart"
         });
         this.resource("register", {
             path: "/register"

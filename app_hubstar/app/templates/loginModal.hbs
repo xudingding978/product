@@ -87,57 +87,58 @@
     </div>
     <div class="back-btn easing" style="" >Back</div>
     <div class="register-btn easing register-btn-small"  {{action next}}>Next</div>
-    
-    
+
+
     <div id="register-with-email-step-3" style="z-index: 1;overflow: hidden;  background-color: white;border-radius: 5px;  width: 800px; height: 600px; margin: 0px auto; position: fixed; top: 15%; left: 0px; right: 0px; display:none;">
-            <div   style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
-                <div  class="comment-namentime" style="display: block;position: relative;height: 35px;">
-                    <div style="position: absolute;  text-align: center;line-height: 40px;margin: 0 auto;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
-                        Please choose a topic that will sustain your interest.
+        <div   style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
+            <div  class="comment-namentime" style="display: block;position: relative;height: 35px;">
+                <div style="position: absolute;  text-align: center;line-height: 40px;margin: 0 auto;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
+                    Please select from the topics below to your save your interests.
 
-                    </div>
                 </div>
             </div>
-            <div id ="" style="margin: 20px 30px 5px;height: 450px;" >
-                {{#each controller.contentTopic}}
-                <div class="hover-opacity" style=" height: 150px; width: auto;position: relative; float: left; margin: 10px 20px;"{{action selectTopic id topic}}>
-                     <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="opacity: .8; z-index: 10; right: 0;" {{action selectTopic id topic }}><k class="icon-plus" ></k></div>
-                    <div class="" style="height: 100px;width: 100px;position: relative;border-radius: 50%;overflow: hidden;top: -5px;float: left; ">
-                        <div  class="usersobject-hoverarea easing" style="height: 100px; width: 100px;" >
-                        </div>
-                        <div style="position: relative;">
-                            <div style="width: 100px; height: 100px; overflow: hidden;">
-                                <img {{bindAttr src="image"}} style="min-height:100px; width: 100px; max-width: none;"/>
-                            </div>
-                        </div>
+        </div>
+        <div id ="" style="margin: 20px 30px 5px;height: 450px;" >
+            {{#each controller.contentTopic}}
+            <div class="select-interest" style=" height: 150px; width: auto;position: relative; float: left; margin: 10px 20px;"{{action selectTopic id topic}}>
+                 <div id="minus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action selectTopic id topic }}><k class="icon-minus" ></k></div>
+                <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;" ><k class="icon-plus" ></k></div>
+                <div class="" style="height: 100px;width: 100px;position: relative;border-radius: 50%;overflow: hidden;top: -5px;float: left; ">
+                    <div  class="usersobject-hoverarea easing" style="height: 100px; width: 100px;" >
                     </div>
-                    <div style="position: relative;text-align: center;font-size: 13px;width: 100px;line-height: 15px;">
-                        {{topic}}
+                    <div style="position: relative;">
+                        <div style="width: 100px; height: 100px; overflow: hidden;">
+                            <img {{bindAttr src="image"}} style="min-height:100px; width: 100px; max-width: none;"/>
+                        </div>
                     </div>
                 </div>
-                {{/each}}
+                <div style="position: relative;text-align: center;font-size: 13px;width: 100px;line-height: 15px;">
+                    {{topic}}
+                </div>
             </div>
-
-            <div class="" style="height: 45px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
-                <div class="register-btn easing" style="width: 50%;border-right: 1px solid #ddd;float: left;"></div>
-                <div class="register-btn easing" style="width: 50%;float: left"{{action submitSelection}}>Next&nbsp;<k class="icon-long-arrow-right" style="font-size: 13px;"></k></div>
-            </div> 
+            {{/each}}
         </div>
 
-        <div id="register-with-email-step-4" style="overflow: hidden; z-index: 11; background-color: white; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; box-shadow: rgb(187, 187, 187) 0px 0px 20px; width: 430px; height: 220px; margin: 0px auto; position: fixed; top: 45%; left: 0px; right: 0px; display: none;">
-            <div  style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
-                <div  class="comment-namentime" style="display: block;position: relative;height: 35px;">
-                    <div style="position: absolute;  text-align: center;line-height: 40px;margin: 0 auto;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
-                    </div>
+        <div class="" style="height: 45px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
+            <div class="register-btn easing" style="width: 50%;border-right: 1px solid #ddd;float: left;"></div>
+            <div class="register-btn easing" style="width: 50%;float: left"{{action submitSelection}}>Next&nbsp;<k class="icon-long-arrow-right" style="font-size: 13px;"></k></div>
+        </div> 
+    </div>
+
+    <div id="register-with-email-step-4" style="overflow: hidden; z-index: 11; background-color: white; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; box-shadow: rgb(187, 187, 187) 0px 0px 20px; width: 430px; height: 220px; margin: 0px auto; position: fixed; top: 45%; left: 0px; right: 0px; display: none;">
+        <div  style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
+            <div  class="comment-namentime" style="display: block;position: relative;height: 35px;">
+                <div style="position: absolute;  text-align: center;line-height: 40px;margin: 0 auto;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
                 </div>
             </div>
-            <div style="height: 140px; text-align: center; padding: 40px;">
-                Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!
-            </div>
-
-            <!--         <div class="message-btn easing" style="width: 50%;border-right: 1px solid #ddd;">skip&nbsp<k class="icon-arrow-right" ></k></div>-->
-            <div class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute;" {{action done}}>Done&nbsp;<k class="icon-long-arrow-right" style="font-size: 13px;"></k></div>
         </div>
+        <div style="height: 140px; text-align: center; padding: 40px;">
+            Registration successful! Please remember to validate your email address when you next check your emails!
+        </div>
+
+        <div id="skipRegister" class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute; display:none" {{action skip}}>Skip&nbsp</div>
+        <div id="finishRegister" class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute;display:block" {{action done}}>Done&nbsp;<k class="icon-long-arrow-right" style="font-size: 13px;"></k></div>
+    </div>
 
 </div>
 <div id="missing-fields" class="black-tool-tip" style="display:none;">
@@ -262,7 +263,243 @@
 
 
 
- if (localStorage.userType === "email") {
+    if (localStorage.userType === "email") {
+        $('.Login-box #login-btn').text('Sign up for a new account!');
+        $('.Login-box .black-tool-tip').css('display', 'none');
+        $('.Login-box #click-register-social').css('display', 'none');
+        $('.Login-box #click-register').css('display', 'none');
+        $('.Login-box #social-link').css('display', 'none');
+        $('.Login-box #login-with-email-drop-down').css('display', 'block');
+        $('.Login-box #social-login-container').css('display', 'none');
+        $('.Login-box #click-login').addClass('active-tab');
+        $('.Login-box #social-login').removeClass('social-active');
+        $('.Login-box #user-forgot-password-pane').css('display', 'none');
+        $('.Login-box #forgot-message-container').css('display', 'none');
+        $('.Login-box #invalid-username').css('display', 'none');
+
+        $('.Login-box #register-with-email-drop-down').css('display', 'none');
+        $('.Login-box #register-with-email-step-2').css('display', 'none');
+        $('.Login-box #user-login-pane').css('display', 'block');
+
+        var loginState = true;
+    } else {
+        loginState = false;
+    }
+    $(".Login-box #social-login").click(function() {
+
+        $('.Login-box #social-login').removeClass('social-active');
+        $('.Login-box #click-login').removeClass('active-tab');
+        if ($('.Login-box #social-login-container').css('display') === 'block') {
+            $('.Login-box #social-login-container').animate({height: 'toggle'});
+        }
+        /* LOGIN TAB:  hiding social login */
+
+        if ($('.Login-box #social-login-container').css('display') === 'none') {
+            $('.Login-box #social-login-container').animate({height: 'toggle'});
+            $('.Login-box #social-login').addClass('social-active');
+            if ($('.Login-box #login-with-email-drop-down').css('display') === 'block') {
+                $('.Login-box #login-with-email-drop-down').animate({height: 'toggle'});
+            }
+            if ($('.Login-box #forgot-message-container').css('display') === 'block') {
+                $('.Login-box #forgot-message-container').animate({opacity: 'toggle'});
+            }
+            if ($('.Login-box #invalid-username').css('display') === 'block') {
+                $('.Login-box #invalid-username').animate({opacity: 'toggle'});
+            }
+            if ($('.Login-box #click-login').css('display') === 'none') {
+                $('.Login-box #click-login').animate({opacity: 'toggle'});
+            }
+            if ($('.Login-box #user-forgot-password-pane').css('display') === 'block') {
+                $('.Login-box #user-forgot-password-pane').animate({height: 'toggle'});
+            }
+
+            /* LOGIN TAB:  showing social login */
+
+        }
+    });
+    $(".Login-box #click-login").click(function() {
+        if ($('.Login-box #login-with-email-drop-down').css('display') === 'block' && $('#click-login').hasClass('active-tab')) {
+            $('.Login-box #click-login').removeClass('active-tab');
+
+            $('.Login-box #login-with-email-drop-down').animate({height: 'toggle'});
+
+            if ($('.Login-box #social-login-container').css('display') === 'block') {
+                $('.Login-box #social-login-container').animate({height: 'toggle'});
+            }
+        }
+        /* LOGIN TAB: closing login with email */
+
+
+        if ($('.Login-box #login-with-email-drop-down').css('display') === 'none') {
+            $('.Login-box #social-login').removeClass('social-active');
+            $('.Login-box #click-login').addClass('active-tab');
+            $('.Login-box #login-with-email-drop-down').animate({height: 'toggle'});
+
+            if ($('.Login-box #social-login-container').css('display') === 'block') {
+                $('.Login-box #social-login-container').animate({height: 'toggle'});
+            }
+        } /* LOGIN TAB: clicking login*/
+    });
+    $('.Login-box #loginPassword > div').click(function() {
+        if ($('.Login-box #login-with-email-drop-down').css('display')) {
+            $('.Login-box #click-login').removeClass('active-tab');
+
+            $('.Login-box #login-with-email-drop-down').animate({height: 'toggle'});
+            $('.Login-box #user-forgot-password-pane').animate({height: 'toggle'});
+
+            if ($('.Login-box #social-login-container').css('display') === 'block') {
+                $('.Login-box #social-login-container').animate({height: 'toggle'});
+
+            }
+            if ($('.Login-box #forgot-message-container').css('display') === 'block') {
+                $('.Login-box #forgot-message-container').animate({opacity: 'toggle'});
+            }
+            if ($('.Login-box #click-login').css('display') === 'block') {
+                $('.Login-box #click-login').animate({height: 'toggle'});
+
+            }
+        }
+    });
+    /*  LOGIN TAB: show forget password pane */
+
+    $('.Login-box #user-forgot-password-pane .back-btn').click(function() {
+        $('.Login-box #user-forgot-password-pane').animate({height: 'toggle'});
+        $('.Login-box #login-with-email-drop-down').animate({height: 'toggle'});
+
+        if ($('.Login-box #social-login-container').css('display') === 'block') {
+            $('.Login-box #social-login-container').animate({height: 'toggle'});
+
+        }
+
+
+    });
+    /* Back to login with email from forget password pane */
+
+
+    $('.Login-box #reset-btn').click(function() {
+
+    });
+    /* forgot password function showing thank you message */
+
+
+    $('.Login-box #user-forgot-password-pane .back-btn').click(function() {
+        if ($('.Login-box #forgot-message-container').css('display') === 'block') {
+            $('.Login-box #forgot-message-container').animate({opacity: 'toggle'});
+        }
+    });
+    /* hiding thank you message when the user clicks the back btn */
+
+
+
+
+
+
+    $(".Login-box #click-register-social").click(function() {
+
+        $('.Login-box #click-register-social').removeClass('social-active');
+        $('.Login-box #click-register').removeClass('active-tab');
+        if ($('.Login-box #social-link').css('display') === 'block') {
+            $('.Login-box #social-link').animate({height: 'toggle'});
+            if ($('.Login-box #register-with-email-drop-down').css('display') === 'block') {
+                $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
+            }
+            if ($('.Login-box #register-with-email-step-2').css('display') === 'block') {
+                $('.Login-box #register-with-email-step-2').animate({height: 'toggle'});
+            }
+        }
+        /* hiding social login */
+
+        if ($('.Login-box #social-link').css('display') === 'none') {
+            $('.Login-box #social-link').animate({height: 'toggle'});
+            $('.Login-box #click-register-social').addClass('social-active');
+            if ($('.Login-box #register-with-email-drop-down').css('display') === 'block') {
+                $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
+            }
+            if ($('.Login-box #register-with-email-step-2').css('display') === 'block') {
+                $('.Login-box #register-with-email-step-2').animate({height: 'toggle'});
+            }
+        }
+        /*  REGISTER TAB: showing social login section*/
+
+    });
+
+
+
+    $('.Login-box #register-with-email-step-2 .back-btn').click(function() {
+        $('.Login-box #register-with-email-step-2').removeClass('active-step');
+        $('.Login-box #register-with-email-step-2').animate({height: 'toggle'});
+        $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
+        checkSocial();
+    });
+    /* going back to step 1 function*/
+
+
+    $(".Login-box .register-clicker").click(function() {
+
+        if ($('.Login-box #register-with-email-step-2').hasClass('active-step')) {
+            //alert('closing step2');
+
+            $('.Login-box #social-link').animate({height: 'toggle'});
+            $('.Login-box #register-with-email-step-2').animate({height: 'toggle'});
+            if ($('.Login-box #click-register').hasClass('active-tab')) {
+                $('.Login-box #click-register').removeClass('active-tab');
+                /* closing step */
+            }
+
+            else {
+                $('.Login-box #click-register').addClass('active-tab');
+                /* opening step */
+            }
+
+        }
+        /* closing/opening register section while on step 2 function */
+
+        if ($('.Login-box #register-with-email-drop-down').css('display') === 'block' && $('#click-register').hasClass('active-tab')) {
+            //alert('closing step1');
+            $('.Login-box #click-register').removeClass('active-tab');
+            $('.Login-box #social-link').animate({height: 'toggle'});
+            $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
+            $('.Login-box #click-register-social').addClass('social-active');
+        }
+        /* closing register section while on step 1 function */
+
+
+        if ($('.Login-box #register-with-email-drop-down').css('display') === 'none' && $('#register-with-email-step-2').hasClass('')) {
+            //alert('opening step 1');
+            $('.Login-box #click-register-social').removeClass('social-active');
+            $('.Login-box #click-register').addClass('active-tab');
+            $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
+            checkSocial();
+        }
+        /* clicking register step 1 function*/
+
+    });
+
+
+
+
+
+
+    function checkSocial() {
+        if ($('.Login-box #social-link').css('display') === 'block') {
+            $('.Login-box #social-link').animate({height: 'toggle'});
+        }
+        else {
+        }
+    }
+    /* close social login checker function */
+
+
+    $('.Login-box .login-select').click(function() {
+        $('.Login-box .login-select').removeClass('login-selected');
+        $(this).addClass('login-selected');
+    });
+    /* select gender function */
+
+
+    function loginPane() {
+
+        if (loginState === false) {
             $('.Login-box #login-btn').text('Sign up for a new account!');
             $('.Login-box .black-tool-tip').css('display', 'none');
             $('.Login-box #click-register-social').css('display', 'none');
@@ -279,392 +516,156 @@
             $('.Login-box #register-with-email-drop-down').css('display', 'none');
             $('.Login-box #register-with-email-step-2').css('display', 'none');
             $('.Login-box #user-login-pane').css('display', 'block');
+            loginState = true;
+        }
+        else {
 
-            var loginState = true;
-              } else {
-                         loginState = false;
-                }
-            $(".Login-box #social-login").click(function() {
+            $('.Login-box #login-btn').text('Already had an acount? Click here to Login!');
+            $('.Login-box .black-tool-tip').css('display', 'none');
+            $('.Login-box #click-register-social').css('display', 'block');
+            $('.Login-box #social-link').css('display', 'block');
+            $('.Login-box #click-register').css('display', 'block');
+            $('.Login-box #click-register-social').addClass('social-active');
+            $('.Login-box #click-register').removeClass('active-tab');
+            $('.Login-box #register-with-email-step-2').removeClass('active-step');
+            $('.Login-box #user-login-pane').css('display', 'none');
 
-                $('.Login-box #social-login').removeClass('social-active');
-                $('.Login-box #click-login').removeClass('active-tab');
-                if ($('.Login-box #social-login-container').css('display') === 'block') {
-                    $('.Login-box #social-login-container').animate({height: 'toggle'});
-                }
-                /* LOGIN TAB:  hiding social login */
+            loginState = false;
+        }
+    }
 
-                if ($('.Login-box #social-login-container').css('display') === 'none') {
-                    $('.Login-box #social-login-container').animate({height: 'toggle'});
-                    $('.Login-box #social-login').addClass('social-active');
-                    if ($('.Login-box #login-with-email-drop-down').css('display') === 'block') {
-                        $('.Login-box #login-with-email-drop-down').animate({height: 'toggle'});
-                    }
-                    if ($('.Login-box #forgot-message-container').css('display') === 'block') {
-                        $('.Login-box #forgot-message-container').animate({opacity: 'toggle'});
-                    }
-                    if ($('.Login-box #invalid-username').css('display') === 'block') {
-                        $('.Login-box #invalid-username').animate({opacity: 'toggle'});
-                    }
-                    if ($('.Login-box #click-login').css('display') === 'none') {
-                        $('.Login-box #click-login').animate({opacity: 'toggle'});
-                    }
-                    if ($('.Login-box #user-forgot-password-pane').css('display') === 'block') {
-                        $('.Login-box #user-forgot-password-pane').animate({height: 'toggle'});
-                    }
 
-                    /* LOGIN TAB:  showing social login */
 
-                }
+
+
+
+
+    function DropDown(el) {
+        this.dd = el;
+        this.placeholder = this.dd.children('span');
+        this.opts = this.dd.find('ul.dropdown > li');
+        this.val = '';
+        this.index = -1;
+        this.initEvents();
+    }
+    DropDown.prototype = {
+        initEvents: function() {
+            var obj = this;
+
+            obj.dd.on('click', function(event) {
+                $(this).parents('div .wrapper-dropdown-3').toggleClass('active');
+                return false;
             });
-            $(".Login-box #click-login").click(function() {
-                if ($('.Login-box #login-with-email-drop-down').css('display') === 'block' && $('#click-login').hasClass('active-tab')) {
-                    $('.Login-box #click-login').removeClass('active-tab');
-
-                    $('.Login-box #login-with-email-drop-down').animate({height: 'toggle'});
-
-                    if ($('.Login-box #social-login-container').css('display') === 'block') {
-                        $('.Login-box #social-login-container').animate({height: 'toggle'});
-                    }
-                }
-                /* LOGIN TAB: closing login with email */
-
-
-                if ($('.Login-box #login-with-email-drop-down').css('display') === 'none') {
-                    $('.Login-box #social-login').removeClass('social-active');
-                    $('.Login-box #click-login').addClass('active-tab');
-                    $('.Login-box #login-with-email-drop-down').animate({height: 'toggle'});
-
-                    if ($('.Login-box #social-login-container').css('display') === 'block') {
-                        $('.Login-box #social-login-container').animate({height: 'toggle'});
-                    }
-                } /* LOGIN TAB: clicking login*/
+            obj.opts.on('click', function() {
+                var opt = $(this);
+                obj.val = opt.text();
+                obj.index = opt.index();
+                obj.placeholder.text(obj.val);
             });
-            $('.Login-box #loginPassword > div').click(function() {
-                if ($('.Login-box #login-with-email-drop-down').css('display')) {
-                    $('.Login-box #click-login').removeClass('active-tab');
+        },
+        getValue: function() {
+            return this.val;
+        },
+        getIndex: function() {
+            return this.index;
+        }
+    };
+
+    $(function() {
+
+        var dd3 = new DropDown($('.dropdown_test_3'));
+        $(document).click(function() {
+            $('.wrapper-dropdown-3').removeClass('active');
+        });
+
+    });
+
+    function setDomain() {
+
+        var api_url = document.domain;
+        var api_domain_start_pos = api_url.indexOf('.');
+        var api_url = api_url.slice(api_domain_start_pos);
+
+        return api_url;
+    }
+
+
+    function Facebook(popupWidth, popupHeight) {
+
+        var left = (screen.width / 2) - (popupWidth / 2);
+        var top = (screen.height / 2) - (popupHeight / 2);
+        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook#_=_";
+        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        if (window.focus) {
+            newwindow.focus();
+        }
+        localStorage.userType = "facebook";
+    }
+    function Yahoo(popupWidth, popupHeight) {
+        var left = (screen.width / 2) - (popupWidth / 2);
+        var top = (screen.height / 2) - (popupHeight / 2);
+        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Yahoo";
+        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        if (window.focus) {
+            newwindow.focus();
+        }
+        localStorage.userType = "yahoo";
+    }
+    function QQ(popupWidth, popupHeight) {
+        var left = (screen.width / 2) - (popupWidth / 2);
+        var top = (screen.height / 2) - (popupHeight / 2);
+        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=QQ";
+        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        if (window.focus) {
+            newwindow.focus();
+        }
+        localStorage.userType = "qq";
+    }
+    function Twitter(popupWidth, popupHeight) {
+        var left = (screen.width / 2) - (popupWidth / 2);
+        var top = (screen.height / 2) - (popupHeight / 2);
+        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Twitter";
+        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        if (window.focus) {
+            newwindow.focus();
+        }
+        localStorage.userType = "twitter";
+    }
+    function Sina(popupWidth, popupHeight) {
+        var left = (screen.width / 2) - (popupWidth / 2);
+        var top = (screen.height / 2) - (popupHeight / 2);
+        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Sina";
+        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        if (window.focus) {
+            newwindow.focus();
+        }
+        localStorage.userType = "sina";
+    }
+    function LinkedIn(popupWidth, popupHeight) {
+        var left = (screen.width / 2) - (popupWidth / 2);
+        var top = (screen.height / 2) - (popupHeight / 2);
+        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=LinkedIn";
+        newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        if (window.focus) {
+            newwindow.focus();
+        }
+        localStorage.userType = "linkedIn";
+    }
+    function Google(popupWidth, popupHeight) {
+        var left = (screen.width / 2) - (popupWidth / 2);
+        var top = (screen.height / 2) - (popupHeight / 2);
+        var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Google";
+        newwindow = window.open(api_url, 'name', 'height=' + popupHeight * 1.5 + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        if (window.focus) {
+            newwindow.focus();
+        }
+        localStorage.userType = "google";
+    }
+
+    function closePane() {
 
-                    $('.Login-box #login-with-email-drop-down').animate({height: 'toggle'});
-                    $('.Login-box #user-forgot-password-pane').animate({height: 'toggle'});
+        HubStar.set('checkLoginStatus', false);
+    }
 
-                    if ($('.Login-box #social-login-container').css('display') === 'block') {
-                        $('.Login-box #social-login-container').animate({height: 'toggle'});
 
-                    }
-                    if ($('.Login-box #forgot-message-container').css('display') === 'block') {
-                        $('.Login-box #forgot-message-container').animate({opacity: 'toggle'});
-                    }
-                    if ($('.Login-box #click-login').css('display') === 'block') {
-                        $('.Login-box #click-login').animate({height: 'toggle'});
-
-                    }
-                }
-            });
-            /*  LOGIN TAB: show forget password pane */
-
-            $('.Login-box #user-forgot-password-pane .back-btn').click(function() {
-                $('.Login-box #user-forgot-password-pane').animate({height: 'toggle'});
-                $('.Login-box #login-with-email-drop-down').animate({height: 'toggle'});
-
-                if ($('.Login-box #social-login-container').css('display') === 'block') {
-                    $('.Login-box #social-login-container').animate({height: 'toggle'});
-
-                }
-
-
-            });
-            /* Back to login with email from forget password pane */
-
-
-            $('.Login-box #reset-btn').click(function() {
-
-            });
-            /* forgot password function showing thank you message */
-
-
-            $('.Login-box #user-forgot-password-pane .back-btn').click(function() {
-                if ($('.Login-box #forgot-message-container').css('display') === 'block') {
-                    $('.Login-box #forgot-message-container').animate({opacity: 'toggle'});
-                }
-            });
-            /* hiding thank you message when the user clicks the back btn */
-
-
-
-
-
-
-            $(".Login-box #click-register-social").click(function() {
-
-                $('.Login-box #click-register-social').removeClass('social-active');
-                $('.Login-box #click-register').removeClass('active-tab');
-                if ($('.Login-box #social-link').css('display') === 'block') {
-                    $('.Login-box #social-link').animate({height: 'toggle'});
-                    if ($('.Login-box #register-with-email-drop-down').css('display') === 'block') {
-                        $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
-                    }
-                    if ($('.Login-box #register-with-email-step-2').css('display') === 'block') {
-                        $('.Login-box #register-with-email-step-2').animate({height: 'toggle'});
-                    }
-                }
-                /* hiding social login */
-
-                if ($('.Login-box #social-link').css('display') === 'none') {
-                    $('.Login-box #social-link').animate({height: 'toggle'});
-                    $('.Login-box #click-register-social').addClass('social-active');
-                    if ($('.Login-box #register-with-email-drop-down').css('display') === 'block') {
-                        $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
-                    }
-                    if ($('.Login-box #register-with-email-step-2').css('display') === 'block') {
-                        $('.Login-box #register-with-email-step-2').animate({height: 'toggle'});
-                    }
-                }
-                /*  REGISTER TAB: showing social login section*/
-
-            });
-
-
-
-            $('.Login-box #register-with-email-step-2 .back-btn').click(function() {
-                $('.Login-box #register-with-email-step-2').removeClass('active-step');
-                $('.Login-box #register-with-email-step-2').animate({height: 'toggle'});
-                $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
-                checkSocial();
-            });
-            /* going back to step 1 function*/
-
-
-            $(".Login-box .register-clicker").click(function() {
-
-                if ($('.Login-box #register-with-email-step-2').hasClass('active-step')) {
-                    //alert('closing step2');
-
-                    $('.Login-box #social-link').animate({height: 'toggle'});
-                    $('.Login-box #register-with-email-step-2').animate({height: 'toggle'});
-                    if ($('.Login-box #click-register').hasClass('active-tab')) {
-                        $('.Login-box #click-register').removeClass('active-tab');
-                        /* closing step */
-                    }
-
-                    else {
-                        $('.Login-box #click-register').addClass('active-tab');
-                        /* opening step */
-                    }
-
-                }
-                /* closing/opening register section while on step 2 function */
-
-                if ($('.Login-box #register-with-email-drop-down').css('display') === 'block' && $('#click-register').hasClass('active-tab')) {
-                    //alert('closing step1');
-                    $('.Login-box #click-register').removeClass('active-tab');
-                    $('.Login-box #social-link').animate({height: 'toggle'});
-                    $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
-                    $('.Login-box #click-register-social').addClass('social-active');
-                }
-                /* closing register section while on step 1 function */
-
-
-                if ($('.Login-box #register-with-email-drop-down').css('display') === 'none' && $('#register-with-email-step-2').hasClass('')) {
-                    //alert('opening step 1');
-                    $('.Login-box #click-register-social').removeClass('social-active');
-                    $('.Login-box #click-register').addClass('active-tab');
-                    $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
-                    checkSocial();
-                }
-                /* clicking register step 1 function*/
-
-            });
-
-
-
-
-
-
-            function checkSocial() {
-                if ($('.Login-box #social-link').css('display') === 'block') {
-                    $('.Login-box #social-link').animate({height: 'toggle'});
-                }
-                else {
-                }
-            }
-            /* close social login checker function */
-
-
-            $('.Login-box .login-select').click(function() {
-                $('.Login-box .login-select').removeClass('login-selected');
-                $(this).addClass('login-selected');
-            });
-            /* select gender function */
-
-
-            function loginPane() {
-
-                if (loginState === false) {
-                    $('.Login-box #login-btn').text('Sign up for a new account!');
-                    $('.Login-box .black-tool-tip').css('display', 'none');
-                    $('.Login-box #click-register-social').css('display', 'none');
-                    $('.Login-box #click-register').css('display', 'none');
-                    $('.Login-box #social-link').css('display', 'none');
-                    $('.Login-box #login-with-email-drop-down').css('display', 'block');
-                    $('.Login-box #social-login-container').css('display', 'none');
-                    $('.Login-box #click-login').addClass('active-tab');
-                    $('.Login-box #social-login').removeClass('social-active');
-                    $('.Login-box #user-forgot-password-pane').css('display', 'none');
-                    $('.Login-box #forgot-message-container').css('display', 'none');
-                    $('.Login-box #invalid-username').css('display', 'none');
-
-                    $('.Login-box #register-with-email-drop-down').css('display', 'none');
-                    $('.Login-box #register-with-email-step-2').css('display', 'none');
-                    $('.Login-box #user-login-pane').css('display', 'block');
-                    loginState = true;
-                }
-                else {
-
-                    $('.Login-box #login-btn').text('Already had an acount? Click here to Login!');
-                    $('.Login-box .black-tool-tip').css('display', 'none');
-                    $('.Login-box #click-register-social').css('display', 'block');
-                    $('.Login-box #social-link').css('display', 'block');
-                    $('.Login-box #click-register').css('display', 'block');
-                    $('.Login-box #click-register-social').addClass('social-active');
-                    $('.Login-box #click-register').removeClass('active-tab');
-                    $('.Login-box #register-with-email-step-2').removeClass('active-step');
-                    $('.Login-box #user-login-pane').css('display', 'none');
-
-                    loginState = false;
-                }
-            }
-
-
-
-
-
-
-
-            function DropDown(el) {
-                this.dd = el;
-                this.placeholder = this.dd.children('span');
-                this.opts = this.dd.find('ul.dropdown > li');
-                this.val = '';
-                this.index = -1;
-                this.initEvents();
-            }
-            DropDown.prototype = {
-                initEvents: function() {
-                    var obj = this;
-
-                    obj.dd.on('click', function(event) {
-                        $(this).parents('div .wrapper-dropdown-3').toggleClass('active');
-                        return false;
-                    });
-                    obj.opts.on('click', function() {
-                        var opt = $(this);
-                        obj.val = opt.text();
-                        obj.index = opt.index();
-                        obj.placeholder.text(obj.val);
-                    });
-                },
-                getValue: function() {
-                    return this.val;
-                },
-                getIndex: function() {
-                    return this.index;
-                }
-            };
-
-            $(function() {
-
-                var dd3 = new DropDown($('.dropdown_test_3'));
-                $(document).click(function() {
-                    $('.wrapper-dropdown-3').removeClass('active');
-                });
-
-            });
-
-            function setDomain() {
-
-                var api_url = document.domain;
-                var api_domain_start_pos = api_url.indexOf('.');
-                var api_url = api_url.slice(api_domain_start_pos);
-
-                return api_url;
-            }
-
-
-              function Facebook(popupWidth, popupHeight) {
-
-                    var left = (screen.width / 2) - (popupWidth / 2);
-                    var top = (screen.height / 2) - (popupHeight / 2);
-                    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook#_=_";
-                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                    if (window.focus) {
-                        newwindow.focus();
-                    }
-                    localStorage.userType = "facebook";
-                }
-                function Yahoo(popupWidth, popupHeight) {
-                    var left = (screen.width / 2) - (popupWidth / 2);
-                    var top = (screen.height / 2) - (popupHeight / 2);
-                    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Yahoo";
-                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                    if (window.focus) {
-                        newwindow.focus();
-                    }
-                    localStorage.userType = "yahoo";
-                }
-                function QQ(popupWidth, popupHeight) {
-                    var left = (screen.width / 2) - (popupWidth / 2);
-                    var top = (screen.height / 2) - (popupHeight / 2);
-                    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=QQ";
-                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                    if (window.focus) {
-                        newwindow.focus();
-                    }
-                    localStorage.userType = "qq";
-                }
-                function Twitter(popupWidth, popupHeight) {
-                    var left = (screen.width / 2) - (popupWidth / 2);
-                    var top = (screen.height / 2) - (popupHeight / 2);
-                    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Twitter";
-                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                    if (window.focus) {
-                        newwindow.focus();
-                    }
-                    localStorage.userType = "twitter";
-                }
-                function Sina(popupWidth, popupHeight) {
-                    var left = (screen.width / 2) - (popupWidth / 2);
-                    var top = (screen.height / 2) - (popupHeight / 2);
-                    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Sina";
-                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                    if (window.focus) {
-                        newwindow.focus();
-                    }
-                    localStorage.userType = "sina";
-                }
-                function LinkedIn(popupWidth, popupHeight) {
-                    var left = (screen.width / 2) - (popupWidth / 2);
-                    var top = (screen.height / 2) - (popupHeight / 2);
-                    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=LinkedIn";
-                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                    if (window.focus) {
-                        newwindow.focus();
-                    }
-                    localStorage.userType = "linkedIn";
-                }
-                function Google(popupWidth, popupHeight) {
-                    var left = (screen.width / 2) - (popupWidth / 2);
-                    var top = (screen.height / 2) - (popupHeight / 2);
-                    var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Google";
-                    newwindow = window.open(api_url, 'name', 'height=' + popupHeight * 1.5 + ',width=' + popupWidth + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
-                    if (window.focus) {
-                        newwindow.focus();
-                    }
-                    localStorage.userType = "google";
-                }
-            
-              function closePane() {
-                  
- HubStar.set('checkLoginStatus', false);
-                }
-
-            
 </script>

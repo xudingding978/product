@@ -3,7 +3,6 @@
 /*global $:false */
 
 HubStar.ApplicationController = Ember.ArrayController.extend({
-
     selected_topics: "",
     isAdd: false,
     contentTopic: [
@@ -23,11 +22,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         {id: "14", image: '../images/welcomepage/retail-design.jpg', topic: 'Retail Design'}
 
     ],
-
-
-    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop','article','mega','checkingLoginStatus','addCollection'],
-
-
+    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop', 'article', 'mega', 'checkingLoginStatus', 'addCollection'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -102,9 +97,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
 
     },
-            articleFromSearch:function()
+    articleFromSearch: function()
     {
-        this.get("controllers.article").set("accessFromSearchBoard",true);
+        this.get("controllers.article").set("accessFromSearchBoard", true);
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));
@@ -179,7 +174,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 var stat = stats.objectAt(0);
                 var megasResults = stat.get("megas");
                 HubStar.set('itemNumber', megasResults.get("length"));
-                that.setContent(megasResults);;
+                that.setContent(megasResults);
+                ;
                 that.set('loadingTime', false);
                 that.set("from", that.get("size"));
 
@@ -242,7 +238,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             HubStar.set("isLogin", true);
             that.transitionToRoute("searchIndex");
         });
-   
+
 
     },
     signUp: function() {
@@ -272,23 +268,22 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             });
         }
     },
-    selectTopic: function(id, topic) {
-
+    selectTopic: function(id, topic) {  
         if (HubStar.get(id)) {
-            $('#plus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; margin: 10px; display:none");
+            $('#minus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; margin: 10px; display:none;");
             if (this.get('selected_topics').indexOf(topic) !== -1) {
                 this.set('selected_topics', this.get('selected_topics').replace(topic + ",", ""));
-
             }
-
             HubStar.set(id, false);
-        } else {
-            $('#plus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; margin: 10px; display:none");
-            this.set('selected_topics', this.get('selected_topics') + topic + ",");
-            HubStar.set(id, true);
-
+        } else {        
+           $('#minus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; display:block;");
+            if(this.get('selected_topics').length===0){
+                this.set('selected_topics', topic);
+            }else{              
+                this.set('selected_topics', this.get('selected_topics') + "," + topic);    
+            }  
+             HubStar.set(id, true);                   
         }
-
     },
     submitSelection: function() {
 
@@ -299,13 +294,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     next: function() {
 
         $('#register-with-email-step-3').css('display', 'block');
-        
-        
+
+
     },
     done: function() {
         this.set('loginTime', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age'), this.get('selected_topics')];
         var that = this;
+         $('#finishRegister').css('display', 'none');
+          $('#skipRegister').css('display', 'block');
         requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
             localStorage.loginStatus = params.COUCHBASE_ID;
             var emailInfo = [params.USER_NAME, params.PWD_HASH];
@@ -325,6 +322,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }, 2000);
         });
 
+    },
+    
+    skip: function(){
+       // HubStar.set("isLogin", true);
+       this.transitionToRoute("searchIndex");
     },
     checkSignupInfo: function() {
         function checkObject(id, input, lengthMin, lengthMax, isEmailValid)

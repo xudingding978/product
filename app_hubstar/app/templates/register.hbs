@@ -114,15 +114,16 @@
             <div   style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
                 <div  class="comment-namentime" style="display: block;position: relative;height: 35px;">
                     <div style="position: absolute;  text-align: center;line-height: 40px;margin: 0 auto;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
-                        Please choose a topic that will sustain your interest.
+                        Please select from the topics below to your save your interests.
 
                     </div>
                 </div>
             </div>
             <div id ="" style="margin: 20px 30px 5px;height: 450px;" >
                 {{#each controller.contentTopic}}
-                <div class="hover-opacity" style=" height: 150px; width: auto;position: relative; float: left; margin: 10px 20px;"{{action selectTopic id topic}}>
-                     <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="opacity: .8; z-index: 10; right: 0;" {{action selectTopic id topic }}><k class="icon-plus" ></k></div>
+                <div class="select-interest" style=" height: 150px; width: auto;position: relative; float: left; margin: 10px 20px;"{{action selectTopic id topic}}>
+                     <div id="minus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action selectTopic id topic }}><k class="icon-minus" ></k></div>
+                     <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;" ><k class="icon-plus" ></k></div>
                     <div class="" style="height: 100px;width: 100px;position: relative;border-radius: 50%;overflow: hidden;top: -5px;float: left; ">
                         <div  class="usersobject-hoverarea easing" style="height: 100px; width: 100px;" >
                         </div>
@@ -153,11 +154,11 @@
                 </div>
             </div>
             <div style="height: 140px; text-align: center; padding: 40px;">
-                Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!
+                Registration successful! Please remember to validate your email address when you next check your emails!
             </div>
 
-            <!--         <div class="message-btn easing" style="width: 50%;border-right: 1px solid #ddd;">skip&nbsp<k class="icon-arrow-right" ></k></div>-->
-            <div class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute;" {{action done}}>Done&nbsp;<k class="icon-long-arrow-right" style="font-size: 13px;"></k></div>
+            <div id="skipRegister" class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute; display:none" {{action skip}}>Skip&nbsp</div>
+            <div id="finishRegister" class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute;display:block" {{action done}}>Done&nbsp;<k class="icon-long-arrow-right" style="font-size: 13px;"></k></div>
         </div>
 
     </div>

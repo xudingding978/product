@@ -137,23 +137,22 @@ this.set('loginUsername', localStorage.userName);
             });
         }
     },
-     selectTopic: function(id, topic) {
-
+    selectTopic: function(id, topic) {     
         if (HubStar.get(id)) {
-            $('#plus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; margin: 10px; display:none");
+            $('#minus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; margin: 10px; display:none;");
             if (this.get('selected_topics').indexOf(topic) !== -1) {
                 this.set('selected_topics', this.get('selected_topics').replace(topic + ",", ""));
-
             }
-
             HubStar.set(id, false);
-        } else {
-            $('#plus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; margin: 10px; display:none");
-            this.set('selected_topics', this.get('selected_topics') + topic + ",");
-            HubStar.set(id, true);
-
+        } else {     
+           $('#minus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; display:block;");
+            if(this.get('selected_topics').length===0){
+                this.set('selected_topics', topic);
+            }else{              
+                this.set('selected_topics', this.get('selected_topics') + "," + topic);    
+            }  
+             HubStar.set(id, true);                  
         }
-
     },
     submitSelection: function() {
 
@@ -171,6 +170,8 @@ this.set('loginUsername', localStorage.userName);
         this.set('loginTime', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age'), this.get('selected_topics')];
         var that = this;
+         $('#finishRegister').css('display', 'none');
+          $('#skipRegister').css('display', 'block');   
         requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
             localStorage.loginStatus = params.COUCHBASE_ID;
             var emailInfo = [params.USER_NAME, params.PWD_HASH];
@@ -189,8 +190,13 @@ this.set('loginUsername', localStorage.userName);
 
             }, 2000);
         });
-
+        
     },
+     skip: function(){
+      //  HubStar.set("isLogin", true);
+       this.transitionToRoute("searchIndex");//need to change to current state page
+    },
+    
     checkSignupInfo: function() {
         function checkObject(id, input, lengthMin, lengthMax, isEmailValid)
         {

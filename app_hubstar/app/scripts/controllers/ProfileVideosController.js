@@ -74,7 +74,7 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
     },
     removeCollectedItem: function()
     {
-        this.set('message', "Are you going to delete this video?");
+        this.set('message', "Remove this video?");
         this.set('makeSureDelete', !this.get('makeSureDelete'));
 
     },

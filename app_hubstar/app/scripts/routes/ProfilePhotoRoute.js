@@ -16,7 +16,6 @@ HubStar.ProfilePhotoRoute = Ember.Route.extend({
       //  this.controllerFor('mega').set("loadingTime", true);
         var that = this;
         setTimeout(function() {
-          //  console.log(megaModel);
             that.controllerFor('mega').getInitData(megaModel);
         //    that.controllerFor('mega').set("loadingTime", false);
 
@@ -24,15 +23,10 @@ HubStar.ProfilePhotoRoute = Ember.Route.extend({
 
     },
     model: function(params) {
-//var model = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
-//
-//        this.controllerFor("mega").set("clickOrRoute", true);
-//        return model;
-//        
+
         var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});// = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
         this.controllerFor("mega").set("clickOrRoute", true);
-        console.log("model");
-        console.log(model);
+
         return model;
     },
     activate: function() {

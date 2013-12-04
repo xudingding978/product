@@ -8361,7 +8361,36 @@ to{
 .edit-comment{font-size: 11px;top: 0;right: 0;position: absolute; opacity: 0;}
 .edit-comment > i {cursor: pointer}
 
+.select-profile-save{
+    z-index: 100; 
+    position: absolute; 
+    border: 1px solid #ddd; 
+    background-color: #fff; 
+    right: 140px; 
+    width: 200px;
+}
 
+.select-profile-save:before{
+    content: "";
+    position: absolute;
+    left: 90px;
+    top: -19px;
+    border-color: transparent transparent #fff transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: 0;
+}
+
+.select-profile-save:after{
+    content: "";
+    position: absolute;
+    left: 90px;
+    top: -20px;
+    border-color: transparent transparent #ddd transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: -1;
+}
 /*BASIC STYLE*/
 
 #master_bg
@@ -10596,6 +10625,7 @@ input{
 .latestebook{
     margin-bottom: 20px;
     position: relative;
+    max-width: 200px;
 }
 
 .latestebook-control{
@@ -10785,10 +10815,12 @@ div#appfeedback .fresh-message > k.icon-remove{
 {
     display: inline-block;
     width: 100%;
-    left:0;
-    right:0;
-    margin:auto;
-    min-width:553px;
+    left: 0;
+    right: 0;
+    background-color: white;
+    margin: auto;
+    min-width: 553px;
+    padding-bottom: 30px;
 }
 
 .premium > div > table  .profileaside > .profileaside_content .aside-container{
@@ -11848,6 +11880,7 @@ textarea.add-interests{
     border-width: 10px 7px 10px 0;
     border-radius: 2px;
 }
+
 
 .search_input{width: 25%;display: inline-block}
 .search_business{width: 73.5%}

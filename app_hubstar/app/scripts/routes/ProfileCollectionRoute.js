@@ -73,7 +73,7 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
                     break;
                 }
             }
-            console.log(data);
+          
             this.transitionTo("profileCollection", data);
             this.transitionTo("profilePhoto", obj);
         },
@@ -81,29 +81,16 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
             this.transitionTo("profile", HubStar.Profile.find(id));
         },
         transitionToArticle: function(id) {
-            console.log("clkick profile article");
+        
             this.controllerFor("article").set("collectionArticleId", id);
             var obj = HubStar.Article.find(id);
 
-//            var address = document.URL;
-//            var owner_id = address.split("#")[1].split("/")[2];
-//
-//
-//            var collection_id = address.split("#")[1].split("/")[4];
-//            var profile = HubStar.Profile.find(owner_id);
-//            for (var i = 0; i < profile.get('collections').get("length"); i++) {
-//                var data = profile.get('collections').objectAt(i);
-//                if (data.id === collection_id) {
-//                    break;
-//                }
-//            }
-//            this.transitionTo("profileCollection", data);
-//            this.controllerFor('masonryCollectionItems').set('isUser', true);
+
             this.transitionTo("profileArticle", obj);
 
         },
         transitionToVideo: function(video_id) {
-            console.log("clkick profile video");
+     
 //            var address = document.URL;
 //            var owner_id = address.split("#")[1].split("/")[2];
 //

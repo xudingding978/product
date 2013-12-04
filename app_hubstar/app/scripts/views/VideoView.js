@@ -59,13 +59,13 @@ HubStar.VideoView = Ember.View.extend({
             var user_photo_id = address.split("#")[1].split("/")[8];
             if (type === "users")
             {
-                alert("article users");
+
 
                 var user = HubStar.User.find(id);
 
                 if (user_photo_id !== undefined) //type:article means it 
                 {
-                    alert("ddds");
+     
                     var data = null;
                     for (var i = 0; i < user.get('collections').get("length"); i++) {
                         data = user.get('collections').objectAt(i);

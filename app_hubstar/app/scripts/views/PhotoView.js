@@ -58,12 +58,11 @@ HubStar.PhotoView = Ember.View.extend({
             var user_photo_id = address.split("#")[1].split("/")[8];
             if (type === "users")
             {
- alert("users");
                 var user = HubStar.User.find(id);
 
                 if (user_photo_id !== undefined || colectionType === "articles" || colectionType === "photos") //type:article means it 
                 {
-                    alert("ddds");
+
                     var data = null;
                     for (var i = 0; i < user.get('collections').get("length"); i++) {
                         data = user.get('collections').objectAt(i);
@@ -80,12 +79,12 @@ HubStar.PhotoView = Ember.View.extend({
             }
             else if (type !== "photos")
             {
-                alert("photos");
+
                 this.get("controller").closeWindow();
             }
             else
             {
-                alert("else");
+
                 window.history.back();
             }
 

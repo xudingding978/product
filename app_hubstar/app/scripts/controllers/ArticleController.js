@@ -255,7 +255,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
                     if (that.get("accessFromSearchBoard") === false)
                     {
-                        console.log("33333333333333333444444444");
+                       
 
                         if (that.get("controllers.masonryCollectionItems").get("type") === "profile")
                         {
@@ -291,9 +291,9 @@ HubStar.ArticleController = Ember.Controller.extend({
     closeWindow: function() {
         this.set('collectable', false);
         this.set('contact', false);
-        alert("close windown");
+      
         var address = document.URL;
-        var collection_id = address.split("#")[1].split("/")[4];
+        var collection_id = address.split("#")[1].split("/")[6];
         var user_id = address.split("#")[1].split("/")[2];
         var type = address.split("#")[1].split("/")[1];
         
@@ -307,27 +307,15 @@ HubStar.ArticleController = Ember.Controller.extend({
         {
             if (type === "users")
             {
-                var user = HubStar.User.find(user_id);
+                var photoObject = HubStar.Mega.find(collection_id);
 
-                for (var i = 0; i < user.get('collections').get("length"); i++) {
-                    var data = user.get('collections').objectAt(i);
-                    if (data.id === collection_id) {
-                        break;
-                    }
-                }
-                this.transitionTo("userPhoto", data); //user photo
+                this.transitionTo("userPhoto", photoObject); //user photo
             }
             else if (type === "profiles")
             {
-                var user = HubStar.Profile.find(user_id);
+                var photoObject = HubStar.Mega.find(collection_id);
 
-                for (var i = 0; i < user.get('collections').get("length"); i++) {
-                    var data = user.get('collections').objectAt(i);
-                    if (data.id === collection_id) {
-                        break;
-                    }
-                }
-                this.transitionTo("profilePhoto", data); // profile photo
+                this.transitionTo("profilePhoto", photoObject); // profile photo
             }
         }
 

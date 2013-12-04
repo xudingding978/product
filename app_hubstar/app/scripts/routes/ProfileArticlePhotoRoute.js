@@ -1,7 +1,7 @@
 HubStar.ProfileArticlePhotoRoute = Ember.Route.extend({
      setupController: function(controller, model) {
         var temp;
-        console.log("ddddddddddddd");
+     
         var url = window.location.href;
         var urlArray = url.split("/");
         if (model.id === undefined) {                               //reload page model id can not be find

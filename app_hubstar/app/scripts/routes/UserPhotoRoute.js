@@ -19,7 +19,7 @@ HubStar.UserPhotoRoute = Ember.Route.extend({
     model: function(params) {
         var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});// = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
         this.controllerFor("mega").set("clickOrRoute", true);
-          console.log("user model");
+     
 
         return model;
     },

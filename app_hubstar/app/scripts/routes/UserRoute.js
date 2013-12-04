@@ -47,7 +47,7 @@ HubStar.UserRoute = Ember.Route.extend({
             this.transitionTo("collection", data);
         },
         transitionToArticle: function(article_id) {
-    console.log("user route article ");
+
             this.transitionTo("article", article_id);
             this.transitionTo("articlePhoto");
         }

@@ -58,18 +58,13 @@ HubStar.ProfileRoute = Ember.Route.extend({
             this.transitionTo("profileCollection", data);
         },
         transitionToArticle: function(article_id) {
-    console.log("profilr artddcle");
+
             this.transitionTo("profileArticle", article_id);
             this.transitionTo("profileArticlePhoto");
         }
     },
     redirect: function() {
-//        if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
-//
-//            this.transitionTo('indexIndex');
-//            this.controllerFor('application').set('popup', true);
-//
-//        }
+
 
     },
     deactivate: function() {

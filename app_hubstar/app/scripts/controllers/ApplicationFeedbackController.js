@@ -29,7 +29,7 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
             }, 500);
         }
         this.set('is_remove', true);
-        // console.log("true");
+
         Ember.run.next(function() {
 
         });

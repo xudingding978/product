@@ -1,7 +1,8 @@
-HubStar.UserArticleRoute = Ember.Route.extend({
+HubStar.ProfileArticleRoute = Ember.Route.extend({
     //     controller: HubStarlicationController,
     setupController: function(controller, model) {
         var temp;
+     
         if (model.id === undefined) {                        //reload the page model id can not be find...
             var url = window.location.href;
             urlArray = url.split("/");
@@ -9,19 +10,18 @@ HubStar.UserArticleRoute = Ember.Route.extend({
         } else {
             temp = model.id;
         }
-        if (this.controllerFor("article").get("searchFromRoute") === true) 
+        if (this.controllerFor("article").get("searchFromRoute") === true) //refresh in the profile article photo
         {
 
             var address = document.URL;
             var temp = address.split("#")[1].split("/")[6];
         }
-
         var d = HubStar.Mega.find(temp);
         this.controllerFor("article").getInitData(d);
     },
     model: function(params) {
         var model = HubStar.Mega.find({"RequireType": "articles", "article_id": params.article_id});
-        model.set("id", params.article_id);
+        model.set("id", params.article_id); //when refresh the page of profile article photo and set the article id
         return model;
     },
     activate: function() {

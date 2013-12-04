@@ -3,7 +3,9 @@
 /*global $:false */
 
 HubStar.ApplicationController = Ember.ArrayController.extend({
-    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop','checkingLoginStatus','addCollection'],
+
+    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop','article','mega','checkingLoginStatus','addCollection'],
+
     content: [],
     loginInfo: "",
     search_area: "",
@@ -25,7 +27,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     gender: "",
     iframeURL: "",
     iframeLoginURL: "",
-    isWaiting: "",
     loginTime: false,
     isGeoDropdown: false,
     isNavigatorDropdown: false,
@@ -78,6 +79,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
 
+    },
+            articleFromSearch:function()
+    {
+        this.get("controllers.article").set("accessFromSearchBoard",true);
     },
     reloadPage: function() {
         this.set("test", !this.get("test"));
@@ -152,8 +157,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 var stat = stats.objectAt(0);
                 var megasResults = stat.get("megas");
                 HubStar.set('itemNumber', megasResults.get("length"));
-                that.setContent(megasResults);
-                // that.set('isWaiting', false);
+                that.setContent(megasResults);;
                 that.set('loadingTime', false);
                 that.set("from", that.get("size"));
 
@@ -252,7 +256,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
     },
     done: function() {
-        //   this.set('isWaiting', true);
         this.set('loginTime', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;
@@ -271,7 +274,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 that.set('region', "");
                 that.set('gender', "");
                 that.set('age', "");
-//                that.set('isWaiting', false);
                 that.set('loginTime', false);
                 alert("Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!");
             }, 2000);
@@ -367,7 +369,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     showDiscoveryBar: function() {
         HubStar.set("showDiscoveryBar", true);
-        this.transitionToRoute('searchIndex');
+        this.transitionToRoute('search');
         $("#top-about-menu").fadeIn("320");
         $("#search-bar").fadeOut("320");
         $(".Navigator-box").fadeOut("320");
@@ -414,11 +416,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
     },
     topicSearch: function(search_topic) {
-        this.transitionToRoute('searchIndex');
+        this.transitionToRoute('search', {id: search_topic});
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
         this.set('search_string', search_topic);
-        this.newSearch();
+//        this.newSearch();
         this.set('isNavigatorDropdown', false);
         this.set('isHeaderNavigatorDropdown', false);
         HubStar.set("showDiscoveryBar", false);
@@ -431,7 +433,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {
-            //   this.set('isWaiting', true);
             this.set('loginTime', true);
             document.getElementById("loginUsername").setAttribute("class", "login-textfield");
             document.getElementById("loginPassword").setAttribute("class", "login-textfield");
@@ -440,7 +441,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             requiredBackEnd('login', 'login', loginInfo, 'POST', function(params) {
                 if (params === 1) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-                    //  that.set('isWaiting', false);
                     that.set('loginTime', false);
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
@@ -448,7 +448,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }// INVALID user name when the user attempts to login.
                 else if (params === 0) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-//                    that.set('isWaiting', false);
                     that.set('loginTime', false);
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
@@ -468,7 +467,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             that.transitionToRoute('searchIndex');
                             that.set('loginUsername', "");
                             that.set('loginPassword', "");
-//                            that.set('isWaiting', false);
                             that.set('loginTime', false);
                         }
                         else
@@ -482,7 +480,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     }
                     else {
                         document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
-//                        that.set('isWaiting', false);
                         that.set('loginTime', false);
                         if ($('#incorrect-password').css('display') === 'none') {
 

@@ -265,6 +265,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.set('keyword_left', parseInt(this.get("keyword_num")) - profile.get('keywords').get('length'));        
         this.setAboutUsObject();
+        this.set('editingAbout', false);
+        this.set('editing', false);
+        this.set('editingTime', false);
     },
     setAboutUsObject: function() {
         if (this.get('model').get('about_us') !== null && this.get('model').get('about_us') !== 'undefined' && this.get('model').get('about_us').get('length') > 0 ) {
@@ -546,6 +549,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //                this.get('about_us').objectAt(0).get('about_video').objectAt(i).set('video_url', '//www.youtube.com/embed/'+video_url[1].split('=')[1]);
 //            }
 //        }
+        this.get('model').set('about_us', this.get('about_us'));
         this.get('about_us').objectAt(0).save();
     },
     yes: function(checkingInfo) {
@@ -580,6 +584,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         else if (checkingInfo === "aboutMe") {
             this.set('about_me', about_record);
+            this.setAboutUsObject();
             this.set('editingAbout', !this.get('editingAbout'));
         }
         else if (checkingInfo === "contact") {

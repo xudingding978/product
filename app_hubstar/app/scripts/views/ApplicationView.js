@@ -16,8 +16,8 @@ HubStar.ApplicationView = Ember.View.extend({
         $(window).scroll(function() {
             var y_scroll_pos = window.pageYOffset;
 
-            var ifsearch = document.URL.split("#")[1];
-            if (ifsearch === "/search") {
+            var ifsearch = document.URL.split("#")[1].split("/")[1];
+            if (ifsearch === "search") {
 
                 if (HubStar.get('showDiscoveryBar') === true) {
 

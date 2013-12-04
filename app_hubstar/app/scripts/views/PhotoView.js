@@ -47,7 +47,7 @@ HubStar.PhotoView = Ember.View.extend({
     keyUp: function(event, view) {
         if (event.which === 27)
         { // pressed 'esc'
-
+alert("222ddd");
             //this.get("controller").transitionTo("search");
 
             var address = document.URL;
@@ -79,7 +79,7 @@ HubStar.PhotoView = Ember.View.extend({
             }
             else if (type !== "photos")
             {
-
+alert("ddd");
                 this.get("controller").closeWindow();
             }
             else

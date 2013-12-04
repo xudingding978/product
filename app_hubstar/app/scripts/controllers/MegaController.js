@@ -25,7 +25,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     sharePhotoUrl: '',
     type: null,
     selectType: null,
-    loadingTime:false,
+    loadingTime: false,
     sharePhotoName: '',
     makeSureDelete: false,
     willDelete: false,
@@ -72,12 +72,12 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
         else if (type === "photos")
         {
-         
+
             this.closeWindow();
         }
         else
         {
-         
+
             window.history.back();
         }
     },
@@ -180,7 +180,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
             if (megaObject.get("type") === 'article')
             {
-         
+
                 var photoUrl = megaObject.get("article").objectAt(0).get("article_image_url");
                 var photoObj = megaObject.set('photo_image_original_url', photoUrl);
                 photoObj.set("photo_title", megaObject.get("article").objectAt(0).get("article_headline"));
@@ -190,7 +190,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             else if (megaObject.get("type") === 'video')
             {
-         
+
                 var photoUrl = megaObject.get("videoes").objectAt(0).get("videoImg");
                 var photoObj = megaObject.set('photo_image_original_url', photoUrl);
 
@@ -201,7 +201,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             else
             {
-      
+
                 var photoObj = megaObject.get('photo').objectAt(0);
                 this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
 
@@ -209,7 +209,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             if (this.get("selectPhoto") === false)   //selectPhoto is user to control left or right operation
             {
-     
+
                 this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
                 this.set("content", []);
 //                this.set('image_no', 1);
@@ -223,12 +223,12 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 {
                     if (this.get("controllers.masonryCollectionItems").get("type") === "user")
                     {
-                    
+
                         this.addRelatedCollectionItemData(megaObject);
                     }
                     else if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
                     {
-              
+
                         this.addProfileRelatedData(megaObject);
                     }
 
@@ -237,17 +237,17 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 {
                     if (this.get("controllers.masonryCollectionItems").get("type") === "user") //it is for user's collection
                     {
-                     
+
                         this.addRelatedCollectionItemData(megaObject);
                     }
                     else if (this.get("selectType") === "profile")
                     {
-                    
+
                         this.addProfileRelatedData(megaObject);
                     }
                     else
                     {
-                    
+
                         this.addRelatedData(megaObject);  //it is for profile's collection
                     }
                     this.checkAuthenticUser();
@@ -288,7 +288,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     {
         var a = document.URL;
         var collection_id = a.split("#")[1].split("/")[4];
-        
+
 
         if (this.get("clickOrRoute") === false) //it  accesses the collection photo by click
         {
@@ -297,7 +297,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
             var isCollectionIDExist = this.isParamExist(collection_id);
 
-            if (  (isCollectionIDExist || mega.get("type") === "video")) {
+            if ((isCollectionIDExist || mega.get("type") === "video")) {
 
                 for (var i = 0; i < photoContent.length; i++) {
 
@@ -307,13 +307,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                         if (this.get("content").objectAt(0).get('id') !== id)
                         {
-                      
+
                             this.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
                         }
                     }
                     else if (photoContent.objectAt(i).get("type") === "article")
                     {
-                   
+
                         var id = photoContent.objectAt(i).get("id");
 
                         if (this.get("content").objectAt(0).get('id') !== id)
@@ -330,7 +330,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     else if (photoContent.objectAt(i).get("type") === "video")
                     {
 
-                     
+
                         var id = photoContent.objectAt(i).get("id");
                         if (this.get("content").objectAt(0).get('id') !== id)
                         {
@@ -360,8 +360,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     id = profile.get('collections').objectAt(j).get('optional');
                 }
             }
-         
-          
+
+
             var results = HubStar.Mega.find({RquireType: "collection", "collection_id": collection_id, "owner_profile_id": id});
             var that = this;
             results.addObserver('isLoaded', function() {
@@ -377,7 +377,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     }
 
 
-                  
+
 
 
                 }
@@ -429,7 +429,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                             }
                         }
                     }
-                 
+
                 }
             });
 
@@ -447,7 +447,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         {
             var photoContent = "";
             photoContent = this.get("controllers.masonryCollectionItems").get("content");
-      
+
             var isProfileIDExist = this.isParamExist(owner_profile_id);
             var isCollectionIDExist = this.isParamExist(collection_id);
 
@@ -461,13 +461,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                         if (this.get("content").objectAt(0).get('id') !== id)
                         {
-                          
+
                             this.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
                         }
                     }
                     else if (photoContent.objectAt(i).get("type") === "article")
                     {
-                      
+
                         var id = photoContent.objectAt(i).get("id");
 
                         if (this.get("content").objectAt(0).get('id') !== id)
@@ -484,7 +484,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     else if (photoContent.objectAt(i).get("type") === "video")
                     {
 
-                      
+
                         var id = photoContent.objectAt(i).get("id");
                         if (this.get("content").objectAt(0).get('id') !== id)
                         {
@@ -698,9 +698,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             else
             {
-                var collection_id = address.split("#")[1].split("/")[4];
+                //   var collection_id = address.split("#")[1].split("/")[4];
 
-                var profile = HubStar.Profile.find(this.get("controllers.masonryCollectionItems").get("id"));
+
+                var address = document.URL;
+                var collection_id = address.split("#")[1].split("/")[4];
+                var owner_id = address.split("#")[1].split("/")[2];
+                var profile = HubStar.Profile.find(owner_id);
                 var data = null;
                 for (var i = 0; i < profile.get('collections').get("length"); i++) {
                     data = profile.get('collections').objectAt(i);
@@ -712,7 +716,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 this.set("selectPhoto", false);
                 this.transitionTo("profile", profile); // transition to profile
                 this.transitionTo("profileCollection", data);
-
             }
         }
         else
@@ -725,7 +728,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             for (var i = 0; i < user.get('collections').get("length"); i++) {
                 data = user.get('collections').objectAt(i);
                 if (data.id === collection_id) {
-                 
+
                     break;
                 }
             }

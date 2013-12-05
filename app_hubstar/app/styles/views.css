@@ -1851,7 +1851,7 @@ div.album-description-bg{
 /* search item comment controller styling  2013/12/06 */
 
 .comment-scroll-bar{
-    max-height:350px;
+    max-height:360px;
     overflow:hidden;
 }
 

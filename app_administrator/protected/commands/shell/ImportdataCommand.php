@@ -19,6 +19,8 @@ class ImportdataCommand extends Controller_admin {
             $this->importArticleandImagefromTrends();
         } elseif ($action == "replicate") {
             $this->replicateArticleandImagefromDevelop();
+        }else{
+            $this->importArticleandImagefromTrends();
         }
     }
 

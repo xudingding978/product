@@ -10,9 +10,10 @@ HubStar.ArticleController = Ember.Controller.extend({
     checkLoginStatus: false,
     searchFromRoute: false,
     collectionArticleId: null,
+    commentContent: "",
     accessFromSearchBoard: false, //false: access the articlePhoto  true: access the article
     isCreditListExist: false,
-    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'masonryCollectionItems'],
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment','itemFunction', 'masonryCollectionItems'],
     init: function() {
 
     },
@@ -166,9 +167,11 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
     },
     addComment: function() {
+
 if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
         var commentContent = this.get('commentContent');
+        console.log(commentContent);
         if (commentContent) {
             var comments = this.get('article').get('comments');
 //            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
@@ -294,7 +297,6 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
     closeWindow: function() {
         this.set('collectable', false);
         this.set('contact', false);
-      
         var address = document.URL;
         var collection_id = address.split("#")[1].split("/")[6];
         var user_id = address.split("#")[1].split("/")[2];
@@ -476,5 +478,9 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
                 'height=436,width=626'
                 ).focus();
         return false;
+    },
+    addLike: function() {
+        var controller = this.get('controllers.itemFunction');
+        controller.addLike(this.get('megaResouce').get('id'));
     }
 });

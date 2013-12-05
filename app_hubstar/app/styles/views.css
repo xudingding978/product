@@ -1651,6 +1651,10 @@ div.album-description-bg{
     margin: 5px 3.5%;
 }
 
+.Message-Board_comment-item .profilepic-comment-container{
+    margin: 5px 3.5% 5px 0;
+}
+
 .profilepic_comment{
     border-radius: 50%;
     width: 33px;

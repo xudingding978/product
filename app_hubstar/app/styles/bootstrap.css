@@ -781,11 +781,7 @@ h4 small {
     border-bottom: 1px solid #eeeeee;
 }
 
-ul,
-ol {
-    padding: 0;
-    margin: 0 0 10px 25px;
-}
+
 
 ul ul,
 ul ol,
@@ -4320,17 +4316,6 @@ input[type="submit"].btn.btn-mini {
 .nav-collapse.collapse {
     height: auto;
     overflow: visible;
-}
-
-.navbar .brand {
-    display: block;
-    float: left;
-    padding: 10px 20px 10px;
-    margin-left: -20px;
-    font-size: 20px;
-    font-weight: 200;
-    color: #777777;
-    text-shadow: 0 1px 0 #ffffff;
 }
 
 .navbar .brand:hover {

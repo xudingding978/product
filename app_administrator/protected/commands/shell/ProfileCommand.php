@@ -41,6 +41,8 @@ class ProfileCommand extends Controller_admin {
             $this->compareProfiles();
         } elseif ($action == 'keywords') {
             $this->buildKeywordObject();
+        } elseif ($action == "fix") {
+            $this->findmissingprofiles();
         } else {
 
             echo "please input an action!!";
@@ -49,6 +51,91 @@ class ProfileCommand extends Controller_admin {
         echo "All finished: start from: " . "\r\n";
         $end_time = microtime(true);
         echo "totally spend: " . ($end_time - $start_time);
+    }
+
+    public function findmissingprofiles() {
+//         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+//        $log_path = "/var/log/yii/$start_time.log";
+//        $bucket = 'production';
+//        $settings['log.enabled'] = true;
+//        $sherlock = new \Sherlock\Sherlock($settings);
+//        $sherlock->addNode("es1.hubsrv.com", 9200);
+//        $request = $sherlock->search();
+//
+//        $index = $bucket;
+//        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"profile\"")
+//                ->default_field('couchbaseDocument.doc.type');
+//        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+//        $request->index($index)->type('couchbaseDocument')
+//                ->from(0)->size(1000);
+//        $request->query($bool);
+//        $response = $request->execute();
+//        echo "\nnumber of file: " . count($response) . "\n";
+//        sleep(4);
+//        // $output_arr=array();
+//        $output_str = "";
+//        $incorrect_str = "";
+
+        $bucket = "backup";
+        $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = "/var/log/yii/$start_time.log";
+        $settings['log_enabled'] = true;
+        $sherlock = new Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = $bucket;
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"profile\"")
+                ->default_field('couchbaseDocument.doc.type');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        $request->index($index)->type("couchbaseDocument")->from(0)->size(1000);
+        $request->query($bool);
+        echo $request->toJSON();
+        $response = $request->execute();
+        echo "\n number of profiles found: " . sizeof($response);
+        if (sizeof($response != 0)) {
+            $cb = $this->couchBaseConnection('develop');
+            foreach ($response as $profile) {
+                $message = "";
+                $profile_id = $profile['id'];
+                $result = $cb->get($profile_id);
+                if ($result != null) {
+                    $message = "find profile " . $profile_id . "\n";
+                    $result_arr = CJSON::decode($result);
+                    if (isset($result_arr['category'])) {
+                        $message.="\n " . $profile_id . " has category field\n";
+                        if (isset($result_arr['categories']) && $result_arr['categories'] != null && $result_arr['categories'] != "") {
+                            $message.="\n  " . $profile_id . " has categories\n";
+                        } else {
+                            $message .="\n  " . $profile_id . " does not have categories\n";
+
+                            if ($result_arr['category'] != NULL) {
+                                $result_arr['categories'] = explode(" ", $result_arr['category']);
+                                $message.="\n   " . $profile_id . " has category value\n";
+                            }
+                            unset($result_arr['category']);
+                         //   $new_arr = array_values($result_arr);
+                            if (!isset($result_arr['category'])) {
+                                $message.="\n    " . $profile_id . " category unset\n";
+                            } else {
+                                $message.="\n    " . $profile_id . " category NOT unset-----------------------------------\n";
+                            }
+
+                            if ($cb->set($profile_id, CJSON::encode($result_arr))) {
+                                $message.= "\n     " . $profile_id . " update successful\n";
+                            } else {
+                                $message.="\n     " . $profile_id . " update failed--------------------\n";
+                            }
+                        }
+                    } else {
+                        $message.="\n " . $profile_id . " does not have category";
+                    }
+                } else {
+                    $message = "can not find profile " . $profile_id . "\n";
+                }
+                echo $message;
+                $this->writeToLog($log_path, $message);
+            }
+        }
     }
 
     public function importPackage() {
@@ -83,8 +170,8 @@ class ProfileCommand extends Controller_admin {
                             echo $message;
                             $this->writeToLog($log_path, $message);
                         }
-                    }else{
-                        $message="\n" . $result['profile_id'] . " can not find profile id in couchbase ---------------------------------  \n";
+                    } else {
+                        $message = "\n" . $result['profile_id'] . " can not find profile id in couchbase ---------------------------------  \n";
                         echo $message;
                         $this->writeToLog($log_path, $message);
                     }
@@ -95,7 +182,7 @@ class ProfileCommand extends Controller_admin {
                 }
             }
         }
-     //   echo var_export($profile_package_arr, true);
+        //   echo var_export($profile_package_arr, true);
     }
 
     protected function importProfilesToCouchbase() {
@@ -308,10 +395,10 @@ class ProfileCommand extends Controller_admin {
                 if ($package != null) {
                     $output_str.="\n" . $id . ":" . $package . "\n";
                     echo "\n" . $id . " : " . $package . "\n";
-                    if($package!='Gold' &&$package!='Silver'&&$package!='Bronze' &&$package!='Platinum'  ){
+                    if ($package != 'Gold' && $package != 'Silver' && $package != 'Bronze' && $package != 'Platinum') {
                         $incorrect_str.="\n" . $id . ":" . $package . "\n";
-                        $result_arr['profile'][0]['profile_package_name']='Bronze';
-                        $cb->set($id,CJSON::encode($result_arr));
+                        $result_arr['profile'][0]['profile_package_name'] = 'Bronze';
+                        $cb->set($id, CJSON::encode($result_arr));
                     }
                 } else {
                     $output_str.="\n" . $id . ":" . "no package set\n";
@@ -322,7 +409,7 @@ class ProfileCommand extends Controller_admin {
             }
         }
         $this->writeToLog($log_path, $output_str);
-        $message="\nThe Incorrect Packages are: \n";
+        $message = "\nThe Incorrect Packages are: \n";
         $this->writeToLog($log_path, $message);
         $this->writeToLog($log_path, $incorrect_str);
     }

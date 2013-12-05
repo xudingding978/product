@@ -33,7 +33,7 @@ HubStar.ReviewController = Ember.Controller.extend({
         this.get("controllers.profile").set("rateTime", false);
 
     },
-    reviewPost: function(id) {
+    reviewPost: function() {
         if (this.get("controllers.profile").get('reviews') !== 0) {
 
             var reviewContent = this.get('review_content');

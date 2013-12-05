@@ -429,8 +429,8 @@ class ConversationsController extends Controller {
                                             <tr>
                                                 <td valign="top">
                                                     <h1 style="color: #05B1E5; font-size: 2em; font-weight: normal; margin: 0; line-height: 200%;">
-                                                       Hi :  ' . $receiveName . '</h1>
-                                                    Here are some activities you may have missed on Trends Ideas Web Platform!
+                                                       Hi   ' . $receiveName . '</h1>
+                                                    You have new notifications on myTrends!
                                                          &nbsp;<br />
                                                 </td>
                                             </tr>

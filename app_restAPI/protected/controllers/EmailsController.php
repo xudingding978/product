@@ -375,7 +375,7 @@ class EmailsController extends Controller {
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    If this request was not you please immediately contact: 
+                                                    If you did not choose to reset your password, please immediately contact:
                                                     <a href="mailto:support@trendsideas.com" style="color: #05B1E5;">support@trendsideas.com</a> &nbsp;<br />&nbsp;<br />
                                                     <hr style="height: 1px; color: #0088CC; background: #0088CC; width: 100%; border: 0 none;margin:0;" />
                                                 </td>
@@ -427,9 +427,9 @@ class EmailsController extends Controller {
                                                line-height: 150%; font-family: Helvetica, Arial, San-Serif; text-align: left;">
                                             <tr>
                                                 <td valign="top">
-                                                    <h1 style="color: #05B1E5; font-size: 2em; font-weight: normal; margin: 0; line-height: 200%;">
-                                                        Welcome to myTrends Web Platform!</h1>
-                                                    Here is your registration information, please keep this email in a safe place.
+                                                    <h1  align ="center" style="color: #05B1E5; font-size: 2em; font-weight: normal; margin: 0; line-height: 200%;">
+                                                        Welcome to myTrends !</h1>
+                                                    Here is your registration information – please keep this email in a safe place.
                                                 </td>
                                             </tr>
                                             <tr>
@@ -456,7 +456,7 @@ class EmailsController extends Controller {
                                                 </td>
                                             </tr>
                                                          <tr>
-                                                <td valign="top" align ="center">
+                                                <td valign="top">
                                                    Thank you for registering with myTrends. The purpose of this email is to ensure we have your correct email address. Click on the link below to activate your account and return to myTrends. 
                                                 </td>
                                             </tr>
@@ -468,9 +468,9 @@ class EmailsController extends Controller {
                                  
                                                             <tr>
                                                 <td valign="top">
-                                                      Thank You! 
+                                                      Thank you! 
 <br/>
-                                                    The myTrends team 
+                                                    The myTrends Team 
                                                 </td>
                                             </tr>
                                         </table>

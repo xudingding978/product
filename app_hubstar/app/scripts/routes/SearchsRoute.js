@@ -21,8 +21,11 @@ HubStar.SearchsRoute = Ember.Route.extend({
 //        for (var key in item) {
 //            console.log(item[key]);
 //        }
+  $(window).scrollTop(0);
         localStorage.checkUser = "";
-
+$(".navbar").css("box-shadow", "");
+$(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+      $(window).scrollTop(0);
     },
     events: {
         transitionToPhoto: function(id) {
@@ -41,10 +44,10 @@ HubStar.SearchsRoute = Ember.Route.extend({
     redirect: function() {
 
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-            this.transitionTo('indexIndex');
+//            this.transitionTo('indexIndex');
 
         } else {
-            this.transitionTo('searchIndex');
+           // this.transitionTo('searchIndex');
         }
 
     },
@@ -63,6 +66,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
                 isFitWidth: true
             });
         });
+        
         $(window).scrollTop(HubStar.get("setHight"));
         HubStar.set("setHight", 0);
 

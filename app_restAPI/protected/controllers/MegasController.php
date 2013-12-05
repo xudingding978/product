@@ -51,13 +51,25 @@ class MegasController extends Controller {
         $request_arr = CJSON::decode($request_json, true);
         $mega = $request_arr['mega'];
         $mega["id"] = str_replace("test", "", $mega["id"]);
-
+        if ($mega['type'] == 'photo' || $mega['type'] == 'video') {
+            $cb = $this->couchBaseConnection();
+            $owner = "trendsideas.com/profiles/" . $mega['owner_id'];
+            $profile = $cb->get($owner);
+            if ($profile != null) {
+                $profile_arr = CJSON::decode($profile);
+                $country = $profile_arr['country'];
+                $boost = $profile_arr['boost'];
+                $mega['country'] = $country;
+                $mega['boost'] = $boost;
+            }
+        }
+        
+ 
         if ($mega['type'] == "profile") {
             $this->createProfile($mega);
         } elseif ($mega['type'] == "photo") {
             $this->createUploadedPhoto($mega);
         } elseif ($mega['type'] == "video") {
-
             $mega['videoes'][0]['id'] = $mega['id'];
             $this->createUploadedVideo($mega);
         }
@@ -241,7 +253,7 @@ class MegasController extends Controller {
             } catch (Exception $exc) {
                 echo $exc->getTraceAsString();
             }
-        } elseif ($like_type === "photo") {
+        } else {
             try {
                 $cb = $this->couchBaseConnection();
                 $docID = $this->getDomain() . "/" . $like_profile;

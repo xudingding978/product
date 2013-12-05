@@ -92,7 +92,7 @@ class LoginController extends Controller {
         $model = new User;
 
         $request_array = CJSON::decode(file_get_contents('php://input'));
-
+        error_log(var_export( $request_array,true));
         $model->REC_DATETIME = new CDbExpression('NOW()');
         $model->REC_TIMESTAMP = new CDbExpression('NOW()');
         $model->TENANT_REC_ID = "1";
@@ -116,7 +116,7 @@ class LoginController extends Controller {
         $temp["user"][0]["last_name"] = $model->LAST_NAME;
         $temp["user"][0]["email"] = $model->EMAIL_ADDRESS;
         $temp["user"][0]["email_activate"] = false;
-        $temp['user'][0]['selected_topics'] = "";
+        $temp['user'][0]['selected_topics'] = $request_array[7];
         $temp['user'][0]['gender'] = $request_array[5];
         $temp['user'][0]['age'] = $request_array[6];
         $temp['user'][0]['description'] = null;

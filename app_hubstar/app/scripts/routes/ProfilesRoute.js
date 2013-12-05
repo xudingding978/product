@@ -1,8 +1,8 @@
 HubStar.ProfilesRoute = Ember.Route.extend({
 
         setupController: function(controller, model) {
-            console.log('profiles~~~~~~~');
-            console.log(model);
+//            console.log('profiles~~~~~~~');
+//            console.log(model);
             this.controller.set('model', null);
 
             controller.set('model', model);
@@ -28,7 +28,7 @@ HubStar.ProfilesRoute = Ember.Route.extend({
 
         },
         model: function() {
-            console.log('model~~~~~~`');
+//            console.log('model~~~~~~`');
             return HubStar.Profile.find();
         },
         renderTemplate: function() {

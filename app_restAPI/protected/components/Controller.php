@@ -476,6 +476,7 @@ class Controller extends CController {
         foreach ($tempResult as $hit) {
             $profile_id = $hit['source']['doc']['owner_id'];
         }
+
         if ($profile_id !== '') {
             $cb = $this->couchBaseConnection();
             $domain = $this->getDomain();
@@ -494,6 +495,7 @@ class Controller extends CController {
         if ($profile_id !== '') {
             $i = 0;
 
+
             foreach ($tempResult as $hit) {
 
                 $hit['source']['doc']['editors'] = $profile_editors;
@@ -509,6 +511,7 @@ class Controller extends CController {
                 }
             }
         }
+
         $results .= ']}';
         return $results;
     }

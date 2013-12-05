@@ -7,7 +7,7 @@ HubStar.ArticleView = Ember.View.extend({
     }).property(),
     didInsertElement: function() {
 
-
+        return this.$().attr({tabindex: 1}), this.$().focus();
     },
     checkReading: function() {
 //        $('.article-objectview-right').animate({
@@ -71,8 +71,8 @@ HubStar.ArticleView = Ember.View.extend({
     },
     popupAibum: function(id) {
         HubStar.set('what', true);
-       // $("#collection_tab1").slideToggle("slow");
-       setTimeout(function() {
+        // $("#collection_tab1").slideToggle("slow");
+        setTimeout(function() {
             $('.collection_tab1').attr('style', 'bottom: 0px; right: 0px; height: 300px;background-color: black;overflow:hidden;display:block; position: absolute;z-index: 5; width: 100%; opacity: .9;');
             //$("#collection_tab1").attr('style', 'display: block');
         }, 200);
@@ -92,10 +92,49 @@ HubStar.ArticleView = Ember.View.extend({
         $('#commentBox').attr('style', 'display:none');
 
 
+    },
+    keyUp: function(event, view) {
+        if (event.which === 27)
+        { // pressed 'esc'
+
+            //this.get("controller").transitionTo("search");
+
+            var address = document.URL;
+            var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
+            var id = address.split("#")[1].split("/")[2];
+            var collection_id = address.split("#")[1].split("/")[4];
+            var colectionType = address.split("#")[1].split("/")[5]; //it may be article id , photo id and video id
+            var colectionPhoto = address.split("#")[1].split("/")[6]; //it may be article id , photo id and video id
+            var user_photo_id = address.split("#")[1].split("/")[8];
+            if (type === "users")
+            {
+                var user = HubStar.User.find(id);
+
+                if (user_photo_id !== undefined) //type:article means it 
+                {
+
+                  var data = HubStar.Mega.find(colectionPhoto);
+
+                    this.get("controller").transitionTo("userPhoto", data); //user
+                }
+                else
+                {
+
+                    window.history.back();
+                }
+            }
+            else if (type !== "articles")
+            {
+                this.get("controller").closeWindow();
+            }
+            else
+            {
+                window.history.back();
+            }
+
+
+        }
     }
 
-//    someAction: function(e) {
-//        alert('You pressed the escape button!');
-//    }
 
 });

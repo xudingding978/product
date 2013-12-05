@@ -237,14 +237,6 @@
 {{/if}}
 
 
-
-
-
-
-
-
-
-
 {{#if getArticle}}
 <div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}}>
 
@@ -279,10 +271,12 @@
     <div class="masonry-object_mainfeature">
         <div class="mainfeature-wrapper">
             <a class="mainfeature-container" href="#/articles/{{unbound id}}" >
-
-                <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} />
-
-            </a>
+                        {{#if controller.isUser}}
+                        <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToPhoto id}} />
+                             {{else}}
+                             <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} /> <!--it is the cover of the article-->
+                             {{/if}}              
+                    </a>   
 
             <span class='edit-object easing' style="position: absolute;margin: 10px; top: 11px;left: 115px;">
                 {{#if controller.is_authentic_user}}
@@ -354,3 +348,9 @@
     {{render "comment" this}}
 </div>
 {{/if}}
+
+
+
+
+
+

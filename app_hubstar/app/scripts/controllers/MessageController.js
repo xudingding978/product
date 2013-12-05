@@ -64,8 +64,7 @@ HubStar.MessageController = Ember.Controller.extend({
                     var thatthat = this;
                     setTimeout(function() {
                         var old = thatthat.get("controllers.userMessage").get("oldPost");
-//                        console.log(old);
-//                        console.log(s);
+
                         $(old).removeClass("post-focus");
 
                         $(s).addClass("post-focus");
@@ -87,8 +86,7 @@ HubStar.MessageController = Ember.Controller.extend({
                     var thatthat = this;
                     setTimeout(function() {
                         var old = thatthat.get("controllers.userMessage").get("oldPost");
-//                        console.log(old);
-//                        console.log(s);
+
                         $(old).removeClass("post-focus");
 
                         $(s).addClass("post-focus");
@@ -180,7 +178,7 @@ HubStar.MessageController = Ember.Controller.extend({
 //    },
     removeReplyItem: function(s)
     {
-        var message = "Are you sure you want to delete this notification?";
+        var message = "Delete this reply?";
         this.set("message", message);
 
         this.set('makeSureDelete', true); 

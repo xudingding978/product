@@ -20,7 +20,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
         ProfileController.set('partnerTag', false);
         ProfileController.set('reviewTag', false);
         /*************************            partner cehcking           ***********8*/
-
+        this.controllerFor('mega').set("from", "profile");
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', true);
@@ -29,8 +29,15 @@ HubStar.ProfileRoute = Ember.Route.extend({
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
         if (model.get('profile_analytics_code') !== null && model.get('profile_analytics_code') !== '' && model.get('profile_analytics_code') !== undefined) {
-            this.sendGAMessage(model.get('profile_analytics_code'), model.get('id').split('-').join(''));
+            var analytics_array = model.get('profile_analytics_code').split(',');
+            for (var i = 0; i < analytics_array.length; i ++) {
+                this.sendGAMessage(analytics_array[i], model.get('id').split('-').join('')+i.toString());
+            }
         }
+
+        var lastPositionId = HubStar.get('lastPositionId');
+        var lastPosition = HubStar.get("scrollPartenerPosition");
+
 
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
@@ -56,15 +63,15 @@ HubStar.ProfileRoute = Ember.Route.extend({
                 }
             }
             this.transitionTo("profileCollection", data);
+        },
+        transitionToArticle: function(article_id) {
+
+            this.transitionTo("profileArticle", article_id);
+            this.transitionTo("profileArticlePhoto");
         }
     },
     redirect: function() {
-//        if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
-//
-//            this.transitionTo('indexIndex');
-//            this.controllerFor('application').set('popup', true);
-//
-//        }
+
 
     },
     deactivate: function() {

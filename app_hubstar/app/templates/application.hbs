@@ -13,9 +13,11 @@
     
     {{#if HubStar.showDiscoveryBar}}
     {{view HubStar.DiscoveryView}}
+
 {{/if}}
-    {{outlet "welcome"}}
-    {{outlet "quickstart"}}      
+<!--    {{outlet "welcome"}}
+    {{outlet "quickstart"}}      -->
+
 
     {{view HubStar.MasonryView}}
 
@@ -25,6 +27,7 @@
     {{else}}
 
     {{view HubStar.RegisterView}}
+    
     {{/if}}
     
 

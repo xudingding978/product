@@ -5,15 +5,14 @@ HubStar.ArticleController = Ember.Controller.extend({
     captionTitle: "",
     readCaption: true,
     caption: '',
-
     makeSureDelete: false,
     willDelete: false,
-    checkLoginStatus:false,
+    checkLoginStatus: false,
     searchFromRoute: false,
     collectionArticleId: null,
-    accessFromSearchBoard: false,
+    accessFromSearchBoard: false, //false: access the articlePhoto  true: access the article
     isCreditListExist: false,
-    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment','itemFunction'],
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment','itemFunction', 'masonryCollectionItems'],
     init: function() {
 
     },
@@ -41,8 +40,18 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
         if (this.get("accessFromSearchBoard") === false)
         {
-            this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+            if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
+            {
+
+                this.transitionTo("profileArticlePhoto", this.get("megaResouce").get('photo').objectAt(0));
+
+            }
+            else
+            {
+                this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+            }
         }
+
         this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
         this.selectedImage(this.get('selectedPhoto').id);
@@ -66,8 +75,18 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
         if (this.get("accessFromSearchBoard") === false)
         {
-            this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+            if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
+            {
+
+                this.transitionTo("profileArticlePhoto", this.get("megaResouce").get('photo').objectAt(0));
+
+            }
+            else
+            {
+                this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+            }
         }
+
         this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
         this.selectedImage(this.get('selectedPhoto').id);
@@ -84,28 +103,37 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('caption', this.get('selectedPhoto').get("photo_caption"));
 
         var contents = this.get('content');
-        var selectedIndex = 0;
-        for (var index = 0; index <= contents.get('length')-1; index++) {
-            if (this.get('selectedPhoto').get("id") === contents.objectAt(index).id ) {
-                selectedIndex = index;
+        var selectedIndex = 1;
+        for (var index = 0; index <= contents.get('length') - 1; index++) {
+            if (this.get('selectedPhoto').get("id") === contents.objectAt(index).id) {
+                selectedIndex = index + 1;
             }
         }
 
-        if (selectedIndex >= (this.get('content').get('length'))) {
+        if (selectedIndex >= (this.get('content').get('length') + 1)) {
             this.set('image_no', 1);
-            selectedIndex = 0;
+            selectedIndex = 1;
         }
 
         this.set('image_no', selectedIndex);
 
-
         if (this.get("accessFromSearchBoard") === false)
         {
-            this.transitionTo("articlePhoto", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo
+            if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
+            {
+
+                this.transitionTo("profileArticlePhoto", this.get("megaResouce").get('photo').objectAt(0));
+
+            }
+            else
+            {
+                this.transitionTo("articlePhoto", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo
+            }
+
         }
         else
         {
-            this.transitionTo("article", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo
+            //this.transitionTo("article", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo
             //                                                               // as it use the fix id to refresh the route so it will have problem when fresh (change the id)
         }
         this.selectedImage(e);
@@ -144,7 +172,7 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
         if (commentContent) {
             var comments = this.get('article').get('comments');
 //            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
-            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus +'/user_picture/user_picture';
+            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();
@@ -160,9 +188,9 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
         }
         }
     },
-   removeComment: function(object)
+    removeComment: function(object)
     {
-        var message = "Do you want to delete this comment?";
+        var message = "Delete this comment?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {
@@ -171,7 +199,7 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
         } else {
             this.set("obj", object);
             this.set('willDelete', true);
-        }       
+        }
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -180,7 +208,7 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
         this.set('willDelete', false);
         this.set('makeSureDelete', false);
     },
-     removeCommentItem: function(object)
+    removeCommentItem: function(object)
     {
         var id = this.get('article').get("id");
         var message_id = object.get("message_id");
@@ -230,8 +258,20 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
 
                     if (that.get("accessFromSearchBoard") === false)
                     {
-                        that.transitionTo("articlePhoto", that.get('content').objectAt(0));
+                       
+
+                        if (that.get("controllers.masonryCollectionItems").get("type") === "profile")
+                        {
+                            that.transitionTo("profileArticlePhoto", that.get('content').objectAt(0));
+
+                        }
+                        else
+                        {
+                            that.transitionTo("articlePhoto", that.get('content').objectAt(0));
+                        }
+
                     }
+
                     that.set('selectedPhoto', that.get('content').objectAt(0));                                                  //set selectedPhoto to the first photo
                     that.set('captionTitle', that.get('selectedPhoto').photo_title);
 
@@ -254,25 +294,34 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
     closeWindow: function() {
         this.set('collectable', false);
         this.set('contact', false);
+      
         var address = document.URL;
-        var collection_id = address.split("#")[1].split("/")[4];
+        var collection_id = address.split("#")[1].split("/")[6];
         var user_id = address.split("#")[1].split("/")[2];
-        var user = HubStar.User.find(user_id);
-        for (var i = 0; i < user.get('collections').get("length"); i++) {
-            var data = user.get('collections').objectAt(i);
-            if (data.id === collection_id) {
-                break;
-            }
-        }
+        var type = address.split("#")[1].split("/")[1];
+        
+    
         if (collection_id === undefined) //search from the seach board
         {
-            this.transitionTo("indexIndex"); // go to search page
+            // this.transitionTo("indexIndex"); // go to search page, this can  work, but it is too slowlly.
+            window.history.back();
         }
         else
         {
-            this.transitionTo("collection", data); //user or profile
+            if (type === "users")
+            {
+                var photoObject = HubStar.Mega.find(collection_id);
+
+                this.transitionTo("userPhoto", photoObject); //user photo
+            }
+            else if (type === "profiles")
+            {
+                var photoObject = HubStar.Mega.find(collection_id);
+
+                this.transitionTo("profilePhoto", photoObject); // profile photo
+            }
         }
-        // window.history.back();
+
     },
     switchCollection: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
@@ -333,8 +382,8 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
     fbShare: function() {
         this.dropdownPhotoSetting();
         var that = this;
-            
-            var currntUrl = 'http://'+document.domain+'/#/articles/' +  this.get('articleID');
+
+        var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
 
         var caption = '';
 
@@ -360,7 +409,7 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
             if (response && response.post_id) {
                 that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
             } else {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessfully.", "failed");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessful.", "failed");
             }
         }
 
@@ -387,7 +436,7 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
         $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').photo_image_original_url);
 
 
-        var currntUrl =  'http://'+document.domain+'/#/articles/'  + this.get('articleID');
+        var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
         window.open(
@@ -402,7 +451,7 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
     tShare: function() {
         this.dropdownPhotoSetting();
 
-        var currntUrl = 'http://'+document.domain+'/#/articles/'+ this.get('articleID');
+        var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
 
         var url = 'https://twitter.com/share?text=' + this.get('articleResouce').get("article_headline") + '&url=' + encodeURIComponent(currntUrl);
         window.open(
@@ -416,7 +465,7 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
 
         this.dropdownPhotoSetting();
 
-         var currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('articleID');
+        var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
 
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.get('selectedPhoto').photo_image_original_url) +

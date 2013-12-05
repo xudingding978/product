@@ -221,6 +221,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             $('#starsize').attr("style", "width:" + profile.get("profile_average_review_length") + "px");
             this.set("profile_average_review", profile.get("profile_average_review"));
         }
+        else if(profile.get('reviews').get("length")===0){
+            console.log("hehe");
+             $('#starsize').attr("style", "width:100px");
+            this.set("profile_average_review", "5");
+        }
         else {
             $('#starsize').attr("style", "width:100px");
             this.set("profile_average_review", "5");
@@ -1265,7 +1270,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 if (this.get('model').get('reviews').objectAt(0).get("review_user_id").indexOf(localStorage.loginStatus) !== -1)
                 {
                     this.set("rateTime", false);
-                    this.get('controllers.applicationFeedback').statusObserver(null, "You have already review this profile, Thank you!.", "warnning");
+                    this.get('controllers.applicationFeedback').statusObserver(null, "You have already reviewed this profile, thank you!.", "warnning");
                 } else {
                     this.set("rateTime", true);
                 }

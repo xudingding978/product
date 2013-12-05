@@ -28,8 +28,8 @@
 
 
 
-    <div id="commentData_{{unbound model.id}}" class="" style="display: none; border-top: 1px solid #ddd;">
-        <div id="commentScrollBar_{{unbound model.id}}" >
+    <div id="commentData_{{unbound model.id}}" class="" style="/*display: none;*/border-top: 1px solid #ddd;">
+        <div id="commentScrollBar_{{unbound model.id}}" class="comment-scroll-bar" >
             {{#each model.comments}}
             {{#unless this.isEdit}}
             <div class="comment-item comment-frame" id="commentItem_{{unbound message_id}}" style="display: block">

@@ -301,7 +301,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('loginTime', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age'), this.get('selected_topics')];
         var that = this;
-       //  $('#finishRegister').css('display', 'none');
+       $('#register-with-email-step-4').css('display', 'none');
      //     $('#skipRegister').css('display', 'block');
         requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
             localStorage.loginStatus = params.COUCHBASE_ID;

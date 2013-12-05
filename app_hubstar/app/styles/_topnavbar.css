@@ -12,7 +12,7 @@
     top: 0;
     display: block;
     background-size: 100% auto !important;
-    background-image: url(../../images/landingpagebg.jpg);
+    background-image: url(../../images/discoverybarbg.jpg);
 }
 
 
@@ -22,6 +22,7 @@
     padding: 0px;
     margin: 0;
     position: relative;
+    font-size: 20px;
 }
 .navbar > #version-no
 {
@@ -92,9 +93,8 @@
 #discovery_search_bar_wrapper {
     height: 520px;
     width: 100%;
-    background: url(../../images/landingpagebg.jpg);
-    border-bottom: 1px solid #aaa;
-    background-size: 100% auto;
+    background: url(../../images/discoverybarbg.jpg);
+    background-size: 100% 100%;
     background-position: left top;
     position: relative;
     min-width: 1040px;
@@ -159,7 +159,7 @@
 
 .popular-topics{
     top: 400px;
-    width: 860px; 
+    width: 900px; 
     position:absolute; 
     margin: auto;
     left: 0;
@@ -171,6 +171,7 @@
     border-radius: 2px;
     color: #fff;
     font-size: 1em;
+    font-weight: bold;
     margin: 0 10px 0 5px;
     float: left;
     cursor: pointer;

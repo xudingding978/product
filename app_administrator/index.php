@@ -23,7 +23,7 @@ use Aws\S3\Exception\S3Exception;
 
 
 require_once($yii);
+//Yii::createConsoleApplication($config)->run();
 Yii::createWebApplication($config)->run();
-
 //$app = Yii::createApplication('WebApplication', $config);
 //$app->run();

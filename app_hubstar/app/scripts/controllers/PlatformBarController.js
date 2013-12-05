@@ -21,10 +21,6 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
 
     },
     setTopicModel: function(model) {
-<<<<<<< HEAD
-            
-=======
->>>>>>> 1289a834857879ad8edef13d1ed692666804d77e
         this.set("user", HubStar.User.find(localStorage.loginStatus));
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         this.set('categorys', null);

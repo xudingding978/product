@@ -1,12 +1,13 @@
-HubStar.QuickstartRoute = Ember.Route.extend({
+HubStar.WelcomeRoute = Ember.Route.extend({
         redirect: function() {
 
 
 
 
             if (localStorage.checkUser === "newUser") {
-                  console.log("qudjkflsdfd");
-              localStorage.checkUser = "";
+
+
+
 
             } else {
 
@@ -16,24 +17,26 @@ HubStar.QuickstartRoute = Ember.Route.extend({
 
 
         },
+        activate: function() {
+            HubStar.set("isLogin", true);
+        },
         setupController: function() {
             this.controllerFor('searchs').defaultSearch();
             this.controllerFor('index').setLogin();
 
             this.controllerFor('application').set('islogin', true);
 
-
-            setTimeout(function() {
-                $(window).scrollTop(0);
-                $('#masonry_container').attr('style', "display:none");
-                  $('#discovery_search_bar_wrapper').attr('style', "display:none");
-            }, 100);
+            this.controllerFor('status').set('islogin', true);
+            this.controllerFor('application').set('popup', false);
+            this.controllerFor('application').set('isotherpage', true);
 
         },
         renderTemplate: function() {
-            this.render('quickstart', {
-                outlet: 'quickstart',
+     
+            this.render('welcome', {
+                outlet: 'welcome',
                 into: 'application'
+                  
             });
         }
     });

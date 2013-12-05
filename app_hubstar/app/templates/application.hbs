@@ -7,19 +7,16 @@
     {{outlet profiles}}
 
     {{outlet user}}
-    
+     {{outlet "welcome"}}
     {{#unless controller.isotherpage}}
 
-    
+       
     {{#if HubStar.showDiscoveryBar}}
+    
     {{view HubStar.DiscoveryView}}
 
 {{/if}}
-<!--    {{outlet "welcome"}}
-    {{outlet "quickstart"}}      -->
-
-
-    {{view HubStar.MasonryView}}
+ {{view HubStar.MasonryView}}
 
 
     {{/unless}}

@@ -122,7 +122,8 @@ pre {
     border-radius: 5px;
 }
 
-ul, ol { padding-left: 1.3em;}
+ul {padding: 0; list-style: none;}
+ol { padding-left: 1.3em;}
 
 .hidden { display: none; }
 
@@ -1328,11 +1329,7 @@ h4 small {
     border-bottom: 1px solid #eeeeee;
 }
 
-ul,
-ol {
-    padding: 0;
-    margin: 0 0 10px 25px;
-}
+
 
 ul ul,
 ul ol,
@@ -4869,17 +4866,6 @@ input[type="submit"].btn.btn-mini {
     overflow: visible;
 }
 
-.navbar .brand {
-    display: block;
-    float: left;
-    padding: 10px 20px 10px;
-    margin-left: -20px;
-    font-size: 20px;
-    font-weight: 200;
-    color: #777777;
-    text-shadow: 0 1px 0 #ffffff;
-}
-
 .navbar .brand:hover {
     text-decoration: none;
 }
@@ -8088,76 +8074,76 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 @-moz-keyframes bounce_blurringTextG{
     0%{
-    text-shadow: #555555 0 0 0;
-}
+        text-shadow: #555555 0 0 0;
+    }
 
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
+    50%{
+        text-shadow: #FFFFFF 0 0 20px;
+    }
 
-100%{
-    text-shadow: #555555 0 0 0;
-}
+    100%{
+        text-shadow: #555555 0 0 0;
+    }
 
 }
 
 @-webkit-keyframes bounce_blurringTextG{
     0%{
-    text-shadow: #555555 0 0 0;
-}
+        text-shadow: #555555 0 0 0;
+    }
 
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
+    50%{
+        text-shadow: #FFFFFF 0 0 20px;
+    }
 
-100%{
-    text-shadow: #555555 0 0 0;
-}
+    100%{
+        text-shadow: #555555 0 0 0;
+    }
 
 }
 
 @-ms-keyframes bounce_blurringTextG{
     0%{
-    text-shadow: #555555 0 0 0;
-}
+        text-shadow: #555555 0 0 0;
+    }
 
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
+    50%{
+        text-shadow: #FFFFFF 0 0 20px;
+    }
 
-100%{
-    text-shadow: #555555 0 0 0;
-}
+    100%{
+        text-shadow: #555555 0 0 0;
+    }
 
 }
 
 @-o-keyframes bounce_blurringTextG{
     0%{
-    text-shadow: #555555 0 0 0;
-}
+        text-shadow: #555555 0 0 0;
+    }
 
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
+    50%{
+        text-shadow: #FFFFFF 0 0 20px;
+    }
 
-100%{
-    text-shadow: #555555 0 0 0;
-}
+    100%{
+        text-shadow: #555555 0 0 0;
+    }
 
 }
 
 @keyframes bounce_blurringTextG{
     0%{
-    text-shadow: #555555 0 0 0;
-}
+        text-shadow: #555555 0 0 0;
+    }
 
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
+    50%{
+        text-shadow: #FFFFFF 0 0 20px;
+    }
 
-100%{
-    text-shadow: #555555 0 0 0;
-}
+    100%{
+        text-shadow: #555555 0 0 0;
+    }
 
 }
 
@@ -8235,8 +8221,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 .loading {
     position: fixed;
-    left: 50%;
-    top: 50%;
+    left: 47%;
+    top: 38%;
     margin: -60px 0 0 -60px;
     width: 200px;
     height: 200px;
@@ -8263,20 +8249,20 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 @-webkit-keyframes rotating {
     from{
-    -webkit-transform: rotate(0deg);
-}
-to{
-    -webkit-transform: rotate(360deg);
-}
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 @-moz-keyframes rotating {
     from{
-    -webkit-transform: rotate(0deg);
-}
-to{
-    -webkit-transform: rotate(360deg);
-}
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 
@@ -9990,6 +9976,10 @@ div.album-description-bg{
     margin: 5px 3.5%;
 }
 
+.Message-Board_comment-item .profilepic-comment-container{
+    margin: 5px 3.5% 5px 0;
+}
+
 .profilepic_comment{
     border-radius: 50%;
     width: 33px;
@@ -11643,7 +11633,7 @@ textarea.add-interests{
     top: 0;
     display: block;
     background-size: 100% auto !important;
-    background-image: url(../../images/landingpagebg.jpg);
+    background-image: url(../../images/discoverybarbg.jpg);
 }
 
 
@@ -11653,6 +11643,7 @@ textarea.add-interests{
     padding: 0px;
     margin: 0;
     position: relative;
+    font-size: 20px;
 }
 .navbar > #version-no
 {
@@ -11723,9 +11714,8 @@ textarea.add-interests{
 #discovery_search_bar_wrapper {
     height: 520px;
     width: 100%;
-    background: url(../../images/landingpagebg.jpg);
-    border-bottom: 1px solid #aaa;
-    background-size: 100% auto;
+    background: url(../../images/discoverybarbg.jpg);
+    background-size: 100% 100%;
     background-position: left top;
     position: relative;
     min-width: 1040px;
@@ -11790,7 +11780,7 @@ textarea.add-interests{
 
 .popular-topics{
     top: 400px;
-    width: 860px; 
+    width: 900px; 
     position:absolute; 
     margin: auto;
     left: 0;
@@ -11802,6 +11792,7 @@ textarea.add-interests{
     border-radius: 2px;
     color: #fff;
     font-size: 1em;
+    font-weight: bold;
     margin: 0 10px 0 5px;
     float: left;
     cursor: pointer;

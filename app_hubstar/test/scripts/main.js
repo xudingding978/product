@@ -1502,7 +1502,14 @@ HubStar.FollowingRoute = Ember.Route.extend({
  */
 
 
-
+HubStar.FourOhFourRoute = Ember.Route.extend({
+    setupController: function(controller, model) {
+        console.log("ssssssssssssss");
+    },
+    model: function(params) {
+        
+    }
+});
 
 })();
 
@@ -3941,6 +3948,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     from: null,
     size: null,
     photo_url: null,
+    isUnReadCountZero:false,
     userName: "",
     password: "",
     repeat: "",
@@ -10837,7 +10845,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     notificationTopContent: null,
     commenter_photo_url: null,
     makeSureDelete: false,
-    willDelete:false,
+    willDelete: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'application', 'notification', 'userMessage', 'application'],
     isUploadPhoto: false,
     init: function()
@@ -10878,13 +10886,13 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     {
         var message = "Delete this notification?";
         this.set("message", message);
-        
+
         this.set('makeSureDelete', true);
-        if (this.get('willDelete')===true) {
+        if (this.get('willDelete') === true) {
             this.deleteNotification(s);
             this.cancelDelete();
         } else {
-            this.set("s",s);
+            this.set("s", s);
             this.set('willDelete', true);
         }
         setTimeout(function() {
@@ -10896,7 +10904,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         this.set('makeSureDelete', false);
     },
     deleteNotification: function(id) {
-     
+
         var tempComment = [localStorage.loginStatus, id];
         tempComment = JSON.stringify(tempComment);
         var that = this;
@@ -11001,6 +11009,14 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             }
         }
         this.get("controllers.application").set("unReadCount", count);
+        if (count <= 0)
+        {
+            this.get("controllers.application").set("isUnReadCountZero", false);
+        }
+        else
+            {
+                this.get("controllers.application").set("isUnReadCountZero", true);
+            }
         this.get("controllers.messageCenter").set("unReadCount", count);
     },
     go: function(notification_id) {
@@ -11055,7 +11071,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                 }
             }
             this.transitionToRoute('user', user);
-            
+
             this.get('controllers.messageCenter').getClientId(localStorage.loginStatus, conversationID);
             this.transitionToRoute('conversation', data);
             //   $(window).scrollTop(2000);
@@ -11818,6 +11834,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.set('keyword_left', parseInt(this.get("keyword_num")) - profile.get('keywords').get('length'));        
         this.setAboutUsObject();
+        this.set('editingAbout', false);
+        this.set('editing', false);
+        this.set('editingTime', false);
     },
     setAboutUsObject: function() {
         if (this.get('model').get('about_us') !== null && this.get('model').get('about_us') !== 'undefined' && this.get('model').get('about_us').get('length') > 0 ) {
@@ -12040,10 +12059,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (this.get('isAboutUsObjectExist')) {
             this.selectNewAbout();
         } else {
-            var message = "Do you wish to modify the about us by using template? If you choose 'Template', you will lose the previous data.";
+            var message = "Choose the <b>Template editor</b> to easily modify this section using the default About Us template. <br>Choose the <b>HTML5 editor</b> for more advanced editing options. <br>Please note: <br>- If you choose the <b>Template editor</b> after adding content to this section using the <b>HTML5 editor</b>, you will need to re-enter this content. <br>- Once changes made with the <b>Template editor</b> have been saved, you will no longer be able to access the <b>HTML5 editor</b>.";
             this.set("message", message);
             this.set('select_one', 'HTML5 editor');
-            this.set('select_two', 'Template');
+            this.set('select_two', 'Template editor');
             this.set('makeSelection', true);
         }
     },
@@ -12099,6 +12118,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //                this.get('about_us').objectAt(0).get('about_video').objectAt(i).set('video_url', '//www.youtube.com/embed/'+video_url[1].split('=')[1]);
 //            }
 //        }
+        if (this.get('model').get('about_us') === null || this.get('model').get('about_us') === 'undefined' || this.get('model').get('about_us').get('length') === 0 ) { 
+            this.get('model').get('about_us').pushObject(this.get('about_us').objectAt(0));
+        }
         this.get('about_us').objectAt(0).save();
     },
     yes: function(checkingInfo) {
@@ -12126,6 +12148,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.saveUpdate();
     },
+    noSelection: function() {
+        this.set('editing', false);
+        this.set('makeSelection', false);
+    },
     no: function(checkingInfo) {
         if (checkingInfo === "profileName") {
             this.set('profile_name', profile_record);
@@ -12133,6 +12159,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         else if (checkingInfo === "aboutMe") {
             this.set('about_me', about_record);
+            this.setAboutUsObject();
             this.set('editingAbout', !this.get('editingAbout'));
         }
         else if (checkingInfo === "contact") {
@@ -20252,8 +20279,10 @@ HubStar.WelcomeView = Ember.View.extend({
 var Router = Ember.Router.extend( );
 
 
-HubStar.Router.map(function() {
+HubStar.Router.map(function() {  
+    //this.route("fourOhFour",  {path: "*:"});
     this.resource("index", {path: '/'}, function() {
+        
         this.resource("indexIndex", {path: '/'});
         this.resource("verifyId", {path: '/verify/:verify_id'});
         this.resource("article", {path: '/articles/:article_id'});

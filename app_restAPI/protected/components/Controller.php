@@ -277,18 +277,47 @@ class Controller extends CController {
         $request->from($from)
                 ->size($size);
         if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
-            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{"query": {
-                "queryString": {
-                  "default_field": "couchbaseDocument.doc.country",
-                  "query": "' . $location . '"
+            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+                "query": {
+                  "bool": {
+                    "must": {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.country",
+                        "query": "' . $location . '"
+                      }
+                    },
+                    "must_not": {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "profile"
+                      }
+                    }
+                  }
                 }
-              }}');
+              }');
+
+            $request->filter($filter);
+        } else {
+            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+                "query": {
+                  "bool": {
+                    "must": {},
+                    "must_not": {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "profile"
+                      }
+                    }
+                  }
+                }
+              }');
+
             $request->filter($filter);
         }
         $sort = Sherlock\Sherlock::sortBuilder();
         $sort1 = $sort->Field()->name("boost")->order('desc');
         $sort2 = $sort->Field()->name("_score");
-        
+
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
                 "bool": {
                     "must": [
@@ -310,7 +339,7 @@ class Controller extends CController {
             }');
 
         $request->sort($sort1, $sort2);
-
+        error_log($request->query($termQuery)->toJSON());
         $response = $request->query($termQuery)->execute();
 
         return $response;

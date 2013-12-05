@@ -34,6 +34,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     from: null,
     size: null,
     photo_url: null,
+    isUnReadCountZero:false,
     userName: "",
     password: "",
     repeat: "",

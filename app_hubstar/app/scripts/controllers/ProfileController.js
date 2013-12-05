@@ -549,7 +549,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //                this.get('about_us').objectAt(0).get('about_video').objectAt(i).set('video_url', '//www.youtube.com/embed/'+video_url[1].split('=')[1]);
 //            }
 //        }
-        this.get('model').set('about_us', this.get('about_us'));
+        if (this.get('model').get('about_us') === null || this.get('model').get('about_us') === 'undefined' || this.get('model').get('about_us').get('length') === 0 ) { 
+            this.get('model').get('about_us').pushObject(this.get('about_us').objectAt(0));
+        }
         this.get('about_us').objectAt(0).save();
     },
     yes: function(checkingInfo) {

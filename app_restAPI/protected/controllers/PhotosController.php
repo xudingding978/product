@@ -398,7 +398,7 @@ class PhotosController extends Controller {
         $mega['created'] = $this->getCurrentUTC();
         $mega['updated'] = $this->getCurrentUTC();
         $newMega = $this->doPhotoResizing($mega);
-        $cb = $this->couchBaseConnection();
+         $cb = $this->couchBaseConnection();
         if ($cb->add($docID, CJSON::encode($newMega))) {
             $this->sendResponse(204);
         } else {
@@ -483,12 +483,18 @@ class PhotosController extends Controller {
             $id = $temp [sizeof($temp) - 1];
             $photoTitle = $mega['mega']['photo'][0]['photo_title'];
             $photoCaption = $mega['mega']['photo'][0]['photo_caption'];
+            $linkText = $mega['mega']['photo'][0]['photo_link_text'];
+            $linkUrl = $mega['mega']['photo'][0]['photo_link_url'];
+            
+            
             $url = $this->getDomain() . "/" . $id;
             $tempRecord = $cb->get($url);
             $oldRecord = CJSON::decode($tempRecord, true);
             $oldRecord['object_description'] = $photoCaption;
             $oldRecord['photo'][0]['photo_title'] = $photoTitle;
             $oldRecord['photo'][0]['photo_caption'] = $photoCaption;
+            $oldRecord['photo'][0]['photo_link_text'] = $linkText;
+            $oldRecord['photo'][0]['photo_link_url'] = $linkUrl;         
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {

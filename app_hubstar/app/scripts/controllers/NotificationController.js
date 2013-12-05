@@ -27,23 +27,23 @@ HubStar.NotificationController = Ember.Controller.extend({
         var displayString = '';
         if (type === "follow")
         {
-            displayString = " has followed you";
+            displayString = " is now following you";
         }
         else if (type === "unFollow")
         {
-            displayString = " has unfollowed you";
+            displayString = " is no longer following you";
         }
         else if (type === "conversation")
         {
-            displayString = " has say something in this conversation";
+            displayString = " sent you a message";
         }
         else if (type === "addMessage")
         {
-            displayString = " has leave a message for you";
+            displayString = " sent you a message";
         }
         else if (type === "addReply")
         {
-            displayString = " has reply you in this message";
+            displayString = " sent you a message";
         }
         return displayString;
     },

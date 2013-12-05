@@ -36,9 +36,35 @@ HubStar.DropdownListView = Ember.View.extend({
                 that.get('controller').set('countrySelection', $(this).text());
             });
             
+<<<<<<< HEAD
                   $('#regionDropdown > .ite').click(function() {
 
                 that.get('controller').set('regionSelection', $(this).text());
+=======
+             $('#profilePackgetDropdown > .ite').click(function() {
+                that.get('controller').set('projectCategoryDropdownContent', $(this).text());
+           });
+           
+           $('#geoDropdown > .ite').click(function() {
+                HubStar.set('geoLocation', $(this).text());
+                that.get('controller').get('controllers.applicationFeedback').statusObserver(null, "You are now searching within "+HubStar.get('geoLocation')+" only.");
+           });
+             
+           $('#packgetDropdown > .ite').click(function() {
+
+                that.get('controller').set('packgeSelection', $(this).text());
+            });
+          
+               $('#categoryDropdown > .ite').click(function() {
+                that.get('controller').set('categorySelection', $(this).text());
+            });
+        
+              $('#is_actvie > .ite').click(function() {
+                that.get('controller').set('projectActiveDropdownContent', $(this).text());
+            });
+              $('#is_delete > .ite').click(function() {
+                that.get('controller').set('projectDeleteDropdownContent', $(this).text());
+>>>>>>> 1289a834857879ad8edef13d1ed692666804d77e
             });
 
         $('#categoryDropdown > .ite').click(function() {

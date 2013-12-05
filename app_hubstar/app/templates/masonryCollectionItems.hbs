@@ -87,7 +87,7 @@
                 <div class="controlbtn-field" style="margin-top: 20px;">
                     <div class="controlbtn" style="left: 34%;">
                         <span class="new-btn" {{action back }}>Close</span>
-                        <span class="new-btn green-btn" {{action photoUpload}}>Upload</span> 
+                        <span class="new-btn green-btn" {{action photoUpload}}>Upload</span>
                     </div>
                 </div>
 
@@ -113,6 +113,15 @@
         }, 10);
     });
 </script>
+<script>
+    $(function() {
+        var $container = $('#masonry_photo_collection_container');
+        window.setTimeout(function() {
+            $container.masonry();
+            $container.masonry('reloadItems');
+        }, 50);
+    });
+</script>
         {{/each}}
 
 
@@ -126,6 +135,15 @@
             $container.masonry();
             $container.masonry('reloadItems');
         }, 10);
+    });
+</script>
+<script>
+    $(function() {
+        var $container = $('#masonry_photo_collection_container');
+        window.setTimeout(function() {
+            $container.masonry();
+            $container.masonry('reloadItems');
+        }, 50);
     });
 </script>
 </div>

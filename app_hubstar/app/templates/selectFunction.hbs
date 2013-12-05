@@ -1,0 +1,20 @@
+
+
+
+<div class="blur_black"></div>
+
+
+
+
+<div style="z-index: 11;background-color: white; border: 1px rgba(0,0,0,.6); border-radius: 3px;box-shadow: 0 0 20px 5px #aaa;  width: 500px;margin: 0 auto; padding: 20px 40px;position: fixed; top: 35%;left: 0;right: 0;">
+    <i class="icon-exclamation-sign" style="font-size: 35px;margin: auto;width: 40px;position: relative;left: 0;right: 0;display: block;text-align: center;margin-top: 5px;"></i>
+    <div style=" color: #333; font-size: 18px; font-weight: bold; line-height: 20px; text-align: center;margin: 10px 0;">
+        {{controller.message}}
+    </div>
+    <div style="font-weight: normal; font-size: 13px;text-align: center;"> You won't be able to undo this!</div>
+    <div style="width:200px; margin: 20px auto 5px;text-align: center;">       
+        <div class="new-btn red-btn" {{action selectionOne target="view" on="click"}}>{{controller.select_one}}</div>
+        <div  class="new-btn" {{action selectionTwo target="view" on="click"}}>{{controller.select_two}}</div>
+    </div>
+
+</div>

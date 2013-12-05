@@ -1,7 +1,6 @@
 HubStar.IndexIndexRoute = Ember.Route.extend({
         setupController: function() {
 
-
             this.controllerFor('application').set('islogin', false);
 
             this.controllerFor('status').set('islogin', false);
@@ -18,6 +17,7 @@ HubStar.IndexIndexRoute = Ember.Route.extend({
                 this.controllerFor('application').set("popup", true);
             },
             transitionToArticle: function() {
+//        console.log("tomtomt");
                 this.controllerFor('application').set("popup", true);
             }
         },

@@ -13,6 +13,8 @@
 HubStar.NotificationTopController = Ember.Controller.extend({
     notificationTopContent: null,
     commenter_photo_url: null,
+    makeSureDelete: false,
+    willDelete:false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'application', 'notification', 'userMessage', 'application'],
     isUploadPhoto: false,
     init: function()
@@ -49,7 +51,29 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             that.unReadCount();
         });
     },
+    removeNotificationItem: function(s)
+    {
+        var message = "Delete this notification?";
+        this.set("message", message);
+        
+        this.set('makeSureDelete', true);
+        if (this.get('willDelete')===true) {
+            this.deleteNotification(s);
+            this.cancelDelete();
+        } else {
+            this.set("s",s);
+            this.set('willDelete', true);
+        }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelDelete: function() {
+        this.set('willDelete', false);
+        this.set('makeSureDelete', false);
+    },
     deleteNotification: function(id) {
+     
         var tempComment = [localStorage.loginStatus, id];
         tempComment = JSON.stringify(tempComment);
         var that = this;
@@ -74,8 +98,8 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     {
         var user = HubStar.User.find(localStorage.loginStatus);
         this.transitionToRoute('user', user);
-       this.set("notificationSeeAll", true);
-       this.transitionToRoute('messageCenter');
+        this.set("notificationSeeAll", true);
+        this.transitionToRoute('messageCenter');
         this.transitionToRoute("notifications");
         this.reviewCancel();
     },
@@ -236,7 +260,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         this.reviewCancel();
     },
     gotoMessage: function(id)
-    {       
+    {
         this.set("goMessage", '#message_' + id);
 
         var address = document.URL;
@@ -264,7 +288,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         this.set("goReply", false);
         if (localStorage.loginStatus !== reply[2]) {
             var that = this;
-           
+
             if (user.get('isLoaded')) {
                 this.set("goMessage", '#message_' + reply[1]);
                 this.transitionToRoute('userPost');

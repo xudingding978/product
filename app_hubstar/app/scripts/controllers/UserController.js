@@ -15,6 +15,8 @@ HubStar.UserController = Ember.Controller.extend({
     messageTag: false,
     postTag: false,
     newDesc: '',
+    Id: "",
+    type: "users",
     newTitle: '',
     selectedDesc: "",
     selectedTitle: "",
@@ -186,10 +188,10 @@ HubStar.UserController = Ember.Controller.extend({
     },
     setUser: function()
     {
-
         var user = this.get('model');
         this.setIntersetsArr(user);
         this.set("user", user);
+        this.set("Id", this.get('model').get('id'));
         //console.log(this.get("user"));
         this.set("collections", user.get("collections"));
         this.set("description", user.get("description"));
@@ -258,8 +260,8 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('collectionTag', true);
         this.set('followerTag', false);
         this.set('messageTag', false);
-         this.set('postTag', false);
-        
+        this.set('postTag', false);
+
         this.labelBarRefresh();
 
     },
@@ -490,11 +492,11 @@ HubStar.UserController = Ember.Controller.extend({
                         thatthatthat.set('newpassword', "");
                         thatthatthat.set('repeatnew', "");
                     }, 1000);
-                    thatthat.get('controllers.applicationFeedback').statusObserver(null, "Updated Successfully.");
+                    thatthat.get('controllers.applicationFeedback').statusObserver(null, "Password updated.");
                 });
             }
             else {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Please check your input", "warnning");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Please check you have entered the correct information.", "warnning");
             }
         });
     },
@@ -512,7 +514,7 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('email', this.get('email'));
             update_user_record.set('password', this.get('password'));
             update_user_record.set('about_me', this.get('about_me'));
-            this.get('controllers.applicationFeedback').statusObserver(null, "Update successfully.");
+            this.get('controllers.applicationFeedback').statusObserver(null, "General Settings updated.");
             HubStar.store.save();
         }
         else {
@@ -581,11 +583,11 @@ HubStar.UserController = Ember.Controller.extend({
             this.saveLink('pinterest_link', 'pinterest');
             this.saveLink('linkedin_link', 'linkedin');
             this.saveLink('youtube_link', 'youtube');
-            this.get('controllers.applicationFeedback').statusObserver(null, "Update Successfully.");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Social Links updated.");
             HubStar.store.save();
         }
         else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have filled right links.", "warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have entered the correct URL.", "warnning");
         }
     },
     isSociallinkInputValid: function() {
@@ -721,7 +723,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     deleteSelectedCollection: function()
     {
-        var message = "Deleting '" + this.get("selectedCollection").get('id') + "' will also delete the contents within this collection.\n\rAre you sure you want to delete '" + this.get("selectedCollection").get('id') + "'?";
+        var message = "Do you wish to remove your'" + this.get("selectedCollection").get('title') + "' collection from your User Profile?'";
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {
@@ -809,11 +811,12 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('collectionTag', true);
         this.set('followerTag', false);
 
-this.set('postTag', false);
+        this.set('postTag', false);
 
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
+        this.set("Id", this.get('collections').objectAt(0).get('optional'));
 
 
         this.set('messageTag', false);
@@ -828,7 +831,7 @@ this.set('postTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', false);
 
-this.set('postTag', false);
+        this.set('postTag', false);
 
         this.set('messageTag', false);
 
@@ -848,7 +851,7 @@ this.set('postTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', true);
 
-this.set('postTag', false);
+        this.set('postTag', false);
 
         this.set('messageTag', false);
         this.transitionToRoute('followers');
@@ -871,13 +874,13 @@ this.set('postTag', false);
         }, 200);
 
     },
-     selectPost: function(model) {
-        this.set('profileSelectionStatus', 'Post');
+    selectPost: function(model) {
+        this.set('profileSelectionStatus', 'Posts');
         this.set('followingTag', false);
         this.set('collectionTag', false);
         this.set('followerTag', false);
         this.set('messageTag', false);
-         this.set('postTag', true);
+        this.set('postTag', true);
 
         this.transitionToRoute('userPost');
 
@@ -966,7 +969,7 @@ this.set('postTag', false);
                         that.set('isCrop', false);
                         that.set('isUpload', false);
                     }
-                    else if (width > 150 || height > 150) {
+                    else if (width >= 150 || height >= 150) {
                         that.set('isCrop', true);
                         that.set('isUpload', true);
 
@@ -1020,7 +1023,7 @@ this.set('postTag', false);
                 HubStar.store.save();
                 that.userPhotoEditBackButton();
                 that.userDashboardBackButton();
-                that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Cover image updated.");
 
                 that.set('loadingTime', false);
             });
@@ -1036,7 +1039,7 @@ this.set('postTag', false);
         var that = this;
         requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {
 
-            var requiredSize = "Best Results Require A Minimum Image Size of " + params.width + "px" + " x " + params.height + "px";
+            var requiredSize = "For best results, the image should be at least " + params.width + " x " + params.height + " pixels";
             that.set('RequiredImageSize', requiredSize);
         });
     },

@@ -157,11 +157,11 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
 
     function shareFacebook($name) {
         $args = array(
-            'message' => 'I\'m creating new ideas over on the new Trends Ideas Space. Here\'s your invitation to come and join me. Thanks ' . $name . '.',
+            'message' => 'I\'m creating new ideas over on myTrends. Here\'s your invitation to come and join me. Thanks ' . $name . '.',
             'picture' => 'http://s3.hubsrv.com/trendsideas.com/profiles/commercial-design-trends/profile_pic.jpg',
-            'link' => 'http://beta.trendsideas.com',
-            'description' => 'Hi Facebook friends… I’ve just signed up to Trends Ideas Space, New Zealand’s only social platform dedicated to architecture and design. Now it’s easy to find, save and share inspirational ideas for building and renovation projects. Join now for free…',
-            'caption' => 'Trends Global Web Platform'
+            'link' => 'http://my.trendsideas.com',
+            'description' => 'Hi Facebook friends… I’ve just signed up to myTrends, New Zealand’s only social platform dedicated to architecture and design. Now I can easily find, save and share inspirational ideas for building and renovation projects. Join now for free…',
+            'caption' => 'myTrends'
         );
         try {
             $post_id = $this->api->api("/me/feed", "post", $args);
@@ -172,11 +172,11 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
 
     function shareFacebookRegist($name) {
         $args = array(
-            'message' => $name . ', has just registered for the Trends Global Web Platform. Click to see what the excitement is about',
+            'message' => 'I am now a member of myTrends',
             'picture' => 'http://s3.hubsrv.com/trendsideas.com/profiles/commercial-design-trends/profile_pic.jpg',
-            'link' => 'http://beta.trendsideas.com',
-            'description' => 'Join the design community; CONNECT with products and services, COLLECT and SHARE Ideas and COLLABORATE with professionals - Become a part of Trends Ideas Space',
-            'caption' => 'Trends Global Web Platform'
+            'link' => 'http://my.trendsideas.com',
+            'description' => 'Hi Facebook friends… I’ve just signed up to myTrends, New Zealand’s only social platform dedicated to architecture and design. Now I can easily find, save and share inspirational ideas for building and renovation projects. Join now for free…',
+            'caption' => 'myTrends'
         );
         try {
             $post_id = $this->api->api("/me/feed", "post", $args);

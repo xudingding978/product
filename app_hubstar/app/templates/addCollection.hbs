@@ -1,11 +1,32 @@
 
-<div id="login_lightbox" class="blur_black" onclick="document.getElementById('login_lightbox').style.display = 'none';
-        document.getElementById('savePhoto').style.display = 'none';">&nbsp;</div>
+<div id="login_lightbox" class="blur_black" {{action exit }}>&nbsp;</div>
 <div id ="savePhoto"class="t-style-box" style="z-index: 1002; position: relative;overflow: hidden;border-radius: 3px;">
 
     <div style="margin: 0 0 20px; position: relative; background-color: #f3f3f3; height: 45px;border-bottom: 1px solid #ddd;">
-        <div style=' color: #555; font-size: 18px; font-weight: bold; text-align: center; line-height: 45px;'>Save to Collections</div>
-        <div class="exit">
+        <div style=' color: #555; font-size: 18px; font-weight: bold; text-align: center; line-height: 45px;'>Save to 
+
+            <div class="" style="display:inline-block;cursor: pointer;"  {{action profileSwitch }}>
+                 {{controller.selectedProfile}}
+                 &nbsp;<i class="icon-caret-down"></i>
+            </div>
+            {{#if controller.selectionProfile}}
+
+            <div class="select-profile-save" style="top: 50px;">
+                <div class="" style="height: auto; font-size: 13px; font-weight: bold; overflow: auto; overflow-x:hidden; ">
+                    {{#each controller.profiles}}
+                    <div class="choose-exist-collection easing" style="width: auto;line-height: 27px; padding: 0 20px;border-bottom: 1px solid #ddd;border-top: 1px solid #fff;" {{action chooseProfile profile_name profile_id}}>
+                         <a class="exist-name easing"> {{profile_name}}</a>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+
+            {{/if}}
+        </div>
+
+
+
+        <div class="exit" style="float: right; position: relative; top: -46px;">
             <div class="closeview" {{action exit }}>
                  <i class="icon-remove"></i>
             </div> 
@@ -16,7 +37,7 @@
         <div style="display:inline-block; ">
 
             <div class="new-btn" style="display:block;"  {{action collectionSwitch }} {{bindAttr text="controller.selectedTitle" }}>
-                {{controller.selectedTitle}}
+                 {{controller.selectedTitle}}
                  &nbsp;<i class="icon-caret-down"></i>
             </div>
             <div style="height: 150px;">
@@ -32,11 +53,19 @@
 
 
                 <div style="margin:10px; font-size: 16px; font-weight: bold; overflow: auto; overflow-x:hidden; width: 93%;height: 150px;">
+                    {{#if controller.isProfile}}
+                    {{#each controller.profileCollection}}
+                    <div class="choose-exist-collection easing" {{action chooseRecord title id}}>
+                         <a class="exist-name easing"> {{title}}</a>
+                    </div>
+                    {{/each}}
+                    {{else}}
                     {{#each controller.collections}}
                     <div class="choose-exist-collection easing" {{action chooseRecord title id}}>
                          <a class="exist-name easing"> {{title}}</a>
                     </div>
                     {{/each}}
+                    {{/if}}
                 </div>
                 <div class="new-btn" style="float: right;" {{action collectionSwitch }}>
                      Cancel
@@ -55,7 +84,7 @@
 
 
 <div class="" style="height: 45px;position: relative;border-top: 1px solid #ddd;top: -1px;">
-    <div  class="message-btn easing" style="height:45px;line-height: 45px; border-right: 1px solid #ddd;" {{action exit }}><k class='icon-picture'>&nbsp;</k>Cancel</div>
+    <div  class="message-btn easing" style="height:45px;line-height: 45px; border-right: 1px solid #ddd;" {{action exit }}><k class='icon-remove'>&nbsp;</k>Cancel</div>
     <div class="message-btn easing" style='height:45px;line-height: 45px;'{{action submit }}><k class='icon-ok'>&nbsp;</k>Submit</div>
 </div>
 

@@ -176,18 +176,20 @@ class Controller extends CController {
             $userid = $this->getUserInput($requireParams[1]);
             $collection_id = $this->getUserInput($requireParams[2], false);
             $response = $this->searchCollectionItem($userid, $collection_id, $returnType);
+        } elseif ($requireType == 'profileCollection') {
+            $userid = $this->getUserInput($requireParams[1]);
+            $collection_id = $this->getUserInput($requireParams[2], false);
+            $response = $this->searchProfileCollectionItem($userid, $collection_id, $returnType);
         } elseif ($requireType == 'defaultSearch') {
             $response = $this->searchCollectionItem('21051211514', 'editor-picks', $returnType);
         } elseif ($requireType == 'video') {
             $videoOwnerId = $this->getUserInput($requireParams[1]);
             $response = $this->getVideoesByOwner($returnType, $videoOwnerId);
         } elseif ($requireType == 'singleVideo') {
-            $videoid = $this->getUserInput($requireParams[1]);
 
+            $videoid = $this->getUserInput($requireParams[1]);
             $response = $this->getRequestResultByID($returnType, $videoid);
         } else {
-
-
             $response = $this->getSearchResults("", "huang");
         }
         return $response;
@@ -220,6 +222,25 @@ class Controller extends CController {
             $collections = array();
         } else {
             $collections = $mega['megas'][0]['user'][0]['collections'];
+        }
+        $response = $this->getCollections($collections, $collection_id, $returnType);
+
+        return $response;
+    }
+
+    protected function searchProfileCollectionItem($userid, $collection_id, $returnType) {
+        $conditions = array();
+        $requestStringOne = 'couchbaseDocument.doc.profile.id=' . $userid;
+        array_push($conditions, $requestStringOne);
+        $requestStringTwo = 'couchbaseDocument.doc.profile.collections.id=' . $collection_id;
+        array_push($conditions, $requestStringTwo);
+        $tempResult = $this->searchWithCondictions($conditions, 'must');
+        $tempResult = $this->getReponseResult($tempResult, $returnType);
+        $mega = CJSON::decode($tempResult, true);
+        if (!isset($mega['megas'][0]['profile'][0]['collections'])) {
+            $collections = array();
+        } else {
+            $collections = $mega['megas'][0]['profile'][0]['collections'];
         }
         $response = $this->getCollections($collections, $collection_id, $returnType);
 
@@ -264,7 +285,10 @@ class Controller extends CController {
               }}');
             $request->filter($filter);
         }
-
+        $sort = Sherlock\Sherlock::sortBuilder();
+        $sort1 = $sort->Field()->name("boost")->order('desc');
+        $sort2 = $sort->Field()->name("_score");
+        
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
                 "bool": {
                     "must": [
@@ -285,7 +309,7 @@ class Controller extends CController {
                 }
             }');
 
-//        $request->sort($sort1, $sort2);
+        $request->sort($sort1, $sort2);
 
         $response = $request->query($termQuery)->execute();
 
@@ -409,7 +433,7 @@ class Controller extends CController {
         }
         $request->query($termQuery);
         $response = $request->execute();
-        error_log(var_export($response,true));
+        error_log(var_export($response, true));
         return $response;
     }
 
@@ -453,34 +477,38 @@ class Controller extends CController {
             $profile_id = $hit['source']['doc']['owner_id'];
         }
 
-        $cb = $this->couchBaseConnection();
-        $domain = $this->getDomain();
-        $docID_profile = $domain . "/profiles/" . $profile_id;
-        $tempMega_profile = $cb->get($docID_profile);
-        $mega_profile = CJSON::decode($tempMega_profile, true);
-
-        $profile_editors = $mega_profile["profile"][0]["profile_editors"];
-        $profile_name = $mega_profile["profile"][0]["profile_name"];
-        $owner_contact_email = $mega_profile["profile"][0]["owner_contact_email"];
-        $owner_contact_cc_emails = $mega_profile["profile"][0]["owner_contact_email"];
-        $owner_contact_bcc_emails = $mega_profile["profile"][0]["owner_contact_bcc_emails"];
-        $profile_regoin = $mega_profile["profile"][0]["profile_regoin"];
-        $profile_pic_url = $mega_profile["profile"][0]["profile_pic_url"];
-
+        if ($profile_id !== '') {
+            $cb = $this->couchBaseConnection();
+            $domain = $this->getDomain();
+            $docID_profile = $domain . "/profiles/" . $profile_id;
+            $tempMega_profile = $cb->get($docID_profile);
+            $mega_profile = CJSON::decode($tempMega_profile, true);
+            $profile_editors = $mega_profile["profile"][0]["profile_editors"];
+            $profile_name = $mega_profile["profile"][0]["profile_name"];
+            $owner_contact_email = $mega_profile["profile"][0]["owner_contact_email"];
+            $owner_contact_cc_emails = $mega_profile["profile"][0]["owner_contact_email"];
+            $owner_contact_bcc_emails = $mega_profile["profile"][0]["owner_contact_bcc_emails"];
+            $profile_regoin = $mega_profile["profile"][0]["profile_regoin"];
+            $profile_pic_url = $mega_profile["profile"][0]["profile_pic_url"];
+        }
         $results = '{"' . $returnType . '":[';
-        $i = 0;
-        foreach ($tempResult as $hit) {
+        if ($profile_id !== '') {
+            $i = 0;
 
-            $hit['source']['doc']['editors'] = $profile_editors;
-            $hit['source']['doc']['owner_title'] = $profile_name;
-            $hit['source']['doc']['owner_contact_email'] = $owner_contact_email;
-            $hit['source']['doc']['owner_contact_cc_emails'] = $owner_contact_cc_emails;
-            $hit['source']['doc']['owner_contact_bcc_emails'] = $owner_contact_bcc_emails;
-            $hit['source']['doc']['region'] = $profile_regoin;
-            $hit['source']['doc']['owner_profile_pic'] = $profile_pic_url;
-            $results .= CJSON::encode($hit['source']['doc']);
-            if (++$i < count($tempResult)) {
-                $results .= ',';
+
+            foreach ($tempResult as $hit) {
+
+                $hit['source']['doc']['editors'] = $profile_editors;
+                $hit['source']['doc']['owner_title'] = $profile_name;
+                $hit['source']['doc']['owner_contact_email'] = $owner_contact_email;
+                $hit['source']['doc']['owner_contact_cc_emails'] = $owner_contact_cc_emails;
+                $hit['source']['doc']['owner_contact_bcc_emails'] = $owner_contact_bcc_emails;
+                $hit['source']['doc']['region'] = $profile_regoin;
+                $hit['source']['doc']['owner_profile_pic'] = $profile_pic_url;
+                $results .= CJSON::encode($hit['source']['doc']);
+                if (++$i < count($tempResult)) {
+                    $results .= ',';
+                }
             }
         }
 
@@ -592,7 +620,6 @@ class Controller extends CController {
         }
         if (isset($keyword)) {
             $response = $this->RequireByIds($str_partnerIds, $size, $keyword);
-
         } else {
             $response = $this->RequireByIds($str_partnerIds, $size);
         }return $response;

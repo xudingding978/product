@@ -21,7 +21,6 @@ HubStar.CommentView = Ember.View.extend({
                 theme: "dark-2"
                 //set_height: 350
             });
-            alert(this);
         });
     }
     

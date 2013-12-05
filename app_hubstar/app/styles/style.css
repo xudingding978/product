@@ -1125,76 +1125,76 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 @-moz-keyframes bounce_blurringTextG{
     0%{
-    text-shadow: #555555 0 0 0;
-}
+        text-shadow: #555555 0 0 0;
+    }
 
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
+    50%{
+        text-shadow: #FFFFFF 0 0 20px;
+    }
 
-100%{
-    text-shadow: #555555 0 0 0;
-}
+    100%{
+        text-shadow: #555555 0 0 0;
+    }
 
 }
 
 @-webkit-keyframes bounce_blurringTextG{
     0%{
-    text-shadow: #555555 0 0 0;
-}
+        text-shadow: #555555 0 0 0;
+    }
 
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
+    50%{
+        text-shadow: #FFFFFF 0 0 20px;
+    }
 
-100%{
-    text-shadow: #555555 0 0 0;
-}
+    100%{
+        text-shadow: #555555 0 0 0;
+    }
 
 }
 
 @-ms-keyframes bounce_blurringTextG{
     0%{
-    text-shadow: #555555 0 0 0;
-}
+        text-shadow: #555555 0 0 0;
+    }
 
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
+    50%{
+        text-shadow: #FFFFFF 0 0 20px;
+    }
 
-100%{
-    text-shadow: #555555 0 0 0;
-}
+    100%{
+        text-shadow: #555555 0 0 0;
+    }
 
 }
 
 @-o-keyframes bounce_blurringTextG{
     0%{
-    text-shadow: #555555 0 0 0;
-}
+        text-shadow: #555555 0 0 0;
+    }
 
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
+    50%{
+        text-shadow: #FFFFFF 0 0 20px;
+    }
 
-100%{
-    text-shadow: #555555 0 0 0;
-}
+    100%{
+        text-shadow: #555555 0 0 0;
+    }
 
 }
 
 @keyframes bounce_blurringTextG{
     0%{
-    text-shadow: #555555 0 0 0;
-}
+        text-shadow: #555555 0 0 0;
+    }
 
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
+    50%{
+        text-shadow: #FFFFFF 0 0 20px;
+    }
 
-100%{
-    text-shadow: #555555 0 0 0;
-}
+    100%{
+        text-shadow: #555555 0 0 0;
+    }
 
 }
 
@@ -1272,8 +1272,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 .loading {
     position: fixed;
-    left: 50%;
-    top: 50%;
+    left: 47%;
+    top: 38%;
     margin: -60px 0 0 -60px;
     width: 200px;
     height: 200px;
@@ -1300,20 +1300,20 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 @-webkit-keyframes rotating {
     from{
-    -webkit-transform: rotate(0deg);
-}
-to{
-    -webkit-transform: rotate(360deg);
-}
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 @-moz-keyframes rotating {
     from{
-    -webkit-transform: rotate(0deg);
-}
-to{
-    -webkit-transform: rotate(360deg);
-}
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 

@@ -561,6 +561,14 @@ div#forgot-password-container{
 .learnmore-btn:hover{opacity: 1;}
 
 
+.select-interest > .invite-this-friend {opacity: 0}
+
+.select-interest:hover > .invite-this-friend {opacity: 0.8}
+
+
+
+
+
 
 
 

@@ -17,9 +17,9 @@ HubStar.UserMessageController = Ember.Controller.extend({
     isUploadPhoto: false,
     isEdit: true,
     isPosting: true,
-    makeSureDelete:false,
-    isUserMessage:false,
-    willDelete:false,
+    makeSureDelete: false,
+    isUserMessage: false,
+    willDelete: false,
     oldPost: "",
     init: function()
     {
@@ -130,7 +130,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
             }
             setTimeout(function() {
                 $('#masonry_user_container').masonry();
-                $('#masonry_user_container').masonry("reloadItems");
+                $('#masonry_user_container').masonry("reload");
             }, 200);
         });
     },
@@ -181,15 +181,15 @@ HubStar.UserMessageController = Ember.Controller.extend({
     ,
     removeMessageItem: function(s)
     {
-        var message = "Are you sure you want to delete this notification?";
+        var message = "Delete this message?";
         this.set("message", message);
         this.set('makeSureDelete', true);
-        this.set('isUserMessage',true);
+        this.set('isUserMessage', true);
         if (this.get('willDelete') === true) {
             this.removeMessage(s);
             this.cancelDelete();
         } else {
-            this.set("s", s);        
+            this.set("s", s);
             this.set('willDelete', true);
         }
         setTimeout(function() {
@@ -319,7 +319,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 setTimeout(function() {
                     var old = thatthat.get("oldPost");
                     $(old).removeClass("post-focus");
-                   
+
                     $(s).addClass("post-focus");
                     thatthat.set("oldPost", s);
                 }, 200);

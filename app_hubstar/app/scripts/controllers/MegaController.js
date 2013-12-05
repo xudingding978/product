@@ -31,7 +31,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     willDelete: false,
     init: function()
     {
-
+   
     },
     findSelectedItemIndex: function() {
         content = this.get('content');
@@ -171,6 +171,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
 
         this.selectedImage(this.get('selectedPhoto').id);
+
 
     },
     getInitData: function(megaObject) {
@@ -686,7 +687,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
     },
     closeWindow: function() {
-
+     this.set('image_no', 1);
         this.set('collectable', false);
         this.set('contact', false);
         var address = document.URL;
@@ -786,7 +787,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     removeComment: function(object)
     {
-        var message = "Do you want to delete this comment?";
+        var message = "Delete this comment?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {
@@ -934,7 +935,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             if (response && response.post_id) {
                 that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
             } else {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessfully.", "failed");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessful.", "failed");
             }
         }
 

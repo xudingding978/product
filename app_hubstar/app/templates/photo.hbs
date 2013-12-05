@@ -231,7 +231,8 @@
                 <div  style="width: 98%;padding: 15px 10px;margin: 0 auto;overflow: hidden;border-bottom: 1px solid #ddd;">
                     <div style="margin:0 auto; padding: 0 0 0 50px;">
                         <a>
-                            <img class="profilepic_comment"  style="width: 45px; height: 45px;float: left; margin: 4px 0 0 -50px; margin-top: 0; " {{bindAttr src="controller.currentUser.photo_url_large"}} /> 
+                            <img class="profilepic_comment"  style="width: 45px; height: 45px;float: left; margin: 4px 0 0 -50px; margin-top: 0; z-index: 1" src="http://develop.devbox.s3.amazonaws.com/profile_pic/default/defaultpic1.jpg" />
+                            <img class="profilepic_comment"  style="width: 45px; height: 45px;float: left; margin: 4px 0 0 -50px; margin-top: 0; z-index:2" {{bindAttr src="controller.currentUser.photo_url_large"}} /> 
                             <div class='user-says-angle-before' style="left: 51px;"></div>
                             <div class='user-says-angle-after' style="left: 49px;"></div>
                         </a>
@@ -325,11 +326,7 @@
 
 </div>
 
-{{#if HubStar.checkLoginStatus}}
 
-{{render loginModal}}       
-
-{{/if}}
 {{#if controller.makeSureDelete}}
 
 {{view HubStar.DeleteFunctionView}}

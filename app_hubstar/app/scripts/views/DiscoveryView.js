@@ -6,7 +6,7 @@ HubStar.DiscoveryView = Ember.View.extend({
                     $("#search-bar").fadeIn("320");
                      HubStar.set("showDiscoveryBar", false);
         var area = this.$("#search_key").val();
-        var search_key = this.$("#search_businesses").val();
+        var search_key = this.$("#search_business").val();
         var object;
         if (search_key !== "" || area !== "") {
             if (area !== "" && search_key !== "") {

@@ -2,6 +2,8 @@
 
 Yii::import("application.models.*");
 Yii::import("application.components.*");
+require_once("ProfileCommand.php");
+
 //header("Access-Control-Allow-Origin: *");
 //header('Content-type: *');
 //
@@ -12,7 +14,8 @@ Yii::import("application.components.*");
 class PhotoCommand extends Controller_admin {
 
     protected $log_path = '/home/devbox/NetBeansProjects/test/error_photo.log';
-    protected  $amount = 0;
+    protected $amount = 0;
+
     public function actionIndex($action = null) {
         $start_time = microtime(true);
         echo $start_time . "\r\n";
@@ -24,10 +27,11 @@ class PhotoCommand extends Controller_admin {
             $this->insertCouchbaseIdToSQLserver();
         } else if ($action == "add-new-doc") {
             $this->addNewDocToCouchbase();
-        }
-         else if ($action == "changeid") {
+        } elseif ($action == 'fixcountry') {
+            $this->fixphotoCountry();
+        } else if ($action == "changeid") {
             $this->changePhotoUrlforchangeProfileId();
-        }else if ($action == "insert-url-to-sqlserver") {
+        } else if ($action == "insert-url-to-sqlserver") {
             $this->insertURL();
         } else if ($action == "resize-hero") {
             $this->resizingHero();
@@ -39,7 +43,7 @@ class PhotoCommand extends Controller_admin {
             $this->loadPhotoObj();
         } else if ($action == 'fix-url') {
             $this->fixPhotoURL();
-        }else {
+        } else {
             echo "cannot find your actions";
         }
 
@@ -47,10 +51,12 @@ class PhotoCommand extends Controller_admin {
         $end_time = microtime(true);
         echo "totally spend: " . ($end_time - $start_time);
     }
-    
 
-    
-        protected function getImageIdentifier($imageInfo, $url) {
+    function __construct() {
+        
+    }
+
+    protected function getImageIdentifier($imageInfo, $url) {
 
         if (strpos($imageInfo['mime'], 'jpeg')) {
             error_log('getImageIdentifier = jpeg');
@@ -66,59 +72,224 @@ class PhotoCommand extends Controller_admin {
 
         return $im;
     }
-    
-           public function createResizedImage($data, $photo_type) {
 
-                    ob_start();
+    public function fixphotoCountry() {
+        $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = "/var/log/yii/$start_time.log";
+        $bucket = "test";
+        $classProfile = new ProfileCommand();
+        $profile_arr = $classProfile->findProfiles($bucket);
+        echo sizeof($profile_arr) . "\n";
+
+        sleep(2);
+        foreach ($profile_arr as $profile) {
+            $message = "Start to fix country information for: " . $profile . "\n";
+            $owner_id = substr($profile, 25);
+            echo $owner_id . "\n";
+
+//            $settings['log.enabled'] = true;
+//            $bucket = $bucket;
+//            $sherlock = new \Sherlock\Sherlock($settings);
+//            $sherlock->addNode("es1.hubsrv.com", 9200);
+//            $request = $sherlock->search();
+//            $index = $bucket;
+//            $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"$owner_id\"")
+//                    ->default_field('couchbaseDocument.doc.owner_id');
+//            $must2 = Sherlock\Sherlock::queryBuilder()
+//                    ->QueryString()->query("photo")
+//                    ->default_field('couchbaseDocument.doc.type');
+//            $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
+//                    must($must2);
+//            $request->index($index)->type("couchbaseDocument");
+//            $request->from(0)
+//                    ->size(1000);
+//            $request->query($bool);
+//            //   print_r($bool);
+//
+//            $response = $request->execute();
+
+            $query = '
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "query_string": {
+            "default_field": "couchbaseDocument.doc.owner_id",
+            "query": "\"' . $owner_id . '\""
+          }
+        },
+        {
+          "query_string": {
+            "default_field": "couchbaseDocument.doc.type",
+            "query": "\"photo\""
+          }
+        }
+      ],
+      "must_not": []
+    },
+    "filtered": {
+      "filter": {
+        "and": [
+          {
+            "missing": {
+              "field": "couchbaseDocument.doc.photo.photo_heliumMediaId"
+            }
+          },
+          {
+            "missing": {
+              "field": "couchbaseDocument.doc.photo.photo_articleId"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "from": 0,
+  "size": 2000,
+  "sort": [],
+  "facets": {}
+}             
+';
+            echo $query . "\n\n\n";
+            $ch = curl_init("http://es1.hubsrv.com:9200/".$bucket."/_search");
+
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            $result = curl_exec($ch);
+//            foreach($result as $found){
+//                echo $found['id'];
+//            }
+            $result_arr = CJSON::decode($result, true);
+            $data_arr = $result_arr['hits']['hits'];
+            curl_close($ch);
+            if ($data_arr != null) {
+                $message.="found " . sizeof($data_arr) . " photo belongs to this profile\n";
+                foreach ($data_arr as $photo) {
+                    echo var_export($photo['_id'], true) . "\n\n\n\n";
+                            //var_export($photo['_source']['doc'], true) . "\n\n\n\n";
+                }
+                if (sizeof($data_arr) === 2000) {
+                    echo "profile " . $profile . " has too many photos--------------------\n-------------\n------------------------\n";
+                    sleep(100);
+                }
+            } else {
+                echo "No photo found for profile: " . $profile . "\n";
+                $message = "No photo found for profile: " . $profile . "\n";
+            }
+            $this->writeToLog($log_path, $message);
+
+
+
+
+            $cb = $this->couchBaseConnection($bucket);
+            $result_profile = $cb->get($profile);
+            if ($result_profile != null) {
+                $result_profile_arr = CJSON::decode($result_profile);
+                $country = $result_profile_arr['country'];
+//                $message = "Start on " . $profile . "'s photos\n";
+            } else {
+                $message = "No profile found for " . $profile . "\n";
+            }
+
+            if ($country != null) {
+
+                foreach ($data_arr as $photo) {
+                    $id =  $photo['_id'];
+                    $message = "Photo " . $id;
+
+                    $result = $cb->get($id);
+
+                    if ($result != null) {
+                        $result_arr = CJSON::decode($result, true);
+                        if ($result_arr != null && $result_arr["owner_id"] != null && $result_arr["owner_id"] != "") {
+                            $result_arr["country"] = $country;
+
+                            echo $result_arr["country"] . "\n";
+                            if ($cb->set($id, CJSON::encode($result_arr))) {
+                             //   echo " country has been changed to " . $result_arr["country"] . "\r\n";
+
+                                $message .= " country has been changed to " . $result_arr["country"] . "\r\n";
+                                echo $message;
+                            } else {
+                                echo $id . " fail to set the value into couchbase document! \r\n";
+                                $message .= " fail to set the value into couchbase document! \r\n";
+                            }
+                        } else {
+                            $message .= " Does not have owner_id in its data";
+                        }
+
+                       
+                    } else {
+                        $message.="fail to get the photo from couchbase\n";
+                    }
+                     $this->writeToLog($log_path, $message);
+                }
+                
+            } else {
+                $message = $profile . "does not have country\n";
+                 $this->writeToLog($log_path, $message);
+            }
+           
+             
+        }
+
+        //    return $message;
+    }
+
+    public function createResizedImage($data, $photo_type) {
+
+        ob_start();
         if ($photo_type == "image/png") {
             imagepng($data);
         } else if ($photo_type == "image/jpeg") {
             imagejpeg($data);
+        } else if ($photo_type == "image/gif") {
+            imagegif($data);
         }
-            else if($photo_type== "image/gif"){
-                imagegif($data);
-            }
         $contents = ob_get_contents();
-        
+
         ob_end_clean();
-    //    }
-        
+        //    }
+
         return $contents;
     }
-    
-     protected function changePhotoUrlforchangeProfileId(){
-         $url="http://trendsideas.com/Media/User/Images/platform.jpg";
-         $imageInfo=  getimagesize($url);
-         header("Access-Control-Allow-Origin: *");
-header('Content-type: *');
 
-header('Access-Control-Request-Method: *');
-header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
-header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-         echo $imageInfo[0]."   ".$imageInfo[1]."111111111111111111111111111111\n";
-         print_r($imageInfo);
-         $data = $this->getImageIdentifier($imageInfo, $url);
-         $data1=$this->createResizedImage($data,$imageInfo['mime']);
-         echo $data;
-         $newURL="trendsideas.com/profiles/aspining-walls-nz/hero/whites%20&%20neutrals%20-%20bracken_350x532.jpg";
-         $this->putImagetoS3($newURL, $data1);
-     }
+    protected function changePhotoUrlforchangeProfileId() {
+        $url = "http://trendsideas.com/Media/User/Images/platform.jpg";
+        $imageInfo = getimagesize($url);
+        header("Access-Control-Allow-Origin: *");
+        header('Content-type: *');
 
-     protected function putImagetoS3($url, $data) {
+        header('Access-Control-Request-Method: *');
+        header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
+        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+        echo $imageInfo[0] . "   " . $imageInfo[1] . "111111111111111111111111111111\n";
+        print_r($imageInfo);
+        $data = $this->getImageIdentifier($imageInfo, $url);
+        $data1 = $this->createResizedImage($data, $imageInfo['mime']);
+        echo $data;
+        $newURL = "trendsideas.com/profiles/aspining-walls-nz/hero/whites%20&%20neutrals%20-%20bracken_350x532.jpg";
+        $this->putImagetoS3($newURL, $data1);
+    }
+
+    protected function putImagetoS3($url, $data) {
         //connect to default bucket of couchbase
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
         //'HTTP_HOST"="api.develop.trendsideas.com"
-       // $key = explode(".", $_SERVER['HTTP_HOST']);
+        // $key = explode(".", $_SERVER['HTTP_HOST']);
 
-        error_log("the http_host".$_SERVER['HTTP_HOST']);
+        error_log("the http_host" . $_SERVER['HTTP_HOST']);
         //key=trendsideas.com, find the s3client configration from it
-       // $key = $key[2] . '.' . $key[3];
-        $key="trendsideas.com";
+        // $key = $key[2] . '.' . $key[3];
+        $key = "trendsideas.com";
         error_log("the key used for couchbase is " . $key);
         $result = $cb->get($key);
         //  error_log(var_export($result));
         $result_arr = CJSON::decode($result, true);
-        error_log("S3 configration: \n".var_export($result_arr["providers"]["S3Client"], true));
+        error_log("S3 configration: \n" . var_export($result_arr["providers"]["S3Client"], true));
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]
         );
@@ -132,91 +303,94 @@ header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
         ));
         error_log('put into s3');
     }
-    
+
     protected function fixPhotoURL() {
 //        echo "-------------------in fixPhotoURL function \r\n";
         $error_image = array();
-        while ($this->amount<3459) {
-            $photo_arr = $this->getData("http://develop-api.trendsideas.com/PhotoData", array('method'=>'GET'));
+        while ($this->amount < 3459) {
+            $photo_arr = $this->getData("http://develop-api.trendsideas.com/PhotoData", array('method' => 'GET'));
             $arr_size = sizeof($photo_arr['photo']);
-            echo "-------------------------- arr_size=".$arr_size. " \r\n";
-            
-            if ($arr_size>0) {
-                for ($i=0; $i<$arr_size; $i++) {
-                    
+            echo "-------------------------- arr_size=" . $arr_size . " \r\n";
+
+            if ($arr_size > 0) {
+                for ($i = 0; $i < $arr_size; $i++) {
+
 //                    print_r($photo_arr['photo'][$i]);
 //                    exit();
                     $photo_helium_ID = $photo_arr['photo'][$i]['photo'][0]['photo_heliumMediaId'];
                     $url = $this->identifyPhotoUrl($photo_helium_ID);
-                    if ($url!="") {
+                    if ($url != "") {
                         $api_url = 'http://develop-api.trendsideas.com/PhotoData/update/';
-                        $data_arr = array('method'=>'PUT', 'image_url'=>$url, 'function'=>'addImageToS3', 'obj_ID'=>$photo_arr['photo'][$i]['id']);
+                        $data_arr = array('method' => 'PUT', 'image_url' => $url, 'function' => 'addImageToS3', 'obj_ID' => $photo_arr['photo'][$i]['id']);
 //                        echo "------------------------------ url is not empty  \r\n";
-                        $result_arr= $this->getData($api_url, $data_arr);                        
+                        $result_arr = $this->getData($api_url, $data_arr);
 //                        print_r($result);
 //                        exit();
-                        
-                        if ($result_arr!=null) {
+
+                        if ($result_arr != null) {
                             $photo_arr['photo'][$i]['photo'][0]['photo_original_filename'] = $result_arr['name'];
                             $photo_arr['photo'][$i]['photo'][0]['photo_image_original_url'] = $result_arr['url'];
                             $photo_arr['photo'][$i]['photo'][0]['photo_original_width'] = $result_arr['width'];
                             $photo_arr['photo'][$i]['photo'][0]['photo_original_height'] = $result_arr['height'];
-                            $couchbase_id = 'trendsideas.com/'.$photo_arr['photo'][$i]['id'];
-                            
-                            if($this->setCouchbaseObject($couchbase_id, $photo_arr['photo'][$i])) {
-                                $this->amount ++;
-                                $massage = $couchbase_id.' has been updated!------'.$this->amount.'/3459';
+                            $couchbase_id = 'trendsideas.com/' . $photo_arr['photo'][$i]['id'];
+
+                            if ($this->setCouchbaseObject($couchbase_id, $photo_arr['photo'][$i])) {
+                                $this->amount++;
+                                $massage = $couchbase_id . ' has been updated!------' . $this->amount . '/3459';
                                 $this->writeToLog($this->error_path, $massage);
                             } else {
-                                $massage = $couchbase_id.' cannot couchbase document--------------------------ERROR!!';
+                                $massage = $couchbase_id . ' cannot couchbase document--------------------------ERROR!!';
                                 $this->writeToLog($this->error_path, $massage);
                             }
                         } else {
-                            $massage = $couchbase_id.' cannot upload imaget to S3--------------------------ERROR!';
+                            $massage = $couchbase_id . ' cannot upload imaget to S3--------------------------ERROR!';
                             $this->writeToLog($this->error_path, $massage);
                         }
                     } else {
-                            $error_image[$photo_helium_ID] = $url;
-                            
-                            $massage = 'id: '. $photo_arr['photo'][$i]['photo'][0]['photo_source_id']. ';  helium id: ' . $photo_helium_ID .' URL for this image is not avaiable--------------------------ERROR!';
-                            $this->writeToLog($this->error_path, $massage);
+                        $error_image[$photo_helium_ID] = $url;
+
+                        $massage = 'id: ' . $photo_arr['photo'][$i]['photo'][0]['photo_source_id'] . ';  helium id: ' . $photo_helium_ID . ' URL for this image is not avaiable--------------------------ERROR!';
+                        $this->writeToLog($this->error_path, $massage);
                     }
-                    
-                     if ($this->amount>3459) break;
+
+                    if ($this->amount > 3459)
+                        break;
                 }
-            } else break;            
-        } 
-        
-        foreach($error_image as $k=>$val) {
-            $this->writeToLog($this->log_path, $k.'----------'.$val);
+            }
+            else
+                break;
+        }
+
+        foreach ($error_image as $k => $val) {
+            $this->writeToLog($this->log_path, $k . '----------' . $val);
         }
     }
-    
+
     protected function identifyPhotoUrl($photo_helium_ID) {
-        $url_jpg = "http://trendsideas.com/media/article/original/".$photo_helium_ID.'.jpg';
-        $url_png = "http://trendsideas.com/media/article/original/".$photo_helium_ID.'.png';
+        $url_jpg = "http://trendsideas.com/media/article/original/" . $photo_helium_ID . '.jpg';
+        $url_png = "http://trendsideas.com/media/article/original/" . $photo_helium_ID . '.png';
         $url = "";
         if ($this->validateImageUrl($url_jpg)) {
             $url = $url_jpg;
         } else {
-             if ($this->validateImageUrl($url_png)) {
+            if ($this->validateImageUrl($url_png)) {
                 $url = $url_png;
-             }
-        } 
-        
+            }
+        }
+
         return $url;
     }
-    
+
     protected function stampOriginalPhotoURL() {
 
         //use sherlock to query ElasticSearch and retrieve all the missing original images urls
         $settings['log.enabled'] = true;
-      //  $settings['log.level'] = 'debug';
+        //  $settings['log.level'] = 'debug';
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode('es1.hubsrv.com');
         $request = $sherlock->search();
-         
-       $rawQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
+
+        $rawQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
            "bool": {
                     "must": [
                         {
@@ -234,16 +408,16 @@ header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
                         }
                     ]
                 }
-            }'              
-               );
+            }'
+        );
 
-       $request->index("production")
+        $request->index("production")
                 ->type("couchbaseDocument")
                 ->from(0)
                 ->size(5000)
                 ->fields("couchbaseDocument.doc.id")
                 ->query($rawQuery);
-        
+
         $results = $request->execute();
 
         print_r($results);

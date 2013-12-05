@@ -9,7 +9,7 @@
  <ul>
             {{#each controller.categorys}}
            
-                <li id="{{unbound topic}}.substr(0,str.indexOf(''))" {{action topicSelection this}}> {{topic}}<i class="icon-search" {{action topicSearch topic}} ></i></li>
+                <li id="id_{{unbound id}}" {{action topicSelection this}}> {{topic}}<i class="icon-search" {{action topicSearch topic}} ></i></li>
             
             {{/each}}
 </ul>
@@ -58,6 +58,7 @@
 
 
 
+
 <script>
     $(function() {
         $("#category_topic").mCustomScrollbar({
@@ -77,7 +78,6 @@
             set_height: 388
         });
     });
-    
- 
+   
        
 </script>

@@ -6,7 +6,7 @@ HubStar.CollectionRoute = Ember.Route.extend({
         } else {
             var id = model.get('id');
         }
-             console.log("111111222222221111");
+
         this.controllerFor('user').set('switchPhoto', false);
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
@@ -18,6 +18,7 @@ HubStar.CollectionRoute = Ember.Route.extend({
     },
     events: {
         transitionToPhoto: function(id) {
+            
             this.controllerFor('mega').set("selectPhoto", false);
             var obj = HubStar.Mega.find(id);
             this.transitionTo("userPhoto", obj);//photo          
@@ -30,6 +31,7 @@ HubStar.CollectionRoute = Ember.Route.extend({
         },
         transitionToArticle: function(id) {
             this.controllerFor("article").set("collectionArticleId", id);
+ 
             this.transitionTo("userArticle", HubStar.Article.find(id));
 
         },

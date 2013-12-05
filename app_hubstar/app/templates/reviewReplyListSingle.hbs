@@ -11,8 +11,8 @@
         </a>
 
         <div class="reply-comment-container" style="width: 378px;height: 32px;">
-            <div style="margin: 0;width: 345px; height: 30px;float: left;">
-                {{view Ember.TextArea valueBinding="controller.review_msg"  class="no-resize no-effect"  placeholder="Please edit reply here" }}                                      
+            <div id="editReply_{{unbound model.review_reply_id}}" style="margin: 0;width: 345px; height: 30px;float: left;">
+                {{view HubStar.SearchRequireTextFieldView valueBinding="controller.review_msg"  class="no-resize no-effect"  placeholder="Please edit reply here" }}                                      
             </div>
             <div style="float: right;height: 34px;position: relative;">
                 <div class="message-btn easing" style='width: 30px;'{{action cancelReviewReply}}>

@@ -25,7 +25,8 @@ HubStar.UserRoute = Ember.Route.extend({
         
         this.controllerFor('user').set("model", model);
         this.controllerFor('user').setUser();
-
+        $("#top-about-menu").css('display', 'none');
+        $("#search-bar").css('display', 'block');
         $(window).scrollTop(0);
     },
     model: function(params) {
@@ -47,6 +48,7 @@ HubStar.UserRoute = Ember.Route.extend({
             this.transitionTo("collection", data);
         },
         transitionToArticle: function(article_id) {
+
             this.transitionTo("article", article_id);
             this.transitionTo("articlePhoto");
         }
@@ -58,7 +60,7 @@ HubStar.UserRoute = Ember.Route.extend({
 
         if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
 
-            this.transitionTo('indexIndex');
+//            this.transitionTo('indexIndex');
             this.controllerFor('application').set('popup', true);
         }
     },

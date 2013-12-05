@@ -11,12 +11,14 @@
             <li style="margin-top: 20px;"> <div class="hint--right hint--rounded" data-hint="Category"><a href="#"> <i class="icon-eye-open" style="font-size: 20px;"></i></a></div>
                 <ul class="firstList" >
                     <li>&nbsp;</li>
+                   
                     <div style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -155px; z-index: -1;"></div>
                     {{#each controller.categorys}}
 
                     <li> <span><a href="#" {{action topicSearch topic}} > {{topic}}</a></span>
                         <ul>
                             <li>&nbsp;</li>
+                  
                             <div style="width: 120%; height: 150%; position: absolute;margin-left: -20px; margin-top: -80px;  z-index: -1;"></div>
                             {{#each subcate}}
                             <li> <span><a href="#" {{action topicSearch category_topic}} > {{category_topic}}</a></span>
@@ -94,24 +96,19 @@
 
 
 
-
 <script>
-
                 function logout() {
-
                     $.ajax({
                         type: 'POST',
                         url: getRestAPIURL() + '/logout',
                         contentType: 'application/json; charset=uft-8',
                         dataType: 'json',
                         success: function(para) {
-
-
                         }
                     });
-
-//                        localStorage.clear();
                     localStorage.removeItem('loginStatus');
-
                 }
+                
+                
+
 </script>

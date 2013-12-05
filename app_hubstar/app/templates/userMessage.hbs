@@ -7,7 +7,7 @@
 
 <div class="box col2" style="background-color: #fafafa">
 
-    <div  style="width: 98%;padding: 15px 10px;margin: 0 auto;overflow: hidden;border-bottom: 1px solid #ddd;">
+    <div  style="width: 98%;padding: 15px 10px;margin: 0 auto;border-bottom: 1px solid #ddd;">
         <div style="margin:0 auto; padding: 0 0 0 50px;">
             <a>
                 <img class="profilepic_comment"  style="width: 45px; height: 45px;float: left; margin: 4px 0 0 -50px; margin-top: 0; " {{bindAttr src= this.commenter_photo_url}} /> 
@@ -26,13 +26,13 @@
                 </div>
                 {{/if}}
                 <div class="" style="height: 30px;position: relative;border-top: 1px solid #ddd;top: -1px;">
-                    <div  class="message-btn easing" style=" border-right: 1px solid #ddd;" data-hint="Add Photo"><k class='icon-picture'>&nbsp;</k>Add Photo
+                    <div  class="message-btn easing hint--bottom hint--rounded" style=" border-right: 1px solid #ddd;" data-hint="Add Photo"><k class='icon-picture'>&nbsp;</k>Add Photo
                         <div style="opacity:0;position: relative;height:30px;top:-30px;overflow: hidden;"> 
                             {{view HubStar.SingleImageInputButtonView }}
                         </div>
                     </div>
                     {{#if controller.isPosting}}
-                    <div class="message-btn easing" style=''{{action addComment}} data-hint="Post"><k class='icon-ok'>&nbsp;</k>Post </div>
+                    <div class="message-btn easing hint--bottom hint--rounded" style=''{{action addComment}} data-hint="Post"><k class='icon-ok'>&nbsp;</k>Post </div>
                     {{else}}
                     <div class="message-btn-x easing" style='' ><i class="spinner">&nbsp;</i>Posting </div>
                     {{/if}}

@@ -3,7 +3,8 @@ DS.RESTAdapter.map('HubStar.Profile', {
     collections: {embedded: 'load'},
     followers: {embedded: 'load'},
     reviews:{embedded: 'load'},
-    keywords: {embedded: 'load'}
+    keywords: {embedded: 'load'},
+    about_us: {embedded: 'load'}
 });
 HubStar.Profile = DS.Model.extend({
     profile_category: DS.attr('string'),
@@ -56,7 +57,8 @@ HubStar.Profile = DS.Model.extend({
     collections: DS.hasMany('HubStar.Collection'),
     reviews: DS.hasMany('HubStar.Review'),
     keywords: DS.hasMany('HubStar.Keyword'),
-    show_keyword_id: DS.attr('string')
+    show_keyword_id: DS.attr('string'),
+    about_us: DS.hasMany('HubStar.AboutUs'),
 //    getTenKeywords: function() {
 //        var tenKeywords =  this.get('keywords').slice(0,10);
 //        return tenKeywords;

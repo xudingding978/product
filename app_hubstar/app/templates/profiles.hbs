@@ -14,26 +14,4 @@
 {{/each}}
 
 
-<div style="position: relative; width: 1000px; height:700px; top: 100px; left: 100px">
 
-    <div class="Message-Board box" style="position: absolute; width: 545px; margin: 10px; border-radius:5px; overflow: hidden; background-color: rgb(255, 255, 255); top: 0px; left: 0px;">
-        <div class="" style="height: 50px; width: 100%;position: relative; border-bottom: 1px solid #ddd; background-color: #f3f3f3;padding: 0 15px;">
-            <div style="color: #555; font-size: 15px; line-height: 50px; font-weight: bold; float: left;">Adding friends to the conversation.</div>
-            <div  class='create-conversation easing' style=" font-size: 15px; line-height: 50px; font-weight: bold; width: 50px;height: 49px;"><k class="icon-search"></k></div>
-        </div>
-
-        <div style="position: relative; width: 100%;min-height: 100px;padding: 10px  15px;">
-            <div class="invite-friend" style="float: left; margin: 10px;">
-                <div class="invite-this-friend radius-circle easing"><k class="icon-plus"></k></div>
-                <img class="profilepic_comment radius-circle"  style=" box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;" {{bindAttr src= controller.commenter_photo_url}} /> 
-            </div>
-
-
-        </div>
-
-        <div class="" style="height: 41px;position: relative;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
-            <div  class="message-btn easing" style="font-size: 15px; height: 40px; line-height: 40px; border-right: 1px solid #ddd;" {{action reviewCancel }}><k class="icon-remove">&nbsp;</k>Cancel</div>
-            <div class="message-btn easing" style="font-size: 15px; height: 40px; line-height: 40px;"{{action  reviewPost model.id}}><k class='icon-smile'>&nbsp;</k>Invite</div>
-        </div>
-    </div>
-</div>

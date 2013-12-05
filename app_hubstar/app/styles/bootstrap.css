@@ -230,16 +230,6 @@ body {
     background-color: #E7E7E7;
 }
 
-a {
-/*    color: #0088cc;*/
-    text-decoration: none;
-}
-
-a:hover {
-    /*    color: #005580;*/
-    text-decoration: none;
-}
-
 .img-rounded {
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;

@@ -108,11 +108,62 @@
             </div>
         </div>
         <div class="back-btn easing" style="" >Back</div>
-        <div class="register-btn easing register-btn-small"  {{action done}}>Done</div>
+        <div class="register-btn easing register-btn-small"  {{action next}}>Next</div>
+
+        <div id="register-with-email-step-3" style="z-index: 1;overflow: hidden;  background-color: white;border-radius: 5px;  width: 800px; height: 600px; margin: 0px auto; position: fixed; top: 15%; left: 0px; right: 0px; display:none;">
+            <div   style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
+                <div  class="comment-namentime" style="display: block;position: relative;height: 35px;">
+                    <div style="position: absolute;  text-align: center;line-height: 40px;margin: 0 auto;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
+                        Please select from the topics below to your save your interests.
+
+                    </div>
+                </div>
+            </div>
+            <div id ="" style="margin: 20px 30px 5px;height: 450px;" >
+                {{#each controller.contentTopic}}
+                <div class="select-interest" style=" height: 150px; width: auto;position: relative; float: left; margin: 10px 20px;"{{action selectTopic id topic}}>
+                     <div id="minus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action selectTopic id topic }}><k class="icon-minus" ></k></div>
+                     <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;" ><k class="icon-plus" ></k></div>
+                    <div class="" style="height: 100px;width: 100px;position: relative;border-radius: 50%;overflow: hidden;top: -5px;float: left; ">
+                        <div  class="usersobject-hoverarea easing" style="height: 100px; width: 100px;" >
+                        </div>
+                        <div style="position: relative;">
+                            <div style="width: 100px; height: 100px; overflow: hidden;">
+                                <img {{bindAttr src="image"}} style="min-height:100px; width: 100px; max-width: none;"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="position: relative;text-align: center;font-size: 13px;width: 100px;line-height: 15px;">
+                        {{topic}}
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+
+            <div class="" style="height: 45px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
+                <div class="register-btn easing" style="width: 50%;border-right: 1px solid #ddd;float: left;"></div>
+                <div class="register-btn easing" style="width: 50%;float: left"{{action submitSelection}}>Next&nbsp;<k class="icon-long-arrow-right" style="font-size: 13px;"></k></div>
+            </div> 
+        </div>
+
+        <div id="register-with-email-step-4" style="overflow: hidden; z-index: 11; background-color: white; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; box-shadow: rgb(187, 187, 187) 0px 0px 20px; width: 430px; height: 220px; margin: 0px auto; position: fixed; top: 45%; left: 0px; right: 0px; display: none;">
+            <div  style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
+                <div  class="comment-namentime" style="display: block;position: relative;height: 35px;">
+                    <div style="position: absolute;  text-align: center;line-height: 40px;margin: 0 auto;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
+                    </div>
+                </div>
+            </div>
+            <div style="height: 140px; text-align: center; padding: 40px;">
+                Registration successful! Please remember to validate your email address when you next check your emails!
+            </div>
+
+<!--            <div id="skipRegister" class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute; display:none" {{action skip}}>Skip&nbsp</div>-->
+            <div id="finishRegister" class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute;display:block" {{action done}}>Done&nbsp;<k class="icon-long-arrow-right" style="font-size: 13px;"></k></div>
+        </div>
 
     </div>
     <div id="missing-fields" class="black-tool-tip" style="display:none;">
-        <p>Please fill the mandatory fields.</p>
+        <p>Please fill in all mandatory fields.</p>
     </div>
     <div id="invalid-user-name-register" class="black-tool-tip" style="display:none;">
         <p>The email address  you have entered is invalid.</p>
@@ -121,10 +172,10 @@
         <p>Your password length should be between 6-40 characters long.</p>
     </div>
     <div id="email-in-use" class="black-tool-tip" style="display:none;">
-        <p>The email address you have entered is already in use.</p>
+        <p>The email address you have entered belongs to an existing account.</p>
     </div>
     <div id="email-used-by-social" class="black-tool-tip" style="display:none;">
-        <p>The email address you have entered is already in use by a social account.</p>
+        <p>The email address you have entered belongs to an existing account.</p>
     </div>
 
 </div>
@@ -202,16 +253,17 @@
         <p>The email address  you have entered is invalid.</p>
     </div>
     <div id="invalid-account-type" class="black-tool-tip" style="display:none;">
-        <p>You are attempting to login with a social network account, please use the "Login with social account" link above.</p>
+        <p>You are attempting to log in with a social account. Please use the "Log in with social account" option.</p>
     </div>
     <div id="incorrect-password" class="black-tool-tip" style="display:none;">
         <p>Incorrect password.</p>
     </div>
+
      <div id="incorrect-varify" class="black-tool-tip" style="display:none;">
-        <p>Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!.</p>
+        <p>Registration successful! To activate your myTrends account, please click the activation link in the email we just sent you. </p>
     </div>
     <div id="invalid-account-type-reset" class="black-tool-tip" style="display:none;">
-        <p>You are attempting to reset your password with a social network account, please use the "Login with social account" link above.</p>
+        <p>You are attempting to reset the password of a social account. Please use the "Log in with social account" option.</p>
     </div>
     <div id="new-password" class="black-tool-tip" style="display:none;">
         <p>  We've sent you an email with instructions to reset your password.</p><br/>
@@ -328,10 +380,11 @@
 
                     $('#register-with-email-drop-down').css('display', 'none');
                     $('#register-with-email-step-2').css('display', 'none');
+                    $('#register-with-email-step-3').css('display', 'none');
                     $('#user-login-pane').css('display', 'block');
                     var loginState = true;
                 } else {
-                         loginState = false;
+                    loginState = false;
                 }
                 $("#social-login").click(function() {
 

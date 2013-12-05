@@ -10,6 +10,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     checkLoginStatus: false,
     searchFromRoute: false,
     collectionArticleId: null,
+    commentContent: "",
     accessFromSearchBoard: false, //false: access the articlePhoto  true: access the article
     isCreditListExist: false,
     needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'masonryCollectionItems'],
@@ -166,7 +167,9 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
     },
     addComment: function() {
+console.log(this);
         var commentContent = this.get('commentContent');
+        console.log(commentContent);
         if (commentContent) {
             var comments = this.get('article').get('comments');
 //            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');

@@ -495,10 +495,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (this.get('isAboutUsObjectExist')) {
             this.selectNewAbout();
         } else {
-            var message = "Do you wish to modify the about us by using template? If you choose 'Template', you will lose the previous data.";
+            var message = "<b>How would you like to edit the About Us section? </b><br>Choose the <b>Template editor</b> to easily modify this section using the default About Us template. <br>Choose the <b>HTML5 editor</b> for more advanced editing options. <br>Please note: <br>- If you choose the <b>Template editor</b> after adding content to this section using the <b>HTML5 editor</b>, you will need to re-enter this content. <br>- Once changes made with the <b>Template editor</b> have been saved, you will no longer be able to access the <b>HTML5 editor</b>.";
             this.set("message", message);
             this.set('select_one', 'HTML5 editor');
-            this.set('select_two', 'Template');
+            this.set('select_two', 'Template editor');
             this.set('makeSelection', true);
         }
     },
@@ -583,6 +583,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('editingTime', !this.get('editingTime'));
         }
         this.saveUpdate();
+    },
+    noSelection: function() {
+        this.set('editing', false);
+        this.set('makeSelection', false);
     },
     no: function(checkingInfo) {
         if (checkingInfo === "profileName") {

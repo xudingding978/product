@@ -39,10 +39,11 @@ body > div.ember-view{
 #masonry_photo_collection_container[style='position: relative; height: 0px; width: 185px;'],
 #masonry_photo_collection_container[style='position:relative;height:0px;width: 185px;'],
 
-#masonry_container[style="position: relative; height: 157px; width: 370px;"],
-#masonry_container[style="position:relative;height:157px;width:370px;"],
-#masonry_container[style='position: relative; height: 157px; width: 370px;'],
-#masonry_container[style='position:relative;height:157px;width:370px;']{
+#masonry_container[style="top: 100px; position: relative; height: 157px; width: 370px;"],
+#masonry_container[style="top:100px;position:relative;height:157px;width:370px;"],
+#masonry_container[style='top: 100px; position: relative; height: 157px; width: 370px;'],
+#masonry_container[style='top:100px;position:relative;height:157px;width:370px;']
+{
     width:0!important;
     overflow:hidden;
     margin-left:4000px;

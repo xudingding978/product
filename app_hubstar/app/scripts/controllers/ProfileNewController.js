@@ -1,6 +1,6 @@
 
 var passSubmit = true;
-var multiEmail2 = true;
+//var multiEmail2 = true;
 HubStar.ProfileNewController = Ember.ObjectController.extend({
     profile_name: "",
     categorySelection: "Category",
@@ -210,21 +210,26 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
 
             this.set('profile_bg_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_bg/default/defaultbg6.jpg");
         }
+        else {
+            this.set('profile_bg_url', this.get("profile_bg_url"));
+        }
         if ($('.hero').val() === "") {
 
             // this.set('heroImage', true);
             this.set('profile_hero_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg");
         }
+         else {
+            this.set('profile_hero_url', this.get("profile_hero_url"));
+        }
         if ($('.picture').val() === "") {
 
             this.set('profile_pic_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg");
+        } else {
+            this.set('profile_pic_url', this.get("profile_pic_url"));
         }
 
 
-        this.set("profile_url", this.get("profile_name").toLowerCase() + "-" + this.spaceChecking($('#regionSelection').text().toLowerCase())) + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase());
-        console.log(this.get("profile_url"));
-
-
+        this.set("profile_url", this.get("profile_name").toLowerCase() + "-" + this.spaceChecking($('#regionSelection').text().toLowerCase()) + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase()));
     },
     setTopicModel: function(model) {
         this.set('categorys', null);
@@ -253,7 +258,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 accessed: null,
                 is_active: "true",
                 is_indexed: "true",
-                category: $('#categorySelection').text(),
+                categories: $('#categorySelection').text(),
                 subcategories: $('#subcategorySelection').text(),
                 created: "",
                 creator: this.get("creater"),

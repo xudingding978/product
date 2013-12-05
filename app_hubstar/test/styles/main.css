@@ -7404,7 +7404,7 @@ div.search-loading-invisible{
 .window-container {
     overflow: visible;
     position: fixed;
-    z-index: 100;
+    z-index: 20000;
     background-color: white;
     border: 1px solid #999;
     border: 1px solid rgba(0, 0, 0, 0.3);
@@ -8378,6 +8378,24 @@ a:hover , a:focus {color: #aaa;}
     -webkit-perspective: 600px;
     -moz-perspective: 600px;
 }
+
+
+
+.square-button{
+    width: 45PX;
+    height: 45px;
+    float: left;
+    color: #333;
+    line-height: 48px;
+    font-size: 15px;
+    text-align: center;
+    opacity: .6;
+    cursor: pointer;
+}
+
+.square-button:hover{opacity: 1}
+
+
 /* -- make sure to declare a default for every property that you want animated -- */
 /* -- general styles, including Y axis rotation -- */
 .panel .front {
@@ -11772,7 +11790,7 @@ textarea.add-interests{
 
 .popular-topics{
     top: 400px;
-    width: 850px; 
+    width: 860px; 
     position:absolute; 
     margin: auto;
     left: 0;

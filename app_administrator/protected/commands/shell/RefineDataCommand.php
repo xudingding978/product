@@ -264,7 +264,7 @@ class RefineDataCommand extends Controller_admin {
             $id = $hit['id'];
             $ch = $this->couchBaseConnection($bucket);
             $result = $ch->get($id);
-            $result_arr = CJSON::decode($result, true);
+            $result_arr = CJSON::decode($result);
             $record_boost = $result_arr["boost"];
             $record_accessed = $result_arr["accessed"];
             $record_updated = $result_arr["updated"];
@@ -274,7 +274,8 @@ class RefineDataCommand extends Controller_admin {
             $package_record = $id . " : " . $result_arr["profile"][0]["profile_package_name"];
             array_push($profile_record, $package_record);
 
-            if ($result_arr != null && $result_arr["profile"][0]["profile_package_name"] != null && isset($result_arr["profile"][0]["profile_package_name"] )) {
+            if ($result_arr != null && $result_arr["profile"][0]["profile_package_name"] != null ) {
+           //     if($result_arr['id'])
                 $tempPackage = $result_arr["profile"][0]["profile_package_name"];
                 $result_arr["accessed"] = $timeStamp;
                 $result_arr["updated"] = $timeStamp;
@@ -307,7 +308,7 @@ class RefineDataCommand extends Controller_admin {
 //                    "\r\n";
                         $message .= "\nProfile " . $id . "old_boost: " . $record_boost . ' new_boost: ' . $result_arr["boost"] . "\n";
                         echo $message;
-                   //     $message.=$this->fixProfileRelatedImages($result_arr['profile'][0]['id'], $boost, $bucket);
+                        $message.=$this->fixProfileRelatedImages($result_arr['profile'][0]['id'], $boost, $bucket);
                     } else {
                         echo $id . " fail to set the value into couchbase document! \r\n";
                         $message .= $id . " fail to set the value into couchbase document! \r\n";
@@ -328,8 +329,8 @@ class RefineDataCommand extends Controller_admin {
     }
 
     public function fixProfileRelatedImages($id, $boost, $bucket) {
-                $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
-        $log_path = "/var/log/yii/$start_time.log";
+ //               $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+    //    $log_path = "/var/log/yii/$start_time.log";
         $data_arr = array();
         $message = "";
 
@@ -364,8 +365,10 @@ class RefineDataCommand extends Controller_admin {
         if (sizeof($data_arr) > 0) {
             $cb = $this->couchBaseConnection($bucket);
             $count=0;
+           
             foreach ($data_arr as $data) {
                 $result = $cb->get($data);
+                 $message="";
                 $count++;
                 echo "\nfixing data for ".$count."\n";
                 if ($result != null && $result != "") {
@@ -374,13 +377,13 @@ class RefineDataCommand extends Controller_admin {
                     $result_arr['boost'] = $boost;
                 }
                 if ($cb->set($data, CJSON::encode($result_arr))) {
-                    $message= "\nBoost data of object " . $data . " has been changed from " . $boost_record . " to " . $result_arr['boost'] . "\n";
+                    $message.= "\n".$id." Boost data of object " . $data . " has been changed from " . $boost_record . " to " . $result_arr['boost'] . "\n";
                     echo $message;
-                                $this->writeToLog($log_path, $message);
+                   //             $this->writeToLog($log_path, $message);
                 } else {
-                    $message="\nBoost data of object " . $data . " update failed**********************************************\n";
+                    $message.="\nBoost data of object " . $data . " update failed**********************************************\n";
                     echo $message;
-                    $this->writeToLog($log_path, $message);
+           //         $this->writeToLog($log_path, $message);
                 }
             }
         } else {

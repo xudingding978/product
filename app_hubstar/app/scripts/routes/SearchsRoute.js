@@ -22,7 +22,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
 //            console.log(item[key]);
 //        }
 
-        localStorage.checkUser = "newUser";
+        localStorage.checkUser = "";
 $(".navbar").css("box-shadow", "");
 $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
       $(window).scrollTop(0);

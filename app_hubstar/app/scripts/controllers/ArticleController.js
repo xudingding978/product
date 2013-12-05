@@ -297,7 +297,6 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
     closeWindow: function() {
         this.set('collectable', false);
         this.set('contact', false);
-      
         var address = document.URL;
         var collection_id = address.split("#")[1].split("/")[6];
         var user_id = address.split("#")[1].split("/")[2];

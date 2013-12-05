@@ -31,7 +31,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     willDelete: false,
     init: function()
     {
-
+   
     },
     findSelectedItemIndex: function() {
         content = this.get('content');
@@ -171,6 +171,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
 
         this.selectedImage(this.get('selectedPhoto').id);
+
 
     },
     getInitData: function(megaObject) {
@@ -686,7 +687,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
     },
     closeWindow: function() {
-
+     this.set('image_no', 1);
         this.set('collectable', false);
         this.set('contact', false);
         var address = document.URL;

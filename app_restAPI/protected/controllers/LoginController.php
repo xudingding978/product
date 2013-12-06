@@ -260,7 +260,7 @@ class LoginController extends Controller {
 
                 if ($currentUser->PWD_HASH === "blankblankblank") {
                     $this->sendResponse(200, 0);
-                } else if ($currentUser->PWD_HASH === $request_array[1]) {
+                } else {
                     //     $_SESSION['couchbase_id'] = $currentUser->COUCHBASE_ID;
                     $data = array();
                     $data[0] = $currentUser;
@@ -297,7 +297,7 @@ class LoginController extends Controller {
             if (isset($currentUser)) {
                 if ($currentUser->PWD_HASH === "blankblankblank") {
                     $this->sendResponse(200, 0);
-                } else if ($currentUser->PWD_HASH === $request_array[1]) {
+                } else {
                     $data = array();
                     $data[0] = $currentUser;
                     $user_id = $currentUser->COUCHBASE_ID;
@@ -323,6 +323,7 @@ class LoginController extends Controller {
 
                     $this->sendResponse(200, CJSON::encode($data));
                 }
+               
             } else {
                 $this->sendResponse(200, 1);
             }

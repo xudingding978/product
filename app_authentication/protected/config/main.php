@@ -62,7 +62,7 @@ return CMap::mergeArray(
                 'common.components.*',
                 'common.components.auth.*',
                 'common.extensions.*',
-                'common.modules.*',
+                 'common.modules.*',
                 'common.modules.hybridauth.*',
                 'common.models.*',
                 // 'common.redbean.*',
@@ -72,7 +72,7 @@ return CMap::mergeArray(
             'modules' => array(
                 'hybridauth' => array(
 //   'baseUrl' => 'http://account.business-software.co.nz/hybridauth',
-                    'class' => 'common.modules.hybridauth.HybridauthModule',
+                    'class' => 'application.modules.hybridauth.HybridauthModule',
                     'baseUrl' => 'http://' . $_SERVER['HTTP_HOST'] . '/hybridauth',
                     'withYiiUser' => false, // Set to true if using yii-user
                     'providers' => $result_arr['providers'],

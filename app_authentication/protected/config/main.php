@@ -164,6 +164,22 @@ return CMap::mergeArray(
 //                    ),
 //                ),
             ),
+                      'params' => array(
+// this is used in contact page
+                'adminEmail' => 'webmaster@example.com',
+                // this the primary elastic search server and index
+                'elasticSearchNode' => $params['elasticSearch.node'], //'es1.hubsrv.com'
+                'elasticSearchIndex' => $params['elasticSearch.index'], //test
+                'couchBaseNode' => $params['couchBase.node'],
+                'couchBaseBucket' => $params['couchBase.bucket'],
+                'couchBaseAccount' => $params['couchBase.account'],
+                'couchBasePasswrd' => $params['couchBase.password'],
+                //---------------------------
+                'couchBaseDefaultNode' => $params['couchBase.defaultNode'],
+                'couchBaseDefaultBucket' => $params['couchBase.defaultBucket'],
+                'couchBaseDefaultAccount' => $params['couchBase.defaultAccount'],
+                'couchBaseDefaultPasswrd' => $params['couchBase.defaultPassword'],
+            ),
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );
 ?>

@@ -60,8 +60,8 @@ class DefaultController extends CController {
     }
 
     private function _linkProvider($identity) {
-        $config = Yii::app()->getBasePath() . '/../../common/protected/modules/hybridauth/config/provider_config.php';
-        require_once( Yii::app()->getBasePath() . '/../../common/protected/modules/hybridauth/Hybrid/Auth.php');
+        $config = Yii::app()->getBasePath() . '/../../app_authentication/hybridauth/config/provider_config.php';
+        require_once( Yii::app()->getBasePath() . '/../../app_authentication/protected/modules/hybridauth/Hybrid/Auth.php');
 
         $hybridauth = new Hybrid_Auth($config);
 
@@ -116,9 +116,9 @@ class DefaultController extends CController {
 
         //   return $user_profile;
         $userProfile->save();
-
-
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
+$cb = $this->couchBaseConnection();
+error_log(var_export( $cb,true));
+       
         $rand_id = $user->COUCHBASE_ID;
         $temp = $this->getMega();
         $temp["id"] = $rand_id;
@@ -229,6 +229,14 @@ class DefaultController extends CController {
         $datetime = date("Y-m-d H:i:s");
         $time_string = strtotime($datetime);
         return $time_string;
+    }
+    
+     protected function couchBaseConnection() {
+        $bucket = Yii::app()->params['couchBaseBucket'];
+        $account = Yii::app()->params['couchBaseAccount'];
+        $password = Yii::app()->params['couchBasePassword'];
+        $node = Yii::app()->params['couchBaseNode'];
+        return new Couchbase($node, $account, $password, $bucket, true);
     }
 
     public function loginWithOldUserFromSocialPlatfrom($identity) {

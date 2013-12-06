@@ -26,6 +26,8 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     client_name: "",
     owner: "",
     direct_enquiry_emails: "",
+    direct_enquiry_emails_2: "",
+    direct_enquiry_emails_3: "",
     creater: "",
     editors: "",
     boost: "",
@@ -112,7 +114,11 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 && $('#countrySelection').text() !== "Country"
                 && $('#regionSelection').text() !== "Regoin/State"
                 && $('.contactEmail').val() !== ""
-                && $('.admins').val() !== "")
+                && $('.admins').val() !== ""
+                && this.validateEmail($('.contactEmail').val())
+                && this.validateEmail($('.admins').val())  
+                && this.numberChecking("#numberFormat", this.get("profile_contact_number"))
+    )
         {
             passSubmit = true;
         }
@@ -205,6 +211,12 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             $('#admins').attr('style', 'display:none');
             document.getElementById('adminsField').setAttribute("class", "");
         }
+        
+        if (this.numberChecking("#numberFormat", this.get("profile_contact_number"))) {
+            //   passSubmit = false;
+            $('#numberFormat').attr('style', 'display:block');
+            document.getElementById('numberField').setAttribute("class", "error-textfield");
+        }
 
         if ($('.background').val() === "") {
 
@@ -229,7 +241,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
         }
 
 
-        this.set("profile_url", this.get("profile_name").toLowerCase() + "-" + this.spaceChecking($('#regionSelection').text().toLowerCase()) + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase()));
+        this.set("profile_url", this.spaceChecking(this.get("profile_name").toLowerCase()) + "-" + this.spaceChecking($('#regionSelection').text().toLowerCase()) + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase()));
     },
     setTopicModel: function(model) {
         this.set('categorys', null);
@@ -249,9 +261,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     save: function() {
 
         this.fillInChecking();
-        console.log("finish");
-        if (passSubmit) {
-            console.log("ddd");
+        if (passSubmit) {   
             var newMegaNewModel = HubStar.store.createRecord(HubStar.Meganew, {
                 "id": this.get("profile_url"),
                 "type": "profile",
@@ -272,6 +282,8 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 owner_title: this.get("profile_name"), //profile name
                 owner_id: this.get("profile_url"), //profile id
                 owner_contact_email: this.get("direct_enquiry_emails"),
+                 owner_second_contact_email: this.get("direct_enquiry_emails_2"),
+                  owner_third_contact_email: this.get("direct_enquiry_emails_3"),
                 updated: ""
             });
 
@@ -288,8 +300,10 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 owner: this.get("owner"),
                 profile_creater: this.get("creater"),
                 profile_editors: this.get("editors"),
-                profile_contact_number: $('#numberSelection').text() + this.get("profile_contact_number"),
+                profile_contact_number:"(" + $('#numberSelection').text() + ")" + " " + this.get("profile_contact_number"),
                 owner_contact_email: this.get("direct_enquiry_emails"),
+                owner_second_contact_email: this.get("direct_enquiry_emails_2"),
+                  owner_third_contact_email: this.get("direct_enquiry_emails_3"),
                 profile_category: $('#categorySelection').text(),
                 profile_subcategory: $('#subcategorySelection').text(),
                 profile_physical_address: this.get("address"),
@@ -298,7 +312,6 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 profile_regoin: $('#regionSelection').text(),
                 profile_country: $('#countrySelection').text(),
                 profile_hours: "Monday=9:00am-5:00pm,Tuesday=9:00am-5:00pm,Wednesday=9:00am-5:00pm,Thursday=9:00am-5:00pm,Friday=9:00am-5:00pm,Saturday=closed,Sunday=closed,Holidays=closed",
-                phone_number: "(" + $('#numberSelection').text() + ")" + " " + this.get("profile_contact_number"),
                 profile_partner_ids: null,
                 profile_website_url: this.get("website_url"),
                 profile_website: this.get("website")

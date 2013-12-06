@@ -529,7 +529,7 @@ class ConversationsController extends Controller {
             }
 
             $oldRecordDeep['conversationID'] = $conversationID;
-
+            $oldRecordDeep['type'] = "conversation";
             if ($participation_ids === null || $participation_ids === '') {
                 $oldRecordDeep['participation_ids'] = $commenter_id;
             } else {

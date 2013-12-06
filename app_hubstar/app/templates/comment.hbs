@@ -105,7 +105,7 @@
 
 </div>
 </div>
-
+{{#if model.showComment}}
 <div class="hover-opacity easing" style="height: 20px; width: 100%; background-color: #f3f3f3;text-align: center;color: #555; border-top: 1px solid #ddd;cursor: pointer">  
     <div id="showMoreComment_{{unbound model.id}}" style="display: inline-block; cursor: pointer"  {{action seeMore model.id target="controller" on="click"}}>
         <span style="font-size: 11px;font-weight: bold">show all comments &nbsp; {{model.comments.length}}</span>
@@ -116,7 +116,7 @@
         <i class="icon-caret-up show-comment_inner" ></i>
     </div>
 </div>
-
+{{/if}}
 
 {{#if controller.makeSureDelete}}
 

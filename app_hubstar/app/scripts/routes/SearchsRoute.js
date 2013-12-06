@@ -21,11 +21,10 @@ HubStar.SearchsRoute = Ember.Route.extend({
 //        for (var key in item) {
 //            console.log(item[key]);
 //        }
-
+  $(window).scrollTop(0);
         localStorage.checkUser = "";
 $(".navbar").css("box-shadow", "");
 $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-      $(window).scrollTop(0);
     },
     events: {
         transitionToPhoto: function(id) {

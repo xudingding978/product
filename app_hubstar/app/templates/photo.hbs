@@ -95,7 +95,20 @@
             </div>
             <div class="poster_user" >
                 <a class="poster-name" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
-                <span class="posttime">{{date controller.megaResouce.created}} </span>
+                <ul class="itemprofile" style="margin: 5px 0 0;">
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
+                        <div><k class="icon-eye-open"> &nbsp;{{this.collections.length}}</k></div>
+                    </li>
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
+                        <div><k class="icon-group">&nbsp;{{ length this.profile_partner_ids}}</k></div>
+                    </li>
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
+                        <div><k class="icon-film">&nbsp;{{ videolength this.profile_about_us}}</k></div>
+                    </li>
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
+                        <div><k class="icon-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>
+                    </li>
+                </ul>
             </div>        
             <div class="contactmebtn hint--left hint--rounded easing" data-hint="Contact us!" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
                 <a class="contactmeicon easing" {{action editingContactForm }}><i class="icon-envelope easing" style="font-size: 18px;"></i></a>
@@ -105,9 +118,48 @@
         {{render contact}}
         {{/if}}
     </div>
+    
+     <!-- OBJECT CONTROLL SECTION -->
+    <div class="collapes-container"  style="display:block;border-top: 1px solid #f3f3f3;">
+        <div class="collapes-container_inner" style="padding: 0; height: 45px;">
+
+
+            <div  class="square-button hint--rounded hint--bottom"  data-hint="Like this Idea!" {{action addLike}}>
+                  <i class="icon-thumbs-up">&nbsp;<span style="font-size: 11px;">{{megaResouce.likes_count}}</span>&nbsp;</i>
+            </div>
+
+
+            <div class="square-button hint--rounded hint--bottom"  data-hint="Add to your own collection." {{action switchCollection on="click" target="controller"}}>
+                <i class="icon-folder-close" >&nbsp;</i>
+            </div>
+
+            <div class="square-button hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting}}>
+                 <i class="icon-share-alt" >&nbsp;</i>
+            </div>
+
+            <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
+                <li class="ite" {{action  fbShare}} >
+            <k class="icon-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
+            </li>
+            <li class='ite' {{action tShare}} >
+        <k class="icon-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span>
+        </li>
+        <li class='ite' {{action pShare}} >
+    <k class="icon-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Pinterest</span>
+    </li>
+    <li class="ite" {{action gpShare}}>
+<k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
+</li>
+</ul>
+
+</div>
+</div>
+    
+    
+   
 
     <!-- OBJECT DESCRIPTION SECTION -->
-    <div>
+    <div>        
         <div class="object-collapes-title" {{action setTitleTag  on="click" target="view"}}>
             <div class="collapes-title_inner">
                 About

@@ -13,7 +13,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     commentContent: "",
     accessFromSearchBoard: false, //false: access the articlePhoto  true: access the article
     isCreditListExist: false,
-    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'masonryCollectionItems'],
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment','itemFunction', 'masonryCollectionItems'],
     init: function() {
 
     },
@@ -478,5 +478,9 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
                 'height=436,width=626'
                 ).focus();
         return false;
+    },
+    addLike: function() {
+        var controller = this.get('controllers.itemFunction');
+        controller.addLike(this.get('megaResouce').get('id'));
     }
 });

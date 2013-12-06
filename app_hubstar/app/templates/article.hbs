@@ -104,7 +104,20 @@
             </div>
             <div class="poster_user">
                 <a class="poster-name" href="#/profiles/{{unbound controller.megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
-                <span class="posttime">{{date controller.megaResouce.created}}</span>
+                <ul class="itemprofile" style="margin: 5px 0 0;">
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
+                        <div><k class="icon-eye-open"> &nbsp;{{this.collections.length}}</k></div>
+                    </li>
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
+                        <div><k class="icon-group">&nbsp;{{ length this.profile_partner_ids}}</k></div>
+                    </li>
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
+                        <div><k class="icon-film">&nbsp;{{ videolength this.profile_about_us}}</k></div>
+                    </li>
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
+                        <div><k class="icon-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>
+                    </li>
+                </ul>
             </div>
 
             <div class="contactmebtn hint--left hint--rounded easing" data-hint="Contact us!" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
@@ -119,102 +132,140 @@
 
     </div>
 
-    <!-- OBJECT DESCRIBTION SECTION -->
+    <!-- OBJECT CONTROLL SECTION -->
+    <div class="collapes-container"  style="display:block;border-top: 1px solid #f3f3f3;">
+        <div class="collapes-container_inner" style="padding: 0; height: 45px;">
+
+
+            <div  class="square-button hint--rounded hint--bottom"  data-hint="Like this Idea!" {{action addLike}}>
+                  <i class="icon-thumbs-up">&nbsp;<span style="font-size: 11px;">{{megaResouce.likes_count}}</span>&nbsp;</i>
+            </div>
+
+
+            <div class="square-button hint--rounded hint--bottom"  data-hint="Add to your own collection." {{action switchCollection on="click" target="controller"}}>
+                <i class="icon-folder-close" >&nbsp;</i>
+            </div>
+
+            <div class="square-button hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting}}>
+                 <i class="icon-share-alt" >&nbsp;</i>
+            </div>
+
+            <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
+                <li class="ite" {{action  fbShare}} >
+            <k class="icon-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
+            </li>
+            <li class='ite' {{action tShare}} >
+        <k class="icon-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span>
+        </li>
+        <li class='ite' {{action pShare}} >
+    <k class="icon-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Pinterest</span>
+    </li>
+    <li class="ite" {{action gpShare}}>
+<k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
+</li>
+</ul>
+
+</div>
+</div>
+    
+    
+    
+    
+    <!--THIS IS THE ARTICLE AND CAPTION SECTION-->
+    
+    
+    
+<div class="object-collapes-title" >
+    <div class="collapes-title_inner">
+        Article
+    </div>
+
+    {{#unless view.readContent}}
+
+    <div class="readbtn new-btn" {{action checkReading on="click" target="view"}} >
+        Read more
+    </div>
+    {{else}}
+
+    <div class="closeReadbtn new-btn" {{action checkClosed on="click" target="view"}}>
+        Close
+    </div>
+    {{/unless}}
+</div>
+
+
+
+<div class="collapes-container"  id="article_action" style="display:block;">
+    <div class="collapes-container_inner">
+        <div class="article-title" >{{controller.articleResouce.article_headline}}</div>
+        <div class="article-text" id="article_text_action" style="display:block; height: 210px;overflow: hidden;;">{{{controller.articleResouce.article_body}}</div>            
+        <div id ="read_more_cue" class="article-text" style="display:block;">......</div>
+    </div>
+</div>
+    
+    
+    
+    
+    
+
+<!-- OBJECT CREDIT LIST SECTION -->
+{{#if controller.isCreditListExist}}
+<div>
     <div>
         <div class="object-collapes-title" >
             <div class="collapes-title_inner">
-                Article
+                Credit List
             </div>
-
-
-
-
-
-
-            {{#unless view.readContent}}
-
-            <div class="readbtn new-btn" {{action checkReading on="click" target="view"}} >
-                Read more
-            </div>
-            {{else}}
-
-            <div class="closeReadbtn new-btn" {{action checkClosed on="click" target="view"}}>
-                Close
-            </div>
-            {{/unless}}
-        </div>
-
+        </div> 
 
     </div>
+
 
 
 
     <div class="collapes-container"  id="article_action" style="display:block;">
         <div class="collapes-container_inner">
-            <div class="article-title" >{{controller.articleResouce.article_headline}}</div>
-            <div class="article-text" id="article_text_action" style="display:block; height: 210px;overflow: hidden;;">{{{controller.articleResouce.article_body}}</div>            
-            <div id ="read_more_cue" class="article-text" style="display:block;">......</div>
+            {{#each articleResouce.credits}}
+            <div class="article-text">
+                <a style="font-weight: bold">{{credits_name}}:</a>
+                <span style="font-size: 13px">{{credits_text}}</span></div>
+
+            {{/each}}
         </div>
     </div>
+</div>
 
-    <!-- OBJECT CREDIT LIST SECTION -->
-    {{#if controller.isCreditListExist}}
-    <div>
-        <div>
-            <div class="object-collapes-title" >
-                <div class="collapes-title_inner">
-                    Credit List
-                </div>
-            </div> 
+{{/if}}
 
+
+
+
+<!-- OBJECT DISCUSSION SECTION -->
+<div>
+    <div class="object-collapes-title" {{action setDiscussionTag on="click" target="view"}} >
+        <div class="collapes-title_inner">
+            Discussion
         </div>
-
-
-
-
-        <div class="collapes-container"  id="article_action" style="display:block;">
-            <div class="collapes-container_inner">
-                {{#each articleResouce.credits}}
-                <div class="article-text">
-                    <a style="font-weight: bold">{{credits_name}}:</a>
-                    <span style="font-size: 13px">{{credits_text}}</span></div>
-
-                {{/each}}
-            </div>
-        </div>
+        <span class="show-comment_inner">
+            <span class="comment-amount" > {{controller.megaResouce.comments.length}} </span>
+        </span>
+        <div class="dropdownicon">
+            <i class="icon-angle-down" style="height: 16px; width: 16px;"></i>
+        </div>      
     </div>
 
-    {{/if}}
 
 
-
-
-    <!-- OBJECT DISCUSSION SECTION -->
-    <div>
-        <div class="object-collapes-title" {{action setDiscussionTag on="click" target="view"}} >
-            <div class="collapes-title_inner">
-                Discussion
-            </div>
-            <span class="show-comment_inner">
-                <span class="comment-amount" > {{controller.megaResouce.comments.length}} </span>
-            </span>
-            <div class="dropdownicon">
-                <i class="icon-angle-down" style="height: 16px; width: 16px;"></i>
-            </div>      
-        </div>
-
-
-
-        <div class="collapes-container"  id="discuss_action" style="display:block">
-            <div class="collapes-container_inner" style="padding: 0;margin: 0;width: 100%;">
-                <div  style="width: 98%;padding: 15px 10px;margin: 0 auto;overflow: hidden;border-bottom: 1px solid #ddd;">
-                    <div style="margin:0 auto; padding: 0 0 0 50px;">
-                        <a>
-                            <img class="profilepic_comment"  style="width: 45px; height: 45px;float: left; margin: 4px 0 0 -50px; margin-top: 0; z-index: 1" src="http://develop.devbox.s3.amazonaws.com/profile_pic/default/defaultpic1.jpg" /> 
-                             <img class="profilepic_comment"  style="width: 45px; height: 45px;float: left; margin: 4px 0 0 -50px; margin-top: 0;z-index: 2" {{bindAttr src="controller.currentUser.photo_url_large"}} /> 
-                            <div class='user-says-angle-before' style="left: 51px;"></div>
-                            <div class='user-says-angle-after' style="left: 49px;"></div>
-                        </a>
+    <div class="collapes-container"  id="discuss_action" style="display:block">
+        <div class="collapes-container_inner" style="padding: 0;margin: 0;width: 100%;">
+            <div  style="width: 98%;padding: 15px 10px;margin: 0 auto;overflow: hidden;border-bottom: 1px solid #ddd;">
+                <div style="margin:0 auto; padding: 0 0 0 50px;">
+                    <a>
+                        <img class="profilepic_comment"  style="width: 45px; height: 45px;float: left; margin: 4px 0 0 -50px; margin-top: 0; z-index: 1" src="http://develop.devbox.s3.amazonaws.com/profile_pic/default/defaultpic1.jpg" /> 
+                        <img class="profilepic_comment"  style="width: 45px; height: 45px;float: left; margin: 4px 0 0 -50px; margin-top: 0;z-index: 2" {{bindAttr src="controller.currentUser.photo_url_large"}} /> 
+                        <div class='user-says-angle-before' style="left: 51px;"></div>
+                        <div class='user-says-angle-after' style="left: 49px;"></div>
+                    </a>
 
                         <div class="" style="width: 100%; border-radius: 2px;border: 1px solid #ddd;background-color: #fff;">
                             <div   style="margin: 0;width: 100%; height:100px;">
@@ -223,61 +274,61 @@
 
                             <div class="" style="height: 30px;position: relative;border-top: 1px solid #ddd;top: -1px;">
 
-                                <div class="message-btn easing" style='width: 100%'{{action addComment}}><k class='icon-ok'>&nbsp;</k>Post </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-
-                {{#each controller.megaResouce.comments}}
-                {{#unless this.isEdit}}
-                <div class="comment-item">
-
-                    <div class="comment-position">
-                        <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}">
-                            <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
-                        </a>
-                        <div style="">
-                            <div class="comment-namentime">
-                                <a class="comment-username"  href="#/users/{{unbound commenter_id}}">
-                                    {{name}}
-                                </a>
-                                <div class="posttime-container">
-                                    <span class="posttime">{{date time_stamp}}</span>                  
-                                </div>
-                                {{#if this.getUser}}
-                                <span class="edit-comment easing">
-                                    <i class="icon-trash"  {{action removeComment this}}></i>                 
-                                    <i class="icon-pencil" {{action updateComment this}}></i>
-                                </span>
-                                {{/if}}
-                            </div>
-
-                            <div class="comment-content">
-                                {{content}}
-
-                                <!-- for +someone into the conversation-->
-                                <span>
-                                    <span></span>
-                                    <a></a>
-                                </span>
-                            </div>
+                            <div class="message-btn easing" style='width: 100%'{{action addComment}}><k class='icon-ok'>&nbsp;</k>Post </div>
 
                         </div>
                     </div>
-                </div>
-                {{else}}
-                {{render editComment this}}   
-                {{/unless}}
 
-                {{/each}}
+                </div>
             </div>
-        </div>
 
+
+            {{#each controller.megaResouce.comments}}
+            {{#unless this.isEdit}}
+            <div class="comment-item">
+
+                <div class="comment-position">
+                    <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}">
+                        <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
+                    </a>
+                    <div style="">
+                        <div class="comment-namentime">
+                            <a class="comment-username"  href="#/users/{{unbound commenter_id}}">
+                                {{name}}
+                            </a>
+                            <div class="posttime-container">
+                                <span class="posttime">{{date time_stamp}}</span>                  
+                            </div>
+                            {{#if this.getUser}}
+                            <span class="edit-comment easing">
+                                <i class="icon-trash"  {{action removeComment this}}></i>                 
+                                <i class="icon-pencil" {{action updateComment this}}></i>
+                            </span>
+                            {{/if}}
+                        </div>
+
+                        <div class="comment-content">
+                            {{content}}
+
+                            <!-- for +someone into the conversation-->
+                            <span>
+                                <span></span>
+                                <a></a>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {{else}}
+            {{render editComment this}}   
+            {{/unless}}
+
+            {{/each}}
+        </div>
     </div>
+
+</div>
 
 
 

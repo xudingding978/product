@@ -60,7 +60,7 @@ class DefaultController extends CController {
     }
 
     private function _linkProvider($identity) {
-        $config = Yii::app()->getBasePath() . '/../../app_authentication/hybridauth/config/provider_config.php';
+        $config = Yii::app()->getBasePath() . '/../../app_authentication/protected/modules/hybridauth/config/provider_config.php';
         require_once( Yii::app()->getBasePath() . '/../../app_authentication/protected/modules/hybridauth/Hybrid/Auth.php');
 
         $hybridauth = new Hybrid_Auth($config);

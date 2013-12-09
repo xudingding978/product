@@ -443,7 +443,7 @@ class EmailsController extends Controller {
                                                         </tr>
                                                         <tr>
                                                             <td valign="top">
-                                                                New password: ' . $password . '
+                                                                Password: ' . $password . '
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -457,7 +457,7 @@ class EmailsController extends Controller {
                                             </tr>
                                                          <tr>
                                                 <td valign="top">
-                                                   Thank you for registering with myTrends. The purpose of this email is to ensure we have your correct email address. Click on the link below to activate your account and return to myTrends. 
+                                                   Thank you for signing up to myTrends! To activate your account, simply click on the link below. 
                                                 </td>
                                             </tr>
                                                                  <tr>
@@ -470,7 +470,7 @@ class EmailsController extends Controller {
                                                 <td valign="top">
                                                       Thank you! 
 <br/>
-                                                    The myTrends Team 
+                                                    The team @ myTrends 
                                                 </td>
                                             </tr>
                                         </table>

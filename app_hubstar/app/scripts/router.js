@@ -83,6 +83,12 @@ HubStar.Router.map(function() {
             this.resource('search', {path: ':search_id'});
         });
 
+        
+       this.resource("welcome", {
+            path: "/welcome"
+        });
+        
+
         this.resource("register", {
             path: "/register"
         });

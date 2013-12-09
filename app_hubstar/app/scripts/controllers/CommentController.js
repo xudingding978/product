@@ -291,7 +291,13 @@ HubStar.CommentController = Ember.Controller.extend({
     seeMore: function(id) {
         $('#closeComment_' + id).attr('style', 'display:block');
         $('#showMoreComment_' + id).attr('style', 'display:none');
+        
         $('#commentData_' + id).attr('style', 'display:block');
+        $('#commentScrollBar_' + id).removeClass('comment-scroll-bar');
+        $('#commentScrollBar_' + id + ' > div').attr('class', '');
+        $('#commentScrollBar_' + id + ' > div').attr('style', 'position: relative; height: 100%; overflow: hidden; max-width: 100%;');
+        $('#commentScrollBar_' + id + ' > div > .mCSB_container').attr('style', 'position: relative; top: 0px;');
+
 
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
@@ -302,7 +308,9 @@ HubStar.CommentController = Ember.Controller.extend({
     closeMore: function(id) {
         $('#closeComment_' + id).attr('style', 'display:none');
         $('#showMoreComment_' + id).attr('style', 'display:block');
-        $('#commentData_' + id).attr('style', 'display:none');
+        $('#commentScrollBar_' + id).addClass('comment-scroll-bar');
+        $('#commentScrollBar_' + id + ' > div').attr('class', 'mCustomScrollBox mCS-dark-2');
+        $('#commentScrollBar_' + id + ' > div').attr('style', 'position: relative; height: 100%; overflow: hidden; max-width: 100%;max-height: 360px;');
 
         setTimeout(function() {
             $('#masonry_container').masonry("reload");

@@ -14,13 +14,6 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
 
-//        var testObject = {'one': 1, 'two': 2, 'three': 3};
-//// Put the object into storage
-//        localStorage.setItem('testObject', JSON.stringify(testObject));
-//        var item = JSON.parse(localStorage.testObject);
-//        for (var key in item) {
-//            console.log(item[key]);
-//        }
         $(window).scrollTop(0);
         localStorage.checkUser = "";
         $(".navbar").css("box-shadow", "");
@@ -81,4 +74,5 @@ HubStar.SearchsRoute = Ember.Route.extend({
 
 
     }
+
 });

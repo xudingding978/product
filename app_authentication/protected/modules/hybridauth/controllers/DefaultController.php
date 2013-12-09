@@ -60,8 +60,8 @@ class DefaultController extends CController {
     }
 
     private function _linkProvider($identity) {
-        $config = Yii::app()->getBasePath() . '/../../common/protected/modules/hybridauth/config/provider_config.php';
-        require_once( Yii::app()->getBasePath() . '/../../common/protected/modules/hybridauth/Hybrid/Auth.php');
+        $config = Yii::app()->getBasePath() . '/../../app_authentication/protected/modules/hybridauth/config/provider_config.php';
+        require_once( Yii::app()->getBasePath() . '/../../app_authentication/protected/modules/hybridauth/Hybrid/Auth.php');
 
         $hybridauth = new Hybrid_Auth($config);
 
@@ -116,9 +116,9 @@ class DefaultController extends CController {
 
         //   return $user_profile;
         $userProfile->save();
+        $cb = $this->couchBaseConnection();
+        error_log(var_export($cb, true));
 
-
-        $cb = new Couchbase("cb1.hubsrv.com:8091", "Administrator", "Pa55word", "production", true);
         $rand_id = $user->COUCHBASE_ID;
         $temp = $this->getMega();
         $temp["id"] = $rand_id;
@@ -150,10 +150,12 @@ class DefaultController extends CController {
 
         Yii::app()->session['newUser'] = "new";
 
+        $urlController = new UrlController();
+        $link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        $domain = $urlController->getDomain($link);
 
 
-
-        $cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp));
+        $cb->add($domain . "/users/" . $rand_id, CJSON::encode($temp));
     }
 
     /**
@@ -229,6 +231,14 @@ class DefaultController extends CController {
         $datetime = date("Y-m-d H:i:s");
         $time_string = strtotime($datetime);
         return $time_string;
+    }
+
+    protected function couchBaseConnection() {
+        $bucket = Yii::app()->params['couchBaseBucket'];
+        $account = Yii::app()->params['couchBaseAccount'];
+        $password = Yii::app()->params['couchBasePassword'];
+        $node = Yii::app()->params['couchBaseNode'];
+        return new Couchbase($node, $account, $password, $bucket, true);
     }
 
     public function loginWithOldUserFromSocialPlatfrom($identity) {

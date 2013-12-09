@@ -172,10 +172,15 @@
                 <i class="icon-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
             </div>
             {{/linkTo}}
-            <a class="mainfeature-container">
+                          {{#if controller.isUser}}
+                                 <a class="mainfeature-container">
+             <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToPhoto id}} />      </a>
+                             {{else}}
+                             <a class="mainfeature-container">
                 {{#linkTo 'video' this}} <img {{bindAttr src="object_image_url" }} class="this-is-the-object"/>{{/linkTo}}
             </a>
-
+                             {{/if}}
+  
             <span class='edit-object easing' style="position: absolute;margin: 10px; top: 11px;left: 115px;">
                 {{#if controller.is_authentic_user}}
                 <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>

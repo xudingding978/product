@@ -127,9 +127,12 @@ HubStar.ArticleView = Ember.View.extend({
             {
                 this.get("controller").closeWindow();
             }
+        
             else
             {
-                window.history.back();
+              //  window.history.back();
+                 this.get("controller").transitionTo("searchIndex");
+               
             }
 
 

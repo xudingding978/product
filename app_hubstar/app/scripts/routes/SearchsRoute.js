@@ -21,11 +21,11 @@ HubStar.SearchsRoute = Ember.Route.extend({
 //        for (var key in item) {
 //            console.log(item[key]);
 //        }
-  $(window).scrollTop(0);
+        $(window).scrollTop(0);
         localStorage.checkUser = "";
-$(".navbar").css("box-shadow", "");
-$(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-      $(window).scrollTop(0);
+        $(".navbar").css("box-shadow", "");
+        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+        $(window).scrollTop(0);
     },
     events: {
         transitionToPhoto: function(id) {
@@ -37,6 +37,7 @@ $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
             this.transitionTo("profileCollections", HubStar.Profile.find(id));
         },
         transitionToArticle: function(id) {
+
             this.controllerFor('article').set("accessFromSearchBoard", true);
             this.transitionTo("article", HubStar.Article.find(id));
         }
@@ -47,7 +48,7 @@ $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
 //            this.transitionTo('indexIndex');
 
         } else {
-           // this.transitionTo('searchIndex');
+            // this.transitionTo('searchIndex');
         }
 
     },
@@ -66,7 +67,7 @@ $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
                 isFitWidth: true
             });
         });
-        
+
         $(window).scrollTop(HubStar.get("setHight"));
         HubStar.set("setHight", 0);
 

@@ -81,7 +81,7 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
             this.transitionTo("profile", HubStar.Profile.find(id));
         },
         transitionToArticle: function(id) {
-        
+
             this.controllerFor("article").set("collectionArticleId", id);
             var obj = HubStar.Article.find(id);
 

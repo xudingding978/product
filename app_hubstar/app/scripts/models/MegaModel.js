@@ -2,7 +2,7 @@
 DS.RESTAdapter.map('HubStar.Mega', {
     photo: {embedded: 'always'},
     user: {embedded: 'always'},
-    comments: {embedded: 'always'},
+    comments: {embedded: 'load'},
     reviews: {embedded: 'load'},
     profile: {embedded: 'load'},
     keyword: {embedded: 'always'},

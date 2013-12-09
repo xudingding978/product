@@ -1,5 +1,5 @@
 HubStar.LoginModalController = Ember.Controller.extend({
-     selected_topics: "",
+    selected_topics: "",
     isAdd: false,
     contentTopic: [
         {id: "1", image: '../images/welcomepage/bedroom.jpg', topic: 'Bedrooms'},
@@ -20,7 +20,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
     ],
     needs: ['application'],
     init: function() {
-this.set('loginUsername', localStorage.userName);
+        this.set('loginUsername', localStorage.userName);
     },
     closePopupLogin: function() {
         HubStar.set('checkLoginStatus', false);
@@ -42,7 +42,7 @@ this.set('loginUsername', localStorage.userName);
             requiredBackEnd('login', 'login', loginInfo, 'POST', function(params) {
                 if (params === 1) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-                
+
 
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
@@ -53,7 +53,7 @@ this.set('loginUsername', localStorage.userName);
                 else if (params === 0) {
 
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-              
+
 
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
@@ -63,32 +63,33 @@ this.set('loginUsername', localStorage.userName);
                 else {
 
                     if (that.get('loginPassword') === params[0]["PWD_HASH"] && that.get('loginPassword') !== undefined) {
-                     
-                             var email_activate = params[1];
+
+                        var email_activate = params[1];
 
 
                         if (email_activate === true)
                         {
-                        localStorage.loginStatus =  params[0].COUCHBASE_ID;
-
-                        location.reload();
-                        HubStar.set("isLogin", true);
-                        HubStar.set('checkLoginStatus', false);
-                        that.set('loginUsername', "");
-                        that.set('loginPassword', "");
-        }
+                            localStorage.loginStatus = params[0].COUCHBASE_ID;
+                            localStorage.userName = that.get('loginUsername');
+                            localStorage.userType = "email";
+                            location.reload();
+                            HubStar.set("isLogin", true);
+                            HubStar.set('checkLoginStatus', false);
+                            that.set('loginUsername', "");
+                            that.set('loginPassword', "");
+                        }
                         else
                         {
                             that.set('loginTime', false);
                             $('.black-tool-tip').css('display', 'none');
                             $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
-                              alert("Registration successful! To activate your myTrends account, please click the activation link in the email we just sent you.");
+                            alert("Registration successful! To activate your myTrends account, please click the activation link in the email we just sent you.");
                         }
                     }
                     else {
                         document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
 
-                        
+
                         if ($('#incorrect-password').css('display') === 'none') {
 
                             $('.black-tool-tip').stop();
@@ -137,21 +138,21 @@ this.set('loginUsername', localStorage.userName);
             });
         }
     },
-    selectTopic: function(id, topic) {     
+    selectTopic: function(id, topic) {
         if (HubStar.get(id)) {
             $('#minus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; margin: 10px; display:none;");
             if (this.get('selected_topics').indexOf(topic) !== -1) {
                 this.set('selected_topics', this.get('selected_topics').replace(topic + ",", ""));
             }
             HubStar.set(id, false);
-        } else {     
-           $('#minus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; display:block;");
-            if(this.get('selected_topics').length===0){
+        } else {
+            $('#minus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; display:block;");
+            if (this.get('selected_topics').length === 0) {
                 this.set('selected_topics', topic);
-            }else{              
-                this.set('selected_topics', this.get('selected_topics') + "," + topic);    
-            }  
-             HubStar.set(id, true);                  
+            } else {
+                this.set('selected_topics', this.get('selected_topics') + "," + topic);
+            }
+            HubStar.set(id, true);
         }
     },
     submitSelection: function() {
@@ -163,15 +164,15 @@ this.set('loginUsername', localStorage.userName);
     next: function() {
 
         $('#register-with-email-step-3').css('display', 'block');
-        
-        
+
+
     },
     done: function() {
         this.set('loginTime', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age'), this.get('selected_topics')];
         var that = this;
-  
-   //       $('#skipRegister').css('display', 'block');   
+
+        //       $('#skipRegister').css('display', 'block');   
         requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
             localStorage.loginStatus = params.COUCHBASE_ID;
             var emailInfo = [params.USER_NAME, params.PWD_HASH];
@@ -196,7 +197,7 @@ this.set('loginUsername', localStorage.userName);
 //      //  HubStar.set("isLogin", true);
 //       this.transitionToRoute("searchIndex");//need to change to current state page
 //    },
-    
+
     checkSignupInfo: function() {
         function checkObject(id, input, lengthMin, lengthMax, isEmailValid)
         {
@@ -283,7 +284,6 @@ this.set('loginUsername', localStorage.userName);
         this.set('isGeoDropdown', !this.get('isGeoDropdown'));
         $('#geo-filter').toggleClass('Geo-Filter-active');
     },
-    
     emailSend: function()
     {
 

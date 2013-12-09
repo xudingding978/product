@@ -45,7 +45,11 @@ class ProfileCommand extends Controller_admin {
             $this->findmissingprofiles();
         } elseif($action =="3big"){
             $this->updatekeywordforthreeprofiles();
-        }else {
+        }elseif($action=="fixlike"){
+            $this->fixcreated();
+            
+        }
+        else {
 
             echo "please input an action!!";
         }
@@ -53,6 +57,11 @@ class ProfileCommand extends Controller_admin {
         echo "All finished: start from: " . "\r\n";
         $end_time = microtime(true);
         echo "totally spend: " . ($end_time - $start_time);
+    }
+    
+    
+    public function fixcreated(){
+        
     }
     
     

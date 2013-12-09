@@ -59,12 +59,12 @@ return CMap::mergeArray(
             'language' => 'en',
             // autoloading model and component classes
             'import' => array(
-//                'common.components.*',
-//                'common.components.auth.*',
-//                'common.extensions.*',
+                'common.components.*',
+                'common.components.auth.*',
+                'common.extensions.*',
 //                 'common.modules.*',
 //                'common.modules.hybridauth.*',
-//                'common.models.*',
+                'common.models.*',
                 // 'common.redbean.*',
                 'application.models.*',
                 'application.components.*',

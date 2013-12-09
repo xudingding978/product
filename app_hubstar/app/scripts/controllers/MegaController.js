@@ -723,7 +723,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         else
         {
   
-                  console.log("5555555555555555");
+  
             var collection_id = address.split("#")[1].split("/")[4];
             var id = address.split("#")[1].split("/")[2]; //user id
             var user = HubStar.User.find(id);

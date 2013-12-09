@@ -116,9 +116,9 @@ class DefaultController extends CController {
 
         //   return $user_profile;
         $userProfile->save();
-$cb = $this->couchBaseConnection();
-error_log(var_export( $cb,true));
-       
+        $cb = $this->couchBaseConnection();
+        error_log(var_export($cb, true));
+
         $rand_id = $user->COUCHBASE_ID;
         $temp = $this->getMega();
         $temp["id"] = $rand_id;
@@ -150,12 +150,12 @@ error_log(var_export( $cb,true));
 
         Yii::app()->session['newUser'] = "new";
 
-$urlController = new UrlController();
+        $urlController = new UrlController();
         $link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         $domain = $urlController->getDomain($link);
 
 
-        $cb->add($domain. "/users/" . $rand_id, CJSON::encode($temp));
+        $cb->add($domain . "/users/" . $rand_id, CJSON::encode($temp));
     }
 
     /**
@@ -232,8 +232,8 @@ $urlController = new UrlController();
         $time_string = strtotime($datetime);
         return $time_string;
     }
-    
-     protected function couchBaseConnection() {
+
+    protected function couchBaseConnection() {
         $bucket = Yii::app()->params['couchBaseBucket'];
         $account = Yii::app()->params['couchBaseAccount'];
         $password = Yii::app()->params['couchBasePassword'];

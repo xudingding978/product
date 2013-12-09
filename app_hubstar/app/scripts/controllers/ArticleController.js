@@ -62,8 +62,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.selectedImage(this.get('selectedPhoto').id);
         this.set('captionTitle', this.get('selectedPhoto').photo_title);
         this.set('caption', this.get('selectedPhoto').photo_caption);
-        this.set('readCaption', false);
-        this.setCaption();
+        //this.setCaption();
     },
     nextImage: function() {
         if (!this.get('selectedPhoto')) {
@@ -101,8 +100,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.selectedImage(this.get('selectedPhoto').id);
         this.set('captionTitle', this.get('selectedPhoto').photo_title);
         this.set('caption', this.get('selectedPhoto').photo_caption);
-        this.set('readCaption', false);
-        this.setCaption();
+        //this.setCaption();
     },
     selectImage: function(e) { // it is click the photo
         this.set('megaResouce', HubStar.Mega.find(e));
@@ -149,6 +147,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             //                                                               // as it use the fix id to refresh the route so it will have problem when fresh (change the id)
         }
         this.selectedImage(e);
+        //this.setCaption();
     },
     selectedImage: function(id) {
         var selectedImage_id = "#" + id;
@@ -372,20 +371,20 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     setCaption: function()
     {
-        if (this.get("readCaption"))
+        if (HubStar.get("readCaption"))
         {
             $('#caption_action').animate({
                 left: -320
             }, 800);
 
-            this.set("readCaption", false);
+            HubStar.set("readCaption", false);
         }
         else
         {
             $('#caption_action').animate({
                 left: 0
             }, 800);
-            this.set("readCaption", true);
+            HubStar.set("readCaption", true);
         }
     },
     getTest: function() {

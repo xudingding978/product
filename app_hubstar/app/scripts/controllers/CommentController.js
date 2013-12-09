@@ -166,6 +166,7 @@ HubStar.CommentController = Ember.Controller.extend({
             this.set('willDelete', true);
         }       
         setTimeout(function() {
+            $('#masonry_container').masonry("reload");
             $('#masonry_user_container').masonry("reload");
         }, 200);
     },

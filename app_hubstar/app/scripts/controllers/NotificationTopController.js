@@ -14,7 +14,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     notificationTopContent: null,
     commenter_photo_url: null,
     makeSureDelete: false,
-    willDelete:false,
+    willDelete: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'application', 'notification', 'userMessage', 'application'],
     isUploadPhoto: false,
     init: function()
@@ -55,13 +55,13 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     {
         var message = "Delete this notification?";
         this.set("message", message);
-        
+
         this.set('makeSureDelete', true);
-        if (this.get('willDelete')===true) {
+        if (this.get('willDelete') === true) {
             this.deleteNotification(s);
             this.cancelDelete();
         } else {
-            this.set("s",s);
+            this.set("s", s);
             this.set('willDelete', true);
         }
         setTimeout(function() {
@@ -73,7 +73,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         this.set('makeSureDelete', false);
     },
     deleteNotification: function(id) {
-     
+
         var tempComment = [localStorage.loginStatus, id];
         tempComment = JSON.stringify(tempComment);
         var that = this;
@@ -178,6 +178,14 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             }
         }
         this.get("controllers.application").set("unReadCount", count);
+        if (count <= 0)
+        {
+            this.get("controllers.application").set("isUnReadCountZero", false);
+        }
+        else
+            {
+                this.get("controllers.application").set("isUnReadCountZero", true);
+            }
         this.get("controllers.messageCenter").set("unReadCount", count);
     },
     go: function(notification_id) {
@@ -232,7 +240,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                 }
             }
             this.transitionToRoute('user', user);
-            
+
             this.get('controllers.messageCenter').getClientId(localStorage.loginStatus, conversationID);
             this.transitionToRoute('conversation', data);
             //   $(window).scrollTop(2000);

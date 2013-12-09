@@ -1669,6 +1669,10 @@ div.album-description-bg{
     margin: 5px 3.5%;
 }
 
+.Message-Board_comment-item .profilepic-comment-container{
+    margin: 5px 3.5% 5px 0;
+}
+
 .profilepic_comment{
     border-radius: 50%;
     width: 33px;
@@ -1863,3 +1867,14 @@ div.album-description-bg{
     left: 6px;
 }
 /* tool-tips for profile items  ENDS - 9/10/13 clint */
+
+
+
+/* search item comment controller styling  2013/12/06 */
+
+.comment-scroll-bar{
+    max-height:360px;
+    overflow:hidden;
+}
+
+/* search item comment controller styling ENDS - 2013/12/06 */

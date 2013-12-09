@@ -104,7 +104,20 @@
             </div>
             <div class="poster_user">
                 <a class="poster-name" href="#/profiles/{{unbound controller.megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
-                <span class="posttime">{{date controller.megaResouce.created}}</span>
+                <ul class="itemprofile" style="margin: 5px 0 0;">
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
+                        <div><k class="icon-eye-open"> &nbsp;{{this.collections.length}}</k></div>
+                    </li>
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
+                        <div><k class="icon-group">&nbsp;{{ length this.profile_partner_ids}}</k></div>
+                    </li>
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
+                        <div><k class="icon-film">&nbsp;{{ videolength this.profile_about_us}}</k></div>
+                    </li>
+                    <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
+                        <div><k class="icon-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>
+                    </li>
+                </ul>
             </div>
 
             <div class="contactmebtn hint--left hint--rounded easing" data-hint="Contact us!" style="position: absolute; right: 15px; top: 23px; bottom: auto;">

@@ -8,9 +8,10 @@ HubStar.Comment = DS.Model.extend({
     optional: DS.attr('string'),
     message_id: DS.attr('string'),
     isEdit: DS.attr('boolean'),
+    
     getUser: function() {
         return this.get('commenter_id') === localStorage.loginStatus;
-    }.property('isUserSelf'),
+    }.property('commenter_id'),
     didLoad: function() {
 
     }

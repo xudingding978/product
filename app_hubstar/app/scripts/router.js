@@ -2,8 +2,10 @@
 var Router = Ember.Router.extend( );
 
 
-HubStar.Router.map(function() {
+HubStar.Router.map(function() {  
+    //this.route("fourOhFour",  {path: "*:"});
     this.resource("index", {path: '/'}, function() {
+        
         this.resource("indexIndex", {path: '/'});
         this.resource("verifyId", {path: '/verify/:verify_id'});
         this.resource("article", {path: '/articles/:article_id'});
@@ -78,7 +80,12 @@ HubStar.Router.map(function() {
             this.resource("searchIndex", {path: '/'});
             this.resource('search', {path: ':search_id'});
         });
-       
+        
+        
+       this.resource("welcome", {
+            path: "/welcome"
+        });
+        
         this.resource("register", {
             path: "/register"
         });

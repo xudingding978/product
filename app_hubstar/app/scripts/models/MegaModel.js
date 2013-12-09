@@ -2,8 +2,8 @@
 DS.RESTAdapter.map('HubStar.Mega', {
     photo: {embedded: 'always'},
     user: {embedded: 'always'},
-    comments: {embedded: 'load'},
-    reviews:{embedded: 'load'},
+    comments: {embedded: 'always'},
+    reviews: {embedded: 'load'},
     profile: {embedded: 'load'},
     keyword: {embedded: 'always'},
     videoes: {embedded: 'always'},
@@ -62,6 +62,16 @@ HubStar.Mega = DS.Model.extend(Ember.Copyable, {
     article: DS.hasMany('HubStar.Article'),
     keyword: DS.hasMany('HubStar.Keyword'),
     videoes: DS.hasMany('HubStar.Video'),
+    showComment: function() {
+        var b = false;
+        if (this.get("comments").get("length") > 5)
+        {
+            b = true;
+        }
+        return b;
+    }.property('comments'),
+
+    
     photo_album_id: function() {
         return "#album_" + this.get('id');
     }.property('id'),
@@ -95,7 +105,7 @@ HubStar.Mega = DS.Model.extend(Ember.Copyable, {
     getDiscussion: function() {
         return this.get('type') === 'discussion';
     }.property('type'),
-              getAd: function() {
+    getAd: function() {
         return this.get('type') === 'ad';
     }.property('type'),
     updateMegaWithUrl: function(mega, url)

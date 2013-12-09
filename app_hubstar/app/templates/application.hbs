@@ -7,20 +7,18 @@
     {{outlet profiles}}
 
     {{outlet user}}
-    
+     {{outlet "welcome"}}
     {{#unless controller.isotherpage}}
 
-    
+       
     {{#if HubStar.showDiscoveryBar}}
+    
     {{view HubStar.DiscoveryView}}
 
 {{/if}}
 
-
-    {{view HubStar.MasonryView}}
-
-
-    {{/unless}}
+ {{view HubStar.MasonryView}}
+  {{/unless}}
 
     {{else}}
 
@@ -37,7 +35,6 @@
 
     {{#if HubStar.isLogin}}
     {{render "footer"}}
-    {{render platformBar}}
     {{/if}}
 
 

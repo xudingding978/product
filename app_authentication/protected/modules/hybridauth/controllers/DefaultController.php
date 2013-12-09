@@ -150,10 +150,12 @@ error_log(var_export( $cb,true));
 
         Yii::app()->session['newUser'] = "new";
 
+$urlController = new UrlController();
+        $link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        $domain = $urlController->getDomain($link);
 
 
-
-        $cb->add(substr($_SERVER['HTTP_HOST'], strpos($_SERVER['HTTP_HOST'], '.') + 1) . "/users/" . $rand_id, CJSON::encode($temp));
+        $cb->add($domain. "/users/" . $rand_id, CJSON::encode($temp));
     }
 
     /**

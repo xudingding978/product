@@ -363,9 +363,10 @@ HubStar.Comment = DS.Model.extend({
     optional: DS.attr('string'),
     message_id: DS.attr('string'),
     isEdit: DS.attr('boolean'),
+    
     getUser: function() {
         return this.get('commenter_id') === localStorage.loginStatus;
-    }.property('isUserSelf'),
+    }.property('commenter_id'),
     didLoad: function() {
 
     }
@@ -509,8 +510,8 @@ HubStar.Keyword = DS.Model.extend({
 DS.RESTAdapter.map('HubStar.Mega', {
     photo: {embedded: 'always'},
     user: {embedded: 'always'},
-    comments: {embedded: 'load'},
-    reviews:{embedded: 'load'},
+    comments: {embedded: 'always'},
+    reviews: {embedded: 'load'},
     profile: {embedded: 'load'},
     keyword: {embedded: 'always'},
     videoes: {embedded: 'always'},
@@ -570,6 +571,16 @@ HubStar.Mega = DS.Model.extend(Ember.Copyable, {
     article: DS.hasMany('HubStar.Article'),
     keyword: DS.hasMany('HubStar.Keyword'),
     videoes: DS.hasMany('HubStar.Video'),
+    showComment: function() {
+        var b = false;
+        if (this.get("comments").get("length") > 5)
+        {
+            b = true;
+        }
+        return b;
+    }.property('comments'),
+
+    
     photo_album_id: function() {
         return "#album_" + this.get('id');
     }.property('id'),
@@ -603,7 +614,7 @@ HubStar.Mega = DS.Model.extend(Ember.Copyable, {
     getDiscussion: function() {
         return this.get('type') === 'discussion';
     }.property('type'),
-              getAd: function() {
+    getAd: function() {
         return this.get('type') === 'ad';
     }.property('type'),
     updateMegaWithUrl: function(mega, url)
@@ -2584,51 +2595,6 @@ HubStar.ProfilesRoute = Ember.Route.extend({
 
 (function() {
 
-HubStar.QuickstartRoute = Ember.Route.extend({
-        redirect: function() {
-
-
-
-
-            if (localStorage.checkUser === "newUser") {
-                  console.log("qudjkflsdfd");
-              localStorage.checkUser = "";
-
-            } else {
-
-                this.transitionTo('searchIndex');
-
-            }
-
-
-        },
-        setupController: function() {
-            this.controllerFor('searchs').defaultSearch();
-            this.controllerFor('index').setLogin();
-
-            this.controllerFor('application').set('islogin', true);
-
-
-            setTimeout(function() {
-                $(window).scrollTop(0);
-                $('#masonry_container').attr('style', "display:none");
-                  $('#discovery_search_bar_wrapper').attr('style', "display:none");
-            }, 100);
-
-        },
-        renderTemplate: function() {
-            this.render('quickstart', {
-                outlet: 'quickstart',
-                into: 'application'
-            });
-        }
-    });
-
-
-})();
-
-(function() {
-
 
 
 HubStar.ReplyRoute = Ember.Route.extend({
@@ -2743,28 +2709,86 @@ HubStar.ReviewsRoute = Ember.Route.extend({
 (function() {
 
 HubStar.SearchIndexRoute = Ember.Route.extend({
-    
-    
-            setupController: function(controller, model) {
+ setupController: function() {
 
+        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+            HubStar.set('isLogin', false);
 
-   
- 
-        },
-        redirect: function() {
-
-        },
-        activate: function() {
-
-//            HubStar.set("isLogin", true);
-
-        },
-        deactivate: function() {
-
-        },
-        renderTemplate: function() {
-
+        } else {
+            HubStar.set('isLogin', true);
         }
+        this.controllerFor('searchs').defaultSearch();
+        this.controllerFor('index').setLogin();
+        this.controllerFor('application').set('islogin', true);
+        this.controllerFor('status').set('islogin', true);
+        this.controllerFor('application').set('popup', false);
+        this.controllerFor('application').set('isotherpage', false);
+
+//        var testObject = {'one': 1, 'two': 2, 'three': 3};
+//// Put the object into storage
+//        localStorage.setItem('testObject', JSON.stringify(testObject));
+//        var item = JSON.parse(localStorage.testObject);
+//        for (var key in item) {
+//            console.log(item[key]);
+//        }
+  $(window).scrollTop(0);
+        localStorage.checkUser = "";
+$(".navbar").css("box-shadow", "");
+$(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+    },
+    events: {
+        transitionToPhoto: function(id) {
+            this.controllerFor('mega').set("selectPhoto", false);
+            this.controllerFor('masonryCollectionItems').set("type", "profile");
+            this.transitionTo("photo", HubStar.Mega.find(id));
+        },
+        transitionToProfile: function(id) {
+            this.transitionTo("profileCollections", HubStar.Profile.find(id));
+        },
+        transitionToArticle: function(id) {
+            this.controllerFor('article').set("accessFromSearchBoard", true);
+            this.transitionTo("article", HubStar.Article.find(id));
+        }
+    },
+    redirect: function() {
+
+        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+//            this.transitionTo('indexIndex');
+
+        } else {
+           // this.transitionTo('searchIndex');
+        }
+
+    },
+    activate: function() {
+        $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
+        $('#masonry_container').attr('style', "display:block;position:relative");
+        if (HubStar.get("setHight") === null || HubStar.get("setHight") === "null") {
+            HubStar.set("setHight", 0);
+        }
+
+        $(function() {
+            $('#masonry_container').masonry({
+                itemSelector: '.box',
+                columnWidth: 185,
+                isInitLayout: false,
+                isFitWidth: true
+            });
+        });
+        
+        $(window).scrollTop(HubStar.get("setHight"));
+        HubStar.set("setHight", 0);
+
+        localStorage.checkUser = "";
+    },
+    deactivate: function() {
+        HubStar.set("setHight", $(window).scrollTop());
+
+    },
+    renderTemplate: function() {
+
+
+    }
 
     });
 
@@ -2856,87 +2880,87 @@ HubStar.SearchRoute = Ember.Route.extend({
 (function() {
 
 HubStar.SearchsRoute = Ember.Route.extend({
-    setupController: function() {
-
-        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-            HubStar.set('isLogin', false);
-
-        } else {
-            HubStar.set('isLogin', true);
-        }
-        this.controllerFor('searchs').defaultSearch();
-        this.controllerFor('index').setLogin();
-        this.controllerFor('application').set('islogin', true);
-        this.controllerFor('status').set('islogin', true);
-        this.controllerFor('application').set('popup', false);
-        this.controllerFor('application').set('isotherpage', false);
-
-//        var testObject = {'one': 1, 'two': 2, 'three': 3};
-//// Put the object into storage
-//        localStorage.setItem('testObject', JSON.stringify(testObject));
-//        var item = JSON.parse(localStorage.testObject);
-//        for (var key in item) {
-//            console.log(item[key]);
+//    setupController: function() {
+//
+//        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+//            HubStar.set('isLogin', false);
+//
+//        } else {
+//            HubStar.set('isLogin', true);
 //        }
-  $(window).scrollTop(0);
-        localStorage.checkUser = "";
-$(".navbar").css("box-shadow", "");
-$(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-      $(window).scrollTop(0);
-    },
-    events: {
-        transitionToPhoto: function(id) {
-            this.controllerFor('mega').set("selectPhoto", false);
-            this.controllerFor('masonryCollectionItems').set("type", "profile");
-            this.transitionTo("photo", HubStar.Mega.find(id));
-        },
-        transitionToProfile: function(id) {
-            this.transitionTo("profileCollections", HubStar.Profile.find(id));
-        },
-        transitionToArticle: function(id) {
-            this.controllerFor('article').set("accessFromSearchBoard", true);
-            this.transitionTo("article", HubStar.Article.find(id));
-        }
-    },
-    redirect: function() {
-
-        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-//            this.transitionTo('indexIndex');
-
-        } else {
-           // this.transitionTo('searchIndex');
-        }
-
-    },
-    activate: function() {
-        $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
-        $('#masonry_container').attr('style', "display:block;position:relative");
-        if (HubStar.get("setHight") === null || HubStar.get("setHight") === "null") {
-            HubStar.set("setHight", 0);
-        }
-
-        $(function() {
-            $('#masonry_container').masonry({
-                itemSelector: '.box',
-                columnWidth: 185,
-                isInitLayout: false,
-                isFitWidth: true
-            });
-        });
-        
-        $(window).scrollTop(HubStar.get("setHight"));
-        HubStar.set("setHight", 0);
-
-        localStorage.checkUser = "";
-    },
-    deactivate: function() {
-        HubStar.set("setHight", $(window).scrollTop());
-
-    },
-    renderTemplate: function() {
-
-
-    }
+//        console.log('searchs');
+//        this.controllerFor('searchs').defaultSearch();
+//        this.controllerFor('index').setLogin();
+//        this.controllerFor('application').set('islogin', true);
+//        this.controllerFor('status').set('islogin', true);
+//        this.controllerFor('application').set('popup', false);
+//        this.controllerFor('application').set('isotherpage', false);
+//
+////        var testObject = {'one': 1, 'two': 2, 'three': 3};
+////// Put the object into storage
+////        localStorage.setItem('testObject', JSON.stringify(testObject));
+////        var item = JSON.parse(localStorage.testObject);
+////        for (var key in item) {
+////            console.log(item[key]);
+////        }
+//  $(window).scrollTop(0);
+//        localStorage.checkUser = "";
+//$(".navbar").css("box-shadow", "");
+//$(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+//    },
+//    events: {
+//        transitionToPhoto: function(id) {
+//            this.controllerFor('mega').set("selectPhoto", false);
+//            this.controllerFor('masonryCollectionItems').set("type", "profile");
+//            this.transitionTo("photo", HubStar.Mega.find(id));
+//        },
+//        transitionToProfile: function(id) {
+//            this.transitionTo("profileCollections", HubStar.Profile.find(id));
+//        },
+//        transitionToArticle: function(id) {
+//            this.controllerFor('article').set("accessFromSearchBoard", true);
+//            this.transitionTo("article", HubStar.Article.find(id));
+//        }
+//    },
+//    redirect: function() {
+//
+//        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+////            this.transitionTo('indexIndex');
+//
+//        } else {
+//           // this.transitionTo('searchIndex');
+//        }
+//
+//    },
+//    activate: function() {
+//        $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
+//        $('#masonry_container').attr('style', "display:block;position:relative");
+//        if (HubStar.get("setHight") === null || HubStar.get("setHight") === "null") {
+//            HubStar.set("setHight", 0);
+//        }
+//
+//        $(function() {
+//            $('#masonry_container').masonry({
+//                itemSelector: '.box',
+//                columnWidth: 185,
+//                isInitLayout: false,
+//                isFitWidth: true
+//            });
+//        });
+//        
+//        $(window).scrollTop(HubStar.get("setHight"));
+//        HubStar.set("setHight", 0);
+//
+//        localStorage.checkUser = "";
+//    },
+//    deactivate: function() {
+//        HubStar.set("setHight", $(window).scrollTop());
+//
+//    },
+//    renderTemplate: function() {
+//
+//
+//    }
 });
 
 
@@ -3437,6 +3461,55 @@ HubStar.VideoRoute = Ember.Route.extend({
 
 (function() {
 
+HubStar.WelcomeRoute = Ember.Route.extend({
+        redirect: function() {
+
+
+
+
+            if (localStorage.checkUser === "newUser") {
+
+
+
+
+            } else {
+
+                this.transitionTo('searchIndex');
+
+            }
+
+
+        },
+        activate: function() {
+            HubStar.set("isLogin", true);
+        },
+        setupController: function() {
+     $("#top-about-menu").css('display', 'block');
+        $("#search-bar").css('display', 'none');
+            this.controllerFor('searchs').defaultSearch();
+            this.controllerFor('index').setLogin();
+
+            this.controllerFor('application').set('islogin', true);
+
+            this.controllerFor('status').set('islogin', true);
+            this.controllerFor('application').set('popup', false);
+            this.controllerFor('application').set('isotherpage', true);
+
+        },
+        renderTemplate: function() {
+     
+            this.render('welcome', {
+                outlet: 'welcome',
+                into: 'application'
+                  
+            });
+        }
+    });
+
+})();
+
+(function() {
+
 //HubStar.Store = DS.Store.extend({
 //  // if you're looking at this, you probably know what you're doing...
 //      revision: 13,
@@ -3863,6 +3936,7 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
 
         var profileVideosController = this.get('controllers.profileVideos');
         profileVideosController.get("videoesContent").insertAt(0, mega);
+        this.get("controllers.profile").set("profileVideoStatistics",profileVideosController.get("videoesContent").get("length"));
         mega.store.save();
 
 
@@ -3948,6 +4022,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     from: null,
     size: null,
     photo_url: null,
+    isUnReadCountZero:false,
     userName: "",
     password: "",
     repeat: "",
@@ -4793,8 +4868,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.selectedImage(this.get('selectedPhoto').id);
         this.set('captionTitle', this.get('selectedPhoto').photo_title);
         this.set('caption', this.get('selectedPhoto').photo_caption);
-        this.set('readCaption', false);
-        this.setCaption();
+        //this.setCaption();
     },
     nextImage: function() {
         if (!this.get('selectedPhoto')) {
@@ -4828,8 +4902,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.selectedImage(this.get('selectedPhoto').id);
         this.set('captionTitle', this.get('selectedPhoto').photo_title);
         this.set('caption', this.get('selectedPhoto').photo_caption);
-        this.set('readCaption', false);
-        this.setCaption();
+        //this.setCaption();
     },
     selectImage: function(e) { // it is click the photo
         this.set('megaResouce', HubStar.Mega.find(e));
@@ -4873,6 +4946,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             //                                                               // as it use the fix id to refresh the route so it will have problem when fresh (change the id)
         }
         this.selectedImage(e);
+        //this.setCaption();
     },
     selectedImage: function(id) {
         var selectedImage_id = "#" + id;
@@ -5092,20 +5166,20 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
     },
     setCaption: function()
     {
-        if (this.get("readCaption"))
+        if (HubStar.get("readCaption"))
         {
             $('#caption_action').animate({
                 left: -320
             }, 800);
 
-            this.set("readCaption", false);
+            HubStar.set("readCaption", false);
         }
         else
         {
             $('#caption_action').animate({
                 left: 0
             }, 800);
-            this.set("readCaption", true);
+            HubStar.set("readCaption", true);
         }
     },
     getTest: function() {
@@ -5528,6 +5602,7 @@ HubStar.CommentController = Ember.Controller.extend({
             this.set('willDelete', true);
         }       
         setTimeout(function() {
+            $('#masonry_container').masonry("reload");
             $('#masonry_user_container').masonry("reload");
         }, 200);
     },
@@ -5653,7 +5728,13 @@ HubStar.CommentController = Ember.Controller.extend({
     seeMore: function(id) {
         $('#closeComment_' + id).attr('style', 'display:block');
         $('#showMoreComment_' + id).attr('style', 'display:none');
+        
         $('#commentData_' + id).attr('style', 'display:block');
+        $('#commentScrollBar_' + id).removeClass('comment-scroll-bar');
+        $('#commentScrollBar_' + id + ' > div').attr('class', '');
+        $('#commentScrollBar_' + id + ' > div').attr('style', 'position: relative; height: 100%; overflow: hidden; max-width: 100%;');
+        $('#commentScrollBar_' + id + ' > div > .mCSB_container').attr('style', 'position: relative; top: 0px;');
+
 
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
@@ -5664,7 +5745,9 @@ HubStar.CommentController = Ember.Controller.extend({
     closeMore: function(id) {
         $('#closeComment_' + id).attr('style', 'display:none');
         $('#showMoreComment_' + id).attr('style', 'display:block');
-        $('#commentData_' + id).attr('style', 'display:none');
+        $('#commentScrollBar_' + id).addClass('comment-scroll-bar');
+        $('#commentScrollBar_' + id + ' > div').attr('class', 'mCustomScrollBox mCS-dark-2');
+        $('#commentScrollBar_' + id + ' > div').attr('style', 'position: relative; height: 100%; overflow: hidden; max-width: 100%;max-height: 360px;');
 
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
@@ -7959,7 +8042,7 @@ HubStar.KeywordController.Dragable = Ember.Mixin.create(HubStar.KeywordControlle
 (function() {
 
 HubStar.LoginModalController = Ember.Controller.extend({
-     selected_topics: "",
+    selected_topics: "",
     isAdd: false,
     contentTopic: [
         {id: "1", image: '../images/welcomepage/bedroom.jpg', topic: 'Bedrooms'},
@@ -7980,7 +8063,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
     ],
     needs: ['application'],
     init: function() {
-this.set('loginUsername', localStorage.userName);
+        this.set('loginUsername', localStorage.userName);
     },
     closePopupLogin: function() {
         HubStar.set('checkLoginStatus', false);
@@ -8002,7 +8085,7 @@ this.set('loginUsername', localStorage.userName);
             requiredBackEnd('login', 'login', loginInfo, 'POST', function(params) {
                 if (params === 1) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-                
+
 
                     $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
@@ -8013,7 +8096,7 @@ this.set('loginUsername', localStorage.userName);
                 else if (params === 0) {
 
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-              
+
 
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
@@ -8023,32 +8106,33 @@ this.set('loginUsername', localStorage.userName);
                 else {
 
                     if (that.get('loginPassword') === params[0]["PWD_HASH"] && that.get('loginPassword') !== undefined) {
-                     
-                             var email_activate = params[1];
+
+                        var email_activate = params[1];
 
 
                         if (email_activate === true)
                         {
-                        localStorage.loginStatus =  params[0].COUCHBASE_ID;
-
-                        location.reload();
-                        HubStar.set("isLogin", true);
-                        HubStar.set('checkLoginStatus', false);
-                        that.set('loginUsername', "");
-                        that.set('loginPassword', "");
-        }
+                            localStorage.loginStatus = params[0].COUCHBASE_ID;
+                            localStorage.userName = that.get('loginUsername');
+                            localStorage.userType = "email";
+                            location.reload();
+                            HubStar.set("isLogin", true);
+                            HubStar.set('checkLoginStatus', false);
+                            that.set('loginUsername', "");
+                            that.set('loginPassword', "");
+                        }
                         else
                         {
                             that.set('loginTime', false);
                             $('.black-tool-tip').css('display', 'none');
                             $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
-                              alert("Registration successful! To activate your myTrends account, please click the activation link in the email we just sent you.");
+                            alert("Registration successful! To activate your myTrends account, please click the activation link in the email we just sent you.");
                         }
                     }
                     else {
                         document.getElementById("loginPassword").setAttribute("class", "login-textfield error-textfield");
 
-                        
+
                         if ($('#incorrect-password').css('display') === 'none') {
 
                             $('.black-tool-tip').stop();
@@ -8097,21 +8181,21 @@ this.set('loginUsername', localStorage.userName);
             });
         }
     },
-    selectTopic: function(id, topic) {     
+    selectTopic: function(id, topic) {
         if (HubStar.get(id)) {
             $('#minus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; margin: 10px; display:none;");
             if (this.get('selected_topics').indexOf(topic) !== -1) {
                 this.set('selected_topics', this.get('selected_topics').replace(topic + ",", ""));
             }
             HubStar.set(id, false);
-        } else {     
-           $('#minus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; display:block;");
-            if(this.get('selected_topics').length===0){
+        } else {
+            $('#minus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; display:block;");
+            if (this.get('selected_topics').length === 0) {
                 this.set('selected_topics', topic);
-            }else{              
-                this.set('selected_topics', this.get('selected_topics') + "," + topic);    
-            }  
-             HubStar.set(id, true);                  
+            } else {
+                this.set('selected_topics', this.get('selected_topics') + "," + topic);
+            }
+            HubStar.set(id, true);
         }
     },
     submitSelection: function() {
@@ -8123,15 +8207,15 @@ this.set('loginUsername', localStorage.userName);
     next: function() {
 
         $('#register-with-email-step-3').css('display', 'block');
-        
-        
+
+
     },
     done: function() {
         this.set('loginTime', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age'), this.get('selected_topics')];
         var that = this;
-  
-   //       $('#skipRegister').css('display', 'block');   
+
+        //       $('#skipRegister').css('display', 'block');   
         requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
             localStorage.loginStatus = params.COUCHBASE_ID;
             var emailInfo = [params.USER_NAME, params.PWD_HASH];
@@ -8156,7 +8240,7 @@ this.set('loginUsername', localStorage.userName);
 //      //  HubStar.set("isLogin", true);
 //       this.transitionToRoute("searchIndex");//need to change to current state page
 //    },
-    
+
     checkSignupInfo: function() {
         function checkObject(id, input, lengthMin, lengthMax, isEmailValid)
         {
@@ -8243,7 +8327,6 @@ this.set('loginUsername', localStorage.userName);
         this.set('isGeoDropdown', !this.get('isGeoDropdown'));
         $('#geo-filter').toggleClass('Geo-Filter-active');
     },
-    
     emailSend: function()
     {
 
@@ -10844,7 +10927,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     notificationTopContent: null,
     commenter_photo_url: null,
     makeSureDelete: false,
-    willDelete:false,
+    willDelete: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'application', 'notification', 'userMessage', 'application'],
     isUploadPhoto: false,
     init: function()
@@ -10885,13 +10968,13 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     {
         var message = "Delete this notification?";
         this.set("message", message);
-        
+
         this.set('makeSureDelete', true);
-        if (this.get('willDelete')===true) {
+        if (this.get('willDelete') === true) {
             this.deleteNotification(s);
             this.cancelDelete();
         } else {
-            this.set("s",s);
+            this.set("s", s);
             this.set('willDelete', true);
         }
         setTimeout(function() {
@@ -10903,7 +10986,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         this.set('makeSureDelete', false);
     },
     deleteNotification: function(id) {
-     
+
         var tempComment = [localStorage.loginStatus, id];
         tempComment = JSON.stringify(tempComment);
         var that = this;
@@ -11008,6 +11091,14 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             }
         }
         this.get("controllers.application").set("unReadCount", count);
+        if (count <= 0)
+        {
+            this.get("controllers.application").set("isUnReadCountZero", false);
+        }
+        else
+            {
+                this.get("controllers.application").set("isUnReadCountZero", true);
+            }
         this.get("controllers.messageCenter").set("unReadCount", count);
     },
     go: function(notification_id) {
@@ -11062,7 +11153,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                 }
             }
             this.transitionToRoute('user', user);
-            
+
             this.get('controllers.messageCenter').getClientId(localStorage.loginStatus, conversationID);
             this.transitionToRoute('conversation', data);
             //   $(window).scrollTop(2000);
@@ -11642,6 +11733,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     profileReviewStatistics: "",
     profilePartnerStatistics: "",
     profileFollowerStatistics: "",
+    profileVideoStatistics: "",
     region: "",
     selectedCollection: "",
     switchPhoto: false,
@@ -12050,7 +12142,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (this.get('isAboutUsObjectExist')) {
             this.selectNewAbout();
         } else {
-            var message = "<b>How would you like to edit the About Us section? </b><br>Choose the <b>Template editor</b> to easily modify this section using the default About Us template. <br>Choose the <b>HTML5 editor</b> for more advanced editing options. <br>Please note: <br>- If you choose the <b>Template editor</b> after adding content to this section using the <b>HTML5 editor</b>, you will need to re-enter this content. <br>- Once changes made with the <b>Template editor</b> have been saved, you will no longer be able to access the <b>HTML5 editor</b>.";
+            var message = "Choose the <b>Template editor</b> to easily modify this section using the default About Us template. <br>Choose the <b>HTML5 editor</b> for more advanced editing options. <br>Please note: <br>- If you choose the <b>Template editor</b> after adding content to this section using the <b>HTML5 editor</b>, you will need to re-enter this content. <br>- Once changes made with the <b>Template editor</b> have been saved, you will no longer be able to access the <b>HTML5 editor</b>.";
             this.set("message", message);
             this.set('select_one', 'HTML5 editor');
             this.set('select_two', 'Template editor');
@@ -13575,6 +13667,7 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
                     var tempmega = results.objectAt(i);
                     that.get("videoesContent").pushObject(tempmega);
                 }
+                that.get("controllers.profile").set("profileVideoStatistics",results.get("length"));
                 that.relayout();
             }
         });
@@ -13652,6 +13745,7 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
                 tempmega.deleteRecord();
                 tempmega.store.save();
                 this.get('videoesContent').removeObject(tempmega);
+                this.get("controllers.profile").set("profileVideoStatistics",this.get('videoesContent').get("length"));
                 break;
             }
         }
@@ -14167,8 +14261,9 @@ HubStar.SearchsController = Ember.ArrayController.extend({
     defaultSearch: function() {    
         this.set("loginInfo", localStorage.loginStatus);
         this.setLoginImge();
-        var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
-        this.set("content", results);
+        this.controllerFor('application').set('content',[]);
+        this.controllerFor('application').set('search_string','');
+        this.controllerFor('application').defaultSearch();
           
     },
     getResponseTime: function(start, end) {
@@ -17421,8 +17516,8 @@ HubStar.CommentView = Ember.View.extend({
                 },
                 autoHideScrollbar: true,
                 mouseWheel: true,
-                theme: "dark-2",
-                set_height: 350
+                theme: "dark-2"
+                //set_height: 350
             });
         });
     }
@@ -20235,30 +20330,55 @@ HubStar.VideoView = Ember.View.extend({
 
 HubStar.WelcomeView = Ember.View.extend({
     templateName: 'welcome',
+    selected_topics: "",
+    isAdd: false,
+    contentTopic: [
+        {id: "1", image: '../images/welcomepage/bedroom.jpg', topic: 'Bedrooms'},
+        {id: "2", image: '../images/welcomepage/home-theatre.jpg', topic: 'Home Theatre'},
+        {id: "3", image: '../images/welcomepage/interior-living.jpg', topic: 'Interior Living'},
+        {id: "4", image: '../images/welcomepage/kitchens.jpg', topic: 'Kitchens'},
+        {id: "5", image: '../images/welcomepage/new-homes.jpg', topic: 'New Homes'},
+        {id: "6", image: '../images/welcomepage/outdoor-living.jpg', topic: 'Outdoor Living'},
+        {id: "7", image: '../images/welcomepage/renovation.jpg', topic: 'Renovation'},
+        {id: "8", image: '../images/welcomepage/apartment-design.jpg', topic: 'Apartment Design'},
+        {id: "9", image: '../images/welcomepage/civic-design.jpg', topic: 'Civic Design'},
+        {id: "10", image: '../images/welcomepage/educational-design.jpg', topic: 'Educational Design'},
+        {id: "11", image: '../images/welcomepage/hospitality-design.jpg', topic: 'Hospitality Design'},
+        {id: "12", image: '../images/welcomepage/office-design.jpg', topic: 'Office Design'},
+        {id: "13", image: '../images/welcomepage/refurbishment.jpg', topic: 'Refurbishment'},
+        {id: "14", image: '../images/welcomepage/retail-design.jpg', topic: 'Retail Design'}
+
+    ],
+  
     didInsertElement: function() {
-        $(function() {
-            $('#masonry_welcome_container').masonry({
-                itemSelector: '.box',
-                columnWidth: 185,
-                isFitWidth: true
-            });
-        });
 
-        if (HubStar.get('isLogin')) {
-
-            $('#login_icon').attr("style", "display:block;position:absolute;right:90px;");
-            $('#login_detail').attr("style", "display:block;");
-
-
-
+   },
+           selectTopic: function(id, topic) {
+        if (HubStar.get(id)) {
+            $('#minus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; margin: 10px; display:none;");
+            if (this.get('selected_topics').indexOf(topic) !== -1) {
+                this.set('selected_topics', this.get('selected_topics').replace(topic + ",", ""));
+            }
+            HubStar.set(id, false);
         } else {
-
-            $('#login_icon').attr("style", "display:block;position:absolute;right:90px;");
-            $('#login_detail').attr("style", "display:block;");
-
+            $('#minus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; display:block;");
+            if (this.get('selected_topics').length === 0) {
+                this.set('selected_topics', topic);
+            } else {
+                this.set('selected_topics', this.get('selected_topics') + "," + topic);
+            }
+            HubStar.set(id, true);
         }
+    },
+    submitSelection: function() {
 
+        var data = this.get('selected_topics');
+        var user = HubStar.User.find(localStorage.loginStatus);
+        user.set('selected_topics', data);
+        user.store.commit();
+      
     }
+
 });
 
 
@@ -20348,7 +20468,12 @@ HubStar.Router.map(function() {
             this.resource("searchIndex", {path: '/'});
             this.resource('search', {path: ':search_id'});
         });
-       
+        
+        
+       this.resource("welcome", {
+            path: "/welcome"
+        });
+        
         this.resource("register", {
             path: "/register"
         });

@@ -44,7 +44,7 @@ HubStar.WelcomeView = Ember.View.extend({
 
         var data = this.get('selected_topics');
         var user = HubStar.User.find(localStorage.loginStatus);
-        user.set('selected_topics', data.substring(0, data.length - 1));
+        user.set('selected_topics', data);
         user.store.commit();
       
     }

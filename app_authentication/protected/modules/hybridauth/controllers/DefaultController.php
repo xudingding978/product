@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends CController {
+class DefaultController extends Controller {
 
     public function actionIndex() {
 
@@ -117,8 +117,6 @@ class DefaultController extends CController {
         //   return $user_profile;
         $userProfile->save();
         $cb = $this->couchBaseConnection();
-        error_log(var_export($cb, true));
-
         $rand_id = $user->COUCHBASE_ID;
         $temp = $this->getMega();
         $temp["id"] = $rand_id;
@@ -153,7 +151,6 @@ class DefaultController extends CController {
         $urlController = new UrlController();
         $link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         $domain = $urlController->getDomain($link);
-
 
         $cb->add($domain . "/users/" . $rand_id, CJSON::encode($temp));
     }
@@ -224,21 +221,6 @@ class DefaultController extends CController {
   "user": []
 }';
         return json_decode($mega, true);
-    }
-
-    public function getCurrentUTC() {
-
-        $datetime = date("Y-m-d H:i:s");
-        $time_string = strtotime($datetime);
-        return $time_string;
-    }
-
-    protected function couchBaseConnection() {
-        $bucket = Yii::app()->params['couchBaseBucket'];
-        $account = Yii::app()->params['couchBaseAccount'];
-        $password = Yii::app()->params['couchBasePassword'];
-        $node = Yii::app()->params['couchBaseNode'];
-        return new Couchbase($node, $account, $password, $bucket, true);
     }
 
     public function loginWithOldUserFromSocialPlatfrom($identity) {

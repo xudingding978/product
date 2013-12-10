@@ -3,7 +3,7 @@
 
     <div class="reply-comment-frame"  style="padding: 15px;">
         <div style="margin:0 auto; padding: 0 45px 0 0;">
-            <a  href="#/users/{{unbound model.user_id}}">
+            <a  href="#/users/{{unbound controller.currentUser.id}}">
                 <img class="profilepic_comment" style="float: right; margin: 4px -45px 0 0; margin-top: 0; z-index: 1" src="http://develop.devbox.s3.amazonaws.com/profile_pic/default/defaultpic1.jpg"  /> 
                 <img class="profilepic_comment" style="float: right; margin: 4px -45px 0 0; margin-top: 0; z-index: 2"{{bindAttr src="controller.currentUser.photo_url_large"}}  /> 
                 <div class='user-reply-angle-before' style="right: 47px;"></div>

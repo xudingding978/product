@@ -87,6 +87,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     profileReviewStatistics: "",
     profilePartnerStatistics: "",
     profileFollowerStatistics: "",
+    profileVideoStatistics: "",
     region: "",
     selectedCollection: "",
     switchPhoto: false,

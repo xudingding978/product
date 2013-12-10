@@ -80,6 +80,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     partnerTag: false,
     reviewTag: false,
     videoTag: false,
+    pdfTag: false,
     partnerPage: true,
     profile_average_review: '',
     profileSelectionStatus: "Collections",
@@ -838,6 +839,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('collectionTag', true);
         this.set('reviewTag', false);
         this.set('videoTag', false);
+        this.set('pdfTag', false);
         this.transitionToRoute('profileCollections');
 
         setTimeout(function() {
@@ -854,6 +856,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('profileSelectionStatus', 'Videos');
             this.get('controllers.profileVideos').getClientId(model);
             this.set('videoTag', true);
+            this.set('pdfTag', false);
             this.set('partnerTag', false);
             this.set('collectionTag', false);
             this.set('reviewTag', false);
@@ -877,6 +880,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('reviewTag', false);
             this.get('controllers.itemProfiles').setPartnerRemove();
             this.set('videoTag', false);
+            this.set('pdfTag', false);
             this.transitionToRoute('partners');
 
             setTimeout(function() {
@@ -896,6 +900,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('followerProfileTag', true);
             this.set('reviewTag', false);
             this.set('videoTag', false);
+            this.set('pdfTag', false);
             this.transitionToRoute('profileFollowers');
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reload");
@@ -912,7 +917,26 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('followerProfileTag', false);
             this.set('reviewTag', true);
             this.set('videoTag', false);
+            this.set('pdfTag', false);
             this.transitionToRoute('reviews');
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reload");
+            }, 200);
+        }
+    },
+    selectPdf: function(model) {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            console.log('selectPddf');
+            this.sendEventTracking('event', 'button', 'click', 'PDF');
+            this.set('profileSelectionStatus', 'Pdf');
+            this.set('partnerTag', false);
+            this.set('collectionTag', false);
+            this.set('followerProfileTag', false);
+            this.set('reviewTag', false);
+            this.set('videoTag', false);
+            this.set('pdfTag', true);
+//            this.transitionToRoute('');
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reload");
             }, 200);

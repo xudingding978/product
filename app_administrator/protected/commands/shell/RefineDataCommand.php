@@ -17,25 +17,26 @@ class RefineDataCommand extends Controller_admin {
             $this->updateArticleKeyword();
         } elseif ($action == "photokeyword") {
             $this->updatePhotoKeyword();
-        } elseif($action=="comment"){
+        } elseif ($action == "comment") {
             $this->addCommentId();
-        }elseif($action=="fixcredit"){
+        } elseif ($action == "fixcredit") {
             $this->importCreditList();
         } elseif ($action == "fixurl") {
             $this->fixPhoto_url_largeofLisa();
- }elseif ($action == "cate") {
+        } elseif ($action == "cate") {
             $this->fixcategories();
-
-        }
-
-         elseif ($action == 'fixboost') {
+        } elseif ($action == 'fixboost') {
             $this->fixBoostNumber();
-        }elseif($action=='test'){
-            $this->fixProfileRelatedImages('home', 200, 'develop') ;
-        }
-          elseif($action=="comment"){
+        } elseif ($action == 'test') {
+            $this->fixProfileRelatedImages('home', 200, 'develop');
+        } elseif ($action == "fixtype") {
+            $this->fixtype();
+        } elseif ($action == "comment") {
             $this->addCommentId();
-        }elseif ($action == "refineArticle") {
+        }elseif($action == "fixcreated"){
+            $this->fixCreated();
+        } 
+        elseif ($action == "refineArticle") {
 
 
 
@@ -96,7 +97,124 @@ class RefineDataCommand extends Controller_admin {
             echo "*******************************" . ($end_time - $start_time);
         }
     }
+    
+    public function fixCreated(){
+               $bucket = 'production';
+        $setting['log.enabled'] = true;
+        $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = '/var/log/yii/' . $datetime . '.log';
+        $Sherlock = new \Sherlock\Sherlock($setting);
+        $Sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $Sherlock->search();
+        $index = $bucket;
+        $raw='{
+              "filtered": {
+      "filter": {
+        "missing": {
+          "field": "couchbaseDocument.doc.created"
+        }
+      }
+    }
+            }';
+        $filer=  Sherlock\Sherlock::queryBuilder()->Raw($raw);
+        $request->index($index)->type('couchbaseDocument')->query($filer);
+        $data_arr=array();
+                for($i=0; $i<100;$i++){
+            $request->from(50*$i)->size(50);
+            $response=$request->execute();
+            if(sizeof($response)!=0){
+                foreach($response as $data){
+                      array_push($data_arr, $data['id']);
+                }
+              
+            }else{
+                $i=100;
+            }
+            
+        }
+        echo var_export($data_arr, true);
+        echo $request->toJSON()."111111";
+        $cb=$this->couchBaseConnection($bucket);
+        foreach($data_arr as $found){
+            $message="";
+            $result=$cb->get($found);
+            if($result!=null){
+                $result_arr=CJSON::decode($result);
+                $result_arr['created']=   strtotime(date('Y-m-d H:i:s'));
+                echo $found."Created changed to ".$result_arr['created']."\n";
+                $message="Created changed to ".$result_arr['created']."\n";
+                if($cb->set($found, CJSON::encode($result_arr))){
+                    echo $found." couchbase record being updated\n";
+                    $message.=$found." couchbase record being updated\n";
+                }else{
+                    $found." couchbase record  update failed----------------------------------\n";
+                    $message.=$found." couchbase record  update failed----------------------------------\n";
+                }
+            }else{
+                echo $found. " can not be found in couchbase---------------------------------\n";
+                  $message=$found. " can not be found in couchbase---------------------------------\n";
+            }
+            $this->writeToLog($log_path, $message);
+        }
+        
+    }
 
+    public function fixtype() {
+        $bucket = 'production';
+        $setting['log.enabled'] = true;
+        $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = '/var/log/yii/' . $datetime . '.log';
+        $Sherlock = new \Sherlock\Sherlock($setting);
+        $Sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $Sherlock->search();
+        $index = $bucket;
+        $raw = '{
+            
+
+     "filtered": {
+      "filter": {
+        "exists": {
+          "field": "couchbaseDocument.doc.conversationID"
+        }
+      }
+    }
+
+              }';
+        $filter = Sherlock\Sherlock::queryBuilder()->Raw($raw);
+
+
+        $request->index($index)->type('couchbaseDocument')->from(0)->size(300)->query($filter);
+
+        echo $request->toJSON();
+
+        $response = $request->execute();
+
+        echo "found " . sizeof($response) . " conversations\n";
+        $cb = $this->couchBaseConnection($bucket);
+        foreach ($response as $conversation) {
+            $message = "";
+            echo $conversation['id'] . "\n";
+            $result = $cb->get($conversation['id']);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                $result_arr['type'] = "conversation";
+                echo "type " . $conversation['type'] . " added \n";
+                echo var_export($result_arr);
+                $message = "type " . $conversation['type'] . " added \n";
+                if ($cb->set($conversation['id'], CJSON::encode($result_arr))) {
+                    echo $conversation['id'] . " update couchbase successfull\n";
+                    $message.=$conversation['id'] . " update couchbase successfull\n";
+                } else {
+                    echo $conversation['id'] . " update couchbase failed------------\n";
+                    $message.=$conversation['id'] . " update couchbase failed------------\n";
+                }
+            } else {
+                echo $conversation['id'] . " no couchbase record found------------\n";
+                $message = $conversation['id'] . " no couchbase record found------------\n";
+            }
+            $this->writeToLog($log_path, $message);
+        }
+    }
 
     public function fixcategories() {
         $bucket = 'test';
@@ -119,89 +237,86 @@ class RefineDataCommand extends Controller_admin {
             foreach ($response as $find) {
                 array_push($record_arr, $find['id']);
                 $progess+=1;
-                echo "\n finding data from couchbase NO.".$progess."\n";
+                echo "\n finding data from couchbase NO." . $progess . "\n";
             }
         }
         echo sizeof($record_arr);
-        print_r(var_export($record_arr, TRUE) );
-        foreach($record_arr as $record){
+        print_r(var_export($record_arr, TRUE));
+        foreach ($record_arr as $record) {
             $count+=1;
-            if($count % 500===0){
+            if ($count % 500 === 0) {
                 sleep(2);
                 echo "\nSleep for 2seconds\n";
             }
-            $message="\nprocessing No.".$count." id: ".$record."\n";
+            $message = "\nprocessing No." . $count . " id: " . $record . "\n";
 
-            $id=$record;
+            $id = $record;
 
-            $cb=$this->couchBaseConnection($bucket);
-            $result=$cb->get($id);
-            if($result!=null){
-                $result_arr=CJSON::decode($result);
-                $categories=$result_arr['categories'];
-                $category=$result_arr['category'];
-                $subcategories=$result_arr['subcategories'];
-                $topics=$result_arr['topics'];
-                if($categories!=null&&$categories!=""){
-                    $result_arr['categories']=array();
-                    $uniqe_arr=array_unique($categories, SORT_STRING);
-                    foreach($uniqe_arr as $value){
+            $cb = $this->couchBaseConnection($bucket);
+            $result = $cb->get($id);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                $categories = $result_arr['categories'];
+                $category = $result_arr['category'];
+                $subcategories = $result_arr['subcategories'];
+                $topics = $result_arr['topics'];
+                if ($categories != null && $categories != "") {
+                    $result_arr['categories'] = array();
+                    $uniqe_arr = array_unique($categories, SORT_STRING);
+                    foreach ($uniqe_arr as $value) {
                         array_push($result_arr['categories'], $value);
                     }
-                  //  $result_arr['categories']=  array_unique($categories, SORT_STRING);
-                }else{
-                    echo "\n".$id." does not have categories record in couchbase \n";
-                   $message.="\n".$id." does not have categories record in couchbase \n";
+                    //  $result_arr['categories']=  array_unique($categories, SORT_STRING);
+                } else {
+                    echo "\n" . $id . " does not have categories record in couchbase \n";
+                    $message.="\n" . $id . " does not have categories record in couchbase \n";
                 }
-                 if($category!=null&&$category!=""){
-                     $result_arr['category']=array();
-                     $uniqe_arr=array_unique($category, SORT_STRING);
-                    foreach($uniqe_arr as $value){
+                if ($category != null && $category != "") {
+                    $result_arr['category'] = array();
+                    $uniqe_arr = array_unique($category, SORT_STRING);
+                    foreach ($uniqe_arr as $value) {
                         array_push($result_arr['category'], $value);
                     }
-            //        $result_arr['category']=  array_unique($category, SORT_STRING);
-                }else{
-                    echo "\n".$id." does not have category record in couchbase \n";
-                   $message.="\n".$id." does not have category record in couchbase \n";
+                    //        $result_arr['category']=  array_unique($category, SORT_STRING);
+                } else {
+                    echo "\n" . $id . " does not have category record in couchbase \n";
+                    $message.="\n" . $id . " does not have category record in couchbase \n";
                 }
-                 if($subcategories!=null&&$subcategories!=""){
-                     $result_arr['subcategories']=array();
-                     $uniqe_arr=array_unique($subcategories, SORT_STRING);
-                    foreach($uniqe_arr as $value){
+                if ($subcategories != null && $subcategories != "") {
+                    $result_arr['subcategories'] = array();
+                    $uniqe_arr = array_unique($subcategories, SORT_STRING);
+                    foreach ($uniqe_arr as $value) {
                         array_push($result_arr['subcategories'], $value);
                     }
-           //         $result_arr['subcategories']=  array_unique($subcategories, SORT_STRING);
-                }else{
-                    echo "\n".$id." does not have subcategories record in couchbase \n";
-                   $message.="\n".$id." does not have subcategories record in couchbase \n";
+                    //         $result_arr['subcategories']=  array_unique($subcategories, SORT_STRING);
+                } else {
+                    echo "\n" . $id . " does not have subcategories record in couchbase \n";
+                    $message.="\n" . $id . " does not have subcategories record in couchbase \n";
                 }
-                 if($topics!=null&&$topics!=""){
-                      $result_arr['topics']=array();
-                    foreach(array_unique($topics, SORT_STRING) as $value){
+                if ($topics != null && $topics != "") {
+                    $result_arr['topics'] = array();
+                    foreach (array_unique($topics, SORT_STRING) as $value) {
                         array_push($result_arr['topics'], $value);
                     }
-                //    $result_arr['topics']=  array_unique($topics, SORT_STRING);
-                }else{
-                    echo "\n".$id." does not have topics record in couchbase\n";
-                   $message.="\n".$id." does not have topics record in couchbase \n";
-                }     
-                if($cb->set($id,CJSON::encode($result_arr))){
-                    echo "\n".$id." update category record in couchbase \n";
-                    $message.="\n".$id." update category record in couchbase \n";
+                    //    $result_arr['topics']=  array_unique($topics, SORT_STRING);
+                } else {
+                    echo "\n" . $id . " does not have topics record in couchbase\n";
+                    $message.="\n" . $id . " does not have topics record in couchbase \n";
                 }
-                else{
-                    "\n".$id." can not updatecatrgory record in couchbase----------------------- \n";
-                    $message.="\n".$id." can not updatecatrgory record in couchbase ---------------------------\n";
+                if ($cb->set($id, CJSON::encode($result_arr))) {
+                    echo "\n" . $id . " update category record in couchbase \n";
+                    $message.="\n" . $id . " update category record in couchbase \n";
+                } else {
+                    "\n" . $id . " can not updatecatrgory record in couchbase----------------------- \n";
+                    $message.="\n" . $id . " can not updatecatrgory record in couchbase ---------------------------\n";
                 }
-                
-            }else{
-                echo "\n".$id." Can not find record in couchbase -----------------------\n";
-                $message = "\n".$id." Can not find record in couchbase -------------------------\n";
+            } else {
+                echo "\n" . $id . " Can not find record in couchbase -----------------------\n";
+                $message = "\n" . $id . " Can not find record in couchbase -------------------------\n";
             }
             $this->writeToLog($log_path, $message);
         }
     }
-
 
     public function fixBoostForUsers($bucket) {
         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
@@ -240,7 +355,7 @@ class RefineDataCommand extends Controller_admin {
     public function fixBoostNumber() {
         $bucket = 'develop';
         $profile_record = array();
-      //  $this->fixBoostForUsers($bucket);
+        //  $this->fixBoostForUsers($bucket);
         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $log_path = "/var/log/yii/$start_time.log";
         $package_path = "/var/log/yii/ProfilePackages.log";
@@ -274,8 +389,8 @@ class RefineDataCommand extends Controller_admin {
             $package_record = $id . " : " . $result_arr["profile"][0]["profile_package_name"];
             array_push($profile_record, $package_record);
 
-            if ($result_arr != null && $result_arr["profile"][0]["profile_package_name"] != null ) {
-           //     if($result_arr['id'])
+            if ($result_arr != null && $result_arr["profile"][0]["profile_package_name"] != null) {
+                //     if($result_arr['id'])
                 $tempPackage = $result_arr["profile"][0]["profile_package_name"];
                 $result_arr["accessed"] = $timeStamp;
                 $result_arr["updated"] = $timeStamp;
@@ -322,15 +437,15 @@ class RefineDataCommand extends Controller_admin {
                 $message = "\nProfile " . $id . "Does not have package specified in its profile********************************************************************\n";
                 echo $message;
             }
-          
+
             $this->writeToLog($log_path, $message);
         }
         $this->writeToLog($package_path, var_export($profile_record, true));
     }
 
     public function fixProfileRelatedImages($id, $boost, $bucket) {
- //               $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
-    //    $log_path = "/var/log/yii/$start_time.log";
+        //               $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        //    $log_path = "/var/log/yii/$start_time.log";
         $data_arr = array();
         $message = "";
 
@@ -350,10 +465,10 @@ class RefineDataCommand extends Controller_admin {
             $request->from($i * 50)
                     ->size(50);
             $request->query($bool);
-      //      echo "\n".$request->toJSON()."\n";
+            //      echo "\n".$request->toJSON()."\n";
 
             $response = $request->execute();
-            echo "Search for ".$i*50 ."\n";
+            echo "Search for " . $i * 50 . "\n";
             if (sizeof($response) == 0) {
                 $i = 3000;
             }
@@ -364,26 +479,26 @@ class RefineDataCommand extends Controller_admin {
         echo "\n found " . sizeof($data_arr) . " objects belongs to " . $id;
         if (sizeof($data_arr) > 0) {
             $cb = $this->couchBaseConnection($bucket);
-            $count=0;
-           
+            $count = 0;
+
             foreach ($data_arr as $data) {
                 $result = $cb->get($data);
-                 $message="";
+                $message = "";
                 $count++;
-                echo "\nfixing data for ".$count."\n";
+                echo "\nfixing data for " . $count . "\n";
                 if ($result != null && $result != "") {
                     $result_arr = CJSON::decode($result);
                     $boost_record = $result_arr['boost'];
                     $result_arr['boost'] = $boost;
                 }
                 if ($cb->set($data, CJSON::encode($result_arr))) {
-                    $message.= "\n".$id." Boost data of object " . $data . " has been changed from " . $boost_record . " to " . $result_arr['boost'] . "\n";
+                    $message.= "\n" . $id . " Boost data of object " . $data . " has been changed from " . $boost_record . " to " . $result_arr['boost'] . "\n";
                     echo $message;
-                   //             $this->writeToLog($log_path, $message);
+                    //             $this->writeToLog($log_path, $message);
                 } else {
                     $message.="\nBoost data of object " . $data . " update failed**********************************************\n";
                     echo $message;
-           //         $this->writeToLog($log_path, $message);
+                    //         $this->writeToLog($log_path, $message);
                 }
             }
         } else {
@@ -585,7 +700,7 @@ class RefineDataCommand extends Controller_admin {
             $couchbase_data_arr['comments'] = $comment_arr;
         }
 
-         
+
 
 
         // $message=var_export($result_arr);
@@ -687,10 +802,10 @@ class RefineDataCommand extends Controller_admin {
                 if (strstr($result_arr['keywords'], "\n")) {
                     $keyword_arr = explode("\n", $result_arr['keywords']);
                     foreach ($keyword_arr as $keyword) {
-                        $trimed_keyword= trim(trim(trim($keyword, "\r"),"\n"));
+                        $trimed_keyword = trim(trim(trim($keyword, "\r"), "\n"));
                         if ($trimed_keyword != "" && $trimed_keyword != null) {
-                            $keyword_obj['keyword_id'] = $this->getNewID();                           
-                            $keyword_obj['keyword_name'] =$trimed_keyword;
+                            $keyword_obj['keyword_id'] = $this->getNewID();
+                            $keyword_obj['keyword_name'] = $trimed_keyword;
                             $keyword_obj['create_date'] = strtotime(date('Y-m-d H:i:s'));
                             $keyword_obj['expire_date'] = NULL;
                             $keyword_obj['value'] = NULL;
@@ -794,10 +909,10 @@ class RefineDataCommand extends Controller_admin {
                 if (strstr($result_arr['keywords'], "\n")) {
                     $keyword_arr = explode("\n", $result_arr['keywords']);
                     foreach ($keyword_arr as $keyword) {
-                        $trimed_keyword= trim(trim(trim($keyword, "\r"),"\n"));
+                        $trimed_keyword = trim(trim(trim($keyword, "\r"), "\n"));
                         if ($trimed_keyword != "" && $trimed_keyword != null) {
-                            $keyword_obj['keyword_id'] = $this->getNewID();                           
-                            $keyword_obj['keyword_name'] =$trimed_keyword;
+                            $keyword_obj['keyword_id'] = $this->getNewID();
+                            $keyword_obj['keyword_name'] = $trimed_keyword;
                             $keyword_obj['create_date'] = strtotime(date('Y-m-d H:i:s'));
                             $keyword_obj['expire_date'] = NULL;
                             $keyword_obj['value'] = NULL;

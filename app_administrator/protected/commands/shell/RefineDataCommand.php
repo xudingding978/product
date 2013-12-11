@@ -33,10 +33,11 @@ class RefineDataCommand extends Controller_admin {
             $this->fixtype();
         } elseif ($action == "comment") {
             $this->addCommentId();
-        }elseif($action == "fixcreated"){
+        } elseif ($action == "fixcreated") {
             $this->fixCreated();
-        } 
-        elseif ($action == "refineArticle") {
+        } elseif ($action == 'fix715') {
+            $this->fixArticlebeenUpdatedwithWrongId();
+        } elseif ($action == "refineArticle") {
 
 
 
@@ -97,9 +98,39 @@ class RefineDataCommand extends Controller_admin {
             echo "*******************************" . ($end_time - $start_time);
         }
     }
-    
-    public function fixCreated(){
-               $bucket = 'production';
+
+    public function fixArticlebeenUpdatedwithWrongId() {
+        $bucket = 'develop';
+        $article_arr = $this->findAllAccordingType($bucket, 'article');
+        $cb = $this->couchBaseConnection($bucket);
+        $collectionId_arr = array();
+        $helium_arr = array();
+        foreach ($article_arr as $article) {
+            $collection_id = null;
+            $helium = null;
+            $result = $cb->get($article);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                if ($result_arr['collection_id'] != null) {
+                    $collection_id = $result_arr['collection_id'];
+                } else {
+                    echo "can not find collection id for " . $article . "\n";
+                }
+                if ($result_arr['article'][0]['article_helium_media_id'] != null) {
+                    $helium = $result_arr['article'][0]['article_helium_media_id'];
+                } else {
+                    echo "can not find helium media id for " . $article . "\n";
+                }
+                if ($collection_id != null && $helium != null) {
+                    array_push($helium_arr, $helium);
+                    array_push($collectionId_arr, $collection_id);
+                    echo $article." | ".$collection_id." | ".$helium."\n";
+                }
+                //array_push$record_arr
+            } else {
+                echo $article . "can not find the article in couchbase\n";
+            }
+        }
         $setting['log.enabled'] = true;
         $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $log_path = '/var/log/yii/' . $datetime . '.log';
@@ -107,7 +138,70 @@ class RefineDataCommand extends Controller_admin {
         $Sherlock->addNode("es1.hubsrv.com", 9200);
         $request = $Sherlock->search();
         $index = $bucket;
-        $raw='{
+        $request->index($index)->type('couchbaseDocument');
+
+        for ($i = 0; $i <= sizeof($collectionId_arr); $i++) {
+            $raw = '
+             {
+    "bool": {
+      "must": [
+        {
+          "query_string": {
+            "default_field": "couchbaseDocument.doc.collection_id",
+            "query": "\"' . $collectionId_arr[$i] . '\""
+          }
+        }
+      ]
+    }
+    }
+';
+            echo $raw;
+            sleep(5);
+            $query = Sherlock\Sherlock::queryBuilder()->Raw($raw);
+            echo $query->toJSON()."\n";
+            sleep(5);
+            $request->query($query);
+            echo $request->toJSON()."\n";
+            sleep(5);
+            $response = $request->execute();
+            echo sizeof($response);
+            if (sizeof($response) > 1) {
+                $check_arr = array();
+                foreach ($response as $collection) {
+                    array_push($check_arr, $collection['article'][0]['article_helium_media_id']);
+                }
+                if (sizeof(array_unique($check_arr)) > 1) {
+                    echo $article . " | " . $collectionId_arr[$i] . " has more than one helium media associated with it-----------------\n";
+                    $message=$article . " | " . $collectionId_arr[$i] . " has more than one helium media associated with it-----------------\n";
+                    $this->writeToLog($log_path, $message);
+                }else{
+                    echo $article . " | " . $collectionId_arr[$i] . " has single helium media associated with it\n";
+                }
+            }else{
+                   echo $article . " | " . $collectionId_arr[$i] . " has single helium media associated with it\n";
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    public function fixCreated() {
+        $bucket = 'production';
+        $setting['log.enabled'] = true;
+        $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = '/var/log/yii/' . $datetime . '.log';
+        $Sherlock = new \Sherlock\Sherlock($setting);
+        $Sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $Sherlock->search();
+        $index = $bucket;
+        $raw = '{
               "filtered": {
       "filter": {
         "missing": {
@@ -116,47 +210,44 @@ class RefineDataCommand extends Controller_admin {
       }
     }
             }';
-        $filer=  Sherlock\Sherlock::queryBuilder()->Raw($raw);
+        $filer = Sherlock\Sherlock::queryBuilder()->Raw($raw);
         $request->index($index)->type('couchbaseDocument')->query($filer);
-        $data_arr=array();
-                for($i=0; $i<100;$i++){
-            $request->from(50*$i)->size(50);
-            $response=$request->execute();
-            if(sizeof($response)!=0){
-                foreach($response as $data){
-                      array_push($data_arr, $data['id']);
+        $data_arr = array();
+        for ($i = 0; $i < 100; $i++) {
+            $request->from(50 * $i)->size(50);
+            $response = $request->execute();
+            if (sizeof($response) != 0) {
+                foreach ($response as $data) {
+                    array_push($data_arr, $data['id']);
                 }
-              
-            }else{
-                $i=100;
+            } else {
+                $i = 100;
             }
-            
         }
         echo var_export($data_arr, true);
-        echo $request->toJSON()."111111";
-        $cb=$this->couchBaseConnection($bucket);
-        foreach($data_arr as $found){
-            $message="";
-            $result=$cb->get($found);
-            if($result!=null){
-                $result_arr=CJSON::decode($result);
-                $result_arr['created']=   strtotime(date('Y-m-d H:i:s'));
-                echo $found."Created changed to ".$result_arr['created']."\n";
-                $message="Created changed to ".$result_arr['created']."\n";
-                if($cb->set($found, CJSON::encode($result_arr))){
-                    echo $found." couchbase record being updated\n";
-                    $message.=$found." couchbase record being updated\n";
-                }else{
-                    $found." couchbase record  update failed----------------------------------\n";
-                    $message.=$found." couchbase record  update failed----------------------------------\n";
+        echo $request->toJSON() . "111111";
+        $cb = $this->couchBaseConnection($bucket);
+        foreach ($data_arr as $found) {
+            $message = "";
+            $result = $cb->get($found);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                $result_arr['created'] = strtotime(date('Y-m-d H:i:s'));
+                echo $found . "Created changed to " . $result_arr['created'] . "\n";
+                $message = "Created changed to " . $result_arr['created'] . "\n";
+                if ($cb->set($found, CJSON::encode($result_arr))) {
+                    echo $found . " couchbase record being updated\n";
+                    $message.=$found . " couchbase record being updated\n";
+                } else {
+                    $found . " couchbase record  update failed----------------------------------\n";
+                    $message.=$found . " couchbase record  update failed----------------------------------\n";
                 }
-            }else{
-                echo $found. " can not be found in couchbase---------------------------------\n";
-                  $message=$found. " can not be found in couchbase---------------------------------\n";
+            } else {
+                echo $found . " can not be found in couchbase---------------------------------\n";
+                $message = $found . " can not be found in couchbase---------------------------------\n";
             }
             $this->writeToLog($log_path, $message);
         }
-        
     }
 
     public function fixtype() {

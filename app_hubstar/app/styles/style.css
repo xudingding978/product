@@ -34,6 +34,18 @@ body > div.ember-view{
 #masonry_user_container[style='position: relative; height: 0px; width: 185px;'],
 #masonry_user_container[style='position:relative;height:0px;width: 185px;'],
 
+#masonry_user_container[style="position: relative; height: 184px; width: 370px;"],
+#masonry_user_container[style="position:relative;height:184px;width:370px;"],
+#masonry_user_container[style='position: relative; height: 184px; width: 370px;'],
+#masonry_user_container[style='position:relative;height:184px;width:370px;'],
+
+
+#masonry_user_container[style="position: relative; height: 0px; width: 185px;"],
+#masonry_user_container[style="position:relative;height:0px;width: 185px;"],
+#masonry_user_container[style='position: relative; height: 0px; width: 185px;'],
+#masonry_user_container[style='position:relative;height:0px;width: 185px;'],
+
+
 #masonry_photo_collection_container[style="position: relative; height: 0px; width: 185px;"],
 #masonry_photo_collection_container[style="position:relative;height:0px;width: 185px;"],
 #masonry_photo_collection_container[style='position: relative; height: 0px; width: 185px;'],

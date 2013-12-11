@@ -181,7 +181,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
             var commentContent = this.get('commentContent');
-            console.log(commentContent);
+//            console.log(commentContent);
             if (commentContent) {
                 var comments = this.get('article').get('comments');
 //            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');

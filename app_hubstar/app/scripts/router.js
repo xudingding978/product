@@ -2,8 +2,8 @@
 var Router = Ember.Router.extend( );
 
 
-HubStar.Router.map(function() {
-    //this.route("fourOhFour",  {path: "*:"});
+HubStar.Router.map(function() {  
+    this.route("fourOhFour",  {path: "*:"});
     this.resource("index", {path: '/'}, function() {
 
         this.resource("indexIndex", {path: '/'});

@@ -115,7 +115,7 @@ HubStar.ArticleView = Ember.View.extend({
                 {
 
                   var data = HubStar.Mega.find(colectionPhoto);
-                  console.log("11111111111");
+//                  console.log("11111111111");
 
                     this.get("controller").transitionTo("userPhoto", data); //user
                 }
@@ -133,10 +133,9 @@ HubStar.ArticleView = Ember.View.extend({
         
             else
             {
-              //  window.history.back();
-                 console.log("222222222222222");
-                 this.get("controller").transitionTo("searchIndex");
-               
+//                console.log("ssssssssssssssssssssss");
+//                this.get("controller").transitionTo("searchIndex");
+                window.history.back();
             }
 
 

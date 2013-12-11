@@ -174,7 +174,9 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                     HubStar.set("profileCollection", this.get("profiles").objectAt(i).collection);
                     this.set("chosenProfile", id);
                     HubStar.set("isProfile", true);
-                }             
+                }
+                HubStar.set('selectedCollection', null);
+                HubStar.set('chooseCollection', "Choose your Collection");
                 HubStar.set('selectedID', id);
                 HubStar.set('selectedProfile', title);
             }
@@ -245,7 +247,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
 
                 var newCollection = new Object();
                 newCollection.collection_ids = collection.get("collection_ids");
-                ;
+                
                 newCollection.cover = collection.get("cover");
                 newCollection.desc = collection.get("desc");
                 newCollection.id = collection.get("id");

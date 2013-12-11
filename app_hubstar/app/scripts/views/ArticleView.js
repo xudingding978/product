@@ -129,6 +129,7 @@ HubStar.ArticleView = Ember.View.extend({
             }
             else
             {
+                console.log("ssssssssssssssssssssss");
                 window.history.back();
             }
 

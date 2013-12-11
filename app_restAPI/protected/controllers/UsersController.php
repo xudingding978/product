@@ -95,7 +95,7 @@ class UsersController extends Controller {
 //                    $item = array();
 //                    $item["id"] = $collection[$j]["id"];
 //                    $item["title"] = $collection[$j]["title"];                   
-                    array_unshift($collectionItem, $collection[$j]);                
+                    array_push($collectionItem, $collection[$j]);                
                 }
                 $items["collection"]=$collectionItem;
                 $items["profile_id"]=$profiles[$i]["profile_id"];

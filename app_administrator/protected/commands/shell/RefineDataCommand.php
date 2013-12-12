@@ -106,6 +106,7 @@ class RefineDataCommand extends Controller_admin {
         $collectionId_arr = array();
         $helium_arr = array();
         foreach ($article_arr as $article) {
+            time_nanosleep(0, 200000000);
             $collection_id = null;
             $helium = null;
             $result = $cb->get($article);
@@ -150,29 +151,37 @@ class RefineDataCommand extends Controller_admin {
             "default_field": "couchbaseDocument.doc.collection_id",
             "query": "\"' . $collectionId_arr[$i] . '\""
           }
+        },
+          {
+          "query_string": {
+            "default_field": "couchbaseDocument.doc.type",
+            "query": "article"
+          }
         }
       ]
     }
     }
 ';
-            echo $raw;
-            sleep(5);
+       //     echo $raw;
+
             $query = Sherlock\Sherlock::queryBuilder()->Raw($raw);
-            echo $query->toJSON()."\n";
-            sleep(5);
+   //         echo $query->toJSON()."\n";
+
             $request->query($query);
             echo $request->toJSON()."\n";
-            sleep(5);
+
             $response = $request->execute();
             echo sizeof($response);
             if (sizeof($response) > 1) {
                 $check_arr = array();
                 foreach ($response as $collection) {
-                    array_push($check_arr, $collection['article'][0]['article_helium_media_id']);
+                    array_push($check_arr, $collection['source']['doc']['article'][0]['article_helium_media_id']);
                 }
+       //         echo var_export($collection,true);
+                echo var_export($check_arr,true);
                 if (sizeof(array_unique($check_arr)) > 1) {
-                    echo $article . " | " . $collectionId_arr[$i] . " has more than one helium media associated with it-----------------\n";
-                    $message=$article . " | " . $collectionId_arr[$i] . " has more than one helium media associated with it-----------------\n";
+                    echo $collection['id'] . " | " . $collectionId_arr[$i] ." | " .$collection['source']['doc']['created']." has more than one helium media associated with it-----------------\n";
+                    $message=$collection['id']  . " | " . $collectionId_arr[$i]  ." | ".$collection['source']['doc']['created']. " has more than one helium media associated with it-----------------\n";
                     $this->writeToLog($log_path, $message);
                 }else{
                     echo $article . " | " . $collectionId_arr[$i] . " has single helium media associated with it\n";

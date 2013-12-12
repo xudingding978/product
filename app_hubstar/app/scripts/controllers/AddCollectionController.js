@@ -21,7 +21,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     chosenProfile: '',
     init: function()
     {
-        HubStar.set("isProfile", false);
+        HubStar.set("isProfile",false);
     },
     setUser: function()
     {
@@ -31,7 +31,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             this.setDesc("");
             this.setTitle("Choose your Collection");
             this.setProfile("your profile");
-            
+            this.set('selectionPop', false);
         }
     },
     setImageID: function(id) {
@@ -63,7 +63,8 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     },
     submit: function()
     {
-        if (this.get("selectionPop") !== true) {
+       
+        if (this.get("selectionPop") !== true && HubStar.get('selectedCollection')!==undefined && HubStar.get('selectedCollection')!== null) {
             if (HubStar.get("isProfile") === false) {
                 var collectionController = this.get('controllers.collection');
                 var collection = collectionController.getUpdateCollection(HubStar.get('selectedCollection'));
@@ -175,12 +176,18 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                     HubStar.set("profileCollection", this.get("profiles").objectAt(i).collection);
                     this.set("chosenProfile", id);
                     HubStar.set("isProfile", true);
-                }             
+                }
+                HubStar.set('selectedCollection', null);
+                HubStar.set('chooseCollection', "Choose your Collection");
+                this.setTitle("Choose your Collection");
                 HubStar.set('selectedID', id);
                 HubStar.set('selectedProfile', title);
             }
         }               
         this.set('selectionProfile', !this.get('selectionProfile'));
+    },
+    profileCanel : function (){
+        this.set('selectionProfile', false);
     },
     addCollection: function(collection, content)
     {
@@ -246,7 +253,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
 
                 var newCollection = new Object();
                 newCollection.collection_ids = collection.get("collection_ids");
-                ;
+                
                 newCollection.cover = collection.get("cover");
                 newCollection.desc = collection.get("desc");
                 newCollection.id = collection.get("id");
@@ -292,7 +299,9 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         this.selectSelectedDesc();
         //$('#recordID').text(this.get('selectedTitle'));
         HubStar.set('chooseCollection', this.get('selectedTitle'));
-        this.set('selectionPop', false);
+        
+        this.set('selectionPop', !this.get("selectionPop"));
+        
     },
     selectSelectedDesc: function()
     {

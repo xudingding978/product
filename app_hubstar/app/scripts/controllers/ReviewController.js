@@ -72,7 +72,7 @@ HubStar.ReviewController = Ember.Controller.extend({
 
         }
         else {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please add some review!.", "warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please write a review!", "warnning");
         }
 
     }

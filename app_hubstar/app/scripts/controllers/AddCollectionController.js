@@ -21,6 +21,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     chosenProfile: '',
     init: function()
     {
+        HubStar.set("isProfile",false);
     },
     setUser: function()
     {
@@ -82,7 +83,6 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                 if (content === null || content === undefined || content === "") {
                     HubStar.get('selectedCollection').collection_ids = this.get("objectID");
                 }
-
                 else if (content.indexOf(this.get("objectID")) !== -1)
                 {
                 }
@@ -221,6 +221,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     },
     addNewCollection: function()
     {
+        console.log(HubStar.get("isProfile"));
         var collectionController = this.get('controllers.collection');
         if (HubStar.get("isProfile") === false) {
             var collection = collectionController.getCreateCollection(this.get('newCollectionName'), '', this.get("collections"));

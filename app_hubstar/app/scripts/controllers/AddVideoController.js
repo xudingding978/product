@@ -62,6 +62,7 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
 
         var profileVideosController = this.get('controllers.profileVideos');
         profileVideosController.get("videoesContent").insertAt(0, mega);
+        this.get("controllers.profile").set("profileVideoStatistics",profileVideosController.get("videoesContent").get("length"));
         mega.store.save();
 
 

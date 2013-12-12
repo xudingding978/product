@@ -1,3 +1,3 @@
-HubStar.ProfileVideosView = Ember.View.extend({
+HubStar.ProfilePdfView = Ember.View.extend({
     templateName: 'profilePdf'
 });

@@ -177,19 +177,29 @@
             </a>
 
             <span class='edit-object easing' style="position: absolute;margin: 10px; top: 11px;left: 115px;">
+
                 {{#if controller.is_authentic_user}}
+
+
+
                 <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
                      <k class="icon-cog" style="font-size: 16px; margin: 0px 5px"></k>
                     <k class='icon-caret-down'></k>
                 </div>
                 <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
+                    {{#if controller.is_profile_editing_mode}}
+                    <li class="ite" {{action  removeCollectedItem controller.title id "profile"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>
+                    {{/if}}
                     {{#if controller.is_user_editing_mode}}
                     <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
-                   
                     {{/if}}
                 </ul>
+
                 {{/if}}
             </span>
+            
+            
+            
         </div>
 
 

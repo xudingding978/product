@@ -62,8 +62,8 @@ return CMap::mergeArray(
                 'common.components.*',
                 'common.components.auth.*',
                 'common.extensions.*',
-                'common.modules.*',
-                'common.modules.hybridauth.*',
+//                 'common.modules.*',
+//                'common.modules.hybridauth.*',
                 'common.models.*',
                 // 'common.redbean.*',
                 'application.models.*',
@@ -72,7 +72,7 @@ return CMap::mergeArray(
             'modules' => array(
                 'hybridauth' => array(
 //   'baseUrl' => 'http://account.business-software.co.nz/hybridauth',
-                    'class' => 'common.modules.hybridauth.HybridauthModule',
+                    'class' => 'application.modules.hybridauth.HybridauthModule',
                     'baseUrl' => 'http://' . $_SERVER['HTTP_HOST'] . '/hybridauth',
                     'withYiiUser' => false, // Set to true if using yii-user
                     'providers' => $result_arr['providers'],
@@ -163,6 +163,22 @@ return CMap::mergeArray(
 //                    //*/
 //                    ),
 //                ),
+            ),
+                      'params' => array(
+// this is used in contact page
+                'adminEmail' => 'webmaster@example.com',
+                // this the primary elastic search server and index
+                'elasticSearchNode' => $params['elasticSearch.node'], //'es1.hubsrv.com'
+                'elasticSearchIndex' => $params['elasticSearch.index'], //test
+                'couchBaseNode' => $params['couchBase.node'],
+                'couchBaseBucket' => $params['couchBase.bucket'],
+                'couchBaseAccount' => $params['couchBase.account'],
+                'couchBasePasswrd' => $params['couchBase.password'],
+                //---------------------------
+                'couchBaseDefaultNode' => $params['couchBase.defaultNode'],
+                'couchBaseDefaultBucket' => $params['couchBase.defaultBucket'],
+                'couchBaseDefaultAccount' => $params['couchBase.defaultAccount'],
+                'couchBaseDefaultPasswrd' => $params['couchBase.defaultPassword'],
             ),
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

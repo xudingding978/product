@@ -88,6 +88,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     profileReviewStatistics: "",
     profilePartnerStatistics: "",
     profileFollowerStatistics: "",
+    profileVideoStatistics: "",
     region: "",
     selectedCollection: "",
     switchPhoto: false,
@@ -936,7 +937,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('reviewTag', false);
             this.set('videoTag', false);
             this.set('pdfTag', true);
-//            this.transitionToRoute('');
+            this.transitionToRoute('profilePdf');
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reload");
             }, 200);

@@ -69,7 +69,7 @@ class ProfilesController extends Controller {
         try {
             $request_json = file_get_contents('php://input');
             $request_arr = CJSON::decode($request_json, true);
-        //    error_log(var_export($request_arr,true));
+            error_log(var_export($request_arr,true));
             $tempProfile = $request_arr['profile'];
             $cb = $this->couchBaseConnection();
             $id = $tempProfile['id'];
@@ -115,7 +115,7 @@ class ProfilesController extends Controller {
     }
 
     public function actionUpdate() {
-
+        
 
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
@@ -283,7 +283,7 @@ class ProfilesController extends Controller {
 
         if ($cb->delete($url)) {
             if ($cb->set($url, $tempUpdateResult)) {
-                $this->sendResponse(204);
+                $this->sendResponse(204, $url);
             } else {
                 $this->sendResponse(500, 'something wrong');
             }

@@ -1,6 +1,7 @@
 HubStar.ProfileNewView = Ember.View.extend({
     templateName: 'profileNew',
     added: true,
+ 
     didInsertElement: function() {
     },
     addSecond: function() {
@@ -23,5 +24,10 @@ HubStar.ProfileNewView = Ember.View.extend({
         this.set("added", true);
 
     }
+ 
+    
+    
 
 });
+
+

@@ -228,7 +228,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     },
     addNewCollection: function()
     {
-        console.log(HubStar.get("isProfile"));
+       
         var collectionController = this.get('controllers.collection');
         if (HubStar.get("isProfile") === false) {
             var collection = collectionController.getCreateCollection(this.get('newCollectionName'), '', this.get("collections"));

@@ -21,7 +21,6 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     chosenProfile: '',
     init: function()
     {
-       
         HubStar.set("isProfile",false);
     },
     setUser: function()

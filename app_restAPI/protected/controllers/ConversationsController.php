@@ -376,8 +376,9 @@ class ConversationsController extends Controller {
 
     public function sendEmail($receiveEmail, $receiveName, $notificationCount, $ownerId) {
 
-        //$receiveEmail = "tom@hubstar.co";
+     //   $receiveEmail = "tom@hubstar.co";
         $domain = $this->getDomain();
+        $domainWithoutAPI=$this->getDomainWihoutAPI();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
@@ -388,8 +389,8 @@ class ConversationsController extends Controller {
             "Destination" => array(
                 "ToAddresses" => array(
                     $receiveEmail),
-                "BccAddresses" => array(
-                    $platformEmail)
+//                "BccAddresses" => array(
+//                    $platformEmail)
             ),
             "Message" => array(
                 "Subject" => array(
@@ -397,7 +398,7 @@ class ConversationsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->confirmationEmailForm($receiveName, $notificationCount, $ownerId)
+                        "Data" => $this->confirmationEmailForm($domainWithoutAPI,$receiveName, $notificationCount, $ownerId)
                     )
                 ),
             ),
@@ -405,7 +406,7 @@ class ConversationsController extends Controller {
         $amazonSes->sendEmail($args);
     }
 
-    public function confirmationEmailForm($receiveName, $notificationCount, $ownerId) {
+    public function confirmationEmailForm($domainWithoutAPI,$receiveName, $notificationCount, $ownerId) {
         return '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -440,7 +441,7 @@ class ConversationsController extends Controller {
                                                            text-align: left;" cellpadding="0" cellspacing="0">
                                                         <tr>
                                                             <td valign="top">
-                                                            <a href="http://develop.trendsideas.com/#/users/' . $ownerId . '/messagecenter/notifications">  ' . $notificationCount . ' notifications  </a>
+                                                            <a href="http://'.$domainWithoutAPI.'/#/users/' . $ownerId . '/messagecenter/notifications">  ' . $notificationCount . ' notifications  </a>
                                                                   
                                                             </td>
                                                         </tr>
@@ -459,11 +460,11 @@ class ConversationsController extends Controller {
                                 <tr>
                                     <td align="center">
                                         &nbsp;<br />
-                                 <a href="http://develop.trendsideas.com/#/search">     <button type="homepage">Go to TrendsIdeas</button></a>
+                                 <a href="http://'.$domainWithoutAPI.'/#/search">     <button type="homepage">Go to TrendsIdeas</button></a>
 
                                     </td>
                                      <td align="center">
-                                  <a href="http://develop.trendsideas.com/#/users/' . $ownerId . '/messagecenter/notifications">      <button type="notifications">     See all notifications</button> </a>
+                                  <a href="http://'.$domainWithoutAPI.'/#/users/' . $ownerId . '/messagecenter/notifications">      <button type="notifications">     See all notifications</button> </a>
                                         <br />&nbsp;
                                     </td>
                                 </tr>

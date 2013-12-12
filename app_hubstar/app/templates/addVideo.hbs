@@ -1,7 +1,7 @@
 
 <div class="popup-container">
 
-<div id="login_lightbox" class="popup-bg-fadeout" {{action canel}}>{{controller}}&nbsp;</div>
+<div id="login_lightbox" class="popup-bg-fadeout" {{action canel}}>&nbsp;</div>
 
 <div class="" style="width: 510px;margin: 0 auto;margin-left: -255px;border-radius: 3px;overflow: hidden;border: 1px solid #eee; background-color: #fff;z-index: 11;position: absolute;top: 15%;left: 50%;">
     <div style="height: 50px;width: 100%;background-color: #f3f3f3;text-align: center;line-height: 50px;color: #555;border-bottom: 1px solid #ddd;">
@@ -10,9 +10,9 @@
     </div>
     <div style="margin: 20px;min-height: 400px;">
         <div style="height: 35px; width: inherit;border-bottom: 1px solid #ddd;">
-            {{view Ember.TextField valueBinding="videoUrl" placeholder="Please insert YOUTUBE link or share url." class="no-effect"}}
-            <div class="message-btn easing" style="right: 0;position: absolute;top: 69px;margin-right: 20px;width: 35px;height: 35px;line-height: 35px;border-left: 1px solid #ddd;"{{action getVideoFromYoutube}}>
-                 <i class="icon-ok"></i>
+            <div style="width: 400px;height:35px;">{{view Ember.TextField valueBinding="videoUrl" placeholder="Please insert YOUTUBE link or share url." class="no-effect"}}</div>
+            <div class="message-btn easing" style="right: 0;position: absolute;top: 69px;margin-right: 20px;width: 65px;height: 35px;line-height: 35px;border-left: 1px solid #ddd;"{{action getVideoFromYoutube}}>
+                Preview
             </div>
         </div>
         <div style="width: 470px; min-height: 300px; margin: 15px 0; border: 2px dashed #eee;">

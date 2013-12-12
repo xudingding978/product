@@ -10,7 +10,7 @@
                  &nbsp;<i class="icon-caret-down"></i>
             </div>
             {{#if controller.selectionProfile}}
-
+            <div id="login_lightbox" class="blur" {{action profileCanel }}>&nbsp;</div>
             <div class="select-profile-save" style="top: 50px;">
                 <div class="" style="height: auto; font-size: 13px; font-weight: bold; overflow: auto; overflow-x:hidden; ">
                     {{#each controller.profiles}}
@@ -45,6 +45,7 @@
             </div>
 
             {{#if controller.selectionPop}}
+            <div id="login_lightbox" class="blur" {{action collectionSwitch }}>&nbsp;</div>
             <div class="add-collection_select-collection" style="">
                 {{view HubStar.SearchRequireTextFieldView valueBinding="newCollectionName"  id="" class="collect_newcollection-name"  placeholder="Create new Collection" }}   
 

@@ -13,7 +13,7 @@
 HubStar.NotificationController = Ember.Controller.extend({
     notificationContent: null,
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'notificationTop', 'conversation','application'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'notificationTop', 'conversation', 'application'],
     isUploadPhoto: false,
     init: function()
     {
@@ -75,6 +75,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                     dataNew = new Array();
                 }
             }
+            //that.unReadCount();
             that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
@@ -192,6 +193,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                 count++;
             }
         }
+        
         this.get("controllers.application").set("unReadCount", count);
         this.get("controllers.messageCenter").set("unReadCount", count);
     },
@@ -273,7 +275,7 @@ HubStar.NotificationController = Ember.Controller.extend({
         }
     },
     gotoMessage: function(id)
-    {     
+    {
         this.set("goMessage", '#message_' + id);
         this.transitionToRoute('userPost');
         $(window).scrollTop(550);

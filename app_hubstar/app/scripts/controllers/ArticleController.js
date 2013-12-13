@@ -13,7 +13,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     commentContent: "",
     accessFromSearchBoard: false, //false: access the articlePhoto  true: access the article
     isCreditListExist: false,
-    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment','itemFunction', 'masonryCollectionItems'],
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems'],
     init: function() {
 
     },
@@ -52,14 +52,17 @@ HubStar.ArticleController = Ember.Controller.extend({
                 this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
             }
         }
+        else
+        {
+            this.transitionTo("searchArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+        }
 
         this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
         this.selectedImage(this.get('selectedPhoto').id);
         this.set('captionTitle', this.get('selectedPhoto').photo_title);
         this.set('caption', this.get('selectedPhoto').photo_caption);
-        this.set('readCaption', false);
-        this.setCaption();
+        //this.setCaption();
     },
     nextImage: function() {
         if (!this.get('selectedPhoto')) {
@@ -87,14 +90,17 @@ HubStar.ArticleController = Ember.Controller.extend({
                 this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
             }
         }
+        else
+        {
+            this.transitionTo("searchArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+        }
 
         this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
         this.selectedImage(this.get('selectedPhoto').id);
         this.set('captionTitle', this.get('selectedPhoto').photo_title);
         this.set('caption', this.get('selectedPhoto').photo_caption);
-        this.set('readCaption', false);
-        this.setCaption();
+        //this.setCaption();
     },
     selectImage: function(e) { // it is click the photo
         this.set('megaResouce', HubStar.Mega.find(e));
@@ -134,10 +140,14 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
         else
         {
+
+            this.transitionTo("searchArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+
             //this.transitionTo("article", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo
             //                                                               // as it use the fix id to refresh the route so it will have problem when fresh (change the id)
         }
         this.selectedImage(e);
+        //this.setCaption();
     },
     selectedImage: function(id) {
         var selectedImage_id = "#" + id;
@@ -168,32 +178,32 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     addComment: function() {
 
-if (this.get("controllers.checkingLoginStatus").popupLogin())
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-        var commentContent = this.get('commentContent');
-        console.log(commentContent);
-        if (commentContent) {
-            var comments = this.get('article').get('comments');
+            var commentContent = this.get('commentContent');
+//            console.log(commentContent);
+            if (commentContent) {
+                var comments = this.get('article').get('comments');
 //            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
-            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
-            var commenter_id = this.get("currentUser").get('id');
-            var name = this.get("currentUser").get('display_name');
-            var date = new Date();
-            var message_id = createMessageid() + commenter_id;
-            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url, "message_id": message_id,
-                "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
-                "is_delete": false, optional: this.get('article').get('type') + '/' + this.get('article').get('id')});
-            comments.insertAt(0, tempComment);
-            comments.store.save();
-            this.set('commentContent', '');
-            $('#addcommetBut').attr('style', 'display:block');
-            $('#commentBox').attr('style', 'display:none');
-        }
+                var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
+                var commenter_id = this.get("currentUser").get('id');
+                var name = this.get("currentUser").get('display_name');
+                var date = new Date();
+                var message_id = createMessageid() + commenter_id;
+                var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url, "message_id": message_id,
+                    "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
+                    "is_delete": false, optional: this.get('article').get('type') + '/' + this.get('article').get('id')});
+                comments.insertAt(0, tempComment);
+                comments.store.save();
+                this.set('commentContent', '');
+                $('#addcommetBut').attr('style', 'display:block');
+                $('#commentBox').attr('style', 'display:none');
+            }
         }
     },
     removeComment: function(object)
     {
-        var message = "Delete this comment?";
+        var message = "Remove this comment?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {
@@ -261,7 +271,7 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
 
                     if (that.get("accessFromSearchBoard") === false)
                     {
-                       
+
 
                         if (that.get("controllers.masonryCollectionItems").get("type") === "profile")
                         {
@@ -273,6 +283,10 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
                             that.transitionTo("articlePhoto", that.get('content').objectAt(0));
                         }
 
+                    }
+                    else
+                    {
+                        that.transitionTo("searchArticlePhoto", that.get('content').objectAt(0));
                     }
 
                     that.set('selectedPhoto', that.get('content').objectAt(0));                                                  //set selectedPhoto to the first photo
@@ -301,12 +315,12 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
         var collection_id = address.split("#")[1].split("/")[6];
         var user_id = address.split("#")[1].split("/")[2];
         var type = address.split("#")[1].split("/")[1];
-        
-    
+
+
         if (collection_id === undefined) //search from the seach board
         {
-            // this.transitionTo("indexIndex"); // go to search page, this can  work, but it is too slowlly.
-            window.history.back();
+             this.transitionTo("searchIndex"); // go to search page, this can  work, but it is too slowlly.
+           // window.history.back();
         }
         else
         {
@@ -357,20 +371,20 @@ if (this.get("controllers.checkingLoginStatus").popupLogin())
     },
     setCaption: function()
     {
-        if (this.get("readCaption"))
+        if (HubStar.get("readCaption"))
         {
             $('#caption_action').animate({
                 left: -320
             }, 800);
 
-            this.set("readCaption", false);
+            HubStar.set("readCaption", false);
         }
         else
         {
             $('#caption_action').animate({
                 left: 0
             }, 800);
-            this.set("readCaption", true);
+            HubStar.set("readCaption", true);
         }
     },
     getTest: function() {

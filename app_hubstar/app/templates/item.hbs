@@ -86,7 +86,7 @@
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
 
-                <ul class="itemprofile" style="margin: 5px 0 0;">
+<!--                <ul class="itemprofile" style="margin: 5px 0 0;">
                     <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
                         <div><k class="icon-eye-open"> &nbsp;{{this.collections.length}}</k></div>
                     </li>
@@ -99,7 +99,7 @@
                     <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
                         <div><k class="icon-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>
                     </li>
-                </ul>
+                </ul>-->
 
             </div>
         </div>
@@ -172,24 +172,39 @@
                 <i class="icon-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
             </div>
             {{/linkTo}}
-            <a class="mainfeature-container">
+                          {{#if controller.isUser}}
+                                 <a class="mainfeature-container">
+             <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToPhoto id}} />      </a>
+                             {{else}}
+                             <a class="mainfeature-container">
                 {{#linkTo 'video' this}} <img {{bindAttr src="object_image_url" }} class="this-is-the-object"/>{{/linkTo}}
             </a>
-
+                             {{/if}}
+  
             <span class='edit-object easing' style="position: absolute;margin: 10px; top: 11px;left: 115px;">
+
                 {{#if controller.is_authentic_user}}
+
+
+
                 <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
                      <k class="icon-cog" style="font-size: 16px; margin: 0px 5px"></k>
                     <k class='icon-caret-down'></k>
                 </div>
                 <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
+                    {{#if controller.is_profile_editing_mode}}
+                    <li class="ite" {{action  removeCollectedItem controller.title id "profile"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>
+                    {{/if}}
                     {{#if controller.is_user_editing_mode}}
                     <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><k class="icon-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
-                   
                     {{/if}}
                 </ul>
+
                 {{/if}}
             </span>
+            
+            
+            
         </div>
 
 
@@ -206,7 +221,7 @@
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
 
-                <ul class="itemprofile" style="margin: 5px 0 0;">
+<!--                <ul class="itemprofile" style="margin: 5px 0 0;">
                     <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
                         <div><k class="icon-eye-open"> &nbsp;{{this.collections.length}}</k></div>
                     </li>
@@ -219,7 +234,7 @@
                     <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
                         <div><k class="icon-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>
                     </li>
-                </ul>
+                </ul>-->
 
             </div>
         </div>
@@ -308,7 +323,7 @@
                     <span class="posttime">{{date created}}</span>
                 </div>
 
-                <ul class="itemprofile" style="margin: 5px 0 0;">
+<!--                <ul class="itemprofile" style="margin: 5px 0 0;">
                     <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
                         <div><k class="icon-eye-open"> &nbsp;{{this.collections.length}}</k></div>
                     </li>
@@ -321,7 +336,7 @@
                     <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
                         <div><k class="icon-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>
                     </li>
-                </ul>
+                </ul>-->
 
             </div>
 

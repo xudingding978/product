@@ -106,14 +106,16 @@ HubStar.ArticleView = Ember.View.extend({
             var colectionType = address.split("#")[1].split("/")[5]; //it may be article id , photo id and video id
             var colectionPhoto = address.split("#")[1].split("/")[6]; //it may be article id , photo id and video id
             var user_photo_id = address.split("#")[1].split("/")[8];
+                  
             if (type === "users")
             {
                 var user = HubStar.User.find(id);
-
+    
                 if (user_photo_id !== undefined) //type:article means it 
                 {
 
                   var data = HubStar.Mega.find(colectionPhoto);
+//                  console.log("11111111111");
 
                     this.get("controller").transitionTo("userPhoto", data); //user
                 }
@@ -125,10 +127,14 @@ HubStar.ArticleView = Ember.View.extend({
             }
             else if (type !== "articles")
             {
+
                 this.get("controller").closeWindow();
             }
+        
             else
             {
+//                console.log("ssssssssssssssssssssss");
+//                this.get("controller").transitionTo("searchIndex");
                 window.history.back();
             }
 

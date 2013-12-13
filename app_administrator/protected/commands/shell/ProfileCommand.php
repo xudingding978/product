@@ -43,7 +43,9 @@ class ProfileCommand extends Controller_admin {
             $this->buildKeywordObject();
         } elseif ($action == "fix") {
             $this->findmissingprofiles();
-        } else {
+        } elseif($action =="3big"){
+            $this->updatekeywordforthreeprofiles();
+        }else {
 
             echo "please input an action!!";
         }
@@ -51,6 +53,68 @@ class ProfileCommand extends Controller_admin {
         echo "All finished: start from: " . "\r\n";
         $end_time = microtime(true);
         echo "totally spend: " . ($end_time - $start_time);
+    }
+    
+    
+    public function updatekeywordforthreeprofiles(){
+        
+        $keyword_str="home, builders, homes, home builders, new homes, kit homes, floor plans, new home builders, new home builders nz, home builder, homes builders, new homes builders, house plans, builders christchurch, new home, house builders, building a house, christchurch builders, dream homes, home plans, landmark, landmark homes, modern home, lakefront home, home ideas
+";
+        $keyword_str_gardener="home, builders, homes, home builders, new homes, kit homes, floor plans, new home builders, new home builders nz, home builder, homes builders, new homes builders, house plans, builders christchurch, new home, house builders, building a house, christchurch builders, dream homes, home plans, G J, GJ Gardner, home construction, builders new zealand, gj gardner franchise";
+        $keyword_lockwood="home, builders, homes, home builders, new homes, kit homes, floor plans, new home builders, new home builders nz, home builder, homes builders, new homes builders, house plans, builders christchurch, new home, house builders, building a house, christchurch builders, dream homes, home plans, lockwood, lockwood homes, rotorua, eco friendly homes, design and build";
+        $bucket="develop";
+       // $bucket2="develop";
+        $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = "/var/log/yii/$start_time.log";
+        $settings['log_enabled'] = true;
+        $sherlock=new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request=$sherlock->search();
+        $index=$bucket;
+        $must=  Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"lockwood-nz\"")
+                ->default_field('couchbaseDocument.doc.owner_id');
+        $bool=  Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        $request->index($index)->type("couchbaseDocument")->from(0)->size(1000);
+        $request->query($bool);
+        $response=$request->execute();
+        echo $request->toJSON()."\n";
+        echo "\n number of items found: " . sizeof($response);
+        $cb=$this->couchBaseConnection($bucket);
+       // $cb_fix=$this->couchBaseConnection($bucket2);
+        foreach ($response as $key ) {
+            $message="";
+            $result=$cb->get($key['id']);
+            $result_arr=CJSON::decode($result);
+
+            $keyword_data=array();
+                                $keyword_arr = explode(",", $result_arr['keywords']);
+                    foreach ($keyword_arr as $keyword) {
+                        if ($keyword != "" && $keyword != null) {
+                            $keyword_obj['keyword_id'] = $this->getNewID();
+                            $keyword_obj['keyword_name'] = $keyword;
+                            $keyword_obj['create_date'] = strtotime(date('Y-m-d H:i:s'));
+                            $keyword_obj['expire_date'] = NULL;
+                            $keyword_obj['value'] = NULL;
+                            $keyword_obj['profile_id'] = $result_arr['owner_id'];
+                            $keyword_obj['collection_id'] = NULL;
+                            $keyword_obj['is_delete'] = NULL;
+                            array_push($keyword_data, $keyword_obj);
+                        }
+                    }
+                    $result_arr['keyword']=$keyword_data;
+                    $result_arr['photo'][0]['keywords'] = $keyword_data;
+
+            if($cb->set($key['id'], CJSON::encode($result_arr))){
+                echo $result_arr['type']." ".$key['id']." has been changed from \n";
+                $message=$result_arr['type']." has been changed from \n";
+            }else{
+               echo $key['id']. " save to couchbase failed-----------------------\n";
+                $message= $key['id']. " save to couchbase failed-----------------------\n";
+            }
+            $this->writeToLog($log_path, $message);
+                     
+        }
+        
     }
 
     public function findmissingprofiles() {

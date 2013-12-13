@@ -693,6 +693,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var address = document.URL;
         if (this.get('controllers.masonryCollectionItems').get("type") === "profile")
         {
+             
             if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
             {
                 this.transitionTo("indexIndex"); //search page
@@ -721,6 +722,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
         else
         {
+  
+  
             var collection_id = address.split("#")[1].split("/")[4];
             var id = address.split("#")[1].split("/")[2]; //user id
             var user = HubStar.User.find(id);
@@ -735,7 +738,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             this.set("selectPhoto", false);
             this.transitionTo("collection", data); //user
-        }
+            }
+        
 
     },
     editingContactForm: function() {
@@ -787,7 +791,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     removeComment: function(object)
     {
-        var message = "Delete this comment?";
+        var message = "Remove this comment?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {

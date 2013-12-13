@@ -5,8 +5,9 @@
 
 {{/if}}
 {{#if controller.is_authentic_user}}
-<div class="box style-box t-style-box col2" {{action videoCreateModeSwitch}} id="addNewVideo" style="z-index: 0">    
+<div class="box style-box t-style-box col2" {{action videoCreateModeSwitch}} id="addNewVideo"  style="z-index: 0">    
      <div id="uploadVideoObject" >
+
         <div class="add-new-object-hoverarea easing">
 
             <i class="icon-plus-sign"></i>
@@ -28,7 +29,7 @@
 
 
 
-        {{view HubStar.ItemView}}
+{{view HubStar.ItemView}}
 
 
 {{/each}}

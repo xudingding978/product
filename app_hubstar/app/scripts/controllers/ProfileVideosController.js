@@ -16,6 +16,7 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
                     var tempmega = results.objectAt(i);
                     that.get("videoesContent").pushObject(tempmega);
                 }
+                that.get("controllers.profile").set("profileVideoStatistics", results.get("length"));
                 that.relayout();
             }
         });
@@ -23,6 +24,13 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
     },
     videoCreateModeSwitch: function()
     {
+        if (!this.get('is_video_create_mode'))
+        {
+            document.getElementById("body_id").style.overflow = "hidden";
+        }
+        else {
+            document.getElementById("body_id").style.overflow = "auto";
+        }
         this.set('is_video_create_mode', !this.get('is_video_create_mode'));
     },
     dropdownPhotoSetting: function(id)
@@ -93,6 +101,7 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
                 tempmega.deleteRecord();
                 tempmega.store.save();
                 this.get('videoesContent').removeObject(tempmega);
+                this.get("controllers.profile").set("profileVideoStatistics", this.get('videoesContent').get("length"));
                 break;
             }
         }

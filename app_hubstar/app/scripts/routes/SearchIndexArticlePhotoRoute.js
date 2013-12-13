@@ -1,7 +1,6 @@
-HubStar.ProfilePhotoRoute = Ember.Route.extend({
+HubStar.SearchIndexArticlePhotoRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         var temp;
-               console.log("ssssssssssss");
         var url = window.location.href;
         var urlArray = url.split("/");
         if (model.id === undefined) {                               //reload page model id can not be find
@@ -9,26 +8,16 @@ HubStar.ProfilePhotoRoute = Ember.Route.extend({
         } else {
             temp = model.id;
         }
-        console.log(temp);
-        this.controllerFor("masonryCollectionItems").set("type", "profile");
-        //    this.controllerFor("masoryCollectionItems").set("type", "user");
+       // var type= url []
         var megaModel = HubStar.Mega.find(temp);
-        //   this.controllerFor('mega').set("selectPhoto", true);
-        this.controllerFor('mega').set("selectType", "profile"); // it is from the search board if is not profile, if it profile it is from profile' data
-      //  this.controllerFor('mega').set("loadingTime", true);
-        var that = this;
-        setTimeout(function() {
-            that.controllerFor('mega').getInitData(megaModel);
-        //    that.controllerFor('mega').set("loadingTime", false);
 
-        }, 2000);
+        this.controllerFor('mega').getInitData(megaModel);
 
     },
     model: function(params) {
-
-        var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});// = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
+        var model = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
         this.controllerFor("mega").set("clickOrRoute", true);
-
+  
         return model;
     },
     activate: function() {

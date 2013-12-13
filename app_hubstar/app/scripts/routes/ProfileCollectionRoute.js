@@ -51,8 +51,8 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
                 id = profile.get('collections').objectAt(j).get('optional');
             }
         }
-        var model =HubStar.Mega.find({RquireType: "collection", collection_id: params.profileCollection_id, owner_profile_id: id});
-        model.set("id",params.profileCollection_id);
+        var model = HubStar.Mega.find({RquireType: "collection", collection_id: params.profileCollection_id, owner_profile_id: id});
+        model.set("id", params.profileCollection_id);
         return model;
 
     },
@@ -64,16 +64,15 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
             var address = document.URL;
             var owner_id = address.split("#")[1].split("/")[2];
 
-
             var collection_id = address.split("#")[1].split("/")[4];
             var profile = HubStar.Profile.find(owner_id);
             for (var i = 0; i < profile.get('collections').get("length"); i++) {
-                var data = profile.get('collections').objectAt(i);
+             var  data = profile.get('collections').objectAt(i);
                 if (data.id === collection_id) {
                     break;
                 }
             }
-          
+
             this.transitionTo("profileCollection", data);
             this.transitionTo("profilePhoto", obj);
         },
@@ -90,7 +89,7 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
 
         },
         transitionToVideo: function(video_id) {
-     
+
 //            var address = document.URL;
 //            var owner_id = address.split("#")[1].split("/")[2];
 //

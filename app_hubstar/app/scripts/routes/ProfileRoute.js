@@ -28,12 +28,12 @@ HubStar.ProfileRoute = Ember.Route.extend({
         this.controllerFor('profile').set('switchPhoto', true);
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
-        if (model.get('profile_analytics_code') !== null && model.get('profile_analytics_code') !== '' && model.get('profile_analytics_code') !== undefined) {
-            var analytics_array = model.get('profile_analytics_code').split(',');
-            for (var i = 0; i < analytics_array.length; i ++) {
-                this.sendGAMessage(analytics_array[i], model.get('id').split('-').join('')+i.toString());
-            }
-        }
+//        if (model.get('profile_analytics_code') !== null && model.get('profile_analytics_code') !== '' && model.get('profile_analytics_code') !== undefined) {
+//            var analytics_array = model.get('profile_analytics_code').split(',');
+//            for (var i = 0; i < analytics_array.length; i ++) {
+//                this.sendGAMessage(analytics_array[i], model.get('id').split('-').join('')+i.toString());
+//            }
+//        }
 
         var lastPositionId = HubStar.get('lastPositionId');
         var lastPosition = HubStar.get("scrollPartenerPosition");

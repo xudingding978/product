@@ -22,9 +22,9 @@ HubStar.SearchsController = Ember.ArrayController.extend({
     defaultSearch: function() {    
         this.set("loginInfo", localStorage.loginStatus);
         this.setLoginImge();
-        this.controllerFor('application').set('content',[]);
-        this.controllerFor('application').set('search_string','');
-        this.controllerFor('application').defaultSearch();
+//        this.controllerFor('application').set('content',[]);
+//        this.controllerFor('application').set('search_string','');
+//        this.controllerFor('application').defaultSearch();
           
     },
     getResponseTime: function(start, end) {

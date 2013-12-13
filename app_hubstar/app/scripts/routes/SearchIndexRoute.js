@@ -1,5 +1,5 @@
 HubStar.SearchIndexRoute = Ember.Route.extend({
- setupController: function() {
+    setupController: function() {
 
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
             HubStar.set('isLogin', false);
@@ -7,6 +7,7 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
         } else {
             HubStar.set('isLogin', true);
         }
+        this.controllerFor('article').set("accessFromSearchBoard", true);
         this.controllerFor('searchs').defaultSearch();
         this.controllerFor('index').setLogin();
         this.controllerFor('application').set('islogin', true);
@@ -21,10 +22,10 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
 //        for (var key in item) {
 //            console.log(item[key]);
 //        }
-  $(window).scrollTop(0);
+//  $(window).scrollTop(0);
         localStorage.checkUser = "";
-$(".navbar").css("box-shadow", "");
-$(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+        $(".navbar").css("box-shadow", "");
+        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
     },
     events: {
         transitionToPhoto: function(id) {
@@ -33,12 +34,14 @@ $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
             this.transitionTo("photo", HubStar.Mega.find(id));
         },
         transitionToProfile: function(id) {
+
             this.transitionTo("profileCollections", HubStar.Profile.find(id));
         },
-        transitionToArticle: function(id) {
-            this.controllerFor('article').set("accessFromSearchBoard", true);
-            this.transitionTo("article", HubStar.Article.find(id));
-        }
+//        transitionToArticle: function(id) {
+//            console.log("tomtomtomtom");
+//            this.controllerFor('article').set("accessFromSearchBoard", true);
+//            this.transitionTo("article", HubStar.Article.find(id));
+//        }
     },
     redirect: function() {
 
@@ -46,7 +49,7 @@ $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
 //            this.transitionTo('indexIndex');
 
         } else {
-           // this.transitionTo('searchIndex');
+            //   this.transitionTo('searchIndex');
         }
 
     },
@@ -65,7 +68,7 @@ $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
                 isFitWidth: true
             });
         });
-        
+
         $(window).scrollTop(HubStar.get("setHight"));
         HubStar.set("setHight", 0);
 
@@ -80,4 +83,4 @@ $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
 
     }
 
-    });
+});

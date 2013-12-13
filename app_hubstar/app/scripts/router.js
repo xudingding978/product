@@ -8,11 +8,7 @@ HubStar.Router.map(function() {
 
         this.resource("indexIndex", {path: '/'});
         this.resource("verifyId", {path: '/verify/:verify_id'});
-        this.resource("article", {path: '/articles/:article_id'}, function() {
-            this.resource("searchArticlePhoto", {path: '/photos/:photo_id'});
-        });
-        this.resource("video", {path: '/videos/:video_id'});
-        this.resource("photo", {path: '/photos/:photo_id'});
+
 //        this.resource("videoes", function() {
 //            this.resource("video", {path: ':video_id'});
 //        });
@@ -79,15 +75,29 @@ HubStar.Router.map(function() {
         });
 
         this.resource("searchs", {path: "/search"}, function() {
-            this.resource("searchIndex", {path: '/'});
-            this.resource('search', {path: ':search_id'});
+            this.resource("searchIndex", {path: '/'}, function()
+            {
+                this.resource("article", {path: '/articles/:article_id'}, function() {
+                    this.resource("searchArticlePhoto", {path: '/photos/:photo_id'});
+                });
+//                this.resource("video", {path: '/videos/:video_id'});
+//                this.resource("photo", {path: '/photos/:photo_id'});
+            });
+
+            this.resource('search', {path: ':search_id'}, function() {
+                this.resource("searchIndexArticle", {path: '/articles/:article_id'}, function() {
+                    this.resource("searchIndexArticlePhoto", {path: '/photos/:photo_id'});
+                });
+                this.resource("video", {path: '/videos/:video_id'});
+                this.resource("photo", {path: '/photos/:photo_id'});
+            });
         });
 
-        
-       this.resource("welcome", {
+
+        this.resource("welcome", {
             path: "/welcome"
         });
-        
+
 
         this.resource("register", {
             path: "/register"

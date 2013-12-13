@@ -77,15 +77,23 @@ HubStar.PhotoView = Ember.View.extend({
                     window.history.back();
                 }
             }
-            else if (type !== "articles")
+            else if (type !== "search")
             {
 
                 this.get("controller").closeWindow();
             }
             else
             {
-                
-                this.get("controller").transitionTo("searchIndex");
+                if (id === "articles" || id === "photos" || id === "videos") //it is the search index
+                {
+                       this.get("controller").transitionTo("searchIndex");
+                }
+                else
+                {
+                    HubStar.set("escVideo", true);
+                    this.get("controller").transitionTo("search", {id: id});
+                }
+
             }
 
         }

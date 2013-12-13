@@ -54,7 +54,17 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
         else
         {
-            this.transitionTo("searchArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+            var address = document.URL;
+            var id = address.split("#")[1].split("/")[2];
+            if (id === "articles" || id === "photos" || id === "videos") //it is the search index
+            {
+                this.transitionTo("searchArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+            }
+            else
+            {
+                this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+            }
+
         }
 
         this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
@@ -92,7 +102,17 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
         else
         {
-            this.transitionTo("searchArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+            var address = document.URL;
+            var id = address.split("#")[1].split("/")[2];
+            if (id === "articles" || id === "photos" || id === "videos") //it is the search index
+            {
+                this.transitionTo("searchArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+            }
+            else
+            {
+                this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+            }
+
         }
 
         this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
@@ -141,8 +161,18 @@ HubStar.ArticleController = Ember.Controller.extend({
         else
         {
 
-            this.transitionTo("searchArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
 
+
+            var address = document.URL;
+            var id = address.split("#")[1].split("/")[2];
+            if (id === "articles" || id === "photos" || id === "videos") //it is the search index
+            {
+                this.transitionTo("searchArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+            }
+            else
+            {
+                this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+            }
             //this.transitionTo("article", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo
             //                                                               // as it use the fix id to refresh the route so it will have problem when fresh (change the id)
         }
@@ -286,7 +316,19 @@ HubStar.ArticleController = Ember.Controller.extend({
                     }
                     else
                     {
-                        that.transitionTo("searchArticlePhoto", that.get('content').objectAt(0));
+
+                        var address = document.URL;
+                        var search_id = address.split("#")[1].split("/")[2];
+                        if (search_id === "articles" || search_id === "photos" || search_id === "videos") //it is the search index
+                        {
+                            that.transitionTo("searchArticlePhoto", that.get('content').objectAt(0));
+                        }
+                        else
+                        {
+
+                            that.transitionTo("searchIndexArticlePhoto", that.get('content').objectAt(0));
+                        }
+
                     }
 
                     that.set('selectedPhoto', that.get('content').objectAt(0));                                                  //set selectedPhoto to the first photo
@@ -317,10 +359,19 @@ HubStar.ArticleController = Ember.Controller.extend({
         var type = address.split("#")[1].split("/")[1];
 
 
-        if (collection_id === undefined) //search from the seach board
+        if (type === "search") //search from the seach board
         {
-             this.transitionTo("searchIndex"); // go to search page, this can  work, but it is too slowlly.
-           // window.history.back();
+            if (user_id === "articles" || user_id === "photos" || user_id === "videos") //it is the search index
+            {
+                this.transitionTo("searchIndex");
+            }
+            else
+            {
+                HubStar.set("escVideo", true);
+                this.transitionTo("search", {id: user_id}); // go to search page, this can  work, but it is too slowlly.
+            }
+
+            // window.history.back();
         }
         else
         {

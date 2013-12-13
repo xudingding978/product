@@ -26,9 +26,9 @@ HubStar.ArticleView = Ember.View.extend({
         this.set('readContent', !this.get("readContent"));
 //        $('#article_action').attr("style", "display:block;overflow: hidden;");
         $('#article_text_action').css('height', 'auto');
-         var height = $('#article_text_action').height();
-         $("#article_text_action").height('215px').animate({height:height}, "slow");
-         $('#read_more_cue').attr("style", "display:none;");
+        var height = $('#article_text_action').height();
+        $("#article_text_action").height('215px').animate({height: height}, "slow");
+        $('#read_more_cue').attr("style", "display:none;");
 //        $('#article_action').slideToggle(1000);
     },
     checkClosed: function() {
@@ -46,8 +46,8 @@ HubStar.ArticleView = Ember.View.extend({
 //            // Animation complete.
 //        });
 //         $('#article_action').attr("style", "display:block;overflow: hidden;");
-         var height = $('#article_text_action').offset().height;
-         $("#article_text_action").css({height:height}).animate({"height":"210px"}, "slow");
+        var height = $('#article_text_action').offset().height;
+        $("#article_text_action").css({height: height}).animate({"height": "210px"}, "slow");
         //$('#article_action'),animate({height:"215px"},1000);
 //        $('.article-objectview-left').attr("style", "bottom: 0; top: 0; left: 0; margin: 0; position: absolute; right: 320px; overflow: hidden; transition:all 0.5 ease; ");
         this.set('readContent', !this.get("readContent"));
@@ -106,17 +106,15 @@ HubStar.ArticleView = Ember.View.extend({
             var colectionType = address.split("#")[1].split("/")[5]; //it may be article id , photo id and video id
             var colectionPhoto = address.split("#")[1].split("/")[6]; //it may be article id , photo id and video id
             var user_photo_id = address.split("#")[1].split("/")[8];
-                  
+
             if (type === "users")
             {
                 var user = HubStar.User.find(id);
-    
+
                 if (user_photo_id !== undefined) //type:article means it 
                 {
 
-                  var data = HubStar.Mega.find(colectionPhoto);
-                  console.log("11111111111");
-
+                    var data = HubStar.Mega.find(colectionPhoto);
                     this.get("controller").transitionTo("userPhoto", data); //user
                 }
                 else
@@ -125,23 +123,26 @@ HubStar.ArticleView = Ember.View.extend({
                     window.history.back();
                 }
             }
-            else if (type !== "articles")
+            else if (type !== "search")
             {
 
                 this.get("controller").closeWindow();
             }
-        
+
             else
             {
-              //  window.history.back();
-                 console.log("222222222222222");
-                 this.get("controller").transitionTo("searchIndex");
-               
+                HubStar.set("escVideo", true);
+                if (id === "articles" || id === "photos" || id === "videos") //it is the search index
+                {
+                    this.get("controller").transitionTo("searchIndex");
+                }
+                else
+                {
+                    this.get("controller").transitionTo("search", {id: id});
+                }
             }
 
 
         }
     }
-
-
 });

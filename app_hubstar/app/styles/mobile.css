@@ -23,6 +23,28 @@ and (max-device-width : 1024px)  {
         max-width:100%;
     }/* user profile page master container */
 
+    .plaform_bar > .showsidebar{
+        opacity:.5;
+    }
+    /* side nav styles */
+
+
+    div.Register-Page{
+        z-index:999;
+    }
+    /* Register page */
+
+
+    .show-interest #interest_btn{
+        opacity:1;
+    }
+
+    .interest-insert-hint{
+        font-size:.9em!important;
+    }
+    /* misc */
+    
+    
 } /* iPad in portrait & landscape; All iPads will be affected by this styling ENDS */
 
 
@@ -59,6 +81,11 @@ and (-webkit-min-device-pixel-ratio: 1)  {
         min-width:100%;
         max-width:100%;
     }/* user profile page master container */
+    
+    div.Register-Page{
+        z-index:999;
+    }
+    /* Register page */
 }/* iPad mini in portrait & landscape  ENDS*/
 
 /* iPad mini in landscape */
@@ -115,6 +142,11 @@ and (max-device-width : 568px) {
     .navbar .brand{padding:2.5px 0;}
     .logonew{height:40px;}
     /* header styles end */
+    
+    div.Register-Page{
+        z-index:999;
+    }
+    /* Register page */
 
 }
 
@@ -169,6 +201,13 @@ and (max-device-width : 480px) {
     .navbar .brand{padding:2.5px 0;}
     .logonew{height:40px;}
     /* header styles end */
+    
+    
+    div.Register-Page{
+        z-index:999;
+    }
+    /* Register page */
+    
 }
 
 

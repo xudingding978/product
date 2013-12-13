@@ -22,7 +22,6 @@ HubStar.ProfilePhotoRoute = Ember.Route.extend({
         //    that.controllerFor('mega').set("loadingTime", false);
 
         }, 2000);
-
     },
     model: function(params) {
 

@@ -213,10 +213,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set("projectDeleteDropdownContent", profile.get("profile_isDeleted"));
         this.updateWorkingHourData(profile.get('profile_hours'));
         this.set("collections", profile.get("collections"));
-        
         this.set("reviews", profile.get("reviews"));
-
-
         this.set('profile_average_review_length', profile.get("profile_average_review_length"));
         // document.getElementById("starsize").style.width="156px";
         if (profile.get("profile_average_review_length") !== "" && profile.get("profile_average_review_length") !== null && profile.get("profile_average_review_length") !== undefined) {

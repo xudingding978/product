@@ -103,9 +103,23 @@ class RefineDataCommand extends Controller_admin {
         $bucket = 'develop';
         $article_arr = $this->findAllAccordingType($bucket, 'article');
         $cb = $this->couchBaseConnection($bucket);
-        $collectionId_arr = array();
-        $helium_arr = array();
+        //  $collectionId_arr = array();
+        //  $helium_arr = array();
+
+
+
+        $setting['log.enabled'] = true;
+        $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = '/var/log/yii/' . $datetime . '.log';
+        $Sherlock = new \Sherlock\Sherlock($setting);
+        $Sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $Sherlock->search();
+        $index = $bucket;
+        $request->index($index)->type('couchbaseDocument');
+
+
         foreach ($article_arr as $article) {
+            $message=null;
             time_nanosleep(0, 200000000);
             $collection_id = null;
             $helium = null;
@@ -123,33 +137,37 @@ class RefineDataCommand extends Controller_admin {
                     echo "can not find helium media id for " . $article . "\n";
                 }
                 if ($collection_id != null && $helium != null) {
-                    array_push($helium_arr, $helium);
-                    array_push($collectionId_arr, $collection_id);
-                    echo $article." | ".$collection_id." | ".$helium."\n";
-                }
-                //array_push$record_arr
-            } else {
-                echo $article . "can not find the article in couchbase\n";
-            }
-        }
-        $setting['log.enabled'] = true;
-        $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
-        $log_path = '/var/log/yii/' . $datetime . '.log';
-        $Sherlock = new \Sherlock\Sherlock($setting);
-        $Sherlock->addNode("es1.hubsrv.com", 9200);
-        $request = $Sherlock->search();
-        $index = $bucket;
-        $request->index($index)->type('couchbaseDocument');
+                    echo $article . " | " . $collection_id . " | " . $helium . "\n";
 
-        for ($i = 0; $i <= sizeof($collectionId_arr); $i++) {
-            $raw = '
+//                    $raw = '
+//             {
+//    "bool": {
+//      "must": [
+//        {
+//          "query_string": {
+//            "default_field": "couchbaseDocument.doc.' . "['article'][0]['article_helium_media_id']," .
+//                            '"query": "\"' . $helium . '\""
+//          }
+//        },
+//          {
+//          "query_string": {
+//            "default_field": "couchbaseDocument.doc.type",
+//            "query": "article"
+//          }
+//        }
+//      ]
+//    }
+//    }
+//';
+
+                    $raw = '
              {
     "bool": {
       "must": [
         {
           "query_string": {
-            "default_field": "couchbaseDocument.doc.collection_id",
-            "query": "\"' . $collectionId_arr[$i] . '\""
+            "default_field": "couchbaseDocument.doc.article.article_helium_media_id",
+                           "query": "\"' . $helium . '\""
           }
         },
           {
@@ -162,44 +180,171 @@ class RefineDataCommand extends Controller_admin {
     }
     }
 ';
-       //     echo $raw;
 
-            $query = Sherlock\Sherlock::queryBuilder()->Raw($raw);
-   //         echo $query->toJSON()."\n";
+                   // echo $raw . "\n";
+                    echo $helium;
+                    $query = Sherlock\Sherlock::queryBuilder()->Raw($raw);
+               //     echo $query->toJSON() . "\n";
 
-            $request->query($query);
-            echo $request->toJSON()."\n";
+                    $request->query($query);
+                    echo $request->toJSON() . "\n";
 
-            $response = $request->execute();
-            echo sizeof($response);
-            if (sizeof($response) > 1) {
-                $check_arr = array();
-                foreach ($response as $collection) {
-                    array_push($check_arr, $collection['source']['doc']['article'][0]['article_helium_media_id']);
+                    $response = $request->execute();
+                    echo sizeof($response)."\n";
+                    if (sizeof($response) > 1) {
+                        $check_arr = array();
+                        foreach ($response as $helium_found) {
+                            if ($helium_found['id'] != $article) {
+                                array_push($check_arr, $helium_found['id']);
+                            }
+                        }
+                        if (sizeof($check_arr) > 1) {
+                            echo $article . " | " . $collection_id . " has more that 2 duplications----------n";
+                            $message = $article . " | " . $collection_id . " has more that 2 duplications----------n";
+                        } else {
+                            $compare_arr=CJSON::decode($cb->get($check_arr[0]));
+                            $current = $result_arr['created'];
+                            $compare = $compare_arr['created'];
+                            if ($result_arr['owner_id'] === $compare_arr['owner_id'] && $result_arr['country'] === $compare_arr['country']) {
+
+
+
+
+                                if ($current > $compare) {
+                                    echo $article . " | " . $collection_id . " | " . $helium . " | " .$current." update into " . $check_arr[0] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] ." | ".$compare. "\n";
+                                    $message =$article . " | " . $collection_id . " | " . $helium . " | " .$current." update into " . $check_arr[0]  . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] ." | ".$compare. "\n";
+                                } elseif ($current < $compare) {
+                                    echo $check_arr[0] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] ." | ".$compare. " update into " . $article . " | " . $collection_id . " | " . $helium ." | " .$current."\n";
+                                    $message =$check_arr[0] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] ." | ".$compare. " update into " . $article . " | " . $collection_id . " | " . $helium ." | " .$current."\n";
+                                } else {
+                                    echo $article . " | " . $collection_id . " | " . $helium . " has same timestamp with " . $compare_arr['id'] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] . "-------------------\n";
+                                    $message = $article . " | " . $collection_id . " | " . $helium . " has same timestamp with " . $compare_arr['id'] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] . "-------------------\n";
+                                }
+                            }
+
+
+
+
+                            //array_push$record_arr
+                        }
+                        $this->writeToLog($log_path, $message);
+                    } else {
+                        echo $article . " | " . $collection_id . " has single helium media associated with it\n";
+                    }
+                    //    
+                } else {
+                    echo $article . "can not find the helium or collection id --------\n";
                 }
-       //         echo var_export($collection,true);
-                echo var_export($check_arr,true);
-                if (sizeof(array_unique($check_arr)) > 1) {
-                    echo $collection['id'] . " | " . $collectionId_arr[$i] ." | " .$collection['source']['doc']['created']." has more than one helium media associated with it-----------------\n";
-                    $message=$collection['id']  . " | " . $collectionId_arr[$i]  ." | ".$collection['source']['doc']['created']. " has more than one helium media associated with it-----------------\n";
-                    $this->writeToLog($log_path, $message);
-                }else{
-                    echo $article . " | " . $collectionId_arr[$i] . " has single helium media associated with it\n";
-                }
-            }else{
-                   echo $article . " | " . $collectionId_arr[$i] . " has single helium media associated with it\n";
+            } else {
+                echo $article . "can not find the article in couchbase----------------\n";
             }
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+//    
+//    public function fixArticlebeenUpdatedwithWrongId() {
+//        $bucket = 'develop';
+//        $article_arr = $this->findAllAccordingType($bucket, 'article');
+//        $cb = $this->couchBaseConnection($bucket);
+//        $collectionId_arr = array();
+//        $helium_arr = array();
+//        
+//        
+//        
+//        
+//        
+//        
+//        foreach ($article_arr as $article) {
+//            time_nanosleep(0, 200000000);
+//            $collection_id = null;
+//            $helium = null;
+//            $result = $cb->get($article);
+//            if ($result != null) {
+//                $result_arr = CJSON::decode($result);
+//                if ($result_arr['collection_id'] != null) {
+//                    $collection_id = $result_arr['collection_id'];
+//                } else {
+//                    echo "can not find collection id for " . $article . "\n";
+//                }
+//                if ($result_arr['article'][0]['article_helium_media_id'] != null) {
+//                    $helium = $result_arr['article'][0]['article_helium_media_id'];
+//                } else {
+//                    echo "can not find helium media id for " . $article . "\n";
+//                }
+//                if ($collection_id != null && $helium != null) {
+//                    array_push($helium_arr, $helium);
+//                    array_push($collectionId_arr, $collection_id);
+//                    echo $article." | ".$collection_id." | ".$helium."\n";
+//                }
+//                //array_push$record_arr
+//            } else {
+//                echo $article . "can not find the article in couchbase\n";
+//            }
+//        }
+//        $setting['log.enabled'] = true;
+//        $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+//        $log_path = '/var/log/yii/' . $datetime . '.log';
+//        $Sherlock = new \Sherlock\Sherlock($setting);
+//        $Sherlock->addNode("es1.hubsrv.com", 9200);
+//        $request = $Sherlock->search();
+//        $index = $bucket;
+//        $request->index($index)->type('couchbaseDocument');
+//
+//        for ($i = 0; $i <= sizeof($collectionId_arr); $i++) {
+//            $raw = '
+//             {
+//    "bool": {
+//      "must": [
+//        {
+//          "query_string": {
+//            "default_field": "couchbaseDocument.doc.collection_id",
+//            "query": "\"' . $collectionId_arr[$i] . '\""
+//          }
+//        },
+//          {
+//          "query_string": {
+//            "default_field": "couchbaseDocument.doc.type",
+//            "query": "article"
+//          }
+//        }
+//      ]
+//    }
+//    }
+//';
+//       //     echo $raw;
+//
+//            $query = Sherlock\Sherlock::queryBuilder()->Raw($raw);
+//   //         echo $query->toJSON()."\n";
+//
+//            $request->query($query);
+//            echo $request->toJSON()."\n";
+//
+//            $response = $request->execute();
+//            echo sizeof($response);
+//            if (sizeof($response) > 1) {
+//                $check_arr = array();
+//                foreach ($response as $collection) {
+//                    array_push($check_arr, $collection['source']['doc']['article'][0]['article_helium_media_id']);
+//                }
+//       //         echo var_export($collection,true);
+//                echo var_export($check_arr,true);
+//                if (sizeof(array_unique($check_arr)) > 1) {
+//                    echo $collection['id'] . " | " . $collectionId_arr[$i] ." | " .$collection['source']['doc']['created']." has more than one helium media associated with it-----------------\n";
+//                    $message=$collection['id']  . " | " . $collectionId_arr[$i]  ." | ".$collection['source']['doc']['created']. " has more than one helium media associated with it-----------------\n";
+//                    $this->writeToLog($log_path, $message);
+//                }else{
+//                    echo $article . " | " . $collectionId_arr[$i] . " has single helium media associated with it\n";
+//                }
+//            }else{
+//                   echo $article . " | " . $collectionId_arr[$i] . " has single helium media associated with it\n";
+//            }
+//        }
+//    }
+
+
+
+
+
 
     public function fixCreated() {
         $bucket = 'production';
@@ -455,7 +600,7 @@ class RefineDataCommand extends Controller_admin {
     public function fixBoostNumber() {
         $bucket = 'develop';
         $profile_record = array();
-        //  $this->fixBoostForUsers($bucket);
+//  $this->fixBoostForUsers($bucket);
         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $log_path = "/var/log/yii/$start_time.log";
         $package_path = "/var/log/yii/ProfilePackages.log";
@@ -544,8 +689,8 @@ class RefineDataCommand extends Controller_admin {
     }
 
     public function fixProfileRelatedImages($id, $boost, $bucket) {
-        //               $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
-        //    $log_path = "/var/log/yii/$start_time.log";
+//               $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+//    $log_path = "/var/log/yii/$start_time.log";
         $data_arr = array();
         $message = "";
 
@@ -617,14 +762,14 @@ class RefineDataCommand extends Controller_admin {
         $request = $sherlock->search();
         $index = $bucket;
 
-        //     $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('55959331448')
+//     $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('55959331448')
         $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"55959331448\"")
                 ->default_field('couchbaseDocument.doc.comments.commenter_id');
 //        $must2 = Sherlock\Sherlock::queryBuilder()
 //                ->QueryString()->query("photo")
 //                ->default_field('couchbaseDocument.doc.type');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
-        //           ->must($must2);
+//           ->must($must2);
         $request->index($index)->type("couchbaseDocument");
         $request->from(0)
                 ->size(500);
@@ -772,9 +917,9 @@ class RefineDataCommand extends Controller_admin {
         $result_arr = CJSON::decode($result, true);
         $data_arr = $result_arr['hits']['hits'];
 
-        // echo "number of file: " . var_export($result_arr);
-        //   $message=  var_export($result_arr,TRUE);
-        //$record_arr=array();
+// echo "number of file: " . var_export($result_arr);
+//   $message=  var_export($result_arr,TRUE);
+//$record_arr=array();
         foreach ($data_arr as $found) {
 
             $data_arr = $found['_source']['doc'];
@@ -803,8 +948,8 @@ class RefineDataCommand extends Controller_admin {
 
 
 
-        // $message=var_export($result_arr);
-        //    echo $message;
+// $message=var_export($result_arr);
+//    echo $message;
         echo "number of file: " . sizeof($data_arr);
     }
 
@@ -1109,7 +1254,7 @@ class RefineDataCommand extends Controller_admin {
     }
 
     public function getBookInfor() {
-        // get book infor 
+// get book infor 
         $book_id = array();
         $book_date = 0;
         $book_title = "";
@@ -1143,16 +1288,16 @@ class RefineDataCommand extends Controller_admin {
     }
 
     public function structureArray($val, $photo_arr) {
-        // get size of image
+// get size of image
         $original_size = $photo_arr['photo_original_filename'];
 
-        // image url
+// image url
         $original_url = 'http://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/original/' . $photo_arr['photo_original_filename'];
         $hero_url = 'http://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/hero/' . $photo_arr['photo_hero_filename'];
         $preview_url = 'http://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/preview/' . $photo_arr['photo_preview_filename'];
         $thumbnail_url = 'http://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/thumbnail/' . $photo_arr['photo_thumbnail_filename'];
 
-        //  get region and country
+//  get region and country
         $country = "";
 
         $region = Regions::model()->selectRegionByImage($val['id']);
@@ -1164,16 +1309,16 @@ class RefineDataCommand extends Controller_admin {
             }
         }
 
-        // get topic
+// get topic
         $topic_list = TopicSearchNames::model()->selectTopicName($val['id']);
 
-        //get subcategory
+//get subcategory
         $subcategory = SubCategorySearchNames::model()->selectSubCategory($val['id']);
 
-        // get category
+// get category
         $category = Categories::model()->selectCategory($val['id']);
 
-        // get book infor 
+// get book infor 
         $book_id = array();
         $book_date = 0;
         $book_title = "";
@@ -1205,13 +1350,13 @@ class RefineDataCommand extends Controller_admin {
             }
         }
 
-        // get current datetime
+// get current datetime
         $accessed = strtotime(date('Y-m-d H:i:s'));
 
-        // get keywords imfor
+// get keywords imfor
         $keywords = mb_check_encoding($val['keywords'], 'UTF-8') ? $val['keywords'] : utf8_encode($val['keywords']);
 
-        // get article
+// get article
 //            Yii::import("application.models.*");
         $article = Article::model()->findByPk((int) $val['articleId']);
 
@@ -1476,7 +1621,7 @@ class RefineDataCommand extends Controller_admin {
     }
 
     public function writeToLog($fileName, $content) {
-        //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
+//   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
         $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
         $output = "\n" . $content;
         fwrite($handle, $output);
@@ -1486,5 +1631,4 @@ class RefineDataCommand extends Controller_admin {
     }
 
 }
-
 ?>

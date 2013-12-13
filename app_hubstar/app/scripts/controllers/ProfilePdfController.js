@@ -5,6 +5,7 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
     newPdfSource: '',
     newPdfName: '',
     newPdfCover: '',
+    newPdfDesc: '',
     getVideo: true,
     videoesContent: [],
     isRenderDeleteItemTemplate: false,

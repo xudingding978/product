@@ -1,8 +1,6 @@
 HubStar.CollectionController = Ember.Controller.extend({
     collections: null,
-
     needs: ['applicationFeedback', 'addCollection'],
-
     init: function() {
 
     },
@@ -24,12 +22,12 @@ HubStar.CollectionController = Ember.Controller.extend({
                     collection.set('desc', desc);
                 } else {
                     collection.set('desc', "Add a short description to your Collection");
-                }             
+                }
             } else {
                 this.get('controllers.applicationFeedback').statusObserver(null, "Please try to type name with upper case and space.", "warnning");
-            }           
+            }
         }
-        
+
         return collection;
 
     },
@@ -40,6 +38,10 @@ HubStar.CollectionController = Ember.Controller.extend({
             if (title.indexOf(" ") !== -1) {
                 title = title.split(' ').join('-');
             }
+            if (title === "content")
+            {
+                title = "content-trends";
+            }
         }
         return title;
     },
@@ -47,8 +49,9 @@ HubStar.CollectionController = Ember.Controller.extend({
         var isExsinting = true;
         if (postOrPut === "create") {
             for (var i = 0; i < this.get("collections").get('length'); i++) {
-                if (this.get('controllers.addCollection').get("isProfile") === true)
-                {                  
+                if (HubStar.get("isProfile") === true)
+                {
+
                     if (this.get("collections").objectAt(i).id === id) {
                         isExsinting = false;
                     }
@@ -63,8 +66,8 @@ HubStar.CollectionController = Ember.Controller.extend({
             if (!isExsinting) {
                 this.get('controllers.applicationFeedback').statusObserver(null, "This Collection is already exsiting.", "warnning");
             }
-        }       
-       return isExsinting;
+        }
+        return isExsinting;
     },
     specialCharactersChecking: function(str) {
         var re = /^[a-zA-Z0-9-][a-zA-Z0-9-]*$/;

@@ -77,9 +77,15 @@ HubStar.PhotoView = Ember.View.extend({
                     window.history.back();
                 }
             }
+            else if (type !== "articles")
+            {
+
+                this.get("controller").closeWindow();
+            }
             else
             {
-                this.get("controller").closeWindow();
+                
+                this.get("controller").transitionTo("searchIndex");
             }
 
         }

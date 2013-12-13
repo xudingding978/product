@@ -3,12 +3,14 @@ var Router = Ember.Router.extend( );
 
 
 HubStar.Router.map(function() {  
-    //this.route("fourOhFour",  {path: "*:"});
+    this.route("fourOhFour",  {path: "*:"});
     this.resource("index", {path: '/'}, function() {
-        
+
         this.resource("indexIndex", {path: '/'});
         this.resource("verifyId", {path: '/verify/:verify_id'});
-        this.resource("article", {path: '/articles/:article_id'});
+        this.resource("article", {path: '/articles/:article_id'}, function() {
+            this.resource("searchArticlePhoto", {path: '/photos/:photo_id'});
+        });
         this.resource("video", {path: '/videos/:video_id'});
         this.resource("pdf", {path: '/pdf/:video_id'});
         this.resource("photo", {path: '/photos/:photo_id'});
@@ -27,7 +29,7 @@ HubStar.Router.map(function() {
                     this.resource("profileArticle", {path: '/article/:article_id'}, function() {
                         this.resource("profileArticlePhoto", {path: '/photos/:photo_id'});
                     });
-                    
+
                     this.resource("profileVideo", {path: '/videos/:video_id'});
                 });
             });
@@ -81,12 +83,13 @@ HubStar.Router.map(function() {
             this.resource("searchIndex", {path: '/'});
             this.resource('search', {path: ':search_id'});
         });
-        
+
         
        this.resource("welcome", {
             path: "/welcome"
         });
         
+
         this.resource("register", {
             path: "/register"
         });

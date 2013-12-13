@@ -78,10 +78,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('search_string', '');
         this.set('loginUsername', localStorage.userName);
     },
-    dropdownPhotoSetting: function() {
-        this.set("isNotification", !this.get("isNotification"));
-        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
-    },
+  
     popupModal: function() {
         HubStar.set('checkLoginStatus', true);
     },
@@ -401,7 +398,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         if (checking === "geoLocation") {
             this.set('isGeoDropdown', !this.get('isGeoDropdown'));
             $('#geo-filter').toggleClass('Geo-Filter-active');
-        } else {
+            
+        } else  if (checking === "notification"){
+
+        this.set("isNotification", !this.get("isNotification"));
+        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
+         $('#Geo-Filter').toggleClass('Geo-Filter-active');
 
         }
     },
@@ -478,7 +480,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     canelDropDown: function()
     {
         $('#geo-filter').toggleClass('Geo-Filter-active');
-        this.set('isGeoDropdown', false);
+    //    $('#Geo-Filter').toggleClass('Geo-Filter-active');
+         this.set('isGeoDropdown', false);
+         //this.set("isNotification", false);
     },
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")

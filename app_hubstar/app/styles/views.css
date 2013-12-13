@@ -418,6 +418,7 @@ a:hover , a:focus {color: #aaa;}
 
 .tagsappear{
     opacity: 0;
+    overflow: hidden;
 }
 
 .tagsappear:hover{

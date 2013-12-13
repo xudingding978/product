@@ -194,7 +194,7 @@ class ConversationsController extends Controller {
                 $mega_currentUser["participation_ids"] = $mega_currentUser["participation_ids"] . "," . $participantIds;
             }
             $participantions = explode(",", $mega_currentUser["participation_ids"]);
-            
+
 
             for ($i = 0; $i < sizeof($participation_id); $i++) {
 
@@ -329,7 +329,7 @@ class ConversationsController extends Controller {
     }
 
     public function createNotification($commenter_id, $participantions, $date, $conversationID, $commentContent) {
-        
+
         for ($i = 0; $i < sizeof($participantions); $i++) {
             if ($participantions[$i] !== $commenter_id) {
                 $ownerId = $participantions[$i];
@@ -356,25 +356,31 @@ class ConversationsController extends Controller {
                     }
                     array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
                 }
-                
+
                 if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
                     if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
                         $receiveEmail = $userInfo['user'][0]['email'];
                         $receiveName = $userInfo['user'][0]['display_name'];
-                        $notificationCount = 0;
+                        $notificationCountFollow = 0;
+                        $notificationCountMessage = 0;
+
                         for ($j = 0; $j < sizeof($userInfo['user'][0]['notifications']); $j++) {
                             if ($userInfo['user'][0]['notifications'][$j]["isRead"] === false) {
-                                $notificationCount++;
+                                if ($userInfo['user'][0]['notifications'][$j]["type"] === "follow" || $userInfo['user'][0]['notifications'][$j]["type"] === "unFollow") {
+                                    $notificationCountFollow++;
+                                } else {
+                                    $notificationCountMessage++;
+                                }
                             }
-                        } 
-                        $this->sendEmail($receiveEmail, $receiveName, $notificationCount, $ownerId);
+                        }
+                        $this->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
                     }
                 }
             }
         }
     }
 
-    public function sendEmail($receiveEmail, $receiveName, $notificationCount, $ownerId) {
+    public function sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId) {
 
      //   $receiveEmail = "tom@hubstar.co";
         $domain = $this->getDomain();
@@ -398,7 +404,9 @@ class ConversationsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->confirmationEmailForm($domainWithoutAPI,$receiveName, $notificationCount, $ownerId)
+
+                        "Data" => $this->confirmationEmailForm($domainWithoutAPI,$receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId)
+
                     )
                 ),
             ),
@@ -406,7 +414,9 @@ class ConversationsController extends Controller {
         $amazonSes->sendEmail($args);
     }
 
-    public function confirmationEmailForm($domainWithoutAPI,$receiveName, $notificationCount, $ownerId) {
+
+    public function confirmationEmailForm($domainWithoutAPI,$receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId) {
+
         return '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -441,7 +451,8 @@ class ConversationsController extends Controller {
                                                            text-align: left;" cellpadding="0" cellspacing="0">
                                                         <tr>
                                                             <td valign="top">
-                                                            <a href="http://'.$domainWithoutAPI.'/#/users/' . $ownerId . '/messagecenter/notifications">  ' . $notificationCount . ' notifications  </a>
+
+                                                            <a href="http://'.$domainWithoutAPI.'/#/users/' . $ownerId . '/messagecenter/notifications">  ' . $notificationCountMessage . ' notifications  </a>
                                                                   
                                                             </td>
                                                         </tr>

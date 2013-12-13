@@ -12,6 +12,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
         this.controllerFor('user').set('followerTag', false);
         this.controllerFor('user').set('followingTag', false);
         this.controllerFor('user').set('messageTag', true);
+        
         // The following two line is used to change the selection with dark 
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#message').addClass('selected-user-stats');
@@ -22,8 +23,9 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
         if (this.controllerFor('notificationTop').get("notificationSeeAll") === true)
         {
             model = localStorage.loginStatus;
-            this.controllerFor('notificationTop').set("notificationSeeAll", false);
-        }      
+            //this.controllerFor('notificationTop').set("notificationSeeAll", false);
+        }  
+       
         if (this.controllerFor('notificationTop').get("goConversation") === true)
         {
 
@@ -32,6 +34,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             this.controllerFor('messageCenter').getClientId(localStorage.loginStatus);
         }
         else if (address.split("#")[1].split("/").length === 6 && address.split("#")[1].split("/")[4] === "conversations") {
+            
             conversation_id = address.split("#")[1].split("/")[5];
             this.controllerFor('messageCenter').getClientId(localStorage.loginStatus, conversation_id);
         }

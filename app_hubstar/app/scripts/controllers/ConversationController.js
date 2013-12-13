@@ -43,7 +43,7 @@ HubStar.ConversationController = Ember.Controller.extend({
     },
     removeConversationItem: function(s)
     {
-        var message = "Delete this conversation?";
+        var message = "Remove this conversation?";
         this.set("message", message);
 
         this.set('makeSureDelete', true);

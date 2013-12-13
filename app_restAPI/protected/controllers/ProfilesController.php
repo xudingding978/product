@@ -120,6 +120,7 @@ class ProfilesController extends Controller {
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
             $payload_json = CJSON::encode($payloads_arr['profile'], true);
+            
             $newRecord = CJSON::decode($payload_json);
             $cb = $this->couchBaseConnection();
             $oldRecord = CJSON::decode($cb->get($this->getDomain() . $_SERVER['REQUEST_URI']));
@@ -134,6 +135,8 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_contact_first_name'] = $newRecord['profile_contact_first_name'];
             $oldRecord['profile'][0]['profile_contact_last_name'] = $newRecord['profile_contact_last_name'];
             $oldRecord['profile'][0]['profile_contact_number'] = $newRecord['profile_contact_number'];
+             $oldRecord['profile'][0]['profile_name'] = $newRecord['profile_name'];
+             error_log(var_export($oldRecord['profile'][0]['profile_name'],true));
             $oldRecord['profile'][0]['profile_country'] = $newRecord['profile_country'];
             $oldRecord['profile'][0]['profile_domains'] = $newRecord['profile_domains'];
             $oldRecord['profile'][0]['profile_country'] = $newRecord['profile_country'];
@@ -148,8 +151,6 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['show_keyword_id'] = $newRecord['show_keyword_id'];
 //            $oldRecord['profile'][0]['keywords'] = $newRecord['keywords'] ;
 //            $oldRecord['keyword'] = $newRecord['keywords'];
-            
-            $oldRecord['profile'][0]['profile_name'] = $newRecord['profile_name'];
             if ($oldRecord['profile'][0]['profile_package_name'] !== $newRecord['profile_package_name']){
                 $oldRecord['profile'][0]['profile_package_name'] = $newRecord['profile_package_name'];
                 $boost = $this->setBoost($newRecord['profile_package_name']);
@@ -176,7 +177,7 @@ class ProfilesController extends Controller {
 
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
-            }
+            }       
         } catch (Exception $exc) {
             
         }

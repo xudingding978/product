@@ -522,7 +522,7 @@ div.search-loading-invisible{
 .Dropdownstyle1{
     overflow: visible;
     position: absolute;
-    min-width: 233px;
+    min-width: 23px;
     z-index: 102;
     background-color: white;
     border: 1px solid rgba(0, 0, 0, 0.08);

@@ -1,3 +1,9 @@
+{{#if controller.loadingTime}}
+
+{{render loadingSpinner}}
+
+{{/if}}
+
 <div class="profilegb" style="width: 100%;height: auto;">
     <div style="width: 100%; height: 100%; overflow: hidden; position: fixed;"> 
         <img src="../../../images/landingpagebg.jpg" style="width: 100%; height:100%; ">
@@ -7,7 +13,7 @@
 
         <img src="http://s3.hubsrv.com/trendsideas.com/profiles/trends-media-sales-marketing-services/profile_picture/Screen%20Shot%202013-09-05%20at%209_286x284.51" style="width: 150px; height:auto;border: 3px solid white;box-shadow: 0px 0px 15px #555; float: left;">
 
-        <div style="float: left;color: white; text-shadow: 0px 0px 15px #000;font-size: 40px;line-height: 50px;letter-spacing: 1px;margin: 24px 0 0 30px;">
+        <div style="float: left;color: white; text-shadow: 0px 0px 15px #000;font-size: 40px;line-height: 50px;letter-spacing: 1px;margin: 24px 0 0 28px;">
             <p><b>SIGN UP NOW</b></p> 
             <p><b>TO TRENDS IDEAS SPACE</b></p>        
         </div>
@@ -32,360 +38,362 @@
         <div style="padding: 10px; font-weight: bold; background-color: rgb(241, 238, 238);">Step 2. Client Detail</div>
         <div class="contactme-table easing" style="width: 87%;margin: auto;padding-bottom: 50px;">
 
-            <table style="padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 40px 0 30px;">
-                <tbody class="profilesnew-table" style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-                    <tr>
-                        <th></th>
-                    </tr>
+            <div style="padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 40px 0 30px;">
+                <div class="profilesnew-table" style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+                    <div style="display:table-row">  
+                    </div>
 
-                    <tr>
-                        <td>Client Name*:</td>
-                        <td> 
+                    <div style="display:table-row">
+                        <div style="display:table-cell; text-align: right;">Client Name*:</div>
+                        <div style="display:table-cell"> 
                             <div style="display: block;">
-                                <div   id="clientNameField" class=""   style="margin: 0;width: 80%;">
+                                <div   id="clientNameField" class=""   style="margin: 10px 30px 5px 10px;;width: 70%;">
                                     {{view Ember.TextField valueBinding="client_name" class="clientName"  placeholder="Your Name" }}
                                 </div>
                             </div>
                             <div class="mustfull" id="clientName" style="display: none">please fill in info... </div>
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
 
-                    <tr>
-                        <td>Client Email*:</td>
+                    <div style="display:table-row">
+                        <div style="display:table-cell;text-align: right;">Client Email*:</div>
 
-                        <td> 
+                        <div style="display:table-cell"> 
                             <div style="display: block;">
-                                <div   id="clientEmailField"  style="margin: 0;width: 80%;">
+                                <div   id="clientEmailField"  style="margin: 10px 30px 5px 10px;;width: 70%;">
                                     {{view Ember.TextField valueBinding="owner" class="clientEmail"  placeholder="emailaddress@yourdomain.com"}}
                                 </div>
                             </div>   
                             <div class="mustfull" id="clientEmailFormat" style="display: none">not correct email format.....</div>
                             <div class="mustfull" id="clientEmail" style="display: none">please fill in info... </div>
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
 
-                </tbody>
-            </table>
+                </div>
+            </div>
         </div>
         <div style="padding: 10px; font-weight: bold; background-color: rgb(241, 238, 238);">Step 3. Business Profile</div>
         <div class="contactme-table easing" style="width: 87%;margin: auto;padding-bottom: 50px;">
 
-            <table style="padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 40px 0 30px;">
-                <tbody  id="step3" class="profilesnew-table" style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+            <div id="step3" style="padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 40px 0 30px;">
+                <div   class="profilesnew-table" style="display: table-row-group; vertical-align: middle; border-color: inherit;">
 
-                    <tr>
-                        <th></th>
-                    </tr>
+                    <div style="display:table-row">  
+                    </div>
 
-                    <tr>
-                        <td>Profile Name*: </td>                     
-                        <td> 
-                            <div  id="profileNameField" style="display: block;">
+                    <div style="display:table-row">
+                        <div style="display:table-cell;text-align: right;" >Profile Name*: </div>                     
+                        <div style="display:table-cell"> 
+                            <div  id="profileNameField" style="margin: 10px 30px 5px 10px;;width: 70%;">
                                 {{view Ember.TextField valueBinding="profile_name"   class="profileName" placeholder="Your Business Name"}} 
                             </div>
                             <div class="mustfull" id="profileName" style="display: none">please fill in info... </div>
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
 
 
-                    <tr>
-                        <td>Profile Category:</td> 
+                    <div style="display:table-row">
+                        <div style="display:table-cell;text-align: right;" >Profile Category:</div> 
 
-                        <td>
-                            <div id="categorySelectionCheck"class="new-btn" style="display: block;" {{action dropdown "category"}}>
-                                 <span id="categorySelection">{{controller.categorySelection}}</span>
-                                <span class="caret"></span>
+                        <div style="display:table-cell">
+                            <div  style="display: block; margin-bottom: 0px;" >
+                                <div id="categorySelectionCheck"class="new-btn" style="margin: 10px 10px 0;width: 34%;display: inline-block;" {{action dropdown "category"}}>
+                                     <span id="categorySelection">{{controller.categorySelection}}</span>
+                                    <span class="caret"></span>
+                                    {{#if controller.categoryDropdown}}
+                                {{view HubStar.DropdownListView}}
+                                {{/if}}
+                                </div>
+                                
+                                <div class="mustfull" id="categoryCheck" style="display: none">please Select a Category </div>
+
+                                <div id="subcategorySelectionCheck" class="new-btn" style="margin: 10px -1px 0;width: 34%;display: inline-block;" {{action dropdown "subcategory"}}>
+                                     <span id="subcategorySelection">{{controller.subcategorySelection}}</span>
+                                    <span class="caret"></span>
+                                     {{#if controller.subcategoryDropdown}}
+                                {{view HubStar.DropdownListView}}
+                                {{/if}}
+                                </div>
+                               
+                                <div class="mustfull" id="subcategoryCheck" style="display: none">please Select a Subcategory </div>
                             </div>
-                            {{#if controller.categoryDropdown}}
-                            {{view HubStar.DropdownListView}}
-                            {{/if}}
-                            <div class="mustfull" id="categoryCheck" style="display: none">please Select a Category </div>
-                        </td>
+                        </div>
 
-                        <td>
-                            <div id="subcategorySelectionCheck" class="new-btn" style="display:inline-block; width:100%;" {{action dropdown "subcategory"}}>
-                                 <span id="subcategorySelection">{{controller.subcategorySelection}}</span>
-                                <span class="caret"></span>
-                            </div>
-                            {{#if controller.subcategoryDropdown}}
-                            {{view HubStar.DropdownListView}}
-                            {{/if}}
-                            <div class="mustfull" id="subcategoryCheck" style="display: none">please Select a Subcategory </div>
-                        </td>
-
-
-                    </tr>
+                    </div>
 
 
 
-                    <tr>
-                        <td>Physical Address:</td>                      
-                        <td>
-                            <div id="countrySelectionCheck" class="new-btn" style="display: block;" {{action dropdown "country"}}>
+                    <div style="display:table-row">
+                        <div style="display:table-cell;text-align: right;" >Physical Address:</div>                      
+                        <div style="display:table-cell">
+                            <div id="countrySelectionCheck" class="new-btn"  style="margin: 10px 30px 5px 10px;;width: 70%;" {{action dropdown "country"}}>
                                  <span id="countrySelection">{{controller.countrySelection}}</span>
                                 <span class="caret"></span>
-                            </div>
-                            {{#if controller.countryDropdown}}
+                                {{#if controller.countryDropdown}}
                             {{view HubStar.DropdownListView}}
                             {{/if}}
+                            </div>
+                            
                             <div class="mustfull" id="countryCheck" style="display: none">please Select a Country </div>
 
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
 
-                    <tr>
-                        <td></td>
-                        <td>
-                            <div id="regionSelectionCheck" class="new-btn" style="display: block;" {{action dropdown "region"}}>
+                    <div style="display:table-row">
+                        <div style="display:table-cell;text-align: right;" ></div>
+                        <div style="display:table-cell">
+                            <div id="regionSelectionCheck" class="new-btn"  style="margin: 10px 30px 5px 10px;;width: 70%;" {{action dropdown "region"}}>
                                  <span id="regionSelection">{{controller.regionSelection}}</span>
                                 <span class="caret"></span>
-                            </div>
-                            {{#if controller.regionDropdown}}
+                                 {{#if controller.regionDropdown}}
                             {{view HubStar.DropdownListView}}
                             {{/if}}
+                            </div>
+                           
                             <div class="mustfull" id="regionCheck" style="display: none">please Select a Region </div>
-                        </td>
+                        </div>
 
-                    </tr>
+                    </div>
 
-                    <tr>
-                        <td></td>
-                        <td> 
+                    <div style="display:table-row">
+                        <div style="display:table-cell;text-align: right;" ></div>
+                        <div style="display:table-cell"> 
 
                             <div style="display: block;">
-                                <div   style="margin: 0;width: 100%;">
+                                <div    style="margin: 10px 30px 5px 10px;;width: 70%;">
                                     {{view Ember.TextField valueBinding="suburb"  placeholder="Suburb"}}
                                 </div>
                             </div>
 
-                        </td>
+                        </div>
 
-                    </tr>
+                    </div>
 
 
-                    <tr>
-                        <td></td>
-                        <td> 
+                    <div style="display:table-row">
+                        <div style="display:table-cell;text-align: right;" ></div>
+                        <div style="display:table-cell"> 
 
-                            <div   style="margin: 0;width: 100%;">
+                            <div    style="margin: 10px 30px 5px 10px;;width: 70%;">
                                 {{view Ember.TextField valueBinding="address"  placeholder="Street Address"}}
                             </div>
 
 
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:table-row">
+                    <div style="display:table-cell;text-align: right;" >Contact Name:</div>
+                    <div style="display:table-cell"> 
+                        <div  style="display: block; margin-bottom: 0px;" >
+
+                            <div  style="margin: 10px 10px 0;width: 34%;display: inline-block;">
+                                {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
                             </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Contact Name:</td>
-                        <td> 
-                            <div  style="display: block; margin-bottom: 5px;" >
-
-                                <div  style="margin: 0 5px 0;width: 48%;display: inline-block;">
-                                    {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
-                                </div>
-                                <div style="margin: 0;width: 48%;display: inline-block;">
-                                    {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
-                                </div>
-
+                            <div style="margin: 10px -3px 0;width: 34%;display: inline-block;">
+                                {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
                             </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Contact Number:</td>
-                        <td> 
 
-                            <div  style="display: block; margin-bottom: 5px; " >
-                                <div id="numberSelectionCheck"  class="new-btn" style="margin: 0 5px 0; display: inline-block; width: 15%" {{action dropdown "number"}}>
-                                     <span id="numberSelection">{{controller.numberSelection}}</span>
-                                    <span class="caret"></span>
-                                </div>
-                                {{#if controller.numberDropdown}}
-                                {{view HubStar.DropdownListView}}
-                                {{/if}}
-                                <div id="numberField"  style="margin: 0; display: inline-block;width: 70%;">
-                                    {{view Ember.TextField valueBinding="profile_contact_number" class="contactNumber" placeholder="Your Business Contact Number"}}
-                                </div>
-                                <div class="mustfull" id="numberFormat" style="display: none">please fill in info as number </div>
-                            </div>
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:table-row">
+                    <div style="display:table-cell;text-align: right;" >Contact Number:</div>
+                    <div style="display:table-cell"> 
 
-                    <tr>
-                        <td>Contact Email*:</td>
-
-                        <td> 
-                            <div style="display: block;">
-                                <div   id="contactEmailField" style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="direct_enquiry_emails"  class="contactEmail"  placeholder="emailaddress@yourdomain.com"}}
-                                </div>
-                            </div>     
-                            <div class="mustfull" id="contactEmailFormat" style="display: none">not correct email format.....</div>
-                            <div class="mustfull" id="contactEmail" style="display: none">please fill in info... </div>
-                        </td>
-                        <td id="firstAdd" {{action addSecond target="view" on="click"}}><k class="icon-plus" ></k></td> 
-                    </tr>
-                    
-                    <tr id="secondEmail" style="display:none;">
-                        <td>Contact Second Email</td>
-
-                        <td> 
-                            <div style="display: block;">
-                                <div   id="contactEmailField2" style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="direct_enquiry_emails_2"  class="contactEmail2"  placeholder="emailaddress@yourdomain.com"}}
-                                </div>
-                            </div>     
-                            <div class="mustfull" id="contactEmailFormat2" style="display: none">not correct email format.....</div>
-                            <div class="mustfull" id="contactEmail2" style="display: none">please fill in info... </div>
-                        </td>
-                        {{#if view.added}}
-                         <td id="secondAdd" {{action addThird target="view" on="click"}}><k class="icon-plus" ></k></td>
-                        <td id="secondDelete" {{action deleteSecond target="view" on="click"}}><k class="icon-minus" ></k></td>
-                        {{else}}
-                         <td id="secondDelete" {{action deleteSecond target="view" on="click"}}><k class="icon-minus" ></k></td>
-                         {{/if}}
-                    </tr>
-                    
-                    <tr id="thirdEmail" style="display:none;">
-                        <td>Contact Third Email</td>
-
-                        <td> 
-                            <div style="display: block;">
-                                <div   id="contactEmailField3" style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="direct_enquiry_emails_3"  class="contactEmail3"  placeholder="emailaddress@yourdomain.com"}}
-                                </div>
-                            </div>     
-                            <div class="mustfull" id="contactEmailFormat3" style="display: none">not correct email format.....</div>
-                            <div class="mustfull" id="contactEmail3" style="display: none">please fill in info... </div>
-                        </td>
-                        
-                        <td id="thirdDelete" {{action deleteThird target="view" on="click"}}><k class="icon-minus" ></k></td>
-                    </tr>
-
-                    <tr>
-                        <td>Website Name:</td>
-                        <td> 
-                            <div style="display: block;">
-                                <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="website" placeholder="yourdomain.com"}}
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Website URL:</td>
-                        <td> 
-                            <div style="display: block;">
-                                <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="website_url" placeholder="http://www.yourdomain.com"}}
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Profile URL*:</td>
-                        <td> 
-                            <div style="display: block;">
-                                {{controller.profile_name}}-{{controller.regionSelection}}-{{ controller.countrySelection}}
+                        <div  style="display: block; margin-bottom: 0px; " >
+                            <div id="numberSelectionCheck"  class="new-btn" style="margin: 10px 10px 0; display: inline-block; width: 15%" {{action dropdown "number"}}>
+                                 <span id="numberSelection">{{controller.numberSelection}}</span>
+                                <span class="caret"></span>
+                                 {{#if controller.numberDropdown}}
+                            {{view HubStar.DropdownListView}}
+                            {{/if}}
                             </div>
                            
-                        </td> 
-                    </tr>
+                            <div id="numberField"  style="margin: 10px 3px 0;;width: 52%; display: inline-block;">
+                                {{view Ember.TextField valueBinding="profile_contact_number" class="contactNumber" placeholder="Your Business Contact Number"}}
+                            </div>
+                            <div class="mustfull" id="numberFormat" style="display: none">please fill in info as number </div>
+                        </div>
+                    </div>
+                </div>
 
-                    <tr id="addTR">
-                        <td>Admins*:</td>
-                        <td> 
-                            <div style="display: block;">
-                                <div   id="adminsField_1" style="margin: 0;width: 100%;">
-                                    <input id="admins_1"  type="text" class="admins" placeholder="emailaddress@yourdomain.com"/>
-                                </div>
-                            </div>                   
-                            <div class="mustfill" id="adminsEmailFormat_1" style="display: none">not correct email format.....</div>
-                            <div class="mustfull" id="adminEmail_1" style="display: none">please fill in info... </div>
-                        </td>
-                        <td  {{action addTRmore}}><k class="icon-plus" ></k></td>
-                        
-                    </tr>
-                    
-                    
-                    
-                    
-                    </tbody>
-            </table>
+                <div style="display:table-row">
+                    <div style="display:table-cell;text-align: right;" >Contact Email*:</div>
+
+                    <div style="display:table-cell"> 
+                        <div style="display: block;">
+                            <div   id="contactEmailField" style="margin: 10px 30px 5px 10px;;width: 70%;">
+                                {{view Ember.TextField valueBinding="direct_enquiry_emails"  class="contactEmail"  placeholder="emailaddress@yourdomain.com"}}
+                            </div>
+                        </div>     
+                        <div class="mustfull" id="contactEmailFormat" style="display: none">not correct email format.....</div>
+                        <div class="mustfull" id="contactEmail" style="display: none">please fill in info... </div>
+                    </div>
+                    <div style="display:table-cell" id="firstAdd" {{action addSecond target="view" on="click"}}><k class="icon-plus" ></k></div> 
+                </div>
+
+                <div  id="secondEmail" style="display:table-row; display:none;">
+                    <div style="display:table-cell;text-align: right;" >Contact Second Email:</div>
+
+                    <div style="display:table-cell"> 
+                        <div style="display: block;">
+                            <div   id="contactEmailField2" style="margin: 10px 30px 5px 10px;;width: 70%;">
+                                {{view Ember.TextField valueBinding="direct_enquiry_emails_2"  class="contactEmail2"  placeholder="emailaddress@yourdomain.com"}}
+                            </div>
+                        </div>     
+                        <div class="mustfull" id="contactEmailFormat2" style="display: none">not correct email format.....</div>
+                        <div class="mustfull" id="contactEmail2" style="display: none">please fill in info... </div>
+                    </div>
+                    {{#if view.added}}
+                    <div style="display:table-cell" id="secondAdd" {{action addThird target="view" on="click"}}><k class="icon-plus" ></k></div>
+                    <div style="display:table-cell" id="secondDelete" {{action deleteSecond target="view" on="click"}}><k class="icon-minus" ></k></div>
+                    {{else}}
+                    <div style="display:table-cell" id="secondDelete" {{action deleteSecond target="view" on="click"}}><k class="icon-minus" ></k></div>
+                    {{/if}}
+                </div>
+
+                <div id="thirdEmail" style="display:table-row; display:none;">
+                    <div style="display:table-cell;text-align: right;" >Contact Third Email:</div>
+
+                    <div style="display:table-cell"> 
+                        <div style="display: block;">
+                            <div   id="contactEmailField3" style="margin: 10px 30px 5px 10px;;width: 70%;">
+                                {{view Ember.TextField valueBinding="direct_enquiry_emails_3"  class="contactEmail3"  placeholder="emailaddress@yourdomain.com"}}
+                            </div>
+                        </div>     
+                        <div class="mustfull" id="contactEmailFormat3" style="display: none">not correct email format.....</div>
+                        <div class="mustfull" id="contactEmail3" style="display: none">please fill in info... </div>
+                    </div>
+
+                    <div style="display:table-cell" id="thirdDelete" {{action deleteThird target="view" on="click"}}><k class="icon-minus" ></k></div>
+                </div>
+
+                <div style="display:table-row">
+                    <div style="display:table-cell;text-align: right;" >Website Name:</div>
+                    <div style="display:table-cell"> 
+                        <div style="display: block;">
+                            <div  style="margin: 10px 30px 5px 10px;;width: 70%;">
+                                {{view Ember.TextField valueBinding="website" placeholder="yourdomain.com"}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:table-row">
+                    <div style="display:table-cell;text-align: right;" >Website URL:</div>
+                    <div style="display:table-cell"> 
+                        <div style="display: block;">
+                            <div   style="margin: 10px 30px 5px 10px;;width: 70%;">
+                                {{view Ember.TextField valueBinding="website_url" placeholder="http://www.yourdomain.com"}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:table-row">
+                    <div style="display:table-cell;text-align: right;" >Profile URL*:</div>
+                    <div style="display:table-cell"> 
+                        <div style="margin: 10px 30px 5px 10px;;width: 70%; text-align: center;">
+                            {{controller.profile_name}}-{{controller.regionSelection}}-{{ controller.countrySelection}}
+                        </div>
+
+                    </div> 
+                </div>
+
+                <div style="display:table-row" id="addTR">
+                    <div style="display:table-cell;text-align: right;" >Admins*:</div>
+                    <div style="display:table-cell"> 
+                        <div style="display: block;">
+                            <div   id="adminsField_1" style="margin: 10px 30px 5px 10px;;width: 70%;">
+                                <input id="admins_1"  type="text" class="admins" placeholder="emailaddress@yourdomain.com"/>
+                            </div>
+                        </div>                   
+                        <div class="mustfill" id="adminsEmailFormat_1" style="display: none">not correct email format.....</div>
+                        <div class="mustfull" id="adminEmail_1" style="display: none">please fill in info... </div>
+                    </div>
+                    <div style="display:table-cell"  {{action addTRmore}}><k class="icon-plus" ></k></div>
+
+                </div>
+
+
+
+
+            </div>
         </div>
+
+
         <div style="padding: 10px; font-weight: bold; background-color: rgb(241, 238, 238);">Step 4. Image Uploade</div>
         <div class="contactme-table easing" style="width: 87%;margin: auto;padding-bottom: 50px;">
 
-            <table style="padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 40px 0 30px;">
-                <tbody class="profilesnew-table" style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+            <div style="padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 40px 0 30px;">
+                <div class="profilesnew-table" style="display: table-row-group; vertical-align: middle; border-color: inherit;">
 
-              
-                    
-                    <tr>
-                        <td>Background:</td>
-                        <td> 
+
+
+                    <div style="display:table-row">
+                        <div style="display:table-cell;text-align: right;">Background:</div>
+                        <div style="display:table-cell;"> 
                             <div style="display: block;">
-                                <div   style="margin: 0;width: 100%;">
+                                <div   style="margin: 10px 30px 5px 10px;;width: 70%;">
                                     {{view Ember.TextField valueBinding="profile_bg_url"  class="background"  placeholder="http://yourBackgroundImage" }}
                                 </div>
                             </div>
-                        </td>
-                        <td>
-                        <div id="bg" style="opacity:1">{{view HubStar.BackgroundUploaderVIew }}</div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Hero:</td>
-                        <td> 
+                        </div>
+                        <div style="display:table-cell;">
+                            <div class="new-btn blue-btn" style="margin: auto; width: 70px; top: 1742px; right: 150px;position: absolute;">
+                                Choose 
+                                <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view HubStar.BackgroundUploaderVIew }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display:table-row">
+                        <div style="display:table-cell;text-align: right;">Hero:</div>
+                        <div style="display:table-cell;"> 
                             <div style="display: block;">
-                                <div   style="margin: 0;width: 100%;">
+                                <div   style="margin: 10px 30px 5px 10px;;width: 70%;">
                                     {{view Ember.TextField valueBinding="profile_hero_url"  class="hero"  placeholder="http://yourHeroImage" }}
                                 </div>
                             </div>
-                        </td>
-                      
-                        <td>
-                             
-                            <div id="hero" style="opacity:1">{{view HubStar.HeroUploaderVIew }}</div>
-                       
-           
-                        </td>
-                       
-                    </tr>
-
-
-                    <tr>
-                        <td>Picture:</td>
-                        <td> 
+                        </div>
+                        <div style="display:table-cell;">
+                            <div class="new-btn blue-btn" style="margin: auto; width: 70px; top: 1790px; right: 150px;position: absolute;">
+                                Choose 
+                                <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view HubStar.HeroUploaderVIew }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display:table-row">
+                        <div style="display:table-cell; text-align: right;">Picture:</div>
+                        <div style="display:table-cell;"> 
                             <div style="display: block;">
-                                <div   style="margin: 0;width: 100%;">
+                                <div  style="margin: 10px 30px 5px 10px;;width: 70%;">
                                     {{view Ember.TextField valueBinding="profile_pic_url"  class="picture"  placeholder="http://yourPictureImage" }}
                                 </div>
                             </div>
-                        </td>
-                        <td>
-                           <div id="pic" style="opacity:1">{{view HubStar.PictureUploaderVIew }}</div>
-
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Request Keywords: {{controller.keywordNumber}}</td>
-                        <td> 
+                        </div>
+                        <div style="display:table-cell;">
+                            <div class="new-btn blue-btn" style="margin: auto; width: 70px; top: 1840px; right: 150px;position: absolute;">
+                                Choose 
+                                <div style="opacity:0;position: absolute;top: 0px;left: 0;">  {{view HubStar.PictureUploaderVIew }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display:table-row">
+                        <div style="display:table-cell; text-align: right;">Request Keywords: {{controller.keywordNumber}}</div>
+                        <div style="display:table-cell;"> 
                             <div style="display: block;">
-                                <div   style="margin: 0;width: 100%; height:100px;">
+                                <div   style="margin: 10px 30px 5px 10px;;width: 70%;">
                                     {{view Ember.TextArea valueBinding="keywords" class="no-resize"  placeholder="* Please ensure you use a commer seperated list!!! ie: bathroom, kitchen, living room"}}
                                 </div>
                             </div>
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
 
 
-                </tbody>
-            </table>
+                </div>
+            </div>
 
             <div  style="display: block; margin:15px auto; float: none; right: 0; bottom: 0;text-align: center;">
                 <a class="new-btn green-btn" href="#" {{action save }} style="width: 100px;">Create Profile</a>
@@ -401,6 +409,7 @@
 
 
 </div>
+
 
 
 

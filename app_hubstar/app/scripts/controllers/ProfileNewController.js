@@ -47,6 +47,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     heroName: "",
     pictureSource: "",
     pictureName: "",
+    loadingTime: false,
     categorys: [],
     subcate: [],
     init: function()
@@ -353,7 +354,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             var newdiv = document.createElement('tr');
             newdiv.innerHTML = "<td></td><td><div style='display: block;'><div id='adminsField_" + counter
                     + "'"
-                    + "style='margin: 0;width: 100%;'>"
+                    + "style='margin: 10px 30px 5px 10px;;width: 70%;'>"
                     + "<input id='admins_" + counter + "'" + "type='text' placeholder='emailaddress@yourdomain.com'></div></div>"
                     + "<div class='mustfill' id='adminsEmailFormat_" + counter
                     + "'"
@@ -436,27 +437,28 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             newMegaNewModel.get("profile").addObject(newProfile);
             var that = this;
             newMegaNewModel.store.save();
-
+            that.set('loadingTime', true);
             newMegaNewModel.addObserver('isDirty', function() {
                 if (!newMegaNewModel.get('isDirty')) {
 
                     that.transitionToRoute('profile', newProfile);
-                    // that.transitionToRoute('profiles', {id: that.get("profile_url")});
+
 
                 } else {
                 }
+
             });
 
         }
-
-        var that = this;
+var that = this;
         setTimeout(function() {
             that.imageModeSelection();
-             location.href="#/profiles/" + that.get("profile_url");
-        location.reload();
+            location.href = "#/profiles/" + that.get("profile_url");
+            location.reload();
         }, 100);
-       
-// this.transitionToRoute('profile', {id: this.get("profile_url")});
+
+        that.set('loadingTime', false);
+
 
     },
     dropdown: function(checking) {

@@ -203,7 +203,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     removeComment: function(object)
     {
-        var message = "Delete this comment?";
+        var message = "Remove this comment?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {

@@ -13,8 +13,8 @@
             <h4>View the Latest Video from the Trends YouTube channel</h4></a>
         {{#each about_video}}
         <div class="aboutus-attr">Video URL: </div>
-        <div style="border: 1px solid #ddd;border-radius: 2px;float: left;width: 510px;margin-bottom: 10px;">{{view Ember.TextArea valueBinding="video_url" class="no-effect no-resize"  placeholder="*"}}</div> 
-        <div class="new-btn" style="position: relative;height: 52px;float: left;top: 0;line-height: 48px;" {{action getVideoURL}}>apply</div>
+        <div style="border: 1px solid #ddd;border-radius: 2px;float: left;width: 495px;margin-bottom: 10px;margin-right: 2px;">{{view Ember.TextArea valueBinding="video_url" class="no-effect no-resize"  placeholder="*"}}</div> 
+        <div class="new-btn" style="position: relative;height: 52px;float: left;top: 0;line-height: 48px;" {{action getVideoURL}}>preview</div>
         <iframe width="560" height="315" {{bindAttr src="controller.embeded_url"}} frameborder="0" allowfullscreen=""></iframe> 
         <div class="aboutus-thisvideo">
             <div class="aboutus-attr">Video Title: </div>

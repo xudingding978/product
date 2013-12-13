@@ -53,7 +53,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     },
     removeNotificationItem: function(s)
     {
-        var message = "Delete this notification?";
+        var message = "Remove this notification?";
         this.set("message", message);
 
         this.set('makeSureDelete', true);

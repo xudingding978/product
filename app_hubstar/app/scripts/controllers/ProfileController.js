@@ -662,7 +662,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     deleteSelectedCollection: function()
     {
 
-        var message = "'Delete this collection?";
+        var message = "Remove this collection?";
 
         this.set("message", message);
         this.set('makeSureDelete', true);

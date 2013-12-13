@@ -1,14 +1,14 @@
 <div style="z-index: 100;">
-{{#view HubStar.SingleFileUploaderView}}
-<div style="position: relative;margin: 15px auto;height: 380px;width: px;background-color: rgba(242,240,240);border: 3px dashed #aaa;z-index: 100;"> 
-    <div style="top: 50px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
-        <i class="icon-upload" style="font-size: 45px;"></i>
-        <p style="font-weight: bold;">
-            Drag and drop.
-        </p>
-    </div>
-    <div class="new-btn blue-btn" style="" {{action closeUploader}}>
-        close  
+    {{#view HubStar.SingleFileUploaderView}}
+    <div style="position: relative;margin: 15px auto;height: 380px;width: px;background-color: rgba(242,240,240);border: 3px dashed #aaa;z-index: 100;"> 
+        <div style="top: 50px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
+            <i class="icon-upload" style="font-size: 45px;"></i>
+            <p style="font-weight: bold;">
+                Drag and drop.
+            </p>
+        </div>
+        <div class="new-btn blue-btn" style="" {{action closeUploader}}>
+             close  
     </div> 
     <div class="new-btn blue-btn" style="margin: auto; width: 200px; top: 200px; position: absolute;left: 80px;right: 67%;">
         Choose 
@@ -25,13 +25,14 @@
 {{#if pdfInfromationEdit}}
 <div id="pdfInformation">
     <div>
-        {{controller.newPdfCover}}
+        {{view Ember.TextField valueBinding="newPdfName"  placeholder="file name"}}
     </div>
     <div>
-        {{controller.newPdfName}}
+        {{view Ember.TextField valueBinding="newPdfDesc"  placeholder="file description"}}
     </div>
-    <div>
-        {{controller.newPdfDesc}}
+    <div class="controlbtn" style="left: 34%;">
+        <span class="new-btn" {{action back }}>Close</span>
+        <span class="new-btn green-btn" {{action submit}}>Upload</span> 
     </div>
 </div>
 {{/if}}

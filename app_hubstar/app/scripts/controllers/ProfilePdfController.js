@@ -30,6 +30,13 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
     closeUploader: function() {
          this.set('is_pdf_create_mode', false);
     },
+    back: function() {
+        this.set('pdfInfromationEdit', false);
+        this.set('newPdfName', '');
+        this.set('newPdfSource', '');
+        this.set('newPdfCover', '');
+        this.set('newPdfDesc', '');
+    },
     pdfCreateModeSwitch: function()
     {
         console.log('switch');

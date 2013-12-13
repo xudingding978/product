@@ -199,12 +199,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("googletagCmd", []);
         this.set("content", []);
         this.set("adPageNo", 0);
+        this.set('loadingTime', true);
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
 
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
                 that.setContent(results);
+                that.set('loadingTime', false);
                 //that.relayout();
             }
         });

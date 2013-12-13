@@ -36,7 +36,7 @@ HubStar.ReviewReplyListSingleController = Ember.Controller.extend({
         this.set("review_enableToEdit", !this.get('review_enableToEdit'));
     },
     removeReviewReply: function() {
-        this.set('message', "Are you going to delete this Reply?");
+        this.set('message', "Remove this Reply?");
         this.set('makeSureDelete', !this.get('makeSureDelete'));
         this.set("delete_id", this.get('model').get("review_reply_id"));
     },

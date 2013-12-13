@@ -52,6 +52,8 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
         }
     },
     didInsertElement: function() {
+
         //this.$().focus();   //it is used to control the acess from route ,can change url from search 
+
     }
 });

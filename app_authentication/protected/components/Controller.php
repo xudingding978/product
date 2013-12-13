@@ -32,6 +32,20 @@ class Controller extends CController {
         return CJSON::decode(file_get_contents('php://input'));
     }
 
+    protected function couchBaseConnection() {
+        $bucket = Yii::app()->params['couchBaseBucket'];
+        $account = Yii::app()->params['couchBaseAccount'];
+        $password = Yii::app()->params['couchBasePassword'];
+        $node = Yii::app()->params['couchBaseNode'];
+        return new Couchbase($node, $account, $password, $bucket, true);
+    }
+
+    public function getCurrentUTC() {
+        $datetime = date("Y-m-d H:i:s");
+        $time_string = strtotime($datetime);
+        return $time_string;
+    }
+
     /**
      * Send raw HTTP response
      * @param int $status HTTP status code

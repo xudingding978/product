@@ -78,6 +78,7 @@ HubStar.CommentController = Ember.Controller.extend({
             var message_id = createMessageid() + commenter_id;
             var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url, "message_id": message_id,
                 "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), "is_delete": false, optional: this.get('mega').get('type') + '/' + this.get('mega').get('id')});
+            
             comments.insertAt(0, tempComment);
             comments.store.save();
             this.set('commentContent', "");
@@ -155,7 +156,7 @@ HubStar.CommentController = Ember.Controller.extend({
     },
     removeComment: function(object)
     {
-        var message = "Delete this comment?";
+        var message = "Remove this comment?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {

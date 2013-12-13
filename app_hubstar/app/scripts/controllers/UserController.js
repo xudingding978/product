@@ -723,7 +723,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     deleteSelectedCollection: function()
     {
-        var message = "Do you wish to remove your'" + this.get("selectedCollection").get('title') + "' collection from your User Profile?'";
+        var message = "Do you wish to remove your '" + this.get("selectedCollection").get('title') + "' collection from your User Profile?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {
@@ -816,7 +816,7 @@ HubStar.UserController = Ember.Controller.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
-        this.set("Id", this.get('collections').objectAt(0).get('optional'));
+        //this.set("Id", this.get('collections').objectAt(0).get('optional'));
 
 
         this.set('messageTag', false);

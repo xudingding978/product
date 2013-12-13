@@ -114,7 +114,9 @@ HubStar.ArticleView = Ember.View.extend({
                 if (user_photo_id !== undefined) //type:article means it 
                 {
 
-                    var data = HubStar.Mega.find(colectionPhoto);
+
+                  var data = HubStar.Mega.find(colectionPhoto);
+
                     this.get("controller").transitionTo("userPhoto", data); //user
                 }
                 else
@@ -131,6 +133,7 @@ HubStar.ArticleView = Ember.View.extend({
 
             else
             {
+
                 HubStar.set("escVideo", true);
                 if (id === "articles" || id === "photos" || id === "videos") //it is the search index
                 {
@@ -140,6 +143,7 @@ HubStar.ArticleView = Ember.View.extend({
                 {
                     this.get("controller").transitionTo("search", {id: id});
                 }
+
             }
 
 

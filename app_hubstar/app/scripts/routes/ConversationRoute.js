@@ -1,5 +1,6 @@
 HubStar.ConversationRoute = Ember.Route.extend({
     setupController: function(controller, model) {
+     
         setTimeout(function() {
             $('#masonry_user_container').masonry("reload");
         }, 200);
@@ -10,10 +11,25 @@ HubStar.ConversationRoute = Ember.Route.extend({
         var user_id = address.split("#")[1].split("/")[2];
         var user = HubStar.User.find(user_id);
         var conversation_id = address.split("#")[1].split("/")[5];
+        
         var data = null;
-        if (conversation_id === "new" || conversation_id === "null")
+        
+        if (conversation_id === "new")
         {
             this.transitionToRoute("newConversation");
+        }
+        else if (conversation_id === "null" || conversation_id === undefined)
+        {
+            if (user.get('conversations').get("length") > 0)
+            {
+                data = user.get('conversations').objectAt(0);
+                data.set("id", data.get("conversation_id"));            
+                return data;
+            }
+            else
+            {
+                this.transitionToRoute("newConversation");
+            }
         }
         else {
 
@@ -26,7 +42,6 @@ HubStar.ConversationRoute = Ember.Route.extend({
             }
             return data;
         }
-
     }
 });
 

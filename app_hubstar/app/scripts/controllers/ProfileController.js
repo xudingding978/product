@@ -213,7 +213,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set("projectDeleteDropdownContent", profile.get("profile_isDeleted"));
         this.updateWorkingHourData(profile.get('profile_hours'));
         this.set("collections", profile.get("collections"));
-
+        
         this.set("reviews", profile.get("reviews"));
 
 
@@ -223,9 +223,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             $('#starsize').attr("style", "width:" + profile.get("profile_average_review_length") + "px");
             this.set("profile_average_review", profile.get("profile_average_review"));
         }
-        else if (profile.get('reviews').get("length") === 0) {
-            console.log("hehe");
-            $('#starsize').attr("style", "width:100px");
+
+        else if(profile.get('reviews').get("length")===0){
+            
+             $('#starsize').attr("style", "width:100px");
+
             this.set("profile_average_review", "5");
         }
         else {
@@ -662,7 +664,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     deleteSelectedCollection: function()
     {
 
-        var message = "'Delete this collection?";
+        var message = "Remove this collection?";
 
         this.set("message", message);
         this.set('makeSureDelete', true);
@@ -834,7 +836,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.sendEventTracking('event', 'button', 'click', 'Collections');
         this.set('partnerPage', 'Collections');
         this.set('profileSelectionStatus', 'Collections');
-        this.set("Id", this.get('collections').objectAt(0).get('optional'));
+        //this.set("Id", this.get('collections').objectAt(0).get('optional'));
         this.set('partnerTag', false);
         this.set('followerProfileTag', false);
         this.set('collectionTag', true);

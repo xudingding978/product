@@ -45,6 +45,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeLoginURL: "",
     loginTime: false,
     isGeoDropdown: false,
+  //  isNotification:false,
     isNavigatorDropdown: false,
     isHeaderNavigatorDropdown: false,
     adPageNo: 0,
@@ -397,7 +398,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     dropdown: function(checking) {
         if (checking === "geoLocation") {
             this.set('isGeoDropdown', !this.get('isGeoDropdown'));
-            $('#geo-filter').toggleClass('Geo-Filter-active');
+            $('#geo-filter').addClass('Geo-Filter-active');
             
         } else  if (checking === "notification"){
 
@@ -406,6 +407,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
          $('#Geo-Filter').toggleClass('Geo-Filter-active');
 
         }
+    },
+      canelDropDown: function()
+    {
+        $('#geo-filter').toggleClass('Geo-Filter-active');
+         this.set('isGeoDropdown', !this.get('isGeoDropdown'));
+    
     },
     dropdownNavigator: function() {
 
@@ -477,13 +484,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('isHeaderNavigatorDropdown', false);
         HubStar.set("showDiscoveryBar", false);
     },
-    canelDropDown: function()
-    {
-        $('#geo-filter').toggleClass('Geo-Filter-active');
-    //    $('#Geo-Filter').toggleClass('Geo-Filter-active');
-         this.set('isGeoDropdown', false);
-         //this.set("isNotification", false);
-    },
+  
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {

@@ -21,18 +21,18 @@ HubStar.SearchsRoute = Ember.Route.extend({
         $(window).scrollTop(0);
     },
     events: {
-        transitionToPhoto: function(id) {
-            this.controllerFor('mega').set("selectPhoto", false);
-            this.transitionTo("photo", HubStar.Mega.find(id));
-        },
-        transitionToProfile: function(id) {
-            this.transitionTo("profileCollections", HubStar.Profile.find(id));
-        },
-        transitionToArticle: function(id) {
-
-            this.controllerFor('article').set("accessFromSearchBoard", true);
-            this.transitionTo("article", HubStar.Article.find(id));
-        }
+//        transitionToPhoto: function(id) {
+//            this.controllerFor('mega').set("selectPhoto", false);
+//            this.transitionTo("photo", HubStar.Mega.find(id));
+//        },
+//        transitionToProfile: function(id) {
+//            this.transitionTo("profileCollections", HubStar.Profile.find(id));
+//        },
+//        transitionToArticle: function(id) {
+//
+//            this.controllerFor('article').set("accessFromSearchBoard", true);
+//            this.transitionTo("article", HubStar.Article.find(id));
+//        }
     },
     redirect: function() {
 

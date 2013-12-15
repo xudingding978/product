@@ -44,7 +44,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                 for (var i = 0; i < this.get("content").length; i++) {
                     var tempObject = results.objectAt(i);
                     that.get("content").pushObject(tempObject);
-                }
+                }               
             }
         });
         this.checkEditingMode();
@@ -65,6 +65,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
             var results = HubStar.Collection.find({RquireType: "personalCollection", profile_id: owner_id, collection_id: collection_id});
             var that = this;
+     
             results.addObserver('isLoaded', function() {
                 if (results.get('isLoaded')) {
                     var titleFill = results.objectAt(0).get("title");
@@ -322,6 +323,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     if (tempmega.get('profile').get('length') === 0 && tempmega.get('user').get('length') === 0 && (that.get('collection_id') === tempmega.get('collection_id')))
                     {
                         that.get("content").pushObject(tempmega);
+                        console.log(that.get("content"));
                     }
                 }
             }

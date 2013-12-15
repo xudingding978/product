@@ -6,7 +6,7 @@ HubStar.VideoView = Ember.View.extend({
     DiscussionTag: false,
     NameTag: false,
     didInsertElement: function() {
- return this.$().attr({tabindex: 1}), this.$().focus();
+        return this.$().attr({tabindex: 1}), this.$().focus();
     },
     setTitleTag: function() {
         $('#article_action').slideToggle(1000);
@@ -45,7 +45,7 @@ HubStar.VideoView = Ember.View.extend({
 
 
     },
-             keyUp: function(event, view) {
+    keyUp: function(event, view) {
         if (event.which === 27)
         { // pressed 'esc'
 
@@ -65,7 +65,7 @@ HubStar.VideoView = Ember.View.extend({
 
                 if (user_photo_id !== undefined) //type:article means it 
                 {
-     
+
                     var data = null;
                     for (var i = 0; i < user.get('collections').get("length"); i++) {
                         data = user.get('collections').objectAt(i);
@@ -77,13 +77,15 @@ HubStar.VideoView = Ember.View.extend({
                 }
                 else
                 {
-        
+
                     window.history.back();
                 }
             }
             else
             {
-                window.history.back();
+                HubStar.set("escVideo", true);
+                this.get("controller").transitionTo("search", {id: id});
+                //window.history.back();
             }
 
 

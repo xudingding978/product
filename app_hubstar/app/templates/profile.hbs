@@ -187,9 +187,17 @@
                                     <tr>
                                         <th>Category:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" class="insert-contactdetails" value=model.profile_category  }}
+                                        {{input type="text" class="insert-contactdetails" value=model.profile_category }}
                                         {{else}}
                                         <th class="Contact_2child"><a >{{model.profile_category}}</a></th>
+                                        {{/if}}
+                                    </tr>
+                                    <tr>
+                                        <th>Subcategory:</th>
+                                        {{#if controller.editingContact}}
+                                        {{input type="text" class="insert-contactdetails" value=model.profile_subcategory }}
+                                        {{else}}
+                                        <th class="Contact_2child"><a >{{model.profile_subcategory}}</a></th>
                                         {{/if}}
                                     </tr>
                                     <tr>

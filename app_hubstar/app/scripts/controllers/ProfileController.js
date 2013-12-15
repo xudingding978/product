@@ -220,14 +220,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             $('#starsize').attr("style", "width:" + profile.get("profile_average_review_length") + "px");
             this.set("profile_average_review", profile.get("profile_average_review"));
         }
-<<<<<<< HEAD
         else if (profile.get('reviews').get("length") === 0) {
             $('#starsize').attr("style", "width:100px");
-=======
-        else if(profile.get('reviews').get("length")===0){
-            
-             $('#starsize').attr("style", "width:100px");
->>>>>>> 12f1f032c18d0aaa331626413671b71e848b8392
+
             this.set("profile_average_review", "5");
         }
         else {

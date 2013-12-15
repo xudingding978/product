@@ -4,7 +4,7 @@
         <div style="float: right;color: #888;margin: 18px 20px;font-size: 13px; position: relative;z-index: 1">
             {{#if model.isUserself}} <!--model.isUserself is used to judge whether the reply message is written by the current login user-->
 
-            <span style="margin: 0 10px; cursor: pointer" class="hint--bottom hint--rounded" data-hint="Delete Post">
+            <span style="margin: 0 10px; cursor: pointer" class="hint--bottom hint--rounded" data-hint="Remove Post">
                 <i class="icon-trash"  {{action removeMessageItem model.message_id}}></i>
             </span>                 
             <span style="cursor: pointer" class="hint--bottom hint--rounded" data-hint="Edit Post">
@@ -15,7 +15,7 @@
             {{#if controller.isUserself}} 
 
             <!--controller.isUserself is used to judge whether it is the page owner who have right to delete every message-->
-            <span style="margin: 0 10px; cursor: pointer" class="hint--bottom hint--rounded" data-hint="Delete Post">
+            <span style="margin: 0 10px; cursor: pointer" class="hint--bottom hint--rounded" data-hint="Remove Post">
                 <i class="icon-trash" {{action removeMessageItem model.message_id}}></i>    
             </span>
             <!--            <span style="cursor: pointer" class="hint--bottom hint--rounded" data-hint="Edit Post">

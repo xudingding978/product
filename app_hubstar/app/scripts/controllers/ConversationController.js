@@ -1,10 +1,10 @@
 HubStar.ConversationController = Ember.Controller.extend({
     conversationContent: null,
     commenter_photo_url: null,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem','notificationTop'],
     isUploadPhoto: false,
-    makeSureDelete:false,
-    willDelete:false,
+    makeSureDelete: false,
+    willDelete: false,
     isNewConversation: false,
     init: function()
     {
@@ -43,7 +43,7 @@ HubStar.ConversationController = Ember.Controller.extend({
     },
     removeConversationItem: function(s)
     {
-        var message = "Delete this conversation?";
+        var message = "Remove this conversation?";
         this.set("message", message);
 
         this.set('makeSureDelete', true);
@@ -177,15 +177,41 @@ HubStar.ConversationController = Ember.Controller.extend({
                     dataNew = new Array();
                 }
             }
-            setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");
-
-            }, 200);
+           
             that.set('loadingTime', false);
             if (conversation_id !== "" && conversation_id !== null && conversation_id !== undefined)
             {
                 that.selectConversation(conversation_id);
             }
+            else
+            {
+                if (that.get("conversationContent").length > 0) {
+                    if (that.get('controllers.notificationTop').get("notificationSeeAll") === true)
+                    {
+                        that.transitionToRoute("notifications");
+                        that.get('controllers.notificationTop').set("notificationSeeAll", false);
+                    }
+                    else
+                    {
+                        that.selectConversation(that.get("conversationContent").objectAt(0).conversationID);
+                    }
+                }
+                else
+                {
+                    if (that.get('controllers.notificationTop').get("notificationSeeAll") === true)
+                    {
+                        that.transitionToRoute("notifications");
+                        that.get('controllers.notificationTop').set("notificationSeeAll", false);
+                    }
+                    else
+                    {
+                        that.transitionToRoute("newConversation");
+                    }                
+                }
+            }
+             setTimeout(function() {
+                $('#masonry_user_container').masonry("reload");
+            }, 200);
         });
     },
     profileStyleImageDrop: function(e, name)

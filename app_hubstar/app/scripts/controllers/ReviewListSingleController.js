@@ -58,7 +58,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
         this.set("review_is_edit", !this.get('review_is_edit'));
     },
     removeReview: function() {
-        this.set('message', "Are you going to delete this Review?");
+        this.set('message', "Remove this Review?");
         this.set('makeSureDelete', !this.get('makeSureDelete'));
         this.set("delete_id", this.get('model').get("review_id"));
     },

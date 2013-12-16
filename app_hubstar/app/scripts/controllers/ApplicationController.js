@@ -433,7 +433,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     dropdownHeaderNavigator: function() {
 
         this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
-//        console.log(this.get('isHeaderNavigatorDropdown'));
 
         this.set('categorys', HubStar.Cate.find({}));
 

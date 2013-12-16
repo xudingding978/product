@@ -238,10 +238,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
             var commentContent = this.get('commentContent');
-//            console.log(commentContent);
             if (commentContent) {
                 var comments = this.get('article').get('comments');
-//            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
                 var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
                 var commenter_id = this.get("currentUser").get('id');
                 var name = this.get("currentUser").get('display_name');
@@ -313,7 +311,6 @@ HubStar.ArticleController = Ember.Controller.extend({
         var owner_profile_id = mega.get("owner_id");
         var isProfileIDExist = this.isParamExist(owner_profile_id);
         var isCollectionIDExist = this.isParamExist(collection_id);
-        console.log(isProfileIDExist + "  ddd  " + isCollectionIDExist);
         var that = this;
         if (isProfileIDExist && isCollectionIDExist) {
             var data = HubStar.Mega.find({RequireType: "articleRelatedImage", "article_id": collection_id, "owner_id": owner_profile_id});
@@ -355,7 +352,6 @@ HubStar.ArticleController = Ember.Controller.extend({
                                 that.transitionTo("searchDefaultArticlePhoto", that.get('content').objectAt(0));
                             } else
                             {
-                                console.log("dddds1111````");
                                 that.transitionTo("searchIndexArticlePhoto", that.get('content').objectAt(0));
                             }
                         } else if (search_type === "profiles")

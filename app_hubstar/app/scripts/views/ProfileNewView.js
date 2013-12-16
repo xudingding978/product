@@ -17,7 +17,7 @@ HubStar.ProfileNewView = Ember.View.extend({
     deleteSecond: function() {
         this.set("added", false);
         $("#secondEmail").css("display", "none");
-        $("#firstAdd").css("display", "table-row");
+        $("#firstAdd").css("display", "inline-block");
     },
     deleteThird: function() {
         $("#thirdEmail").css("display", "none");

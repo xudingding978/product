@@ -50,6 +50,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     loadingTime: false,
     categorys: [],
     subcate: [],
+    needs:['profile'],
     init: function()
     {
         this.setTopicModel(HubStar.Cate.find({}));
@@ -128,9 +129,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 )
 
         {
-            $('#clientEmail').attr('style', 'display:none');
-            $('#admins').attr('style', 'display:none');
-            $('#contactEmail').attr('style', 'display:none');
+            $('#errorMeseage').attr('style', 'display:none');
             $('#numberFormat').attr('style', 'display:none');
             passSubmit = true;
         }
@@ -140,85 +139,85 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
         }
 
         if (this.validateEmail($('.clientEmail').val())) {
-            $('#clientEmail').attr('style', 'display:none');
+            $('#errorMeseage').attr('style', 'display:none');
             $('#clientEmailFormat').attr('style', 'display:none');
             document.getElementById('clientEmailField').setAttribute("class", "");
         }
         else if ($('.clientEmail').val() === "") {
             $('#clientEmailFormat').attr('style', 'display:none');
-            $('#clientEmail').attr('style', 'display:block');
+            $('#errorMeseage').attr('style', 'display:block');
             document.getElementById('clientEmailField').setAttribute("class", "error-textfield");
         }
         else {
             $('#clientEmailFormat').attr('style', 'display:block');
-            $('#clientEmail').attr('style', 'display:none');
+            $('#errorMeseage').attr('style', 'display:none');
             document.getElementById('clientEmailField').setAttribute("class", "error-textfield");
         }
         if ($('.clientName').val() === "") {
             // passSubmit = false;
-            $('#clientName').attr('style', 'display:block');
+            $('#errorMeseage').attr('style', 'display:block');
             document.getElementById('clientNameField').setAttribute("class", "error-textfield");
         }
         else {
-            $('#clientName').attr('style', 'display:none');
+            $('#errorMeseage').attr('style', 'display:none');
             document.getElementById('clientNameField').setAttribute("class", "");
 
         }
         if ($('.profileName').val() === "") {
             //  passSubmit = false;
-            $('#profileName').attr('style', 'display:block');
+            $('#errorMeseage').attr('style', 'display:block');
             document.getElementById('profileNameField').setAttribute("class", "error-textfield");
         } else {
-            $('#profileName').attr('style', 'display:none');
+            $('#errorMeseage').attr('style', 'display:none');
             document.getElementById('profileNameField').setAttribute("class", "");
 
         }
         if ($('#categorySelection').text() === "Category") {
             //   passSubmit = false;
-            $('#categoryCheck').attr('style', 'display:block');
-            document.getElementById('categorySelectionCheck').setAttribute("class", "error-textfield");
+            $('#errorMeseage').attr('style', 'display:block');
+            document.getElementById('categorySelectionCheck').setAttribute("class", "error-textfield new-btn");
         } else {
-            $('#categoryCheck').attr('style', 'display:none');
-            document.getElementById('categorySelectionCheck').setAttribute("class", "");
+            $('#errorMeseage').attr('style', 'display:none');
+            document.getElementById('categorySelectionCheck').setAttribute("class", "new-btn");
         }
         if ($('#subcategorySelection').text() === "Subcategory") {
             //    passSubmit = false;
-            $('#subcategoryCheck').attr('style', 'display:block');
-            document.getElementById('subcategorySelectionCheck').setAttribute("class", "error-textfield");
+            $('#errorMeseage').attr('style', 'display:block');
+            document.getElementById('subcategorySelectionCheck').setAttribute("class", "error-textfield new-btn");
         } else {
-            $('#subcategoryCheck').attr('style', 'display:none');
-            document.getElementById('subcategorySelectionCheck').setAttribute("class", "");
+            $('#errorMeseage').attr('style', 'display:none');
+            document.getElementById('subcategorySelectionCheck').setAttribute("class", "new-btn");
         }
         if ($('#countrySelection').text() === "Country") {
             //    passSubmit = false;
-            $('#countryCheck').attr('style', 'display:block');
-            document.getElementById('countrySelectionCheck').setAttribute("class", "error-textfield");
+            $('#errorMeseage').attr('style', 'display:block');
+            document.getElementById('countrySelectionCheck').setAttribute("class", "error-textfield new-btn");
         } else {
-            $('#countryCheck').attr('style', 'display:none');
-            document.getElementById('countrySelectionCheck').setAttribute("class", "");
+            $('#errorMeseage').attr('style', 'display:none');
+            document.getElementById('countrySelectionCheck').setAttribute("class", "new-btn");
         }
         if ($('#regionSelection').text() === "Regoin/State") {
             //  passSubmit = false;
-            $('#regionCheck').attr('style', 'display:block');
-            document.getElementById('regionSelectionCheck').setAttribute("class", "error-textfield");
+            $('#errorMeseage').attr('style', 'display:block');
+            document.getElementById('regionSelectionCheck').setAttribute("class", "error-textfield new-btn");
 
         } else {
-            $('#regionCheck').attr('style', 'display:none');
-            document.getElementById('regionSelectionCheck').setAttribute("class", "");
+            $('#errorMeseage').attr('style', 'display:none');
+            document.getElementById('regionSelectionCheck').setAttribute("class", "new-btn");
         }
         if ($('.contactEmail').val() === "") {
             //  passSubmit = false;
-            $('#contactEmail').attr('style', 'display:block');
+            $('#errorMeseage').attr('style', 'display:block');
             $('#contactEmailFormat').attr('style', 'display:none');
             document.getElementById('contactEmailField').setAttribute("class", "error-textfield");
         }
         else if (this.validateEmail($('.contactEmail').val())) {
             $('#contactEmailFormat').attr('style', 'display:none');
-            $('#contactEmail').attr('style', 'display:none');
+            $('#errorMeseage').attr('style', 'display:none');
             document.getElementById('contactEmailField').setAttribute("class", "");
         }
         else {
-            $('#contactEmail').attr('style', 'display:none');
+            $('#errorMeseage').attr('style', 'display:none');
             $('#clientEmailFormat').attr('style', 'display:block');
             document.getElementById('contactEmailField').setAttribute("class", "error-textfield");
         }
@@ -229,7 +228,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             if ($('.contactEmail2').val() === "") {
                 //  passSubmit = false;
                 console.log("none");
-                $('#contactEmail2').attr('style', 'display:none');
+            $('#errorMeseage').attr('style', 'display:block');
                 $('#contactEmailFormat2').attr('style', 'display:none');
                 document.getElementById('contactEmailField2').setAttribute("class", "");
             }
@@ -238,12 +237,12 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 console.log("have");
                 if (this.validateEmail($('.contactEmail2').val())) {
                     $('#contactEmailFormat2').attr('style', 'display:none');
-                    $('#contactEmail2').attr('style', 'display:none');
+                    $('#errorMeseage').attr('style', 'display:none');
                     document.getElementById('contactEmailField2').setAttribute("class", "");
                 }
                 else {
                     $('#contactEmailFormat2').attr('style', 'display:block');
-                    $('#contactEmail2').attr('style', 'display:none');
+                    $('#errorMeseage').attr('style', 'display:none');
                     document.getElementById('contactEmailField2').setAttribute("class", "error-textfield");
                 }
             }
@@ -253,7 +252,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
 
             if ($('.contactEmail3').val() === "") {
                 //  passSubmit = false;
-                $('#contactEmail3').attr('style', 'display:none');
+                $('#errorMeseage').attr('style', 'display:block');
                 $('#contactEmailFormat3').attr('style', 'display:none');
                 document.getElementById('contactEmailField3').setAttribute("class", "");
             }
@@ -261,12 +260,12 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             {
                 if (this.validateEmail($('.contactEmail3').val())) {
                     $('#contactEmailFormat3').attr('style', 'display:none');
-                    $('#contactEmail3').attr('style', 'display:none');
+                    $('#errorMeseage').attr('style', 'display:none');
                     document.getElementById('contactEmailField3').setAttribute("class", "");
                 }
                 else {
                     $('#contactEmailFormat3').attr('style', 'display:block');
-                    $('#contactEmail3').attr('style', 'display:none');
+                    $('#errorMeseage').attr('style', 'display:none');
                     document.getElementById('contactEmailField3').setAttribute("class", "error-textfield");
                 }
             }
@@ -275,13 +274,13 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
         for (var i = 1; i < counter; i++) {
 
             if ($("#admins_" + i).val() === "") {
-                $('#adminEmail_' + i).attr('style', 'display:block');
+            $('#errorMeseage').attr('style', 'display:block');
                 $('#adminsEmailFormat_' + i).attr('style', 'display:none');
                 document.getElementById('adminsField_' + i).setAttribute("class", "error-textfield");
             }
             else if (this.validateEmail($("#admins_" + i).val())) {
                 $('#adminsEmailFormat_' + i).attr('style', 'display:none');
-                $('#adminEmail_' + i).attr('style', 'display:none');
+            $('#errorMeseage').attr('style', 'display:none');
                 document.getElementById('adminsField_' + i).setAttribute("class", "");
                 var value;
                 if (i === 1) {
@@ -291,7 +290,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 }
             }
             else {
-                $('#adminEmail_' + i).attr('style', 'display:none');
+            $('#errorMeseage').attr('style', 'display:none');
                 $('#adminsEmailFormat_' + i).attr('style', 'display:block');
                 document.getElementById('adminsField_' + i).setAttribute("class", "error-textfield");
             }
@@ -352,21 +351,24 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
 
         if (counter <= 6) {
             var newdiv = document.createElement('tr');
-            newdiv.innerHTML = "<td></td><td><div style='display: block;'><div id='adminsField_" + counter
+            newdiv.innerHTML = "<div style='display:table-cell;text-align: right;'></div><div style='display:table-cell'><div style='display: block;'><div id='adminsField_" + counter
                     + "'"
-                    + "style='margin: 10px 30px 5px 10px;;width: 70%;'>"
-                    + "<input id='admins_" + counter + "'" + "type='text' placeholder='emailaddress@yourdomain.com'></div></div>"
+                    + "style='margin: 10px 10px 5px 10px;;width: 70%; display: inline-block;'>"
+                    + "<input id='admins_" + counter + "'" + "type='text' placeholder='emailaddress@yourdomain.com'></div>"
+                    + "<div id='remove_" + counter + "'" + "style='display: inline-block; padding:4px;'><k class='icon-minus' ></k></div></div>"
                     + "<div class='mustfill' id='adminsEmailFormat_" + counter
                     + "'"
                     + "style='display: none'>not correct email format.....</div>"
-                    + "<div class='mustfull' id='adminEmail_" + counter
-                    + "'"
-                    + "style='display: none'>please fill in info... </div>"
-                    + "</td>";
-            //+"<td><button type='button' onclick='var el = document.getElementById('adminsField_2');el.parentNode.removeChild(el);'>Delete item</button></td>";
+                    + "</div>";
             document.getElementById("step3").appendChild(newdiv);
+             var remove = $("#remove_"+ counter);
+            remove.click(function() {
+            $(this).parent().parent().parent().remove();
+             counter = counter -1;
+        });  
             counter++;
         }
+       
 
     },
     save: function() {
@@ -386,6 +388,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 creator: this.get("creater"),
                 country: $('#countrySelection').text(),
                 region: $('#regionSelection').text(),
+                suburb:this.get("suburb"),
                 domains: getDomain(),
                 editors: this.get("owner") + "," + this.get("editors"),
                 keywords: this.get("keywords"),
@@ -437,7 +440,6 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             newMegaNewModel.get("profile").addObject(newProfile);
             var that = this;
             newMegaNewModel.store.save();
-            that.set('loadingTime', true);
             newMegaNewModel.addObserver('isDirty', function() {
                 if (!newMegaNewModel.get('isDirty')) {
 
@@ -447,19 +449,17 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 } else {
                 }
 
-            });
-
-        }
-var that = this;
+            });      
+             var that = this;
         setTimeout(function() {
             that.imageModeSelection();
             location.href = "#/profiles/" + that.get("profile_url");
             location.reload();
+            
         }, 100);
 
-        that.set('loadingTime', false);
-
-
+        }
+console.log(HubStar.Profile.find(this.get("controllers.profile").get("id")));
     },
     dropdown: function(checking) {
 
@@ -506,19 +506,26 @@ var that = this;
             console.log("gold");
             this.set("profile_package", "Gold");
             this.set("keywordNumber", "100");
+            $("#gold").removeClass("hover-opacity easing");
+            $("#silver").addClass("hover-opacity easing");
+            $("#bronze").addClass("hover-opacity easing");
 
         } else if (checking === "silver") {
 
             console.log("silver");
             this.set("profile_package", "Silver");
             this.set("keywordNumber", "50");
-
+            $("#gold").addClass("hover-opacity easing");
+            $("#silver").removeClass("hover-opacity easing");
+            $("#bronze").addClass("hover-opacity easing");
         } else if (checking === "bronze") {
 
             console.log("bronze");
             this.set("profile_package", "Bronze");
             this.set("keywordNumber", "25");
-
+            $("#gold").addClass("hover-opacity easing");
+            $("#silver").addClass("hover-opacity easing");
+            $("#bronze").removeClass("hover-opacity easing");
         }
 
     },

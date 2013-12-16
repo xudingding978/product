@@ -3,7 +3,7 @@
 var browserAllow=false;
 
 // checking for Application Cache, HTML5 LocalStorage, SessionStorage, Web Workers, Web Sockets and pushState 
-if (Modernizr.applicationcache&&Modernizr.localstorage&&Modernizr.history&&Modernizr.webworkers&&Modernizr.sessionstorage&&Modernizr.websockets)
+if (Modernizr.applicationcache&&Modernizr.localstorage&&Modernizr.history&&Modernizr.sessionstorage&&Modernizr.websockets)
 {
     browserAllow = true;
 }else{

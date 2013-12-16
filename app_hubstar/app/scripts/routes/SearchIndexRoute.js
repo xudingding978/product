@@ -14,29 +14,20 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
         this.controllerFor('status').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
-
-//        var testObject = {'one': 1, 'two': 2, 'three': 3};
-//// Put the object into storage
-//        localStorage.setItem('testObject', JSON.stringify(testObject));
-//        var item = JSON.parse(localStorage.testObject);
-//        for (var key in item) {
-//            console.log(item[key]);
-//        }
-//  $(window).scrollTop(0);
         localStorage.checkUser = "";
         $(".navbar").css("box-shadow", "");
         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
     },
     events: {
-        transitionToPhoto: function(id) {
-            this.controllerFor('mega').set("selectPhoto", false);
-            this.controllerFor('masonryCollectionItems').set("type", "profile");
-            this.transitionTo("photo", HubStar.Mega.find(id));
-        },
-        transitionToProfile: function(id) {
-
-            this.transitionTo("profileCollections", HubStar.Profile.find(id));
-        },
+//        transitionToPhoto: function(id) {
+//            this.controllerFor('mega').set("selectPhoto", false);
+//            this.controllerFor('masonryCollectionItems').set("type", "profile");
+//            this.transitionTo("photo", HubStar.Mega.find(id));
+//        },
+//        transitionToProfile: function(id) {
+//
+//            this.transitionTo("profileCollections", HubStar.Profile.find(id));
+//        },
 //        transitionToArticle: function(id) {
 //            console.log("tomtomtomtom");
 //            this.controllerFor('article').set("accessFromSearchBoard", true);
@@ -76,7 +67,6 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
     },
     deactivate: function() {
         HubStar.set("setHight", $(window).scrollTop());
-
     },
     renderTemplate: function() {
 

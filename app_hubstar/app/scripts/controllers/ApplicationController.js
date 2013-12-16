@@ -423,6 +423,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $("#search-bar").fadeOut("320");
         $(".Navigator-box").fadeOut("320");
         $(".navbar").css("box-shadow", "");
+       $('#masonry_container').attr('style', "top:100px;position:relative");
 
     },
     closeDropdownNavigator: function() {

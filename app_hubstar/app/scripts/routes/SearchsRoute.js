@@ -14,25 +14,24 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
 
-        $(window).scrollTop(0);
+
         localStorage.checkUser = "";
         $(".navbar").css("box-shadow", "");
         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-        $(window).scrollTop(0);
     },
     events: {
-//        transitionToPhoto: function(id) {
-//            this.controllerFor('mega').set("selectPhoto", false);
-//            this.transitionTo("photo", HubStar.Mega.find(id));
-//        },
-//        transitionToProfile: function(id) {
-//            this.transitionTo("profileCollections", HubStar.Profile.find(id));
-//        },
-//        transitionToArticle: function(id) {
-//
-//            this.controllerFor('article').set("accessFromSearchBoard", true);
-//            this.transitionTo("article", HubStar.Article.find(id));
-//        }
+        transitionToPhoto: function(id) {
+            this.controllerFor('mega').set("selectPhoto", false);
+            this.transitionTo("photo", HubStar.Mega.find(id));
+        },
+        transitionToProfile: function(id) {
+            this.transitionTo("profileCollections", HubStar.Profile.find(id));
+        },
+        transitionToArticle: function(id) {
+
+            this.controllerFor('article').set("accessFromSearchBoard", true);
+            this.transitionTo("searchDefaultArticle", HubStar.Article.find(id)); //it will got to default search without go to the new search
+        }
     },
     redirect: function() {
 

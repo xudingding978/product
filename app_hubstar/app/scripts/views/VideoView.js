@@ -84,11 +84,34 @@ HubStar.VideoView = Ember.View.extend({
             else
             {
                 HubStar.set("escVideo", true);
-                this.get("controller").transitionTo("search", {id: id});
+                if (type === "profiles")
+                {
+
+
+                    var obj = HubStar.Mega.find(id);
+
+                    var profile = HubStar.Profile.find(id);
+                    for (var i = 0; i < profile.get('collections').get("length"); i++) {
+                        var data = profile.get('collections').objectAt(i);
+                        if (data.id === collection_id) {
+                            break;
+                        }
+                    }
+
+                    this.get("controller").transitionTo("profileCollection", data);
+                }
+                else
+                {
+                    this.get("controller").transitionTo("search", {id: id});
+
+                }
                 //window.history.back();
             }
-
-
+            $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+            setTimeout(function() {
+                $('#masonry_container').reLoad();  //masonry();
+            }, 300);
+           
         }
     }
 

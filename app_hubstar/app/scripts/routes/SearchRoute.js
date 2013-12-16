@@ -6,7 +6,6 @@ HubStar.SearchRoute = Ember.Route.extend({
         } else {
             HubStar.set('isLogin', true);
         }
-        console.log("ddddddddddd");
 //        HubStar.set('isLogin', true);
         this.controllerFor('searchs').set("loginInfo", localStorage.loginStatus);
         this.controllerFor('searchs').setLoginImge();
@@ -26,7 +25,7 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
         localStorage.checkUser = "";
-       // $(window).scrollTop(0);
+        // $(window).scrollTop(0);
     },
     model: function(params) {
         var address = document.URL;
@@ -35,43 +34,66 @@ HubStar.SearchRoute = Ember.Route.extend({
         if (search_id === null || search_id === undefined || search_id === '') {
             search_id = '';
         }
-        HubStar.set("escVideo",false);
+        HubStar.set("escVideo", false);
         return {id: search_id};
     },
     events: {
         transitionToPhoto: function(id) {
-            console.log("dddddddddddddddddddd");
-            
             this.controllerFor('masonryCollectionItems').set("type", "profile");
             //     this.controllerFor('mega').set("from", "profile");
-            this.transitionTo("photo", HubStar.Mega.find(id));
+
+            var address = document.URL;
+            var search_id = address.split("#")[1].split("/")[2];
+            this.controllerFor('article').set("accessFromSearchBoard", true);
+
+            if (search_id === "articles" || search_id === "photos" || search_id === "videos") //it is the search index
+            {
+                this.transitionTo("photo", HubStar.Mega.find(id));
+            }
+            else
+            {
+                this.transitionTo("newSearchPhoto", HubStar.Mega.find(id));
+            }
         },
         transitionToProfile: function(id) {
             this.transitionTo("profileCollections", HubStar.Profile.find(id));
         },
-        transitionToArticle: function(id) {
-            console.log("ffff");
+        transitionToVideo: function(id)
+        {
             var address = document.URL;
             var search_id = address.split("#")[1].split("/")[2];
-             this.controllerFor('article').set("accessFromSearchBoard", true);
-          
+            this.controllerFor('article').set("accessFromSearchBoard", true);
+
+            if (search_id === "articles" || search_id === "photos" || search_id === "videos") //it is the search index
+            {
+                this.transitionTo("video", HubStar.Mega.find(id));
+            }
+            else
+            {
+                this.transitionTo("newSearchVideo", HubStar.Mega.find(id));
+            }
+        },
+        transitionToArticle: function(id) {
+            var address = document.URL;
+            var search_id = address.split("#")[1].split("/")[2];
+            this.controllerFor('article').set("accessFromSearchBoard", true);
+
             if (search_id === "articles" || search_id === "photos" || search_id === "videos") //it is the search index
             {
                 this.transitionTo("article", HubStar.Article.find(id));
             }
             else
             {
-                  console.log(search_id);
-                this.transitionTo("searchIndexArticle", HubStar.Article.find(id));
+                    this.transitionTo("searchIndexArticle", HubStar.Article.find(id));
             }
         }
     },
     redirect: function() {
- if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
             this.transitionTo('indexIndex');
 
         } else {
-           // this.transitionTo('searchIndex');
+            // this.transitionTo('searchIndex');
         }
     },
     activate: function() {

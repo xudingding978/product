@@ -85,10 +85,10 @@ HubStar.Router.map(function() {
         });
 
         this.resource("searchs", {path: "/search"}, function() {
-            this.resource("searchIndex", {path: '/'}, function()
+            this.resource("searchIndex", {path: '/default'}, function()
             {
-                this.resource("article", {path: '/articles/:article_id'}, function() {
-                    this.resource("searchArticlePhoto", {path: '/photos/:photo_id'});
+                this.resource("searchDefaultArticle", {path: '/articles/:article_id'}, function() {
+                    this.resource("searchDefaultArticlePhoto", {path: '/photos/:photo_id'});
                 });
 //                this.resource("video", {path: '/videos/:video_id'});
 //                this.resource("photo", {path: '/photos/:photo_id'});

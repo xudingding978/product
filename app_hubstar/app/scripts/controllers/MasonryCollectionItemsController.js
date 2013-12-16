@@ -11,6 +11,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     isUser: false,
     isVideoPhoto: false,
     collectionID: "",
+    isSearchBoard:true,
     itemID: "",
     profileId: "",
     type: "",

@@ -115,7 +115,7 @@ HubStar.ArticleView = Ember.View.extend({
                 {
 
 
-                  var data = HubStar.Mega.find(colectionPhoto);
+                    var data = HubStar.Mega.find(colectionPhoto);
 
                     this.get("controller").transitionTo("userPhoto", data); //user
                 }
@@ -135,18 +135,26 @@ HubStar.ArticleView = Ember.View.extend({
             {
 
                 HubStar.set("escVideo", true);
-                if (id === "articles" || id === "photos" || id === "videos") //it is the search index
+                if (type === "profiles")
+                {
+                    this.get("controller").transitionTo("search", {id: id});
+                }
+                else if (id === "default") //it is the search index
                 {
                     this.get("controller").transitionTo("searchIndex");
                 }
                 else
                 {
+
                     this.get("controller").transitionTo("search", {id: id});
                 }
 
             }
 
-
+            $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+            setTimeout(function() {
+                $('#masonry_container').reLoad();  //masonry();
+            }, 300);
         }
     }
 });

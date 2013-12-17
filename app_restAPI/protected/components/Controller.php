@@ -430,7 +430,7 @@ class Controller extends CController {
                             "query_string": {
                                 "default_field": "couchbaseDocument.doc.' . $default_field . '",
                                 "query": " ' . $ids . ' "
-                                                    }<div id="dragarea" style="position: relative;height: 20px; width: 100%;cursor: move"></div>
+                                                    }
                         }
                     ]
                 }

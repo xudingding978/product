@@ -382,7 +382,7 @@ class ConversationsController extends Controller {
 
     public function sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId) {
 
-     //   $receiveEmail = "tom@hubstar.co";
+        $receiveEmail = "dingding@hubstar.co";
         $domain = $this->getDomain();
         $domainWithoutAPI=$this->getDomainWihoutAPI();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
@@ -426,7 +426,7 @@ class ConversationsController extends Controller {
         <div style="width: 600px; padding-bottom: 50px; box-shadow: 0 0 5px #888; margin: 50px auto;">
             <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/header.jpg" />
             <div style="position: relative; padding: 15px 30px;">
-                <h1 style=" font-size: 2em;   line-height: 200%;font-weight: 700;margin-bottom: 10px">Hi   [User Name] ,</h1>
+                <h1 style=" font-size: 2em;   line-height: 200%;font-weight: 700;margin-bottom: 10px">Hi   '.$receiveName.' ,</h1>
                 <p style="font-size: 1.5em;">You have new notifications on myTrends!</p>
                 <div style="margin:20px 10px 40px;font-size: 1.2em;line-height: 30px;height: 110px;">
                     <div style="height: 45px; margin: 20px 0;">
@@ -434,14 +434,14 @@ class ConversationsController extends Controller {
                             <a style="position: absolute;z-index: -1;"><img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg" style="width: 45px;height:45px;border-radius: 50%; "/></a>           
                             <a style="z-index: 1;"><img src="http://upload.wikimedia.org/wikipedia/en/d/d5/Samo_par_godina_za_nas.JPG"  style="width: 45px;height:45px;border-radius: 50%; "/></a> 
                         </div>
-                        <div style="float: left;margin: 8px 0 0 5px;">3 new messages</div>
+                        <div style="float: left;margin: 8px 0 0 5px;">'.$notificationCountFollow.' New Followers</div>
                     </div>
                     <div>
                         <div style="margin: 0 5px;float: left;">
                             <a style="position: absolute;z-index: -1;"><img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg" style="width: 45px;height:45px;border-radius: 50%; "/></a>           
                             <a style="z-index: 1;"><img src="http://upload.wikimedia.org/wikipedia/en/d/d5/Samo_par_godina_za_nas.JPG"  style="width: 45px;height:45px;border-radius: 50%; "/></a> 
                         </div>
-                        <div style="float: left;margin: 8px 0 0 5px;">2 new messages</div>
+                        <div style="float: left;margin: 8px 0 0 5px;">'.$notificationCountMessage.' New Messages</div>
                     </div>
                 </div>
 

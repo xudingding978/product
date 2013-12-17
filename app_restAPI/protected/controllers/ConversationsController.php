@@ -418,74 +418,41 @@ class ConversationsController extends Controller {
     public function confirmationEmailForm($domainWithoutAPI,$receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId) {
 
         return '
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title></title>
-    </head>
-    <body style="background: #E5E5E5; margin: 0; padding: 0;">
-        <table width="100%" cellpadding="0" cellspacing="0">
-            <tbody>
-                <tr>
-                    <td align="center">
-                        &nbsp;<br />
-                        <br />&nbsp;
-                        <table cellpadding="0" cellspacing="0" border="0" style="background: #fff;" width="600">
-                            <tbody>     
-                                <tr>
-                                    <td align="center">
-                                        &nbsp;<br />
-                                        <table cellpadding="10" cellspacing="0" width="90%" style="color: #666; font-size: 13px;
-                                               line-height: 150%; font-family: Helvetica, Arial, San-Serif; text-align: left;">
-                                            <tr>
-                                                <td valign="top">
-                                                    <h1 style="color: #05B1E5; font-size: 2em; font-weight: normal; margin: 0; line-height: 200%;">
-                                                       Hi   ' . $receiveName . '</h1>
-                                                    You have new notifications on myTrends!
-                                                         &nbsp;<br />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <table align="left" style="color: #05B1E5; font-size: 13px; line-height: 150%; font-family: Helvetica, Arial, San-Serif;
-                                                           text-align: left;" cellpadding="0" cellspacing="0">
-                                                        <tr>
-                                                            <td valign="top">
 
-                                                            <a href="http://'.$domainWithoutAPI.'/#/users/' . $ownerId . '/messagecenter/notifications">  ' . $notificationCountMessage . ' notifications  </a>
-                                                                  
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+    <body style="background: #E5E5E5; margin: 0 auto; padding: 0;">
 
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td valign="top">
-                                                    <hr style="text-align:center;height: 1px; color: #0088CC; background: #0088CC; width: 100%; border: 0 none;margin:0;" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center">
-                                        &nbsp;<br />
-                                 <a href="http://'.$domainWithoutAPI.'/#/search">     <button type="homepage">Go to TrendsIdeas</button></a>
+        <div style="width: 600px; padding-bottom: 50px; box-shadow: 0 0 5px #888; margin: 50px auto;">
+            <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/header.jpg" />
+            <div style="position: relative; padding: 15px 30px;">
+                <h1 style=" font-size: 2em;   line-height: 200%;font-weight: 700;margin-bottom: 10px">Hi   [User Name] ,</h1>
+                <p style="font-size: 1.5em;">You have new notifications on myTrends!</p>
+                <div style="margin:20px 10px 40px;font-size: 1.2em;line-height: 30px;height: 110px;">
+                    <div style="height: 45px; margin: 20px 0;">
+                        <div style="margin: 0 5px;float: left;">
+                            <a style="position: absolute;z-index: -1;"><img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg" style="width: 45px;height:45px;border-radius: 50%; "/></a>           
+                            <a style="z-index: 1;"><img src="http://upload.wikimedia.org/wikipedia/en/d/d5/Samo_par_godina_za_nas.JPG"  style="width: 45px;height:45px;border-radius: 50%; "/></a> 
+                        </div>
+                        <div style="float: left;margin: 8px 0 0 5px;">3 new messages</div>
+                    </div>
+                    <div>
+                        <div style="margin: 0 5px;float: left;">
+                            <a style="position: absolute;z-index: -1;"><img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg" style="width: 45px;height:45px;border-radius: 50%; "/></a>           
+                            <a style="z-index: 1;"><img src="http://upload.wikimedia.org/wikipedia/en/d/d5/Samo_par_godina_za_nas.JPG"  style="width: 45px;height:45px;border-radius: 50%; "/></a> 
+                        </div>
+                        <div style="float: left;margin: 8px 0 0 5px;">2 new messages</div>
+                    </div>
+                </div>
 
-                                    </td>
-                                     <td align="center">
-                                  <a href="http://'.$domainWithoutAPI.'/#/users/' . $ownerId . '/messagecenter/notifications">      <button type="notifications">     See all notifications</button> </a>
-                                        <br />&nbsp;
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        &nbsp;<br />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                <div style="font-size: 1.5em;margin: 20px 0;"><a style="cursor: pointer">View and manage notifications</a> on myTrends</div>
+                <hr  style="margin-bottom: 5px; color: #333"/>
+                <p>If you do not want to receive these emails from myTrends, please <a style="cursor: pointer">unsubscribe</a>.</p>
+            </div>
+
+
+        </div>
     </body>
 </html>
 ';

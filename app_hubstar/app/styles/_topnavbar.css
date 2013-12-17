@@ -159,7 +159,7 @@
 
 .popular-topics{
     top: 410px;
-    width: 1060px;
+    width: 1075px;
     position:absolute; 
     margin: auto;
     left: 0;
@@ -636,7 +636,7 @@ div#login_detail{
     box-shadow: 0 0 10px #555;
 }
 
-.Notification-top:before{
+/*.Notification-top:before{
     content: "";
     position: absolute;
     left: 204px;
@@ -656,7 +656,7 @@ div#login_detail{
     border-style: solid;
     border-width: 10px 10px 10px 10px;
     z-index: -1;
-}
+}*/
 
 .Notification-top > div:first-child{border-radius: 3px 3px 0 0}
 .Notification-top > div:last-child{border-radius: 0 0 3px 3px}

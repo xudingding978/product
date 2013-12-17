@@ -104,25 +104,28 @@
         {{render contact}}
         {{/if}}
     </div>
-    
-     <!-- OBJECT CONTROLL SECTION -->
+
+    <!-- OBJECT CONTROLL SECTION -->
     <div class="collapes-container"  style="display:block;border-top: 1px solid #f3f3f3;">
         <div class="collapes-container_inner" style="padding: 0; height: 45px;">
-
 
             <div  class="square-button hint--rounded hint--bottom"  data-hint="Like this Idea!" {{action addLike}}>
                   <i class="icon-thumbs-up">&nbsp;<span style="font-size: 11px;">{{megaResouce.likes_count}}</span>&nbsp;</i>
             </div>
 
-
             <div class="square-button hint--rounded hint--bottom"  data-hint="Add to your own collection." {{action switchCollection on="click" target="controller"}}>
                 <i class="icon-folder-close" >&nbsp;</i>
             </div>
 
-            <div class="square-button hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting}}>
+            <div class="square-button hint--rounded hint--bottom for-tooltip-position" data-hint="Share this photo to other social platform" style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting}}>
                  <i class="icon-share-alt" >&nbsp;</i>
             </div>
 
+            {{#if controller.is_authentic_user}}
+            <div class='square-button hint--left hint--rounded' data-hint='Edit Photo Info' style="float: right;">
+                <i class="icon-edit" {{action editingPhotoMegaData}}></i>
+            </div>
+            {{/if}}
             <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
                 <li class="ite" {{action  fbShare}} >
             <k class="icon-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
@@ -140,217 +143,208 @@
 
 </div>
 </div>
-    
-    
-   
 
-    <!-- OBJECT DESCRIPTION SECTION -->
-    <div>        
-        <div class="object-collapes-title" {{action setTitleTag  on="click" target="view"}}>
-            <div class="collapes-title_inner">
-                About
-            </div>
-            <div class="dropdownicon" >
-                <i class="icon-angle-down"></i>
-            </div>
+
+
+
+<!-- OBJECT DESCRIPTION SECTION -->
+<div>        
+    <div class="object-collapes-title" {{action setTitleTag  on="click" target="view"}}>
+        <div class="collapes-title_inner">
+            About
         </div>
-        <div class="collapes-container"   id="article_action" style="display:block">
-            <div  class="collapes-container_inner">
+        <div class="dropdownicon" >
+            <i class="icon-angle-down"></i>
+        </div>
+    </div>
+    <div class="collapes-container"   id="article_action" style="display:block">
+        <div  class="collapes-container_inner">
 
-                {{#unless controller.enableToEdit}}
+            {{#unless controller.enableToEdit}}
 
-                <div class="article-title">{{controller.selectedPhoto.photo_title}}
-
-                    {{#if controller.is_authentic_user}}
-                    <div class='hint--left hint--rounded' data-hint='Edit Photo Info' style="position: absolute;font-size: 15px;right: 10px;margin: 1px;">
-                        <i class="icon-edit" {{action editingPhotoMegaData}}></i>
-
-                    </div>
-
-                    {{/if}}
-                </div>
-                <div class="article-text">
-                    <p>{{{controller.selectedPhoto.photo_caption}}}</p>
-                    <table cellpadding="0" cellspacing="0" border="0" width="100%" class='profilesnew-table' style="padding-right: 0px; font-size: 12px;  display: table;border-collapse: separate;border-spacing: 4px;margin:10px auto;">
-                        <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-                            {{#if controller.selectedPhoto.photo_link_url}}
-                            <tr>
-                                <td style = "font-size: 14px;font-weight: bold;width: 90px;">Link: </td>
-                                <td>                      
-                                    <a target="_blank" {{bindAttr href=controller.selectedPhoto.photo_link_url }} style = "font-size: 14px;font-weight: normal;width: 90px; alignment-adjust: central; ">{{{controller.selectedPhoto.photo_link_text}}}</a>   
-                                </td>
-                            </tr>
-                            {{/if}}
-                        </tbody>
-                    </table>
-
-
-                </div>
-                {{else}}
-                {{view Ember.TextField valueBinding="controller.selectedPhoto.photo_title"  id="" class="edit_photo-titile_field"  }} 
-                {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_caption"  id="" class="edit_photo-caption_field"}} 
+            <div class="article-title">{{controller.selectedPhoto.photo_title}}  </div>
+            <div class="article-text">
+                <p>{{{controller.selectedPhoto.photo_caption}}}</p>
                 <table cellpadding="0" cellspacing="0" border="0" width="100%" class='profilesnew-table' style="padding-right: 0px; font-size: 12px;  display: table;border-collapse: separate;border-spacing: 4px;margin:10px auto;">
                     <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-
+                        {{#if controller.selectedPhoto.photo_link_url}}
                         <tr>
-                            <td style = "font-weight: bold; font-size: 12px;width: 60px;">Link Text:</td>
-                            <td>
-                                <div style="display: block;height:40px ;">
-                                    <div  id="displayName"  style="margin: 0;height:40px ;width: 100%;">
-                                        {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_link_text"  placeholder="Type Your Link Text here"}} 
-
-                                    </div>
-                                </div>
+                            <td style = "font-size: 14px;font-weight: bold;width: 90px;">Link: </td>
+                            <td>                      
+                                <a target="_blank" {{bindAttr href=controller.selectedPhoto.photo_link_url }} style = "font-size: 14px;font-weight: normal;width: 90px; alignment-adjust: central; ">{{{controller.selectedPhoto.photo_link_text}}}</a>   
                             </td>
                         </tr>
-                        <tr >
-
-
-                            <th style = "font-size: 12px;font-weight: bold;width: 60px; margin-top: 10px">Link Url:</th>       
-                            <td>
-                                <div style="display: block; height:40px ; margin-top: 10px">
-                                    <div  id="displayName"  style="margin: 0;height:40px ;width: 100%;">
-                                        {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_link_url" placeholder="http://example.com"}} 
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                        {{/if}}
                     </tbody>
                 </table>
 
 
-
-                <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
-
-                    <div  type="button" class="new-btn blue-btn" {{action yes selectedPhoto}}> <i class="icon-ok icon-white"></i></div>
-
-                    <div  type="button" class="new-btn" {{action no }}> <i class="icon-remove"></i></div>
-
-                </div>
-
-                {{/unless}}
-
-
-
             </div>
+            {{else}}
+            {{view Ember.TextField valueBinding="controller.selectedPhoto.photo_title"  id="" class="edit_photo-titile_field"  }} 
+            {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_caption"  id="" class="edit_photo-caption_field"}} 
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" class='profilesnew-table' style="padding-right: 0px; font-size: 12px;  display: table;border-collapse: separate;border-spacing: 4px;margin:10px auto;">
+                <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
 
+                    <tr>
+                        <td style = "font-weight: bold; font-size: 12px;width: 60px;">Link Text:</td>
+                        <td>
+                            <div style="display: block;height:40px ;">
+                                <div  id="displayName"  style="margin: 0;height:40px ;width: 100%;">
+                                    {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_link_text" class="no-resize" placeholder="Type Your Link Text here"}} 
 
-
-
-        </div>
-
-
-
-
-    </div>
-
-
-
-
-    <!-- OBJECT DISCUSSION SECTION -->
-
-    <div>
-        <div class="object-collapes-title" {{action setDiscussionTag on="click" target="view"}} >
-            <div class="collapes-title_inner">
-                Discussion
-            </div>
-            <span class="show-comment_inner">
-                <span class="comment-amount" > {{controller.megaResouce.comments.length}} </span>
-            </span>
-            <div class="dropdownicon">
-                <i class="icon-angle-down" style="height: 16px; width: 16px;"></i>
-            </div>      
-        </div>
-
-
-
-        <div class="collapes-container"  id="discuss_action" style="display:block">
-            <div class="collapes-container_inner" style="padding: 0;margin: 0;width: 100%;">
-                <div  style="width: 98%;padding: 15px 10px;margin: 0 auto;overflow: hidden;border-bottom: 1px solid #ddd;">
-                    <div style="margin:0 auto; padding: 0 0 0 50px;">
-                        <a>
-                            <img class="profilepic_comment"  style="width: 45px; height: 45px;float: left; margin: 4px 0 0 -50px; margin-top: 0; z-index: 1" src="http://develop.devbox.s3.amazonaws.com/profile_pic/default/defaultpic1.jpg" />
-                            <img class="profilepic_comment"  style="width: 45px; height: 45px;float: left; margin: 4px 0 0 -50px; margin-top: 0; z-index:2" {{bindAttr src="controller.currentUser.photo_url_large"}} /> 
-                            <div class='user-says-angle-before' style="left: 51px;"></div>
-                            <div class='user-says-angle-after' style="left: 49px;"></div>
-                        </a>
-
-                        <div class="" style="width: 100%; border-radius: 2px;border: 1px solid #ddd;background-color: #fff;">
-                            <div   style="margin: 0;width: 100%; height:100px;">
-                                {{view Ember.TextArea valueBinding="commentContent" id="AddRecord" class="no-resize no-effect" placeholder="What's up!" }}                                          
-                            </div>
-                            {{#if controller.isUploadPhoto}}
-                            <div style='max-width: 100%;max-height: 100px;padding: 10px 12px;text-align: center;border-top: 1px solid #ddd;'>
-                                <div class='remove-comment-photo easing' {{action removePic}}><i class="icon-remove"></i></div>
-                                <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 100%; max-height: 80px;">
-                            </div>
-                            {{/if}}
-                            <div class="" style="height: 30px;position: relative;border-top: 1px solid #ddd;top: -1px;">
-
-                                <div class="message-btn easing" style='width: 100%'{{action addComment}}><k class='icon-ok'>&nbsp;</k>Post </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-
-                {{#each controller.megaResouce.comments}}
-                {{#unless this.isEdit}}
-                <div class="comment-item">
-
-                    <div class="comment-position">
-                        <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}">
-                            <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
-                        </a>
-                        <div style="">
-                            <div class="comment-namentime">
-                                <a class="comment-username"  href="#/users/{{unbound commenter_id}}">
-                                    {{name}}
-                                </a>
-                                <div class="posttime-container">
-                                    <span class="posttime">{{date time_stamp}}</span>                  
                                 </div>
-                                {{#if this.getUser}}
-                                <span class="edit-comment easing">
-                                    <i class="icon-trash"  {{action removeComment this}}></i>                 
-                                    <i class="icon-pencil" {{action updateComment this}}></i>
-                                </span>
-                                {{/if}}
                             </div>
+                        </td>
+                    </tr>
+                    <tr >
 
-                            <div class="comment-content">
-                                {{content}}
 
-                                <!-- for +someone into the conversation-->
-                                <span>
-                                    <span></span>
-                                    <a></a>
-                                </span>
+                        <th style = "font-size: 12px;font-weight: bold;width: 60px; margin-top: 10px">Link Url:</th>       
+                        <td>
+                            <div style="display: block; height:40px ; margin-top: 10px">
+                                <div  id="displayName"  style="margin: 0;height:40px ;width: 100%;">
+                                    {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_link_url" class="no-resize" placeholder="http://example.com"}} 
+                                </div>
                             </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+            <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
+
+                <div  type="button" class="new-btn blue-btn" {{action yes selectedPhoto}}> <i class="icon-ok icon-white"></i></div>
+
+                <div  type="button" class="new-btn" {{action no }}> <i class="icon-remove"></i></div>
+
+            </div>
+
+            {{/unless}}
+
+
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+</div>
+
+
+
+
+<!-- OBJECT DISCUSSION SECTION -->
+
+<div>
+    <div class="object-collapes-title" {{action setDiscussionTag on="click" target="view"}} >
+        <div class="collapes-title_inner">
+            Discussion
+        </div>
+        <span class="show-comment_inner">
+            <span class="comment-amount" > {{controller.megaResouce.comments.length}} </span>
+        </span>
+        <div class="dropdownicon">
+            <i class="icon-angle-down" style="height: 16px; width: 16px;"></i>
+        </div>      
+    </div>
+
+
+
+    <div class="collapes-container"  id="discuss_action" style="display:block">
+        <div class="collapes-container_inner" style="padding: 0;margin: 0;width: 100%;">
+            <div  style="width: 98%;padding: 15px 10px;margin: 0 auto;overflow: hidden;border-bottom: 1px solid #ddd;">
+                <div style="margin:0 auto; padding: 0 0 0 50px;">
+                    <a>
+                        <img class="profilepic_comment"  style="width: 45px; height: 45px;float: left; margin: 4px 0 0 -50px; margin-top: 0; z-index: 1" src="http://develop.devbox.s3.amazonaws.com/profile_pic/default/defaultpic1.jpg" />
+                        <img class="profilepic_comment"  style="width: 45px; height: 45px;float: left; margin: 4px 0 0 -50px; margin-top: 0; z-index:2" {{bindAttr src="controller.currentUser.photo_url_large"}} /> 
+                        <div class='user-says-angle-before' style="left: 51px;"></div>
+                        <div class='user-says-angle-after' style="left: 49px;"></div>
+                    </a>
+
+                    <div class="" style="width: 100%; border-radius: 2px;border: 1px solid #ddd;background-color: #fff;">
+                        <div   style="margin: 0;width: 100%; height:100px;">
+                            {{view Ember.TextArea valueBinding="commentContent" id="AddRecord" class="no-resize no-effect" placeholder="What's up!" }}                                          
+                        </div>
+                        {{#if controller.isUploadPhoto}}
+                        <div style='max-width: 100%;max-height: 100px;padding: 10px 12px;text-align: center;border-top: 1px solid #ddd;'>
+                            <div class='remove-comment-photo easing' {{action removePic}}><i class="icon-remove"></i></div>
+                            <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 100%; max-height: 80px;">
+                        </div>
+                        {{/if}}
+                        <div class="" style="height: 30px;position: relative;border-top: 1px solid #ddd;top: -1px;">
+
+                            <div class="message-btn easing" style='width: 100%'{{action addComment}}><k class='icon-ok'>&nbsp;</k>Post </div>
 
                         </div>
                     </div>
-                </div>
-                {{else}}
-                {{render editComment this}}   
-                {{/unless}}
 
-                {{/each}}
-                <!-- test1 -->
-                <div id='div-gpt-ad-1384896082386-0' style='width:336px; height:280px;'>
-                    <script type='text/javascript'>
-                        googletag.cmd.push(function() {
-                            googletag.display('div-gpt-ad-1384896082386-0');
-                        });
-                    </script>
                 </div>
-
             </div>
-        </div>
 
+
+            {{#each controller.megaResouce.comments}}
+            {{#unless this.isEdit}}
+            <div class="comment-item">
+
+                <div class="comment-position">
+                    <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}">
+                        <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
+                    </a>
+                    <div style="">
+                        <div class="comment-namentime">
+                            <a class="comment-username"  href="#/users/{{unbound commenter_id}}">
+                                {{name}}
+                            </a>
+                            <div class="posttime-container">
+                                <span class="posttime">{{date time_stamp}}</span>                  
+                            </div>
+                            {{#if this.getUser}}
+                            <span class="edit-comment easing">
+                                <i class="icon-trash"  {{action removeComment this}}></i>                 
+                                <i class="icon-pencil" {{action updateComment this}}></i>
+                            </span>
+                            {{/if}}
+                        </div>
+
+                        <div class="comment-content">
+                            {{content}}
+
+                            <!-- for +someone into the conversation-->
+                            <span>
+                                <span></span>
+                                <a></a>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {{else}}
+            {{render editComment this}}   
+            {{/unless}}
+
+            {{/each}}
+            <!-- test1 -->
+            <div id='div-gpt-ad-1384896082386-0' style='width:336px; height:280px;'>
+                <script type='text/javascript'>
+                    googletag.cmd.push(function() {
+                        googletag.display('div-gpt-ad-1384896082386-0');
+                    });
+                </script>
+            </div>
+
+        </div>
     </div>
+
+</div>
 
 
 

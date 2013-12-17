@@ -21,6 +21,7 @@ HubStar.HeaderView = Ember.View.extend({
         } else {
             object = {"region": "", "search_string": ""};
         }
+           HubStar.set("escVideo",false);
         this.get("controller").transitionToRoute('search', {id: search_key});
 //        this.get("controller").send("newSearch", area, search_key);
     }

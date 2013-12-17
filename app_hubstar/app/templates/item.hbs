@@ -177,7 +177,7 @@
              <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToPhoto id}} />      </a>
                              {{else}}
                              <a class="mainfeature-container">
-                {{#linkTo 'video' this}} <img {{bindAttr src="object_image_url" }} class="this-is-the-object"/>{{/linkTo}}
+      <img {{bindAttr src="object_image_url" }} class="this-is-the-object" {{action transitionToVideo id}}/>
             </a>
                              {{/if}}
   

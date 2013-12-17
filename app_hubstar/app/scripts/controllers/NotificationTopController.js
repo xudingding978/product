@@ -332,6 +332,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     },
     reviewCancel: function() {
         this.get("controllers.application").set("isNotification", false);
+         $('#Geo-Filter').toggleClass('Geo-Filter-active');
     }
 }
 );

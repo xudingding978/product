@@ -126,7 +126,7 @@ class EmailsController extends Controller {
 
 
         $domain = $this->getDomain();
-         $domainWithoutAPI=$this->getDomainWihoutAPI();
+        $domainWithoutAPI=$this->getDomainWihoutAPI();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");

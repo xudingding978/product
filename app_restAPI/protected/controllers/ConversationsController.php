@@ -461,15 +461,17 @@ class ConversationsController extends Controller {
                 <div style="margin:20px 10px 40px;font-size: 1.2em;line-height: 30px;height: 110px;">
                     <div style="height: 45px; margin: 20px 0;">
                         <div style="margin: 0 5px;float: left;">
-                            <a style="position: absolute;z-index: -1;"><img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg" style="width: 45px;height:45px;border-radius: 50%; "/></a>           
-                            <a style="z-index: 1;"><img src="' . $photo_url_large_follow . '"  style="width: 45px;height:45px;border-radius: 50%; "/></a> 
+                            <div style="background-image: url(&apos;https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg&apos;); background-size: 45px 45px;width: 45px;height:45px;border-radius: 50%; ">         
+                                <img src="' . $photo_url_large_follow . '"  style="width: 45px;height:45px;border-radius: 50%; "/> 
+                            </div>
                         </div>
                         <div style="float: left;margin: 8px 0 0 5px;">' . $notificationCountFollow . ' New Followers</div>
                     </div>
                     <div>
                         <div style="margin: 0 5px;float: left;">
-                            <a style="position: absolute;z-index: -1;"><img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg" style="width: 45px;height:45px;border-radius: 50%; "/></a>           
-                            <a style="z-index: 1;"><img src="' . $photo_url_large_message . '"  style="width: 45px;height:45px;border-radius: 50%; "/></a> 
+                            <div style="background-image: url(&apos;https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg&apos;); background-size: 45px 45px;width: 45px;height:45px;border-radius: 50%; ">         
+                                <img src="' . $photo_url_large_message . '"  style="width: 45px;height:45px;border-radius: 50%; "/>
+                            </div>
                         </div>
                         <div style="float: left;margin: 8px 0 0 5px;">' . $notificationCountMessage . ' New Messages</div>
                     </div>

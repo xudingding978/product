@@ -94,3 +94,17 @@ HubStar.Router.map(function() {
         });
     });
 });
+
+HubStar.Router.reopen({
+    didTransition: function(infos) {
+        this._super(infos);
+        Ember.run.next(function(){
+            console.log(window.location.href);
+            ga('create', 'UA-235915-17', {'name': 'Trends'});
+            ga('Trends.send', 'pageview');
+            
+            ga('create', 'UA-46481605-1', {'name': 'HubStar'});
+            ga('HubStar.send', 'pageview', window.location.href);
+        });
+    }
+});

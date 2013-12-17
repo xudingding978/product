@@ -1,4 +1,4 @@
-var HubStar = window.HubStar = Ember.Application.createWithMixins({
+var HubStar = window.HubStar = Ember.Application.create({
     LOG_TRANSITIONS: false,
     LOG_BINDINGS: false,
     ready: function() {

@@ -1310,6 +1310,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     sendEventTracking: function(hitType, category, action, label) {
         if (this.isTracking) {
+            console.log(this.get('model'));
             var analytics_array = this.get('model').get('profile_analytics_code').split(',');
             for (var i = 0; i < analytics_array.length; i ++) {
                 ga(this.get('model').get('id').split('-').join('')+i.toString() + '.send', {

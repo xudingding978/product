@@ -8,8 +8,9 @@ HubStar.UserPhotoRoute = Ember.Route.extend({
         } else {
             temp = model.id;
         }
-        this.controllerFor("masoryCollectionItems").set("type", "user");
-
+        
+        this.controllerFor("masonryCollectionItems").set("type", "user");
+        
         var megaModel = HubStar.Mega.find(temp);
         var that = this;
         setTimeout(function() {

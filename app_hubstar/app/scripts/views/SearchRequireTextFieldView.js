@@ -1,6 +1,6 @@
 HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
     insertNewline: function() {
-        var controller = this.get('controller');
+        var controller = this.get('targetObject');
         if (controller._debugContainerKey.indexOf("addCollection") !== -1)
         {
             controller.addNewCollection();

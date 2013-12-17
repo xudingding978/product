@@ -20,7 +20,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         {id: "12", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment'}
 
     ],
-    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop', 'article', 'mega', 'checkingLoginStatus', 'addCollection'],
+    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop', 'article', 'mega', 'checkingLoginStatus', 'addCollection','search'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -73,7 +73,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             that.set("pageCount", 0);
             that.defaultSearch();
         });
-
+        HubStar.set("escVideo", false);
         this.set('search_string', '');
         this.set('loginUsername', localStorage.userName);
     },
@@ -452,6 +452,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $("#search-bar").fadeOut("320");
         $(".Navigator-box").fadeOut("320");
         $(".navbar").css("box-shadow", "");
+       $('#masonry_container').attr('style', "top:100px;position:relative");
 
     },
     closeDropdownNavigator: function() {
@@ -461,7 +462,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     dropdownHeaderNavigator: function() {
 
         this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
-//        console.log(this.get('isHeaderNavigatorDropdown'));
 
         this.set('categorys', HubStar.Cate.find({}));
 

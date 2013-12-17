@@ -161,7 +161,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);
         var profile = HubStar.Profile.find(id);
-        //profile = profile.reload();
+        profile.reload();  //r  profile.reload();  eload the collection which have the same name
         return profile;
     },
     setProfile: function(id) {
@@ -215,17 +215,17 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set("collections", profile.get("collections"));
 
         this.set("reviews", profile.get("reviews"));
-
-
         this.set('profile_average_review_length', profile.get("profile_average_review_length"));
         // document.getElementById("starsize").style.width="156px";
         if (profile.get("profile_average_review_length") !== "" && profile.get("profile_average_review_length") !== null && profile.get("profile_average_review_length") !== undefined) {
             $('#starsize').attr("style", "width:" + profile.get("profile_average_review_length") + "px");
             this.set("profile_average_review", profile.get("profile_average_review"));
         }
+
         else if (profile.get('reviews').get("length") === 0) {
 
             $('#starsize').attr("style", "width:100px");
+
             this.set("profile_average_review", "5");
         }
         else {

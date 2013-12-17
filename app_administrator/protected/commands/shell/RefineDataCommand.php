@@ -996,19 +996,20 @@ class RefineDataCommand extends Controller_admin {
 //$record_arr=array();
         foreach ($data_arr as $found) {
 
-            $data_arr = $found['_source']['doc'];
+        //    $data_arr = $found['_source']['doc'];
             //    $message=  var_export($data_arr,true)."\n---------------------------------------------------------\n";
-            $id = $data_arr['id'];
-            $message = $id;
-            $this->writeToLog($log_path, $message);
+            $id = $found['_id'];
+            echo "\n".$id."\n";
+      //      $message = $id;
+     //       $this->writeToLog($log_path, $message);
             //     $message.="\n".$id;
-            if ($data_arr['type'] === "profile") {
-                $couchbase_id = "trendsideas.com/profiles/" . $id;
-            } else {
-                $couchbase_id = "trendsideas.com/" . $id;
-            }
+//            if ($data_arr['type'] === "profile") {
+//                $couchbase_id = "trendsideas.com/profiles/" . $id;
+//            } else {
+//                $couchbase_id = "trendsideas.com/" . $id;
+//            }
             $cb = $this->couchBaseConnection($bucket);
-            $couchbase_data = $cb->get($couchbase_id);
+            $couchbase_data = $cb->get($id);
             $couchbase_data_arr = CJSON::decode($couchbase_data);
             $comment_arr = $couchbase_data_arr['comments'];
             foreach ($comment_arr as $comment) {

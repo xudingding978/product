@@ -400,10 +400,31 @@ class ProfileCommand extends Controller_admin {
             $result_arr = CJSON::decode($result, true);
             $keyword_str = $result_arr["profile"][0]["profile_keywords"];
             echo "\n" . $keyword_str . "\n";
+            if(!isset($result_arr['keyword'])){
+                
+            
             if ($keyword_str != null && $keyword_str != "") {
                 echo "\nkeyword is existing\n";
                 $keyword_arr = explode(",", $keyword_str);
                 echo sizeof($keyword_arr) . "\n" . $keyword_arr;
+                $package=$result_arr['profile'][0]['profile_package_name'];
+                if($package==="Platinum"){
+                    $keyword_number=200;
+                }elseif($package==="Gold"){
+                    $keyword_number=100;
+                }elseif($package==="Silver"){
+                    $keyword_number=50;
+                }elseif($package==="Bronze"){
+                    $keyword_number=25;
+                }
+                $counted_arr=array();
+                if(sizeof($keyword_arr)>$keyword_number){
+//                    $difference=  sizeof($keyword_arr)-$keyword_number;
+//                    $counted_arr=  array_slice($keyword_arr, 0, $length)
+                    for($i=0;$i<$keyword_number; $i++){
+                        array_push($counted_arr, $keyword_arr[$i]);
+                    }
+                }
                 $newkeywords_arr = array();
                 foreach ($keyword_arr as $keyword) {
 
@@ -432,6 +453,7 @@ class ProfileCommand extends Controller_admin {
                 echo $profile . "doesn't have keyword";
             }
             $this->writeToLog($log_path, $message);
+            }
         }
     }
 

@@ -126,7 +126,9 @@ class EmailsController extends Controller {
 
 
         $domain = $this->getDomain();
+
         $domainWithoutAPI=$this->getDomainWihoutAPI();
+
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
@@ -146,7 +148,7 @@ class EmailsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->confirmationEmailForm($domainWithoutAPI,$username, $password)
+                        "Data" => $this->confirmationEmailForm($domainWithoutAPI, $username, $password)
                     )
                 ),
             ),
@@ -400,7 +402,7 @@ class EmailsController extends Controller {
 ';
     }
 
-    public function confirmationEmailForm($domainWithoutAPI,$username, $password) {
+    public function confirmationEmailForm($domainWithoutAPI, $username, $password) {
         return '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -463,7 +465,7 @@ class EmailsController extends Controller {
                                             </tr>
                                                                  <tr>
                                                             <td valign="top">
-                                                        <a href="http://'.$domainWithoutAPI.'/#/verify/' . $username . '?' . $password . '">  Click here to activate your account  </a>
+                                                        <a href="http://' . $domainWithoutAPI . '/#/verify/' . $username . '?' . $password . '">  Click here to activate your account  </a>
                                                             </td>
                                                         </tr> 
                                  

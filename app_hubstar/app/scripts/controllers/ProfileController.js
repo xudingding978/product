@@ -213,6 +213,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set("projectDeleteDropdownContent", profile.get("profile_isDeleted"));
         this.updateWorkingHourData(profile.get('profile_hours'));
         this.set("collections", profile.get("collections"));
+
         this.set("reviews", profile.get("reviews"));
         this.set('profile_average_review_length', profile.get("profile_average_review_length"));
         // document.getElementById("starsize").style.width="156px";
@@ -221,9 +222,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set("profile_average_review", profile.get("profile_average_review"));
         }
 
-        else if(profile.get('reviews').get("length")===0){
-            
-             $('#starsize').attr("style", "width:100px");
+        else if (profile.get('reviews').get("length") === 0) {
+
+            $('#starsize').attr("style", "width:100px");
 
             this.set("profile_average_review", "5");
         }
@@ -359,8 +360,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     popUpGoogleMap: function() {
 
         if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-            this.set('popUpMap', true);
+        {                 
+                this.set('popUpMap', true);
+                document.getElementById("body_id").style.overflow = "hidden";
         }
     },
     followerPhoto: function(id)

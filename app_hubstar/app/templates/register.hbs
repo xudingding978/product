@@ -537,10 +537,6 @@
                 /* hiding thank you message when the user clicks the back btn */
 
 
-
-
-
-
                 $("#click-register-social").click(function() {
 
                     $('#click-register-social').removeClass('social-active');
@@ -571,8 +567,6 @@
                     /*  REGISTER TAB: showing social login section*/
 
                 });
-
-
 
                 $('#register-with-email-step-2 .back-btn').click(function() {
                     $('#register-with-email-step-2').removeClass('active-step');
@@ -692,25 +686,6 @@
                 function loginPane() {
 
                     if (localStorage.loginState === "login") {
-//                        $('#login-btn').text('REGISTER');
-//                        $('.black-tool-tip').css('display', 'none');
-//                        $('#click-register-social').css('display', 'none');
-//                        $('#click-register').css('display', 'none');
-//                        $('#social-link').css('display', 'none');
-//                        $('#login-with-email-drop-down').css('display', 'block');
-//                        $('#social-login-container').css('display', 'none');
-//                        $('#click-login').addClass('active-tab');
-//                        $('#social-login').removeClass('social-active');
-//                        $('#user-forgot-password-pane').css('display', 'none');
-//                        $('#forgot-message-container').css('display', 'none');
-//                        $('#invalid-username').css('display', 'none');
-//
-//                        $('#register-with-email-drop-down').css('display', 'none');
-//                        $('#register-with-email-step-2').css('display', 'none');
-//                        $('#user-login-pane').css('display', 'block');
-//                        localStorage.loginState="register";
-//                        loginState = true;
-
 
                         $('#login-btn').text('LOG IN');
                         $('.black-tool-tip').css('display', 'none');
@@ -722,10 +697,6 @@
                         $('#register-with-email-step-2').removeClass('active-step');
                         $('#user-login-pane').css('display', 'none');
                         localStorage.loginState = "register";
-//                        loginState = false;
-
-
-
 
                     }
                     else {
@@ -744,13 +715,12 @@
                             $('#user-forgot-password-pane').css('display', 'none');
                             $('#forgot-message-container').css('display', 'none');
                             $('#invalid-username').css('display', 'none');
-
                             $('#register-with-email-drop-down').css('display', 'none');
                             $('#register-with-email-step-2').css('display', 'none');
                             $('#register-with-email-step-3').css('display', 'none');
                             $('#user-login-pane').css('display', 'block');
-//                    var loginState = true;
                         } else {
+
                             $('#login-btn').text('REGISTER');
                             $('.black-tool-tip').css('display', 'none');
                             $('#click-register-social').css('display', 'none');
@@ -763,14 +733,10 @@
                             $('#user-forgot-password-pane').css('display', 'none');
                             $('#forgot-message-container').css('display', 'none');
                             $('#invalid-username').css('display', 'none');
-
                             $('#register-with-email-drop-down').css('display', 'none');
                             $('#register-with-email-step-2').css('display', 'none');
                             $('#register-with-email-step-3').css('display', 'none');
                             $('#user-login-pane').css('display', 'block');
-
-
-//                    loginState = false;
                         }
 
 

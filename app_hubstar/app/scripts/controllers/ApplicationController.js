@@ -32,7 +32,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     from: null,
     size: null,
     photo_url: null,
-    isUnReadCountZero:false,
+    isUnReadCountZero: false,
     userName: "",
     password: "",
     repeat: "",
@@ -45,7 +45,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeLoginURL: "",
     loginTime: false,
     isGeoDropdown: false,
-  //  isNotification:false,
+    //  isNotification:false,
     isNavigatorDropdown: false,
     isHeaderNavigatorDropdown: false,
     adPageNo: 0,
@@ -77,7 +77,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('search_string', '');
         this.set('loginUsername', localStorage.userName);
     },
-  
     popupModal: function() {
         HubStar.set('checkLoginStatus', true);
     },
@@ -267,21 +266,21 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             });
         }
     },
-    selectTopic: function(id, topic) {  
+    selectTopic: function(id, topic) {
         if (HubStar.get(id)) {
             $('#minus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; margin: 10px; display:none;");
             if (this.get('selected_topics').indexOf(topic) !== -1) {
                 this.set('selected_topics', this.get('selected_topics').replace(topic + ",", ""));
             }
             HubStar.set(id, false);
-        } else {        
-           $('#minus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; display:block;");
-            if(this.get('selected_topics').length===0){
+        } else {
+            $('#minus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; display:block;");
+            if (this.get('selected_topics').length === 0) {
                 this.set('selected_topics', topic);
-            }else{              
-                this.set('selected_topics', this.get('selected_topics') + "," + topic);    
-            }  
-             HubStar.set(id, true);                   
+            } else {
+                this.set('selected_topics', this.get('selected_topics') + "," + topic);
+            }
+            HubStar.set(id, true);
         }
     },
     submitSelection: function() {
@@ -300,15 +299,36 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('loginTime', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age'), this.get('selected_topics')];
         var that = this;
-       $('#register-with-email-step-4').css('display', 'none');
-     //     $('#skipRegister').css('display', 'block');
+        $('#register-with-email-step-4').css('display', 'none');
+        //     $('#skipRegister').css('display', 'block');
         requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
-            localStorage.loginStatus = params.COUCHBASE_ID;
+            localStorage.userName = params.USER_NAME;
+             that.set('loginUsername', localStorage.userName);
+            localStorage.userType = "email";
             var emailInfo = [params.USER_NAME, params.PWD_HASH];
             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
 
             });
             setTimeout(function() {
+                $('#login-btn').text('REGISTER');
+                $('.black-tool-tip').css('display', 'none');
+                $('#click-register-social').css('display', 'none');
+                $('#click-register').css('display', 'none');
+                $('#social-link').css('display', 'none');
+                $('#login-with-email-drop-down').css('display', 'block');
+                $('#social-login-container').css('display', 'none');
+                $('#click-login').addClass('active-tab');
+                $('#social-login').removeClass('social-active');
+                $('#user-forgot-password-pane').css('display', 'none');
+                $('#forgot-message-container').css('display', 'none');
+                $('#invalid-username').css('display', 'none');
+
+                $('#register-with-email-drop-down').css('display', 'none');
+                $('#register-with-email-step-2').css('display', 'none');
+                $('#register-with-email-step-3').css('display', 'none');
+                $('#user-login-pane').css('display', 'block');
+
+
                 that.set('first_name', "");
                 that.set('last_name', "");
                 that.set('email', "");
@@ -321,7 +341,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         });
 
     },
-    
 //    skip: function(){
 //       // HubStar.set("isLogin", true);
 //       this.transitionToRoute("searchIndex");
@@ -399,20 +418,20 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         if (checking === "geoLocation") {
             this.set('isGeoDropdown', !this.get('isGeoDropdown'));
             $('#geo-filter').addClass('Geo-Filter-active');
-            
-        } else  if (checking === "notification"){
 
-        this.set("isNotification", !this.get("isNotification"));
-        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
-         $('#Geo-Filter').toggleClass('Geo-Filter-active');
+        } else if (checking === "notification") {
+
+            this.set("isNotification", !this.get("isNotification"));
+            this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
+            $('#Geo-Filter').toggleClass('Geo-Filter-active');
 
         }
     },
-      canelDropDown: function()
+    canelDropDown: function()
     {
         $('#geo-filter').toggleClass('Geo-Filter-active');
-         this.set('isGeoDropdown', !this.get('isGeoDropdown'));
-    
+        this.set('isGeoDropdown', !this.get('isGeoDropdown'));
+
     },
     dropdownNavigator: function() {
 
@@ -427,7 +446,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     showDiscoveryBar: function() {
 
-        HubStar.set("showDiscoveryBar", true); 
+        HubStar.set("showDiscoveryBar", true);
         this.transitionToRoute('searchIndex');
         $("#top-about-menu").fadeIn("320");
         $("#search-bar").fadeOut("320");
@@ -484,7 +503,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('isHeaderNavigatorDropdown', false);
         HubStar.set("showDiscoveryBar", false);
     },
-  
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {
@@ -522,8 +540,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             localStorage.userType = "email";
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndex');
-
-
                             that.set('loginPassword', "");
                             that.set('loginTime', false);
                         }
@@ -531,8 +547,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         {
                             that.set('loginTime', false);
                             $('.black-tool-tip').css('display', 'none');
-                            $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
-                            alert("Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!");
+                            $('#incorrect-varify').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                         }
 
                     }

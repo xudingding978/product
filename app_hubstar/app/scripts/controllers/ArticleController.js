@@ -66,7 +66,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                 if (id === "default")
                 {
                     this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
-                     window.history.pushState({ path: address }, '', address);
+                
                 }
                 else
                 {
@@ -129,7 +129,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                 {
                     
                     this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
-                   window.history.pushState({ path: address }, '', address);
+                   
                 }
                 else
                 {

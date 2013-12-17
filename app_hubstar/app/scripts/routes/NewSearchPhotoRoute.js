@@ -1,4 +1,4 @@
-HubStar.ProfilePhotoRoute = Ember.Route.extend({
+HubStar.NewSearchPhotoRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         var temp;
         var url = window.location.href;
@@ -12,20 +12,12 @@ HubStar.ProfilePhotoRoute = Ember.Route.extend({
         //    this.controllerFor("masoryCollectionItems").set("type", "user");
         var megaModel = HubStar.Mega.find(temp);
         //   this.controllerFor('mega').set("selectPhoto", true);
-        this.controllerFor('mega').set("selectType", "profile"); // it is from the search board if is not profile, if it profile it is from profile' data
-      //  this.controllerFor('mega').set("loadingTime", true);
-        var that = this;
-        setTimeout(function() {
-            that.controllerFor('mega').getInitData(megaModel);
-        //    that.controllerFor('mega').set("loadingTime", false);
+        this.controllerFor('mega').getInitData(megaModel);
 
-        }, 2000);
     },
     model: function(params) {
-
-        var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});// = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
+        var model = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
         this.controllerFor("mega").set("clickOrRoute", true);
-
         return model;
     },
     activate: function() {

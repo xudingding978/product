@@ -12,7 +12,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     from: null,
     selectedPhoto: null,
     isSelected: false,
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'checkingLoginStatus', 'masonryCollectionItems', 'editComment','itemFunction', 'collection'],
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'checkingLoginStatus', 'masonryCollectionItems', 'editComment', 'itemFunction', 'collection'],
     currentUser: null,
     currentUserProfile: null,
     photo_album_id: null,
@@ -31,7 +31,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     willDelete: false,
     init: function()
     {
-   
+
     },
     findSelectedItemIndex: function() {
         content = this.get('content');
@@ -86,7 +86,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.set('selectedPhoto', this.get('content').get('lastObject'));
 
         }
-
         var selectedIndex = this.findSelectedItemIndex();
         selectedIndex--;
         if (selectedIndex < 0) {
@@ -123,7 +122,17 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
         else
         {
-            this.transitionTo("photo", this.get("megaResouce"));
+//            var address = document.URL;
+//            var search_id = address.split("#")[1].split("/")[2];
+//            if (search_id === "default")
+//            {
+//                //this.transitionTo("profilePhoto", this.get("megaResouce"));
+//            }
+//            else
+//            {
+//                this.transitionTo("profilePhoto", this.get("megaResouce"));
+//            }
+            this.transitionTo("newSearchPhoto", this.get("megaResouce"));
         }
         this.selectedImage(this.get('selectedPhoto').id);
 
@@ -165,7 +174,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
         else
         {
-            this.transitionTo("photo", this.get("megaResouce"));
+            this.transitionTo("newSearchPhoto", this.get("megaResouce"));
+
         }
         this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
         this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
@@ -210,9 +220,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             if (this.get("selectPhoto") === false)   //selectPhoto is user to control left or right operation
             {
-
-                this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
                 this.set("content", []);
+                this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
 //                this.set('image_no', 1);
                 this.set("selectedPhoto", photoObj);
                 this.get("content").pushObject(photoObj);
@@ -220,6 +229,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 this.set('megaResouce', megaResouce);
                 this.set("photo_album_id", "album_" + megaObject.id);
                 this.set("photo_thumb_id", "thumb_" + megaObject.id);
+
                 if (megaObject.get("type") === 'article' || megaObject.get("type") === 'video')
                 {
                     if (this.get("controllers.masonryCollectionItems").get("type") === "user")
@@ -255,6 +265,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     this.getCommentsById(megaObject.id);
                 }
             }
+
         }
 
     },
@@ -267,6 +278,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var isCollectionIDExist = this.isParamExist(collection_id);
         var that = this;
         if (isProfileIDExist && isCollectionIDExist) {
+
             var data = HubStar.Mega.find({RequireType: "collection", "collection_id": collection_id, "owner_profile_id": owner_profile_id});
             data.addObserver('isLoaded', function() {
                 if (data.get('isLoaded')) {
@@ -376,10 +388,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                             }
                         }
                     }
-
-
-
-
 
                 }
             });
@@ -580,27 +588,36 @@ HubStar.MegaController = Ember.ArrayController.extend({
             else if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
             {
                 var address = document.URL;
+                var type = address.split("#")[1].split("/")[1];
                 var owner_id = address.split("#")[1].split("/")[2];
 
 
                 var collection_id = address.split("#")[1].split("/")[4];
-                var profile = HubStar.Profile.find(owner_id);
-                for (var i = 0; i < profile.get('collections').get("length"); i++) {
-                    var data = profile.get('collections').objectAt(i);
-                    if (data.id === collection_id) {
-                        break;
+
+                if (type === "search")
+                {
+
+                    this.transitionTo("newSearchPhoto", this.get("megaResouce").get('photo').objectAt(0));
+
+                }
+                else
+                {
+ 
+                    var profile = HubStar.Profile.find(owner_id);
+                    for (var i = 0; i < profile.get('collections').get("length"); i++) {
+                        var data = profile.get('collections').objectAt(i);
+                        if (data.id === collection_id) {
+                            break;
+                        }
                     }
+
+                    this.transitionTo("profileCollection", data);
+
+                    this.transitionTo("profilePhoto", this.get("megaResouce").get('photo').objectAt(0));
                 }
 
-                this.transitionTo("profileCollection", data);
-
-                this.transitionTo("profilePhoto", this.get("megaResouce").get('photo').objectAt(0));
-
             }
-            else
-            {
-                this.transitionTo("photo", this.get("megaResouce"));
-            }
+
         }
         else if (this.get('megaResouce').get("type") === "article") //different types of photo in mega
         {
@@ -687,16 +704,34 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
     },
     closeWindow: function() {
-     this.set('image_no', 1);
+        this.set('image_no', 1);
         this.set('collectable', false);
         this.set('contact', false);
+        this.set("selectPhoto",false);
         var address = document.URL;
         if (this.get('controllers.masonryCollectionItems').get("type") === "profile")
         {
-             
+
             if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
             {
-                this.transitionTo("indexIndex"); //search page
+                // this.transitionTo("indexIndex"); //search page
+                var address = document.URL;
+                var search_id = address.split("#")[1].split("/")[2];
+                if (search_id === "search") //this go to the search index
+                {
+
+                    this.transitionTo("searchIndex");
+                }
+                else
+                {
+                    HubStar.set("escVideo", true);
+                    this.transitionTo("search", {id: search_id});
+                }
+                $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+                setTimeout(function() {
+                    $('#masonry_container').masonry();  //masonry();
+                }, 300);
+
             }
             else
             {
@@ -722,8 +757,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
         else
         {
-  
-  
             var collection_id = address.split("#")[1].split("/")[4];
             var id = address.split("#")[1].split("/")[2]; //user id
             var user = HubStar.User.find(id);
@@ -738,8 +771,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             this.set("selectPhoto", false);
             this.transitionTo("collection", data); //user
-            }
-        
+        }
+
 
     },
     editingContactForm: function() {

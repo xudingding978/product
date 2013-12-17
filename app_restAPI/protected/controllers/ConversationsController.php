@@ -382,7 +382,7 @@ class ConversationsController extends Controller {
 
     public function sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId) {
 
-        $receiveEmail = "dingding@hubstar.co";
+        //$receiveEmail = "dingding@hubstar.co";
         $domain = $this->getDomain();
         $domainWithoutAPI = $this->getDomainWihoutAPI();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");

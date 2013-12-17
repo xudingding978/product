@@ -86,7 +86,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.set('selectedPhoto', this.get('content').get('lastObject'));
 
         }
-console.log("4444444444");
         var selectedIndex = this.findSelectedItemIndex();
         selectedIndex--;
         if (selectedIndex < 0) {
@@ -175,7 +174,6 @@ console.log("4444444444");
         }
         else
         {
-            console.log(this.get("megaResouce"));
             this.transitionTo("newSearchPhoto", this.get("megaResouce"));
 
         }
@@ -582,16 +580,13 @@ console.log("4444444444");
 
         if (this.get('megaResouce').get("type") === "photo")
         {
-            console.log("33333333 user");
             this.set('selectedPhoto', this.get('megaResouce').get('photo').objectAt(0));
             if (this.get("controllers.masonryCollectionItems").get("type") === "user")
             {
-                console.log("ssssssssssaaaaaaaaa user");
                 this.transitionTo("userPhoto", this.get("megaResouce").get('photo').objectAt(0));
             }
             else if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
             {
-                console.log("ssssssssssaaaaaaaaa profile");
                 var address = document.URL;
                 var type = address.split("#")[1].split("/")[1];
                 var owner_id = address.split("#")[1].split("/")[2];
@@ -607,8 +602,7 @@ console.log("4444444444");
                 }
                 else
                 {
-                    console.log(type);
-                    console.log("ssssssssssaaaaaaaaa");
+ 
                     var profile = HubStar.Profile.find(owner_id);
                     for (var i = 0; i < profile.get('collections').get("length"); i++) {
                         var data = profile.get('collections').objectAt(i);
@@ -735,7 +729,7 @@ console.log("4444444444");
                 }
                 $('#masonry_wrapper').attr('style', "top:100px;position:relative");
                 setTimeout(function() {
-                    $('#masonry_container').reLoad();  //masonry();
+                    $('#masonry_container').masonry();  //masonry();
                 }, 300);
 
             }

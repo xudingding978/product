@@ -91,18 +91,17 @@ HubStar.PhotoView = Ember.View.extend({
                 }
                 else
                 {
- 
+
                     HubStar.set("escVideo", true);
                     this.get("controller").set("selectPhoto", false);
                     this.get("controller").transitionTo("search", {id: id});
                 }
-
+                this.get("controller").get("controllers.mega").set("selectPhoto", false);
+                $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+                setTimeout(function() {
+                    $('#masonry_container').masonry();
+                }, 300);
             }
-            this.get("controller").get("controllers.mega").set("selectPhoto", false);
-            $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-            setTimeout(function() {
-                $('#masonry_container').masonry();
-            }, 300);
 
 
         }

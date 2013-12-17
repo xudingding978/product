@@ -66,6 +66,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                 if (id === "default")
                 {
                     this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                     window.history.pushState({ path: address }, '', address);
                 }
                 else
                 {
@@ -126,7 +127,9 @@ HubStar.ArticleController = Ember.Controller.extend({
             {
                 if (id === "default")
                 {
+                    
                     this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                   window.history.pushState({ path: address }, '', address);
                 }
                 else
                 {
@@ -437,7 +440,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
         setTimeout(function() {
-            $('#masonry_container').reLoad();  //masonry();
+            $('#masonry_container').masonry();  //masonry();
         }, 300);
 
     },

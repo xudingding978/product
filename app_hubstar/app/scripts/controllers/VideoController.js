@@ -49,9 +49,9 @@ HubStar.VideoController = Ember.Controller.extend({
         this.set('collectable', false);
         this.set('contact', false);
         window.history.back();
-   //     $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+        $('#masonry_wrapper').attr('style', "top:100px;position:relative");
         setTimeout(function() {
-            $('#masonry_container').reLoad();  //masonry();
+            $('#masonry_container').masonry();  //masonry();
         }, 300);
     },
     removeComment: function(object)

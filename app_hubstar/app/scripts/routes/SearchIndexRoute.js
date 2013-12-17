@@ -29,7 +29,6 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
 //            this.transitionTo("profileCollections", HubStar.Profile.find(id));
 //        },
 //        transitionToArticle: function(id) {
-//            console.log("tomtomtomtom");
 //            this.controllerFor('article').set("accessFromSearchBoard", true);
 //            this.transitionTo("article", HubStar.Article.find(id));
 //        }

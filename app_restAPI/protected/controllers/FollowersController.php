@@ -736,6 +736,7 @@ class FollowersController extends Controller {
                             }
                         }
                     }
+                    
                     $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
                 }
             } else {

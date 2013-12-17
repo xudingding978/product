@@ -997,8 +997,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var add_keywords_array = this.get('add_keywords').split(',');
         if (this.get('keywords_array').get('length') + add_keywords_array.get('length') <= this.get('keyword_num')) {
             for (var i = 0; i < add_keywords_array.get('length'); i++) {
-                var keyword = this.addKeyword(add_keywords_array[i]);
-                keywords_JSON.push(JSON.stringify(keyword));
+                if (add_keywords_array[i].trim()!=='' && add_keywords_array[i] !== null && add_keywords_array[i] !== undefined) {
+                    var keyword = this.addKeyword(add_keywords_array[i].trim());
+                    keywords_JSON.push(JSON.stringify(keyword));
+                }
             }
             requiredBackEnd('keywords', 'addKeywords', keywords_JSON, 'POST', function(params) {
             });

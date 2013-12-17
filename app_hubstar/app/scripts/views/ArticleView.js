@@ -153,7 +153,7 @@ HubStar.ArticleView = Ember.View.extend({
 
             $('#masonry_wrapper').attr('style', "top:100px;position:relative");
             setTimeout(function() {
-                $('#masonry_container').reLoad();  //masonry();
+                $('#masonry_container').masonry();  //masonry();
             }, 300);
         }
     }

@@ -11,6 +11,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     searchFromRoute: false,
     collectionArticleId: null,
     commentContent: "",
+    isShowPhotoUrl: false,
     accessFromSearchBoard: false, //false: access the articlePhoto  true: access the article
     isCreditListExist: false,
     needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems'],
@@ -36,6 +37,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             selectedIndex = this.get('content').get('length') - 1;
             this.set('image_no', this.get('content').get('length'));
         }
+        this.set("isShowPhotoUrl", true);
         this.set('image_no', selectedIndex + 1);
         this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
         this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
@@ -89,6 +91,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         //this.setCaption();
     },
     nextImage: function() {
+        this.set("isShowPhotoUrl", true);
         if (!this.get('selectedPhoto')) {
             this.set('selectedPhoto', this.get('content').get('firstObject'));
         }
@@ -150,6 +153,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         //this.setCaption();
     },
     selectImage: function(e) { // it is click the photo
+        this.set("isShowPhotoUrl", true);
         this.set('megaResouce', HubStar.Mega.find(e));
         this.set('selectedPhoto', HubStar.Mega.find(e).get('photo').objectAt(0));
 
@@ -187,14 +191,11 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
         else
         {
-
-
-
             var address = document.URL;
             var id = address.split("#")[1].split("/")[2];
-            if (id === "articles" || id === "photos" || id === "videos") //it is the search index
+            if (id === "default") //it is the search index
             {
-                this.transitionTo("searchArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
             }
             else
             {
@@ -327,15 +328,18 @@ HubStar.ArticleController = Ember.Controller.extend({
                     if (that.get("accessFromSearchBoard") === false)
                     {
 
-
-                        if (that.get("controllers.masonryCollectionItems").get("type") === "profile")
+                        if (this.get("isShowPhotoUrl") === true) //to controll show the photo url or not
                         {
-                            that.transitionTo("profileArticlePhoto", that.get('content').objectAt(0));
+                            if (that.get("controllers.masonryCollectionItems").get("type") === "profile")
+                            {
+                                that.transitionTo("profileArticlePhoto", that.get('content').objectAt(0));
 
-                        }
-                        else
-                        {
-                            that.transitionTo("articlePhoto", that.get('content').objectAt(0));
+                            }
+                            else
+                            {
+                                that.transitionTo("articlePhoto", that.get('content').objectAt(0));
+                            }
+                            this.set("isShowPhotoUrl", false);
                         }
 
                     }
@@ -345,24 +349,28 @@ HubStar.ArticleController = Ember.Controller.extend({
                         var address = document.URL;
                         var search_id = address.split("#")[1].split("/")[2];
                         var search_type = address.split("#")[1].split("/")[1];
-                        if (search_type === "search" || search_type === "searchs")
+                        if (this.get("isShowPhotoUrl") === true)
                         {
-                            if (search_id === "default")
+                            if (search_type === "search" || search_type === "searchs")
                             {
-                                that.transitionTo("searchDefaultArticlePhoto", that.get('content').objectAt(0));
-                            } else
+                                if (search_id === "default")
+                                {
+                                    that.transitionTo("searchDefaultArticlePhoto", that.get('content').objectAt(0));
+                                } else
+                                {
+                                    that.transitionTo("searchIndexArticlePhoto", that.get('content').objectAt(0));
+                                }
+                            } else if (search_type === "profiles")
                             {
-                                that.transitionTo("searchIndexArticlePhoto", that.get('content').objectAt(0));
+
+                                that.transitionTo("profileArticlePhoto", that.get('content').objectAt(0));
+
                             }
-                        } else if (search_type === "profiles")
-                        {
-
-                            that.transitionTo("profileArticlePhoto", that.get('content').objectAt(0));
-
-                        }
-                        else if (search_type === "users")
-                        {
-                            that.transitionTo("articlePhoto", that.get('content').objectAt(0));
+                            else if (search_type === "users")
+                            {
+                                that.transitionTo("articlePhoto", that.get('content').objectAt(0));
+                            }
+                            this.set("isShowPhotoUrl", false);
                         }
 
                     }
@@ -400,7 +408,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         if (type === "search") //search from the seach board
         {
-            if (user_id === "articles" || user_id === "photos" || user_id === "videos") //it is the search index
+            if (user_id === "default") //it is the search index
             {
                 this.transitionTo("searchIndex");
             }

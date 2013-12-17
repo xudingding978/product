@@ -25,6 +25,8 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
         localStorage.checkUser = "";
+        console.log("search route");
+            window.history.go(0);
         // $(window).scrollTop(0);
     },
     model: function(params) {
@@ -48,10 +50,11 @@ HubStar.SearchRoute = Ember.Route.extend({
 
             if (search_id === "articles" || search_id === "photos" || search_id === "videos") //it is the search index
             {
-                this.transitionTo("photo", HubStar.Mega.find(id));
+
             }
             else
             {
+                this.controllerFor('mega').set("type", "profile");
                 this.transitionTo("newSearchPhoto", HubStar.Mega.find(id));
             }
         },
@@ -84,7 +87,7 @@ HubStar.SearchRoute = Ember.Route.extend({
             }
             else
             {
-                    this.transitionTo("searchIndexArticle", HubStar.Article.find(id));
+                this.transitionTo("searchIndexArticle", HubStar.Article.find(id));
             }
         }
     },

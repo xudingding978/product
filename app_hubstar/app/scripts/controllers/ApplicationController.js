@@ -20,7 +20,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         {id: "12", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment'}
 
     ],
-    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop', 'article', 'mega', 'checkingLoginStatus', 'addCollection'],
+    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop', 'article', 'mega', 'checkingLoginStatus', 'addCollection','search'],
     content: [],
     loginInfo: "",
     search_area: "",

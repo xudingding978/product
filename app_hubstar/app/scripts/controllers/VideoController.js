@@ -4,10 +4,7 @@ HubStar.VideoController = Ember.Controller.extend({
     video_iframe_code: null,
     currentUser: null,
     enableToEdit: false,
-
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission','editComment','checkingLoginStatus','itemFunction'],
-
-
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus', 'itemFunction'],
     getinitdata: function(videoObject)
     {
 
@@ -52,6 +49,10 @@ HubStar.VideoController = Ember.Controller.extend({
         this.set('collectable', false);
         this.set('contact', false);
         window.history.back();
+   //     $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+        setTimeout(function() {
+            $('#masonry_container').reLoad();  //masonry();
+        }, 300);
     },
     removeComment: function(object)
     {

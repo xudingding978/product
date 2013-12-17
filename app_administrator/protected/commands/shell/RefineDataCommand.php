@@ -37,7 +37,9 @@ class RefineDataCommand extends Controller_admin {
             $this->fixCreated();
         } elseif ($action == 'fix715') {
             $this->fixArticlebeenUpdatedwithWrongId();
-        } elseif ($action == "refineArticle") {
+        } elseif($action == "findall"){
+            $this->deleteIncorrectRecord();
+        }elseif ($action == "refineArticle") {
 
 
 
@@ -99,8 +101,67 @@ class RefineDataCommand extends Controller_admin {
         }
     }
 
+    public function deleteIncorrectRecord() {
+        $article_arr = $this->fixArticlebeenUpdatedwithWrongId();
+        foreach ($article_arr as $article) {
+            $article_id = $article[0];
+            $article_owner_id = $article[1];
+            $article_colloection_id = $article[2];
+            $article_country = $article[3];
+            $article_time = $article[4];
+            $bucket = 'temp';
+            $setting['log.enabled'] = true;
+            $Sherlock = new \Sherlock\Sherlock($setting);
+            $Sherlock->addNode("es1.hubsrv.com", 9200);
+            $request = $Sherlock->search();
+            $index = $bucket;
+            $request->index($index)->type('couchbaseDocument');
+                      $raw = '
+             {
+    "bool": {
+      "must": [
+        {
+          "query_string": {
+            "default_field": "couchbaseDocument.doc.collection_id",
+                           "query": "\"' . $article_colloection_id . '\""
+          }
+        },
+          {
+          "query_string": {
+            "default_field": "couchbaseDocument.doc.country",
+            "query": "\"' . $article_country . '\""
+          }
+        },
+        {
+          "query_string": {
+            "default_field": "couchbaseDocument.doc.owner_id",
+            "query": "'.$article_owner_id.'"
+          }
+        },
+          {
+          "query_string": {
+            "default_field": "couchbaseDocument.doc.created",
+            "query": "\"' . $article_time . '\""
+          }
+        }
+      ]
+    }
+    }
+';
+            $query=  Sherlock\Sherlock::queryBuilder()->Raw($raw);
+            $request->query($query);
+            echo "\n".$request->toJSON()."\n";
+            $respones=$request->execute();
+            if(sizeof($respones)>0){
+                foreach($respones as $content){
+                    echo $content['id']."\n";
+                }
+            }
+            }
+    }
+
     public function fixArticlebeenUpdatedwithWrongId() {
-        $bucket = 'develop';
+        $bucket = 'temp';
         $article_arr = $this->findAllAccordingType($bucket, 'article');
         $cb = $this->couchBaseConnection($bucket);
         //  $collectionId_arr = array();
@@ -116,10 +177,11 @@ class RefineDataCommand extends Controller_admin {
         $request = $Sherlock->search();
         $index = $bucket;
         $request->index($index)->type('couchbaseDocument');
+        $return_arr = array();
 
 
         foreach ($article_arr as $article) {
-            $message=null;
+            $message = null;
             time_nanosleep(0, 200000000);
             $collection_id = null;
             $helium = null;
@@ -181,16 +243,16 @@ class RefineDataCommand extends Controller_admin {
     }
 ';
 
-                   // echo $raw . "\n";
+                    // echo $raw . "\n";
                     echo $helium;
                     $query = Sherlock\Sherlock::queryBuilder()->Raw($raw);
-               //     echo $query->toJSON() . "\n";
+                    //     echo $query->toJSON() . "\n";
 
                     $request->query($query);
                     echo $request->toJSON() . "\n";
 
                     $response = $request->execute();
-                    echo sizeof($response)."\n";
+                    echo sizeof($response) . "\n";
                     if (sizeof($response) > 1) {
                         $check_arr = array();
                         foreach ($response as $helium_found) {
@@ -202,29 +264,39 @@ class RefineDataCommand extends Controller_admin {
                             echo $article . " | " . $collection_id . " has more that 2 duplications----------n";
                             $message = $article . " | " . $collection_id . " has more that 2 duplications----------n";
                         } else {
-                            $compare_arr=CJSON::decode($cb->get($check_arr[0]));
+                            $compare_arr = CJSON::decode($cb->get($check_arr[0]));
                             $current = $result_arr['created'];
                             $compare = $compare_arr['created'];
                             if ($result_arr['owner_id'] === $compare_arr['owner_id'] && $result_arr['country'] === $compare_arr['country']) {
+                                $articleInfor_arr = array();
+
 
 
 
 
                                 if ($current > $compare) {
-                                    echo $article . " | " . $collection_id . " | " . $helium . " | " .$current." update into " . $check_arr[0] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] ." | ".$compare. "\n";
-                                    $message =$article . " | " . $collection_id . " | " . $helium . " | " .$current." update into " . $check_arr[0]  . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] ." | ".$compare. "\n";
+                                    array_push($articleInfor_arr, $check_arr[0]);
+                                    array_push($articleInfor_arr, $compare_arr['owner_id']);
+                                    array_push($articleInfor_arr, $compare_arr['collection_id']);
+                                    array_push($articleInfor_arr, $compare_arr['country']);
+                                    array_push($articleInfor_arr, $compare);
+                                    array_push($return_arr, $articleInfor_arr);
+                                    echo $article . " | " . $collection_id . " | " . $helium . " | " . $current . " update into " . $check_arr[0] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] . " | " . $compare . "\n";
+                                    $message = $article . " | " . $collection_id . " | " . $helium . " | " . $current . " update into " . $check_arr[0] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] . " | " . $compare . "\n";
                                 } elseif ($current < $compare) {
-                                    echo $check_arr[0] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] ." | ".$compare. " update into " . $article . " | " . $collection_id . " | " . $helium ." | " .$current."\n";
-                                    $message =$check_arr[0] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] ." | ".$compare. " update into " . $article . " | " . $collection_id . " | " . $helium ." | " .$current."\n";
+                                    array_push($articleInfor_arr, $article);
+                                    array_push($articleInfor_arr, $compare_arr['owner_id']);
+                                    array_push($articleInfor_arr, $collection_id);
+                                    array_push($articleInfor_arr, $compare_arr['country']);
+                                    array_push($articleInfor_arr, $current);
+                                    array_push($return_arr, $articleInfor_arr);
+                                    echo $check_arr[0] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] . " | " . $compare . " update into " . $article . " | " . $collection_id . " | " . $helium . " | " . $current . "\n";
+                                    $message = $check_arr[0] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] . " | " . $compare . " update into " . $article . " | " . $collection_id . " | " . $helium . " | " . $current . "\n";
                                 } else {
                                     echo $article . " | " . $collection_id . " | " . $helium . " has same timestamp with " . $compare_arr['id'] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] . "-------------------\n";
                                     $message = $article . " | " . $collection_id . " | " . $helium . " has same timestamp with " . $compare_arr['id'] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] . "-------------------\n";
                                 }
                             }
-
-
-
-
                             //array_push$record_arr
                         }
                         $this->writeToLog($log_path, $message);
@@ -239,6 +311,8 @@ class RefineDataCommand extends Controller_admin {
                 echo $article . "can not find the article in couchbase----------------\n";
             }
         }
+        echo "\n" . var_export($return_arr) . "\n";
+        return $return_arr;
     }
 
 //    
@@ -1631,4 +1705,5 @@ class RefineDataCommand extends Controller_admin {
     }
 
 }
+
 ?>

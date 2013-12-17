@@ -569,21 +569,23 @@ class RefineDataCommand extends Controller_admin {
         foreach ($record_arr as $found) {
            // sleep(1);
             $couchbase_data_arr=array();
-            $data_arr=array();
-
-            $data_arr = $found['_source']['doc'];
+//            $data_arr=array();
+//
+//            $data_arr = $found['_source']['doc'];
+                $id = $found['_id'];
+            echo "\n".$id."\n";
             //    $message=  var_export($data_arr,true)."\n---------------------------------------------------------\n";
-            $id = $data_arr['id'];
-            $message = $id;
-            $this->writeToLog($log_path, $message);
+       //     $id = $data_arr['id'];
+//            $message = $id;
+//            $this->writeToLog($log_path, $message);
             //     $message.="\n".$id;
-            if ($data_arr['type'] === "profile") {
-                $couchbase_id = "trendsideas.com/profiles/" . $id;
-            } else {
-                $couchbase_id = "trendsideas.com/" . $id;
-            }
+//            if ($data_arr['type'] === "profile") {
+//                $couchbase_id = "trendsideas.com/profiles/" . $id;
+//            } else {
+//                $couchbase_id = "trendsideas.com/" . $id;
+//            }
             $cb = $this->couchBaseConnection($bucket);
-            $couchbase_data = $cb->get($couchbase_id);
+            $couchbase_data = $cb->get($id);
             $couchbase_data_arr = CJSON::decode($couchbase_data);
              if(isset($couchbase_data_arr['comments'])){
                  
@@ -596,20 +598,20 @@ class RefineDataCommand extends Controller_admin {
             foreach ($comment_arr as $comment) {
                 if ($comment['message_id'] == NULL)
                     $comment['message_id'] = rand(100, 999) . strtotime(date('Y-m-d H:i:s')) . $comment['commenter_id'];
-                $comment['optional'] = $data_arr['type'] . "/" . $id;
-                 $comment['commenter_profile_pic_url']= "http://s3.hubsrv.com/trendsideas.com/users/" . $comment['commenter_id'] . "/user_picture/user_picture";
+          //     $comment['optional'] = $couchbase_data_arr['type'] . "/" . $id;
+            //     $comment['commenter_profile_pic_url']= "http://s3.hubsrv.com/trendsideas.com/users/" . $comment['commenter_id'] . "/user_picture/user_picture";
                 array_push($new_comment_array, $comment);
             }
             $couchbase_data_arr['comments'] = $new_comment_array;
             echo var_export($new_comment_array,true);
              }
              
-             if($cb->set($couchbase_id,CJSON::encode($couchbase_data_arr))){
-                 echo $couchbase_id." update successfull\n";
-                 $message = $couchbase_id." update successfull\n";
+             if($cb->set($id,CJSON::encode($couchbase_data_arr))){
+                 echo $id." update successfull\n";
+                 $message = $id." update successfull\n";
              }else{
-                 echo $couchbase_id." write couchbase record failed---------------------\n";
-                 $message = $couchbase_id." write couchbase record failed---------------------\n";
+                 echo $id." write couchbase record failed---------------------\n";
+                 $message = $id." write couchbase record failed---------------------\n";
              }
              $this->writeToLog($log_path, $message);
         }

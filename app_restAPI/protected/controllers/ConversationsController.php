@@ -453,7 +453,7 @@ class ConversationsController extends Controller {
 <html xmlns="http://www.w3.org/1999/xhtml">
 
     <body style="background: #E5E5E5; margin: 0 auto; padding: 0;">
-        <div style="width: 600px; padding-bottom: 50px; box-shadow: 0 0 5px #888; margin: 50px auto;">
+        <div style="width: 600px; padding-bottom: 50px; box-shadow: 0 0 5px #888; margin: 50px auto;background-color: white;">
             <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/header.jpg" />
             <div style="position: relative; padding: 15px 30px;">
                 <h1 style=" font-size: 2em;   line-height: 200%;font-weight: 700;margin-bottom: 10px">Hi   ' . $receiveName . ' ,</h1>

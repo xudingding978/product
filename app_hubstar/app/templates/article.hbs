@@ -10,25 +10,25 @@
         <div class="top-controlbar easing" >
             <!--            <div class="icon-on-black" style="left: 8px;"><i class="icon-thumbs-up"></i></div>-->
             <div class="icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." style="position:relative;" {{action switchCollection on="click" target="controller"}}>
-                <i class="icon-save" {{action switchCollection on="click" target="controller"}}></i>
+                <i class="icon-folder-close" {{action switchCollection on="click" target="controller"}}></i>
                 <span class="pretooltip">
                     Save
                 </span>          
             </div>
-            <div class="icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting}}>
+            <div class="icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting "1"}}>
                  <i class="icon-share-alt"></i><span class="pretooltip">Share</span> 
             </div>
-            <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
-                <li class="ite" {{action  fbShare}} >
+            <ul class="hideClass edit-object-ul" id="dropdown_id_1" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
+                <li class="ite" {{action  fbShare "1"}} >
             <k class="icon-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
             </li>
-            <li class='ite' {{action tShare}} >
+            <li class='ite' {{action tShare "1"}} >
         <k class="icon-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span>
         </li>
-        <li class='ite' {{action pShare}} >
+        <li class='ite' {{action pShare "1"}} >
     <k class="icon-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Pinterest</span>
     </li>
-    <li class="ite" {{action gpShare}}>
+    <li class="ite" {{action gpShare "1"}}>
 <k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
 </li>
 </ul>
@@ -56,16 +56,21 @@
 
 
 <div class="caption-container" id="caption_action">
+    {{#if HubStar.readCaption}}
     <div style="margin-bottom: 5px;">
-        <span class="hover-opacity easing" style="float: right; cursor:pointer;">
-            {{#if controller.readCaption}}
-            <i class="icon-double-angle-left"{{action setCaption  on="click" target="controller"}}></i>
-            {{else}}
-            <i class="icon-double-angle-right"{{action setCaption  on="click" target="controller"}}></i>
-            {{/if}}                       
+        <span class="hover-opacity easing" style="float: right; cursor:pointer;">           
+            <i class="icon-double-angle-left"{{action setCaption  on="click" target="controller"}}></i>                             
         </span>
     </div>
     <div class="caption-text" style="width: 300px;font-size: 13px;line-height: 16px;">{{caption}} </div>
+    {{else}}
+    <div style="margin-bottom: 5px;">
+        <span class="hover-opacity easing" style="float: right; cursor:pointer;">
+            <i class="icon-double-angle-right"{{action setCaption  on="click" target="controller"}}></i>                      
+        </span>
+    </div>
+    <div class="caption-text" style="width: 300px;font-size: 13px;line-height: 16px;">{{caption}} </div>
+    {{/if}}
 </div>
 
 
@@ -104,20 +109,6 @@
             </div>
             <div class="poster_user">
                 <a class="poster-name" href="#/profiles/{{unbound controller.megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
-                <ul class="itemprofile" style="margin: 5px 0 0;">
-                    <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
-                        <div><k class="icon-eye-open"> &nbsp;{{this.collections.length}}</k></div>
-                    </li>
-                    <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
-                        <div><k class="icon-group">&nbsp;{{ length this.profile_partner_ids}}</k></div>
-                    </li>
-                    <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
-                        <div><k class="icon-film">&nbsp;{{ videolength this.profile_about_us}}</k></div>
-                    </li>
-                    <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
-                        <div><k class="icon-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>
-                    </li>
-                </ul>
             </div>
 
             <div class="contactmebtn hint--left hint--rounded easing" data-hint="Contact us!" style="position: absolute; right: 15px; top: 23px; bottom: auto;">
@@ -146,35 +137,35 @@
                 <i class="icon-folder-close" >&nbsp;</i>
             </div>
 
-            <div class="square-button hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting}}>
+            <div class="square-button hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting "2"}}>
                  <i class="icon-share-alt" >&nbsp;</i>
             </div>
 
-            <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
-                <li class="ite" {{action  fbShare}} >
+            <ul class="hideClass edit-object-ul" id="dropdown_id_2" style="width: 170px; right: 635px; position: absolute; top: 120px;">
+                <li class="ite" {{action  fbShare "2"}} >
             <k class="icon-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
             </li>
-            <li class='ite' {{action tShare}} >
+            <li class='ite' {{action tShare "2"}} >
         <k class="icon-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span>
         </li>
-        <li class='ite' {{action pShare}} >
+        <li class='ite' {{action pShare "2"}} >
     <k class="icon-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Pinterest</span>
     </li>
-    <li class="ite" {{action gpShare}}>
+    <li class="ite" {{action gpShare "2"}}>
 <k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
 </li>
 </ul>
 
 </div>
 </div>
-    
-    
-    
-    
-    <!--THIS IS THE ARTICLE AND CAPTION SECTION-->
-    
-    
-    
+
+
+
+
+<!--THIS IS THE ARTICLE AND CAPTION SECTION-->
+
+
+
 <div class="object-collapes-title" >
     <div class="collapes-title_inner">
         Article
@@ -202,11 +193,11 @@
         <div id ="read_more_cue" class="article-text" style="display:block;">......</div>
     </div>
 </div>
-    
-    
-    
-    
-    
+
+
+
+
+
 
 <!-- OBJECT CREDIT LIST SECTION -->
 {{#if controller.isCreditListExist}}
@@ -247,7 +238,7 @@
             Discussion
         </div>
         <span class="show-comment_inner">
-            <span class="comment-amount" > {{controller.megaResouce.comments.length}} </span>
+            <span class="comment-amount" > {{controller.article.comments.length}} </span>
         </span>
         <div class="dropdownicon">
             <i class="icon-angle-down" style="height: 16px; width: 16px;"></i>
@@ -267,12 +258,12 @@
                         <div class='user-says-angle-after' style="left: 49px;"></div>
                     </a>
 
-                        <div class="" style="width: 100%; border-radius: 2px;border: 1px solid #ddd;background-color: #fff;">
-                            <div   style="margin: 0;width: 100%; height:100px;">
-                                {{view Ember.TextArea valueBinding="commentContent"  class="no-resize no-effect" placeholder="What's up!" }}                                          
-                            </div>
+                    <div class="" style="width: 100%; border-radius: 2px;border: 1px solid #ddd;background-color: #fff;">
+                        <div   style="margin: 0;width: 100%; height:100px;">
+                            {{view Ember.TextArea valueBinding="commentContent"  class="no-resize no-effect" placeholder="What's up!" }}                                          
+                        </div>
 
-                            <div class="" style="height: 30px;position: relative;border-top: 1px solid #ddd;top: -1px;">
+                        <div class="" style="height: 30px;position: relative;border-top: 1px solid #ddd;top: -1px;">
 
                             <div class="message-btn easing" style='width: 100%'{{action addComment}}><k class='icon-ok'>&nbsp;</k>Post </div>
 
@@ -283,7 +274,7 @@
             </div>
 
 
-            {{#each controller.megaResouce.comments}}
+            {{#each controller.article.comments}}
             {{#unless this.isEdit}}
             <div class="comment-item">
 

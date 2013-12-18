@@ -104,7 +104,7 @@
     width: 45%;
     max-width: 800px;
     position: absolute;
-    top: 300px;
+    top: 330px;
     margin: auto;
     left: 0;
     right: 0;
@@ -158,8 +158,8 @@
 }
 
 .popular-topics{
-    top: 400px;
-    width: 900px; 
+    top: 410px;
+    width: 1075px;
     position:absolute; 
     margin: auto;
     left: 0;
@@ -170,12 +170,11 @@
     padding: 5px 15px;
     border-radius: 2px;
     color: #fff;
-    font-size: 1em;
+    font-size: 1.2em;
     font-weight: bold;
     margin: 0 10px 0 5px;
     float: left;
     cursor: pointer;
-    opacity: .8;
 
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
@@ -637,7 +636,7 @@ div#login_detail{
     box-shadow: 0 0 10px #555;
 }
 
-.Notification-top:before{
+/*.Notification-top:before{
     content: "";
     position: absolute;
     left: 204px;
@@ -657,7 +656,7 @@ div#login_detail{
     border-style: solid;
     border-width: 10px 10px 10px 10px;
     z-index: -1;
-}
+}*/
 
 .Notification-top > div:first-child{border-radius: 3px 3px 0 0}
 .Notification-top > div:last-child{border-radius: 0 0 3px 3px}

@@ -194,7 +194,7 @@ class ConversationsController extends Controller {
                 $mega_currentUser["participation_ids"] = $mega_currentUser["participation_ids"] . "," . $participantIds;
             }
             $participantions = explode(",", $mega_currentUser["participation_ids"]);
-            
+
 
             for ($i = 0; $i < sizeof($participation_id); $i++) {
 
@@ -329,7 +329,7 @@ class ConversationsController extends Controller {
     }
 
     public function createNotification($commenter_id, $participantions, $date, $conversationID, $commentContent) {
-        
+
         for ($i = 0; $i < sizeof($participantions); $i++) {
             if ($participantions[$i] !== $commenter_id) {
                 $ownerId = $participantions[$i];
@@ -356,28 +356,35 @@ class ConversationsController extends Controller {
                     }
                     array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
                 }
-                
+
                 if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
                     if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
                         $receiveEmail = $userInfo['user'][0]['email'];
                         $receiveName = $userInfo['user'][0]['display_name'];
-                        $notificationCount = 0;
+                        $notificationCountFollow = 0;
+                        $notificationCountMessage = 0;
+
                         for ($j = 0; $j < sizeof($userInfo['user'][0]['notifications']); $j++) {
                             if ($userInfo['user'][0]['notifications'][$j]["isRead"] === false) {
-                                $notificationCount++;
+                                if ($userInfo['user'][0]['notifications'][$j]["type"] === "follow" || $userInfo['user'][0]['notifications'][$j]["type"] === "unFollow") {
+                                    $notificationCountFollow++;
+                                } else {
+                                    $notificationCountMessage++;
+                                }
                             }
-                        } 
-                        $this->sendEmail($receiveEmail, $receiveName, $notificationCount, $ownerId);
+                        }
+                        $this->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
                     }
                 }
             }
         }
     }
 
-    public function sendEmail($receiveEmail, $receiveName, $notificationCount, $ownerId) {
+    public function sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId) {
 
-        //$receiveEmail = "tom@hubstar.co";
+        //$receiveEmail = "dingding@hubstar.co";
         $domain = $this->getDomain();
+        $domainWithoutAPI = $this->getDomainWihoutAPI();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
@@ -388,8 +395,8 @@ class ConversationsController extends Controller {
             "Destination" => array(
                 "ToAddresses" => array(
                     $receiveEmail),
-                "BccAddresses" => array(
-                    $platformEmail)
+//                "BccAddresses" => array(
+//                    $platformEmail)
             ),
             "Message" => array(
                 "Subject" => array(
@@ -397,7 +404,7 @@ class ConversationsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->confirmationEmailForm($receiveName, $notificationCount, $ownerId)
+                        "Data" => $this->confirmationEmailForm($domainWithoutAPI, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId)
                     )
                 ),
             ),
@@ -405,75 +412,79 @@ class ConversationsController extends Controller {
         $amazonSes->sendEmail($args);
     }
 
-    public function confirmationEmailForm($receiveName, $notificationCount, $ownerId) {
+    public function confirmationEmailForm($domainWithoutAPI, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId) {
+//        $photo_url_large_follow = null;
+//        $photo_url_large_message = null;
+//        $cb = $this->couchBaseConnection();
+//        $domain = $this->getDomain();
+//        $docID_currentUser = $domain . "/users/" . $ownerId;
+//        $flagMessage = false;
+//        $flagFollow = false;
+//        $tempMega_currentUser = $cb->get($docID_currentUser);
+//        $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
+//        if (isset($mega_currentUser['user'][0]["notifications"])) {
+//            $readNotification = $mega_currentUser['user'][0]["notifications"];
+//            for ($i = 0; $i < sizeof($readNotification); $i++) {
+//                if ($readNotification[$i]["isRead"] === false) {
+//                    if ($readNotification[$i]["type"] === "follow") {
+//                        $flagFollow = true;
+//                        $commenterInfo = $this->getDomain() . "/users/" . $readNotification[$i] ["user_id"];
+//                        $cbs = $this->couchBaseConnection();
+//                        $commenterInfoDeep = $cbs->get($commenterInfo); // get the old user record from the database according to the docID string 
+//                        $oldcommenterInfo = CJSON::decode($commenterInfoDeep, true);
+//                        $photo_url_large_follow = $oldcommenterInfo['user'][0]["photo_url_large"];
+//                    } else {
+//                        $flagMessage = true;
+//                        $commenterInfoM = $this->getDomain() . "/users/" . $readNotification[$i] ["user_id"];
+//                        $cbsM = $this->couchBaseConnection();
+//                        $commenterInfoDeepM = $cbsM->get($commenterInfoM); // get the old user record from the database according to the docID string 
+//                        $oldcommenterInfoM = CJSON::decode($commenterInfoDeepM, true);
+//                        $photo_url_large_message = $oldcommenterInfoM['user'][0]["photo_url_large"];
+//                    }
+//                    if ($flagFollow === true && $flagMessage === true) {
+//                        break;
+//                    }
+//                }
+//            }
+//        }
         return '
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title></title>
-    </head>
-    <body style="background: #E5E5E5; margin: 0; padding: 0;">
-        <table width="100%" cellpadding="0" cellspacing="0">
-            <tbody>
-                <tr>
-                    <td align="center">
-                        &nbsp;<br />
-                        <br />&nbsp;
-                        <table cellpadding="0" cellspacing="0" border="0" style="background: #fff;" width="600">
-                            <tbody>     
-                                <tr>
-                                    <td align="center">
-                                        &nbsp;<br />
-                                        <table cellpadding="10" cellspacing="0" width="90%" style="color: #666; font-size: 13px;
-                                               line-height: 150%; font-family: Helvetica, Arial, San-Serif; text-align: left;">
-                                            <tr>
-                                                <td valign="top">
-                                                    <h1 style="color: #05B1E5; font-size: 2em; font-weight: normal; margin: 0; line-height: 200%;">
-                                                       Hi   ' . $receiveName . '</h1>
-                                                    You have new notifications on myTrends!
-                                                         &nbsp;<br />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <table align="left" style="color: #05B1E5; font-size: 13px; line-height: 150%; font-family: Helvetica, Arial, San-Serif;
-                                                           text-align: left;" cellpadding="0" cellspacing="0">
-                                                        <tr>
-                                                            <td valign="top">
-                                                            <a href="http://develop.trendsideas.com/#/users/' . $ownerId . '/messagecenter/notifications">  ' . $notificationCount . ' notifications  </a>
-                                                                  
-                                                            </td>
-                                                        </tr>
-                                                    </table>
 
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td valign="top">
-                                                    <hr style="text-align:center;height: 1px; color: #0088CC; background: #0088CC; width: 100%; border: 0 none;margin:0;" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center">
-                                        &nbsp;<br />
-                                 <a href="http://develop.trendsideas.com/#/search">     <button type="homepage">Go to TrendsIdeas</button></a>
+    <body style="background: #E5E5E5; margin: 0 auto; padding: 0;">
+        <div style="width: 600px;  box-shadow: 0 0 5px #888; margin: 50px auto;background-color: white;">
+            <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/header.jpg" />
+            <div style="position: relative; padding: 15px 30px;">
+                <h1 style=" font-size: 2em;   line-height: 200%;font-weight: 700;margin-bottom: 10px">Hi   ' . $receiveName . ' ,</h1>
+                <p style="font-size: 1.5em;">You have new notifications on myTrends!</p>
+                <div style="margin: 20px 10px;font-size: 1.2em;line-height: 30px;height: 90px;">
+                    <div style="height: 45px;">
+                        <div style="margin: 0 5px;float: left;">
+                            <div style="width: 30px;height:30px;">         
+                                <img src="http://develop.devbox.s3.amazonaws.com/followers-icon-for-email.png"  style="width: 30px;height:30px; float: left"/> 
+                            </div>
+                        </div>
+                        <div style="float: left;">' . $notificationCountFollow . ' New Followers</div>
+                    </div>
+                    <div>
+                        <div style="margin: 0 5px;float: left;">
+                            <div style="width: 30px;height:30px;">         
+                                <img src="http://develop.devbox.s3.amazonaws.com/message-icon-for-email.png"  style="width: 30px;height:30px;float: left"/>
+                            </div>
+                        </div>
+                        <div style="float: left;">' . $notificationCountMessage . ' New Messages</div>
+                    </div>
+                </div>
 
-                                    </td>
-                                     <td align="center">
-                                  <a href="http://develop.trendsideas.com/#/users/' . $ownerId . '/messagecenter/notifications">      <button type="notifications">     See all notifications</button> </a>
-                                        <br />&nbsp;
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        &nbsp;<br />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                <div style="font-size: 1.5em;margin: 20px 0;"><a style="cursor: pointer;color: #05B1E5;" href="http://' . $domainWithoutAPI . '/#/users/' . $ownerId . '/messagecenter/notifications">View and manage notifications</a> on myTrends</div>
+                <hr  style="margin-bottom: 5px; color: #333"/>
+                <p>If you do not want to receive these emails from myTrends, please <a style="cursor: pointer;color: #05B1E5;">unsubscribe</a>.</p>
+            </div>
+
+            <div style="margin-top: 20px"><img src="http://develop.devbox.s3.amazonaws.com/email-bottom.jpg"  /></div>
+
+        </div>
     </body>
 </html>
 ';

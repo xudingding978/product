@@ -1,5 +1,5 @@
 HubStar.SearchIndexRoute = Ember.Route.extend({
- setupController: function() {
+    setupController: function() {
 
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
             HubStar.set('isLogin', false);
@@ -7,46 +7,39 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
         } else {
             HubStar.set('isLogin', true);
         }
+        this.controllerFor('article').set("accessFromSearchBoard", true);
         this.controllerFor('searchs').defaultSearch();
         this.controllerFor('index').setLogin();
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('status').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
-
-//        var testObject = {'one': 1, 'two': 2, 'three': 3};
-//// Put the object into storage
-//        localStorage.setItem('testObject', JSON.stringify(testObject));
-//        var item = JSON.parse(localStorage.testObject);
-//        for (var key in item) {
-//            console.log(item[key]);
-//        }
-  $(window).scrollTop(0);
         localStorage.checkUser = "";
-$(".navbar").css("box-shadow", "");
-$(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+        $(".navbar").css("box-shadow", "");
+        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
     },
     events: {
-        transitionToPhoto: function(id) {
-            this.controllerFor('mega').set("selectPhoto", false);
-            this.controllerFor('masonryCollectionItems').set("type", "profile");
-            this.transitionTo("photo", HubStar.Mega.find(id));
-        },
-        transitionToProfile: function(id) {
-            this.transitionTo("profileCollections", HubStar.Profile.find(id));
-        },
-        transitionToArticle: function(id) {
-            this.controllerFor('article').set("accessFromSearchBoard", true);
-            this.transitionTo("article", HubStar.Article.find(id));
-        }
+//        transitionToPhoto: function(id) {
+//            this.controllerFor('mega').set("selectPhoto", false);
+//            this.controllerFor('masonryCollectionItems').set("type", "profile");
+//            this.transitionTo("photo", HubStar.Mega.find(id));
+//        },
+//        transitionToProfile: function(id) {
+//
+//            this.transitionTo("profileCollections", HubStar.Profile.find(id));
+//        },
+//        transitionToArticle: function(id) {
+//            this.controllerFor('article').set("accessFromSearchBoard", true);
+//            this.transitionTo("article", HubStar.Article.find(id));
+//        }
     },
     redirect: function() {
 
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-//            this.transitionTo('indexIndex');
+            this.transitionTo('indexIndex');
 
         } else {
-           // this.transitionTo('searchIndex');
+            //   this.transitionTo('searchIndex');
         }
 
     },
@@ -65,7 +58,7 @@ $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
                 isFitWidth: true
             });
         });
-        
+
         $(window).scrollTop(HubStar.get("setHight"));
         HubStar.set("setHight", 0);
 
@@ -73,11 +66,10 @@ $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
     },
     deactivate: function() {
         HubStar.set("setHight", $(window).scrollTop());
-
     },
     renderTemplate: function() {
 
 
     }
 
-    });
+});

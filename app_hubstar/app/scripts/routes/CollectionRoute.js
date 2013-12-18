@@ -13,7 +13,7 @@ HubStar.CollectionRoute = Ember.Route.extend({
         this.controllerFor('masonryCollectionItems').selectModelForUser(id);
         this.controllerFor('masonryCollectionItems').set('canEdit', true);
         setTimeout(function() {
-            $('#masonry_photo_collection_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reloadItems");
         }, 3000);
     },
     events: {
@@ -23,17 +23,16 @@ HubStar.CollectionRoute = Ember.Route.extend({
             var obj = HubStar.Mega.find(id);
             this.transitionTo("userPhoto", obj);//photo          
         },
-        transitionToProfile: function(id) {
+        transitionToProfile: function(id) {          
             this.controllerFor('user').set('switchPhoto', false);
-            var address = document.URL;
-            var user_id = address.split("#")[1].split("/")[2];
-            return HubStar.Mega.find({RquireType: "firstsearch", user_id: user_id, collection_id: params.collection_id});
+//            var address = document.URL;
+//            var user_id = address.split("#")[1].split("/")[2];
+           
+             this.transitionTo("profile", HubStar.Profile.find(id));
         },
         transitionToArticle: function(id) {
             this.controllerFor("article").set("collectionArticleId", id);
- 
             this.transitionTo("userArticle", HubStar.Article.find(id));
-
         },
         transitionToVideo: function(video_id) {
             this.transitionTo("userVideo", video_id);

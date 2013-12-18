@@ -34,6 +34,18 @@ body > div.ember-view{
 #masonry_user_container[style='position: relative; height: 0px; width: 185px;'],
 #masonry_user_container[style='position:relative;height:0px;width: 185px;'],
 
+#masonry_user_container[style="position: relative; height: 184px; width: 370px;"],
+#masonry_user_container[style="position:relative;height:184px;width:370px;"],
+#masonry_user_container[style='position: relative; height: 184px; width: 370px;'],
+#masonry_user_container[style='position:relative;height:184px;width:370px;'],
+
+
+#masonry_user_container[style="position: relative; height: 0px; width: 185px;"],
+#masonry_user_container[style="position:relative;height:0px;width: 185px;"],
+#masonry_user_container[style='position: relative; height: 0px; width: 185px;'],
+#masonry_user_container[style='position:relative;height:0px;width: 185px;'],
+
+
 #masonry_photo_collection_container[style="position: relative; height: 0px; width: 185px;"],
 #masonry_photo_collection_container[style="position:relative;height:0px;width: 185px;"],
 #masonry_photo_collection_container[style='position: relative; height: 0px; width: 185px;'],
@@ -1026,7 +1038,6 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     float: left;
     padding-bottom: 200px;
     position: relative;
-    border-radius: 15px 0 0 15px;
 }
 
 .tabs-left:after{
@@ -1332,15 +1343,15 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     border: 1px solid #ddd; 
     background-color: #fff; 
     right: 140px; 
-    width: 200px;
+    width: auto;
 }
 
 .select-profile-save:before{
     content: "";
     position: absolute;
-    left: 90px;
+    left: 117px;
     top: -19px;
-    border-color: transparent transparent #fff transparent;
+    border-color: transparent transparent #f7f7f7 transparent;
     border-style: solid;
     border-width: 10px 10px 10px 10px;
     z-index: 0;
@@ -1349,7 +1360,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .select-profile-save:after{
     content: "";
     position: absolute;
-    left: 90px;
+    left: 117px;
     top: -20px;
     border-color: transparent transparent #ddd transparent;
     border-style: solid;

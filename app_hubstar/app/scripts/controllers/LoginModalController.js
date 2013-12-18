@@ -71,6 +71,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                             localStorage.loginStatus = params[0].COUCHBASE_ID;
                             localStorage.userName = that.get('loginUsername');
                             localStorage.userType = "email";
+                            localStorage.loginState = "login";
                             location.reload();
                             HubStar.set("isLogin", true);
                             HubStar.set('checkLoginStatus', false);
@@ -175,6 +176,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
             localStorage.userName = params.USER_NAME;
             that.set('loginUsername', localStorage.userName);
             localStorage.userType = "email";
+            localStorage.loginState = "login";
             var emailInfo = [params.USER_NAME, params.PWD_HASH];
             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
 

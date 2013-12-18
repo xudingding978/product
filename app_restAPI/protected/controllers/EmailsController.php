@@ -395,7 +395,11 @@ class EmailsController extends Controller {
 
                                     </td>
                                 </tr>
-
+                                <tr>
+                                    <td align="center">
+                                        <img src="http://develop.devbox.s3.amazonaws.com/email-bottom.jpg" style="float: left;" />
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         &nbsp;<br />
@@ -484,9 +488,7 @@ class EmailsController extends Controller {
                                 </tr>
                                 <tr>
                                     <td align="center">
-                                        &nbsp;<br />
                                         <img src="http://develop.devbox.s3.amazonaws.com/email-bottom.jpg" style="float: left;" />
-                                        <br />&nbsp;
                                     </td>
                                 </tr>
                             </tbody>

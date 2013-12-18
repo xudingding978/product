@@ -124,11 +124,11 @@
                     <div style="position: relative">Residential</div>
                     <div style="position: relative;top: 200px;">Commercial</div>
                 </div>
-                
+
                 {{#each controller.contentTopic}}
                 <div class="select-interest" style=" height: 150px; width: auto;position: relative; float: left; margin: 10px 20px 60px;"{{action selectTopic id topic}}>
                      <div id="minus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action selectTopic id topic }}><k class="icon-minus" ></k></div>
-                     <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;" ><k class="icon-plus" ></k></div>
+                    <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;" ><k class="icon-plus" ></k></div>
                     <div class="" style="height: 100px;width: 100px;position: relative;border-radius: 50%;overflow: hidden;top: -5px;float: left; ">
                         <div  class="usersobject-hoverarea easing" style="height: 100px; width: 100px;" >
                         </div>
@@ -152,17 +152,18 @@
         </div>
 
         <div id="register-with-email-step-4" style="overflow: hidden; z-index: 11; background-color: white; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; box-shadow: rgb(187, 187, 187) 0px 0px 20px; width: 430px; height: 220px; margin: 0px auto; position: fixed; top: 45%; left: 0px; right: 0px; display: none;">
-            <div  style="background-color: #f3f3f3;padding: 5px 5px 10px 70px;border-bottom: 1px solid #ddd;">
-                <div  class="comment-namentime" style="display: block;position: relative;height: 35px;">
-                    <div style="position: absolute;  text-align: center;line-height: 40px;margin: 0 auto;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
+            <div  style="background-color: #f3f3f3;padding: 10px;border-bottom: 1px solid #ddd;text-align: center;">
+                <div  class="comment-namentime" style="display: block;position: relative;height: 35px; margin: 0 auto;">
+                    <div style="position: relative;  line-height: 35px;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
+                        Activate your account
                     </div>
                 </div>
             </div>
-            <div style="height: 140px; text-align: center; padding: 40px;">
-                Registration successful! Please remember to validate your email address when you next check your emails!
+            <div style=" text-align: center; padding: 30px;">
+                Registration successful! You'll soon receive an email with your account information and an activation link. Click on the activation link to activate your myTrends account!
             </div>
 
-<!--            <div id="skipRegister" class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute; display:none" {{action skip}}>Skip&nbsp</div>-->
+            <!--            <div id="skipRegister" class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute; display:none" {{action skip}}>Skip&nbsp</div>-->
             <div id="finishRegister" class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute;display:block" {{action done}}>Done&nbsp;<k class="icon-long-arrow-right" style="font-size: 13px;"></k></div>
         </div>
 
@@ -264,8 +265,8 @@
         <p>Incorrect password.</p>
     </div>
 
-     <div id="incorrect-varify" class="black-tool-tip" style="display:none;">
-        <p>Registration successful! To activate your myTrends account, please click the activation link in the email we just sent you. </p>
+    <div id="incorrect-varify" class="black-tool-tip" style="display:none;">
+        <p>You're almost there! In order to activate your myTrends accout, please click on the activation link in the 'Confirmation of registration' email we sent you!. </p>
     </div>
     <div id="invalid-account-type-reset" class="black-tool-tip" style="display:none;">
         <p>You are attempting to reset the password of a social account. Please use the "Log in with social account" option.</p>
@@ -368,39 +369,77 @@
                  */
 
 
+                if (localStorage.loginState === "login") {
 
-                if (localStorage.userType === "email") {
-                    $('#login-btn').text('REGISTER');
-                    $('.black-tool-tip').css('display', 'none');
-                    $('#click-register-social').css('display', 'none');
-                    $('#click-register').css('display', 'none');
-                    $('#social-link').css('display', 'none');
-                    $('#login-with-email-drop-down').css('display', 'block');
-                    $('#social-login-container').css('display', 'none');
-                    $('#click-login').addClass('active-tab');
-                    $('#social-login').removeClass('social-active');
-                    $('#user-forgot-password-pane').css('display', 'none');
-                    $('#forgot-message-container').css('display', 'none');
-                    $('#invalid-username').css('display', 'none');
+                    if (localStorage.userType === "email") {
+                        $('#login-btn').text('REGISTER');
+                        $('.black-tool-tip').css('display', 'none');
+                        $('#click-register-social').css('display', 'none');
+                        $('#click-register').css('display', 'none');
+                        $('#social-link').css('display', 'none');
+                        $('#login-with-email-drop-down').css('display', 'block');
+                        $('#social-login-container').css('display', 'none');
+                        $('#click-login').addClass('active-tab');
+                        $('#social-login').removeClass('social-active');
+                        $('#user-forgot-password-pane').css('display', 'none');
+                        $('#forgot-message-container').css('display', 'none');
+                        $('#invalid-username').css('display', 'none');
 
-                    $('#register-with-email-drop-down').css('display', 'none');
-                    $('#register-with-email-step-2').css('display', 'none');
-                    $('#register-with-email-step-3').css('display', 'none');
-                    $('#user-login-pane').css('display', 'block');
-                    var loginState = true;
-                } else {
-                    loginState = false;
+                        $('#register-with-email-drop-down').css('display', 'none');
+                        $('#register-with-email-step-2').css('display', 'none');
+                        $('#register-with-email-step-3').css('display', 'none');
+                        $('#user-login-pane').css('display', 'block');
+
+                    } else {
+                        $('#login-btn').text('REGISTER');
+                        $('.black-tool-tip').css('display', 'none');
+                        $('#click-register-social').css('display', 'none');
+                        $('#click-register').css('display', 'none');
+                        $('#social-link').css('display', 'none');
+                        $('#login-with-email-drop-down').css('display', 'none');
+                        $('#social-login-container').css('display', 'block');
+                        $('#click-login').removeClass('active-tab');
+                        $('#social-login').addClass('social-active');
+                        $('#user-forgot-password-pane').css('display', 'none');
+                        $('#forgot-message-container').css('display', 'none');
+                        $('#invalid-username').css('display', 'none');
+
+                        $('#register-with-email-drop-down').css('display', 'none');
+                        $('#register-with-email-step-2').css('display', 'none');
+                        $('#register-with-email-step-3').css('display', 'none');
+                        $('#user-login-pane').css('display', 'block');
+
+                    }
+
+                }
+                else {
+                    localStorage.loginState = "register";
+
+                    if (localStorage.userType === "register_email") {
+                        $('#login-btn').text('LOG IN');
+                        $('.black-tool-tip').css('display', 'none');
+                        $('#click-register-social').css('display', 'block');
+                        $('#social-link').css('display', 'block');
+                        $('#click-register').css('display', 'block');
+                        $('#click-register-social').removeClass('social-active');
+                        $('#click-register').addClass('active-tab');
+                        $('#register-with-email-drop-down').animate({height: 'toggle'});
+                        $('#user-login-pane').css('display', 'none');
+                        checkSocial();
+                    }
                 }
                 $("#social-login").click(function() {
 
                     $('#social-login').removeClass('social-active');
                     $('#click-login').removeClass('active-tab');
                     if ($('#social-login-container').css('display') === 'block') {
+                        localStorage.userType = "email";
                         $('#social-login-container').animate({height: 'toggle'});
                     }
                     /* LOGIN TAB:  hiding social login */
 
                     if ($('#social-login-container').css('display') === 'none') {
+                        localStorage.userType = "social";
                         $('#social-login-container').animate({height: 'toggle'});
                         $('#social-login').addClass('social-active');
                         if ($('#login-with-email-drop-down').css('display') === 'block') {
@@ -424,7 +463,9 @@
                     }
                 });
                 $("#click-login").click(function() {
+
                     if ($('#login-with-email-drop-down').css('display') === 'block' && $('#click-login').hasClass('active-tab')) {
+                        localStorage.userType = "social";
                         $('#click-login').removeClass('active-tab');
 
                         $('#login-with-email-drop-down').animate({height: 'toggle'});
@@ -437,6 +478,7 @@
 
 
                     if ($('#login-with-email-drop-down').css('display') === 'none') {
+                        localStorage.userType = "email";
                         $('#social-login').removeClass('social-active');
                         $('#click-login').addClass('active-tab');
                         $('#login-with-email-drop-down').animate({height: 'toggle'});
@@ -496,15 +538,12 @@
                 /* hiding thank you message when the user clicks the back btn */
 
 
-
-
-
-
                 $("#click-register-social").click(function() {
 
                     $('#click-register-social').removeClass('social-active');
                     $('#click-register').removeClass('active-tab');
                     if ($('#social-link').css('display') === 'block') {
+
                         $('#social-link').animate({height: 'toggle'});
                         if ($('#register-with-email-drop-down').css('display') === 'block') {
                             $('#register-with-email-drop-down').animate({height: 'toggle'});
@@ -516,6 +555,7 @@
                     /* hiding social login */
 
                     if ($('#social-link').css('display') === 'none') {
+                        localStorage.userType = "register_social";
                         $('#social-link').animate({height: 'toggle'});
                         $('#click-register-social').addClass('social-active');
                         if ($('#register-with-email-drop-down').css('display') === 'block') {
@@ -528,8 +568,6 @@
                     /*  REGISTER TAB: showing social login section*/
 
                 });
-
-
 
                 $('#register-with-email-step-2 .back-btn').click(function() {
                     $('#register-with-email-step-2').removeClass('active-step');
@@ -562,6 +600,7 @@
 
                     if ($('#register-with-email-drop-down').css('display') === 'block' && $('#click-register').hasClass('active-tab')) {
                         //alert('closing step1');
+
                         $('#click-register').removeClass('active-tab');
                         $('#social-link').animate({height: 'toggle'});
                         $('#register-with-email-drop-down').animate({height: 'toggle'});
@@ -571,6 +610,7 @@
 
 
                     if ($('#register-with-email-drop-down').css('display') === 'none' && $('#register-with-email-step-2').hasClass('')) {
+                        localStorage.userType = "register_email";
                         //alert('opening step 1');
                         $('#click-register-social').removeClass('social-active');
                         $('#click-register').addClass('active-tab');
@@ -646,26 +686,7 @@
 
                 function loginPane() {
 
-                    if (loginState === false) {
-                        $('#login-btn').text('REGISTER');
-                        $('.black-tool-tip').css('display', 'none');
-                        $('#click-register-social').css('display', 'none');
-                        $('#click-register').css('display', 'none');
-                        $('#social-link').css('display', 'none');
-                        $('#login-with-email-drop-down').css('display', 'block');
-                        $('#social-login-container').css('display', 'none');
-                        $('#click-login').addClass('active-tab');
-                        $('#social-login').removeClass('social-active');
-                        $('#user-forgot-password-pane').css('display', 'none');
-                        $('#forgot-message-container').css('display', 'none');
-                        $('#invalid-username').css('display', 'none');
-
-                        $('#register-with-email-drop-down').css('display', 'none');
-                        $('#register-with-email-step-2').css('display', 'none');
-                        $('#user-login-pane').css('display', 'block');
-                        loginState = true;
-                    }
-                    else {
+                    if (localStorage.loginState === "login") {
 
                         $('#login-btn').text('LOG IN');
                         $('.black-tool-tip').css('display', 'none');
@@ -676,8 +697,52 @@
                         $('#click-register').removeClass('active-tab');
                         $('#register-with-email-step-2').removeClass('active-step');
                         $('#user-login-pane').css('display', 'none');
+                        localStorage.loginState = "register";
 
-                        loginState = false;
+                    }
+                    else {
+                        localStorage.loginState = "login";
+
+                        if (localStorage.userType === "email") {
+                            $('#login-btn').text('REGISTER');
+                            $('.black-tool-tip').css('display', 'none');
+                            $('#click-register-social').css('display', 'none');
+                            $('#click-register').css('display', 'none');
+                            $('#social-link').css('display', 'none');
+                            $('#login-with-email-drop-down').css('display', 'block');
+                            $('#social-login-container').css('display', 'none');
+                            $('#click-login').addClass('active-tab');
+                            $('#social-login').removeClass('social-active');
+                            $('#user-forgot-password-pane').css('display', 'none');
+                            $('#forgot-message-container').css('display', 'none');
+                            $('#invalid-username').css('display', 'none');
+                            $('#register-with-email-drop-down').css('display', 'none');
+                            $('#register-with-email-step-2').css('display', 'none');
+                            $('#register-with-email-step-3').css('display', 'none');
+                            $('#user-login-pane').css('display', 'block');
+                        } else {
+
+                            $('#login-btn').text('REGISTER');
+                            $('.black-tool-tip').css('display', 'none');
+                            $('#click-register-social').css('display', 'none');
+                            $('#click-register').css('display', 'none');
+                            $('#social-link').css('display', 'none');
+                            $('#login-with-email-drop-down').css('display', 'none');
+                            $('#social-login-container').css('display', 'block');
+                            $('#click-login').removeClass('active-tab');
+                            $('#social-login').addClass('social-active');
+                            $('#user-forgot-password-pane').css('display', 'none');
+                            $('#forgot-message-container').css('display', 'none');
+                            $('#invalid-username').css('display', 'none');
+                            $('#register-with-email-drop-down').css('display', 'none');
+                            $('#register-with-email-step-2').css('display', 'none');
+                            $('#register-with-email-step-3').css('display', 'none');
+                            $('#user-login-pane').css('display', 'block');
+                        }
+
+
+
+
                     }
                 }
 

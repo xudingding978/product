@@ -314,9 +314,9 @@ class Controller extends CController {
 
             $request->filter($filter);
         }
-        $sort = Sherlock\Sherlock::sortBuilder();
-        $sort1 = $sort->Field()->name("boost")->order('desc');
-        $sort2 = $sort->Field()->name("_score");
+//        $sort = Sherlock\Sherlock::sortBuilder();
+//        $sort1 = $sort->Field()->name("boost")->order('desc');
+//        $sort2 = $sort->Field()->name("_score");
 
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
                 "bool": {
@@ -338,8 +338,8 @@ class Controller extends CController {
                 }
             }');
 
-        $request->sort($sort1, $sort2);
-        error_log($request->query($termQuery)->toJSON());
+//        $request->sort($sort1, $sort2);
+//        error_log($request->query($termQuery)->toJSON());
         $response = $request->query($termQuery)->execute();
 
         return $response;

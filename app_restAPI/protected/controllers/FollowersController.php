@@ -154,13 +154,18 @@ class FollowersController extends Controller {
 
                     $receiveEmail = $userInfo['user'][0]['email'];
                     $receiveName = $userInfo['user'][0]['display_name'];
-                    $notificationCount = 0;
+                    $notificationCountFollow = 0;
+                    $notificationCountMessage = 0;
                     for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
                         if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
-                            $notificationCount++;
+                            if ($userInfo['user'][0]['notifications'][$i]["type"] === "follow" || $userInfo['user'][0]['notifications'][$i]["type"] === "unFollow") {
+                                $notificationCountFollow++;
+                            } else {
+                                $notificationCountMessage++;
+                            }
                         }
                     }
-                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCount, $ownerId);
+                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
                 }
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
@@ -720,13 +725,19 @@ class FollowersController extends Controller {
                 if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
                     $receiveEmail = $userInfo['user'][0]['email'];
                     $receiveName = $userInfo['user'][0]['display_name'];
-                    $notificationCount = 0;
+                    $notificationCountFollow = 0;
+                    $notificationCountMessage = 0;
                     for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
                         if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
-                            $notificationCount++;
+                            if ($userInfo['user'][0]['notifications'][$i]["type"] === "follow" || $userInfo['user'][0]['notifications'][$i]["type"] === "unFollow") {
+                                $notificationCountFollow++;
+                            } else {
+                                $notificationCountMessage++;
+                            }
                         }
                     }
-                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCount, $ownerId);
+                    
+                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
                 }
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
@@ -791,7 +802,7 @@ class FollowersController extends Controller {
                 $isDelete = true;
             }
             if ($flag === true) {
-                $this->createNotificationunfollow($currentUser_id, $user_id, $time);
+                //$this->createNotificationunfollow($currentUser_id, $user_id, $time);
             }
             return $isDelete;
         } catch (Exception $exc) {

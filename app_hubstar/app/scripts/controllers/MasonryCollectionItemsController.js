@@ -360,10 +360,11 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         }
         this.reLayout();
 
-    }, photoUpload: function(e) {
+    }, 
+   photoUpload: function(e) {
 
 
-        HubStar.store.save();
+        //.store.save();
 
     }
 

@@ -441,7 +441,7 @@ class EmailsController extends Controller {
                                             <tr>
                                                 <td valign="top">
                                                     <h1  align ="center" style="color: #05B1E5; font-size: 2em; font-weight: normal; margin: 0; line-height: 200%;">Welcome to myTrends !</h1>
-                                                    <h2>Here is your registration information – please keep this email in a safe place.</h2>
+                                                    <p style="margin-bottom: 0;">Here is your registration information – please keep this email in a safe place.</p>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -463,13 +463,13 @@ class EmailsController extends Controller {
                                             </tr>
                                             <tr>
                                                 <td valign="top">
-                                                    <hr style="text-align:center;height: 1px; color: #0088CC; background: #0088CC; width: 100%; border: 0 none; margin:20px 0;" />
+                                                    <hr style="text-align:center;height: 1px; color: #0088CC; background: #0088CC; width: 100%; border: 0 none; margin:10px 0;" />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td valign="top">
-                                                    <p>Thank you for signing up to myTrends!</p>
-                                                    <p style="margin-bottom: 10px;"> To activate your account, simply click on the link below. </p>
+                                                    <p style="margin-bottom: 10px;">Thank you for signing up to myTrends!<br/>
+                                                     To activate your account, simply click on the link below. </p>
                                                 </td>
                                             </tr> 
                                             <tr>

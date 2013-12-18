@@ -146,6 +146,9 @@ class ImageimportController extends PhotoDataController {
 //                error_log('ddddddddddddddddddddddddddd');
                 //get the image data from physical image through correct gb libray function
                 $im = $this->getImageIdentifier($imageInfo, $url);
+                                   error_log('\n before im \n');
+        error_log($im, true);
+        error_log('\n after im \n');
                 error_log("type of the image is: ".$imageInfo['mime']."\n");
 
               //  $data = $this->createResizedImage($imageInfo,  $im, $imageInfo['mime'],$version);
@@ -187,6 +190,10 @@ class ImageimportController extends PhotoDataController {
 //                curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
 //                $data = curl_exec($ch);
                 $im = $this->getImageIdentifier($imageInfo, $url);
+                   error_log('\n before im \n');
+        error_log($im);
+        error_log('\n after im \n');
+                
                 $data = $this->createResizedImage($imageInfo,  $im, $imageInfo['mime'],$version);
                 $newImageInfor = getimagesizefromstring($data);
                 $response = $this->imageRenameAndputImagetoS3($newImageInfor, $url, $data);
@@ -339,12 +346,18 @@ class ImageimportController extends PhotoDataController {
        public function createResizedImage($orig_size, $data, $photo_type,$version) {
            $photo_size['height']=$orig_size[1];
                $photo_size['width']=    $orig_size[0];
+//         error_log('\n before data1 \n');
+//        error_log($data);
+//        error_log('\n after data1 \n');
          $new_size=  $this->getNewPhotoSize($photo_size, $version);
              
         // Create new image to display
         $new_photo = imagecreatetruecolor($new_size['width'], $new_size['height']);
         // Create new image with changed dimensions
         imagecopyresampled($new_photo, $data, 0, 0, 0, 0, $new_size['width'], $new_size['height'], $orig_size[0], $orig_size[1]);
+//        error_log('\n before data \n');
+//        error_log($data);
+//        error_log('\n after data \n');
 //        if($watermark){
 //            $contents=$new_photo;
 //        }  else {

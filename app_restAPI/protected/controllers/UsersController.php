@@ -242,10 +242,87 @@ class UsersController extends Controller {
     public function actionTest() {
         echo "test";
     }
+    
+        protected function getImageIdentifier($imageInfo, $url) {
+        $return_arr = array();
+        if (strpos($imageInfo['mime'], 'jpeg')) {
+            error_log('getImageIdentifier = jpeg');
+            $im = imagecreatefromjpeg($url);
+            $return_arr['type'] = 'image/jpeg';
+        } elseif (strpos($imageInfo['mime'], 'png')) {
+            error_log('getImageIdentifier = png');
+            $im = imagecreatefrompng($url);
+            $return_arr['type'] = 'image/jpeg';
+        } elseif (strpos($imageInfo['mime'], 'gif')) {
+            error_log('getImageIdentifier = gif');
+            $im = imagecreatefromgif($url);
+            $return_arr['type'] = 'image/gif';
+        } elseif (strpos($imageInfo['mime'], 'bmp')) {
+            error_log('getImageIdentifier = bmp');
+            $im = imagecreatefromwbmp($url);
+            $return_arr['type'] = 'image/jpeg';
+        }
+        $return_arr['im'] = $im;
+
+        return $return_arr;
+    }
+    
+    public function actionUpdateim() {
+        $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+        $old_url = $payloads_arr['url'];
+        $photo_name = $payloads_arr['newStyleImageName'];
+        $mode = $payloads_arr['mode'];
+        $user_id = $payloads_arr['id'];
+          $imageInfor = getimagesize($old_url);
+          $return_arr=$this->getImageIdentifier($imageInfor, $old_url);
+          $type = $return_arr['type'];       
+        $photoController = new PhotosController();
+        $data_arr=array();
+        $data_arr['type']=$type;
+        $photo = $return_arr['im'];
+        $compressed_photo = $photoController->compressPhotoData($type, $photo);
+        $orig_size['width'] = imagesx($compressed_photo);
+        $orig_size['height'] = imagesy($compressed_photo);
+        $photoController->savePhotoInTypes($orig_size, $mode . '_original', $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
+        $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
+        $cb = $this->couchBaseConnection_test();
+        $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/users/' . $user_id));
+        if ($mode == 'user_picture') {
+            $oldRecord['user'][0]['photo_url_large'] = null;
+            $oldRecord['user'][0]['photo_url_large'] = $url;
+        } elseif
+        ($mode == 'user_cover') {
+            $oldRecord['user'][0]['cover_url'] = null;
+            $oldRecord['user'][0]['cover_url'] = $url;
+        }
+        if ($mode == 'user_cover') {
+            $smallimage = $photoController->savePhotoInTypes($orig_size, 'user_cover_small', $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
+            $oldRecord['user'][0]['cover_url_small'] = null;
+            $oldRecord['user'][0]['cover_url_small'] = $smallimage;
+        }
+        $url = $this->getDomain() . '/users/' . $user_id;
+        $copy_of_oldRecord = unserialize(serialize($oldRecord));
+        $tempUpdateResult = CJSON::encode($copy_of_oldRecord, true);
+        if ($cb->delete($url)) {
+            if ($cb->set($url, $tempUpdateResult)) {
+                $this->sendResponse(204);
+                error_log($url);
+                error_log(" saved to couchbase successful");
+            } else {
+                $this->sendResponse(500, 'something wrong');
+            }
+        } else {
+            $cb->set($url, $tempUpdateResult);
+            $this->sendResponse(500, 'something wrong');
+        }
+    }
+
+
 
     public function actionUpdateStyleImage() {
         $payloads_arr = CJSON::decode(file_get_contents('php://input'));
         $photo_string = $payloads_arr['newStyleImageSource'];
+        error_log($photo_string);
 
         $photo_name = $payloads_arr['newStyleImageName'];
         $mode = $payloads_arr['mode'];

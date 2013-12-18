@@ -37,9 +37,11 @@ class RefineDataCommand extends Controller_admin {
             $this->fixCreated();
         } elseif ($action == 'fix715') {
             $this->fixArticlebeenUpdatedwithWrongId();
-        } elseif($action == "findall"){
+        } elseif ($action == "findall") {
             $this->deleteIncorrectRecord();
-        }elseif ($action == "refineArticle") {
+        } elseif ($action == "fixuserlarge") {
+            $this->fixUserPictureLarge();
+        } elseif ($action == "refineArticle") {
 
 
 
@@ -116,7 +118,7 @@ class RefineDataCommand extends Controller_admin {
             $request = $Sherlock->search();
             $index = $bucket;
             $request->index($index)->type('couchbaseDocument');
-                      $raw = '
+            $raw = '
              {
     "bool": {
       "must": [
@@ -135,7 +137,7 @@ class RefineDataCommand extends Controller_admin {
         {
           "query_string": {
             "default_field": "couchbaseDocument.doc.owner_id",
-            "query": "'.$article_owner_id.'"
+            "query": "' . $article_owner_id . '"
           }
         },
           {
@@ -148,16 +150,71 @@ class RefineDataCommand extends Controller_admin {
     }
     }
 ';
-            $query=  Sherlock\Sherlock::queryBuilder()->Raw($raw);
+            $query = Sherlock\Sherlock::queryBuilder()->Raw($raw);
             $request->query($query);
-            echo "\n".$request->toJSON()."\n";
-            $respones=$request->execute();
-            if(sizeof($respones)>0){
-                foreach($respones as $content){
-                    echo $content['id']."\n";
+            echo "\n" . $request->toJSON() . "\n";
+            $respones = $request->execute();
+            if (sizeof($respones) > 0) {
+                foreach ($respones as $content) {
+                    echo $content['id'] . "\n";
                 }
             }
+        }
+    }
+
+    public function fixUserPictureLarge() {
+        $bucket = 'test';
+        $user_list = $this->findAllAccordingType($bucket, 'user');
+        $cb = $this->couchBaseConnection($bucket);
+        foreach ($user_list as $user) {
+
+            $result = $cb->get($user);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                if (isset($result_arr['id']) && $result_arr['id'] != null) {
+
+
+                    if (isset($result_arr['user'][0]['photo_url_large']) && $result_arr['user'][0]['photo_url_large'] != null) {
+                        $target_url = $result_arr['user'][0]['photo_url_large'];
+                        $aiming_url = 'http://s3.hubsrv.com/trendsideas.com/users/' . $result_arr['id'] . '/user_picture/user_picture';
+                        if ($target_url === $aiming_url) {
+                            echo $user." has correct photo_url_large\n";
+
+                        } else {
+                            echo "\n".$user . "\n";
+                            $data_arr = array();
+                            $data_arr['url'] = $target_url;
+                            $data_arr['newStyleImageName'] = 'user_picture';
+                            $data_arr['mode'] = 'user_picture';
+                            $data_arr['id'] = $result_arr['id'];
+                            //  $data_arr['type'] = $type;
+                            $pass_arr = CJSON::encode($data_arr);
+
+
+                            try {
+                                $ch = curl_init("http://api.develop.trendsideas.com/users/updateim");
+
+                                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                                curl_setopt($ch, CURLOPT_POSTFIELDS, $pass_arr);
+                                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
+                                $back = curl_exec($ch);
+                                curl_close($ch);
+                            } catch (Exception $exc) {
+                                echo $exc->getTraceAsString();
+                            }
+                        }
+                    } else {
+                        echo $user." can not find photo_url_large----------------\n";                      
+                    }
+                } else {
+                     echo $user." can not find id for the user------------------\n";     
+                }
+            } else {
+                  echo $user." can not find couchbase record  for the user------------------\n";  
             }
+        }
     }
 
     public function fixArticlebeenUpdatedwithWrongId() {
@@ -996,12 +1053,12 @@ class RefineDataCommand extends Controller_admin {
 //$record_arr=array();
         foreach ($data_arr as $found) {
 
-        //    $data_arr = $found['_source']['doc'];
+            //    $data_arr = $found['_source']['doc'];
             //    $message=  var_export($data_arr,true)."\n---------------------------------------------------------\n";
             $id = $found['_id'];
-            echo "\n".$id."\n";
-      //      $message = $id;
-     //       $this->writeToLog($log_path, $message);
+            echo "\n" . $id . "\n";
+            //      $message = $id;
+            //       $this->writeToLog($log_path, $message);
             //     $message.="\n".$id;
 //            if ($data_arr['type'] === "profile") {
 //                $couchbase_id = "trendsideas.com/profiles/" . $id;

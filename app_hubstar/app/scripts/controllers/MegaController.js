@@ -674,10 +674,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var result = (param !== null && param !== undefined);
         return result;
     },
-    dropdownPhotoSetting: function() {
+    dropdownPhotoSetting: function(param) {
         this.set('sharePhotoUrl', this.get('selectedPhoto').get('photo_image_thumbnail_url'));
         this.set('sharePhotoName', this.get('selectedPhoto').get('photo_title'));
-        $('#dropdown_id_').toggleClass('hideClass');
+        $('#dropdown_id_'+param).toggleClass('hideClass');
     },
     switchCollection: function() {
 
@@ -930,8 +930,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
         });
     },
     // share to social facebook
-    fbShare: function() {
-        this.dropdownPhotoSetting();
+    fbShare: function(param) {
+        this.dropdownPhotoSetting(param);
         var that = this;
         var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
         var caption = '';
@@ -981,8 +981,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
         return false;
     },
     //share to social google plus
-    gpShare: function() {
-        this.dropdownPhotoSetting();
+    gpShare: function(param) {
+        this.dropdownPhotoSetting(param);
         var caption = '';
         if (this.get('selectedPhoto').get('photo_caption') !== null)
         {
@@ -1021,8 +1021,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
         return false;
     },
     //share to social twitter
-    tShare: function() {
-        this.dropdownPhotoSetting();
+    tShare: function(param) {
+        this.dropdownPhotoSetting(param);
         var descript = this.get('selectedPhoto').get('photo_title');
         var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
         if (this.get('selectedPhoto').get("type") === "article")
@@ -1043,8 +1043,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 ).focus();
         return false;
     },
-    pShare: function() {
-        this.dropdownPhotoSetting();
+    pShare: function(param) {
+        this.dropdownPhotoSetting(param);
 
         var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
 

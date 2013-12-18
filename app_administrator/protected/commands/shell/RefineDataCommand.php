@@ -886,15 +886,15 @@ class RefineDataCommand extends Controller_admin {
     }
 
     public function fixPhoto_url_largeofLisa() {
-        $bucket = 'production';
+        $bucket = 'test';
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
         $sherlock->addNode("es1.hubsrv.com", 9200);
         $request = $sherlock->search();
         $index = $bucket;
 
-//     $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('55959331448')
-        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"55959331448\"")
+        //     $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('55959331448')
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"73625997635\"")
                 ->default_field('couchbaseDocument.doc.comments.commenter_id');
 //        $must2 = Sherlock\Sherlock::queryBuilder()
 //                ->QueryString()->query("photo")
@@ -916,9 +916,12 @@ class RefineDataCommand extends Controller_admin {
             $result_arr = CJSON::decode($result);
             if ($result_arr['comments'] != null && $result_arr['comments'] != "") {
                 $comment_arr = $result_arr['comments'];
-                foreach ($comment_arr as $comment) {
-                    $comment['commenter_profile_pic_url'] = "http://s3.hubsrv.com/trendsideas.com/users/" . $comment['commenter_id'] . "/user_picture/user_picture";
+                for($i=0;$i<sizeof($comment_arr);$i++){
+                    $comment_arr[$i]['commenter_profile_pic_url']= "http://s3.hubsrv.com/trendsideas.com/users/" . $comment_arr[$i]['commenter_id'] . "/user_picture/user_picture";
                 }
+//                foreach ($comment_arr as $comment) {
+//                    $comment['commenter_profile_pic_url'] = "http://s3.hubsrv.com/trendsideas.com/users/" . $comment['commenter_id'] . "/user_picture/user_picture";
+//                }
                 $result_arr['comments'] = $comment_arr;
                 if ($cb->set($id, CJSON::encode($result_arr))) {
                     echo "change made to " . $id . "\n";
@@ -999,7 +1002,7 @@ class RefineDataCommand extends Controller_admin {
     }
 
     public function addCommentId() {
-        $bucket = 'develop';
+        $bucket = 'test';
         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $log_path = "/var/log/yii/$start_time.log";
         $message = "";
@@ -1034,7 +1037,7 @@ class RefineDataCommand extends Controller_admin {
   },
   "size": "500"
 }';
-        $ch = curl_init("http://es1.hubsrv.com:9200/develop/_search");
+        $ch = curl_init("http://es1.hubsrv.com:9200/test/_search");
 
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
@@ -1046,19 +1049,26 @@ class RefineDataCommand extends Controller_admin {
 //                echo $found['id'];
 //            }
         $result_arr = CJSON::decode($result, true);
-        $data_arr = $result_arr['hits']['hits'];
+        $record_arr = $result_arr['hits']['hits'];
+        echo sizeof($record_arr);
+        sleep(5);
+       // echo var_export($data_arr,true);
 
-// echo "number of file: " . var_export($result_arr);
-//   $message=  var_export($result_arr,TRUE);
-//$record_arr=array();
-        foreach ($data_arr as $found) {
-
-            //    $data_arr = $found['_source']['doc'];
+        // echo "number of file: " . var_export($result_arr);
+        //   $message=  var_export($result_arr,TRUE);
+        //$record_arr=array();
+        foreach ($record_arr as $found) {
+           // sleep(1);
+            $couchbase_data_arr=array();
+//            $data_arr=array();
+//
+//            $data_arr = $found['_source']['doc'];
+                $id = $found['_id'];
+            echo "\n".$id."\n";
             //    $message=  var_export($data_arr,true)."\n---------------------------------------------------------\n";
-            $id = $found['_id'];
-            echo "\n" . $id . "\n";
-            //      $message = $id;
-            //       $this->writeToLog($log_path, $message);
+       //     $id = $data_arr['id'];
+//            $message = $id;
+//            $this->writeToLog($log_path, $message);
             //     $message.="\n".$id;
 //            if ($data_arr['type'] === "profile") {
 //                $couchbase_id = "trendsideas.com/profiles/" . $id;
@@ -1068,13 +1078,33 @@ class RefineDataCommand extends Controller_admin {
             $cb = $this->couchBaseConnection($bucket);
             $couchbase_data = $cb->get($id);
             $couchbase_data_arr = CJSON::decode($couchbase_data);
+             if(isset($couchbase_data_arr['comments'])){
+                 
+            
             $comment_arr = $couchbase_data_arr['comments'];
+            //echo var_export($comment_arr,true);
+           // sleep(5);
+            $new_comment_array=array();
+           
             foreach ($comment_arr as $comment) {
                 if ($comment['message_id'] == NULL)
                     $comment['message_id'] = rand(100, 999) . strtotime(date('Y-m-d H:i:s')) . $comment['commenter_id'];
-                $comment['optional'] = $data_arr['type'] . "/" . $id;
+          //     $comment['optional'] = $couchbase_data_arr['type'] . "/" . $id;
+            //     $comment['commenter_profile_pic_url']= "http://s3.hubsrv.com/trendsideas.com/users/" . $comment['commenter_id'] . "/user_picture/user_picture";
+                array_push($new_comment_array, $comment);
             }
-            $couchbase_data_arr['comments'] = $comment_arr;
+            $couchbase_data_arr['comments'] = $new_comment_array;
+            echo var_export($new_comment_array,true);
+             }
+             
+             if($cb->set($id,CJSON::encode($couchbase_data_arr))){
+                 echo $id." update successfull\n";
+                 $message = $id." update successfull\n";
+             }else{
+                 echo $id." write couchbase record failed---------------------\n";
+                 $message = $id." write couchbase record failed---------------------\n";
+             }
+             $this->writeToLog($log_path, $message);
         }
 
 

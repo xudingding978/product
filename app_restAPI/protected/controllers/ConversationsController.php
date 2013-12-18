@@ -413,74 +413,76 @@ class ConversationsController extends Controller {
     }
 
     public function confirmationEmailForm($domainWithoutAPI, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId) {
-        $photo_url_large_follow = null;
-        $photo_url_large_message =null;
-        $cb = $this->couchBaseConnection();
-        $domain = $this->getDomain();
-        $docID_currentUser = $domain . "/users/" . $ownerId;
-        $flagMessage = false;
-        $flagFollow = false;
-        $tempMega_currentUser = $cb->get($docID_currentUser);
-        $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
-        if (isset($mega_currentUser['user'][0]["notifications"])) {
-            $readNotification = $mega_currentUser['user'][0]["notifications"];
-            for ($i = 0; $i < sizeof($readNotification); $i++) {
-                if ($readNotification[$i]["isRead"] === false) {
-                    if ($readNotification[$i]["type"] === "follow") {
-                        $flagFollow = true;
-                        $commenterInfo = $this->getDomain() . "/users/" . $readNotification[$i] ["user_id"];
-                        $cbs = $this->couchBaseConnection();
-                        $commenterInfoDeep = $cbs->get($commenterInfo); // get the old user record from the database according to the docID string 
-                        $oldcommenterInfo = CJSON::decode($commenterInfoDeep, true);
-                        $photo_url_large_follow = $oldcommenterInfo['user'][0]["photo_url_large"];
-                    } else {
-                        $flagMessage = true;
-                        $commenterInfoM = $this->getDomain() . "/users/" . $readNotification[$i] ["user_id"];
-                        $cbsM = $this->couchBaseConnection();
-                        $commenterInfoDeepM = $cbsM->get($commenterInfoM); // get the old user record from the database according to the docID string 
-                        $oldcommenterInfoM = CJSON::decode($commenterInfoDeepM, true);
-                        $photo_url_large_message = $oldcommenterInfoM['user'][0]["photo_url_large"];
-                    }
-                    if ($flagFollow === true && $flagMessage === true) {
-                        break;
-                    }
-                }
-            }
-        }
+//        $photo_url_large_follow = null;
+//        $photo_url_large_message = null;
+//        $cb = $this->couchBaseConnection();
+//        $domain = $this->getDomain();
+//        $docID_currentUser = $domain . "/users/" . $ownerId;
+//        $flagMessage = false;
+//        $flagFollow = false;
+//        $tempMega_currentUser = $cb->get($docID_currentUser);
+//        $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
+//        if (isset($mega_currentUser['user'][0]["notifications"])) {
+//            $readNotification = $mega_currentUser['user'][0]["notifications"];
+//            for ($i = 0; $i < sizeof($readNotification); $i++) {
+//                if ($readNotification[$i]["isRead"] === false) {
+//                    if ($readNotification[$i]["type"] === "follow") {
+//                        $flagFollow = true;
+//                        $commenterInfo = $this->getDomain() . "/users/" . $readNotification[$i] ["user_id"];
+//                        $cbs = $this->couchBaseConnection();
+//                        $commenterInfoDeep = $cbs->get($commenterInfo); // get the old user record from the database according to the docID string 
+//                        $oldcommenterInfo = CJSON::decode($commenterInfoDeep, true);
+//                        $photo_url_large_follow = $oldcommenterInfo['user'][0]["photo_url_large"];
+//                    } else {
+//                        $flagMessage = true;
+//                        $commenterInfoM = $this->getDomain() . "/users/" . $readNotification[$i] ["user_id"];
+//                        $cbsM = $this->couchBaseConnection();
+//                        $commenterInfoDeepM = $cbsM->get($commenterInfoM); // get the old user record from the database according to the docID string 
+//                        $oldcommenterInfoM = CJSON::decode($commenterInfoDeepM, true);
+//                        $photo_url_large_message = $oldcommenterInfoM['user'][0]["photo_url_large"];
+//                    }
+//                    if ($flagFollow === true && $flagMessage === true) {
+//                        break;
+//                    }
+//                }
+//            }
+//        }
         return '
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
     <body style="background: #E5E5E5; margin: 0 auto; padding: 0;">
-        <div style="width: 600px; padding-bottom: 50px; box-shadow: 0 0 5px #888; margin: 50px auto;background-color: white;">
+        <div style="width: 600px;  box-shadow: 0 0 5px #888; margin: 50px auto;background-color: white;">
             <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/header.jpg" />
             <div style="position: relative; padding: 15px 30px;">
                 <h1 style=" font-size: 2em;   line-height: 200%;font-weight: 700;margin-bottom: 10px">Hi   ' . $receiveName . ' ,</h1>
                 <p style="font-size: 1.5em;">You have new notifications on myTrends!</p>
-                <div style="margin:20px 10px 40px;font-size: 1.2em;line-height: 30px;height: 110px;">
-                    <div style="height: 45px; margin: 20px 0;">
+                <div style="margin: 20px 10px;font-size: 1.2em;line-height: 30px;height: 90px;">
+                    <div style="height: 45px;">
                         <div style="margin: 0 5px;float: left;">
-                            <div style="background-image: url(&apos;https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg&apos;); background-size: 45px 45px;width: 45px;height:45px;border-radius: 50%; ">         
-                                <img src="' . $photo_url_large_follow . '"  style="width: 45px;height:45px;border-radius: 50%;  float: left"/> 
+                            <div style="width: 30px;height:30px;">         
+                                <img src="http://develop.devbox.s3.amazonaws.com/followers-icon-for-email.png"  style="width: 30px;height:30px; float: left"/> 
                             </div>
                         </div>
-                        <div style="float: left;margin: 8px 0 0 5px;">' . $notificationCountFollow . ' New Followers</div>
+                        <div style="float: left;">' . $notificationCountFollow . ' New Followers</div>
                     </div>
                     <div>
                         <div style="margin: 0 5px;float: left;">
-                            <div style="background-image: url(&apos;https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg&apos;); background-size: 45px 45px;width: 45px;height:45px;border-radius: 50%; ">         
-                                <img src="' . $photo_url_large_message . '"  style="width: 45px;height:45px;border-radius: 50%; float: left"/>
+                            <div style="width: 30px;height:30px;">         
+                                <img src="http://develop.devbox.s3.amazonaws.com/message-icon-for-email.png"  style="width: 30px;height:30px;float: left"/>
                             </div>
                         </div>
-                        <div style="float: left;margin: 8px 0 0 5px;">' . $notificationCountMessage . ' New Messages</div>
+                        <div style="float: left;">' . $notificationCountMessage . ' New Messages</div>
                     </div>
                 </div>
 
-                <div style="font-size: 1.5em;margin: 20px 0;"><a style="cursor: pointer" href="http://' . $domainWithoutAPI . '/#/users/' . $ownerId . '/messagecenter/notifications">View and manage notifications</a> on myTrends</div>
+                <div style="font-size: 1.5em;margin: 20px 0;"><a style="cursor: pointer;color: #05B1E5;" href="http://' . $domainWithoutAPI . '/#/users/' . $ownerId . '/messagecenter/notifications">View and manage notifications</a> on myTrends</div>
                 <hr  style="margin-bottom: 5px; color: #333"/>
-                <p>If you do not want to receive these emails from myTrends, please <a style="cursor: pointer">unsubscribe</a>.</p>
+                <p>If you do not want to receive these emails from myTrends, please <a style="cursor: pointer;color: #05B1E5;">unsubscribe</a>.</p>
             </div>
+
+            <div style="margin-top: 20px"><img src="http://develop.devbox.s3.amazonaws.com/email-bottom.jpg"  /></div>
 
         </div>
     </body>

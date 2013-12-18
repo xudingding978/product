@@ -17,6 +17,7 @@ HubStar.SearchIndexArticleRoute = Ember.Route.extend({
         }
 
         var d = HubStar.Mega.find(temp);
+        console.log(d);
         this.controllerFor('article').getInitData(d); 
     },
     model: function(params) {

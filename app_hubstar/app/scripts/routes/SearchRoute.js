@@ -31,7 +31,6 @@ HubStar.SearchRoute = Ember.Route.extend({
     },
     model: function(params) {
         var address = document.URL;
-        console.log("model sss");
         var search_id = address.split("#")[1].split("/")[2];
 
         if (search_id === null || search_id === undefined || search_id === '') {

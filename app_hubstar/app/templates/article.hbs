@@ -233,7 +233,7 @@
             Discussion
         </div>
         <span class="show-comment_inner">
-            <span class="comment-amount" > {{controller.megaResouce.comments.length}} </span>
+            <span class="comment-amount" > {{controller.article.comments.length}} </span>
         </span>
         <div class="dropdownicon">
             <i class="icon-angle-down" style="height: 16px; width: 16px;"></i>
@@ -269,7 +269,7 @@
             </div>
 
 
-            {{#each controller.megaResouce.comments}}
+            {{#each controller.article.comments}}
             {{#unless this.isEdit}}
             <div class="comment-item">
 

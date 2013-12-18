@@ -170,6 +170,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
             }
             this.transitionTo("profileCollection", data);
+      
             this.transitionTo("profilePhoto", this.get("megaResouce"));
         }
         else

@@ -285,7 +285,7 @@ class UsersController extends Controller {
         $orig_size['height'] = imagesy($compressed_photo);
         $photoController->savePhotoInTypes($orig_size, $mode . '_original', $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
         $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
-        $cb = $this->couchBaseConnection_test();
+        $cb = $this->couchBaseConnection_production();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/users/' . $user_id));
         if ($mode == 'user_picture') {
             $oldRecord['user'][0]['photo_url_large'] = null;

@@ -161,9 +161,39 @@ class RefineDataCommand extends Controller_admin {
             }
         }
     }
+    
+    
+    public function fixUserPictureinUser(){
+        $bucket="production";
+        $user_list=$this->findAllAccordingType($bucket, 'user');
+        $cb=$this->couchBaseConnection($bucket);
+        foreach($user_list as $user){
+            $result=$cb->get($user);
+            if($result!=null){
+                $result_arr=CJSON::decode($result);
+                 if (isset($result_arr['id']) && $result_arr['id'] != null) {
+                     if (isset($result_arr['user'][0]['photo_url_large']) && $result_arr['user'][0]['photo_url_large'] != null) {
+                         $url=$result_arr['user'][0]['photo_url_large'];
+                          if (strpos($url, 'data')){
+                              $url='http://s3.hubsrv.com/trendsideas.com/users/' . $result_arr['id'] . '/user_picture/user_picture';
+                              $result_arr['user'][0]['photo_url_large']=$url;
+                          }else{
+                              echo $user." photo_url_large is correct\n"; 
+                          }
+                     }else{
+                         echo $user." photo_url_large doesnt exist----------------------\n"; 
+                     }
+                 }else{
+                     echo $user." user record is incorrect-------------------\n"; 
+                 }
+            }else{
+                echo $user." can not find record in couchbase------------------------\n"; 
+            }
+        }
+    }
 
     public function fixUserPictureLarge() {
-        $bucket = 'test';
+        $bucket = 'production';
         $user_list = $this->findAllAccordingType($bucket, 'user');
         $cb = $this->couchBaseConnection($bucket);
         foreach ($user_list as $user) {

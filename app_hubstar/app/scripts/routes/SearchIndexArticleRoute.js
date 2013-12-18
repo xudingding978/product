@@ -15,8 +15,8 @@ HubStar.SearchIndexArticleRoute = Ember.Route.extend({
         {
             this.controllerFor('article').set("accessFromSearchBoard", true); //accessFromSearchBoard is true, it will not transition to the articlePhoto route 
         }
-
         var d = HubStar.Mega.find(temp);
+
         this.controllerFor('article').getInitData(d); 
     },
     model: function(params) {

@@ -88,12 +88,14 @@ HubStar.PhotoView = Ember.View.extend({
                 {
                     this.get("controller").transitionTo("searchIndex");
                     this.get("controller").set("selectPhoto", false);
+                    this.get("controller").set('image_no', 1);
                 }
                 else
                 {
 
                     HubStar.set("escVideo", true);
                     this.get("controller").set("selectPhoto", false);
+                    this.get("controller").set('image_no', 1);
                     this.get("controller").transitionTo("search", {id: id});
                 }
                 this.get("controller").get("controllers.mega").set("selectPhoto", false);

@@ -20,7 +20,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         {id: "12", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment'}
 
     ],
-    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop', 'article', 'mega', 'checkingLoginStatus', 'addCollection','search'],
+    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop', 'article', 'mega', 'checkingLoginStatus', 'addCollection', 'search'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -303,7 +303,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         //     $('#skipRegister').css('display', 'block');
         requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
             localStorage.userName = params.USER_NAME;
-             that.set('loginUsername', localStorage.userName);
+            that.set('loginUsername', localStorage.userName);
             localStorage.userType = "email";
             var emailInfo = [params.USER_NAME, params.PWD_HASH];
             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
@@ -447,12 +447,18 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     showDiscoveryBar: function() {
 
         HubStar.set("showDiscoveryBar", true);
+        HubStar.set("escVideo", true);
+        HubStar.set("defaultSearch", true);
         this.transitionToRoute('searchIndex');
         $("#top-about-menu").fadeIn("320");
         $("#search-bar").fadeOut("320");
         $(".Navigator-box").fadeOut("320");
         $(".navbar").css("box-shadow", "");
-       $('#masonry_container').attr('style', "top:100px;position:relative");
+        //    $('#masonry_container').attr('style', "top:100px;position:relative");
+        $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+        setTimeout(function() {
+            $('#masonry_container').masonry();  //masonry();
+        }, 300);
 
     },
     closeDropdownNavigator: function() {

@@ -120,7 +120,6 @@ HubStar.Router.reopen({
     didTransition: function(infos) {
         this._super(infos);
         Ember.run.next(function(){
-            console.log(window.location.href);
             ga('create', 'UA-235915-17', {'name': 'Trends'});
             ga('Trends.send', 'pageview');
             

@@ -103,7 +103,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     scrollDownAction: function() {
         this.set('loadingTime', true);
         this.set("size", 20);
-
         if (this.get("searchFromTopic") === false)
         {
             this.set("pageCount", this.get("pageCount") + 1);
@@ -194,7 +193,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("googletagCmd", []);
         this.set("content", []);
         this.set("adPageNo", 0);
-        this.set('loadingTime', true);
+        if(localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")){
+        }else{
+            this.set('loadingTime', true);
+        }
+        
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
 
@@ -504,7 +507,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         HubStar.set("showDiscoveryBar", false);
     },
     login: function() {
-        if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
+        if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginUsername') !== "" && this.get('loginPassword') !== "")
         {
             this.set('loginTime', true);
             document.getElementById("loginUsername").setAttribute("class", "login-textfield");

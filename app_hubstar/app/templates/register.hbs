@@ -226,11 +226,11 @@
 
 
             <div id="loginUsername" class="login-textfield" style="">
-                {{view HubStar.LoginEnterKeyTextFieldView valueBinding="loginUsername" placeholder="Your Email" }}
+                {{view HubStar.LoginEnterKeyTextFieldView  elementId="loginusername" valueBinding="loginUsername" placeholder="Your Email" }}
             </div>
 
             <div id="loginPassword" class="login-textfield"  style="">
-                {{view HubStar.LoginEnterKeyTextFieldView type="password" valueBinding="loginPassword" placeholder="Password" }}
+                {{view HubStar.LoginEnterKeyTextFieldView type="password" elementId="loginpassword" valueBinding="loginPassword" placeholder="Password" }}
                 <div class="hint--right hint--rounded" data-hint="forgot password?" style="cursor:pointer;float: right;margin-top: -40px;height: 30px;color:#888;">
                     <i class="icon-question-sign">&nbsp</i>
                 </div>
@@ -486,6 +486,15 @@
                         if ($('#social-login-container').css('display') === 'block') {
                             $('#social-login-container').animate({height: 'toggle'});
                         }
+                              if (document.getElementById("loginusername").value !== undefined && document.getElementById("loginusername").value !== null && document.getElementById("loginusername").value !== "")
+                            {
+                                document.getElementById("loginpassword").focus();
+                            }
+                            else {
+                                document.getElementById("loginusername").focus();
+                            }
+                        
+                        
                     } /* LOGIN TAB: clicking login*/
                 });
                 $('#loginPassword > div').click(function() {
@@ -704,6 +713,7 @@
                         localStorage.loginState = "login";
 
                         if (localStorage.userType === "email") {
+
                             $('#login-btn').text('REGISTER');
                             $('.black-tool-tip').css('display', 'none');
                             $('#click-register-social').css('display', 'none');
@@ -720,6 +730,13 @@
                             $('#register-with-email-step-2').css('display', 'none');
                             $('#register-with-email-step-3').css('display', 'none');
                             $('#user-login-pane').css('display', 'block');
+                            if (document.getElementById("loginusername").value !== undefined && document.getElementById("loginusername").value !== null && document.getElementById("loginusername").value !== "")
+                            {
+                                document.getElementById("loginpassword").focus();
+                            }
+                            else {
+                                document.getElementById("loginusername").focus();
+                            }
                         } else {
 
                             $('#login-btn').text('REGISTER');
@@ -740,20 +757,8 @@
                             $('#user-login-pane').css('display', 'block');
                         }
 
-
-
-
                     }
                 }
-
-
-
-
-
-
-
-
-
 
 
 

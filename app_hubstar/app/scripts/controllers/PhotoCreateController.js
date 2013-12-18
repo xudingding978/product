@@ -30,7 +30,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 var type = file.type;
                 var fileSize = file.size;
                 var reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function(e) {                
                     that.addPhotoObject(e, name, type, fileSize);
                 }, reader.readAsDataURL(files[i]);
             })(files[i]);
@@ -46,8 +46,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         masonryCollectionItems.back();
     },
     photoUpload: function()
-    {
-
+    {       
         HubStar.set('isNewUpload', false);
         var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
         this.set("fileSize", 0);
@@ -126,7 +125,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 if (mega.get('isSaving')) {
                     $('.' + file.get('photo_source_id')).attr("style", "display:block");
                 }
-                else {
+                else {                   
                     HubStar.set("totalFiles", HubStar.get("totalFiles") + 1);
                     $('.' + file.get('photo_source_id')).attr("style", "display:none");
                     if (HubStar.get("totalFiles") === that.get("filesNumber")) {
@@ -137,7 +136,6 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                         photoCreateInfoSettingController.set('isEditingMode', true);
                         masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
                         this.set("fileSize", 0);
-
                     }
                 }
             });

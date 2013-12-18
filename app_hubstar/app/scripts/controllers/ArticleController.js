@@ -66,7 +66,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                 if (id === "default")
                 {
                     this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
-                
+
                 }
                 else
                 {
@@ -89,7 +89,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.selectedImage(this.get('selectedPhoto').id);
         this.set('captionTitle', this.get('selectedPhoto').photo_title);
         this.set('caption', this.get('selectedPhoto').photo_caption);
-        //this.setCaption();
+
+        this.captionDisplay();
     },
     nextImage: function() {
         this.set("isShowPhotoUrl", true);
@@ -127,9 +128,9 @@ HubStar.ArticleController = Ember.Controller.extend({
             {
                 if (id === "default")
                 {
-                    
+
                     this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
-                   
+
                 }
                 else
                 {
@@ -153,7 +154,18 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.selectedImage(this.get('selectedPhoto').id);
         this.set('captionTitle', this.get('selectedPhoto').photo_title);
         this.set('caption', this.get('selectedPhoto').photo_caption);
-        //this.setCaption();
+        this.captionDisplay();
+    },
+    captionDisplay: function()
+    {
+        if (this.get("caption") === null || this.get("caption") === "")
+        {
+            $('#caption_action').attr('style', 'display:none');
+        }
+        else
+        {
+            $('#caption_action').attr('style', 'display:block');
+        }
     },
     selectImage: function(e) { // it is click the photo
         this.set("isShowPhotoUrl", true);
@@ -208,7 +220,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             //                                                               // as it use the fix id to refresh the route so it will have problem when fresh (change the id)
         }
         this.selectedImage(e);
-        //this.setCaption();
+        this.captionDisplay();
     },
     selectedImage: function(id) {
         var selectedImage_id = "#" + id;
@@ -382,6 +394,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                     that.set('captionTitle', that.get('selectedPhoto').photo_title);
 
                     that.set('caption', that.get('selectedPhoto').photo_caption);
+                    that.captionDisplay();
                 }
             }
             );

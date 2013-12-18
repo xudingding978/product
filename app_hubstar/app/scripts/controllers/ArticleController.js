@@ -16,7 +16,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     isCreditListExist: false,
     needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems'],
     init: function() {
-
+        HubStar.set("readCaption", true);
     },
     findSelectedItemIndex: function() {
         content = this.get('content');
@@ -160,12 +160,26 @@ HubStar.ArticleController = Ember.Controller.extend({
     {
         if (this.get("caption") === null || this.get("caption") === "")
         {
-            $('#caption_action').attr('style', 'display:none');
+            if (HubStar.get("readCaption"))
+            {
+                $('#caption_action').attr('style', 'left: 0px; display:none');
+            }
+            else
+            {
+                $('#caption_action').attr('style', 'left: -320px; display:none');
+            }
         }
         else
         {
-            $('#caption_action').attr('style', 'display:block');
-        }
+            if (HubStar.get("readCaption"))
+            {
+                $('#caption_action').attr('style', 'left: 0px; display:block');
+            }
+            else
+            {
+                $('#caption_action').attr('style', 'left: -320px; display:block');
+            }
+        }    
     },
     selectImage: function(e) { // it is click the photo
         this.set("isShowPhotoUrl", true);
@@ -394,6 +408,8 @@ HubStar.ArticleController = Ember.Controller.extend({
                     that.set('captionTitle', that.get('selectedPhoto').photo_title);
 
                     that.set('caption', that.get('selectedPhoto').photo_caption);
+
+
                     that.captionDisplay();
                 }
             }

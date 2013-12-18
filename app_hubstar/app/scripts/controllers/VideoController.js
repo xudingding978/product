@@ -114,11 +114,11 @@ HubStar.VideoController = Ember.Controller.extend({
     closeContact: function() {
         this.set('contact', false);
     },
-    dropdownPhotoSetting: function() {
+    dropdownPhotoSetting: function(param) {
         var tempUrl = this.get('megaResouce').get('object_image_url');
         this.set('sharePhotoUrl', tempUrl);
         this.set('sharePhotoName', "test");
-        $('#dropdown_id_').toggleClass('hideClass');
+        $('#dropdown_id_'+param).toggleClass('hideClass');
     },
     getImageURL: function()
     {
@@ -126,7 +126,8 @@ HubStar.VideoController = Ember.Controller.extend({
         return tempUrl;
     },
     // share to social facebook
-    fbShare: function() {
+    fbShare: function(param) {
+        this.dropdownPhotoSetting(param);
         var that = this;
         var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
         var caption = '';
@@ -162,7 +163,8 @@ HubStar.VideoController = Ember.Controller.extend({
         return false;
     },
     //share to social google plus
-    gpShare: function() {
+    gpShare: function(param) {
+        this.dropdownPhotoSetting(param);
         var caption = '';
         if (this.get('megaResouce').get('object_description') !== null)
         {
@@ -188,7 +190,8 @@ HubStar.VideoController = Ember.Controller.extend({
         return false;
     },
     //share to social twitter
-    tShare: function() {
+    tShare: function(param) {
+        this.dropdownPhotoSetting(param);
         var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
         var url = 'https://twitter.com/share?text=' + this.get('videoObject').data.video_title + '&url=' + encodeURIComponent(currntUrl);
         window.open(
@@ -198,7 +201,8 @@ HubStar.VideoController = Ember.Controller.extend({
                 ).focus();
         return false;
     },
-    pShare: function() {
+    pShare: function(param) {
+        this.dropdownPhotoSetting(param);
         var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.getImageURL()) +

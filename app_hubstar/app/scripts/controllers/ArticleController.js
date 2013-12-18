@@ -497,11 +497,11 @@ HubStar.ArticleController = Ember.Controller.extend({
         return "test";
 
     },
-    dropdownPhotoSetting: function() {
-        $('#dropdown_id_').toggleClass('hideClass');
+    dropdownPhotoSetting: function(param) {
+        $('#dropdown_id_'+param).toggleClass('hideClass');
     },
-    fbShare: function() {
-        this.dropdownPhotoSetting();
+    fbShare: function(param) {
+        this.dropdownPhotoSetting(param);
         var that = this;
 
         var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
@@ -539,8 +539,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         return false;
     },
     //share to social google plus
-    gpShare: function() {
-        this.dropdownPhotoSetting();
+    gpShare: function(param) {
+        this.dropdownPhotoSetting(param);
         var caption = '';
         if (this.get('articleResouce').get("article_body") !== null)
         {
@@ -569,8 +569,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         return false;
     },
     //share to social twitter
-    tShare: function() {
-        this.dropdownPhotoSetting();
+    tShare: function(param) {
+        this.dropdownPhotoSetting(param);
 
         var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
 
@@ -582,9 +582,9 @@ HubStar.ArticleController = Ember.Controller.extend({
                 ).focus();
         return false;
     },
-    pShare: function() {
+    pShare: function(param) {
 
-        this.dropdownPhotoSetting();
+        this.dropdownPhotoSetting(param);
 
         var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
 

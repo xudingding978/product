@@ -3,7 +3,8 @@
 class Controller_admin extends CConsoleCommand {
 
     protected $error_path = "/home/devbox/NetBeansProjects/test/image.log";
- // 
+
+    // 
 
     protected function getData($url, $list_arr) {
         try {
@@ -33,17 +34,52 @@ class Controller_admin extends CConsoleCommand {
             return null;
         }
     }
-    
 
-public function writeProgressLog($message){
-      //   $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
-      //  $start_time = date('M-d-Y');
-          $import_log="/var/log/yii/ImportProgress/Progress.log";
-          $this->writeToLog($import_log, $message);
-}
-    
-    public function writeMySQLLog($log_arr){
-                $model = new Trendsideas_import_log;
+    public function findAllAccordingType($bucket, $type) {
+
+        $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = $bucket;
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"$type\"")
+                ->default_field('couchbaseDocument.doc.type');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        $request->index($index)->type("couchbaseDocument");
+        $data_arr = array();
+        for ($i = 0; $i < 2000; $i++) {
+            $request->from($i * 50)
+                    ->size(50);
+            $request->query($bool);
+            $response = $request->execute();
+            foreach ($response as $hit) {
+                //     echo $hit["score"] . ' - ' . $hit['id'] . "\r\n";
+                array_push($data_arr, $hit['id']);
+                echo $hit['id']."\n";
+            }
+            if (sizeof($response) == 0) {
+                $i = 2000;
+            }
+        }
+
+
+
+
+
+        print_r("Found " . count($data_arr) . " required type in database\n");
+
+        return $data_arr;
+    }
+
+    public function writeProgressLog($message) {
+        //   $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        //  $start_time = date('M-d-Y');
+        $import_log = "/var/log/yii/ImportProgress/Progress.log";
+        $this->writeToLog($import_log, $message);
+    }
+
+    public function writeMySQLLog($log_arr) {
+        $model = new Trendsideas_import_log;
 
         //$log_arr = CJSON::decode(file_get_contents('php://input'));
 
@@ -55,22 +91,22 @@ public function writeProgressLog($message){
         $model->type = $log_arr[2];
         $model->spark_job_id = $log_arr[3];
         $model->helium_media_id = $log_arr[4];
-        $model->article_id = $log_arr[5];          
+        $model->article_id = $log_arr[5];
         $model->photo_image_hero_url = $log_arr[6];
         $model->photo_image_original_url = $log_arr[7];
         $model->photo_image_thumbnail_url = $log_arr[8];
         $model->photo_image_preview_url = $log_arr[9];
         $model->article_image_url = $log_arr[10];
 
-        
+
         $model->save(false);
     }
-    
-        public function createRecord($message){
-       //   $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+
+    public function createRecord($message) {
+        //   $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $start_time = date('M-d-Y');
-          $import_log="/var/log/yii/ImportProgress/$start_time.log";
-          $this->writeToLog($import_log, $message);
+        $import_log = "/var/log/yii/ImportProgress/$start_time.log";
+        $this->writeToLog($import_log, $message);
     }
 
     protected function writeToLog($fileName, $content) {
@@ -80,8 +116,8 @@ public function writeProgressLog($message){
         fwrite($handle, $output);
         fclose($handle);
     }
-    
-        public function checkImageExisting($heliumMediaId, $owner_id, $collection_id,$bucket) {
+
+    public function checkImageExisting($heliumMediaId, $owner_id, $collection_id, $bucket) {
 
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
@@ -96,11 +132,11 @@ public function writeProgressLog($message){
         $must3 = Sherlock\Sherlock::queryBuilder()
                 ->QueryString()->query('"\"' . $owner_id . '\""')
                 ->default_field('couchbaseDocument.doc.owner_id');
-         $must4 = Sherlock\Sherlock::queryBuilder()
+        $must4 = Sherlock\Sherlock::queryBuilder()
                 ->QueryString()->query('"\"' . $collection_id . '\""')
                 ->default_field('couchbaseDocument.doc.collection_id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
-                        must($must2)->must($must3)
+                must($must2)->must($must3)
                 ->must($must4);
         $request->index($index)->type("couchbaseDocument");
         $request->from(0)
@@ -117,9 +153,7 @@ public function writeProgressLog($message){
         return $existing_arr;
     }
 
-    
-    
-    public function checkArticleExisting($heliumMediaId, $owner_id, $collection_id,$bucket) {
+    public function checkArticleExisting($heliumMediaId, $owner_id, $collection_id, $bucket) {
 
         $settings['log.enabled'] = true;
         $sherlock = new \Sherlock\Sherlock($settings);
@@ -134,11 +168,11 @@ public function writeProgressLog($message){
         $must3 = Sherlock\Sherlock::queryBuilder()
                 ->QueryString()->query('"\"' . $owner_id . '\""')
                 ->default_field('couchbaseDocument.doc.owner_id');
-         $must4 = Sherlock\Sherlock::queryBuilder()
+        $must4 = Sherlock\Sherlock::queryBuilder()
                 ->QueryString()->query('"\"' . $collection_id . '\""')
                 ->default_field('couchbaseDocument.doc.collection_id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)->
-                        must($must2)->must($must3)
+                must($must2)->must($must3)
                 ->must($must4);
         $request->index($index)->type("couchbaseDocument");
         $request->from(0)
@@ -152,6 +186,7 @@ public function writeProgressLog($message){
         }
         return $existing_arr;
     }
+
     protected function couchBaseConnection($bucket) {
 
         //   return new Couchbase($node, $account, $password, $bucket, true);
@@ -219,7 +254,7 @@ public function writeProgressLog($message){
         $myText = (string) microtime();
         $pieces = explode(" ", $myText);
         $id = $pieces[1];
-        $id = (string)rand(99999999, 999999999) . $id;
+        $id = (string) rand(99999999, 999999999) . $id;
 //        echo "111111111111111111111111111111";
         return $id;
     }
@@ -260,8 +295,8 @@ public function writeProgressLog($message){
 
         return $time_array;
     }
-    
-    public function setUTC(){
+
+    public function setUTC() {
         date_default_timezone_set('Pacific/Auckland');
         $timeStamp = strtotime(date('Y-m-d H:i:s'));
         return $timeStamp;

@@ -33,6 +33,12 @@ class Controller extends CController {
     protected function couchBaseConnection_production() {
         return new Couchbase("cb1.hubsrv.com:8091", "", "", "production", true);
     }
+        protected function couchBaseConnection_test() {
+        return new Couchbase("cb1.hubsrv.com:8091", "", "", "test", true);
+    }
+        protected function couchBaseConnection_develop() {
+        return new Couchbase("cb1.hubsrv.com:8091", "", "", "develop", true);
+    }
 
     protected function getS3Connection($domain) {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
@@ -245,6 +251,11 @@ class Controller extends CController {
         $response = $this->getCollections($collections, $collection_id, $returnType);
 
         return $response;
+    }
+    
+    
+    public function fixUserpicture(){
+        
     }
 
     protected function getSearchResults($region, $requestString, $from = 0, $size = 50, $location = 'Global') {

@@ -117,7 +117,7 @@ class DefaultController extends Controller {
         //   return $user_profile;
         $userProfile->save();
         
-           $cb = new Couchbase("cb1.hubsrv.com:8091", " ", " ", "test", true);
+           $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "test", true);
         $rand_id = $user->COUCHBASE_ID;
         $temp = $this->getMega();
         $temp["id"] = $rand_id;

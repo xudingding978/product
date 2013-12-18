@@ -14,6 +14,7 @@ HubStar.UserController = Ember.Controller.extend({
     followingTag: false,
     messageTag: false,
     postTag: false,
+    followDisplay: true,
     newDesc: '',
     Id: "",
     type: "users",
@@ -396,6 +397,7 @@ HubStar.UserController = Ember.Controller.extend({
         return isExsinting;
     },
     toggleEditing: function(data, checkingInfo) {
+       
         if (checkingInfo === "interest") {
             interest_record = data;
             this.set('editingInterest', !this.get('editingInterest'));

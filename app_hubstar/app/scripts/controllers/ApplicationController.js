@@ -308,6 +308,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             localStorage.userName = params.USER_NAME;
              that.set('loginUsername', localStorage.userName);
             localStorage.userType = "email";
+            localStorage.loginState = "login";
             var emailInfo = [params.USER_NAME, params.PWD_HASH];
             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
 

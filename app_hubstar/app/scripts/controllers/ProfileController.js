@@ -186,8 +186,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('youtube', profile.get('profile_youtube_link'));
         this.set('name', profile.get('profile_name'));
         this.set('profile_creator', profile.get('profile_creater'));
-        this.set('direct_enquiry_provide_email', profile.get('owner_contact_bcc_emails'));
-        this.set('secondary_email', profile.get('owner_contact_cc_emails'));
+        this.set('direct_enquiry_provide_email', profile.get('owner_third_contact_email'));
+        this.set('secondary_email', profile.get('owner_second_contact_email'));
         this.set('contact_email', profile.get('owner_contact_email'));
         this.set('website', profile.get('profile_website'));
         this.set('website_url', profile.get('profile_website_url'));
@@ -209,19 +209,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('suburb', profile.get('profile_suburb'));
         this.set('last_name', profile.get('profile_contact_last_name'));
         this.set("profile_name", profile.get("profile_name"));
-        this.set("projectActiveDropdownContent", profile.get("profile_isActive"));
-        this.set("projectDeleteDropdownContent", profile.get("profile_isDeleted"));
+        this.set("projectActiveDropdownContent", profile.get("profile_is_active"));
+        this.set("projectDeleteDropdownContent", profile.get("profile_is_deleted"));
         this.updateWorkingHourData(profile.get('profile_hours'));
         this.set("collections", profile.get("collections"));
 
         this.set("reviews", profile.get("reviews"));
-        this.set('profile_average_review_length', profile.get("profile_average_review_length"));
-        // document.getElementById("starsize").style.width="156px";
+        
         if (profile.get("profile_average_review_length") !== "" && profile.get("profile_average_review_length") !== null && profile.get("profile_average_review_length") !== undefined) {
+            this.set('profile_average_review_length', profile.get("profile_average_review_length"));
             $('#starsize').attr("style", "width:" + profile.get("profile_average_review_length") + "px");
             this.set("profile_average_review", profile.get("profile_average_review"));
         }
-
         else if (profile.get('reviews').get("length") === 0) {
 
             $('#starsize').attr("style", "width:100px");
@@ -276,6 +275,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('editing', false);
         this.set('editingTime', false);
     },
+
     setAboutUsObject: function() {
         if (this.get('model').get('about_us') !== null && this.get('model').get('about_us') !== 'undefined' && this.get('model').get('about_us').get('length') > 0) {
             this.set("about_us", this.get('model').get("about_us"));
@@ -339,6 +339,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         } else if (profile_package_name === 'Bronze') {
             this.set('keyword_num', 25);
         }
+
 
 
 
@@ -506,7 +507,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     selectOldAbout: function() {
-//        console.log('old');
         this.set('makeSelection', false);
         this.set('isAboutUsObjectExist', false);
         this.set('editingAbout', !this.get('editingAbout'));
@@ -541,7 +541,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
             this.get('about_us').pushObject(about_us);
         }
-//        console.log('new');
         this.set('makeSelection', false);
         this.set('isAboutUsObjectExist', true);
         this.set('editingAbout', !this.get('editingAbout'));
@@ -865,7 +864,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('followerProfileTag', false);
             this.transitionToRoute('profileVideos');
         }
-
     },
     selectPartner: function(model) {
 
@@ -974,8 +972,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set('profile_suburb', this.get('suburb'));
         update_profile_record.set('profile_contact_last_name', this.get('last_name'));
         update_profile_record.set("profile_name", this.get('profile_name'));
-        update_profile_record.set("profile_isActive", this.get("projectActiveDropdownContent"));
-        update_profile_record.set("profile_isDeleted", this.get("projectDeleteDropdownContent"));
+        update_profile_record.set("profile_is_active", this.get("projectActiveDropdownContent"));
+        update_profile_record.set("profile_is_deleted", this.get("projectDeleteDropdownContent"));
         this.createGooglemap();
         this.set('toAddress', update_profile_record.get('profile_physical_address') + ", " + update_profile_record.get('profile_suburb') + ", " + update_profile_record.get('profile_regoin') + ", " + update_profile_record.get('profile_country'));
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
@@ -1167,15 +1165,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     {
 
                         if (that.get('isUpload') === true) {
-                            //    that.set('isCrop', false);
                             that.setTempImage();
                         }
                         else if (that.get('isCrop') === true)
                         {
-                            //       that.set('isUpload', false);
                             that.setCropImage();
                         }
-
 
                         var data1 = {"newStyleImageSource": that.get('newStyleImageSource'),
                             'newStyleImageName': that.get('newStyleImageName'),
@@ -1327,9 +1322,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     dropdownPhotoSetting: function() {
-        //  this.set('sharePhotoUrl', this.get('selectedPhoto').get('photo_image_thumbnail_url'));
-        //  this.set('sharePhotoName', this.get('selectedPhoto').get('photo_title'));
-
         $("#dropdown_id_").toggleClass('hideClass');
         $("#dropdown_id_").click(function() {
             $(this).removeClass('hideClass');

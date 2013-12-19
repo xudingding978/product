@@ -49,13 +49,27 @@ class MeganewsController extends Controller {
 
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-        error_log(var_export($request_arr,true));
         $mega = $request_arr['meganew'];
         if ($mega['type'] == "profile") {
             $this->createProfile($mega);
         }
     }
-
+    
+    public function actionCreateNewProfile() {
+        
+        $request_json = file_get_contents('php://input');
+        $request_arr = CJSON::decode($request_json, true); 
+        
+        $id = $request_arr['owner_id'];    
+        $cb = $this->couchBaseConnection();
+        $docID = $this->getDomain() . "/profiles/" . $id;
+        $prrofileid = CJSON::decode($cb->get($docID));
+        
+        if ($prrofileid!==null) {
+            $this->sendResponse(200, CJSON::encode(true, true));
+        }
+    }
+       
     public function actionRead() {
         try {
             $temp = explode("/", $_SERVER['REQUEST_URI']);
@@ -89,9 +103,7 @@ class MeganewsController extends Controller {
         } elseif ($newRecord['mega']['type'] == 'video') {
             $videoController = new VideosController();
             $videoController->videoUpdate($newRecord);
-        }  
-
-        else {
+        } else {
             $this->updateMega($newRecord);
         }
     }
@@ -100,27 +112,21 @@ class MeganewsController extends Controller {
         
     }
 
-
-
-
     public function createProfile($mega) {
-
+        
         $cb = $this->couchBaseConnection();
         $id = $mega['id'];
         $domain = $this->getDomain();
         $docID = $domain . "/profiles/" . $id;
-        if ($cb->add($docID, CJSON::encode($mega))) {
+        
+         if ($cb->add($docID, CJSON::encode($mega))) {
             $this->sendResponse(204);
         } else {
             $this->sendResponse(200, "some thing wronggggggggggggggggg");
         }
     }
 
-   
     
-
-
-
 }
 
 ?>

@@ -5,6 +5,8 @@
 HubStar.ApplicationController = Ember.ArrayController.extend({
     selected_topics: "",
     isAdd: false,
+    is_authentic_user: false,
+    trendsUser: false,
     contentTopic: [
         {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
         {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'},
@@ -76,6 +78,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         HubStar.set("escVideo", false);
         this.set('search_string', '');
         this.set('loginUsername', localStorage.userName);
+
+
+
+
     },
     popupModal: function() {
         HubStar.set('checkLoginStatus', true);
@@ -91,7 +97,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
-
     },
     articleFromSearch: function()
     {
@@ -451,6 +456,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     showDiscoveryBar: function() {
 
         HubStar.set("showDiscoveryBar", true);
+
         HubStar.set("escVideo", true);
         HubStar.set("defaultSearch", true);
         this.transitionToRoute('searchIndex');
@@ -550,7 +556,28 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             localStorage.userType = "email";
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndex');
-                                 HubStar.set("showDiscoveryBar", true);
+
+                            if (localStorage.loginStatus)
+                            {
+                         
+                                if (that.get("user").get("email").match(/@trendsideas.com/g) !== "" 
+                                        && that.get("user").get("email").match(/@trendsideas.com/g) !== "undefined" 
+                                        && that.get("user").get("email").match(/@trendsideas.com/g) !== null )
+                                {
+                                   
+                                    that.set("is_authentic_user", true);
+                                }
+                                else {
+                                    
+                                    that.set("is_authentic_user", false);
+                                }
+                            }
+                            else {
+
+                            }
+
+                            HubStar.set("showDiscoveryBar", true);
+
                             that.set('loginPassword', "");
                             that.set('loginTime', false);
                         }
@@ -576,6 +603,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
             });
         }
+
+
 
     },
     emailSend: function()

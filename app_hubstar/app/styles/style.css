@@ -29,6 +29,8 @@ body > div.ember-view{
     width:0;
     overflow:hidden;
 }
+#masonry_wrapper{min-height:500px!important;}
+
 #masonry_user_container[style="position: relative; height: 0px; width: 185px;"],
 #masonry_user_container[style="position:relative;height:0px;width: 185px;"],
 #masonry_user_container[style='position: relative; height: 0px; width: 185px;'],

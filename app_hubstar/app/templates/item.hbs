@@ -86,20 +86,20 @@
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
 
-<!--                <ul class="itemprofile" style="margin: 5px 0 0;">
-                    <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
-                        <div><k class="icon-eye-open"> &nbsp;{{this.collections.length}}</k></div>
-                    </li>
-                    <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
-                        <div><k class="icon-group">&nbsp;{{ length this.profile_partner_ids}}</k></div>
-                    </li>
-                    <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
-                        <div><k class="icon-film">&nbsp;{{ videolength this.profile_about_us}}</k></div>
-                    </li>
-                    <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
-                        <div><k class="icon-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>
-                    </li>
-                </ul>-->
+                <!--                <ul class="itemprofile" style="margin: 5px 0 0;">
+                                    <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
+                                        <div><k class="icon-eye-open"> &nbsp;{{this.collections.length}}</k></div>
+                                    </li>
+                                    <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
+                                        <div><k class="icon-group">&nbsp;{{ length this.profile_partner_ids}}</k></div>
+                                    </li>
+                                    <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
+                                        <div><k class="icon-film">&nbsp;{{ videolength this.profile_about_us}}</k></div>
+                                    </li>
+                                    <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
+                                        <div><k class="icon-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>
+                                    </li>
+                                </ul>-->
 
             </div>
         </div>
@@ -172,15 +172,15 @@
                 <i class="icon-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
             </div>
             {{/linkTo}}
-                          {{#if controller.isUser}}
-                                 <a class="mainfeature-container">
-             <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToPhoto id}} />      </a>
-                             {{else}}
-                             <a class="mainfeature-container">
-      <img {{bindAttr src="object_image_url" }} class="this-is-the-object" {{action transitionToVideo id}}/>
+            {{#if controller.isUser}}
+            <a class="mainfeature-container">
+                <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToPhoto id}} />      </a>
+            {{else}}
+            <a class="mainfeature-container">
+                <img {{bindAttr src="object_image_url" }} class="this-is-the-object" {{action transitionToVideo id}}/>
             </a>
-                             {{/if}}
-  
+            {{/if}}
+
             <span class='edit-object easing' style="position: absolute;margin: 10px; top: 11px;left: 115px;">
 
                 {{#if controller.is_authentic_user}}
@@ -202,9 +202,9 @@
 
                 {{/if}}
             </span>
-            
-            
-            
+
+
+
         </div>
 
 
@@ -221,20 +221,20 @@
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
 
-<!--                <ul class="itemprofile" style="margin: 5px 0 0;">
-                    <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
-                        <div><k class="icon-eye-open"> &nbsp;{{this.collections.length}}</k></div>
-                    </li>
-                    <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
-                        <div><k class="icon-group">&nbsp;{{ length this.profile_partner_ids}}</k></div>
-                    </li>
-                    <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
-                        <div><k class="icon-film">&nbsp;{{ videolength this.profile_about_us}}</k></div>
-                    </li>
-                    <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
-                        <div><k class="icon-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>
-                    </li>
-                </ul>-->
+                <!--                <ul class="itemprofile" style="margin: 5px 0 0;">
+                                    <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
+                                        <div><k class="icon-eye-open"> &nbsp;{{this.collections.length}}</k></div>
+                                    </li>
+                                    <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
+                                        <div><k class="icon-group">&nbsp;{{ length this.profile_partner_ids}}</k></div>
+                                    </li>
+                                    <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
+                                        <div><k class="icon-film">&nbsp;{{ videolength this.profile_about_us}}</k></div>
+                                    </li>
+                                    <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
+                                        <div><k class="icon-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>
+                                    </li>
+                                </ul>-->
 
             </div>
         </div>
@@ -286,12 +286,12 @@
     <div class="masonry-object_mainfeature">
         <div class="mainfeature-wrapper">
             <a class="mainfeature-container" href="#/articles/{{unbound id}}" >
-                        {{#if controller.isUser}}
-                        <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToPhoto id}} />
-                             {{else}}
-                             <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} /> <!--it is the cover of the article-->
-                             {{/if}}              
-                    </a>   
+                {{#if controller.isUser}}
+                <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToPhoto id}} />
+                     {{else}}
+                     <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} /> <!--it is the cover of the article-->
+                     {{/if}}              
+            </a>   
 
             <span class='edit-object easing' style="position: absolute;margin: 10px; top: 11px;left: 115px;">
                 {{#if controller.is_authentic_user}}
@@ -323,20 +323,20 @@
                     <span class="posttime">{{date created}}</span>
                 </div>
 
-<!--                <ul class="itemprofile" style="margin: 5px 0 0;">
-                    <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
-                        <div><k class="icon-eye-open"> &nbsp;{{this.collections.length}}</k></div>
-                    </li>
-                    <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
-                        <div><k class="icon-group">&nbsp;{{ length this.profile_partner_ids}}</k></div>
-                    </li>
-                    <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
-                        <div><k class="icon-film">&nbsp;{{ videolength this.profile_about_us}}</k></div>
-                    </li>
-                    <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
-                        <div><k class="icon-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>
-                    </li>
-                </ul>-->
+                <!--                <ul class="itemprofile" style="margin: 5px 0 0;">
+                                    <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
+                                        <div><k class="icon-eye-open"> &nbsp;{{this.collections.length}}</k></div>
+                                    </li>
+                                    <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
+                                        <div><k class="icon-group">&nbsp;{{ length this.profile_partner_ids}}</k></div>
+                                    </li>
+                                    <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
+                                        <div><k class="icon-film">&nbsp;{{ videolength this.profile_about_us}}</k></div>
+                                    </li>
+                                    <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
+                                        <div><k class="icon-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>
+                                    </li>
+                                </ul>-->
 
             </div>
 

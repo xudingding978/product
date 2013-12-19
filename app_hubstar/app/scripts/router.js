@@ -17,12 +17,14 @@ HubStar.Router.map(function() {
         });
         this.resource("video", {path: '/videos/:video_id'});
         this.resource("photo", {path: '/photos/:photo_id'});
-        
-        
+
+
         // ### business profile start 
         this.resource("profile", {path: '/profiles/:profile_id'}, function() {
             this.resource("profileFollowers", {path: '/followers'});
-            this.resource("profileVideos", {path: '/videos'});
+            this.resource("profileVideos", {path: '/videos'},function(){
+                 this.resource("videoVideo", {path: '/videos/:video_id'});
+            });
             this.resource("profileCollections", {path: '/collections'}, function() {
                 //this.resource("photo", {path: '/photoes/:photo_id'});
 
@@ -119,11 +121,11 @@ HubStar.Router.map(function() {
 HubStar.Router.reopen({
     didTransition: function(infos) {
         this._super(infos);
-        Ember.run.next(function(){
-            
+        Ember.run.next(function() {
+
             ga('create', 'UA-235915-17', {'name': 'Trends'});
             ga('Trends.send', 'pageview');
-            
+
             ga('create', 'UA-46481605-1', {'name': 'HubStar'});
             ga('HubStar.send', 'pageview', window.location.href);
         });

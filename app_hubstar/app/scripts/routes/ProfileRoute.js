@@ -68,6 +68,25 @@ HubStar.ProfileRoute = Ember.Route.extend({
  
             this.transitionTo("profileArticle", article_id);
             this.transitionTo("profileArticlePhoto");
+        },
+                        transitionToVideo: function(video_id) {
+
+//            var address = document.URL;
+//            var owner_id = address.split("#")[1].split("/")[2];
+//
+//
+//            var collection_id = address.split("#")[1].split("/")[4];
+//            var profile = HubStar.Profile.find(owner_id);
+//            for (var i = 0; i < profile.get('collections').get("length"); i++) {
+//                var data = profile.get('collections').objectAt(i);
+//                if (data.id === collection_id) {
+//                    break;
+//                }
+//            }
+//            this.transitionTo("profileCollection", data);
+            //           this.controllerFor('masonryCollectionItems').set('isUser', true);
+            //var model = HubStar.Profile.find(video_id);
+            this.transitionTo("videoVideo", {id:video_id});
         }
     },
     redirect: function() {

@@ -118,13 +118,13 @@ class DefaultController extends Controller {
         $userProfile->save();
         $test=explode('.',$_SERVER['HTTP_HOST']);
         
-        if($test[1] ==="test"){
+        if($test[0] ==="test"){
          $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "test", true);
         }
-        else if($test[1] ==="develop"){
+        else if($test[0] ==="develop"){
          $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "develop", true);
         }
-         else if($test[1] ==="my"||$test[1] ==="beta"){
+         else if($test[0] ==="my"||$test[1] ==="beta"){
          $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "production", true);
         }
         

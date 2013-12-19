@@ -384,7 +384,7 @@ class ProfileCommand extends Controller_admin {
     public function buildKeywordObject() {
         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $log_path = "/var/log/yii/$start_time.log";
-        $bucket = 'test';
+        $bucket = 'production';
         $keyword_arr = array();
         $profile_arr = $this->findProfiles($bucket);
 //        $profile_arr = array(
@@ -1317,8 +1317,8 @@ class ProfileCommand extends Controller_admin {
             "profile_regoin" => $profile_arr['region'],
             "profile_domains" => null,
             "profile_partner_ids" => 'luxaflex-australia',
-            "profile_isActive" => null,
-            "profile_isDeleted" => null,
+            "profile_is_active" => null,
+            "profile_is_deleted" => null,
             "profile_facebook_link" => null,
             "profile_twitter_link" => null,
             "profile_googleplus_link" => null,

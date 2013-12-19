@@ -5,7 +5,6 @@
     {{view HubStar.HeaderView}}
 
     {{outlet profiles}}
-
     {{outlet user}}
      {{outlet "welcome"}}
     {{#unless controller.isotherpage}}
@@ -16,10 +15,9 @@
     {{view HubStar.DiscoveryView}}
 
 {{/if}}
+
  {{view HubStar.MasonryView}}
-
-
-    {{/unless}}
+  {{/unless}}
 
     {{else}}
 
@@ -32,7 +30,9 @@
      {{outlet photos}}
     {{outlet articles}}
     {{outlet videoes}}
-    {{outlet "profileNew"}}
+    
+
+   {{outlet "profileNew"}}
 
     {{#if HubStar.isLogin}}
     {{render "footer"}}

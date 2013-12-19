@@ -534,7 +534,7 @@ div.search-loading-invisible{
 .Dropdownstyle1{
     overflow: visible;
     position: absolute;
-    min-width: 233px;
+    min-width: 23px;
     z-index: 102;
     background-color: white;
     border: 1px solid rgba(0, 0, 0, 0.08);
@@ -1019,6 +1019,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .mustfull{
     display: block;
     color: #3B5998;
+    text-align: center;
 }
 
 .no-resize{

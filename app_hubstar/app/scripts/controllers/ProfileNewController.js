@@ -1,73 +1,64 @@
 
 var passSubmit = true;
-var multiEmail1 = true;
-var multiEmail2 = true;
+var counter = 2;
 HubStar.ProfileNewController = Ember.ObjectController.extend({
     profile_name: "",
-    categorySelection: "category",
-    packgeSelection: "package",
+    categorySelection: "Category",
+    subcategorySelection: "Subcategory",
+    countrySelection: "Country",
+    regionSelection: "Regoin/State",
+    numberSelection: "-",
+    keywordNumber: "",
+    heroImage: false,
     profile_url: "",
     first_name: "",
     last_name: "",
     address: "",
     suburb: "",
     categoryDropdown: false,
-    packgetDropdown: false,
+    subcategoryDropdown: false,
+    countryDropdown: false,
+    regionDropdown: false,
+    numberDropdown: false,
     contact_number: "",
     website: "",
     website_url: "",
     client_name: "",
     owner: "",
     direct_enquiry_emails: "",
-    region: "",
+    direct_enquiry_emails_2: "",
+    direct_enquiry_emails_3: "",
     creater: "",
     editors: "",
-    country: "",
     boost: "",
-    package: "",
+    profile_package: "",
     profile_contact_number: "",
-    secondary_email: "",
-    direct_enquiry_provide_email: "",
     profile_bg_url: "",
     profile_hero_url: "",
     profile_pic_url: "",
     keywords: "",
+    imageMode: "",
+    newStyleImageSource: "",
+    newStyleImageName: "",
+    backgroundSource: "",
+    backgroundName: "",
+    heroSource: "",
+    heroName: "",
+    pictureSource: "",
+    pictureName: "",
+    loadingNewTime: false,
+    categorys: [],
+    subcate: [],
+    needs: ['profile', 'applicationFeedback', 'application'],
+    init: function()
+    {
+        this.setTopicModel(HubStar.Cate.find({}));
+    },
     validateEmail: function(email)
     {
 
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
-    },
-    multiEmailChecking: function(cleanEmail, divInfo, multiEmail) {
-
-
-        if (cleanEmail.indexOf(',') === -1) {
-            if (this.validateEmail(cleanEmail)) {
-
-                multiEmail = true;
-                $(divInfo).attr('style', 'display:none');
-            } else {
-                multiEmail = false;
-                $(divInfo).attr('style', 'display:block');
-            }
-
-        } else {
-            multiEmail = true;
-            var emails = cleanEmail.split(',');
-            for (var i = 0; i < emails.length; i++) {
-
-                if (!this.validateEmail(emails.objectAt(i))) {
-                    multiEmail = false;
-                    $(divInfo).attr('style', 'display:block');
-                }
-            }
-            if (multiEmail) {
-
-                $(divInfo).attr('style', 'display:none');
-            }
-
-        }
-        return multiEmail;
     },
     numberChecking: function(divInfo, number) {
         var matches = number.match('^[0-9]+$');
@@ -91,200 +82,393 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
         return str;
     },
     fillInChecking: function() {
+        if (
+                $('.clientName').val() !== ""
+                && $('.profileName').val() !== ""
+                && $('.clientEmail').val() !== ""
+                && $('#categorySelection').text() !== "Category"
+                && $('#subcategorySelection').text() !== "Subcategory"
+                && $('#countrySelection').text() !== "Country"
+                && $('#regionSelection').text() !== "Regoin/State"
+                && $('#contactEmail').val() !== ""
+                && $('#admins_1').val() !== ""
+                && this.validateEmail($('.contactEmail').val())
+                && this.validateEmail($('.admins').val())
+                && this.validateEmail($('.clientEmail').val())
+                )
 
-        multiEmail2 = this.multiEmailChecking($('.mustFill6').val(), '#emailFormat6', multiEmail2);
-        var boost = this.numberChecking('#number1', $('.mustFill7').val());
+        {
 
-        if ($('.mustFill1').val() !== "" && $('.mustFill2').val() !== "" && $('.country').val() !== "" && $('.region').val() !== "" && $('.mustFill3').val() !== "" && multiEmail1
-                && $('.mustFill5').val() !== "" && $('.mustFill4').val() !== "" && $('.mustFill6').val() !== "" && boost && $('.mustFill7').val() !== "" && multiEmail2 && this.validateEmail($('.mustFill5').val())
-                && this.validateEmail($('.mustFill3').val())) {
             passSubmit = true;
-        } else {
+            $('#errorMessage1').attr('style', 'display:none');
+            $('#errorMessage2').attr('style', 'display:none');
+            $('#errorMessage3').attr('style', 'display:none');
+            $('#errorMessage4').attr('style', 'display:none');
+            $('#errorMessage5').attr('style', 'display:none');
+            $('#errorMessage6').attr('style', 'display:none');
+            $('#numberFormat').attr('style', 'display:none');
+      
+
+        }
+
+        else {
             passSubmit = false;
         }
 
-        if (this.specialCharactersChecking(this.spaceChecking($('.mustFill2').val()))) {
+        if (this.validateEmail($('.clientEmail').val())) {
+            $('#errorMessage2').attr('style', 'display:none');
+            $('#clientEmailFormat').attr('style', 'display:none');
+            document.getElementById('clientEmailField').setAttribute("class", "");
+        }
+        else if ($('.clientEmail').val() === "") {
+            $('#clientEmailFormat').attr('style', 'display:none');
+            $('#errorMessage2').attr('style', 'display:block');
+            document.getElementById('clientEmailField').setAttribute("class", "error-textfield");
+        }
+        else {
+            $('#clientEmailFormat').attr('style', 'display:block; text-align: left;margin-left: 150px;');
+            $('#errorMessage2').attr('style', 'display:none');
+            document.getElementById('clientEmailField').setAttribute("class", "error-textfield");
+        }
+        if ($('.clientName').val() === "") {
+            $('#errorMessage1').attr('style', 'display:block');
+            document.getElementById('clientNameField').setAttribute("class", "error-textfield");
+        }
+        else {
+            $('#errorMessage1').attr('style', 'display:none');
+            document.getElementById('clientNameField').setAttribute("class", "");
 
-            $('#invalide').attr('style', 'display:none');
+        }
+        if ($('.profileName').val() === "") {
+            $('#errorMessage3').attr('style', 'display:block');
+            document.getElementById('profileNameField').setAttribute("class", "error-textfield");
         } else {
+            $('#errorMessage3').attr('style', 'display:none');
+            document.getElementById('profileNameField').setAttribute("class", "");
 
-            $('#invalide').attr('style', 'display:block');
-            passSubmit = false;
         }
-        if (this.validateEmail($('.mustFill3').val())) {
-
-            $('#emailFormat3').attr('style', 'display:none');
+        if ($('#categorySelection').text() === "Category") {
+            $('#errorMessage4').attr('style', 'display:block');
+            document.getElementById('categorySelectionCheck').setAttribute("class", "error-textfield new-btn");
         } else {
-
-            $('#emailFormat3').attr('style', 'display:block');
+            $('#errorMessage4').attr('style', 'display:none');
+            document.getElementById('categorySelectionCheck').setAttribute("class", "new-btn");
         }
-
-        if (this.validateEmail($('.mustFill5').val())) {
-
-            $('#emailFormat5').attr('style', 'display:none');
+        if ($('#subcategorySelection').text() === "Subcategory") {
+            $('#errorMessage4').attr('style', 'display:block');
+            document.getElementById('subcategorySelectionCheck').setAttribute("class", "error-textfield new-btn");
         } else {
-
-            $('#emailFormat5').attr('style', 'display:block');
+            $('#errorMessage4').attr('style', 'display:none');
+            document.getElementById('subcategorySelectionCheck').setAttribute("class", "new-btn");
         }
-        if ($('.region').val() === "") {
-
-            $('#region').attr('style', 'display:block');
+        if ($('#countrySelection').text() === "Country") {
+            $('#errorMessage4').attr('style', 'display:block');
+            document.getElementById('countrySelectionCheck').setAttribute("class", "error-textfield new-btn");
         } else {
-            $('#region').attr('style', 'display:none');
+            $('#errorMessage4').attr('style', 'display:none');
+            document.getElementById('countrySelectionCheck').setAttribute("class", "new-btn");
         }
+        if ($('#regionSelection').text() === "Regoin/State") {
+            $('#errorMessage4').attr('style', 'display:block');
+            document.getElementById('regionSelectionCheck').setAttribute("class", "error-textfield new-btn");
 
-        if ($('.country').val() === "") {
-
-            $('#country').attr('style', 'display:block');
         } else {
-            $('#country').attr('style', 'display:none');
+            $('#errorMessage4').attr('style', 'display:none');
+            document.getElementById('regionSelectionCheck').setAttribute("class", "new-btn");
+        }
+        if ($('#contactEmail').val() === "") {
+            $('#errorMessage5').attr('style', 'display:block');
+            $('#contactEmailFormat').attr('style', 'display:none');
+            document.getElementById('contactEmailField').setAttribute("class", "error-textfield");
+        }
+        else if (this.validateEmail($('#contactEmail').val())) {
+            $('#contactEmailFormat').attr('style', 'display:none');
+            $('#errorMessage5').attr('style', 'display:none');
+            document.getElementById('contactEmailField').setAttribute("class", "");
+        }
+        else {
+            $('#errorMessage5').attr('style', 'display:none');
+            $('#contactEmailFormat').attr('style', 'display:block; text-align: left;margin-left: 150px;');
+            document.getElementById('contactEmailField').setAttribute("class", "error-textfield");
         }
 
-        if ($('.mustFill1').val() === "") {
 
-            $('#mustFill1').attr('style', 'display:block');
-        } else {
-            $('#mustFill1').attr('style', 'display:none');
-        }
-        if ($('.mustFill2').val() === "") {
+        if (document.getElementById('secondEmail').style.display === "table-row") {
 
-            $('#mustFill2').attr('style', 'display:block');
-        } else {
-            $('#mustFill2').attr('style', 'display:none');
-        }
-        if ($('.mustFill3').val() === "") {
-            $('#emailFormat3').attr('style', 'display:none');
-            $('#mustFill3').attr('style', 'display:block');
-        } else {
-            $('#mustFill3').attr('style', 'display:none');
-        }
-        if ($('.mustFill4').val() === "") {
 
-            $('#mustFill4').attr('style', 'display:block');
-        } else {
-            $('#mustFill4').attr('style', 'display:none');
-        }
-        if ($('.mustFill5').val() === "") {
+            if (this.validateEmail($('#contactEmail2').val())) {
+                $('#contactEmailFormat2').attr('style', 'display:none');
+                document.getElementById('contactEmailField2').setAttribute("class", "");
+            }
+            else if ($('#contactEmail2').val() === "") {
+                $('#contactEmailFormat2').attr('style', 'display:none');
+                document.getElementById('contactEmailField2').setAttribute("class", "");
+            }
+            else {
+                $('#contactEmailFormat2').attr('style', 'display:block; text-align: left;margin-left: 150px;');
+                document.getElementById('contactEmailField2').setAttribute("class", "error-textfield");
+            }
 
-            $('#emailFormat5').attr('style', 'display:none');
-            $('#mustFill5').attr('style', 'display:block');
-        } else {
-            $('#mustFill5').attr('style', 'display:none');
         }
 
-        if ($('.mustFill6').val() === "") {
+        if (document.getElementById('thirdEmail').style.display === "table-row") {
 
-            $('#mustFill6').attr('style', 'display:block');
-        } else {
-            $('#mustFill6').attr('style', 'display:none');
+
+            if (this.validateEmail($('#contactEmail3').val())) {
+                $('#contactEmailFormat3').attr('style', 'display:none');
+                document.getElementById('contactEmailField3').setAttribute("class", "");
+            }
+            else if ($('#contactEmail3').val() === "") {
+                $('#contactEmailFormat3').attr('style', 'display:none');
+                document.getElementById('contactEmailField3').setAttribute("class", "");
+            }
+            else {
+                $('#contactEmailFormat3').attr('style', 'display:block; text-align: left;margin-left: 150px;');
+                document.getElementById('contactEmailField3').setAttribute("class", "error-textfield");
+
+            }
+
+        }
+        for (var i = 1; i < counter; i++) {
+
+            if ($("#admins_" + i).val() === "") {
+                $('#errorMessage6').attr('style', 'display:none');
+                $('#adminsEmailFormat_' + i).attr('style', 'display:none');
+                document.getElementById('adminsField_' + i).setAttribute("class", "");
+            }
+            else if (this.validateEmail($("#admins_" + i).val())) {
+                $('#adminsEmailFormat_' + i).attr('style', 'display:none');
+                $('#errorMessage6').attr('style', 'display:none');
+                document.getElementById('adminsField_' + i).setAttribute("class", "");
+                var value;
+                if (i === 1) {
+                    value = $("#admins_" + 1).val();
+                } else if (i > 1) {
+                    value = value + "," + $("#admins_" + i).val();
+                }
+            }
+            else {
+                $('#errorMessage6').attr('style', 'display:none');
+                $('#adminsEmailFormat_' + i).attr('style', 'display:block; text-align: left;margin-left: 150px;');
+                if(document.getElementById('adminsField_' + i)!==null)
+                document.getElementById('adminsField_' + i).setAttribute("class", "error-textfield");
+            }
         }
 
-        if ($('.mustFill7').val() === "") {
+        this.set("editors", value);
 
-            $('#mustFill7').attr('style', 'display:block');
-        } else {
-            $('#mustFill7').attr('style', 'display:none');
+        if ($('.contactNumber').val() !== "") {
+            if (this.numberChecking("#numberFormat", $('.contactNumber').val())) {
+                $('#numberFormat').attr('style', 'display:none');
+                document.getElementById('numberField').setAttribute("class", "");
+            }
+            else {
+                $('#numberFormat').attr('style', 'display:block');
+                document.getElementById('numberField').setAttribute("class", "error-textfield");
+            }
+        }
+       
+
+
+        this.set("profile_url", this.spaceChecking(this.get("profile_name").toLowerCase()) + "-" + this.spaceChecking($('#regionSelection').text().toLowerCase()) + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase()));
+
+
+    },
+    setTopicModel: function(model) {
+        this.set('categorys', null);
+        this.set('categorys', model);
+
+    },
+    topicSelection: function(data) {
+
+        this.set('subcate', []);
+        for (var i = 0; i < data.get('subcate').get('length'); i++)
+        {
+            this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')
+            });
         }
 
-        if ($('.background').val() === "") {
+    },
+    addTRmore: function() {
 
-            this.set('profile_bg_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_bg/default/defaultbg6.jpg");
+        if (counter <= 6) {
+            var newdiv = document.createElement('tr');
+            newdiv.innerHTML = "<div style='display:table-cell;text-align: right;'></div><div style='display:table-cell'><div style='display: block;'><div id='adminsField_" + counter
+                    + "'"
+                    + "style='margin: 10px 10px 5px 10px;;width: 70%; display: inline-block;'>"
+                    + "<input id='admins_" + counter + "'" + "type='text' class='admins' placeholder='emailaddress@yourdomain.com'></div>"
+                    + "<div id='remove_" + counter + "'" + "style='display: inline-block; padding:4px;'><k class='icon-minus' ></k></div></div>"
+                    + "<div class='mustfull' id='adminsEmailFormat_" + counter
+                    + "'"
+                    + "style='display: none'>not correct email format.....</div>"
+                    + "</div>";
+            document.getElementById("step3").appendChild(newdiv);
+            var remove = $("#remove_" + counter);
+            remove.click(function() {
+                $(this).parent().parent().parent().remove();
+                counter = counter - 1;
+            });
+            counter++;
         }
-        if ($('.hero').val() === "") {
 
-            this.set('profile_hero_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg");
-        }
-        if ($('.picture').val() === "") {
 
-            this.set('profile_pic_url', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg");
-        }
     },
     save: function() {
-
         this.fillInChecking();
+
         if (passSubmit) {
-            var newMegaNewModel = HubStar.store.createRecord(HubStar.Meganew, {//15
-                "id": this.spaceChecking(this.get("profile_url").toLowerCase()),
+            var newMegaNewModel = HubStar.store.createRecord(HubStar.Meganew, {
+                "id": this.get("profile_url"),
                 "type": "profile",
                 accessed: null,
-                boost: this.get("boost"),
                 is_active: "true",
                 is_indexed: "true",
-                category: $('#categorySelection').text(),
+                categories: $('#categorySelection').text(),
+                subcategories: $('#subcategorySelection').text(),
                 created: "",
                 creator: this.get("creater"),
-                country: this.get("country"),
-                region: this.get("region"),
+                country: $('#countrySelection').text(),
+                region: $('#regionSelection').text(),
+                suburb: this.get("suburb"),
                 domains: getDomain(),
-                editors: this.get("editors"),
+                editors: this.get("owner") + "," + this.get("editors"),
                 keywords: this.get("keywords"),
+                keyword_num: this.get("keywordNumber"),
                 owner_type: "profiles", // profiles or user can upload files, this could help to link back to their profile.
                 owner_profile_pic: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
                 owner_title: this.get("profile_name"), //profile name
                 owner_id: this.get("profile_url"), //profile id
                 owner_contact_email: this.get("direct_enquiry_emails"),
-                owner_contact_cc_emails: this.get("secondary_email"),
-                owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
-                updated: ""
+                owner_contact_bcc_emails: this.get("direct_enquiry_emails_2"),
+                owner_contact_cc_emails: this.get("direct_enquiry_emails_3"),
+                updated: "",
+                 keyword:[]
             });
 
             var newProfile = HubStar.store.createRecord(HubStar.Profile, {
-                id: this.spaceChecking(this.get("profile_url").toLowerCase()),
+                id: this.get("profile_url"),
                 profile_name: this.get("profile_name"),
                 profile_contact_last_name: this.get("last_name"),
                 profile_contact_first_name: this.get("first_name"),
                 profile_about_us: "<br>Welcome!<br>",
-                profile_package_name: $('#packgeSelection').text(),
-                profile_bg_url: this.get("profile_bg_url"),
-                profile_hero_url: this.get("profile_hero_url"),
-                profile_pic_url: this.get("profile_pic_url"),
+                profile_package_name: this.get("profile_package"),
+                profile_bg_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_bg/default/defaultbg6.jpg",
+                profile_hero_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg",
+                profile_pic_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
                 owner: this.get("owner"),
                 profile_creater: this.get("creater"),
-                profile_editors: this.get("editors"),
-                profile_contact_number: this.get("profile_contact_number"),
+                profile_editors: this.get("owner") + "," + this.get("editors"),
+                profile_contact_number:  this.get("profile_contact_number"),
                 owner_contact_email: this.get("direct_enquiry_emails"),
-                owner_contact_cc_emails: this.get("secondary_email"),
-                owner_contact_bcc_emails: this.get("direct_enquiry_provide_email"),
+                owner_contact_bcc_emails: this.get("direct_enquiry_emails_2"),
+                owner_contact_cc_emails: this.get("direct_enquiry_emails_3"),
                 profile_category: $('#categorySelection').text(),
+                profile_subcategory: $('#subcategorySelection').text(),
                 profile_physical_address: this.get("address"),
+                profile_is_active: "true",
+                profile_is_deleted: "false",
                 profile_suburb: this.get("suburb"),
                 profile_keywords: this.get("keywords"),
-                profile_regoin: this.get("region"),
-                profile_country: this.get("country"),
+                profile_keywords_num: this.get("keywordNumber"),
+                profile_regoin: $('#regionSelection').text(),
+                profile_country: $('#countrySelection').text(),
                 profile_hours: "Monday=9:00am-5:00pm,Tuesday=9:00am-5:00pm,Wednesday=9:00am-5:00pm,Thursday=9:00am-5:00pm,Friday=9:00am-5:00pm,Saturday=closed,Sunday=closed,Holidays=closed",
-                phone_number: this.get("contact_number"),
                 profile_partner_ids: null,
-                collections: [],
                 profile_website_url: this.get("website_url"),
-                profile_website: this.get("website")
+                profile_website: this.get("website"),
+                keywords:[]
+                
             });
+
 
             newMegaNewModel.get("profile").addObject(newProfile);
             var that = this;
-
-
-            newMegaNewModel.store.save();
-
-
-
+            requiredBackEnd('meganews', 'createNewProfile', newMegaNewModel, 'POST', function(params) {
+                if (params === true) {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "The profile has been created with the same profile URL, Please change a new profile name, thank you!", "warnning");
+                }
+                else {
+                    newMegaNewModel.store.save();
             newMegaNewModel.addObserver('isDirty', function() {
                 if (!newMegaNewModel.get('isDirty')) {
-
                     that.transitionToRoute('profile', newProfile);
-                } else {
+                    location.href = "#/profiles/" + that.get("profile_url");
+                    location.reload();
+                    } else  {                    
+                    }
+
+            });
+                  
                 }
             });
+
         }
 
     },
     dropdown: function(checking) {
 
         if (checking === "category") {
-            this.set('packgetDropdown', false);
+            this.set('countryDropdown', false);
+            this.set('numberDropdown', false);
+            this.set('regionDropdown', false);
+            this.set('subcategoryDropdown', false);
             this.set('categoryDropdown', !this.get('categoryDropdown'));
-        } else if (checking === "package") {
-            this.set('categoryDropdown', false);
-            this.set('packgetDropdown', !this.get('packgetDropdown'));
         }
+        else if (checking === "country") {
+            this.set('categoryDropdown', false);
+            this.set('numberDropdown', false);
+            this.set('regionDropdown', false);
+            this.set('subcategoryDropdown', false);
+            this.set('countryDropdown', !this.get('countryDropdown'));
+        }
+        else if (checking === "region") {
+            this.set('countryDropdown', false);
+            this.set('numberDropdown', false);
+            this.set('categoryDropdown', false);
+            this.set('subcategoryDropdown', false);
+            this.set('regionDropdown', !this.get('regionDropdown'));
+        }
+        else if (checking === "number") {
+            this.set('countryDropdown', false);
+            this.set('categoryDropdown', false);
+            this.set('regionDropdown', false);
+            this.set('subcategoryDropdown', false);
+            this.set('numberDropdown', !this.get('numberDropdown'));
+        }
+        else if (checking === "subcategory") {
+            this.set('categoryDropdown', false);
+            this.set('numberDropdown', false);
+            this.set('regionDropdown', false);
+            this.set('countryDropdown', false);
+            this.set('subcategoryDropdown', !this.get('subcategoryDropdown'));
+        }
+    },
+    packageSelection: function(checking) {
+
+        if (checking === "gold") {
+
+            this.set("profile_package", "Gold");
+            this.set("keywordNumber", "100");
+            $("#gold").removeClass("hover-opacity easing");
+            $("#silver").addClass("hover-opacity easing");
+            $("#bronze").addClass("hover-opacity easing");
+
+        } else if (checking === "silver") {
+
+            this.set("profile_package", "Silver");
+            this.set("keywordNumber", "50");
+            $("#gold").addClass("hover-opacity easing");
+            $("#silver").removeClass("hover-opacity easing");
+            $("#bronze").addClass("hover-opacity easing");
+        } else if (checking === "bronze") {
+
+            this.set("profile_package", "Bronze");
+            this.set("keywordNumber", "25");
+            $("#gold").addClass("hover-opacity easing");
+            $("#silver").addClass("hover-opacity easing");
+            $("#bronze").removeClass("hover-opacity easing");
+        }
+
     }
 });
+

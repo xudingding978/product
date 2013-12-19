@@ -121,11 +121,16 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 "photo_keywords": keywords});
             mega.get("photo").pushObject(file);
             var that = this;
+             console.log(mega.get("photo"));
+   
             mega.addObserver('isSaving', function() {
+                console.log("111111111111");
                 if (mega.get('isSaving')) {
+                     console.log("2222222222");
                     $('.' + file.get('photo_source_id')).attr("style", "display:block");
                 }
-                else {                   
+                else {                
+                     console.log("33333333333");
                     HubStar.set("totalFiles", HubStar.get("totalFiles") + 1);
                     $('.' + file.get('photo_source_id')).attr("style", "display:none");
                     if (HubStar.get("totalFiles") === that.get("filesNumber")) {

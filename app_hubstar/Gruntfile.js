@@ -270,9 +270,7 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/starrating/jquery.ratings.js',
                     '<%= yeoman.app %>/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js',
                     '<%= yeoman.app %>/bower_components/dfp.js',
-                    '<%= yeoman.app %>/bower_components/joyride-master/jquery.cookie.js.js',
-                    '<%= yeoman.app %>/bower_components/joyride-master/jquery.joyride-2.1.js',
-                    '<%= yeoman.app %>/bower_components/joyride-master/modernizr.mq.js.js'
+                    '<%= yeoman.app %>/bower_components/countries'
                 ],
                 dest: '<%= yeoman.dist %>/scripts/components.js'
             },
@@ -296,9 +294,8 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/starrating/jquery.ratings.js',
                     '<%= yeoman.app %>/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js',
                     '<%= yeoman.app %>/bower_components/dfp.js',
-                    '<%= yeoman.app %>/bower_components/joyride-master/jquery.cookie.js.js',
-                    '<%= yeoman.app %>/bower_components/joyride-master/jquery.joyride-2.1.js',
-                    '<%= yeoman.app %>/bower_components/joyride-master/modernizr.mq.js.js'
+                    '<%= yeoman.app %>/bower_components/countries'
+                   
                 ],
                 dest: '<%= yeoman.test %>/scripts/components.js'
             },

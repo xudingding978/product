@@ -291,6 +291,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                                 // that.setPhotoStatus(HubStar.Mega.find(id).get("comments"));
                                 that.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
                             }
+
                         }
                     }
                 }
@@ -677,7 +678,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     dropdownPhotoSetting: function(param) {
         this.set('sharePhotoUrl', this.get('selectedPhoto').get('photo_image_thumbnail_url'));
         this.set('sharePhotoName', this.get('selectedPhoto').get('photo_title'));
-        $('#dropdown_id_'+param).toggleClass('hideClass');
+        $('#dropdown_id_' + param).toggleClass('hideClass');
     },
     switchCollection: function() {
 

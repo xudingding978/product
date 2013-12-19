@@ -557,7 +557,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndex');
 
-
                             if (localStorage.loginStatus)
                             {
                          
@@ -576,6 +575,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             else {
 
                             }
+
+                            HubStar.set("showDiscoveryBar", true);
 
                             that.set('loginPassword', "");
                             that.set('loginTime', false);

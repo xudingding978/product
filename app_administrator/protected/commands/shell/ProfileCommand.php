@@ -384,7 +384,7 @@ class ProfileCommand extends Controller_admin {
     public function buildKeywordObject() {
         $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $log_path = "/var/log/yii/$start_time.log";
-        $bucket = 'test';
+        $bucket = 'production';
         $keyword_arr = array();
         $profile_arr = $this->findProfiles($bucket);
 //        $profile_arr = array(

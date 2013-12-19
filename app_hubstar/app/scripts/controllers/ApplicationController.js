@@ -550,6 +550,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             localStorage.userType = "email";
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndex');
+                                 HubStar.set("showDiscoveryBar", true);
                             that.set('loginPassword', "");
                             that.set('loginTime', false);
                         }

@@ -124,7 +124,7 @@ class DefaultController extends Controller {
         else if($test[0] ==="develop"){
          $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "develop", true);
         }
-         else if($test[0] ==="my"||$test[1] ==="beta"){
+         else if($test[0] ==="my"||$test[0] ==="beta"){
          $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "production", true);
         }
         

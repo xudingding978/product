@@ -25,7 +25,11 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
         localStorage.checkUser = "";
-            window.history.go(0);
+        $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+        setTimeout(function() {
+            $('#masonry_container').masonry();  //masonry();
+        }, 300);
+        window.history.go(0);
         // $(window).scrollTop(0);
     },
     model: function(params) {

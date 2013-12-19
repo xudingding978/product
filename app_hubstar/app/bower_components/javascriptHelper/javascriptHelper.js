@@ -2,14 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-function getRestAPIURL()
-{
+function getRestAPIURL(){
 //    var api_url = document.domain;
 //    api_url = "http://api." + api_url;
 //    console.log(api_url);
 //    return api_url;
-   var api_url = document.domain;
-   
+    var api_url = document.domain;
     api_url = "http://api." + api_url;
     return api_url;
 }
@@ -25,6 +23,18 @@ function createGuid() {
     return "test" + result.toString();
 }
 
+function createReviewid() {
+
+    var dateObject = new Date();
+    var randomnumber = Math.random().toString().slice(2, 3);
+    randomnumber = randomnumber.toString();
+    randomnumber = removeZero(randomnumber);
+    var result = randomnumber +
+            dateObject.getTime().toString();
+
+    return result.toString();
+}
+
 function createMessageid() {
 
     var dateObject = new Date();
@@ -33,8 +43,10 @@ function createMessageid() {
     randomnumber = removeZero(randomnumber);
     var result = randomnumber +
             dateObject.getTime().toString();
+
     return  result.toString();
 }
+
 function removeZero(string)
 {
 
@@ -93,7 +105,7 @@ function getImageWidth(imgSrc, callback) {
 function requiredBackEnd(controller, method, para, ajaxType, callback) {
     {
         var tempurl = getRestAPIURL();
-     
+
         $.ajax({
             url: tempurl + '/' + controller + '/' + method,
             type: ajaxType,
@@ -104,9 +116,8 @@ function requiredBackEnd(controller, method, para, ajaxType, callback) {
             }
         });
     }
- 
-
 }
+
 function getTarget(obj, type) {
     var targ;
     var e = obj;
@@ -121,6 +132,21 @@ function getTarget(obj, type) {
     return targ;
 }
 
+function ReplaceContentInContainer(matchClass, content)
+{
+    var elems = document.getElementsByTagName('*'), i;
+    for (i in elems)
+    {
+        if ((" " + elems[i].className + " ").indexOf(" " + matchClass + " ") > -1)
+        {
+            console.log("match");
+            elems[i].style.display = 'none';
+        }
+    }
+
+}
 
 
-    
+
+
+

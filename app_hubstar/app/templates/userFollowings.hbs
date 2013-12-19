@@ -18,7 +18,7 @@
         <div class="object-tags">
             <span class="tags-mark" style="background-color: #427fed"></span>
             <div class="tags easing">
-                <div class="object-tpye">
+                <div class="object-type">
                     <i class="icon-group"></i>
                 </div>
             </div>
@@ -56,7 +56,15 @@
 
 </div>
 
-
+<script>
+    $(function() {
+        var $container = $('#masonry_user_container');
+        window.setTimeout(function() {
+            $container.masonry();
+            $container.masonry('reload');
+        }, 10);
+    });
+</script>
 
 
 

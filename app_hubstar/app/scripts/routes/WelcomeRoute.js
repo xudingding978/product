@@ -7,7 +7,7 @@ HubStar.WelcomeRoute = Ember.Route.extend({
             if (localStorage.checkUser === "newUser") {
 
 
-             
+
 
             } else {
 
@@ -18,12 +18,11 @@ HubStar.WelcomeRoute = Ember.Route.extend({
 
         },
         activate: function() {
-            $(window).scrollTop(0);
-            $('#masonry_container').attr('style', "display:none");
-               $('#discovery_search_bar_wrapper').attr('style', "display:none");
             HubStar.set("isLogin", true);
         },
         setupController: function() {
+     $("#top-about-menu").css('display', 'block');
+        $("#search-bar").css('display', 'none');
             this.controllerFor('searchs').defaultSearch();
             this.controllerFor('index').setLogin();
 
@@ -31,23 +30,15 @@ HubStar.WelcomeRoute = Ember.Route.extend({
 
             this.controllerFor('status').set('islogin', true);
             this.controllerFor('application').set('popup', false);
-            this.controllerFor('application').set('isotherpage', false);
-
-
-
-            setTimeout(function() {
-                $(window).scrollTop(0);
-                $('#masonry_container').attr('style', "display:none");
-                    $('#discovery_search_bar_wrapper').attr('style', "display:none");
-            }, 100);
+            this.controllerFor('application').set('isotherpage', true);
 
         },
         renderTemplate: function() {
-      var controller = this.controllerFor('topicSelection');
+     
             this.render('welcome', {
                 outlet: 'welcome',
-                into: 'application',
-                  controller: controller
+                into: 'application'
+                  
             });
         }
     });

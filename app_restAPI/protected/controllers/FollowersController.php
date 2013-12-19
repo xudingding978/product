@@ -45,7 +45,7 @@ class FollowersController extends Controller {
             if (!isset($mega_profile['profile'][0]['followers'])) {
                 $mega_profile['profile'][0]['followers'] = array();
             }
-            
+
             $bool = 0;
             for ($i = 0; $i < sizeof($mega_profile['profile'][0]['followers']); $i++) {
                 if ($request_arr["follower_id"] === $mega_profile['profile'][0]['followers'][$i]["follower_id"]) {
@@ -54,9 +54,8 @@ class FollowersController extends Controller {
                 }
             }
             if (!$bool) {
-                 array_unshift($mega_profile['profile'][0]['followers'], $request_arr);
+                array_unshift($mega_profile['profile'][0]['followers'], $request_arr);
             }
-                   
             if ($cb->set($docID_profile, CJSON::encode($mega_profile))) {
                 $isSaving = true;
             } else {
@@ -113,10 +112,64 @@ class FollowersController extends Controller {
         $request_arr = $request_array[1];
         $following = $this->followingUser($user_id, $request_arr);
         $follower = $this->followerUser($user_id, $request_arr);
+
+
         if ($following && $follower) {
+
             $this->sendResponse(204);
         } else {
             echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+        }
+    }
+
+    public function createNotification($follower_id, $ownerId, $time) {
+        $notificationObject = array();
+        $timeID = date_timestamp_get(new DateTime());
+
+        $notification_id = (string) (rand(10000, 99999)) . $timeID . $follower_id;
+
+        $notificationObject["notification_id"] = $notification_id;
+        $notificationObject["user_id"] = $follower_id;
+        $notificationObject["time"] = $time;
+        $notificationObject["type"] = "follow";
+        $notificationObject["content"] = "";
+        $notificationObject["action_id"] = "";
+        $notificationObject["isRead"] = false;
+
+
+        $notificationInfo = $this->getDomain() . "/users/" . $ownerId;
+        $cbs = $this->couchBaseConnection();
+        $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
+        $userInfo = CJSON::decode($notificationInfoDeep, true);
+
+        $conversationController = new ConversationsController();
+        if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "follow") !== false) {
+            if (!isset($userInfo['user'][0]['notifications'])) {
+                $userInfo['user'][0]['notifications'] = array();
+            }
+            array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+
+            if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
+                if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
+
+                    $receiveEmail = $userInfo['user'][0]['email'];
+                    $receiveName = $userInfo['user'][0]['display_name'];
+                    $notificationCountFollow = 0;
+                    $notificationCountMessage = 0;
+                    for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
+                        if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
+                            if ($userInfo['user'][0]['notifications'][$i]["type"] === "follow" || $userInfo['user'][0]['notifications'][$i]["type"] === "unFollow") {
+                                $notificationCountFollow++;
+                            } else {
+                                $notificationCountMessage++;
+                            }
+                        }
+                    }
+                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
+                }
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
         }
     }
 
@@ -391,14 +444,14 @@ class FollowersController extends Controller {
             $newRecord['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_hero_url"];
         }
         $newRecord['following_status'] = false;
-        if (!isset($oldRecordDeep['profile'][0]["profile_partner_ids"]) ){
-            $newRecord['partner_size']=0;
+        if (!isset($oldRecordDeep['profile'][0]["profile_partner_ids"])) {
+            $newRecord['partner_size'] = 0;
         } else {
-            if ($oldRecordDeep['profile'][0]["profile_partner_ids"] === null || $oldRecordDeep['profile'][0]["profile_partner_ids"] ==='') {
-                $newRecord['partner_size']=0;
+            if ($oldRecordDeep['profile'][0]["profile_partner_ids"] === null || $oldRecordDeep['profile'][0]["profile_partner_ids"] === '') {
+                $newRecord['partner_size'] = 0;
             } else {
                 $partner = explode(",", $oldRecordDeep['profile'][0]["profile_partner_ids"]);
-                $newRecord['partner_size']=sizeof($partner);
+                $newRecord['partner_size'] = sizeof($partner);
             }
         }
         if (!isset($oldRecordDeep['profile'][0]["collections"])) {
@@ -453,15 +506,52 @@ class FollowersController extends Controller {
         return $newRecord;
     }
 
+    public function actionReadPic() {
+        $like_arr = CJSON::decode(file_get_contents('php://input'));
+
+        try {
+            $cb = $this->couchBaseConnection();
+            $docID = $this->getDomain() . "/users/" . $like_arr;
+            $old = $cb->get($docID); // get the old user record from the database according to the docID string
+            $oldRecord = CJSON::decode($old, true);
+
+            $newRecord = null;
+            if (!isset($oldRecord['user'][0]["followers"])) {
+                $oldRecord['user'][0]["followers"] = array();
+            }
+
+            $followerLength = sizeof($oldRecord['user'][0]["followers"]);
+
+            for ($i = 0; $i < $followerLength; $i++) {
+                $id = $oldRecord['user'][0]["followers"][$i]["follower_id"];
+                $docIDDeep = $this->getDomain() . "/users/" . $id;
+                $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+                $oldRecordDeep = CJSON::decode($oldDeep, true);
+                $newRecord[$i]['record_id'] = $id;
+                $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["display_name"];
+                $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
+            }
+
+            if ($newRecord === null) {
+                $this->sendResponse(204);
+            } else {
+
+                $this->sendResponse(200, CJSON::encode($newRecord));
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     public function actionReadPhoto() {
         $like_arr = CJSON::decode(file_get_contents('php://input'));
-        
+
         try {
             $cb = $this->couchBaseConnection();
             $docID = $this->getDomain() . "/profiles/" . $like_arr;
             $old = $cb->get($docID); // get the old user record from the database according to the docID string
             $oldRecord = CJSON::decode($old, true);
-            
+
             $newRecord = null;
             if (!isset($oldRecord['profile'][0]["followers"])) {
                 $oldRecord['profile'][0]["followers"] = array();
@@ -472,7 +562,7 @@ class FollowersController extends Controller {
                 $followerLength = 6;
             }
             for ($i = 0; $i < $followerLength; $i++) {
-                $id = $oldRecord['profile'][0]["followers"][$i]["follower_id"];               
+                $id = $oldRecord['profile'][0]["followers"][$i]["follower_id"];
                 $docIDDeep = $this->getDomain() . "/users/" . $id;
                 $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
                 $oldRecordDeep = CJSON::decode($oldDeep, true);
@@ -480,7 +570,7 @@ class FollowersController extends Controller {
                 $newRecord[$i]['name'] = $oldRecordDeep['user'][0]["display_name"];
                 $newRecord[$i]['photo_url'] = $oldRecordDeep['user'][0]["photo_url_large"];
             }
-            
+
             if ($newRecord === null) {
                 $this->sendResponse(204);
             } else {
@@ -603,12 +693,66 @@ class FollowersController extends Controller {
         }
     }
 
+    public function createNotificationunfollow($follower_id, $ownerId, $timeFollow) {
+        $notificationObject = array();
+        $timeID = new DateTime();
+
+        $time = date_timestamp_get($timeID);
+
+        $notification_id = (string) (rand(10000, 99999)) . $time . $follower_id;
+
+        $notificationObject["notification_id"] = $notification_id;
+        $notificationObject["user_id"] = $follower_id;
+        $notificationObject["time"] = $timeFollow;
+        $notificationObject["type"] = "unFollow";
+        $notificationObject["content"] = "";
+        $notificationObject["action_id"] = "";
+        $notificationObject["isRead"] = false;
+
+        $notificationInfo = $this->getDomain() . "/users/" . $ownerId;
+        $cbs = $this->couchBaseConnection();
+        $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
+        $userInfo = CJSON::decode($notificationInfoDeep, true);
+        $conversationController = new ConversationsController();
+        if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "follow") !== false) {
+            if (!isset($userInfo['user'][0]['notifications'])) {
+                $userInfo['user'][0]['notifications'] = array();
+            }
+            array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+
+
+            if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
+                if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
+                    $receiveEmail = $userInfo['user'][0]['email'];
+                    $receiveName = $userInfo['user'][0]['display_name'];
+                    $notificationCountFollow = 0;
+                    $notificationCountMessage = 0;
+                    for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
+                        if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
+                            if ($userInfo['user'][0]['notifications'][$i]["type"] === "follow" || $userInfo['user'][0]['notifications'][$i]["type"] === "unFollow") {
+                                $notificationCountFollow++;
+                            } else {
+                                $notificationCountMessage++;
+                            }
+                        }
+                    }
+                    
+                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
+                }
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
+        }
+    }
+
     public function actionDeleteUserFollower() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $currentUser_id = $request_array[0];
         $user_id = $request_array[1];
+        $time = $request_array[2];
+
         $unFollowing = $this->unFollowingUser($currentUser_id, $user_id);
-        $unFollower = $this->unFollowerUser($currentUser_id, $user_id);
+        $unFollower = $this->unFollowerUser($currentUser_id, $user_id, $time);
         if ($unFollowing && $unFollower) {
             $this->sendResponse(204);
         } else {
@@ -639,8 +783,9 @@ class FollowersController extends Controller {
         }
     }
 
-    public function unFollowerUser($currentUser_id, $user_id) {                           //delete follower in this following user
+    public function unFollowerUser($currentUser_id, $user_id, $time) {                           //delete follower in this following user
         $isDelete = false;
+        $flag = false;
         try {
             $cb = $this->couchBaseConnection();
             $domain = $this->getDomain();
@@ -649,11 +794,15 @@ class FollowersController extends Controller {
             $mega_user = CJSON::decode($tempMega_user, true);
             for ($i = 0; $i < sizeof($mega_user["user"][0]["followers"]); $i++) {
                 if ($mega_user["user"][0]["followers"][$i]["follower_id"] === $currentUser_id) {
+                    $flag = true;
                     array_splice($mega_user["user"][0]["followers"], $i, 1);
                 }
             }
             if ($cb->set($docID_user, CJSON::encode($mega_user))) {
                 $isDelete = true;
+            }
+            if ($flag === true) {
+                //$this->createNotificationunfollow($currentUser_id, $user_id, $time);
             }
             return $isDelete;
         } catch (Exception $exc) {
@@ -710,8 +859,8 @@ class FollowersController extends Controller {
             $mega_user = CJSON::decode($tempMega_user, true);
             if (!isset($mega_user['user'][0]['followers'])) {
                 $mega_user['user'][0]['followers'] = array();
-            }  
-             $bool = 0;
+            }
+            $bool = 0;
             for ($i = 0; $i < sizeof($mega_user['user'][0]['followers']); $i++) {
                 if ($request_arr['follower_id'] === $mega_user['user'][0]['followers'][$i]["follower_id"]) {
                     $bool = 1;
@@ -720,13 +869,18 @@ class FollowersController extends Controller {
             }
 
             if (!$bool) {
-                     array_unshift($mega_user['user'][0]['followers'], $request_arr);
+                array_unshift($mega_user['user'][0]['followers'], $request_arr);
             }
-      
+
             if ($cb->set($docID_user, CJSON::encode($mega_user))) {
                 $isSaving = true;
             } else {
                 
+            }
+            if (!$bool) {
+                $current_time = $request_arr["time_stamp"];
+                $follower_id = $request_arr["follower_id"];
+                $this->createNotification($follower_id, $user_id, $current_time);
             }
             return $isSaving;
         } catch (Exception $exc) {

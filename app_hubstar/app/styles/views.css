@@ -1,4 +1,13 @@
 /*BASIC STYLE*/
+a {
+    color: #333 ;
+    text-decoration: none;
+}
+
+a:visited{color: #555}
+
+a:hover , a:focus {color: #aaa;}
+
 
 #master_bg
 {
@@ -23,18 +32,14 @@
     font-size: 16px;
 }
 
-
-
-
-
 .easing {
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
 }
 
-.hover-opacity{opacity:.6}
-.hover-opacity:hover{opacity:1}
+.hover-opacity{opacity:.6; }
+.hover-opacity:hover, .hover-opacity:focus, .hover-opacity:active{opacity:1}
 
 
 
@@ -52,6 +57,24 @@
     -webkit-perspective: 600px;
     -moz-perspective: 600px;
 }
+
+
+
+.square-button{
+    width: 45PX;
+    height: 45px;
+    float: left;
+    color: #333;
+    line-height: 48px;
+    font-size: 15px;
+    text-align: center;
+    opacity: .6;
+    cursor: pointer;
+}
+
+.square-button:hover{opacity: 1}
+
+
 /* -- make sure to declare a default for every property that you want animated -- */
 /* -- general styles, including Y axis rotation -- */
 .panel .front {
@@ -87,12 +110,10 @@
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
 }
-#login_icon .panel .front{
-    -moz-box-shadow: 0 0 0 0;
-    -webkit-box-shadow: 0 0 0 0;
-    box-shadow:0 0 0 0;
 
-}
+
+
+
 .panel.flip .front {
     z-index: 900;
     height: 0;
@@ -278,13 +299,12 @@
 .object-tags-box{
     -webkit-transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
     transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
-    margin: 45px 0 0 0;
+    margin: 15px 0 0 0;
     max-width: 5%;
     position: absolute;
     right: 0;
     top: 0;
-    /*    cursor: pointer;*/
-    z-index: 100;
+    z-index: 10;
 }
 .object-tags-box div{position:relative;z-index:100;}
 .object-tags{
@@ -383,27 +403,29 @@
 }
 
 
-.object-tpye{
+.object-type{
     display: inline-block;
     text-align: center;
     background-color: #427fed;
-    color: white
+    color: white;
+    border-bottom: 2px solid #427fed;
 }
 
-.object-tpye:hover{
-    background-color: #eee;
-    color: #999;
+.object-type:hover{
+    border-bottom: 2px solid #fff;
+    opacity: 1;
 }
 
 .tagsappear{
     opacity: 0;
+    overflow: hidden;
 }
 
 .tagsappear:hover{
     opacity: 1;
 }
 
-.object-tpye > i {
+.object-type > i {
     padding: 10px;
 }
 
@@ -481,6 +503,19 @@
     opacity: 1;
 }
 
+.item-function-control{
+    position: absolute;
+    z-index: 1;
+    top: 15px;
+    line-height: 30px;
+    background-color: #427fed;
+    opacity: 0;
+    cursor: pointer;
+    height: 30px;
+}
+
+.item-function-control:hover{opacity: 1!important}
+.col2:hover .item-function-control{opacity: .6}
 
 /*MANSONRY user OBJECT STYLE               END*/
 
@@ -721,28 +756,17 @@ div.album-description-bg{
 
 
 
-.masonry-object{
-    -webkit-border-radius:2px;
-    -o-border-radius: 2px;
-    -ms-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    background-color: #fff;
-    box-shadow: inset 0px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
-}
-
 .masonry-object_poster{
-    margin-bottom: 20px;
-    padding: 0 20px 0 20px;
     position: relative;
     z-index: 1;
 }
 
 .profilepic-on-masonry{
-    width: 46px;
-    height: 46px;
+    max-width: 46px;
+    max-height: 60px;
+
     float: left;
-    margin: 20px 15px 0 0;
+    margin: 15px 15px 12px 0;
     padding: 0;
     -webkit-border-radius: 5px;
     -o-border-radius: 5px;
@@ -750,32 +774,33 @@ div.album-description-bg{
     -moz-border-radius: 5px;
     border-radius: 5px;
     overflow: hidden;
-    margin-bottom:12px;
     position:relative;
     z-index:1;
+    cursor: pointer;
 }
 
 .object_username{
     margin: 0 0 15px 61px;
-    padding: 23px 0 0 0;
+    padding: 15px 0 0 0;
     text-overflow: ellipsis;
 }
 
 .masonry-object_mainfeature{
-    padding: 0 20px 0 20px;
+    padding: 0 13px;
     text-overflow: ellipsis;
 }
 
 .mainfeature-wrapper{
-    margin: 0 -14px 20px -14px;
+    margin: 0 -13px;
     clear: both;
     line-height: 0;
     overflow: hidden;
     position: relative;
-    vertical-align:central;
-    /* background:#e5e5e5; */
-    min-height:150px
+    min-height: 150px;
+    border-radius: 3px 3px 0 0;
 }
+
+.mainfeature-wrapper:hover > .hover-opacity{opacity: 1}
 
 .edit-object{
     opacity: 0;
@@ -799,8 +824,7 @@ div.album-description-bg{
 
 .this-is-the-object{
     cursor: pointer;
-    min-width: 338px;
-    /* max-height: 100%; */
+    min-width: 350px;
     max-width: 100%;
     display: inline-block;
 }
@@ -811,12 +835,15 @@ div.album-description-bg{
     line-height: 144%;
     min-height: 0;
     overflow: hidden;
+    width: 322px;
 }
+
 
 .masonry-object_text-container{
-
+    overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .more_detail{
     color: #555;
     width: 300px;
@@ -839,19 +866,13 @@ div.album-description-bg{
 }
 
 /* clint */
-.masonry-brick .masonry_more-btn{
-    padding-bottom:12.5px;
-
-}
 .masonry_more-btn:hover{
     color: #333;
 }
 
 .masonry-object_interact{
-    margin: 20px 0 0 0; /* was margin: 20px 0 10px 0; */
-    overflow:hidden;
+    margin: 20px 0 0;
     border-top: 1px solid #e5e5e5;
-    /* border-bottom: 1px solid #e5e5e5; */
     -webkit-border-radius: 0 0 2px 2px;
     -o-border-radius: 0 0 2px 2px;
     -ms-border-radius: 0 0 2px 2px;
@@ -864,6 +885,23 @@ div.album-description-bg{
     margin: 16px auto 12px;
     width: 87%;
 }
+.masonry_show-comment .edit-object-ul{
+    position:absolute;
+    left:-61px!important;
+    top:40px;
+}
+.masonry_show-comment .edit-object-ul:after{
+    content: "";
+    position: absolute;
+    left: 65px;
+    top: -21px;
+    border-color: transparent transparent #ccc transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: -1;	
+}
+
+
 
 .masonry_dropdownicon{
     display: inline-block;
@@ -1145,8 +1183,8 @@ div.album-description-bg{
 .object-poster{
     padding: 15px;
     width: 100%;
-    margin:0;
-
+    margin: 0;
+    min-height: 75px;
 }
 
 .object-poster:hover{
@@ -1156,13 +1194,13 @@ div.album-description-bg{
 .profilepic-container{
     position: relative;
     display: inline-block;
-    vertical-align: top;
+    vertical-align: middle;
     margin-right: 10px;
 }
 
 .profilepic/* for a*/{
-    width: 46px;
-    height: 46px;
+    max-width: 46px;
+    max-height: 60px;
     float: left;
     padding: 0px;
     border-radius: 5px 5px 5px 5px;
@@ -1176,29 +1214,23 @@ div.album-description-bg{
     border: 1px solid #f3f3f3;
 }
 
-.profilepic_effect{
-    opacity: 0.8;
-}
-
-.profilepic_effect:hover{
-    box-shadow: 0px 0px 10px #fff;
-    opacity: 1;
-}
 
 .poster_user{
     position: relative;
-    top: 3px;
+    vertical-align: middle;
     display: inline-block;
-    min-width: 178px;
-    max-width:80%;
+    min-width: 170px;
+    width: 60%;
 }
 
 .poster-name{
-    font-size: 14px;
+    font-size: 15px;
     font-weight: bold;
     display: block;
     unicode-bidi: normal;
 }
+.poster-name:hover, .poster-name:focus{color:#005580;}
+
 
 .posttime{
     color: #aaa;
@@ -1241,7 +1273,7 @@ div.album-description-bg{
 }
 
 .collapes-container_inner{
-    padding: 15px 0;
+    padding: 30px 0;
     width: 87%;
     margin: auto;
     border-bottom: 1px solid rgba(0,0,0,.03)
@@ -1528,9 +1560,9 @@ div.album-description-bg{
 
 
 .article-title{
-    font-size: 18px;
+    font-size: 26px;
     font-weight: bold;
-    line-height: 20px;
+    line-height: 30px;
     margin-bottom: 10px;
 }
 
@@ -1539,10 +1571,22 @@ div.album-description-bg{
     line-height: 16px;
 }
 
-.article-text > p{
+.caption-title{
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+
+.caption-text{
     font-size: 13px;
-    color: #555;
     line-height: 16px;
+}
+
+.article-text > p{
+    font-size: 15px;
+    color: #555;
+    line-height: 20px;
     margin-bottom: 12px;
 }
 
@@ -1552,13 +1596,11 @@ div.album-description-bg{
     padding:0 6.5%;
     margin: 0 auto;
     overflow:hidden;
-    border-bottom:12.5px solid #f8f8f8;
-
 }
 
 
 .show-comment{
-    padding-bottom: 12px;
+    padding-bottom: 30px;
 }
 
 .show-comment_container{
@@ -1566,6 +1608,7 @@ div.album-description-bg{
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #aaa;
+    float:left;
 }
 
 .show-comment_inner{
@@ -1575,6 +1618,8 @@ div.album-description-bg{
     transition: color .218s;
     font-size: 12px;
     padding-right: 5px;
+
+    cursor: pointer;
 }
 
 
@@ -1582,6 +1627,7 @@ div.album-description-bg{
     overflow: hidden;
     vertical-align: top;
 }
+.comment-amount i{text-indent:.5em;}
 
 .addcommnetbox-container{
     /* padding: 0 0 20px 0; */
@@ -1603,14 +1649,17 @@ div.album-description-bg{
 .comment-item{
     position: relative;
     width: auto;
-    display: block;
-    margin: 5px 0;
+    height: auto;
     overflow-wrap: break-word;
     overflow-x: hidden;
+    display: block;
+    border-top: 1px solid #eee;
+    margin: 0;
+    padding: 5px 6.5%;
 }
 
 .comment-position{
-    padding: 4.50px 0px 4.5px 43px;
+    padding: 4.5px 0 4.5px 35px;
     vertical-align: top;
 }
 
@@ -1618,13 +1667,18 @@ div.album-description-bg{
     cursor: pointer;
     position: absolute;
     left: 0px;
-    top: 5px;
+    margin: 5px 3.5%;
+}
+
+.Message-Board_comment-item .profilepic-comment-container{
+    margin: 5px 3.5% 5px 0;
 }
 
 .profilepic_comment{
     border-radius: 50%;
     width: 33px;
     height: 33px;
+    border: 1px solid #f3f3f3;
 }
 
 .comment-insert-field{
@@ -1703,11 +1757,12 @@ div.album-description-bg{
 }
 
 .choose-exist-collection{
-    width: 340px;
+    min-width: 300px;
     background-color: rgba(0,0,0,0.03);
     height: 30px;
     padding: 5px 8px;
     cursor: pointer;
+    text-align: left;
 }
 
 .choose-exist-collection:hover{
@@ -1729,16 +1784,16 @@ div.album-description-bg{
 }
 
 .add-collection_select-collection{
-    width: 335px;
-    height: 250px;
-    padding: 15px;
+    height: 240px;
+    padding: 10px;
     position: absolute;
-    left: 130px;
-    top: 55px;
+    left: 4px;
+    top: 50px;
     background: #fff;
     -webkit-box-shadow: 0 0px 1px #888;
     -moz-box-shadow: 0 0px 1px #888;
     box-shadow: 0 0px 1px #888;
+    z-index: 11;
 }
 
 .edit-btn{
@@ -1791,25 +1846,43 @@ div.album-description-bg{
 /* tool-tips for profile items 9/10/13 clint */
 .itemprofile .location_li:after
 {
-    background:#fff;
-    border-color:#fff;
-    color:#666;
+    background: #fff;
+    border-color: #fff;
+    color: #555;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     -moz-box-shadow: 0 0 5px #888;
-    -webkit-box-shadow: 0 0 5px#888;
+    -webkit-box-shadow: 0 0 5px #888;
     box-shadow: 0 0 5px #888;
-    text-shadow:0 0 0;
-    top:25px;
-    left:0;
-    line-height:1em;
+    text-shadow: 0 0 0;
+    top: 25px;
+    right: -14px;
+    line-height: 1em;
 }
 
 .itemprofile .location_li:before
 {
-    border-bottom-color:#ccc!important;
-    top:12px;
-    left:15px;
+    border-bottom-color: #ccc!important;
+    top: 12px;
+    left: 6px;
 }
 /* tool-tips for profile items  ENDS - 9/10/13 clint */
+
+
+
+/* search item comment controller styling  2013/12/06 */
+
+.comment-scroll-bar{
+    max-height:360px;
+    overflow:hidden;
+}
+
+/* search item comment controller styling ENDS - 2013/12/06 */
+
+
+
+
+.collapes-container_inner > .for-tooltip-position.hint--bottom:after{left: -65px!important}
+
+.collapes-container_inner > .hint--bottom:before{left: 14px!important}

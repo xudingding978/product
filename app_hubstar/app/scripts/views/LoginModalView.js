@@ -1,15 +1,12 @@
 HubStar.LoginModalView = Ember.View.extend({
-      templateName: 'loginModal',
- 
-        didInsertElement: function() {
+    templateName: 'loginModal',
+    didInsertElement: function() {
+//        $("#loginModal").on("click", function() {
+//            HubStar.set('checkLoginStatus', false);
+//
+//        });
 
-            this.$().draggable({
-                cursor: "move",
-                scroll: true,
-                scrollSensitivity: 100
-            });
+    }
 
-
-        }
-    });
+});
 

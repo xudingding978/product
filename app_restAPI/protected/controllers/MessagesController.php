@@ -161,7 +161,6 @@ class MessagesController extends Controller {
     public function addComment($commenter_id, $date, $commentContent, $id, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id) {                       //saving follower in profile
         try {
             $docIDDeep = $this->getDomain() . "/users/" . $id;
-            //  error_log(var_export($id, true));
             $cb = $this->couchBaseConnection();
             $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
             $oldRecordDeep = CJSON::decode($oldDeep, true);
@@ -187,7 +186,7 @@ class MessagesController extends Controller {
 
             if ($newStyleImage !== null && $photo_name !== "") {
                 $photoController = new PhotosController(); //    this.get("controllers.PhotosController").             
-                //error_log(var_export($newStyleImage, true));
+
                 $data_arr = $photoController->convertToString64($newStyleImage);
                 //$data_arr = $photoController->convertToString64($photo_string);      
                 $photo = imagecreatefromstring($data_arr['data']);
@@ -213,6 +212,7 @@ class MessagesController extends Controller {
             }
 
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                $this->createNotification($commenter_id, $id, $date, $message_id, $commentContent);
                 return $newMessage;
             } else {
                 
@@ -220,6 +220,60 @@ class MessagesController extends Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
             echo json_decode(file_get_contents('php://input'));
+        }
+    }
+
+    public function createNotification($commenter_id, $id, $date, $message_id, $commentContent) {
+        if ($commenter_id !== $id) {
+            $ownerId = $id;
+            $notificationObject = array();
+            $timeID = date_timestamp_get(new DateTime());
+
+            $notification_id = (string) (rand(10000, 99999)) . $timeID . $commenter_id;
+
+            $notificationObject["notification_id"] = $notification_id;
+            $notificationObject["user_id"] = $commenter_id;
+            $notificationObject["time"] = $date;
+            $notificationObject["type"] = "addMessage";
+            $notificationObject["content"] = $commentContent;
+            $notificationObject["action_id"] = $message_id;
+            $notificationObject["isRead"] = false;
+
+
+            $notificationInfo = $this->getDomain() . "/users/" . $ownerId;
+            $cbs = $this->couchBaseConnection();
+            $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
+            $userInfo = CJSON::decode($notificationInfoDeep, true);
+
+            $conversationController = new ConversationsController();
+            if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "message") !== false) {
+                if (!isset($userInfo['user'][0]['notifications'])) {
+                    $userInfo['user'][0]['notifications'] = array();
+                }
+                array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+
+                if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
+                    if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
+                        $receiveEmail = $userInfo['user'][0]['email'];
+                        $receiveName = $userInfo['user'][0]['display_name'];
+                        $notificationCountFollow = 0;
+                        $notificationCountMessage = 0;
+                        for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
+
+                            if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
+                                if ($userInfo['user'][0]['notifications'][$i]["type"] === "follow" || $userInfo['user'][0]['notifications'][$i]["type"] === "unFollow") {
+                                    $notificationCountFollow++;
+                                } else {
+                                    $notificationCountMessage++;
+                                }
+                            }
+                        }
+                        $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
+                    }
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
+            }
         }
     }
 
@@ -239,7 +293,7 @@ class MessagesController extends Controller {
         $reply_id = $request_array[7];
         $url = $request_array[8];
         $reply_id = $reply_id . $message_id . $owner_id;
-        $comment = $this->updateReply($owner_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id,$url);
+        $comment = $this->updateReply($owner_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id, $url);
 
         if ($comment !== false) {
             $this->sendResponse(200, CJSON::encode($comment));
@@ -248,10 +302,9 @@ class MessagesController extends Controller {
         }
     }
 
-    public function updateReply($id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id,$url) {
+    public function updateReply($id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id, $url) {
         try {
             $docIDDeep = $this->getDomain() . "/users/" . $id; // it is the owner id
-            //  error_log(var_export($id, true));
             $cb = $this->couchBaseConnection();
             $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
             $oldRecordDeep = CJSON::decode($oldDeep, true);
@@ -259,12 +312,12 @@ class MessagesController extends Controller {
 
             for ($i = 0; $i < sizeof($oldRecordDeep['user'][0]["messages"]); $i++) {
                 for ($j = 0; $j < sizeof($oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"]); $j++) {
-                    
-                     $currentMessage = $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$j];
-                     
+
+                    $currentMessage = $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$j];
+
                     if ($currentMessage["reply_id"] === $message_id) {
-              
-                       $currentMessage["msg"] = $commentContent;
+
+                        $currentMessage["msg"] = $commentContent;
                         $currentMessage["time_stamp"] = $date;
                         $dataNew["time_stamp"] = $date;
                         $dataNew["msg"] = $commentContent;
@@ -279,7 +332,7 @@ class MessagesController extends Controller {
 
                             if ($newStyleImage !== null && $photo_name !== "") {
                                 $photoController = new PhotosController(); //    this.get("controllers.PhotosController").             
-                                //error_log(var_export($newStyleImage, true));
+
                                 $data_arr = $photoController->convertToString64($newStyleImage);
                                 //$data_arr = $photoController->convertToString64($photo_string);      
                                 $photo = imagecreatefromstring($data_arr['data']);
@@ -291,18 +344,17 @@ class MessagesController extends Controller {
                                 $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$j]["url"] = $url;
                                 $dataNew["url"] = $url;
                             } else {
-  
+
                                 $dataNew["url"] = $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$j]["url"];
-                                if($url === null)
-                                {
-                                      $dataNew["url"]  = null;
+                                if ($url === null) {
+                                    $dataNew["url"] = null;
+                                    $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$j]["url"] = null;
                                 }
                             }
                             break;
                         } else {
                             if ($newStyleImage !== null && $photo_name !== "") {
                                 $photoController = new PhotosController(); //    this.get("controllers.PhotosController").             
-                                //error_log(var_export($newStyleImage, true));
                                 $data_arr = $photoController->convertToString64($newStyleImage);
                                 //$data_arr = $photoController->convertToString64($photo_string);      
                                 $photo = imagecreatefromstring($data_arr['data']);
@@ -323,8 +375,6 @@ class MessagesController extends Controller {
                     }
                 }
             }
-
-            error_log(var_export($dataNew, true));
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
                 return $dataNew;
             } else {
@@ -350,9 +400,9 @@ class MessagesController extends Controller {
 
         $message_id = $request_array[6];
         $reply_id = $request_array[7];
-        $url= $request_array[8];
+        $url = $request_array[8];
         $reply_id = $reply_id . $message_id . $owner_id;
-        $comment = $this->updateMessage($owner_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id,$url);
+        $comment = $this->updateMessage($owner_id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id, $url);
 
         if ($comment !== false) {
             $this->sendResponse(200, CJSON::encode($comment));
@@ -361,10 +411,9 @@ class MessagesController extends Controller {
         }
     }
 
-    public function updateMessage($id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id,$url) {
+    public function updateMessage($id, $date, $commentContent, $newStyleImage, $imageType, $photo_name, $message_id, $reply_id, $url) {
         try {
             $docIDDeep = $this->getDomain() . "/users/" . $id; // it is the owner id
-            //  error_log(var_export($id, true));
             $cb = $this->couchBaseConnection();
             $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
             $oldRecordDeep = CJSON::decode($oldDeep, true);
@@ -392,7 +441,6 @@ class MessagesController extends Controller {
 
                         if ($newStyleImage !== null && $photo_name !== "") {
                             $photoController = new PhotosController(); //    this.get("controllers.PhotosController").             
-                            //error_log(var_export($newStyleImage, true));
                             $data_arr = $photoController->convertToString64($newStyleImage);
                             //$data_arr = $photoController->convertToString64($photo_string);      
                             $photo = imagecreatefromstring($data_arr['data']);
@@ -404,18 +452,17 @@ class MessagesController extends Controller {
                             $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$replyLenth]["url"] = $url;
                             $dataNew["url"] = $url;
                         } else {
-                            
+
                             $dataNew["url"] = $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$replyLenth]["url"];
-                            if($url===null)
-                            {
-                                $dataNew["url"]=null;
+                            if ($url === null) {
+                                $dataNew["url"] = null;
+                                $oldRecordDeep['user'][0]["messages"][$i]["replyMessageCollection"][$replyLenth]["url"] = null;
                             }
                         }
                         break;
                     } else {
                         if ($newStyleImage !== null && $photo_name !== "") {
                             $photoController = new PhotosController(); //    this.get("controllers.PhotosController").             
-                            //error_log(var_export($newStyleImage, true));
                             $data_arr = $photoController->convertToString64($newStyleImage);
                             //$data_arr = $photoController->convertToString64($photo_string);      
                             $photo = imagecreatefromstring($data_arr['data']);
@@ -435,8 +482,6 @@ class MessagesController extends Controller {
                     }
                 }
             }
-
-            error_log(var_export($dataNew, true));
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
                 return $dataNew;
             } else {
@@ -505,7 +550,6 @@ class MessagesController extends Controller {
 
             if ($newStyleImage !== null && $photo_name !== "") {
                 $photoController = new PhotosController(); //    this.get("controllers.PhotosController").             
-                //error_log(var_export($newStyleImage, true));
                 $data_arr = $photoController->convertToString64($newStyleImage);
                 //$data_arr = $photoController->convertToString64($photo_string);      
                 $photo = imagecreatefromstring($data_arr['data']);
@@ -540,6 +584,7 @@ class MessagesController extends Controller {
 
 
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                $this->createNotificationReply($commenter_id, $id, $date, $message_id . ',' . $ownerMessage_id . ',' . $id, $commentContent, $newMessage["replyMessageCollection"][sizeof($newMessage["replyMessageCollection"]) - 1]['user_id']);
                 return $newMessage;
             } else {
                 
@@ -547,6 +592,197 @@ class MessagesController extends Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
             echo json_decode(file_get_contents('php://input'));
+        }
+    }
+
+    public function createNotificationReply($commenter_id, $id, $date, $message_id, $commentContent, $message_owner) {
+
+        $ownerId = $id;
+        $notificationObject = array();
+
+        $timeID = date_timestamp_get(new DateTime());
+
+
+        $notification_id = (string) (rand(10000, 99999)) . $timeID . $commenter_id;
+
+        $notificationObject["notification_id"] = $notification_id;
+        $notificationObject["user_id"] = $commenter_id;
+        $notificationObject["time"] = $date;
+        $notificationObject["type"] = "addReply";
+        $notificationObject["content"] = $commentContent;
+        $notificationObject["action_id"] = $message_id;
+        $notificationObject["isRead"] = false;
+        $conversationController = new ConversationsController();
+        if ($commenter_id !== $message_owner && $commenter_id !== $id && $message_owner !== $id) {
+
+            $notificationInfo = $this->getDomain() . "/users/" . $ownerId;
+            $cbs = $this->couchBaseConnection();
+            $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
+            $userInfo = CJSON::decode($notificationInfoDeep, true);
+
+            if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "message") !== false) {
+                if (!isset($userInfo['user'][0]['notifications'])) {
+                    $userInfo['user'][0]['notifications'] = array();
+                }
+                array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+                if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
+                    $receiveEmail = $userInfo['user'][0]['email'];
+                    $receiveName = $userInfo['user'][0]['display_name'];
+                    $notificationCountFollow = 0;
+                    $notificationCountMessage = 0;
+                    for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
+                        if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
+                            if ($userInfo['user'][0]['notifications'][$i]["type"] === "follow" || $userInfo['user'][0]['notifications'][$i]["type"] === "unFollow") {
+                                $notificationCountFollow++;
+                            } else {
+                                $notificationCountMessage++;
+                            }
+                        }
+                    }
+                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
+                }
+                if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
+                    
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
+            }
+
+
+
+            $notification = $this->getDomain() . "/users/" . $message_owner;
+            $cbm = $this->couchBaseConnection();
+            $notificationDeep = $cbm->get($notification); // get the old user record from the database according to the docID string
+            $userMessage = CJSON::decode($notificationDeep, true);
+
+
+
+            if (!isset($userMessage['user'][0]['notification_setting']) || strpos($userMessage['user'][0]['notification_setting'], "message") !== false) {
+                if (!isset($userMessage['user'][0]['notifications'])) {
+                    $userMessage['user'][0]['notifications'] = array();
+                }
+                array_unshift($userMessage['user'][0]["notifications"], $notificationObject);
+                if ($cbm->set($notification, CJSON::encode($userMessage))) {
+                    if (!isset($userMessage['user'][0]['notification_setting']) || strpos($userMessage['user'][0]['notification_setting'], "email") !== false) {
+                        $receiveEmail = $userMessage['user'][0]['email'];
+                        $receiveName = $userMessage['user'][0]['display_name'];
+                        $notificationCountFollow = 0;
+                        $notificationCountMessage = 0;
+                        for ($i = 0; $i < sizeof($userMessage['user'][0]['notifications']); $i++) {
+                            if ($userMessage['user'][0]['notifications'][$i]["isRead"] === false) {
+                                if ($userMessage['user'][0]['notifications'][$i]["type"] === "follow" || $userMessage['user'][0]['notifications'][$i]["type"] === "unFollow") {
+                                    $notificationCountFollow++;
+                                } else {
+                                    $notificationCountMessage++;
+                                }
+                            }
+                        }
+                        $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
+                    } else {
+                        echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                    }
+                }
+            }
+        } elseif ($commenter_id !== $message_owner && $commenter_id !== $id && $message_owner === $id) {
+            $notificationInfo = $this->getDomain() . "/users/" . $ownerId;
+            $cbs = $this->couchBaseConnection();
+            $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
+            $userInfo = CJSON::decode($notificationInfoDeep, true);
+
+            if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "message") !== false) {
+                if (!isset($userInfo['user'][0]['notifications'])) {
+                    $userInfo['user'][0]['notifications'] = array();
+                }
+                array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+                if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
+                    $receiveEmail = $userInfo['user'][0]['email'];
+                    $receiveName = $userInfo['user'][0]['display_name'];
+                    $notificationCountFollow = 0;
+                    $notificationCountMessage = 0;
+                    for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
+                        if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
+                            if ($userInfo['user'][0]['notifications'][$i]["type"] === "follow" || $userInfo['user'][0]['notifications'][$i]["type"] === "unFollow") {
+                                $notificationCountFollow++;
+                            } else {
+                                $notificationCountMessage++;
+                            }
+                        }
+                    }
+                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
+                }
+                if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
+                    
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
+            }
+        } elseif ($commenter_id === $id && $id !== $message_owner) {
+            $notification = $this->getDomain() . "/users/" . $message_owner;
+            $cbm = $this->couchBaseConnection();
+            $notificationDeep = $cbm->get($notification); // get the old user record from the database according to the docID string
+            $userMessage = CJSON::decode($notificationDeep, true);
+
+
+            if (!isset($userMessage['user'][0]['notification_setting']) || strpos($userMessage['user'][0]['notification_setting'], "message") !== false) {
+                if (!isset($userMessage['user'][0]['notifications'])) {
+                    $userMessage['user'][0]['notifications'] = array();
+                }
+                array_unshift($userMessage['user'][0]["notifications"], $notificationObject);
+                if (!isset($userMessage['user'][0]['notification_setting']) || strpos($userMessage['user'][0]['notification_setting'], "email") !== false) {
+                    $receiveEmail = $userMessage['user'][0]['email'];
+                    $receiveName = $userMessage['user'][0]['display_name'];
+                    $notificationCountFollow = 0;
+                    $notificationCountMessage = 0;
+                    for ($i = 0; $i < sizeof($userMessage['user'][0]['notifications']); $i++) {
+                        if ($userMessage['user'][0]['notifications'][$i]["isRead"] === false) {
+                            if ($userMessage['user'][0]['notifications'][$i]["type"] === "follow" || $userMessage['user'][0]['notifications'][$i]["type"] === "unFollow") {
+                                $notificationCountFollow++;
+                            } else {
+                                $notificationCountMessage++;
+                            }
+                        }
+                    }
+                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
+                }
+                if ($cbm->set($notification, CJSON::encode($userMessage))) {
+                    
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
+            }
+        } elseif ($commenter_id === $message_owner && $id !== $commenter_id) {
+            $notificationInfo = $this->getDomain() . "/users/" . $ownerId;
+            $cbs = $this->couchBaseConnection();
+            $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
+            $userInfo = CJSON::decode($notificationInfoDeep, true);
+
+            if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "message") !== false) {
+                if (!isset($userInfo['user'][0]['notifications'])) {
+                    $userInfo['user'][0]['notifications'] = array();
+                }
+                array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+                if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
+                    $receiveEmail = $userInfo['user'][0]['email'];
+                    $receiveName = $userInfo['user'][0]['display_name'];
+                    $notificationCountFollow = 0;
+                    $notificationCountMessage = 0;
+                    for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
+                        if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
+                            if ($userInfo['user'][0]['notifications'][$i]["type"] === "follow" || $userInfo['user'][0]['notifications'][$i]["type"] === "unFollow") {
+                                $notificationCountFollow++;
+                            } else {
+                                $notificationCountMessage++;
+                            }
+                        }
+                    }
+                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
+                }
+                if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
+                    
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
+            }
         }
     }
 
@@ -560,9 +796,6 @@ class MessagesController extends Controller {
             $old = $cb->get($docID); // get the old user record from the database according to the docID string
             $oldRecord = CJSON::decode($old, true);
             $newRecord = array();
-
-
-// update name and photo
 
             if (isset($oldRecord['user'][0]["messages"])) {
                 for ($i = 0; $i < sizeof($oldRecord['user'][0]["messages"]); $i++) {

@@ -126,6 +126,9 @@ class EmailsController extends Controller {
 
 
         $domain = $this->getDomain();
+
+        $domainWithoutAPI = $this->getDomainWihoutAPI();
+
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
@@ -145,7 +148,7 @@ class EmailsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->confirmationEmailForm($username, $password)
+                        "Data" => $this->confirmationEmailForm($domainWithoutAPI, $username, $password)
                     )
                 ),
             ),
@@ -323,12 +326,11 @@ class EmailsController extends Controller {
 
     public function forgetEmailForm($username, $password) {
         return '
-           <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+         <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title></title>
-    </head>
+
     <body style="background: #E5E5E5; margin: 0; padding: 0;">
+
         <table width="100%" cellpadding="0" cellspacing="0">
             <tbody>
                 <tr>
@@ -345,21 +347,17 @@ class EmailsController extends Controller {
                                 <tr>
                                     <td align="center">
                                         &nbsp;<br />
-                                        <table cellpadding="10" cellspacing="0" width="90%" style="color: #666; font-size: 13px;
-                                               line-height: 150%; font-family: Helvetica, Arial, San-Serif; text-align: left;">
+                                        <table cellpadding="10" cellspacing="0" width="90%" style="color: #666; font-size: 13px;line-height: 150%; font-family: Helvetica, Arial, San-Serif; text-align: left;">
                                             <tr>
                                                 <td valign="top">
-                                                    <h1 style="color: #05B1E5;font-size:2em;font-weight:normal;margin:0;line-height:200%;">
-                                                        Forgot your password?</h1>
-                                                    No problem, your password has now been reset.
-
-
+                                                    <h1 style="color: #05B1E5;font-size:2em;font-weight:normal;line-height:200%;margin-bottom: 10px">Forgot your password?</h1>
+                                                    <p> No problem, your password has now been reset.</p>
+                                                    <p>Here are your new registration details:</p>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <table align="left" style="color: #05B1E5; font-size: 13px; line-height: 150%; font-family: Helvetica, Arial, San-Serif;
-                                                           text-align: left;" cellpadding="0" cellspacing="0">
+                                                    <table align="left" style="margin: 20px;color: #05B1E5; font-size: 13px; line-height: 150%; font-family: Helvetica, Arial, San-Serif;text-align: left;" cellpadding="0" cellspacing="0">
                                                         <tr>
                                                             <td valign="top">
                                                                 User name: ' . $username . '
@@ -375,18 +373,33 @@ class EmailsController extends Controller {
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    If this request was not you please immediately contact: <a href="mailto:support@trendsideas.com"
-                                                                                                               style="color: #05B1E5;">support@trendsideas.com</a> &nbsp;<br />&nbsp;<br />
-                                                    <hr style="height: 1px; color: #0088CC; background: #0088CC; width: 100%; border: 0 none;margin:0;" />
+                                                    <h2 style="font-weight: bold;">How to change your password</h2>
+                                                    <ol style="list-style-type:decimal; padding-left: 30px;margin-bottom: 30px;">
+                                                        <li>Log into myTrends</li>
+                                                        <li>On your profile page, click the Dashboard icon</li>
+                                                        <li>Access the Security tab</li>
+                                                        <li>Enter your Current Password</li>
+                                                        <li>Enter your New Password (twice)</li>
+                                                        <li>Click Save</li>
+                                                    </ol>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Don&apos;t know why you&apos;ve received this email? Please contact:
+                                                    <a href="mailto:support@trendsideas.com" style="color: #05B1E5;">support@trendsideas.com</a> &nbsp;<br />&nbsp;<br />
+                                                    <hr style="height: 1px; color: #0088CC; background: #0088CC; width: 100%; border: 0 none;margin-bottom: 30px;" />
                                                 </td>
                                             </tr>
                                         </table>
-                                        &nbsp;<br />
-                                        <img src="http://develop.devbox.s3.amazonaws.com/email-bottom.jpg" style="float: left;" />
-                                        <br />&nbsp;
+
                                     </td>
                                 </tr>
-    
+                                <tr>
+                                    <td align="center">
+                                        <img src="http://develop.devbox.s3.amazonaws.com/email-bottom.jpg" style="float: left;" />
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         &nbsp;<br />
@@ -399,8 +412,9 @@ class EmailsController extends Controller {
 ';
     }
 
-    public function confirmationEmailForm($username, $password) {
+    public function confirmationEmailForm($domainWithoutAPI, $username, $password) {
         return '
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -412,7 +426,7 @@ class EmailsController extends Controller {
                 <tr>
                     <td align="center">
                         &nbsp;<br />
-                        <br />&nbsp
+                        <br />
                         <table cellpadding="0" cellspacing="0" border="0" style="background: #fff;" width="600">
                             <tbody>
                                 <tr>
@@ -423,19 +437,16 @@ class EmailsController extends Controller {
                                 <tr>
                                     <td align="center">
                                         &nbsp;<br />
-                                        <table cellpadding="10" cellspacing="0" width="90%" style="color: #666; font-size: 13px;
-                                               line-height: 150%; font-family: Helvetica, Arial, San-Serif; text-align: left;">
+                                        <table cellpadding="10" cellspacing="0" width="90%" style="color: #666; font-size: 15px; line-height: 150%; font-family: Helvetica, Arial, San-Serif; text-align: left;">
                                             <tr>
                                                 <td valign="top">
-                                                    <h1 style="color: #05B1E5; font-size: 2em; font-weight: normal; margin: 0; line-height: 200%;">
-                                                        Welcome to Trends Ideas Web Platform!</h1>
-                                                    Here is your registration information, please keep this email in a safe place.
+                                                    <h1  align ="center" style="color: #05B1E5; font-size: 2em; font-weight: normal; margin: 0; line-height: 200%;">Welcome to myTrends !</h1>
+                                                    <p style="margin-bottom: 0;">Here is your registration information – please keep this email in a safe place.</p>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <table align="left" style="color: #05B1E5; font-size: 13px; line-height: 150%; font-family: Helvetica, Arial, San-Serif;
-                                                           text-align: left;" cellpadding="0" cellspacing="0">
+                                                    <table align="left" style="color: #05B1E5; font-size: 15px; line-height: 150%; font-family: Helvetica, Arial, San-Serif; text-align: left; margin: 20px " cellpadding="0" cellspacing="0">
                                                         <tr>
                                                             <td valign="top">
                                                                 User name: ' . $username . '
@@ -443,7 +454,7 @@ class EmailsController extends Controller {
                                                         </tr>
                                                         <tr>
                                                             <td valign="top">
-                                                                New password: ' . $password . '
+                                                                Password: ' . $password . '
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -452,7 +463,24 @@ class EmailsController extends Controller {
                                             </tr>
                                             <tr>
                                                 <td valign="top">
-                                                    <hr style="text-align:center;height: 1px; color: #0088CC; background: #0088CC; width: 100%; border: 0 none;margin:0;" />
+                                                    <hr style="text-align:center;height: 1px; color: #0088CC; background: #0088CC; width: 100%; border: 0 none; margin:10px 0;" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top">
+                                                    <p style="margin-bottom: 10px;">Thank you for signing up to myTrends!<br/>
+                                                     To activate your account, simply click on the link below. </p>
+                                                </td>
+                                            </tr> 
+                                            <tr>
+                                                <td valign="top">
+                                                    <a style="color: #05B1E5;margin:20px;" href="http://' . $domainWithoutAPI . '/#/verify/' . $username . '?' . $password . '">  Click here to activate your account  </a>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td valign="top">
+                                                    <p style="margin: 20px 0;">Thank you! <br/>The team @ myTrends</p>
                                                 </td>
                                             </tr>
                                         </table>
@@ -460,9 +488,7 @@ class EmailsController extends Controller {
                                 </tr>
                                 <tr>
                                     <td align="center">
-                                        &nbsp;<br />
                                         <img src="http://develop.devbox.s3.amazonaws.com/email-bottom.jpg" style="float: left;" />
-                                        <br />&nbsp;
                                     </td>
                                 </tr>
                             </tbody>
@@ -476,7 +502,7 @@ class EmailsController extends Controller {
 </html>
 ';
     }
-    
+
 }
 
 ?>

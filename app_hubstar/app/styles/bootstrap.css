@@ -230,16 +230,6 @@ body {
     background-color: #E7E7E7;
 }
 
-a {
-    color: #0088cc;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #005580;
-    text-decoration: none;
-}
-
 .img-rounded {
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
@@ -791,11 +781,7 @@ h4 small {
     border-bottom: 1px solid #eeeeee;
 }
 
-ul,
-ol {
-    padding: 0;
-    margin: 0 0 10px 25px;
-}
+
 
 ul ul,
 ul ol,
@@ -3905,10 +3891,6 @@ input[type="submit"].btn.btn-mini {
     display: block;
 }
 
-.nav > li > a:hover {
-    text-decoration: none;
-    background-color: #eeeeee;
-}
 
 .nav > li > a > img {
     max-width: none;
@@ -4336,17 +4318,6 @@ input[type="submit"].btn.btn-mini {
     overflow: visible;
 }
 
-.navbar .brand {
-    display: block;
-    float: left;
-    padding: 10px 20px 10px;
-    margin-left: -20px;
-    font-size: 20px;
-    font-weight: 200;
-    color: #777777;
-    text-shadow: 0 1px 0 #ffffff;
-}
-
 .navbar .brand:hover {
     text-decoration: none;
 }
@@ -4531,24 +4502,9 @@ input[type="submit"].btn.btn-mini {
     float: left;
 }
 
-.navbar .nav > li > a {
-    position: relative;
-    line-height: 19px;
-    padding: 13px 15px;
-    color: #777777;
-    text-decoration: none;
-    text-shadow: 0 1px 0 #ffffff;
-}
 
 .navbar .nav .dropdown-toggle .caret {
     margin-top: 8px;
-}
-
-.navbar .nav > li > a:focus,
-.navbar .nav > li > a:hover {
-    color: #333333;
-    text-decoration: none;
-    background-color: transparent;
 }
 
 .navbar .nav > .active > a,

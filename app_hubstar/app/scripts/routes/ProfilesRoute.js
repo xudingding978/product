@@ -1,7 +1,6 @@
 HubStar.ProfilesRoute = Ember.Route.extend({
-        //     controller: HubStarlicationController,
-        setupController: function(controller, model) {
 
+        setupController: function(controller, model) {
             this.controller.set('model', null);
 
             controller.set('model', model);
@@ -16,12 +15,12 @@ HubStar.ProfilesRoute = Ember.Route.extend({
 
         },
         redirect: function() {
-
-            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
-
-                this.transitionTo('indexIndex');
-                this.controllerFor('application').set('popup', true);
-            }
+//
+//            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+//
+//                this.transitionTo('indexIndex');
+//                this.controllerFor('application').set('popup', true);
+//            }
         },
         deactivate: function() {
 

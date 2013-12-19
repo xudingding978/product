@@ -1,8 +1,11 @@
 <div id="masonry_wrapper" style="min-height:300px;">
-    <div id="masonry_container" class=" centered clearfix noStyle1">
+    <div id="masonry_container" class=" centered clearfix noStyle1" style="top: 100px;">
         <div class="box col2 noStyle1">
             {{render status}}
         </div>
+
+     
+
         {{#each  content}}
         {{view HubStar.ItemView}}
         <script>
@@ -19,7 +22,9 @@
 </div><!-- #wrapper -->
 
 <div style="width:100%;float:left;clear:both;">
-    <div class="new-btn" style=' width: 200px;margin: 60px auto;display: block; box-shadow: 0 0 10px #fff;'{{action scrollDownAction}}><k class="icon-long-arrow-down" style="margin-right: 8px"></k>Show more results!
+    <div id="more-result-button" class="new-btn" style=' width: 200px;margin: 60px auto;display: block; box-shadow: 0 0 10px #fff;'{{action scrollDownAction}}><k class="icon-long-arrow-down" style="margin-right: 8px"></k>Show more results!
     </div>
 </div>
+
+
 

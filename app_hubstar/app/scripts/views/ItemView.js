@@ -17,9 +17,9 @@ HubStar.ItemView = Ember.View.extend({
         },
         checkingLoginStatus: function() {
 
+       
             var controller = this.get('controller');
             if (controller._debugContainerKey.indexOf("application") !== -1) {
-
 
                 if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
                     controller.set("popup", true);
@@ -29,14 +29,17 @@ HubStar.ItemView = Ember.View.extend({
                 
         transitionToArticle:function(){
 
+            
+            
+            
         },
 
         moreContent: function(event) {
-
             var id = "#" + event.id;
+
+            this.get("controller").articleFromSearch();
             var collape_button = "#collape_button_" + event.id;
             var more_button = "#more_button_" + event.id;
-
             $(id).animate({
                 height: "100%"
 

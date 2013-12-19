@@ -8,7 +8,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     uploadOrsubmit: false,
     fileSize: null,
     collection_id: "",
-    needs: ['profile', 'masonryCollectionItems', 'photoCreateInfoSetting'],
+    needs: ['profile', 'masonryCollectionItems', 'photoCreateInfoSetting', 'megaCreate'],
     init: function() {
         this.setMega();
     },
@@ -49,7 +49,6 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     {
 
         HubStar.set('isNewUpload', false);
-
         var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
         this.set("fileSize", 0);
         masonryCollectionItems.photoUpload();
@@ -63,56 +62,17 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             tempmega.addObserver('isLoaded', function() {
                 if (tempmega.get('isLoaded')) {
                     that.set("profileMega", tempmega);
+                    
+                    
+                        }
+                    });
                 }
-            });
-        }
-    },
-    createNewMega: function(ProfileMega, testID)
-    {
-
-        var photoMega = HubStar.Mega.createRecord({
-            "id": testID,
-            "accessed": ProfileMega.get("accessed"),
-            "boost": ProfileMega.get("boost"),
-            "owner_type": "profiles",
-            "is_active": false,
-            "region": ProfileMega.get("profile_regoin"),
-            "topic": null,
-            "type": "photo",
-            "category": ProfileMega.get("category"),
-            "creator": localStorage.loginStatus,
-            "country": ProfileMega.get("country"),
-            "collection_id": this.get('controllers.masonryCollectionItems').get('collection_id'),
-            "deleted": null,
-            "domains": getDomain(),
-            "editors": "",
-            "geography": ProfileMega.get("country"),
-            "is_indexed": false,
-            "object_image_url": ProfileMega.get("object_image_url"),
-            "object_title": null,
-            "object_description": null,
-            "owner_profile_id": this.get("profileMega").id,
-            "owner_profile_pic": ProfileMega.get("profile_pic_url"),
-            "owner_title": ProfileMega.get("profile_name"),
-            "owner_url": ProfileMega.get("owner_url"),
-            "owners": ProfileMega.get("owners"),
-            "owner_id": ProfileMega.id,
-            "owner_contact_email": ProfileMega.get("owner_contact_email"),
-            "owner_contact_cc_emails": ProfileMega.get("owner_contact_cc_emails"),
-            "owner_contact_bcc_emails": ProfileMega.get("owner_contact_bcc_emails"),
-            "keywords": ProfileMega.get("profile_keywords"),
-            "status_id": null,
-            "uri_url": ProfileMega.get("uri_url"),
-            "view_count": null
-        });
-        return photoMega;
-
     },
     setFileSize: function(size)
     {
         var fileSize = this.get("fileSize");
         var addPhoto = true;
-        //  console.log(fileSize+"size");
+
         if ((fileSize === null) || (fileSize === "undefined") || (fileSize === "NaN"))
         {
             this.set("fileSize", size);
@@ -122,7 +82,6 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             if (fileSize + size > 25000000)
             {
                 addPhoto = false;
-                //  alert("please select a small image");
             }
             else
             {
@@ -145,13 +104,13 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     addPhotoObject: function(e, name, type, size) {
         if (this.setFileSize(size))
         {
-            var photoName = name.replace(/[)\(]/gi, ''); 
-            photoName = photoName.replace(/\s/g,'_');    
+            var photoName = name.replace(/[)\(]/gi, '');
+            photoName = photoName.replace(/\s/g, '_');
             var testID = createGuid();
             var target = getTarget(e, "pural");
             var src = target.result;
-            var mega = this.createNewMega(this.get("profileMega"), testID);
-           // console.log(testID);
+            var MegaCreateController = this.get('controllers.megaCreate');
+            var mega = MegaCreateController.createNewMega(this.get("profileMega"), testID, this.get('controllers.masonryCollectionItems').get('collection_id'), 'photo');
             var keywords = this.get("profileMega").get("profile_keywords");
             var file = HubStar.Photo.createRecord({
                 "id": testID,
@@ -162,7 +121,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 "photo_type": type,
                 "photo_keywords": keywords});
             mega.get("photo").pushObject(file);
-            var that = this;      
+            var that = this;
             mega.addObserver('isSaving', function() {
                 if (mega.get('isSaving')) {
                     $('.' + file.get('photo_source_id')).attr("style", "display:block");

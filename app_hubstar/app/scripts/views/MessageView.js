@@ -5,49 +5,26 @@
 
 HubStar.MessageView = Ember.View.extend({
     templateName: 'message',
-    seeMore: function(id) {
-        $('#closeComment_' + id).attr('style', 'display:inline-block');
-        $('#showMoreComment_' + id).attr('style', 'display:none');
-        $('#messageData_' + id).attr('style', 'display: block');
-         $('#masonry_user_container').masonry("reload");
-       // $('#messageData_' + id).stop().animate({
-            //maxHeight: '750px'
-
-
-        //}, 420, function() {
-            //$('#messageData_' + id).css(');
-           
-//            $('#messageData_' + id).mCustomScrollbar({
-//                scrollButtons: {
-//                    enable: false
-//                },
-//                theme: "dark-2"
-//            });
-        //});
-
-    },
-    closeMore: function(id) {
-        $('#closeComment_' + id).attr('style', 'display:none');
-        $('#showMoreComment_' + id).attr('style', 'display:inline-block');
-        $('#messageData_' + id).attr('style', 'display: none');
- $('#masonry_user_container').masonry("reload");
-       // $('#messageData_' + id).stop().animate({
-         //   maxHeight: '30px'
-        //}, 380, function() {
-            //$('#messageData_' + id).css('overflow', 'hidden');
-          //  $('#masonry_user_container').masonry("reload");
-//            $('#messageData_' + id).mCustomScrollbar({
-//                scrollButtons: {
-//                    enable: false
-//                },
-//                theme: "dark-2"
-//            });
-        //});
-
-
-
-
+    didInsertElement: function() {
+        var that =this;
+        $(document).ready(function() {      
+            $("#messageScrollBar_" + that.get("controller").get('model').get('message_id')).mCustomScrollbar({
+                scrollButtons: {
+                    enable: false,
+                    scrollSpeed: "auto"
+                },
+                advanced: {
+                    updateOnBrowserResize: true,
+                    updateOnContentResize: true,
+                    autoScrollOnFocus: false,
+                    normalizeMouseWheelDelta: false
+                },
+                autoHideScrollbar: true,
+                mouseWheel: true,
+                theme: "dark-2",
+                set_height: 300
+            });
+        });
     }
-
 });
 

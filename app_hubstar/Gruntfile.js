@@ -10,8 +10,6 @@ var mountFolder = function(connect, dir) {
 // use this if you want to match all subfolders:
 // 'test/spec/**/*.js'
 var templ;
-
-
 module.exports = function(grunt) {
 // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -39,7 +37,8 @@ module.exports = function(grunt) {
                     'images/welcomepage/*',
                     'images/defaultbg/*',
                     'images/defaultpic/*',
-                    'images/defaultcover/*'
+                    'images/defaultcover/*',
+                    'images/adsImages/*'
                 ],
                 dest: "<%= yeoman.dist %>/cache.manifest"
             }
@@ -253,6 +252,7 @@ module.exports = function(grunt) {
         concat: {
             dist: {
                 src: [
+                    '<%= yeoman.app %>/bower_components/modernizr/modernizr.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/browserdetecter.js',
                     '<%= yeoman.app %>/bower_components/jquery/jquery.min.js',
                     '<%= yeoman.app %>/bower_components/handlebars/handlebars.runtime.js',
@@ -264,15 +264,21 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/moment/moment.min.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/html5ImageCropper.js',
-                     '<%= yeoman.app %>/bower_components/wysihtml5/parser_rules/advanced.js',
+                    '<%= yeoman.app %>/bower_components/wysihtml5/parser_rules/advanced.js',
                     '<%= yeoman.app %>/bower_components/wysihtml5/dist/wysihtml5-0.3.0.js',
-                    '<%= yeoman.app %>/bower_components/mousetrap.min.js',                  
-                   '<%= yeoman.app %>/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'
+                    '<%= yeoman.app %>/bower_components/mousetrap.min.js',
+                    '<%= yeoman.app %>/bower_components/starrating/jquery.ratings.js',
+                    '<%= yeoman.app %>/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js',
+                    '<%= yeoman.app %>/bower_components/dfp.js',
+                    '<%= yeoman.app %>/bower_components/joyride-master/jquery.cookie.js.js',
+                    '<%= yeoman.app %>/bower_components/joyride-master/jquery.joyride-2.1.js',
+                    '<%= yeoman.app %>/bower_components/joyride-master/modernizr.mq.js.js'
                 ],
                 dest: '<%= yeoman.dist %>/scripts/components.js'
             },
             testcomponent: {
                 src: [
+                     '<%= yeoman.app %>/bower_components/modernizr/modernizr.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/browserdetecter.js',
                     '<%= yeoman.app %>/bower_components/jquery/jquery.min.js',
                     '<%= yeoman.app %>/bower_components/handlebars/handlebars.runtime.js',
@@ -284,10 +290,15 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/moment/moment.min.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/html5ImageCropper.js',
-                     '<%= yeoman.app %>/bower_components/wysihtml5/parser_rules/advanced.js',
+                    '<%= yeoman.app %>/bower_components/wysihtml5/parser_rules/advanced.js',
                     '<%= yeoman.app %>/bower_components/wysihtml5/dist/wysihtml5-0.3.0.js',
-                    '<%= yeoman.app %>/bower_components/mousetrap.min.js',                  
-                   '<%= yeoman.app %>/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js'
+                    '<%= yeoman.app %>/bower_components/mousetrap.min.js',
+                    '<%= yeoman.app %>/bower_components/starrating/jquery.ratings.js',
+                    '<%= yeoman.app %>/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js',
+                    '<%= yeoman.app %>/bower_components/dfp.js',
+                    '<%= yeoman.app %>/bower_components/joyride-master/jquery.cookie.js.js',
+                    '<%= yeoman.app %>/bower_components/joyride-master/jquery.joyride-2.1.js',
+                    '<%= yeoman.app %>/bower_components/joyride-master/modernizr.mq.js.js'
                 ],
                 dest: '<%= yeoman.test %>/scripts/components.js'
             },
@@ -547,8 +558,8 @@ module.exports = function(grunt) {
     ]);
     grunt.registerTask('default', [
         'jshint',
-        'test',
-        'shell'
+                //  'test',
+                //  'shell'
     ]);
     grunt.registerTask('gitcommit', [
         'shell:listFolders'
@@ -558,8 +569,7 @@ module.exports = function(grunt) {
             grunt.log.warn('Post name must be specified, like makePost:PostNameGoesHere.');
         }
 
-        // Run other tasks here
+// Run other tasks here
         grunt.task.run('gitcommit');
     });
-
 };

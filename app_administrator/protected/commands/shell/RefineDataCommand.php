@@ -1,77 +1,1160 @@
 <?php
 
-class RefineDataCommand extends CConsoleCommand {
+Yii::import("application.models.*");
+Yii::import("application.components.*");
+require_once("ArticleCommand.php");
+
+class RefineDataCommand extends Controller_admin {
 
     public $total_num = 0;
     public $obj_amount = 0;
     public $image_amount = 0;
 
-    public function actionIndex() {
-        
-        Yii::import("application.models.*");
-        
-        $this->refineArticle();
-        echo "finish~~~~~~~~~~~~~~~~~~~~~~~~";
-        exit();
-        
-        $startid = 0;
-        echo (isset($startid) ? 'Start position is... ' . $startid : 'No start defined');
-        $data_list = ArticleImages::model()->getDatabyid($startid);
-        $this->total_num = sizeof($data_list);
-        echo "Totally: " . $this->total_num . "\r\n";
+    public function actionIndex($action = null) {
 
-        $start_time = microtime(TRUE);
-        if (sizeof($data_list) > 0) {
-            foreach ($data_list as $val) {
-                //     echo $val['heliumMediaId']." start\r\n";;
-                $photo_heliumMediaId = $val['heliumMediaId'];
-                if ($photo_heliumMediaId != "") {
 
-                    $url = "http://api.develop.devbox/GetResultByKeyValue/?type=photo&photo_heliumMediaId=" . $photo_heliumMediaId;
-                    $elastic_return_str = $this->callAPI($url);
-                    $s3_url_arr = $this->getUrlFromElastic($elastic_return_str);
+        if ($action == "articlekeyword") {
+            $this->updateArticleKeyword();
+        } elseif ($action == "photokeyword") {
+            $this->updatePhotoKeyword();
+        } elseif ($action == "comment") {
+            $this->addCommentId();
+        } elseif ($action == "fixcredit") {
+            $this->importCreditList();
+        } elseif ($action == "fixurl") {
+            $this->fixPhoto_url_largeofLisa();
+        } elseif ($action == "cate") {
+            $this->fixcategories();
+        } elseif ($action == 'fixboost') {
+            $this->fixBoostNumber();
+        } elseif ($action == 'test') {
+            $this->fixProfileRelatedImages('home', 200, 'develop');
+        } elseif ($action == "fixtype") {
+            $this->fixtype();
+        } elseif ($action == "comment") {
+            $this->addCommentId();
+        } elseif ($action == "fixcreated") {
+            $this->fixCreated();
+        } elseif ($action == 'fix715') {
+            $this->fixArticlebeenUpdatedwithWrongId();
+        } elseif ($action == "findall") {
+            $this->deleteIncorrectRecord();
+        } elseif ($action == "fixuserlarge") {
+            $this->fixUserPictureLarge();
+        } elseif ($action == "refineArticle") {
 
-                    $mega_obj_arr = $this->structureArray($val, $s3_url_arr);
-                       echo $mega_obj_arr . $val['heliumMediaId'] . "\r\n";
-                                  $id = $this->importMegaObj($mega_obj_arr, $val['id']);            
-                                  $photo_array=$this->getValidPhoto($photo_heliumMediaId, $id, $val['id']);
+
+
+
+
+
+
+
+            $this->refineArticle();
+            echo "finish~~~~~~~~~~~~~~~~~~~~~~~~";
+            exit();
+
+            $startid = 0;
+            echo (isset($startid) ? 'Start position is... ' . $startid : 'No start defined');
+            $data_list = ArticleImages::model()->getDatabyid($startid);
+            $this->total_num = sizeof($data_list);
+            echo "Totally: " . $this->total_num . "\r\n";
+
+            $start_time = microtime(TRUE);
+            if (sizeof($data_list) > 0) {
+                foreach ($data_list as $val) {
+                    //     echo $val['heliumMediaId']." start\r\n";;
+                    $photo_heliumMediaId = $val['heliumMediaId'];
+                    if ($photo_heliumMediaId != "") {
+
+                        $url = "http://api.develop.devbox/GetResultByKeyValue/?type=photo&photo_heliumMediaId=" . $photo_heliumMediaId;
+                        $elastic_return_str = $this->callAPI($url);
+                        $s3_url_arr = $this->getUrlFromElastic($elastic_return_str);
+
+                        $mega_obj_arr = $this->structureArray($val, $s3_url_arr);
+                        echo $mega_obj_arr . $val['heliumMediaId'] . "\r\n";
+                        $id = $this->importMegaObj($mega_obj_arr, $val['id']);
+                        $photo_array = $this->getValidPhoto($photo_heliumMediaId, $id, $val['id']);
                         $handle_array = array();
-                        foreach($photo_array as $k=>$val){
+                        foreach ($photo_array as $k => $val) {
                             $url_arr = explode("/", $s3_url_arr[$k]);
-                            $file_name = $url_arr[sizeof($url_arr)-1];
-                            
-                            $url = 'http://api.develop.devbox/PhotoMoving?style='.$k.'&name='.$file_name.'&id='.$id;
-                            
+                            $file_name = $url_arr[sizeof($url_arr) - 1];
+
+
+                            $url = 'http://api.develop.devbox/PhotoMoving?style=' . $k . '&name=' . $file_name . '&id=' . $id;
+
                             $ch = curl_init($url);
                             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
                             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-                            
+
                             $handle_array[$k] = $ch;
-                        }                        
-                                        $this->movingPhotoList($handle_array);                        
-                } else {
-                    $message = date("Y-m-d H:i:s") . " -- " . $val['id'] . " --Does not have helium media id!!";
-                    $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
+                        }
+                        $this->movingPhotoList($handle_array);
+                    } else {
+                        $message = date("Y-m-d H:i:s") . " -- " . $val['id'] . " --Does not have helium media id!!";
+                        $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
+                    }
+                }
+            }
+
+            $end_time = microtime(TRUE);
+            echo "*******************************" . ($end_time - $start_time);
+        }
+    }
+
+    public function deleteIncorrectRecord() {
+        $article_arr = $this->fixArticlebeenUpdatedwithWrongId();
+        foreach ($article_arr as $article) {
+            $article_id = $article[0];
+            $article_owner_id = $article[1];
+            $article_colloection_id = $article[2];
+            $article_country = $article[3];
+            $article_time = $article[4];
+            $bucket = 'temp';
+            $setting['log.enabled'] = true;
+            $Sherlock = new \Sherlock\Sherlock($setting);
+            $Sherlock->addNode("es1.hubsrv.com", 9200);
+            $request = $Sherlock->search();
+            $index = $bucket;
+            $request->index($index)->type('couchbaseDocument');
+            $raw = '
+             {
+    "bool": {
+      "must": [
+        {
+          "query_string": {
+            "default_field": "couchbaseDocument.doc.collection_id",
+                           "query": "\"' . $article_colloection_id . '\""
+          }
+        },
+          {
+          "query_string": {
+            "default_field": "couchbaseDocument.doc.country",
+            "query": "\"' . $article_country . '\""
+          }
+        },
+        {
+          "query_string": {
+            "default_field": "couchbaseDocument.doc.owner_id",
+            "query": "' . $article_owner_id . '"
+          }
+        },
+          {
+          "query_string": {
+            "default_field": "couchbaseDocument.doc.created",
+            "query": "\"' . $article_time . '\""
+          }
+        }
+      ]
+    }
+    }
+';
+            $query = Sherlock\Sherlock::queryBuilder()->Raw($raw);
+            $request->query($query);
+            echo "\n" . $request->toJSON() . "\n";
+            $respones = $request->execute();
+            if (sizeof($respones) > 0) {
+                foreach ($respones as $content) {
+                    echo $content['id'] . "\n";
                 }
             }
         }
+    }
+    
+    
+    public function fixUserPictureinUser(){
+        $bucket="production";
+        $user_list=$this->findAllAccordingType($bucket, 'user');
+        $cb=$this->couchBaseConnection($bucket);
+        foreach($user_list as $user){
+            $result=$cb->get($user);
+            if($result!=null){
+                $result_arr=CJSON::decode($result);
+                 if (isset($result_arr['id']) && $result_arr['id'] != null) {
+                     if (isset($result_arr['user'][0]['photo_url_large']) && $result_arr['user'][0]['photo_url_large'] != null) {
+                         $url=$result_arr['user'][0]['photo_url_large'];
+                          if (strpos($url, 'data')){
+                              $url='http://s3.hubsrv.com/trendsideas.com/users/' . $result_arr['id'] . '/user_picture/user_picture';
+                              $result_arr['user'][0]['photo_url_large']=$url;
+                          }else{
+                              echo $user." photo_url_large is correct\n"; 
+                          }
+                     }else{
+                         echo $user." photo_url_large doesnt exist----------------------\n"; 
+                     }
+                 }else{
+                     echo $user." user record is incorrect-------------------\n"; 
+                 }
+            }else{
+                echo $user." can not find record in couchbase------------------------\n"; 
+            }
+        }
+    }
 
-        $end_time = microtime(TRUE);
-        echo "*******************************" . ($end_time - $start_time);
+    public function fixUserPictureLarge() {
+        $bucket = 'production';
+        $user_list = $this->findAllAccordingType($bucket, 'user');
+        $cb = $this->couchBaseConnection($bucket);
+        foreach ($user_list as $user) {
+
+            $result = $cb->get($user);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                if (isset($result_arr['id']) && $result_arr['id'] != null) {
+
+
+                    if (isset($result_arr['user'][0]['photo_url_large']) && $result_arr['user'][0]['photo_url_large'] != null) {
+                        $target_url = $result_arr['user'][0]['photo_url_large'];
+                        $aiming_url = 'http://s3.hubsrv.com/trendsideas.com/users/' . $result_arr['id'] . '/user_picture/user_picture';
+                        if ($target_url === $aiming_url) {
+                            echo $user." has correct photo_url_large\n";
+
+                        } else {
+                            echo "\n".$user . "\n";
+                            $data_arr = array();
+                            $data_arr['url'] = $target_url;
+                            $data_arr['newStyleImageName'] = 'user_picture';
+                            $data_arr['mode'] = 'user_picture';
+                            $data_arr['id'] = $result_arr['id'];
+                            //  $data_arr['type'] = $type;
+                            $pass_arr = CJSON::encode($data_arr);
+
+
+                            try {
+                                $ch = curl_init("http://api.develop.trendsideas.com/users/updateim");
+
+                                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                                curl_setopt($ch, CURLOPT_POSTFIELDS, $pass_arr);
+                                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
+                                $back = curl_exec($ch);
+                                curl_close($ch);
+                            } catch (Exception $exc) {
+                                echo $exc->getTraceAsString();
+                            }
+                        }
+                    } else {
+                        echo $user." can not find photo_url_large----------------\n";                      
+                    }
+                } else {
+                     echo $user." can not find id for the user------------------\n";     
+                }
+            } else {
+                  echo $user." can not find couchbase record  for the user------------------\n";  
+            }
+        }
+    }
+
+    public function fixArticlebeenUpdatedwithWrongId() {
+        $bucket = 'temp';
+        $article_arr = $this->findAllAccordingType($bucket, 'article');
+        $cb = $this->couchBaseConnection($bucket);
+        //  $collectionId_arr = array();
+        //  $helium_arr = array();
+
+
+
+        $setting['log.enabled'] = true;
+        $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = '/var/log/yii/' . $datetime . '.log';
+        $Sherlock = new \Sherlock\Sherlock($setting);
+        $Sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $Sherlock->search();
+        $index = $bucket;
+        $request->index($index)->type('couchbaseDocument');
+        $return_arr = array();
+
+
+        foreach ($article_arr as $article) {
+            $message = null;
+            time_nanosleep(0, 200000000);
+            $collection_id = null;
+            $helium = null;
+            $result = $cb->get($article);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                if ($result_arr['collection_id'] != null) {
+                    $collection_id = $result_arr['collection_id'];
+                } else {
+                    echo "can not find collection id for " . $article . "\n";
+                }
+                if ($result_arr['article'][0]['article_helium_media_id'] != null) {
+                    $helium = $result_arr['article'][0]['article_helium_media_id'];
+                } else {
+                    echo "can not find helium media id for " . $article . "\n";
+                }
+                if ($collection_id != null && $helium != null) {
+                    echo $article . " | " . $collection_id . " | " . $helium . "\n";
+
+//                    $raw = '
+//             {
+//    "bool": {
+//      "must": [
+//        {
+//          "query_string": {
+//            "default_field": "couchbaseDocument.doc.' . "['article'][0]['article_helium_media_id']," .
+//                            '"query": "\"' . $helium . '\""
+//          }
+//        },
+//          {
+//          "query_string": {
+//            "default_field": "couchbaseDocument.doc.type",
+//            "query": "article"
+//          }
+//        }
+//      ]
+//    }
+//    }
+//';
+
+                    $raw = '
+             {
+    "bool": {
+      "must": [
+        {
+          "query_string": {
+            "default_field": "couchbaseDocument.doc.article.article_helium_media_id",
+                           "query": "\"' . $helium . '\""
+          }
+        },
+          {
+          "query_string": {
+            "default_field": "couchbaseDocument.doc.type",
+            "query": "article"
+          }
+        }
+      ]
+    }
+    }
+';
+
+                    // echo $raw . "\n";
+                    echo $helium;
+                    $query = Sherlock\Sherlock::queryBuilder()->Raw($raw);
+                    //     echo $query->toJSON() . "\n";
+
+                    $request->query($query);
+                    echo $request->toJSON() . "\n";
+
+                    $response = $request->execute();
+                    echo sizeof($response) . "\n";
+                    if (sizeof($response) > 1) {
+                        $check_arr = array();
+                        foreach ($response as $helium_found) {
+                            if ($helium_found['id'] != $article) {
+                                array_push($check_arr, $helium_found['id']);
+                            }
+                        }
+                        if (sizeof($check_arr) > 1) {
+                            echo $article . " | " . $collection_id . " has more that 2 duplications----------n";
+                            $message = $article . " | " . $collection_id . " has more that 2 duplications----------n";
+                        } else {
+                            $compare_arr = CJSON::decode($cb->get($check_arr[0]));
+                            $current = $result_arr['created'];
+                            $compare = $compare_arr['created'];
+                            if ($result_arr['owner_id'] === $compare_arr['owner_id'] && $result_arr['country'] === $compare_arr['country']) {
+                                $articleInfor_arr = array();
+
+
+
+
+
+                                if ($current > $compare) {
+                                    array_push($articleInfor_arr, $check_arr[0]);
+                                    array_push($articleInfor_arr, $compare_arr['owner_id']);
+                                    array_push($articleInfor_arr, $compare_arr['collection_id']);
+                                    array_push($articleInfor_arr, $compare_arr['country']);
+                                    array_push($articleInfor_arr, $compare);
+                                    array_push($return_arr, $articleInfor_arr);
+                                    echo $article . " | " . $collection_id . " | " . $helium . " | " . $current . " update into " . $check_arr[0] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] . " | " . $compare . "\n";
+                                    $message = $article . " | " . $collection_id . " | " . $helium . " | " . $current . " update into " . $check_arr[0] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] . " | " . $compare . "\n";
+                                } elseif ($current < $compare) {
+                                    array_push($articleInfor_arr, $article);
+                                    array_push($articleInfor_arr, $compare_arr['owner_id']);
+                                    array_push($articleInfor_arr, $collection_id);
+                                    array_push($articleInfor_arr, $compare_arr['country']);
+                                    array_push($articleInfor_arr, $current);
+                                    array_push($return_arr, $articleInfor_arr);
+                                    echo $check_arr[0] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] . " | " . $compare . " update into " . $article . " | " . $collection_id . " | " . $helium . " | " . $current . "\n";
+                                    $message = $check_arr[0] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] . " | " . $compare . " update into " . $article . " | " . $collection_id . " | " . $helium . " | " . $current . "\n";
+                                } else {
+                                    echo $article . " | " . $collection_id . " | " . $helium . " has same timestamp with " . $compare_arr['id'] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] . "-------------------\n";
+                                    $message = $article . " | " . $collection_id . " | " . $helium . " has same timestamp with " . $compare_arr['id'] . " | " . $compare_arr['collection_id'] . " | " . $compare_arr['article'][0]['article_helium_media_id'] . "-------------------\n";
+                                }
+                            }
+                            //array_push$record_arr
+                        }
+                        $this->writeToLog($log_path, $message);
+                    } else {
+                        echo $article . " | " . $collection_id . " has single helium media associated with it\n";
+                    }
+                    //    
+                } else {
+                    echo $article . "can not find the helium or collection id --------\n";
+                }
+            } else {
+                echo $article . "can not find the article in couchbase----------------\n";
+            }
+        }
+        echo "\n" . var_export($return_arr) . "\n";
+        return $return_arr;
+    }
+
+//    
+//    public function fixArticlebeenUpdatedwithWrongId() {
+//        $bucket = 'develop';
+//        $article_arr = $this->findAllAccordingType($bucket, 'article');
+//        $cb = $this->couchBaseConnection($bucket);
+//        $collectionId_arr = array();
+//        $helium_arr = array();
+//        
+//        
+//        
+//        
+//        
+//        
+//        foreach ($article_arr as $article) {
+//            time_nanosleep(0, 200000000);
+//            $collection_id = null;
+//            $helium = null;
+//            $result = $cb->get($article);
+//            if ($result != null) {
+//                $result_arr = CJSON::decode($result);
+//                if ($result_arr['collection_id'] != null) {
+//                    $collection_id = $result_arr['collection_id'];
+//                } else {
+//                    echo "can not find collection id for " . $article . "\n";
+//                }
+//                if ($result_arr['article'][0]['article_helium_media_id'] != null) {
+//                    $helium = $result_arr['article'][0]['article_helium_media_id'];
+//                } else {
+//                    echo "can not find helium media id for " . $article . "\n";
+//                }
+//                if ($collection_id != null && $helium != null) {
+//                    array_push($helium_arr, $helium);
+//                    array_push($collectionId_arr, $collection_id);
+//                    echo $article." | ".$collection_id." | ".$helium."\n";
+//                }
+//                //array_push$record_arr
+//            } else {
+//                echo $article . "can not find the article in couchbase\n";
+//            }
+//        }
+//        $setting['log.enabled'] = true;
+//        $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+//        $log_path = '/var/log/yii/' . $datetime . '.log';
+//        $Sherlock = new \Sherlock\Sherlock($setting);
+//        $Sherlock->addNode("es1.hubsrv.com", 9200);
+//        $request = $Sherlock->search();
+//        $index = $bucket;
+//        $request->index($index)->type('couchbaseDocument');
+//
+//        for ($i = 0; $i <= sizeof($collectionId_arr); $i++) {
+//            $raw = '
+//             {
+//    "bool": {
+//      "must": [
+//        {
+//          "query_string": {
+//            "default_field": "couchbaseDocument.doc.collection_id",
+//            "query": "\"' . $collectionId_arr[$i] . '\""
+//          }
+//        },
+//          {
+//          "query_string": {
+//            "default_field": "couchbaseDocument.doc.type",
+//            "query": "article"
+//          }
+//        }
+//      ]
+//    }
+//    }
+//';
+//       //     echo $raw;
+//
+//            $query = Sherlock\Sherlock::queryBuilder()->Raw($raw);
+//   //         echo $query->toJSON()."\n";
+//
+//            $request->query($query);
+//            echo $request->toJSON()."\n";
+//
+//            $response = $request->execute();
+//            echo sizeof($response);
+//            if (sizeof($response) > 1) {
+//                $check_arr = array();
+//                foreach ($response as $collection) {
+//                    array_push($check_arr, $collection['source']['doc']['article'][0]['article_helium_media_id']);
+//                }
+//       //         echo var_export($collection,true);
+//                echo var_export($check_arr,true);
+//                if (sizeof(array_unique($check_arr)) > 1) {
+//                    echo $collection['id'] . " | " . $collectionId_arr[$i] ." | " .$collection['source']['doc']['created']." has more than one helium media associated with it-----------------\n";
+//                    $message=$collection['id']  . " | " . $collectionId_arr[$i]  ." | ".$collection['source']['doc']['created']. " has more than one helium media associated with it-----------------\n";
+//                    $this->writeToLog($log_path, $message);
+//                }else{
+//                    echo $article . " | " . $collectionId_arr[$i] . " has single helium media associated with it\n";
+//                }
+//            }else{
+//                   echo $article . " | " . $collectionId_arr[$i] . " has single helium media associated with it\n";
+//            }
+//        }
+//    }
+
+
+
+
+
+
+    public function fixCreated() {
+        $bucket = 'production';
+        $setting['log.enabled'] = true;
+        $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = '/var/log/yii/' . $datetime . '.log';
+        $Sherlock = new \Sherlock\Sherlock($setting);
+        $Sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $Sherlock->search();
+        $index = $bucket;
+        $raw = '{
+              "filtered": {
+      "filter": {
+        "missing": {
+          "field": "couchbaseDocument.doc.created"
+        }
+      }
+    }
+            }';
+        $filer = Sherlock\Sherlock::queryBuilder()->Raw($raw);
+        $request->index($index)->type('couchbaseDocument')->query($filer);
+        $data_arr = array();
+        for ($i = 0; $i < 100; $i++) {
+            $request->from(50 * $i)->size(50);
+            $response = $request->execute();
+            if (sizeof($response) != 0) {
+                foreach ($response as $data) {
+                    array_push($data_arr, $data['id']);
+                }
+            } else {
+                $i = 100;
+            }
+        }
+        echo var_export($data_arr, true);
+        echo $request->toJSON() . "111111";
+        $cb = $this->couchBaseConnection($bucket);
+        foreach ($data_arr as $found) {
+            $message = "";
+            $result = $cb->get($found);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                $result_arr['created'] = strtotime(date('Y-m-d H:i:s'));
+                echo $found . "Created changed to " . $result_arr['created'] . "\n";
+                $message = "Created changed to " . $result_arr['created'] . "\n";
+                if ($cb->set($found, CJSON::encode($result_arr))) {
+                    echo $found . " couchbase record being updated\n";
+                    $message.=$found . " couchbase record being updated\n";
+                } else {
+                    $found . " couchbase record  update failed----------------------------------\n";
+                    $message.=$found . " couchbase record  update failed----------------------------------\n";
+                }
+            } else {
+                echo $found . " can not be found in couchbase---------------------------------\n";
+                $message = $found . " can not be found in couchbase---------------------------------\n";
+            }
+            $this->writeToLog($log_path, $message);
+        }
+    }
+
+    public function fixtype() {
+        $bucket = 'production';
+        $setting['log.enabled'] = true;
+        $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = '/var/log/yii/' . $datetime . '.log';
+        $Sherlock = new \Sherlock\Sherlock($setting);
+        $Sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $Sherlock->search();
+        $index = $bucket;
+        $raw = '{
+            
+
+     "filtered": {
+      "filter": {
+        "exists": {
+          "field": "couchbaseDocument.doc.conversationID"
+        }
+      }
+    }
+
+              }';
+        $filter = Sherlock\Sherlock::queryBuilder()->Raw($raw);
+
+
+        $request->index($index)->type('couchbaseDocument')->from(0)->size(300)->query($filter);
+
+        echo $request->toJSON();
+
+        $response = $request->execute();
+
+        echo "found " . sizeof($response) . " conversations\n";
+        $cb = $this->couchBaseConnection($bucket);
+        foreach ($response as $conversation) {
+            $message = "";
+            echo $conversation['id'] . "\n";
+            $result = $cb->get($conversation['id']);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                $result_arr['type'] = "conversation";
+                echo "type " . $conversation['type'] . " added \n";
+                echo var_export($result_arr);
+                $message = "type " . $conversation['type'] . " added \n";
+                if ($cb->set($conversation['id'], CJSON::encode($result_arr))) {
+                    echo $conversation['id'] . " update couchbase successfull\n";
+                    $message.=$conversation['id'] . " update couchbase successfull\n";
+                } else {
+                    echo $conversation['id'] . " update couchbase failed------------\n";
+                    $message.=$conversation['id'] . " update couchbase failed------------\n";
+                }
+            } else {
+                echo $conversation['id'] . " no couchbase record found------------\n";
+                $message = $conversation['id'] . " no couchbase record found------------\n";
+            }
+            $this->writeToLog($log_path, $message);
+        }
+    }
+
+    public function fixcategories() {
+        $bucket = 'test';
+        $setting['log.enabled'] = true;
+        $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = '/var/log/yii/' . $datetime . '.log';
+        $Sherlock = new \Sherlock\Sherlock($setting);
+        $Sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $Sherlock->search();
+        $index = $bucket;
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"photo\"")->default_field('couchbaseDocument.doc.type');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        $progress = 0;
+        $record_arr = array();
+        for ($i = 0; $i < 2000; $i++) {
+
+            $progress = $i;
+            $request->index($index)->type('couchbaseDocument')->from(50 * $i)->size(50)->query($bool);
+            $response = $request->execute();
+            foreach ($response as $find) {
+                array_push($record_arr, $find['id']);
+                $progess+=1;
+                echo "\n finding data from couchbase NO." . $progess . "\n";
+            }
+        }
+        echo sizeof($record_arr);
+        print_r(var_export($record_arr, TRUE));
+        foreach ($record_arr as $record) {
+            $count+=1;
+            if ($count % 500 === 0) {
+                sleep(2);
+                echo "\nSleep for 2seconds\n";
+            }
+            $message = "\nprocessing No." . $count . " id: " . $record . "\n";
+
+            $id = $record;
+
+            $cb = $this->couchBaseConnection($bucket);
+            $result = $cb->get($id);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                $categories = $result_arr['categories'];
+                $category = $result_arr['category'];
+                $subcategories = $result_arr['subcategories'];
+                $topics = $result_arr['topics'];
+                if ($categories != null && $categories != "") {
+                    $result_arr['categories'] = array();
+                    $uniqe_arr = array_unique($categories, SORT_STRING);
+                    foreach ($uniqe_arr as $value) {
+                        array_push($result_arr['categories'], $value);
+                    }
+                    //  $result_arr['categories']=  array_unique($categories, SORT_STRING);
+                } else {
+                    echo "\n" . $id . " does not have categories record in couchbase \n";
+                    $message.="\n" . $id . " does not have categories record in couchbase \n";
+                }
+                if ($category != null && $category != "") {
+                    $result_arr['category'] = array();
+                    $uniqe_arr = array_unique($category, SORT_STRING);
+                    foreach ($uniqe_arr as $value) {
+                        array_push($result_arr['category'], $value);
+                    }
+                    //        $result_arr['category']=  array_unique($category, SORT_STRING);
+                } else {
+                    echo "\n" . $id . " does not have category record in couchbase \n";
+                    $message.="\n" . $id . " does not have category record in couchbase \n";
+                }
+                if ($subcategories != null && $subcategories != "") {
+                    $result_arr['subcategories'] = array();
+                    $uniqe_arr = array_unique($subcategories, SORT_STRING);
+                    foreach ($uniqe_arr as $value) {
+                        array_push($result_arr['subcategories'], $value);
+                    }
+                    //         $result_arr['subcategories']=  array_unique($subcategories, SORT_STRING);
+                } else {
+                    echo "\n" . $id . " does not have subcategories record in couchbase \n";
+                    $message.="\n" . $id . " does not have subcategories record in couchbase \n";
+                }
+                if ($topics != null && $topics != "") {
+                    $result_arr['topics'] = array();
+                    foreach (array_unique($topics, SORT_STRING) as $value) {
+                        array_push($result_arr['topics'], $value);
+                    }
+                    //    $result_arr['topics']=  array_unique($topics, SORT_STRING);
+                } else {
+                    echo "\n" . $id . " does not have topics record in couchbase\n";
+                    $message.="\n" . $id . " does not have topics record in couchbase \n";
+                }
+                if ($cb->set($id, CJSON::encode($result_arr))) {
+                    echo "\n" . $id . " update category record in couchbase \n";
+                    $message.="\n" . $id . " update category record in couchbase \n";
+                } else {
+                    "\n" . $id . " can not updatecatrgory record in couchbase----------------------- \n";
+                    $message.="\n" . $id . " can not updatecatrgory record in couchbase ---------------------------\n";
+                }
+            } else {
+                echo "\n" . $id . " Can not find record in couchbase -----------------------\n";
+                $message = "\n" . $id . " Can not find record in couchbase -------------------------\n";
+            }
+            $this->writeToLog($log_path, $message);
+        }
+    }
+
+    public function fixBoostForUsers($bucket) {
+        $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = "/var/log/yii/$start_time.log";
+
+        $message = "";
+        $bucket = $bucket;
+        $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = $bucket;
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"user\"")
+                ->default_field('couchbaseDocument.doc.type');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        $request->index($index)->type("couchbaseDocument");
+        $request->from(0)
+                ->size(2000);
+        $request->query($bool);
+        $response = $request->execute();
+        foreach ($response as $user) {
+            $id = $user['id'];
+            $ch = $this->couchBaseConnection($bucket);
+            $result = $ch->get($id);
+            $result_arr = CJSON::decode($result, true);
+            if (isset($result_arr['boost'])) {
+                $result_arr['boost'] = NULL;
+
+                if ($ch->set($id, CJSON::encode($result_arr))) {
+                    echo "User " . $id . " boost has been set to null";
+                }
+            }
+        }
+    }
+
+    public function fixBoostNumber() {
+        $bucket = 'develop';
+        $profile_record = array();
+//  $this->fixBoostForUsers($bucket);
+        $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = "/var/log/yii/$start_time.log";
+        $package_path = "/var/log/yii/ProfilePackages.log";
+        $message = "";
+        $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = $bucket;
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"profile\"")
+                ->default_field('couchbaseDocument.doc.type');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        $request->index($index)->type("couchbaseDocument");
+        $request->from(0)
+                ->size(1000);
+        $request->query($bool);
+        $response = $request->execute();
+        foreach ($response as $hit) {
+            $message = "";
+            $timeStamp = $this->setUTC();
+            $id = $hit['id'];
+            $ch = $this->couchBaseConnection($bucket);
+            $result = $ch->get($id);
+            $result_arr = CJSON::decode($result);
+            $record_boost = $result_arr["boost"];
+            $record_accessed = $result_arr["accessed"];
+            $record_updated = $result_arr["updated"];
+            $record_accessed_readable = $result_arr["accessed_readable"];
+            $record_updated_readable = $result_arr["updated_readable"];
+            $searchForImage = false;
+            $package_record = $id . " : " . $result_arr["profile"][0]["profile_package_name"];
+            array_push($profile_record, $package_record);
+
+            if ($result_arr != null && $result_arr["profile"][0]["profile_package_name"] != null) {
+                //     if($result_arr['id'])
+                $tempPackage = $result_arr["profile"][0]["profile_package_name"];
+                $result_arr["accessed"] = $timeStamp;
+                $result_arr["updated"] = $timeStamp;
+                $result_arr["accessed_readable"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+                $result_arr["updated_readable"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+                if ($tempPackage === "Bronze") {
+                    $boost = 25;
+                    $result_arr["boost"] = $boost;
+                    $searchForImage = true;
+                } elseif ($tempPackage === "Silver") {
+                    $boost = 50;
+                    $result_arr["boost"] = $boost;
+                    $searchForImage = true;
+                } elseif ($tempPackage === "Gold") {
+                    $boost = 100;
+                    $result_arr["boost"] = $boost;
+                    $searchForImage = true;
+                } elseif ($tempPackage === "Platinum") {
+                    $boost = 200;
+                    $result_arr["boost"] = $boost;
+                    $searchForImage = true;
+                } if ($searchForImage === true) {
+
+                    if ($ch->set($id, CJSON::encode($result_arr))) {
+//                    echo "Document: " . $id . "\r\n" . "boost has been changed from " . $record_boost . " to " . $result_arr["boost"] . "\r\n" .
+//                    "accessed has been changed from " . $record_accessed . " to " . $result_arr["accessed"] . "\r\n" .
+//                    "updated has been changed from " . $record_updated . " to " . $result_arr["updated"] . "\r\n" .
+//                    "accessed_readable has been changed from " . $record_accessed_readable . " to " . $result_arr["accessed_readable"] . "\r\n" .
+//                    "updated_readable has been changed from " . $record_updated_readable . " to " . $result_arr["updated_readable"] . "\r\n" .
+//                    "\r\n";
+                        $message .= "\nProfile " . $id . "old_boost: " . $record_boost . ' new_boost: ' . $result_arr["boost"] . "\n";
+                        echo $message;
+                        $message.=$this->fixProfileRelatedImages($result_arr['profile'][0]['id'], $boost, $bucket);
+                    } else {
+                        echo $id . " fail to set the value into couchbase document! \r\n";
+                        $message .= $id . " fail to set the value into couchbase document! \r\n";
+                    }
+                } elseif ($searchForImage == false) {
+                    $message = "\nProfile " . $id . " does not have a proper package for boost*******************************************************************\n";
+                    echo $message;
+                }
+            } else {
+
+                $message = "\nProfile " . $id . "Does not have package specified in its profile********************************************************************\n";
+                echo $message;
+            }
+
+            $this->writeToLog($log_path, $message);
+        }
+        $this->writeToLog($package_path, var_export($profile_record, true));
+    }
+
+    public function fixProfileRelatedImages($id, $boost, $bucket) {
+//               $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+//    $log_path = "/var/log/yii/$start_time.log";
+        $data_arr = array();
+        $message = "";
+
+        $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = $bucket;
+
+        for ($i = 0; $i < 3000; $i++) {
+
+            $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"$id\"")
+                    ->default_field('couchbaseDocument.doc.owner_id');
+
+            $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+            $request->index($index)->type("couchbaseDocument");
+            $request->from($i * 50)
+                    ->size(50);
+            $request->query($bool);
+            //      echo "\n".$request->toJSON()."\n";
+
+            $response = $request->execute();
+            echo "Search for " . $i * 50 . "\n";
+            if (sizeof($response) == 0) {
+                $i = 3000;
+            }
+            foreach ($response as $found) {
+                array_push($data_arr, $found['id']);
+            }
+        }
+        echo "\n found " . sizeof($data_arr) . " objects belongs to " . $id;
+        if (sizeof($data_arr) > 0) {
+            $cb = $this->couchBaseConnection($bucket);
+            $count = 0;
+
+            foreach ($data_arr as $data) {
+                $result = $cb->get($data);
+                $message = "";
+                $count++;
+                echo "\nfixing data for " . $count . "\n";
+                if ($result != null && $result != "") {
+                    $result_arr = CJSON::decode($result);
+                    $boost_record = $result_arr['boost'];
+                    $result_arr['boost'] = $boost;
+                }
+                if ($cb->set($data, CJSON::encode($result_arr))) {
+                    $message.= "\n" . $id . " Boost data of object " . $data . " has been changed from " . $boost_record . " to " . $result_arr['boost'] . "\n";
+                    echo $message;
+                    //             $this->writeToLog($log_path, $message);
+                } else {
+                    $message.="\nBoost data of object " . $data . " update failed**********************************************\n";
+                    echo $message;
+                    //         $this->writeToLog($log_path, $message);
+                }
+            }
+        } else {
+            $message.="\nProfile " . $id . " does not have any image--------------------------------------------------\n";
+            echo $message;
+        }
+
+        return $message;
+    }
+
+    public function fixPhoto_url_largeofLisa() {
+        $bucket = 'test';
+        $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = $bucket;
+
+        //     $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('55959331448')
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"73625997635\"")
+                ->default_field('couchbaseDocument.doc.comments.commenter_id');
+//        $must2 = Sherlock\Sherlock::queryBuilder()
+//                ->QueryString()->query("photo")
+//                ->default_field('couchbaseDocument.doc.type');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+//           ->must($must2);
+        $request->index($index)->type("couchbaseDocument");
+        $request->from(0)
+                ->size(500);
+        $request->query($bool);
+        echo "\n" . $request->toJSON() . "\n";
+        $response = $request->execute();
+
+        echo "number of file: " . count($response);
+        foreach ($response as $found) {
+            $id = $found['id'];
+            $cb = $this->couchBaseConnection($bucket);
+            $result = $cb->get($id);
+            $result_arr = CJSON::decode($result);
+            if ($result_arr['comments'] != null && $result_arr['comments'] != "") {
+                $comment_arr = $result_arr['comments'];
+                for($i=0;$i<sizeof($comment_arr);$i++){
+                    $comment_arr[$i]['commenter_profile_pic_url']= "http://s3.hubsrv.com/trendsideas.com/users/" . $comment_arr[$i]['commenter_id'] . "/user_picture/user_picture";
+                }
+//                foreach ($comment_arr as $comment) {
+//                    $comment['commenter_profile_pic_url'] = "http://s3.hubsrv.com/trendsideas.com/users/" . $comment['commenter_id'] . "/user_picture/user_picture";
+//                }
+                $result_arr['comments'] = $comment_arr;
+                if ($cb->set($id, CJSON::encode($result_arr))) {
+                    echo "change made to " . $id . "\n";
+                }
+            }
+        }
+    }
+
+    function __construct() {
+        
+    }
+
+    public function importCreditList() {
+        $classArticleImport = new ArticleCommand();
+        $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+
+        $log_path = "/var/log/yii/$start_time.log";
+
+        $bucket = "production";
+        $settings['log.enabled'] = true;
+        $Sherlock = new \Sherlock\Sherlock($settings);
+        $Sherlock->addNode("es1.hubsrv.com", 9200);
+        $article_arr = array();
+        for ($i = 0; $i < 280; $i++) {
+            $request = $Sherlock->search();
+            $must = \Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"article\"")
+                    ->default_field("couchbaseDocument.doc.type");
+            $bool = \Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+            $request->index($bucket)
+                    ->type("couchbaseDocument")
+                    ->from(50 * $i)
+                    ->size(50);
+            $request->query($bool);
+            $response = $request->execute();
+            $progress = 50 * $i;
+            foreach ($response as $hit) {
+                $progress+=1;
+                echo "Job carrying to: " . $progress;
+                array_push($article_arr, $hit['id']);
+                $message.=$hit['id'] . "\n";
+            }
+        }
+        $progress = 0;
+        foreach ($article_arr as $article) {
+            $progress+=1;
+            echo "Job carrying to: " . $progress;
+            $message = 'Job carrying to: ' . $progress . "\n";
+            $timeStamp = $this->setUTC();
+            $cb = $this->couchBaseConnection($bucket);
+            $result = $cb->get($article);
+            $result_arr = CJSON::decode($result, TRUE);
+            $article_id = $result_arr['collection_id'];
+            $credit_of_article = $classArticleImport->buildCreditListObject($article_id);
+            if ($credit_of_article != null && $credit_of_article != "") {
+                for ($i = 0; $i < sizeof($credit_of_article); $i++) {
+                    $credit_of_article[$i]['optional'] = $result_arr['article'][0]['id'];
+                }
+                $result_arr['article'][0]['credits'] = $credit_of_article;
+                $result_arr["accessed"] = $timeStamp;
+                $result_arr["updated"] = $timeStamp;
+                $result_arr["accessed_readable"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+                $result_arr["updated_readable"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+                $message.=$article . '\n Credit list object\n: ' . var_export($result_arr['article'][0]['credits'], TRUE) . "\n";
+                if ($cb->set($article, CJSON::encode($result_arr))) {
+                    echo "\n\nCredit List: " . $message . "\n";
+
+                    echo $article . " update body successful\n";
+                } else {
+                    echo $article . " fail to update couchbase record~~~~~~~~~~~~~~~~\n";
+                    $message = $article . " fail to update couchbase record~~~~~~~~~~~~~~~~\n";
+                }
+            } else {
+                echo $article . " does not have credit list record~~~~~~~~~~~~~~~~\n";
+                $message = $article . " does not have credit list record~~~~~~~~~~~~~~~~\n";
+            }
+            $this->writeToLog($log_path, $message);
+        }
+    }
+
+    public function addCommentId() {
+        $bucket = 'test';
+        $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = "/var/log/yii/$start_time.log";
+        $message = "";
+//        $settings['log.enabled'] = true;
+//        $sherlock = new \Sherlock\Sherlock($settings);
+//        $sherlock->addNode("es1.hubsrv.com", 9200);
+//        $request = $sherlock->search();
+//        $index = $bucket;
+//        $request->index($index)->type("couchbaseDocument");
+//        $request->from(0)
+//                ->size(1000);
+//        $rawRequest = ' 
+//    "filtered": {
+//      "filter": {
+//        "exists": {
+//          "field": "couchbaseDocument.doc.comments.content"
+//        }
+//      }
+// }';
+//        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw($rawRequest);
+//        $request->query($termQuery);
+//        $response = $request->execute();
+        $query = '{
+  "query": {
+    "filtered": {
+      "filter": {
+        "exists": {
+          "field": "couchbaseDocument.doc.comments.content"
+        }
+      }
+    }
+  },
+  "size": "500"
+}';
+        $ch = curl_init("http://es1.hubsrv.com:9200/test/_search");
+
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
+        $result = curl_exec($ch);
+//            foreach($result as $found){
+//                echo $found['id'];
+//            }
+        $result_arr = CJSON::decode($result, true);
+        $record_arr = $result_arr['hits']['hits'];
+        echo sizeof($record_arr);
+        sleep(5);
+       // echo var_export($data_arr,true);
+
+        // echo "number of file: " . var_export($result_arr);
+        //   $message=  var_export($result_arr,TRUE);
+        //$record_arr=array();
+        foreach ($record_arr as $found) {
+           // sleep(1);
+            $couchbase_data_arr=array();
+//            $data_arr=array();
+//
+//            $data_arr = $found['_source']['doc'];
+                $id = $found['_id'];
+            echo "\n".$id."\n";
+            //    $message=  var_export($data_arr,true)."\n---------------------------------------------------------\n";
+       //     $id = $data_arr['id'];
+//            $message = $id;
+//            $this->writeToLog($log_path, $message);
+            //     $message.="\n".$id;
+//            if ($data_arr['type'] === "profile") {
+//                $couchbase_id = "trendsideas.com/profiles/" . $id;
+//            } else {
+//                $couchbase_id = "trendsideas.com/" . $id;
+//            }
+            $cb = $this->couchBaseConnection($bucket);
+            $couchbase_data = $cb->get($id);
+            $couchbase_data_arr = CJSON::decode($couchbase_data);
+             if(isset($couchbase_data_arr['comments'])){
+                 
+            
+            $comment_arr = $couchbase_data_arr['comments'];
+            //echo var_export($comment_arr,true);
+           // sleep(5);
+            $new_comment_array=array();
+           
+            foreach ($comment_arr as $comment) {
+                if ($comment['message_id'] == NULL)
+                    $comment['message_id'] = rand(100, 999) . strtotime(date('Y-m-d H:i:s')) . $comment['commenter_id'];
+          //     $comment['optional'] = $couchbase_data_arr['type'] . "/" . $id;
+            //     $comment['commenter_profile_pic_url']= "http://s3.hubsrv.com/trendsideas.com/users/" . $comment['commenter_id'] . "/user_picture/user_picture";
+                array_push($new_comment_array, $comment);
+            }
+            $couchbase_data_arr['comments'] = $new_comment_array;
+            echo var_export($new_comment_array,true);
+             }
+             
+             if($cb->set($id,CJSON::encode($couchbase_data_arr))){
+                 echo $id." update successfull\n";
+                 $message = $id." update successfull\n";
+             }else{
+                 echo $id." write couchbase record failed---------------------\n";
+                 $message = $id." write couchbase record failed---------------------\n";
+             }
+             $this->writeToLog($log_path, $message);
+        }
+
+
+
+
+// $message=var_export($result_arr);
+//    echo $message;
+        echo "number of file: " . sizeof($data_arr);
     }
 
     public function refineArticle() {
         $data_list = Article::model()->getArticalID();
         $this->total_num = sizeof($data_list);
         echo "Totally: " . $this->total_num . "\r\n";
-        
+
         if (sizeof($data_list) > 0) {
             foreach ($data_list as $val) {
-                
+
 //                print_r($val);                        
 //                exit();
-                
                 //     echo $val['heliumMediaId']." start\r\n";
                 $article_id_str = $val['article'];
                 if ($article_id_str != "") {
@@ -81,24 +1164,24 @@ class RefineDataCommand extends CConsoleCommand {
                     $s3_url_arr = $this->getUrlFromElastic($elastic_return_str);
 
                     $mega_obj_arr = $this->structureArray($val, $s3_url_arr);
-                       echo $mega_obj_arr . $val['heliumMediaId'] . "\r\n";
-                        $id = $this->importMegaObj($mega_obj_arr, $val['id']);
-                        $photo_array=$this->getValidPhoto($photo_heliumMediaId, $id, $val['id']);
-                        $handle_array = array();
-                        foreach($photo_array as $k=>$val){
-                            $url_arr = explode("/", $s3_url_arr[$k]);
-                            $file_name = $url_arr[sizeof($url_arr)-1];
-                            
-                            $url = 'http://api.develop.devbox/PhotoMoving?style='.$k.'&name='.$file_name.'&id='.$id;
-                            
-                            $ch = curl_init($url);
-                            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-                            
-                            $handle_array[$k] = $ch;
-                        }                        
-                                        $this->movingPhotoList($handle_array);                        
+                    echo $mega_obj_arr . $val['heliumMediaId'] . "\r\n";
+                    $id = $this->importMegaObj($mega_obj_arr, $val['id']);
+                    $photo_array = $this->getValidPhoto($photo_heliumMediaId, $id, $val['id']);
+                    $handle_array = array();
+                    foreach ($photo_array as $k => $val) {
+                        $url_arr = explode("/", $s3_url_arr[$k]);
+                        $file_name = $url_arr[sizeof($url_arr) - 1];
+
+                        $url = 'http://api.develop.devbox/PhotoMoving?style=' . $k . '&name=' . $file_name . '&id=' . $id;
+
+                        $ch = curl_init($url);
+                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
+                        $handle_array[$k] = $ch;
+                    }
+                    $this->movingPhotoList($handle_array);
                 } else {
                     $message = date("Y-m-d H:i:s") . " -- " . $val['id'] . " --Does not have helium media id!!";
                     $this->writeToLog('/home/devbox/NetBeansProjects/test/error.log', $message);
@@ -106,8 +1189,222 @@ class RefineDataCommand extends CConsoleCommand {
             }
         }
     }
-    
-    
+
+    public function updateArticleKeyword() {
+        $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = "/var/log/yii/$start_time.log";
+        $bucket = "develop";
+        $settings['log.enabled'] = true;
+        $Sherlock = new \Sherlock\Sherlock($settings);
+        $Sherlock->addNode("es1.hubsrv.com", 9200);
+        $article_arr = array();
+        for ($i = 0; $i < 280; $i++) {
+            $request = null;
+            $request = $Sherlock->search();
+            $must = \Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"article\"")
+                    ->default_field("couchbaseDocument.doc.type");
+            $bool = \Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+            $request->index($bucket)
+                    ->type("couchbaseDocument")
+                    ->from(50 * $i)
+                    ->size(50);
+            $request->query($bool);
+            $response = $request->execute();
+            $progress = 50 * $i;
+            foreach ($response as $hit) {
+                $progress+=1;
+                echo "Job carrying to: " . $progress;
+                array_push($article_arr, $hit['id']);
+            }
+        }
+        $progress = 0;
+        foreach ($article_arr as $article) {
+            $progress+=1;
+            echo "Job carrying to: " . $progress;
+            $message = 'Job carrying to: ' . $progress . "\n";
+            $this->writeToLog($log_path, $message);
+            $timeStamp = $this->setUTC();
+            $cb = $this->couchBaseConnection($bucket);
+            $result = $cb->get($article);
+            $result_arr = CJSON::decode($result, TRUE);
+            $record_accessed = $result_arr["accessed"];
+            $record_updated = $result_arr["updated"];
+            $record_accessed_readable = $result_arr["accessed_readable"];
+            $record_updated_readable = $result_arr["updated_readable"];
+            $keyword_obj = array();
+            $keyword_data = array();
+            echo strstr($result_arr['keywords'], ":") . "111111111111111\n";
+            if (strstr($result_arr['keywords'], ":") === false) {
+                echo "22222222222";
+                if (strstr($result_arr['keywords'], "\n")) {
+                    $keyword_arr = explode("\n", $result_arr['keywords']);
+                    foreach ($keyword_arr as $keyword) {
+                        $trimed_keyword = trim(trim(trim($keyword, "\r"), "\n"));
+                        if ($trimed_keyword != "" && $trimed_keyword != null) {
+                            $keyword_obj['keyword_id'] = $this->getNewID();
+                            $keyword_obj['keyword_name'] = $trimed_keyword;
+                            $keyword_obj['create_date'] = strtotime(date('Y-m-d H:i:s'));
+                            $keyword_obj['expire_date'] = NULL;
+                            $keyword_obj['value'] = NULL;
+                            $keyword_obj['profile_id'] = $result_arr['owner_id'];
+                            $keyword_obj['collection_id'] = NULL;
+                            $keyword_obj['is_delete'] = NULL;
+                            array_push($keyword_data, $keyword_obj);
+                        }
+                    }
+                } else {
+                    $keyword_arr = explode(",", $result_arr['keywords']);
+                    foreach ($keyword_arr as $keyword) {
+                        if ($keyword != "" && $keyword != null) {
+                            $keyword_obj['keyword_id'] = $this->getNewID();
+                            $keyword_obj['keyword_name'] = $keyword;
+                            $keyword_obj['create_date'] = strtotime(date('Y-m-d H:i:s'));
+                            $keyword_obj['expire_date'] = NULL;
+                            $keyword_obj['value'] = NULL;
+                            $keyword_obj['profile_id'] = $result_arr['owner_id'];
+                            $keyword_obj['collection_id'] = NULL;
+                            $keyword_obj['is_delete'] = NULL;
+                            array_push($keyword_data, $keyword_obj);
+                        }
+                    }
+                }
+                print_r($article . "    \n" . var_export($keyword_data)) . "\n\n\n\n\n";
+
+                $result_arr['keyword'] = $keyword_data;
+                $result_arr['article'][0]['keywords'] = $keyword_data;
+
+
+                $result_arr["accessed"] = $timeStamp;
+                $result_arr["updated"] = $timeStamp;
+                $result_arr["accessed_readable"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+                $result_arr["updated_readable"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+                $message = $article . $result_arr["type"] . " keyword has been changed from " . $result_arr['keywords'] . ' to ' . var_export($result_arr['keyword'], TRUE) . "\n";
+                if ($cb->set($article, CJSON::encode($result_arr))) {
+                    echo "\n\nAfter: " . var_export($result_arr['keyword'], TRUE);
+
+                    echo $article . " update keyword successful\n";
+                    $this->writeToLog($log_path, $message);
+                } else {
+                    echo $article . " fail to update couchbase record~~~~~~~~~~~~~~~~\n";
+                    $message = $article . " fail to update couchbase record~~~~~~~~~~~~~~~~\n";
+                    $this->writeToLog($log_path, $message);
+                }
+            } else {
+                echo "found creditlist in keyword";
+                $message = $article . " found creditlist in keyword~~~~~~~~~~~~~~~~\n";
+                $this->writeToLog($log_path, $message);
+            }
+        }
+    }
+
+    public function updatePhotoKeyword() {
+        $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = "/var/log/yii/$start_time.log";
+        $bucket = "develop";
+        $settings['log.enabled'] = true;
+        $Sherlock = new \Sherlock\Sherlock($settings);
+        $Sherlock->addNode("es1.hubsrv.com", 9200);
+        $photo_arr = array();
+        for ($i = 0; $i < 2000; $i++) {
+            $request = null;
+            $request = $Sherlock->search();
+            $must = \Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"photo\"")
+                    ->default_field("couchbaseDocument.doc.type");
+            $bool = \Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+            $request->index($bucket)
+                    ->type("couchbaseDocument")
+                    ->from(50 * $i)
+                    ->size(50);
+            $request->query($bool);
+            $response = $request->execute();
+            $progress = 50 * $i;
+            foreach ($response as $hit) {
+                $progress+=1;
+                echo "Job carrying to: " . $progress;
+                array_push($photo_arr, $hit['id']);
+            }
+        }
+        $progress = 0;
+        foreach ($photo_arr as $photo) {
+            $progress+=1;
+            echo "Job carrying to: " . $progress;
+            $message = 'Job carrying to: ' . $progress . "\n";
+            $this->writeToLog($log_path, $message);
+            $timeStamp = $this->setUTC();
+            $cb = $this->couchBaseConnection($bucket);
+            $result = $cb->get($photo);
+            $result_arr = CJSON::decode($result, TRUE);
+            $record_accessed = $result_arr["accessed"];
+            $record_updated = $result_arr["updated"];
+            $record_accessed_readable = $result_arr["accessed_readable"];
+            $record_updated_readable = $result_arr["updated_readable"];
+            $keyword_obj = array();
+            $keyword_data = array();
+            echo strstr($result_arr['keywords'], ":") . "111111111111111\n";
+            if (strstr($result_arr['keywords'], ":") == false) {
+                echo "22222222222";
+                if (strstr($result_arr['keywords'], "\n")) {
+                    $keyword_arr = explode("\n", $result_arr['keywords']);
+                    foreach ($keyword_arr as $keyword) {
+                        $trimed_keyword = trim(trim(trim($keyword, "\r"), "\n"));
+                        if ($trimed_keyword != "" && $trimed_keyword != null) {
+                            $keyword_obj['keyword_id'] = $this->getNewID();
+                            $keyword_obj['keyword_name'] = $trimed_keyword;
+                            $keyword_obj['create_date'] = strtotime(date('Y-m-d H:i:s'));
+                            $keyword_obj['expire_date'] = NULL;
+                            $keyword_obj['value'] = NULL;
+                            $keyword_obj['profile_id'] = $result_arr['owner_id'];
+                            $keyword_obj['collection_id'] = NULL;
+                            $keyword_obj['is_delete'] = NULL;
+                            array_push($keyword_data, $keyword_obj);
+                        }
+                    }
+                } else {
+                    $keyword_arr = explode(",", $result_arr['keywords']);
+                    foreach ($keyword_arr as $keyword) {
+                        if ($keyword != "" && $keyword != null) {
+                            $keyword_obj['keyword_id'] = $this->getNewID();
+                            $keyword_obj['keyword_name'] = $keyword;
+                            $keyword_obj['create_date'] = strtotime(date('Y-m-d H:i:s'));
+                            $keyword_obj['expire_date'] = NULL;
+                            $keyword_obj['value'] = NULL;
+                            $keyword_obj['profile_id'] = $result_arr['owner_id'];
+                            $keyword_obj['collection_id'] = NULL;
+                            $keyword_obj['is_delete'] = NULL;
+                            array_push($keyword_data, $keyword_obj);
+                        }
+                    }
+                }
+
+                print_r($photo . "    \n" . var_export($keyword_data)) . "\n\n\n\n\n";
+
+                $result_arr['keyword'] = $keyword_data;
+                $result_arr['photo'][0]['keywords'] = $keyword_data;
+
+
+                $result_arr["accessed"] = $timeStamp;
+                $result_arr["updated"] = $timeStamp;
+                $result_arr["accessed_readable"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+                $result_arr["updated_readable"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+                $message = $photo . $result_arr["type"] . " keyword has been changed from " . $result_arr['keywords'] . ' to ' . var_export($result_arr['keyword'], TRUE) . "\n";
+                if ($cb->set($photo, CJSON::encode($result_arr))) {
+                    echo "\n\nAfter: " . var_export($result_arr['keyword'], TRUE);
+
+                    echo $photo . " update keyword successful\n";
+                    $this->writeToLog($log_path, $message);
+                } else {
+                    echo $photo . " fail to update couchbase record~~~~~~~~~~~~~~~~\n";
+                    $message = $photo . " fail to update couchbase record~~~~~~~~~~~~~~~~\n";
+                    $this->writeToLog($log_path, $message);
+                }
+            } else {
+                echo "found creditlist in keyword";
+                $message = $photo . " found creditlist in keyword~~~~~~~~~~~~~~~~\n";
+                $this->writeToLog($log_path, $message);
+            }
+        }
+    }
+
     public function movingPhotoList($handle_array) {
         $mh = curl_multi_init();
         foreach ($handle_array as $k => $val)
@@ -148,8 +1445,8 @@ class RefineDataCommand extends CConsoleCommand {
         }
     }
 
-    public function getBookInfor () {
-        // get book infor 
+    public function getBookInfor() {
+// get book infor 
         $book_id = array();
         $book_date = 0;
         $book_title = "";
@@ -160,7 +1457,8 @@ class RefineDataCommand extends CConsoleCommand {
         if (sizeof($book_list) > 0) {
             foreach ($book_list as $book) {
                 array_push($book_id, $book['id']);
-                if ($book['region'] != "" || $book['region'] != null) $region_book = Regions::model()->selectCountryNameByID($book['region']);
+                if ($book['region'] != "" || $book['region'] != null)
+                    $region_book = Regions::model()->selectCountryNameByID($book['region']);
                 $date_live = $book['dateLive'];
                 $title = str_replace(" & ", "-", $book['title']);
                 $title = str_replace(" ", "-", $title);
@@ -179,22 +1477,21 @@ class RefineDataCommand extends CConsoleCommand {
                 }
             }
         }
-        
     }
-    
+
     public function structureArray($val, $photo_arr) {
-        // get size of image
+// get size of image
         $original_size = $photo_arr['photo_original_filename'];
 
-        // image url
+// image url
         $original_url = 'http://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/original/' . $photo_arr['photo_original_filename'];
         $hero_url = 'http://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/hero/' . $photo_arr['photo_hero_filename'];
         $preview_url = 'http://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/preview/' . $photo_arr['photo_preview_filename'];
         $thumbnail_url = 'http://s3.hubsrv.com/trendsideas.com/object_id/photo/object_id/thumbnail/' . $photo_arr['photo_thumbnail_filename'];
 
-        //  get region and country
+//  get region and country
         $country = "";
-        
+
         $region = Regions::model()->selectRegionByImage($val['id']);
         if (sizeof($region)) {
             $country = $region;
@@ -204,16 +1501,16 @@ class RefineDataCommand extends CConsoleCommand {
             }
         }
 
-        // get topic
+// get topic
         $topic_list = TopicSearchNames::model()->selectTopicName($val['id']);
 
-        //get subcategory
+//get subcategory
         $subcategory = SubCategorySearchNames::model()->selectSubCategory($val['id']);
 
-        // get category
+// get category
         $category = Categories::model()->selectCategory($val['id']);
-        
-        // get book infor 
+
+// get book infor 
         $book_id = array();
         $book_date = 0;
         $book_title = "";
@@ -224,7 +1521,8 @@ class RefineDataCommand extends CConsoleCommand {
         if (sizeof($book_list) > 0) {
             foreach ($book_list as $book) {
                 array_push($book_id, $book['id']);
-                if ($book['region'] != "" || $book['region'] != null) $region_book = Regions::model()->selectCountryNameByID($book['region']);
+                if ($book['region'] != "" || $book['region'] != null)
+                    $region_book = Regions::model()->selectCountryNameByID($book['region']);
                 $date_live = $book['dateLive'];
                 $title = str_replace(" & ", "-", $book['title']);
                 $title = str_replace(" ", "-", $title);
@@ -243,14 +1541,14 @@ class RefineDataCommand extends CConsoleCommand {
                 }
             }
         }
-        
-        // get current datetime
+
+// get current datetime
         $accessed = strtotime(date('Y-m-d H:i:s'));
 
-        // get keywords imfor
+// get keywords imfor
         $keywords = mb_check_encoding($val['keywords'], 'UTF-8') ? $val['keywords'] : utf8_encode($val['keywords']);
 
-        // get article
+// get article
 //            Yii::import("application.models.*");
         $article = Article::model()->findByPk((int) $val['articleId']);
 
@@ -286,7 +1584,7 @@ class RefineDataCommand extends CConsoleCommand {
             "object_image_url" => $hero_url,
             "object_title" => $val['heliumMediaId'],
             "object_description" => $val['caption'],
-            "owner_type" => 'profile',         
+            "owner_type" => 'profile',
             "owner_profile_pic" => "https://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small",
             "owner_title" => "Trends Ideas",
             "owner_id" => strtolower($book_title), //"home-and-apartment-trends-nz"
@@ -515,7 +1813,7 @@ class RefineDataCommand extends CConsoleCommand {
     }
 
     public function writeToLog($fileName, $content) {
-        //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
+//   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
         $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
         $output = "\n" . $content;
         fwrite($handle, $output);

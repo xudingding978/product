@@ -18,7 +18,7 @@ class UsersController extends Controller {
         $urlController = new UrlController();
 
         $link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-        
+
         $domain = $urlController->getDomain($link);
 
         $settings['log.enabled'] = true;
@@ -66,11 +66,77 @@ class UsersController extends Controller {
         $request_arr = CJSON::decode($request_json, true);
     }
 
+    public function actionReadCollection() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $user_id = $request_array[0];
+        try {
+            $docIDDeep = $this->getDomain() . "/users/" . $user_id; //$id  is the page owner
+            $cb = $this->couchBaseConnection();
+            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+            $oldRecordDeep = CJSON::decode($oldDeep, true);
+            if (isset($oldRecordDeep['user'][0]["profiles"])) {
+                $profiles = $oldRecordDeep['user'][0]["profiles"];
+            } else {
+                $profiles = array();
+            }      
+            $collections = array();
+            for ($i = 0; $i < sizeof($profiles); $i++) {
+                $doc = $this->getDomain() . "/profiles/" . $profiles[$i]["profile_id"];
+                $profileString = $cb->get($doc);
+                $profileData = CJSON::decode($profileString, true);               
+                if (isset($profileData['profile'][0]["collections"])) {
+                    $collection = $profileData['profile'][0]["collections"];
+                } else {
+                    $collection = array();
+                }
+                $items = array();
+                $collectionItem = array();
+                for ($j = 0; $j < sizeof($collection); $j++) {
+//                    $item = array();
+//                    $item["id"] = $collection[$j]["id"];
+//                    $item["title"] = $collection[$j]["title"];                   
+                    array_push($collectionItem, $collection[$j]);                
+                }
+                $items["collection"]=$collectionItem;
+                $items["profile_id"]=$profiles[$i]["profile_id"];
+                $items["profile_name"]=$profileData['profile'][0]["profile_name"];
+                array_unshift($collections, $items);               
+            }
+            
+            $this->sendResponse(200, CJSON::encode($collections));
+        } catch (Exception $exc) {
+             
+            echo $exc->getTraceAsString();            
+        }
+    }
+
+    public function actionSaveNotification() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request_array = CJSON::decode($request_array);
+        $commenter_id = $request_array[0]; // it is the  login in user
+        $notification = $request_array[1]; // it is the page owner
+
+        try {
+            $docIDDeep = $this->getDomain() . "/users/" . $commenter_id; //$id  is the page owner
+            $cb = $this->couchBaseConnection();
+            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+            $oldRecordDeep = CJSON::decode($oldDeep, true);
+
+            $oldRecordDeep['user'][0]["notification_setting"] = $notification;
+
+            if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
+    }
+
     public function actionRead() {
         try {
-
-
-
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
@@ -176,10 +242,87 @@ class UsersController extends Controller {
     public function actionTest() {
         echo "test";
     }
+    
+        protected function getImageIdentifier($imageInfo, $url) {
+        $return_arr = array();
+        if (strpos($imageInfo['mime'], 'jpeg')) {
+            error_log('getImageIdentifier = jpeg');
+            $im = imagecreatefromjpeg($url);
+            $return_arr['type'] = 'image/jpeg';
+        } elseif (strpos($imageInfo['mime'], 'png')) {
+            error_log('getImageIdentifier = png');
+            $im = imagecreatefrompng($url);
+            $return_arr['type'] = 'image/jpeg';
+        } elseif (strpos($imageInfo['mime'], 'gif')) {
+            error_log('getImageIdentifier = gif');
+            $im = imagecreatefromgif($url);
+            $return_arr['type'] = 'image/gif';
+        } elseif (strpos($imageInfo['mime'], 'bmp')) {
+            error_log('getImageIdentifier = bmp');
+            $im = imagecreatefromwbmp($url);
+            $return_arr['type'] = 'image/jpeg';
+        }
+        $return_arr['im'] = $im;
+
+        return $return_arr;
+    }
+    
+    public function actionUpdateim() {
+        $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+        $old_url = $payloads_arr['url'];
+        $photo_name = $payloads_arr['newStyleImageName'];
+        $mode = $payloads_arr['mode'];
+        $user_id = $payloads_arr['id'];
+          $imageInfor = getimagesize($old_url);
+          $return_arr=$this->getImageIdentifier($imageInfor, $old_url);
+          $type = $return_arr['type'];       
+        $photoController = new PhotosController();
+        $data_arr=array();
+        $data_arr['type']=$type;
+        $photo = $return_arr['im'];
+        $compressed_photo = $photoController->compressPhotoData($type, $photo);
+        $orig_size['width'] = imagesx($compressed_photo);
+        $orig_size['height'] = imagesy($compressed_photo);
+        $photoController->savePhotoInTypes($orig_size, $mode . '_original', $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
+        $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
+        $cb = $this->couchBaseConnection_production();
+        $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/users/' . $user_id));
+        if ($mode == 'user_picture') {
+            $oldRecord['user'][0]['photo_url_large'] = null;
+            $oldRecord['user'][0]['photo_url_large'] = $url;
+        } elseif
+        ($mode == 'user_cover') {
+            $oldRecord['user'][0]['cover_url'] = null;
+            $oldRecord['user'][0]['cover_url'] = $url;
+        }
+        if ($mode == 'user_cover') {
+            $smallimage = $photoController->savePhotoInTypes($orig_size, 'user_cover_small', $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
+            $oldRecord['user'][0]['cover_url_small'] = null;
+            $oldRecord['user'][0]['cover_url_small'] = $smallimage;
+        }
+        $url = $this->getDomain() . '/users/' . $user_id;
+        $copy_of_oldRecord = unserialize(serialize($oldRecord));
+        $tempUpdateResult = CJSON::encode($copy_of_oldRecord, true);
+        if ($cb->delete($url)) {
+            if ($cb->set($url, $tempUpdateResult)) {
+                $this->sendResponse(204);
+                error_log($url);
+                error_log(" saved to couchbase successful");
+            } else {
+                $this->sendResponse(500, 'something wrong');
+            }
+        } else {
+            $cb->set($url, $tempUpdateResult);
+            $this->sendResponse(500, 'something wrong');
+        }
+    }
+
+
 
     public function actionUpdateStyleImage() {
         $payloads_arr = CJSON::decode(file_get_contents('php://input'));
         $photo_string = $payloads_arr['newStyleImageSource'];
+        error_log($photo_string);
 
         $photo_name = $payloads_arr['newStyleImageName'];
         $mode = $payloads_arr['mode'];
@@ -188,10 +331,7 @@ class UsersController extends Controller {
         $photoController = new PhotosController();
 
         $data_arr = $photoController->convertToString64($photo_string);
-
         $photo = imagecreatefromstring($data_arr['data']);
-
-
         $compressed_photo = $photoController->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
@@ -207,21 +347,17 @@ class UsersController extends Controller {
 
             $oldRecord['user'][0]['photo_url_large'] = null;
             $oldRecord['user'][0]['photo_url_large'] = $url;
-            
-        }  elseif
-            ($mode == 'user_cover') {
+        } elseif
+        ($mode == 'user_cover') {
 
             $oldRecord['user'][0]['cover_url'] = null;
             $oldRecord['user'][0]['cover_url'] = $url;
-
-            
-        } 
+        }
 
         if ($mode == 'user_cover') {
             $smallimage = $photoController->savePhotoInTypes($orig_size, 'user_cover_small', $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
             $oldRecord['user'][0]['cover_url_small'] = null;
             $oldRecord['user'][0]['cover_url_small'] = $smallimage;
-
         }
 
         $url = $this->getDomain() . '/users/' . $user_id;

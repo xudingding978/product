@@ -5,22 +5,19 @@ HubStar.CollectionsView = Ember.View.extend({
         userController.setSelectedCollection(id);
         this.get('controller').setCollectionAttr();
         var div_id = "#" + id;
-        
-        var div_class = "." + id + "  #uploadArea";
+        var div_class = ".C" + id + "  #uploadArea";
         $(".Targeting_Object_front").attr("style", "display:inline-block");
         $(" #uploadArea").attr('style', "display:none");
         $(" #uploadObject").attr('style', "display:block");
-
-
         $(div_id).attr("style", "display:none");
         $(div_class).attr('style', "display:inline-block");
-        var createCollection = "." + id + "  #createCollection";
-        var updateCollection = "." + id + "  #updateCollection";
-        var updatebtn = "." + id + "  #updatebtn";
-        var createbtn = "." + id + "  #createbtn";
-        var deletebtn = "." + id + "  #deletebtn";
-        var collection_name_insert = "." + id + "  .new-collection-name_insert";
-        var collection_area = "." + id + "  .new-collection-area";
+        var createCollection = ".C" + id + "  #createCollection";
+        var updateCollection = ".C" + id + "  #updateCollection";
+        var updatebtn = ".C" + id + "  #updatebtn";
+        var createbtn = ".C" + id + "  #createbtn";
+        var deletebtn = ".C" + id + "  #deletebtn";
+        var collection_name_insert = ".C" + id + "  .new-collection-name_insert";
+        var collection_area = ".C" + id + "  .new-collection-area";
         $(createCollection).attr('style', "display:none");
         $(updateCollection).attr('style', "display:block;color: #333; font-size: 20px; font-weight: bold; text-align: center; margin: 5px 0 0;");
         $(updatebtn).attr('style', "display:inline-block");
@@ -33,6 +30,5 @@ HubStar.CollectionsView = Ember.View.extend({
             columnWidth: 185,
             isFitWidth: true
         });
-
     }
 });

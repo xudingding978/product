@@ -122,7 +122,8 @@ pre {
     border-radius: 5px;
 }
 
-ul, ol { padding-left: 1.3em;}
+ul {padding: 0; list-style: none;}
+ol { padding-left: 1.3em;}
 
 .hidden { display: none; }
 
@@ -238,7 +239,7 @@ button {
     border-radius: 3px;
     border: 1px solid #d8d8d8;
     border-bottom-width: 1px;
-    border-top-width: 0;
+    border-top: 1px solid #e5e5e5;
 }
 
 
@@ -257,8 +258,12 @@ button {
 
 .col1 { width: 165px; }
 .col2 { width: 350px; }
-.col3 { width: 300px; margin: 10px; }
+.col3 { width: 100px; margin: 20px; }
 .col4 {width: 720px;}
+.colAd{width: 350px;
+       text-align: center;
+       border: 0;
+       background-color: transparent;}
 
 /*
 .col1 img { max-width: 80px; }

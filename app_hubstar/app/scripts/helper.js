@@ -131,6 +131,10 @@ Ember.Handlebars.registerBoundHelper('test', function(test) {
 });
 
 
+Ember.Handlebars.registerBoundHelper('form', function(data) {
+    var datanew = data.replace(" ", "-");
+         var datanewest = datanew.toLowerCase();
+         return datanewest;  
+});
 
-
-
+  

@@ -1,7 +1,6 @@
-HubStar.ProfileArticlePhotoRoute = Ember.Route.extend({
-     setupController: function(controller, model) {
+HubStar.NewSearchPhotoRoute = Ember.Route.extend({
+    setupController: function(controller, model) {
         var temp;
-     
         var url = window.location.href;
         var urlArray = url.split("/");
         if (model.id === undefined) {                               //reload page model id can not be find
@@ -10,17 +9,15 @@ HubStar.ProfileArticlePhotoRoute = Ember.Route.extend({
             temp = model.id;
         }
         this.controllerFor("masonryCollectionItems").set("type", "profile");
+        //    this.controllerFor("masonryCollectionItems").set("type", "user");
         var megaModel = HubStar.Mega.find(temp);
+        //   this.controllerFor('mega').set("selectPhoto", true);
         this.controllerFor('mega').getInitData(megaModel);
-        
 
     },
     model: function(params) {
         var model = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
-         this.controllerFor("article").set("searchFromRoute", true); //only use in userarticle route to get the temp id;
         this.controllerFor("mega").set("clickOrRoute", true);
-        
-        
         return model;
     },
     activate: function() {

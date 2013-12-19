@@ -13,7 +13,7 @@ HubStar.CollectionRoute = Ember.Route.extend({
         this.controllerFor('masonryCollectionItems').selectModelForUser(id);
         this.controllerFor('masonryCollectionItems').set('canEdit', true);
         setTimeout(function() {
-            $('#masonry_photo_collection_container').masonry("reload");
+            $('#masonry_photo_collection_container').masonry("reloadItems");
         }, 3000);
     },
     events: {
@@ -32,9 +32,7 @@ HubStar.CollectionRoute = Ember.Route.extend({
         },
         transitionToArticle: function(id) {
             this.controllerFor("article").set("collectionArticleId", id);
- 
             this.transitionTo("userArticle", HubStar.Article.find(id));
-
         },
         transitionToVideo: function(video_id) {
             this.transitionTo("userVideo", video_id);

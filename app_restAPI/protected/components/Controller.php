@@ -33,6 +33,12 @@ class Controller extends CController {
     protected function couchBaseConnection_production() {
         return new Couchbase("cb1.hubsrv.com:8091", "", "", "production", true);
     }
+        protected function couchBaseConnection_test() {
+        return new Couchbase("cb1.hubsrv.com:8091", "", "", "test", true);
+    }
+        protected function couchBaseConnection_develop() {
+        return new Couchbase("cb1.hubsrv.com:8091", "", "", "develop", true);
+    }
 
     protected function getS3Connection($domain) {
         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "default", true);
@@ -246,6 +252,11 @@ class Controller extends CController {
 
         return $response;
     }
+    
+    
+    public function fixUserpicture(){
+        
+    }
 
     protected function getSearchResults($region, $requestString, $from = 0, $size = 50, $location = 'Global') {
 
@@ -314,9 +325,9 @@ class Controller extends CController {
 
             $request->filter($filter);
         }
-        $sort = Sherlock\Sherlock::sortBuilder();
-        $sort1 = $sort->Field()->name("boost")->order('desc');
-        $sort2 = $sort->Field()->name("_score");
+//        $sort = Sherlock\Sherlock::sortBuilder();
+//        $sort1 = $sort->Field()->name("boost")->order('desc');
+//        $sort2 = $sort->Field()->name("_score");
 
         $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
                 "bool": {
@@ -338,8 +349,8 @@ class Controller extends CController {
                 }
             }');
 
-        $request->sort($sort1, $sort2);
-        error_log($request->query($termQuery)->toJSON());
+//        $request->sort($sort1, $sort2);
+//        error_log($request->query($termQuery)->toJSON());
         $response = $request->query($termQuery)->execute();
 
         return $response;

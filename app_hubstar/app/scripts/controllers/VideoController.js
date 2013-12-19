@@ -4,10 +4,7 @@ HubStar.VideoController = Ember.Controller.extend({
     video_iframe_code: null,
     currentUser: null,
     enableToEdit: false,
-
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission','editComment','checkingLoginStatus','itemFunction'],
-
-
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus', 'itemFunction'],
     getinitdata: function(videoObject)
     {
 
@@ -20,7 +17,6 @@ HubStar.VideoController = Ember.Controller.extend({
         megaResouce.addObserver('isLoaded', function() {
             if (megaResouce.get('isLoaded')) {
                 that.set('megaResouce', megaResouce.objectAt(0));
-                //              console.log(   that.get('megaResouce'));
                 var tempVideoObject = megaResouce.objectAt(0).get('videoes').get("content").objectAt(0);
                 that.set('videoObject', tempVideoObject);
                 that.set('video_iframe_code', tempVideoObject.data.video_iframe_code);
@@ -53,6 +49,10 @@ HubStar.VideoController = Ember.Controller.extend({
         this.set('collectable', false);
         this.set('contact', false);
         window.history.back();
+        $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+        setTimeout(function() {
+            $('#masonry_container').masonry();  //masonry();
+        }, 300);
     },
     removeComment: function(object)
     {
@@ -114,11 +114,11 @@ HubStar.VideoController = Ember.Controller.extend({
     closeContact: function() {
         this.set('contact', false);
     },
-    dropdownPhotoSetting: function() {
+    dropdownPhotoSetting: function(param) {
         var tempUrl = this.get('megaResouce').get('object_image_url');
         this.set('sharePhotoUrl', tempUrl);
         this.set('sharePhotoName', "test");
-        $('#dropdown_id_').toggleClass('hideClass');
+        $('#dropdown_id_'+param).toggleClass('hideClass');
     },
     getImageURL: function()
     {
@@ -126,14 +126,14 @@ HubStar.VideoController = Ember.Controller.extend({
         return tempUrl;
     },
     // share to social facebook
-    fbShare: function() {
+    fbShare: function(param) {
+        this.dropdownPhotoSetting(param);
         var that = this;
         var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
         var caption = '';
 
         if (this.get('megaResouce').get('object_description') !== null)
         {
-//            console.log(this.get('megaResouce').get('object_description'));
             caption = this.get('megaResouce').get('object_description');
         }
         else
@@ -163,7 +163,8 @@ HubStar.VideoController = Ember.Controller.extend({
         return false;
     },
     //share to social google plus
-    gpShare: function() {
+    gpShare: function(param) {
+        this.dropdownPhotoSetting(param);
         var caption = '';
         if (this.get('megaResouce').get('object_description') !== null)
         {
@@ -189,7 +190,8 @@ HubStar.VideoController = Ember.Controller.extend({
         return false;
     },
     //share to social twitter
-    tShare: function() {
+    tShare: function(param) {
+        this.dropdownPhotoSetting(param);
         var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
         var url = 'https://twitter.com/share?text=' + this.get('videoObject').data.video_title + '&url=' + encodeURIComponent(currntUrl);
         window.open(
@@ -199,7 +201,8 @@ HubStar.VideoController = Ember.Controller.extend({
                 ).focus();
         return false;
     },
-    pShare: function() {
+    pShare: function(param) {
+        this.dropdownPhotoSetting(param);
         var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.getImageURL()) +

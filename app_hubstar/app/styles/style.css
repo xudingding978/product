@@ -1039,7 +1039,6 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     float: left;
     padding-bottom: 200px;
     position: relative;
-    border-radius: 15px 0 0 15px;
 }
 
 .tabs-left:after{

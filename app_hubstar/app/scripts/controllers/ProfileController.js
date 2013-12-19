@@ -161,7 +161,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);
         var profile = HubStar.Profile.find(id);
-        //profile = profile.reload();
+        profile.reload();  //r  profile.reload();  eload the collection which have the same name
         return profile;
     },
     setProfile: function(id) {
@@ -215,12 +215,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set("collections", profile.get("collections"));
 
         this.set("reviews", profile.get("reviews"));
+        
         if (profile.get("profile_average_review_length") !== "" && profile.get("profile_average_review_length") !== null && profile.get("profile_average_review_length") !== undefined) {
             this.set('profile_average_review_length', profile.get("profile_average_review_length"));
             $('#starsize').attr("style", "width:" + profile.get("profile_average_review_length") + "px");
             this.set("profile_average_review", profile.get("profile_average_review"));
         }
         else if (profile.get('reviews').get("length") === 0) {
+
             $('#starsize').attr("style", "width:100px");
 
             this.set("profile_average_review", "5");
@@ -361,6 +363,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
             this.set('popUpMap', true);
+            document.getElementById("body_id").style.overflow = "hidden";
         }
     },
     followerPhoto: function(id)
@@ -543,6 +546,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('editingAbout', !this.get('editingAbout'));
     },
     yesAbout: function(checkingInfo) {
+        $(window).scrollTop(650);
         if (checkingInfo === "aboutMe") {
 
             this.set('editingAbout', !this.get('editingAbout'));
@@ -588,6 +592,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('makeSelection', false);
     },
     no: function(checkingInfo) {
+        $(window).scrollTop(650);
         if (checkingInfo === "profileName") {
             this.set('profile_name', profile_record);
             this.set('editing', !this.get('editing'));
@@ -992,8 +997,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var add_keywords_array = this.get('add_keywords').split(',');
         if (this.get('keywords_array').get('length') + add_keywords_array.get('length') <= this.get('keyword_num')) {
             for (var i = 0; i < add_keywords_array.get('length'); i++) {
-                var keyword = this.addKeyword(add_keywords_array[i]);
-                keywords_JSON.push(JSON.stringify(keyword));
+                if (add_keywords_array[i].trim() !== '' && add_keywords_array[i] !== null && add_keywords_array[i] !== undefined) {
+                    var keyword = this.addKeyword(add_keywords_array[i].trim());
+                    keywords_JSON.push(JSON.stringify(keyword));
+                }
             }
             requiredBackEnd('keywords', 'addKeywords', keywords_JSON, 'POST', function(params) {
             });

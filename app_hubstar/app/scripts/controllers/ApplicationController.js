@@ -22,7 +22,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         {id: "12", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment'}
 
     ],
-    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop', 'article', 'mega', 'checkingLoginStatus', 'addCollection'],
+    needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop', 'article', 'mega', 'checkingLoginStatus', 'addCollection', 'search'],
     content: [],
     loginInfo: "",
     search_area: "",
@@ -47,6 +47,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     iframeLoginURL: "",
     loginTime: false,
     isGeoDropdown: false,
+    //  isNotification:false,
     isNavigatorDropdown: false,
     isHeaderNavigatorDropdown: false,
     adPageNo: 0,
@@ -74,17 +75,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             that.set("pageCount", 0);
             that.defaultSearch();
         });
-
+        HubStar.set("escVideo", false);
         this.set('search_string', '');
         this.set('loginUsername', localStorage.userName);
 
 
 
 
-    },
-    dropdownPhotoSetting: function() {
-        this.set("isNotification", !this.get("isNotification"));
-        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
     },
     popupModal: function() {
         HubStar.set('checkLoginStatus', true);
@@ -111,7 +108,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     scrollDownAction: function() {
         this.set('loadingTime', true);
         this.set("size", 20);
-
         if (this.get("searchFromTopic") === false)
         {
             this.set("pageCount", this.get("pageCount") + 1);
@@ -202,7 +198,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("googletagCmd", []);
         this.set("content", []);
         this.set("adPageNo", 0);
-        this.set('loadingTime', true);
+        if(localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")){
+        }else{
+            this.set('loadingTime', true);
+        }
+        
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
 
@@ -310,12 +310,34 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $('#register-with-email-step-4').css('display', 'none');
         //     $('#skipRegister').css('display', 'block');
         requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
-            localStorage.loginStatus = params.COUCHBASE_ID;
+            localStorage.userName = params.USER_NAME;
+            that.set('loginUsername', localStorage.userName);
+            localStorage.userType = "email";
+            localStorage.loginState = "login";
             var emailInfo = [params.USER_NAME, params.PWD_HASH];
             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
 
             });
             setTimeout(function() {
+                $('#login-btn').text('REGISTER');
+                $('.black-tool-tip').css('display', 'none');
+                $('#click-register-social').css('display', 'none');
+                $('#click-register').css('display', 'none');
+                $('#social-link').css('display', 'none');
+                $('#login-with-email-drop-down').css('display', 'block');
+                $('#social-login-container').css('display', 'none');
+                $('#click-login').addClass('active-tab');
+                $('#social-login').removeClass('social-active');
+                $('#user-forgot-password-pane').css('display', 'none');
+                $('#forgot-message-container').css('display', 'none');
+                $('#invalid-username').css('display', 'none');
+
+                $('#register-with-email-drop-down').css('display', 'none');
+                $('#register-with-email-step-2').css('display', 'none');
+                $('#register-with-email-step-3').css('display', 'none');
+                $('#user-login-pane').css('display', 'block');
+
+
                 that.set('first_name', "");
                 that.set('last_name', "");
                 that.set('email', "");
@@ -404,10 +426,21 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     dropdown: function(checking) {
         if (checking === "geoLocation") {
             this.set('isGeoDropdown', !this.get('isGeoDropdown'));
-            $('#geo-filter').toggleClass('Geo-Filter-active');
-        } else {
+            $('#geo-filter').addClass('Geo-Filter-active');
+
+        } else if (checking === "notification") {
+
+            this.set("isNotification", !this.get("isNotification"));
+            this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
+            $('#Geo-Filter').toggleClass('Geo-Filter-active');
 
         }
+    },
+    canelDropDown: function()
+    {
+        $('#geo-filter').toggleClass('Geo-Filter-active');
+        this.set('isGeoDropdown', !this.get('isGeoDropdown'));
+
     },
     dropdownNavigator: function() {
 
@@ -423,11 +456,19 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     showDiscoveryBar: function() {
 
         HubStar.set("showDiscoveryBar", true);
+
+        HubStar.set("escVideo", true);
+        HubStar.set("defaultSearch", true);
         this.transitionToRoute('searchIndex');
         $("#top-about-menu").fadeIn("320");
         $("#search-bar").fadeOut("320");
         $(".Navigator-box").fadeOut("320");
         $(".navbar").css("box-shadow", "");
+        //    $('#masonry_container').attr('style', "top:100px;position:relative");
+        $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+        setTimeout(function() {
+            $('#masonry_container').masonry();  //masonry();
+        }, 300);
 
     },
     closeDropdownNavigator: function() {
@@ -437,7 +478,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     dropdownHeaderNavigator: function() {
 
         this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
-//        console.log(this.get('isHeaderNavigatorDropdown'));
 
         this.set('categorys', HubStar.Cate.find({}));
 
@@ -479,13 +519,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('isHeaderNavigatorDropdown', false);
         HubStar.set("showDiscoveryBar", false);
     },
-    canelDropDown: function()
-    {
-        $('#geo-filter').toggleClass('Geo-Filter-active');
-        this.set('isGeoDropdown', false);
-    },
     login: function() {
-        if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
+        if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginUsername') !== "" && this.get('loginPassword') !== "")
         {
             this.set('loginTime', true);
             document.getElementById("loginUsername").setAttribute("class", "login-textfield");
@@ -522,6 +557,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndex');
 
+
                             if (localStorage.loginStatus)
                             {
                          
@@ -548,8 +584,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         {
                             that.set('loginTime', false);
                             $('.black-tool-tip').css('display', 'none');
-                            $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
-                            alert("Register successful! Please acticate your account which sent to your register email before start you journal on myTrends web!");
+                            $('#incorrect-varify').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                         }
 
                     }

@@ -360,9 +360,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     popUpGoogleMap: function() {
 
         if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {                 
-                this.set('popUpMap', true);
-                document.getElementById("body_id").style.overflow = "hidden";
+        {
+            this.set('popUpMap', true);
+            document.getElementById("body_id").style.overflow = "hidden";
         }
     },
     followerPhoto: function(id)
@@ -547,6 +547,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('editingAbout', !this.get('editingAbout'));
     },
     yesAbout: function(checkingInfo) {
+        $(window).scrollTop(650);
         if (checkingInfo === "aboutMe") {
 
             this.set('editingAbout', !this.get('editingAbout'));
@@ -592,6 +593,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('makeSelection', false);
     },
     no: function(checkingInfo) {
+        $(window).scrollTop(650);
         if (checkingInfo === "profileName") {
             this.set('profile_name', profile_record);
             this.set('editing', !this.get('editing'));
@@ -997,7 +999,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var add_keywords_array = this.get('add_keywords').split(',');
         if (this.get('keywords_array').get('length') + add_keywords_array.get('length') <= this.get('keyword_num')) {
             for (var i = 0; i < add_keywords_array.get('length'); i++) {
-                if (add_keywords_array[i].trim()!=='' && add_keywords_array[i] !== null && add_keywords_array[i] !== undefined) {
+                if (add_keywords_array[i].trim() !== '' && add_keywords_array[i] !== null && add_keywords_array[i] !== undefined) {
                     var keyword = this.addKeyword(add_keywords_array[i].trim());
                     keywords_JSON.push(JSON.stringify(keyword));
                 }

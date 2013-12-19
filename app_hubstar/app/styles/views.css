@@ -1171,6 +1171,7 @@ div.album-description-bg{
     width: 320px;
     background-color: white;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .article-objectview-right{
@@ -1564,6 +1565,8 @@ div.album-description-bg{
     font-weight: bold;
     line-height: 30px;
     margin-bottom: 10px;
+    word-break: break-word;
+    
 }
 
 .article-text{  

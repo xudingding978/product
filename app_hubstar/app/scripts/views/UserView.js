@@ -67,8 +67,10 @@ HubStar.UserView = Ember.View.extend({
 
     },
     showInterestsUp: function() {
+        
         if ($('#interest_btn').hasClass('icon-double-angle-up') && this.get('controller').get('interestsActive') === false) {
-
+           
+            this.get('controller').set('followDisplay', false);
             $('#show_interest').animate({top: 55, height: 445}, 400);
             // Main slide animation (interest div)
             $('#profile-picture').delay(200).animate({top: -55}, 0);
@@ -102,6 +104,8 @@ HubStar.UserView = Ember.View.extend({
 
 
         if ($('#interest_btn').hasClass('icon-double-angle-down') && this.get('controller').get('interestsActive') === false) {
+            
+            this.get('controller').set('followDisplay', false);
             this.get('controller').set('interestsActive', true);
             setTimeout(function() {
                 $('.interesttags-container').css('height', '375px');
@@ -121,8 +125,9 @@ HubStar.UserView = Ember.View.extend({
 
 
         else {
+           
             this.get('controller').set('interestsActive', false);
-
+            this.get('controller').set('followDisplay', true);
             $('#show_interest').animate({top: 298, height: 200}, 400, function() {
                 $('.interesttags-container').css('height', '125px');
             });
@@ -143,11 +148,10 @@ HubStar.UserView = Ember.View.extend({
         }// Slides the edit box back down into normal interest tags
     },
     showInterests: function() {
-
-
-
+       
+        this.get('controller').set('followDisplay', !this.get("controller").get("followDisplay"));
         if ($('#interest_btn').hasClass('icon-double-angle-up')) {
-
+            this.get('controller').set('followDisplay', false);
             $('#show_interest').animate({top: 55, height: 445}, 400);
             // Main slide animation (interest div)
             $('#profile-picture').delay(200).animate({top: -55}, 0);
@@ -174,6 +178,7 @@ HubStar.UserView = Ember.View.extend({
 
         }// Slide up (open)
         else {
+            this.get('controller').set('followDisplay', true);
             $('#show_interest').animate({top: 298, height: 200}, 400, function() {
                 $('.interesttags-container').css('height', '125px');
             });

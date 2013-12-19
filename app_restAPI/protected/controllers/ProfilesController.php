@@ -136,7 +136,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_contact_last_name'] = $newRecord['profile_contact_last_name'];
             $oldRecord['profile'][0]['profile_contact_number'] = $newRecord['profile_contact_number'];
              $oldRecord['profile'][0]['profile_name'] = $newRecord['profile_name'];
-             error_log(var_export($oldRecord['profile'][0]['profile_name'],true));
+
             $oldRecord['profile'][0]['profile_country'] = $newRecord['profile_country'];
             $oldRecord['profile'][0]['profile_domains'] = $newRecord['profile_domains'];
             $oldRecord['profile'][0]['profile_country'] = $newRecord['profile_country'];
@@ -242,8 +242,10 @@ class ProfilesController extends Controller {
 
     public function actionUpdateStyleImage() {
         $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+                     
         $photo_string = $payloads_arr['newStyleImageSource'];
         $photo_name = $payloads_arr['newStyleImageName'];
+       
         $mode = $payloads_arr['mode'];
         $owner_id = $payloads_arr['id'];
         $photoController = new PhotosController();
@@ -261,14 +263,17 @@ class ProfilesController extends Controller {
         if ($mode == 'profile_hero') {
             $oldRecord['profile'][0]['profile_hero_url'] = null;
             $oldRecord['profile'][0]['profile_hero_url'] = $url;
+             error_log(var_export($url,true));
         } elseif
         ($mode == 'background') {
             $oldRecord['profile'][0]['profile_bg_url'] = null;
             $oldRecord['profile'][0]['profile_bg_url'] = $url;
+             error_log(var_export($url,true));
         } elseif
         ($mode == 'profile_picture') {
             $oldRecord['profile'][0]['profile_pic_url'] = null;
             $oldRecord['profile'][0]['profile_pic_url'] = $url;
+             error_log(var_export($url,true));
         }
 
         if ($mode == 'profile_hero') {

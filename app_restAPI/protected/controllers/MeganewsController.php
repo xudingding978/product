@@ -49,15 +49,27 @@ class MeganewsController extends Controller {
 
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-    //    error_log(var_export($request_arr,true));
         $mega = $request_arr['meganew'];
-        
-    //     error_log(var_export($mega,true));
         if ($mega['type'] == "profile") {
             $this->createProfile($mega);
         }
     }
-
+    
+    public function actionCreateNewProfile() {
+        
+        $request_json = file_get_contents('php://input');
+        $request_arr = CJSON::decode($request_json, true); 
+        
+        $id = $request_arr['owner_id'];    
+        $cb = $this->couchBaseConnection();
+        $docID = $this->getDomain() . "/profiles/" . $id;
+        $prrofileid = CJSON::decode($cb->get($docID));
+        
+        if ($prrofileid!==null) {
+            $this->sendResponse(200, CJSON::encode(true, true));
+        }
+    }
+       
     public function actionRead() {
         try {
             $temp = explode("/", $_SERVER['REQUEST_URI']);
@@ -91,9 +103,7 @@ class MeganewsController extends Controller {
         } elseif ($newRecord['mega']['type'] == 'video') {
             $videoController = new VideosController();
             $videoController->videoUpdate($newRecord);
-        }  
-
-        else {
+        } else {
             $this->updateMega($newRecord);
         }
     }
@@ -102,88 +112,21 @@ class MeganewsController extends Controller {
         
     }
 
-
-
-
     public function createProfile($mega) {
-
+        
         $cb = $this->couchBaseConnection();
         $id = $mega['id'];
         $domain = $this->getDomain();
         $docID = $domain . "/profiles/" . $id;
-        if ($cb->add($docID, CJSON::encode($mega))) {
+        
+         if ($cb->add($docID, CJSON::encode($mega))) {
             $this->sendResponse(204);
         } else {
             $this->sendResponse(200, "some thing wronggggggggggggggggg");
         }
     }
+
     
-    
-     public function actionUpdateStyleImage() {
-         
-         
-         
-        $payloads_arr = CJSON::decode(file_get_contents('php://input'));
-        
-        $photo_string = $payloads_arr['newStyleImageSource'];
-        $photo_name = $payloads_arr['newStyleImageName'];
-        $mode = $payloads_arr['mode'];
-        $owner_id = $payloads_arr['id'];
-        $photoController = new PhotosController();
-        $data_arr = $photoController->convertToString64($photo_string);
-        $photo = imagecreatefromstring($data_arr['data']);
-        $compressed_photo = $photoController->compressPhotoData($data_arr['type'], $photo);
-        $orig_size['width'] = imagesx($compressed_photo);
-        $orig_size['height'] = imagesy($compressed_photo);
-
-        $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $owner_id);
-        error_log(var_export($url,true));
-        $cb = $this->couchBaseConnection();
-        $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/profiles/' . $owner_id));
-
-        if ($mode == 'profile_hero') {
-            $oldRecord['profile'][0]['profile_hero_url'] = null;
-            $oldRecord['profile'][0]['profile_hero_url'] = $url;
-        } elseif
-        ($mode == 'background') {
-            $oldRecord['profile'][0]['profile_bg_url'] = null;
-            $oldRecord['profile'][0]['profile_bg_url'] = $url;
-        } elseif
-        ($mode == 'profile_picture') {
-            $oldRecord['profile'][0]['profile_pic_url'] = null;
-            $oldRecord['profile'][0]['profile_pic_url'] = $url;
-        }
-
-        if ($mode == 'profile_hero') {
-            $smallimage = $photoController->savePhotoInTypes($orig_size, 'hero', $photo_name, $compressed_photo, $data_arr, $owner_id, $mode);
-            $oldRecord['profile'][0]['profile_hero_cover_url'] = null;
-            $oldRecord['profile'][0]['profile_hero_cover_url'] = $smallimage;
-        }
-
-        $url = $this->getDomain() . '/profiles/' . $owner_id;
- error_log(var_export($url,true));
-        $copy_of_oldRecord = unserialize(serialize($oldRecord));
-        error_log(var_export($copy_of_oldRecord,true));
-        $tempUpdateResult = CJSON::encode($copy_of_oldRecord, true);
-         error_log(var_export($tempUpdateResult,true));
-
-        if ($cb->delete($url)) {
-            if ($cb->set($url, $tempUpdateResult)) {
-                $this->sendResponse(204, $url);
-            } else {
-                $this->sendResponse(500, 'something wrong');
-            }
-        } else {
-            $cb->set($url, $tempUpdateResult);
-            $this->sendResponse(500, 'something wrong');
-        }
-    }
-
-   
-    
-
-
-
 }
 
 ?>

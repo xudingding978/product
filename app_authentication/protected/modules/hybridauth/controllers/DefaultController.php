@@ -116,8 +116,18 @@ class DefaultController extends Controller {
 
         //   return $user_profile;
         $userProfile->save();
+        $test=explode('.',$_SERVER['HTTP_HOST']);
         
-           $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "test", true);
+        if($test[1] ==="test"){
+         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "test", true);
+        }
+        else if($test[1] ==="develop"){
+         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "develop", true);
+        }
+         else if($test[1] ==="my"||$test[1] ==="beta"){
+         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "production", true);
+        }
+        
         $rand_id = $user->COUCHBASE_ID;
         $temp = $this->getMega();
         $temp["id"] = $rand_id;

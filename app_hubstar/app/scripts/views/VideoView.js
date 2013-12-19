@@ -54,6 +54,7 @@ HubStar.VideoView = Ember.View.extend({
             var address = document.URL;
             var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
             var id = address.split("#")[1].split("/")[2];
+            var videosOrCollection = address.split("#")[1].split("/")[3];
             var collection_id = address.split("#")[1].split("/")[4];
             var colectionType = address.split("#")[1].split("/")[5]; //it may be article id , photo id and video id
             var user_photo_id = address.split("#")[1].split("/")[8];
@@ -97,13 +98,22 @@ HubStar.VideoView = Ember.View.extend({
                             break;
                         }
                     }
+                    if (videosOrCollection === "collections")
+                    {
+                        this.get("controller").transitionTo("profileCollection", data);
+                    }
+                    else if (videosOrCollection === "videos")
+                    {
+                        
+                         this.get("controller").transitionTo("profile", {id:id});
+                        this.get("controller").transitionTo("profileVideos");
+                    }
 
-                    this.get("controller").transitionTo("profileCollection", data);
                 }
                 else
                 {
                     this.get("controller").transitionTo("search", {id: id});
-                     
+
 
                 }
                 //window.history.back();

@@ -324,7 +324,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     if (tempmega.get('profile').get('length') === 0 && tempmega.get('user').get('length') === 0 && (that.get('collection_id') === tempmega.get('collection_id')))
                     {
                         that.get("content").pushObject(tempmega);
-                        console.log(that.get("content"));
                     }
                 }
             }

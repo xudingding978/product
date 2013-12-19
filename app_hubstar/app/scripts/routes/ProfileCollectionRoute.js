@@ -56,7 +56,6 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
     },
     events: {
         transitionToPhoto: function(id) {
-            console.log("3333333333");
             //      this.transitionTo("profile",HubStar.)
             this.controllerFor('mega').set("type", "profile");
             var obj = HubStar.Mega.find(id);
@@ -103,7 +102,6 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
 //            }
 //            this.transitionTo("profileCollection", data);
             //           this.controllerFor('masonryCollectionItems').set('isUser', true);
-            console.log("Ssssssssssssssssssssssssssssssssssssssssssssssssss");
             this.transitionTo("profileVideo", video_id);
         }
     },

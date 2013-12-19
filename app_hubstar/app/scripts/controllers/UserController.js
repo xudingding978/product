@@ -273,11 +273,11 @@ HubStar.UserController = Ember.Controller.extend({
           
             if (this.get("user").get("email").match(/@trendsideas.com/g) !== "" && this.get("user").get("email").match(/@trendsideas.com/g) !== "undefined" && this.get("user").get("email").match(/@trendsideas.com/g) !== null)
             {
-              console.log(this.get("user").get("email"));
+              //console.log(this.get("user").get("email"));
                 this.get("controllers.application").set("is_authentic_user", true);
             }
             else {
-                 console.log(this.get("user").get("email"));
+                 //console.log(this.get("user").get("email"));
                 this.get("controllers.application").set("is_authentic_user", false);
             }
         }

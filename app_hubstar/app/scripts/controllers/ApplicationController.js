@@ -193,11 +193,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("googletagCmd", []);
         this.set("content", []);
         this.set("adPageNo", 0);
-        if(localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")){
-        }else{
+        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+        } else {
             this.set('loadingTime', true);
         }
-        
+
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
 
@@ -453,7 +453,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         HubStar.set("showDiscoveryBar", true);
         HubStar.set("escVideo", true);
         HubStar.set("defaultSearch", true);
-        this.transitionToRoute('searchIndex');
+        this.transitionToRoute('indexIndex');
+        this.defaultSearch();
         $("#top-about-menu").fadeIn("320");
         $("#search-bar").fadeOut("320");
         $(".Navigator-box").fadeOut("320");
@@ -504,6 +505,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
     },
     topicSearch: function(search_topic) {
+        HubStar.set("escVideo", false);
         this.transitionToRoute('search', {id: search_topic});
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
@@ -550,7 +552,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             localStorage.userType = "email";
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndex');
-                                 HubStar.set("showDiscoveryBar", true);
+                            HubStar.set("showDiscoveryBar", true);
                             that.set('loginPassword', "");
                             that.set('loginTime', false);
                         }

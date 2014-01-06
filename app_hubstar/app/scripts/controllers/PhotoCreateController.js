@@ -30,7 +30,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 var type = file.type;
                 var fileSize = file.size;
                 var reader = new FileReader();
-                reader.onload = function(e) {                
+                reader.onload = function(e) {
                     that.addPhotoObject(e, name, type, fileSize);
                 }, reader.readAsDataURL(files[i]);
             })(files[i]);
@@ -46,7 +46,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         masonryCollectionItems.back();
     },
     photoUpload: function()
-    {       
+    {
         HubStar.set('isNewUpload', false);
         var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
         this.set("fileSize", 0);
@@ -61,11 +61,11 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             tempmega.addObserver('isLoaded', function() {
                 if (tempmega.get('isLoaded')) {
                     that.set("profileMega", tempmega);
-                    
-                    
-                        }
-                    });
+
+
                 }
+            });
+        }
     },
     setFileSize: function(size)
     {
@@ -121,16 +121,15 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 "photo_keywords": keywords});
             mega.get("photo").pushObject(file);
             var that = this;
-             console.log(mega.get("photo"));
-   
-            mega.addObserver('isSaving', function() {
-                console.log("111111111111");
-                if (mega.get('isSaving')) {
-                     console.log("2222222222");
+            
+            file.addObserver('isSaving', function() {
+                
+                if (file.get('isSaving')) {
+                    console.log("2222222222");
                     $('.' + file.get('photo_source_id')).attr("style", "display:block");
                 }
-                else {                
-                     console.log("33333333333");
+                else {
+                   console.log("111111111111");
                     HubStar.set("totalFiles", HubStar.get("totalFiles") + 1);
                     $('.' + file.get('photo_source_id')).attr("style", "display:none");
                     if (HubStar.get("totalFiles") === that.get("filesNumber")) {

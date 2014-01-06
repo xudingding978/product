@@ -13,7 +13,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     collectionID: "",
     itemID: "",
     profileId: "",
-    isSave:false,
+    isSave: false,
     type: "",
     needs: ['photoCreate', 'profile', 'user', 'permission', 'photoCreateInfoSetting', 'applicationFeedback'],
     user_id: null,
@@ -181,10 +181,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
                             if (this.get("profileId") !== item.get("owner_id") || item.get("collection_id") !== this.get('collectionID'))
                             {
-                                
-                                for (var j = 0; j < profile.get('collections').get('length'); j++) {                                  
+
+                                for (var j = 0; j < profile.get('collections').get('length'); j++) {
                                     if (profile.get('collections').objectAt(j).get('id') === this.get('collectionID'))
-                                    {                                     
+                                    {
                                         currentCollection = profile.get('collections').objectAt(j);
                                         collectedColletionids = currentCollection.get('collection_ids');
                                         if (collectedColletionids === null) {
@@ -203,7 +203,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                                         delResult = delResult.substr(0, delResult.length - 1);
 
                                         currentCollection.set('collection_ids', delResult);
-                                        
+
                                         currentCollection.store.save();
                                         break;
                                     }
@@ -214,7 +214,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                                 tempItem.store.save();
                             }
                         }
-                        this.get('content').removeObject(tempItem);                       
+                        this.get('content').removeObject(tempItem);
                         break;
                     }
                 }
@@ -372,9 +372,11 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     photoUpload: function(e) {
         for (var i = 0; i < this.get("uploadImageContent").length; i++)
         {
-            this.get("uploadImageContent").objectAt(0).store.save();
+            var t = this.get("uploadImageContent").objectAt(i).store.save();
+            console.log(this.get("uploadImageContent").objectAt(i).get("isSaving"));
+            
         }
-         console.log("0000000000000");
+        console.log("0000000000000");
         //this.get("uploadImageContent").store.save();
     }
 

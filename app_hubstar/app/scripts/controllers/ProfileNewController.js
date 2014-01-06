@@ -38,14 +38,6 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     profile_pic_url: "",
     keywords: "",
     imageMode: "",
-    newStyleImageSource: "",
-    newStyleImageName: "",
-    backgroundSource: "",
-    backgroundName: "",
-    heroSource: "",
-    heroName: "",
-    pictureSource: "",
-    pictureName: "",
     loadingNewTime: false,
     categorys: [],
     subcate: [],
@@ -107,8 +99,6 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             $('#errorMessage5').attr('style', 'display:none');
             $('#errorMessage6').attr('style', 'display:none');
             $('#numberFormat').attr('style', 'display:none');
-      
-
         }
 
         else {
@@ -403,7 +393,6 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             });
 
         }
-
     },
     dropdown: function(checking) {
 

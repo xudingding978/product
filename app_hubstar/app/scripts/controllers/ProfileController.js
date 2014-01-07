@@ -27,7 +27,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     currentUserID: "",
     collections: [],
     Id: "",
-    type:"profiles",
+    type: "profiles",
     reviews: [],
     contentFollowerPhoto: [],
     contactChecking: false,
@@ -145,7 +145,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     profile_average_review_length: '',
     toAddress: '',
     isAboutUsObjectExist: false,
-    about_us:[],
+    about_us: [],
     embeded_url: '',
     init: function() {
 
@@ -213,7 +213,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set("projectDeleteDropdownContent", profile.get("profile_isDeleted"));
         this.updateWorkingHourData(profile.get('profile_hours'));
         this.set("collections", profile.get("collections"));
-        
+
         this.set("reviews", profile.get("reviews"));
 
 
@@ -223,9 +223,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             $('#starsize').attr("style", "width:" + profile.get("profile_average_review_length") + "px");
             this.set("profile_average_review", profile.get("profile_average_review"));
         }
-        else if(profile.get('reviews').get("length")===0){
-            
-             $('#starsize').attr("style", "width:100px");
+        else if (profile.get('reviews').get("length") === 0) {
+
+            $('#starsize').attr("style", "width:100px");
             this.set("profile_average_review", "5");
         }
         else {
@@ -270,14 +270,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         } else {
             this.setKeywordsNum(this.get('model').get('profile_package_name'));
         }
-        this.set('keyword_left', parseInt(this.get("keyword_num")) - profile.get('keywords').get('length'));        
+        this.set('keyword_left', parseInt(this.get("keyword_num")) - profile.get('keywords').get('length'));
         this.setAboutUsObject();
         this.set('editingAbout', false);
         this.set('editing', false);
         this.set('editingTime', false);
     },
     setAboutUsObject: function() {
-        if (this.get('model').get('about_us') !== null && this.get('model').get('about_us') !== 'undefined' && this.get('model').get('about_us').get('length') > 0 ) {
+        if (this.get('model').get('about_us') !== null && this.get('model').get('about_us') !== 'undefined' && this.get('model').get('about_us').get('length') > 0) {
             this.set("about_us", this.get('model').get("about_us"));
             this.getVideoURL();
             this.set("isAboutUsObjectExist", true);
@@ -486,8 +486,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             phone_record = this.get('profile_contact_number');
             website_record = this.get('website');
             website_url_record = this.get('website_url');
-
+            console.log(this.get("editingContact"));
             this.set('editingContact', !this.get('editingContact'));
+            console.log(this.get("editingContact"));
         }
         else if (checkingInfo === "timeSetting") {
             this.set('editingTime', !this.get('editingTime'));
@@ -512,39 +513,39 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectNewAbout: function() {
         if (!this.get('isAboutUsObjectExist')) {
-            var about_us = HubStar.AboutUs.createRecord({"about_id": this.get('model').get('id'), "about_desc": '', "about_template_id": '1', 
-                                                                                                "about_video": [], "about_image": [], 'about_book': []});
-            var about_video = HubStar.AboutVideo.createRecord({"video_id": '1', "video_title": '', "video_desc": '', 
-                                                                                                "video_url": '', "optional": this.get('model').get('id')});
+            var about_us = HubStar.AboutUs.createRecord({"about_id": this.get('model').get('id'), "about_desc": '', "about_template_id": '1',
+                "about_video": [], "about_image": [], 'about_book': []});
+            var about_video = HubStar.AboutVideo.createRecord({"video_id": '1', "video_title": '', "video_desc": '',
+                "video_url": '', "optional": this.get('model').get('id')});
             about_us.get('about_video').pushObject(about_video);
-            for (var i = 0; i < 2; i ++) {
-                var about_image = HubStar.AboutImage.createRecord({"image_id": i.toString(), "image_title": '', "image_desc": '', 
-                                                                                                "image_url": '',"image_link": '', "optional": this.get('model').get('id')});
-            about_us.get('about_image').pushObject(about_image);
+            for (var i = 0; i < 2; i++) {
+                var about_image = HubStar.AboutImage.createRecord({"image_id": i.toString(), "image_title": '', "image_desc": '',
+                    "image_url": '', "image_link": '', "optional": this.get('model').get('id')});
+                about_us.get('about_image').pushObject(about_image);
             }
-            for (var i = 0; i < 3; i ++) {
+            for (var i = 0; i < 3; i++) {
                 if (i === 0) {
-                    var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '',"book_description": 'Renovation Trends (29/11)', 
-                                                "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0', 
-                                                "book_read_url": 'http://ebooks.trendsideas.com/Book885',"book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/455/Renovation_Ideas_Trends_Vol_2911.aspx', "optional": this.get('model').get('id')});
+                    var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '', "book_description": 'Renovation Trends (29/11)',
+                        "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0',
+                        "book_read_url": 'http://ebooks.trendsideas.com/Book885', "book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/455/Renovation_Ideas_Trends_Vol_2911.aspx', "optional": this.get('model').get('id')});
                 } else if (i === 1) {
-                    var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '',"book_description": 'New Home Trends (29/10)', 
-                                                "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=483&w=300&tabid=101&h=0', 
-                                                "book_read_url": 'http://ebooks.trendsideas.com/Book873',"book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/447/New_Home_Trends_Vol_2910.aspx', "optional": this.get('model').get('id')});
+                    var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '', "book_description": 'New Home Trends (29/10)',
+                        "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=483&w=300&tabid=101&h=0',
+                        "book_read_url": 'http://ebooks.trendsideas.com/Book873', "book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/447/New_Home_Trends_Vol_2910.aspx', "optional": this.get('model').get('id')});
                 } else {
-                    var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '',"book_description": 'Limited Edition!', 
-                                                "book_image_url": 'http://library.trendsideas.com/Portals/0/productimages/418_06894.jpg', 
-                                                "book_read_url": '',"book_buy_url": 'http://shop.trendsideas.co.nz/homeseries.aspx?prodid=418', "optional": this.get('model').get('id')});
+                    var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '', "book_description": 'Limited Edition!',
+                        "book_image_url": 'http://library.trendsideas.com/Portals/0/productimages/418_06894.jpg',
+                        "book_read_url": '', "book_buy_url": 'http://shop.trendsideas.co.nz/homeseries.aspx?prodid=418', "optional": this.get('model').get('id')});
                 }
-            about_us.get('about_book').pushObject(about_book);
+                about_us.get('about_book').pushObject(about_book);
             }
             this.get('about_us').pushObject(about_us);
         }
 //        console.log('new');
         this.set('makeSelection', false);
-        this.set('isAboutUsObjectExist', true);       
+        this.set('isAboutUsObjectExist', true);
         this.set('editingAbout', !this.get('editingAbout'));
-    },        
+    },
     yesAbout: function(checkingInfo) {
         if (checkingInfo === "aboutMe") {
 
@@ -556,7 +557,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //                this.get('about_us').objectAt(0).get('about_video').objectAt(i).set('video_url', '//www.youtube.com/embed/'+video_url[1].split('=')[1]);
 //            }
 //        }
-        if (this.get('model').get('about_us') === null || this.get('model').get('about_us') === 'undefined' || this.get('model').get('about_us').get('length') === 0 ) { 
+        if (this.get('model').get('about_us') === null || this.get('model').get('about_us') === 'undefined' || this.get('model').get('about_us').get('length') === 0) {
             this.get('model').get('about_us').pushObject(this.get('about_us').objectAt(0));
         }
         this.get('about_us').objectAt(0).save();
@@ -741,7 +742,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.toggleUpload();
     },
     checkAuthenticUser: function() {
+        console.log("PPPPPPPPPPPPPPPPp");
         var currentUser = HubStar.User.find(localStorage.loginStatus);
+
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
@@ -750,18 +753,35 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             var isAdmin = permissionController.setIsAdmin(current_user_email);
             this.set('isAdmin', isAdmin);
             that.set("is_authentic_user", is_authentic_user);
+            console.log("sss");
         } else {
-            currentUser.addObserver('isLoaded', function() {
+            console.log("is_authentic_user");
+            currentUser.then(function() {
                 var current_user_email = currentUser.get('email');
+                console.log("ssssssssssssssss");
                 if (currentUser.get('isLoaded')) {
                     var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
                     that.set("is_authentic_user", is_authentic_user);
+
                     var isAdmin = permissionController.setIsAdmin(current_user_email);
                     that.set('isAdmin', isAdmin);
                     isAdmin = permissionController.setIsAdmin(current_user_email);
                 }
             });
+//            currentUser.addObserver('isLoaded', function() {
+//                var current_user_email = currentUser.get('email');
+//                 console.log("ssssssssssssssss");
+//                if (currentUser.get('isLoaded')) {
+//                    var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
+//                    that.set("is_authentic_user", is_authentic_user);
+//                     
+//                    var isAdmin = permissionController.setIsAdmin(current_user_email);
+//                    that.set('isAdmin', isAdmin);
+//                    isAdmin = permissionController.setIsAdmin(current_user_email);
+//                }
+//            });
         }
+
     },
     isFollowed: function()
     {
@@ -1177,7 +1197,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': that.get('model.id')};
                         that.set('loadingTime', true);
-                             console.log("1112121");
+                        console.log("1112121");
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
                             //     $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoEditingMode', false);
@@ -1185,7 +1205,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             that.set('isFinished', true);
                             that.set("isCrop", false);
                             console.log("dddddss");
-                         //   HubStar.store.save();
+                            //   HubStar.store.save();
                             that.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
                             that.set('loadingTime', false);
                         });
@@ -1314,8 +1334,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (this.isTracking) {
             console.log(this.get('model'));
             var analytics_array = this.get('model').get('profile_analytics_code').split(',');
-            for (var i = 0; i < analytics_array.length; i ++) {
-                ga(this.get('model').get('id').split('-').join('')+i.toString() + '.send', {
+            for (var i = 0; i < analytics_array.length; i++) {
+                ga(this.get('model').get('id').split('-').join('') + i.toString() + '.send', {
                     'hitType': hitType,
                     'eventCategory': category,
                     'eventAction': action,
@@ -1338,7 +1358,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     // share to social facebook
     fbShare: function() {
         var that = this;
-        var currntUrl = 'http://'+document.domain+'/#/profiles/' + this.get('currentUserID');
+        var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
         var caption = '';
         if (this.get('profile_cover_text') !== null)
         {
@@ -1392,7 +1412,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         $("meta[property='og\\:image']").attr("content", this.get('profile_pic_url'));
 
 
-        var currntUrl = 'http://'+document.domain+'/#/profiles/' + this.get('currentUserID');
+        var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
         window.open(
@@ -1405,7 +1425,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     //share to social twitter
     tShare: function() {
-        var currntUrl = 'http://'+document.domain+'/#/profiles/' + this.get('currentUserID');
+        var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
         var url = 'https://twitter.com/share?text=' + this.get('profile_name') + '&url=' + encodeURIComponent(currntUrl);
         window.open(
                 url,
@@ -1416,7 +1436,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     pShare: function() {
 
-        var currntUrl = 'http://'+document.domain+'/#/profiles/' + this.get('currentUserID');
+        var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.get('profile_pic_url')) +
                 '&description=' + encodeURIComponent(this.get('profile_name'));
@@ -1461,8 +1481,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     getVideoURL: function() {
         var video_url = this.get('about_us').objectAt(0).get('about_video').objectAt(0).get('video_url').split('?');
-        if (video_url.get('length') >1) {            
-            var VideoURL = '//www.youtube.com/embed/'+video_url[1].split('=')[1];
+        if (video_url.get('length') > 1) {
+            var VideoURL = '//www.youtube.com/embed/' + video_url[1].split('=')[1];
             this.set('embeded_url', VideoURL);
         } else {
             this.set('embeded_url', '');

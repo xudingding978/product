@@ -1,6 +1,6 @@
 HubStar.ProfileRoute = Ember.Route.extend({
     setupController: function(ProfileController, model) {
-
+console.log("pppssss");
         HubStar.set('editingMode', 'profile');
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
         {

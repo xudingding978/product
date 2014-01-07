@@ -610,8 +610,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('profile_contact_number', phone_record);
             this.set('website', website_record);
             this.set('website_url', website_url_record);
+            console.log(this.get("editingContact"));
             this.set('editingContact', !this.get('editingContact'));
-
+            console.log(this.get("editingContact"));
         }
         else if (checkingInfo === "timeSetting") {
             this.updateWorkingHourData(this.get('model.profile_hours'));
@@ -742,7 +743,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.toggleUpload();
     },
     checkAuthenticUser: function() {
-        console.log("PPPPPPPPPPPPPPPPp");
+      
         var currentUser = HubStar.User.find(localStorage.loginStatus);
 
         var current_user_email = currentUser.get('email');
@@ -753,12 +754,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             var isAdmin = permissionController.setIsAdmin(current_user_email);
             this.set('isAdmin', isAdmin);
             that.set("is_authentic_user", is_authentic_user);
-            console.log("sss");
+            
         } else {
-            console.log("is_authentic_user");
+            
             currentUser.then(function() {
                 var current_user_email = currentUser.get('email');
-                console.log("ssssssssssssssss");
+                
                 if (currentUser.get('isLoaded')) {
                     var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
                     that.set("is_authentic_user", is_authentic_user);

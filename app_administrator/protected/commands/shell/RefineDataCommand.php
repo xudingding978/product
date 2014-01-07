@@ -41,7 +41,10 @@ class RefineDataCommand extends Controller_admin {
             $this->deleteIncorrectRecord();
         } elseif ($action == "fixuserlarge") {
             $this->fixUserPictureLarge();
-        } elseif ($action == "refineArticle") {
+        }elseif($action=='findhtml'){
+            $this->ticket537HtmlRelocation();
+        } 
+        elseif ($action == "refineArticle") {
 
 
 
@@ -220,6 +223,49 @@ class RefineDataCommand extends Controller_admin {
                 echo $user . " can not find couchbase record  for the user------------------\n";
             }
         }
+    }
+    
+    public function ticket537HtmlRelocation(){
+        $bucket='develop';
+        $type='photo';
+        $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = '/var/log/yii/' . $datetime . '.log';
+        $cb=$this->couchBaseConnection($bucket);
+        $photo_list=$this->findAllAccordingType($bucket, $type);
+        $count=0;
+        foreach($photo_list as $photo){
+            $message=$photo." ";
+            $result=$cb->get($photo);
+            if($result!=null){
+                $result_arr=CJSON::decode($result);
+                if(isset($result_arr['photo'][0]['photo_caption'])&&$result_arr['photo'][0]['photo_caption']!=null){
+                    $caption_record= $result_arr['photo'][0]['photo_caption'];
+                    if(strpos($caption_record, "<a href" )){
+                        echo $photo. "has html tag+++++++++++++ "."\n";
+                         $message.= "has html tag+++++++++++++ "."\n";
+                      //  sleep(5);
+                        $count++;
+            
+                    }else{
+                        $message.= " does not have Html tag \n";
+                        echo $photo. " does not have Html tag \n";
+                    }
+                }else{
+                    echo $photo. " does not have caption********** \n";
+                    $message.= " does not have caption********** \n";
+                }
+                
+
+                
+            }else{
+                echo $photo." cannot find record in couchbase--------------- \n";
+                 $message.= " cannot find record in couchbase--------------- \n";
+            }
+            $this->writeToLog($log_path, $message);
+        }
+       // $this->writeToLog($log_path, $message);
+        echo $count;
+        
     }
 
     public function fixArticlebeenUpdatedwithWrongId() {

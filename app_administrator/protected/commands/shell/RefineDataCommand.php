@@ -240,11 +240,31 @@ class RefineDataCommand extends Controller_admin {
                 $result_arr=CJSON::decode($result);
                 if(isset($result_arr['photo'][0]['photo_caption'])&&$result_arr['photo'][0]['photo_caption']!=null){
                     $caption_record= $result_arr['photo'][0]['photo_caption'];
-                    if(strpos($caption_record, "<a href" )){
+                    if(strpos($caption_record, "<a href" )!==false){
                         echo $photo. "has html tag+++++++++++++ "."\n";
                          $message.= "has html tag+++++++++++++ "."\n";
                       //  sleep(5);
                         $count++;
+                        $caption_arr_url=  explode('"', $caption_record);
+                       
+                        foreach($caption_arr_url as $part){
+                            if(strpos($part, "http")!==false){
+                                $url=$part;
+                            }
+                        }
+                        $result_arr['photo'][0]['photo_link_url']=$url;
+                        preg_match('/>(.*?)</', $caption_record, $text);
+                        $result_arr['photo'][0]['photo_link_text']=$text[1];
+                   //     echo $url."\n".$text[1]."\n-------------------------------";
+                        if($cb->set($photo,CJSON::encode($result_arr))){
+                            echo "save to couchbase successful\n";
+                            $message.="    save to couchbase successful\n";
+                        }else{
+                            echo "save to couchbase failed";
+                            $message.="    save to couchbase failed";
+                        }
+                        $result_arr['photo'][0]['photo_caption']="";
+                        
             
                     }else{
                         $message.= " does not have Html tag \n";

@@ -20,9 +20,9 @@
                     raw_id = raw_id.replace("test", "");
                     this.get('photoInfo').pushObject({
                         id: raw_id,
-                        url: content.objectAt(i).get('photo_image_original_url'),
-                        title: content.objectAt(i).get('photo_title'),
-                        caption: content.objectAt(i).get('photo_caption')
+                        url: content.objectAt(i).get("photo").objectAt(0).get('photo_image_original_url'),
+                        title: content.objectAt(i).get("photo").objectAt(0).get('photo_title'),
+                        caption: content.objectAt(i).get("photo").objectAt(0).get('photo_caption')
                     });
                 }
             }

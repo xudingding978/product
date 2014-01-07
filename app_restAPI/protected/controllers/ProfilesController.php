@@ -124,8 +124,6 @@ class ProfilesController extends Controller {
             $newRecord = CJSON::decode($payload_json);
             $cb = $this->couchBaseConnection();
             $oldRecord = CJSON::decode($cb->get($this->getDomain() . $_SERVER['REQUEST_URI']));
-            error_log(var_export($oldRecord, true));
-            error_log(var_export($newRecord, true));
             $oldRecord['profile'][0]['owner'] = $newRecord['owner'];
             $oldRecord['profile'][0]['owner_contact_bcc_emails'] = $newRecord['owner_contact_bcc_emails'];
             $oldRecord['profile'][0]['owner_contact_cc_emails'] = $newRecord['owner_contact_cc_emails'];

@@ -255,6 +255,7 @@ class RefineDataCommand extends Controller_admin {
                         $result_arr['photo'][0]['photo_link_url']=$url;
                         preg_match('/>(.*?)</', $caption_record, $text);
                         $result_arr['photo'][0]['photo_link_text']=$text[1];
+                        $result_arr['photo'][0]['photo_caption']="";
                    //     echo $url."\n".$text[1]."\n-------------------------------";
                         if($cb->set($photo,CJSON::encode($result_arr))){
                             echo "save to couchbase successful\n";

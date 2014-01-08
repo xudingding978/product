@@ -311,6 +311,7 @@ class RefineDataCommand extends Controller_admin {
         $photo_list=$this->findAllAccordingType($bucket, $type);
         $count=0;
         foreach($photo_list as $photo){
+            echo $photo."\n";
             $message=$photo." ";
             $result=$cb->get($photo);
             if($result!=null){

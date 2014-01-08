@@ -43,7 +43,9 @@ class RefineDataCommand extends Controller_admin {
             $this->fixUserPictureLarge();
         }elseif($action=='findhtml'){
             $this->ticket537HtmlRelocation();
-        } 
+        } elseif($action=='numbersready'){
+            $this->ticket667likesCountCommentCount();
+        }
         elseif ($action == "refineArticle") {
 
 
@@ -225,8 +227,83 @@ class RefineDataCommand extends Controller_admin {
         }
     }
     
+    public function ticket667likesCountCommentCount(){
+        $bucket="develop";
+        $article_arr=$this->findAllAccordingType('develop','article');
+        $cb=$this->couchBaseConnection($bucket);
+        foreach($article_arr as $article){
+            $result=$cb->get($article);
+            if($result!=null){
+                $result_arr=CJSON::decode($result);
+                if(!iset($result_arr['likes_count']) || $result_arr['likes_count']==null){
+                    $result_arr['likes_count']=0;
+                }else{
+                    echo $article." has like count already\n";
+                }
+                
+                      if(!iset($result_arr['view_count']) || $result_arr['view_count']==null){
+                    $result_arr['view_count']=0;
+                }else{
+                    echo $article." has like count already\n";
+                }
+                
+                              if(!iset($result_arr['comment_count']) || $result_arr['comment_count']==null){
+                    $result_arr['comment_count']=0;
+                    if(isset($result_arr['comment'])){
+                        if(sizeof($result_arr['commnet'])>0){
+                            $result_arr['comment_count']=  sizeof($result_arr['comment']);
+                        }else{
+                            echo $article." does not have comment\n";
+                        }
+                    }else{
+                        echo $article." does not have comment object\n";
+                    }
+                }else{
+                    echo $article." has like count already\n";
+                }
+            }else{
+                echo $article." can not find in couchbase---------\n";
+            }
+        }
+        $photo_arr=$this->findAllAccordingType($bucket, 'photo');
+                foreach($photo_arr as $photo){
+            $result=$cb->get($photo);
+            if($result!=null){
+                $result_arr=CJSON::decode($result);
+                if(!iset($result_arr['likes_count']) || $result_arr['likes_count']==null){
+                    $result_arr['likes_count']=0;
+                }else{
+                    echo $photo." has like count already\n";
+                }
+                
+                      if(!iset($result_arr['view_count']) || $result_arr['view_count']==null){
+                    $result_arr['view_count']=0;
+                }else{
+                    echo $photo." has like count already\n";
+                }
+                
+                              if(!iset($result_arr['comment_count']) || $result_arr['comment_count']==null){
+                    $result_arr['comment_count']=0;
+                    if(isset($result_arr['comment'])){
+                        if(sizeof($result_arr['commnet'])>0){
+                            $result_arr['comment_count']=  sizeof($result_arr['comment']);
+                        }else{
+                            echo $photo." does not have comment\n";
+                        }
+                    }else{
+                        echo $photo." does not have comment object\n";
+                    }
+                }else{
+                    echo $photo." has like count already\n";
+                }
+            }else{
+                echo $photo." can not find in couchbase---------\n";
+            }
+        }
+    }
+    
     public function ticket537HtmlRelocation(){
-        $bucket='develop';
+        $bucket='production';
         $type='photo';
         $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $log_path = '/var/log/yii/' . $datetime . '.log';

@@ -14,14 +14,21 @@
                 <k class="icon-envelope" style="">&nbsp;&nbsp;</k>
                 <span>Messages</span>
             </a></li>
-        <li class='ite'><a tabindex="-1" href="http://about.trendsideas.com/" target="blank">
-                <k class="icon-question-sign" style="">&nbsp;&nbsp;</k>
-                <span>Help</span>
-            </a></li>
-        <li class="ite"><a tabindex="-1" href="#" onclick="logout();">
-                <k class="icon-off" style="">&nbsp;&nbsp;</k>
-                <span>Log out</span> 
-            </a></li>
+                {{#if controller.is_authentic_user}}
+                <li class="ite" ><a tabindex="-1"  href="#/profiles/new">
+                        <k class="icon-briefcase" style="">&nbsp;&nbsp;</k>
+                        <span>New Profile</span>
+                    </a></li>
+                {{/if}}
+
+                <li class='ite'><a tabindex="-1" href="http://about.trendsideas.com/" target="blank">
+                        <k class="icon-question-sign" style="">&nbsp;&nbsp;</k>
+                        <span>Help</span>
+                    </a></li>
+                <li class="ite"><a tabindex="-1" href="#" onclick="logout();">
+                        <k class="icon-off" style="">&nbsp;&nbsp;</k>
+                        <span>Log out</span> 
+                    </a></li>
 
     </ul>
 

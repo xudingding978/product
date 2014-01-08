@@ -31,10 +31,12 @@
         <link rel="stylesheet" href="bower_components/wysihtml5/css/editor.css">  
         <link rel="stylesheet" href="bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.css" type="text/css" />  
         <!-- endbuild -->  
+        
     </head>
     <body id="body_id" >
         <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
         <!-- build:js scripts/components.js -->
+         <script src="bower_components/modernizr/modernizr.js"></script>
         <script src="bower_components/javascriptHelper/browserdetecter.js"></script>
         <script src="bower_components/jquery/jquery.js"></script>
         <script src="bower_components/handlebars/handlebars.runtime.js"></script>
@@ -53,8 +55,10 @@
         <script src="bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="bower_components/jquery-scrollto/lib/jquery-scrollto.js"></script>
         <script src="bower_components/dfp.js" ></script>
+         <script src="bower_components/countries.js" ></script>
         <!-- endbuild -->
         <!-- build:js(.tmp) scripts/templates.js -->
+
         <script src="scripts/compiled-templates.js"></script>
         <!-- endbuild -->
         <!-- build:js(.tmp) scripts/main.js -->
@@ -75,23 +79,21 @@
                 node.parentNode.insertBefore(gads, node);
             })();
         </script>
+        <noscript>
+            <h1>
+                Is seems that your browser has disabled JavaScript or does not support JavaScript! Please make sure you have enabled JavaScript or upgrade your browser.
+            </h1>
+        </noscript>
+        
     <script type="text/javascript">
             // implement gosquared
-            var GoSquared = {};
-            GoSquared.acct = "GSN-958782-H";
-            (function(w) {
-                function gs() {
-                    w._gstc_lt = +new Date;
-                    var d = document, g = d.createElement("script");
-                    g.type = "text/javascript";
-                    g.src = "//d1l6p2sc9645hc.cloudfront.net/tracker.js";
-                    var s = d.getElementsByTagName("script")[0];
-                    s.parentNode.insertBefore(g, s);
-                }
-                w.addEventListener ?
-                        w.addEventListener("load", gs, false) :
-                        w.attachEvent("onload", gs);
-            })(window);
+            !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
+              arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
+              d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
+              insertBefore(d,q)}(window,document,'script','_gs');
+
+              _gs('GSN-795556-O');
+
             //facebook
             window.fbAsyncInit = function() {
                 // init the FB JS SDK

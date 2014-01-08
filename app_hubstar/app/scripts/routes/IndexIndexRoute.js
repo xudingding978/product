@@ -17,7 +17,6 @@ HubStar.IndexIndexRoute = Ember.Route.extend({
                 this.controllerFor('application').set("popup", true);
             },
             transitionToArticle: function() {
-//        console.log("tomtomt");
                 this.controllerFor('application').set("popup", true);
             }
         },

@@ -2,12 +2,13 @@
 DS.RESTAdapter.map('HubStar.Profile', {
     collections: {embedded: 'load'},
     followers: {embedded: 'load'},
-    reviews:{embedded: 'load'},
+    reviews: {embedded: 'load'},
     keywords: {embedded: 'load'},
     about_us: {embedded: 'load'}
 });
 HubStar.Profile = DS.Model.extend({
     profile_category: DS.attr('string'),
+    profile_subcategory: DS.attr('string'),
     profile_hero_url: DS.attr('string'),
     profile_pic_url: DS.attr('string'),
     profile_bg_url: DS.attr('string'),
@@ -37,8 +38,8 @@ HubStar.Profile = DS.Model.extend({
     profile_domains: DS.attr('string'),
     profile_creater: DS.attr('string'),
     profile_partner_ids: DS.attr('string'),
-    profile_isActive: DS.attr('string'),
-    profile_isDeleted: DS.attr('string'),
+    profile_is_active: DS.attr('string'),
+    profile_is_deleted: DS.attr('string'),
     profile_facebook_link: DS.attr('string'),
     profile_twitter_link: DS.attr('string'),
     profile_googleplus_link: DS.attr('string'),
@@ -48,17 +49,17 @@ HubStar.Profile = DS.Model.extend({
     profile_analytics_code: DS.attr('string'),
     profile_average_review: DS.attr('string'),
     profile_average_review_length: DS.attr('string'),
-    profile_google_map:DS.attr('string'),
+    profile_google_map: DS.attr('string'),
     owner: DS.attr('string'),
     owner_contact_email: DS.attr('string'),
-    owner_contact_cc_emails: DS.attr('string'),
     owner_contact_bcc_emails: DS.attr('string'),
+    owner_contact_cc_emails: DS.attr('string'),
     followers: DS.hasMany('HubStar.Follower'),
     collections: DS.hasMany('HubStar.Collection'),
     reviews: DS.hasMany('HubStar.Review'),
     keywords: DS.hasMany('HubStar.Keyword'),
     show_keyword_id: DS.attr('string'),
-    about_us: DS.hasMany('HubStar.AboutUs'),
+    about_us: DS.hasMany('HubStar.AboutUs')
 //    getTenKeywords: function() {
 //        var tenKeywords =  this.get('keywords').slice(0,10);
 //        return tenKeywords;

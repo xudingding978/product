@@ -421,7 +421,8 @@ class PhotosController extends Controller {
     }
 
     function compressPhotoData($type, $image) {
-
+ error_log("cccccccccccccccc");
+  error_log($type);
         if ($type == "image/png") {
             imagepng($image);
         } elseif ($type == "image/jpeg") {

@@ -6,6 +6,16 @@ HubStar.ProfileRoute = Ember.Route.extend({
             HubStar.set("isLogin", false);
         } else {
             HubStar.set("isLogin", true);
+//            console.log(HubStar.User.find(localStorage.loginStatus).get("isLoaded"));
+////            if (HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== ""
+////                    && HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== "undefined"
+////                    && HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== null) {
+////
+////                this.controllerFor('application').set("is_authentic_user", true);
+////            } else {
+////                this.controllerFor('application').set("is_authentic_user", false);
+////            }
+//            
         }
         if (ProfileController.get('goBackType') === true)
         {
@@ -27,12 +37,12 @@ HubStar.ProfileRoute = Ember.Route.extend({
         this.controllerFor('profile').set('switchPhoto', true);
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
-        if (model.get('profile_analytics_code') !== null && model.get('profile_analytics_code') !== '' && model.get('profile_analytics_code') !== undefined) {
-            var analytics_array = model.get('profile_analytics_code').split(',');
-            for (var i = 0; i < analytics_array.length; i ++) {
-                this.sendGAMessage(analytics_array[i], model.get('id').split('-').join('')+i.toString());
-            }
-        }
+//        if (model.get('profile_analytics_code') !== null && model.get('profile_analytics_code') !== '' && model.get('profile_analytics_code') !== undefined) {
+//            var analytics_array = model.get('profile_analytics_code').split(',');
+//            for (var i = 0; i < analytics_array.length; i ++) {
+//                this.sendGAMessage(analytics_array[i], model.get('id').split('-').join('')+i.toString());
+//            }
+//        }
 
         var lastPositionId = HubStar.get('lastPositionId');
         var lastPosition = HubStar.get("scrollPartenerPosition");
@@ -43,7 +53,9 @@ HubStar.ProfileRoute = Ember.Route.extend({
          $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
         
         ProfileController.setProfile(model.id);
-
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 1000);
     },
     model: function(params) {
         
@@ -67,6 +79,25 @@ HubStar.ProfileRoute = Ember.Route.extend({
  
             this.transitionTo("profileArticle", article_id);
             this.transitionTo("profileArticlePhoto");
+        },
+                        transitionToVideo: function(video_id) {
+
+//            var address = document.URL;
+//            var owner_id = address.split("#")[1].split("/")[2];
+//
+//
+//            var collection_id = address.split("#")[1].split("/")[4];
+//            var profile = HubStar.Profile.find(owner_id);
+//            for (var i = 0; i < profile.get('collections').get("length"); i++) {
+//                var data = profile.get('collections').objectAt(i);
+//                if (data.id === collection_id) {
+//                    break;
+//                }
+//            }
+//            this.transitionTo("profileCollection", data);
+            //           this.controllerFor('masonryCollectionItems').set('isUser', true);
+            //var model = HubStar.Profile.find(video_id);
+            this.transitionTo("videoVideo", {id:video_id});
         }
     },
     redirect: function() {
@@ -96,18 +127,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
         });
     },
     sendGAMessage: function(profile_analytics_code, dom_url) {
-        try {
-            (function(i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r;
-                i[r] = i[r] || function() {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
-                a = s.createElement(o),
-                        m = s.getElementsByTagName(o)[0];
-                a.async = 1;
-                a.src = g;
-                m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        try {           
             ga('create', profile_analytics_code, {'name': dom_url});
             ga(dom_url + '.send', 'pageview');
             this.controller.set('isTracking', true);

@@ -118,7 +118,7 @@ HubStar.DeleteFunctionView = Ember.View.extend({
         else if (controller._debugContainerKey.indexOf("mega") !== -1) {
 
 
-            //    controller.addComment();
+               controller.cancelDelete();
 
         }
         else if (controller._debugContainerKey.indexOf("user") !== -1&&controller._debugContainerKey.indexOf("Message") !== -1) {

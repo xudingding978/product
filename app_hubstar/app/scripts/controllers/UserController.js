@@ -228,24 +228,6 @@ HubStar.UserController = Ember.Controller.extend({
         this.get('controllers.applicationFeedback').set('photo_url', this.get('photo_url_large'));
         this.isUserSelfOrNot(this.get("currentUserID"));
         this.isFollowed();
-        for(var i=0; i < this.get("collections").get("length");i++)
-    {
-        if (this.get("collections").objectAt(i) !== null && typeof this.get("collections").objectAt(i) !== 'undefined') {
-            
-            if(this.get("collections").objectAt(i).get("desc")==="Add a short description to your Collection")
-                {
-                   
-                    $(".album-description").attr("style", "display:none");
-                    $(".album-description-bg").attr("style", "display:none");
-                    this.get("collections").objectAt(i).set("desc", "");
-                }
-                else {
-                    this.setDesc(this.get("collections").objectAt(i).get("desc"));
-                }
-            this.setTitle(this.get("collections").objectAt(i).get("title"));
-        }
-    }
-
         var collections = user.get("collections");
         if (this.get('editingInterest') === true) {
             this.set('editingInterest', false);

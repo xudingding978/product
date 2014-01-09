@@ -228,6 +228,11 @@ HubStar.UserController = Ember.Controller.extend({
         this.get('controllers.applicationFeedback').set('photo_url', this.get('photo_url_large'));
         this.isUserSelfOrNot(this.get("currentUserID"));
         this.isFollowed();
+        if (this.get("collections").objectAt(0) !== null && typeof this.get("collections").objectAt(0) !== 'undefined') {
+            this.setDesc(this.get("collections").objectAt(0).get("desc"));
+            this.setTitle(this.get("collections").objectAt(0).get("title"));
+        }
+
         var collections = user.get("collections");
         if (this.get('editingInterest') === true) {
             this.set('editingInterest', false);

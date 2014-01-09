@@ -214,24 +214,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set("projectDeleteDropdownContent", profile.get("profile_is_deleted"));
         this.updateWorkingHourData(profile.get('profile_hours'));
         this.set("collections", profile.get("collections"));
-        
-//   for(var i=0; i < this.get("collections").get("length");i++)
-//    {
-//        if (this.get("collections").objectAt(i) !== null && typeof this.get("collections").objectAt(i) !== 'undefined') {
-//            console.log("test");
-//            if(this.get("collections").objectAt(i).get("desc")==="Add a short description to your Collection")
-//                {
-//                   console.log(this.get("collections").objectAt(i).get("desc"));
-//                    $(".album-description").attr("style", "display:none");
-//                    $(".album-description-bg").attr("style", "display:none");
-//                    this.get("collections").objectAt(i).set("desc", "");
-//                    console.log("1111");
-//                }else{
-//                    console.log('workswell');
-//                }
-//        
-//        }
-//    }
+
         this.set("reviews", profile.get("reviews"));
         
         if (profile.get("profile_average_review_length") !== "" && profile.get("profile_average_review_length") !== null && profile.get("profile_average_review_length") !== undefined) {

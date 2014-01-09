@@ -14,6 +14,7 @@ HubStar.UserController = Ember.Controller.extend({
     followingTag: false,
     messageTag: false,
     postTag: false,
+    followDisplay: true,
     newDesc: '',
     Id: "",
     type: "users",
@@ -256,8 +257,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         this.userPhotoEditBackButton();
         this.userDashboardBackButton();
-        
-        
+
         this.set('profileSelectionStatus', 'Collections');
         this.set('followingTag', false);
         this.set('collectionTag', true);
@@ -266,6 +266,27 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('postTag', false);
 
         this.labelBarRefresh();
+
+        this.trendsUser();
+
+    },
+    trendsUser: function() {
+        if (localStorage.loginStatus)
+        {
+          
+            if (this.get("user").get("email").match(/@trendsideas.com/g) !== "" && this.get("user").get("email").match(/@trendsideas.com/g) !== "undefined" && this.get("user").get("email").match(/@trendsideas.com/g) !== null)
+            {
+              //console.log(this.get("user").get("email"));
+                this.get("controllers.application").set("is_authentic_user", true);
+            }
+            else {
+                 //console.log(this.get("user").get("email"));
+                this.get("controllers.application").set("is_authentic_user", false);
+            }
+        }
+        else {
+
+        }
 
     },
     labelBarRefresh: function() {
@@ -399,6 +420,7 @@ HubStar.UserController = Ember.Controller.extend({
         return isExsinting;
     },
     toggleEditing: function(data, checkingInfo) {
+       
         if (checkingInfo === "interest") {
             interest_record = data;
             this.set('editingInterest', !this.get('editingInterest'));
@@ -781,6 +803,9 @@ HubStar.UserController = Ember.Controller.extend({
         {
             this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
         }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
     },
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
@@ -807,6 +832,8 @@ HubStar.UserController = Ember.Controller.extend({
                 this.set('is_authentic_user', false);
             }
         }
+
+
     },
     selectCollection: function() {
         this.set('profileSelectionStatus', 'Collections');
@@ -1020,7 +1047,8 @@ HubStar.UserController = Ember.Controller.extend({
             requiredBackEnd('users', 'updateStyleImage', data1, 'POST', function(params) {
 
                 that.set('isPhotoUploadMode', false);
-                HubStar.store.save();
+                var update_user_record = that.get('model');
+                update_user_record.store.save();
                 that.userPhotoEditBackButton();
                 that.userDashboardBackButton();
                 that.get('controllers.applicationFeedback').statusObserver(null, "Cover image updated.");

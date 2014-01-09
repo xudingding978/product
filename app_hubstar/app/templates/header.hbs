@@ -6,7 +6,7 @@
             <a href="/#" > <img class="logonew" {{action showDiscoveryBar}} style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png"></a>
 
 <!--            <div style="position: relative;display: inline-block;top: 12px;font-weight: normal;font-style: italic;color: white;font-size: 11px;">
-                <span>Beta</span> <span id="lastidentifie">0.3-127</span>
+
             </div>-->
 
         </div>
@@ -42,11 +42,13 @@
         <div id="login_detail" style="position: relative;float: right;cursor: pointer;text-align: right;">
             {{view HubStar.AfterLoginView}}
         </div>
-        <div class="Geo-Filter easing"  style="margin-right: 50px;font-size: 15px;" {{action dropdownPhotoSetting }}>
+        <div id="Geo-Filter" class="Geo-Filter easing"  style="margin-right: 50px;font-size: 15px;" {{action dropdown "notification"}}>
              <i class="icon-bell-alt icon-large"></i>
             {{#if isUnReadCountZero}}
             <div style="cursor: pointer;position: absolute;top: 20px;left: 15px;width: auto;padding: 0 5px 0 4px;height: 15px;background-color: red;line-height: 15px;border-radius: 2px;font-size: 11px;font-weight: bold;">{{unReadCount}}</div>
             {{/if}}
+
+            
         </div>
 
 
@@ -70,6 +72,10 @@
 
 
         {{#if isNotification}}
+        <div style="position: relative; float: right; top: 55px; z-index: 100;">
+            <div style="position: absolute;border-color: transparent transparent #f3f3f3 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: 0;"></div>
+            <div style="position: absolute;border-color: transparent transparent #888 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: -1;"></div>
+        </div>
         {{render notificationTop}}
         {{/if}}
 

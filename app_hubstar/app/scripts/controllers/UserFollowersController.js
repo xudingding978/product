@@ -185,6 +185,7 @@ HubStar.UserFollowersController = Ember.Controller.extend({
         }
     },
     followUser: function(user_id, that, follow_object) {
+
         var date = new Date();
         var currentUser = localStorage.loginStatus;
         var tempComment = HubStar.Follower.createRecord({"follower_profile_pic_url": null,

@@ -11,6 +11,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     isUser: false,
     isVideoPhoto: false,
     collectionID: "",
+    isSearchBoard:true,
     itemID: "",
     profileId: "",
     isSave: false,
@@ -45,8 +46,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                 for (var i = 0; i < this.get("content").length; i++) {
                     var tempObject = results.objectAt(i);
                     that.get("content").pushObject(tempObject);
-                }
-                that.reLayout();
+                }               
             }
         });
         this.checkEditingMode();
@@ -67,6 +67,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
             var results = HubStar.Collection.find({RquireType: "personalCollection", profile_id: owner_id, collection_id: collection_id});
             var that = this;
+     
             results.addObserver('isLoaded', function() {
                 if (results.get('isLoaded')) {
                     var titleFill = results.objectAt(0).get("title");
@@ -374,7 +375,9 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         {
             var t = this.get("uploadImageContent").objectAt(i).store.save();
             console.log(this.get("uploadImageContent").objectAt(i).get("isSaving"));
-            
+//            t.then(function(){
+//                console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqq");
+//            });
         }
         console.log("0000000000000");
         //this.get("uploadImageContent").store.save();

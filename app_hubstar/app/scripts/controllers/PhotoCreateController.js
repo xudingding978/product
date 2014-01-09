@@ -122,14 +122,12 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             mega.get("photo").pushObject(file);
             var that = this;
             
-            file.addObserver('isSaving', function() {
+            mega.addObserver('isSaving', function() {
                 
-                if (file.get('isSaving')) {
-                    console.log("2222222222");
+                if (mega.get('isSaving')) {
                     $('.' + file.get('photo_source_id')).attr("style", "display:block");
                 }
                 else {
-                   console.log("111111111111");
                     HubStar.set("totalFiles", HubStar.get("totalFiles") + 1);
                     $('.' + file.get('photo_source_id')).attr("style", "display:none");
                     if (HubStar.get("totalFiles") === that.get("filesNumber")) {
@@ -144,7 +142,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 }
             });
             var masonryCollectionItemsController = this.get('controllers.masonryCollectionItems');
-            masonryCollectionItemsController.get("uploadImageContent").addObject(file);
+            masonryCollectionItemsController.get("uploadImageContent").addObject(mega);
         }
         else
         {

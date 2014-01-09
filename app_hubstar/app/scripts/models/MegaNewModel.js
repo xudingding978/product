@@ -6,7 +6,6 @@ DS.RESTAdapter.map('HubStar.Meganew', {
 HubStar.Meganew = DS.Model.extend(Ember.Copyable, {
     accessed: DS.attr('string'),
     boost: DS.attr('string'),
-    category: DS.attr('string'),
     categories: DS.attr('string'),
     creator_profile_pic: DS.attr('string'),
     created: DS.attr('string'),
@@ -32,8 +31,8 @@ HubStar.Meganew = DS.Model.extend(Ember.Copyable, {
     owner_title: DS.attr('string'), //profile name
     owner_id: DS.attr('string'), //profile id
     owner_contact_email: DS.attr('string'),
-    owner_contact_cc_emails: DS.attr('string'),
     owner_contact_bcc_emails: DS.attr('string'),
+    owner_contact_cc_emails: DS.attr('string'),
     people_like: DS.attr('string'),
     region: DS.attr('string'),
     suburb: DS.attr('string'),

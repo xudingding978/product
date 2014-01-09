@@ -53,6 +53,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
         requiredBackEnd('reviews', 'Update', this.get("model"), 'POST', function(params) {
         });
         this.set("review_is_edit", !this.get('review_is_edit'));
+        
     },
     cancelReview: function() {
         this.set("review_is_edit", !this.get('review_is_edit'));

@@ -162,9 +162,10 @@
 
                             <!--PROFILE CONTACT SECTION-->
 
-                            {{#unless controller.editingContact}}
+                          
                             <div class="aside-container" style="">
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-phone' style='margin-right: 10px;'></i>Contact Detail</div>
+                               {{#unless controller.editingContact}}
                                 {{#if controller.is_authentic_user}}
                                 <div class="edit-btn easing hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing model.phone_number controller.contact}}>
                                      <i class="icon-edit" ></i>
@@ -177,11 +178,11 @@
                                 <table id="aside_contact" class="">
                                     <tr>
                                         <th>Contact:</th>
-                                        {{#if controller.editingContact }}
+                                        {{#if controller.editingContact}}
                                         {{input type="text" class="insert-contactdetails" value=first_name}}
                                         {{input type="text" class="insert-contactdetails" value=last_name}}
                                         {{else}}
-                                        <th class="Contact_2child">{{controller.editingContact}}{{first_name}} {{last_name}}</th>
+                                        <th class="Contact_2child">{{first_name}} {{last_name}}</th>
                                         {{/if}}
                                     </tr>
                                     <tr>
@@ -269,7 +270,7 @@
                             <!--PROFILE HOURS SECTION-->
 
                             <div class="aside-container" style="border-top: 1px solid #fff;">
-                                <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours{{controller.editingTime}}</div>
+                                <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</div>
 
                                 {{#unless controller.editingTime}}
                                 {{#if controller.is_authentic_user}}

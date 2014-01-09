@@ -274,7 +274,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.setAboutUsObject();
         this.set('editingAbout', false);
         this.set('editing', false);
-        console.log("33333");
         this.set('editingTime', false);
     },
 
@@ -473,7 +472,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         localStorage.user_id = this.get('model.id');     //??why model.id is user_id??
     },
     toggleEditing: function(data, checkingInfo) {
-console.log(checkingInfo);
         if (checkingInfo === "profileName") {
             profile_record = data;
             this.set('editing', !this.get('editing'));
@@ -496,9 +494,7 @@ console.log(checkingInfo);
             console.log(this.get("editingContact"));
         }
         else if (checkingInfo === "timeSetting") {
-            console.log(this.get('editingTime'));
             this.set('editingTime', !this.get('editingTime'));
-                   console.log(this.get('editingTime'));
         }
     },
     selectAboutVersion: function() {
@@ -590,7 +586,6 @@ console.log(checkingInfo);
             }
             this.set('model.profile_hours', data.substring(0, data.length - 1));
             this.set('editingTime', !this.get('editingTime'));
-                   console.log("111111111");
         }
         this.saveUpdate();
     },
@@ -624,7 +619,6 @@ console.log(checkingInfo);
         else if (checkingInfo === "timeSetting") {
             this.updateWorkingHourData(this.get('model.profile_hours'));
             this.set('editingTime', !this.get('editingTime'));
-                  console.log("22222222");
         }
     },
     updateWorkingHourData: function(times) {
@@ -1003,7 +997,7 @@ console.log(checkingInfo);
         update_profile_record.set("profile_is_deleted", this.get("projectDeleteDropdownContent"));
         this.createGooglemap();
         this.set('toAddress', update_profile_record.get('profile_physical_address') + ", " + update_profile_record.get('profile_suburb') + ", " + update_profile_record.get('profile_regoin') + ", " + update_profile_record.get('profile_country'));
-        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record); ///ddd
+        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
         }

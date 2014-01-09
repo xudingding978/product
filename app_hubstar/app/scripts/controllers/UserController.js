@@ -803,6 +803,9 @@ HubStar.UserController = Ember.Controller.extend({
         {
             this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
         }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
     },
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
@@ -1044,7 +1047,8 @@ HubStar.UserController = Ember.Controller.extend({
             requiredBackEnd('users', 'updateStyleImage', data1, 'POST', function(params) {
 
                 that.set('isPhotoUploadMode', false);
-                HubStar.store.save();
+                var update_user_record = that.get('model');
+                update_user_record.store.save();
                 that.userPhotoEditBackButton();
                 that.userDashboardBackButton();
                 that.get('controllers.applicationFeedback').statusObserver(null, "Cover image updated.");

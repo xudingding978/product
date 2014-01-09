@@ -2,20 +2,19 @@ HubStar.LoginModalController = Ember.Controller.extend({
     selected_topics: "",
     isAdd: false,
     contentTopic: [
-        {id: "1", image: '../images/welcomepage/bedroom.jpg', topic: 'Bedrooms'},
-        {id: "2", image: '../images/welcomepage/home-theatre.jpg', topic: 'Home Theatre'},
-        {id: "3", image: '../images/welcomepage/interior-living.jpg', topic: 'Interior Living'},
-        {id: "4", image: '../images/welcomepage/kitchens.jpg', topic: 'Kitchens'},
-        {id: "5", image: '../images/welcomepage/new-homes.jpg', topic: 'New Homes'},
-        {id: "6", image: '../images/welcomepage/outdoor-living.jpg', topic: 'Outdoor Living'},
-        {id: "7", image: '../images/welcomepage/renovation.jpg', topic: 'Renovation'},
-        {id: "8", image: '../images/welcomepage/apartment-design.jpg', topic: 'Apartment Design'},
-        {id: "9", image: '../images/welcomepage/civic-design.jpg', topic: 'Civic Design'},
-        {id: "10", image: '../images/welcomepage/educational-design.jpg', topic: 'Educational Design'},
-        {id: "11", image: '../images/welcomepage/hospitality-design.jpg', topic: 'Hospitality Design'},
-        {id: "12", image: '../images/welcomepage/office-design.jpg', topic: 'Office Design'},
-        {id: "13", image: '../images/welcomepage/refurbishment.jpg', topic: 'Refurbishment'},
-        {id: "14", image: '../images/welcomepage/retail-design.jpg', topic: 'Retail Design'}
+        {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
+        {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'},
+        {id: "3", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/kitchen.png', topic: 'Kitchens'},
+        {id: "4", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/bathroom.png', topic: 'Bathrooms'},
+        {id: "5", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/interiordesign.png', topic: 'Interior design'},
+        {id: "6", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/outdoorliving.png', topic: 'Outdoor Living'},
+        {id: "7", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/office.png', topic: 'Office'},
+        {id: "8", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/civic.png', topic: 'Civic'},
+        {id: "9", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/education.png', topic: 'Education'},
+        {id: "10", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/hospitality.png', topic: 'Hospitality'},
+        {id: "11", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/retail.png', topic: 'Retail'},
+        {id: "12", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment'}
+
 
     ],
     needs: ['application'],
@@ -72,6 +71,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                             localStorage.loginStatus = params[0].COUCHBASE_ID;
                             localStorage.userName = that.get('loginUsername');
                             localStorage.userType = "email";
+                            localStorage.loginState = "login";
                             location.reload();
                             HubStar.set("isLogin", true);
                             HubStar.set('checkLoginStatus', false);
@@ -82,8 +82,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                         {
                             that.set('loginTime', false);
                             $('.black-tool-tip').css('display', 'none');
-                            $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
-                            alert("Registration successful! To activate your myTrends account, please click the activation link in the email we just sent you.");
+                            $('#incorrect-varify').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                         }
                     }
                     else {
@@ -174,12 +173,33 @@ HubStar.LoginModalController = Ember.Controller.extend({
 
         //       $('#skipRegister').css('display', 'block');   
         requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
-            localStorage.loginStatus = params.COUCHBASE_ID;
+            localStorage.userName = params.USER_NAME;
+            that.set('loginUsername', localStorage.userName);
+            localStorage.userType = "email";
+            localStorage.loginState = "login";
             var emailInfo = [params.USER_NAME, params.PWD_HASH];
             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
 
             });
             setTimeout(function() {
+
+                $('.Login-box #login-btn').text('Sign up for a new account!');
+                $('.Login-box .black-tool-tip').css('display', 'none');
+                $('.Login-box #click-register-social').css('display', 'none');
+                $('.Login-box #click-register').css('display', 'none');
+                $('.Login-box #social-link').css('display', 'none');
+                $('.Login-box #login-with-email-drop-down').css('display', 'block');
+                $('.Login-box #social-login-container').css('display', 'none');
+                $('.Login-box #click-login').addClass('active-tab');
+                $('.Login-box #social-login').removeClass('social-active');
+                $('.Login-box #user-forgot-password-pane').css('display', 'none');
+                $('.Login-box #forgot-message-container').css('display', 'none');
+                $('.Login-box #invalid-username').css('display', 'none');
+
+                $('.Login-box #register-with-email-drop-down').css('display', 'none');
+                $('.Login-box #register-with-email-step-2').css('display', 'none');
+                $('.Login-box #user-login-pane').css('display', 'block');
+
                 that.set('first_name', "");
                 that.set('last_name', "");
                 that.set('email', "");

@@ -187,6 +187,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                 this.get("controllers.application").set("isUnReadCountZero", true);
             }
         this.get("controllers.messageCenter").set("unReadCount", count);
+        this.get("controllers.messageCenter").set("isUnReadCountZero", this.get("controllers.application").get("isUnReadCountZero"));
     },
     go: function(notification_id) {
         for (var i = 0; i < this.get("notificationTopContent").get("length"); i++)
@@ -331,6 +332,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     },
     reviewCancel: function() {
         this.get("controllers.application").set("isNotification", false);
+         $('#Geo-Filter').toggleClass('Geo-Filter-active');
     }
 }
 );

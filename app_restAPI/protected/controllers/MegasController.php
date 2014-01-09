@@ -46,7 +46,7 @@ class MegasController extends Controller {
     }
 
     public function actionCreate() {
-
+        error_log('test');
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $mega = $request_arr['mega'];
@@ -176,7 +176,7 @@ class MegasController extends Controller {
         }
     }
 
-    public function createUploadedPhoto($mega) {
+    public function createUploadedPhoto($mega) {        
         if (sizeof($mega) > 0) {
             $photoController = new PhotosController();
 

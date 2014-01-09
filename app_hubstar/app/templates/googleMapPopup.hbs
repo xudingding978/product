@@ -1,58 +1,65 @@
 
-<div id="google_pop" class="blur_black" style=""{{action setGooglePopup on="click" target="view"}}></div>
+
+<div class="popup-container">
+
+    <div id="google_pop" class="popup-bg-fadeout" style="" {{action setGooglePopup on="click" target="view"}}></div>
 
 
-<div  id ="google_map_pop" class="aside-container radius-rounded-corner box" style="position: fixed; top: 15%; z-index: 10; margin: auto; left: 0px; right: 0px; width: 800px;height: 565px;background-color: #fff;overflow: hidden;border: 0;" >
-    <div  id="map_canvas_pop"style="width: 800px; height: 425px; background-color: rgb(229, 227, 223); -webkit-transform: translateZ(0); position: relative; overflow: hidden;border-bottom: 1px solid #ddd; " >
+    <div  id ="google_map_pop" class="aside-container radius-rounded-corner box" style="position: absolute; top: 15%; z-index: 10; margin: auto; left: 0px; right: 0px; width: 800px;height: 565px;background-color: #fff;border: 0;" >
+       
+        <div id="" class="enlarge-map easing" style="z-index: 10; right: -45px; opacity: .9;"  {{action setGooglePopup on="click" target="view"}} ><k class="icon-remove" ></k></div>
+        <div  id="map_canvas_pop" class="" style="border-radius:3px 3px 0 0; width: 800px; height: 425px; background-color: rgb(229, 227, 223); -webkit-transform: translateZ(0); position: relative; overflow: hidden;border-bottom: 1px solid #ddd; " >
 
 
-    </div>
-    <div class="scrollbarGoogleMap">
-        <div  id="directionsPanel" style="display:none; position: absolute; width: 265px; direction: ltr; height: 425px; overflow: auto; overflow-x: hidden;right: 0px; top: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(221, 221, 221); border-bottom: 1px solid #ddd;" > 
-        </div>        
-    </div>
-
-    <div style="margin: 15px 0 5px;">
-        <div style="margin: 10px auto;border-bottom: 1px solid #ddd; width: 87%;"> {{input type="text" value=fromAddress placeholder="From" class="no-effect"}}</div>
-        <div style="margin: 10px auto; width: 87%"> {{input type="text" value=toAddress placeholder="To" class="no-effect"}}</div>
-    </div>
-
-    <div class="" style="height: 45px;position: relative;border-top: 1px solid #ddd;top: -1px;">
-        <div class="message-btn easing" style='width: 33%;height: 45px;line-height: 45px;' value="Print map" onclick="printmap('google_map_pop');"><k class='icon-print'>&nbsp;</k>Print Map</div>
-
-
-
-        <div id ="routeMode" class="message-btn easing" style="border: none; border-right: 1px solid #ddd;border-left: 1px solid #ddd; width: 34%;height: 45px;line-height: 45px;border-radius: 0;" {{action dropdownRoute target="view" on="click"}}>
-            <span id="routeModeSelection">{{view.routeModeSelection}}</span>
+        </div>
+        <div class="scrollbarGoogleMap">
+            <div  id="directionsPanel" style="display:none; position: absolute; width: 265px; direction: ltr; height: 425px; overflow: auto; overflow-x: hidden;right: 0px; top: 0px; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(221, 221, 221); border-bottom: 1px solid #ddd;" > 
+            </div>        
         </div>
 
-        <div id="routeModeDropdown" class="hideClass Dropdownstyle1" style=" z-index: 1000; position: fixed;text-align: center;margin: 42px 264px;" {{action selectRoute target="view" on="click"}}>
-            <li class="ite" value="DRIVING" >DRIVING</li>
-            <li class='ite' value="WALKING">WALKING</li>
-            <li class='ite' value="BICYCLING">BICYCLING</li>
-            <li class="ite" value="TRANSIT">TRANSIT</li>
+        <div style="margin: 15px 0 5px;">
+            <div style="width: 2%;float: left;margin-left: 20px;margin-top: 5px;font-weight: bold;text-align: right;">From:</div><div style="margin: 10px auto;border-bottom: 1px solid #ddd; width: 87%;left: 20px;position: relative;">{{input type="text" value=fromAddress placeholder="Enter your start address here" class="no-effect"}}</div>
+            <div style="width: 2%;float: left;margin-left: 20px;margin-top: 5px;font-weight: bold;text-align: right;">To:</div><div style="margin: 10px auto;border-bottom: 1px solid #ddd; width: 87%;left: 20px;position: relative;">{{input type="text" value=toAddress placeholder="To" class="no-effect"}}</div>
         </div>
-        {{#if fromAddress}}
-        <div id="routeGo" class="message-btn easing" style='width: 33%;height: 45px;line-height: 45px;'{{action routeGo on="click" target="view"}}>Get Direction <k class='icon-long-arrow-right'>&nbsp;</k></div>
-        {{else}}
-        <div  class="message-btn-x easing" style='width: 33%;height: 45px;line-height: 45px;'>Get Direction <k class='icon-long-arrow-right'>&nbsp;</k></div>
-        {{/if}}
-        <div  id="routeClear" class="message-btn easing" style='display:none;width: 33%;height: 45px;line-height: 45px;'{{action routeClear on="click" target="view"}}><k class='icon-long-arrow-left'>&nbsp;</k>Clear</div>
+
+        <div class="" style="height: 45px;position: relative;border-top: 1px solid #ddd;top: -1px;">
+            <div class="message-btn easing" style='width: 33%;height: 45px;line-height: 45px;border-radius: 0 0 0 3px;' value="Print map" onclick="printmap('google_map_pop');"><k class='icon-print'>&nbsp;</k>Print Map</div>
+ 
+          <div id ="routeMode" class="message-btn easing" style="border: none; border-right: 1px solid #ddd;border-left: 1px solid #ddd; width: 34%;height: 45px;line-height: 45px;border-radius: 0;" {{action dropdownRoute target="view" on="click"}}>
+             {{#if view.showTransportation}}
+             <span id="routeModeSelection">Transportation</span>
+             {{else}}
+             <span id="routeModeSelection">{{view.routeModeSelection}}</span>
+             {{/if}}
+            </div>
+
+            <div id="routeModeDropdown" class="hideClass Dropdownstyle1" style=" z-index: 1000; position: fixed;text-align: center;margin: 42px 264px;" {{action selectRoute target="view" on="click"}}>
+                <li class="ite" value="DRIVING" >DRIVING</li>
+                <li class='ite' value="WALKING">WALKING</li>
+                <li class='ite' value="BICYCLING">BICYCLING</li>
+                <li class="ite" value="TRANSIT">TRANSIT</li>
+            </div>
+            {{#if fromAddress}}
+            <div id="routeGo" class="message-btn easing" style='width: 33%;height: 45px;line-height: 45px;border-radius: 0 0 3px 0;'{{action routeGo on="click" target="view"}}>Get Directions <k class='icon-long-arrow-right'>&nbsp;</k></div>
+            {{else}}
+            <div  class="message-btn-x easing" style='width: 33%;height: 45px;line-height: 45px; border-radius: 0 0 3px 0;'>Get Directions <k class='icon-long-arrow-right'>&nbsp;</k></div>
+            {{/if}}
+            <div  id="routeClear" class="message-btn easing" style='display:none;width: 33%;height: 45px;line-height: 45px;'{{action routeClear on="click" target="view"}}><k class='icon-long-arrow-left'>&nbsp;</k>Clear</div>
+        </div>
+
     </div>
 
 </div>
 
-
-
 <script>
-            function printmap(divName)
-            {
-                var printContents = document.getElementById(divName).innerHTML;
-                var originalContents = document.body.innerHTML;
-                document.body.innerHTML = printContents;
-                window.print();
-                document.body.innerHTML = originalContents;
+    function printmap(divName)
+    {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
 
-            }
+    }
 
 </script>

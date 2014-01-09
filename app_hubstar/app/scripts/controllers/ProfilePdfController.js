@@ -1,7 +1,6 @@
 HubStar.ProfilePdfController = Ember.Controller.extend({
     is_authentic_user: true,
     is_pdf_create_mode: false,
-    pdfInfromationEdit: false,
     newPdfSource: '',
     newPdfName: '',
     newPdfCover: '',
@@ -28,19 +27,27 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
 //        this.checkEditingMode();
 //    },
     closeUploader: function() {
+        console.log('close');
          this.set('is_pdf_create_mode', false);
+         this.transitionTo("profilePdf");
     },
-    back: function() {
-        this.set('pdfInfromationEdit', false);
-        this.set('newPdfName', '');
-        this.set('newPdfSource', '');
-        this.set('newPdfCover', '');
-        this.set('newPdfDesc', '');
-    },
+//    back: function() {
+////        this.set('pdfInfromationEdit', false);
+//        this.closeUploader();
+//        
+//    },
     pdfCreateModeSwitch: function()
     {
         console.log('switch');
-        this.set('is_pdf_create_mode', !this.get('is_pdf_create_mode'));
+        if (!this.get('is_pdf_create_mode'))
+        {
+            document.getElementById("body_id").style.overflow = "hidden";
+        }
+        else {
+            document.getElementById("body_id").style.overflow = "auto";
+        }
+        this.set('is_pdf_create_mode', true);
+        this.transitionTo("pdfUploader");
     },
 //    dropdownPhotoSetting: function(id)
 //    {
@@ -124,30 +131,6 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
         $('#dropdown_id_' + this.get('delete_id')).toggleClass('hideClass');
         this.set('delete_id', null);
         this.relayout();
-    },
-    profileStyleImageDrop: function(e, name)
-    {
-        var target = getTarget(e, "single");
-        var src = target.result;
-//        var that = this;
-        this.set('newPdfSource',src);
-        this.set('newPdfName',name);
-        console.log(name);
-        console.log(src);
-        this.set('pdfInfromationEdit', true);
-//        getImageWidth(src, function(width, height) {
-//            that.set('newStyleImageSource', src);
-//            that.set('newStyleImageName', name);
-//            that.set('currentWidth', width);
-//            that.set('currentHeight', height);
-//            if (that.get('newStyleImageSource') !== null && that.get('newStyleImageSource') !== "")
-//            {
-//                var size = "Your image size is " + width + "x" + height;
-//                that.set('CurrentImageSize', size);
-//                that.set('isCrop', true);
-//                that.set('isUpload', true);
-//
-//            }
-//        });
     }
+    
 });

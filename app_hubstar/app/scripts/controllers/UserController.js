@@ -14,6 +14,7 @@ HubStar.UserController = Ember.Controller.extend({
     followingTag: false,
     messageTag: false,
     postTag: false,
+    followDisplay: true,
     newDesc: '',
     Id: "",
     type: "users",
@@ -253,7 +254,6 @@ HubStar.UserController = Ember.Controller.extend({
 
         this.userPhotoEditBackButton();
         this.userDashboardBackButton();
-        ;
 
         this.set('profileSelectionStatus', 'Collections');
         this.set('followingTag', false);
@@ -263,6 +263,27 @@ HubStar.UserController = Ember.Controller.extend({
         this.set('postTag', false);
 
         this.labelBarRefresh();
+
+        this.trendsUser();
+
+    },
+    trendsUser: function() {
+        if (localStorage.loginStatus)
+        {
+          
+            if (this.get("user").get("email").match(/@trendsideas.com/g) !== "" && this.get("user").get("email").match(/@trendsideas.com/g) !== "undefined" && this.get("user").get("email").match(/@trendsideas.com/g) !== null)
+            {
+              //console.log(this.get("user").get("email"));
+                this.get("controllers.application").set("is_authentic_user", true);
+            }
+            else {
+                 //console.log(this.get("user").get("email"));
+                this.get("controllers.application").set("is_authentic_user", false);
+            }
+        }
+        else {
+
+        }
 
     },
     labelBarRefresh: function() {
@@ -396,6 +417,7 @@ HubStar.UserController = Ember.Controller.extend({
         return isExsinting;
     },
     toggleEditing: function(data, checkingInfo) {
+       
         if (checkingInfo === "interest") {
             interest_record = data;
             this.set('editingInterest', !this.get('editingInterest'));
@@ -804,6 +826,8 @@ HubStar.UserController = Ember.Controller.extend({
                 this.set('is_authentic_user', false);
             }
         }
+
+
     },
     selectCollection: function() {
         this.set('profileSelectionStatus', 'Collections');

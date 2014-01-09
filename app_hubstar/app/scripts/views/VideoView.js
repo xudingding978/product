@@ -6,7 +6,7 @@ HubStar.VideoView = Ember.View.extend({
     DiscussionTag: false,
     NameTag: false,
     didInsertElement: function() {
- return this.$().attr({tabindex: 1}), this.$().focus();
+        return this.$().attr({tabindex: 1}), this.$().focus();
     },
     setTitleTag: function() {
         $('#article_action').slideToggle(1000);
@@ -45,7 +45,7 @@ HubStar.VideoView = Ember.View.extend({
 
 
     },
-             keyUp: function(event, view) {
+    keyUp: function(event, view) {
         if (event.which === 27)
         { // pressed 'esc'
 
@@ -54,6 +54,7 @@ HubStar.VideoView = Ember.View.extend({
             var address = document.URL;
             var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
             var id = address.split("#")[1].split("/")[2];
+            var videosOrCollection = address.split("#")[1].split("/")[3];
             var collection_id = address.split("#")[1].split("/")[4];
             var colectionType = address.split("#")[1].split("/")[5]; //it may be article id , photo id and video id
             var user_photo_id = address.split("#")[1].split("/")[8];
@@ -65,7 +66,7 @@ HubStar.VideoView = Ember.View.extend({
 
                 if (user_photo_id !== undefined) //type:article means it 
                 {
-     
+
                     var data = null;
                     for (var i = 0; i < user.get('collections').get("length"); i++) {
                         data = user.get('collections').objectAt(i);
@@ -77,15 +78,50 @@ HubStar.VideoView = Ember.View.extend({
                 }
                 else
                 {
-        
+
                     window.history.back();
                 }
             }
             else
             {
-                window.history.back();
-            }
+                HubStar.set("escVideo", true);
+                if (type === "profiles")
+                {
 
+
+                    var obj = HubStar.Mega.find(id);
+
+                    var profile = HubStar.Profile.find(id);
+                    for (var i = 0; i < profile.get('collections').get("length"); i++) {
+                        var data = profile.get('collections').objectAt(i);
+                        if (data.id === collection_id) {
+                            break;
+                        }
+                    }
+                    if (videosOrCollection === "collections")
+                    {
+                        this.get("controller").transitionTo("profileCollection", data);
+                    }
+                    else if (videosOrCollection === "videos")
+                    {
+                        
+                         this.get("controller").transitionTo("profile", {id:id});
+                        this.get("controller").transitionTo("profileVideos");
+                    }
+
+                }
+                else
+                {
+                    this.get("controller").transitionTo("search", {id: id});
+
+
+                }
+                //window.history.back();
+                $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+                setTimeout(function() {
+                    $('#masonry_container').masonry();  //masonry();
+                }, 300);
+            }
 
         }
     }

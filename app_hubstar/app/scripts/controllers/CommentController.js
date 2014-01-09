@@ -69,9 +69,22 @@ HubStar.CommentController = Ember.Controller.extend({
         if (commentContent) {
             
             var comments = this.get('mega').get('comments');
-           
-//            var commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
-            var commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
+            
+           var commenter_profile_pic_url = 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg';
+            if (this.get("currentUser").get('photo_url_large').indexOf('data:image') > -1) {
+               commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
+           } else {
+//                var request = new XMLHttpRequest();  
+//                request.open('GET', this.get("currentUser").get('photo_url_large'), true);  
+//                request.send();  
+//
+//                if (request.status === "404") {  
+//                    alert("Oh no, it does not exist!");                    
+//                }  else {
+                    commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
+//                }
+           }            
+            
             var commenter_id = this.get("currentUser").get('id');
             var name = this.get("currentUser").get('display_name');
             var date = new Date();

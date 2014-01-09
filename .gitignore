@@ -1,8 +1,0 @@
-/app_hubstar/dist/*.*
-/app_hubstar/dist/*
-
-/app_hubstar/test/*.*
-/app_hubstar/test/*
-
-/app_hubstar/npm-debug.log
-/nbproject/private/

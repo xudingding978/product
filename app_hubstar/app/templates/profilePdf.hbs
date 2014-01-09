@@ -1,6 +1,13 @@
+
+{{#if controller.loadingTime}}
+
+{{render loadingSpinner}}
+
+{{/if}}
 {{#if controller.is_authentic_user}}
-<div class="box style-box t-style-box col2" {{action pdfCreateModeSwitch}} id="addNewVideo" style="z-index: 0">    
-     <div id="uploadVideoObject" >
+<div class="box style-box t-style-box col2" {{action pdfCreateModeSwitch}} id="addNewPdf" style="z-index: 0">    
+     <div id="uploadPdfObject" >
+
         <div class="add-new-object-hoverarea easing">
 
             <i class="icon-plus-sign"></i>
@@ -22,5 +29,5 @@
 
 
 {{#if controller.is_pdf_create_mode}}
-{{view HubStar.PdfUploaderView}}
+{{render pdfUploader}}
 {{/if}}

@@ -7,6 +7,7 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
         }
         else if (controller._debugContainerKey.indexOf("application") !== -1)
         {
+               HubStar.set("escVideo",false);
             controller.transitionToRoute('search', {id: controller.get('search_string')});
             $(".Navigator-box").css('display', 'none');
             $("#top-about-menu").fadeOut("320");
@@ -51,6 +52,8 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
         }
     },
     didInsertElement: function() {
-        this.$().focus();
+
+        //this.$().focus();   //it is used to control the acess from route ,can change url from search 
+
     }
 });

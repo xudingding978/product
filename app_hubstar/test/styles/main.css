@@ -239,7 +239,7 @@ button {
     border-radius: 3px;
     border: 1px solid #d8d8d8;
     border-bottom-width: 1px;
-    border-top-width: 0;
+    border-top: 1px solid #e5e5e5;
 }
 
 
@@ -6983,15 +6983,28 @@ body > div.ember-view{
 #masonry_user_container[style='position: relative; height: 0px; width: 185px;'],
 #masonry_user_container[style='position:relative;height:0px;width: 185px;'],
 
+#masonry_user_container[style="position: relative; height: 184px; width: 370px;"],
+#masonry_user_container[style="position:relative;height:184px;width:370px;"],
+#masonry_user_container[style='position: relative; height: 184px; width: 370px;'],
+#masonry_user_container[style='position:relative;height:184px;width:370px;'],
+
+
+#masonry_user_container[style="position: relative; height: 0px; width: 185px;"],
+#masonry_user_container[style="position:relative;height:0px;width: 185px;"],
+#masonry_user_container[style='position: relative; height: 0px; width: 185px;'],
+#masonry_user_container[style='position:relative;height:0px;width: 185px;'],
+
+
 #masonry_photo_collection_container[style="position: relative; height: 0px; width: 185px;"],
 #masonry_photo_collection_container[style="position:relative;height:0px;width: 185px;"],
 #masonry_photo_collection_container[style='position: relative; height: 0px; width: 185px;'],
 #masonry_photo_collection_container[style='position:relative;height:0px;width: 185px;'],
 
-#masonry_container[style="position: relative; height: 157px; width: 370px;"],
-#masonry_container[style="position:relative;height:157px;width:370px;"],
-#masonry_container[style='position: relative; height: 157px; width: 370px;'],
-#masonry_container[style='position:relative;height:157px;width:370px;']{
+#masonry_container[style="top: 100px; position: relative; height: 157px; width: 370px;"],
+#masonry_container[style="top:100px;position:relative;height:157px;width:370px;"],
+#masonry_container[style='top: 100px; position: relative; height: 157px; width: 370px;'],
+#masonry_container[style='top:100px;position:relative;height:157px;width:370px;']
+{
     width:0!important;
     overflow:hidden;
     margin-left:4000px;
@@ -7974,7 +7987,6 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     float: left;
     padding-bottom: 200px;
     position: relative;
-    border-radius: 15px 0 0 15px;
 }
 
 .tabs-left:after{
@@ -8280,15 +8292,15 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     border: 1px solid #ddd; 
     background-color: #fff; 
     right: 140px; 
-    width: 200px;
+    width: auto;
 }
 
 .select-profile-save:before{
     content: "";
     position: absolute;
-    left: 90px;
+    left: 117px;
     top: -19px;
-    border-color: transparent transparent #fff transparent;
+    border-color: transparent transparent #f7f7f7 transparent;
     border-style: solid;
     border-width: 10px 10px 10px 10px;
     z-index: 0;
@@ -8297,7 +8309,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .select-profile-save:after{
     content: "";
     position: absolute;
-    left: 90px;
+    left: 117px;
     top: -20px;
     border-color: transparent transparent #ddd transparent;
     border-style: solid;
@@ -8725,6 +8737,7 @@ a:hover , a:focus {color: #aaa;}
 
 .tagsappear{
     opacity: 0;
+    overflow: hidden;
 }
 
 .tagsappear:hover{
@@ -9489,8 +9502,8 @@ div.album-description-bg{
 .object-poster{
     padding: 15px;
     width: 100%;
-    margin:0;
-
+    margin: 0;
+    min-height: 75px;
 }
 
 .object-poster:hover{
@@ -9500,7 +9513,7 @@ div.album-description-bg{
 .profilepic-container{
     position: relative;
     display: inline-block;
-    vertical-align: top;
+    vertical-align: middle;
     margin-right: 10px;
 }
 
@@ -9523,7 +9536,7 @@ div.album-description-bg{
 
 .poster_user{
     position: relative;
-    top: 3px;
+    vertical-align: middle;
     display: inline-block;
     min-width: 170px;
     width: 60%;
@@ -10063,11 +10076,12 @@ div.album-description-bg{
 }
 
 .choose-exist-collection{
-    width: 340px;
+    min-width: 300px;
     background-color: rgba(0,0,0,0.03);
     height: 30px;
     padding: 5px 8px;
     cursor: pointer;
+    text-align: left;
 }
 
 .choose-exist-collection:hover{
@@ -10089,7 +10103,6 @@ div.album-description-bg{
 }
 
 .add-collection_select-collection{
-    width: 100%;
     height: 240px;
     padding: 10px;
     position: absolute;
@@ -10174,6 +10187,24 @@ div.album-description-bg{
     left: 6px;
 }
 /* tool-tips for profile items  ENDS - 9/10/13 clint */
+
+
+
+/* search item comment controller styling  2013/12/06 */
+
+.comment-scroll-bar{
+    max-height:360px;
+    overflow:hidden;
+}
+
+/* search item comment controller styling ENDS - 2013/12/06 */
+
+
+
+
+.collapes-container_inner > .for-tooltip-position.hint--bottom:after{left: -65px!important}
+
+.collapes-container_inner > .hint--bottom:before{left: 14px!important}
 
 .no-effect, .no-effect:hover, .no-effect:focus{    
     box-shadow: none;
@@ -10552,7 +10583,7 @@ input{
 .latestebook{
     position: relative;
     max-width: 220px;
-    margin: 10px 5px;
+    margin: 10px 0px;
 }
 
 .latestebook-control{
@@ -10914,7 +10945,6 @@ textarea.add-interests{
 
 .aboutus-attr{font-size: 13px; font-weight: bold;margin: 5px;}
 
-.aboutus-thisvideo{margin: 5px 0;background: #f3f3f3;line-height:18px; padding: 6px 8px;}
 /* client profile content styling ENDS */
 
 
@@ -11265,7 +11295,9 @@ textarea.add-interests{
     background-color: rgba(255,255,255,0);
     box-shadow: none;
     border: none;
-    height: 35px;
+    height: 30px;
+    padding:6px;
+    line-height:18px!important;
 }
 
 .user-says-angle-before{
@@ -11594,10 +11626,10 @@ textarea.add-interests{
 
 
 .clear-all{
-    width: 20px;
-    height: 20px;
-    margin: 15px 10px;
-    line-height: 20px;
+    width: 15px;
+    height: 15px;
+    margin: 18px 10px;
+    line-height: 15px;
     border-radius: 0 2px 2px;
     background-color: #333;
     float: left;
@@ -11607,18 +11639,38 @@ textarea.add-interests{
 }
 
 .clear-all:before{
-    content: "";
+content: "";
+float: left;
+margin-left: -5px;
+width: 0;
+height: 0;
+border-color: transparent #333 transparent transparent;
+border-style: solid;
+border-width: 8px 5px 7px 0;
+border-radius: 2px;
+}
+.popup-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
     float: left;
-    margin-left: -7px;
-    width: 0;
-    height: 0;
-    border-color: transparent #333 transparent transparent;
-    border-style: solid;
-    border-width: 10px 7px 10px 0;
-    border-radius: 2px;
+    z-index: 1000;
 }
 
 
+.popup-bg-fadeout{
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    position: absolute;
+    height: 150%;
+    opacity: 0.6;
+    background-color: black;
+}
 
 .navbar {
     min-width: 1200px;
@@ -11725,7 +11777,7 @@ textarea.add-interests{
     width: 45%;
     max-width: 800px;
     position: absolute;
-    top: 300px;
+    top: 330px;
     margin: auto;
     left: 0;
     right: 0;
@@ -11779,8 +11831,8 @@ textarea.add-interests{
 }
 
 .popular-topics{
-    top: 400px;
-    width: 900px; 
+    top: 410px;
+    width: 1075px;
     position:absolute; 
     margin: auto;
     left: 0;
@@ -11791,12 +11843,11 @@ textarea.add-interests{
     padding: 5px 15px;
     border-radius: 2px;
     color: #fff;
-    font-size: 1em;
+    font-size: 1.2em;
     font-weight: bold;
     margin: 0 10px 0 5px;
     float: left;
     cursor: pointer;
-    opacity: .8;
 
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
@@ -12258,7 +12309,7 @@ div#login_detail{
     box-shadow: 0 0 10px #555;
 }
 
-.Notification-top:before{
+/*.Notification-top:before{
     content: "";
     position: absolute;
     left: 204px;
@@ -12278,7 +12329,7 @@ div#login_detail{
     border-style: solid;
     border-width: 10px 10px 10px 10px;
     z-index: -1;
-}
+}*/
 
 .Notification-top > div:first-child{border-radius: 3px 3px 0 0}
 .Notification-top > div:last-child{border-radius: 0 0 3px 3px}

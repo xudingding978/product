@@ -11,7 +11,7 @@
                 {{/if}}
                 <img {{bindAttr src="controller.model.photo_url_large"}} style="width: 180px;height: 180px;"/>
             </div>
-
+            {{#if controller.followDisplay}}
             <div style="margin: 30px auto 20px;display: block; text-align: center;">
                 {{#if controller.isUserSelf}}
                     <div href="#question_modal" role="button" class="disabled-btn follow-btn" data-toggle="modal" style="">Follow</div>
@@ -33,6 +33,7 @@
                     <div class="new-btn blue-btn" {{action talkToPeople}}><k class="icon-envelope" ></k></div>
                 {{/if}}           
             </div>
+            {{/if}}
             {{#if isTalk}}
             {{render talk}}
             {{/if}}

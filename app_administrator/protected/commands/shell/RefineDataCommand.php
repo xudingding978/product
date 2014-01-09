@@ -235,19 +235,19 @@ class RefineDataCommand extends Controller_admin {
             $result=$cb->get($article);
             if($result!=null){
                 $result_arr=CJSON::decode($result);
-                if(!iset($result_arr['likes_count']) || $result_arr['likes_count']==null){
+                if(!isset($result_arr['likes_count']) || $result_arr['likes_count']==null){
                     $result_arr['likes_count']=0;
                 }else{
                     echo $article." has like count already\n";
                 }
                 
-                      if(!iset($result_arr['view_count']) || $result_arr['view_count']==null){
+                      if(!isset($result_arr['view_count']) || $result_arr['view_count']==null){
                     $result_arr['view_count']=0;
                 }else{
                     echo $article." has like count already\n";
                 }
                 
-                              if(!iset($result_arr['comment_count']) || $result_arr['comment_count']==null){
+                              if(!isset($result_arr['comment_count']) || $result_arr['comment_count']==null){
                     $result_arr['comment_count']=0;
                     if(isset($result_arr['comment'])){
                         if(sizeof($result_arr['commnet'])>0){
@@ -261,28 +261,35 @@ class RefineDataCommand extends Controller_admin {
                 }else{
                     echo $article." has like count already\n";
                 }
+                
+                if($cb->set($article,CJSON::encode($result_arr))){
+                    echo $article." saved successfully\n";
+                }else{
+                    echo $article. "save to couchbase failed-----------\n";
+                }
             }else{
                 echo $article." can not find in couchbase---------\n";
             }
         }
+        
         $photo_arr=$this->findAllAccordingType($bucket, 'photo');
                 foreach($photo_arr as $photo){
             $result=$cb->get($photo);
             if($result!=null){
                 $result_arr=CJSON::decode($result);
-                if(!iset($result_arr['likes_count']) || $result_arr['likes_count']==null){
+                if(!isset($result_arr['likes_count']) || $result_arr['likes_count']==null){
                     $result_arr['likes_count']=0;
                 }else{
                     echo $photo." has like count already\n";
                 }
                 
-                      if(!iset($result_arr['view_count']) || $result_arr['view_count']==null){
+                      if(!isset($result_arr['view_count']) || $result_arr['view_count']==null){
                     $result_arr['view_count']=0;
                 }else{
                     echo $photo." has like count already\n";
                 }
                 
-                              if(!iset($result_arr['comment_count']) || $result_arr['comment_count']==null){
+                              if(!isset($result_arr['comment_count']) || $result_arr['comment_count']==null){
                     $result_arr['comment_count']=0;
                     if(isset($result_arr['comment'])){
                         if(sizeof($result_arr['commnet'])>0){
@@ -295,6 +302,11 @@ class RefineDataCommand extends Controller_admin {
                     }
                 }else{
                     echo $photo." has like count already\n";
+                }
+                                if($cb->set($photo,CJSON::encode($result_arr))){
+                    echo $article." saved successfully\n";
+                }else{
+                    echo $article. "save to couchbase failed-----------\n";
                 }
             }else{
                 echo $photo." can not find in couchbase---------\n";

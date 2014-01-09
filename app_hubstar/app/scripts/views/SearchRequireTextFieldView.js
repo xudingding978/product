@@ -36,11 +36,11 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
             controller.updateReply(s);
         }
         else if (controller._debugContainerKey.indexOf("reviewListSingle") !== -1) {
-
+           
             var s = this.$().parents()[0].id.split("_")[1];
             controller.transitionToRoute('review', {id: s});
             controller.addReviewReply(s);
-            controller.editReviewReply(s);
+            //controller.editReviewReply(s);
         }
         else if (controller._debugContainerKey.indexOf("reviewReplyListSingle") !== -1) {
             var s = this.$().parents()[0].id.split("_")[1];

@@ -7483,7 +7483,7 @@ div.search-loading-invisible{
 .Dropdownstyle1{
     overflow: visible;
     position: absolute;
-    min-width: 233px;
+    min-width: 23px;
     z-index: 102;
     background-color: white;
     border: 1px solid rgba(0, 0, 0, 0.08);
@@ -7968,6 +7968,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .mustfull{
     display: block;
     color: #3B5998;
+    text-align: center;
 }
 
 .no-resize{
@@ -9490,6 +9491,7 @@ div.album-description-bg{
     width: 320px;
     background-color: white;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .article-objectview-right{
@@ -9883,6 +9885,8 @@ div.album-description-bg{
     font-weight: bold;
     line-height: 30px;
     margin-bottom: 10px;
+    word-break: break-word;
+    
 }
 
 .article-text{  
@@ -10200,15 +10204,12 @@ div.album-description-bg{
 /* search item comment controller styling ENDS - 2013/12/06 */
 
 
-<<<<<<< HEAD
-=======
 
 
 .collapes-container_inner > .for-tooltip-position.hint--bottom:after{left: -65px!important}
 
 .collapes-container_inner > .hint--bottom:before{left: 14px!important}
 
->>>>>>> 7b588d983772385bcca2e7bb94b2f46764162fd8
 .no-effect, .no-effect:hover, .no-effect:focus{    
     box-shadow: none;
     border: none;
@@ -11548,6 +11549,17 @@ textarea.add-interests{
 
 
 
+.profilenew-package{
+    padding: 35px;
+background-color: gainsboro;
+margin: 30px 20px 0 20px;
+position: relative;
+width: 28%;
+float: left;
+text-align: center;
+}
+
+
 /*MAP SECTION*/
 
 .enlarge-map{width: 45px;height: 45px;line-height: 45px; background-color: #fff; color: #555;opacity: 0;position: absolute;right: 9px;text-align: center;font-size: 15px;}
@@ -11623,11 +11635,6 @@ textarea.add-interests{
 #routeModeDropdown > .ite {width: 270px;}
 
 
-
-
-
-
-
 .clear-all{
     width: 15px;
     height: 15px;
@@ -11652,16 +11659,7 @@ border-style: solid;
 border-width: 8px 5px 7px 0;
 border-radius: 2px;
 }
-.popup-container{
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    overflow: auto;
-    float: left;
-    z-index: 1000;
-}
+
 
 .popup-container{
     position: fixed;
@@ -11846,11 +11844,7 @@ border-radius: 2px;
 
 .popular-topics{
     top: 410px;
-<<<<<<< HEAD
-    width: 1060px;
-=======
     width: 1075px;
->>>>>>> 7b588d983772385bcca2e7bb94b2f46764162fd8
     position:absolute; 
     margin: auto;
     left: 0;

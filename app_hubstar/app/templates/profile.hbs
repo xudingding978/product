@@ -162,10 +162,10 @@
 
                             <!--PROFILE CONTACT SECTION-->
 
-                          
+                            
                             <div class="aside-container" style="">
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-phone' style='margin-right: 10px;'></i>Contact Detail</div>
-                               {{#unless controller.editingContact}}
+                                {{#unless controller.editingContact}}
                                 {{#if controller.is_authentic_user}}
                                 <div class="edit-btn easing hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing model.phone_number controller.contact}}>
                                      <i class="icon-edit" ></i>
@@ -175,7 +175,7 @@
 
                                 {{/unless}}
 
-                                <table id="aside_contact" class="">
+                                <table id="aside_contact" >
                                     <tr>
                                         <th>Contact:</th>
                                         {{#if controller.editingContact}}
@@ -188,7 +188,13 @@
                                     <tr>
                                         <th>Category:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" class="insert-contactdetails" value=model.profile_category }}
+                                        <div class="new-btn" style="margin: 4px 0px 0 20px;width: 100%;display: inline-block; text-align: left;" {{action dropdown "category"}}>
+                                     <span id="profileCategorySelection">{{controller.profileCategorySelection}}</span>
+                                    <span class="caret"></span>
+                                    {{#if controller.profileCategoryDropdown}}
+                                    {{view HubStar.DropdownListView}}
+                                    {{/if}}
+                                </div>
                                         {{else}}
                                         <th class="Contact_2child"><a >{{model.profile_category}}</a></th>
                                         {{/if}}
@@ -196,11 +202,17 @@
                                     <tr>
                                         <th>Subcategory:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" class="insert-contactdetails" value=model.profile_subcategory }}
+                                         <div  class="new-btn" style="margin: 4px 0px 0 20px;width: 100%;display: inline-block; text-align: left;" {{action dropdown "subcategory"}}>
+                                     <span id="profileSubcategorySelection">{{controller.profileSubcategorySelection}}</span>
+                                    <span class="caret"></span>
+                                    {{#if controller.profileSubcategoryDropdown}}
+                                    {{view HubStar.DropdownListView}}
+                                    {{/if}}
+                                </div>      
                                         {{else}}
                                         <th class="Contact_2child"><a >{{model.profile_subcategory}}</a></th>
                                         {{/if}}
-                                    </tr>
+                                    </tr>   
                                     <tr>
                                         <th>Address:</th>
                                         {{#if controller.editingContact}}
@@ -420,7 +432,7 @@
                 <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">General Settings</div>
 
                 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
-                    <tbody class="profilesnew-table" style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+       
                         <tr>
                             <td>Profile Name*: </td>
                             <td>
@@ -437,10 +449,10 @@
                             <td>
                                 <div  style="display: block; margin-bottom: 5px;" >
 
-                                    <div  style="margin: 0 5px 0;width: 48%;display: inline-block;">
+                                    <div  style="margin: 0;width: 50%;display: inline-block;">
                                         {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
                                     </div>
-                                    <div style="margin: 0;width: 48%;display: inline-block;">
+                                    <div style="margin: 0;width: 49%;display: inline-block;">
                                         {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
                                     </div>
 
@@ -448,15 +460,41 @@
                             </td>
                         </tr>
 
+                        
+                        
+                    <tr>
+                        <td style="text-align: right;" >Profile Category:</td> 
+
+                        <td>
+                            <div  style="display: block; margin-bottom: 0px;" >
+                                <div class="new-btn" style="margin:0;width: 50%;display: inline-block;" {{action dropdown "category"}}>
+                                     <span id="profileCategorySelection">{{controller.profileCategorySelection}}</span>
+                                    <span class="caret"></span>
+                                    {{#if controller.profileCategoryDropdown}}
+                                    {{view HubStar.DropdownListView}}
+                                    {{/if}}
+                                </div>
+                                <div  class="new-btn" style="margin: 0;width: 49%;display: inline-block;" {{action dropdown "subcategory"}}>
+                                     <span id="profileSubcategorySelection">{{controller.profileSubcategorySelection}}</span>
+                                    <span class="caret"></span>
+                                    {{#if controller.profileSubcategoryDropdown}}
+                                    {{view HubStar.DropdownListView}}
+                                    {{/if}}
+                                </div>                              
+                            </div>
+                        </td>
+                    </tr>
+                        
+                        
                         <tr>
                             <td>Physical Address:</td>
                             <td>
                                 <div  style="display: block; margin-bottom: 5px;" >
 
-                                    <div  style="margin: 0 5px 0;width: 48%;display: inline-block;">
+                                    <div  style="margin: 0;width: 50%;display: inline-block;">
                                         {{view Ember.TextField valueBinding="address"  placeholder="Street Address"}}
                                     </div>
-                                    <div style="margin: 0;width: 48%;display: inline-block;">
+                                    <div style="margin: 0;width: 49%;display: inline-block;">
                                         {{view Ember.TextField valueBinding="suburb"  placeholder="Suburb"}}
                                     </div>
 
@@ -519,10 +557,9 @@
                         </tr>
 
 
-                    </tbody>
                 </table>
                 <div style="right: 0;margin: 30px auto 0;width: 150px;">
-                    <span class="new-btn green-btn" {{action saveUpdate}}>Save</span>
+                    <span class="new-btn green-btn" {{action saveUpdateGeneral}}>Save</span>
                     <span class='new-btn blue-btn flip-back' {{action flipFrontBack}}><k class='icon-group'> &nbsp;</k>Back</span>
                 </div>
             </div>

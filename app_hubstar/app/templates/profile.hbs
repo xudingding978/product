@@ -175,7 +175,7 @@
 
                                 {{/unless}}
 
-                                <table id="aside_contact" class="">
+                                <table id="aside_contact" >
                                     <tr>
                                         <th>Contact:</th>
                                         {{#if controller.editingContact}}
@@ -188,7 +188,13 @@
                                     <tr>
                                         <th>Category:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" class="insert-contactdetails" value=model.profile_category }}
+                                        <div class="new-btn" style="margin: 4px 0px 0 20px;width: 100%;display: inline-block; text-align: left;" {{action dropdown "category"}}>
+                                     <span id="profileCategorySelection">{{controller.profileCategorySelection}}</span>
+                                    <span class="caret"></span>
+                                    {{#if controller.profileCategoryDropdown}}
+                                    {{view HubStar.DropdownListView}}
+                                    {{/if}}
+                                </div>
                                         {{else}}
                                         <th class="Contact_2child"><a >{{model.profile_category}}</a></th>
                                         {{/if}}
@@ -196,11 +202,17 @@
                                     <tr>
                                         <th>Subcategory:</th>
                                         {{#if controller.editingContact}}
-                                        {{input type="text" class="insert-contactdetails" value=model.profile_subcategory }}
+                                         <div  class="new-btn" style="margin: 4px 0px 0 20px;width: 100%;display: inline-block; text-align: left;" {{action dropdown "subcategory"}}>
+                                     <span id="profileSubcategorySelection">{{controller.profileSubcategorySelection}}</span>
+                                    <span class="caret"></span>
+                                    {{#if controller.profileSubcategoryDropdown}}
+                                    {{view HubStar.DropdownListView}}
+                                    {{/if}}
+                                </div>      
                                         {{else}}
                                         <th class="Contact_2child"><a >{{model.profile_subcategory}}</a></th>
                                         {{/if}}
-                                    </tr>
+                                    </tr>   
                                     <tr>
                                         <th>Address:</th>
                                         {{#if controller.editingContact}}
@@ -547,7 +559,7 @@
 
                 </table>
                 <div style="right: 0;margin: 30px auto 0;width: 150px;">
-                    <span class="new-btn green-btn" {{action saveUpdate}}>Save</span>
+                    <span class="new-btn green-btn" {{action saveUpdateGeneral}}>Save</span>
                     <span class='new-btn blue-btn flip-back' {{action flipFrontBack}}><k class='icon-group'> &nbsp;</k>Back</span>
                 </div>
             </div>

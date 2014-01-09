@@ -510,11 +510,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         } else if (checkingInfo === "aboutMe") {
             about_record = data;
             this.selectAboutVersion();
-        } else if (checkingInfo === "contact") {
+        } else if (checkingInfo === "contact") { 
             first_name_record = this.get('first_name');
             last_name_record = this.get('last_name');
-
-            //contact_record = this.get('model.contact_user');
             category_record = this.get('model.profile_category');
             address_record = this.get('address');
             suburb_record = this.get('suburb');
@@ -598,9 +596,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     yes: function(checkingInfo) {
         if (checkingInfo === "profileName") {
             this.set('editing', !this.get('editing'));
+            
+             var update_profile_record = HubStar.Profile.find(this.get('model.id'));
+        update_profile_record.set("profile_name", this.get('profile_name'));
+        this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
+          HubStar.store.save();
         }
         else if (checkingInfo === "contact") {
-
             if (this.get("website_url").match(/[http]/g) === -1 || this.get("website_url").match(/[http]/g) === null)
             {
                 this.set("website_url", "http://" + this.get("website_url"));
@@ -608,6 +610,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
 
             this.set('editingContact', !this.get('editingContact'));
+            
+               this.saveUpdateGeneral();
         }
         else if (checkingInfo === "timeSetting") {
             var updateHour = this.get('hours');
@@ -617,8 +621,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
             this.set('model.profile_hours', data.substring(0, data.length - 1));
             this.set('editingTime', !this.get('editingTime'));
+            this.saveUpdate();
         }
-        this.saveUpdate();
+//    this.saveUpdate();
     },
     noSelection: function() {
         this.set('editing', false);
@@ -961,6 +966,40 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
         HubStar.store.save();
     },
+            
+                     saveUpdateGeneral:function(){
+        var update_profile_record = HubStar.Profile.find(this.get('model.id'));
+          update_profile_record.set('profile_contact_first_name', this.get('first_name'));
+        update_profile_record.set('profile_contact_last_name', this.get('last_name'));
+        update_profile_record.set("profile_name", this.get('profile_name'));
+          update_profile_record.set('profile_physical_address', this.get('address'));
+        update_profile_record.set('profile_suburb', this.get('suburb'));
+        
+        update_profile_record.set('profile_contact_number', this.get('profile_contact_number'));
+        
+        update_profile_record.set('profile_regoin', this.get('region'));
+        update_profile_record.set('profile_country', this.get('country'));
+        
+        update_profile_record.set('profile_cover_text', this.get('profile_cover_text'));
+        update_profile_record.set('profile_analytics_code', this.get('profile_analytics_code'));
+        update_profile_record.set('profile_website', this.get('website'));
+        update_profile_record.set('profile_website_url', this.get('website_url'));
+        
+        
+          update_profile_record.set('profile_category', this.get('profileCategorySelection'));
+        update_profile_record.set('profile_subcategory', this.get('profileSubcategorySelection'));
+        
+        this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
+          HubStar.store.save();
+            },
+                         saveUpdateHoursl:function(){
+        var update_profile_record = HubStar.Profile.find(this.get('model.id'));
+   
+        
+        this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
+          HubStar.store.save();
+            },
+            
     saveUpdate: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
 
@@ -994,22 +1033,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
         update_profile_record.set('owner_contact_bcc_emails', this.get('direct_enquiry_provide_email'));
 
-        update_profile_record.set('profile_category', this.get('profileCategorySelection'));
-        update_profile_record.set('profile_subcategory', this.get('profileSubcategorySelection'));
 
 
         update_profile_record.set('owner_contact_cc_emails', this.get('secondary_email'));
         update_profile_record.set('owner_contact_email', this.get('contact_email'));
-        update_profile_record.set('profile_website', this.get('website'));
-        update_profile_record.set('profile_website_url', this.get('website_url'));
-        update_profile_record.set('profile_cover_text', this.get('profile_cover_text'));
-        update_profile_record.set('profile_analytics_code', this.get('profile_analytics_code'));
-        update_profile_record.set('profile_contact_number', this.get('profile_contact_number'));
-        update_profile_record.set('profile_contact_first_name', this.get('first_name'));
-        update_profile_record.set('profile_physical_address', this.get('address'));
-        update_profile_record.set('profile_suburb', this.get('suburb'));
-        update_profile_record.set('profile_contact_last_name', this.get('last_name'));
-        update_profile_record.set("profile_name", this.get('profile_name'));
         update_profile_record.set("profile_is_active", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_is_deleted", this.get("projectDeleteDropdownContent"));
         this.createGooglemap();

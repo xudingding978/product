@@ -148,7 +148,9 @@ class ProfilesController extends Controller {
             $oldRecord['keywords'] = $newRecord['profile_keywords'];
             $oldRecord['profile'][0]['profile_keywords_num'] = $newRecord['profile_keywords_num'];
             $oldRecord['keyword_num'] = $newRecord['profile_keywords_num'];
+            //error_log(var_export($newRecord['show_keyword_id'], true));
             $oldRecord['profile'][0]['show_keyword_id'] = $newRecord['show_keyword_id'];
+           // error_log(var_export($oldRecord['profile'][0]['show_keyword_id'], true));
 //            $oldRecord['profile'][0]['keywords'] = $newRecord['keywords'] ;
 //            $oldRecord['keyword'] = $newRecord['keywords'];
             if ($oldRecord['profile'][0]['profile_package_name'] !== $newRecord['profile_package_name']) {

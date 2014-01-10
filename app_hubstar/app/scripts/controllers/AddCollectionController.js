@@ -236,7 +236,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                 collection.set('type', 'user');
                 collection.set('optional', localStorage.loginStatus);
                 this.get("collections").insertAt(0, collection);
-                HubStar.store.save();
+                this.get("collections").store.save();
                 HubStar.set('selectedCollection', collection);
                 this.chooseRecord(collection.get("title"), collection.get("id"));
                 //$('#recordID').text(this.get('newCollectionName'));

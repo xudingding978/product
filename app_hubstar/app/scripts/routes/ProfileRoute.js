@@ -54,7 +54,9 @@ HubStar.ProfileRoute = Ember.Route.extend({
 
         ProfileController.setProfile(model.id);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry();
+            $('#masonry_user_container').masonry("reloadItems");
+             $('#masonry_user_container').masonry("reload");
         }, 1000);
     },
     model: function(params) {

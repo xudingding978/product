@@ -229,88 +229,116 @@ class RefineDataCommand extends Controller_admin {
     
     public function ticket667likesCountCommentCount(){
         $bucket="develop";
-        $article_arr=$this->findAllAccordingType('develop','article');
+        $article_arr=$this->findAllAccordingType($bucket,'article');
         $cb=$this->couchBaseConnection($bucket);
+        $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = '/var/log/yii/' . $datetime . '.log';
         foreach($article_arr as $article){
+            $message=$article. " ";
             $result=$cb->get($article);
             if($result!=null){
                 $result_arr=CJSON::decode($result);
                 if(!isset($result_arr['likes_count']) || $result_arr['likes_count']==null){
                     $result_arr['likes_count']=0;
                 }else{
-                    echo $article." has like count already\n";
+                    echo $article." has likes count already\n";
+                      $message.=" has likes count already\n";
                 }
                 
                       if(!isset($result_arr['view_count']) || $result_arr['view_count']==null){
                     $result_arr['view_count']=0;
                 }else{
                     echo $article." has like count already\n";
+                      $message.=" has view_count already\n";
                 }
                 
                               if(!isset($result_arr['comment_count']) || $result_arr['comment_count']==null){
                     $result_arr['comment_count']=0;
-                    if(isset($result_arr['comment'])){
-                        if(sizeof($result_arr['commnet'])>0){
-                            $result_arr['comment_count']=  sizeof($result_arr['comment']);
+                    if(isset($result_arr['comments'])){
+                      //  echo "     ".sizeof($result_arr['comments'])."     ";
+                        $check=sizeof($result_arr['comments']);
+              //          echo var_export($result_arr['comments'])."\n";
+                        if($check>0){
+                            $result_arr['comment_count']=  $check;
+                     //        echo $article." ".sizeof($result_arr['comments'])."     ";
                         }else{
                             echo $article." does not have comment\n";
+                              $message.=" does not have comment\n";
                         }
                     }else{
                         echo $article." does not have comment object\n";
+                          $message.=" does not have comment object\n";
                     }
                 }else{
-                    echo $article." has like count already\n";
+                    echo $article." has comment_count already\n";
+                      $message.=" has comment_count already\n";
                 }
                 
                 if($cb->set($article,CJSON::encode($result_arr))){
                     echo $article." saved successfully\n";
+                      $message.=" saved successfully\n";
                 }else{
                     echo $article. "save to couchbase failed-----------\n";
+                      $message.= "save to couchbase failed-----------\n";
                 }
             }else{
                 echo $article." can not find in couchbase---------\n";
+                  $message.=" can not find in couchbase---------\n";
             }
+            $this->writeToLog($log_path, $message);
         }
         
         $photo_arr=$this->findAllAccordingType($bucket, 'photo');
-                foreach($photo_arr as $photo){
+             foreach($photo_arr as $photo){
+            $message=$photo. " ";
             $result=$cb->get($photo);
             if($result!=null){
                 $result_arr=CJSON::decode($result);
                 if(!isset($result_arr['likes_count']) || $result_arr['likes_count']==null){
                     $result_arr['likes_count']=0;
                 }else{
-                    echo $photo." has like count already\n";
+                    echo $photo." has likes count already\n";
+                      $message.=" has likes count already\n";
                 }
                 
                       if(!isset($result_arr['view_count']) || $result_arr['view_count']==null){
                     $result_arr['view_count']=0;
                 }else{
                     echo $photo." has like count already\n";
+                      $message.=" has view_count already\n";
                 }
                 
                               if(!isset($result_arr['comment_count']) || $result_arr['comment_count']==null){
                     $result_arr['comment_count']=0;
-                    if(isset($result_arr['comment'])){
-                        if(sizeof($result_arr['commnet'])>0){
-                            $result_arr['comment_count']=  sizeof($result_arr['comment']);
+                    if(isset($result_arr['comments'])){
+                             $check=sizeof($result_arr['comments']);
+                        if($check>0){
+                            $result_arr['comment_count']=  $check;
                         }else{
                             echo $photo." does not have comment\n";
+                              $message.=" does not have comment\n";
                         }
                     }else{
                         echo $photo." does not have comment object\n";
+                          $message.=" does not have comment object\n";
                     }
                 }else{
-                    echo $photo." has like count already\n";
+                    echo $photo." has comment_count already\n";
+                      $message.=" has comment_count already\n";
                 }
-                                if($cb->set($photo,CJSON::encode($result_arr))){
-                    echo $article." saved successfully\n";
+                
+                if($cb->set($photo,CJSON::encode($result_arr))){
+                    echo $photo." saved successfully\n";
+                      $message.=" saved successfully\n";
                 }else{
-                    echo $article. "save to couchbase failed-----------\n";
+                    echo $photo. "save to couchbase failed-----------\n";
+                      $message.= "save to couchbase failed-----------\n";
                 }
             }else{
                 echo $photo." can not find in couchbase---------\n";
+                  $message.=" can not find in couchbase---------\n";
             }
+            $this->writeToLog($log_path, $message);
         }
     }
     

@@ -520,9 +520,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             phone_record = this.get('profile_contact_number');
             website_record = this.get('website');
             website_url_record = this.get('website_url');
-            console.log(this.get("editingContact"));
             this.set('editingContact', !this.get('editingContact'));
-            console.log(this.get("editingContact"));
         }
         else if (checkingInfo === "timeSetting") {
             this.set('editingTime', !this.get('editingTime'));
@@ -809,18 +807,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     isAdmin = permissionController.setIsAdmin(current_user_email);
                 }
             });
-//            currentUser.addObserver('isLoaded', function() {
-//                var current_user_email = currentUser.get('email');
-//                 console.log("ssssssssssssssss");
-//                if (currentUser.get('isLoaded')) {
-//                    var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-//                    that.set("is_authentic_user", is_authentic_user);
-//                     
-//                    var isAdmin = permissionController.setIsAdmin(current_user_email);
-//                    that.set('isAdmin', isAdmin);
-//                    isAdmin = permissionController.setIsAdmin(current_user_email);
-//                }
-//            });
         }
     }
     },
@@ -1400,7 +1386,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     sendEventTracking: function(hitType, category, action, label) {
         if (this.isTracking) {
-            console.log(this.get('model'));
             var analytics_array = this.get('model').get('profile_analytics_code').split(',');
             for (var i = 0; i < analytics_array.length; i++) {
                 ga(this.get('model').get('id').split('-').join('') + i.toString() + '.send', {

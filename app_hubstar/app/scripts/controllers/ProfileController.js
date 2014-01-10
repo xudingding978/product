@@ -1255,14 +1255,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': that.get('model.id')};
                         that.set('loadingTime', true);
-                        console.log("1112121");
+                       
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
                             //     $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoEditingMode', false);
                             that.set('isPhotoUploadMode', false);
                             that.set('isFinished', true);
                             that.set("isCrop", false);
-                            console.log("dddddss");
+                            
                             //   HubStar.store.save();
                             that.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
                             that.set('loadingTime', false);

@@ -144,10 +144,6 @@ class ProfilesController extends Controller {
             $oldRecord['keywords'] = $newRecord['profile_keywords'];
             $oldRecord['profile'][0]['profile_keywords_num'] = $newRecord['profile_keywords_num'];
             $oldRecord['keyword_num'] = $newRecord['profile_keywords_num'];
-//            error_log($newRecord['show_keyword_id']);
-            
-            
-//            error_log($oldRecord['profile'][0]['show_keyword_id']);
 
 //            $oldRecord['profile'][0]['keywords'] = $newRecord['keywords'] ;
 //            $oldRecord['keyword'] = $newRecord['keywords'];
@@ -173,9 +169,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_youtube_link'] = $newRecord['profile_youtube_link'];
             $oldRecord['profile'][0]['profile_analytics_code'] = $newRecord['profile_analytics_code'];
             $oldRecord['profile'][0]['profile_google_map'] = $newRecord['profile_google_map'];
-//            error_log($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true)));
-//            error_log('saved into profile');
-//            error_log($this->getDomain() . $_SERVER['REQUEST_URI']);
+
             $oldRecord['profile'][0]['show_keyword_id'] = $newRecord['show_keyword_id'];
             $cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true));
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {

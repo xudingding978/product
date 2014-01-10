@@ -1,7 +1,7 @@
 
 
 <div class="profile-wallpaper" style="width: 100%; height: 500px; overflow: hidden; position: fixed; top: 70px;">
-    <img src={{model.profile_bg_url}} style="width: 100%; height:auto;">
+    <img  {{bindAttr src= model.profile_bg_url}} style="width: 100%; height:auto;">
 </div>
 <div style="width: 100%; height:250px; position: relative; display: block; opacity: 0;">
 </div>
@@ -163,7 +163,7 @@
                             <!--PROFILE CONTACT SECTION-->
 
 
-                            
+
                             <div class="aside-container" style="">
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-phone' style='margin-right: 10px;'></i>Contact Detail</div>
                                 {{#unless controller.editingContact}}
@@ -177,95 +177,100 @@
                                 {{/unless}}
 
                                 <table id="aside_contact" >
-                                    <tr>
-                                        <th>Contact:</th>
-                                        {{#if controller.editingContact}}
-                                        {{input type="text" class="insert-contactdetails" value=first_name}}
-                                        {{input type="text" class="insert-contactdetails" value=last_name}}
-                                        {{else}}
-                                        <th class="Contact_2child">{{first_name}} {{last_name}}</th>
-                                        {{/if}}
-                                    </tr>
-                                    <tr>
-                                        <th>Category:</th>
-                                        {{#if controller.editingContact}}
-                                        <div class="new-btn" style="margin: 4px 0px 0 20px;width: 100%;display: inline-block; text-align: left;" {{action dropdown "category"}}>
-                                     <span id="profileCategorySelection">{{controller.profileCategorySelection}}</span>
-                                    <span class="caret"></span>
-                                    {{#if controller.profileCategoryDropdown}}
-                                    {{view HubStar.DropdownListView}}
-                                    {{/if}}
-                                </div>
-                                        {{else}}
-                                        <th class="Contact_2child"><a >{{model.profile_category}}</a></th>
-                                        {{/if}}
-                                    </tr>
-                                    <tr>
-                                        <th>Subcategory:</th>
-                                        {{#if controller.editingContact}}
-                                         <div  class="new-btn" style="margin: 4px 0px 0 20px;width: 100%;display: inline-block; text-align: left;" {{action dropdown "subcategory"}}>
-                                     <span id="profileSubcategorySelection">{{controller.profileSubcategorySelection}}</span>
-                                    <span class="caret"></span>
-                                    {{#if controller.profileSubcategoryDropdown}}
-                                    {{view HubStar.DropdownListView}}
-                                    {{/if}}
-                                </div>      
-                                        {{else}}
-                                        <th class="Contact_2child"><a >{{model.profile_subcategory}}</a></th>
-                                        {{/if}}
-                                    </tr>   
-                                    <tr>
-                                        <th>Address:</th>
-                                        {{#if controller.editingContact}}
-                                        {{input type="text" class="insert-contactdetails" value=address placeholder="Street Address" }}
-                                        {{input type="text" class="insert-contactdetails" value=suburb  placeholder="Suburb"}}
-                                        {{input type="text" class="insert-contactdetails" value=region  placeholder="Region"}}
-                                        {{input type="text" class="insert-contactdetails" value=country placeholder="country" }}
-                                        {{else}}
-                                        {{#if controller.address}}
-                                        <th class="Contact_2child">{{address}},</th>
-                                        {{/if}}
-                                        {{#if controller.suburb}}
-                                        <th class="Contact_2child">{{suburb}},</th>
-                                        {{/if}}
-                                        {{#if controller.region}}
-                                        <th class="Contact_2child">{{region}},</th>
-                                        {{/if}}
-                                        {{#if controller.country}}
-                                        <th class="Contact_2child">{{country}}</th>
-                                        {{/if}}
-                                        {{/if}}
-                                    </tr>
+                                    <tbody>
+                                        <tr>
 
-                                    <tr>
-                                        <th>Phone:</th>
-                                        {{#if controller.editingContact}}
-                                        {{input type="text" class="insert-contactdetails" value=profile_contact_number  }}
-                                        {{else}}
-                                        <th class="Contact_2child">{{profile_contact_number}}</th>
-                                        {{/if}}
-                                    </tr>
-                                    <tr>
-                                        <th>Website:</th>
-                                        {{#if controller.editingContact}}
-                                        {{input type="text" class="insert-contactdetails" value=website }}
+                                            <th>Contact:</th>
+                                            <td>
+                                                {{#if controller.editingContact}}
+                                                {{input type="text" class="insert-contactdetails" value=first_name}}
+                                                {{input type="text" class="insert-contactdetails" value=last_name}}
+                                                {{else}}
+                                                <div class="Contact_2child">{{first_name}} {{last_name}}</div>
+                                                {{/if}}
+                                            </td>
+                                        </tr>
+                                        <tr>
 
-                                        {{else}}
-                                        <th class="Contact_2child"><a href="#"{{action gotoSize}}>{{website}}</a></th>
-                                        {{/if}}
-                                    </tr>
+                                            <th>Category:</th>
+                                            <td>
+                                                {{#if controller.editingContact}}
+                                                <div class="new-btn" style="margin: 4px 0px 0 20px;width: 100%;display: inline-block; text-align: left;" {{action dropdown "category"}}>
+                                                     <span id="profileCategorySelection">{{controller.profileCategorySelection}}</span>
+                                                    <span class="caret"></span>
+                                                    {{#if controller.profileCategoryDropdown}}
+                                                    {{view HubStar.DropdownListView}}
+                                                    {{/if}}
+                                                </div>
+                                                {{else}}
+                                                <div class="Contact_2child"><a >{{model.profile_category}}</a></div>
+                                                {{/if}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Subcategory:</th>
+                                            <td>
+                                                {{#if controller.editingContact}}
+                                                <div  class="new-btn" style="margin: 4px 0px 0 20px;width: 100%;display: inline-block; text-align: left;" {{action dropdown "subcategory"}}>
+                                                      <span id="profileSubcategorySelection">{{controller.profileSubcategorySelection}}</span>
+                                                    <span class="caret"></span>
+                                                    {{#if controller.profileSubcategoryDropdown}}
+                                                    {{view HubStar.DropdownListView}}
+                                                    {{/if}}
+                                                </div>      
+                                                {{else}}
+                                                <div class="Contact_2child"><a >{{model.profile_subcategory}}</a></div>
+                                                {{/if}}
+                                            </td>
+                                        </tr>   
+                                        <tr>
+                                            <th>Address:</th>
+                                            <td>
+                                                {{#if controller.editingContact}}
+                                                {{input type="text" class="insert-contactdetails" value=address placeholder="Street Address" }}
+                                                {{input type="text" class="insert-contactdetails" value=suburb  placeholder="Suburb"}}
+                                                {{input type="text" class="insert-contactdetails" value=region  placeholder="Region"}}
+                                                {{input type="text" class="insert-contactdetails" value=country placeholder="country" }}
+                                                {{else}}
+                                                {{#if controller.address}}
+                                                <div class="Contact_2child">{{address}},</div>
+                                                {{/if}}
+                                                {{#if controller.suburb}}
+                                                <div class="Contact_2child">{{suburb}},</div>
+                                                {{/if}}
+                                                {{#if controller.region}}
+                                                <div class="Contact_2child">{{region}},</div>
+                                                {{/if}}
+                                                {{#if controller.country}}
+                                                <div class="Contact_2child">{{country}}</div>
+                                                {{/if}}
+                                                {{/if}}
+                                            </td>
+                                        </tr>
 
-                                    <tr>
+                                        <tr>
+                                            <th>Phone:</th>
+                                            <td>
+                                                {{#if controller.editingContact}}
+                                                {{input type="text" class="insert-contactdetails" value=profile_contact_number  }}
+                                                {{else}}
+                                                <div class="Contact_2child">{{profile_contact_number}}</div>
+                                                {{/if}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Website:</th>
+                                            <td>
+                                                {{#if controller.editingContact}}
+                                                {{input type="text" class="insert-contactdetails" value=website }}
 
-                                        {{#if controller.editingContact}}   
-                                        <th style = "color: #aaa; text-align: right;padding-bottom: 10px;font-size: 14px;font-weight: normal;width: 90px;">Website URL:</th>       
-                                        {{input type="text" class="insert-contactdetails" value=website_url }}                        
-                                        {{else}}
+                                                {{else}}
+                                                <div class="Contact_2child"><a href="#"{{action gotoSize}}>{{website}}</a></div>
+                                                {{/if}}
+                                            </td>
+                                        </tr>
 
-
-                                        {{/if}}
-                                    </tr>
-
+                                    </tbody>
                                 </table>
                                 {{#unless controller.editingContact}}
 
@@ -296,20 +301,23 @@
                                 {{#each controller.hours}}
 
                                 <table id="aside_contact">
-                                    {{#unless controller.editingTime}}
-                                    <tbody style="display: inline-block; vertical-align: top;">
-                                        <tr style="">
-                                            <th>{{day}}</th>
+                                    
+                                    <tbody>
+                                        
+                                            {{#unless controller.editingTime}}
+                                            
+                                             <th class="Contact_1child">{{day}}</th>
+                                           
                                             {{else}}
-                                            {{input type="text" class="inserthours-day" value=day}}
+                                           <td> {{input type="text" class="inserthours-day" value=day}}</td>
                                             {{/unless}}
 
                                             {{#unless controller.editingTime}}
                                             <th class="Contact_2child">{{time}}</th>
                                             {{else}}
-                                            {{input type="text" class="inserthours-time" value=time  }}
+                                          <td>  {{input type="text" class="inserthours-time" value=time  }}</td>
                                             {{/unless}}
-                                        </tr>
+                                       
                                     </tbody>
                                 </table>
 
@@ -433,36 +441,36 @@
                 <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">General Settings</div>
 
                 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
-       
-                        <tr>
-                            <td>Profile Name*: </td>
-                            <td>
-                                <div style="display: block;">
-                                    {{view Ember.TextField valueBinding="profile_name"   class="mustFill1" placeholder="Heritage Tiles NZ"}}
+
+                    <tr>
+                        <td>Profile Name*: </td>
+                        <td>
+                            <div style="display: block;">
+                                {{view Ember.TextField valueBinding="profile_name"   class="mustFill1" placeholder="Heritage Tiles NZ"}}
+                            </div>
+                            <div class="mustfull" id="mustFill1" style="display: none">please fill in info... </div>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>Profile Contact:</td>
+                        <td>
+                            <div  style="display: block; margin-bottom: 5px;" >
+
+                                <div  style="margin: 0;width: 50%;display: inline-block;">
+                                    {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
                                 </div>
-                                <div class="mustfull" id="mustFill1" style="display: none">please fill in info... </div>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Profile Contact:</td>
-                            <td>
-                                <div  style="display: block; margin-bottom: 5px;" >
-
-                                    <div  style="margin: 0;width: 50%;display: inline-block;">
-                                        {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
-                                    </div>
-                                    <div style="margin: 0;width: 49%;display: inline-block;">
-                                        {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
-                                    </div>
-
+                                <div style="margin: 0;width: 49%;display: inline-block;">
+                                    {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
                                 </div>
-                            </td>
-                        </tr>
 
-                        
-                        
+                            </div>
+                        </td>
+                    </tr>
+
+
+
                     <tr>
                         <td style="text-align: right;" >Profile Category:</td> 
 
@@ -476,7 +484,7 @@
                                     {{/if}}
                                 </div>
                                 <div  class="new-btn" style="margin: 0;width: 49%;display: inline-block;" {{action dropdown "subcategory"}}>
-                                     <span id="profileSubcategorySelection">{{controller.profileSubcategorySelection}}</span>
+                                      <span id="profileSubcategorySelection">{{controller.profileSubcategorySelection}}</span>
                                     <span class="caret"></span>
                                     {{#if controller.profileSubcategoryDropdown}}
                                     {{view HubStar.DropdownListView}}
@@ -485,77 +493,77 @@
                             </div>
                         </td>
                     </tr>
-                        
-                        
-                        <tr>
-                            <td>Physical Address:</td>
-                            <td>
-                                <div  style="display: block; margin-bottom: 5px;" >
-
-                                    <div  style="margin: 0;width: 50%;display: inline-block;">
-                                        {{view Ember.TextField valueBinding="address"  placeholder="Street Address"}}
-                                    </div>
-                                    <div style="margin: 0;width: 49%;display: inline-block;">
-                                        {{view Ember.TextField valueBinding="suburb"  placeholder="Suburb"}}
-                                    </div>
-
-                                </div>
-                            </td>
-                        </tr>
 
 
-                        <tr>
-                            <td>Contact Number:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="profile_contact_number" placeholder="0987364531"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>Physical Address:</td>
+                        <td>
+                            <div  style="display: block; margin-bottom: 5px;" >
 
-                        <tr>
-                            <td>Website:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="website" placeholder="yourdomain.com"}}
-                                    </div>
+                                <div  style="margin: 0;width: 50%;display: inline-block;">
+                                    {{view Ember.TextField valueBinding="address"  placeholder="Street Address"}}
                                 </div>
-                            </td>
-                        </tr>
+                                <div style="margin: 0;width: 49%;display: inline-block;">
+                                    {{view Ember.TextField valueBinding="suburb"  placeholder="Suburb"}}
+                                </div>
 
-                        <tr>
-                            <td>Website URL:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="website_url" placeholder="http://www.yourdomain.com"}}
-                                    </div>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>Contact Number:</td>
+                        <td>
+                            <div style="display: block;">
+                                <div   style="margin: 0;width: 100%;">
+                                    {{view Ember.TextField valueBinding="profile_contact_number" placeholder="0987364531"}}
                                 </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Profile Cover Text:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="profile_cover_text" placeholder="Small profile description"}}
-                                    </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Website:</td>
+                        <td>
+                            <div style="display: block;">
+                                <div   style="margin: 0;width: 100%;">
+                                    {{view Ember.TextField valueBinding="website" placeholder="yourdomain.com"}}
                                 </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Gooogle Analytics Tracking ID:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="profile_analytics_code" placeholder="UA-44575103-1"}}
-                                    </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Website URL:</td>
+                        <td>
+                            <div style="display: block;">
+                                <div   style="margin: 0;width: 100%;">
+                                    {{view Ember.TextField valueBinding="website_url" placeholder="http://www.yourdomain.com"}}
                                 </div>
-                            </td>
-                        </tr>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Profile Cover Text:</td>
+                        <td>
+                            <div style="display: block;">
+                                <div   style="margin: 0;width: 100%;">
+                                    {{view Ember.TextField valueBinding="profile_cover_text" placeholder="Small profile description"}}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Gooogle Analytics Tracking ID:</td>
+                        <td>
+                            <div style="display: block;">
+                                <div   style="margin: 0;width: 100%;">
+                                    {{view Ember.TextField valueBinding="profile_analytics_code" placeholder="UA-44575103-1"}}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
 
 
                 </table>
@@ -649,7 +657,7 @@
                 </table>
                 <div style="right: 0;margin: 30px auto 0;width: 150px;">
                     <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
-                    <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}}><k class='icon-group'> &nbsp;</k>Back</span>
+                    <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><k class='icon-group'> &nbsp;</k>Back</span>
                 </div>
             </div>
 
@@ -730,7 +738,7 @@
                 </table>
                 <div style="right: 0;margin: 30px auto 0;width: 150px;">
                     <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
-                    <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}}><k class='icon-group'> &nbsp;</k>Back</span>
+                    <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><k class='icon-group'> &nbsp;</k>Back</span>
                 </div>
             </div>
 
@@ -828,7 +836,7 @@
 
                 <div style="right: 0;margin: 30px auto 0;width: 150px;">
                     <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
-                    <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}}><k class='icon-group'> &nbsp;</k>Back</span>
+                    <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><k class='icon-group'> &nbsp;</k>Back</span>
                 </div>
             </div>
 
@@ -1048,8 +1056,8 @@
     {{/if}}
 
 
-{{#if controller.makeSelection}}
+    {{#if controller.makeSelection}}
 
-{{view HubStar.SelectFunctionView}}
+    {{view HubStar.SelectFunctionView}}
 
-{{/if}}
+    {{/if}}

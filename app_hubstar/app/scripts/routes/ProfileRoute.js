@@ -1,13 +1,11 @@
 HubStar.ProfileRoute = Ember.Route.extend({
     setupController: function(ProfileController, model) {
-
         HubStar.set('editingMode', 'profile');
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
         {
             HubStar.set("isLogin", false);
         } else {
             HubStar.set("isLogin", true);
-            console.log(HubStar.User.find(localStorage.loginStatus).get("isLoaded"));
             if (HubStar.User.find(localStorage.loginStatus).get("isLoaded")) {
                 if (HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== ""
                         && HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== "undefined"
@@ -55,10 +53,14 @@ HubStar.ProfileRoute = Ember.Route.extend({
         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
 
         ProfileController.setProfile(model.id);
-
+        setTimeout(function() {
+            $('#masonry_user_container').masonry();
+            $('#masonry_user_container').masonry("reloadItems");
+             $('#masonry_user_container').masonry("reload");
+        }, 1000);
     },
     model: function(params) {
-
+        
         return HubStar.Profile.find(params.profile_id);
     },
 

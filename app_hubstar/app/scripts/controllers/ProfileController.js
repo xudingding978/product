@@ -233,6 +233,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.updateWorkingHourData(profile.get('profile_hours'));
         this.set("collections", profile.get("collections"));
 
+
         this.set("reviews", profile.get("reviews"));
 
         if (profile.get("profile_average_review_length") !== "" && profile.get("profile_average_review_length") !== null && profile.get("profile_average_review_length") !== undefined) {
@@ -262,7 +263,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         this.labelBarRefresh();
         this.flipFrontBack();
-
+       
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
         this.initStastics(profile);
@@ -519,7 +520,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             phone_record = this.get('profile_contact_number');
             website_record = this.get('website');
             website_url_record = this.get('website_url');
-
             this.set('editingContact', !this.get('editingContact'));
         }
         else if (checkingInfo === "timeSetting") {
@@ -596,11 +596,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     yes: function(checkingInfo) {
         if (checkingInfo === "profileName") {
             this.set('editing', !this.get('editing'));
-
-            var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-            update_profile_record.set("profile_name", this.get('profile_name'));
-            this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
-            HubStar.store.save();
+            
+             var update_profile_record = HubStar.Profile.find(this.get('model.id'));
+        update_profile_record.set("profile_name", this.get('profile_name'));
+        this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
+          update_profile_record.store.save();
         }
         else if (checkingInfo === "contact") {
             if (this.get("website_url").match(/[http]/g) === -1 || this.get("website_url").match(/[http]/g) === null)
@@ -649,8 +649,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('profile_contact_number', phone_record);
             this.set('website', website_record);
             this.set('website_url', website_url_record);
-            this.set('editingContact', !this.get('editingContact'));
-
+          
+            this.set('editingContact', !this.get('editingContact'));       
         }
         else if (checkingInfo === "timeSetting") {
             this.updateWorkingHourData(this.get('model.profile_hours'));
@@ -781,7 +781,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.toggleUpload();
     },
     checkAuthenticUser: function() {
+      if(localStorage.loginStatus){
         var currentUser = HubStar.User.find(localStorage.loginStatus);
+
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
@@ -790,18 +792,23 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             var isAdmin = permissionController.setIsAdmin(current_user_email);
             this.set('isAdmin', isAdmin);
             that.set("is_authentic_user", is_authentic_user);
+            
         } else {
-            currentUser.addObserver('isLoaded', function() {
+            
+            currentUser.then(function() {
                 var current_user_email = currentUser.get('email');
+                
                 if (currentUser.get('isLoaded')) {
                     var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
                     that.set("is_authentic_user", is_authentic_user);
+
                     var isAdmin = permissionController.setIsAdmin(current_user_email);
                     that.set('isAdmin', isAdmin);
                     isAdmin = permissionController.setIsAdmin(current_user_email);
                 }
             });
         }
+    }
     },
     isFollowed: function()
     {
@@ -963,10 +970,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
         update_About_record.set("profile_about_us", editor.getValue());
         this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
-        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
-        HubStar.store.save();
+        //HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
+        update_About_record.store.save();
     },
-    saveUpdateGeneral: function() {
+    saveUpdateGeneral:function(){
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
         update_profile_record.set('profile_contact_first_name', this.get('first_name'));
         update_profile_record.set('profile_contact_last_name', this.get('last_name'));
@@ -987,10 +994,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         update_profile_record.set('profile_category', this.get('profileCategorySelection'));
         update_profile_record.set('profile_subcategory', this.get('profileSubcategorySelection'));
-
+        
         this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
-        HubStar.store.save();
-    },
+          update_profile_record.store.save();
+            },                      
+            
     saveUpdate: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
 
@@ -1032,13 +1040,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_is_deleted", this.get("projectDeleteDropdownContent"));
         this.createGooglemap();
         this.set('toAddress', update_profile_record.get('profile_physical_address') + ", " + update_profile_record.get('profile_suburb') + ", " + update_profile_record.get('profile_regoin') + ", " + update_profile_record.get('profile_country'));
-        HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
+        //HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
         }
         this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
 
-        HubStar.store.save();
+        update_profile_record.store.save();
     },
 //    saveShowKeywords: function() {
 //        var show_keyword_id = '';
@@ -1085,6 +1093,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
             if (this.get('show_keyword_id').indexOf(keyword_id) > -1) {
                 this.set('show_keyword_id', this.get('show_keyword_id').replace(',' + keyword_id, ''));
+                this.set('show_keyword_id', this.get('show_keyword_id').replace(keyword_id, ''));
                 for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
                     if (this.get('show_keyword_array').objectAt(i).get('keyword_id') === keyword_id) {
                         this.get('show_keyword_array').removeObject(this.get('show_keyword_array').objectAt(i));
@@ -1097,6 +1106,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 if (this.get('show_keyword_array').objectAt(i).get('keyword_id') === keyword_id) {
                     this.get('show_keyword_array').removeObject(this.get('show_keyword_array').objectAt(i));
                     this.set('show_keyword_id', this.get('show_keyword_id').replace(',' + keyword_id, ''));
+                    this.set('show_keyword_id', this.get('show_keyword_id').replace(keyword_id, ''));
                 }
             }
         }
@@ -1233,13 +1243,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': that.get('model.id')};
                         that.set('loadingTime', true);
+                       
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
                             //     $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoEditingMode', false);
                             that.set('isPhotoUploadMode', false);
                             that.set('isFinished', true);
                             that.set("isCrop", false);
-                            HubStar.store.save();
+                            
+                            //   HubStar.store.save();
                             that.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
                             that.set('loadingTime', false);
                         });
@@ -1498,7 +1510,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         } else {
             if (this.get('show_keyword_id').indexOf(this.get('keywords_array').objectAt(this.get('dragTargetIndex')).get('keyword_id')) === -1) {
                 this.get('show_keyword_array').pushObject(this.get('keywords_array').objectAt(this.get('dragTargetIndex')));
-                this.set('show_keyword_id', this.get('show_keyword_id') + ',' + this.get('keywords_array').objectAt(this.get('dragTargetIndex')).get('keyword_id'));
+                if (this.get('show_keyword_id') !== null && this.get('show_keyword_id') !== '') {
+                    this.set('show_keyword_id', this.get('show_keyword_id') + ',' + this.get('keywords_array').objectAt(this.get('dragTargetIndex')).get('keyword_id'));
+                } else {
+                    this.set('show_keyword_id', this.get('keywords_array').objectAt(this.get('dragTargetIndex')).get('keyword_id'));
+                }
             } else {
                 this.get('controllers.applicationFeedback').statusObserver(null, "This keyword has already been in the show list.", "warnning");
             }

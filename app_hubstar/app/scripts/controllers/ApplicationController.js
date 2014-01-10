@@ -78,10 +78,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         HubStar.set("escVideo", false);
         this.set('search_string', '');
         this.set('loginUsername', localStorage.userName);
-
-
-
-
     },
     popupModal: function() {
         HubStar.set('checkLoginStatus', true);
@@ -561,7 +557,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
                             if (localStorage.loginStatus)
                             {
-                                   console.log(params[0].EMAIL_ADDRESS);
                                 if ((params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== "undefined" 
                                         || (params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== "" 
                                         || (params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== null )

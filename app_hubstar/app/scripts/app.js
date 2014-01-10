@@ -1,5 +1,7 @@
-var HubStar = window.HubStar = Ember.Application.createWithMixins({
-    LOG_TRANSITIONS: true,
+
+var HubStar = window.HubStar = Ember.Application.create({
+    LOG_TRANSITIONS: false,
+
     LOG_BINDINGS: false,
     ready: function() {
         HubStar.set("isLogin", false);

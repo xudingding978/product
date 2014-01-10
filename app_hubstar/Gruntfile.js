@@ -250,17 +250,19 @@ module.exports = function(grunt) {
         // not used since Uglify task does concat,
         // but still available if needed
         concat: {
+
             dist: {
                 src: [
                     '<%= yeoman.app %>/bower_components/modernizr/modernizr.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/browserdetecter.js',
                     '<%= yeoman.app %>/bower_components/jquery/jquery.min.js',
-                    '<%= yeoman.app %>/bower_components/handlebars/handlebars.runtime.js',
+                    '<%= yeoman.app %>/bower_components/handlebars/handlebars-v1.2.1.js',
                     '<%= yeoman.app %>/bower_components/jquery.ui/jquery-ui-1.9.2.custom.min.js',
                     '<%= yeoman.app %>/bower_components/jquery.masonry/jquery.masonry.min.js',
                     '<%= yeoman.app %>/bower_components/bootstrap/bootstrap.min.js',
-                    '<%= yeoman.app %>/bower_components/ember/ember-1.0.0-rc.6.1.min.js',
+                    '<%= yeoman.app %>/bower_components/ember/ember.min.js',
                     '<%= yeoman.app %>/bower_components/ember-data-shim/ember-data.min.js',
+                    
                     '<%= yeoman.app %>/bower_components/moment/moment.min.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/html5ImageCropper.js',
@@ -279,12 +281,13 @@ module.exports = function(grunt) {
                      '<%= yeoman.app %>/bower_components/modernizr/modernizr.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/browserdetecter.js',
                     '<%= yeoman.app %>/bower_components/jquery/jquery.min.js',
-                    '<%= yeoman.app %>/bower_components/handlebars/handlebars.runtime.js',
+                    '<%= yeoman.app %>/bower_components/handlebars/handlebars-v1.2.1.js',
                     '<%= yeoman.app %>/bower_components/jquery.ui/jquery-ui-1.9.2.custom.min.js',
                     '<%= yeoman.app %>/bower_components/jquery.masonry/jquery.masonry.min.js',
                     '<%= yeoman.app %>/bower_components/bootstrap/bootstrap.min.js',
-                    '<%= yeoman.app %>/bower_components/ember/ember-1.0.0-rc.6.1.min.js',
+                    '<%= yeoman.app %>/bower_components/ember/ember.min.js',
                     '<%= yeoman.app %>/bower_components/ember-data-shim/ember-data.min.js',
+                    
                     '<%= yeoman.app %>/bower_components/moment/moment.min.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/html5ImageCropper.js',
@@ -294,6 +297,7 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/starrating/jquery.ratings.js',
                     '<%= yeoman.app %>/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js',
                     '<%= yeoman.app %>/bower_components/dfp.js',
+                    
                     '<%= yeoman.app %>/bower_components/countries.js'
                    
                 ],

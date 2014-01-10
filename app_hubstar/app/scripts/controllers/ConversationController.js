@@ -15,7 +15,7 @@ HubStar.ConversationController = Ember.Controller.extend({
         }
     },
     selectConversation: function(id) {
-
+        
         var idOld = this.get("selectId");
         this.get("controllers.messageCenter").selectedNone();
         $('#conversation_' + idOld).removeClass('selected-conversation');
@@ -193,6 +193,7 @@ HubStar.ConversationController = Ember.Controller.extend({
                     }
                     else
                     {
+                        
                         that.selectConversation(that.get("conversationContent").objectAt(0).conversationID);
                     }
                 }

@@ -234,6 +234,9 @@ HubStar.UserController = Ember.Controller.extend({
         }
 
         var collections = user.get("collections");
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
         if (this.get('editingInterest') === true) {
             this.set('editingInterest', false);
             this.set('interestsActive', false);
@@ -454,7 +457,7 @@ HubStar.UserController = Ember.Controller.extend({
                 collection.set('type', 'user');
                 collection.set('optional', this.get('model').get('id'));
                 this.get("collections").insertAt(0, collection);
-                HubStar.store.save();
+                HubStar.Store.save();
                 $(".Targeting_Object_front").attr("style", "display:inline-block");
                 $(" #uploadArea").attr('style', "display:none");
                 $(" #uploadObject").attr('style', "display:block");
@@ -535,7 +538,7 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('password', this.get('password'));
             update_user_record.set('about_me', this.get('about_me'));
             this.get('controllers.applicationFeedback').statusObserver(null, "General Settings updated.");
-            HubStar.store.save();
+            update_user_record.store.save();
         }
         else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please check if you have already filled the mandatory field.", "warnning");
@@ -604,7 +607,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.saveLink('linkedin_link', 'linkedin');
             this.saveLink('youtube_link', 'youtube');
             this.get('controllers.applicationFeedback').statusObserver(null, "Social Links updated.");
-            HubStar.store.save();
+            this.get('model').store.save();
         }
         else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please check you have entered the correct URL.", "warnning");
@@ -693,7 +696,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('interests', tempInterest.substring(1, tempInterest.length));
             update_interest_record.set('selected_topics', this.get('interests'));
             update_interest_record.set('about_me', this.get('about_me'));
-            HubStar.store.save();
+          update_interest_record.save();
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Invalid input");
         }
@@ -798,6 +801,9 @@ HubStar.UserController = Ember.Controller.extend({
         {
             this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
         }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
     },
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
@@ -839,11 +845,8 @@ HubStar.UserController = Ember.Controller.extend({
             $('#masonry_user_container').masonry("reload");
         }, 200);
         //this.set("Id", this.get('collections').objectAt(0).get('optional'));
-
-
         this.set('messageTag', false);
         this.transitionToRoute('userCollections');
-
     },
     selectFollowing: function(model) {
 
@@ -1042,7 +1045,8 @@ HubStar.UserController = Ember.Controller.extend({
             requiredBackEnd('users', 'updateStyleImage', data1, 'POST', function(params) {
 
                 that.set('isPhotoUploadMode', false);
-                HubStar.store.save();
+                var update_user_record = that.get('model');
+                update_user_record.store.save();
                 that.userPhotoEditBackButton();
                 that.userDashboardBackButton();
                 that.get('controllers.applicationFeedback').statusObserver(null, "Cover image updated.");

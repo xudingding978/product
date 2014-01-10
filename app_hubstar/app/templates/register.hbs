@@ -416,16 +416,21 @@
                     $('#login-btn').text('LOG IN');
                     $('.black-tool-tip').css('display', 'none');
                     $('#click-register-social').css('display', 'block');
-                    $('#social-link').css('display', 'block');
+                    $('#social-link').css('display', 'none');
                     $('#click-register').css('display', 'block');
                     $('#click-register-social').removeClass('social-active');
                     $('#click-register').addClass('active-tab');
-                    $('#register-with-email-drop-down').animate({height: 'toggle'});
                     $('#user-login-pane').css('display', 'none');
                     checkSocial();
                 }
             }
-
+ function checkSocial() {
+                if ($('#social-link').css('display') === 'block') {
+                    $('#social-link').animate({height: 'toggle'});
+                }
+                else {
+                }
+            }
                 function DropDown(el) {
                     this.dd = el;
                     this.placeholder = this.dd.children('span');

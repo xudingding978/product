@@ -29,8 +29,6 @@ HubStar.SearchRoute = Ember.Route.extend({
         setTimeout(function() {
             $('#masonry_container').masonry();  //masonry();
         }, 300);
-      //  window.history.go(0);
-        // $(window).scrollTop(0);
     },
     model: function(params) {
         var address = document.URL;

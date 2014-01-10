@@ -1,7 +1,7 @@
 HubStar.LoginEnterKeyTextFieldView = Ember.TextField.extend({
     didInsertElement: function() {
         
-        if (this.get('controller').get('loginUsername') !== undefined&&this.get('controller').get('loginUsername') !== null&&this.get('controller').get('loginUsername') !== " ")
+        if (this.get('targetObject').get('loginUsername') !== undefined&&this.get('targetObject').get('loginUsername') !== null&&this.get('targetObject').get('loginUsername') !== " ")
         {
             this.$().focus();
         }else{
@@ -11,7 +11,8 @@ HubStar.LoginEnterKeyTextFieldView = Ember.TextField.extend({
     },
     keyDown: function(event) {
         if (event.keyCode === 13) {
-            this.get('controller').login();
+           
+            this.get('targetObject').login();
 
         }
     }

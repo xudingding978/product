@@ -116,18 +116,41 @@ class DefaultController extends Controller {
 
         //   return $user_profile;
         $userProfile->save();
-        $test=explode('.',$_SERVER['HTTP_HOST']);
         
-        if($test[0] ==="test"){
-         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "test", true);
-        }
-        else if($test[0] ==="develop"){
-         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "develop", true);
-        }
-         else if($test[0] ==="my"||$test[0] ==="beta"){
-         $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "production", true);
+        $data_arr = array();
+        $data_arr['url'] = $userProfile->PHOTO_URL_LARGE;
+        $data_arr['newStyleImageName'] = 'user_picture';
+        $data_arr['mode'] = 'user_picture';
+        $data_arr['id'] = $user->COUCHBASE_ID;
+        $pass_arr = CJSON::encode($data_arr);
+
+
+        try {
+            $ch = curl_init("http://api.develop.trendsideas.com/users/saveimtos3");
+
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $pass_arr);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
+            $back = curl_exec($ch);
+            curl_close($ch);
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
         }
         
+        
+        
+        $test = explode('.', $_SERVER['HTTP_HOST']);
+
+        if ($test[0] === "test") {
+            $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "test", true);
+        } else if ($test[0] === "develop") {
+            $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "develop", true);
+        } else if ($test[0] === "my" || $test[0] === "beta") {
+            $cb = new Couchbase("cb1.hubsrv.com:8091", "", "", "production", true);
+        }
+
         $rand_id = $user->COUCHBASE_ID;
         $temp = $this->getMega();
         $temp["id"] = $rand_id;
@@ -137,7 +160,7 @@ class DefaultController extends Controller {
         $temp["user"][0]["profile_url"] = $userProfile->PROFILE_URL;
         $temp["user"][0]["website_url"] = $userProfile->WEBSITE_URL;
         $temp["user"][0]["photo_url"] = $userProfile->PHOTO_URL;
-        $temp["user"][0]["photo_url_large"] = $userProfile->PHOTO_URL_LARGE;
+        $temp["user"][0]["photo_url_large"] = "http://s3.hubsrv.com/trendsideas.com/users/" . $rand_id . "/user_picture/user_picture";
         $temp["user"][0]["display_name"] = $userProfile->DISPLAY_NAME;
         $temp["user"][0]["description"] = $userProfile->DESCRIPTION;
         $temp["user"][0]["first_name"] = $userProfile->FIRST_NAME;
@@ -164,6 +187,8 @@ class DefaultController extends Controller {
         $domain = $urlController->getDomain($link);
 
         $cb->add($domain . "/users/" . $rand_id, CJSON::encode($temp));
+
+        
     }
 
     /**

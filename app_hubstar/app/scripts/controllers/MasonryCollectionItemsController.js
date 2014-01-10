@@ -374,12 +374,12 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         for (var i = 0; i < this.get("uploadImageContent").length; i++)
         {
             var t = this.get("uploadImageContent").objectAt(i).store.save();
-            console.log(this.get("uploadImageContent").objectAt(i).get("isSaving"));
+            //console.log(this.get("uploadImageContent").objectAt(i).get("isSaving"));
 //            t.then(function(){
 //                console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqq");
 //            });
         }
-        console.log("0000000000000");
+        //console.log("0000000000000");
         //this.get("uploadImageContent").store.save();
     }
 

@@ -783,7 +783,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.toggleUpload();
     },
     checkAuthenticUser: function() {
-      
+      if(localStorage.loginStatus){
         var currentUser = HubStar.User.find(localStorage.loginStatus);
 
         var current_user_email = currentUser.get('email');
@@ -822,7 +822,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //                }
 //            });
         }
-
+    }
     },
     isFollowed: function()
     {

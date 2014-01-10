@@ -557,17 +557,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
                             if (localStorage.loginStatus)
                             {
-                         
-                                if (that.get("user").get("email").match(/@trendsideas.com/g) !== "" 
-                                        && that.get("user").get("email").match(/@trendsideas.com/g) !== "undefined" 
-                                        && that.get("user").get("email").match(/@trendsideas.com/g) !== null )
+                                if ((params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== "undefined" 
+                                        || (params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== "" 
+                                        || (params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== null )
                                 {
                                    
-                                    that.set("is_authentic_user", true);
+                                    that.set("is_trends_user", true);
                                 }
                                 else {
                                     
-                                    that.set("is_authentic_user", false);
+                                    that.set("is_trends_user", false);
                                 }
                             }
                             else {

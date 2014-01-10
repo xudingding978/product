@@ -297,6 +297,7 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/starrating/jquery.ratings.js',
                     '<%= yeoman.app %>/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js',
                     '<%= yeoman.app %>/bower_components/dfp.js',
+                    
                     '<%= yeoman.app %>/bower_components/countries.js'
                    
                 ],

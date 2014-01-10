@@ -78,10 +78,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         HubStar.set("escVideo", false);
         this.set('search_string', '');
         this.set('loginUsername', localStorage.userName);
-
-
-
-
     },
     popupModal: function() {
         HubStar.set('checkLoginStatus', true);

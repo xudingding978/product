@@ -1107,6 +1107,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
             if (this.get('show_keyword_id').indexOf(keyword_id) > -1) {
                 this.set('show_keyword_id', this.get('show_keyword_id').replace(',' + keyword_id, ''));
+                this.set('show_keyword_id', this.get('show_keyword_id').replace(keyword_id, ''));
                 for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
                     if (this.get('show_keyword_array').objectAt(i).get('keyword_id') === keyword_id) {
                         this.get('show_keyword_array').removeObject(this.get('show_keyword_array').objectAt(i));
@@ -1119,6 +1120,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 if (this.get('show_keyword_array').objectAt(i).get('keyword_id') === keyword_id) {
                     this.get('show_keyword_array').removeObject(this.get('show_keyword_array').objectAt(i));
                     this.set('show_keyword_id', this.get('show_keyword_id').replace(',' + keyword_id, ''));
+                    this.set('show_keyword_id', this.get('show_keyword_id').replace(keyword_id, ''));
                 }
             }
         }
@@ -1523,7 +1525,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         } else {
             if (this.get('show_keyword_id').indexOf(this.get('keywords_array').objectAt(this.get('dragTargetIndex')).get('keyword_id')) === -1) {
                 this.get('show_keyword_array').pushObject(this.get('keywords_array').objectAt(this.get('dragTargetIndex')));
-                this.set('show_keyword_id', this.get('show_keyword_id') + ',' + this.get('keywords_array').objectAt(this.get('dragTargetIndex')).get('keyword_id'));
+                if (this.get('show_keyword_id') !== null && this.get('show_keyword_id') !== '') {
+                    this.set('show_keyword_id', this.get('show_keyword_id') + ',' + this.get('keywords_array').objectAt(this.get('dragTargetIndex')).get('keyword_id'));
+                } else {
+                    this.set('show_keyword_id', this.get('keywords_array').objectAt(this.get('dragTargetIndex')).get('keyword_id'));
+                }
             } else {
                 this.get('controllers.applicationFeedback').statusObserver(null, "This keyword has already been in the show list.", "warnning");
             }

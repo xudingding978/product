@@ -69,15 +69,12 @@ class ProfilesController extends Controller {
         try {
             $request_json = file_get_contents('php://input');
             $request_arr = CJSON::decode($request_json, true);
-            error_log(var_export($request_arr, true));
             $tempProfile = $request_arr['profile'];
             $cb = $this->couchBaseConnection();
             $id = $tempProfile['id'];
             $domain = $this->getDomain();
             $docID = $domain . "/profiles/" . $id;
             $tempMega = $cb->get($docID);
-            error_log(var_export($tempMega, true));
-
             $mega = CJSON::decode($tempMega, true);
             $mega['profile'][0] = $tempProfile;
             $mega['profile'][0]['followers'] = array();
@@ -120,7 +117,6 @@ class ProfilesController extends Controller {
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
             $payload_json = CJSON::encode($payloads_arr['profile'], true);
-
             $newRecord = CJSON::decode($payload_json);
             $cb = $this->couchBaseConnection();
             $oldRecord = CJSON::decode($cb->get($this->getDomain() . $_SERVER['REQUEST_URI']));
@@ -148,9 +144,11 @@ class ProfilesController extends Controller {
             $oldRecord['keywords'] = $newRecord['profile_keywords'];
             $oldRecord['profile'][0]['profile_keywords_num'] = $newRecord['profile_keywords_num'];
             $oldRecord['keyword_num'] = $newRecord['profile_keywords_num'];
-            //error_log(var_export($newRecord['show_keyword_id'], true));
-            $oldRecord['profile'][0]['show_keyword_id'] = $newRecord['show_keyword_id'];
-           // error_log(var_export($oldRecord['profile'][0]['show_keyword_id'], true));
+//            error_log($newRecord['show_keyword_id']);
+            
+            
+//            error_log($oldRecord['profile'][0]['show_keyword_id']);
+
 //            $oldRecord['profile'][0]['keywords'] = $newRecord['keywords'] ;
 //            $oldRecord['keyword'] = $newRecord['keywords'];
             if ($oldRecord['profile'][0]['profile_package_name'] !== $newRecord['profile_package_name']) {
@@ -175,7 +173,11 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_youtube_link'] = $newRecord['profile_youtube_link'];
             $oldRecord['profile'][0]['profile_analytics_code'] = $newRecord['profile_analytics_code'];
             $oldRecord['profile'][0]['profile_google_map'] = $newRecord['profile_google_map'];
-
+//            error_log($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true)));
+//            error_log('saved into profile');
+//            error_log($this->getDomain() . $_SERVER['REQUEST_URI']);
+            $oldRecord['profile'][0]['show_keyword_id'] = $newRecord['show_keyword_id'];
+            $cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true));
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
             }

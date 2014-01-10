@@ -256,13 +256,13 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/modernizr/modernizr.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/browserdetecter.js',
                     '<%= yeoman.app %>/bower_components/jquery/jquery.min.js',
-                    
+                    '<%= yeoman.app %>/bower_components/handlebars/handlebars-v1.2.1.js',
                     '<%= yeoman.app %>/bower_components/jquery.ui/jquery-ui-1.9.2.custom.min.js',
                     '<%= yeoman.app %>/bower_components/jquery.masonry/jquery.masonry.min.js',
                     '<%= yeoman.app %>/bower_components/bootstrap/bootstrap.min.js',
                     '<%= yeoman.app %>/bower_components/ember/ember.min.js',
                     '<%= yeoman.app %>/bower_components/ember-data-shim/ember-data.min.js',
-                    '<%= yeoman.app %>/bower_components/handlebars/handlebars-v1.2.1.js',
+                    
                     '<%= yeoman.app %>/bower_components/moment/moment.min.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/html5ImageCropper.js',
@@ -281,13 +281,13 @@ module.exports = function(grunt) {
                      '<%= yeoman.app %>/bower_components/modernizr/modernizr.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/browserdetecter.js',
                     '<%= yeoman.app %>/bower_components/jquery/jquery.min.js',
-                    
+                    '<%= yeoman.app %>/bower_components/handlebars/handlebars-v1.2.1.js',
                     '<%= yeoman.app %>/bower_components/jquery.ui/jquery-ui-1.9.2.custom.min.js',
                     '<%= yeoman.app %>/bower_components/jquery.masonry/jquery.masonry.min.js',
                     '<%= yeoman.app %>/bower_components/bootstrap/bootstrap.min.js',
                     '<%= yeoman.app %>/bower_components/ember/ember.min.js',
                     '<%= yeoman.app %>/bower_components/ember-data-shim/ember-data.min.js',
-                    '<%= yeoman.app %>/bower_components/handlebars/handlebars-v1.2.1.js',
+                    
                     '<%= yeoman.app %>/bower_components/moment/moment.min.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/html5ImageCropper.js',

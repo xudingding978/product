@@ -129,7 +129,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 that.goToMessageTop(s);
             }
             setTimeout(function() {
-                $('#masonry_user_container').masonry();
+                //$('#masonry_user_container').masonry();
                 $('#masonry_user_container').masonry("reload");
             }, 200);
         });

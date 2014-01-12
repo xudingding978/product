@@ -52,6 +52,14 @@ HubStar.DropdownListView = Ember.View.extend({
             that.get('controller').set('subcategorySelection', $(this).text());
         });
 
+ $('#profileCategoryDropdown > .ite').click(function() {
+
+            that.get('controller').set('profileCategorySelection', $(this).text());
+        });
+        $('#profileSubcategoryDropdown > .ite').click(function() {
+            that.get('controller').set('profileSubcategorySelection', $(this).text());
+        });
+
         $('#numberDropdown > .ite').click(function() {
 
             that.get('controller').set('numberSelection', $(this).text());

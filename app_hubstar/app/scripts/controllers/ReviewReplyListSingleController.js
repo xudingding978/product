@@ -11,11 +11,11 @@ HubStar.ReviewReplyListSingleController = Ember.Controller.extend({
         }
     },
     editReviewReply: function() {
-        
-        if(this.get("controllers.reviewListSingle").get("model").id !==null && this.get("controllers.reviewListSingle").get("model").id !== undefined ){
+
+        if (this.get("controllers.reviewListSingle").get("model").id !== null && this.get("controllers.reviewListSingle").get("model").id !== undefined) {
             var id = "#ReplyData_" + this.get("controllers.reviewListSingle").get("model").id;
         }
-       $(id).attr("style", "display:none");
+        $(id).attr("style", "display:none");
         this.set("review_enableToEdit", !this.get('review_enableToEdit'));
         this.set("review_msg", this.get("model").get('review_msg'));
         this.transitionToRoute('reply', {id: this.get("model").get("review_reply_id")});
@@ -27,10 +27,13 @@ HubStar.ReviewReplyListSingleController = Ember.Controller.extend({
         requiredBackEnd('replys', 'Update', this.get("model"), 'POST', function(params) {
         });
         this.set("review_enableToEdit", !this.get('review_enableToEdit'));
-       if(this.get("controllers.reviewListSingle").get("model").id !==null && this.get("controllers.reviewListSingle").get("model").id !== undefined)  {
+        if (this.get("controllers.reviewListSingle").get("model").id !== null && this.get("controllers.reviewListSingle").get("model").id !== undefined) {
             var id = "#ReplyData_" + this.get("controllers.reviewListSingle").get("model").id;
         }
-       $(id).attr("style", "display:block");
+        $(id).attr("style", "display:block");
+          setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
     },
     cancelReviewReply: function() {
         this.set("review_enableToEdit", !this.get('review_enableToEdit'));
@@ -48,19 +51,19 @@ HubStar.ReviewReplyListSingleController = Ember.Controller.extend({
     deleteSelectedreply: function()
     {
         for (var i = 0; i < this.get("controllers.profile").get('reviews').get('length'); i++) {
-            
-             for (var j = 0; j < this.get("controllers.profile").get('reviews').objectAt(i).get("reply_reviews").get('length'); j++) {
-            var reviewreply= this.get("controllers.profile").get('reviews').objectAt(i).get("reply_reviews").objectAt(j);
-            if (reviewreply.get('review_reply_id') === this.get('delete_id'))
-            {
-                reviewreply.deleteRecord();
-                this.get("controllers.profile").get('reviews').objectAt(i).get("reply_reviews").removeObject(reviewreply);
-                requiredBackEnd('replys', 'Delete', reviewreply, 'POST', function(params) {
 
-                });
-                break;
+            for (var j = 0; j < this.get("controllers.profile").get('reviews').objectAt(i).get("reply_reviews").get('length'); j++) {
+                var reviewreply = this.get("controllers.profile").get('reviews').objectAt(i).get("reply_reviews").objectAt(j);
+                if (reviewreply.get('review_reply_id') === this.get('delete_id'))
+                {
+                    reviewreply.deleteRecord();
+                    this.get("controllers.profile").get('reviews').objectAt(i).get("reply_reviews").removeObject(reviewreply);
+                    requiredBackEnd('replys', 'Delete', reviewreply, 'POST', function(params) {
+
+                    });
+                    break;
+                }
             }
-             }
         }
 
         setTimeout(function() {
@@ -76,7 +79,7 @@ HubStar.ReviewReplyListSingleController = Ember.Controller.extend({
         this.set('delete_id', null);
 
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
         }, 500);
     }
 

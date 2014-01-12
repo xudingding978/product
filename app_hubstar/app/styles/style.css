@@ -4,6 +4,7 @@ body > div.ember-view{
     overflow:hidden;
     max-width:100%;
 }
+body > div.ember-view > div{float:left;padding:0 0 220px;}
 
 .plaform_bar{
     height: 280px;
@@ -23,8 +24,6 @@ body > div.ember-view{
 }
 #masonry_user_container
 {
-    min-height:400px;
-    /* these styles might break masonry TESTING*/
     clear:both;
     width:0;
     overflow:hidden;

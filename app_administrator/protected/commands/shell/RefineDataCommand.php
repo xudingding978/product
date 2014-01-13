@@ -45,6 +45,8 @@ class RefineDataCommand extends Controller_admin {
             $this->ticket537HtmlRelocation();
         } elseif($action=='numbersready'){
             $this->ticket667likesCountCommentCount();
+        }elseif($action == "finderror"){
+            $this->finduncompletenumbers();
         }
         elseif ($action == "refineArticle") {
 
@@ -225,6 +227,83 @@ class RefineDataCommand extends Controller_admin {
                 echo $user . " can not find couchbase record  for the user------------------\n";
             }
         }
+    }
+    
+    
+    public function finduncompletenumbers(){
+        $check_list=array();
+        array_push($check_list, "view_count");
+        array_push($check_list, "likes_count");
+        array_push($check_list, "comment_count");
+        array_push($check_list, "accessed");
+        array_push($check_list, "created");
+        array_push($check_list, "boost");
+        $cb=$this->couchBaseConnection('develop');
+        foreach($check_list as $sub_task){
+              $query='{
+  "query": {
+    "filtered": {
+      "query": {
+        "bool": {
+          "must": {
+            "queryString": {
+              "default_field": "couchbaseDocument.doc.type",
+              "query": "photo"
+            }
+          }
+        }
+      },
+      "filter": {
+        "missing": {
+          "field": "couchbaseDocument.doc.'.$sub_task.'"
+        }
+      }
+    }
+  },
+  "size": "100"
+}';
+                $ch = curl_init("http://es1.hubsrv.com:9200/develop/_search");
+
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
+        $result = curl_exec($ch);
+//            foreach($result as $found){
+//                echo $found['id'];
+//            }
+        $result_arr = CJSON::decode($result, true);
+        $record_arr = $result_arr['hits']['hits'];
+        echo $sub_task." : ". sizeof($record_arr)."\n";
+        foreach($record_arr as $record){
+            
+            $id=$record['_id'];
+            $couchbase_record=$cb->get($id);
+            $couchbase_arr=CJSON::decode($couchbase_record);
+            if($sub_task==="boost"){
+                $couchbase_arr['boost']=100;
+          //      $cb->delete($id);
+            }else{
+                 if($sub_task==='accessed'){
+                $couchbase_arr['accessed']=1389576664;
+            }else{
+                            $couchbase_arr[$sub_task]=0;
+            }}
+            if($cb->set($id, CJSON::encode($couchbase_arr))){
+                echo $id." save to couchbase \n";
+            }else{
+                echo $id. " save to couchbase failed\n";
+            }
+
+            echo $id."\n";
+            
+           
+        }
+        
+              
+        }
+      
     }
     
     public function ticket667likesCountCommentCount(){

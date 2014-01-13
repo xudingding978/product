@@ -4,7 +4,11 @@ body > div.ember-view{
     overflow:hidden;
     max-width:100%;
 }
-body > div.ember-view > div{float:left;padding:0 0 220px;}
+body > div.ember-view > div
+{
+    float:left;
+    background:#E7E7E7;
+}
 
 .plaform_bar{
     height: 280px;

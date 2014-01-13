@@ -220,14 +220,14 @@ textarea {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
-body {
+html body {
     margin: 0;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 20px;
     color: #333333;
-    background-color: #E7E7E7;
+    float:left;
+    width:100%;
 }
 
 .img-rounded {

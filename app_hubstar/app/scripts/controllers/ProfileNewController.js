@@ -8,7 +8,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
     countrySelection: "Country",
     regionSelection: "Regoin/State",
     numberSelection: "-",
-    keywordNumber: "",
+    keywordNumber: "0",
     heroImage: false,
     profile_url: "",
     first_name: "",
@@ -193,7 +193,8 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 $('#adminsEmailFormat_1').attr('style', 'display:none');
                 $('#errorMessage6').attr('style', 'display:none');
                 document.getElementById('adminsField_1').setAttribute("class", "");
-               
+                
+                var value = $("#admins_1").val();    
             }
             else {
                 $('#errorMessage6').attr('style', 'display:none');
@@ -250,12 +251,8 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 $('#adminsEmailFormat_' + i).attr('style', 'display:none');
                 $('#errorMessage6').attr('style', 'display:none');
                 document.getElementById('adminsField_' + i).setAttribute("class", "");
-                var value;
-                if (i === 1) {
-                    value = $("#admins_" + 1).val();
-                } else if (i > 1) {
-                    value = value + "," + $("#admins_" + i).val();
-                }
+                var value = value + "," + $("#admins_" + i).val();
+                
             }
             else {
                 $('#errorMessage6').attr('style', 'display:none');
@@ -331,6 +328,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
             var newMegaNewModel = HubStar.Mega.createRecord({
                 "id": this.get("profile_url"),
                 "type": "profile",
+                boost:  this.get("keywordNumber"),
                 accessed: null,
                 is_active: "true",
                 is_indexed: "true",
@@ -366,6 +364,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 profile_bg_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_bg/default/defaultbg6.jpg",
                 profile_hero_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg",
                 profile_pic_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
+                profile_boost:  this.get("keywordNumber"),
                 owner: this.get("owner"),
                 profile_creater: this.get("creater"),
                 profile_editors: this.get("owner") + "," + this.get("editors"),
@@ -478,6 +477,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
             $("#silver").addClass("hover-opacity easing");
             $("#bronze").removeClass("hover-opacity easing");
         }
+        
 
     }
 });

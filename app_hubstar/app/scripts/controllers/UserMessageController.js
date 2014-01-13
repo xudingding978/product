@@ -181,7 +181,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
     ,
     removeMessageItem: function(s)
     {
-        var message = "Remove this message?";
+        var message = "Remove this post?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         this.set('isUserMessage', true);

@@ -154,7 +154,7 @@ HubStar.VideoController = Ember.Controller.extend({
             if (response && response.post_id) {
                 that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
             } else {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessful.", "failed");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
             }
         }
 

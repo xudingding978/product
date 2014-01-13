@@ -91,7 +91,7 @@ class EmailsController extends Controller {
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
         $platformEmail = $platformSettings['support']['email'];
-        $subject_prefix = 'Forget your password';
+        $subject_prefix = 'Your new myTrends password';
         $args = array(
             "Source" => $platformEmail,
             "Destination" => array(
@@ -451,12 +451,7 @@ class EmailsController extends Controller {
                                                             <td valign="top">
                                                                 User name: ' . $username . '
                                                             </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td valign="top">
-                                                                Password: ' . $password . '
-                                                            </td>
-                                                        </tr>
+                                                        </tr>                                                      
                                                     </table>
 
                                                 </td>

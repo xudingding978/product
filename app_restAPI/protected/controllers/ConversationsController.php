@@ -465,7 +465,7 @@ class ConversationsController extends Controller {
                                 <img src="http://develop.devbox.s3.amazonaws.com/followers-icon-for-email.png"  style="width: 30px;height:30px; float: left"/> 
                             </div>
                         </div>
-                        <div style="float: left;">' . $notificationCountFollow . ' New Followers</div>
+                        <div style="float: left;">' . $notificationCountFollow . ' new followers</div>
                     </div>
                     <div>
                         <div style="margin: 0 5px;float: left;">
@@ -473,7 +473,7 @@ class ConversationsController extends Controller {
                                 <img src="http://develop.devbox.s3.amazonaws.com/message-icon-for-email.png"  style="width: 30px;height:30px;float: left"/>
                             </div>
                         </div>
-                        <div style="float: left;">' . $notificationCountMessage . ' New Messages</div>
+                        <div style="float: left;">' . $notificationCountMessage . ' new messages</div>
                     </div>
                 </div>
 

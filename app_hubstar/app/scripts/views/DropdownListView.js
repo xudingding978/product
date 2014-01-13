@@ -2,7 +2,7 @@ HubStar.DropdownListView = Ember.View.extend({
     templateName: 'dropdownList',
     classNames: ["dropdownViewStyle"],
     didInsertElement: function() {
-       print_country();
+        print_country();
         var that = this;
         $('#dropItem1 > .ite').click(function() {
             that.get('controller').set('projectCategorySelection', $(this).text());
@@ -34,7 +34,13 @@ HubStar.DropdownListView = Ember.View.extend({
 
         $('#geoDropdown > .ite').click(function() {
             HubStar.set('geoLocation', $(this).text());
-            that.get('controller').get('controllers.applicationFeedback').statusObserver(null, "You are now searching within " + HubStar.get('geoLocation') + " only.");
+//            if (HubStar.get('geoLocation') === "Global")
+//            {
+//                that.get('controller').get('controllers.applicationFeedback').statusObserver(null, "You are now searching all content");
+//            }
+//            else {
+//                that.get('controller').get('controllers.applicationFeedback').statusObserver(null, "You are now searching within " + HubStar.get('geoLocation') + " only.");
+//            }
         });
 
         $('#countryDropdown > .ite').click(function() {
@@ -53,7 +59,7 @@ HubStar.DropdownListView = Ember.View.extend({
             that.get('controller').set('subcategorySelection', $(this).text());
         });
 
- $('#profileCategoryDropdown > .ite').click(function() {
+        $('#profileCategoryDropdown > .ite').click(function() {
 
             that.get('controller').set('profileCategorySelection', $(this).text());
         });

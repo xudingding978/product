@@ -746,7 +746,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     deleteSelectedCollection: function()
     {
-        var message = "Do you wish to remove your '" + this.get("selectedCollection").get('title') + "' collection from your User Profile?";
+        var message = "Remove this collection?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {
@@ -1049,7 +1049,7 @@ HubStar.UserController = Ember.Controller.extend({
                 update_user_record.store.save();
                 that.userPhotoEditBackButton();
                 that.userDashboardBackButton();
-                that.get('controllers.applicationFeedback').statusObserver(null, "Cover image updated.");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Profile picture updated.");
 
                 that.set('loadingTime', false);
             });

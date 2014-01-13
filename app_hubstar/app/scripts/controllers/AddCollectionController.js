@@ -10,7 +10,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     newCollectionName: null,
     objectID: "",
     selectedPhotoThumbnailUrl: "",
-    parentController: "",
+    parentTController: "",
     commentObject: '',
     isComment: false,
     selectionProfile: false,
@@ -110,9 +110,9 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     },
     sendFeedBack: function() {
         var message = "Saved to your " + this.get('selectedTitle') + " collection.";
-        if (this.get('parentController') === 'video') {
+        if (this.get('parentTController') === 'video') {
             //message = "Saved video successfully.";
-        } else if (this.get('parentController') === 'photo') {
+        } else if (this.get('parentTController') === 'photo') {
             //message = "Saved photo successfully.";
         }
         this.get('controllers.applicationFeedback').statusObserver(null, message);
@@ -206,19 +206,20 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     exit: function() {
         this.set('selectionPop', false);
         this.set('selectionProfile', false);
-        if (this.get('parentController') === 'article')
+        //console.log(this.get("parentTController"));
+        if (this.get('parentTController') === 'article')
         {
             this.get("controllers.article").switchCollection();
         }
 
-        else if (this.get('parentController') === 'itemFunction')
+        else if (this.get('parentTController') === 'itemFunction')
         {
             var id = this.get("objectID");
             //console.log(id);
             $('#addCollection_' + id).attr('style', 'display: none');
         }
 
-        else if (this.get('parentController') === 'video')
+        else if (this.get('parentTController') === 'video')
         {
             this.get("controllers.video").switchCollection();
         }
@@ -353,6 +354,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         return isContainsTitle;
     }, setRelatedController: function(parentController)
     {
-        this.set('parentController', parentController);
+        
+        this.set('parentTController', parentController);
     }
 });

@@ -944,9 +944,10 @@ function program22(depth0,data) {
   data.buffer.push("\n</div>\n\n\n\n<div class=\"collapes-container\"  id=\"article_action\" style=\"display:block;\">\n    <div class=\"collapes-container_inner\">\n        <div class=\"article-title\" >");
   stack1 = helpers._triageMustache.call(depth0, "controller.articleResouce.article_headline", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</div>\n        <div class=\"article-text\" id=\"article_text_action\" style=\"display:block; height: 210px;overflow: hidden;;\">");
-  stack1 = helpers._triageMustache.call(depth0, "controller.articleResouce.article_body", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("</div>\n        <div class=\"article-text\" id=\"article_text_action\" style=\"display:block; height: 210px;overflow: hidden;\">");
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "controller.articleResouce.article_body", {hash:{
+    'unescaped': ("true")
+  },hashTypes:{'unescaped': "STRING"},hashContexts:{'unescaped': depth0},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("</div>            \n        <div id =\"read_more_cue\" class=\"article-text\" style=\"display:block;\">......</div>\n    </div>\n</div>\n\n\n\n\n\n\n<!-- OBJECT CREDIT LIST SECTION -->\n");
   stack1 = helpers['if'].call(depth0, "controller.isCreditListExist", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(13, program13, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -2189,7 +2190,7 @@ function program31(depth0,data) {
   data.buffer.push("\n\n");
   stack1 = helpers['if'].call(depth0, "controller.profileSubcategoryDropdown", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(31, program31, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n\n<script language=\"javascript\">\n   print_country();\n</script>\n");
+  data.buffer.push("\n\n\n<script language=\"javascript\">\n   \n</script>\n");
   return buffer;
   
 });
@@ -2729,7 +2730,7 @@ function program10(depth0,data) {
 
   data.buffer.push("<div class=\"navbar\">\n\n\n    <div class=\"navbar-inner\">\n        <div class=\"brand\" >\n            <a href=\"/#\" > <img class=\"logonew\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "showDiscoveryBar", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push(" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\"></a>\n\n<!--            <div style=\"position: relative;display: inline-block;top: 12px;font-weight: normal;font-style: italic;color: white;font-size: 11px;\">\n                <span>Beta</span> <span id=\"lastidentifie\">0.3-132</span>\n            </div>-->\n\n        </div>\n\n\n        <div id=\"top-about-menu\" class=\"top-about-menu\" style=\"display:block\">\n            <span><a style=\"color: #fff\" class=\"hover-opacity\" target=\"blank\" href=\"http://about.trendsideas.com/\">About</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/business/\">Business</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/learning-centre/\">Learning Centre</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/contact-us/\">Contact us</a></span>\n\n        </div>\n\n\n        <div id=\"search-bar\" class=\"search-bar-ontop\" style=\"display:none\">\n            <div id =\"navigator\" class=\"Nav-btn easing\" style=\"float: left;\" ");
+  data.buffer.push(" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\"></a>\n\n<!--            <div style=\"position: relative;display: inline-block;top: 12px;font-weight: normal;font-style: italic;color: white;font-size: 11px;\">\n                <span>Beta</span> <span id=\"lastidentifie\">0.3-136</span>\n            </div>-->\n\n        </div>\n\n\n        <div id=\"top-about-menu\" class=\"top-about-menu\" style=\"display:block\">\n            <span><a style=\"color: #fff\" class=\"hover-opacity\" target=\"blank\" href=\"http://about.trendsideas.com/\">About</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/business/\">Business</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/learning-centre/\">Learning Centre</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/contact-us/\">Contact us</a></span>\n\n        </div>\n\n\n        <div id=\"search-bar\" class=\"search-bar-ontop\" style=\"display:none\">\n            <div id =\"navigator\" class=\"Nav-btn easing\" style=\"float: left;\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "dropdownHeaderNavigator", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("><i class=\"icon-list\"></i></div>\n            ");
   stack1 = helpers['if'].call(depth0, "controller.isHeaderNavigatorDropdown", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
@@ -6711,7 +6712,7 @@ function program7(depth0,data) {
     'class': ("profileName"),
     'placeholder': ("Your Business Name")
   },hashTypes:{'valueBinding': "STRING",'class': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'class': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push(" \n                            </div>\n                           \n                        </div>\n                    </div>\n\n\n                    <div style=\"display:table-row\">\n                        <div style=\"display:table-cell;text-align: right;\" >Profile Category:</div> \n\n                        <div style=\"display:table-cell\">\n                            <div  style=\"display: block; margin-bottom: 0px;\" >\n                                <div id=\"categorySelectionCheck\"class=\"new-btn\" style=\"margin: 10px 10px 0;width: 34%;display: inline-block;\" ");
+  data.buffer.push(" \n                            </div>\n                           \n                        </div>\n                    </div>\n\n\n                    <div style=\"display:table-row\">\n                        <div style=\"display:table-cell;text-align: right;\" >Profile Category*:</div> \n\n                        <div style=\"display:table-cell\">\n                            <div  style=\"display: block; margin-bottom: 0px;\" >\n                                <div id=\"categorySelectionCheck\"class=\"new-btn\" style=\"margin: 10px 10px 0;width: 34%;display: inline-block;\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "dropdown", "category", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["ID","STRING"],data:data})));
   data.buffer.push(">\n                                     <span id=\"categorySelection\">");
   stack1 = helpers._triageMustache.call(depth0, "controller.categorySelection", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -6727,7 +6728,7 @@ function program7(depth0,data) {
   data.buffer.push("</span>\n                                    <span class=\"caret\"></span>\n                                    ");
   stack1 = helpers['if'].call(depth0, "controller.subcategoryDropdown", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n                                </div>                              \n                            </div>\n                        </div>\n                    </div>\n          <div style=\"display:table-row\">\n                        <div style=\"display:table-cell;text-align: right;\" >Physical Address:</div>                      \n                        <div style=\"display:table-cell\">\n                            <div id=\"countrySelectionCheck\" class=\"new-btn\"  style=\"margin: 10px 30px 5px 10px;;width: 70%;\" ");
+  data.buffer.push("\n                                </div>                              \n                            </div>\n                        </div>\n                    </div>\n          <div style=\"display:table-row\">\n                        <div style=\"display:table-cell;text-align: right;\" >Physical Address*:</div>                      \n                        <div style=\"display:table-cell\">\n                            <div id=\"countrySelectionCheck\" class=\"new-btn\"  style=\"margin: 10px 30px 5px 10px;;width: 70%;\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "dropdown", "country", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["ID","STRING"],data:data})));
   data.buffer.push(">\n                                 <span id=\"countrySelection\">");
   stack1 = helpers._triageMustache.call(depth0, "controller.countrySelection", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});

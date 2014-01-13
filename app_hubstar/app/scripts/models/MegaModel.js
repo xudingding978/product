@@ -10,7 +10,7 @@ DS.RESTAdapter.map('HubStar.Mega', {
     article: {embedded: 'always'}
 });
 
-HubStar.Mega = DS.Model.extend(Ember.Copyable, {
+HubStar.Mega = DS.Model.extend( {
     accessed: DS.attr('string'),
     boost: DS.attr('string'),
     categories: DS.attr('string'),
@@ -118,7 +118,7 @@ HubStar.Mega = DS.Model.extend(Ember.Copyable, {
             type: 'POST',
             data: JSON.stringify(mega),
             success: function() {
-                HubStar.store.save();
+            //    HubStar.store.save();
             }
         });
     },

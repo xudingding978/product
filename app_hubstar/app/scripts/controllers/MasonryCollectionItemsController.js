@@ -11,7 +11,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     isUser: false,
     isVideoPhoto: false,
     collectionID: "",
-    isSearchBoard:true,
+    isSearchBoard: true,
     itemID: "",
     profileId: "",
     isSave: false,
@@ -46,7 +46,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                 for (var i = 0; i < this.get("content").length; i++) {
                     var tempObject = results.objectAt(i);
                     that.get("content").pushObject(tempObject);
-                }               
+                }
+                setTimeout(function() {
+                    $('#masonry_photo_collection_container').masonry("reload");
+                }, 200);
             }
         });
         this.checkEditingMode();
@@ -67,7 +70,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
             var results = HubStar.Collection.find({RquireType: "personalCollection", profile_id: owner_id, collection_id: collection_id});
             var that = this;
-     
+
             results.addObserver('isLoaded', function() {
                 if (results.get('isLoaded')) {
                     var titleFill = results.objectAt(0).get("title");
@@ -335,6 +338,9 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                         that.get("content").pushObject(tempmega);
                     }
                 }
+                setTimeout(function() {
+                    $('#masonry_photo_collection_container').masonry("reload");
+                }, 200);
             }
         });
         var pics = HubStar.Mega.find({RquireType: "profileCollection", user_id: owner_id, collection_id: title});
@@ -345,6 +351,9 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     var tempObject = pics.objectAt(i);
                     that.get("content").pushObject(tempObject);
                 }
+                setTimeout(function() {
+                    $('#masonry_photo_collection_container').masonry("reload");
+                }, 200);
             }
         });
     },

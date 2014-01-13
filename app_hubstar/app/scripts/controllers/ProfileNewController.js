@@ -1,14 +1,14 @@
 
 var passSubmit = true;
-var counter = 2;
-HubStar.ProfileNewController = Ember.ObjectController.extend({
+var counter = 3;
+HubStar.ProfileNewController = Ember.Controller.extend({
     profile_name: "",
     categorySelection: "Category",
     subcategorySelection: "Subcategory",
     countrySelection: "Country",
     regionSelection: "Regoin/State",
     numberSelection: "-",
-    keywordNumber: "",
+    keywordNumber: "0",
     heroImage: false,
     profile_url: "",
     first_name: "",
@@ -166,6 +166,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             $('#errorMessage4').attr('style', 'display:none');
             document.getElementById('regionSelectionCheck').setAttribute("class", "new-btn");
         }
+        
         if ($('#contactEmail').val() === "") {
             $('#errorMessage5').attr('style', 'display:block');
             $('#contactEmailFormat').attr('style', 'display:none');
@@ -181,6 +182,26 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             $('#contactEmailFormat').attr('style', 'display:block; text-align: left;margin-left: 150px;');
             document.getElementById('contactEmailField').setAttribute("class", "error-textfield");
         }
+        
+        
+        if ($("#admins_1").val() === "") {
+                $('#errorMessage6').attr('style', 'display:block');
+                $('#adminsEmailFormat_1').attr('style', 'display:none');
+                document.getElementById('adminsField_1').setAttribute("class", "error-textfield");
+            }
+            else if (this.validateEmail($("#admins_1").val())) {
+                $('#adminsEmailFormat_1').attr('style', 'display:none');
+                $('#errorMessage6').attr('style', 'display:none');
+                document.getElementById('adminsField_1').setAttribute("class", "");
+                
+                var value = $("#admins_1").val();    
+            }
+            else {
+                $('#errorMessage6').attr('style', 'display:none');
+                $('#adminsEmailFormat_1').attr('style', 'display:block; text-align: left;margin-left: 150px;');
+                if(document.getElementById('adminsField_1')!==null)
+                document.getElementById('adminsField_1').setAttribute("class", "error-textfield");
+            }
 
 
         if (document.getElementById('secondEmail').style.display === "table-row") {
@@ -219,7 +240,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             }
 
         }
-        for (var i = 1; i < counter; i++) {
+        for (var i = 2; i < counter; i++) {
 
             if ($("#admins_" + i).val() === "") {
                 $('#errorMessage6').attr('style', 'display:none');
@@ -230,12 +251,8 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 $('#adminsEmailFormat_' + i).attr('style', 'display:none');
                 $('#errorMessage6').attr('style', 'display:none');
                 document.getElementById('adminsField_' + i).setAttribute("class", "");
-                var value;
-                if (i === 1) {
-                    value = $("#admins_" + 1).val();
-                } else if (i > 1) {
-                    value = value + "," + $("#admins_" + i).val();
-                }
+                var value = value + "," + $("#admins_" + i).val();
+                
             }
             else {
                 $('#errorMessage6').attr('style', 'display:none');
@@ -281,7 +298,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
     },
     addTRmore: function() {
 
-        if (counter <= 6) {
+        if (counter <= 7) {
             var newdiv = document.createElement('tr');
             newdiv.innerHTML = "<div style='display:table-cell;text-align: right;'></div><div style='display:table-cell'><div style='display: block;'><div id='adminsField_" + counter
                     + "'"
@@ -307,9 +324,11 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
         this.fillInChecking();
 
         if (passSubmit) {
-            var newMegaNewModel = HubStar.store.createRecord(HubStar.Meganew, {
+            
+            var newMegaNewModel = HubStar.Mega.createRecord({
                 "id": this.get("profile_url"),
                 "type": "profile",
+                boost:  this.get("keywordNumber"),
                 accessed: null,
                 is_active: "true",
                 is_indexed: "true",
@@ -335,7 +354,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                  keyword:[]
             });
 
-            var newProfile = HubStar.store.createRecord(HubStar.Profile, {
+            var newProfile = HubStar.Profile.createRecord({
                 id: this.get("profile_url"),
                 profile_name: this.get("profile_name"),
                 profile_contact_last_name: this.get("last_name"),
@@ -345,6 +364,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
                 profile_bg_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_bg/default/defaultbg6.jpg",
                 profile_hero_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg",
                 profile_pic_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
+                profile_boost:  this.get("keywordNumber"),
                 owner: this.get("owner"),
                 profile_creater: this.get("creater"),
                 profile_editors: this.get("owner") + "," + this.get("editors"),
@@ -457,6 +477,7 @@ HubStar.ProfileNewController = Ember.ObjectController.extend({
             $("#silver").addClass("hover-opacity easing");
             $("#bronze").removeClass("hover-opacity easing");
         }
+        
 
     }
 });

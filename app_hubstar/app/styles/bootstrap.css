@@ -37,7 +37,6 @@ html {
     font-size: 100%;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
-    background:#1E1D1B!important;
 }
 
 a:focus {
@@ -220,16 +219,15 @@ textarea {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-}html
-
-
-body {
+}
+html body {
     margin: 0;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 20px;
     color: #333333;
-    background-color: #1E1D1B; 
+    float:left;
+    width:100%;
 }
 
 .img-rounded {

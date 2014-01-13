@@ -12,12 +12,12 @@
                     });
 
                     //newProfile.get('transaction').commit();
-                    HubStar.store.commit();
+                    newProfile.store.commit();
                     this.transitionTo('profile', newProfile);
 
                 }
 //                saveProfile: function() {
-//                    HubStar.store.commit();
+//                    newProfile.store.commit();
 //                }
 
             });

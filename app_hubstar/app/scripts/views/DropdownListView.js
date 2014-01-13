@@ -2,6 +2,7 @@ HubStar.DropdownListView = Ember.View.extend({
     templateName: 'dropdownList',
     classNames: ["dropdownViewStyle"],
     didInsertElement: function() {
+       print_country();
         var that = this;
         $('#dropItem1 > .ite').click(function() {
             that.get('controller').set('projectCategorySelection', $(this).text());

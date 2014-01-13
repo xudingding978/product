@@ -457,7 +457,7 @@ HubStar.UserController = Ember.Controller.extend({
                 collection.set('type', 'user');
                 collection.set('optional', this.get('model').get('id'));
                 this.get("collections").insertAt(0, collection);
-                HubStar.Store.save();
+                collection.store.save();
                 $(".Targeting_Object_front").attr("style", "display:inline-block");
                 $(" #uploadArea").attr('style', "display:none");
                 $(" #uploadObject").attr('style', "display:block");

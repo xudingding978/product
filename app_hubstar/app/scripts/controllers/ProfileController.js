@@ -471,7 +471,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 collection.set('optional', this.get('model').get('id'));
                 this.get("collections").insertAt(0, collection);
 
-                HubStar.store.commit();
+                collection.store.commit();
                 $(".Targeting_Object_front").attr("style", "display:inline-block");
                 $(" #uploadArea").attr('style', "display:none");
                 $(" #uploadObject").attr('style', "display:block");
@@ -970,7 +970,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
         update_About_record.set("profile_about_us", editor.getValue());
         this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
-        //HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_About_record);
         update_About_record.store.save();
     },
     saveUpdateGeneral:function(){
@@ -1040,7 +1039,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set("profile_is_deleted", this.get("projectDeleteDropdownContent"));
         this.createGooglemap();
         this.set('toAddress', update_profile_record.get('profile_physical_address') + ", " + update_profile_record.get('profile_suburb') + ", " + update_profile_record.get('profile_regoin') + ", " + update_profile_record.get('profile_country'));
-        //HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, update_profile_record);
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
         }
@@ -1250,8 +1248,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             that.set('isPhotoUploadMode', false);
                             that.set('isFinished', true);
                             that.set("isCrop", false);
-                            
-                            //   HubStar.store.save();
                             that.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
                             that.set('loadingTime', false);
                         });

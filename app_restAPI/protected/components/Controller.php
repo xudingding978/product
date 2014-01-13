@@ -298,33 +298,31 @@ class Controller extends CController {
                       }
                     },
                     "must_not": {
-                      "queryString": {
-                        "default_field": "couchbaseDocument.doc.type",
-                        "query": "profile"
-                      }
-                    }
+                   
                   }
+                }
                 }
               }');
 
             $request->filter($filter);
-        } else {
-            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
-                "query": {
-                  "bool": {
-                    "must": {},
-                    "must_not": {
-                      "queryString": {
-                        "default_field": "couchbaseDocument.doc.type",
-                        "query": "profile"
-                      }
-                    }
-                  }
-                }
-              }');
-
-            $request->filter($filter);
-        }
+        } 
+//        else {
+//            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+//                "query": {
+//                  "bool": {
+//                    "must": {},
+//                    "must_not": {
+//                      "queryString": {
+//                        "default_field": "couchbaseDocument.doc.type",
+//                        "query": "profile"
+//                      }
+//                    }
+//                  }
+//                }
+//              }');
+//
+//            $request->filter($filter);
+//        }
 //        $sort = Sherlock\Sherlock::sortBuilder();
 //        $sort1 = $sort->Field()->name("boost")->order('desc');
 //        $sort2 = $sort->Field()->name("_score");
@@ -338,6 +336,8 @@ class Controller extends CController {
                                 "fields": [
                                                 "keywords^8",
                                                 "couchbaseDocument.doc.keyword.keyword_name^10",
+                                                "couchbaseDocument.doc.article.article_spark_job_id^5",
+                                                "couchbaseDocument.doc.article.article_helium_media_id^5",
                                                 "owner_title^2",
                                                 "country",
                                                 "region",

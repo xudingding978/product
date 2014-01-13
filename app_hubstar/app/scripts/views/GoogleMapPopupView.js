@@ -2,6 +2,7 @@ var directionsDisplay = new google.maps.DirectionsRenderer({draggable: true});
 HubStar.GoogleMapPopupView = Ember.View.extend({
     templateName: 'googleMapPopup',
     routeModeSelection: "DRIVING",
+    showTransportation: true,
     didInsertElement: function() {
         var map;
         var that = this;
@@ -105,6 +106,7 @@ HubStar.GoogleMapPopupView = Ember.View.extend({
     },
     dropdownRoute: function() {
         $("#routeModeDropdown").toggleClass('hideClass');
+      
     },
     selectRoute: function() {
         var that = this;
@@ -112,5 +114,11 @@ HubStar.GoogleMapPopupView = Ember.View.extend({
             that.set('routeModeSelection', $(this).text());
         });
         $("#routeModeDropdown").toggleClass('hideClass');
+          this.set('showTransportation',false);
+            $("#map_canvas_pop").animate({width: "800px"}, 1000, 'linear');
+        $('#routeClear').attr({"style": "display:none;width: 33%;height: 45px;line-height: 45px;'"});
+        $('#routeGo').attr({"style": "display:block; width: 33%;height: 45px;line-height: 45px;'"});
+        directionsDisplay.setDirections({routes: []});
+        $('#directionsPanel').attr({"style": "display:none; "});
     }
 });

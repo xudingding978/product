@@ -1,9 +1,9 @@
 
-DS.RESTAdapter.map('HubStar.Meganew', {
+DS.RESTAdapter.map('HubStar.MegaNew', {
     profile: {embedded: 'always'}
 });
 
-HubStar.Meganew = DS.Model.extend(Ember.Copyable, {
+HubStar.MegaNew = DS.Model.extend({
     accessed: DS.attr('string'),
     boost: DS.attr('string'),
     categories: DS.attr('string'),

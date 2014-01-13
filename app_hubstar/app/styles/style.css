@@ -4,6 +4,11 @@ body > div.ember-view{
     overflow:hidden;
     max-width:100%;
 }
+body > div.ember-view > div
+{
+    float:left;
+    background:#E7E7E7;
+}
 
 .plaform_bar{
     height: 280px;
@@ -23,12 +28,12 @@ body > div.ember-view{
 }
 #masonry_user_container
 {
-    min-height:400px;
-    /* these styles might break masonry TESTING*/
     clear:both;
     width:0;
     overflow:hidden;
 }
+#masonry_wrapper{min-height:500px!important;}
+
 #masonry_user_container[style="position: relative; height: 0px; width: 185px;"],
 #masonry_user_container[style="position:relative;height:0px;width: 185px;"],
 #masonry_user_container[style='position: relative; height: 0px; width: 185px;'],
@@ -864,6 +869,15 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     width: 90px;
 }
 
+.Contact_1child{
+    color: #aaa;
+    text-align: right;
+    padding-bottom: 10px;
+    font-size: 14px;
+    font-weight: normal;
+    width: 90px;
+}
+
 .insert-contactdetails{
     margin-left: 20px;
 }
@@ -879,12 +893,13 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 .inserthours-day{
     width:100px;
+    margin-bottom: 5px;
 }
 
 .inserthours-time{
     width: 170px;
     margin-left: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .main_aboutus{
@@ -1138,76 +1153,76 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 @-moz-keyframes bounce_blurringTextG{
     0%{
-        text-shadow: #555555 0 0 0;
-    }
+    text-shadow: #555555 0 0 0;
+}
 
-    50%{
-        text-shadow: #FFFFFF 0 0 20px;
-    }
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
 
-    100%{
-        text-shadow: #555555 0 0 0;
-    }
+100%{
+    text-shadow: #555555 0 0 0;
+}
 
 }
 
 @-webkit-keyframes bounce_blurringTextG{
     0%{
-        text-shadow: #555555 0 0 0;
-    }
+    text-shadow: #555555 0 0 0;
+}
 
-    50%{
-        text-shadow: #FFFFFF 0 0 20px;
-    }
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
 
-    100%{
-        text-shadow: #555555 0 0 0;
-    }
+100%{
+    text-shadow: #555555 0 0 0;
+}
 
 }
 
 @-ms-keyframes bounce_blurringTextG{
     0%{
-        text-shadow: #555555 0 0 0;
-    }
+    text-shadow: #555555 0 0 0;
+}
 
-    50%{
-        text-shadow: #FFFFFF 0 0 20px;
-    }
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
 
-    100%{
-        text-shadow: #555555 0 0 0;
-    }
+100%{
+    text-shadow: #555555 0 0 0;
+}
 
 }
 
 @-o-keyframes bounce_blurringTextG{
     0%{
-        text-shadow: #555555 0 0 0;
-    }
+    text-shadow: #555555 0 0 0;
+}
 
-    50%{
-        text-shadow: #FFFFFF 0 0 20px;
-    }
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
 
-    100%{
-        text-shadow: #555555 0 0 0;
-    }
+100%{
+    text-shadow: #555555 0 0 0;
+}
 
 }
 
 @keyframes bounce_blurringTextG{
     0%{
-        text-shadow: #555555 0 0 0;
-    }
+    text-shadow: #555555 0 0 0;
+}
 
-    50%{
-        text-shadow: #FFFFFF 0 0 20px;
-    }
+50%{
+    text-shadow: #FFFFFF 0 0 20px;
+}
 
-    100%{
-        text-shadow: #555555 0 0 0;
-    }
+100%{
+    text-shadow: #555555 0 0 0;
+}
 
 }
 
@@ -1313,20 +1328,20 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 @-webkit-keyframes rotating {
     from{
-        -webkit-transform: rotate(0deg);
-    }
-    to{
-        -webkit-transform: rotate(360deg);
-    }
+    -webkit-transform: rotate(0deg);
+}
+to{
+    -webkit-transform: rotate(360deg);
+}
 }
 
 @-moz-keyframes rotating {
     from{
-        -webkit-transform: rotate(0deg);
-    }
-    to{
-        -webkit-transform: rotate(360deg);
-    }
+    -webkit-transform: rotate(0deg);
+}
+to{
+    -webkit-transform: rotate(360deg);
+}
 }
 
 

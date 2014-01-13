@@ -52,7 +52,7 @@ HubStar.ReviewController = Ember.Controller.extend({
             var tempReview = HubStar.Review.createRecord({"review_user_photo_url": reviewUserPhoto,
                 "review_user_id": reviewUserID, "review_user_name": reviewUserName, "review_content": reviewContent, "review_time_stamp": reviewDate.toString(), "optional": optional, "review_id": reviewId, "review_star_rating_value": reviewStarValue, "review_length": reviewStarValueLength, "replyReviewCollection": replyReviewCollection, "review_like_count": 0, "review_people_like": ""});
             this.get("controllers.profile").get('model').get('reviews').insertAt(0, tempReview);
-            HubStar.store.save();
+            this.get("controllers.profile").get('model').get('reviews').store.save();
             this.get("controllers.profile").set("profileReviewStatistics", this.get("controllers.profile").get('profileReviewStatistics') + 1);
             this.get("controllers.profile").set("rateTime", false);
             $('#user-stats > li').removeClass('selected-user-stats');

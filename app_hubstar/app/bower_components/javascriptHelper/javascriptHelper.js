@@ -111,7 +111,8 @@ function requiredBackEnd(controller, method, para, ajaxType, callback) {
             type: ajaxType,
             data: JSON.stringify(para),
             success: function(feedback) {
-                HubStar.store.save();
+                
+                //HubStar.Store.save();
                 callback(feedback);
             }
         });
@@ -139,7 +140,7 @@ function ReplaceContentInContainer(matchClass, content)
     {
         if ((" " + elems[i].className + " ").indexOf(" " + matchClass + " ") > -1)
         {
-            console.log("match");
+            
             elems[i].style.display = 'none';
         }
     }

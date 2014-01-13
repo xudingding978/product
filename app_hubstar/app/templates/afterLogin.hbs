@@ -14,7 +14,7 @@
                 <k class="icon-envelope" style="">&nbsp;&nbsp;</k>
                 <span>Messages</span>
             </a></li>
-                {{#if controller.is_authentic_user}}
+                {{#if controller.is_trends_user}}
                 <li class="ite" ><a tabindex="-1"  href="#/profiles/new">
                         <k class="icon-briefcase" style="">&nbsp;&nbsp;</k>
                         <span>New Profile</span>
@@ -25,7 +25,7 @@
                         <k class="icon-question-sign" style="">&nbsp;&nbsp;</k>
                         <span>Help</span>
                     </a></li>
-                <li class="ite"><a tabindex="-1" href="#" onclick="logout();">
+                <li class="ite"><a tabindex="-1"{{action logout on="click"  target="view"}}  >
                         <k class="icon-off" style="">&nbsp;&nbsp;</k>
                         <span>Log out</span> 
                     </a></li>
@@ -37,20 +37,3 @@
 
 
 
-<script>
-
-            function logout() {
-                $.ajax({
-                    type: 'POST',
-                    url: getRestAPIURL() + '/logout',
-                    contentType: 'application/json; charset=uft-8',
-                    dataType: 'json',
-                    success: function(param) {
-                    }
-                });
-                localStorage.removeItem('loginStatus');
-
-
-            }
-
-</script>

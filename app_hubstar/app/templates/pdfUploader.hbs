@@ -37,7 +37,7 @@
             <img alt="" {{bindAttr src="pdf_cover_image"}}>
         </div>
         <div>
-            <span class="new-btn green-btn" {{action changeCover newPdfName}}>Change Cover</span>
+            <span class="new-btn green-btn" {{action changeCover pdf_title}}>Change Cover</span>
         </div>
         <div>
             {{view Ember.TextField valueBinding="pdf_title"  placeholder="file name"}}

@@ -27,27 +27,9 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
        console.log('show');
        $('#'+param).slideToggle(1000);
     },
-//    getVideoFromYoutube: function()
-//    {
-//
-//        this.set('videoid', this.getVideoId());
-//        var that = this;
-//
-//        if (this.get('videoid') !== null) {
-//            $.ajax({
-//                url: "http://gdata.youtube.com/feeds/api/videos/" + this.get('videoid') + "?v=2&alt=jsonc",
-//                type: 'get',
-//                success: function(feedback) {
-//                    that.set('videoImg', feedback.data.thumbnail.hqDefault);
-//                    that.set('videoTitle', feedback.data.title);
-//                    that.set('videoDesc', feedback.data.description);
-//                }, error: function() {
-//                    that.set('videoid', null);
-////                    console.log("some wrong with youtube id");
-//                }
-//            });
-//        }
-//    },
+    changeCover: function(param) {
+        console.log(param);
+    },
     profileStyleImageDrop: function(e, name)
     {
         var target = getTarget(e, "single");

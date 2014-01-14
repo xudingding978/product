@@ -340,7 +340,7 @@ a:hover , a:focus {color: #aaa;}
     white-space: nowrap;
     background-color: #427fed;
     opacity: .6;
-    cursor: default;
+    cursor: pointer;
 }
 
 .tags:hover{

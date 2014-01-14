@@ -437,7 +437,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     initStastics: function(profile) {
         this.set("profile_partner_ids", profile.get("profile_partner_ids"));
-
+        //this.set("profileVideoStatistics",0);
+        this.set("profileVideoStatistics",profile.get("profile_video_num"));
         if (this.get("profile_partner_ids") !== null) {
             if (this.get("profile_partner_ids").length !== 0) {
                 var ids = this.get("profile_partner_ids").split(",");

@@ -29,14 +29,14 @@
 
         <div class="object-tags ">
             <span class="tags-mark" style="background-color: #76a7fa"></span>
-            <div class="tags easing tagsappear">
+            <div class="tags easing tagsappear" >
                 <div class="tags-new">#{{country}}</div>
             </div>
         </div>
         {{#each keywordShow}}
         <div class="object-tags ">
             <span class="tags-mark" style="background-color: #76a7fa"></span>
-            <div class="tags easing tagsappear">
+            <div class="tags easing tagsappear" {{action searching keyword_name on="click" target="view"}}>
                 <div class="tags-new">#{{keyword_name}}</div>
             </div>
         </div>
@@ -170,6 +170,14 @@
                 <div class="tags-new">#{{categories}}</div>
             </div>
         </div>
+         {{#each keywordShow}}
+        <div class="object-tags ">
+            <span class="tags-mark" style="background-color: #76a7fa"></span>
+            <div class="tags easing tagsappear" {{action searching keyword_name on="click" target="view"}}>
+                <div class="tags-new">#{{keyword_name}}</div>
+            </div>
+        </div>
+        {{/each}}
     </div>
     {{render itemFunction this}}
     <div class="masonry-object_mainfeature">
@@ -290,6 +298,14 @@
                 <div class="tags-new">#{{categories}}</div>
             </div>
         </div>
+         {{#each keywordShow}}
+        <div class="object-tags ">
+            <span class="tags-mark" style="background-color: #76a7fa"></span>
+            <div class="tags easing tagsappear" {{action searching keyword_name on="click" target="view"}}>
+                <div class="tags-new">#{{keyword_name}}</div>
+            </div>
+        </div>
+        {{/each}}
     </div>
     {{render itemFunction this}}
     <div class="masonry-object_mainfeature">

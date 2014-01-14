@@ -26,6 +26,7 @@ HubStar.Profile = DS.Model.extend({
     profile_contact_email: DS.attr('string'),
     profile_keywords: DS.attr('string'),
     profile_keywords_num: DS.attr('number'),
+    profile_video_num: DS.attr('number'),
     profile_package_name: DS.attr('string'),
     profile_regoin: DS.attr('string'),
     profile_country: DS.attr('string'),

@@ -166,7 +166,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
             $('#errorMessage4').attr('style', 'display:none');
             document.getElementById('regionSelectionCheck').setAttribute("class", "new-btn");
         }
-        
+
         if ($('#contactEmail').val() === "") {
             $('#errorMessage5').attr('style', 'display:block');
             $('#contactEmailFormat').attr('style', 'display:none');
@@ -182,26 +182,26 @@ HubStar.ProfileNewController = Ember.Controller.extend({
             $('#contactEmailFormat').attr('style', 'display:block; text-align: left;margin-left: 150px;');
             document.getElementById('contactEmailField').setAttribute("class", "error-textfield");
         }
-        
-        
+
+
         if ($("#admins_1").val() === "") {
-                $('#errorMessage6').attr('style', 'display:block');
-                $('#adminsEmailFormat_1').attr('style', 'display:none');
+            $('#errorMessage6').attr('style', 'display:block');
+            $('#adminsEmailFormat_1').attr('style', 'display:none');
+            document.getElementById('adminsField_1').setAttribute("class", "error-textfield");
+        }
+        else if (this.validateEmail($("#admins_1").val())) {
+            $('#adminsEmailFormat_1').attr('style', 'display:none');
+            $('#errorMessage6').attr('style', 'display:none');
+            document.getElementById('adminsField_1').setAttribute("class", "");
+
+            var value = $("#admins_1").val();
+        }
+        else {
+            $('#errorMessage6').attr('style', 'display:none');
+            $('#adminsEmailFormat_1').attr('style', 'display:block; text-align: left;margin-left: 150px;');
+            if (document.getElementById('adminsField_1') !== null)
                 document.getElementById('adminsField_1').setAttribute("class", "error-textfield");
-            }
-            else if (this.validateEmail($("#admins_1").val())) {
-                $('#adminsEmailFormat_1').attr('style', 'display:none');
-                $('#errorMessage6').attr('style', 'display:none');
-                document.getElementById('adminsField_1').setAttribute("class", "");
-                
-                var value = $("#admins_1").val();    
-            }
-            else {
-                $('#errorMessage6').attr('style', 'display:none');
-                $('#adminsEmailFormat_1').attr('style', 'display:block; text-align: left;margin-left: 150px;');
-                if(document.getElementById('adminsField_1')!==null)
-                document.getElementById('adminsField_1').setAttribute("class", "error-textfield");
-            }
+        }
 
 
         if (document.getElementById('secondEmail').style.display === "table-row") {
@@ -252,13 +252,13 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 $('#errorMessage6').attr('style', 'display:none');
                 document.getElementById('adminsField_' + i).setAttribute("class", "");
                 var value = value + "," + $("#admins_" + i).val();
-                
+
             }
             else {
                 $('#errorMessage6').attr('style', 'display:none');
                 $('#adminsEmailFormat_' + i).attr('style', 'display:block; text-align: left;margin-left: 150px;');
-                if(document.getElementById('adminsField_' + i)!==null)
-                document.getElementById('adminsField_' + i).setAttribute("class", "error-textfield");
+                if (document.getElementById('adminsField_' + i) !== null)
+                    document.getElementById('adminsField_' + i).setAttribute("class", "error-textfield");
             }
         }
 
@@ -274,7 +274,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 document.getElementById('numberField').setAttribute("class", "error-textfield");
             }
         }
-       
+
 
 
         this.set("profile_url", this.spaceChecking(this.get("profile_name").toLowerCase()) + "-" + this.spaceChecking($('#regionSelection').text().toLowerCase()) + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase()));
@@ -324,11 +324,11 @@ HubStar.ProfileNewController = Ember.Controller.extend({
         this.fillInChecking();
 
         if (passSubmit) {
-            
-            var newMegaNewModel = HubStar.Mega.createRecord({
+
+            var newMegaNewModel = HubStar.Meganew.createRecord({
                 "id": this.get("profile_url"),
                 "type": "profile",
-                boost:  this.get("keywordNumber"),
+                boost: this.get("keywordNumber"),
                 accessed: null,
                 is_active: "true",
                 is_indexed: "true",
@@ -351,7 +351,8 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 owner_contact_bcc_emails: this.get("direct_enquiry_emails_2"),
                 owner_contact_cc_emails: this.get("direct_enquiry_emails_3"),
                 updated: "",
-                 keyword:[]
+                keyword: [],
+                profile: []
             });
 
             var newProfile = HubStar.Profile.createRecord({
@@ -364,11 +365,11 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 profile_bg_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_bg/default/defaultbg6.jpg",
                 profile_hero_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg",
                 profile_pic_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
-                profile_boost:  this.get("keywordNumber"),
+                profile_boost: this.get("keywordNumber"),
                 owner: this.get("owner"),
                 profile_creater: this.get("creater"),
                 profile_editors: this.get("owner") + "," + this.get("editors"),
-                profile_contact_number:  this.get("profile_contact_number"),
+                profile_contact_number: this.get("profile_contact_number"),
                 owner_contact_email: this.get("direct_enquiry_emails"),
                 owner_contact_bcc_emails: this.get("direct_enquiry_emails_2"),
                 owner_contact_cc_emails: this.get("direct_enquiry_emails_3"),
@@ -386,12 +387,12 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 profile_partner_ids: null,
                 profile_website_url: this.get("website_url"),
                 profile_website: this.get("website"),
-                keywords:[]
-                
+                keywords: []
+
             });
 
 
-            newMegaNewModel.get("profile").addObject(newProfile);
+            newMegaNewModel.get("profile").pushObject(newProfile);
             var that = this;
             requiredBackEnd('meganews', 'createNewProfile', newMegaNewModel, 'POST', function(params) {
                 if (params === true) {
@@ -399,16 +400,16 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 }
                 else {
                     newMegaNewModel.store.save();
-            newMegaNewModel.addObserver('isDirty', function() {
-                if (!newMegaNewModel.get('isDirty')) {
-                    that.transitionToRoute('profile', newProfile);
-                    location.href = "#/profiles/" + that.get("profile_url");
-                    location.reload();
-                    } else  {                    
-                    }
+                    newMegaNewModel.addObserver('isDirty', function() {
+                        if (!newMegaNewModel.get('isDirty')) {
+                            that.transitionToRoute('profile', newProfile);
+                            location.href = "#/profiles/" + that.get("profile_url");
+                            location.reload();
+                        } else {
+                        }
 
-            });
-                  
+                    });
+
                 }
             });
 
@@ -477,7 +478,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
             $("#silver").addClass("hover-opacity easing");
             $("#bronze").removeClass("hover-opacity easing");
         }
-        
+
 
     }
 });

@@ -305,7 +305,11 @@ a:hover , a:focus {color: #aaa;}
     right: 0;
     top: 0;
     z-index: 10;
+    opacity: 0;
 }
+
+.object-tags-box:hover{opacity: 1 !important;}
+
 .object-tags-box div{position:relative;z-index:100;}
 .object-tags{
     clear: both;
@@ -516,6 +520,7 @@ a:hover , a:focus {color: #aaa;}
 
 .item-function-control:hover{opacity: 1!important}
 .col2:hover .item-function-control{opacity: .6}
+.col2:hover .object-tags-box{opacity: .6}
 
 /*MANSONRY user OBJECT STYLE               END*/
 

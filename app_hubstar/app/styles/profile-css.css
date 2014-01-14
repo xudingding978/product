@@ -1139,7 +1139,7 @@ textarea.add-interests{
     margin-top: 4px;
     border-top: 15px solid transparent;
     border-bottom: 0px solid transparent;
-    border-left: 15px solid #ddd;
+    border-left: 15px solid rgba(50,50,50,.1);
     border-right: 0px solid transparent;
     right: 72px;
 

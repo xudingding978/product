@@ -178,7 +178,7 @@ HubStar.ContactController = Ember.Controller.extend({
             "projectSubCategoryItem": projectSubCategoryItem
         });
         tempEmail.store.commit();
-        this.get('controllers.applicationFeedback').statusObserver(null, "Email has been sent.");
+        this.get('controllers.applicationFeedback').statusObserver(null, "Your message has been sent.");
         if (!this.get('rememberMessage')) {
             this.set("emailBody", "");
             this.set("emailSubject", "");

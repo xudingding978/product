@@ -156,18 +156,18 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
     }
 
     function shareFacebook($name) {
-        $args = array(
-            'message' => 'I\'m creating new ideas over on myTrends. Here\'s your invitation to come and join me. Thanks ' . $name . '.',
-            'picture' => 'http://s3.hubsrv.com/trendsideas.com/profiles/commercial-design-trends/profile_pic.jpg',
-            'link' => 'http://my.trendsideas.com',
-            'description' => 'Hi Facebook friends… I’ve just signed up to myTrends, New Zealand’s only social platform dedicated to architecture and design. Now I can easily find, save and share inspirational ideas for building and renovation projects. Join now for free…',
-            'caption' => 'myTrends'
-        );
-        try {
-            $post_id = $this->api->api("/me/feed", "post", $args);
-        } catch (FacebookApiException $e) {
-          
-        }        
+//        $args = array(
+//            'message' => 'I\'m creating new ideas over on myTrends. Here\'s your invitation to come and join me. Thanks ' . $name . '.',
+//            'picture' => 'http://s3.hubsrv.com/trendsideas.com/profiles/commercial-design-trends/profile_pic.jpg',
+//            'link' => 'http://my.trendsideas.com',
+//            'description' => 'Hi Facebook friends… I’ve just signed up to myTrends, New Zealand’s only social platform dedicated to architecture and design. Now I can easily find, save and share inspirational ideas for building and renovation projects. Join now for free…',
+//            'caption' => 'myTrends'
+//        );
+//        try {
+//            $post_id = $this->api->api("/me/feed", "post", $args);
+//        } catch (FacebookApiException $e) {
+//          
+//        }        
     }
 
     function shareFacebookRegist($name) {

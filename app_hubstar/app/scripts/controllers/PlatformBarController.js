@@ -15,8 +15,8 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     topicSearch: function(search_topic) {
         this.transitionToRoute('searchIndex');
         this.get("controllers.application").set('search_string', search_topic);
-        this.get("controllers.application").set("pageCount", 0);        
-        this.get("controllers.application").set("searchFromTopic",true);
+        this.get("controllers.application").set("pageCount", 0);
+        this.get("controllers.application").set("searchFromTopic", true);
         this.get("controllers.application").newSearch();
 
     },
@@ -32,6 +32,12 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     },
     changeLocation: function(location) {
         HubStar.set('geoLocation', location);
-        this.get('controllers.applicationFeedback').statusObserver(null, "You are now searching within " + location + " only.");
+        if (location === 'Global')
+        {
+            this.get('controllers.applicationFeedback').statusObserver(null, "You are now searching all content.");
+        }
+        else {
+            this.get('controllers.applicationFeedback').statusObserver(null, "You are now searching within " + location + " only.");
+        }
     }
 });

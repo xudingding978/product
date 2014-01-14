@@ -115,11 +115,10 @@
                         {{{object_description}}}
                     </div>
                 </div>
-
-                <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more &nbsp;<i class="icon-angle-down"></i></span>
-                <span role="button" class="masonry_more-btn easing" {{bindAttr id="collape_button"}}  style="display: none" {{action 'collapeContent' this target='view' on="click"}}>collapse &nbsp;<i class="icon-angle-up"></i></span>
-
-            </div>
+                </div>
+            {{#if moreDisplay}}
+            <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action transitionToPhoto id}} >more &nbsp;</span>
+            {{/if}}
         </div>
     </div>
     {{render "comment" this}}
@@ -243,7 +242,7 @@
 
         <div class="masonry-object_text">
             <div style="">
-                <p style="font-weight: bold;margin-bottom: 5px;">  {{#linkTo 'video' this}}{{object_title}}{{/linkTo}} </p>
+                <p style="font-weight: bold;margin-bottom: 5px;" {{action transitionToVideo id}}>{{object_title}}</p>
                 <p class="masonry-object_text-container" style="font-size: 11px; max-height: 50px;">{{object_description}}</p>
             </div>
         </div>
@@ -356,9 +355,9 @@
                 {{{object_description}}}
 
             </div>
-            {{#linkTo 'article' this}}
-            <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action 'moreContent' this target='view' on="click"}}>more</span>
-            {{/linkTo}}
+           {{#if moreDisplay}}
+            <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action transitionToArticle id}}>more</span>
+            {{/if}}
         </div>
     </div>
 

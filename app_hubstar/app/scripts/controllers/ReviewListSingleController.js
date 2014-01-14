@@ -53,6 +53,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
         requiredBackEnd('reviews', 'Update', this.get("model"), 'POST', function(params) {
         });
         this.set("review_is_edit", !this.get('review_is_edit'));
+        
     },
     cancelReview: function() {
         this.set("review_is_edit", !this.get('review_is_edit'));
@@ -118,7 +119,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
                 'review_msg': replyContent, 'review_url': null, 'review_user_name': this.get("currentUser").get('display_name'), 'review_photo_url_large': this.get("currentUser").get('photo_url_large'),
                 'review_enableToEdit': false, 'optional': this.get('model').get('optional') + '/' + this.get('model').get('review_id'), "review_userself": this.get("isSelf")});
             this.get('model').get('reply_reviews').insertAt(0, tempReply);
-            HubStar.store.save();
+            this.get('model').store.save();
 
             $('#reply_' + reviewID).attr('style', 'display: block;max-height:0;');
             $('#view-comments_' + reviewID).attr('style', 'display:none; background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px');
@@ -193,7 +194,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
             if (response && response.post_id) {
                 that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
             } else {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Unsuccessful.", "failed");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
             }
         }
 

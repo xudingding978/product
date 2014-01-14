@@ -78,12 +78,12 @@ class UsersController extends Controller {
                 $profiles = $oldRecordDeep['user'][0]["profiles"];
             } else {
                 $profiles = array();
-            }      
+            }
             $collections = array();
             for ($i = 0; $i < sizeof($profiles); $i++) {
                 $doc = $this->getDomain() . "/profiles/" . $profiles[$i]["profile_id"];
                 $profileString = $cb->get($doc);
-                $profileData = CJSON::decode($profileString, true);               
+                $profileData = CJSON::decode($profileString, true);
                 if (isset($profileData['profile'][0]["collections"])) {
                     $collection = $profileData['profile'][0]["collections"];
                 } else {
@@ -95,18 +95,18 @@ class UsersController extends Controller {
 //                    $item = array();
 //                    $item["id"] = $collection[$j]["id"];
 //                    $item["title"] = $collection[$j]["title"];                   
-                    array_push($collectionItem, $collection[$j]);                
+                    array_push($collectionItem, $collection[$j]);
                 }
-                $items["collection"]=$collectionItem;
-                $items["profile_id"]=$profiles[$i]["profile_id"];
-                $items["profile_name"]=$profileData['profile'][0]["profile_name"];
-                array_unshift($collections, $items);               
+                $items["collection"] = $collectionItem;
+                $items["profile_id"] = $profiles[$i]["profile_id"];
+                $items["profile_name"] = $profileData['profile'][0]["profile_name"];
+                array_unshift($collections, $items);
             }
-            
+
             $this->sendResponse(200, CJSON::encode($collections));
         } catch (Exception $exc) {
-             
-            echo $exc->getTraceAsString();            
+
+            echo $exc->getTraceAsString();
         }
     }
 
@@ -242,8 +242,8 @@ class UsersController extends Controller {
     public function actionTest() {
         echo "test";
     }
-    
-        protected function getImageIdentifier($imageInfo, $url) {
+
+    protected function getImageIdentifier($imageInfo, $url) {
         $return_arr = array();
         if (strpos($imageInfo['mime'], 'jpeg')) {
             error_log('getImageIdentifier = jpeg');
@@ -266,19 +266,19 @@ class UsersController extends Controller {
 
         return $return_arr;
     }
-    
+
     public function actionUpdateim() {
         $payloads_arr = CJSON::decode(file_get_contents('php://input'));
         $old_url = $payloads_arr['url'];
         $photo_name = $payloads_arr['newStyleImageName'];
         $mode = $payloads_arr['mode'];
         $user_id = $payloads_arr['id'];
-          $imageInfor = getimagesize($old_url);
-          $return_arr=$this->getImageIdentifier($imageInfor, $old_url);
-          $type = $return_arr['type'];       
+        $imageInfor = getimagesize($old_url);
+        $return_arr = $this->getImageIdentifier($imageInfor, $old_url);
+        $type = $return_arr['type'];
         $photoController = new PhotosController();
-        $data_arr=array();
-        $data_arr['type']=$type;
+        $data_arr = array();
+        $data_arr['type'] = $type;
         $photo = $return_arr['im'];
         $compressed_photo = $photoController->compressPhotoData($type, $photo);
         $orig_size['width'] = imagesx($compressed_photo);
@@ -317,7 +317,25 @@ class UsersController extends Controller {
         }
     }
 
-
+    public function actionSaveimtos3() {
+        $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+        $old_url = $payloads_arr['url'];
+        $photo_name = $payloads_arr['newStyleImageName'];
+        $mode = $payloads_arr['mode'];
+        $user_id = $payloads_arr['id'];
+        $imageInfor = getimagesize($old_url);
+        $return_arr = $this->getImageIdentifier($imageInfor, $old_url);
+        $type = $return_arr['type'];
+        $photoController = new PhotosController();
+        $data_arr = array();
+        $data_arr['type'] = $type;
+        $photo = $return_arr['im'];
+        $compressed_photo = $photoController->compressPhotoData($type, $photo);
+        $orig_size['width'] = imagesx($compressed_photo);
+        $orig_size['height'] = imagesy($compressed_photo);
+        $photoController->savePhotoInTypes($orig_size, $mode . '_original', $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
+        $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $user_id, null, $type);
+    }
 
     public function actionUpdateStyleImage() {
         $payloads_arr = CJSON::decode(file_get_contents('php://input'));

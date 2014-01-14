@@ -74,10 +74,13 @@
 
                         <div style="position: relative;margin:3px; display: inline-block; vertical-align: top; min-width: 150px;text-align: center;">
                             <div> 
+                                {{#each photo}}
                                 <img  {{bindAttr src= "photo_image_original_url"}}  alt="Logo" style="max-width: 140px; max-height: 150px;">
+
                                 <div {{bindAttr class="photo_source_id"}} style="display: none;">
                                     <img style="width: 25px; height: 25px;position: absolute;top: 40%;left: 62px;" src="../../../images/uploadphotos_spinner.gif"/>
                                 </div>
+                                {{/each}}
                             </div>
                             <div style="margin: 2px 0 5px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;word-wrap: break-word;line-height: 15px;">{{photo_title}}</div>
                         </div>
@@ -104,48 +107,48 @@
         {{#each controller.content}}
         {{view HubStar.ItemView}}
 
-<script>
-    $(function() {
-        var $container = $('#masonry_user_container');
-        window.setTimeout(function() {
-            $container.masonry();
-            $container.masonry('reloadItems');
-        }, 10);
-    });
-</script>
-<script>
-    $(function() {
-        var $container = $('#masonry_photo_collection_container');
-        window.setTimeout(function() {
-            $container.masonry();
-            $container.masonry('reloadItems');
-        }, 50);
-    });
-</script>
+        <script>
+            $(function() {
+                var $container = $('#masonry_user_container');
+                window.setTimeout(function() {
+                    $container.masonry();
+                    $container.masonry('reloadItems');
+                }, 10);
+            });
+        </script>
+        <script>
+            $(function() {
+                var $container = $('#masonry_photo_collection_container');
+                window.setTimeout(function() {
+                    $container.masonry();
+                    $container.masonry('reloadItems');
+                }, 50);
+            });
+        </script>
         {{/each}}
 
 
 
 
     </div>
-<script>
-    $(function() {
-        var $container = $('#masonry_user_container');
-        window.setTimeout(function() {
-            $container.masonry();
-            $container.masonry('reloadItems');
-        }, 10);
-    });
-</script>
-<script>
-    $(function() {
-        var $container = $('#masonry_photo_collection_container');
-        window.setTimeout(function() {
-            $container.masonry();
-            $container.masonry('reloadItems');
-        }, 50);
-    });
-</script>
+    <script>
+        $(function() {
+            var $container = $('#masonry_user_container');
+            window.setTimeout(function() {
+                $container.masonry();
+                $container.masonry('reloadItems');
+            }, 10);
+        });
+    </script>
+    <script>
+        $(function() {
+            var $container = $('#masonry_photo_collection_container');
+            window.setTimeout(function() {
+                $container.masonry();
+                $container.masonry('reloadItems');
+            }, 50);
+        });
+    </script>
 </div>
 
 

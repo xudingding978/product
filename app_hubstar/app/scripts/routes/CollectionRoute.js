@@ -12,14 +12,17 @@ HubStar.CollectionRoute = Ember.Route.extend({
         $('#defualt').addClass('selected-user-stats');
         this.controllerFor('masonryCollectionItems').selectModelForUser(id);
         this.controllerFor('masonryCollectionItems').set('canEdit', true);
+
         setTimeout(function() {
             $('#masonry_photo_collection_container').masonry("reloadItems");
         }, 3000);
+
     },
     events: {
         transitionToPhoto: function(id) {
             
             this.controllerFor('mega').set("selectPhoto", false);
+             
             var obj = HubStar.Mega.find(id);
             this.transitionTo("userPhoto", obj);//photo          
         },

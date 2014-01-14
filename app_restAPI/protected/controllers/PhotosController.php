@@ -165,7 +165,7 @@ class PhotosController extends Controller {
     }
 
     public function actionUpdate() {
-         error_log("dddddddddddddddddddddddddddddddddddd");
+        
         try {
             $newRecord = file_get_contents('php://input');
             $newRecord = CJSON::decode($newRecord, true);
@@ -181,7 +181,7 @@ class PhotosController extends Controller {
             $oldRecord['photo'][0]['photo_caption'] = $newRecord['photo']['photo_caption'];
            
             $keyword = $this->getProfileKeyword($oldRecord['owner_id']);
-            error_log(var_export($keyword, true));
+            
             $oldRecord['keyword'] = $keyword;
 
             if ($cb->set($url, CJSON::encode($oldRecord))) {
@@ -487,7 +487,9 @@ class PhotosController extends Controller {
             $photoCaption = $mega['mega']['photo'][0]['photo_caption'];
             $linkText = $mega['mega']['photo'][0]['photo_link_text'];
             $linkUrl = $mega['mega']['photo'][0]['photo_link_url'];
-            
+            $keyword = $this->getProfileKeyword($mega['mega']['owner_id']);    
+            error_log("sssssssssssssssssssssssssssssssss");
+            error_log(var_export($keyword, true));
             
             $url = $this->getDomain() . "/" . $id;
             $tempRecord = $cb->get($url);
@@ -496,7 +498,8 @@ class PhotosController extends Controller {
             $oldRecord['photo'][0]['photo_title'] = $photoTitle;
             $oldRecord['photo'][0]['photo_caption'] = $photoCaption;
             $oldRecord['photo'][0]['photo_link_text'] = $linkText;
-            $oldRecord['photo'][0]['photo_link_url'] = $linkUrl;         
+            $oldRecord['photo'][0]['photo_link_url'] = $linkUrl;           
+            $oldRecord['keyword'] = $keyword;
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {

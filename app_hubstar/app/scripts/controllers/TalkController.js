@@ -86,7 +86,7 @@ HubStar.TalkController = Ember.Controller.extend({
             var that = this;
             requiredBackEnd('conversations', 'CreateConversation', tempComment, 'POST', function(params) {
 
-                that.get('controllers.applicationFeedback').statusObserver(null, "Your Message Has Been Sent Successfully.");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Message sent.");
                 HubStar.set("talkConversation",true);
 
                 that.reviewCancel();

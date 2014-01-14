@@ -10,7 +10,7 @@ DS.RESTAdapter.map('HubStar.Mega', {
     article: {embedded: 'always'}
 });
 
-HubStar.Mega = DS.Model.extend( {
+HubStar.Mega = DS.Model.extend({
     accessed: DS.attr('string'),
     boost: DS.attr('string'),
     categories: DS.attr('string'),
@@ -70,11 +70,18 @@ HubStar.Mega = DS.Model.extend( {
         }
         return b;
     }.property('comments'),
-
-    
     photo_album_id: function() {
         return "#album_" + this.get('id');
     }.property('id'),
+    moreDisplay: function() {
+        if (this.get("object_description") === null || this.get("object_description") === "")
+        {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }.property('object_description'),
     more_button: function() {
         return "more_button_" + this.get('id');
     }.property('id'),
@@ -118,7 +125,7 @@ HubStar.Mega = DS.Model.extend( {
             type: 'POST',
             data: JSON.stringify(mega),
             success: function() {
-            //    HubStar.store.save();
+                //    HubStar.store.save();
             }
         });
     },

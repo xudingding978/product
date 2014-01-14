@@ -13,7 +13,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('status').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
-
+        this.controllerFor('mega').set('from',"search");
 
         localStorage.checkUser = "";
         $(".navbar").css("box-shadow", "");

@@ -3,7 +3,7 @@ DS.RESTAdapter.map('HubStar.MegaNew', {
     profile: {embedded: 'always'}
 });
 
-HubStar.MegaNew = DS.Model.extend({
+HubStar.Meganew = DS.Model.extend({
     accessed: DS.attr('string'),
     boost: DS.attr('string'),
     categories: DS.attr('string'),

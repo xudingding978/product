@@ -720,7 +720,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 var search_id = address.split("#")[1].split("/")[2];
                 if (search_id === "search") //this go to the search index
                 {
-
                     this.transitionTo("searchIndex");
                 }
                 else
@@ -736,6 +735,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             else
             {
+  
                 //   var collection_id = address.split("#")[1].split("/")[4];
                 var address = document.URL;
                 var collection_id = address.split("#")[1].split("/")[4];

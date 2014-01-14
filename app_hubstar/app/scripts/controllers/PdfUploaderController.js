@@ -1,10 +1,11 @@
 
 HubStar.PdfUploaderController = Ember.ObjectController.extend({
     needs: ["profilePdf", "applicationFeedback", 'profile', 'megaCreate'],
-    newPdfName: null,
-    newPdfSource: null,
-    newPdfCover: null,
-    newPdfDesc: null,
+    pdfArray: [],
+//    newPdfName: null,
+//    newPdfSource: null,
+//    newPdfCover: 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0',
+//    newPdfDesc: null,
     profileMega: null,
     pdfInfromationEdit: false,
     init: function() {
@@ -14,6 +15,17 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
         this.reset();
         var profilePdf = this.get('controllers.profilePdf');
         profilePdf.pdfCreateModeSwitch();
+    },
+    closeUploader: function() {
+        console.log('close');
+         this.get('controllers.profilePdf').set('is_pdf_create_mode', false);
+         this.set('pdfInfromationEdit', false);
+         this.reset();
+         this.transitionTo("profilePdf");
+    },
+    modifyDetail: function(param) {
+       console.log('show');
+       $('#pdfDetail').slideToggle(1000);
     },
 //    getVideoFromYoutube: function()
 //    {
@@ -40,9 +52,13 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
     {
         var target = getTarget(e, "single");
         var src = target.result;
-//        var that = this;
-        this.set('newPdfSource',src);
-        this.set('newPdfName',name);
+        var pdf = HubStar.Pdf.createRecord({
+            'pdf_cover_image': "http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0", 'pdf_title': name.split('.')[0],
+            'pdf_desc': "", 'pdf_url': src, 'pdf_profile_id': this.get('controllers.profiles').get('model').get('id')
+        });
+        this.get("pdfArray").pushObject(pdf);
+//        this.set('newPdfSource',src);
+//        this.set('newPdfName',name);
         console.log(name);
         console.log(src);
         this.set('pdfInfromationEdit', true);
@@ -50,7 +66,7 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
     reset: function() {
         this.set('newPdfName', '');
         this.set('newPdfSource', '');
-        this.set('newPdfCover', '');
+        this.set('newPdfCover', 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0');
         this.set('newPdfDesc', '');
     },
     addPdfObject: function(e, name, type, size) {

@@ -8,7 +8,7 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
     getVideo: true,
     videoesContent: [],
     isRenderDeleteItemTemplate: false,
-    needs: ['profile', 'permission', 'applicationFeedback'],
+    needs: ['profile', 'permission', 'applicationFeedback,pdfUploader'],
 //    getClientId: function(model) {
 //
 //        var results = HubStar.Mega.find({"RquireType": "video", 'ownerid': model.get("id")});
@@ -26,11 +26,6 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
 //        });
 //        this.checkEditingMode();
 //    },
-    closeUploader: function() {
-        console.log('close');
-         this.set('is_pdf_create_mode', false);
-         this.transitionTo("profilePdf");
-    },
 //    back: function() {
 ////        this.set('pdfInfromationEdit', false);
 //        this.closeUploader();
@@ -39,13 +34,6 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
     pdfCreateModeSwitch: function()
     {
         console.log('switch');
-        if (!this.get('is_pdf_create_mode'))
-        {
-            document.getElementById("body_id").style.overflow = "hidden";
-        }
-        else {
-            document.getElementById("body_id").style.overflow = "auto";
-        }
         this.set('is_pdf_create_mode', true);
         this.transitionTo("pdfUploader");
     },

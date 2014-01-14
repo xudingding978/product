@@ -298,33 +298,31 @@ class Controller extends CController {
                       }
                     },
                     "must_not": {
-                      "queryString": {
-                        "default_field": "couchbaseDocument.doc.type",
-                        "query": "profile"
-                      }
-                    }
+                   
                   }
+                }
                 }
               }');
 
             $request->filter($filter);
-        } else {
-            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
-                "query": {
-                  "bool": {
-                    "must": {},
-                    "must_not": {
-                      "queryString": {
-                        "default_field": "couchbaseDocument.doc.type",
-                        "query": "profile"
-                      }
-                    }
-                  }
-                }
-              }');
-
-            $request->filter($filter);
-        }
+        } 
+//        else {
+//            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+//                "query": {
+//                  "bool": {
+//                    "must": {},
+//                    "must_not": {
+//                      "queryString": {
+//                        "default_field": "couchbaseDocument.doc.type",
+//                        "query": "profile"
+//                      }
+//                    }
+//                  }
+//                }
+//              }');
+//
+//            $request->filter($filter);
+//        }
 //        $sort = Sherlock\Sherlock::sortBuilder();
 //        $sort1 = $sort->Field()->name("boost")->order('desc');
 //        $sort2 = $sort->Field()->name("_score");

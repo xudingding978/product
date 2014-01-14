@@ -5,13 +5,15 @@
 }
 
 #footer{
-    background: #333333 url('../images/footerbg.png') repeat-x;
+    background: #1E1D1B url('../images/footerbg.png') repeat-x;
     color: white;
-    position: relative;
     
+    bottom:0;
+    left:0;
     float:left;
     clear:both;
     width:100%;
+    
 }
 
 .footer_contentbox {

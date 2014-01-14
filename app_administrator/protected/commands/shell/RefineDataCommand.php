@@ -248,7 +248,7 @@ class RefineDataCommand extends Controller_admin {
           "must": {
             "queryString": {
               "default_field": "couchbaseDocument.doc.type",
-              "query": "photo"
+              "query": "video"
             }
           }
         }

@@ -111,7 +111,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     isProfilePicture: false,
     isProfileHero: false,
     isProfileBackground: false,
-    isKeywordObjecttExist: false,
     CurrentImageSize: "",
     RequiredImageSize: "",
     isAdmin: false,
@@ -270,7 +269,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.followerPhoto(id);
 
 //        if (profile.get("keywords") !==null && profile.get("keywords") !== "undefined" && profile.get("keywords").get('length') > 0) {
-        this.checkKeywordObjectExist();
+       
         this.set("keywords_array", profile.get('keywords'));
         this.set("show_keyword_id", profile.get('show_keyword_id'));
 
@@ -321,13 +320,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //        }
 //        this.set('about_us', about_us);
     },
-    checkKeywordObjectExist: function() {
-        if (this.get('model').get('keywords') !== null && this.get('model').get('keywords') !== 'undefined' && this.get('model').get('keywords').get('length') > 0) {
-            this.set('isKeywordObjecttExist', true);
-        } else {
-            this.set('isKeywordObjecttExist', false);
-        }
-    },
+    
     setShowKeywordsArray: function(show_keywords_id, keywords) {
         var newArray = [];
         for (var i = 0; i < keywords.get('length'); i++) {

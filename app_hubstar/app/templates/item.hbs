@@ -33,6 +33,14 @@
                 <div class="tags-new">#{{country}}</div>
             </div>
         </div>
+        {{#each keywordShow}}
+        <div class="object-tags ">
+            <span class="tags-mark" style="background-color: #76a7fa"></span>
+            <div class="tags easing tagsappear">
+                <div class="tags-new">#{{keyword_name}}</div>
+            </div>
+        </div>
+        {{/each}}
         <div class="object-tags " style="display:none;">
             <span class="tags-mark" style="background-color: #a0c3ff"></span>
             <div class="tags easing tagsappear">

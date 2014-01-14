@@ -105,7 +105,7 @@ class MegasController extends Controller {
 
             $this->updateProfileRecord($newRecord);
         } elseif ($newRecord['mega']['type'] == 'photo') {
-            error_log("rrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+           
             $photoController = new PhotosController();
             $photoController->photoUpdate($newRecord);
         } elseif ($newRecord['mega']['type'] == 'video') {

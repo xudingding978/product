@@ -488,8 +488,7 @@ class PhotosController extends Controller {
             $linkText = $mega['mega']['photo'][0]['photo_link_text'];
             $linkUrl = $mega['mega']['photo'][0]['photo_link_url'];
             $keyword = $this->getProfileKeyword($mega['mega']['owner_id']);    
-            error_log("sssssssssssssssssssssssssssssssss");
-            error_log(var_export($keyword, true));
+            
             
             $url = $this->getDomain() . "/" . $id;
             $tempRecord = $cb->get($url);

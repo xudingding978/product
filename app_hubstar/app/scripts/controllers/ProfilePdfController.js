@@ -9,66 +9,14 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
     videoesContent: [],
     isRenderDeleteItemTemplate: false,
     needs: ['profile', 'permission', 'applicationFeedback,pdfUploader'],
-//    getClientId: function(model) {
-//
-//        var results = HubStar.Mega.find({"RquireType": "video", 'ownerid': model.get("id")});
-//        var that = this;
-//        results.addObserver('isLoaded', function() {
-//            if (results.get('isLoaded')) {
-//                that.set('videoesContent', []);
-//                for (var i = 0; i < results.get("length"); i++) {
-//                    var tempmega = results.objectAt(i);
-//                    that.get("videoesContent").pushObject(tempmega);
-//                }
-//                that.get("controllers.profile").set("profileVideoStatistics",results.get("length"));
-//                that.relayout();
-//            }
-//        });
-//        this.checkEditingMode();
-//    },
-//    back: function() {
-////        this.set('pdfInfromationEdit', false);
-//        this.closeUploader();
-//        
-//    },
+
     pdfCreateModeSwitch: function()
     {
         console.log('switch');
         this.set('is_pdf_create_mode', true);
         this.transitionTo("pdfUploader");
     },
-//    dropdownPhotoSetting: function(id)
-//    {
-//        this.set('delete_id', id);
-//        $('#dropdown_id_' + id).toggleClass('hideClass');
-//    },
-//    checkEditingMode: function()
-//    {
-//        this.set('is_profile_editing_mode', false);
-//        this.set('is_user_editing_mode', false);
-//        if (HubStar.get('editingMode') === 'profile') {
-//            this.set('is_profile_editing_mode', true);
-//            var proController = this.get('controllers.profile');
-//            this.set('pageModel', proController.get('model'));
-//            this.set("is_authentic_user", this.checkAuthenticUser());
-//        }
-//        else if (HubStar.get('editingMode') === 'user') {
-//            this.set('is_user_editing_mode', true);
-//            var userController = this.get('controllers.user');
-//            this.set('is_authentic_user', userController.get('is_authentic_user'));
-//        }
-//        else {
-//            this.set('is_profile_editing_mode', false);
-//            this.set('is_user_editing_mode', false);
-//        }
-//        this.relayout();
-//    },
-//    relayout: function()
-//    {
-//        setTimeout(function() {
-//            $('#masonry_user_container').masonry("reload");
-//        }, 1000);
-//    },
+
     checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         var current_user_email = currentUser.get('email');

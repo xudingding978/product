@@ -847,7 +847,7 @@
                 <div style="font-size: 15px; font-weight: bold;color: #555; text-align: center;margin: 5px auto 20px;">You have {{keyword_left}} keywords left out of  ({{keyword_num}}).</div>
                 {{#view HubStar.KeywordDropTargetView}}
                 <div style="width: 700px; min-height: 100px; background-color: #f3f3f3; margin: 10px auto;padding: 5px 8px;position: relative;">
-                    <div style="font-size: 13px; font-weight: bold;color: #aaa;position: absolute;bottom: 5px;text-align: center;width: 684px;">Keywords in this area can be showed on the profile, drag from the pool below. (maximum 10 keywords)</div>
+                    <div style="font-size: 13px; font-weight: bold;color: #aaa;position: absolute;bottom: 5px;text-align: center;width: 684px;">You can display up to 10 keywords at a time on your business profile. Drag and drop keywords from the area below.</div>
                     {{#each controller.show_keyword_array}}                    
                     <div class='hashtags' style="margin: 2px 3px;">{{keyword_name}}{{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteKeywords keyword_id "show"}}>x</i>{{/if}}</div>                    
                     {{/each}}                      
@@ -864,7 +864,7 @@
                     </div>
 
                     <div  style="margin: 0;width: 657px; height:50px;border-top: 1px dashed #aaa;overflow: hidden;">
-                        {{view Ember.TextArea valueBinding="add_keywords" class="no-resize no-effect"  placeholder="* Please ensure you use a commer seperated list!!! ie: bathroom, kitchen, living room"}}
+                        {{view Ember.TextArea valueBinding="add_keywords" class="no-resize no-effect"  placeholder="*Please separate multiple keywords with a comma; i.e. Bathroom Vanities, Kitchen Appliances, Interior Design"}}
                     </div>
 
                     <div class="new-btn" style="float: right;top: -50px;height: 51px;line-height: 50px;right: -1px;" {{action addKeywords}}>Add</div>

@@ -28,7 +28,7 @@ class PhotosController extends Controller {
 
     public function actionCreate() {
         $response;
-        error_log("dddddddddddddddddddddddddddddd");
+        //error_log("dddddddddddddddddddddddddddddd");
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $url = $request_arr["url"];
@@ -165,7 +165,7 @@ class PhotosController extends Controller {
     }
 
     public function actionUpdate() {
-
+         error_log("dddddddddddddddddddddddddddddddddddd");
         try {
             $newRecord = file_get_contents('php://input');
             $newRecord = CJSON::decode($newRecord, true);
@@ -179,8 +179,9 @@ class PhotosController extends Controller {
             $oldRecord['object_description'] = $newRecord['photo']['photo_caption'];
             $oldRecord['photo'][0]['photo_title'] = $newRecord['photo']['photo_title'];
             $oldRecord['photo'][0]['photo_caption'] = $newRecord['photo']['photo_caption'];
-            
+           
             $keyword = $this->getProfileKeyword($oldRecord['owner_id']);
+            error_log(var_export($keyword, true));
             $oldRecord['keyword'] = $keyword;
 
             if ($cb->set($url, CJSON::encode($oldRecord))) {
@@ -421,8 +422,7 @@ class PhotosController extends Controller {
     }
 
     function compressPhotoData($type, $image) {
- error_log("cccccccccccccccc");
-  error_log($type);
+
         if ($type == "image/png") {
             imagepng($image);
         } elseif ($type == "image/jpeg") {

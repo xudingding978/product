@@ -98,6 +98,8 @@ class MegasController extends Controller {
         $newRecord = file_get_contents('php://input');
         $newRecord = CJSON::decode($newRecord, true);
         $newRecord['id'] = $id;
+        error_log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+        error_log(var_export($newRecord['mega']['type'], true));
         if ($newRecord['mega']['type'] == 'user') {
             $this->updateUserRecord($newRecord);
         } elseif ($newRecord['mega']['type'] == 'profile') {

@@ -8,7 +8,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
     countrySelection: "Country",
     regionSelection: "Regoin/State",
     numberSelection: "-",
-    keywordNumber: "0",
+    keywordNumber: "5",
     heroImage: false,
     profile_url: "",
     first_name: "",
@@ -30,7 +30,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
     direct_enquiry_emails_3: "",
     creater: "",
     editors: "",
-    boost: "",
+    boost: null,
     profile_package: "",
     profile_contact_number: "",
     profile_bg_url: "",
@@ -87,6 +87,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 && this.validateEmail($('.contactEmail').val())
                 && this.validateEmail($('.admins').val())
                 && this.validateEmail($('.clientEmail').val())
+             //   && this.numberChecking("#numberFormat", $('.contactNumber').val())
                 )
 
         {
@@ -380,6 +381,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 profile_is_deleted: "false",
                 profile_suburb: this.get("suburb"),
                 profile_keywords: this.get("keywords"),
+                profile_video_num: 0,
                 profile_keywords_num: this.get("keywordNumber"),
                 profile_regoin: $('#regionSelection').text(),
                 profile_country: $('#countrySelection').text(),
@@ -393,6 +395,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
 
 
             newMegaNewModel.get("profile").pushObject(newProfile);
+
             var that = this;
             requiredBackEnd('meganews', 'createNewProfile', newMegaNewModel, 'POST', function(params) {
                 if (params === true) {
@@ -402,7 +405,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                     newMegaNewModel.store.save();
                     newMegaNewModel.addObserver('isDirty', function() {
                         if (!newMegaNewModel.get('isDirty')) {
-                            that.transitionToRoute('profile', newProfile);
+                            //that.transitionToRoute('profile', newProfile);
                             location.href = "#/profiles/" + that.get("profile_url");
                             location.reload();
                         } else {

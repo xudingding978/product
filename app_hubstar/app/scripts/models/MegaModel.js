@@ -12,7 +12,7 @@ DS.RESTAdapter.map('HubStar.Mega', {
 
 HubStar.Mega = DS.Model.extend({
     accessed: DS.attr('string'),
-    boost: DS.attr('string'),
+    boost: DS.attr('number'),
     categories: DS.attr('string'),
     creator_profile_pic: DS.attr('string'),
     created: DS.attr('string'),
@@ -62,6 +62,21 @@ HubStar.Mega = DS.Model.extend({
     article: DS.hasMany('HubStar.Article'),
     keyword: DS.hasMany('HubStar.Keyword'),
     videoes: DS.hasMany('HubStar.Video'),
+    keywordShow: function() {
+       
+        var a = new Array();
+
+        for (var i = 0; i < 3 && this.get("keyword").get("length"); i++)
+        {
+            var b = new Array();
+            //console.log(this.get("keyword").get("length"));
+            if (this.get("keyword").objectAt(i) !== undefined && this.get("keyword").objectAt(i) !== null) {
+                b["keyword_name"] = this.get("keyword").objectAt(i).get("keyword_name");
+                a[i] = b;
+            }
+        }
+        return a;
+    }.property('keyword'),
     showComment: function() {
         var b = false;
         if (this.get("comments").get("length") > 5)

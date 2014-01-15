@@ -349,10 +349,11 @@ class Controller extends CController {
                 }
             }');
 
+
 //        $request->sort($sort1, $sort2);
 //        error_log($request->query($termQuery)->toJSON());
         $response = $request->query($termQuery)->execute();
-
+        error_log("\n".$request->toJSON()."\n") ;
         return $response;
     }
 

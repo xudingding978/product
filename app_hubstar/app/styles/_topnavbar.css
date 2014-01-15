@@ -245,7 +245,7 @@
 .Navigator-content  li {padding: 3px 15px;cursor: pointer;}
 .Navigator-content  li:hover {background-color: #d2d2d2}
 
-.Navigator-content  li >.icon-search{
+.Navigator-content  li >.fa-search{
     font-size: 18px;
     color: white;
     float: right;

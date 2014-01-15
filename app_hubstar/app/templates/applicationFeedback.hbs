@@ -26,7 +26,7 @@
         <img {{bindAttr src= this.photo_url}}/>
     </div>
     <div class="fresh-message fresh_succeed">
-        <k class="fa fa-ok-sign"></k>
+        <k class="fa fa-check-circle"></k>
         <span class="feed-back">{{controller.status}}</span>
         <k class="fa fa-remove" {{action removeButton }}></k>
     </div>
@@ -40,7 +40,7 @@
         <img {{bindAttr src= this.photo_url}}/>
     </div>
     <div class="fresh-message fresh_failed">
-        <k class="fa fa-remove-sign"></k>
+        <k class="fa fa-times-circle"></k>
         <span class="feed-back">{{controller.status}}</span>
         <k class="fa fa-remove" {{action removeButton }}></k>
     </div>

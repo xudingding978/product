@@ -113,7 +113,6 @@ class ProfilesController extends Controller {
 
     public function actionUpdate() {
 
-
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
             $payload_json = CJSON::encode($payloads_arr['profile'], true);
@@ -143,8 +142,9 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_keywords'] = $newRecord['profile_keywords'];
             $oldRecord['keywords'] = $newRecord['profile_keywords'];
             $oldRecord['profile'][0]['profile_keywords_num'] = $newRecord['profile_keywords_num'];
-            $oldRecord['keyword_num'] = $newRecord['profile_keywords_num'];
-
+            $oldRecord['view_count'] = $newRecord['view_count'];
+            $oldRecord['share_count'] = $newRecord['share_count'];
+            $oldRecord['comment_count'] = $newRecord['comment_count'];
 //            $oldRecord['profile'][0]['keywords'] = $newRecord['keywords'] ;
 //            $oldRecord['keyword'] = $newRecord['keywords'];
             if ($oldRecord['profile'][0]['profile_package_name'] !== $newRecord['profile_package_name']) {

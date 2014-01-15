@@ -21,10 +21,6 @@ class PhotosController extends Controller {
         $result = $this->getRequestResultByID(self::JSON_RESPONSE_ROOT_SINGLE, $id);
         $this->sendResponse(null, $result);
     }
-    
-    
- 
-    
 
     public function actionCreate() {
         $response;
@@ -47,7 +43,7 @@ class PhotosController extends Controller {
             }
 
             $image_info = $this->getImageInfo($url);
-            
+
             $name = $this->renamingImage($image_info, $url);
             if (strpos($url, 'original')) {
                 $response = $this->getWatermarkImageSource($url, $image_info);
@@ -179,7 +175,7 @@ class PhotosController extends Controller {
             $oldRecord['object_description'] = $newRecord['photo']['photo_caption'];
             $oldRecord['photo'][0]['photo_title'] = $newRecord['photo']['photo_title'];
             $oldRecord['photo'][0]['photo_caption'] = $newRecord['photo']['photo_caption'];
-            
+
             $keyword = $this->getProfileKeyword($oldRecord['owner_id']);
             $oldRecord['keyword'] = $keyword;
 
@@ -192,13 +188,13 @@ class PhotosController extends Controller {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function getProfileKeyword($owner_id) {
         $cb = $this->couchBaseConnection();
         $url = $this->getDomain() . "/profiles/" . $owner_id;
         $tempProfile = $cb->get($url);
         $profile = CJSON::decode($tempProfile, true);
-        return $profile['keyword'];       
+        return $profile['keyword'];
     }
 
     public function updateCouchbasePhoto($id) {
@@ -206,20 +202,19 @@ class PhotosController extends Controller {
         $result = $ch->get($id);
         $result_arr = CJSON::decode($result, true);
 
-    //    $result_arr['creator_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
-    //    $result_arr['owner_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
-
-       // $result_arr['is_active'] = true;
-      //  $result_arr['is_indexed'] = true;
-     //   unset($result_arr['active_yn']);
-  //      unset($result_arr['indexed_yn']);
-        if( $result_arr["collection_id"] != null){
-             $result_arr["collection_id"]=$result_arr["collection_id"]->split(' ')->join('-');
+        //    $result_arr['creator_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
+        //    $result_arr['owner_profile_pic'] = 'http://s3.hubsrv.com/trendsideas.com/users/1000000000/profile/profile_pic_small.jpg';
+        // $result_arr['is_active'] = true;
+        //  $result_arr['is_indexed'] = true;
+        //   unset($result_arr['active_yn']);
+        //      unset($result_arr['indexed_yn']);
+        if ($result_arr["collection_id"] != null) {
+            $result_arr["collection_id"] = $result_arr["collection_id"]->split(' ')->join('-');
         }
-       
-        
-     
-      
+
+
+
+
 
 
         print_r($result_arr);
@@ -250,8 +245,8 @@ class PhotosController extends Controller {
 
     public function getInputData($inputDataType, $inputData) {
         $tempInput = "";
-        
-        
+
+
         if ($inputDataType == "image/jpeg") {
             $tempInput = str_replace('data:image/jpeg;base64,', '', $inputData);
         } elseif ($inputDataType == "application/pdf") {
@@ -307,34 +302,34 @@ class PhotosController extends Controller {
         return $s3url;
     }
 
-    public function saveCommentPhotoInTypes($orig_size , $photo_type , $photo_name , $compressed_photo , $data_arr, $owner_id, $type = null, $message_id) {
-                                                                        
+    public function saveCommentPhotoInTypes($orig_size, $photo_type, $photo_name, $compressed_photo, $data_arr, $owner_id, $type = null, $message_id) {
+
         $new_size = $this->getNewPhotoSize($orig_size, $photo_type);
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
         //$new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
         $bucket = 's3.hubsrv.com';
 
-            $url = $this->getDomain(). '/users' . "/" . $owner_id . "/" ."message/".$message_id."/".$photo_type . "/" . $photo_name;
-            
+        $url = $this->getDomain() . '/users' . "/" . $owner_id . "/" . "message/" . $message_id . "/" . $photo_type . "/" . $photo_name;
+
         $this->saveImageToS3($url, $new_photo_data, $bucket, $type);
         $s3url = 'http://' . $bucket . '/' . $url;
         return $s3url;
     }
 
-      public function saveConversationPhotoInTypes($orig_size , $photo_type , $photo_name , $compressed_photo , $data_arr, $type = null, $message_id) {
-                                                                        
+    public function saveConversationPhotoInTypes($orig_size, $photo_type, $photo_name, $compressed_photo, $data_arr, $type = null, $message_id) {
+
         $new_size = $this->getNewPhotoSize($orig_size, $photo_type);
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
         //$new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
         $bucket = 's3.hubsrv.com';
 
-            $url = $this->getDomain(). '/conversations'  . "/" .$message_id."/".$photo_type . "/" . $photo_name;
-            
+        $url = $this->getDomain() . '/conversations' . "/" . $message_id . "/" . $photo_type . "/" . $photo_name;
+
         $this->saveImageToS3($url, $new_photo_data, $bucket, $type);
         $s3url = 'http://' . $bucket . '/' . $url;
         return $s3url;
     }
-    
+
     protected function getNewPhotoSize($photo_size, $photo_type) {
         $new_size = array();
         switch ($photo_type) {
@@ -399,7 +394,7 @@ class PhotosController extends Controller {
         $mega['created'] = $this->getCurrentUTC();
         $mega['updated'] = $this->getCurrentUTC();
         $newMega = $this->doPhotoResizing($mega);
-         $cb = $this->couchBaseConnection();
+        $cb = $this->couchBaseConnection();
         if ($cb->add($docID, CJSON::encode($newMega))) {
             $this->sendResponse(204);
         } else {
@@ -407,22 +402,22 @@ class PhotosController extends Controller {
         }
     }
 
-    public function convertToString64($image_string) {             
+    public function convertToString64($image_string) {
         $matchs = array();
-        
+
         preg_match_all('/\:(.*?)\;/', $image_string, $matchs);
-        
+
         $image_type = $matchs[1][0];
-       
-        $input_image_string = $this->getInputData($image_type, $image_string);      
+
+        $input_image_string = $this->getInputData($image_type, $image_string);
         $image_data['type'] = $image_type;
         $image_data['data'] = $input_image_string;
         return $image_data;
     }
 
     function compressPhotoData($type, $image) {
- error_log("cccccccccccccccc");
-  error_log($type);
+        error_log("cccccccccccccccc");
+        error_log($type);
         if ($type == "image/png") {
             imagepng($image);
         } elseif ($type == "image/jpeg") {
@@ -468,7 +463,6 @@ class PhotosController extends Controller {
         }
     }
 
-
     public function removeS3Record($mega) {
         $bucket = 's3.hubsrv.com';
         $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
@@ -487,16 +481,30 @@ class PhotosController extends Controller {
             $photoCaption = $mega['mega']['photo'][0]['photo_caption'];
             $linkText = $mega['mega']['photo'][0]['photo_link_text'];
             $linkUrl = $mega['mega']['photo'][0]['photo_link_url'];
-            
-            
+
             $url = $this->getDomain() . "/" . $id;
             $tempRecord = $cb->get($url);
             $oldRecord = CJSON::decode($tempRecord, true);
             $oldRecord['object_description'] = $photoCaption;
+            if ($oldRecord['view_count'] === null) {
+                $oldRecord["view_count"] = 0;
+            } else {
+                $oldRecord['view_count'] = $mega['mega']['view_count'] + 1;   // //or using  $oldRecord['view_count']+1 ,but it  will also add one when share 
+            }
+            if ($oldRecord['accessed'] === null) {
+                $oldRecord["accessed"] = 0;
+            } else {
+                $oldRecord["accessed"] = date_timestamp_get(new DateTime());
+            }
+            if ($oldRecord['share_count'] === null) {
+                $oldRecord["share_count"] = 0;
+            } else {
+                $oldRecord["share_count"] = $mega['mega']['share_count'];   // //or using   $mega['mega']['share_count']; 
+            }
             $oldRecord['photo'][0]['photo_title'] = $photoTitle;
             $oldRecord['photo'][0]['photo_caption'] = $photoCaption;
             $oldRecord['photo'][0]['photo_link_text'] = $linkText;
-            $oldRecord['photo'][0]['photo_link_url'] = $linkUrl;         
+            $oldRecord['photo'][0]['photo_link_url'] = $linkUrl;
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {

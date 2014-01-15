@@ -240,15 +240,20 @@ class CommentsController extends Controller {
         $request_json = file_get_contents('php://input');
         $newRecord = CJSON::decode($request_json, true);
         $typeAndID = $newRecord['comment']['optional'];
-        error_log(var_export($newRecord, true));
+     //   error_log(var_export($newRecord, true));
         $typeAndID = explode("/", $typeAndID);
         $docID = $this->getDocId($typeAndID[0], $typeAndID[1]);
         $cb = $this->couchBaseConnection();
         $oldRecord_arr = $cb->get($docID);
-
         $oldRecord = CJSON::decode($oldRecord_arr, true);
         if (!isset($oldRecord['comments'])) {
             $oldRecord['comments'] = array();
+            $oldRecord['comment_count'] = 0;
+        }
+        else
+        {
+             $profile_comment_num =  sizeof($oldRecord['comments']);
+             $oldRecord['comment_count'] = $profile_comment_num+1;  //profile, video, article, photo coment_count setting
         }
         array_unshift($oldRecord['comments'], $newRecord['comment']);
         if ($cb->set($docID, CJSON::encode($oldRecord))) {

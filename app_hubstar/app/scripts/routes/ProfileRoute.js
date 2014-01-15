@@ -54,16 +54,15 @@ HubStar.ProfileRoute = Ember.Route.extend({
 
         ProfileController.setProfile(model.id);
         setTimeout(function() {
-           // $('#masonry_user_container').masonry();            
+            // $('#masonry_user_container').masonry();            
             $('#masonry_user_container').masonry("reload");
             //$('#masonry_user_container').masonry("reloadItems");
         }, 2000);
     },
     model: function(params) {
-        
+
         return HubStar.Profile.find(params.profile_id);
     },
-
     events: {
         transitionToCollectionPhoto: function(collection_id) {
             HubStar.set("scrollCollectionPosition", $(window).scrollTop());

@@ -242,7 +242,19 @@ HubStar.ArticleController = Ember.Controller.extend({
         $(selectedImage_id).addClass('selected_image_style');
     },
     getInitData: function(megaObject) {
-
+ var mega = HubStar.Mega.find(megaObject.id);
+ console.log(megaObject.id);
+        mega.then(function() {
+            if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
+            {
+                mega.set("view_count", 0);
+            }
+            else
+            {
+                mega.set("view_count", mega.get("view_count") + 1);
+            }
+            mega.store.save();
+        });
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         this.set("content", []);
         this.set("selectedPhoto", '');
@@ -557,6 +569,18 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         function callback(response) {
             if (response && response.post_id) {
+                 var mega = HubStar.Mega.find(this.get('articleID'));
+                mega.then(function() {
+                    if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                    {
+                        mega.set("share_count", 0);
+                    }
+                    else
+                    {
+                        mega.set("share_count", mega.get("share_count") + 1);
+                    }
+                    mega.store.save();
+                });
                 that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
             } else {
                 that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
@@ -588,6 +612,18 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+                 var mega = HubStar.Mega.find(this.get('articleID'));
+                mega.then(function() {
+                    if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                    {
+                        mega.set("share_count", 0);
+                    }
+                    else
+                    {
+                        mega.set("share_count", mega.get("share_count") + 1);
+                    }
+                    mega.store.save();
+                });
 
         window.open(
                 url,
@@ -604,6 +640,18 @@ HubStar.ArticleController = Ember.Controller.extend({
         var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
 
         var url = 'https://twitter.com/share?text=' + this.get('articleResouce').get("article_headline") + '&url=' + encodeURIComponent(currntUrl);
+        var mega = HubStar.Mega.find(this.get('articleID'));
+       mega.then(function() {
+           if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+           {
+               mega.set("share_count", 0);
+           }
+           else
+           {
+               mega.set("share_count", mega.get("share_count") + 1);
+           }
+           mega.store.save();
+       });
         window.open(
                 url,
                 'popupwindow',
@@ -620,6 +668,18 @@ HubStar.ArticleController = Ember.Controller.extend({
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.get('selectedPhoto').photo_image_original_url) +
                 '&description=' + encodeURIComponent(this.get('articleResouce').get("article_headline"));
+        var mega = HubStar.Mega.find(this.get('articleID'));
+       mega.then(function() {
+           if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+           {
+               mega.set("share_count", 0);
+           }
+           else
+           {
+               mega.set("share_count", mega.get("share_count") + 1);
+           }
+           mega.store.save();
+       });
         window.open(
                 url,
                 'popupwindow',

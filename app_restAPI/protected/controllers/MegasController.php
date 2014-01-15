@@ -63,8 +63,8 @@ class MegasController extends Controller {
                 $mega['boost'] = $boost;
             }
         }
-        
- 
+
+
         if ($mega['type'] == "profile") {
             $this->createProfile($mega);
         } elseif ($mega['type'] == "photo") {
@@ -98,19 +98,61 @@ class MegasController extends Controller {
         $newRecord = file_get_contents('php://input');
         $newRecord = CJSON::decode($newRecord, true);
         $newRecord['id'] = $id;
+        error_log("@@@@@@@@@@@@@@@@@@");
+        error_log(var_export($newRecord['mega']['type'], true));
         if ($newRecord['mega']['type'] == 'user') {
             $this->updateUserRecord($newRecord);
-        } elseif ($newRecord['mega']['type'] == 'profile') {
-
+        } else if ($newRecord['mega']['type'] == 'profile') {
+            error_log("dddddddddddddd");
             $this->updateProfileRecord($newRecord);
-        } elseif ($newRecord['mega']['type'] == 'photo') {
+        } else if ($newRecord['mega']['type'] == 'photo') {
+            error_log("ssssssssssssss");
             $photoController = new PhotosController();
             $photoController->photoUpdate($newRecord);
-        } elseif ($newRecord['mega']['type'] == 'video') {
+        } else if ($newRecord['mega']['type'] == 'video') {
+            error_log("qqqqqqqqqqqqqqqqqqqqq");
             $videoController = new VideosController();
             $videoController->videoUpdate($newRecord);
+        } else if ($newRecord['mega']['type'] == 'article') {
+            error_log("fffffffffffffffffffffffffff");
+            $this->articleUpdate($newRecord);
         } else {
+            error_log("eeeeeeeeeeeeeeee");
             $this->updateMega($newRecord);
+        }
+    }
+
+    public function articleUpdate($mega) {
+        try {
+            $cb = $this->couchBaseConnection();
+            $temp = explode("/", $_SERVER['REQUEST_URI']);
+            $id = $temp [sizeof($temp) - 1];
+            $url = $this->getDomain() . "/" . $id;
+            $tempRecord = $cb->get($url);
+            $oldRecord = CJSON::decode($tempRecord, true);
+            if ($oldRecord['view_count'] === null) {
+                $oldRecord["view_count"] = 0;
+            } else {
+                $oldRecord['view_count'] = $mega['mega']['view_count'] + 1;  // //or using  $oldRecord['view_count']+1 ,but it  will also add one when share 
+            }
+            if ($oldRecord['accessed'] === null) {
+                $oldRecord["accessed"] = 0;
+            } else {
+                $oldRecord["accessed"] = date_timestamp_get(new DateTime());
+            }
+            if ($oldRecord["share_count"] === null) {
+                $oldRecord["share_count"] = 0;
+            } else {
+                $oldRecord["share_count"] = $mega['mega']['share_count'];   // //or using   $mega['mega']['share_count']; 
+            }
+
+            if ($cb->set($url, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
         }
     }
 
@@ -134,11 +176,41 @@ class MegasController extends Controller {
     }
 
     public function updateProfileRecord($newRecord) {
-        try {
-            $this->sendResponse(204);
 
-//            $cb = $this->couchBaseConnection();
+        try {
+            $cb = $this->couchBaseConnection();
+            $id = $newRecord['mega']['owner_id'];
+
+            $docID = $this->getDomain() . "/profiles/" . $id;
+            $oldRecord = $cb->get($docID);
+            $oldRecord = CJSON::decode($oldRecord, true);
+            if ($oldRecord['view_count'] === null) {
+                $oldRecord["view_count"] = 0;
+            } else {
+                $oldRecord["view_count"] = $newRecord['mega']['view_count'];
+            }
+            if ($oldRecord['accessed'] === null) {
+                $oldRecord["accessed"] = 0;
+            } else {
+                $oldRecord["accessed"] = date_timestamp_get(new DateTime());
+            }
+            if ($oldRecord['share_count'] === null) {
+                $oldRecord["share_count"] = 0;
+            } else {
+                $oldRecord["share_count"] = $newRecord['mega']['share_count'];
+            }
+            // error_log(var_export(     $oldRecord['profile'][0]["view_count"] , true));
+            if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+//        $cb = $this->couchBaseConnection();
 //
+//        try {
 //            if (!isset($newRecord['mega']['profile'])) {
 //                //$id = $newRecord['mega']['owner_id'];
 //            } else {
@@ -153,9 +225,9 @@ class MegasController extends Controller {
 //                    $this->sendResponse(500, "some thing wrong");
 //                }
 //            }
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
+//        } catch (Exception $exc) {
+//            echo $exc->getTraceAsString();
+//        }
     }
 
     public function updateUserRecord($newRecord) {
@@ -212,7 +284,28 @@ class MegasController extends Controller {
     }
 
     public function updateMega($newRecord) {
-
+// try {
+//            $cb = $this->couchBaseConnection();
+//            $id = $newRecord['mega']['owner_id'];
+//
+//
+//            $docID = $this->getDomain() . "/profiles/" . $id;
+//            $oldRecord = $cb->get($docID);
+//            $oldRecord = CJSON::decode($oldRecord, true);
+//            $oldRecord["view_count"] = $newRecord['mega']['view_count'];     
+//            $oldRecord["accessed"] = date_timestamp_get(new DateTime());
+//            $oldRecord["share_count"] = $newRecord['mega']['share_count'];  
+//
+//            
+//          // error_log(var_export(     $oldRecord['profile'][0]["view_count"] , true));
+//            if ($cb->set($docID, CJSON::encode($oldRecord))) {
+//                $this->sendResponse(204);
+//            } else {
+//                $this->sendResponse(500, "some thing wrong");
+//            }
+//        } catch (Exception $exc) {
+//            echo $exc->getTraceAsString();
+//        }
         $this->sendResponse(204);
     }
 

@@ -7,11 +7,21 @@ HubStar.VideoController = Ember.Controller.extend({
     needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus', 'itemFunction'],
     getinitdata: function(videoObject)
     {
-
+        var mega = HubStar.Mega.find(videoObject);
+        mega.then(function() {
+            if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
+            {
+                mega.set("view_count", 0);
+            }
+            else
+            {
+                mega.set("view_count", mega.get("view_count") + 1);
+            }
+            mega.store.save();
+        });
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var that = this;
         var megaResouce = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": videoObject});
-
 
         this.set('megaResouce', megaResouce.objectAt(0));
         megaResouce.addObserver('isLoaded', function() {
@@ -118,7 +128,7 @@ HubStar.VideoController = Ember.Controller.extend({
         var tempUrl = this.get('megaResouce').get('object_image_url');
         this.set('sharePhotoUrl', tempUrl);
         this.set('sharePhotoName', "test");
-        $('#dropdown_id_'+param).toggleClass('hideClass');
+        $('#dropdown_id_' + param).toggleClass('hideClass');
     },
     getImageURL: function()
     {
@@ -152,6 +162,18 @@ HubStar.VideoController = Ember.Controller.extend({
 
         function callback(response) {
             if (response && response.post_id) {
+                var mega = HubStar.Mega.find(that.get('megaResouce').get('id'));
+                mega.then(function() {
+                    if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                    {
+                        mega.set("share_count", 0);
+                    }
+                    else
+                    {
+                        mega.set("share_count", mega.get("share_count") + 1);
+                    }
+                    mega.store.save();
+                });
                 that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
             } else {
                 that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
@@ -181,6 +203,18 @@ HubStar.VideoController = Ember.Controller.extend({
         var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
+        var mega = HubStar.Mega.find(this.get('megaResouce').get('id'));
+        mega.then(function() {
+            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+            {
+                mega.set("share_count", 0);
+            }
+            else
+            {
+                mega.set("share_count", mega.get("share_count") + 1);
+            }
+            mega.store.save();
+        });
         window.open(
                 url,
                 'popupwindow',
@@ -194,6 +228,18 @@ HubStar.VideoController = Ember.Controller.extend({
         this.dropdownPhotoSetting(param);
         var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
         var url = 'https://twitter.com/share?text=' + this.get('videoObject').data.video_title + '&url=' + encodeURIComponent(currntUrl);
+        var mega = HubStar.Mega.find(this.get('megaResouce').get('id'));
+        mega.then(function() {
+            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+            {
+                mega.set("share_count", 0);
+            }
+            else
+            {
+                mega.set("share_count", mega.get("share_count") + 1);
+            }
+            mega.store.save();
+        });
         window.open(
                 url,
                 'popupwindow',
@@ -207,6 +253,18 @@ HubStar.VideoController = Ember.Controller.extend({
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.getImageURL()) +
                 '&description=' + encodeURIComponent(this.get('videoObject').data.video_title);
+        var mega = HubStar.Mega.find(this.get('megaResouce').get('id'));
+        mega.then(function() {
+            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+            {
+                mega.set("share_count", 0);
+            }
+            else
+            {
+                mega.set("share_count", mega.get("share_count") + 1);
+            }
+            mega.store.save();
+        });
         window.open(
                 url,
                 'popupwindow',

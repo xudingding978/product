@@ -43,7 +43,9 @@ HubStar.Meganew = DS.Model.extend({
     type: DS.attr('string'),
     updated: DS.attr('string'),
     uri_url: DS.attr('string'),
-    view_count: DS.attr('string'),
+    view_count: DS.attr('number'),
+    share_count: DS.attr('number'),
+    comment_count: DS.attr('number'),
     optional: DS.attr('string'),
     isFollow: DS.attr('boolean'),
     //--------------------------

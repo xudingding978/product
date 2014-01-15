@@ -586,12 +586,17 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     yes: function(checkingInfo) {
         if (checkingInfo === "profileName") {
-            this.set('editing', !this.get('editing'));
-
+            var title_modify_time = Date.parse(new Date());
             var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-            update_profile_record.set("profile_name", this.get('profile_name'));
-            this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
-            update_profile_record.store.save();
+            if (title_modify_time > update_profile_record.get('title_modify_time')+60000) {
+                this.set('editing', !this.get('editing'));            
+                update_profile_record.set("profile_name", this.get('profile_name'));
+                update_profile_record.set("title_modify_time", title_modify_time);
+                this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
+                update_profile_record.store.save();
+            } else {
+                this.get('controllers.applicationFeedback').statusObserver(null, "Please do not change your profile title so frequently.", "warnning");
+            }
         }
         else if (checkingInfo === "contact") {
             if (this.get("website_url").match(/[http]/g) === -1 || this.get("website_url").match(/[http]/g) === null)

@@ -8,7 +8,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
     countrySelection: "Country",
     regionSelection: "Regoin/State",
     numberSelection: "-",
-    keywordNumber: "0",
+    keywordNumber: "5",
     heroImage: false,
     profile_url: "",
     first_name: "",

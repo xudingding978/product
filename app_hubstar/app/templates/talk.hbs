@@ -25,7 +25,7 @@
 
     {{#if controller.isUploadPhoto}}
     <div style='background-color: rgba(0,0,0,.2);max-width: 100%;max-height: 100px;padding: 10px 12px;text-align: center;'>
-        <div class='remove-comment-photo easing' {{action removePic }}><i class="icon-remove"></i></div>
+        <div class='remove-comment-photo easing' {{action removePic }}><i class="fa fa-remove"></i></div>
         <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 100%; max-height: 80px;;">
     </div>
     {{/if}}  
@@ -33,13 +33,13 @@
 
 
     <div class="" style="height: 41px;position: relative;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
-        <div  class="message-btn easing"  style="width: 33%;height: 40px;line-height: 40px;" {{action cancelTalk on="click" target="controller"}}><k class="icon-remove">&nbsp;</k>Cancel</div>
-        <div  class="message-btn easing" style=" border-right: 1px solid #ddd; border-left: 1px solid #ddd; width: 34%; height: 40px; line-height: 40px;"><k class='icon-picture'>&nbsp;</k>Add Photo
+        <div  class="message-btn easing"  style="width: 33%;height: 40px;line-height: 40px;" {{action cancelTalk on="click" target="controller"}}><k class="fa fa-remove">&nbsp;</k>Cancel</div>
+        <div  class="message-btn easing" style=" border-right: 1px solid #ddd; border-left: 1px solid #ddd; width: 34%; height: 40px; line-height: 40px;"><k class='fa fa-picture'>&nbsp;</k>Add Photo
             <div style="opacity:0;position: relative;height:30px;top:-30px;overflow: hidden;"> 
                 {{view HubStar.SingleImageInputButtonView }}
             </div>
         </div>
-        <div class="message-btn easing" style="width: 33%;height: 40px;line-height: 40px;" {{action addComment}}><k class='icon-ok'>&nbsp;</k>Send</div>
+        <div class="message-btn easing" style="width: 33%;height: 40px;line-height: 40px;" {{action addComment}}><k class='fa fa-ok'>&nbsp;</k>Send</div>
     </div>
 
 

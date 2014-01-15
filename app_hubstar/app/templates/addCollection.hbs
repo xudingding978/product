@@ -7,7 +7,7 @@
 
             <div class="" style="display:inline-block;cursor: pointer;"  {{action profileSwitch }}>
                  {{controller.selectedProfile}}
-                 &nbsp;<i class="icon-caret-down"></i>
+                 &nbsp;<i class="fa fa-caret-down"></i>
             </div>
             {{#if controller.selectionProfile}}
             <div id="login_lightbox" class="blur" {{action profileCanel }}>&nbsp;</div>
@@ -28,7 +28,7 @@
 
         <div class="exit" style="float: right; position: relative; top: -46px;">
             <div class="closeview" {{action exit }}>
-                 <i class="icon-remove"></i>
+                 <i class="fa fa-remove"></i>
             </div> 
         </div>  
     </div> 
@@ -38,7 +38,7 @@
 
             <div class="new-btn" style="display:block;"  {{action collectionSwitch }} {{bindAttr text="controller.selectedTitle" }}>
                  {{controller.selectedTitle}}
-                 &nbsp;<i class="icon-caret-down"></i>
+                 &nbsp;<i class="fa fa-caret-down"></i>
             </div>
             <div style="height: 150px;">
                 {{view Ember.TextArea valueBinding="controller.selectedDesc" rows="12" cols="70" class="collect_descriptionbox" placeholder="Say something about it!"}}
@@ -89,8 +89,8 @@
 
 
 <div class="" style="height: 45px;position: relative;border-top: 1px solid #ddd;top: -1px;border-radius: 0 0 3px 3px;overflow: hidden;">
-    <div  class="message-btn easing" style="height:45px;line-height: 45px; border-right: 1px solid #ddd;" {{action exit }}><k class='icon-remove'>&nbsp;</k>Cancel</div>
-    <div class="message-btn easing" style='height:45px;line-height: 45px;'{{action submit }}><k class='icon-ok'>&nbsp;</k>Submit</div>
+    <div  class="message-btn easing" style="height:45px;line-height: 45px; border-right: 1px solid #ddd;" {{action exit }}><k class='fa fa-remove'>&nbsp;</k>Cancel</div>
+    <div class="message-btn easing" style='height:45px;line-height: 45px;'{{action submit }}><k class='fa fa-ok'>&nbsp;</k>Submit</div>
 </div>
 
 </div>

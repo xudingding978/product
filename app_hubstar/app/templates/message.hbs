@@ -5,10 +5,10 @@
             {{#if model.isUserself}} <!--model.isUserself is used to judge whether the reply message is written by the current login user-->
 
             <span style="margin: 0 10px; cursor: pointer" class="hint--bottom hint--rounded" data-hint="Remove Post">
-                <i class="icon-trash"  {{action removeMessageItem model.message_id}}></i>
+                <i class="fa fa-trash"  {{action removeMessageItem model.message_id}}></i>
             </span>                 
             <span style="cursor: pointer" class="hint--bottom hint--rounded" data-hint="Edit Post">
-                <i class="icon-pencil"  {{action editingCommentData model.message_id model.msg}}></i>
+                <i class="fa fa-pencil"  {{action editingCommentData model.message_id model.msg}}></i>
             </span>
 
             {{else}}
@@ -16,10 +16,10 @@
 
             <!--controller.isUserself is used to judge whether it is the page owner who have right to delete every message-->
             <span style="margin: 0 10px; cursor: pointer" class="hint--bottom hint--rounded" data-hint="Remove Post">
-                <i class="icon-trash" {{action removeMessageItem model.message_id}}></i>    
+                <i class="fa fa-trash" {{action removeMessageItem model.message_id}}></i>    
             </span>
             <!--            <span style="cursor: pointer" class="hint--bottom hint--rounded" data-hint="Edit Post">
-                            <i class="icon-pencil" {{action editingCommentData model.message_id model.msg}}></i>   
+                            <i class="fa fa-pencil" {{action editingCommentData model.message_id model.msg}}></i>   
                         </span>-->
             {{/if}}
             {{/if}}
@@ -63,7 +63,7 @@
                     {{view HubStar.SearchRequireTextFieldView valueBinding="replyContent" class="no-resize" placeholder="Add a comment..." }}                                          
                 </div>
                 <div style="float: right;height: 34px;position: relative;">
-                    <div  class="message-btn easing hint--bottom hint--rounded" style="width:30px; border-right: 1px solid #ddd; border-left: 1px solid #ddd;" data-hint="Add Photo"><k class='icon-picture'></k>
+                    <div  class="message-btn easing hint--bottom hint--rounded" style="width:30px; border-right: 1px solid #ddd; border-left: 1px solid #ddd;" data-hint="Add Photo"><k class='fa fa-picture'></k>
                         <div style="opacity:0;position: relative;height:30px;top:-30px;overflow: hidden;"> 
                             {{view HubStar.SingleImageInputButtonView }}
 
@@ -71,7 +71,7 @@
                     </div>
                     {{#if controller.isReply}}
                     <div class="message-btn easing hint--bottom hint--rounded" style='width: 30px;' data-hint="Post" {{action addReply model.message_id}}>
-                         <k class='icon-ok' ></k>
+                         <k class='fa fa-ok' ></k>
                     </div>
                     {{else}}
 
@@ -87,7 +87,7 @@
             <!--please disable the following div when it's got not content-->
             {{#if controller.isUploadPhoto}}
             <div style='max-width: 100%;max-height: 100px;padding: 10px 12px;text-align: center;border:1px solid #ddd;'>
-                <div class='remove-comment-photo easing' {{action removePic}}><i class="icon-remove"></i></div>
+                <div class='remove-comment-photo easing' {{action removePic}}><i class="fa fa-remove"></i></div>
                 <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 100%; max-height: 80px;">
             </div>
             {{/if}}
@@ -109,14 +109,14 @@
                         <div class="namentime_position">
                             {{#if this.isUserself}}
                             <div class="reply-comment" style="left: 40px;right: initial;">
-                                <span class="hint--bottom hint--rounded" data-hint="Delete"><i class="icon-trash"  {{action removeReplyItem this.reply_id}}></i></span>
-                                <span class="hint--bottom hint--rounded" data-hint="Edit"><i class="icon-pencil" {{action editingReplyData this.reply_id this.msg}}></i></span>
+                                <span class="hint--bottom hint--rounded" data-hint="Delete"><i class="fa fa-trash"  {{action removeReplyItem this.reply_id}}></i></span>
+                                <span class="hint--bottom hint--rounded" data-hint="Edit"><i class="fa fa-pencil" {{action editingReplyData this.reply_id this.msg}}></i></span>
                             </div>
                             {{else}}
                             {{#if controller.isUserself}}
                             <div class="reply-comment" style="left: 40px;right: initial;">   
-                                <span class="hint--bottom hint--rounded" data-hint="Delete"><i class="icon-trash"  {{action removeReplyItem this.reply_id}}></i></span>
-                                <!--                            <span class="hint--bottom hint--rounded" data-hint="Edit"><i class="icon-pencil" {{action editingReplyData this.reply_id this.msg}}></i></span>-->
+                                <span class="hint--bottom hint--rounded" data-hint="Delete"><i class="fa fa-trash"  {{action removeReplyItem this.reply_id}}></i></span>
+                                <!--                            <span class="hint--bottom hint--rounded" data-hint="Edit"><i class="fa fa-pencil" {{action editingReplyData this.reply_id this.msg}}></i></span>-->
                             </div>
                             {{/if}}
                             {{/if}}
@@ -150,11 +150,11 @@
     <div class="hover-opacity easing" style="height: 20px; width: 100%; background-color: #f3f3f3;text-align: center;color: #555; border-top: 1px solid #ddd">  
         <div id="showMoreComment_{{unbound model.message_id}}" style="display: inline-block; cursor: pointer"  {{action seeMore model.message_id target="controller" on="click"}}>
             <span style="font-size: 11px;font-weight: bold">view comment &nbsp; {{model.replyCount}}</span>
-            <i class="icon-caret-down show-comment_inner" ></i>   
+            <i class="fa fa-caret-down show-comment_inner" ></i>   
         </div>
         <div id="closeComment_{{unbound model.message_id}}"   style="display: none;cursor: pointer" {{action closeMore model.message_id  target="controller" on="click"}}>
             <span style="font-size: 11px;font-weight: bold">Hide comment &nbsp; {{model.replyCount}}</span>
-            <i class="icon-caret-up show-comment_inner" ></i>
+            <i class="fa fa-caret-up show-comment_inner" ></i>
         </div>
     </div>
 

@@ -5,7 +5,7 @@
 
 <div class="" style="width: 510px;margin: 0 auto;margin-left: -255px;border-radius: 3px;overflow: hidden;border: 1px solid #eee; background-color: #fff;z-index: 11;position: absolute;top: 15%;left: 50%;">
     <div style="height: 50px;width: 100%;background-color: #f3f3f3;text-align: center;line-height: 50px;color: #555;border-bottom: 1px solid #ddd;">
-        <i class="icon-film" style="font-size: 18px;">&nbsp;</i>
+        <i class="fa fa-film" style="font-size: 18px;">&nbsp;</i>
         <span style="font-size: 20px; font-weight: bold">Add Video</span>
     </div>
     <div style="margin: 20px;min-height: 400px;">
@@ -17,7 +17,7 @@
         </div>
         <div style="width: 470px; min-height: 300px; margin: 15px 0; border: 2px dashed #eee;">
             <div class="radius-circle" style="position: absolute;width: 70px;height: 70px;border: 2px solid #eee;line-height: 66px;text-align: center;color: #eee;font-size: 25px;margin: 120px auto;left: 0;right: 0;box-shadow: 0 0 10px #f3f3f3;">
-                <i class="icon-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
+                <i class="fa fa-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
             </div>
             <img style="width: 470px;" {{bindAttr src="videoImg"}}/>
         </div>
@@ -30,11 +30,11 @@
 
     </div>
     <div class="" style="height: 41px;position: relative;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
-        <div class="message-btn easing" style="height: 40px;line-height: 40px;border-right: 1px solid #ddd;" {{action canel}}><k class="icon-remove">&nbsp;</k>Cancel</div>
+        <div class="message-btn easing" style="height: 40px;line-height: 40px;border-right: 1px solid #ddd;" {{action canel}}><k class="fa fa-remove">&nbsp;</k>Cancel</div>
         {{#if videoid}}
-        <div class="message-btn easing" style="height: 40px;line-height: 40px;"{{action videoCreate}} ><k class='icon-ok'>&nbsp;</k>Post</div>
+        <div class="message-btn easing" style="height: 40px;line-height: 40px;"{{action videoCreate}} ><k class='fa fa-ok'>&nbsp;</k>Post</div>
         {{else}}
-        <div class="message-btn-x easing" style="height: 40px;line-height: 40px;"><k class='icon-ok'>&nbsp;</k>Post</div>
+        <div class="message-btn-x easing" style="height: 40px;line-height: 40px;"><k class='fa fa-ok'>&nbsp;</k>Post</div>
         {{/if}}
     </div>
 

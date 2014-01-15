@@ -4,29 +4,29 @@
 <div id="profiles-main-container" class="Login-box" style="background-color: transparent;position: fixed; top: 30%; z-index: 10; margin: auto; left: 0px; right: 0px; width: 300px;height: 565px;border: 0;text-align: center;">   
 
     <div id="click-register-social" class="register-with easing social-active" style="border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;">
-        <i class="icon-facebook">&nbsp</i><a style="color: #888"> Register with social account</a>
+        <i class="fa fa-facebook">&nbsp</i><a style="color: #888"> Register with social account</a>
     </div>
 
     <div id="social-link" class="social-links-container" style="display: block;">
 
   <div class="social-login-iconbox" {{action Facebook  on="click"  target="view"}} >
-                <i  class="icon-facebook"></i>
+                <i  class="fa fa-facebook"></i>
             </div>
 
             <div  class="social-login-iconbox" {{action Twitter on="click"  target="view"}}>
-                <i class="icon-twitter"></i>
+                <i class="fa fa-twitter"></i>
             </div>
 
             <div  class="social-login-iconbox" {{action Google on="click"  target="view"}}>
-                <i  class="icon-google-plus"></i>
+                <i  class="fa fa-google-plus"></i>
             </div>
 
             <div class="social-login-iconbox" {{action LinkedIn on="click"  target="view"}}>
-                <i  class="icon-linkedin"></i>
+                <i  class="fa fa-linkedin"></i>
             </div>
 
             <div  class="social-login-iconbox" {{action Sina on="click"  target="view"}}>
-                <i class="icon-weibo"></i>
+                <i class="fa fa-weibo"></i>
             </div>
     </div>
 
@@ -34,7 +34,7 @@
     <!--This is the email register section-->
     <div>
         <div id="click-register" class="register-with easing register-clicker">
-            <i class="icon-envelope">&nbsp </i><a style="color: #888"> Register with Email</a>
+            <i class="fa fa-envelope">&nbsp </i><a style="color: #888"> Register with Email</a>
         </div>
 
         <div   id="register-with-email-drop-down" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
@@ -100,8 +100,8 @@
         <div id ="" style="margin: 20px 30px 5px;height: 450px;" >
             {{#each controller.contentTopic}}
             <div class="select-interest" style=" height: 150px; width: auto;position: relative; float: left; margin: 10px 20px;"{{action selectTopic id topic}}>
-                 <div id="minus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action selectTopic id topic }}><k class="icon-minus" ></k></div>
-                <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;" ><k class="icon-plus" ></k></div>
+                 <div id="minus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action selectTopic id topic }}><k class="fa fa-minus" ></k></div>
+                <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;" ><k class="fa fa-plus" ></k></div>
                 <div class="" style="height: 100px;width: 100px;position: relative;border-radius: 50%;overflow: hidden;top: -5px;float: left; ">
                     <div  class="usersobject-hoverarea easing" style="height: 100px; width: 100px;" >
                     </div>
@@ -120,7 +120,7 @@
 
         <div class="" style="height: 45px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
             <div class="register-btn easing" style="width: 50%;border-right: 1px solid #ddd;float: left;"></div>
-            <div class="register-btn easing" style="width: 50%;float: left"{{action submitSelection}}>Next&nbsp;<k class="icon-long-arrow-right" style="font-size: 13px;"></k></div>
+            <div class="register-btn easing" style="width: 50%;float: left"{{action submitSelection}}>Next&nbsp;<k class="fa fa-long-arrow-right" style="font-size: 13px;"></k></div>
         </div> 
     </div>
 
@@ -136,7 +136,7 @@
         </div>
 
 <!--        <div id="skipRegister" class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute; display:none" {{action skip}}>Skip&nbsp</div>-->
-        <div id="finishRegister" class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute;display:block" {{action done}}>Done&nbsp;<k class="icon-long-arrow-right" style="font-size: 13px;"></k></div>
+        <div id="finishRegister" class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute;display:block" {{action done}}>Done&nbsp;<k class="fa fa-long-arrow-right" style="font-size: 13px;"></k></div>
     </div>
 
 </div>
@@ -162,34 +162,34 @@
 <div id="user-login-pane"  style="display:none;border-radius: 5px 5px 0 0;">
 
     <div id="social-login" class="register-with easing" style="border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;">
-        <i id="social-login" class="icon-facebook">&nbsp</i><a style="color: #888"> Log in with social account</a>
+        <i id="social-login" class="fa fa-facebook">&nbsp</i><a style="color: #888"> Log in with social account</a>
     </div>
     <div id="social-login-container" class="social-links-container" style="display: none;">
  <div class="social-login-iconbox" {{action Facebook  on="click"  target="view"}}>
-            <i  class="icon-facebook"></i>
+            <i  class="fa fa-facebook"></i>
         </div>
 
         <div  class="social-login-iconbox" {{action Twitter  on="click"  target="view"}}>
-            <i class="icon-twitter"></i>
+            <i class="fa fa-twitter"></i>
         </div>
 
         <div class="social-login-iconbox" {{action Google  on="click"  target="view"}}>
-            <i  class="icon-google-plus"></i>
+            <i  class="fa fa-google-plus"></i>
         </div>
 
         <div  class="social-login-iconbox" {{action LinkedIn  on="click"  target="view"}}>
-            <i class="icon-linkedin"></i>
+            <i class="fa fa-linkedin"></i>
         </div>
 
         <div  class="social-login-iconbox" {{action Sina  on="click"  target="view"}}>
-            <i class="icon-weibo"></i>
+            <i class="fa fa-weibo"></i>
         </div>
 
     </div>
 
 
     <div id="click-login" class="register-with easing active-tab" style="border-bottom: 1px solid #e3e3e3;">
-        <i class="icon-envelope">&nbsp </i><a style="color: #888"> Log in with Email</a>
+        <i class="fa fa-envelope">&nbsp </i><a style="color: #888"> Log in with Email</a>
     </div>
 
     <div id="login-with-email-drop-down" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;">
@@ -203,7 +203,7 @@
             <div id="loginPassword" class="login-textfield"  style="">
                 {{view HubStar.LoginEnterKeyTextFieldView type="password" valueBinding="loginPassword" placeholder="Password" }}
                 <div class="hint--right hint--rounded" data-hint="forgot password?" style="cursor:pointer;float: right;margin-top: -40px;height: 30px;color:#888;">
-                    <i class="icon-question-sign">&nbsp</i>
+                    <i class="fa fa-question-sign">&nbsp</i>
                 </div>
             </div>
         </div>

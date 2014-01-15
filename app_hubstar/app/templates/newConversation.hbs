@@ -9,8 +9,8 @@
         </div>
         <div class="create-conversation easing hint--left hint--rounded" data-hint="Invite friends to this conversation!" {{action invitePeople id}}>
              <span style="position: relative">
-                <i class="icon-user" style=""></i>
-                <i class="icon-plus" style="position: absolute;font-size: 8px;top: 8px;left: 10px;color: white;background-color: #888;height: 12px;width: 12px;line-height: 11px;border: 1px solid #fff;border-radius: 50%;"></i>
+                <i class="fa fa-user" style=""></i>
+                <i class="fa fa-plus" style="position: absolute;font-size: 8px;top: 8px;left: 10px;color: white;background-color: #888;height: 12px;width: 12px;line-height: 11px;border: 1px solid #fff;border-radius: 50%;"></i>
             </span>
         </div>
     </div>
@@ -21,7 +21,7 @@
         {{#each  contentFollowerPhoto}}
         {{#if this.isAdd}}
         <div class="invite-friend"  style="" {{action addToList id}} data-hint="{{unbound this.name}}">
-             <div class="invite-this-friend radius-circle easing" style="opacity: .8;"><k class="icon-minus" ></k></div>
+             <div class="invite-this-friend radius-circle easing" style="opacity: .8;"><k class="fa fa-minus" ></k></div>
             <img class="profilepic_comment radius-circle"  style=" box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;" {{bindAttr src= this.photo_url}} />                
         </div>
         {{/if}}
@@ -44,17 +44,17 @@
                 </div>
                 {{#if controller.isUploadPhoto}}
                 <div style='background-color: rgba(0,0,0,.2);max-width: 100%;max-height: 100px;padding: 10px 12px;text-align: center;'>
-                    <div class='remove-comment-photo easing' {{action removePic }}><i class="icon-remove"></i></div>
+                    <div class='remove-comment-photo easing' {{action removePic }}><i class="fa fa-remove"></i></div>
                     <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 100%; max-height: 80px;;">
                 </div>
                 {{/if}}
                 <div class="" style="height: 30px;position: relative;border-top: 1px solid #ddd;top: -1px;">
-                    <div  class="message-btn easing" style=" border-right: 1px solid #ddd;"><k class='icon-picture'>&nbsp;</k>Add Photo
+                    <div  class="message-btn easing" style=" border-right: 1px solid #ddd;"><k class='fa fa-picture'>&nbsp;</k>Add Photo
                         <div style="opacity:0;position: relative;height:30px;top:-30px;overflow: hidden;"> 
                             {{view HubStar.SingleImageInputButtonView }}
                         </div>
                     </div>
-                    <div class="message-btn easing" style=''{{action addComment}}><k class='icon-ok'>&nbsp;</k>Send</div>
+                    <div class="message-btn easing" style=''{{action addComment}}><k class='fa fa-ok'>&nbsp;</k>Send</div>
                 </div>
 
             </div>

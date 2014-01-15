@@ -8,28 +8,28 @@
 {{else}}
 <div class="item-function-control easing" style="">
     <div  id="thumbUpBtn_{{unbound model.id}}" style="float: left;" class="object-type easing" {{action addLike model.id}}>
-          <i class="icon-thumbs-up">&nbsp;<span style="font-size: 11px;">{{model.likes_count}}</span>&nbsp;</i>
+          <i class="fa fa-thumbs-up">&nbsp;<span style="font-size: 11px;">{{model.likes_count}}</span>&nbsp;</i>
     </div>
     <div data-hint="Add to your own collection." id="saveBtn_{{unbound model.id}}"  style="float: left;" class="object-type easing hint--top hint--rounded" {{action switchCollection model}}>
-         <i class="icon-folder-close" >&nbsp</i>
+         <i class="fa fa-folder-close" >&nbsp</i>
     </div>
     <div id="share_{{unbound model.id}}" class="object-type easing"  style="">
 
-        <div data-hint="Share this photo to other social platform." style="float: left;padding: 0 10px;" class="hint--top hint--rounded" {{action shareDisplay model.id on="click"}}><i class="icon-share-alt" >&nbsp</i></div>
+        <div data-hint="Share this photo to other social platform." style="float: left;padding: 0 10px;" class="hint--top hint--rounded" {{action shareDisplay model.id on="click"}}><i class="fa fa-share-alt" >&nbsp</i></div>
 
         <ul class="hideClass edit-object-ul" style="width: 150px; margin: 0 auto; top: 30px;position: absolute; ">
             <li style="position:fixed;top:0;left:0;height:100%;width:100%;z-index:-1;" {{action shareHide model.id on="click"}}></li>
             <li class="ite" {{action  fbShare model}} >
-        <k class="icon-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
+        <k class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
         </li>
         <li class='ite' {{action tShare model }} >
-    <k class="icon-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span>
+    <k class="fa fa-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span>
     </li>
     <li class='ite' {{action pShare model}} >
-<k class="icon-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Pinterest</span>
+<k class="fa fa-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Pinterest</span>
 </li>
 <li class="ite" {{action gpShare model}}>
-<k class="icon-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
+<k class="fa fa-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
 </li>
 </ul>
 </div>

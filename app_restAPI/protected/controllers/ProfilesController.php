@@ -151,6 +151,7 @@ class ProfilesController extends Controller {
             if ($oldRecord['profile'][0]['profile_package_name'] !== $newRecord['profile_package_name']) {
                 $oldRecord['profile'][0]['profile_package_name'] = $newRecord['profile_package_name'];
                 $boost = $this->setBoost($newRecord['profile_package_name']);
+                error_log(var_export($boost, true));
                 $oldRecord['profile'][0]['profile_boost'] = $boost;
                 $oldRecord['boost'] = $boost;
                 $this->setPhotoBoost($boost, $oldRecord['profile'][0]['id']);

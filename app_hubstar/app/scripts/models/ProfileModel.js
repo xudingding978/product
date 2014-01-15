@@ -19,7 +19,7 @@ HubStar.Profile = DS.Model.extend({
     profile_contact_user: DS.attr('string'),
     profile_about_us: DS.attr('string'),
     profile_cover_text: DS.attr('string'),
-    profile_boost: DS.attr('string'),
+    profile_boost: DS.attr('number'),
     profile_name: DS.attr('string'), //
     profile_contact_first_name: DS.attr('string'),
     profile_contact_last_name: DS.attr('string'),

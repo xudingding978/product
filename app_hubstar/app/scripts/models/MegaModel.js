@@ -12,7 +12,7 @@ DS.RESTAdapter.map('HubStar.Mega', {
 
 HubStar.Mega = DS.Model.extend({
     accessed: DS.attr('string'),
-    boost: DS.attr('string'),
+    boost: DS.attr('number'),
     categories: DS.attr('string'),
     creator_profile_pic: DS.attr('string'),
     created: DS.attr('string'),
@@ -63,6 +63,7 @@ HubStar.Mega = DS.Model.extend({
     keyword: DS.hasMany('HubStar.Keyword'),
     videoes: DS.hasMany('HubStar.Video'),
     keywordShow: function() {
+       
         var a = new Array();
 
         for (var i = 0; i < 3 && this.get("keyword").get("length"); i++)

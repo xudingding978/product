@@ -120,10 +120,11 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 "photo_type": type,
                 "photo_keywords": keywords});
             mega.get("photo").pushObject(file);
+           
             var that = this;
-            
+
             mega.addObserver('isSaving', function() {
-                
+
                 if (mega.get('isSaving')) {
                     $('.' + file.get('photo_source_id')).attr("style", "display:block");
                 }

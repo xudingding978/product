@@ -30,7 +30,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
     direct_enquiry_emails_3: "",
     creater: "",
     editors: "",
-    boost: "",
+    boost: null,
     profile_package: "",
     profile_contact_number: "",
     profile_bg_url: "",
@@ -87,6 +87,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 && this.validateEmail($('.contactEmail').val())
                 && this.validateEmail($('.admins').val())
                 && this.validateEmail($('.clientEmail').val())
+       && this.numberChecking("#numberFormat", $('.contactNumber').val())
                 )
 
         {
@@ -388,11 +389,12 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 profile_website_url: this.get("website_url"),
                 profile_website: this.get("website"),
                 keywords: []
-
+               
             });
 
 
             newMegaNewModel.get("profile").pushObject(newProfile);
+            
             var that = this;
             requiredBackEnd('meganews', 'createNewProfile', newMegaNewModel, 'POST', function(params) {
                 if (params === true) {
@@ -403,8 +405,8 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                     newMegaNewModel.addObserver('isDirty', function() {
                         if (!newMegaNewModel.get('isDirty')) {
                             that.transitionToRoute('profile', newProfile);
-                            location.href = "#/profiles/" + that.get("profile_url");
-                            location.reload();
+                            //location.href = "#/profiles/" + that.get("profile_url");
+                            //location.reload();
                         } else {
                         }
 

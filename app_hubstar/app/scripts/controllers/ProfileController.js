@@ -111,7 +111,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     isProfilePicture: false,
     isProfileHero: false,
     isProfileBackground: false,
-    isKeywordObjecttExist: false,
     CurrentImageSize: "",
     RequiredImageSize: "",
     isAdmin: false,
@@ -270,7 +269,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.followerPhoto(id);
 
 //        if (profile.get("keywords") !==null && profile.get("keywords") !== "undefined" && profile.get("keywords").get('length') > 0) {
-        this.checkKeywordObjectExist();
+       
         this.set("keywords_array", profile.get('keywords'));
         this.set("show_keyword_id", profile.get('show_keyword_id'));
 
@@ -321,13 +320,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //        }
 //        this.set('about_us', about_us);
     },
-    checkKeywordObjectExist: function() {
-        if (this.get('model').get('keywords') !== null && this.get('model').get('keywords') !== 'undefined' && this.get('model').get('keywords').get('length') > 0) {
-            this.set('isKeywordObjecttExist', true);
-        } else {
-            this.set('isKeywordObjecttExist', false);
-        }
-    },
+    
     setShowKeywordsArray: function(show_keywords_id, keywords) {
         var newArray = [];
         for (var i = 0; i < keywords.get('length'); i++) {
@@ -582,16 +575,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
             this.set('editingAbout', !this.get('editingAbout'));
         }
-//        for (var i = 0; i < this.get('about_us').objectAt(0).get('about_video').get('length'); i ++) {
-//            var video_url = this.get('about_us').objectAt(0).get('about_video').objectAt(i).get('video_url').split('?');
-//            if (video_url.lenth >1) {
-//                this.get('about_us').objectAt(0).get('about_video').objectAt(i).set('video_url', '//www.youtube.com/embed/'+video_url[1].split('=')[1]);
-//            }
-//        }
-        if (this.get('model').get('about_us') === null || this.get('model').get('about_us') === 'undefined' || this.get('model').get('about_us').get('length') === 0) {
-            this.get('model').get('about_us').pushObject(this.get('about_us').objectAt(0));
+        if (this.get('isAboutUsObjectExist')) {
+            if (this.get('model').get('about_us') === null || this.get('model').get('about_us') === 'undefined' || this.get('model').get('about_us').get('length') === 0) {
+                this.get('model').get('about_us').pushObject(this.get('about_us').objectAt(0));
+            }
+            this.get('about_us').objectAt(0).save();
+        } else {
+            this.saveUpdateAboutUs();
         }
-        this.get('about_us').objectAt(0).save();
     },
     yes: function(checkingInfo) {
         if (checkingInfo === "profileName") {
@@ -973,7 +964,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
-        update_About_record.set("profile_about_us", editor.getValue());
+        var textarea = document.getElementById("wysihtml5-editor");
+        update_About_record.set("profile_about_us", textarea.value);
         this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
         update_About_record.store.save();
     },

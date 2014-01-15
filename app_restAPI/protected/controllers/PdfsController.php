@@ -21,8 +21,9 @@ class PdfsController extends Controller {
         $request_arr = CJSON::decode($request_json, true);
 //        error_log(var_export($request_arr, true));
 //        error_log($request_arr['pdf']['pdf_url']);
-        $pdf_resource = str_replace('data:image/pdf;base64,', '', $request_arr['pdf']['pdf_url']);
-        error_log('111111111111');
+        $pdf_resource = base64_decode(str_replace('data:application/pdf;base64,', '', $request_arr['pdf']['pdf_url']));
+ //$pdf_resource =   $request_arr['pdf']['pdf_url'];
+        error_log($pdf_resource);
         $pdf_profile_id = $request_arr['pdf']['pdf_profile_id'];
         error_log($pdf_profile_id);
 //        $pdf_collection_id = $request_arr['pdf_collection_id'];

@@ -33,6 +33,7 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
     profileStyleImageDrop: function(e, name)
     {
         var target = getTarget(e, "single");
+        console.log(target);
         var src = target.result;
         var pdf = HubStar.Pdf.createRecord({
             'pdf_cover_image': "http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0", 'pdf_title': name.split('.')[0],

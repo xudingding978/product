@@ -262,7 +262,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         this.labelBarRefresh();
         this.flipFrontBack();
-       
+
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.setMega();
         this.initStastics(profile);
@@ -575,25 +575,23 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
             this.set('editingAbout', !this.get('editingAbout'));
         }
-//        for (var i = 0; i < this.get('about_us').objectAt(0).get('about_video').get('length'); i ++) {
-//            var video_url = this.get('about_us').objectAt(0).get('about_video').objectAt(i).get('video_url').split('?');
-//            if (video_url.lenth >1) {
-//                this.get('about_us').objectAt(0).get('about_video').objectAt(i).set('video_url', '//www.youtube.com/embed/'+video_url[1].split('=')[1]);
-//            }
-//        }
-        if (this.get('model').get('about_us') === null || this.get('model').get('about_us') === 'undefined' || this.get('model').get('about_us').get('length') === 0) {
-            this.get('model').get('about_us').pushObject(this.get('about_us').objectAt(0));
+        if (this.get('isAboutUsObjectExist')) {
+            if (this.get('model').get('about_us') === null || this.get('model').get('about_us') === 'undefined' || this.get('model').get('about_us').get('length') === 0) {
+                this.get('model').get('about_us').pushObject(this.get('about_us').objectAt(0));
+            }
+            this.get('about_us').objectAt(0).save();
+        } else {
+            this.saveUpdateAboutUs();
         }
-        this.get('about_us').objectAt(0).save();
     },
     yes: function(checkingInfo) {
         if (checkingInfo === "profileName") {
             this.set('editing', !this.get('editing'));
-            
-             var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-        update_profile_record.set("profile_name", this.get('profile_name'));
-        this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
-          update_profile_record.store.save();
+
+            var update_profile_record = HubStar.Profile.find(this.get('model.id'));
+            update_profile_record.set("profile_name", this.get('profile_name'));
+            this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
+            update_profile_record.store.save();
         }
         else if (checkingInfo === "contact") {
             if (this.get("website_url").match(/[http]/g) === -1 || this.get("website_url").match(/[http]/g) === null)
@@ -642,8 +640,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('profile_contact_number', phone_record);
             this.set('website', website_record);
             this.set('website_url', website_url_record);
-          
-            this.set('editingContact', !this.get('editingContact'));       
+
+            this.set('editingContact', !this.get('editingContact'));
         }
         else if (checkingInfo === "timeSetting") {
             this.updateWorkingHourData(this.get('model.profile_hours'));
@@ -774,34 +772,34 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.toggleUpload();
     },
     checkAuthenticUser: function() {
-      if(localStorage.loginStatus){
-        var currentUser = HubStar.User.find(localStorage.loginStatus);
+        if (localStorage.loginStatus) {
+            var currentUser = HubStar.User.find(localStorage.loginStatus);
 
-        var current_user_email = currentUser.get('email');
-        var permissionController = this.get('controllers.permission');
-        var that = this;
-        var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-        if (current_user_email !== null && current_user_email !== undefined && current_user_email !== "") {
-            var isAdmin = permissionController.setIsAdmin(current_user_email);
-            this.set('isAdmin', isAdmin);
-            that.set("is_authentic_user", is_authentic_user);
-            
-        } else {
-            
-            currentUser.then(function() {
-                var current_user_email = currentUser.get('email');
-                
-                if (currentUser.get('isLoaded')) {
-                    var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-                    that.set("is_authentic_user", is_authentic_user);
+            var current_user_email = currentUser.get('email');
+            var permissionController = this.get('controllers.permission');
+            var that = this;
+            var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
+            if (current_user_email !== null && current_user_email !== undefined && current_user_email !== "") {
+                var isAdmin = permissionController.setIsAdmin(current_user_email);
+                this.set('isAdmin', isAdmin);
+                that.set("is_authentic_user", is_authentic_user);
 
-                    var isAdmin = permissionController.setIsAdmin(current_user_email);
-                    that.set('isAdmin', isAdmin);
-                    isAdmin = permissionController.setIsAdmin(current_user_email);
-                }
-            });
+            } else {
+
+                currentUser.then(function() {
+                    var current_user_email = currentUser.get('email');
+
+                    if (currentUser.get('isLoaded')) {
+                        var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
+                        that.set("is_authentic_user", is_authentic_user);
+
+                        var isAdmin = permissionController.setIsAdmin(current_user_email);
+                        that.set('isAdmin', isAdmin);
+                        isAdmin = permissionController.setIsAdmin(current_user_email);
+                    }
+                });
+            }
         }
-    }
     },
     isFollowed: function()
     {
@@ -961,11 +959,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
-        update_About_record.set("profile_about_us", editor.getValue());
+        var textarea = document.getElementById("wysihtml5-editor");
+        update_About_record.set("profile_about_us", textarea.value);
         this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
         update_About_record.store.save();
     },
-    saveUpdateGeneral:function(){
+    saveUpdateGeneral: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
         update_profile_record.set('profile_contact_first_name', this.get('first_name'));
         update_profile_record.set('profile_contact_last_name', this.get('last_name'));
@@ -986,11 +985,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         update_profile_record.set('profile_category', this.get('profileCategorySelection'));
         update_profile_record.set('profile_subcategory', this.get('profileSubcategorySelection'));
-        
+
         this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
-          update_profile_record.store.save();
-            },                      
-            
+        update_profile_record.store.save();
+    },
     saveUpdate: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
 
@@ -1234,7 +1232,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': that.get('model.id')};
                         that.set('loadingTime', true);
-                       
+
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
                             //     $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoEditingMode', false);

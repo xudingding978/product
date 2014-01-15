@@ -16,16 +16,21 @@ class PdfsController extends Controller {
     }
 
     public function actionCreate() {
+        error_log('actionCreate');
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-        $pdf_resource = $request_arr['pdf_url'];
-        $pdf_profile_id = $request_arr['pdf_profile_id'];
+//        error_log(var_export($request_arr, true));
+//        error_log($request_arr['pdf']['pdf_url']);
+        $pdf_resource = str_replace('data:image/pdf;base64,', '', $request_arr['pdf']['pdf_url']);
+        error_log('111111111111');
+        $pdf_profile_id = $request_arr['pdf']['pdf_profile_id'];
+        error_log($pdf_profile_id);
 //        $pdf_collection_id = $request_arr['pdf_collection_id'];
-        $pdf_title = $request_arr['pdf_title'];
+        $pdf_title = $request_arr['pdf']['pdf_title'] . '.pdf';
         
         $bucket = "s3.hubsrv.com";
         $url = $this->getDomain() . '/profiles' . "/" . $pdf_profile_id . "/"  . $pdf_title;
-        
+        error_log($url);
         $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
         $client = Aws\S3\S3Client::factory(
                         $arr

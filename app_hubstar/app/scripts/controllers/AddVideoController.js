@@ -63,15 +63,24 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
         var profileVideosController = this.get('controllers.profileVideos');
         profileVideosController.get("videoesContent").insertAt(0, mega);
         var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
-                
-                profile.set("profile_video_num",profileVideosController.get("videoesContent").get("length"));
-               
-                profile.store.save();
+
+
         this.get("controllers.profile").set("profileVideoStatistics", profileVideosController.get("videoesContent").get("length"));
         mega.store.save();
 
+        profile.set("profile_video_num", profileVideosController.get("videoesContent").get("length"));
 
-        profileVideosController.relayout();
+        profile.store.save();
+        profileVideosController.set("loadingTime",true);
+        mega.then(function() {
+            profile.then(function() {
+                setTimeout(function() {
+                    profileVideosController.getClientId(profile);
+                }, 2000);
+            });
+        });
+
+
         this.canel();
     },
     getVideoId: function() {

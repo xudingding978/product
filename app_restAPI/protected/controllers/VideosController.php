@@ -56,14 +56,16 @@ class VideosController extends Controller {
     public function actionUpdate() {
         
     }
-
+    
+   
+    
     public function videoUpdate($mega) {
         try {
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $photoTitle = $mega['mega']['object_title'];
-            error_log($photoTitle);
+            
             $photoCaption = $mega['mega']['object_description'];
             $url = $this->getDomain() . "/" . $id;
             $tempRecord = $cb->get($url);
@@ -73,6 +75,9 @@ class VideosController extends Controller {
             $oldRecord['object_description'] = $photoCaption;
             $oldRecord['videoes'][0]['video_title'] = $photoTitle;
             $oldRecord['videoes'][0]['video_desc'] = $photoCaption;
+            
+           
+            
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {

@@ -65,7 +65,7 @@ HubStar.Mega = DS.Model.extend({
     keywordShow: function() {
        
         var a = new Array();
-
+        
         for (var i = 0; i < 3 && this.get("keyword").get("length"); i++)
         {
             var b = new Array();

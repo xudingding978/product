@@ -41,14 +41,15 @@ class RefineDataCommand extends Controller_admin {
             $this->deleteIncorrectRecord();
         } elseif ($action == "fixuserlarge") {
             $this->fixUserPictureLarge();
-        }elseif($action=='findhtml'){
+        } elseif ($action == 'findhtml') {
             $this->ticket537HtmlRelocation();
-        } elseif($action=='numbersready'){
+        } elseif ($action == 'numbersready') {
             $this->ticket667likesCountCommentCount();
-        }elseif($action == "finderror"){
+        } elseif ($action == "finderror") {
             $this->finduncompletenumbers();
-        }
-        elseif ($action == "refineArticle") {
+        } elseif ($action == "countvideo") {
+            $this->setVideoNumber();
+        } elseif ($action == "refineArticle") {
 
 
 
@@ -228,19 +229,65 @@ class RefineDataCommand extends Controller_admin {
             }
         }
     }
-    
-    
-    public function finduncompletenumbers(){
-        $check_list=array();
+
+    public function setVideoNumber() {
+        $bucket = 'production';
+        $profile_list = $this->findAllAccordingType($bucket, "profile");
+        $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = $bucket;
+        $cb = $this->couchBaseConnection($bucket);
+
+
+
+
+
+        foreach ($profile_list as $profile) {
+            $result = $cb->get($profile);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                $id = $result_arr['id'];
+                $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"\"' . $id . '"\"')
+                        ->default_field('couchbaseDocument.doc.owner_id');
+                $must2 = Sherlock\Sherlock::queryBuilder()
+                        ->QueryString()->query("video")
+                        ->default_field('couchbaseDocument.doc.type');
+                $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
+                        ->must($must2);
+                $request->index($index)->type("couchbaseDocument");
+                $request->from(0)
+                        ->size(500);
+                $request->query($bool);
+
+                echo "\n" . $request->toJSON() . "\n";
+                $response = $request->execute();
+                $video_count = sizeof($response);
+                $result_arr["profile"][0]['profile_video_num'] = $video_count;
+                echo $video_count . "\n";
+                if ($cb->set($profile, CJSON::encode($result_arr))) {
+                    echo $profile . " saved to couchbase\n";
+                } else {
+                    echo $profile . "save to couchbase failed---------------------------\n";
+                }
+            } else {
+                echo $profile . "can't find couchbase record--------------------------\n";
+            }
+        }
+    }
+
+    public function finduncompletenumbers() {
+        $check_list = array();
         array_push($check_list, "view_count");
         array_push($check_list, "likes_count");
         array_push($check_list, "comment_count");
         array_push($check_list, "accessed");
         array_push($check_list, "created");
         array_push($check_list, "boost");
-        $cb=$this->couchBaseConnection('develop');
-        foreach($check_list as $sub_task){
-              $query='{
+        $cb = $this->couchBaseConnection('develop');
+        foreach ($check_list as $sub_task) {
+            $query = '{
   "query": {
     "filtered": {
       "query": {
@@ -248,242 +295,232 @@ class RefineDataCommand extends Controller_admin {
           "must": {
             "queryString": {
               "default_field": "couchbaseDocument.doc.type",
-              "query": "video"
+              "query": "profile"
             }
           }
         }
       },
       "filter": {
         "missing": {
-          "field": "couchbaseDocument.doc.'.$sub_task.'"
+          "field": "couchbaseDocument.doc.' . $sub_task . '"
         }
       }
     }
   },
   "size": "100"
 }';
-                $ch = curl_init("http://es1.hubsrv.com:9200/develop/_search");
+            $ch = curl_init("http://es1.hubsrv.com:9200/develop/_search");
 
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
-        $result = curl_exec($ch);
+            $result = curl_exec($ch);
 //            foreach($result as $found){
 //                echo $found['id'];
 //            }
-        $result_arr = CJSON::decode($result, true);
-        $record_arr = $result_arr['hits']['hits'];
-        echo $sub_task." : ". sizeof($record_arr)."\n";
-        foreach($record_arr as $record){
-            
-            $id=$record['_id'];
-            $couchbase_record=$cb->get($id);
-            $couchbase_arr=CJSON::decode($couchbase_record);
-            if($sub_task==="boost"){
-                $couchbase_arr['boost']=100;
-          //      $cb->delete($id);
-            }else{
-                 if($sub_task==='accessed'){
-                $couchbase_arr['accessed']=1389576664;
-            }else{
-                            $couchbase_arr[$sub_task]=0;
-            }}
-            if($cb->set($id, CJSON::encode($couchbase_arr))){
-                echo $id." save to couchbase \n";
-            }else{
-                echo $id. " save to couchbase failed\n";
-            }
+            $result_arr = CJSON::decode($result, true);
+            $record_arr = $result_arr['hits']['hits'];
+            echo $sub_task . " : " . sizeof($record_arr) . "\n";
+            foreach ($record_arr as $record) {
 
-            echo $id."\n";
-            
-           
+                $id = $record['_id'];
+                $couchbase_record = $cb->get($id);
+                $couchbase_arr = CJSON::decode($couchbase_record);
+                if ($sub_task === "boost") {
+                    $couchbase_arr['boost'] = 100;
+                    //      $cb->delete($id);
+                } else {
+                    if ($sub_task === 'accessed') {
+                        $couchbase_arr['accessed'] = 1389576664;
+                    } else {
+                        $couchbase_arr[$sub_task] = 0;
+                    }
+                }
+                if ($cb->set($id, CJSON::encode($couchbase_arr))) {
+                    echo $id . " save to couchbase \n";
+                } else {
+                    echo $id . " save to couchbase failed\n";
+                }
+
+                echo $id . "\n";
+            }
         }
-        
-              
-        }
-      
     }
-    
-    public function ticket667likesCountCommentCount(){
-        $bucket="develop";
-        $article_arr=$this->findAllAccordingType($bucket,'article');
-        $cb=$this->couchBaseConnection($bucket);
+
+    public function ticket667likesCountCommentCount() {
+        $bucket = "develop";
+        $article_arr = $this->findAllAccordingType($bucket, 'article');
+        $cb = $this->couchBaseConnection($bucket);
         $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $log_path = '/var/log/yii/' . $datetime . '.log';
-        foreach($article_arr as $article){
-            $message=$article. " ";
-            $result=$cb->get($article);
-            if($result!=null){
-                $result_arr=CJSON::decode($result);
-                if(!isset($result_arr['likes_count']) || $result_arr['likes_count']==null){
-                    $result_arr['likes_count']=0;
-                }else{
-                    echo $article." has likes count already\n";
-                      $message.=" has likes count already\n";
+        foreach ($article_arr as $article) {
+            $message = $article . " ";
+            $result = $cb->get($article);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                if (!isset($result_arr['likes_count']) || $result_arr['likes_count'] == null) {
+                    $result_arr['likes_count'] = 0;
+                } else {
+                    echo $article . " has likes count already\n";
+                    $message.=" has likes count already\n";
                 }
-                
-                      if(!isset($result_arr['view_count']) || $result_arr['view_count']==null){
-                    $result_arr['view_count']=0;
-                }else{
-                    echo $article." has like count already\n";
-                      $message.=" has view_count already\n";
+
+                if (!isset($result_arr['view_count']) || $result_arr['view_count'] == null) {
+                    $result_arr['view_count'] = 0;
+                } else {
+                    echo $article . " has like count already\n";
+                    $message.=" has view_count already\n";
                 }
-                
-                              if(!isset($result_arr['comment_count']) || $result_arr['comment_count']==null){
-                    $result_arr['comment_count']=0;
-                    if(isset($result_arr['comments'])){
-                      //  echo "     ".sizeof($result_arr['comments'])."     ";
-                        $check=sizeof($result_arr['comments']);
-              //          echo var_export($result_arr['comments'])."\n";
-                        if($check>0){
-                            $result_arr['comment_count']=  $check;
-                     //        echo $article." ".sizeof($result_arr['comments'])."     ";
-                        }else{
-                            echo $article." does not have comment\n";
-                              $message.=" does not have comment\n";
+
+                if (!isset($result_arr['comment_count']) || $result_arr['comment_count'] == null) {
+                    $result_arr['comment_count'] = 0;
+                    if (isset($result_arr['comments'])) {
+                        //  echo "     ".sizeof($result_arr['comments'])."     ";
+                        $check = sizeof($result_arr['comments']);
+                        //          echo var_export($result_arr['comments'])."\n";
+                        if ($check > 0) {
+                            $result_arr['comment_count'] = $check;
+                            //        echo $article." ".sizeof($result_arr['comments'])."     ";
+                        } else {
+                            echo $article . " does not have comment\n";
+                            $message.=" does not have comment\n";
                         }
-                    }else{
-                        echo $article." does not have comment object\n";
-                          $message.=" does not have comment object\n";
+                    } else {
+                        echo $article . " does not have comment object\n";
+                        $message.=" does not have comment object\n";
                     }
-                }else{
-                    echo $article." has comment_count already\n";
-                      $message.=" has comment_count already\n";
+                } else {
+                    echo $article . " has comment_count already\n";
+                    $message.=" has comment_count already\n";
                 }
-                
-                if($cb->set($article,CJSON::encode($result_arr))){
-                    echo $article." saved successfully\n";
-                      $message.=" saved successfully\n";
-                }else{
-                    echo $article. "save to couchbase failed-----------\n";
-                      $message.= "save to couchbase failed-----------\n";
+
+                if ($cb->set($article, CJSON::encode($result_arr))) {
+                    echo $article . " saved successfully\n";
+                    $message.=" saved successfully\n";
+                } else {
+                    echo $article . "save to couchbase failed-----------\n";
+                    $message.= "save to couchbase failed-----------\n";
                 }
-            }else{
-                echo $article." can not find in couchbase---------\n";
-                  $message.=" can not find in couchbase---------\n";
+            } else {
+                echo $article . " can not find in couchbase---------\n";
+                $message.=" can not find in couchbase---------\n";
             }
             $this->writeToLog($log_path, $message);
         }
-        
-        $photo_arr=$this->findAllAccordingType($bucket, 'photo');
-             foreach($photo_arr as $photo){
-            $message=$photo. " ";
-            $result=$cb->get($photo);
-            if($result!=null){
-                $result_arr=CJSON::decode($result);
-                if(!isset($result_arr['likes_count']) || $result_arr['likes_count']==null){
-                    $result_arr['likes_count']=0;
-                }else{
-                    echo $photo." has likes count already\n";
-                      $message.=" has likes count already\n";
+
+        $photo_arr = $this->findAllAccordingType($bucket, 'photo');
+        foreach ($photo_arr as $photo) {
+            $message = $photo . " ";
+            $result = $cb->get($photo);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                if (!isset($result_arr['likes_count']) || $result_arr['likes_count'] == null) {
+                    $result_arr['likes_count'] = 0;
+                } else {
+                    echo $photo . " has likes count already\n";
+                    $message.=" has likes count already\n";
                 }
-                
-                      if(!isset($result_arr['view_count']) || $result_arr['view_count']==null){
-                    $result_arr['view_count']=0;
-                }else{
-                    echo $photo." has like count already\n";
-                      $message.=" has view_count already\n";
+
+                if (!isset($result_arr['view_count']) || $result_arr['view_count'] == null) {
+                    $result_arr['view_count'] = 0;
+                } else {
+                    echo $photo . " has like count already\n";
+                    $message.=" has view_count already\n";
                 }
-                
-                              if(!isset($result_arr['comment_count']) || $result_arr['comment_count']==null){
-                    $result_arr['comment_count']=0;
-                    if(isset($result_arr['comments'])){
-                             $check=sizeof($result_arr['comments']);
-                        if($check>0){
-                            $result_arr['comment_count']=  $check;
-                        }else{
-                            echo $photo." does not have comment\n";
-                              $message.=" does not have comment\n";
+
+                if (!isset($result_arr['comment_count']) || $result_arr['comment_count'] == null) {
+                    $result_arr['comment_count'] = 0;
+                    if (isset($result_arr['comments'])) {
+                        $check = sizeof($result_arr['comments']);
+                        if ($check > 0) {
+                            $result_arr['comment_count'] = $check;
+                        } else {
+                            echo $photo . " does not have comment\n";
+                            $message.=" does not have comment\n";
                         }
-                    }else{
-                        echo $photo." does not have comment object\n";
-                          $message.=" does not have comment object\n";
+                    } else {
+                        echo $photo . " does not have comment object\n";
+                        $message.=" does not have comment object\n";
                     }
-                }else{
-                    echo $photo." has comment_count already\n";
-                      $message.=" has comment_count already\n";
+                } else {
+                    echo $photo . " has comment_count already\n";
+                    $message.=" has comment_count already\n";
                 }
-                
-                if($cb->set($photo,CJSON::encode($result_arr))){
-                    echo $photo." saved successfully\n";
-                      $message.=" saved successfully\n";
-                }else{
-                    echo $photo. "save to couchbase failed-----------\n";
-                      $message.= "save to couchbase failed-----------\n";
+
+                if ($cb->set($photo, CJSON::encode($result_arr))) {
+                    echo $photo . " saved successfully\n";
+                    $message.=" saved successfully\n";
+                } else {
+                    echo $photo . "save to couchbase failed-----------\n";
+                    $message.= "save to couchbase failed-----------\n";
                 }
-            }else{
-                echo $photo." can not find in couchbase---------\n";
-                  $message.=" can not find in couchbase---------\n";
+            } else {
+                echo $photo . " can not find in couchbase---------\n";
+                $message.=" can not find in couchbase---------\n";
             }
             $this->writeToLog($log_path, $message);
         }
     }
-    
-    public function ticket537HtmlRelocation(){
-        $bucket='production';
-        $type='photo';
+
+    public function ticket537HtmlRelocation() {
+        $bucket = 'production';
+        $type = 'photo';
         $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
         $log_path = '/var/log/yii/' . $datetime . '.log';
-        $cb=$this->couchBaseConnection($bucket);
-        $photo_list=$this->findAllAccordingType($bucket, $type);
-        $count=0;
-        foreach($photo_list as $photo){
-            echo $photo."\n";
-            $message=$photo." ";
-            $result=$cb->get($photo);
-            if($result!=null){
-                $result_arr=CJSON::decode($result);
-                if(isset($result_arr['photo'][0]['photo_caption'])&&$result_arr['photo'][0]['photo_caption']!=null){
-                    $caption_record= $result_arr['photo'][0]['photo_caption'];
-                    if(strpos($caption_record, "<a href" )!==false){
-                        echo $photo. "has html tag+++++++++++++ "."\n";
-                         $message.= "has html tag+++++++++++++ "."\n";
-                      //  sleep(5);
+        $cb = $this->couchBaseConnection($bucket);
+        $photo_list = $this->findAllAccordingType($bucket, $type);
+        $count = 0;
+        foreach ($photo_list as $photo) {
+            echo $photo . "\n";
+            $message = $photo . " ";
+            $result = $cb->get($photo);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                if (isset($result_arr['photo'][0]['photo_caption']) && $result_arr['photo'][0]['photo_caption'] != null) {
+                    $caption_record = $result_arr['photo'][0]['photo_caption'];
+                    if (strpos($caption_record, "<a href") !== false) {
+                        echo $photo . "has html tag+++++++++++++ " . "\n";
+                        $message.= "has html tag+++++++++++++ " . "\n";
+                        //  sleep(5);
                         $count++;
-                        $caption_arr_url=  explode('"', $caption_record);
-                       
-                        foreach($caption_arr_url as $part){
-                            if(strpos($part, "http")!==false){
-                                $url=$part;
+                        $caption_arr_url = explode('"', $caption_record);
+
+                        foreach ($caption_arr_url as $part) {
+                            if (strpos($part, "http") !== false) {
+                                $url = $part;
                             }
                         }
-                        $result_arr['photo'][0]['photo_link_url']=$url;
+                        $result_arr['photo'][0]['photo_link_url'] = $url;
                         preg_match('/>(.*?)</', $caption_record, $text);
-                        $result_arr['photo'][0]['photo_link_text']=$text[1];
-                        $result_arr['photo'][0]['photo_caption']="";
-                   //     echo $url."\n".$text[1]."\n-------------------------------";
-                        if($cb->set($photo,CJSON::encode($result_arr))){
+                        $result_arr['photo'][0]['photo_link_text'] = $text[1];
+                        $result_arr['photo'][0]['photo_caption'] = "";
+                        //     echo $url."\n".$text[1]."\n-------------------------------";
+                        if ($cb->set($photo, CJSON::encode($result_arr))) {
                             echo "save to couchbase successful\n";
                             $message.="    save to couchbase successful\n";
-                        }else{
+                        } else {
                             echo "save to couchbase failed";
                             $message.="    save to couchbase failed";
                         }
-                        $result_arr['photo'][0]['photo_caption']="";
-                        
-            
-                    }else{
+                        $result_arr['photo'][0]['photo_caption'] = "";
+                    } else {
                         $message.= " does not have Html tag \n";
-                        echo $photo. " does not have Html tag \n";
+                        echo $photo . " does not have Html tag \n";
                     }
-                }else{
-                    echo $photo. " does not have caption********** \n";
+                } else {
+                    echo $photo . " does not have caption********** \n";
                     $message.= " does not have caption********** \n";
                 }
-                
-
-                
-            }else{
-                echo $photo." cannot find record in couchbase--------------- \n";
-                 $message.= " cannot find record in couchbase--------------- \n";
+            } else {
+                echo $photo . " cannot find record in couchbase--------------- \n";
+                $message.= " cannot find record in couchbase--------------- \n";
             }
             $this->writeToLog($log_path, $message);
         }
-       // $this->writeToLog($log_path, $message);
+        // $this->writeToLog($log_path, $message);
         echo $count;
-        
     }
 
     public function fixArticlebeenUpdatedwithWrongId() {

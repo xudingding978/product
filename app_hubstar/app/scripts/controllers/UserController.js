@@ -943,7 +943,7 @@ HubStar.UserController = Ember.Controller.extend({
     },
     isFollowed: function()
     {
-
+if(localStorage.loginStatus){
 
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         if (currentUser.get('isLoaded')) {
@@ -957,7 +957,7 @@ HubStar.UserController = Ember.Controller.extend({
                 }
             });
         }
-
+}
     },
     followThisUser: function() {
         var user_id = this.get('model').get('id');

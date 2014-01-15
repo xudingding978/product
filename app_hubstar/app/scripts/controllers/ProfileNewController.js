@@ -381,6 +381,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 profile_is_deleted: "false",
                 profile_suburb: this.get("suburb"),
                 profile_keywords: this.get("keywords"),
+                profile_video_num: 0,
                 profile_keywords_num: this.get("keywordNumber"),
                 profile_regoin: $('#regionSelection').text(),
                 profile_country: $('#countrySelection').text(),

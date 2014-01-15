@@ -337,11 +337,10 @@ class Controller extends CController {
                                                 "keywords^8",
                                                 "couchbaseDocument.doc.keyword.keyword_name^10",
                                                 "couchbaseDocument.doc.article.article_spark_job_id^5",
-                                                "couchbaseDocument.doc.article.article_helium_media_id^5",
                                                 "owner_title^2",
                                                 "country",
                                                 "region",
-                                                "object_title^2",
+                                                "type^10",
                                                 "object_description^4"]
                                                     }
                         }

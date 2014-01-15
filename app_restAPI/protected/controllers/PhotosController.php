@@ -301,7 +301,10 @@ class PhotosController extends Controller {
         $bucket = 's3.hubsrv.com';
         if ($optional == null || $optional == 'undefined' || $optional == "") {
             $url = $this->getDomain() . '/users' . "/" . $owner_id . "/" . $photo_type . "/" . $photo_name;
-        } else {
+        } else if($optional == 'profile_picture'){
+            $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $optional;
+        }
+          else  {
             $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
             $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $new_photo_name;
         }

@@ -113,7 +113,6 @@ class ProfilesController extends Controller {
 
     public function actionUpdate() {
 
-error_log('actionUpdate');
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
             $payload_json = CJSON::encode($payloads_arr['profile'], true);
@@ -149,15 +148,20 @@ error_log('actionUpdate');
             $oldRecord['profile'][0]['profile_video_num'] = $newRecord['profile_video_num'];
             $oldRecord['keywords'] = $newRecord['profile_keywords'];
             $oldRecord['profile'][0]['profile_keywords_num'] = $newRecord['profile_keywords_num'];
+
+            $oldRecord['view_count'] = $newRecord['view_count'];
+            $oldRecord['share_count'] = $newRecord['share_count'];
+            $oldRecord['comment_count'] = $newRecord['comment_count'];
+
             $oldRecord['keyword_num'] = $newRecord['profile_keywords_num'];
             $oldRecord['profile'][0]['title_modify_time'] = $newRecord['title_modify_time'];
+
 
 //            $oldRecord['profile'][0]['keywords'] = $newRecord['keywords'] ;
 //            $oldRecord['keyword'] = $newRecord['keywords'];
             if ($oldRecord['profile'][0]['profile_package_name'] !== $newRecord['profile_package_name']) {
                 $oldRecord['profile'][0]['profile_package_name'] = $newRecord['profile_package_name'];
                 $boost = $this->setBoost($newRecord['profile_package_name']);
-                error_log(var_export($boost, true));
                 $oldRecord['profile'][0]['profile_boost'] = $boost;
                 $setPhotoBoost = TRUE;
             } else {
@@ -227,13 +231,10 @@ error_log('actionUpdate');
     }
 
     public function actionSetProfileName() {
-        error_log('setProfileName');
         $payloads_arr = CJSON::decode(file_get_contents('php://input'));
         $infoDel = CJSON::decode($payloads_arr, true);
         $profile_name = $infoDel[0];
         $profile_id = $infoDel[1];
-        error_log($profile_id);
-        error_log($profile_name);
         $response = $this->getProfileReults($profile_id);
         $responseArray = array();
         foreach ($response as $hit) {
@@ -257,7 +258,6 @@ error_log('actionUpdate');
     
     public function actionGoogleMap() {
         $payloads_arr = CJSON::decode(file_get_contents('php://input'));
-        error_log(var_export($payloads_arr, true));
         $googleMap = $payloads_arr[0];
         $id = $payloads_arr[1];
         $cb = $this->couchBaseConnection();
@@ -304,17 +304,14 @@ error_log('actionUpdate');
         if ($mode == 'profile_hero') {
             $oldRecord['profile'][0]['profile_hero_url'] = null;
             $oldRecord['profile'][0]['profile_hero_url'] = $url;
-            error_log(var_export($url, true));
         } elseif
         ($mode == 'background') {
             $oldRecord['profile'][0]['profile_bg_url'] = null;
             $oldRecord['profile'][0]['profile_bg_url'] = $url;
-            error_log(var_export($url, true));
         } elseif
         ($mode == 'profile_picture') {
             $oldRecord['profile'][0]['profile_pic_url'] = null;
             $oldRecord['profile'][0]['profile_pic_url'] = $url;
-            error_log(var_export($url, true));
         }
 
         if ($mode == 'profile_hero') {

@@ -31,7 +31,7 @@
                 {{/if}}
                 <div class="corpbanner_mask" style="background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 100%; height: 200px;">
                     <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 30%;width: 70%;">
-                        <div class="main_title" style="height: 100px;">
+                        <div class="main_title" style="height: 120px;">
 
                             <div>
                                 {{#if controller.editing}}
@@ -44,7 +44,7 @@
                                     <div class="new-btn"{{action no controller.profileName}}><i class="fa fa-times fa fa-white"></i></div>
                                 </div>
                                 {{else}}
-                                <div style="display: inline-block; color: white; max-width: 750px; overflow: hidden; font-size: 28px; margin-bottom: 15px; line-height: 32px; vertical-align: middle;">
+                                <div style="display: inline-block; color: white; max-width: 500px; overflow: hidden; font-size: 28px; margin-bottom: 15px; line-height: 32px; vertical-align: middle;">
                                     {{profile_name}}
                                 </div>
                                 {{#if controller.is_authentic_user}}
@@ -112,7 +112,7 @@
                     <div class="profileaside">
                         <div class="profileaside_content">
                             <div class="aside-profilepic">
-                                <div style="min-height: 175px; overflow: visible; line-height: 175px;margin-bottom: 20px;" data-hint="{{unbound model.id}}">
+                                <div style="min-height: 175px; overflow: visible; line-height: 175px;margin-bottom: 20px;" data-hint="{{unbound model.profile_name}}">
                                     <a href="#/profiles/{{unbound model.id}}">
                                         <img {{bindAttr src= model.profile_pic_url}} style="border:5px solid white;box-shadow: 0px 0px 5px #888;min-height: 0;width: 100%">
                                     </a> 
@@ -288,7 +288,7 @@
                             <!--PROFILE HOURS SECTION-->
 
                             <div class="aside-container" style="border-top: 1px solid #fff;">
-                                <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='fa fa-time' style='margin-right: 10px;'></i>Hours</div>
+                                <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='fa fa-clock-o' style='margin-right: 10px;'></i>Hours</div>
 
                                 {{#unless controller.editingTime}}
                                 {{#if controller.is_authentic_user}}
@@ -392,7 +392,7 @@
                 <div class='styleup_section'>
                     <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Profile Picture"}}>
                        <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload' {{action changeSize}}>
-                         <i class='fa fa-upload fa fa-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
+                         <i class='fa fa-arrow-circle-o-up fa fa-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
                             <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">Profile Picture</span>
                         </div>
                     </a>
@@ -404,7 +404,7 @@
                 <div class='styleup_section easing'>
                     <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Profile Hero"}}>
                        <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload' {{action changeSize}}>
-                         <i class='fa fa-upload fa fa-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
+                         <i class='fa fa-arrow-circle-o-up fa fa-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
                             <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">Profile Hero</span>
                         </div>
                     </a>
@@ -416,7 +416,7 @@
                 <div class='styleup_section easing'>
                     <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Background"}}>
                        <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload' {{action changeSize}}>
-                         <i class='fa fa-upload fa fa-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
+                         <i class='fa fa-arrow-circle-o-up fa fa-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
                             <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">Profile Background</span>
                         </div>
                     </a>
@@ -884,7 +884,7 @@
                     <div style="top: 190px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
 
 
-                        <i class="fa fa-upload" style="font-size: 45px;"></i>
+                        <i class="fa fa-arrow-circle-o-up" style="font-size: 45px;"></i>
                         <p style="font-weight: bold; margin: 10px;">
                             {{controller.UploadImageMode}} 
 

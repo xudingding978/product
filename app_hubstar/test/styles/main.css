@@ -768,14 +768,14 @@ textarea {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
-body {
+html body {
     margin: 0;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 20px;
     color: #333333;
-    background-color: #E7E7E7;
+    float:left;
+    width:100%;
 }
 
 .img-rounded {
@@ -6953,6 +6953,11 @@ body > div.ember-view{
     overflow:hidden;
     max-width:100%;
 }
+body > div.ember-view > div
+{
+    float:left;
+    background:#E7E7E7;
+}
 
 .plaform_bar{
     height: 280px;
@@ -6972,12 +6977,12 @@ body > div.ember-view{
 }
 #masonry_user_container
 {
-    min-height:400px;
-    /* these styles might break masonry TESTING*/
     clear:both;
     width:0;
     overflow:hidden;
 }
+#masonry_wrapper{min-height:500px!important;}
+
 #masonry_user_container[style="position: relative; height: 0px; width: 185px;"],
 #masonry_user_container[style="position:relative;height:0px;width: 185px;"],
 #masonry_user_container[style='position: relative; height: 0px; width: 185px;'],
@@ -8635,7 +8640,11 @@ a:hover , a:focus {color: #aaa;}
     right: 0;
     top: 0;
     z-index: 10;
+    opacity: 0;
 }
+
+.object-tags-box:hover{opacity: 1 !important;}
+
 .object-tags-box div{position:relative;z-index:100;}
 .object-tags{
     clear: both;
@@ -8644,6 +8653,7 @@ a:hover , a:focus {color: #aaa;}
     word-wrap: normal;
     position:relative;
     z-index:2;
+    margin:1px;
 }
 
 .tags-mark{
@@ -8655,16 +8665,17 @@ a:hover , a:focus {color: #aaa;}
 }
 
 .tags{
-    margin-right: -2px;
-    color: #999;
+    margin: 0 -2px 1px 0;
+    color: #fff;
     display: block;
     float: right;
     max-width: 180px;
     /*overflow: hidden; this was removed for the tool tips 3/10/13 */
     text-overflow: ellipsis;
     white-space: nowrap;
-    background-color: #eee;
-    opacity: .6
+    background-color: #427fed;
+    opacity: .6;
+    cursor: pointer;
 }
 
 .tags:hover{
@@ -8747,7 +8758,6 @@ a:hover , a:focus {color: #aaa;}
 }
 
 .tagsappear{
-    opacity: 0;
     overflow: hidden;
 }
 
@@ -8846,6 +8856,7 @@ a:hover , a:focus {color: #aaa;}
 
 .item-function-control:hover{opacity: 1!important}
 .col2:hover .item-function-control{opacity: .6}
+.col2:hover .object-tags-box{opacity: .6}
 
 /*MANSONRY user OBJECT STYLE               END*/
 
@@ -11360,7 +11371,7 @@ textarea.add-interests{
     margin-top: 4px;
     border-top: 15px solid transparent;
     border-bottom: 0px solid transparent;
-    border-left: 15px solid #ddd;
+    border-left: 15px solid rgba(50,50,50,.1);
     border-right: 0px solid transparent;
     right: 72px;
 
@@ -12366,13 +12377,15 @@ div#login_detail{
 }
 
 #footer{
-    background: #333333 url('../images/footerbg.png') repeat-x;
+    background: #1E1D1B url('../images/footerbg.png') repeat-x;
     color: white;
-    position: relative;
     
+    bottom:0;
+    left:0;
     float:left;
     clear:both;
     width:100%;
+    
 }
 
 .footer_contentbox {

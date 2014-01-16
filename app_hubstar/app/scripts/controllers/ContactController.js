@@ -82,46 +82,48 @@ HubStar.ContactController = Ember.Controller.extend({
         var idProfile;
         var tempMega = HubStar.Mega.find(id);
         this.set("selectedMega", tempMega);
-
-        if (this.get("selectedMega").get("type") === 'profile')
-        {
-            this.set("owner_profile_pic", this.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
+        var that = this;
+        if (tempMega.get('isLoaded')) {
+            if (this.get("selectedMega").get("type") === 'profile')
+            {               
+                this.set("owner_profile_pic", this.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
+            }
+            else {
+                this.set("owner_profile_pic", this.get("selectedMega").get("owner_profile_pic"));
+            }
+            this.set("recieveProfile", this.get("selectedMega").get("id"));
+            this.set("emailDestination", this.get("selectedMega").get("owner_contact_email"));
+            this.set("emaiCCDestination", this.get("selectedMega").get("owner_contact_cc_emails"));
         }
         else {
-            this.set("owner_profile_pic", this.get("selectedMega").get("owner_profile_pic"));
-        }
-        this.set("recieveProfile", this.get("selectedMega").get("id"));
-        this.set("emailDestination", this.get("selectedMega").get("owner_contact_email"));
-        this.set("emaiCCDestination", this.get("selectedMega").get("owner_contact_cc_emails"));
-        var that = this;
-        tempMega.addObserver('isLoaded', function() {
+            tempMega.addObserver('isLoaded', function() {
 
-            if (tempMega.get('isLoaded')) {
-                
-                that.set("selectedMega", tempMega);
-                that.set("emailDestination", that.get("selectedMega").get("owner_contact_email"));
-                that.set("emaiCCDestination", that.get("selectedMega").get("owner_contact_cc_emails"));
-                idProfile = that.get("selectedMega").get("owner_id");
+                if (tempMega.get('isLoaded')) {
 
-                if (that.get("selectedMega").get("type") === 'profile')
-                {
-                    that.set("owner_profile_pic", that.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
-                }
-                else {
-                    that.set("owner_profile_pic", that.get("selectedMega").get("owner_profile_pic"));
-                }
-                var tempProfile = HubStar.Profile.find(idProfile);
-                var those = that;
-                tempProfile.addObserver('isLoaded', function() {
-                    if (tempProfile.get('isLoaded')) {
-                        those.get('selectedMega').set('owner_title', tempProfile.get('profile_name'));
-                        those.set("emailDestination", tempProfile.get("owner_contact_email"));
-                        those.set("emaiCCDestination", tempProfile.get("owner_contact_cc_emails"));
+                    that.set("selectedMega", tempMega);
+                    that.set("emailDestination", that.get("selectedMega").get("owner_contact_email"));
+                    that.set("emaiCCDestination", that.get("selectedMega").get("owner_contact_cc_emails"));
+                    idProfile = that.get("selectedMega").get("owner_id");
+
+                    if (that.get("selectedMega").get("type") === 'profile')
+                    {
+                        that.set("owner_profile_pic", that.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
                     }
-                });
-            }
-        });
-
+                    else {
+                        that.set("owner_profile_pic", that.get("selectedMega").get("owner_profile_pic"));
+                    }
+                    var tempProfile = HubStar.Profile.find(idProfile);
+                    var those = that;
+                    tempProfile.addObserver('isLoaded', function() {
+                        if (tempProfile.get('isLoaded')) {
+                            those.get('selectedMega').set('owner_title', tempProfile.get('profile_name'));
+                            those.set("emailDestination", tempProfile.get("owner_contact_email"));
+                            those.set("emaiCCDestination", tempProfile.get("owner_contact_cc_emails"));
+                        }
+                    });
+                }
+            });
+        }
     },
     closeContact: function() {
         var megaController = this.get("controllers.mega");

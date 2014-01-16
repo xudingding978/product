@@ -812,7 +812,8 @@ textarea.add-interests{
 }
 
 .Client-Keywords-tags li{
-    float:left;
+    display: inline-block;
+    vertical-align: top;
     height:30px;
     line-height:30px;
     position:relative;

@@ -167,11 +167,25 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);
         var profile = HubStar.Profile.find(id);
-        profile.reload();  //r  profile.reload();  eload the collection which have the same name
+    //    profile.reload();  //r  profile.reload();  eload the collection which have the same name
         return profile;
     },
     setProfile: function(id) {
+        var mega = HubStar.Mega.find(id);
+        mega.then(function() {
+            if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
+            {
+                mega.set("view_count", 1);
+            }
+            else
+            {
+              mega.set("view_count", mega.get("view_count") + 1);
+            }
+            mega.store.save();
+        });
         var profile = this.getCurrentProfile(id);
+
+
         this.set("model", profile);
         this.set("Id", this.get('model').get('id'));
         this.set("about_me", profile.get('profile_about_us'));
@@ -430,7 +444,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     initStastics: function(profile) {
         this.set("profile_partner_ids", profile.get("profile_partner_ids"));
-
+        //this.set("profileVideoStatistics",0);
+        this.set("profileVideoStatistics",profile.get("profile_video_num"));
         if (this.get("profile_partner_ids") !== null) {
             if (this.get("profile_partner_ids").length !== 0) {
                 var ids = this.get("profile_partner_ids").split(",");
@@ -1402,6 +1417,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var that = this;
         var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
         var caption = '';
+
         if (this.get('profile_cover_text') !== null)
         {
             caption = this.get('profile_cover_text');
@@ -1423,6 +1439,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         function callback(response) {
             if (response && response.post_id) {
+                var mega = HubStar.Mega.find(that.get('currentUserID'));
+                mega.then(function() {
+                    if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                    {
+                        mega.set("share_count", 0);
+                    }
+                    else
+                    {
+                        mega.set("share_count", mega.get("share_count") + 1);
+                    }
+                    mega.store.save();
+                });
                 that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
             } else {
                 that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
@@ -1456,7 +1484,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
-
+        var mega = HubStar.Mega.find(this.get('currentUserID'));
+        mega.then(function() {
+            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+            {
+                mega.set("share_count", 0);
+            }
+            else
+            {
+                mega.set("share_count", mega.get("share_count") + 1);
+            }
+            mega.store.save();
+        });
         window.open(
                 url,
                 'popupwindow',
@@ -1469,6 +1508,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     tShare: function() {
         var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
         var url = 'https://twitter.com/share?text=' + this.get('profile_name') + '&url=' + encodeURIComponent(currntUrl);
+        var mega = HubStar.Mega.find(this.get('currentUserID'));
+        mega.then(function() {
+            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+            {
+                mega.set("share_count", 0);
+            }
+            else
+            {
+                mega.set("share_count", mega.get("share_count") + 1);
+            }
+            mega.store.save();
+        });
         window.open(
                 url,
                 'popupwindow',
@@ -1482,6 +1533,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.get('profile_pic_url')) +
                 '&description=' + encodeURIComponent(this.get('profile_name'));
+        var mega = HubStar.Mega.find(this.get('currentUserID'));
+        mega.then(function() {
+            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+            {
+                mega.set("share_count", 0);
+            }
+            else
+            {
+                mega.set("share_count", mega.get("share_count") + 1);
+            }
+            mega.store.save();
+        });
         window.open(
                 url,
                 'popupwindow',

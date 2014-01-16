@@ -113,7 +113,6 @@ class ProfilesController extends Controller {
 
     public function actionUpdate() {
 
-
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
             $payload_json = CJSON::encode($payloads_arr['profile'], true);
@@ -146,16 +145,24 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_is_active'] = $newRecord['profile_is_active'];
             $oldRecord['profile'][0]['profile_is_deleted'] = $newRecord['profile_is_deleted'];
             $oldRecord['profile'][0]['profile_keywords'] = $newRecord['profile_keywords'];
+            $oldRecord['profile'][0]['profile_video_num'] = $newRecord['profile_video_num'];
             $oldRecord['keywords'] = $newRecord['profile_keywords'];
             $oldRecord['profile'][0]['profile_keywords_num'] = $newRecord['profile_keywords_num'];
+
+            $oldRecord['view_count'] = $newRecord['view_count'];
+            $oldRecord['share_count'] = $newRecord['share_count'];
+            $oldRecord['comment_count'] = $newRecord['comment_count'];
+
             $oldRecord['keyword_num'] = $newRecord['profile_keywords_num'];
             $oldRecord['profile'][0]['title_modify_time'] = $newRecord['title_modify_time'];
+
 
 //            $oldRecord['profile'][0]['keywords'] = $newRecord['keywords'] ;
 //            $oldRecord['keyword'] = $newRecord['keywords'];
             if ($oldRecord['profile'][0]['profile_package_name'] !== $newRecord['profile_package_name']) {
                 $oldRecord['profile'][0]['profile_package_name'] = $newRecord['profile_package_name'];
                 $boost = $this->setBoost($newRecord['profile_package_name']);
+                error_log(var_export($boost, true));
                 $oldRecord['profile'][0]['profile_boost'] = $boost;
                 $setPhotoBoost = TRUE;
             } else {
@@ -288,7 +295,7 @@ class ProfilesController extends Controller {
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
 
-        $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $owner_id);
+        $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $owner_id,$mode);
 
         $cb = $this->couchBaseConnection();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/profiles/' . $owner_id));

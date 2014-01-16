@@ -10,7 +10,7 @@ class MegasController extends Controller {
 
     const JSON_RESPONSE_ROOT_SINGLE = 'mega';
     const JSON_RESPONSE_ROOT_PLURAL = 'megas';
-
+    
     public function actionIndex() {
         try {
             $temp = explode("?", $_SERVER['REQUEST_URI']);
@@ -98,26 +98,19 @@ class MegasController extends Controller {
         $newRecord = file_get_contents('php://input');
         $newRecord = CJSON::decode($newRecord, true);
         $newRecord['id'] = $id;
-        error_log("@@@@@@@@@@@@@@@@@@");
-        error_log(var_export($newRecord['mega']['type'], true));
         if ($newRecord['mega']['type'] == 'user') {
             $this->updateUserRecord($newRecord);
         } else if ($newRecord['mega']['type'] == 'profile') {
-            error_log("dddddddddddddd");
             $this->updateProfileRecord($newRecord);
         } else if ($newRecord['mega']['type'] == 'photo') {
-            error_log("ssssssssssssss");
             $photoController = new PhotosController();
             $photoController->photoUpdate($newRecord);
         } else if ($newRecord['mega']['type'] == 'video') {
-            error_log("qqqqqqqqqqqqqqqqqqqqq");
             $videoController = new VideosController();
             $videoController->videoUpdate($newRecord);
         } else if ($newRecord['mega']['type'] == 'article') {
-            error_log("fffffffffffffffffffffffffff");
             $this->articleUpdate($newRecord);
         } else {
-            error_log("eeeeeeeeeeeeeeee");
             $this->updateMega($newRecord);
         }
     }
@@ -130,17 +123,18 @@ class MegasController extends Controller {
             $url = $this->getDomain() . "/" . $id;
             $tempRecord = $cb->get($url);
             $oldRecord = CJSON::decode($tempRecord, true);
-            if ($oldRecord['view_count'] === null) {
-                $oldRecord["view_count"] = 0;
+            if (!isset($oldRecord['view_count'])) {
+                $oldRecord["view_count"] = 1;
             } else {
-                $oldRecord['view_count'] = $mega['mega']['view_count'] + 1;  // //or using  $oldRecord['view_count']+1 ,but it  will also add one when share 
+                $oldRecord['view_count'] = $oldRecord['view_count']+1; //$mega['mega']['view_count'] + 1;  ,but it  will also add one when share 
             }
-            if ($oldRecord['accessed'] === null) {
-                $oldRecord["accessed"] = 0;
+
+            if (!isset($oldRecord['accessed'])) {
+                $oldRecord["accessed"] = 1;
             } else {
                 $oldRecord["accessed"] = date_timestamp_get(new DateTime());
             }
-            if ($oldRecord["share_count"] === null) {
+            if (!isset($oldRecord['share_count'])) {
                 $oldRecord["share_count"] = 0;
             } else {
                 $oldRecord["share_count"] = $mega['mega']['share_count'];   // //or using   $mega['mega']['share_count']; 
@@ -155,7 +149,6 @@ class MegasController extends Controller {
             echo $exc->getTraceAsString();
         }
     }
-
     public function actionDelete() {
         try {
             $temp = explode("/", $_SERVER['REQUEST_URI']);
@@ -184,21 +177,26 @@ class MegasController extends Controller {
             $docID = $this->getDomain() . "/profiles/" . $id;
             $oldRecord = $cb->get($docID);
             $oldRecord = CJSON::decode($oldRecord, true);
-            if ($oldRecord['view_count'] === null) {
-                $oldRecord["view_count"] = 0;
-            } else {
-                $oldRecord["view_count"] = $newRecord['mega']['view_count'];
+            if (!isset($oldRecord['view_count'])) {
+                $oldRecord["view_count"] = 1; //$newRecord['mega']['view_count'];
             }
-            if ($oldRecord['accessed'] === null) {
-                $oldRecord["accessed"] = 0;
-            } else {
+            else
+            {
+                 $oldRecord["view_count"] = $newRecord['mega']['view_count']; //$newRecord['mega']['view_count'];
+            }
+            if (!isset($oldRecord['accessed'])) {
+                 $oldRecord["accessed"] = 1;
+            }
+            else
+            {
                 $oldRecord["accessed"] = date_timestamp_get(new DateTime());
             }
-            if ($oldRecord['share_count'] === null) {
+            if (!isset($oldRecord['share_count'])) {
                 $oldRecord["share_count"] = 0;
             } else {
                 $oldRecord["share_count"] = $newRecord['mega']['share_count'];
             }
+
             // error_log(var_export(     $oldRecord['profile'][0]["view_count"] , true));
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
@@ -208,26 +206,6 @@ class MegasController extends Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-//        $cb = $this->couchBaseConnection();
-//
-//        try {
-//            if (!isset($newRecord['mega']['profile'])) {
-//                //$id = $newRecord['mega']['owner_id'];
-//            } else {
-//                $id = $newRecord['mega']['profile'][0]['id'];
-//                $docID = $this->getDomain() . "/profiles/" . $id;
-//                $oldRecord = $cb->get($docID);
-//                $oldRecord = CJSON::decode($oldRecord, true);
-//                $oldRecord['profile'] = $newRecord['mega']['profile'];
-//                if ($cb->set($docID, CJSON::encode($oldRecord))) {
-//                    $this->sendResponse(204);
-//                } else {
-//                    $this->sendResponse(500, "some thing wrong");
-//                }
-//            }
-//        } catch (Exception $exc) {
-//            echo $exc->getTraceAsString();
-//        }
     }
 
     public function updateUserRecord($newRecord) {

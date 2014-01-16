@@ -73,17 +73,17 @@ class VideosController extends Controller {
             $oldRecord['object_description'] = $photoCaption;
             $oldRecord['videoes'][0]['video_title'] = $photoTitle;
             $oldRecord['videoes'][0]['video_desc'] = $photoCaption;
-            if ($oldRecord['view_count'] === null) {
-                $oldRecord["view_count"] = 0;
+             if (!isset($oldRecord['view_count'])) {
+                $oldRecord["view_count"] = 1;
             } else {
-            $oldRecord['view_count'] = $oldRecord['view_count'] + 1;   // //or using $mega['mega']['view_count'];
+            $oldRecord['view_count'] = $mega['mega']['view_count'];   // //or using $mega['mega']['view_count'];
             }
-            if ($oldRecord['accessed'] === null) {
-                $oldRecord["accessed"] = 0;
+             if (!isset($oldRecord['accessed'])) {
+                $oldRecord["accessed"] = 1;
             } else {
             $oldRecord["accessed"] = date_timestamp_get(new DateTime());
             }
-            if ($oldRecord['share_count'] === null) {
+             if (!isset($oldRecord['share_count'])) {
                 $oldRecord["share_count"] = 0;
             } else {
             $oldRecord["share_count"] =   $mega['mega']['share_count'];   // //or using   $mega['mega']['share_count']; 

@@ -7,20 +7,21 @@ HubStar.VideoController = Ember.Controller.extend({
     needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus', 'itemFunction'],
     getinitdata: function(videoObject)
     {
-        var mega = HubStar.Mega.find(videoObject);
-        mega.then(function() {
-            if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
+
+        setTimeout(function() {
+            var mega = HubStar.Mega.find(videoObject);
+                    if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
             {
-                mega.set("view_count", 0);
+                mega.set("view_count", 1);
             }
             else
             {
                 mega.set("view_count", mega.get("view_count") + 1);
             }
             mega.store.save();
-        });
+        },1000);
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-        var that = this;
+                var that = this;
         var megaResouce = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": videoObject});
 
         this.set('megaResouce', megaResouce.objectAt(0));

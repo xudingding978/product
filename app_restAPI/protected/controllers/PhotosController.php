@@ -486,17 +486,17 @@ class PhotosController extends Controller {
             $tempRecord = $cb->get($url);
             $oldRecord = CJSON::decode($tempRecord, true);
             $oldRecord['object_description'] = $photoCaption;
-            if ($oldRecord['view_count'] === null) {
-                $oldRecord["view_count"] = 0;
+            if (!isset($oldRecord['view_count'])) {
+                $oldRecord["view_count"] = 1;
             } else {
-                $oldRecord['view_count'] = $mega['mega']['view_count'] + 1;   // //or using  $oldRecord['view_count']+1 ,but it  will also add one when share 
+                $oldRecord['view_count'] =   $mega['mega']['view_count']; // ,but it  will also add one when share  //$mega['mega']['view_count']; 
             }
-            if ($oldRecord['accessed'] === null) {
-                $oldRecord["accessed"] = 0;
+            if (!isset($oldRecord['accessed'])) {
+                $oldRecord["accessed"] = 1;
             } else {
                 $oldRecord["accessed"] = date_timestamp_get(new DateTime());
             }
-            if ($oldRecord['share_count'] === null) {
+            if (!isset($oldRecord['share_count'])) {
                 $oldRecord["share_count"] = 0;
             } else {
                 $oldRecord["share_count"] = $mega['mega']['share_count'];   // //or using   $mega['mega']['share_count']; 

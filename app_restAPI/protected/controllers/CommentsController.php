@@ -248,7 +248,7 @@ class CommentsController extends Controller {
         $oldRecord = CJSON::decode($oldRecord_arr, true);
         if (!isset($oldRecord['comments'])) {
             $oldRecord['comments'] = array();
-            $oldRecord['comment_count'] = 0;
+            $oldRecord['comment_count'] = 1;
         }
         else
         {

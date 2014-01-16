@@ -77,7 +77,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
         else
         {
-
             window.history.back();
         }
     },
@@ -186,19 +185,18 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
     },
     getInitData: function(megaObject) {
-        var mega = HubStar.Mega.find(megaObject.get("owner_id"));
-        mega.then(function() {
-            if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
-            {
-                mega.set("view_count", 0);
-            }
-            else
-            {
-                mega.set("view_count", mega.get("view_count") + 1);
-            }
-            console.log("44444444444444444");
-            mega.store.save();
-        });
+//        var mega = HubStar.Mega.find(megaObject.get("id"));;
+//        mega.then(function() {
+//            if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
+//            {
+//                mega.set("view_count", 0);
+//            }
+//            else
+//            {
+//                mega.set("view_count", mega.get("view_count") + 1);
+//            }
+//            mega.store.save();
+//        });
         if (megaObject.get("isLoaded")) {
             this.set("is_article_video", true);
 
@@ -277,7 +275,17 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     this.getCommentsById(megaObject.id);
                 }
             }
-
+       
+            if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
+            {
+                megaObject.set("view_count", 1);
+            }
+            else
+            {
+                megaObject.set("view_count", megaObject.get("view_count") + 1);
+            }
+            megaObject.store.save();
+        
         }
 
     },

@@ -506,6 +506,7 @@ class Controller extends CController {
                 ->QueryString()->query('"' . $owner_profile_id . '"')
                 ->default_field('couchbaseDocument.doc.owner_id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        error_log($request->query($bool)->toJSON());
         $response = $request->query($bool)->execute();
         return $response;
     }

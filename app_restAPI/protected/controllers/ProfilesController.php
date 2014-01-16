@@ -113,7 +113,7 @@ class ProfilesController extends Controller {
 
     public function actionUpdate() {
 
-
+error_log('actionUpdate');
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
             $payload_json = CJSON::encode($payloads_arr['profile'], true);
@@ -180,7 +180,11 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_google_map'] = $newRecord['profile_google_map'];
 
             $oldRecord['profile'][0]['show_keyword_id'] = $newRecord['show_keyword_id'];
-            $cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true));
+            $cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true));           
+            
+            if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
+                $this->sendResponse(204);
+            }
             error_log($setProfileName);
             if ($setProfileName) {
                 $this->setProfileName($newRecord['profile_name'], $oldRecord['profile'][0]['id']);
@@ -188,12 +192,8 @@ class ProfilesController extends Controller {
             if ($setPhotoBoost) {
                 $this->setPhotoBoost($oldRecord['profile'][0]['profile_boost'], $oldRecord['profile'][0]['id']);
             }
-            
-            if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
-                $this->sendResponse(204);
-            }
         } catch (Exception $exc) {
-            
+            error_log($exc);
         }
     }
 

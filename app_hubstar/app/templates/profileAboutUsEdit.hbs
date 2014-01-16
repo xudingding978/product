@@ -11,8 +11,8 @@
                     {{#if controller.editingAbout}}
 
                     <div style="right: 45px; position: absolute;top: 45px;">
-                        <div class="new-btn blue-btn" {{action yesAbout controller.aboutMe}}><i class="fa fa-ok fa fa-white"></i></div>
-                        <div class="new-btn" {{action no controller.aboutMe}}><i class="fa fa-remove"></i></div>
+                        <div class="new-btn blue-btn" {{action yesAbout controller.aboutMe}}><i class="fa fa-check fa fa-white"></i></div>
+                        <div class="new-btn" {{action no controller.aboutMe}}><i class="fa fa-times"></i></div>
                     </div>
 
                     <div style="height: 300px;margin-top: 35px;">
@@ -26,14 +26,14 @@
 
                 </div>
                 <div style="right: 40px;bottom: 25px;position: absolute;">
-                    <div class="new-btn blue-btn" {{action yesAbout controller.aboutMe}}><i class="fa fa-ok fa fa-white"></i></div>
-                    <div class="new-btn" {{action no controller.aboutMe}}><i class="fa fa-remove"></i></div>
+                    <div class="new-btn blue-btn" {{action yesAbout controller.aboutMe}}><i class="fa fa-check fa fa-white"></i></div>
+                    <div class="new-btn" {{action no controller.aboutMe}}><i class="fa fa-times"></i></div>
                 </div>
                 {{else}}
                 {{#if controller.is_authentic_user}}
 
                 <div class="edit-btn hint--rounded hint--bottom" style="margin: 0 0 15px 120px;" data-hint="Edit content" {{action toggleEditing controller.about_me controller.aboutMe}}>
-                     <i class="fa fa-edit"></i>
+                     <i class="fa fa-pencil-square-o"></i>
                 </div>
 
                 {{/if}}
@@ -54,32 +54,32 @@
 
                 {{#if facebook}}
                 <li class="location_li">
-                    <a href="#" target="_blank" {{action socialLink 'facebook'}}>&nbsp <k class="fa fa-facebook"> </k></a>
+                    <a href="#" target="_blank" {{action socialLink 'facebook'}}>&nbsp <i class="fa fa-facebook"> </i></a>
                 </li>
                 {{/if}}
                 {{#if twitter}}
                 <li class="location_li">
-                    <a href="#" target="_blank" {{action socialLink 'twitter'}}>&nbsp <k class="fa fa-twitter"> </k></a>
+                    <a href="#" target="_blank" {{action socialLink 'twitter'}}>&nbsp <i class="fa fa-twitter"> </i></a>
                 </li>
                 {{/if}}
                 {{#if googleplus}}
                 <li class="location_li">
-                    <a href="#" target="_blank"{{action socialLink 'googleplus'}}>&nbsp <k class="fa fa-google-plus"> </k></a>
+                    <a href="#" target="_blank"{{action socialLink 'googleplus'}}>&nbsp <i class="fa fa-google-plus"> </i></a>
                 </li>
                 {{/if}}
                 {{#if pinterest}}
                 <li class="location_li">
-                    <a href="#" target="_blank" {{action socialLink 'pinterest'}}>&nbsp <k class="fa fa-pinterest"> </k></a>
+                    <a href="#" target="_blank" {{action socialLink 'pinterest'}}>&nbsp <i class="fa fa-pinterest"> </i></a>
                 </li>
                 {{/if}}
                 {{#if linkedin}}
                 <li class="location_li">
-                    <a href="#" target="_blank"{{action socialLink 'linkedin'}}>&nbsp <k class="fa fa-linkedin"> </k></a>
+                    <a href="#" target="_blank"{{action socialLink 'linkedin'}}>&nbsp <i class="fa fa-linkedin"> </i></a>
                 </li>
                 {{/if}}
                 {{#if youtube}}
                 <li class="location_li">
-                    <a href="#" target="_blank" {{action socialLink 'youtube'}}>&nbsp <k class="fa fa-youtube-play"> </k></a>
+                    <a href="#" target="_blank" {{action socialLink 'youtube'}}>&nbsp <i class="fa fa-youtube-play"> </i></a>
                 </li>
                 {{/if}}
 

@@ -9,9 +9,9 @@
         <img {{bindAttr src= this.photo_url}}/>
     </div>
     <div class="fresh-message">
-        <k class="fa fa-info-sign"></k>
+        <i class="fa fa-info-sign"></i>
         <span class="feed-back">{{controller.status}}</span>
-        <k class="fa fa-remove" {{action removeButton }}></k>
+        <i class="fa fa-times" {{action removeButton }}></i>
     </div>
 
     {{/if}}
@@ -26,9 +26,9 @@
         <img {{bindAttr src= this.photo_url}}/>
     </div>
     <div class="fresh-message fresh_succeed">
-        <k class="fa fa-check-circle"></k>
+        <i class="fa fa-check-circle"></i>
         <span class="feed-back">{{controller.status}}</span>
-        <k class="fa fa-remove" {{action removeButton }}></k>
+        <i class="fa fa-times" {{action removeButton }}></i>
     </div>
 
     {{/if}}
@@ -40,9 +40,9 @@
         <img {{bindAttr src= this.photo_url}}/>
     </div>
     <div class="fresh-message fresh_failed">
-        <k class="fa fa-times-circle"></k>
+        <i class="fa fa-times-circle"></i>
         <span class="feed-back">{{controller.status}}</span>
-        <k class="fa fa-remove" {{action removeButton }}></k>
+        <i class="fa fa-times" {{action removeButton }}></i>
     </div>
 
     {{/if}}
@@ -55,9 +55,9 @@
         <img {{bindAttr src= this.photo_url}}/>
     </div>
     <div class="fresh-message fresh_warnning">
-        <k class="fa fa-exclamation-sign"></k>
+        <i class="fa fa-exclamation-sign"></i>
         <span class="feed-back">{{controller.status}}</span>
-        <k class="fa fa-remove" {{action removeButton }}></k>
+        <i class="fa fa-times" {{action removeButton }}></i>
     </div>
 
     {{/if}}

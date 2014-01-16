@@ -40,8 +40,8 @@
                                     {{input type="text" class="insert-contactdetails" value=profile_name}}
                                 </div>
                                 <div style="display: inline-block;vertical-align: bottom; margin-left:20px">
-                                    <div class="new-btn blue-btn"{{action yes controller.profileName}}><i class="fa fa-ok fa fa-white"></i></div>
-                                    <div class="new-btn"{{action no controller.profileName}}><i class="fa fa-remove fa fa-white"></i></div>
+                                    <div class="new-btn blue-btn"{{action yes controller.profileName}}><i class="fa fa-check fa fa-white"></i></div>
+                                    <div class="new-btn"{{action no controller.profileName}}><i class="fa fa-times fa fa-white"></i></div>
                                 </div>
                                 {{else}}
                                 <div style="display: inline-block; color: white; max-width: 750px; overflow: hidden; font-size: 28px; margin-bottom: 15px; line-height: 32px; vertical-align: middle;">
@@ -49,7 +49,7 @@
                                 </div>
                                 {{#if controller.is_authentic_user}}
                                 <div class="edit-btn easing hint--rounded hint--bottom" data-hint="Edit content" style="color: white;" {{action toggleEditing  controller.profile_name controller.profileName}}>
-                                     <i class="fa fa-edit"></i>
+                                     <i class="fa fa-pencil-square-o"></i>
                                 </div>
                                 {{/if}}
                                 {{/if}}
@@ -80,16 +80,16 @@
                             <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px;  padding: 0;right: 45px;top: 70px;position: absolute;">
                                 <!--<li style="position:fixed;z-index:0;height:100%;width:100%;" onClick="document.getElementById('dropdown_id_'+{{unbound id}}).style.display='none' ">&nbsp;<li>-->
                                 <li class="ite" {{action  fbShare}} >
-                            <k class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
+                            <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
                             </li>
                             <li class='ite' {{action tShare}} >
-                        <k class="fa fa-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span>
+                        <i class="fa fa-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Twitter</span>
                         </li>
                         <li class='ite' {{action pShare}} >
-                    <k class="fa fa-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Pinterest</span>
+                    <i class="fa fa-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Pinterest</span>
                     </li>
                     <li class="ite" {{action gpShare}}>
-                <k class="fa fa-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
+                <i class="fa fa-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Google+</span>
                 </li>
             </ul>
 
@@ -118,7 +118,7 @@
                                     </a> 
                                 </div>
                                 {{#if controller.follow_status}}
-                                <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='fa fa-circle-blank' >&nbsp; </i> Following</div>
+                                <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='fa fa-circle-o' >&nbsp; </i> Following</div>
                                 {{else}}
                                 <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin:10px auto;display: block;width: 150px;"{{action followThisProfile}}><i class='fa fa-plus' >&nbsp; </i> Follow</div>
 
@@ -169,7 +169,7 @@
                                 {{#unless controller.editingContact}}
                                 {{#if controller.is_authentic_user}}
                                 <div class="edit-btn easing hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing model.phone_number controller.contact}}>
-                                     <i class="fa fa-edit" ></i>
+                                     <i class="fa fa-pencil-square-o" ></i>
                                 </div>
                                 {{/if}}
 
@@ -277,9 +277,9 @@
 
                                 {{else}}
                                 <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
-                                    <div  type="button" class="new-btn blue-btn" {{action yes controller.contact }}> <i class="fa fa-ok fa fa-white"></i></div>
+                                    <div  type="button" class="new-btn blue-btn" {{action yes controller.contact }}> <i class="fa fa-check fa fa-white"></i></div>
 
-                                    <div  type="button" class="new-btn" {{action no controller.contact}}> <i class="fa fa-remove"></i></div>
+                                    <div  type="button" class="new-btn" {{action no controller.contact}}> <i class="fa fa-times"></i></div>
 
                                 </div>
                                 {{/unless}}
@@ -293,7 +293,7 @@
                                 {{#unless controller.editingTime}}
                                 {{#if controller.is_authentic_user}}
                                 <div class="edit-btn easinghint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing  model.profile_name controller.timeSetting}}>
-                                     <i class="fa fa-edit"></i>
+                                     <i class="fa fa-pencil-square-o"></i>
                                 </div>
                                 {{/if}}
                                 {{/unless}}
@@ -326,8 +326,8 @@
                                 {{#if controller.editingTime}}
 
                                 <div style="width: 75px;margin: auto;">
-                                    <div class="new-btn blue-btn"{{action yes controller.timeSetting}}><i class="fa fa-ok fa fa-white"></i></div>
-                                    <div class="new-btn"{{action no controller.timeSetting}}><i class="fa fa-remove fa fa-white"></i></div>
+                                    <div class="new-btn blue-btn"{{action yes controller.timeSetting}}><i class="fa fa-check fa fa-white"></i></div>
+                                    <div class="new-btn"{{action no controller.timeSetting}}><i class="fa fa-times fa fa-white"></i></div>
                                 </div>
                                 {{/if}}
                             </div>
@@ -336,7 +336,7 @@
                             <!--PROFILE GOOGLEMAP SECTION--> 
                             <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;">
                                 <div id="google-map"  style="width: 300px;height: 250px; border: 5px solid #fff;cursor: pointer" >
-                                    <div class="enlarge-map easing" style=""{{action popUpGoogleMap}}><k class="fa fa-resize-full"></k></div>
+                                    <div class="enlarge-map easing" style=""{{action popUpGoogleMap}}><i class="fa fa-expand"></i></div>
                                     <img  {{bindAttr src="controller.profile_google_map"}} style="width: 100%; height:auto;" {{action popUpGoogleMap}}>
                                 </div>
                             </div>
@@ -367,7 +367,7 @@
         <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
         <div style="background: url('../images/bannershadow.png') repeat-x; position: absolute; width: 100%; height: 200px; bottom: 0;">
             <div style='font-size: 45px;color: white;font-weight: bold;line-height: 50px;margin: 40px  60px;bottom: 0;position: absolute;'>
-                <k class='fa fa-cogs'>&nbsp;</k>Dashboard</div>
+                <i class='fa fa-cogs'>&nbsp;</i>Dashboard</div>
         </div>
     </div>
 
@@ -429,7 +429,7 @@
 
 
                 <div style="right: 0;margin: 30px auto 0;width: 150px;">
-                    <span class='new-btn blue-btn flip-back'{{action flipFrontBack }}><k class='fa fa-group'> &nbsp;</k>Back</span>
+                    <span class='new-btn blue-btn flip-back'{{action flipFrontBack }}><i class='fa fa-group'> &nbsp;</i>Back</span>
                 </div>
 
             </div>
@@ -567,7 +567,7 @@
                 </table>
                 <div style="right: 0;margin: 30px auto 0;width: 150px;">
                     <span class="new-btn green-btn" {{action saveUpdateGeneral}}>Save</span>
-                    <span class='new-btn blue-btn flip-back' {{action flipFrontBack}}><k class='fa fa-group'> &nbsp;</k>Back</span>
+                    <span class='new-btn blue-btn flip-back' {{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
                 </div>
             </div>
 
@@ -655,7 +655,7 @@
                 </table>
                 <div style="right: 0;margin: 30px auto 0;width: 150px;">
                     <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
-                    <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><k class='fa fa-group'> &nbsp;</k>Back</span>
+                    <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
                 </div>
             </div>
 
@@ -736,7 +736,7 @@
                 </table>
                 <div style="right: 0;margin: 30px auto 0;width: 150px;">
                     <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
-                    <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><k class='fa fa-group'> &nbsp;</k>Back</span>
+                    <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
                 </div>
             </div>
 
@@ -834,7 +834,7 @@
 
                 <div style="right: 0;margin: 30px auto 0;width: 150px;">
                     <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
-                    <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><k class='fa fa-group'> &nbsp;</k>Back</span>
+                    <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
                 </div>
             </div>
 
@@ -871,7 +871,7 @@
 
                 <div style="right: 0;margin: 30px auto 0;width: 150px;">
                     <span class="new-btn green-btn" {{action saveUpdate}}>Save</span>
-                    <span class='new-btn blue-btn flip-back' {{action flipFrontBack}}><k class='fa fa-group'> &nbsp;</k>Back</span>
+                    <span class='new-btn blue-btn flip-back' {{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
                 </div>
             </div>
 
@@ -943,7 +943,7 @@
                 {{#if controller.isPhotoEditingMode}}
 
                 <div class='' style='position:relative;height: 65px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
-                    <span style="position: relative;display: inline-block;font-size: 40px; vertical-align: top;"><k class='fa fa-ok-circle'></k></span>
+                    <span style="position: relative;display: inline-block;font-size: 40px; vertical-align: top;"><i class='fa fa-check-circle'></i></span>
                     <span style="position: relative;width: 87%;display: inline-block;margin: 0 15px;">
                         <span style='font-size: 20px;display: block;line-height: 25px;font-weight: bold'>Crop your picture now!</span>
                         <span style='font-size: 15px;display: block;line-height: 15px;'> Image Size: <span id="log"></span> </span>  
@@ -967,7 +967,7 @@
                         <div class="" style="margin-top: 5px;">
 
                             <div class="controlbtn" style="left: 34%;">
-                                <span class="new-btn green-btn " {{action photoUpload}} ><k class='fa fa-save'> &nbsp;Save</span>
+                                <span class="new-btn green-btn " {{action photoUpload}} ><i class='fa fa-save'> &nbsp;Save</span>
                                 <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" >Back</span> </a>
 
                             </div>
@@ -976,7 +976,7 @@
                         {{#if controller.isFinished}}
 
                         <div class='' style='line-height: 45px;position:relative;height: 50px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 5px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
-                            <span style="position: relative;display: inline-block;font-size: 40px;vertical-align: top;"><k class='fa fa-ok-circle'></k></span>
+                            <span style="position: relative;display: inline-block;font-size: 40px;vertical-align: top;"><i class='fa fa-check-circle'></i></span>
                             <span style="position: relative;width: 87%;display: inline-block;margin: 0 15px;">
 
                                 <span style='font-size: 20px;display: block;line-height: 15px;'>Congratulations! Your Photos have been uploaded!</span>

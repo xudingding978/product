@@ -55,17 +55,17 @@
 
 
                 <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
-                     <k class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></k>
-                    <k class='fa fa-caret-down'></k>
+                     <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
+                    <i class='fa fa-caret-down'></i>
                 </div>
                 <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><k class="fa fa-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>
-                    <li class='ite'  {{action changeCollectionCover id controller.collection_id HubStar.Profile}}> <k class="fa fa-check-circle" style="font-size: 16px;  margin: 0px 5px;"></k>Set as collection cover</li>
+                    <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Delete</li>
+                    <li class='ite'  {{action changeCollectionCover id controller.collection_id HubStar.Profile}}> <i class="fa fa-check-circle" style="font-size: 16px;  margin: 0px 5px;"></i>Set as collection cover</li>
                     {{/if}}
                     {{#if controller.is_user_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><k class="fa fa-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
-                    <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User}}><k class="fa fa-camera" style="font-size: 16px; margin: 0px 5px;"></k>Set as Cover</li>
+                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Remove</li>
+                    <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User}}><i class="fa fa-camera" style="font-size: 16px; margin: 0px 5px;"></i>Set as Cover</li>
                     {{/if}}
                 </ul>
 
@@ -88,16 +88,16 @@
 
                 <!--                <ul class="itemprofile" style="margin: 5px 0 0;">
                                     <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
-                                        <div><k class="fa fa-eye-open"> &nbsp;{{this.collections.length}}</k></div>
+                                        <div><i class="fa fa-eye"> &nbsp;{{this.collections.length}}</i></div>
                                     </li>
                                     <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
-                                        <div><k class="fa fa-group">&nbsp;{{ length this.profile_partner_ids}}</k></div>
+                                        <div><i class="fa fa-group">&nbsp;{{ length this.profile_partner_ids}}</i></div>
                                     </li>
                                     <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
-                                        <div><k class="fa fa-film">&nbsp;{{ videolength this.profile_about_us}}</k></div>
+                                        <div><i class="fa fa-film">&nbsp;{{ videolength this.profile_about_us}}</i></div>
                                     </li>
                                     <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
-                                        <div><k class="fa fa-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>
+                                        <div><i class="fa fa-book">&nbsp;{{ ebooklength this.profile_about_us}}</i></div>
                                     </li>
                                 </ul>-->
 
@@ -189,15 +189,15 @@
 
 
                 <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
-                     <k class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></k>
-                    <k class='fa fa-caret-down'></k>
+                     <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
+                    <i class='fa fa-caret-down'></i>
                 </div>
                 <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><k class="fa fa-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>
+                    <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Delete</li>
                     {{/if}}
                     {{#if controller.is_user_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><k class="fa fa-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
+                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Remove</li>
                     {{/if}}
                 </ul>
 
@@ -224,16 +224,16 @@
 
                 <!--                <ul class="itemprofile" style="margin: 5px 0 0;">
                                     <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
-                                        <div><k class="fa fa-eye-open"> &nbsp;{{this.collections.length}}</k></div>
+                                        <div><i class="fa fa-eye"> &nbsp;{{this.collections.length}}</i></div>
                                     </li>
                                     <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
-                                        <div><k class="fa fa-group">&nbsp;{{ length this.profile_partner_ids}}</k></div>
+                                        <div><i class="fa fa-group">&nbsp;{{ length this.profile_partner_ids}}</i></div>
                                     </li>
                                     <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
-                                        <div><k class="fa fa-film">&nbsp;{{ videolength this.profile_about_us}}</k></div>
+                                        <div><i class="fa fa-film">&nbsp;{{ videolength this.profile_about_us}}</i></div>
                                     </li>
                                     <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
-                                        <div><k class="fa fa-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>
+                                        <div><i class="fa fa-book">&nbsp;{{ ebooklength this.profile_about_us}}</i></div>
                                     </li>
                                 </ul>-->
 
@@ -297,17 +297,17 @@
             <span class='edit-object easing' style="position: absolute;margin: 10px; top: 11px;left: 115px;">
                 {{#if controller.is_authentic_user}}
                 <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
-                     <k class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></k>
-                    <k class='fa fa-caret-down'></k>
+                     <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
+                    <i class='fa fa-caret-down'></i>
                 </div>
                 <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><k class="fa fa-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>
-                    <li class='ite'  {{action changeCollectionCover id controller.collection_id HubStar.Profile "article"}}> <k class="fa fa-check-circle" style="font-size: 16px;  margin: 0px 5px;"></k>Set as collection cover</li>
+                    <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Delete</li>
+                    <li class='ite'  {{action changeCollectionCover id controller.collection_id HubStar.Profile "article"}}> <i class="fa fa-check-circle" style="font-size: 16px;  margin: 0px 5px;"></i>Set as collection cover</li>
                     {{/if}}
                     {{#if controller.is_user_editing_mode}}
-                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><k class="fa fa-trash" style="font-size: 16px; margin: 0px 5px;"></k>Remove</li>
-                    <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User "article"}}><k class="fa fa-camera" style="font-size: 16px; margin: 0px 5px;"></k>Set as Cover</li>
+                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Remove</li>
+                    <li class="ite" {{action changeCollectionCover id controller.collection_id HubStar.User "article"}}><i class="fa fa-camera" style="font-size: 16px; margin: 0px 5px;"></i>Set as Cover</li>
                     {{/if}}
                 </ul>
                 {{/if}}
@@ -326,16 +326,16 @@
 
                 <!--                <ul class="itemprofile" style="margin: 5px 0 0;">
                                     <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
-                                        <div><k class="fa fa-eye-open"> &nbsp;{{this.collections.length}}</k></div>
+                                        <div><i class="fa fa-eye"> &nbsp;{{this.collections.length}}</i></div>
                                     </li>
                                     <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
-                                        <div><k class="fa fa-group">&nbsp;{{ length this.profile_partner_ids}}</k></div>
+                                        <div><i class="fa fa-group">&nbsp;{{ length this.profile_partner_ids}}</i></div>
                                     </li>
                                     <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
-                                        <div><k class="fa fa-film">&nbsp;{{ videolength this.profile_about_us}}</k></div>
+                                        <div><i class="fa fa-film">&nbsp;{{ videolength this.profile_about_us}}</i></div>
                                     </li>
                                     <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
-                                        <div><k class="fa fa-book">&nbsp;{{ ebooklength this.profile_about_us}}</k></div>
+                                        <div><i class="fa fa-book">&nbsp;{{ ebooklength this.profile_about_us}}</i></div>
                                     </li>
                                 </ul>-->
 

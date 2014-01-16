@@ -4,7 +4,7 @@
 <div id ="invitepeople" class="Message-Board" style="z-index: 11; position: fixed; width: 545px; margin: 10px auto; border-radius:5px; overflow: hidden; background-color: rgb(255, 255, 255); top: 25%; left: 0px;display: block;right: 0;box-shadow: 0 0 5px #fff;">
     <div class="" style="height: 50px; width: 100%;position: relative; border-bottom: 1px solid #ddd; background-color: #f3f3f3;padding: 0 15px;">
         <div style="color: #555; font-size: 15px; line-height: 50px; font-weight: bold; float: left;margin-left: 20px;">Adding friends to the conversation.</div>
-        <!--            <div  class='create-conversation easing' style=" font-size: 15px; line-height: 50px; font-weight: bold; width: 50px;height: 49px;"><k class="fa fa-search"></k></div>-->
+        <!--            <div  class='create-conversation easing' style=" font-size: 15px; line-height: 50px; font-weight: bold; width: 50px;height: 49px;"><i class="fa fa-search"></i></div>-->
     </div>
 
     <div style="position: relative; width: 100%;min-height: 100px;max-height: 520px;padding: 0 45px;">
@@ -18,9 +18,9 @@
         {{#each  contentFollowerPhoto}}
         <div class="invite-friend hint--rounded hint--bottom" data-hint="{{unbound this.name}}" style="" {{action addToList id}}>
              {{#if this.isAdd}}
-             <div class="invite-this-friend radius-circle easing" style="opacity: .8;" ><k class="fa fa-minus" ></k></div>
+             <div class="invite-this-friend radius-circle easing" style="opacity: .8;" ><i class="fa fa-minus" ></i></div>
             {{else}}
-            <div class="invite-this-friend radius-circle easing"><k class="fa fa-plus" ></k></div>
+            <div class="invite-this-friend radius-circle easing"><i class="fa fa-plus" ></i></div>
             {{/if}}
             <img class="profilepic_comment radius-circle"  style=" box-shadow: 0 0 3px #888;border: 1px solid #f3f3f3;width: 45px;height: 45px;" {{bindAttr src= this.photo_url}} /> 
         </div>
@@ -29,7 +29,7 @@
     </div>
  <br/><br/>
     <div class="" style="height: 41px;position: relative;border-top: 1px solid #ddd;bottom: 0;width: 100%;display: block;clear: both;">
-        <div  class="message-btn easing" style="font-size: 15px; height: 40px; line-height: 40px; border-right: 1px solid #ddd;" {{action reviewCancel }}><k class="fa fa-remove">&nbsp;</k>Cancel</div>
+        <div  class="message-btn easing" style="font-size: 15px; height: 40px; line-height: 40px; border-right: 1px solid #ddd;" {{action reviewCancel }}><i class="fa fa-times">&nbsp;</i>Cancel</div>
         <div class="message-btn easing" style="font-size: 15px; height: 40px; line-height: 40px;"{{action  reviewPost}}>             
              <span style="position: relative">
                 <i class="fa fa-user" style=""></i>

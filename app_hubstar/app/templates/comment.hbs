@@ -16,7 +16,7 @@
                 <div style="float: right;height: 34px;position: relative;">
 
                     <div class="message-btn easing" style='width: 30px;'{{action openComment model.id}}>
-                         <k class='fa fa-ok'></k>
+                         <i class='fa fa-check'></i>
                     </div>
 
                 </div>
@@ -42,7 +42,7 @@
                         <div class="comment-namentime">
                             {{#if this.getUser}}
                             <span class="edit-comment easing">
-                                <i class="fa fa-trash"  {{action removeComment this}}></i>                 
+                                <i class="fa fa-trash-o"  {{action removeComment this}}></i>                 
                                 <i class="fa fa-pencil" {{action editingCommentData this}}></i>
                             </span>
                             {{/if}}
@@ -75,7 +75,7 @@
                     <div class="comment-namentime">
                         {{#if this.getUser}}
                         <span class="edit-comment easing">
-                            <i class="fa fa-trash"  {{action removeComment this}}></i>                 
+                            <i class="fa fa-trash-o"  {{action removeComment this}}></i>                 
                             <i class="fa fa-pencil" {{action editingCommentData this}}></i>
                         </span>
                         {{/if}}

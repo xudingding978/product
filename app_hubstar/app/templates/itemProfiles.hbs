@@ -17,13 +17,13 @@
 
         {{#if controller.is_authentic_user}}
         <div class="new-btn blue-btn hint--right hint--rounded" style="margin: 4px 0px;" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
-             <k class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></k>
-            <k class='fa fa-caret-down'></k>
+             <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
+            <i class='fa fa-caret-down'></i>
         </div>
 
         <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
             {{#if controller.is_profile_editing_mode}}
-            <li class="ite" {{action  removeCollectedItem this.id}}><k class="fa fa-trash" style="font-size: 16px; margin: 0px 5px;"></k>Delete</li>       
+            <li class="ite" {{action  removeCollectedItem this.id}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Delete</li>       
             {{/if}}
         </ul>
         {{/if}}
@@ -47,7 +47,7 @@
 
 {{#if isFollowCurrentUser}}
 
-<div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 5px auto 15px;width: 100px;display: block;"{{action followThisUser this}}><i class='fa fa-circle-blank' >&nbsp; </i> Following</div>
+<div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 5px auto 15px;width: 100px;display: block;"{{action followThisUser this}}><i class='fa fa-circle-o' >&nbsp; </i> Following</div>
 
 {{else}}
 
@@ -63,16 +63,16 @@
 <div style="width:100%; text-align:center; margin-bottom: 10px;">
     <ul class="itemprofile">
         <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
-            <div><k class="fa fa-eye-open"> &nbsp{{ this.collections.length}} </k></div>
+            <div><i class="fa fa-eye"> &nbsp{{ this.collections.length}} </i></div>
         </li>
         <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
-            <div><k class="fa fa-group">&nbsp {{ length this.profile_partner_ids}}</k></div>  
+            <div><i class="fa fa-group">&nbsp {{ length this.profile_partner_ids}}</i></div>  
         </li>
         <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
-            <div><k class="fa fa-film">&nbsp {{ videolength this.profile_about_us}}</k></div>  
+            <div><i class="fa fa-film">&nbsp {{ videolength this.profile_about_us}}</i></div>  
         </li>
         <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
-            <div><k class="fa fa-book">&nbsp {{ ebooklength this.profile_about_us}}</k></div>  
+            <div><i class="fa fa-book">&nbsp {{ ebooklength this.profile_about_us}}</i></div>  
         </li>
 
     </ul>

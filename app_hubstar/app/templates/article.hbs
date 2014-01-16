@@ -9,27 +9,27 @@
         {{/if}}
         <div class="top-controlbar easing" >
             <!--            <div class="fa icon-on-black" style="left: 8px;"><i class="fa fa-thumbs-up"></i></div>-->
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." style="position:relative;" {{action switchCollection on="click" target="controller"}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." style="position:relative;width: 60px;margin: 0 5px;" {{action switchCollection on="click" target="controller"}}>
                 <i class="fa fa-folder" {{action switchCollection on="click" target="controller"}}></i>
                 <span class="pretooltip">
                     Save
                 </span>          
             </div>
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting "1"}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;width: 60px;margin: 0 5px;" {{action dropdownPhotoSetting "1"}}>
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
             <ul class="hideClass edit-object-ul" id="dropdown_id_1" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
                 <li class="ite" {{action  fbShare "1"}} >
-            <k class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
+            <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
             </li>
             <li class='ite' {{action tShare "1"}} >
-        <k class="fa fa-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span>
+        <i class="fa fa-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Twitter</span>
         </li>
         <li class='ite' {{action pShare "1"}} >
-    <k class="fa fa-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Pinterest</span>
+    <i class="fa fa-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Pinterest</span>
     </li>
     <li class="ite" {{action gpShare "1"}}>
-<k class="fa fa-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
+<i class="fa fa-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Google+</span>
 </li>
 </ul>
 
@@ -44,7 +44,7 @@
 </script>
 <!--    <div class="fa icon-on-black" style="height: 44px;position: absolute;width: 44px;"><i class="fa fa-share"></i></div>     -->
 <div class="closeview" {{action closeWindow on="click" target="controller"}} >
-    <i class="fa fa-remove"></i>
+    <i class="fa fa-times"></i>
 </div>
 </div>
 
@@ -59,14 +59,14 @@
     {{#if HubStar.readCaption}}
     <div style="margin-bottom: 5px;">
         <span class="hover-opacity easing" style="float: right; cursor:pointer;">           
-            <i class="fa fa-double-angle-left"{{action setCaption  on="click" target="controller"}}></i>                             
+            <i class="fa fa-angle-double-left"{{action setCaption  on="click" target="controller"}}></i>                             
         </span>
     </div>
     <div class="caption-text" style="width: 300px;font-size: 13px;line-height: 16px;">{{caption}} </div>
     {{else}}
     <div style="margin-bottom: 5px;">
         <span class="hover-opacity easing" style="float: right; cursor:pointer;">
-            <i class="fa fa-double-angle-right"{{action setCaption  on="click" target="controller"}}></i>                      
+            <i class="fa fa-angle-double-right"{{action setCaption  on="click" target="controller"}}></i>                      
         </span>
     </div>
     <div class="caption-text" style="width: 300px;font-size: 13px;line-height: 16px;">{{caption}} </div>
@@ -143,16 +143,16 @@
 
             <ul class="hideClass edit-object-ul" id="dropdown_id_2" style="width: 170px; right: 635px; position: absolute; top: 120px;">
                 <li class="ite" {{action  fbShare "2"}} >
-            <k class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
+            <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
             </li>
             <li class='ite' {{action tShare "2"}} >
-        <k class="fa fa-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span>
+        <i class="fa fa-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Twitter</span>
         </li>
         <li class='ite' {{action pShare "2"}} >
-    <k class="fa fa-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Pinterest</span>
+    <i class="fa fa-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Pinterest</span>
     </li>
     <li class="ite" {{action gpShare "2"}}>
-<k class="fa fa-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
+<i class="fa fa-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Google+</span>
 </li>
 </ul>
 
@@ -265,7 +265,7 @@
 
                         <div class="" style="height: 30px;position: relative;border-top: 1px solid #ddd;top: -1px;">
 
-                            <div class="message-btn easing" style='width: 100%'{{action addComment}}><k class='fa fa-ok'>&nbsp;</k>Post </div>
+                            <div class="message-btn easing" style='width: 100%'{{action addComment}}><i class='fa fa-check'>&nbsp;</i>Post </div>
 
                         </div>
                     </div>
@@ -292,7 +292,7 @@
                             </div>
                             {{#if this.getUser}}
                             <span class="edit-comment easing">
-                                <i class="fa fa-trash"  {{action removeComment this}}></i>                 
+                                <i class="fa fa-trash-o"  {{action removeComment this}}></i>                 
                                 <i class="fa fa-pencil" {{action updateComment this}}></i>
                             </span>
                             {{/if}}

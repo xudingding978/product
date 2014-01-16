@@ -28,7 +28,7 @@
 
     <div style="text-align: center;height: 75px;line-height: 85px;background-color: #f3f3f3;bottom: 0;position: absolute;width: 100%;">
         <div class="new-btn blue-btn" style="margin: 28px 10px; width: 83px; float: left;">
-            <k class='fa fa-upload'> &nbsp;Choose 
+            <i class='fa fa-upload'> &nbsp;Choose </i>
                 <div style="opacity:0;position: absolute;top: 0px;left: 0;width: 85px;overflow: hidden;"> {{view HubStar.SingleImageInputButtonView }}</div>
         </div>
 
@@ -36,13 +36,13 @@
         <div style="margin: auto 10px;width: 150px;float: right;">
 
             {{#if controller.isCrop}}
-            <span id="photoUploadbtn" class="new-btn blue-btn" {{action cropButton}}><k class='fa fa-cut '> &nbsp;</k>Crop</span>
+            <span id="photoUploadbtn" class="new-btn blue-btn" {{action cropButton}}><i class='fa fa-cut '> &nbsp;</i>Crop</span>
             {{else}}
-            <span  class="disabled-btn" ><k class='fa fa-cut '> &nbsp;</k>Crop</span>
+            <span  class="disabled-btn" ><i class='fa fa-cut '> &nbsp;</i>Crop</span>
             {{/if}} 
 
 
-            <span class='new-btn flip-back'{{action userPhotoEditBackButton }}><k class='fa fa-user'> &nbsp;</k>Back</span>
+            <span class='new-btn flip-back'{{action userPhotoEditBackButton }}><i class='fa fa-user'> &nbsp;</i>Back</span>
 
         </div>
     </div>
@@ -55,7 +55,7 @@
     {{/if}}
     {{#if controller.isPhotoEditingMode}}
     <div class='' style='position:relative;height: 85px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
-        <span style="position: relative;display: inline-block;font-size: 40px;margin: 10px 0;vertical-align: top;"><k class='fa fa-ok-circle'></k></span>
+        <span style="position: relative;display: inline-block;font-size: 40px;margin: 10px 0;vertical-align: top;"><i class='fa fa-check-circle'></i></span>
         <span style="position: relative;display: inline-block;margin: 15px 10px;font-size: 20px;line-height: 25px;width: 75%;">Crop your picture now!</span>
     </div>
 
@@ -63,8 +63,8 @@
         <canvas id="panel" style="max-width: 300px; max-height: 350px;width: auto; height: auto;"><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
     </div>
     <div style="margin: auto;width: 150px;">
-        <span class="new-btn green-btn " {{action savePhotoUpdate}} ><k class='fa fa-save'> &nbsp;</k>Save</span>
-        <span class='new-btn flip-back'{{action userPhotoEditBackButton }}><k class='fa fa-group'> &nbsp;</k>Back</span>
+        <span class="new-btn green-btn " {{action savePhotoUpdate}} ><i class='fa fa-save'> &nbsp;</i>Save</span>
+        <span class='new-btn flip-back'{{action userPhotoEditBackButton }}><i class='fa fa-group'> &nbsp;</i>Back</span>
     </div>
     {{/if}}
 </div>

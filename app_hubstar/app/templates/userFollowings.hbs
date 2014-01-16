@@ -41,16 +41,16 @@
     </div>
 
     {{#if this.follow_status}}
-    <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='fa fa-circle-blank' >&nbsp; </i> Following</div>
+    <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='fa fa-circle-o' >&nbsp; </i> Following</div>
     {{else}}
     <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='fa fa-plus' >&nbsp; </i> Follow</div>
     {{/if}}
 
     <div style="position:relative; background-color: #f3f3f3; height: 25px; width:100%;margin-top: 10px;">
         <ul class="locationandlinks" style="font-size: 12px;height: 20px;margin: 2px auto;width: 100%;line-height: 10px;">
-            <li class="location_li" style="padding: 0 5px;"><k class="fa fa-eye-open"> {{this.collections_size}} </k></li>
-            <li class="location_li" style="padding: 0 5px;"><k class="fa fa-group"> {{ this.partner_size}}</k></li>
-            <li class="location_li" style="padding: 0 5px;"><k class="fa fa-circle-blank"> {{this.follower_size}}</k></li>
+            <li class="location_li" style="padding: 0 5px;"><i class="fa fa-eye"> {{this.collections_size}} </i></li>
+            <li class="location_li" style="padding: 0 5px;"><i class="fa fa-group"> {{ this.partner_size}}</i></li>
+            <li class="location_li" style="padding: 0 5px;"><i class="fa fa-circle-o"> {{this.follower_size}}</i></li>
         </ul>
     </div>
 
@@ -95,11 +95,11 @@
     {{#if this.following_status}}
     <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='fa fa-exchange' >&nbsp; </i> Following</div>
     {{else}}
-    <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='fa fa-circle-blank' >&nbsp; </i> Following</div>
+    <div href="#question_modal" role="button" class="disabled-btn disabled-green" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='fa fa-circle-o' >&nbsp; </i> Following</div>
     {{/if}}
     {{else}}
     {{#if this.following_status}}
-    <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='fa fa-ok' >&nbsp; </i> Follow</div>
+    <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='fa fa-check' >&nbsp; </i> Follow</div>
     {{else}}
     <div href="#question_modal" role="button" class="new-btn green-btn" data-toggle="modal" style="margin: 15px auto;width: 100px;display: block;"{{action followThisUser this}}><i class='fa fa-plus' >&nbsp; </i> Follow</div>
     {{/if}}
@@ -108,8 +108,8 @@
 
     <div style="position:relative; background-color: #f3f3f3; height: 25px; width:100%;margin-top: 10px;">
         <ul class="locationandlinks" style="font-size: 12px;height: 20px;margin: 2px auto;width: 100%;line-height: 10px;">
-            <li><k class="fa fa-eye-open">&nbsp;</k>{{this.collections_size}}</li>
-            <li class="location_li"><k class="fa fa-circle-blank">&nbsp;</k>{{this.follower_size}}</li>
+            <li><i class="fa fa-eye">&nbsp;</i>{{this.collections_size}}</li>
+            <li class="location_li"><i class="fa fa-circle-o">&nbsp;</i>{{this.follower_size}}</li>
         </ul>
     </div>
 

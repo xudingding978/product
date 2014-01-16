@@ -26,8 +26,8 @@
 
             <div id="review_content_{{unbound model.review_id}}" {{action 'upContent' model.review_id target='view' on="click"}} style="width: 390px; max-height:100px;line-height:20px; position: relative; display: inline-block; overflow: hidden; ">{{model.review_content}}  </div>   
 
-            <span {{action 'showOneReview' model.review_id "content" target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:inline-block;"  id="down_button_{{unbound model.review_id}}"  ><k class="fa fa-caret-down">&nbsp;</k>more</span>
-            <span {{action 'upContent' model.review_id target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:none;"  id="up_button_{{unbound model.review_id}}" ><k class="fa fa-caret-up">&nbsp;</k>collapse</span>
+            <span {{action 'showOneReview' model.review_id "content" target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:inline-block;"  id="down_button_{{unbound model.review_id}}"  ><i class="fa fa-caret-down">&nbsp;</i>more</span>
+            <span {{action 'upContent' model.review_id target='view' on="click"}} role="button" class="hover-opacity" style="position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:none;"  id="up_button_{{unbound model.review_id}}" ><i class="fa fa-caret-up">&nbsp;</i>collapse</span>
 
 
             <div style="position: relative; display: block;margin: 15px 0 10px;height: 20px;width: 100%;">
@@ -38,17 +38,17 @@
                      <i class="fa fa-share" >&nbsp</i></div>          
                 <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound model.review_id}}" style="width: 150px;  padding: 0;right: 0px;left: 220px;position:absolute;top: 25px;">
                     <li class="ite" {{action  fbShare model}} >
-                <k class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Facebook</span>
+                <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
                 </li>
                 <li class='ite' {{action tShare model}} >
-            <k class="fa fa-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Twitter</span>
+            <i class="fa fa-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Twitter</span>
             </li>
             <li class="ite" {{action gpShare model}}>
-        <k class="fa fa-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></k><span style="margin-left: 2.5em">Google+</span>
+        <i class="fa fa-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Google+</span>
         </li>
     </ul>
     {{#if model.getUser}}
-    <div class="new-btn" style="float: left; font-size: 13px;margin-right: 5px;"  {{action removeReview}}><i class="fa fa-trash"></i></div>                 
+    <div class="new-btn" style="float: left; font-size: 13px;margin-right: 5px;"  {{action removeReview}}><i class="fa fa-trash-o"></i></div>                 
     <div class="new-btn" style="float: left; font-size: 13px;" {{action editReview}}><i class="fa fa-pencil"></i></div>
     {{/if}}
 </div>
@@ -71,7 +71,7 @@
                 </div>
                 <div style="float: right;height: 34px;position: relative;">
                     <div id="ok_{{unbound model.review_id}}" class="message-btn easing" style='width: 30px;'{{action addReviewReply model.review_id}}>
-                         <k  class='fa fa-ok'></k>
+                         <i  class='fa fa-check'></i>
                     </div>
 
                 </div>
@@ -140,8 +140,8 @@
     </div>
 
     <div class="" style="height: 41px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
-        <div  class="message-btn easing"  style="width: 50%;border-right: 1px solid #ddd;" {{action cancelReview }}><k class="fa fa-remove">&nbsp;</k>Cancel</div>
-        <div class="message-btn easing" style="width: 50%;" {{action  saveReview }}><k class='fa fa-ok'>&nbsp;</k>Post</div>
+        <div  class="message-btn easing"  style="width: 50%;border-right: 1px solid #ddd;" {{action cancelReview }}><i class="fa fa-times">&nbsp;</i>Cancel</div>
+        <div class="message-btn easing" style="width: 50%;" {{action  saveReview }}><i class='fa fa-check'>&nbsp;</i>Post</div>
     </div>
 </div>
 

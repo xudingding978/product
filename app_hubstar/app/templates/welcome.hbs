@@ -23,8 +23,8 @@
 
                 {{#each view.contentTopic}}
                 <div class="select-interest" style=" height: 150px; width: auto;position: relative; float: left; margin: 10px 20px  60px;"{{action selectTopic id topic target="view" on="click"}}>
-                     <div id="minus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action selectTopic id topic target="view" on="click"}}><k class="fa fa-minus" ></k></div>
-                     <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;" ><k class="fa fa-plus" ></k></div>
+                     <div id="minus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action selectTopic id topic target="view" on="click"}}><i class="fa fa-minus" ></i></div>
+                     <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;" ><i class="fa fa-plus" ></i></div>
                     <div class="" style="height: 100px;width: 100px;position: relative;border-radius: 50%;overflow: hidden;top: -5px;float: left; ">
                         <div  class="usersobject-hoverarea easing" style="height: 100px; width: 100px;" >
                         </div>
@@ -43,7 +43,7 @@
 
             <div class="" style="height: 45px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
                 <div class="register-btn easing" style="width: 50%;border-right: 1px solid #ddd;float: left;"></div>
-                {{#linkTo searchIndex}}  <div class="register-btn easing" style="width: 50%;float: left"{{action submitSelection target="view" on="click"}}>Done&nbsp;<k class="fa fa-long-arrow-right" style="font-size: 13px;"></k></div>{{/linkTo}}
+                {{#linkTo searchIndex}}  <div class="register-btn easing" style="width: 50%;float: left"{{action submitSelection target="view" on="click"}}>Done&nbsp;<i class="fa fa-long-arrow-right" style="font-size: 13px;"></i></div>{{/linkTo}}
             </div> 
         </div>
         

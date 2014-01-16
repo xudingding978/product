@@ -7,26 +7,26 @@
 
     <ul id="user-dd-menu" class="hideClass edit-object-ul" style="padding: inherit;  width: 165px; right: 56px; position: relative; top:30px;">
         <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myUserProfile"}}>
-                <k class="fa fa-user" style="">&nbsp;&nbsp;</k>
+                <i class="fa fa-user" style="">&nbsp;&nbsp;</i>
                 <span>My Profile</span>
             </a></li>
         <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myMessageBoard"}}>
-                <k class="fa fa-envelope" style="">&nbsp;&nbsp;</k>
+                <i class="fa fa-envelope" style="">&nbsp;&nbsp;</i>
                 <span>Messages</span>
             </a></li>
                 {{#if controller.is_trends_user}}
                 <li class="ite" ><a tabindex="-1"  href="#/profiles/new">
-                        <k class="fa fa-briefcase" style="">&nbsp;&nbsp;</k>
+                        <i class="fa fa-briefcase" style="">&nbsp;&nbsp;</i>
                         <span>New Profile</span>
                     </a></li>
                 {{/if}}
 
                 <li class='ite'><a tabindex="-1" href="http://about.trendsideas.com/" target="blank">
-                        <k class="fa fa-question-circle" style="">&nbsp;&nbsp;</k>
+                        <i class="fa fa-question-circle" style="">&nbsp;&nbsp;</i>
                         <span>Help</span>
                     </a></li>
                 <li class="ite"><a tabindex="-1"{{action logout on="click"  target="view"}}  >
-                        <k class="fa fa-power-off" style="">&nbsp;&nbsp;</k>
+                        <i class="fa fa-power-off" style="">&nbsp;&nbsp;</i>
                         <span>Log out</span> 
                     </a></li>
 

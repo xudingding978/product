@@ -495,6 +495,7 @@ class PhotosController extends Controller {
             $linkUrl = $mega['mega']['photo'][0]['photo_link_url'];
 
 
+            
             $url = $this->getDomain() . "/" . $id;
             $tempRecord = $cb->get($url);
             $oldRecord = CJSON::decode($tempRecord, true);

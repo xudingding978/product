@@ -185,13 +185,13 @@ error_log('actionUpdate');
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
             }
-            error_log($setProfileName);
-            if ($setProfileName) {
-                $this->setProfileName($newRecord['profile_name'], $oldRecord['profile'][0]['id']);
-            }
-            if ($setPhotoBoost) {
-                $this->setPhotoBoost($oldRecord['profile'][0]['profile_boost'], $oldRecord['profile'][0]['id']);
-            }
+//            error_log($setProfileName);
+//            if ($setProfileName) {
+//                $this->setProfileName($newRecord['profile_name'], $oldRecord['profile'][0]['id']);
+//            }
+//            if ($setPhotoBoost) {
+//                $this->setPhotoBoost($oldRecord['profile'][0]['profile_boost'], $oldRecord['profile'][0]['id']);
+//            }
         } catch (Exception $exc) {
             error_log($exc);
         }
@@ -204,7 +204,7 @@ error_log('actionUpdate');
         return $boost;
     }
 
-    public function setPhotoBoost($boost, $profile_id) {
+    public function actionSetPhotoBoost($boost, $profile_id) {
         $response = $this->getProfileReults($profile_id);
         $responseArray = array();
         foreach ($response as $hit) {
@@ -226,8 +226,14 @@ error_log('actionUpdate');
         }
     }
 
-    public function setProfileName($profile_name, $profile_id) {
+    public function actionSetProfileName() {
         error_log('setProfileName');
+        $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+        $infoDel = CJSON::decode($payloads_arr, true);
+        $profile_name = $infoDel[0];
+        $profile_id = $infoDel[1];
+        error_log($profile_id);
+        error_log($profile_name);
         $response = $this->getProfileReults($profile_id);
         $responseArray = array();
         foreach ($response as $hit) {

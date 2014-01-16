@@ -65,7 +65,7 @@ class VideosController extends Controller {
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $photoTitle = $mega['mega']['object_title'];
-            
+
             $photoCaption = $mega['mega']['object_description'];
             $url = $this->getDomain() . "/" . $id;
             $tempRecord = $cb->get($url);
@@ -75,9 +75,24 @@ class VideosController extends Controller {
             $oldRecord['object_description'] = $photoCaption;
             $oldRecord['videoes'][0]['video_title'] = $photoTitle;
             $oldRecord['videoes'][0]['video_desc'] = $photoCaption;
-            
-           
-            
+
+             if (!isset($oldRecord['view_count'])) {
+                $oldRecord["view_count"] = 1;
+            } else {
+            $oldRecord['view_count'] = $mega['mega']['view_count'];   // //or using $mega['mega']['view_count'];
+            }
+             if (!isset($oldRecord['accessed'])) {
+                $oldRecord["accessed"] = 1;
+            } else {
+            $oldRecord["accessed"] = date_timestamp_get(new DateTime());
+            }
+             if (!isset($oldRecord['share_count'])) {
+                $oldRecord["share_count"] = 0;
+            } else {
+            $oldRecord["share_count"] =   $mega['mega']['share_count'];   // //or using   $mega['mega']['share_count']; 
+            }
+
+
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {

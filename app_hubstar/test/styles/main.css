@@ -9562,7 +9562,7 @@ div.album-description-bg{
     vertical-align: middle;
     display: inline-block;
     min-width: 170px;
-    width: 60%;
+    width: 380px;
 }
 
 .poster-name{
@@ -11044,7 +11044,8 @@ textarea.add-interests{
 }
 
 .Client-Keywords-tags li{
-    float:left;
+    display: inline-block;
+    vertical-align: top;
     height:30px;
     line-height:30px;
     position:relative;

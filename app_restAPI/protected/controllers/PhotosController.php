@@ -24,7 +24,7 @@ class PhotosController extends Controller {
 
     public function actionCreate() {
         $response;
-        error_log("dddddddddddddddddddddddddddddd");
+        //error_log("dddddddddddddddddddddddddddddd");
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $url = $request_arr["url"];
@@ -177,6 +177,7 @@ class PhotosController extends Controller {
             $oldRecord['photo'][0]['photo_caption'] = $newRecord['photo']['photo_caption'];
 
             $keyword = $this->getProfileKeyword($oldRecord['owner_id']);
+
             $oldRecord['keyword'] = $keyword;
 
             if ($cb->set($url, CJSON::encode($oldRecord))) {
@@ -194,6 +195,10 @@ class PhotosController extends Controller {
         $url = $this->getDomain() . "/profiles/" . $owner_id;
         $tempProfile = $cb->get($url);
         $profile = CJSON::decode($tempProfile, true);
+
+        if (!isset($profile['keyword'])) {
+            $profile['keyword'] = array();
+        }
         return $profile['keyword'];
     }
 
@@ -282,6 +287,10 @@ class PhotosController extends Controller {
         $mega['photo'][0]['photo_image_preview_url'] = $previewUrl;
         $mega['photo'][0]['photo_original_height'] = $orig_size['height'];
         $mega['photo'][0]['photo_original_width'] = $orig_size['width'];
+
+        $keyword = $this->getProfileKeyword($mega['owner_id']);
+        $mega['keyword'] = $keyword;
+
         return $mega;
     }
 
@@ -293,7 +302,10 @@ class PhotosController extends Controller {
         $bucket = 's3.hubsrv.com';
         if ($optional == null || $optional == 'undefined' || $optional == "") {
             $url = $this->getDomain() . '/users' . "/" . $owner_id . "/" . $photo_type . "/" . $photo_name;
-        } else {
+        } else if($optional == 'profile_picture'){
+            $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $optional;
+        }
+          else  {
             $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
             $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $new_photo_name;
         }
@@ -394,6 +406,7 @@ class PhotosController extends Controller {
         $mega['created'] = $this->getCurrentUTC();
         $mega['updated'] = $this->getCurrentUTC();
         $newMega = $this->doPhotoResizing($mega);
+
         $cb = $this->couchBaseConnection();
         if ($cb->add($docID, CJSON::encode($newMega))) {
             $this->sendResponse(204);
@@ -416,8 +429,7 @@ class PhotosController extends Controller {
     }
 
     function compressPhotoData($type, $image) {
-        error_log("cccccccccccccccc");
-        error_log($type);
+
         if ($type == "image/png") {
             imagepng($image);
         } elseif ($type == "image/jpeg") {
@@ -482,6 +494,7 @@ class PhotosController extends Controller {
             $linkText = $mega['mega']['photo'][0]['photo_link_text'];
             $linkUrl = $mega['mega']['photo'][0]['photo_link_url'];
 
+
             $url = $this->getDomain() . "/" . $id;
             $tempRecord = $cb->get($url);
             $oldRecord = CJSON::decode($tempRecord, true);
@@ -505,6 +518,7 @@ class PhotosController extends Controller {
             $oldRecord['photo'][0]['photo_caption'] = $photoCaption;
             $oldRecord['photo'][0]['photo_link_text'] = $linkText;
             $oldRecord['photo'][0]['photo_link_url'] = $linkUrl;
+
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {

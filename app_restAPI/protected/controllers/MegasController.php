@@ -98,11 +98,14 @@ class MegasController extends Controller {
         $newRecord = file_get_contents('php://input');
         $newRecord = CJSON::decode($newRecord, true);
         $newRecord['id'] = $id;
+       
         if ($newRecord['mega']['type'] == 'user') {
             $this->updateUserRecord($newRecord);
         } else if ($newRecord['mega']['type'] == 'profile') {
             $this->updateProfileRecord($newRecord);
+
         } else if ($newRecord['mega']['type'] == 'photo') {
+
             $photoController = new PhotosController();
             $photoController->photoUpdate($newRecord);
         } else if ($newRecord['mega']['type'] == 'video') {

@@ -32,6 +32,7 @@ HubStar.PhotoCreateInfoSettingController = Ember.Controller.extend({
     submitPhotoInfo: function() {
 
         var objectLength = this.get("photoInfo").get('length');
+
         for (var i = 0; i < objectLength; i++) {
             var data = this.get('photoInfo').objectAt(i);
             var photoInfo = HubStar.Photo.find(data.id);
@@ -48,7 +49,7 @@ HubStar.PhotoCreateInfoSettingController = Ember.Controller.extend({
 
     {
         photoInfo.addObserver('isLoaded', function() {
-            if (photoInfo.get('isLoaded')) {
+            if (photoInfo.get('isLoaded')) {               
                 photoInfo.set('photo_title', data.title);
                 photoInfo.set('photo_caption', data.caption);
                 photoInfo.store.save();

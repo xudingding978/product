@@ -1114,6 +1114,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectionForDashborad: function() {
         $('.front').attr("style", "text-align: inherit; width: auto;  box-shadow: none; border: none; position: relative;height:" + $('.back').height() + "px");
+        $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius:3px;border:none;position:absolute;top:0;left:0; display:block");
     },
     changeSize: function() {
         var that = this;

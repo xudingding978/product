@@ -12,9 +12,9 @@
 </div>
 
 
-<div class="hover panel" style='z-index: 0; float: none;position: relative; width: 87%; height: auto; margin:  auto; background: #fff; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;max-width: 1260px;min-width: 1250px;overflow: hidden;'>
+<div id="profilePanel" class="hover panel" style='z-index: auto;  float: none;position: relative !important; width: 87%; height: auto; margin:  auto; background: #fff; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;max-width: 1260px;min-width: 1250px;overflow: hidden;'>
 
-    <div class="front" style="text-align: inherit; width: auto; height: auto; box-shadow: none; border: none; position: relative;">
+    <div id="profileFront" class="front" style="text-align: inherit; width: auto; height: auto; box-shadow: none; border: none; position: relative !important;">
 
         <div class="profilewrapper premium">
             <!--corpbanner-->
@@ -44,7 +44,7 @@
                                     <div class="new-btn"{{action no controller.profileName}}><i class="icon-remove icon-white"></i></div>
                                 </div>
                                 {{else}}
-                                <div style="display: inline-block; color: white; max-width: 500px; overflow: hidden; font-size: 28px; margin-bottom: 15px; line-height: 32px; vertical-align: middle;">
+                                <div data-step="1" data-intro="Rating and review the profile!" data-position='top' style="display: inline-block; color: white; max-width: 500px; overflow: hidden; font-size: 28px; margin-bottom: 15px; line-height: 32px; vertical-align: middle;">
                                     {{profile_name}}
                                 </div>
                                 {{#if controller.is_authentic_user}}
@@ -58,7 +58,7 @@
 
 
                             <!--STAR RATING-->
-                            <div style="position: absolute;width: 500px;">
+                            <div style="position: absolute;width: 500px;" data-step="2" data-intro="Rating and review the profile!" data-position='top'>
                                 <span class="stars" style="float: left;margin: 5px 15px 5px 0;" ><span id="starsize" ></span></span>  
                                 <div class="hint--right hint--rounded" data-hint="Review this profile!"  {{action rateEditing model.id}} >
                                      <div class="contactmeicon easing" style="float: left;  width: 35px; height: 35px;line-height: 31px;text-align: center;font-weight: bold;font-size: 13px;border: 2px solid #aaa;">{{this.profile_average_review}}</div>
@@ -68,12 +68,12 @@
 
 
                             <!--contact me-->
-                            <div class="contactmebtn hint--bottom hint--rounded easing" data-hint="Contact us!">
+                            <div class="contactmebtn hint--bottom hint--rounded easing" data-hint="Contact us!" data-step="4" data-intro="Sending Email" data-position='right'>
                                 <a class="contactmeicon easing" {{action editingContactForm }}><i class="icon-envelope easing" style="font-size: 18px;"></i></a>
                             </div>
                             <!--contact me-->
 
-                            <div class="contactmebtn hint--left hint--rounded easing" data-hint="Share this profile!" >
+                            <div class="contactmebtn hint--left hint--rounded easing" data-hint="Share this profile!" data-step="3" data-intro="Sharing profile to your social network" data-position='top'>
                                 <a class="contactmeicon easing" {{action dropdownPhotoSetting}}><i class="icon-share-alt easing" style="font-size: 19px;"></i></a>
                             </div>
 
@@ -111,7 +111,7 @@
                 <td class="left_col" width="29%" valign="top">
                     <div class="profileaside">
                         <div class="profileaside_content">
-                            <div class="aside-profilepic">
+                            <div class="aside-profilepic" data-step="5" data-intro="Following time" data-position='right'>
                                 <div style="min-height: 175px; overflow: visible; line-height: 175px;margin-bottom: 20px;" data-hint="{{unbound model.profile_name}}">
                                     <a href="#/profiles/{{unbound model.id}}">
                                         <img {{bindAttr src= model.profile_pic_url}} style="border:5px solid white;box-shadow: 0px 0px 5px #888;min-height: 0;width: 100%">
@@ -127,7 +127,7 @@
                             </div>
 
 
-                            <div class="LatestFollower">
+                            <div class="LatestFollower" data-step="6" data-intro="Who visited your profiles" data-position='right'>
 
                                 {{#each contentFollowerPhoto}}                                             
                                 <a class='radius-circle' href="#/users/{{unbound this.id}}">
@@ -138,12 +138,12 @@
                                 {{/each}}
 
                             </div>
-                            <div class="Followed-by easing"{{action selectFollower this }}>Followed by {{controller.profileFollowerStatistics}} people.</div>
+                            <div class="Followed-by easing" data-step="7" data-intro="the number of people who visited your profile" data-position='right' {{action selectFollower this }}>Followed by {{controller.profileFollowerStatistics}} people.</div>
 
 
 
                             <!--KEYWORDS SECTION-->
-                            <div class="aside-container"> 
+                            <div class="aside-container" data-step="8" data-intro="Keyword" data-position='right'> 
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'>
                                     <i class='icon-bookmark' style='margin-right: 10px;'></i>Keywords
                                 </div>
@@ -164,7 +164,7 @@
 
 
 
-                            <div class="aside-container" style="">
+                            <div class="aside-container" style="" data-step="9" data-intro="Contact Detail" data-position='right'>
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-phone' style='margin-right: 10px;'></i>Contact Detail</div>
                                 {{#unless controller.editingContact}}
                                 {{#if controller.is_authentic_user}}
@@ -287,7 +287,7 @@
 
                             <!--PROFILE HOURS SECTION-->
 
-                            <div class="aside-container" style="border-top: 1px solid #fff;">
+                            <div class="aside-container" style="border-top: 1px solid #fff;"  data-step="10" data-intro="Hours" data-position='right'>
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</div>
 
                                 {{#unless controller.editingTime}}
@@ -334,7 +334,7 @@
 
 
                             <!--PROFILE GOOGLEMAP SECTION--> 
-                            <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;">
+                            <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;" data-step="11" data-intro="Google map to show the location" data-position='top'>
                                 <div id="google-map"  style="width: 300px;height: 250px; border: 5px solid #fff;cursor: pointer" >
                                     <div class="enlarge-map easing" style=""{{action popUpGoogleMap}}><k class="icon-resize-full"></k></div>
                                     <img  {{bindAttr src="controller.profile_google_map"}} style="width: 100%; height:auto;" {{action popUpGoogleMap}}>
@@ -347,7 +347,7 @@
 
                 <!--RIGHT COL BEGINS -->
                 <!--PROFILE PAGE MAIN PART-->
-                <td class="right_col" width="70%" valign="top">
+                <td class="right_col" width="70%" valign="top" data-step="12" data-intro="About us ----your can select templete or HTML5 editor to build your About Us" data-position='bottom'>
                     {{view HubStar.ProfileAboutUsEditView}}
                 </td>
 
@@ -361,8 +361,8 @@
 
 </div>
 
-
-<div class="back t-style-box"  style='width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0;'>
+{{#unless controller.userTour}}
+<div id="profileDashboard" class="back t-style-box"  style='width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;'>
     <div style="position: relative; top: 0; width: 100%;height: 300px;overflow: hidden; border-radius: 3px 3px 0 0;">
         <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
         <div style="background: url('../images/bannershadow.png') repeat-x; position: absolute; width: 100%; height: 200px; bottom: 0;">
@@ -1004,6 +1004,10 @@
 
         </div>
     </div>
+    
+      
+{{/unless}}
+  
 
 
 

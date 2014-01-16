@@ -616,10 +616,11 @@ div#forgot-password-container{
 /* Clint Lewis's style's 29/10/13 */
 
 div#login_detail{
-    width:35px;
+    width:55px;
     float:right;
     cursor: pointer;
     vertical-align: top;
+    height:80px;
 }
 
 
@@ -663,3 +664,13 @@ div#login_detail{
 
 
 .user-face-size{width: 45px; height: 45px;}
+
+
+/*TOUR*/
+
+
+.tour-background{
+    background-color: #475476;
+     margin: 5px !important;
+     padding: 5px !important;
+}

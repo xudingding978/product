@@ -2,7 +2,7 @@
 
     <div class="user-face-size" data-toggle="dropdown" style="position: static;">
         <a class="user-face-size" style="position: absolute;z-index: -1"><img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg" class="profilepic_user " style='width: 45px;height:45px;'/></a>           
-        <a class="user-face-size" style="z-index: 1"><img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user  easing" style='width: 45px;height:45px'/></a>              
+        <a class="user-face-size" style="z-index: 1"><img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user  easing" style='width: 45px;height:45px;'/></a>              
     </div>
 
     <ul id="user-dd-menu" class="hideClass edit-object-ul" style="padding: inherit;  width: 165px; right: 56px; position: relative; top:30px;">
@@ -25,6 +25,10 @@
                         <k class="icon-question-sign" style="">&nbsp;&nbsp;</k>
                         <span>Help</span>
                     </a></li>
+                     <li class='ite'><a tabindex="-1" href="javascript:void(0);" id="startButton">
+                <k class="icon-question-sign" style="">&nbsp;&nbsp;</k>
+                <span>User Tour</span>
+            </a></li>
                 <li class="ite"><a tabindex="-1"{{action logout on="click"  target="view"}}  >
                         <k class="icon-off" style="">&nbsp;&nbsp;</k>
                         <span>Log out</span> 
@@ -36,4 +40,31 @@
 
 
 
+<script>
 
+
+    $(document).ready(function() {
+        document.getElementById('startButton').onclick = function() {
+          $("#profileDashboard").attr("style", "display:none");
+        $("#profilePanel").removeClass("panel");
+    //    $("#profileFront").removeClass("front");
+       $(".brand").addClass("tour-background");
+        $(".Geo-Filter").addClass("tour-background");
+         $("#login_detail").addClass("tour-background");
+ 
+
+            introJs().setOption('doneLabel', 'Next page').start().oncomplete(function() {
+                window.location.href = '/#/search';
+            //    $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display:block");
+            //    $(".hover").removeClass('flip');
+            //    $('.front').attr("style", "text-align: inherit; width: auto; height: auto; box-shadow: none; border: none; position: relative;");
+             //   $("#profilePanel").addClass("panel");
+            //    $("#profileFront").addClass("front");
+
+            });
+        };
+
+
+
+    });
+</script>

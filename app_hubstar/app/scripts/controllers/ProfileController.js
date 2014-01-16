@@ -1561,7 +1561,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (this.get('dragTargetIndex') < 0) {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please drag keywords from the keywords list below.", "warnning");
         } else if (this.get('show_keyword_array').get('length') > 9) {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Your can maximum show 10 keywords on the profile.", "warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Your can only display 10 keywords at a time on your business profile.", "warnning");
         } else {
             if (this.get('show_keyword_id').indexOf(this.get('keywords_array').objectAt(this.get('dragTargetIndex')).get('keyword_id')) === -1) {
                 this.get('show_keyword_array').pushObject(this.get('keywords_array').objectAt(this.get('dragTargetIndex')));
@@ -1571,7 +1571,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     this.set('show_keyword_id', this.get('keywords_array').objectAt(this.get('dragTargetIndex')).get('keyword_id'));
                 }
             } else {
-                this.get('controllers.applicationFeedback').statusObserver(null, "This keyword has already been in the show list.", "warnning");
+                this.get('controllers.applicationFeedback').statusObserver(null, "This keyword has already been added toyour display list.", "warnning");
             }
         }
     },

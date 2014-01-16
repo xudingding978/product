@@ -603,7 +603,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (checkingInfo === "profileName") {
             var title_modify_time = Date.parse(new Date());
             var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-//            if (title_modify_time > update_profile_record.get('title_modify_time')+60000) {
+            if (title_modify_time > update_profile_record.get('title_modify_time')+60000) {
                 this.set('editing', !this.get('editing'));            
                 update_profile_record.set("profile_name", this.get('profile_name'));
                 update_profile_record.set("title_modify_time", title_modify_time);
@@ -617,9 +617,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     }
                     update_profile_record.removeObserver("isSaving");
                 });
-//            } else {
-//                this.get('controllers.applicationFeedback').statusObserver(null, "Please do not change your profile title so frequently.", "warnning");
-//            }
+            } else {
+                this.get('controllers.applicationFeedback').statusObserver(null, "Please do not change your profile title so frequently.", "warnning");
+            }
         }
         else if (checkingInfo === "contact") {
             if (this.get("website_url").match(/[http]/g) === -1 || this.get("website_url").match(/[http]/g) === null)

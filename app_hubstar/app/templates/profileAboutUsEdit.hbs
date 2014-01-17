@@ -38,7 +38,7 @@
 
                 {{/if}}
             </div>
-            {{#if controller.isAboutUsObjectExist}}
+            {{#if model.show_template}}
             <div style="display: block; width: 100%" >{{view HubStar.AboutUsView1}}</div>
             {{else}}
             <div style="display: block; width: 100%" >{{{model.profile_about_us}}}</div>

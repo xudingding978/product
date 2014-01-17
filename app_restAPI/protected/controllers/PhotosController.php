@@ -195,6 +195,7 @@ class PhotosController extends Controller {
         $url = $this->getDomain() . "/profiles/" . $owner_id;
         $tempProfile = $cb->get($url);
         $profile = CJSON::decode($tempProfile, true);
+
         if (!isset($profile['keyword'])) {
             $profile['keyword'] = array();
         }
@@ -406,7 +407,6 @@ class PhotosController extends Controller {
         $mega['updated'] = $this->getCurrentUTC();
         $newMega = $this->doPhotoResizing($mega);
 
-
         $cb = $this->couchBaseConnection();
         if ($cb->add($docID, CJSON::encode($newMega))) {
             $this->sendResponse(204);
@@ -495,10 +495,26 @@ class PhotosController extends Controller {
             $linkUrl = $mega['mega']['photo'][0]['photo_link_url'];
 
 
+            
             $url = $this->getDomain() . "/" . $id;
             $tempRecord = $cb->get($url);
             $oldRecord = CJSON::decode($tempRecord, true);
             $oldRecord['object_description'] = $photoCaption;
+            if (!isset($oldRecord['view_count'])) { 
+                $oldRecord["view_count"] = 1;
+            } else {
+                $oldRecord['view_count'] =   $mega['mega']['view_count']; // ,but it  will also add one when share  //$mega['mega']['view_count']; 
+            }
+            if (!isset($oldRecord['accessed'])) {
+                $oldRecord["accessed"] = 1;
+            } else {
+                $oldRecord["accessed"] = date_timestamp_get(new DateTime());
+            }
+            if (!isset($oldRecord['share_count'])) {
+                $oldRecord["share_count"] = 0;
+            } else {
+                $oldRecord["share_count"] = $mega['mega']['share_count'];   // //or using   $mega['mega']['share_count']; 
+            }
             $oldRecord['photo'][0]['photo_title'] = $photoTitle;
             $oldRecord['photo'][0]['photo_caption'] = $photoCaption;
             $oldRecord['photo'][0]['photo_link_text'] = $linkText;

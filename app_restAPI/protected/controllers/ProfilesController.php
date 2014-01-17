@@ -113,7 +113,6 @@ class ProfilesController extends Controller {
 
     public function actionUpdate() {
 
-
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
             $payload_json = CJSON::encode($payloads_arr['profile'], true);
@@ -132,7 +131,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_contact_number'] = $newRecord['profile_contact_number'];
             if ($oldRecord['profile'][0]['profile_name'] !== $newRecord['profile_name']) {
                 $oldRecord['profile'][0]['profile_name'] = $newRecord['profile_name'];
-                $setProfileName = TRUE;                
+                $setProfileName = TRUE;
             } else {
                 $setProfileName = FALSE;
             }
@@ -151,6 +150,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_keywords_num'] = $newRecord['profile_keywords_num'];
             $oldRecord['keyword_num'] = $newRecord['profile_keywords_num'];
             $oldRecord['profile'][0]['title_modify_time'] = $newRecord['title_modify_time'];
+
 
 //            $oldRecord['profile'][0]['keywords'] = $newRecord['keywords'] ;
 //            $oldRecord['keyword'] = $newRecord['keywords'];
@@ -178,7 +178,9 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_youtube_link'] = $newRecord['profile_youtube_link'];
             $oldRecord['profile'][0]['profile_analytics_code'] = $newRecord['profile_analytics_code'];
             $oldRecord['profile'][0]['profile_google_map'] = $newRecord['profile_google_map'];
-
+            
+            $oldRecord['profile'][0]['show_template'] = $newRecord['show_template'];
+            
             $oldRecord['profile'][0]['show_keyword_id'] = $newRecord['show_keyword_id'];
             $cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true));
             error_log($setProfileName);
@@ -188,7 +190,7 @@ class ProfilesController extends Controller {
             if ($setPhotoBoost) {
                 $this->setPhotoBoost($oldRecord['profile'][0]['profile_boost'], $oldRecord['profile'][0]['id']);
             }
-            
+
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
             }
@@ -248,7 +250,7 @@ class ProfilesController extends Controller {
             }
         }
     }
-    
+
     public function actionGoogleMap() {
         $payloads_arr = CJSON::decode(file_get_contents('php://input'));
         error_log(var_export($payloads_arr, true));
@@ -290,7 +292,7 @@ class ProfilesController extends Controller {
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
 
-        $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $owner_id,$mode);
+        $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $owner_id, $mode);
 
         $cb = $this->couchBaseConnection();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/profiles/' . $owner_id));

@@ -129,7 +129,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 that.goToMessageTop(s);
             }
             setTimeout(function() {
-                $('#masonry_user_container').masonry();
+                //$('#masonry_user_container').masonry();
                 $('#masonry_user_container').masonry("reload");
             }, 200);
         });
@@ -181,7 +181,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
     ,
     removeMessageItem: function(s)
     {
-        var message = "Remove this message?";
+        var message = "Remove this post?";
         this.set("message", message);
         this.set('makeSureDelete', true);
         this.set('isUserMessage', true);

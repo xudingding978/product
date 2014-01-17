@@ -40,7 +40,9 @@ HubStar.MegaCreateController = Ember.ArrayController.extend({
             "keywords": ProfileMega.get("profile_keywords"),
             "status_id": null,
             "uri_url": ProfileMega.get("uri_url"),
-            "view_count": null
+            "view_count": ProfileMega.get("view_count"),
+            "share_count": ProfileMega.get("share_count"),
+            "comment_count": ProfileMega.get("comment_count")
         });
         return mega;
     }

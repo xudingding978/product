@@ -42,14 +42,14 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                 }
             });
         }
-        var lastPositionId = HubStar.get('lastPositionId');
-        var lastPosition = HubStar.get("scrollPartenerPosition");
-        if (model.id === lastPositionId)
-        {
-
-            $(window).scrollTop(lastPosition);
-
-        }
+//        var lastPositionId = HubStar.get('lastPositionId');
+//        var lastPosition = HubStar.get("scrollPartenerPosition");
+//        if (model.id === lastPositionId)
+//        {
+//
+//            $(window).scrollTop(lastPosition);
+//
+//        }
         this.checkAuthenticUser();
     }
     ,
@@ -80,7 +80,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             var profileOwner = HubStar.Profile.find(this.get('clientID'));
             profileOwner.set('profile_partner_ids', this.get('partnerID'));
             this.removePartnerObject(idDel);
-            HubStar.store.commit();
+            profileOwner.store.commit();
             this.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
             $('#masonry_user_container').masonry("reload");
             this.cancelDelete();
@@ -136,8 +136,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     {
         var profileOwner = HubStar.Profile.find(this.get('clientID'));
         profileOwner.set('profile_partner_ids', this.get('partnerID'));
-        // HubStar.store.get('adapter').updateRecord(HubStar.store, HubStar.Profile, profileOwner);
-        HubStar.store.commit();
+        profileOwner.store.commit();
         var newPartner = HubStar.Mega.find(client_id);
         this.get("content").pushObject(newPartner);
         $('#masonry_user_container').masonry("reload");

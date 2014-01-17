@@ -43,17 +43,17 @@
 {{/if}}
 
 {{#if controller.countryDropdown}}
-<div id="countryDropdown" class="Dropdownstyle1"  style="width: 460px;text-align: center; left: 0;" {{action dropdown "country"}}>
+<div id="countryDropdown" class="Dropdownstyle1"  style="width: 450px;text-align: center; left: 0;" {{action dropdown "country"}}>
 </div>
 {{/if}}
 
 {{#if controller.regionDropdown}}
-<div id="regionDropdown" class="Dropdownstyle1" style="width: 460px;text-align: center; left: 0;" {{action dropdown "region"}}>
+<div id="regionDropdown" class="Dropdownstyle1" style="width: 450px;text-align: center; left: 0;" {{action dropdown "region"}}>
  </div>
 {{/if}}
 
 {{#if controller.categoryDropdown}}
-<div id="categoryDropdown"  class="Dropdownstyle1"  style="width: 226px; left: 0;" {{action dropdown "category"}}>
+<div id="categoryDropdown"  class="Dropdownstyle1"  style="width: 225px; left: 0;" {{action dropdown "category"}}>
      {{#each controller.categorys}}
      <div  class="ite " {{action topicSelection this}}>{{topic}}</div>
     {{/each}}
@@ -62,7 +62,7 @@
 {{/if}}
 
 {{#if controller.subcategoryDropdown}}
-<div id="subcategoryDropdown" class="Dropdownstyle1" style="width: 226px; left: 0;" {{action dropdown "subcategory"}}>
+<div id="subcategoryDropdown" class="Dropdownstyle1" style="width: 225px; left: 0;" {{action dropdown "subcategory"}}>
 
      {{#each controller.subcate}}
      <div  class="ite " >{{category_topic}}</div>
@@ -96,6 +96,7 @@
 
 {{#if controller.isGeoDropdown}}
 <div id="geoDropdown" class="edit-object-ul Dropdownstyle2" {{action dropdown controller.applicationCategoryDropdownType}}>
+     <div class="ite easing" style="">Global</div>
      <div class="ite easing" style="">Australia</div>
     <div class="ite easing" style="">New Zealand</div>
     <div class="ite easing" style="">United States</div>
@@ -119,7 +120,28 @@
 </div>
 {{/if}}
 
-<script language="javascript">
-   print_country();
-</script>
 
+
+{{#if controller.profileCategoryDropdown}}
+<div id="profileCategoryDropdown"  class="Dropdownstyle1"  style="width: 260px; left: 0;" {{action dropdown "category"}}>
+     {{#each controller.categorys}}
+     <div  class="ite " {{action topicSelection this}}>{{topic}}</div>
+    {{/each}}
+
+</div>
+{{/if}}
+
+{{#if controller.profileSubcategoryDropdown}}
+<div id="profileSubcategoryDropdown" class="Dropdownstyle1" style="width: 260px; left: 0;" {{action dropdown "subcategory"}}>
+
+     {{#each controller.subcate}}
+     <div  class="ite " >{{category_topic}}</div>
+    {{/each}}
+
+</div>
+{{/if}}
+
+
+<script language="javascript">
+   
+</script>

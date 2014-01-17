@@ -13,7 +13,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('status').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
-
+        this.controllerFor('mega').set('from',"search");
 
         localStorage.checkUser = "";
         $(".navbar").css("box-shadow", "");
@@ -36,7 +36,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
     redirect: function() {
 
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-//            this.transitionTo('indexIndex');
+            this.transitionTo('indexIndex');
 
         } else {
             // this.transitionTo('searchIndex');

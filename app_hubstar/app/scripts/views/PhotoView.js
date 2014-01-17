@@ -92,7 +92,6 @@ HubStar.PhotoView = Ember.View.extend({
                 }
                 else
                 {
-
                     HubStar.set("escVideo", true);
                     this.get("controller").set("selectPhoto", false);
                     this.get("controller").set('image_no', 1);

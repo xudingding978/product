@@ -10,9 +10,9 @@ DS.RESTAdapter.map('HubStar.Mega', {
     article: {embedded: 'always'}
 });
 
-HubStar.Mega = DS.Model.extend(Ember.Copyable, {
+HubStar.Mega = DS.Model.extend({
     accessed: DS.attr('string'),
-    boost: DS.attr('string'),
+    boost: DS.attr('number'),
     categories: DS.attr('string'),
     creator_profile_pic: DS.attr('string'),
     created: DS.attr('string'),
@@ -50,7 +50,9 @@ HubStar.Mega = DS.Model.extend(Ember.Copyable, {
     type: DS.attr('string'),
     updated: DS.attr('string'),
     uri_url: DS.attr('string'),
-    view_count: DS.attr('string'),
+    view_count: DS.attr('number'),
+    share_count: DS.attr('number'),
+    comment_count: DS.attr('number'),
     optional: DS.attr('string'),
     isFollow: DS.attr('boolean'),
     //--------------------------
@@ -62,6 +64,21 @@ HubStar.Mega = DS.Model.extend(Ember.Copyable, {
     article: DS.hasMany('HubStar.Article'),
     keyword: DS.hasMany('HubStar.Keyword'),
     videoes: DS.hasMany('HubStar.Video'),
+    keywordShow: function() {
+       
+        var a = new Array();
+
+        for (var i = 0; i < 3 && this.get("keyword").get("length"); i++)
+        {
+            var b = new Array();
+            //console.log(this.get("keyword").get("length"));
+            if (this.get("keyword").objectAt(i) !== undefined && this.get("keyword").objectAt(i) !== null) {
+                b["keyword_name"] = this.get("keyword").objectAt(i).get("keyword_name");
+                a[i] = b;
+            }
+        }
+        return a;
+    }.property('keyword'),
     showComment: function() {
         var b = false;
         if (this.get("comments").get("length") > 5)
@@ -70,11 +87,18 @@ HubStar.Mega = DS.Model.extend(Ember.Copyable, {
         }
         return b;
     }.property('comments'),
-
-    
     photo_album_id: function() {
         return "#album_" + this.get('id');
     }.property('id'),
+    moreDisplay: function() {
+        if (this.get("object_description") === null || this.get("object_description") === "")
+        {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }.property('object_description'),
     more_button: function() {
         return "more_button_" + this.get('id');
     }.property('id'),
@@ -118,7 +142,7 @@ HubStar.Mega = DS.Model.extend(Ember.Copyable, {
             type: 'POST',
             data: JSON.stringify(mega),
             success: function() {
-                HubStar.store.save();
+                //    HubStar.store.save();
             }
         });
     },

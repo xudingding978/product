@@ -305,7 +305,11 @@ a:hover , a:focus {color: #aaa;}
     right: 0;
     top: 0;
     z-index: 10;
+    opacity: 0;
 }
+
+.object-tags-box:hover{opacity: 1 !important;}
+
 .object-tags-box div{position:relative;z-index:100;}
 .object-tags{
     clear: both;
@@ -314,6 +318,7 @@ a:hover , a:focus {color: #aaa;}
     word-wrap: normal;
     position:relative;
     z-index:2;
+    margin:1px;
 }
 
 .tags-mark{
@@ -325,16 +330,17 @@ a:hover , a:focus {color: #aaa;}
 }
 
 .tags{
-    margin-right: -2px;
-    color: #999;
+    margin: 0 -2px 1px 0;
+    color: #fff;
     display: block;
     float: right;
     max-width: 180px;
     /*overflow: hidden; this was removed for the tool tips 3/10/13 */
     text-overflow: ellipsis;
     white-space: nowrap;
-    background-color: #eee;
-    opacity: .6
+    background-color: #427fed;
+    opacity: .6;
+    cursor: pointer;
 }
 
 .tags:hover{
@@ -417,7 +423,6 @@ a:hover , a:focus {color: #aaa;}
 }
 
 .tagsappear{
-    opacity: 0;
     overflow: hidden;
 }
 
@@ -516,6 +521,7 @@ a:hover , a:focus {color: #aaa;}
 
 .item-function-control:hover{opacity: 1!important}
 .col2:hover .item-function-control{opacity: .6}
+.col2:hover .object-tags-box{opacity: .6}
 
 /*MANSONRY user OBJECT STYLE               END*/
 
@@ -1221,7 +1227,7 @@ div.album-description-bg{
     vertical-align: middle;
     display: inline-block;
     min-width: 170px;
-    width: 60%;
+    width: 380px;
 }
 
 .poster-name{

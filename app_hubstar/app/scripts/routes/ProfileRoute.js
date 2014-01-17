@@ -1,22 +1,21 @@
 HubStar.ProfileRoute = Ember.Route.extend({
     setupController: function(ProfileController, model) {
-
         HubStar.set('editingMode', 'profile');
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
         {
             HubStar.set("isLogin", false);
         } else {
             HubStar.set("isLogin", true);
-//            console.log(HubStar.User.find(localStorage.loginStatus).get("isLoaded"));
-////            if (HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== ""
-////                    && HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== "undefined"
-////                    && HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== null) {
-////
-////                this.controllerFor('application').set("is_authentic_user", true);
-////            } else {
-////                this.controllerFor('application').set("is_authentic_user", false);
-////            }
-//            
+            if (HubStar.User.find(localStorage.loginStatus).get("isLoaded")) {
+                if (HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== ""
+                        && HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== "undefined"
+                        && HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== null) {
+
+                    this.controllerFor('application').set("is_trends_user", true);
+                } else {
+                    this.controllerFor('application').set("is_trends_user", false);
+                }
+            }
         }
         if (ProfileController.get('goBackType') === true)
         {
@@ -28,7 +27,9 @@ HubStar.ProfileRoute = Ember.Route.extend({
         ProfileController.set('contactChecking', false);
         ProfileController.set('collectionTag', true);
         ProfileController.set('partnerTag', false);
-        ProfileController.set('reviewTag', false);
+        ProfileController.set('reviewTag', false);       
+        ProfileController.set('videoTag', false);
+
         /*************************            partner cehcking           ***********8*/
         this.controllerFor('mega').set("from", "profile");
         this.controllerFor('application').set('islogin', true);
@@ -51,10 +52,21 @@ HubStar.ProfileRoute = Ember.Route.extend({
 
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
-         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-        
-        ProfileController.setProfile(model.id);
+        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
 
+        ProfileController.setProfile(model.id);
+//        var address = document.URL;
+//        var urlArray = address.split("#")[1].split("/");
+//        if (urlArray.length < 4)
+//        {
+//            ProfileController.selectCollection();
+//        }
+//        console.log(urlArray.length);
+        setTimeout(function() {
+            // $('#masonry_user_container').masonry();            
+            $('#masonry_user_container').masonry("reload");
+            //$('#masonry_user_container').masonry("reloadItems");
+        }, 2000);
     },
     model: function(params) {
 
@@ -75,11 +87,11 @@ HubStar.ProfileRoute = Ember.Route.extend({
             this.transitionTo("profileCollection", data);
         },
         transitionToArticle: function(article_id) {
- 
+
             this.transitionTo("profileArticle", article_id);
             this.transitionTo("profileArticlePhoto");
         },
-                        transitionToVideo: function(video_id) {
+        transitionToVideo: function(video_id) {
 
 //            var address = document.URL;
 //            var owner_id = address.split("#")[1].split("/")[2];
@@ -96,7 +108,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
 //            this.transitionTo("profileCollection", data);
             //           this.controllerFor('masonryCollectionItems').set('isUser', true);
             //var model = HubStar.Profile.find(video_id);
-            this.transitionTo("videoVideo", {id:video_id});
+            this.transitionTo("videoVideo", {id: video_id});
         }
     },
     redirect: function() {
@@ -126,7 +138,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
         });
     },
     sendGAMessage: function(profile_analytics_code, dom_url) {
-        try {           
+        try {
             ga('create', profile_analytics_code, {'name': dom_url});
             ga(dom_url + '.send', 'pageview');
             this.controller.set('isTracking', true);

@@ -39,7 +39,7 @@
 <div class="box col2 style-box t-style-box">
     <div class="masonry-object Targeting_Object_front"  id={{unbound id}}>
         <a class="album-description-hoverarea easing" href="#/{{unbound controller.type}}/{{unbound controller.Id}}/collections/{{unbound id}}" {{action transitionToCollectionPhoto id}}>
-
+{{#if desc}}
                <table class="album-description" cellpadding="0" cellspacing="0">
                    <tr>
                        <td valign="middle"><div>{{desc}}</div></td>
@@ -51,6 +51,8 @@
                        <td valign="middle"><div>{{desc}}</div></td>
                    </tr>
                </table> 
+
+{{/if}}
         </a>
         <div class="albumcover-container"  > 
             <div class="">
@@ -84,7 +86,7 @@
     window.setTimeout(function() {
     $container.masonry();
     $container.masonry('reload');
-    }, 10);
+    }, 210);
     });
 
 </script>

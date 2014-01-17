@@ -49,7 +49,10 @@ class RefineDataCommand extends Controller_admin {
             $this->finduncompletenumbers();
         } elseif ($action == "countvideo") {
             $this->setVideoNumber();
-        } elseif ($action == "refineArticle") {
+        }elseif($action =="fixaboutus"){
+            $this->updateUserAbout();
+        } 
+        elseif ($action == "refineArticle") {
 
 
 
@@ -226,6 +229,36 @@ class RefineDataCommand extends Controller_admin {
                 }
             } else {
                 echo $user . " can not find couchbase record  for the user------------------\n";
+            }
+        }
+    }
+
+    public function updateUserAbout() {
+        $bucket = "production";
+        $user_list = $this->findAllAccordingType($bucket, "user");
+        $cb = $this->couchBaseConnection($bucket);
+        foreach ($user_list as $user) {
+            $result = $cb->get($user);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                if (isset($result_arr['user'][0]['about_me']) && $result_arr['user'][0]['about_me'] != null) {
+                    echo $user . " has record in about me\n";
+                } else {
+                    if (isset($result_arr['user'][0]['description']) && $result_arr['user'][0]['description'] != null) {
+                        $result_arr['user'][0]['about_me'] = $result_arr['user'][0]['description'];
+                        echo $user . " about us has been changed to" . $result_arr['user'][0]['description'] . " \n";
+                    }else{
+                        echo $user. " nothing inside description\n";
+                    }
+                }
+
+                if ($cb->set($user, CJSON::encode($result_arr))) {
+                    echo $user . " saved to couchbase\n";
+                } else {
+                    echo $user . " save to couchbase failed\n";
+                }
+            } else {
+                echo $user . " can not find couchbase record\n";
             }
         }
     }

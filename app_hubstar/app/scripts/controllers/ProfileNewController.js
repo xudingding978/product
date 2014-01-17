@@ -410,6 +410,13 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                     newMegaNewModel.addObserver('isDirty', function() {
                         if (!newMegaNewModel.get('isDirty')) {
                             newProfile.save();
+                            newProfile.get('isSaving');
+                            newProfile.addObserver('isDirty', function() {
+                                if (!newProfile.get('isDirty')) {
+                                    location.href = "#/profiles/" + that.get("profile_url");
+                                    location.reload();
+                                }
+                            });
                         }
                         else
                         {

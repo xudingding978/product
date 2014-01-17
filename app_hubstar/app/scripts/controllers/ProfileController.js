@@ -373,6 +373,34 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setTopicModel: function(model) {
         this.set('categorys', null);
         this.set('categorys', model);
+        var that = this;
+        model.addObserver('isLoaded', function() {
+            if (model.get('isLoaded')) {
+                //console.log(that.get('categorys'));
+                //console.log(model);
+                for (var i = 0; i < model.get('content').get('length'); i++)
+                {
+//            this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')
+//            });
+   console.log(that.get('model').get('profile_category'));
+if(model.get('content').objectAt(i).data.topic===undefined){
+        
+          if(that.get('model').get('profile_category')===model.get('content').objectAt(i).record._data.topic){
+              
+          }
+           
+   console.log(model.get('content').objectAt(i).record._data.topic);
+          
+}
+else{
+    if(that.get('model').get('profile_category')===model.get('content').objectAt(i).data.topic){}
+      console.log(model.get('content').objectAt(i).data.topic); 
+
+}
+//                          if( this.get('model').get('profile_category')===)
+                }
+            }
+        });
 
     },
     topicSelection: function(data) {

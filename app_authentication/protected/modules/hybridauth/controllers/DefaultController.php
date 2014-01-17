@@ -126,7 +126,7 @@ class DefaultController extends Controller {
 
 
         try {
-            $ch = curl_init("http://api.my.trendsideas.com/users/saveimtos3");
+            $ch = curl_init("http://api.test.beta.trendsideas.com/users/saveimtos3");
 
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
             curl_setopt($ch, CURLOPT_POSTFIELDS, $pass_arr);

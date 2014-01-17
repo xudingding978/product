@@ -87,7 +87,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 && this.validateEmail($('.contactEmail').val())
                 && this.validateEmail($('.admins').val())
                 && this.validateEmail($('.clientEmail').val())
-             //   && this.numberChecking("#numberFormat", $('.contactNumber').val())
+                //   && this.numberChecking("#numberFormat", $('.contactNumber').val())
                 )
 
         {
@@ -397,7 +397,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
             });
 
 
-            newMegaNewModel.get("profile").pushObject(newProfile);
+            //newMegaNewModel.get("profile").pushObject(newProfile);
 
             var that = this;
             requiredBackEnd('meganews', 'createNewProfile', newMegaNewModel, 'POST', function(params) {
@@ -405,16 +405,30 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                     that.get('controllers.applicationFeedback').statusObserver(null, "The profile has been created with the same profile URL, Please change a new profile name, thank you!", "warnning");
                 }
                 else {
-                    newMegaNewModel.store.save();
+                    newMegaNewModel.save();
+                    newMegaNewModel.get('isSaving');
                     newMegaNewModel.addObserver('isDirty', function() {
                         if (!newMegaNewModel.get('isDirty')) {
-                            //that.transitionToRoute('profile', newProfile);
-                            location.href = "#/profiles/" + that.get("profile_url");
-                            location.reload();
-                        } else {
+                            newProfile.save();
+                        }
+                        else
+                        {
+                            console.log("sssssssssssssssss");
                         }
 
                     });
+
+
+//                    newMegaNewModel.addObserver('isDirty', function() {
+//                        if (!newMegaNewModel.get('isDirty')) {
+//                            newProfile.store.save();
+//                            //that.transitionToRoute('profile', newProfile);
+//                            //location.href = "#/profiles/" + that.get("profile_url");
+//                            //location.reload();
+//                        } else {
+//                        }
+//
+//                    });
 
                 }
             });

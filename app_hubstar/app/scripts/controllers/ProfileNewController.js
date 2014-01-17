@@ -413,7 +413,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                         }
                         else
                         {
-                            console.log("sssssssssssssssss");
+                            //console.log("sssssssssssssssss");
                         }
 
                     });

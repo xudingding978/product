@@ -175,7 +175,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         mega.then(function() {
             if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
             {
-                mega.set("view_count", 1);
+                    mega.set("view_count", 1);
             }
             else
             {

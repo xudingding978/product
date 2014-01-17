@@ -1571,7 +1571,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     this.set('show_keyword_id', this.get('keywords_array').objectAt(this.get('dragTargetIndex')).get('keyword_id'));
                 }
             } else {
-                this.get('controllers.applicationFeedback').statusObserver(null, "This keyword has already been added toyour display list.", "warnning");
+                this.get('controllers.applicationFeedback').statusObserver(null, "This keyword has already been added to your display list.", "warnning");
             }
         }
     },

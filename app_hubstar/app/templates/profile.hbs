@@ -35,16 +35,18 @@
 
                             <div>
                                 {{#if controller.editing}}
-                                <div style="display: inline-block; width: 350px;">
+                                <div style="margin-bottom: 10px;">
+                                    <div style="display: inline-block; width: 350px;">
 
-                                    {{input type="text" class="insert-contactdetails" value=profile_name}}
-                                </div>
-                                <div style="display: inline-block;vertical-align: bottom; margin-left:20px">
-                                    <div class="new-btn blue-btn"{{action yes controller.profileName}}><i class="icon-ok icon-white"></i></div>
-                                    <div class="new-btn"{{action no controller.profileName}}><i class="icon-remove icon-white"></i></div>
+                                        {{input type="text" class="insert-profile-name" value=profile_name}}
+                                    </div>
+                                    <div style="display: inline-block;vertical-align: bottom; margin-left:20px">
+                                        <div class="new-btn blue-btn"{{action yes controller.profileName}}><i class="icon-ok icon-white"></i></div>
+                                        <div class="new-btn"{{action no controller.profileName}}><i class="icon-remove icon-white"></i></div>
+                                    </div>
                                 </div>
                                 {{else}}
-                                <div data-step="1" data-intro="Rating and review the profile!" data-position='top' style="display: inline-block; color: white; max-width: 500px; overflow: hidden; font-size: 28px; margin-bottom: 15px; line-height: 32px; vertical-align: middle;">
+                                <div id="profileName" data-step="1" data-intro="Here is Profile Name!" data-position='top' style="display: inline-block; color: white; max-width: 500px; overflow: hidden; font-size: 28px; margin-bottom: 15px; line-height: 32px; vertical-align: middle;">
                                     {{profile_name}}
                                 </div>
                                 {{#if controller.is_authentic_user}}
@@ -126,24 +128,24 @@
 
                             </div>
 
+                            <div data-step="6" data-intro="Who visited your profiles" data-position='right' style="float: left;">
+                                <div class="LatestFollower" >
 
-                            <div class="LatestFollower" data-step="6" data-intro="Who visited your profiles" data-position='right'>
+                                    {{#each contentFollowerPhoto}}                                             
+                                    <a class='radius-circle' href="#/users/{{unbound this.id}}">
+                                        <div class="hint--bottom hint--rounded" data-hint="{{unbound this.name}}">
+                                            <img {{bindAttr src= this.photo_url}}/>
+                                        </div>
+                                    </a>                                             
+                                    {{/each}}
 
-                                {{#each contentFollowerPhoto}}                                             
-                                <a class='radius-circle' href="#/users/{{unbound this.id}}">
-                                    <div class="hint--bottom hint--rounded" data-hint="{{unbound this.name}}">
-                                        <img {{bindAttr src= this.photo_url}}/>
-                                    </div>
-                                </a>                                             
-                                {{/each}}
-
+                                </div>
+                                <div class="Followed-by easing" {{action selectFollower this }}>Followed by {{controller.profileFollowerStatistics}} people.</div>
                             </div>
-                            <div class="Followed-by easing" data-step="7" data-intro="the number of people who visited your profile" data-position='right' {{action selectFollower this }}>Followed by {{controller.profileFollowerStatistics}} people.</div>
-
 
 
                             <!--KEYWORDS SECTION-->
-                            <div class="aside-container" data-step="8" data-intro="Keyword" data-position='right'> 
+                            <div class="aside-container" data-step="7" data-intro="Keyword" data-position='right'> 
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'>
                                     <i class='icon-bookmark' style='margin-right: 10px;'></i>Keywords
                                 </div>
@@ -164,7 +166,7 @@
 
 
 
-                            <div class="aside-container" style="" data-step="9" data-intro="Contact Detail" data-position='right'>
+                            <div class="aside-container" style="" data-step="8" data-intro="Contact Detail" data-position='right'>
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-phone' style='margin-right: 10px;'></i>Contact Detail</div>
                                 {{#unless controller.editingContact}}
                                 {{#if controller.is_authentic_user}}
@@ -287,7 +289,7 @@
 
                             <!--PROFILE HOURS SECTION-->
 
-                            <div class="aside-container" style="border-top: 1px solid #fff;"  data-step="10" data-intro="Hours" data-position='right'>
+                            <div class="aside-container" style="border-top: 1px solid #fff;"  data-step="9" data-intro="Hours" data-position='right'>
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='icon-time' style='margin-right: 10px;'></i>Hours</div>
 
                                 {{#unless controller.editingTime}}
@@ -301,23 +303,23 @@
                                 {{#each controller.hours}}
 
                                 <table id="aside_contact">
-                                    
-                                    <tbody>
-                                        
-                                            {{#unless controller.editingTime}}
-                                            
-                                             <th class="Contact_1child">{{day}}</th>
-                                           
-                                            {{else}}
-                                           <td> {{input type="text" class="inserthours-day" value=day}}</td>
-                                            {{/unless}}
 
-                                            {{#unless controller.editingTime}}
-                                            <th class="Contact_2child">{{time}}</th>
-                                            {{else}}
-                                          <td>  {{input type="text" class="inserthours-time" value=time  }}</td>
-                                            {{/unless}}
-                                       
+                                    <tbody>
+
+                                        {{#unless controller.editingTime}}
+
+                                    <th class="Contact_1child">{{day}}</th>
+
+                                    {{else}}
+                                    <td> {{input type="text" class="inserthours-day" value=day}}</td>
+                                    {{/unless}}
+
+                                    {{#unless controller.editingTime}}
+                                    <th class="Contact_2child">{{time}}</th>
+                                    {{else}}
+                                    <td>  {{input type="text" class="inserthours-time" value=time  }}</td>
+                                    {{/unless}}
+
                                     </tbody>
                                 </table>
 
@@ -334,8 +336,8 @@
 
 
                             <!--PROFILE GOOGLEMAP SECTION--> 
-                            <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;" data-step="11" data-intro="Google map to show the location" data-position='top'>
-                                <div id="google-map"  style="width: 300px;height: 250px; border: 5px solid #fff;cursor: pointer" >
+                            <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;" data-step="10" data-intro="Google map to show the location" data-position='top'>
+                                <div id="google-map"  style="width: 290px;height: 260px; border: 5px solid #fff;cursor: pointer" >
                                     <div class="enlarge-map easing" style=""{{action popUpGoogleMap}}><k class="icon-resize-full"></k></div>
                                     <img  {{bindAttr src="controller.profile_google_map"}} style="width: 100%; height:auto;" {{action popUpGoogleMap}}>
                                 </div>
@@ -347,7 +349,7 @@
 
                 <!--RIGHT COL BEGINS -->
                 <!--PROFILE PAGE MAIN PART-->
-                <td class="right_col" width="70%" valign="top" data-step="12" data-intro="About us ----your can select templete or HTML5 editor to build your About Us" data-position='bottom'>
+                <td class="right_col" width="70%" valign="top" data-step="11" data-intro="About us ----your can select templete or HTML5 editor to build your About Us" data-position='left'>
                     {{view HubStar.ProfileAboutUsEditView}}
                 </td>
 
@@ -1004,10 +1006,10 @@
 
         </div>
     </div>
-    
-      
-{{/unless}}
-  
+
+
+    {{/unless}}
+
 
 
 

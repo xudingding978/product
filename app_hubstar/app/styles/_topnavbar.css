@@ -2,7 +2,7 @@
 .navbar {
     min-width: 1200px;
     height: 75px;
-    line-height: 75px;
+    line-height: 60px;
     overflow: visible;
     color: white;
     margin-bottom: 0px;
@@ -620,7 +620,7 @@ div#login_detail{
     float:right;
     cursor: pointer;
     vertical-align: top;
-    height:80px;
+    height:70px;
 }
 
 
@@ -671,6 +671,11 @@ div#login_detail{
 
 .tour-background{
     background-color: #475476;
-     margin: 5px !important;
-     padding: 5px !important;
+    margin: 5px !important;
+    padding: 5px !important;
+}
+
+
+.profileName{
+    text-shadow: 0 0 10px #555;
 }

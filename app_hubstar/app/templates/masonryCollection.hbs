@@ -17,26 +17,26 @@
         {{/if}} 
         {{#if controller.partnerPage}}
         <ul class="user-stats" id="user-stats">
-            <li id="defualt" ><a {{action selectCollection}}> Collections <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileCollectionStatistics}}</a></li>
-            <li id="video" ><a {{action selectVideo this}}> Videos <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileVideoStatistics}}</a></li>
-            <li id="network""><a {{action selectPartner this}}>Network <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profilePartnerStatistics}}</a></li>
-            <li id="follow"><a {{action selectFollower this}}>Followers <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileFollowerStatistics}}</a></li>  
-            <li id="reviewList"><a {{action selectReview this}}>Reviews <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileReviewStatistics}}</a></li> 
+            <li id="defualt"  data-step="12" data-intro="Here is the profile collections!" data-position='top'><a {{action selectCollection}}> Collections <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileCollectionStatistics}}</a></li>
+            <li id="video"   data-step="13" data-intro="Here is the profile videos!" data-position='top'><a {{action selectVideo this}}> Videos <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileVideoStatistics}}</a></li>
+            <li id="network"  data-step="14" data-intro="Here is the profile partners!" data-position='top'><a {{action selectPartner this}}>Network <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profilePartnerStatistics}}</a></li>
+            <li id="follow"  data-step="15" data-intro="Here is the profile followers!" data-position='top'><a {{action selectFollower this}}>Followers <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileFollowerStatistics}}</a></li>  
+            <li id="reviewList"  data-step="16" data-intro="Here is the profile review informations!" data-position='top'><a {{action selectReview this}}>Reviews <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileReviewStatistics}}</a></li> 
         </ul>
         {{/if}}
 
         {{#if controller.userTage}}
         <ul class="user-stats" id="user-stats">
-            <li id="defualt" ><a {{action selectCollection}}> Collections<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userCollectionStatistics}}</a></li>
-            <li id ="ufollowing"><a {{action selectFollowing this}}> Following<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowingStatistics}}</a></li>
-            <li id ="ufollower"><a {{action selectFollower this}}> Followers<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowerStatistics}}</a></li>
+            <li id="defualt" data-step="7" data-intro="Here is your collecions which you can collect the pictures you like!" data-position='top'><a {{action selectCollection}}> Collections<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userCollectionStatistics}}</a></li>
+            <li id ="ufollowing"data-step="8" data-intro="Here is your following profiles and users!" data-position='top'><a {{action selectFollowing this}}> Following<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowingStatistics}}</a></li>
+            <li id ="ufollower" data-step="9" data-intro="Here is the other people who following you!" data-position='top'><a {{action selectFollower this}}> Followers<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.userFollowerStatistics}}</a></li>
             {{#if controller.isUserSelf}}
-            <li id ="message"><a {{action selectMessage this}}> Messages<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp;</span></a></li>
+            <li id ="message" data-step="10" data-intro="Here is your message board!" data-position='top'><a {{action selectMessage this}}> Messages<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp;</span></a></li>
 
 
             {{/if}}
 
-            <li id ="post"><a {{action selectPost this}}> Posts<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp;</span></a></li>
+            <li id ="post" data-step="11" data-intro="Here is your post!" data-position='top'><a {{action selectPost this}}> Posts<span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp;</span></a></li>
 
 
         </ul>

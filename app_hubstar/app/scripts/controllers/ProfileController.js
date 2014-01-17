@@ -307,6 +307,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('editingAbout', false);
         this.set('editing', false);
         this.set('editingTime', false);
+        if (this.get('model').get('show_template') !== true && this.get('model').get('show_template') !== false) {
+            if (this.get('isAboutUsObjectExist')) {
+                this.get('model').set('show_template', true);
+            } else {
+                this.get('model').set('show_template', false);
+            }
+        }
     },
     setAboutUsObject: function() {
         if (this.get('model').get('about_us') !== null && this.get('model').get('about_us') !== 'undefined' && this.get('model').get('about_us').get('length') > 0) {
@@ -535,19 +542,16 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     selectAboutVersion: function() {
-        if (this.get('isAboutUsObjectExist')) {
-            this.selectNewAbout();
-        } else {
             var message = "Choose the <b>Template editor</b> to easily modify this section using the default About Us template. <br>Choose the <b>HTML5 editor</b> for more advanced editing options. <br>Please note: <br>- If you choose the <b>Template editor</b> after adding content to this section using the <b>HTML5 editor</b>, you will need to re-enter this content. <br>- Once changes made with the <b>Template editor</b> have been saved, you will no longer be able to access the <b>HTML5 editor</b>.";
             this.set("message", message);
             this.set('select_one', 'HTML5 editor');
             this.set('select_two', 'Template editor');
-            this.set('makeSelection', true);
-        }
+            this.set('makeSelection', true);        
     },
     selectOldAbout: function() {
         this.set('makeSelection', false);
         this.set('isAboutUsObjectExist', false);
+        this.get('model').set('show_template', false);
         this.set('editingAbout', !this.get('editingAbout'));
     },
     selectNewAbout: function() {
@@ -582,6 +586,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.set('makeSelection', false);
         this.set('isAboutUsObjectExist', true);
+        this.get('model').set('show_template', true);
         this.set('editingAbout', !this.get('editingAbout'));
     },
     yesAbout: function(checkingInfo) {
@@ -590,11 +595,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
             this.set('editingAbout', !this.get('editingAbout'));
         }
-        if (this.get('isAboutUsObjectExist')) {
+        if (this.get('model').get('show_template')) {
             if (this.get('model').get('about_us') === null || this.get('model').get('about_us') === 'undefined' || this.get('model').get('about_us').get('length') === 0) {
                 this.get('model').get('about_us').pushObject(this.get('about_us').objectAt(0));
             }
             this.get('about_us').objectAt(0).save();
+            this.get('model').store.save();
         } else {
             this.saveUpdateAboutUs();
         }
@@ -981,6 +987,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
         var textarea = document.getElementById("wysihtml5-editor");
         update_About_record.set("profile_about_us", textarea.value);
+        update_About_record.set("show_template", this.get('model').get('show_template'));
         this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
         update_About_record.store.save();
     },

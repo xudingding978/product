@@ -380,7 +380,7 @@
                 <li class="easing" {{action changeSize}}><a href="#tab7" data-toggle="tab">Social Link</a></li>
                 {{#if controller.isAdmin}}
                 <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>                   
-                <li class="easing" {{action changeSize}}><a href="#tab5" data-toggle="tab">Keywords Settings</a></li>
+                <li class="easing" {{action changeSize}}><a href="#tab5" data-toggle="tab">Keyword Settings</a></li>
                 {{/if}}
             </ul>
         </div>
@@ -845,10 +845,12 @@
                 <div style="font-size: 15px; font-weight: bold;color: #555; text-align: center;margin: 5px auto 20px;">You have {{keyword_left}} keywords left out of  ({{keyword_num}}).</div>
                 {{#view HubStar.KeywordDropTargetView}}
                 <div style="width: 700px; min-height: 100px; background-color: #f3f3f3; margin: 10px auto;padding: 5px 8px;position: relative;">
-                    <div style="font-size: 13px; font-weight: bold;color: #aaa;position: absolute;bottom: 5px;text-align: center;width: 684px;">You can display up to 10 keywords at a time on your business profile. <br/>Drag and drop keywords from the area below.</div>
+                    
                     {{#each controller.show_keyword_array}}                    
                     <div class='hashtags' style="margin: 2px 3px;">{{keyword_name}}{{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteKeywords keyword_id "show"}}>x</i>{{/if}}</div>                    
-                    {{/each}}                      
+                    {{/each}}    
+                    
+                    <div style="font-size: 13px; color: #aaa;position: relative;margin: 10px 0 5px;text-align: center;width: 684px;">You can display up to 10 keywords at a time on your business profile. <br/>Drag and drop keywords from the area below.</div>
                 </div>
                 {{/view}}
                 <div style="width: 700px; border: 1px solid #ddd;margin: 0 auto;border-radius: 3px;">

@@ -148,23 +148,6 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_video_num'] = $newRecord['profile_video_num'];
             $oldRecord['keywords'] = $newRecord['profile_keywords'];
             $oldRecord['profile'][0]['profile_keywords_num'] = $newRecord['profile_keywords_num'];
-
-            if (!isset($oldRecord['view_count'])) {
-                $oldRecord['view_count'] = 1;
-            } else {
-                $oldRecord['view_count'] = $newRecord['view_count'];
-            }
-            if (!isset($oldRecord['accessed'])) {
-                $oldRecord["accessed"] = 1;
-            } else {
-                $oldRecord["accessed"] = date_timestamp_get(new DateTime());
-            }
-            if (!isset($oldRecord['share_count'])) {
-                $oldRecord['share_count'] = 0;
-            } else {
-                $oldRecord['share_count'] = $newRecord['share_count'];
-            }
-
             $oldRecord['keyword_num'] = $newRecord['profile_keywords_num'];
             $oldRecord['profile'][0]['title_modify_time'] = $newRecord['title_modify_time'];
 

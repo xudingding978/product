@@ -175,7 +175,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         mega.then(function() {
             if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
             {
-                mega.set("view_count", 1);
+                    mega.set("view_count", 1);
             }
             else
             {
@@ -980,9 +980,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     saveUpdateAboutUs: function() {
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
         var textarea = document.getElementById("wysihtml5-editor");
-        console.log(textarea.value);
         update_About_record.set("profile_about_us", textarea.value);
-        console.log(update_About_record.get("profile_about_us"));
         this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
         update_About_record.store.save();
     },

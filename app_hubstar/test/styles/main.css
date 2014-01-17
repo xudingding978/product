@@ -7831,6 +7831,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     margin-left: 20px;
 }
 
+.insert-profile-name{font-size: 15px;}
+
 .Contact_2child{
     display: block;
     width: 170px;
@@ -9562,7 +9564,7 @@ div.album-description-bg{
     vertical-align: middle;
     display: inline-block;
     min-width: 170px;
-    width: 60%;
+    width: 380px;
 }
 
 .poster-name{
@@ -10788,7 +10790,6 @@ div#appfeedback .fresh-message > k.icon-remove{
 {
     position:relative;
     margin:-160px 17.5% 0 17.5%;
-    float:left;
     width:65%;
     padding:0 5px;
 }
@@ -11044,7 +11045,8 @@ textarea.add-interests{
 }
 
 .Client-Keywords-tags li{
-    float:left;
+    display: inline-block;
+    vertical-align: top;
     height:30px;
     line-height:30px;
     position:relative;
@@ -11708,7 +11710,7 @@ border-radius: 2px;
 .navbar {
     min-width: 1200px;
     height: 75px;
-    line-height: 75px;
+    line-height: 60px;
     overflow: visible;
     color: white;
     margin-bottom: 0px;
@@ -12322,10 +12324,11 @@ div#forgot-password-container{
 /* Clint Lewis's style's 29/10/13 */
 
 div#login_detail{
-    width:35px;
+    width:55px;
     float:right;
     cursor: pointer;
     vertical-align: top;
+    height:70px;
 }
 
 
@@ -12369,6 +12372,21 @@ div#login_detail{
 
 
 .user-face-size{width: 45px; height: 45px;}
+
+
+/*TOUR*/
+
+
+.tour-background{
+    background-color: #475476;
+    margin: 5px !important;
+    padding: 5px !important;
+}
+
+
+.profileName{
+    text-shadow: 0 0 10px #555;
+}
 
 * {
     box-sizing: border-box;

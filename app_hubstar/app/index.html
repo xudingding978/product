@@ -12,7 +12,7 @@
         <meta property="og:url" content="http://my.trendsideas.com" />
         <title>myTrends</title>
         <link rel="shortcut icon" href="/images/favicon.ico" />
-       <!-- build:css styles/main.css -->
+        <!-- build:css styles/main.css -->
         <link rel="stylesheet" href="/styles/masonry.css">  
         <link rel="stylesheet" href="/styles/bootstrap.css">
         <link rel="stylesheet" href="/styles/font-awesome.min.css">   
@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="/styles/views.css">        
         <link rel="stylesheet" href="/styles/profile-css.css">   
         <link rel="stylesheet" href="/styles/mobile.css">
+         <link rel="stylesheet" href="/styles/introjs.css">
         <link rel="stylesheet" type="text/css" href="/styles/customstyle.css" /> 
         <link media="screen, projection" rel="stylesheet" type="text/css" href="/styles/_topnavbar.css"/>
         <link media="screen, projection" rel="stylesheet" type="text/css" href="/styles/_footer.css"/>
@@ -30,14 +31,13 @@
         <link rel="stylesheet" href="bower_components/wysihtml5/css/stylesheet.css">
         <link rel="stylesheet" href="bower_components/wysihtml5/css/editor.css">  
         <link rel="stylesheet" href="bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.css" type="text/css" />  
-        <link rel="stylesheet" href="bower_components/intro/introjs.css">
         <!-- endbuild -->  
-        
+
     </head>
     <body id="body_id" >
         <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
         <!-- build:js scripts/components.js -->
-         <script src="bower_components/modernizr/modernizr.js"></script>
+        <script src="bower_components/modernizr/modernizr.js"></script>
         <script src="bower_components/javascriptHelper/browserdetecter.js"></script>
         <script src="bower_components/jquery/jquery.js"></script>
         <script src="bower_components/handlebars/handlebars-v1.2.1.js"></script>
@@ -56,8 +56,8 @@
         <script src="bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="bower_components/jquery-scrollto/lib/jquery-scrollto.js"></script>
         <script src="bower_components/dfp.js" ></script>
-         <script src="bower_components/countries.js" ></script>
-         <script src="bower_components/intro/intro.js" ></script>
+        <script src="bower_components/countries.js" ></script>
+        <script src="bower_components/intro/intro.js" ></script>
         <!-- endbuild -->
         <!-- build:js(.tmp) scripts/templates.js -->
 
@@ -82,19 +82,26 @@
             })();
         </script>
         <noscript>
-            <h1>
-                Is seems that your browser has disabled JavaScript or does not support JavaScript! Please make sure you have enabled JavaScript or upgrade your browser.
-            </h1>
+        <h1>
+            Is seems that your browser has disabled JavaScript or does not support JavaScript! Please make sure you have enabled JavaScript or upgrade your browser.
+        </h1>
         </noscript>
-        
-    <script type="text/javascript">
-            // implement gosquared
-            !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-              arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-              d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-              insertBefore(d,q)}(window,document,'script','_gs');
 
-              _gs('GSN-795556-O');
+        <script type="text/javascript">
+            // implement gosquared
+            !function(g, s, q, r, d) {
+                r = g[r] = g[r] || function() {
+                    (r.q = r.q || []).push(
+                            arguments)
+                };
+                d = s.createElement(q);
+                q = s.getElementsByTagName(q)[0];
+                d.src = '//d1l6p2sc9645hc.cloudfront.net/tracker.js';
+                q.parentNode.
+                        insertBefore(d, q)
+            }(window, document, 'script', '_gs');
+
+            _gs('GSN-795556-O');
 
             //facebook
             window.fbAsyncInit = function() {

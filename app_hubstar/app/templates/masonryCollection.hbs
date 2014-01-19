@@ -16,10 +16,10 @@
                 {{view HubStar.SearchRequireTextFieldView valueBinding="partnerSearchString"  id="search_business" placeholder="Search for Partners" class="no-effect" }}
             </div>
             <div class="hover-opacity" style="line-height: 34px;   float: right; font-size: 13px;  margin: 0 15px 0 0;" {{action partnerSearch}}>
-                 <i class="icon-search"></i>
+                 <i class="fa fa-search"></i>
             </div>
         </div>
-        <div class="clear-all hover-opacity" style="" class="hover-opacity"{{action partnerSearchReset this}}><i class="icon-remove" style="color: #fff"></i></div>
+        <div class="clear-all hover-opacity" style="" class="hover-opacity"{{action partnerSearchReset this}}><i class="fa fa-times" style="color: #fff"></i></div>
         {{/if}} 
         {{#if controller.partnerPage}}
         <ul class="user-stats" id="user-stats">

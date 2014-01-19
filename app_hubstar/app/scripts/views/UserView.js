@@ -68,7 +68,7 @@ HubStar.UserView = Ember.View.extend({
     },
     showInterestsUp: function() {
         
-        if ($('#interest_btn').hasClass('icon-double-angle-up') && this.get('controller').get('interestsActive') === false) {
+        if ($('#interest_btn').hasClass('fa-angle-double-up') && this.get('controller').get('interestsActive') === false) {
            
             this.get('controller').set('followDisplay', false);
             $('#show_interest').animate({top: 55, height: 445}, 400);
@@ -95,15 +95,15 @@ HubStar.UserView = Ember.View.extend({
             $('#profile-picture').delay(200).animate({top: -2.5}, 200);
             // Slide down animation.
 
-            $('#interest_btn').removeClass('icon-double-angle-up');
-            $('#interest_btn').addClass('icon-double-angle-down');
+            $('#interest_btn').removeClass('fa-angle-double-up');
+            $('#interest_btn').addClass('fa-angle-double-down');
             // Changes the active state position of the slide up/down arrow.
 
         }// Slide up (open) no prior set parameters/coditions
 
 
 
-        if ($('#interest_btn').hasClass('icon-double-angle-down') && this.get('controller').get('interestsActive') === false) {
+        if ($('#interest_btn').hasClass('fa-angle-double-down') && this.get('controller').get('interestsActive') === false) {
             
             this.get('controller').set('followDisplay', false);
             this.get('controller').set('interestsActive', true);
@@ -116,8 +116,8 @@ HubStar.UserView = Ember.View.extend({
             }, 200);
             // Adds required class styles prior to slide down animation.
 
-            $('#interest_btn').removeClass('icon-double-angle-up');
-            $('#interest_btn').addClass('icon-double-angle-down');
+            $('#interest_btn').removeClass('fa-angle-double-up');
+            $('#interest_btn').addClass('fa-angle-double-down');
             // Changes the active state position of the slide up/down arrow.
 
         }// Displays the full sized edit box, when interest's box is already at full size
@@ -133,8 +133,8 @@ HubStar.UserView = Ember.View.extend({
             });
             // Main slide animation (interest div)
 
-            $('#interest_btn').addClass('icon-double-angle-up');
-            $('#interest_btn').removeClass('icon-double-angle-down');
+            $('#interest_btn').addClass('fa-angle-double-up');
+            $('#interest_btn').removeClass('fa-angle-double-down');
             // Changes the active state position of the slide up/down arrow.
 
             setTimeout(function() {
@@ -150,7 +150,7 @@ HubStar.UserView = Ember.View.extend({
     showInterests: function() {
        
         this.get('controller').set('followDisplay', !this.get("controller").get("followDisplay"));
-        if ($('#interest_btn').hasClass('icon-double-angle-up')) {
+        if ($('#interest_btn').hasClass('fa-angle-double-up')) {
             this.get('controller').set('followDisplay', false);
             $('#show_interest').animate({top: 55, height: 445}, 400);
             // Main slide animation (interest div)
@@ -172,8 +172,8 @@ HubStar.UserView = Ember.View.extend({
             $('#profile-picture').delay(200).animate({top: -2.5}, 200);
             // Slide down animation.
 
-            $('#interest_btn').removeClass('icon-double-angle-up');
-            $('#interest_btn').addClass('icon-double-angle-down');
+            $('#interest_btn').removeClass('fa-angle-double-up');
+            $('#interest_btn').addClass('fa-angle-double-down');
             // Changes the active state position of the slide up/down arrow.
 
         }// Slide up (open)
@@ -184,8 +184,8 @@ HubStar.UserView = Ember.View.extend({
             });
             // Main slide animation (interest div)
 
-            $('#interest_btn').addClass('icon-double-angle-up');
-            $('#interest_btn').removeClass('icon-double-angle-down');
+            $('#interest_btn').addClass('fa-angle-double-up');
+            $('#interest_btn').removeClass('fa-angle-double-down');
             // Changes the active state position of the slide up/down arrow.
 
             setTimeout(function() {

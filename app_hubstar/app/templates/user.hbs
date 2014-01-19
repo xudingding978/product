@@ -5,7 +5,7 @@
             <div class="user-profilepic-container" id="profile-picture"> 
                 {{#if controller.is_authentic_user}}
                 <div id="change_profile" class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture" {{action userPhotoEditButton "User Picture"}}>
-                     <k class="icon-edit"></k>         
+                     <i class="fa fa-pencil-square-o"></i>         
                 </div>  
 
                 {{/if}}
@@ -19,18 +19,18 @@
                 {{else}}
                     {{#if controller.follow_status}}
                         {{#if controller.following_status}}
-                            <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='icon-exchange' >&nbsp; </i> Following</div>
+                            <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='fa fa-exchange' >&nbsp; </i> Following</div>
                         {{else}}
-                            <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='icon-circle-blank' >&nbsp; </i> Following</div>
+                            <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='fa fa-circle-o' >&nbsp; </i> Following</div>
                         {{/if}}
                     {{else}}
                         {{#if controller.following_status}}
-                            <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='icon-ok' >&nbsp; </i> Follow</div>
+                            <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='fa fa-check' >&nbsp; </i> Follow</div>
                         {{else}}
-                            <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='icon-plus' >&nbsp; </i> Follow</div>
+                            <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='fa fa-plus' >&nbsp; </i> Follow</div>
                         {{/if}}
                     {{/if}}
-                    <div class="new-btn blue-btn" {{action talkToPeople}}><k class="icon-envelope" ></k></div>
+                    <div class="new-btn blue-btn" {{action talkToPeople}}><i class="fa fa-envelope" ></i></div>
                 {{/if}}           
             </div>
             {{/if}}
@@ -46,10 +46,10 @@
                     {{#if controller.is_authentic_user}}
 
                     <div class="edit-btn hint--rounded hint--bottom" style="height: 20px;line-height: 20px;margin:0;" data-hint="Edit Interest" {{action toggleEditing controller.interests controller.interest}}>
-                         <i class="icon-plus edit-btn" style="font-size:13px;margin:0;padding:9px 10px;"  {{action showInterestsUp  target="view" on="click"}}></i>
+                         <i class="fa fa-plus edit-btn" style="font-size:13px;margin:0;padding:9px 10px;"  {{action showInterestsUp  target="view" on="click"}}></i>
                     </div>
                     {{/if}}
-                    <k id="interest_btn" class="icon-double-angle-up unvisible"  style=" float: right;padding: 7px;" {{action showInterests target="view" on="click"}}></k>
+                    <i id="interest_btn" class="fa fa-angle-double-up unvisible"  style=" float: right;padding: 7px;" {{action showInterests target="view" on="click"}}></i>
 
                 </div>
 
@@ -63,8 +63,8 @@
                         Do not use plural comma together or left a comma at the end of string, the right example is "Kitchen,Bathroom,Roof,Entrance"
                     </div>
                     <div style="text-align: center;right: 15px;position: relative;">
-                        <div class="new-btn" {{action no controller.interest}}><i style="position:absolute;top:0;left:0;width:33px;height:26px;line-height:26px;text-align:center;" class="icon-remove" {{action showInterestsUp target="view" on="click"}}></i></div>
-                        <div class="new-btn blue-btn" {{action yes controller.interest}}><i style="position:absolute;top:0;left:0;width:33px;height:26px;line-height:26px;text-align:center;" class="icon-ok icon-white" {{action showInterestsUp target="view" on="click"}}></i></div>
+                        <div class="new-btn" {{action no controller.interest}}><i style="position:absolute;top:0;left:0;width:33px;height:26px;line-height:26px;text-align:center;" class="fa fa-times" {{action showInterestsUp target="view" on="click"}}></i></div>
+                        <div class="new-btn blue-btn" {{action yes controller.interest}}><i style="position:absolute;top:0;left:0;width:33px;height:26px;line-height:26px;text-align:center;" class="fa fa-check fa fa-white" {{action showInterestsUp target="view" on="click"}}></i></div>
                     </div>
 
 
@@ -100,7 +100,7 @@
                 {{#if controller.is_authentic_user}}
                 <div  id="flip-front" class='blue-btn new-btn hint--left hint--rounded edit-dashboard-btn' style="display: block; margin: 10px;position: absolute;top: 0;right: 0;" data-hint="Dashboard"{{action userDashboardButton "User Cover"}}>  
 
-                      <i class="icon-cogs" ></i>
+                      <i class="fa fa-cogs" ></i>
                 </div>
                 {{/if}}
                 <div style="font-size: 26px;font-weight: bold; line-height: 30px;  color: white;position: absolute;top: 245px;margin:0 30px;text-shadow: 0 0 10px #777;">{{display_name}}</div>
@@ -115,7 +115,7 @@
 
 
                     <p style='margin-bottom: 5px;display: inline-block; font-size: 18px;padding:0'>
-                        <i class='icon-user' style='margin-right: 10px;display: inline-block;'></i>About me
+                        <i class='fa fa-user' style='margin-right: 10px;display: inline-block;'></i>About me
                     </p>
 
                     {{#if controller.editingAbout}}
@@ -124,15 +124,15 @@
                     </div>
 
                     <div style="right: 40px;bottom: -49px;position: absolute;">
-                        <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="icon-ok icon-white"></i></div>
-                        <div class="new-btn" {{action no controller.aboutMe}}><i class="icon-remove"></i></div>
+                        <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="fa fa-check fa fa-white"></i></div>
+                        <div class="new-btn" {{action no controller.aboutMe}}><i class="fa fa-times"></i></div>
                     </div>
                     {{else}}
 
 
                     {{#if controller.is_authentic_user}}
                     <div class="edit-btn hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing controller.about_me controller.aboutMe}}>
-                         <i class="icon-edit"></i>
+                         <i class="fa fa-pencil-square-o"></i>
                     </div>
                     {{/if}}
 
@@ -147,37 +147,37 @@
             <div style="margin: 10px 30px; width:600px; height: 40px; position:relative; overflow: hidden;">
                 <ul class="locationandlinks">
                     <li>
-                        <span class="locationIcon"><k class="icon-map-marker"></k></span>
+                        <span class="locationIcon"><i class="fa fa-map-marker"></i></span>
                         {{location}} 
                     </li>
                     {{#if facebook}}
                     <li class="location_li">
-                        <a href="#" target="_blank" {{action socialLink 'facebook'}}>&nbsp <k class="icon-facebook"> </k></a>
+                        <a href="#" target="_blank" {{action socialLink 'facebook'}}>&nbsp <i class="fa fa-facebook"> </i></a>
                     </li>
                     {{/if}}
                     {{#if twitter}}
                     <li class="location_li">
-                        <a href="#" target="_blank" {{action socialLink 'twitter'}}>&nbsp <k class="icon-twitter"> </k></a>
+                        <a href="#" target="_blank" {{action socialLink 'twitter'}}>&nbsp <i class="fa fa-twitter"> </i></a>
                     </li>
                     {{/if}}
                     {{#if googleplus}}
                     <li class="location_li">
-                        <a href="#" target="_blank"{{action socialLink 'googleplus'}}>&nbsp <k class="icon-google-plus"> </k></a>
+                        <a href="#" target="_blank"{{action socialLink 'googleplus'}}>&nbsp <i class="fa fa-google-plus"> </i></a>
                     </li>
                     {{/if}}
                     {{#if pinterest}}
                     <li class="location_li">
-                        <a href="#" target="_blank" {{action socialLink 'pinterest'}}>&nbsp <k class="icon-pinterest"> </k></a>
+                        <a href="#" target="_blank" {{action socialLink 'pinterest'}}>&nbsp <i class="fa fa-pinterest"> </i></a>
                     </li>
                     {{/if}}
                     {{#if linkedin}}
                     <li class="location_li">
-                        <a href="#" target="_blank"{{action socialLink 'linkedin'}}>&nbsp <k class="icon-linkedin"> </k></a>
+                        <a href="#" target="_blank"{{action socialLink 'linkedin'}}>&nbsp <i class="fa fa-linkedin"> </i></a>
                     </li>
                     {{/if}}
                     {{#if youtube}}
                     <li class="location_li">
-                        <a href="#" target="_blank" {{action socialLink 'youtube'}}>&nbsp <k class="icon-youtube-play"> </k></a>
+                        <a href="#" target="_blank" {{action socialLink 'youtube'}}>&nbsp <i class="fa fa-youtube-play"> </i></a>
                     </li>
                     {{/if}}
 

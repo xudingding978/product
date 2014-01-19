@@ -171,7 +171,21 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         return profile;
     },
     setProfile: function(id) {
+        var mega = HubStar.Mega.find(id);
+        mega.then(function() {
+            if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
+            {
+                    mega.set("view_count", 1);
+            }
+            else
+            {
+              mega.set("view_count", mega.get("view_count") + 1);
+            }
+            mega.store.save();
+        });
         var profile = this.getCurrentProfile(id);
+
+
         this.set("model", profile);
         this.set("Id", this.get('model').get('id'));
         this.set("about_me", profile.get('profile_about_us'));
@@ -293,6 +307,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('editingAbout', false);
         this.set('editing', false);
         this.set('editingTime', false);
+        if (this.get('model').get('show_template') !== true && this.get('model').get('show_template') !== false) {
+            if (this.get('isAboutUsObjectExist')) {
+                this.get('model').set('show_template', true);
+            } else {
+                this.get('model').set('show_template', false);
+            }
+        }
     },
     setAboutUsObject: function() {
         if (this.get('model').get('about_us') !== null && this.get('model').get('about_us') !== 'undefined' && this.get('model').get('about_us').get('length') > 0) {
@@ -521,19 +542,16 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     selectAboutVersion: function() {
-        if (this.get('isAboutUsObjectExist')) {
-            this.selectNewAbout();
-        } else {
             var message = "Choose the <b>Template editor</b> to easily modify this section using the default About Us template. <br>Choose the <b>HTML5 editor</b> for more advanced editing options. <br>Please note: <br>- If you choose the <b>Template editor</b> after adding content to this section using the <b>HTML5 editor</b>, you will need to re-enter this content. <br>- Once changes made with the <b>Template editor</b> have been saved, you will no longer be able to access the <b>HTML5 editor</b>.";
             this.set("message", message);
             this.set('select_one', 'HTML5 editor');
             this.set('select_two', 'Template editor');
-            this.set('makeSelection', true);
-        }
+            this.set('makeSelection', true);        
     },
     selectOldAbout: function() {
         this.set('makeSelection', false);
         this.set('isAboutUsObjectExist', false);
+        this.get('model').set('show_template', false);
         this.set('editingAbout', !this.get('editingAbout'));
     },
     selectNewAbout: function() {
@@ -568,6 +586,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.set('makeSelection', false);
         this.set('isAboutUsObjectExist', true);
+        this.get('model').set('show_template', true);
         this.set('editingAbout', !this.get('editingAbout'));
     },
     yesAbout: function(checkingInfo) {
@@ -576,11 +595,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
             this.set('editingAbout', !this.get('editingAbout'));
         }
-        if (this.get('isAboutUsObjectExist')) {
+        if (this.get('model').get('show_template')) {
             if (this.get('model').get('about_us') === null || this.get('model').get('about_us') === 'undefined' || this.get('model').get('about_us').get('length') === 0) {
                 this.get('model').get('about_us').pushObject(this.get('about_us').objectAt(0));
             }
             this.get('about_us').objectAt(0).save();
+            this.get('model').store.save();
         } else {
             this.saveUpdateAboutUs();
         }
@@ -967,6 +987,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var update_About_record = HubStar.Profile.find(this.get('model.id'));
         var textarea = document.getElementById("wysihtml5-editor");
         update_About_record.set("profile_about_us", textarea.value);
+        update_About_record.set("show_template", this.get('model').get('show_template'));
         this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
         update_About_record.store.save();
     },
@@ -1403,6 +1424,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var that = this;
         var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
         var caption = '';
+
         if (this.get('profile_cover_text') !== null)
         {
             caption = this.get('profile_cover_text');
@@ -1424,6 +1446,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         function callback(response) {
             if (response && response.post_id) {
+                var mega = HubStar.Mega.find(that.get('currentUserID'));
+                mega.then(function() {
+                    if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                    {
+                        mega.set("share_count", 0);
+                    }
+                    else
+                    {
+                        mega.set("share_count", mega.get("share_count") + 1);
+                    }
+                    mega.store.save();
+                });
                 that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
             } else {
                 that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
@@ -1457,7 +1491,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
-
+        var mega = HubStar.Mega.find(this.get('currentUserID'));
+        mega.then(function() {
+            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+            {
+                mega.set("share_count", 0);
+            }
+            else
+            {
+                mega.set("share_count", mega.get("share_count") + 1);
+            }
+            mega.store.save();
+        });
         window.open(
                 url,
                 'popupwindow',
@@ -1470,6 +1515,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     tShare: function() {
         var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
         var url = 'https://twitter.com/share?text=' + this.get('profile_name') + '&url=' + encodeURIComponent(currntUrl);
+        var mega = HubStar.Mega.find(this.get('currentUserID'));
+        mega.then(function() {
+            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+            {
+                mega.set("share_count", 0);
+            }
+            else
+            {
+                mega.set("share_count", mega.get("share_count") + 1);
+            }
+            mega.store.save();
+        });
         window.open(
                 url,
                 'popupwindow',
@@ -1483,6 +1540,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.get('profile_pic_url')) +
                 '&description=' + encodeURIComponent(this.get('profile_name'));
+        var mega = HubStar.Mega.find(this.get('currentUserID'));
+        mega.then(function() {
+            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+            {
+                mega.set("share_count", 0);
+            }
+            else
+            {
+                mega.set("share_count", mega.get("share_count") + 1);
+            }
+            mega.store.save();
+        });
         window.open(
                 url,
                 'popupwindow',
@@ -1499,7 +1568,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (this.get('dragTargetIndex') < 0) {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please drag keywords from the keywords list below.", "warnning");
         } else if (this.get('show_keyword_array').get('length') > 9) {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Your can maximum show 10 keywords on the profile.", "warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Your can only display 10 keywords at a time on your business profile.", "warnning");
         } else {
             if (this.get('show_keyword_id').indexOf(this.get('keywords_array').objectAt(this.get('dragTargetIndex')).get('keyword_id')) === -1) {
                 this.get('show_keyword_array').pushObject(this.get('keywords_array').objectAt(this.get('dragTargetIndex')));
@@ -1509,7 +1578,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     this.set('show_keyword_id', this.get('keywords_array').objectAt(this.get('dragTargetIndex')).get('keyword_id'));
                 }
             } else {
-                this.get('controllers.applicationFeedback').statusObserver(null, "This keyword has already been in the show list.", "warnning");
+                this.get('controllers.applicationFeedback').statusObserver(null, "This keyword has already been added to your display list.", "warnning");
             }
         }
     },

@@ -311,6 +311,7 @@ class RefineDataCommand extends Controller_admin {
     }
 
     public function finduncompletenumbers() {
+       
         $check_list = array();
         array_push($check_list, "view_count");
         array_push($check_list, "likes_count");
@@ -318,7 +319,9 @@ class RefineDataCommand extends Controller_admin {
         array_push($check_list, "accessed");
         array_push($check_list, "created");
         array_push($check_list, "boost");
+        array_push($check_list, "share_count");
         $cb = $this->couchBaseConnection('develop');
+        $timestamp=strtotime(date('Y-m-d H:i:s'));
         foreach ($check_list as $sub_task) {
             $query = '{
   "query": {
@@ -328,7 +331,7 @@ class RefineDataCommand extends Controller_admin {
           "must": {
             "queryString": {
               "default_field": "couchbaseDocument.doc.type",
-              "query": "profile"
+              "query": "article"
             }
           }
         }
@@ -340,7 +343,7 @@ class RefineDataCommand extends Controller_admin {
       }
     }
   },
-  "size": "100"
+  "size": "1000"
 }';
             $ch = curl_init("http://es1.hubsrv.com:9200/develop/_search");
 
@@ -353,9 +356,11 @@ class RefineDataCommand extends Controller_admin {
 //            foreach($result as $found){
 //                echo $found['id'];
 //            }
+            curl_close($ch);
             $result_arr = CJSON::decode($result, true);
             $record_arr = $result_arr['hits']['hits'];
             echo $sub_task . " : " . sizeof($record_arr) . "\n";
+            
             foreach ($record_arr as $record) {
 
                 $id = $record['_id'];
@@ -366,9 +371,13 @@ class RefineDataCommand extends Controller_admin {
                     //      $cb->delete($id);
                 } else {
                     if ($sub_task === 'accessed') {
-                        $couchbase_arr['accessed'] = 1389576664;
+                        $couchbase_arr['accessed'] = $timestamp;
                     } else {
-                        $couchbase_arr[$sub_task] = 0;
+                        if(!isset($couchbase_arr[$sub_task]) || $couchbase_arr[$sub_task]==null){
+                            $couchbase_arr[$sub_task] = 0;
+                            
+                        }
+                        
                     }
                 }
                 if ($cb->set($id, CJSON::encode($couchbase_arr))) {

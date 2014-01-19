@@ -36,10 +36,12 @@ class PdfsController extends Controller {
         $client = Aws\S3\S3Client::factory(
                         $arr
         );
+        $pdf = new FPDF( );
+        fwrite ($pdf,$pdf_resource);
         $client->putObject(array(
             'Bucket' => $bucket, //"s3.hubsrv.com"
             'Key' => $url,
-            'Body' => $pdf_resource,
+            'Body' => $pdf,
             'ContentType' => "pdf",
             'ACL' => 'public-read'
         ));

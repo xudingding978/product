@@ -17,7 +17,7 @@
             <div style="float: right;height: 34px;position: relative;">
                 <div class="message-btn easing" style='width: 30px;'{{action cancelReviewReply}}>
                      <div class="message-btn easing" style='width: 30px;'{{action saveReviewReply}}>
-                     <k class='icon-ok'></k>
+                     <i class='fa fa-check'></i>
                     </div>
                 </div>
             </div>
@@ -50,8 +50,8 @@
         </div>
         {{#if model.getUser}}
         <div style="float: right;bottom: 50px;position: relative;left: 15px;font-size: 12px;">
-            <div class="hint--bottom hint--rounded" style="left: 40px;right: initial;" data-hint="Delete" "  {{action removeReviewReply}}><i class="icon-trash"></i></div>                 
-            <div class="hint--bottom hint--rounded" style="left: 40px;right: initial;" data-hint="Edit" {{action editReviewReply}}><i class="icon-pencil"></i></div>
+            <div class="hint--bottom hint--rounded" style="left: 40px;right: initial;" data-hint="Delete" "  {{action removeReviewReply}}><i class="fa fa-trash-o"></i></div>                 
+            <div class="hint--bottom hint--rounded" style="left: 40px;right: initial;" data-hint="Edit" {{action editReviewReply}}><i class="fa fa-pencil"></i></div>
         </div>
         {{/if}}
     </div>
@@ -77,8 +77,8 @@
         </div>
         {{#if model.getUser}}
         <div style="float: left;bottom: 50px;position: relative;left: 35px;font-size: 12px;">
-            <div class="hint--bottom hint--rounded" style="right: 40px;left: initial;" data-hint="Delete" "  {{action removeReviewReply}}><i class="icon-trash"></i></div>                 
-            <div class="hint--bottom hint--rounded" style="right: 40px;left: initial;" data-hint="Edit" {{action editReviewReply}}><i class="icon-pencil"></i></div>
+            <div class="hint--bottom hint--rounded" style="right: 40px;left: initial;" data-hint="Delete" "  {{action removeReviewReply}}><i class="fa fa-trash-o"></i></div>                 
+            <div class="hint--bottom hint--rounded" style="right: 40px;left: initial;" data-hint="Edit" {{action editReviewReply}}><i class="fa fa-pencil"></i></div>
         </div>
         {{/if}}
     </div>

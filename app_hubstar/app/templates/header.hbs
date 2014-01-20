@@ -6,7 +6,9 @@
             <a href="/#" > <img class="logonew" {{action showDiscoveryBar}} style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png"></a>
 
 <!--            <div style="position: relative;display: inline-block;top: 12px;font-weight: normal;font-style: italic;color: white;font-size: 11px;">
-                <span>Beta</span> <span id="lastidentifie">0.3-130</span>
+
+                <span>Beta</span> <span id="lastidentifie">0.3-138</span>
+
             </div>-->
 
         </div>
@@ -22,14 +24,14 @@
 
 
         <div id="search-bar" class="search-bar-ontop" style="display:none">
-            <div id ="navigator" class="Nav-btn easing" style="float: left;" {{action dropdownHeaderNavigator}}><i class="icon-list"></i></div>
+            <div id ="navigator" class="Nav-btn easing" style="float: left;" {{action dropdownHeaderNavigator}}><i class="fa fa-list"></i></div>
             {{#if controller.isHeaderNavigatorDropdown}}
             {{view HubStar.NavigatorView}}
             {{/if}}
             <div class="Search-box easing" style="">
                 {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
                 <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -75px; right: -5px;border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
-                    <i class="icon-search"></i>
+                    <i class="fa fa-search"></i>
                 </div>
             </div>
         </div>
@@ -43,7 +45,7 @@
             {{view HubStar.AfterLoginView}}
         </div>
         <div id="Geo-Filter" class="Geo-Filter easing"  style="margin-right: 50px;font-size: 15px;" {{action dropdown "notification"}}>
-             <i class="icon-bell-alt icon-large"></i>
+             <i class="fa fa-bell fa-lg"></i>
             {{#if isUnReadCountZero}}
             <div style="cursor: pointer;position: absolute;top: 20px;left: 15px;width: auto;padding: 0 5px 0 4px;height: 15px;background-color: red;line-height: 15px;border-radius: 2px;font-size: 11px;font-weight: bold;">{{unReadCount}}</div>
             {{/if}}
@@ -80,7 +82,7 @@
         {{/if}}
 
         <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdown "geoLocation"}}>
-             <i class="icon-angle-down icon-large">&nbsp;</i>
+             <i class="fa fa-angle-down fa-lg">&nbsp;</i>
             <span style="font-weight: bold;font-size: 15px;">{{HubStar.geoLocation}}</span>
         </div>
 

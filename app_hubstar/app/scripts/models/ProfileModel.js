@@ -19,13 +19,14 @@ HubStar.Profile = DS.Model.extend({
     profile_contact_user: DS.attr('string'),
     profile_about_us: DS.attr('string'),
     profile_cover_text: DS.attr('string'),
-    profile_boost: DS.attr('string'),
+    profile_boost: DS.attr('number'),
     profile_name: DS.attr('string'), //
     profile_contact_first_name: DS.attr('string'),
     profile_contact_last_name: DS.attr('string'),
     profile_contact_email: DS.attr('string'),
     profile_keywords: DS.attr('string'),
     profile_keywords_num: DS.attr('number'),
+    profile_video_num: DS.attr('number'),
     profile_package_name: DS.attr('string'),
     profile_regoin: DS.attr('string'),
     profile_country: DS.attr('string'),
@@ -59,7 +60,9 @@ HubStar.Profile = DS.Model.extend({
     reviews: DS.hasMany('HubStar.Review'),
     keywords: DS.hasMany('HubStar.Keyword'),
     show_keyword_id: DS.attr('string'),
-    about_us: DS.hasMany('HubStar.AboutUs')
+    about_us: DS.hasMany('HubStar.AboutUs'),
+    title_modify_time: DS.attr('number'),
+    show_template: DS.attr('boolean')
 //    getTenKeywords: function() {
 //        var tenKeywords =  this.get('keywords').slice(0,10);
 //        return tenKeywords;

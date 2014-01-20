@@ -322,7 +322,7 @@ input{
     opacity: 0.6;
 }
 
-.changeuserprofilepic > k{
+.changeuserprofilepic > i{
     font-size: 35px;
     color: #fff;
     line-height: 180px;
@@ -812,7 +812,8 @@ textarea.add-interests{
 }
 
 .Client-Keywords-tags li{
-    float:left;
+    display: inline-block;
+    vertical-align: top;
     height:30px;
     line-height:30px;
     position:relative;

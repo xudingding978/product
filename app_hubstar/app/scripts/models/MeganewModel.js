@@ -1,11 +1,12 @@
 
-DS.RESTAdapter.map('HubStar.MegaNew', {
-    profile: {embedded: 'always'}
+DS.RESTAdapter.map('HubStar.Meganew', {
+    profile: {embedded: 'always'},
+     keyword: {embedded: 'always'}
 });
 
 HubStar.Meganew = DS.Model.extend({
     accessed: DS.attr('string'),
-    boost: DS.attr('string'),
+    boost: DS.attr('number'),
     categories: DS.attr('string'),
     creator_profile_pic: DS.attr('string'),
     created: DS.attr('string'),
@@ -43,11 +44,14 @@ HubStar.Meganew = DS.Model.extend({
     type: DS.attr('string'),
     updated: DS.attr('string'),
     uri_url: DS.attr('string'),
-    view_count: DS.attr('string'),
+    view_count: DS.attr('number'),
+    share_count: DS.attr('number'),
+    comment_count: DS.attr('number'),
     optional: DS.attr('string'),
     isFollow: DS.attr('boolean'),
     //--------------------------
-    profile: DS.hasMany('HubStar.Profile')
+    profile: DS.hasMany('HubStar.Profile'),
+     keyword: DS.hasMany('HubStar.Keyword')
 
 
 

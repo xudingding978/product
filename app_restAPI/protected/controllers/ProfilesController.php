@@ -113,7 +113,6 @@ class ProfilesController extends Controller {
 
     public function actionUpdate() {
 
-
         try {
             $payloads_arr = CJSON::decode(file_get_contents('php://input'));
             $payload_json = CJSON::encode($payloads_arr['profile'], true);
@@ -130,7 +129,12 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_contact_first_name'] = $newRecord['profile_contact_first_name'];
             $oldRecord['profile'][0]['profile_contact_last_name'] = $newRecord['profile_contact_last_name'];
             $oldRecord['profile'][0]['profile_contact_number'] = $newRecord['profile_contact_number'];
-            $oldRecord['profile'][0]['profile_name'] = $newRecord['profile_name'];
+            if ($oldRecord['profile'][0]['profile_name'] !== $newRecord['profile_name']) {
+                $oldRecord['profile'][0]['profile_name'] = $newRecord['profile_name'];
+                $setProfileName = TRUE;
+            } else {
+                $setProfileName = FALSE;
+            }
             $oldRecord['profile'][0]['profile_category'] = $newRecord['profile_category'];
             $oldRecord['profile'][0]['profile_subcategory'] = $newRecord['profile_subcategory'];
             $oldRecord['profile'][0]['profile_country'] = $newRecord['profile_country'];
@@ -141,18 +145,23 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_is_active'] = $newRecord['profile_is_active'];
             $oldRecord['profile'][0]['profile_is_deleted'] = $newRecord['profile_is_deleted'];
             $oldRecord['profile'][0]['profile_keywords'] = $newRecord['profile_keywords'];
+            $oldRecord['profile'][0]['profile_video_num'] = $newRecord['profile_video_num'];
             $oldRecord['keywords'] = $newRecord['profile_keywords'];
             $oldRecord['profile'][0]['profile_keywords_num'] = $newRecord['profile_keywords_num'];
             $oldRecord['keyword_num'] = $newRecord['profile_keywords_num'];
+            $oldRecord['profile'][0]['title_modify_time'] = $newRecord['title_modify_time'];
+
 
 //            $oldRecord['profile'][0]['keywords'] = $newRecord['keywords'] ;
 //            $oldRecord['keyword'] = $newRecord['keywords'];
             if ($oldRecord['profile'][0]['profile_package_name'] !== $newRecord['profile_package_name']) {
                 $oldRecord['profile'][0]['profile_package_name'] = $newRecord['profile_package_name'];
                 $boost = $this->setBoost($newRecord['profile_package_name']);
+                error_log(var_export($boost, true));
                 $oldRecord['profile'][0]['profile_boost'] = $boost;
-                $oldRecord['boost'] = $boost;
-                $this->setPhotoBoost($boost, $oldRecord['profile'][0]['id']);
+                $setPhotoBoost = TRUE;
+            } else {
+                $setPhotoBoost = FALSE;
             }
             $oldRecord['profile'][0]['profile_partner_ids'] = $newRecord['profile_partner_ids'];
             $oldRecord['profile'][0]['profile_physical_address'] = $newRecord['profile_physical_address'];
@@ -169,9 +178,19 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_youtube_link'] = $newRecord['profile_youtube_link'];
             $oldRecord['profile'][0]['profile_analytics_code'] = $newRecord['profile_analytics_code'];
             $oldRecord['profile'][0]['profile_google_map'] = $newRecord['profile_google_map'];
-
+            
+            $oldRecord['profile'][0]['show_template'] = $newRecord['show_template'];
+            
             $oldRecord['profile'][0]['show_keyword_id'] = $newRecord['show_keyword_id'];
             $cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true));
+            error_log($setProfileName);
+            if ($setProfileName) {
+                $this->setProfileName($newRecord['profile_name'], $oldRecord['profile'][0]['id']);
+            }
+            if ($setPhotoBoost) {
+                $this->setPhotoBoost($oldRecord['profile'][0]['profile_boost'], $oldRecord['profile'][0]['id']);
+            }
+
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
             }
@@ -199,6 +218,29 @@ class ProfilesController extends Controller {
                 $profileOwn = $cb->get($docID);
                 $owner = CJSON::decode($profileOwn, true);
                 $owner['boost'] = $boost;
+
+                if ($cb->set($docID, CJSON::encode($owner))) {
+                    array_unshift($responseArray, $id . ' update succeed');
+                } else {
+                    array_unshift($responseArray, $id . ' delete failed');
+                }
+            }
+        }
+    }
+
+    public function setProfileName($profile_name, $profile_id) {
+        error_log('setProfileName');
+        $response = $this->getProfileReults($profile_id);
+        $responseArray = array();
+        foreach ($response as $hit) {
+            $id = $hit['source']['doc']['id'];
+            $profileId = $hit['source']['doc']['owner_id'];
+            if ($profileId === $profile_id) {
+                $cb = $this->couchBaseConnection();
+                $docID = $this->getDomain() . '/' . $id;
+                $profileOwn = $cb->get($docID);
+                $owner = CJSON::decode($profileOwn, true);
+                $owner['owner_title'] = $profile_name;
 
                 if ($cb->set($docID, CJSON::encode($owner))) {
                     array_unshift($responseArray, $id . ' update succeed');
@@ -250,7 +292,7 @@ class ProfilesController extends Controller {
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
 
-        $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $owner_id);
+        $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $owner_id, $mode);
 
         $cb = $this->couchBaseConnection();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/profiles/' . $owner_id));

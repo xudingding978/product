@@ -59,6 +59,7 @@ HubStar.CommentController = Ember.Controller.extend({
        
         if (localStorage.loginStatus) {
             this.getCommentsById(id);
+
             this.addComment();
         } else {
             HubStar.set('checkLoginStatus', true);

@@ -17,7 +17,7 @@ HubStar.UserController = Ember.Controller.extend({
     followDisplay: true,
     newDesc: '',
     Id: "",
-    more:false,
+    more: false,
     type: "users",
     newTitle: '',
     selectedDesc: "",
@@ -280,11 +280,10 @@ HubStar.UserController = Ember.Controller.extend({
         this.labelBarRefresh();
 
         this.trendsUser();
-$(document).ready(function() {
-                    console.log("34345345");
+        $(document).ready(function() {
             $("#about_us_contentsssssssw").mCustomScrollbar({
                 scrollButtons: {
-                    enable: false, 
+                    enable: false,
                     scrollSpeed: "auto"
                 },
                 advanced: {
@@ -485,9 +484,9 @@ $(document).ready(function() {
     collap: function(checkingInfo) {
         this.set("more", false);
         this.set('about_me', checkingInfo);
-                $("#tom").attr('style', 'display: none');
-         this.saveUpdateInterest();
-            $(".limit_about_us").attr('style', 'display: block');
+        $("#tom").attr('style', 'display: none');
+        this.saveUpdateInterest();
+        $(".limit_about_us").attr('style', 'display: block');
     },
     submit: function()
     {
@@ -741,6 +740,7 @@ $(document).ready(function() {
             {
                 this.set("about_me_limit", true);
                 this.set("about_me_limit_data", this.get("about_me").substring(0, this.get("about_me_limit_num")));
+                this.get('controllers.applicationFeedback').statusObserver(null, "s         The maximum characters can be shown are 600", "warnning");
             }
             else
             {

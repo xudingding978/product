@@ -55,9 +55,9 @@ class User extends CActiveRecord {
 //            array('PWD_HASH', 'compare', 'compareAttribute' => 'repeat_password'),
             
             
-            array('EMAIL_ADDRESS', 'email', 'message' => ""),
-            array('EMAIL_ADDRESS', 'unique', 'message' => ''),
-            array('USER_NAME', 'unique', 'message' => ''),
+            array('EMAIL_ADDRESS', 'email', 'message' => "The email isn't correct"),
+            array('EMAIL_ADDRESS', 'unique', 'message' => 'Email already exists!'),
+            array('USER_NAME', 'unique', 'message' => 'User Name already exists!'),
             array('USER_NAME, EMAIL_ADDRESS', 'length', 'max' => 255, 'message' => ""),
             array('EMAIL_ADDRESS, USER_NAME', 'required', 'message' => ""),
             array('PWD_HASH, repeat_password', "required", 'on' => 'insert', 'message' => ""),

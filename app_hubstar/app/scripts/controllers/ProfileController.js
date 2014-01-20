@@ -555,7 +555,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('editingAbout', !this.get('editingAbout'));
     },
     selectNewAbout: function() {
-        if (!this.get('isAboutUsObjectExist')) {
+        if (this.get('about_us').get('length') < 1) {
             var about_us = HubStar.AboutUs.createRecord({"about_id": this.get('model').get('id'), "about_desc": '', "about_template_id": '1',
                 "about_video": [], "about_image": [], 'about_book': []});
             var about_video = HubStar.AboutVideo.createRecord({"video_id": '1', "video_title": '', "video_desc": '',
@@ -601,6 +601,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
             this.get('about_us').objectAt(0).save();
             this.get('model').store.save();
+            this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
         } else {
             this.saveUpdateAboutUs();
         }

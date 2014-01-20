@@ -61,6 +61,50 @@ class Controller_admin extends CConsoleCommand {
                 $i = 2000;
             }
         }
+        
+        
+
+
+
+
+
+        print_r("Found " . count($data_arr) . " required type in database\n");
+
+        return $data_arr;
+    }
+    
+    
+    
+    
+    
+        public function findAllAccordingOwner($bucket, $owner_id) {
+
+        $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = $bucket;
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"$owner_id\"")
+                ->default_field('couchbaseDocument.doc.owner_id');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        $request->index($index)->type("couchbaseDocument");
+        $data_arr = array();
+        for ($i = 0; $i < 2000; $i++) {
+            $request->from($i * 50)
+                    ->size(50);
+            $request->query($bool);
+            $response = $request->execute();
+            foreach ($response as $hit) {
+                //     echo $hit["score"] . ' - ' . $hit['id'] . "\r\n";
+                array_push($data_arr, $hit['id']);
+                echo $hit['id']."\n";
+            }
+            if (sizeof($response) == 0) {
+                $i = 2000;
+            }
+        }
+        
+        
 
 
 

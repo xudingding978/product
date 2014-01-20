@@ -2,11 +2,11 @@ HubStar.UserView = Ember.View.extend({
     templateName: 'user',
 //       interestsActive:false,
     didInsertElement: function() {
-   
+
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
         $(".navbar").css("box-shadow", "0 0 10px #333");
-    $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
         $(function() {
             $('#masonry_user_container').masonry({
                 itemSelector: '.box',
@@ -21,7 +21,7 @@ HubStar.UserView = Ember.View.extend({
 
         if (user_id === "following")
         {
-             $('#user-stats > li').removeClass('selected-user-stats');
+            $('#user-stats > li').removeClass('selected-user-stats');
             $('#ufollowing').addClass('selected-user-stats');
             $('#user-stats > li').click(function() {
                 $('#user-stats > li').removeClass('selected-user-stats');
@@ -31,7 +31,7 @@ HubStar.UserView = Ember.View.extend({
         else if (user_id === "followers")
         {
 
-          $('#user-stats > li').removeClass('selected-user-stats');
+            $('#user-stats > li').removeClass('selected-user-stats');
             $('#ufollower').addClass('selected-user-stats');
             $('#user-stats > li').click(function() {
                 $('#user-stats > li').removeClass('selected-user-stats');
@@ -39,7 +39,7 @@ HubStar.UserView = Ember.View.extend({
             });
         }
 
-        else if (user_id==="messagecenter") {
+        else if (user_id === "messagecenter") {
             $('#user-stats > li').removeClass('selected-user-stats');
             $('#message').addClass('selected-user-stats');
             $('#user-stats > li').click(function() {
@@ -47,7 +47,7 @@ HubStar.UserView = Ember.View.extend({
                 $(this).addClass('selected-user-stats');
             });
         }
-        else if (user_id==="post") {
+        else if (user_id === "post") {
             $('#user-stats > li').removeClass('selected-user-stats');
             $('#post').addClass('selected-user-stats');
             $('#user-stats > li').click(function() {
@@ -64,12 +64,31 @@ HubStar.UserView = Ember.View.extend({
             });
         }
 
+        $(document).ready(function() {
+                    console.log("34345345");
+            $("#about_us_contentsssssssw").mCustomScrollbar({
+                scrollButtons: {
+                    enable: false, 
+                    scrollSpeed: "auto"
+                },
+                advanced: {
+                    updateOnBrowserResize: true,
+                    updateOnContentResize: true,
+                    autoScrollOnFocus: false,
+                    normalizeMouseWheelDelta: false
+                },
+                autoHideScrollbar: true,
+                mouseWheel: true,
+                theme: "dark-2",
+                set_height: 30
+            });
+        });
 
     },
     showInterestsUp: function() {
-        
+
         if ($('#interest_btn').hasClass('icon-double-angle-up') && this.get('controller').get('interestsActive') === false) {
-           
+
             this.get('controller').set('followDisplay', false);
             $('#show_interest').animate({top: 55, height: 445}, 400);
             // Main slide animation (interest div)
@@ -104,7 +123,7 @@ HubStar.UserView = Ember.View.extend({
 
 
         if ($('#interest_btn').hasClass('icon-double-angle-down') && this.get('controller').get('interestsActive') === false) {
-            
+
             this.get('controller').set('followDisplay', false);
             this.get('controller').set('interestsActive', true);
             setTimeout(function() {
@@ -125,7 +144,7 @@ HubStar.UserView = Ember.View.extend({
 
 
         else {
-           
+
             this.get('controller').set('interestsActive', false);
             this.get('controller').set('followDisplay', true);
             $('#show_interest').animate({top: 298, height: 200}, 400, function() {
@@ -148,7 +167,7 @@ HubStar.UserView = Ember.View.extend({
         }// Slides the edit box back down into normal interest tags
     },
     showInterests: function() {
-       
+
         this.get('controller').set('followDisplay', !this.get("controller").get("followDisplay"));
         if ($('#interest_btn').hasClass('icon-double-angle-up')) {
             this.get('controller').set('followDisplay', false);

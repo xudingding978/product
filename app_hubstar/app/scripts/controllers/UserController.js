@@ -255,8 +255,8 @@ HubStar.UserController = Ember.Controller.extend({
             $('#show_interest').animate({top: 298, height: 150}, 400, function() {
                 $('.interesttags-container').css('height', '100px');
             });
-            $('#interest_btn').addClass('icon-double-angle-up');
-            $('#interest_btn').removeClass('icon-double-angle-down');
+            $('#interest_btn').addClass('fa-angle-double-up');
+            $('#interest_btn').removeClass('fa-angle-double-down');
             setTimeout(function() {
                 $("#profile-picture").removeClass('profile-picture-active');
                 $(".follow-btn").removeClass('follow-btn-active');

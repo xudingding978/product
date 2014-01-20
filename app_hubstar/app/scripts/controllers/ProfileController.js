@@ -410,7 +410,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
     },
     topicSelection: function(data) {
-        console.log(data);
         this.set('subcate', []);
         for (var i = 0; i < data.get('subcate').get('length'); i++)
         {

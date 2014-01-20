@@ -18,13 +18,8 @@
         {{#if controller.partnerPage}}
         <ul class="user-stats" id="user-stats">
             <li id="defualt" ><a {{action selectCollection}}> Collections <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileCollectionStatistics}}</a></li>
-<<<<<<< HEAD
-            <li id="video" ><a {{action selectVideo this}}> Videos <span style="font-size: 12px;display: inline-block;vertical-align: top;"></span></a></li>
-            <li id="pdf" ><a {{action selectPdf this}}> PDF <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span></a></li>
-
-=======
-            <li id="video" ><a {{action selectVideo this}}> Videos <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileVideoStatistics}}</a></li>
->>>>>>> 9afa6aea4ce6167913d314ee5fbaff92dfad068a
+            <li id="video" ><a {{action selectVideo this}}> Videos <span style="font-size: 12px;display: inline-block;vertical-align: top;"></span>{{controller.profileVideoStatistics}}</a></li>
+            <li id="pdf" ><a {{action selectPdf this}}> PDF <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span>0</a></li>
             <li id="network""><a {{action selectPartner this}}>Network <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profilePartnerStatistics}}</a></li>
             <li id="follow"><a {{action selectFollower this}}>Followers <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileFollowerStatistics}}</a></li>  
             <li id="reviewList"><a {{action selectReview this}}>Reviews <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileReviewStatistics}}</a></li> 

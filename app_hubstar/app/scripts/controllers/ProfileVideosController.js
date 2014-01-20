@@ -15,7 +15,7 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
                 for (var i = 0; i < results.get("length"); i++) {
                     var tempmega = results.objectAt(i);
                     that.get("videoesContent").pushObject(tempmega);
-                }
+                }              
                 that.get("controllers.profile").set("profileVideoStatistics", results.get("length"));
                 that.relayout();
             }
@@ -101,6 +101,11 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
                 tempmega.deleteRecord();
                 tempmega.store.save();
                 this.get('videoesContent').removeObject(tempmega);
+                 var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
+                
+                profile.set("profile_video_num",this.get('videoesContent').get("length"));
+               
+                profile.store.save();
                 this.get("controllers.profile").set("profileVideoStatistics", this.get('videoesContent').get("length"));
                 break;
             }

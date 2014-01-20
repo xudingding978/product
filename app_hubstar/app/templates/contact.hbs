@@ -27,7 +27,7 @@
 
                 {{view HubStar.SearchRequireTextFieldView valueBinding="controller.displayName" class="lineuptextbox"}}
                 {{/unless}}
-                <a style="display: inline-block; cursor: pointer;" {{action setEditable "Name"}}>{{editNameStatus}}</a>
+                <a style="display: inline-block; cursor: pointer; color: #427fed;" {{action setEditable "Name"}}>{{editNameStatus}}</a>
             </div>
             <div style="display: block; margin-bottom: 15px;">
                 {{#unless controller.isDisplayEmailEditable}}
@@ -35,7 +35,7 @@
                 {{else}}
                 {{view HubStar.SearchAreaTextFieldView valueBinding="controller.displayEmail" class="lineuptextbox"}}
                 {{/unless}}
-                <a style="display: inline-block;cursor: pointer;" {{action setEditable "Email"}}>{{editEmailStatus}}</a>
+                <a style="display: inline-block;cursor: pointer; color: #427fed;" {{action setEditable "Email"}}>{{editEmailStatus}}</a>
             </div>
         </div>
         <div style="float: right;position: relative; display: inline-block; vertical-align: top;margin: 5px 0;">
@@ -176,7 +176,7 @@
         {{#if controller.secondStepOfContactEmail}}
         <span style="float: left;margin: 15px;position: relative;left: 15px;">
             <div type="button" {{action proviousSendingEmailProcess}}  class="new-btn blue-btn">
-                 <k class='icon-arrow-left'>&nbsp;</k>Previous</div>
+                 <i class='fa fa-arrow-left'>&nbsp;</i>Previous</div>
         </span>
         {{/if}}
         {{#unless controller.firstStepOfContactEmail}}

@@ -27,7 +27,9 @@ HubStar.ProfileRoute = Ember.Route.extend({
         ProfileController.set('contactChecking', false);
         ProfileController.set('collectionTag', true);
         ProfileController.set('partnerTag', false);
-        ProfileController.set('reviewTag', false);
+        ProfileController.set('reviewTag', false);       
+        ProfileController.set('videoTag', false);
+
         /*************************            partner cehcking           ***********8*/
         this.controllerFor('mega').set("from", "profile");
         this.controllerFor('application').set('islogin', true);
@@ -53,17 +55,23 @@ HubStar.ProfileRoute = Ember.Route.extend({
         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
 
         ProfileController.setProfile(model.id);
+//        var address = document.URL;
+//        var urlArray = address.split("#")[1].split("/");
+//        if (urlArray.length < 4)
+//        {
+//            ProfileController.selectCollection();
+//        }
+//        console.log(urlArray.length);
         setTimeout(function() {
-           // $('#masonry_user_container').masonry();            
+            // $('#masonry_user_container').masonry();            
             $('#masonry_user_container').masonry("reload");
             //$('#masonry_user_container').masonry("reloadItems");
         }, 2000);
     },
     model: function(params) {
-        
+
         return HubStar.Profile.find(params.profile_id);
     },
-
     events: {
         transitionToCollectionPhoto: function(collection_id) {
             HubStar.set("scrollCollectionPosition", $(window).scrollTop());

@@ -49,10 +49,11 @@ class RefineDataCommand extends Controller_admin {
             $this->finduncompletenumbers();
         } elseif ($action == "countvideo") {
             $this->setVideoNumber();
-        }elseif($action =="fixaboutus"){
+        } elseif ($action == "fixaboutus") {
             $this->updateUserAbout();
-        } 
-        elseif ($action == "refineArticle") {
+        } elseif ($action == "createforjohn") {
+            $this->createCollectionForJohn();
+        } elseif ($action == "refineArticle") {
 
 
 
@@ -233,6 +234,134 @@ class RefineDataCommand extends Controller_admin {
         }
     }
 
+    public function createCollectionForJohn() {
+        $bucket = "production";
+        $cb_test=$this->couchBaseConnection("temp");
+        $profile_arr = array("new-home-trends-nz", "renovation-trends-nz", "kitchen-trends-nz", "bathroom-trends-nz", "outdoor-living-trends-nz", "apartment-trends-nz", "new-home-trends-au", "renovation-trends-au", "kitchen-trends-au", "bathroom-trends-au", "outdoor-living-trends-au", "apartment-trends-au", "new-home-trends-us", "renovation-trends-us", "kitchen-trends-us", "bathroom-trends-us", "interior-trends-us");
+        echo var_export($profile_arr, true);
+   //     sleep(10);
+        $cb = $this->couchBaseConnection($bucket);
+
+        $john = $cb->get("trendsideas.com/users/21051211514");
+        if ($john != null) {
+            $john_record = CJSON::decode($john);
+            $collections = $john_record["user"][0]['collections'];
+            echo sizeof($collections);
+            $count=0;
+            $article_count=0;
+            $photo_count=0;
+            foreach($collections as $collection){
+                $collection_arr = explode(",", $collection['collection_ids']);
+                foreach($collection_arr as $id){
+                    $count++;
+                      $item_id = "trendsideas.com/" . str_replace(" ", "", $id);
+                    $profile_result = $cb->get($item_id);
+                        if ($profile_result != null) {
+                        $profile_record = CJSON::decode($profile_result);
+                        if($profile_record['type']=="article"){
+                            $article_count++;
+                        }elseif ($profile_record['type']=="photo") {
+                            $photo_count++;
+                        }
+                        }
+                }
+//            foreach ($collections as $collection) {
+//                $collection_title = $collection['title'];
+//                $collection_desc = $collection['desc'];
+//                $collection_cover = $collection['cover'];
+//                $collection_arr = explode(",", $collection['collection_ids']);
+//                foreach ($profile_arr as $profile) {
+//                    $profile_id = "trendsideas.com/profiles/" . $profile;
+//                    $profile_result = $cb->get($profile_id);
+//                    
+//                    if ($profile_result != null) {
+//                        $profile_record = CJSON::decode($profile_result);
+//                        $profile_keywords = $profile_record['keywords'];
+//                        $profile_country = $profile_record['country'];
+//                        
+//                        $profile_owner_profile_pic = $profile_record['owner_profile_pic'];
+//                        $owner_id = $profile_record['owner_id'];
+//
+//                        $owner_title = $profile_record['owner_title'];
+//                        $region = $profile_record['region'];
+//                        $new_collection=array(
+//                            "id"=>$collection_title,
+//                            "title"=>$collection_title,
+//                            "desc"=>$collection_desc,
+//                            "collection_ids"=>"",
+//                            "created_at"=>null,
+//                            "cover"=>$collection_cover,
+//                            "parent_type"=>null,
+//                            "optional"=>$owner_id,
+//                            "type"=> "profile"
+//                        
+//                        );
+//                        if(isset($profile_record['profile'][0]['collections'])){
+//                            
+//                       
+//                        
+//                        array_push($profile_record['profile'][0]['collections'], $new_collection);
+//                         }else{
+//                             $profile_record['profile'][0]['collections']=array();
+//                             array_push($profile_record['profile'][0]['collections'], $new_collection);
+//                         }
+//                        $cb_test->set($profile_id, CJSON::encode($profile_record));
+//
+//                        foreach ($collection_arr as $item) {
+//                            $item_id = "trendsideas.com/" . str_replace(" ", "", $item);
+//                            echo $item_id . "\n";
+//
+//
+//
+//                            $item_result = $cb->get($item_id);
+//                            if ($item_result != null) {
+//                                $item_arr = CJSON::decode($item_result);
+//                                $id=$this->getNewID();
+//                                $new_id="trendsideas.com/".$id;
+//                                $item_arr['id']=$id;
+//                                $item_arr['accessed']=  strtotime(date('Y-m-d H:i:s'));
+//                                $item_arr['country']=$profile_country;
+//                                $item_arr['collection_id']=$collection_title;
+//                                $item_arr['keyword']=$profile_keywords;
+//                                $item_arr['owner_profile_pic']=$profile_owner_profile_pic;
+//                                $item_arr['owner_title']=$owner_title;
+//                                $item_arr['owner_id']=$owner_id;
+//                                $item_arr['region']=$region;
+//                                if(isset($item_arr['article'][0]['id'])){
+//                                    $item_arr['article'][0]['id']=$id;
+//                                }elseif(isset($item_arr['photo'][0]['id'])){
+//                                     $item_arr['photo'][0]['id']=$id;                                    
+//                                }
+//                               if($cb_test->set($new_id, CJSON::encode($item_arr))){
+//                                    echo $new_id. " added to couchbase successful\n";
+//                                }else{
+//                                    echo $new_id. " added to couchbase failed=====================\n";
+//                                }
+//
+//                                
+//                                
+//                                
+//                                
+//                                
+//                                
+//                            } else {
+//                                echo "can not find record in couchbase\n";
+//                            }
+//                        }
+//                    } else {
+//                        echo $profile . "can not find record in couchbase\n";
+//                    }
+//                }
+                //       echo var_export($collection_arr,true);
+            }
+            echo " \n".$count."\n";
+            echo "article count: ".$article_count."\n";
+            echo "photo count: ".$photo_count."\n";
+        } else {
+            echo "Can not find john's profile\n";
+        }
+    }
+
     public function updateUserAbout() {
         $bucket = "production";
         $user_list = $this->findAllAccordingType($bucket, "user");
@@ -247,8 +376,8 @@ class RefineDataCommand extends Controller_admin {
                     if (isset($result_arr['user'][0]['description']) && $result_arr['user'][0]['description'] != null) {
                         $result_arr['user'][0]['about_me'] = $result_arr['user'][0]['description'];
                         echo $user . " about us has been changed to" . $result_arr['user'][0]['description'] . " \n";
-                    }else{
-                        echo $user. " nothing inside description\n";
+                    } else {
+                        echo $user . " nothing inside description\n";
                     }
                 }
 
@@ -311,7 +440,7 @@ class RefineDataCommand extends Controller_admin {
     }
 
     public function finduncompletenumbers() {
-       
+
         $check_list = array();
         array_push($check_list, "view_count");
         array_push($check_list, "likes_count");
@@ -321,7 +450,7 @@ class RefineDataCommand extends Controller_admin {
         array_push($check_list, "boost");
         array_push($check_list, "share_count");
         $cb = $this->couchBaseConnection('develop');
-        $timestamp=strtotime(date('Y-m-d H:i:s'));
+        $timestamp = strtotime(date('Y-m-d H:i:s'));
         foreach ($check_list as $sub_task) {
             $query = '{
   "query": {
@@ -360,7 +489,7 @@ class RefineDataCommand extends Controller_admin {
             $result_arr = CJSON::decode($result, true);
             $record_arr = $result_arr['hits']['hits'];
             echo $sub_task . " : " . sizeof($record_arr) . "\n";
-            
+
             foreach ($record_arr as $record) {
 
                 $id = $record['_id'];
@@ -373,11 +502,9 @@ class RefineDataCommand extends Controller_admin {
                     if ($sub_task === 'accessed') {
                         $couchbase_arr['accessed'] = $timestamp;
                     } else {
-                        if(!isset($couchbase_arr[$sub_task]) || $couchbase_arr[$sub_task]==null){
+                        if (!isset($couchbase_arr[$sub_task]) || $couchbase_arr[$sub_task] == null) {
                             $couchbase_arr[$sub_task] = 0;
-                            
                         }
-                        
                     }
                 }
                 if ($cb->set($id, CJSON::encode($couchbase_arr))) {

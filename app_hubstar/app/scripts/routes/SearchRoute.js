@@ -39,23 +39,23 @@ HubStar.SearchRoute = Ember.Route.extend({
 
 
                 introJs().setOption('doneLabel', 'Finish').start().oncomplete(function() {
-                    var address = document.URL;
-                    var urlName = address.split("#")[1].split("/")[1];
-                    var target = address.split("#")[1].split("/")[2];
-                    if (urlName === "users")
-                    {
-                        window.location.href = '/#/users/' + target;
-                        $(window).scrollTop(0);
-                        
-                    }
-                    else if (urlName === "profiles") {
-                        window.location.href = '/#/profiles/' + target;
-                        $(window).scrollTop(500);
-                    }
-                    else{
+//                    var address = document.URL;
+//                    var urlName = address.split("#")[1].split("/")[1];
+//                    var target = address.split("#")[1].split("/")[2];
+//                    if (urlName === "users")
+//                    {
+//                        window.location.href = '/#/users/' + target;
+//                        $(window).scrollTop(0);
+//                        
+//                    }
+//                    else if (urlName === "profiles") {
+//                        window.location.href = '/#/profiles/' + target;
+//                        $(window).scrollTop(500);
+//                    }
+//                    else{
                     window.location.href = '/#/search';
                     $(window).scrollTop(0);
-                    }
+                //    }
                 });
             };
 

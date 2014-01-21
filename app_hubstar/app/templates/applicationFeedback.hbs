@@ -9,7 +9,7 @@
         <img {{bindAttr src= this.photo_url}}/>
     </div>
     <div class="fresh-message">
-        <i class="fa fa-info-sign"></i>
+        <i class="fresh-message-sign fa fa-info-circle"></i>
         <span class="feed-back">{{controller.status}}</span>
         <i class="fa fa-times" {{action removeButton }}></i>
     </div>
@@ -26,7 +26,7 @@
         <img {{bindAttr src= this.photo_url}}/>
     </div>
     <div class="fresh-message fresh_succeed">
-        <i class="fa fa-check-circle"></i>
+        <i class="fresh-message-sign fa fa-check-circle"></i>
         <span class="feed-back">{{controller.status}}</span>
         <i class="fa fa-times" {{action removeButton }}></i>
     </div>
@@ -40,7 +40,7 @@
         <img {{bindAttr src= this.photo_url}}/>
     </div>
     <div class="fresh-message fresh_failed">
-        <i class="fa fa-times-circle"></i>
+        <i class="fresh-message-sign fa fa-times-circle"></i>
         <span class="feed-back">{{controller.status}}</span>
         <i class="fa fa-times" {{action removeButton }}></i>
     </div>
@@ -55,7 +55,7 @@
         <img {{bindAttr src= this.photo_url}}/>
     </div>
     <div class="fresh-message fresh_warnning">
-        <i class="fa fa-exclamation-sign"></i>
+        <i class="fresh-message-sign fa fa-exclamation-circle"></i>
         <span class="feed-back">{{controller.status}}</span>
         <i class="fa fa-times" {{action removeButton }}></i>
     </div>

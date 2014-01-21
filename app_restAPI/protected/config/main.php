@@ -50,6 +50,7 @@ return CMap::mergeArray(
                 'common.components.*',
                 'common.components.auth.*',
                 'common.models.User',
+                'common.models.UserProfile',
                 'application.components.Controller',
                 'application.components.RestController',
                 'application.components.HttpRequest',

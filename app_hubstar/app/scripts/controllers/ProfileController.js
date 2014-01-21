@@ -167,7 +167,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     getCurrentProfile: function(id) {
         this.set('currentUserID', id);
         var profile = HubStar.Profile.find(id);
-    //    profile.reload();  //r  profile.reload();  eload the collection which have the same name
+        //    profile.reload();  //r  profile.reload();  eload the collection which have the same name
         return profile;
     },
     setProfile: function(id) {
@@ -175,11 +175,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         mega.then(function() {
             if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
             {
-                    mega.set("view_count", 1);
+                mega.set("view_count", 1);
             }
             else
             {
-              mega.set("view_count", mega.get("view_count") + 1);
+                mega.set("view_count", mega.get("view_count") + 1);
             }
             mega.store.save();
         });
@@ -283,7 +283,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.followerPhoto(id);
 
 //        if (profile.get("keywords") !==null && profile.get("keywords") !== "undefined" && profile.get("keywords").get('length') > 0) {
-       
+
         this.set("keywords_array", profile.get('keywords'));
         this.set("show_keyword_id", profile.get('show_keyword_id'));
 
@@ -324,24 +324,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('about_us', []);
             this.set("isAboutUsObjectExist", false);
         }
-//        var about_us = HubStar.AboutUs.createRecord({"about_id": profile.get('id'), "about_desc": 'just description', "about_template_id": '1', 
-//                                                                                            "about_video": [], "about_image": [], 'about_book': []});
-//        var about_video = HubStar.AboutVideo.createRecord({"video_id": '1', "video_title": 'video title', "video_desc": 'video description', 
-//                                                                                            "video_url": '', "optional": profile.get('id')});
-//        about_us.get('about_video').pushObject(about_video);
-//        for (var i = 0; i < 2; i ++) {
-//            var about_image = HubStar.AboutImage.createRecord({"image_id": i.toString(), "image_title": 'image title', "image_desc": 'image description', 
-//                                                                                            "image_url": '',"image_link": '', "optional": profile.get('id')});
-//        about_us.get('about_image').pushObject(about_image);
-//        }
-//        for (var i = 0; i < 3; i ++) {
-//            var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": 'book title', "book_image_url": '', 
-//                                                                                            "book_read_url": '',"book_buy_url": '', "optional": profile.get('id')});
-//        about_us.get('about_book').pushObject(about_book);
-//        }
-//        this.set('about_us', about_us);
     },
-    
     setShowKeywordsArray: function(show_keywords_id, keywords) {
         var newArray = [];
         for (var i = 0; i < keywords.get('length'); i++) {
@@ -380,10 +363,37 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setTopicModel: function(model) {
         this.set('categorys', null);
         this.set('categorys', model);
+        var that = this;
+        model.addObserver('isLoaded', function() {
+            if (model.get('isLoaded')) {
+                for (var i = 0; i < model.get('content').get('length'); i++)
+                {
+                    if (model.get('content').objectAt(i).data.topic === undefined) {
+                        if (that.get('model').get('profile_category') === model.get('content').objectAt(i).record._data.topic) {
+                             that.set('subcate', []);
+                            for (var j = 0; j < model.get('content').objectAt(i).record._data.subcate.length; j++)
+                            {
+                                that.get('subcate').pushObject({'category_topic': model.get('content').objectAt(i).record._data.subcate.objectAt(j).data.category_topic, 'subcategories': model.get('content').objectAt(i).record._data.subcate.objectAt(j).data.subcategories
+                                });
+                            }
+                        }
+                    }
+                    else {
+                        if (that.get('model').get('profile_category') === model.get('content').objectAt(i).data.topic) {
+                            that.set('subcate', []);
+                            for (var j = 0; j < model.get('content').objectAt(i).data.subcate.length; j++)
+                            {
+                                that.get('subcate').pushObject({'category_topic': model.get('content').objectAt(i).data.subcate.objectAt(j).category_topic, 'subcategories': model.get('content').objectAt(i).data.subcate.objectAt(j).subcategories
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+        });
 
     },
     topicSelection: function(data) {
-
         this.set('subcate', []);
         for (var i = 0; i < data.get('subcate').get('length'); i++)
         {
@@ -452,7 +462,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     initStastics: function(profile) {
         this.set("profile_partner_ids", profile.get("profile_partner_ids"));
         //this.set("profileVideoStatistics",0);
-        this.set("profileVideoStatistics",profile.get("profile_video_num"));
+        this.set("profileVideoStatistics", profile.get("profile_video_num"));
         if (this.get("profile_partner_ids") !== null) {
             if (this.get("profile_partner_ids").length !== 0) {
                 var ids = this.get("profile_partner_ids").split(",");
@@ -542,11 +552,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     selectAboutVersion: function() {
-            var message = "Choose the <b>Template editor</b> to easily modify this section using the default About Us template. <br>Choose the <b>HTML5 editor</b> for more advanced editing options. <br>Please note: <br>- If you choose the <b>Template editor</b> after adding content to this section using the <b>HTML5 editor</b>, you will need to re-enter this content. <br>- Once changes made with the <b>Template editor</b> have been saved, you will no longer be able to access the <b>HTML5 editor</b>.";
-            this.set("message", message);
-            this.set('select_one', 'HTML5 editor');
-            this.set('select_two', 'Template editor');
-            this.set('makeSelection', true);        
+        var message = "Choose the <b>Template editor</b> to easily modify this section using the default About Us template. <br>Choose the <b>HTML5 editor</b> for more advanced editing options. <br>Please note: <br>- If you choose the <b>Template editor</b> after adding content to this section using the <b>HTML5 editor</b>, you will need to re-enter this content. <br>- Once changes made with the <b>Template editor</b> have been saved, you will no longer be able to access the <b>HTML5 editor</b>.";
+        this.set("message", message);
+        this.set('select_one', 'HTML5 editor');
+        this.set('select_two', 'Template editor');
+        this.set('makeSelection', true);
     },
     selectOldAbout: function() {
         this.set('makeSelection', false);
@@ -610,8 +620,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (checkingInfo === "profileName") {
             var title_modify_time = Date.parse(new Date());
             var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-            if (title_modify_time > update_profile_record.get('title_modify_time')+60000) {
-                this.set('editing', !this.get('editing'));            
+            if (title_modify_time > update_profile_record.get('title_modify_time') + 60000) {
+                this.set('editing', !this.get('editing'));
                 update_profile_record.set("profile_name", this.get('profile_name'));
                 update_profile_record.set("title_modify_time", title_modify_time);
                 this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
@@ -621,9 +631,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
         }
         else if (checkingInfo === "contact") {
-            if (this.get("website_url").match(/[http]/g) === -1 || this.get("website_url").match(/[http]/g) === null)
-            {
-                this.set("website_url", "http://" + this.get("website_url"));
+            if (this.get("website_url") !== null) {
+                if (this.get("website_url").match(/[http]/g) !== -1 || this.get("website_url").match(/[http]/g) !== null)
+                {
+                    this.set("website_url", this.get("website_url"));
+                } else {
+                    this.set("website_url", "http://" + this.get("website_url"));
+                }
             }
 
 
@@ -654,7 +668,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('editing', !this.get('editing'));
         }
         else if (checkingInfo === "aboutMe") {
-            this.set('about_me', about_record);
+//            this.set('about_me', about_record);
+            var author = this.get('model');
+              author.get('transaction').rollback();
             this.setAboutUsObject();
             this.set('editingAbout', !this.get('editingAbout'));
         }

@@ -27,30 +27,13 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
        console.log('show');
        $('#'+param).slideToggle(1000);
     },
-//    getVideoFromYoutube: function()
-//    {
-//
-//        this.set('videoid', this.getVideoId());
-//        var that = this;
-//
-//        if (this.get('videoid') !== null) {
-//            $.ajax({
-//                url: "http://gdata.youtube.com/feeds/api/videos/" + this.get('videoid') + "?v=2&alt=jsonc",
-//                type: 'get',
-//                success: function(feedback) {
-//                    that.set('videoImg', feedback.data.thumbnail.hqDefault);
-//                    that.set('videoTitle', feedback.data.title);
-//                    that.set('videoDesc', feedback.data.description);
-//                }, error: function() {
-//                    that.set('videoid', null);
-////                    console.log("some wrong with youtube id");
-//                }
-//            });
-//        }
-//    },
+    changeCover: function(param) {
+        console.log(param);
+    },
     profileStyleImageDrop: function(e, name)
     {
         var target = getTarget(e, "single");
+        console.log(target);
         var src = target.result;
         var pdf = HubStar.Pdf.createRecord({
             'pdf_cover_image': "http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0", 'pdf_title': name.split('.')[0],
@@ -65,6 +48,11 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
     },
     reset: function() {
         this.set('pdfArray', []);
+    },
+    submit: function() {
+       for (var i=0; i < this.get('pdfArray').get('length'); i ++){
+           this.get('pdfArray').objectAt(i).store.save();
+       }
     },
     addPdfObject: function(e, name, type, size) {
         if (size <= 25000000)

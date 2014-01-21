@@ -11700,7 +11700,7 @@ border-radius: 2px;
     top: 0;
     width: 100%;
     position: absolute;
-    height: 150%;
+    height: 100%;
     opacity: 0.6;
     background-color: black;
 }

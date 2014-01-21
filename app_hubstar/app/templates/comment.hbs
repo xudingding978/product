@@ -16,7 +16,7 @@
                 <div style="float: right;height: 34px;position: relative;">
 
                     <div class="message-btn easing" style='width: 30px;'{{action openComment model.id}}>
-                         <k class='icon-ok'></k>
+                         <i class='fa fa-check'></i>
                     </div>
 
                 </div>
@@ -42,8 +42,8 @@
                         <div class="comment-namentime">
                             {{#if this.getUser}}
                             <span class="edit-comment easing">
-                                <i class="icon-trash"  {{action removeComment this}}></i>                 
-                                <i class="icon-pencil" {{action editingCommentData this}}></i>
+                                <i class="fa fa-trash-o"  {{action removeComment this}}></i>                 
+                                <i class="fa fa-pencil" {{action editingCommentData this}}></i>
                             </span>
                             {{/if}}
                             <a class="comment-username"  href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
@@ -75,8 +75,8 @@
                     <div class="comment-namentime">
                         {{#if this.getUser}}
                         <span class="edit-comment easing">
-                            <i class="icon-trash"  {{action removeComment this}}></i>                 
-                            <i class="icon-pencil" {{action editingCommentData this}}></i>
+                            <i class="fa fa-trash-o"  {{action removeComment this}}></i>                 
+                            <i class="fa fa-pencil" {{action editingCommentData this}}></i>
                         </span>
                         {{/if}}
                         <a class="comment-username"  href="#/users/{{unbound commenter_id}}" {{action linkingUser commenter_id}}>
@@ -108,11 +108,11 @@
 <div class="hover-opacity easing" data-step="11" data-intro="Here you can show up all the commits" data-position='top' style="height: 20px; width: 100%; background-color: #f3f3f3;text-align: center;color: #555; border-top: 1px solid #ddd;cursor: pointer">  
     <div id="showMoreComment_{{unbound model.id}}" style="display: inline-block; cursor: pointer"  {{action seeMore model.id target="controller" on="click"}}>
         <span style="font-size: 11px;font-weight: bold">show all comments &nbsp; {{model.comments.length}}</span>
-        <i class="icon-caret-down show-comment_inner" ></i>   
+        <i class="fa fa-caret-down show-comment_inner" ></i>   
     </div>
     <div id="closeComment_{{unbound model.id}}"    style="display: none;cursor: pointer" {{action closeMore model.id  target="controller" on="click"}}>
         <span style="font-size: 11px;font-weight: bold">hide comments &nbsp; {{model.comments.length}}</span>
-        <i class="icon-caret-up show-comment_inner" ></i>
+        <i class="fa fa-caret-up show-comment_inner" ></i>
     </div>
 </div>
 {{/if}}

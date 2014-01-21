@@ -322,7 +322,7 @@ input{
     opacity: 0.6;
 }
 
-.changeuserprofilepic > k{
+.changeuserprofilepic > i{
     font-size: 35px;
     color: #fff;
     line-height: 180px;
@@ -470,7 +470,7 @@ div#appfeedback div.fresh-profile-pic > img:last-child
 }
 div#appfeedback .fresh-message > span.feed-back{float:left;max-width:85%;overflow:hidden;text-align:left;}
 
-div#appfeedback .fresh-message > k.icon-remove{
+div#appfeedback .fresh-message > i.fa-times{
     position:relative;
     float:right;
     font-size:16px;
@@ -507,7 +507,7 @@ div#appfeedback .fresh-message > k.icon-remove{
     overflow:hidden;
 }
 
-.fresh-message > k{
+.fresh-message > .fresh-message-sign{
     float:left; 
     margin:13px 20px 13px 40px;
     font-size: 23px;

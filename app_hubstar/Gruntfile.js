@@ -31,7 +31,7 @@ module.exports = function(grunt) {
                 src: [
                     '*.html',
                     'styles/*.css',
-                    'styles/font/*',
+                    'styles/fonts/*',
                     'scripts/*.js',
                     'images/*.{jpg,png,gif}',
                     'images/welcomepage/*',
@@ -432,7 +432,7 @@ module.exports = function(grunt) {
                             '*.{ico,txt}',
                             '.htaccess',
                             'images/{,*/}*.{webp,gif,ico}',
-                            'styles/font/*',
+                            'styles/fonts/*',
                             'images/welcomepage/*',
                             'images/defaultbg/*',
                             'images/defaultcover/*',
@@ -452,7 +452,7 @@ module.exports = function(grunt) {
                             'images/defaultcover/*',
                             'images/defaultpic/*',
                             'images/*',
-                            'styles/font/*'
+                            'styles/fonts/*'
                         ]
                     }]
             }

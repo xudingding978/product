@@ -1,9 +1,9 @@
 HubStar.ProfilesRoute = Ember.Route.extend({
 
         setupController: function(controller, model) {
-            this.controller.set('model', null);
+          //  this.controller.set('model', null);
 
-            controller.set('model', model);
+         //   controller.set('model', model);
             this.controllerFor('application').set('islogin', true);
             this.controllerFor('application').set('popup', false);
             this.controllerFor('application').set('isotherpage', true);

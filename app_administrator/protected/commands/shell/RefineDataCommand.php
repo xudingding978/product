@@ -238,7 +238,7 @@ class RefineDataCommand extends Controller_admin {
 
     public function copyProfilestoTemp() {
         $bucket = "production";
-        $cb_test = $this->couchBaseConnection("temp");
+        $cb_test = $this->couchBaseConnection("develop");
         $profile_arr = array("new-home-trends-nz", "renovation-trends-nz", "kitchen-trends-nz", "bathroom-trends-nz", "outdoor-living-trends-nz", "apartment-trends-nz", "new-home-trends-au", "renovation-trends-au", "kitchen-trends-au", "bathroom-trends-au", "outdoor-living-trends-au", "apartment-trends-au", "new-home-trends-us", "renovation-trends-us", "kitchen-trends-us", "bathroom-trends-us", "interior-trends-us");
         echo var_export($profile_arr, true);
         //     sleep(10);
@@ -256,7 +256,7 @@ class RefineDataCommand extends Controller_admin {
 
     public function createCollectionForJohn() {
         $bucket = "production";
-        $cb_test = $this->couchBaseConnection("temp");
+        $cb_test = $this->couchBaseConnection("develop");
         $profile_arr = array("new-home-trends-nz", "renovation-trends-nz", "kitchen-trends-nz", "bathroom-trends-nz", "outdoor-living-trends-nz", "apartment-trends-nz", "new-home-trends-au", "renovation-trends-au", "kitchen-trends-au", "bathroom-trends-au", "outdoor-living-trends-au", "apartment-trends-au", "new-home-trends-us", "renovation-trends-us", "kitchen-trends-us", "bathroom-trends-us", "interior-trends-us");
         echo var_export($profile_arr, true);
         //     sleep(10);

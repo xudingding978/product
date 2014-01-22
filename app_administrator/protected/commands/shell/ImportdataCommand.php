@@ -19,7 +19,10 @@ class ImportdataCommand extends Controller_admin {
             $this->importArticleandImagefromTrends();
         } elseif ($action == "replicate") {
             $this->replicateArticleandImagefromDevelop();
-        }else{
+        }elseif($action=="shorten"){
+            $this->urlshorten();
+        }
+        else{
             $this->importArticleandImagefromTrends();
         }
     }
@@ -58,6 +61,32 @@ class ImportdataCommand extends Controller_admin {
 ////        echo "111111111111111111111111111111";
 //        return $id;
 //    }
+    
+    
+    
+    public function urlshorten(){
+        $url="http://sports.sina.com.cn/tennis/ausopen14/";
+        $url_encoded=urlencode($url);
+        $head="https://api-ssl.bitly.com/v3/shorten?access_token=c7a4f01f4287ebad93c2f0c9fc7e08e8b102e26c&longUrl=";
+        $full=$head.$url_encoded;
+//        echo $url_encoded."\n";
+//        echo '"https://api-ssl.bitly.com/v3/shorten?access_token=c7a4f01f4287ebad93c2f0c9fc7e08e8b102e26c&longUrl='.$url_encoded.'"';
+        try{
+                    $ch = curl_init($full);
+                                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+                        //        curl_setopt($ch, CURLOPT_POSTFIELDS, $pass_arr);
+                                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
+                                $back = curl_exec($ch);
+                         //       error_log("")
+                                $result=CJSON::decode($back);
+                                error_log(var_export($result,true));
+                                curl_close($ch);
+                            } catch (Exception $exc) {
+                                echo $exc->getTraceAsString();
+                            }
+    }
     public function test() {
 
         // $id = $this->checkImageExisting('24046', 'home-and-architectural-trends', '5260');

@@ -9,18 +9,27 @@ HubStar.ProfilesRoute = Ember.Route.extend({
             this.controllerFor('application').set('isotherpage', true);
             this.controllerFor('searchs').setLoginImge();
             this.controllerFor('application').set('isotherpage', true);
+             if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+            HubStar.set('isLogin', false);
+
+        } else {
+            HubStar.set('isLogin', true);
+        }
             $('.nothingHere').attr('style', 'display:block');
         },
         activate: function() {
 
         },
         redirect: function() {
-//
-//            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
-//
-//                this.transitionTo('indexIndex');
-//                this.controllerFor('application').set('popup', true);
-//            }
+
+            if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+
+                this.transitionTo('indexIndex');
+                this.controllerFor('application').set('popup', true);
+            }else
+                {
+                    this.transitionTo("searchIndex");
+                }
         },
         deactivate: function() {
 

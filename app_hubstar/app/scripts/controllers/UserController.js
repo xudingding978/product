@@ -24,7 +24,7 @@ HubStar.UserController = Ember.Controller.extend({
     selectedTitle: "",
     display_name: "",
     about_me_limit: "",
-    about_me_limit_num: 577,
+    about_me_limit_num: 430,
     gender: "",
     age: "",
     userTage: true,

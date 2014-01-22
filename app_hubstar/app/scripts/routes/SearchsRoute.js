@@ -14,8 +14,52 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
         this.controllerFor('mega').set('from',"search");
+           console.log("222fdsfdsfdsfds222");
+            localStorage.checkUser = "newUser";
+if(  localStorage.checkUser === "newUser"){
+                 console.log("222222");
+        //     $(document).ready(function() {
+         //   window.onload = function(){
+        //    document.getElementById('startButton').onclick = function() {
+                $("#profileDashboard").attr("style", "display:none");
+                $("#profilePanel").removeClass("panel");
+     //           $("#profileFront").removeClass("front");
+                $(".brand").addClass("tour-background");
+                $(".Geo-Filter").addClass("tour-background");
+                $("#login_detail").addClass("tour-background");
+                 $("#profileName").addClass("profileName");
+                
 
-        localStorage.checkUser = "";
+
+                introJs().setOption('doneLabel', 'Finish').start().oncomplete(function() {
+//                    var address = document.URL;
+//                    var urlName = address.split("#")[1].split("/")[1];
+//                    var target = address.split("#")[1].split("/")[2];
+//                    if (urlName === "users")
+//                    {
+//                        window.location.href = '/#/users/' + target;
+//                        $(window).scrollTop(0);
+//                        
+//                    }
+//                    else if (urlName === "profiles") {
+//                        window.location.href = '/#/profiles/' + target;
+//                        $(window).scrollTop(500);
+//                    }
+//                    else{
+                    window.location.href = '/#/search';
+                    $(window).scrollTop(0);
+                //    }
+              });
+         //   };
+
+       //    };
+
+      //  });
+             console.log("13333333");
+            
+        }else {
+           
+        }
         $(".navbar").css("box-shadow", "");
         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
     },

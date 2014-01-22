@@ -14,48 +14,7 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
         this.controllerFor('status').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
-        if(  localStorage.checkUser === "newUser"){
-             $(document).ready(function() {
-            window.onload = function(){
-            document.getElementById('startButton').onclick = function() {
-                $("#profileDashboard").attr("style", "display:none");
-                $("#profilePanel").removeClass("panel");
-     //           $("#profileFront").removeClass("front");
-                $(".brand").addClass("tour-background");
-                $(".Geo-Filter").addClass("tour-background");
-                $("#login_detail").addClass("tour-background");
-                 $("#profileName").addClass("profileName");
-                
-
-
-                introJs().setOption('doneLabel', 'Finish').start().oncomplete(function() {
-//                    var address = document.URL;
-//                    var urlName = address.split("#")[1].split("/")[1];
-//                    var target = address.split("#")[1].split("/")[2];
-//                    if (urlName === "users")
-//                    {
-//                        window.location.href = '/#/users/' + target;
-//                        $(window).scrollTop(0);
-//                        
-//                    }
-//                    else if (urlName === "profiles") {
-//                        window.location.href = '/#/profiles/' + target;
-//                        $(window).scrollTop(500);
-//                    }
-//                    else{
-                    window.location.href = '/#/search';
-                    $(window).scrollTop(0);
-                //    }
-                });
-            };
-
-           };
-
-        });
-             localStorage.checkUser = "";
-        }else {
-           
-        }
+             localStorage.checkUser = "";    
         $(".navbar").css("box-shadow", "");
         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");

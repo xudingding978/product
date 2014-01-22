@@ -21,11 +21,12 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     chosenProfile: '',
     init: function()
     {
-        HubStar.set("isProfile",false);
+        HubStar.set("isProfile", false);
     },
     setUser: function()
     {
-        var user = HubStar.User.find(localStorage.loginStatus);
+        var user = HubStar.User.find(localStorage.loginStatus);   
+        console.log(user);
         this.set("collections", user.get("collections"));
         if (this.get("collections").objectAt(0) !== null && this.get("collections").objectAt(0) !== undefined) {
             this.setDesc("");
@@ -33,6 +34,14 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             this.setProfile("your profile");
             this.set('selectionPop', false);
         }
+        if (user.get("profiles") === undefined || user.get("profiles") === null || user.get("profiles").get("length") === 0)
+        {
+            this.set("isSaveTopProfile",false);
+        }
+        else {          
+            this.set("isSaveTopProfile",true);
+        }
+
     },
     setImageID: function(id) {
         this.set("objectID", id);
@@ -43,11 +52,11 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     setTitle: function(title) {
         if (HubStar.get("chooseCollection") !== null && HubStar.get("chooseCollection") !== "" && HubStar.get("chooseCollection") !== undefined)
         {
-             this.set("selectedTitle", HubStar.get("chooseCollection"));
+            this.set("selectedTitle", HubStar.get("chooseCollection"));
         }
         else {
-             this.set("selectedTitle", title);
-        }      
+            this.set("selectedTitle", title);
+        }
     },
     setProfile: function(title) {
         if (HubStar.get("selectedID") !== null && HubStar.get("selectedID") !== "" && HubStar.get("selectedID") !== undefined)
@@ -63,8 +72,8 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     },
     submit: function()
     {
-       
-        if (this.get("selectionPop") !== true && HubStar.get('selectedCollection')!==undefined && HubStar.get('selectedCollection')!== null) {
+
+        if (this.get("selectionPop") !== true && HubStar.get('selectedCollection') !== undefined && HubStar.get('selectedCollection') !== null) {
             if (HubStar.get("isProfile") === false) {
                 var collectionController = this.get('controllers.collection');
                 var collection = collectionController.getUpdateCollection(HubStar.get('selectedCollection'));
@@ -182,10 +191,10 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                 HubStar.set('selectedID', id);
                 HubStar.set('selectedProfile', title);
             }
-        }               
+        }
         this.set('selectionProfile', !this.get('selectionProfile'));
     },
-    profileCanel : function (){
+    profileCanel: function() {
         this.set('selectionProfile', false);
     },
     addCollection: function(collection, content)
@@ -229,7 +238,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     },
     addNewCollection: function()
     {
-       
+
         var collectionController = this.get('controllers.collection');
         if (HubStar.get("isProfile") === false) {
             var collection = collectionController.getCreateCollection(this.get('newCollectionName'), '', this.get("collections"));
@@ -241,7 +250,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                 HubStar.set('selectedCollection', collection);
                 this.chooseRecord(collection.get("title"), collection.get("id"));
                 //$('#recordID').text(this.get('newCollectionName'));
-            } else {               
+            } else {
             }
         }
         else
@@ -254,7 +263,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
 
                 var newCollection = new Object();
                 newCollection.collection_ids = collection.get("collection_ids");
-                
+
                 newCollection.cover = collection.get("cover");
                 newCollection.desc = collection.get("desc");
                 newCollection.id = collection.get("id");
@@ -266,11 +275,11 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
 
                 collection.store.save();
                 HubStar.get("profileCollection").insertAt(0, newCollection);
-                
+
                 HubStar.set('selectedCollection', collection);
                 this.chooseRecord(collection.get("title"), collection.get("id"));
                 //$('#recordID').text(this.get('newCollectionName'));
-            }         
+            }
 
         }
 
@@ -301,9 +310,9 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         this.selectSelectedDesc();
         //$('#recordID').text(this.get('selectedTitle'));
         HubStar.set('chooseCollection', this.get('selectedTitle'));
-        
+
         this.set('selectionPop', !this.get("selectionPop"));
-        
+
     },
     selectSelectedDesc: function()
     {
@@ -354,7 +363,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         return isContainsTitle;
     }, setRelatedController: function(parentController)
     {
-        
+
         this.set('parentTController', parentController);
     }
 });

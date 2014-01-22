@@ -16,7 +16,7 @@ HubStar.ApplicationFeedbackController = Ember.Controller.extend({
                     top: 153
                 }, 400);
 
-                $('.fresh-message').show().delay(300000).animate({
+                $('.fresh-message').show().delay(3000).animate({
                     top: -5
                 }, 400);
 

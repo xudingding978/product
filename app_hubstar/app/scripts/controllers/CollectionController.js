@@ -7,10 +7,11 @@ HubStar.CollectionController = Ember.Controller.extend({
     getCreateCollection: function(title, desc, collections)
     {
         this.set('collections', collections);
-        var isExsinting = this.checkingIdisExsinting(title, "create");
+        var ID = createMessageid();
+        var isExsinting = this.checkingIdisExsinting(ID, "create");
         var collection = null;
         if (isExsinting) {
-            var validID = this.checkingValidInput(title);
+            var validID = this.checkingValidInput(ID);
             var checkingCharater = this.specialCharactersChecking(validID);
 
             if (checkingCharater && validID !== null && validID !== '') {

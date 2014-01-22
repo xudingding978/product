@@ -379,7 +379,9 @@
                 <li class="easing" {{action changeSize}}><a href="#tab3" data-toggle="tab">Account Settings</a></li>
                 <li class="easing" {{action changeSize}}><a href="#tab7" data-toggle="tab">Social Link</a></li>
                 {{#if controller.isAdmin}}
-                <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>                   
+                <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>     
+                {{/if}}
+                {{#if controller.is_authentic_user}}
                 <li class="easing" {{action changeSize}}><a href="#tab5" data-toggle="tab">Keyword Settings</a></li>
                 {{/if}}
             </ul>

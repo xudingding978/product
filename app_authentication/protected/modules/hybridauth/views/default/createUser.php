@@ -1,6 +1,6 @@
 <div class="form" style="color: white; text-shadow: 0 0 10px #333;">
     <div style="width: 100%;height: 100%;position: absolute;z-index: -1;overflow: hidden;">
-        <img style="width: 100%;" src="../../../../../../../images/defaultbg6.jpg" />
+        <img style="height: 100%;" src="../../../../../../../images/discoverybarbg.jpg" />
     </div>
 
     <?php
@@ -41,8 +41,8 @@
 
     <div style="width:100%; margin: auto; height: 100%;padding: 30px 0; text-align: center;">
 
-        <div style="font-size: 32px; line-height: 30px; font-weight: bold; margin-bottom: 20px; top: 20px; position: relative;">Hi <?PHP echo $user->USER_NAME; ?></div>
-        <div style="padding: 10px 0 20px; font-size: 13px;">Please enter your email address to create your profile.</div>
+        <div style="font-size: 32px; line-height: 30px; font-weight: bold; position: relative;margin: 50px 0 0;"> Hi <?PHP echo $user->USER_NAME; ?></div>
+        <div style="padding: 10px 0 35px; font-size: 15px;">Please enter your email address<br/> to create your profile.</div>
         <div class="row">
             <?php echo $form->labelEx($user, 'USER_NAME', array('style' => 'margin-bottom:10px; font-size:16px;')); ?>
             <?php echo $form->textField($user, 'USER_NAME', array('class' => 'inputbox')); ?>

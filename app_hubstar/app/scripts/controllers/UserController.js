@@ -17,11 +17,14 @@ HubStar.UserController = Ember.Controller.extend({
     followDisplay: true,
     newDesc: '',
     Id: "",
+    more: false,
     type: "users",
     newTitle: '',
     selectedDesc: "",
     selectedTitle: "",
     display_name: "",
+    about_me_limit: "",
+    about_me_limit_num: 430,
     gender: "",
     age: "",
     userTage: true,
@@ -202,6 +205,15 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("last_name", user.get("last_name"));
         this.set("identifier", user.get("identifier"));
         this.set("about_me", user.get("about_me"));
+        if (user.get("about_me").length >= this.get("about_me_limit_num"))
+        {
+            this.set("about_me_limit", true);
+            this.set("about_me_limit_data", user.get("about_me").substring(0, this.get("about_me_limit_num")));
+        }
+        else
+        {
+            this.set("about_me_limit", false);
+        }
         this.set("facebook", user.get("facebook_link"));
         this.set("twitter", user.get("twitter_link"));
         this.set("googleplus", user.get("googleplus_link"));
@@ -268,12 +280,29 @@ HubStar.UserController = Ember.Controller.extend({
         this.labelBarRefresh();
 
         this.trendsUser();
-
+        $(document).ready(function() {
+            $("#about_us_contentsssssssw").mCustomScrollbar({
+                scrollButtons: {
+                    enable: false,
+                    scrollSpeed: "auto"
+                },
+                advanced: {
+                    updateOnBrowserResize: true,
+                    updateOnContentResize: true,
+                    autoScrollOnFocus: false,
+                    normalizeMouseWheelDelta: false
+                },
+                autoHideScrollbar: true,
+                mouseWheel: true,
+                theme: "dark-2",
+                set_height: 30
+            });
+        });
     },
     trendsUser: function() {
         if (localStorage.loginStatus)
         {
-          
+
             if (this.get("user").get("email").match(/@trendsideas.com/g) !== "" && this.get("user").get("email").match(/@trendsideas.com/g) !== "undefined" && this.get("user").get("email").match(/@trendsideas.com/g) !== null)
             {
                 this.get("controllers.application").set("is_trends_user", true);
@@ -418,7 +447,7 @@ HubStar.UserController = Ember.Controller.extend({
         return isExsinting;
     },
     toggleEditing: function(data, checkingInfo) {
-       
+
         if (checkingInfo === "interest") {
             interest_record = data;
             this.set('editingInterest', !this.get('editingInterest'));
@@ -434,7 +463,6 @@ HubStar.UserController = Ember.Controller.extend({
         } else if (checkingInfo === "aboutMe") {
             this.set('editingAbout', !this.get('editingAbout'));
         }
-
         this.saveUpdateInterest();
     },
     no: function(checkingInfo) {
@@ -447,6 +475,18 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('editingAbout', !this.get('editingAbout'));
         }
 
+    },
+    showMore: function() {
+        this.set("more", true);
+        $(".limit_about_us").attr('style', 'display: none');
+        $("#tom").attr('style', 'display: block');
+    },
+    collap: function(checkingInfo) {
+        this.set("more", false);
+        this.set('about_me', checkingInfo);
+        $("#tom").attr('style', 'display: none');
+        this.saveUpdateInterest();
+        $(".limit_about_us").attr('style', 'display: block');
     },
     submit: function()
     {
@@ -696,7 +736,17 @@ HubStar.UserController = Ember.Controller.extend({
             this.set('interests', tempInterest.substring(1, tempInterest.length));
             update_interest_record.set('selected_topics', this.get('interests'));
             update_interest_record.set('about_me', this.get('about_me'));
-          update_interest_record.save();
+            if (this.get('about_me').length >= this.get("about_me_limit_num"))
+            {
+                this.set("about_me_limit", true);
+                this.set("about_me_limit_data", this.get("about_me").substring(0, this.get("about_me_limit_num")));
+                this.get('controllers.applicationFeedback').statusObserver(null, "s         The maximum characters can be shown are 600", "warnning");
+            }
+            else
+            {
+                this.set("about_me_limit", false);
+            }
+            update_interest_record.save();
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Invalid input");
         }

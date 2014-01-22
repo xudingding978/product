@@ -14,9 +14,10 @@
             {{#if controller.followDisplay}}
             <div style="margin: 30px auto 20px;display: block; text-align: center;">
                 {{#if controller.isUserSelf}}
-                    <div href="#question_modal" role="button" class="disabled-btn follow-btn" data-toggle="modal" style="">Follow</div>
+                <div href="#question_modal" role="button" class="disabled-btn follow-btn" data-toggle="modal" style="">Follow</div>
 
                 {{else}}
+
                     {{#if controller.follow_status}}
                         {{#if controller.following_status}}
                             <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='fa fa-exchange' >&nbsp; </i> Following</div>
@@ -31,6 +32,7 @@
                         {{/if}}
                     {{/if}}
                     <div class="new-btn blue-btn" {{action talkToPeople}}><i class="fa fa-envelope" ></i></div>
+
                 {{/if}}           
             </div>
             {{/if}}
@@ -136,8 +138,33 @@
                     </div>
                     {{/if}}
 
-                    <div style="display: block;" >{{about_me}}</div>
+                    {{#if controller.about_me_limit}}
+                    <div class="limit_about_us" style="word-break: break-all;" >
+
+                     {{about_me_limit_data}}...<!--   <i class='new-btn'  {{action showMore}}> more...</i>  -->
+                    </div>
+
+                    {{else}}
+                    <div style="display: block; word-break: break-all; " >{{about_me}}</div>  
                     {{/if}}
+
+                    
+                    <div id ="tom" style="display: none;">
+                        <div class="more_about_us" style="display: block;" >
+                            <div id="about_us_contentsssssssw">
+                                {{about_me}}
+                            </div>
+                        </div>
+
+                        <div style="right: 40px;bottom: -49px;position: absolute;">
+                            <div class="new-btn" {{action collap controller.about_me}}><i class="icon-remove"></i></div>
+                        </div>
+                    </div>
+                    
+                    {{/if}}
+
+
+
                 </div>
             </div>
 
@@ -202,7 +229,7 @@
 
 
 {{#if controller.switchPhoto}}
- 
+
 {{view HubStar.MasonryCollectionView}}
 
 {{else}}

@@ -11,7 +11,7 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
     init: function() {
         this.setMega();
     },
-    canel: function() {
+    cancel: function() {
         this.reset();
         var profilePdf = this.get('controllers.profilePdf');
         profilePdf.pdfCreateModeSwitch();
@@ -22,6 +22,7 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
          this.set('pdfInfromationEdit', false);
          this.reset();
          this.transitionTo("profilePdf");
+    //     $("#pdfUploaderData").attr("style","position: relative; bottom: 540px;background-color: white; height: auto; z-index: 99; width: 600px; line-height: 20px;");
     },
     modifyDetail: function(param) {
        console.log('show');
@@ -44,7 +45,10 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
 //        this.set('newPdfName',name);
         console.log(name);
         console.log(src);
+  //    $('#pdfUploaderContent').attr("style","display:none;");
+      $("#pdfUploaderData").attr("style","position: relative; bottom: 540px;background-color: white; height: auto; z-index: 100; width: 600px; line-height: 20px;");
         this.set('pdfInfromationEdit', true);
+        
     },
     reset: function() {
         this.set('pdfArray', []);

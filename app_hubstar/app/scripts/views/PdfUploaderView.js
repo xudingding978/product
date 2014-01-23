@@ -1,5 +1,37 @@
 HubStar.PdfUploaderView = Ember.View.extend( HubStar.PdfUploaderController.Droppable, {
     contentBinding: 'pdfUploader',
+    
+      didInsertElement: function() {
+         $(document).ready(function() {
+            $('#pdfInformation').mCustomScrollbar({
+                scrollButtons: {
+                    enable: false,
+                    scrollSpeed: "auto"
+                },
+                advanced: {
+                    updateOnBrowserResize: true,
+                    updateOnContentResize: true,
+                    autoScrollOnFocus: false,
+                    normalizeMouseWheelDelta: false
+                },
+                autoHideScrollbar: true,
+                mouseWheel: true,
+                theme: "dark-2",
+                set_height: 400
+            });
+        });
+        
+//          $( "#pdfUploaderData" )
+//  .hover(function() {
+//    $(this).attr("style","position: relative; bottom: 540px;background-color: white; height: auto; z-index: 99; width: 600px; line-height: 20px;");
+//  }, function() {
+//    $(this).attr("style","position: relative; bottom: 540px;background-color: white; height: auto; z-index: 100; width: 600px; line-height: 20px;");
+//  });
+     }
+    
+    
+ 
+        
 //    drop: function(event) {
 //        var dataTransfer = event.originalEvent.dataTransfer;
 //        var files = dataTransfer.files;
@@ -33,4 +65,5 @@ HubStar.PdfUploaderView = Ember.View.extend( HubStar.PdfUploaderController.Dropp
 //        $('#dragAndDroppArea').attr('style', "display:block");
 //        return false;
 //    }
+
 });

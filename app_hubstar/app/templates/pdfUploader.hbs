@@ -1,71 +1,81 @@
 
+<div class="blur_black"  {{action closeUploader}}></div>
 
-<div class="popup-container">
-    <div id="login_lightbox" class="popup-bg-fadeout" {{action canel}}>&nbsp;</div>
-    <div class="t-style-box" style="z-index: 100;background-color: #fff;position: relative;width: 620px;padding: 10px; border-radius: 5px;margin-left: 150px;margin-top: 150px;">
-        {{#view HubStar.SingleFileUploaderView}}
-        <div style="position: relative;height: 470px;width: 600px;border: 3px dashed #ccc;z-index: 100;"> 
-            <div style="top: 150px;position: relative;margin: auto;width: 80%;text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;line-height: 40px;">
-                <i class="fa fa-arrow-circle-o-up" style="font-size: 45px;"></i>
-                <span style="font-weight: bold;display: block;font-size: 25px;">
-                    Drag & Drop Your PDF Here
-                </span>
-                <span style="font-size: 17px;display: block;line-height: 25px;width: 380px;margin: auto;">Please upload no more than 20 photos at a time, and maximum size of 20MB per photo.</span> 
-            </div> 
-        <div id="dragAndDroppArea" class="dragndropbox" style="display:none">
+<div style="margin:0 auto; padding: 0 0 15px 15px;">
+    <div class="Add-review" style=" width: 600px; height: 525px;">
 
-
-        </div>
-             
-    </div>
-        <div class="controlbtn-field" style="margin-top: 35px;">
-                  <div class="new-btn blue-btn" style="margin: auto; width: 80px; top: 490px; position: absolute;left: 2%;">
-            Choose 
-            <div style="opacity:0;position: absolute;top: 0px;left: 0;width: 80px;overflow: hidden;"> {{view HubStar.ImageInputButtonView }}</div> 
-        </div>
-            <div class="new-btn blue-btn" style="margin: auto; width: 80px; top: 490px; position: absolute;left: 84%;right: 0%;"" {{action closeUploader}}>
-                 close  
-        </div>
+                
+        <div class="t-style-box" style="z-index: 100;background-color: #fff;position: relative;width: 600px;padding: 10px 0; border-radius: 5px;">
+            {{#view HubStar.SingleFileUploaderView}}
+            <div   id="pdfUploader" style="position: relative;height: 470px;width: 600px;z-index: 100;"> 
+                <div id="pdfUploaderContent" style="top: 150px;position: relative;margin: auto;width: 80%;text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;line-height: 40px;">
+                    <i class="fa fa-arrow-circle-o-up" style="font-size: 80px;"></i>
+                    <span style="font-weight: bold;display: block;font-size: 25px;">
+                        Drag & Drop Your PDF Here
+                    </span>
+                    <span style="font-size: 17px;display: block;line-height: 25px;width: 380px;margin: auto;">Please upload no more than 20 photos at a time, and maximum size of 20MB per photo.</span> 
+                </div> 
+                <div id="dragAndDroppArea" class="dragndropbox" style="display:none;">
                 </div>
-    {{/view}}
 
-    
+            </div>
+
+            {{/view}}
+           <div class="" style="height: 40px;position: relative;border-top: 1px solid #ddd;bottom: 0;width: 100%;z-index: 101;">
+               <div class="message-btn easing" style=";width: 33%;" {{action closeUploader}}>
+                     Cancel  
+            </div>
+                <div class="message-btn easing" style="width: 34%;" >
+                    Choose 
+                    <div style="opacity:0;position: absolute;top: 0px;overflow: hidden; width: 34%;"> {{view HubStar.ImageInputButtonView }}</div> 
+                </div>
+                <div class="message-btn easing" style=";width: 33%;" {{action submit}}>
+                     Submit  
+            </div>
+        </div>
+            
 
 </div>
+  
     
-    {{#if pdfInfromationEdit}}
-    <div id="pdfInformation" class="style-box" style="position: relative; left: 800px; bottom: 527px;background-color: white; height: auto; z-index: 100; width: 600px; line-height: 20px;">
-        <div class="controlbtn-field" ></div>
+    <div id="pdfUploaderData" class="style-box" style="position: relative; bottom: 540px;background-color: white; height: auto; z-index: 99; width: 600px; line-height: 20px;">
+
+        <div class="controlbtn-field" style="margin-top: 8px;"  ></div>
+        
+        <div  id="pdfInformation" >
         {{#each pdfArray}}
         <div  style="border: 3px dashed #ccc;margin: 10px;padding: 10px;">
-        <div>
-            <span style="font-weight: bold;display: inline-block;font-size: 25px; "{{action modifyDetail pdf_title}}>{{pdf_title}}</span> 
-            <span><i class="fa fa-edit" style="font-size: 25px; margin-left: 400px;" {{action modifyDetail pdf_title}}></i></span> 
-            <span><i class="fa fa-trash-o" style="font-size: 25px;"></i></span> 
-        </div>
-        <div {{bindAttr id="pdf_title"}} style="display: none;">
-            <div style=" width: 42%;display: inline-block;">
-                <div class="changePDFpic easing hint--right hint--rounded" data-hint="Change Cover" {{action changeCover pdf_title}}>
-                     <i class="fa fa-pencil-square-o"></i>         
-                </div>  
+            <div>
+                <span style="font-weight: bold;display: inline-block;font-size: 25px; "{{action modifyDetail pdf_title}}><img alt="Click!" {{bindAttr src="pdf_cover_image"}} style="width: 50px;"></span> 
+                <span style="font-weight: bold;display: inline-block;font-size: 25px; margin-left: 20px;"{{action modifyDetail pdf_title}}>{{pdf_title}}</span> 
+                <span><i class="fa fa-edit" style="font-size: 25px; margin-left: 330px;" {{action modifyDetail pdf_title}}></i></span> 
+                <span><i class="fa fa-trash-o" style="font-size: 25px;"></i></span> 
+            </div>
+            </div>
+            <div {{bindAttr id="pdf_title"}} style="display: none;padding: 10px;margin: 0 10px;border: 1px solid #ccc;">
+                <div style=" width: 35%;display: inline-block;">
+                    <div class="changePDFpic easing hint--right hint--rounded" data-hint="Change Cover" {{action changeCover pdf_title}}>
+                        <i class="fa fa-plus-circle"></i>     
+                    </div>  
+                    <img alt=""  {{bindAttr src="pdf_cover_image"}}>
+                </div>
+                <div style="display: inline-block; width: 350px;">
+                    <div >
+                        {{view Ember.TextField valueBinding="pdf_title"  placeholder="file name"}}
+                    </div>
+                    <div style="margin: 10px 0 5px 0; width: 350px;height: 165px;">
+                        {{view Ember.TextArea valueBinding="pdf_desc"  placeholder="file description" class="no-resize"}}
+                    </div>
+                </div>
+            </div>
         
-                <img alt="" {{bindAttr src="pdf_cover_image"}}>
-              
-            </div>
-            <div style="display: inline-block;">
-            <div >
-                {{view Ember.TextField valueBinding="pdf_title"  placeholder="file name"}}
-            </div>
-            <div style="margin: 10px 0 5px 0; width: 300px;height: 150px;">
-                {{view Ember.TextArea valueBinding="pdf_desc"  placeholder="file description" class="no-resize"}}
-            </div>
-            </div>
-        </div>
-            </div>
         {{/each}}
-        <div class="controlbtn" style="left: 30%;">
-            <span class="new-btn green-btn" {{action submit}}>Upload</span> 
+       
         </div>
-    </div>
-    {{/if}}
+        </div>
+   
+        
+        
+    
+</div>
 </div>

@@ -6,7 +6,7 @@ HubStar.ProfileNewRoute = Ember.Route.extend({
         });
     },
     setupController: function(controller, model) {
-          this.controllerFor('user').set('model',model);
+        this.controllerFor('user').set('model', model);
         setTimeout(function() {
             $('.nothingHere').attr('style', 'display:none');
         }, 10);
@@ -17,8 +17,8 @@ HubStar.ProfileNewRoute = Ember.Route.extend({
             HubStar.set("isLogin", false);
         } else {
             HubStar.set("isLogin", true);
-             console.log(HubStar.User.find(localStorage.loginStatus).get("isLoaded"));
-     
+            console.log(HubStar.User.find(localStorage.loginStatus).get("isLoaded"));
+
             if (HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== ""
                     && HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== "undefined"
                     && HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== null) {
@@ -39,5 +39,16 @@ HubStar.ProfileNewRoute = Ember.Route.extend({
     deactivate: function() {
 //            $("body").css("overflow", "auto");
 //            $('#footer').attr("style", "display:block");
+    },
+    redirect: function() {
+
+        if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+
+            this.transitionTo('indexIndex');
+            this.controllerFor('application').set('popup', true);
+        } else
+        {
+            this.transitionTo("searchIndex");
+        }
     }
 });

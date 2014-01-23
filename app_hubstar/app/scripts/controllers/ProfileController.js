@@ -615,14 +615,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 update_profile_record.set("title_modify_time", title_modify_time);
                 this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
                 update_profile_record.store.save();
-                update_profile_record.get("isSaving");
-                update_profile_record.addObserver("isSaving", function() {
-                    console.log(update_profile_record.get("isSaving"));
-                    if (update_profile_record.get("isSaving")) {
-                        requiredBackEnd('profiles', 'setProfileName',  JSON.stringify([update_profile_record.get('profile_name'), update_profile_record.get('id')]), 'POST', function(params) {});
-                    }
-                    update_profile_record.removeObserver("isSaving");
-                });
             } else {
                 this.get('controllers.applicationFeedback').statusObserver(null, "Please do not change your profile title so frequently.", "warnning");
             }

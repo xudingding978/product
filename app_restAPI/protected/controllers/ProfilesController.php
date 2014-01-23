@@ -6,7 +6,7 @@ header('Content-type: *');
 header('Access-Control-Request-Method: *');
 header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-
+Yii::import('ext.runactions.components.ERunActions');
 class ProfilesController extends Controller {
 
     const JSON_RESPONSE_ROOT_SINGLE = 'profile';
@@ -118,7 +118,9 @@ class ProfilesController extends Controller {
             $payload_json = CJSON::encode($payloads_arr['profile'], true);
             $newRecord = CJSON::decode($payload_json);
             $cb = $this->couchBaseConnection();
+            error_log($this->getDomain() . $_SERVER['REQUEST_URI']);
             $oldRecord = CJSON::decode($cb->get($this->getDomain() . $_SERVER['REQUEST_URI']));
+            error_log(var_export($oldRecord['profile'][0],true));
             $oldRecord['profile'][0]['owner'] = $newRecord['owner'];
             $oldRecord['profile'][0]['owner_contact_bcc_emails'] = $newRecord['owner_contact_bcc_emails'];
             $oldRecord['profile'][0]['owner_contact_cc_emails'] = $newRecord['owner_contact_cc_emails'];
@@ -129,6 +131,8 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_contact_first_name'] = $newRecord['profile_contact_first_name'];
             $oldRecord['profile'][0]['profile_contact_last_name'] = $newRecord['profile_contact_last_name'];
             $oldRecord['profile'][0]['profile_contact_number'] = $newRecord['profile_contact_number'];
+            error_log(var_export($oldRecord['profile'][0]['id'],true));
+            error_log(var_export($newRecord['profile_name'],true));
             if ($oldRecord['profile'][0]['profile_name'] !== $newRecord['profile_name']) {
                 $oldRecord['profile'][0]['profile_name'] = $newRecord['profile_name'];
                 $setProfileName = TRUE;
@@ -182,7 +186,10 @@ class ProfilesController extends Controller {
             
             $oldRecord['profile'][0]['show_keyword_id'] = $newRecord['show_keyword_id'];
             $cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true));           
-            
+            if ($setProfileName) {
+//                ERunActions::touchUrlExt('http://api.develop.trendsideas.com/profiles/backgroundProcess',$postData=null,$contentType=null,$httpClientConfig=array());
+                ERunActions::httpPOST('http://api.develop.trendsideas.com/profiles/backgroundProcess',array('profile_id'=>$oldRecord['profile'][0]['id'],'profile_name'=>$newRecord['profile_name']));
+            }
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
             }
@@ -196,6 +203,53 @@ class ProfilesController extends Controller {
         } catch (Exception $exc) {
             error_log($exc);
         }
+    }
+    
+    public function actionBackgroundProcess() {
+        $profile_id = filter_input(INPUT_POST,"profile_id",FILTER_SANITIZE_STRING);
+        $profile_name = filter_input(INPUT_POST,"profile_name",FILTER_SANITIZE_STRING);                    
+//        error_log('1111111');
+        
+//        $response = $this->getProfileReults($profile_id);
+        if (ERunActions::runBackground()) {
+//            $this->writeToLog('/var/log/nginx/backprocess.log', 'test');
+            $request = $this->getElasticSearch();
+            $cb = $this->couchBaseConnection();
+             for ($i =0; $i <2000; $i++) {
+                     $request->from(10*$i)
+                             ->size(10);
+
+                     $must = Sherlock\Sherlock::queryBuilder()
+                             ->QueryString()->query('"' . $profile_id . '"')
+                             ->default_field('couchbaseDocument.doc.owner_id');
+                     $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+                     $sort = Sherlock\Sherlock::sortBuilder();
+                    $sort1 = $sort->Field()->name("id")->order('asc');
+                    $request->sort($sort1);
+                     $response = $request->query($bool)->execute();
+                     foreach ($response as $hit) {          
+//                         $this->writeToLog('/var/log/nginx/backprocess.log', $hit['source']['doc']['id']);
+                        $id = $hit['source']['doc']['id'];
+                        $docID = $this->getDomain() . '/' . $id;
+
+                        $profileOwn = $cb->get($docID);
+                        $owner = CJSON::decode($profileOwn, true);
+                        if ($owner['type'] !== 'profile') {                                
+                            $owner['owner_title'] = $profile_name;
+                            if ($cb->set($docID, CJSON::encode($owner))) {
+//                                $this->writeToLog('/var/log/nginx/backprocess.log', $hit['source']['doc']['id'] . 'update success');
+                            } else {
+//                                $this->writeToLog('/var/log/nginx/backprocess.log', $hit['source']['doc']['id'] . 'update fail');
+                            }                                                    
+                        }                        
+                     }
+                     if (sizeof($response) < 10) {
+                         $i = 2000;
+                     }
+             }
+        }
+//        error_log('background');
+//        error_log(filter_input(INPUT_POST,"profile_name",FILTER_SANITIZE_STRING));
     }
 
     public function setBoost($package_name) {
@@ -332,6 +386,16 @@ class ProfilesController extends Controller {
             $cb->set($url, $tempUpdateResult);
             $this->sendResponse(500, 'something wrong');
         }
+    }
+    
+        public function writeToLog($fileName, $content) {
+//   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
+        $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
+        $output = "\n" . $content;
+        fwrite($handle, $output);
+        fclose($handle);
+
+        unset($fileName, $content, $handle, $output);
     }
 
 }

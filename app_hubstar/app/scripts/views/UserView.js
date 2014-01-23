@@ -65,7 +65,7 @@ HubStar.UserView = Ember.View.extend({
         }
 
         $(document).ready(function() {
-                    console.log("34345345");
+                  
             $("#about_us_contentsssssssw").mCustomScrollbar({
                 scrollButtons: {
                     enable: false, 

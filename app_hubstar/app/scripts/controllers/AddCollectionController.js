@@ -19,6 +19,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     selectedProfile: "",
     userName: '',
     chosenProfile: '',
+    isSaveTopProfile:"false",
     init: function()
     {
         HubStar.set("isProfile", false);
@@ -26,7 +27,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     setUser: function()
     {
         var user = HubStar.User.find(localStorage.loginStatus);   
-        console.log(user);
+       
         this.set("collections", user.get("collections"));
         if (this.get("collections").objectAt(0) !== null && this.get("collections").objectAt(0) !== undefined) {
             this.setDesc("");

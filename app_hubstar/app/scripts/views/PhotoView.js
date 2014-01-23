@@ -8,6 +8,30 @@ HubStar.PhotoView = Ember.View.extend({
     DiscussionTag: false,
     NameTag: false,
     didInsertElement: function() {
+        var that = this;
+        var counter = 0;
+        var mouseX = 0;
+        var mouseY = 0;
+        $('.next').mousedown(function(event) {
+            if (event.which === 1) //2:middle 
+            {
+                var imgtag = $(this).parent(); // get the div to append the tagging entry
+                mouseX = event.pageX - $(imgtag).offset().left; // x and y axis
+                mouseY = event.pageY - $(imgtag).offset().top;
+                that.get("controller").nextImage(event,mouseX,mouseY);
+            }
+        });
+        $('.previous').mousedown(function(event) {
+            if (event.which === 1) //2:middle 
+            {
+                 var imgtag = $(this).parent(); // get the div to append the tagging entry
+                mouseX = event.pageX - $(imgtag).offset().left; // x and y axis
+                mouseY = event.pageY - $(imgtag).offset().top;
+                alert("111111111"+event);
+                that.get("controller").previesImage(event,mouseX,mouseY);
+                
+            }
+        });
         return this.$().attr({tabindex: 1}), this.$().focus();
     },
     setTitleTag: function() {
@@ -103,8 +127,6 @@ HubStar.PhotoView = Ember.View.extend({
                     $('#masonry_container').masonry();
                 }, 300);
             }
-
-
         }
     }
 

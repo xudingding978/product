@@ -29,6 +29,9 @@
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;width: 60px;" {{action dropdownPhotoSetting "1"}}>
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="tag this photo" style="position:relative;margin: 0 5px;width: 60px;" {{action activateTag}}>
+                 <i class="fa fa-share"></i><span class="pretooltip">Tag</span> 
+            </div>
             <ul class="hideClass edit-object-ul" id="dropdown_id_1" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
                 <li class="ite" {{action  fbShare "1"}} >
             <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
@@ -60,8 +63,8 @@
 </div>
 
 <div class="mainfeature">
-    <div class="previous" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="controller"}}></div>
-    <div class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="controller"}}></div>
+    <div class="previous" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="view"}}></div>
+    <div class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="view"}}></div>
 
     {{view HubStar.PhotoDisplayAreaView}}
 </div>

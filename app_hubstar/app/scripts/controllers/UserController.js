@@ -205,12 +205,18 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("last_name", user.get("last_name"));
         this.set("identifier", user.get("identifier"));
         this.set("about_me", user.get("about_me"));
-        if (user.get("about_me").length >= this.get("about_me_limit_num"))
+        if (user.get("about_me") !== null && user.get("about_me") !== undefined && user.get("about_me") !== "")
         {
-            this.set("about_me_limit", true);
-            this.set("about_me_limit_data", user.get("about_me").substring(0, this.get("about_me_limit_num")));
-        }
-        else
+            if (user.get("about_me").length >= this.get("about_me_limit_num"))
+            {
+                this.set("about_me_limit", true);
+                this.set("about_me_limit_data", user.get("about_me").substring(0, this.get("about_me_limit_num")));
+            }
+            else
+            {
+                this.set("about_me_limit", false);
+            }
+        } else
         {
             this.set("about_me_limit", false);
         }

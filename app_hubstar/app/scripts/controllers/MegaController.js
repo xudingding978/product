@@ -81,16 +81,14 @@ HubStar.MegaController = Ember.ArrayController.extend({
             window.history.back();
         }
     },
-    previesImage: function(event,pic_x,pic_y) {
+    previesImage: function(event, pic_x, pic_y) {
 
         if (this.get("enableTag") === true)
         {
 
-//            //     console.log(mouseX);
-//            $(".mainfeature_object").append('<div id="tagit"><div class="box"></div><div class="name"><div class="text">Type any name or tag</div><input type="text" name="txtname" id="tagname" /><input type="button" name="btnsave" value="Save" id="btnsave" /><input type="button" name="btncancel" value="Cancel" id="btncancel" /></div></div>');
-//            $('#tagit').css({top: mouseY, left: mouseX});
-console.log("ppppdddddddpppppppp");
-//            $('#tagname').focus();
+            $('#renderTab').remove(); // remove any tagit div first
+            $(".mainfeature").append('<div id ="tagit"><div class="box"> </div><div class="name"><div class="text">Type any name or tag</div><input type="text" name="txtname" id="tagname" /><input type="button" name="btnsave" value="Save" id="btnsave" /><input type="button" name="btncancel" value="Cancel" id="btncancel" /></div></div> ');
+            $('#renderTab').css({top: pic_y, left: pic_x});
 
         } else
         {
@@ -150,15 +148,30 @@ console.log("ppppdddddddpppppppp");
         }
 
     },
-    nextImage: function(event,pic_x,pic_y) {
+    nextImage: function(event, pic_x, pic_y) {
+        var counter = 2;
         if (this.get("enableTag") === true)
         {
-console.log("pppppppppppp");
-            $(".mainfeature").append('<div id ="test">somsssssssssssssssssssssssssssssssssssssssssssssse pre</div> ');
-            $('#test').css({top: pic_x, left: pic_y});
-         console.log("ppppppppppppssssssssss");
+            $('#renderTab').remove(); // remove any tagit div first
+          //  $(".mainfeature").append('');
+            $('#renderTab').css({top: pic_y, left: pic_x});
+            $('#tagname').focus();
+
+//            $('#tagit #btnsave').live('click', function() {
+//                var name = $('#tagname').val();
+//                console.log("    "+name);
+//                $('#mainfeature').append('<div class="tagview" id="view_' + counter + '"></div>');
+//                $('#view_' + counter).css({top: mouseY, left: mouseX});
+//                $('#tagit').fadeOut();
+//                // add backend code here, use mouseX and mouseY for the axis and counter.
+//                // ............
+//            });
 //
-//            $('#tagname').focus();
+//            $('#tagit #btncancel').live('click', function() {
+//                $('#tagit').fadeOut();
+//
+//            });
+
 
         } else
         {
@@ -213,6 +226,10 @@ console.log("pppppppppppp");
      * parameter:
      *  aim: it is to enable user to tag in the photo
      ***********************/
+    saveTag: function()
+    {
+        console.log("sss1`1111111111111");
+    },
     activateTag: function()
     {
         this.set("enableTag", true);

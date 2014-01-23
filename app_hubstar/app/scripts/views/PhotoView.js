@@ -19,15 +19,15 @@ HubStar.PhotoView = Ember.View.extend({
                 mouseX = event.pageX - $(imgtag).offset().left; // x and y axis
                 mouseY = event.pageY - $(imgtag).offset().top;
                 that.get("controller").nextImage(event,mouseX,mouseY);
+                
             }
         });
         $('.previous').mousedown(function(event) {
             if (event.which === 1) //2:middle 
             {
-                 var imgtag = $(this).parent(); // get the div to append the tagging entry
+                var imgtag = $(this).parent(); // get the div to append the tagging entry
                 mouseX = event.pageX - $(imgtag).offset().left; // x and y axis
                 mouseY = event.pageY - $(imgtag).offset().top;
-                alert("111111111"+event);
                 that.get("controller").previesImage(event,mouseX,mouseY);
                 
             }

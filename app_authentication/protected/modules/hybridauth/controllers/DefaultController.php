@@ -58,7 +58,7 @@ class DefaultController extends Controller {
             // 
         }
     }
-
+ 
     private function _linkProvider($identity) {
         $config = Yii::app()->getBasePath() . '/../../app_authentication/protected/modules/hybridauth/config/provider_config.php';
         require_once( Yii::app()->getBasePath() . '/../../app_authentication/protected/modules/hybridauth/Hybrid/Auth.php');

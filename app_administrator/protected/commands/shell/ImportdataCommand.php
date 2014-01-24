@@ -65,7 +65,23 @@ class ImportdataCommand extends Controller_admin {
     
     
     public function urlshorten(){
-        $url="http://sports.sina.com.cn/tennis/ausopen14/";
+          $products = Kitchen_things::model()->getUrl();
+            $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = '/var/log/yii/' . $datetime . '.log';
+       //   echo var_export($url_arr,true);
+          $result_arr=array();
+          $i=1;
+          foreach($products as $product){
+              $i++;
+              $url=$product['QR_CODE_URL'];
+              $product_arr=array();
+              $product_arr['MODEL']=$product['MODEL'];
+              $product_arr['BRAND']=$product['BRAND'];
+              $product_arr['DESCRIPTION']=$product['DESCRIPTION'];
+              $product_arr['QR-CODE-URL']=$product['QR_CODE_URL'];
+              $product_arr['BRAND-MODEL']=$product['BRAND_MODEL'];
+              $product_arr['EXCLUSIVE']=$product['EXCLUSIVE'];
+                   //$url="http://sports.sina.com.cn/tennis/ausopen14/";
         $url_encoded=urlencode($url);
         $head="https://api-ssl.bitly.com/v3/shorten?access_token=c7a4f01f4287ebad93c2f0c9fc7e08e8b102e26c&longUrl=";
         $full=$head.$url_encoded;
@@ -83,9 +99,37 @@ class ImportdataCommand extends Controller_admin {
                                 $result=CJSON::decode($back);
                                 error_log(var_export($result,true));
                                 curl_close($ch);
+                                $url_short=$result['data']['url'];
+ $product_arr['URL-SHORT']=$url_short;
+ array_push($result_arr, $url_short);
+   $message=$url_short.",";
                             } catch (Exception $exc) {
                                 echo $exc->getTraceAsString();
+                                $message=$exc->getTraceAsString().",";
                             }
+                          
+                            $this->writeToLog($log_path, $message);
+          }
+//          
+//          foreach($result_arr as $shortened){
+//              echo $shortened."\n";
+//          }
+//    $model = new result;
+//
+//        //$log_arr = CJSON::decode(file_get_contents('php://input'));
+//
+//        $model->id = $i;
+//        $model->MODEL = $product_arr['MODEL'];
+//        $model->BRAND =  $product_arr['BRAND'];
+//        $model->DESCRIPTION =  $product_arr['DESCRIPTION'];
+//        $model->QR_CODE_URL = $product_arr['QR-CODE-URL'];
+//        $model->BRAND_MODEL =  $product_arr['BRAND-MODEL'];
+//        $model->EXCLUSIVE = $product_arr['EXCLUSIVE'];
+//        $model->URL_SHORT = $product_arr['URL-SHORT'];
+//     
+//        $model->save(false);     
+        
+   
     }
     public function test() {
 

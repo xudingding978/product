@@ -157,7 +157,7 @@ class Controller extends CController {
             $response = $this->getReponseResult($response, $returnType);
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
-            $owner_profile_id = $this->getUserInput($requireParams[2]);
+            $owner_profile_id = $this->getUserInput($requireParams[2]);           
             $response = $this->getCollectionReults($collection_id, $owner_profile_id);
             $response = $this->profileSetting($response, $returnType);
         } elseif ($requireType == 'partner') {
@@ -478,7 +478,6 @@ class Controller extends CController {
     }
 
     protected function getCollectionReults($collection_id, $owner_profile_id) {
-
         $request = $this->getElasticSearch();
         $request->from(0)
                 ->size(100);
@@ -516,7 +515,6 @@ class Controller extends CController {
         foreach ($tempResult as $hit) {
             $profile_id = $hit['source']['doc']['owner_id'];
         }
-
         if ($profile_id !== '') {
             $cb = $this->couchBaseConnection();
             $domain = $this->getDomain();

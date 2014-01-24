@@ -52,7 +52,7 @@ class RefineDataCommand extends Controller_admin {
         } elseif ($action == "fixaboutus") {
             $this->updateUserAbout();
         } elseif ($action == "createforjohn") {
-            $this->createCollectionForJohn();
+            $this->createCollectionForJohnEasier();
         } elseif ($action == "copy17") {
             $this->copyProfilestoTemp();
         } elseif ($action == "refineArticle") {
@@ -238,7 +238,7 @@ class RefineDataCommand extends Controller_admin {
 
     public function copyProfilestoTemp() {
         $bucket = "production";
-        $cb_test = $this->couchBaseConnection("develop");
+        $cb_test = $this->couchBaseConnection("temp");
         $profile_arr = array("new-home-trends-nz", "renovation-trends-nz", "kitchen-trends-nz", "bathroom-trends-nz", "outdoor-living-trends-nz", "apartment-trends-nz", "new-home-trends-au", "renovation-trends-au", "kitchen-trends-au", "bathroom-trends-au", "outdoor-living-trends-au", "apartment-trends-au", "new-home-trends-us", "renovation-trends-us", "kitchen-trends-us", "bathroom-trends-us", "interior-trends-us");
         echo var_export($profile_arr, true);
         //     sleep(10);
@@ -246,11 +246,49 @@ class RefineDataCommand extends Controller_admin {
         foreach ($profile_arr as $profile) {
             $profile_id = "trendsideas.com/profiles/" . $profile;
             $result = $cb->get($profile_id);
-            if ($cb_test->set($profile_id, $result)) {
+            $result_arr = CJSON::decode($result);
+            $result_arr['owner_profile_pic'] = "http://s3.hubsrv.com/trendsideas.com/users/kitchen-trends-nz/profile_picture/T.jpg";
+            $result_arr['category'] = null;
+            if ($cb_test->set($profile_id, CJSON::encode($result_arr))) {
                 echo $profile_id . " copy done\n";
             } else {
                 echo $profile_id . " copy failed+++++++++++++\n";
             }
+        }
+    }
+
+    public function createCollectionForJohnEasier() {
+        $bucket_source = "production";
+        $bucket_destination = "temp";
+        $cb = $this->couchBaseConnection($bucket_source);
+        $cb_test = $this->couchBaseConnection($bucket_destination);
+        $profile_arr = array("new-home-trends-nz", "renovation-trends-nz", "kitchen-trends-nz", "bathroom-trends-nz", "outdoor-living-trends-nz", "apartment-trends-nz", "new-home-trends-au", "renovation-trends-au", "kitchen-trends-au", "bathroom-trends-au", "outdoor-living-trends-au", "apartment-trends-au", "new-home-trends-us", "renovation-trends-us", "kitchen-trends-us", "bathroom-trends-us", "interior-trends-us");
+        $john = $cb->get("trendsideas.com/users/21051211514");
+        if ($john != null) {
+            $john_record = CJSON::decode($john);
+            $collections = $john_record["user"][0]['collections'];
+            foreach ($profile_arr as $profile) {
+                $profile_id = "trendsideas.com/profiles/" . $profile;
+                $profile_result = $cb_test->get($profile_id);
+
+
+                if ($profile_result != null) {
+                    $profile_record = CJSON::decode($profile_result);
+                    $profile_record['profile'][0]['collections'] = $collections;
+                    foreach($collections as $collection){
+                        
+                    }
+                    if ($cb_test->set($profile_id, CJSON::encode($profile_record))) {
+                        echo $profile_id ."saved to couchbase\n";
+                    } else {
+                        echo $profile_id . "save to couchbase failed\n";
+                    }
+                } else {
+                    echo $profile_id . "does not have a value in couchbase\n";
+                }
+            }
+        } else {
+            echo "can not retieve John's profile\n";
         }
     }
 
@@ -270,21 +308,6 @@ class RefineDataCommand extends Controller_admin {
             $count = 0;
             $article_count = 0;
             $photo_count = 0;
-            //          foreach($collections as $collection){
-//                $collection_arr = explode(",", $collection['collection_ids']);
-//                foreach($collection_arr as $id){
-//                    $count++;
-//                      $item_id = "trendsideas.com/" . str_replace(" ", "", $id);
-//                    $profile_result = $cb->get($item_id);
-//                        if ($profile_result != null) {
-//                        $profile_record = CJSON::decode($profile_result);
-//                        if($profile_record['type']=="article"){
-//                            $article_count++;
-//                        }elseif ($profile_record['type']=="photo") {
-//                            $photo_count++;
-//                        }
-//                        }
-//                }
             foreach ($collections as $collection) {
                 $new_collection = array();
                 $ids_str = "";
@@ -309,26 +332,23 @@ class RefineDataCommand extends Controller_admin {
                         $owner_title = $profile_record['owner_title'];
                         $region = $profile_record['region'];
                         $ids_str = "";
-
-
-
                         foreach ($collection_arr as $item) {
-
                             $item_id = "trendsideas.com/" . str_replace(" ", "", $item);
                             echo $item_id . "\n";
-
-
-
                             $item_result = $cb->get($item_id);
                             if ($item_result != null) {
                                 $item_arr = CJSON::decode($item_result);
                                 $id = $this->getNewID();
+                                if (isset($item_arr['keyword'])) {
+                                    unset($item_arr['keyword']);
+                                }
                                 $new_id = "trendsideas.com/" . $id;
                                 $item_arr['id'] = $id;
+                                $item_arr['creator'] = $owner_title;
                                 $item_arr['accessed'] = strtotime(date('Y-m-d H:i:s'));
                                 $item_arr['country'] = $profile_country;
                                 // $item_arr['collection_id']=$collection_title;
-                                $item_arr['keyword'] = $profile_keywords;
+                                $item_arr['keywords'] = $profile_keywords;
                                 $item_arr['owner_profile_pic'] = $profile_owner_profile_pic;
                                 $item_arr['owner_title'] = $owner_title;
                                 $owner_id_record = $item_arr['owner_id'];
@@ -353,12 +373,16 @@ class RefineDataCommand extends Controller_admin {
                                         if ($articlePhoto_result != null) {
                                             $articlePhoto_result_arr = CJSON::decode($articlePhoto_result);
                                             $articlePhoto_id = $this->getNewID();
+                                            if (isset($articlePhoto_result_arr['keyword'])) {
+                                                unset($articlePhoto_result_arr['keyword']);
+                                            }
                                             $articlePhoto_new_id = "trendsideas.com/" . $articlePhoto_id;
                                             $articlePhoto_result_arr['id'] = $articlePhoto_id;
                                             $articlePhoto_result_arr['accessed'] = strtotime(date('Y-m-d H:i:s'));
                                             $articlePhoto_result_arr['country'] = $profile_country;
+                                            $articlePhoto_result_arr['creator'] = $owner_title;
                                             // $item_arr['collection_id']=$collection_title;
-                                            $articlePhoto_result_arr['keyword'] = $profile_keywords;
+                                            $articlePhoto_result_arr['keywords'] = $profile_keywords;
                                             $articlePhoto_result_arr['owner_profile_pic'] = $profile_owner_profile_pic;
                                             $articlePhoto_result_arr['owner_title'] = $owner_title;
                                             //      $owner_id_record= $item_arr['owner_id'];
@@ -381,7 +405,7 @@ class RefineDataCommand extends Controller_admin {
                             }
 
                             $new_collection = array(
-                                "id" => $collection_title,
+                                "id" => $this->getNewID(),
                                 "title" => $collection_title,
                                 "desc" => $collection_desc,
                                 "collection_ids" => $ids_str,
@@ -410,12 +434,12 @@ class RefineDataCommand extends Controller_admin {
                     }
                 }
                 //     echo var_export($collection_arr, true);
-                //  }
+
                 sleep(5);
             }
-            echo " \n" . $count . "\n";
-            echo "article count: " . $article_count . "\n";
-            echo "photo count: " . $photo_count . "\n";
+//            echo " \n" . $count . "\n";
+//            echo "article count: " . $article_count . "\n";
+//            echo "photo count: " . $photo_count . "\n";
         } else {
             echo "Can not find john's profile\n";
         }
@@ -437,13 +461,13 @@ class RefineDataCommand extends Controller_admin {
                 ->QueryString()->query("photo")
                 ->default_field('couchbaseDocument.doc.type');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
-                ->must($must2)->must($must3);
+                        ->must($must2)->must($must3);
         $request->index($index)->type("couchbaseDocument");
         $request->from(0)
                 ->size(50);
         $request->query($bool);
 
-      //  echo "\n" . $request->toJSON() . "\n";
+        //  echo "\n" . $request->toJSON() . "\n";
         $response = $request->execute();
         foreach ($response as $hit) {
             array_push($return_arr, $hit['id']);

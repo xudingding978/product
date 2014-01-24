@@ -17,15 +17,15 @@ HubStar.PdfUploaderView = Ember.View.extend( HubStar.PdfUploaderController.Dropp
                 autoHideScrollbar: true,
                 mouseWheel: true,
                 theme: "dark-2",
-                set_height: 400
+                set_height: 470
             });
         });
         
 //          $( "#pdfUploaderData" )
 //  .hover(function() {
-//    $(this).attr("style","position: relative; bottom: 540px;background-color: white; height: auto; z-index: 99; width: 600px; line-height: 20px;");
+//   this.get("controller").set("pdfInfromationEdit", false);
 //  }, function() {
-//    $(this).attr("style","position: relative; bottom: 540px;background-color: white; height: auto; z-index: 100; width: 600px; line-height: 20px;");
+//   this.get("controller").set("pdfInfromationEdit", true);
 //  });
      }
     

@@ -1,7 +1,7 @@
 
 
 
-<div class="masonry-object" style="background-color: #427fed; color: white;">
+<div class="gradient1" style="color:#555;">
 
 
 
@@ -18,17 +18,28 @@
 
         </div>
         {{else}}
-  
+
 
         <div id="afterLogin">
             <div class="profilepic-container" style="margin:0 0 10px;">
-                <a {{bindAttr href="controller.myUserProfile"}} ><img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user"/></a>                              
+                <a {{bindAttr href="controller.myUserProfile"}} ><img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user" style="box-shadow: 0 1px 2px #555;"/></a>                              
             </div>
-            <p> Hi {{controller.user.display_name}} </p>
+            <p> Hi <b>{{controller.user.display_name}}</b> </p>
             <h4>{{controller.response}}</h4>
 
-          
         </div>
+        
+        <div class="switch-container">
+            <div style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;">Residential</div>
+            <div class="insetbox-shadow switch-groove" style="display: inline-block">
+                <div style="height: 10px;width: 50%;border-right: 1px solid rgba(0,0,0,.3);float: left;margin: 6px 0;"></div>
+                <div style="height: 10px;width: 50%;border-left: 1px solid rgba(255,255,255,.5); float: right;margin: 6px 0;"></div>
+                <div class="radius-circle gradient1 switch-btn" style=""></div>
+            </div>
+            <div style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;">Commercial</div>
+        </div>
+        
+        
         {{/unless}}
     </div>
 

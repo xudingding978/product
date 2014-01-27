@@ -11,6 +11,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('index').setLogin();
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('status').set('islogin', true);
+          localStorage.checkUser = "";
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
         this.controllerFor('mega').set('from',"search");
@@ -60,7 +61,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
 //        }else {
 //           
 //        }
-  localStorage.checkUser = "";
+
         $(".navbar").css("box-shadow", "");
         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
     },

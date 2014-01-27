@@ -3,13 +3,8 @@
 <div class="profile-wallpaper" style="width: 100%; height: 500px; overflow: hidden; position: fixed; top: 70px;">
     <img  {{bindAttr src= model.profile_bg_url}} style="width: 100%; height:auto;">
 </div>
-<div style="width: 100%; height:250px; position: relative; display: block; opacity: 0;">
-</div>
-<div style="position: absolute;">
-    {{#if controller.contactChecking}}
-    {{render contact}}
-    {{/if}}
-</div>
+<div style="width: 100%; height:250px; position: relative; display: block; opacity: 0;"></div>
+
 
 
 <div class="hover panel" style='z-index: 0; float: none;position: relative; width: 87%; height: auto; margin:  auto; background: #fff; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;max-width: 1260px;min-width: 1250px;overflow: hidden;'>
@@ -68,8 +63,10 @@
 
 
                             <!--contact me-->
+
                             <div class="contactmebtn hint--bottom hint--rounded easing" data-hint="Contact us!">
                                 <a class="contactmeicon easing" {{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></a>
+
                             </div>
                             <!--contact me-->
 
@@ -1063,3 +1060,10 @@
     {{view HubStar.SelectFunctionView}}
 
     {{/if}}
+    
+    
+ {{#if controller.contactChecking}}
+    {{render contact}}
+    {{/if}}
+    
+   

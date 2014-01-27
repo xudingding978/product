@@ -17,7 +17,6 @@ HubStar.ProfileNewRoute = Ember.Route.extend({
             HubStar.set("isLogin", false);
         } else {
             HubStar.set("isLogin", true);
-            console.log(HubStar.User.find(localStorage.loginStatus).get("isLoaded"));
 
             if (HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== ""
                     && HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== "undefined"
@@ -48,7 +47,7 @@ HubStar.ProfileNewRoute = Ember.Route.extend({
             this.controllerFor('application').set('popup', true);
         } else
         {
-            this.transitionTo("searchIndex");
+          //  this.transitionTo("searchIndex");
         }
     }
 });

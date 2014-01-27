@@ -328,22 +328,23 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var owner_id = this.get("profileId");
         var title = this.get('collection_id');
 
-//        var results = HubStar.Mega.find({RquireType: "collection", "collection_id": title, "owner_profile_id": owner_id});
-//        var that = this;
-//        results.addObserver('isLoaded', function() {
-//            if (results.get('isLoaded')) {
-//                for (var i = 0; i < this.get("length"); i++) {
-//                    var tempmega = results.objectAt(i);
-//                    if (tempmega.get('profile').get('length') === 0 && tempmega.get('user').get('length') === 0 && (that.get('collection_id') === tempmega.get('collection_id')))
-//                    {
-//                        that.get("content").pushObject(tempmega);
-//                    }
-//                }
-//                setTimeout(function() {
-//                    $('#masonry_photo_collection_container').masonry("reload");
-//                }, 200);
-//            }
-//        });
+        var results = HubStar.Mega.find({RquireType: "collection", "collection_id": title, "owner_profile_id": owner_id});
+        var that = this;
+        results.addObserver('isLoaded', function() {
+            if (results.get('isLoaded')) {
+                for (var i = 0; i < this.get("length"); i++) {
+                    var tempmega = results.objectAt(i);
+                    if (tempmega.get('profile').get('length') === 0 && tempmega.get('user').get('length') === 0 && (that.get('collection_id') === tempmega.get('collection_id')))
+                    {
+                        that.get("content").pushObject(tempmega);
+                    }
+                }                
+                setTimeout(function() {
+                    $('#masonry_photo_collection_container').masonry("reload");
+                }, 200);
+            }
+        });
+
         var pics = HubStar.Mega.find({RquireType: "profileCollection", user_id: owner_id, collection_id: title});
         var that = this;
         pics.addObserver('isLoaded', function() {

@@ -799,7 +799,16 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.get("controllers.contact").set('firstStepOfContactEmail', false);
 
             contactController.setSelectedMega(this.get('currentUserID'));
-            this.set('contactChecking', !this.get('contactChecking'));
+          
+            
+             if (!this.get('contactChecking'))
+        {
+            document.getElementById("body_id").style.overflow = "hidden";
+        }
+        else {
+            document.getElementById("body_id").style.overflow = "auto";
+        }
+        this.set('contactChecking', !this.get('contactChecking'));
         }
     },
     closeContact: function() {

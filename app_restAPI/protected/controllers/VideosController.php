@@ -56,7 +56,9 @@ class VideosController extends Controller {
     public function actionUpdate() {
         
     }
-
+    
+   
+    
     public function videoUpdate($mega) {
         try {
             $cb = $this->couchBaseConnection();
@@ -73,6 +75,7 @@ class VideosController extends Controller {
             $oldRecord['object_description'] = $photoCaption;
             $oldRecord['videoes'][0]['video_title'] = $photoTitle;
             $oldRecord['videoes'][0]['video_desc'] = $photoCaption;
+
              if (!isset($oldRecord['view_count'])) {
                 $oldRecord["view_count"] = 1;
             } else {
@@ -88,6 +91,7 @@ class VideosController extends Controller {
             } else {
             $oldRecord["share_count"] =   $mega['mega']['share_count'];   // //or using   $mega['mega']['share_count']; 
             }
+
 
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);

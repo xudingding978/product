@@ -209,7 +209,14 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         }
         else {
             var ids = collection.get("collection_ids");
-            ids = ids + ", " + this.get("objectID");
+            if (ids !== undefined || ids !== null)
+            {
+                ids = this.get("objectID") + "," + ids;
+            }
+            else
+            {
+                ids = this.get("objectID");
+            }
             collection.set("collection_ids", ids);
         }
     },

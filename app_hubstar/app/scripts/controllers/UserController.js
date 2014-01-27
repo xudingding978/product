@@ -216,11 +216,12 @@ HubStar.UserController = Ember.Controller.extend({
             {
                 this.set("about_me_limit", false);
             }
+
+        } else
+        {
+            this.set("about_me_limit", false);
         }
-        else
-            {
-                    this.set("about_me_limit", false);
-            }
+
         this.set("facebook", user.get("facebook_link"));
         this.set("twitter", user.get("twitter_link"));
         this.set("googleplus", user.get("googleplus_link"));

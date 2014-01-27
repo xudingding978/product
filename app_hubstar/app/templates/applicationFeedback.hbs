@@ -4,13 +4,8 @@
 
     {{#if controller.info}}
 
-    <div  class="fresh-profile-pic"style="">
-        <img src="../../../images/trendsideas.jpg"/>
-        <img {{bindAttr src= this.photo_url}}/>
-    </div>
     <div class="fresh-message">
-        <i class="fa fa-info-sign"></i>
-        <span class="feed-back">{{controller.status}}</span>
+        <span class="feed-back"><i class="fa fa-info-circle">&nbsp;</i>&nbsp;{{controller.status}}</span>
         <i class="fa fa-times" {{action removeButton }}></i>
     </div>
 
@@ -21,13 +16,8 @@
     {{#if controller.succeed}}
 
 
-    <div class="fresh-profile-pic" style="">
-        <img src="../../../images/trendsideas.jpg"/>
-        <img {{bindAttr src= this.photo_url}}/>
-    </div>
     <div class="fresh-message fresh_succeed">
-        <i class="fa fa-check-circle"></i>
-        <span class="feed-back">{{controller.status}}</span>
+        <span class="feed-back"><i class="fa fa-check-circle">&nbsp;</i>&nbsp;{{controller.status}}</span>
         <i class="fa fa-times" {{action removeButton }}></i>
     </div>
 
@@ -35,13 +25,8 @@
 
     {{#if controller.failed}}
 
-    <div class="fresh-profile-pic" style="">
-        <img src="../../../images/trendsideas.jpg"/>
-        <img {{bindAttr src= this.photo_url}}/>
-    </div>
     <div class="fresh-message fresh_failed">
-        <i class="fa fa-times-circle"></i>
-        <span class="feed-back">{{controller.status}}</span>
+        <span class="feed-back"><i class="fa fa-times-circle">&nbsp;</i>&nbsp;{{controller.status}}</span>
         <i class="fa fa-times" {{action removeButton }}></i>
     </div>
 
@@ -50,13 +35,8 @@
 
     {{#if controller.warnning}}
 
-    <div class="fresh-profile-pic" style="">
-        <img src="../../../images/trendsideas.jpg"/>
-        <img {{bindAttr src= this.photo_url}}/>
-    </div>
     <div class="fresh-message fresh_warnning">
-        <i class="fa fa-exclamation-sign"></i>
-        <span class="feed-back">{{controller.status}}</span>
+        <span class="feed-back"><i class="fa fa-exclamation-circle">&nbsp;</i>&nbsp;{{controller.status}}</span>
         <i class="fa fa-times" {{action removeButton }}></i>
     </div>
 

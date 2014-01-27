@@ -42,7 +42,7 @@ div.form input,
 div.form textarea,
 div.form select
 {
-    margin: 0.2em 0 0.5em 0;
+    margin: 0.2em 2em 0;
 }
 
 div.form fieldset
@@ -172,8 +172,9 @@ div.wide.form .buttons, div.wide.form .hint, div.wide.form .errorMessage
     font-size: 13px;
     font-weight: bold;
     color: #888;
-    padding:4px 10px;
-    text-align:center;
-    margin:5px auto 10px;
-width: 150px;
+    padding: 4px 10px;
+    text-align: center;
+    margin: 5px auto 10px;
+    height: 26px;
+    width: 250px;
 }

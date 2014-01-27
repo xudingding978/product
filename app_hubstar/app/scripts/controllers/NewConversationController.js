@@ -6,6 +6,7 @@ HubStar.NewConversationController = Ember.Controller.extend({
     isInvitePeople: false,
     isAdded: false,
     contentFollowerPhoto: null,
+    isPosting:true,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -24,6 +25,7 @@ HubStar.NewConversationController = Ember.Controller.extend({
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var commentContent = this.get('messageContent');
         if (commentContent) {
+            this.set("isPosting",false);
             var commenter_id = this.get("currentUser").get('id');
             var date = new Date();
             var owner_id = this.get("currentOwner").get("id");
@@ -165,6 +167,7 @@ HubStar.NewConversationController = Ember.Controller.extend({
                 that.set("contentFollowerPhoto",null);
                 that.set('newStyleImageSource', null);
                 that.set('newStyleImageName', "");
+                 that.set("isPosting",true);
                 setTimeout(function() {
                 $('#masonry_container').masonry("reloadItems");
             }, 200);

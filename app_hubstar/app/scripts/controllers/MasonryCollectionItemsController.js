@@ -129,7 +129,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.resetContent();
         var photoCreateController = this.get('controllers.photoCreate');
         photoCreateController.set("fileSize", 0);
-        photoCreateController.set("filesNumber",0);
+        photoCreateController.set("filesNumber", 0);
         $('#ownerUpload').attr('style', 'display:none');
         $('#tagetUplaod').attr('style', 'display:block');
         this.set('uploadOrsubmit', false);
@@ -248,15 +248,19 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
-        var is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
-
-        currentUser.addObserver('isLoaded', function() {
-            var current_user_email = currentUser.get('email');
-            if (currentUser.get('isLoaded')) {
-                is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
-            }
-        });
-        return is_authentic_user;
+        if (currentUser.get("isLoaded")) {
+            var is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
+            this.set("is_authentic_user", is_authentic_user);
+        } else {
+            currentUser.addObserver('isLoaded', function() {
+                var current_user_email = currentUser.get('email');
+                if (currentUser.get('isLoaded')) {
+                    is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
+                    that.set("is_authentic_user", is_authentic_user);
+                }
+            });
+        }
+        //return is_authentic_user;
     },
     changeCollectionCover: function(id, collection_id, HubStarModel, article) {
 
@@ -328,22 +332,22 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var owner_id = this.get("profileId");
         var title = this.get('collection_id');
 
-        var results = HubStar.Mega.find({RquireType: "collection", "collection_id": title, "owner_profile_id": owner_id});
-        var that = this;
-        results.addObserver('isLoaded', function() {
-            if (results.get('isLoaded')) {
-                for (var i = 0; i < this.get("length"); i++) {
-                    var tempmega = results.objectAt(i);
-                    if (tempmega.get('profile').get('length') === 0 && tempmega.get('user').get('length') === 0 && (that.get('collection_id') === tempmega.get('collection_id')))
-                    {
-                        that.get("content").pushObject(tempmega);
-                    }
-                }                
-                setTimeout(function() {
-                    $('#masonry_photo_collection_container').masonry("reload");
-                }, 200);
-            }
-        });
+//        var results = HubStar.Mega.find({RquireType: "collection", "collection_id": title, "owner_profile_id": owner_id});
+//        var that = this;
+//        results.addObserver('isLoaded', function() {
+//            if (results.get('isLoaded')) {
+//                for (var i = 0; i < this.get("length"); i++) {
+//                    var tempmega = results.objectAt(i);
+//                    if (tempmega.get('profile').get('length') === 0 && tempmega.get('user').get('length') === 0 && (that.get('collection_id') === tempmega.get('collection_id')))
+//                    {
+//                        that.get("content").pushObject(tempmega);
+//                    }
+//                }                
+//                setTimeout(function() {
+//                    $('#masonry_photo_collection_container').masonry("reload");
+//                }, 200);
+//            }
+//        });
 
         var pics = HubStar.Mega.find({RquireType: "profileCollection", user_id: owner_id, collection_id: title});
         var that = this;
@@ -363,11 +367,13 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     {
         this.set('is_profile_editing_mode', false);
         this.set('is_user_editing_mode', false);
+
         if (HubStar.get('editingMode') === 'profile') {
             this.set('is_profile_editing_mode', true);
             var proController = this.get('controllers.profile');
             this.set('pageModel', proController.get('model'));
-            this.set("is_authentic_user", this.checkAuthenticUser());
+            this.checkAuthenticUser();
+
         }
         else if (HubStar.get('editingMode') === 'user') {
             this.set('is_user_editing_mode', true);

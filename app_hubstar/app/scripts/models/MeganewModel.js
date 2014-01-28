@@ -1,6 +1,6 @@
 
 DS.RESTAdapter.map('HubStar.Meganew', {
-    profile: {embedded: 'always'},
+    profile: {embedded: 'load'},
      keyword: {embedded: 'always'}
 });
 

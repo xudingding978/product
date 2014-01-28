@@ -25,8 +25,23 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
     },
     modifyDetail: function(param) {
        console.log('show');
+       $('#pdf_title_'+param).slideToggle(200);
        $('#'+param).slideToggle(1000);
+       
     },
+            saveDetail: function(param) {
+       console.log('save');
+       $('#'+param).slideToggle(1000);
+       $('#pdf_title_'+param).slideToggle(200);
+      
+    },
+            cancelDetail: function(param) {
+       console.log('cancel');
+       $('#'+param).slideToggle(1000);
+       $('#pdf_title_'+param).slideToggle(200);
+
+    },
+            
     changeCover: function(param) {
         console.log(param);
     },

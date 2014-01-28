@@ -2,6 +2,12 @@ HubStar.RegisterView = Ember.View.extend({
     templateName: 'register',
     didInsertElement: function() {
         $(document).ready(function() {
+            if (/iPhone|iPad/i.test(navigator.userAgent)) {
+                alert("mobile device");
+                $('.social-login-iconbox').addClass('btn');
+                $('.social-links-container').css('padding', '0px');
+                $('.btn').css('border', '1px  #bbbbbb');
+            }
             if (localStorage.loginState === "login") {
 
                 if (localStorage.userType === "email") {

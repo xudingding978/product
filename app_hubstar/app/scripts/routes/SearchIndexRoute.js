@@ -14,18 +14,13 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
         this.controllerFor('status').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
-        localStorage.checkUser = "newUser";
         if (localStorage.checkUser === "newUser") {
             setTimeout(function() {
                 $(document).ready(function() {
                     window.location.href = '#';
-                    $("#profileDashboard").attr("style", "display:none");
-                    $("#profilePanel").removeClass("panel");
-                    // $("#profileFront").removeClass("front");
                     $(".brand").addClass("tour-background");
                     $(".Geo-Filter").addClass("tour-background");
                     $("#login_detail").addClass("tour-background");
-                    $("#profileName").addClass("profileName");
                     introJs().setOption('doneLabel', 'Finish').start().oncomplete(function() {
                         window.location.href = '/#/search';
                         $(window).scrollTop(0);

@@ -239,6 +239,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             localStorage.loginStatus = params;
             HubStar.set("isLogin", true);
             that.transitionToRoute("searchIndex");
+             localStorage.checkUser = "newUser";
 
         });
 

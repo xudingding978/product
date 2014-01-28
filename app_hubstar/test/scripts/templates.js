@@ -445,7 +445,7 @@ function program1(depth0,data) {
   data.buffer.push(">\n                <i class=\"fa fa-envelope\" style=\"\">&nbsp;&nbsp;</i>\n                <span>Messages</span>\n            </a></li>\n                ");
   stack1 = helpers['if'].call(depth0, "controller.is_trends_user", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n                <li class='ite'><a tabindex=\"-1\" href=\"http://about.trendsideas.com/\" target=\"blank\">\n                        <i class=\"fa fa-question-circle\" style=\"\">&nbsp;&nbsp;</i>\n                        <span>Help</span>\n                    </a></li>\n                     <li class='ite'><a tabindex=\"-1\" href=\"#\" id=\"startButton\">\n                <i class=\"fa fa-info\" style=\"\">&nbsp;&nbsp;</i>\n                <span>User Tour</span>\n            </a></li>\n                <li class=\"ite\"><a tabindex=\"-1\"");
+  data.buffer.push("\n\n                <li class='ite'><a tabindex=\"-1\" href=\"http://about.trendsideas.com/\" target=\"blank\">\n                        <i class=\"fa fa-question-circle\" style=\"\">&nbsp;&nbsp;</i>\n                        <span>Help</span>\n                    </a></li>\n                     <li class='ite'><a tabindex=\"-1\" href=\"javascript:void(0);\" id=\"startButton\">\n                <i class=\"fa fa-info\" style=\"\">&nbsp;&nbsp;</i>\n                <span>User Tour</span>\n            </a></li>\n                <li class=\"ite\"><a tabindex=\"-1\"");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "logout", {hash:{
     'on': ("click"),
     'target': ("view")

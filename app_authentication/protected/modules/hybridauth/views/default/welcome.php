@@ -24,6 +24,19 @@
         var parent = window.opener;
 
         localStorage.setItem("checkUser", "newUser");
+        
+         $(document).ready(function() {
+                    window.location.href = '#';
+                    $(".brand").addClass("tour-background");
+                    $(".Geo-Filter").addClass("tour-background");
+                    $("#login_detail").addClass("tour-background");
+                    introJs().setOption('doneLabel', 'Finish').start().oncomplete(function() {
+                        window.location.href = '/#/search';
+                        $(window).scrollTop(0);
+                        localStorage.checkUser = "";
+                    });
+
+                });
 
         var address = document.URL;
         var domain = address.split("/")[2];

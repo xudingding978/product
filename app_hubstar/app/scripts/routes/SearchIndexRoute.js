@@ -16,18 +16,7 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
         this.controllerFor('application').set('isotherpage', false);
         if (localStorage.checkUser === "newUser") {
             setTimeout(function() {
-                $(document).ready(function() {
-                    window.location.href = '#';
-                    $(".brand").addClass("tour-background");
-                    $(".Geo-Filter").addClass("tour-background");
-                    $("#login_detail").addClass("tour-background");
-                    introJs().setOption('doneLabel', 'Finish').start().oncomplete(function() {
-                        window.location.href = '/#/search';
-                        $(window).scrollTop(0);
-                        localStorage.checkUser = "";
-                    });
-
-                });
+               
             }, 5500);
         }
         else {

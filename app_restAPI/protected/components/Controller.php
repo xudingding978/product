@@ -187,6 +187,11 @@ class Controller extends CController {
             $collection_id = $this->getUserInput($requireParams[2], false);
             $response = $this->searchProfileCollectionItem($userid, $collection_id, $returnType);
         } elseif ($requireType == 'defaultSearch') {
+            $residential = $this->getUserInput($requireParams[1]);
+            $commercial = $this->getUserInput($requireParams[2]);
+            error_log("ssssssssssssssssssss");
+         error_log(var_export($residential, true));
+         error_log(var_export($commercial, true));
             $response = $this->searchCollectionItem('21051211514', 'editor-picks', $returnType);
         } elseif ($requireType == 'video') {
             $videoOwnerId = $this->getUserInput($requireParams[1]);
@@ -220,11 +225,14 @@ class Controller extends CController {
         $requestStringOne = 'couchbaseDocument.doc.user.id=' . $userid;
         array_push($conditions, $requestStringOne);
         $requestStringTwo = 'couchbaseDocument.doc.user.collections.id=' . $collection_id;
+        
         array_push($conditions, $requestStringTwo);
         $tempResult = $this->searchWithCondictions($conditions, 'must');
         $tempResult = $this->getReponseResult($tempResult, $returnType);
         $mega = CJSON::decode($tempResult, true);
-        if (!isset($mega['megas'][0]['user'][0]['collections'])) {
+        
+        
+         if (!isset($mega['megas'][0]['user'][0]['collections'])) {
             $collections = array();
         } else {
             $collections = $mega['megas'][0]['user'][0]['collections'];

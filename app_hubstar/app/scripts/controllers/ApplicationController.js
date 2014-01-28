@@ -22,6 +22,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         {id: "12", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment'}
 
     ],
+    residentialCommercial: 3,   
     needs: ['status', 'applicationFeedback', 'user', 'megaCreate', 'notificationTop', 'article', 'mega', 'checkingLoginStatus', 'addCollection', 'search'],
     content: [],
     loginInfo: "",
@@ -114,7 +115,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
         this.getPageNo();
         this.set("from", this.get("from") + this.get("size"));
-        var results = HubStar.Mega.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation')});
+        var results = HubStar.Mega.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'),"residentialCommercial": this.get("residentialCommercial")});
         var that = this;
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
@@ -164,7 +165,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var start = d.getTime();
         var that = this;
         var statusController = this.get('controllers.status');
-        var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation')});
+        var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'),"residentialCommercial": this.get("residentialCommercial")});
         stats.addObserver('isLoaded', function() {
             if (stats.get('isLoaded')) {
                 var stat = stats.objectAt(0);
@@ -188,12 +189,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
     },
     defaultSearch: function() {
+
         this.set("adPageNo", 0);
         this.set("pageCount", 0);
         this.set("loginInfo", localStorage.loginStatus);
         this.set("googletagCmd", []);
         this.set("content", []);
         this.set("adPageNo", 0);
+      
+
+
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
         } else {
             this.set('loadingTime', true);
@@ -539,19 +544,19 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type-facebook').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Facebook account
-               else  if (params === 3) {
+                else if (params === 3) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                     that.set('loginTime', false);
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type-twitter').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Twitter account
-                 else if (params === 4) {
+                else if (params === 4) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                     that.set('loginTime', false);
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type-google').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Google account
-               else  if (params === 5) {
+                else if (params === 5) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                     that.set('loginTime', false);
                     $('.black-tool-tip').css('display', 'none');
@@ -575,15 +580,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
                             if (localStorage.loginStatus)
                             {
-                                if ((params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== "undefined" 
-                                        || (params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== "" 
-                                        || (params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== null )
+                                if ((params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== "undefined"
+                                        || (params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== ""
+                                        || (params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== null)
                                 {
-                                   
+
                                     that.set("is_trends_user", true);
                                 }
                                 else {
-                                    
+
                                     that.set("is_trends_user", false);
                                 }
                             }
@@ -692,8 +697,23 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     relayout: function()
     {
+        var that =this;
         setTimeout(function() {
             $('#masonry_container').masonry("reload");
+            console.log(that.get("residential"));
+            console.log(that.get("commercial"));
+            if (that.get("residentialCommercial") === 1)
+            {
+               $('#switchbarBtn').attr("style", "margin-left:0 px;");
+            }
+            else if(that.get("residentialCommercial")===3)
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:13px;");
+                }
+            else if(that.get("residentialCommercial")===2)
+            {
+                $('#switchbarBtn').attr("style", "margin-left:28px;");
+            }
         }, 1000);
     },
     getAds: function() {

@@ -212,46 +212,73 @@ class ProfilesController extends Controller {
         
 //        $response = $this->getProfileReults($profile_id);
         if (ERunActions::runBackground()) {
-//            $this->writeToLog('/var/log/nginx/backprocess.log', 'test');
-            $request = $this->getElasticSearch();
-            $cb = $this->couchBaseConnection();
-             for ($i =0; $i <2000; $i++) {
-                     $request->from(10*$i)
-                             ->size(10);
-
-                     $must = Sherlock\Sherlock::queryBuilder()
-                             ->QueryString()->query('"' . $profile_id . '"')
-                             ->default_field('couchbaseDocument.doc.owner_id');
-                     $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
-                     $sort = Sherlock\Sherlock::sortBuilder();
-                    $sort1 = $sort->Field()->name("id")->order('asc');
-                    $request->sort($sort1);
-                     $response = $request->query($bool)->execute();
-                     foreach ($response as $hit) {          
-//                         $this->writeToLog('/var/log/nginx/backprocess.log', $hit['source']['doc']['id']);
-                        $id = $hit['source']['doc']['id'];
-                        $docID = $this->getDomain() . '/' . $id;
-
-                        $profileOwn = $cb->get($docID);
-                        $owner = CJSON::decode($profileOwn, true);
-                        if ($owner['type'] !== 'profile') {                                
-                            $owner['owner_title'] = $profile_name;
-                            if ($cb->set($docID, CJSON::encode($owner))) {
-//                                $this->writeToLog('/var/log/nginx/backprocess.log', $hit['source']['doc']['id'] . 'update success');
-                            } else {
-//                                $this->writeToLog('/var/log/nginx/backprocess.log', $hit['source']['doc']['id'] . 'update fail');
-                            }                                                    
-                        }                        
-                     }
-                     if (sizeof($response) < 10) {
-                         $i = 2000;
-                     }
-             }
+            $this->writeToLog('/var/log/nginx/backprocess.log', 'test');
+            $data_arr = $this->findAllAccordingOwner($profile_id);
+            while (sizeof($data_arr) > 0) {
+                try {
+                $this->writeToLog('/var/log/nginx/backprocess.log', 'loop'.  sizeof($data_arr));
+                $data_arr = $this->modifyOwnerID($data_arr, $profile_name);
+                } catch (Exception $e) {
+                    $this->writeToLog('/var/log/nginx/backprocess.log', 'error when loop');
+                }
+            }
         }
 //        error_log('background');
 //        error_log(filter_input(INPUT_POST,"profile_name",FILTER_SANITIZE_STRING));
     }
+    
+    public function modifyOwnerID($data_arr, $profile_name) {
+        $cb = $this->couchBaseConnection();   
+                     
+         for ($i = 0; $i < sizeof($data_arr); $i ++) {                          
+            try {
+            $docID = $data_arr[$i];
+            $this->writeToLog('/var/log/nginx/backprocess.log', $docID);
+            $profileOwn = $cb->get($docID);
 
+            $this->writeToLog('/var/log/nginx/backprocess.log', $docID . ' get');
+            $owner = CJSON::decode($profileOwn, true);
+            $this->writeToLog('/var/log/nginx/backprocess.log', $docID. 'decode');
+
+                $owner['owner_title'] = $profile_name;
+                if ($cb->set($docID, CJSON::encode($owner))) {
+                    array_splice($data_arr, $i, 1);
+                    $this->writeToLog('/var/log/nginx/backprocess.log', $docID . 'update success');
+                } else {
+                    $this->writeToLog('/var/log/nginx/backprocess.log', $docID . 'update fail'.'since');
+                }
+            } catch(Exception $e) {                    
+                $this->writeToLog('/var/log/nginx/backprocess.log', 'error when get data');
+                $this->writeToLog('/var/log/nginx/backprocess.log', $e);
+            }
+
+         }
+         return $data_arr;
+    }
+
+     public function findAllAccordingOwner($owner_id) {
+        $request = $this->getElasticSearch();
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"$owner_id\"")
+                ->default_field('couchbaseDocument.doc.owner_id');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        $data_arr = array();
+        for ($i = 0; $i < 2000; $i++) {
+            $request->from($i * 50)
+                    ->size(50);
+            $request->query($bool);
+            $response = $request->execute();
+            foreach ($response as $hit) {
+                //     echo $hit["score"] . ' - ' . $hit['id'] . "\r\n";
+                array_push($data_arr, $hit['id']);
+                 $this->writeToLog('/var/log/nginx/backprocess.log', $hit['id']);
+            }
+            if (sizeof($response) == 0) {
+                $i = 2000;
+            }
+        }
+        return $data_arr;
+     }
+    
     public function setBoost($package_name) {
         $domain = $this->getDomain();
         $configuration = $this->getProviderConfigurationByName($domain, "package_details");

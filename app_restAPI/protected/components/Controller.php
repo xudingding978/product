@@ -153,7 +153,12 @@ class Controller extends CController {
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
             $location = $this->getUserInput($requireParams[5]);
-            $response = $this->getSearchResults($region, $searchString, $from, $size, $location);
+            
+            $residential = $this->getUserInput($requireParams[6]);
+            $commercial = $this->getUserInput($requireParams[7]);
+            //error_log("ssssssssssssssssssss");
+            
+            $response = $this->getSearchResults($region, $searchString, $from, $size, $location,$residential,$commercial);
             $response = $this->getReponseResult($response, $returnType);
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
@@ -177,7 +182,13 @@ class Controller extends CController {
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
             $location = $this->getUserInput($requireParams[5]);
-            $response = $this->getSearchResultsWithAnalysis($region, $searchString, $from, $size, $location);
+            
+            $residential = $this->getUserInput($requireParams[6]);
+            $commercial = $this->getUserInput($requireParams[7]);
+            //error_log("ssssssssssssssssssss");
+         
+            
+            $response = $this->getSearchResultsWithAnalysis($region, $searchString, $from, $size, $location,$residential,$commercial);
         } elseif ($requireType == 'personalCollection') {
             $userid = $this->getUserInput($requireParams[1]);
             $collection_id = $this->getUserInput($requireParams[2], false);
@@ -187,11 +198,8 @@ class Controller extends CController {
             $collection_id = $this->getUserInput($requireParams[2], false);
             $response = $this->searchProfileCollectionItem($userid, $collection_id, $returnType);
         } elseif ($requireType == 'defaultSearch') {
-            $residential = $this->getUserInput($requireParams[1]);
-            $commercial = $this->getUserInput($requireParams[2]);
-            error_log("ssssssssssssssssssss");
-         error_log(var_export($residential, true));
-         error_log(var_export($commercial, true));
+            
+             
             $response = $this->searchCollectionItem('21051211514', 'editor-picks', $returnType);
         } elseif ($requireType == 'video') {
             $videoOwnerId = $this->getUserInput($requireParams[1]);
@@ -266,7 +274,7 @@ class Controller extends CController {
         
     }
 
-    protected function getSearchResults($region, $requestString, $from = 0, $size = 50, $location = 'Global') {
+    protected function getSearchResults($region, $requestString, $from = 0, $size = 50, $location = 'Global',$residential="1",$commercial="1") {
 
         $conditions = array();
         if ($region != null && $region != "") {
@@ -277,6 +285,15 @@ class Controller extends CController {
             $requestStringTwo = '_all=' . $requestString;
             array_push($conditions, $requestStringTwo);
         }
+         if ($residential != null && $residential != "") {
+            $requestStringThree = 'couchbaseDocument.doc.residential=' . $residential;
+            array_push($conditions, $requestStringThree);
+        }
+         if ($commercial != null && $commercial != "") {
+            $requestStringFour = 'couchbaseDocument.doc.commercial=' . $commercial;
+            array_push($conditions, $requestStringFour);
+        }
+        
 
         $results = $this->searchWithCondictions($conditions, 'must', $from, $size, $location);
 
@@ -291,29 +308,67 @@ class Controller extends CController {
         return $should;
     }
 
-    protected function searchWithMultiMatch($queryString, $from = 0, $size = 50, $location = 'Global') {
+    protected function searchWithMultiMatch($queryString, $from = 0, $size = 50, $location = 'Global',$residential="1",$commercial="1") {
         $request = $this->getElasticSearch();
         $request->from($from)
                 ->size($size);
-        if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
-            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
-                "query": {
-                  "bool": {
-                    "must": {
+       $location_filter="";
+         if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
+                  $location_filter='
+            ,{
                       "queryString": {
                         "default_field": "couchbaseDocument.doc.country",
                         "query": "' . $location . '"
                       }
+                    }
+              ';
+         }
+            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+                "query": {
+                  "bool": {
+                    "must": [{
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.residential",
+                        "query": "' . $residential . '"
+                      }
                     },
+                    {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.commercial",
+                        "query": "' . $commercial . '"
+                      }
+                    }'.$location_filter.'
+                    ],
                     "must_not": {
                    
                   }
                 }
                 }
               }');
+            
+             
+//             if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
+//            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+//                "query": {
+//                  "bool": {
+//                    "must": {
+//                      "queryString": {
+//                        "default_field": "couchbaseDocument.doc.country",
+//                        "query": "' . $location . '"
+//                      }
+//                    },
+//                    "must_not": {
+//                   
+//                  }
+//                }
+//                }
+//              }');
+//
+//            $request->filter($filter);
+//        } 
 
             $request->filter($filter);
-        } 
+        
 //        else {
 //            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
 //                "query": {
@@ -564,8 +619,11 @@ class Controller extends CController {
         return $results;
     }
 
-    protected function getSearchResultsWithAnalysis($region, $requestString, $from = 0, $size = 50, $location) {
-        $tempResponse = $this->searchWithMultiMatch($requestString, $from, $size, $location);
+    protected function getSearchResultsWithAnalysis($region, $requestString, $from = 0, $size = 50, $location ,$residential="1", $commercial="1") {
+        error_log(var_export($residential, true));
+         error_log(var_export($commercial, true));
+         
+        $tempResponse = $this->searchWithMultiMatch($requestString, $from, $size, $location,$residential,$commercial);
         $numberofresults = $tempResponse->total;
         $tempResponse = CJSON::encode($tempResponse);
         $tempResponse = CJSON::decode($tempResponse);

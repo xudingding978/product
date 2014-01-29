@@ -15,7 +15,7 @@ HubStar.AfterLoginView = Ember.View.extend({
                 
 
 
-                introJs().setOption('doneLabel', 'Finish').start().oncomplete(function() {
+                introJs().setOption('doneLabel', 'Next').start().oncomplete(function() {
                     var address = document.URL;
                     var urlName = address.split("#")[1].split("/")[1];
                     var target = address.split("#")[1].split("/")[2];

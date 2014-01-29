@@ -11,6 +11,8 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
     description: "", //it is the descriptioin of the product
     pic_x: "",
     pic_y: "",
+    contentTags: null,
+    currentPhoto: "",
     linkTo: "", //the content link address
     needs: ["mega", "article", "collection", "applicationFeedback", "comment", "video"],
     ////////////////////////////////////////////////////////////////profileCollection: [],
@@ -34,6 +36,8 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
     saveTag: function(time)
     {
 //  var name = $('#tagname').val();  //get the input txt value
+        var mega = HubStar.Mega.find(this.get("photo_id"));
+        this.set("currentPhoto", mega);
         $('#tagname').val(""); //set the input tagname filed to null string
         $('#tagit').fadeOut();
         this.set('selectTagProfile', false); // show list of profile
@@ -49,12 +53,27 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         time_stamp = time_stamp.toString();
         var tagInfo = [selectedDesc, product_name, desc, pic_x, pic_y, linkAddress, time_stamp, photo_id, tag_id];
         tagInfo = JSON.stringify(tagInfo);
+        var newTag = new Array();
         var that = this;
         requiredBackEnd('showTag', 'saveTag', tagInfo, 'POST', function(params) {
+            //set the model
+            console.log(params);
+//            newTag["tag_id"] = params["message_id"];
+//            newTag["profile_id"] = params["replyMessageCollection"][length]["reply_id"];
+//            newTag["product_name"] = params[i]["replyMessageCollection"][length]["user_id"];
+//            newTag["desc"] = params["replyMessageCollection"][length]["time_stamp"];
+//            newTag["pic_x"] = params["replyMessageCollection"][length]["msg"];
+//            newTag["pic_y"] = params["replyMessageCollection"][length]["user_name"];
+//            newTag["linkto"] = params["replyMessageCollection"][length]["photo_url_large"];
+//            newTag["link_to_click_count"] = params["replyMessageCollection"][length]["url"];
+//            newTag["tag_time"] = false;
+//            newTag["tag_approved"] = true;
+
+
+
             //reset the value
             that.setTagIcon(pic_x, pic_y);
             that.get("controllers.mega").set("showRequestTag", true);
-
             that.setDescription("");
             that.setLinkTo("");
             that.set("product_name", "");
@@ -64,14 +83,76 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
     },
     setTagIcon: function(pic_x, pic_y)
     {
-        
+
         $('#request_tag').fadeIn();
         $('#request_tag').css({top: pic_y, left: pic_x});
-        
+
     },
-    readTags:function()
+    readTags: function()
     {
-        
+        var mega = HubStar.Mega.find(this.get("photo_id"));
+        this.set("currentPhoto", mega);
+        var photo_id = this.get("photo_id");
+        var tagInfo = [photo_id];
+        tagInfo = JSON.stringify(tagInfo);
+        var newTag = new Array();
+        var that = this;
+        requiredBackEnd('showTag', 'readTag', tagInfo, 'POST', function(params) {
+            //set the model
+            that.set("contentTags", []);
+            for (var i = 0; i < params.length; i++)
+            {
+//First reply message and it is the last one of message and it contail the reply message collection
+                newTag["message_id"] = params[i]["message_id"];
+                var length = params[i]["replyMessageCollection"].length - 1;
+                newTag["reply_id"] = params[i]["replyMessageCollection"][length]["reply_id"];
+                newTag["user_id"] = params[i]["replyMessageCollection"][length]["user_id"];
+                newTag["time_stamp"] = params[i]["replyMessageCollection"][length]["time_stamp"];
+                newTag["msg"] = params[i]["replyMessageCollection"][length]["msg"];
+                newTag["user_name"] = params[i]["replyMessageCollection"][length]["user_name"];
+                newTag["photo_url_large"] = params[i]["replyMessageCollection"][length]["photo_url_large"];
+                newTag["url"] = params[i]["replyMessageCollection"][length]["url"];
+                newTag["enableToEdit"] = false;
+                newTag["replyEdit"] = true;
+                newTag["replyCount"] = params[i]["replyMessageCollection"].length - 1;
+                if (params[i]["replyMessageCollection"][length]["user_id"] === localStorage.loginStatus)
+                {
+                    newTag["isUserself"] = true; //dataNew["isUserself"] is true , which means it is the login users is the same as the user page owner
+                }
+                if (params[i]["replyMessageCollection"][length]["url"] !== null)
+                {
+                    newTag["isUrl"] = true;
+                }
+                else
+                {
+                    newTag["isUrl"] = false;
+                }
+                that.get("contentTags").pushObject(newTag);
+
+            }
+            console.log(params);
+//            newTag["tag_id"] = params["message_id"];
+//            newTag["profile_id"] = params["replyMessageCollection"][length]["reply_id"];
+//            newTag["product_name"] = params[i]["replyMessageCollection"][length]["user_id"];
+//            newTag["desc"] = params["replyMessageCollection"][length]["time_stamp"];
+//            newTag["pic_x"] = params["replyMessageCollection"][length]["msg"];
+//            newTag["pic_y"] = params["replyMessageCollection"][length]["user_name"];
+//            newTag["linkto"] = params["replyMessageCollection"][length]["photo_url_large"];
+//            newTag["link_to_click_count"] = params["replyMessageCollection"][length]["url"];
+//            newTag["tag_time"] = false;
+//            newTag["tag_approved"] = true;
+
+
+
+            //reset the value
+            that.setTagIcon(pic_x, pic_y);
+            that.get("controllers.mega").set("showRequestTag", true);
+            that.setDescription("");
+            that.setLinkTo("");
+            that.set("product_name", "");
+            $('#masonry_user_container').masonry("reloadItems");
+            $('#masonry_container').masonry("reloadItems");
+        });
     },
     cancelTag: function()
     {
@@ -114,7 +195,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 }
 
                 this.setDesc(title); //set current profile
-                console.log(this.get("profiles").objectAt(i).profile_hero_cover_url);
                 if (this.get("selectedDesc") !== "")
                 {
                     this.setThumbnailUrl(this.get("profiles").objectAt(i).profile_hero_cover_url);

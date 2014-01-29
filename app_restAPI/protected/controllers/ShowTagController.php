@@ -11,6 +11,34 @@ class ShowTagController extends Controller {
     const JSON_RESPONSE_ROOT_SINGLE = 'tag';
     const JSON_RESPONSE_ROOT_PLURAL = 'tags';
 
+    public function actionReadTag() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request_array = CJSON::decode($request_array);
+        $photo_id = $request_array[0];  //selected photo's id
+        try {
+            $docIDDeep = $this->getDomain() . "/" . $photo_id; //$id  is the page owner
+            $cb = $this->couchBaseConnection();
+            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+            $oldRecordDeep = CJSON::decode($oldDeep, true);
+
+            //create the new tag
+            $newRecord = array();
+            if (isset($oldRecordDeep["photo"][0]['tags'])) {
+                $newRecord = $oldRecordDeep["photo"][0]['tags'];
+            }
+            error_log("222222222222222222222222222222");
+            error_log(var_export($newRecord,true));
+            if ($newRecord === null) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(200, CJSON::encode($newRecord));
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
+    }
+
     public function actionSaveTag() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request_array = CJSON::decode($request_array);
@@ -45,7 +73,7 @@ class ShowTagController extends Controller {
             $tag["tag_approved"] = $tag_approve;
             //put the tag into the end of tags array
             if (!isset($oldRecordDeep["photo"][0]['tags'])) {
-                $oldRecordDeep["photo"][0]['tags'] =  array();
+                $oldRecordDeep["photo"][0]['tags'] = array();
                 array_unshift($oldRecordDeep["photo"][0]['tags'], $tag);
             } else {
                 array_unshift($oldRecordDeep["photo"][0]['tags'], $tag);
@@ -62,6 +90,7 @@ class ShowTagController extends Controller {
             echo json_decode(file_get_contents('php://input'));
         }
     }
+
 }
 
 ?>

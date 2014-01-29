@@ -2,7 +2,7 @@ HubStar.UserView = Ember.View.extend({
     templateName: 'user',
 //       interestsActive:false,
     didInsertElement: function() {
-
+      console.log("3333333333333333333333");
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
         $(".navbar").css("box-shadow", "0 0 10px #333");

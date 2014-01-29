@@ -24,7 +24,7 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('status').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
-        localStorage.checkUser = "";
+              localStorage.checkUser = "";
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
         setTimeout(function() {
             $('#masonry_container').masonry();  //masonry();
@@ -118,7 +118,7 @@ HubStar.SearchRoute = Ember.Route.extend({
         $(window).scrollTop(HubStar.get("setHight"));
         HubStar.set("setHight", 0);
 
-        localStorage.checkUser = "";
+   //     localStorage.checkUser = "";
     },
     deactivate: function() {
         HubStar.set("setHight", $(window).scrollTop());

@@ -237,9 +237,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var that = this;
         requiredBackEnd('login', 'verify', emailVerify, 'POST', function(params) {
             localStorage.loginStatus = params;
+            localStorage.checkUser = "newUser";
             HubStar.set("isLogin", true);
+
             that.transitionToRoute("searchIndex");
-             localStorage.checkUser = "newUser";
+
 
         });
 

@@ -11,7 +11,23 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('index').setLogin();
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('status').set('islogin', true);
-          localStorage.checkUser = "";
+            if (localStorage.checkUser === "newUser") {
+            setTimeout(function() {
+                    window.location.href = '/#';
+                    $(".brand").addClass("tour-background");
+                    $(".Geo-Filter").addClass("tour-background");
+                    $("#login_detail").addClass("tour-background");
+                    introJs().setOption('doneLabel', 'Finish').start().oncomplete(function() {
+                        window.location.href = '/#/search';
+                        $(window).scrollTop(0);
+                        localStorage.checkUser = "";
+                    });
+            }, 5500);
+    
+        }
+        else {
+            localStorage.checkUser = "";
+        }
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
         this.controllerFor('mega').set('from',"search");
@@ -61,7 +77,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
         $(window).scrollTop(HubStar.get("setHight"));
         HubStar.set("setHight", 0);
 
-        localStorage.checkUser = "";
+   //     localStorage.checkUser = "";
     },
     deactivate: function() {
         HubStar.set("setHight", $(window).scrollTop());

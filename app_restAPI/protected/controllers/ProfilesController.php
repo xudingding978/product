@@ -66,7 +66,7 @@ class ProfilesController extends Controller {
     }
 
     public function actionCreate() {
-        try {
+        try {            
             $request_json = file_get_contents('php://input');
             $request_arr = CJSON::decode($request_json, true);
             $tempProfile = $request_arr['profile'];

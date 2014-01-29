@@ -337,7 +337,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     {
                         that.get("content").pushObject(tempmega);
                     }
-                }
+                }                
                 setTimeout(function() {
                     $('#masonry_photo_collection_container').masonry("reload");
                 }, 200);

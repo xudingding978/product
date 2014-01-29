@@ -71,6 +71,11 @@ class MegasController extends Controller {
             $this->createUploadedPhoto($mega);
         } elseif ($mega['type'] == "video") {
             $mega['videoes'][0]['id'] = $mega['id'];
+            
+            $keyword = $this->getProfileKeyword($mega['owner_id']);
+            error_log(var_export($keyword, true));
+            $mega['keyword'] = $keyword;
+            
             $this->createUploadedVideo($mega);
         }
         $this->sendResponse(204, $request_json);
@@ -237,13 +242,25 @@ class MegasController extends Controller {
         }
     }
 
+     public function getProfileKeyword($owner_id) {
+        $cb = $this->couchBaseConnection();
+        $url = $this->getDomain() . "/profiles/" . $owner_id;
+        $tempProfile = $cb->get($url);
+        $profile = CJSON::decode($tempProfile, true);
+        if (!isset($profile['keyword'])) {
+            $profile['keyword'] = array();
+        }
+        return $profile['keyword'];
+    }
+    
     public function createUploadedVideo($mega) {
 
-        if (sizeof($mega) > 0) {
-
+        if (sizeof($mega) > 0) {          
             $cb = $this->couchBaseConnection();
+            
+            
             if ($cb->add($this->getDomain() . '/' . $mega['id'], CJSON::encode($mega))) {
-                echo $this->sendResponse(204);
+                echo $this->sendResponse(200);
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
             }

@@ -154,6 +154,8 @@ HubStar.ContactController = Ember.Controller.extend({
         }
         this.set(swtich, !this.get(swtich));
     },
+            
+         
     emailSend: function()
     {
 

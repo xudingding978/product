@@ -28,50 +28,24 @@ HubStar.PdfUploaderView = Ember.View.extend( HubStar.PdfUploaderController.Dropp
 //   this.get("controller").set("pdfInfromationEdit", true);
 //  });
 
+$("#pdfUploaderData").hide();
+        var dragTimer;
+        $(document).on('dragover', function (e) {
+            var dt = e.originalEvent.dataTransfer;
+            if (dt.types !== null && (dt.types.indexOf ? dt.types.indexOf('Files') !== -1 : dt.types.contains('application/x-moz-file'))) {
+                $("#pdfUploaderData").show();
+                window.clearTimeout(dragTimer);
+            }
+        });
+        $(document).on('dragleave', function (e) {
+            window.clearTimeout(dragTimer);
+            dragTimer = window.setTimeout(function () {
+                $("#pdfUploaderData").hide();
+            }, 300);
+        });
+        
+        
 
-//  var resetTimer;
-//
-//        var reset = function()
-//        {
-//            $('#pdfUploaderData').hide();
-//        };
-//
-//        var f = function(e)
-//        {
-//            var srcElement = e.srcElement? e.srcElement : e.target;
-//
-//            if ($.inArray('Files', e.dataTransfer.types) > -1)
-//            {
-//                e.stopPropagation();
-//                e.preventDefault();
-//
-//                e.dataTransfer.dropEffect = (srcElement.id === 'pdfUploaderData') ? 'copy' : 'none';
-//
-//                if (e.type === "dragover")
-//                {
-//                    if (resetTimer)
-//                    {
-//                        clearTimeout(resetTimer);
-//                    }
-//                    $('#pdfUploaderData').show();
-//                    console.info('dropped on <' + srcElement.tagName.toLowerCase() + ' id="' + srcElement.id + '">\n\ne.dataTransfer.types is ' + e.dataTransfer.types + '\n\ne.dataTransfer.files.length is ' + (e.dataTransfer.files ? e.dataTransfer.files.length : 0));
-//
-//                }
-//                else if (e.type === "dragleave")
-//                {
-//                    resetTimer = window.setTimeout(reset, 25);
-//                }
-//                else if (e.type === "drop")
-//                {
-//                    reset();
-//                    alert('dropped on <' + srcElement.tagName.toLowerCase() + ' id="' + srcElement.id + '">\n\ne.dataTransfer.files.length is ' + (e.dataTransfer.files ? e.dataTransfer.files.length : 0));
-//                }
-//            }
-//        };
-//
-//        document.body.addEventListener("dragleave", f, false);
-//        document.body.addEventListener("dragover", f, false);
-//        document.body.addEventListener("drop", f, false);
      }
     
     

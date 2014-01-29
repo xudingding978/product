@@ -16,20 +16,54 @@ HubStar.PhotoView = Ember.View.extend({
             if (event.which === 1) //2:middle 
             {
                 var imgtag = $(this).parent(); // get the div to append the tagging entry
-                mouseX = event.pageX - $(imgtag).offset().left; // x and y axis
-                mouseY = event.pageY - $(imgtag).offset().top;
-                that.get("controller").nextImage(event,mouseX,mouseY);
-                
+                mouseX = event.pageX - $(imgtag).offset().left - 250; // x and y axis
+                mouseY = event.pageY - $(imgtag).offset().top - 25;
+                that.get("controller").get("controllers.showTag").set("pic_x", mouseX); //set the tag icon after save
+                that.get("controller").get("controllers.showTag").set("pic_y", mouseY);
+                if (that.get("controller").get("enableTag") === true)
+                {
+                    that.get("controller").get("controllers.showTag").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
+                }
+                if (mouseY > 420)
+                {
+                    that.get("controller").get("controllers.showTag").set("change_tag_show", true); //chage tag show style
+                    mouseY = mouseY - 420;
+
+                }
+                else
+                {
+                    that.get("controller").get("controllers.showTag").set("change_tag_show", false);
+                }
+
+                console.log(mouseX);
+                that.get("controller").nextImage(event, mouseX, mouseY);
+
             }
         });
         $('.previous').mousedown(function(event) {
             if (event.which === 1) //2:middle 
             {
                 var imgtag = $(this).parent(); // get the div to append the tagging entry
-                mouseX = event.pageX - $(imgtag).offset().left; // x and y axis
-                mouseY = event.pageY - $(imgtag).offset().top;
-                that.get("controller").previesImage(event,mouseX,mouseY);
-                
+                mouseX = event.pageX - $(imgtag).offset().left - 250; // x and y axis
+                mouseY = event.pageY - $(imgtag).offset().top - 25;
+                that.get("controller").get("controllers.showTag").set("pic_x", mouseX);
+                that.get("controller").get("controllers.showTag").set("pic_y", mouseY);
+                if (that.get("controller").get("enableTag") === true)
+                {
+                    that.get("controller").get("controllers.showTag").set("inImage", true);
+                }
+                if (mouseY > 420)
+                {
+                    mouseY = mouseY - 420;
+                    that.get("controller").get("controllers.showTag").set("change_tag_show", true);
+                }
+                else
+                {
+                    that.get("controller").get("controllers.showTag").set("change_tag_show", false);
+                }
+
+                that.get("controller").previesImage(event, mouseX, mouseY);
+
             }
         });
         return this.$().attr({tabindex: 1}), this.$().focus();

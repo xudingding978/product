@@ -68,10 +68,17 @@
 
             {{view HubStar.PhotoDisplayAreaView}}
             {{#if  controller.enableTag}}      
-            <div id="renderTab">
-                 {{view HubStar.ShowTagView}}
-  
-            </idv>
+            {{  render showTag }}
+            {{/if}}
+            {{#if controller.showRequestTag}}
+                <i  id="request_tag" class="fa fa-bell-o" style="position: absolute;    margin: auto 220px;color: white;"></i>
+                            {{/if}}
+            </div>
+
+            {{#if controller.showTag}}
+            <div id="showRequentTag">
+                <i  class="fa  fa-lightbulb-o" style="  border:solid 3px #ff0000;"></i>
+            </div>
             {{/if}}
         </div>
         <!--THIS IS THE ALBUM BOX-->
@@ -83,6 +90,7 @@
         <div class="bottom-controlbar easing" >
             <div class="text-on-black" style="right: 132px;"></div>
             <div class="fa icon-on-black"  {{action previesImage on="click" target="controller"}} style="display:inline-block; vertical-align: top; position:relative; left:44px;">
+
                 <i class="fa fa-arrow-left"></i>
             </div>
             <div class="fa icon-on-black hint--rounded hint--top" data-hint="Show other photos in this collection." style="left: 44px; display:inline-block; vertical-align: top; position:relative;" {{action popupAibum on="click" target="view"}}>

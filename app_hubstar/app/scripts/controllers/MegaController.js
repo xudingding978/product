@@ -12,7 +12,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     from: null,
     selectedPhoto: null,
     isSelected: false,
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'checkingLoginStatus', 'masonryCollectionItems', 'editComment', 'itemFunction', 'collection'],
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'showTag', 'checkingLoginStatus', 'masonryCollectionItems', 'editComment', 'itemFunction', 'collection'],
     currentUser: null,
     currentUserProfile: null,
     photo_album_id: null,
@@ -27,9 +27,14 @@ HubStar.MegaController = Ember.ArrayController.extend({
     enableTag: false,
     selectType: null,
     loadingTime: false,
+    selectedProfile: "",
+    profiles: [],
     sharePhotoName: '',
     makeSureDelete: false,
+    showProfilelists: false,
     willDelete: false,
+    showRequestTag: false, //show the tag after save and sent the request
+    showTagAfterSave:false,// show the tag icon afte approve
     init: function()
     {
 
@@ -86,9 +91,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
         if (this.get("enableTag") === true)
         {
 
-            $('#renderTab').remove(); // remove any tagit div first
-            $(".mainfeature").append('<div id ="tagit"><div class="box"> </div><div class="name"><div class="text">Type any name or tag</div><input type="text" name="txtname" id="tagname" /><input type="button" name="btnsave" value="Save" id="btnsave" /><input type="button" name="btncancel" value="Cancel" id="btncancel" /></div></div> ');
-            $('#renderTab').css({top: pic_y, left: pic_x});
+            // $('#tagit').remove(); // remove any tagit div first
+            $('#tagit').fadeIn();   
+            $('#tagit').css({top: pic_y, left: pic_x});
 
         } else
         {
@@ -132,16 +137,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             else
             {
-//            var address = document.URL;
-//            var search_id = address.split("#")[1].split("/")[2];
-//            if (search_id === "default")
-//            {
-//                //this.transitionTo("profilePhoto", this.get("megaResouce"));
-//            }
-//            else
-//            {
-//                this.transitionTo("profilePhoto", this.get("megaResouce"));
-//            }
                 this.transitionTo("newSearchPhoto", this.get("megaResouce"));
             }
             this.selectedImage(this.get('selectedPhoto').id);
@@ -152,27 +147,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var counter = 2;
         if (this.get("enableTag") === true)
         {
-            $('#renderTab').remove(); // remove any tagit div first
-          //  $(".mainfeature").append('');
-            $('#renderTab').css({top: pic_y, left: pic_x});
+            $('#tagit').fadeIn();
+            $('#tagit').css({top: pic_y, left: pic_x});
             $('#tagname').focus();
-
-//            $('#tagit #btnsave').live('click', function() {
-//                var name = $('#tagname').val();
-//                console.log("    "+name);
-//                $('#mainfeature').append('<div class="tagview" id="view_' + counter + '"></div>');
-//                $('#view_' + counter).css({top: mouseY, left: mouseX});
-//                $('#tagit').fadeOut();
-//                // add backend code here, use mouseX and mouseY for the axis and counter.
-//                // ............
-//            });
-//
-//            $('#tagit #btncancel').live('click', function() {
-//                $('#tagit').fadeOut();
-//
-//            });
-
-
         } else
         {
             if (!this.get('selectedPhoto')) {
@@ -226,12 +203,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
      * parameter:
      *  aim: it is to enable user to tag in the photo
      ***********************/
-    saveTag: function()
-    {
-        console.log("sss1`1111111111111");
-    },
     activateTag: function()
     {
+        this.get("controllers.showTag").set("photo_id", this.get('selectedPhoto').id);  //set the selected photo's id
+        this.set("showRequestTag",false);
+        this.set("showTagAfterSave",false);
         this.set("enableTag", true);
     },
     getInitData: function(megaObject) {

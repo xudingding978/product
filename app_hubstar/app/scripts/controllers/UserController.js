@@ -748,7 +748,7 @@ HubStar.UserController = Ember.Controller.extend({
             {
                 this.set("about_me_limit", true);
                 this.set("about_me_limit_data", this.get("about_me").substring(0, this.get("about_me_limit_num")));
-                this.get('controllers.applicationFeedback').statusObserver(null, "s         The maximum characters can be shown are 430", "warnning");
+                this.get('controllers.applicationFeedback').statusObserver(null, "The maximum characters can be shown are 430.", "warnning");
             }
             else
             {

@@ -117,7 +117,7 @@
 
 
                     <p style='margin-bottom: 5px;display: inline-block; font-size: 18px;padding:0'>
-                        <i class='fa fa-user' style='margin-right: 10px;display: inline-block;'></i>About me  &nbsp;  {{controller.left_count_aboutme}} / 430
+                        <i class='fa fa-user' style='margin-right: 10px;display: inline-block;'></i>About me  
                     </p>
 
                     {{#if controller.editingAbout}}
@@ -126,6 +126,7 @@
                     </div>
 
                     <div style="right: 40px;bottom: -49px;position: absolute;">
+                        &nbsp;  {{controller.left_count_aboutme}} 
                         <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="fa fa-check fa fa-white"></i></div>
                         <div class="new-btn" {{action no controller.aboutMe}}><i class="fa fa-times"></i></div>
                     </div>

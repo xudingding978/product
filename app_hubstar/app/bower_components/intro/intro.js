@@ -368,7 +368,7 @@
         var currentTooltipPosition = this._introItems[this._currentStep].position;
         switch (currentTooltipPosition) {
             case 'top':
-                tooltipLayer.style.left = '15px';
+                tooltipLayer.style.left ='-' +  (_getOffset(targetElement).width+ 20) +  'px';
                 tooltipLayer.style.top = '-' + (_getOffset(tooltipLayer).height + 10) + 'px';
                 arrowLayer.className = 'introjs-arrow bottom';
                 break;
@@ -378,13 +378,14 @@
                 break;
             case 'left':
                 tooltipLayer.style.top = '15px';
-                tooltipLayer.style.right = (_getOffset(targetElement).width + 20) + 'px';
+                tooltipLayer.style.right = (_getOffset(targetElement).width + 10) + 'px';
                 arrowLayer.className = 'introjs-arrow right';
                 break;
             case 'bottom':
                 // Bottom going to follow the default behavior
             default:
                 tooltipLayer.style.bottom = '-' + (_getOffset(tooltipLayer).height + 10) + 'px';
+                tooltipLayer.style.right =  '10px';
                 arrowLayer.className = 'introjs-arrow top';
                 break;
         }

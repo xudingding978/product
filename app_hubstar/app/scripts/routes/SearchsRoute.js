@@ -18,9 +18,9 @@ HubStar.SearchsRoute = Ember.Route.extend({
                     $(".Geo-Filter").addClass("tour-background");
                     $("#login_detail").addClass("tour-background");
                     introJs().setOption('doneLabel', 'Next').start().oncomplete(function() {
-                        window.location.href = '/#/search';
-                        $(window).scrollTop(0);
                         localStorage.checkUser = "";
+                        location.href = '/#/search';
+                        location.reload();
                     });
             }, 5500);
     

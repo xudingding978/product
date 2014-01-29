@@ -1,5 +1,6 @@
 HubStar.SearchAreaTextFieldView = Ember.TextField.extend({
-
+        
+        
         insertNewline: function() {
             var controller = this.get('targetObject');
             if (controller._debugContainerKey.indexOf("addCollection") !== -1)

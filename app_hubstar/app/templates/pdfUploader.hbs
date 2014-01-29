@@ -17,7 +17,7 @@
 
         <div  id="pdfInformation" >
             {{#each pdfArray}}
-            <div   style="border: 3px dashed #ccc;margin: 15px;padding: 5px; background-color:white;">
+            <div   style="border: 3px solid #ccc;margin: 15px;padding: 5px; background-color:white;">
                 <div id="pdf_title_{{unbound pdf_title}}" >
                     <span style="font-weight: bold;display: inline-block;font-size: 25px; "{{action modifyDetail pdf_title}}><img alt="Click!" {{bindAttr src="pdf_cover_image"}} style="width: 50px;"></span> 
                     <span style="font-weight: bold;display: inline-block;font-size: 25px; margin-left: 20px;"{{action modifyDetail pdf_title}}>{{pdf_title}}</span>
@@ -56,7 +56,7 @@
 
 
 {{#view HubStar.SingleFileUploaderView}}
-<div id="pdfUploaderData" class="" style="position: absolute; top: 0;background-color: #ccc; height: 475px; z-index: 100; width: 600px; line-height: 20px; opacity: 0.5; border: 3px dashed #ccc;">
+<div id="pdfUploaderData" class="" style="position: absolute; top: 0;background-color: rgba(204, 204, 204, 0.75); height: 490px; z-index: 100; width: 600px;">
     <div id="pdfUploaderContent" style="top: 30.5%;position: absolute;width: 100%;text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;line-height: 40px;">
         <i class="fa fa-arrow-circle-o-up" style="font-size: 80px;"></i>
         <span style="font-weight: bold;display: block;font-size: 25px;">
@@ -67,7 +67,7 @@
 </div>
 {{/view}}
 
-<div class="" style="height: 40px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;z-index: 101;">
+<div class="" style="height: 40px;position: absolute;border-top: 1px solid #ddd;bottom: -3px;width: 100%;z-index: 101;">
     <div class="message-btn easing" style=";width: 33%;" {{action closeUploader}}>
          Cancel  
 </div>

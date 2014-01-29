@@ -25,6 +25,7 @@ HubStar.UserController = Ember.Controller.extend({
     display_name: "",
     about_me_limit: "",
     about_me_limit_num: 430,
+    left_count_aboutme: 430,
     gender: "",
     age: "",
     userTage: true,
@@ -195,6 +196,7 @@ HubStar.UserController = Ember.Controller.extend({
         var user = this.get('model');
         this.setIntersetsArr(user);
         this.set("user", user);
+        this.set("left_count_aboutme",430-user.get("about_me").length);
         this.set("Id", this.get('model').get('id'));
         //console.log(this.get("user"));
         this.set("collections", user.get("collections"));

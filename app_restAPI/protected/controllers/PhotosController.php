@@ -202,6 +202,18 @@ class PhotosController extends Controller {
         return $profile['keyword'];
     }
 
+    public function getProfileClassification($owner_id) {
+        $cb = $this->couchBaseConnection();
+        $url = $this->getDomain() . "/profiles/" . $owner_id;
+        $tempProfile = $cb->get($url);
+        $profile = CJSON::decode($tempProfile, true);
+
+        if (!isset($profile['classification'])) {
+            $profile['classification'] = "";
+        }
+        return $profile['classification'];
+    }
+    
     public function updateCouchbasePhoto($id) {
         $ch = $this->couchBaseConnection("develop");
         $result = $ch->get($id);
@@ -290,7 +302,10 @@ class PhotosController extends Controller {
 
         $keyword = $this->getProfileKeyword($mega['owner_id']);
         $mega['keyword'] = $keyword;
-
+        
+        $mega['classification'] = $this->getProfileClassification($mega['owner_id']);
+        
+        
         return $mega;
     }
 

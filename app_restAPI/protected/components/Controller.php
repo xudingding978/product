@@ -33,10 +33,12 @@ class Controller extends CController {
     protected function couchBaseConnection_production() {
         return new Couchbase("cb1.hubsrv.com:8091", "", "", "production", true);
     }
-        protected function couchBaseConnection_test() {
+
+    protected function couchBaseConnection_test() {
         return new Couchbase("cb1.hubsrv.com:8091", "", "", "test", true);
     }
-        protected function couchBaseConnection_develop() {
+
+    protected function couchBaseConnection_develop() {
         return new Couchbase("cb1.hubsrv.com:8091", "", "", "develop", true);
     }
 
@@ -153,12 +155,12 @@ class Controller extends CController {
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
             $location = $this->getUserInput($requireParams[5]);
-            
-            $residential = $this->getUserInput($requireParams[6]);
-            $commercial = $this->getUserInput($requireParams[7]);
+
+           $classification = $this->getUserInput($requireParams[6]);
+            //$commercial = $this->getUserInput($requireParams[7]);
             //error_log("ssssssssssssssssssss");
-            
-            $response = $this->getSearchResults($region, $searchString, $from, $size, $location,$residential,$commercial);
+
+            $response = $this->getSearchResults($region, $searchString, $from, $size, $location, $classification);
             $response = $this->getReponseResult($response, $returnType);
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
@@ -182,13 +184,13 @@ class Controller extends CController {
             $from = $this->getUserInput($requireParams[3]);
             $size = $this->getUserInput($requireParams[4]);
             $location = $this->getUserInput($requireParams[5]);
-            
-            $residential = $this->getUserInput($requireParams[6]);
-            $commercial = $this->getUserInput($requireParams[7]);
+
+            $classification = $this->getUserInput($requireParams[6]);
+            //$commercial = $this->getUserInput($requireParams[7]);
             //error_log("ssssssssssssssssssss");
-         
-            
-            $response = $this->getSearchResultsWithAnalysis($region, $searchString, $from, $size, $location,$residential,$commercial);
+
+
+            $response = $this->getSearchResultsWithAnalysis($region, $searchString, $from, $size, $location, $classification);
         } elseif ($requireType == 'personalCollection') {
             $userid = $this->getUserInput($requireParams[1]);
             $collection_id = $this->getUserInput($requireParams[2], false);
@@ -198,8 +200,8 @@ class Controller extends CController {
             $collection_id = $this->getUserInput($requireParams[2], false);
             $response = $this->searchProfileCollectionItem($userid, $collection_id, $returnType);
         } elseif ($requireType == 'defaultSearch') {
-            
-             
+
+
             $response = $this->searchCollectionItem('21051211514', 'editor-picks', $returnType);
         } elseif ($requireType == 'video') {
             $videoOwnerId = $this->getUserInput($requireParams[1]);
@@ -233,14 +235,14 @@ class Controller extends CController {
         $requestStringOne = 'couchbaseDocument.doc.user.id=' . $userid;
         array_push($conditions, $requestStringOne);
         $requestStringTwo = 'couchbaseDocument.doc.user.collections.id=' . $collection_id;
-        
+
         array_push($conditions, $requestStringTwo);
         $tempResult = $this->searchWithCondictions($conditions, 'must');
         $tempResult = $this->getReponseResult($tempResult, $returnType);
         $mega = CJSON::decode($tempResult, true);
-        
-        
-         if (!isset($mega['megas'][0]['user'][0]['collections'])) {
+
+
+        if (!isset($mega['megas'][0]['user'][0]['collections'])) {
             $collections = array();
         } else {
             $collections = $mega['megas'][0]['user'][0]['collections'];
@@ -268,13 +270,12 @@ class Controller extends CController {
 
         return $response;
     }
-    
-    
-    public function fixUserpicture(){
+
+    public function fixUserpicture() {
         
     }
 
-    protected function getSearchResults($region, $requestString, $from = 0, $size = 50, $location = 'Global',$residential="1",$commercial="1") {
+    protected function getSearchResults($region, $requestString, $from = 0, $size = 50, $location = 'Global', $classification = "All") {
 
         $conditions = array();
         if ($region != null && $region != "") {
@@ -284,18 +285,10 @@ class Controller extends CController {
         if ($requestString != null && $requestString != "") {
             $requestStringTwo = '_all=' . $requestString;
             array_push($conditions, $requestStringTwo);
-        }
-         if ($residential != null && $residential != "") {
-            $requestStringThree = 'couchbaseDocument.doc.residential=' . $residential;
-            array_push($conditions, $requestStringThree);
-        }
-         if ($commercial != null && $commercial != "") {
-            $requestStringFour = 'couchbaseDocument.doc.commercial=' . $commercial;
-            array_push($conditions, $requestStringFour);
-        }
-        
+        }       
 
-        $results = $this->searchWithCondictions($conditions, 'must', $from, $size, $location);
+
+        $results = $this->searchWithCondictions($conditions, 'must', $from, $size, $location,$classification);
 
         return $results;
     }
@@ -308,36 +301,71 @@ class Controller extends CController {
         return $should;
     }
 
-    protected function searchWithMultiMatch($queryString, $from = 0, $size = 50, $location = 'Global',$residential="1",$commercial="1") {
+    protected function searchWithMultiMatch($queryString, $from = 0, $size = 50, $location = 'Global', $classification = "All") {
         $request = $this->getElasticSearch();
         $request->from($from)
                 ->size($size);
-       $location_filter="";
-         if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
-                  $location_filter='
-            ,{
-                      "queryString": {
-                        "default_field": "couchbaseDocument.doc.country",
-                        "query": "' . $location . '"
-                      }
-                    }
-              ';
-         }
+        $location_filter = null;
+        error_log(var_export($classification, true));
+        $classification_filter = null;
+        if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
+            $location_filter=1;
+//                    = Sherlock\Sherlock::filterBuilder()->Raw('{
+//                "query": {
+//                  "bool": {
+//                    "must": [{
+//                      "queryString": {
+//                        "default_field": "couchbaseDocument.doc.country",
+//                        "query": "' . $location . '"
+//                      }
+//                    }
+//                   
+//                    ],
+//                    "must_not": {
+//                   
+//                  }
+//                }
+//                }
+//              }')
+                ;
+        }
+        if ($classification !== 'All' && $classification !== 'undefined' && $classification !== '' && $classification !== null) {
+            $classification_filter =1;
+//                    Sherlock\Sherlock::filterBuilder()->Raw('{
+//                "query": {
+//                  "bool": {
+//                    "must": [{
+//                      "queryString": {
+//                        "default_field": "couchbaseDocument.doc.classification",
+//                        "query": "' . $classification . '"
+//                      }
+//                    }
+//                   
+//                    ],
+//                    "must_not": {
+//                   
+//                  }
+//                }
+//                }
+//              }'
+          //    );
+        }
+
+
+
+        if ($classification_filter != null) {
+            //error_log("11111111111");
             $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
                 "query": {
                   "bool": {
-                    "must": [{
+                    "must": [ 
+                    
+                     {
                       "queryString": {
-                        "default_field": "couchbaseDocument.doc.residential",
-                        "query": "' . $residential . '"
+                        "default_field": "couchbaseDocument.doc.classification",
+                        "query": "' . $classification . '"
                       }
-                    },
-                    {
-                      "queryString": {
-                        "default_field": "couchbaseDocument.doc.commercial",
-                        "query": "' . $commercial . '"
-                      }
-                    }'.$location_filter.'
+                    }    
                     ],
                     "must_not": {
                    
@@ -345,30 +373,61 @@ class Controller extends CController {
                 }
                 }
               }');
-            
-             
-//             if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
-//            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
-//                "query": {
-//                  "bool": {
-//                    "must": {
-//                      "queryString": {
-//                        "default_field": "couchbaseDocument.doc.country",
-//                        "query": "' . $location . '"
-//                      }
-//                    },
-//                    "must_not": {
-//                   
-//                  }
-//                }
-//                }
-//              }');
-//
-//            $request->filter($filter);
-//        } 
+            if ($location_filter != null) {
+               // error_log("22222222222222");
+                $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+                "query": {
+                  "bool": {
+                    "must": [ {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.classification",
+                        "query": "' . $classification . '"
+                      }
+                    },
+                    {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.country",
+                        "query": "' . $location . '"
+                      }
+                    }    
+                    ],
+                    "must_not": {
+                   
+                  }
+                }
+                }
+              }');
+            }
+        }
 
-            $request->filter($filter);
-        
+        if ($classification_filter == null) {
+            //error_log("33333333333333");
+            $filter="";
+            if ($location_filter != null) {
+                $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+                "query": {
+                  "bool": {
+                    "must": [     {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.country",
+                        "query": "' . $location . '"
+                      }
+                    }  
+                    ],
+                    "must_not": {
+                   
+                  }
+                }
+                }
+              }');
+            }
+        }
+
+
+
+
+
+
 //        else {
 //            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
 //                "query": {
@@ -384,7 +443,7 @@ class Controller extends CController {
 //                }
 //              }');
 //
-//            $request->filter($filter);
+            $request->filter($filter);
 //        }
 //        $sort = Sherlock\Sherlock::sortBuilder();
 //        $sort1 = $sort->Field()->name("boost")->order('desc');
@@ -397,14 +456,14 @@ class Controller extends CController {
                             "multi_match": {
                                 "query": "' . $queryString . '",
                                 "fields": [
-                                                "keywords^8",
+                                                "couchbaseDocument.doc.keywords^8",
                                                 "couchbaseDocument.doc.keyword.keyword_name^10",
                                                 "couchbaseDocument.doc.article.article_spark_job_id^5",
-                                                "owner_title^2",
-                                                "country",
-                                                "region",
-                                                "type^10",
-                                                "object_description^4"]
+                                                "couchbaseDocument.doc.owner_title^2",
+                                                "couchbaseDocument.doc.country",
+                                                "couchbaseDocument.doc.region",
+                                                "couchbaseDocument.doc.type^10",
+                                                "couchbaseDocument.doc.object_description^4"]
                                                     }
                         }
                     ]
@@ -415,22 +474,92 @@ class Controller extends CController {
 //        $request->sort($sort1, $sort2);
 //        error_log($request->query($termQuery)->toJSON());
         $response = $request->query($termQuery)->execute();
-        error_log("\n".$request->toJSON()."\n") ;
+        error_log("\n" . $request->toJSON() . "\n");
         return $response;
     }
 
-    protected function searchWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50, $location = 'Global') {
+    protected function searchWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50, $location = 'Global',$classification="All") {
         $request = $this->getElasticSearch();
         $request->from($from);
         $request->size($size);
+        error_log(var_export($classification,true));
         if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
-            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{"query": {
-                "queryString": {
-                  "default_field": "couchbaseDocument.doc.country",
-                  "query": "' . $location . '"
+//            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{"query": {
+//                "queryString": {
+//                  "default_field": "couchbaseDocument.doc.country",
+//                  "query": "' . $location . '"
+//                }
+//              }}');
+            $location_filter=1;
+        }
+             if ($classification != "All") {
+            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+                "query": {
+                  "bool": {
+                    "must": [ 
+                    
+                     {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.classification",
+                        "query": "' . $classification . '"
+                      }
+                    }    
+                    ],
+                    "must_not": {
+                   
+                  }
                 }
-              }}');
-            $request->filter($filter);
+                }
+              }');
+            if ($location != "Global") {
+               error_log("666666666666666");
+                $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+                "query": {
+                  "bool": {
+                    "must": [ {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.classification",
+                        "query": "' . $classification . '"
+                      }
+                    },
+                    {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.country",
+                        "query": "' . $location . '"
+                      }
+                    }    
+                    ],
+                    "must_not": {
+                   
+                  }
+                }
+                }
+              }');
+            }
+              $request->filter($filter);
+        }
+
+        if ($classification == "All") {
+
+            if ($location !== "Global") {
+                $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+                "query": {
+                  "bool": {
+                    "must": [     {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.country",
+                        "query": "' . $location . '"
+                      }
+                    }  
+                    ],
+                    "must_not": {
+                   
+                  }
+                }
+                }
+              }');
+                  $request->filter($filter);
+            }
         }
         $max = sizeof($conditions);
         $bool = Sherlock\Sherlock::queryBuilder()->Bool();
@@ -444,7 +573,9 @@ class Controller extends CController {
                 echo "no such search type, please input: must or should as a search type.";
             }
         }
+       
         $request->query($bool);
+         error_log($request->toJSON());
         $response = $request->execute();
 
         return $response;
@@ -619,11 +750,11 @@ class Controller extends CController {
         return $results;
     }
 
-    protected function getSearchResultsWithAnalysis($region, $requestString, $from = 0, $size = 50, $location ,$residential="1", $commercial="1") {
-        error_log(var_export($residential, true));
-         error_log(var_export($commercial, true));
-         
-        $tempResponse = $this->searchWithMultiMatch($requestString, $from, $size, $location,$residential,$commercial);
+    protected function getSearchResultsWithAnalysis($region, $requestString, $from = 0, $size = 50, $location, $classification = "All") {
+        error_log(var_export($classification, true));
+
+
+        $tempResponse = $this->searchWithMultiMatch($requestString, $from, $size, $location, $classification);
         $numberofresults = $tempResponse->total;
         $tempResponse = CJSON::encode($tempResponse);
         $tempResponse = CJSON::decode($tempResponse);

@@ -39,6 +39,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
     keywords: "",
     imageMode: "",
     loadingNewTime: false,
+    classification: "",
     categorys: [],
     subcate: [],
     needs: ['profile', 'applicationFeedback', 'application'],
@@ -84,9 +85,11 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 && $('#regionSelection').text() !== "Regoin/State"
                 && $('#contactEmail').val() !== ""
                 && $('#admins_1').val() !== ""
+                && this.get("classification") !== ""
                 && this.validateEmail($('.contactEmail').val())
                 && this.validateEmail($('.admins').val())
                 && this.validateEmail($('.clientEmail').val())
+
                 //   && this.numberChecking("#numberFormat", $('.contactNumber').val())
                 )
 
@@ -100,6 +103,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
             $('#errorMessage5').attr('style', 'display:none');
             $('#errorMessage6').attr('style', 'display:none');
             $('#numberFormat').attr('style', 'display:none');
+            $('#errorMessage7').attr('style', 'display:none');
         }
 
         else {
@@ -183,7 +187,18 @@ HubStar.ProfileNewController = Ember.Controller.extend({
             $('#contactEmailFormat').attr('style', 'display:block; text-align: left;margin-left: 150px;');
             document.getElementById('contactEmailField').setAttribute("class", "error-textfield");
         }
-
+        if (this.get("classification") === "")
+        {
+            $('#errorMessage7').attr('style', 'display:block');
+            $('#residential').addClass("error-textfield");
+            $('#commercial').addClass("error-textfield");
+           
+        }
+        else {
+             $('#errorMessage7').attr('style', 'display:none'); 
+             $('#residential').removeClass("error-textfield");
+            $('#commercial').removeClass("error-textfield");
+        }
 
         if ($("#admins_1").val() === "") {
             $('#errorMessage6').attr('style', 'display:block');
@@ -337,6 +352,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 subcategories: $('#subcategorySelection').text(),
                 created: "",
                 creator: this.get("creater"),
+                classification: this.get("creater"),
                 country: $('#countrySelection').text(),
                 region: $('#regionSelection').text(),
                 suburb: this.get("suburb"),
@@ -479,6 +495,19 @@ HubStar.ProfileNewController = Ember.Controller.extend({
             this.set('countryDropdown', false);
             this.set('subcategoryDropdown', !this.get('subcategoryDropdown'));
         }
+    },
+    classSelection: function(checking) {
+
+        if (checking === "Residential") {
+            $("#residential").addClass("selected easing");
+            $("#commercial").removeClass("selected easing");
+            this.set("classification", "residential");
+        } else if (checking === "Commercial") {
+            $("#residential").removeClass("selected easing");
+            $("#commercial").addClass("selected easing");
+            this.set("classification", "commercial");
+        }
+
     },
     packageSelection: function(checking) {
 

@@ -29,8 +29,8 @@ HubStar.StatusView = Ember.View.extend({
 
                 if (mousedownX < middle - d / 2) {
                     $('#switchbarBtn').attr("style", "margin-left:0px;");
-                    that.get("controller").get("controllers.application").set("residential", "1");
-                    that.get("controller").get("controllers.application").set("commercial", "0");
+                    that.get("controller").get("controllers.application").set("classification", "residential");
+                    //that.get("controller").get("controllers.application").set("commercial", "0");
 //                    if (type === "default")
 //                    {
 //                        that.get("controller").get("controllers.application").defaultSearch();
@@ -41,8 +41,8 @@ HubStar.StatusView = Ember.View.extend({
 //                    }
                 } else if (mousedownX >= (middle - d / 2) && mousedownX < (middle + d / 2)) {
                     $('#switchbarBtn').attr("style", "margin-left:13px;");
-                    that.get("controller").get("controllers.application").set("residential", "1");
-                    that.get("controller").get("controllers.application").set("commercial", "1");
+                    that.get("controller").get("controllers.application").set("classification", "All");
+ //                   that.get("controller").get("controllers.application").set("commercial", "1");
 //                    if (type === "default")
 //                    {
 //                        that.get("controller").get("controllers.application").defaultSearch();
@@ -54,8 +54,8 @@ HubStar.StatusView = Ember.View.extend({
                 }
                 else if (mousedownX >= (middle + d / 2)) {
                     $('#switchbarBtn').attr("style", "margin-left:28px;");
-                    that.get("controller").get("controllers.application").set("residential", "0");
-                    that.get("controller").get("controllers.application").set("commercial", "1");
+                     that.get("controller").get("controllers.application").set("classification", "commercial");
+                  //  that.get("controller").get("controllers.application").set("commercial", "1");
 //                    if (type === "default")
 //                    {
 //                        that.get("controller").get("controllers.application").defaultSearch();

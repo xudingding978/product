@@ -17,6 +17,7 @@ HubStar.Meganew = DS.Model.extend({
     deleted: DS.attr('string'),
     domains: DS.attr('string'),
     editors: DS.attr('string'),
+    classification: DS.attr('string'),
     geography: DS.attr('string'),
     likes_count: DS.attr('string'),
     is_active: DS.attr('boolean'),

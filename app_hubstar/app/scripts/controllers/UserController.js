@@ -25,6 +25,7 @@ HubStar.UserController = Ember.Controller.extend({
     display_name: "",
     about_me_limit: "",
     about_me_limit_num: 430,
+    left_count_aboutme: 430,
     gender: "",
     age: "",
     userTage: true,
@@ -195,6 +196,7 @@ HubStar.UserController = Ember.Controller.extend({
         var user = this.get('model');
         this.setIntersetsArr(user);
         this.set("user", user);
+        this.set("left_count_aboutme",430-user.get("about_me").length);
         this.set("Id", this.get('model').get('id'));
         //console.log(this.get("user"));
         this.set("collections", user.get("collections"));
@@ -746,7 +748,7 @@ HubStar.UserController = Ember.Controller.extend({
             {
                 this.set("about_me_limit", true);
                 this.set("about_me_limit_data", this.get("about_me").substring(0, this.get("about_me_limit_num")));
-                this.get('controllers.applicationFeedback').statusObserver(null, "s         The maximum characters can be shown are 600", "warnning");
+                this.get('controllers.applicationFeedback').statusObserver(null, "The maximum characters can be shown are 430.", "warnning");
             }
             else
             {

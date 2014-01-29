@@ -4,13 +4,19 @@ HubStar.UserAboutUsView = Ember.TextArea.extend({
         return this.$().attr({tabindex: 1}), this.$().focus();
     },
     keyUp: function(event, view) {
-       // if (event.which === 27)
+        // if (event.which === 27)
         { // pressed 'esc'
             var aboutme_limit = 430;
             var left_count = 0;
 
-            left_count = aboutme_limit - this.get("controller").get("value").length;
-            
+            if (this.get("controller").get("value").length > 430)
+            {
+                left_count = 0;
+            }
+            else
+            {
+                left_count = aboutme_limit - this.get("controller").get("value").length;
+            }
             var controller = this.get('targetObject');
             if (controller._debugContainerKey.indexOf("user") !== -1)
             {

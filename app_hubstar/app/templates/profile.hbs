@@ -260,11 +260,19 @@
                                                 {{input type="text" class="insert-contactdetails" value=website }}
 
                                                 {{else}}
-                                                <div class="Contact_2child"><a href="#"{{action gotoSize}}>{{website}}</a></div>
+                                                <div class="Contact_2child"><a href="{{unbound  website_url}}"{{action gotoSize}}>{{website}}</a></div>
                                                 {{/if}}
                                             </td>
                                         </tr>
-
+                                        <tr>
+                                                         {{#if controller.editingContact}}   
+                                                        <th style="color: #aaa;text-align: right;font-size: 14px;font-weight: normal;width: 90px;">Website URL:</th>   
+                                                        <td>
+                                                        {{input type="text" class="insert-contactdetails" value=website_url }}  
+                                                        </td>
+                                                        {{else}}
+                                                        {{/if}}
+                                          </tr>
                                     </tbody>
                                 </table>
                                 {{#unless controller.editingContact}}

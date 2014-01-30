@@ -118,9 +118,7 @@ class ProfilesController extends Controller {
             $payload_json = CJSON::encode($payloads_arr['profile'], true);
             $newRecord = CJSON::decode($payload_json);
             $cb = $this->couchBaseConnection();
-            error_log($this->getDomain() . $_SERVER['REQUEST_URI']);
             $oldRecord = CJSON::decode($cb->get($this->getDomain() . $_SERVER['REQUEST_URI']));
-            error_log(var_export($oldRecord['profile'][0],true));
             $oldRecord['profile'][0]['owner'] = $newRecord['owner'];
             $oldRecord['profile'][0]['owner_contact_bcc_emails'] = $newRecord['owner_contact_bcc_emails'];
             $oldRecord['profile'][0]['owner_contact_cc_emails'] = $newRecord['owner_contact_cc_emails'];
@@ -131,8 +129,6 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_contact_first_name'] = $newRecord['profile_contact_first_name'];
             $oldRecord['profile'][0]['profile_contact_last_name'] = $newRecord['profile_contact_last_name'];
             $oldRecord['profile'][0]['profile_contact_number'] = $newRecord['profile_contact_number'];
-            error_log(var_export($oldRecord['profile'][0]['id'],true));
-            error_log(var_export($newRecord['profile_name'],true));
             if ($oldRecord['profile'][0]['profile_name'] !== $newRecord['profile_name']) {
                 $oldRecord['profile'][0]['profile_name'] = $newRecord['profile_name'];
                 $setProfileName = TRUE;
@@ -212,14 +208,17 @@ class ProfilesController extends Controller {
         
 //        $response = $this->getProfileReults($profile_id);
         if (ERunActions::runBackground()) {
-            $this->writeToLog('/var/log/nginx/backprocess.log', 'test');
+//            $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+//            $log_path = "/var/log/yii/$start_time.log";
+            $log_path = "/var/log/nginx/backprocess.log";
+            $this->writeToLog($log_path, $profile_name);
             $data_arr = $this->findAllAccordingOwner($profile_id);
             while (sizeof($data_arr) > 0) {
                 try {
-                $this->writeToLog('/var/log/nginx/backprocess.log', 'loop'.  sizeof($data_arr));
-                $data_arr = $this->modifyOwnerID($data_arr, $profile_name);
+                $this->writeToLog($log_path, 'loop'.  sizeof($data_arr));
+                $data_arr = $this->modifyOwnerID($data_arr, $profile_name, $log_path);
                 } catch (Exception $e) {
-                    $this->writeToLog('/var/log/nginx/backprocess.log', 'error when loop');
+                    $this->writeToLog($log_path, 'error when loop');
                 }
             }
         }
@@ -227,29 +226,28 @@ class ProfilesController extends Controller {
 //        error_log(filter_input(INPUT_POST,"profile_name",FILTER_SANITIZE_STRING));
     }
     
-    public function modifyOwnerID($data_arr, $profile_name) {
+    public function modifyOwnerID($data_arr, $profile_name, $log_path) {
         $cb = $this->couchBaseConnection();   
                      
          for ($i = 0; $i < sizeof($data_arr); $i ++) {                          
             try {
             $docID = $data_arr[$i];
-            $this->writeToLog('/var/log/nginx/backprocess.log', $docID);
+//            $this->writeToLog('/var/log/nginx/backprocess.log', $docID);
             $profileOwn = $cb->get($docID);
 
-            $this->writeToLog('/var/log/nginx/backprocess.log', $docID . ' get');
+//            $this->writeToLog('/var/log/nginx/backprocess.log', $docID . ' get');
             $owner = CJSON::decode($profileOwn, true);
-            $this->writeToLog('/var/log/nginx/backprocess.log', $docID. 'decode');
+//            $this->writeToLog('/var/log/nginx/backprocess.log', $docID. 'decode');
 
                 $owner['owner_title'] = $profile_name;
                 if ($cb->set($docID, CJSON::encode($owner))) {
                     array_splice($data_arr, $i, 1);
-                    $this->writeToLog('/var/log/nginx/backprocess.log', $docID . 'update success');
+                    $this->writeToLog($log_path, $docID . 'update success');
                 } else {
-                    $this->writeToLog('/var/log/nginx/backprocess.log', $docID . 'update fail'.'since');
+                    $this->writeToLog($log_path, $docID . 'update fail'.'since');
                 }
             } catch(Exception $e) {                    
-                $this->writeToLog('/var/log/nginx/backprocess.log', 'error when get data');
-                $this->writeToLog('/var/log/nginx/backprocess.log', $e);
+                $this->writeToLog($log_path, 'error when get data');
             }
 
          }
@@ -270,7 +268,7 @@ class ProfilesController extends Controller {
             foreach ($response as $hit) {
                 //     echo $hit["score"] . ' - ' . $hit['id'] . "\r\n";
                 array_push($data_arr, $hit['id']);
-                 $this->writeToLog('/var/log/nginx/backprocess.log', $hit['id']);
+//                 $this->writeToLog('/var/log/nginx/backprocess.log', $hit['id']);
             }
             if (sizeof($response) == 0) {
                 $i = 2000;

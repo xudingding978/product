@@ -3,13 +3,8 @@
 <div class="profile-wallpaper" style="width: 100%; height: 500px; overflow: hidden; position: fixed; top: 70px;">
     <img  {{bindAttr src= model.profile_bg_url}} style="width: 100%; height:auto;">
 </div>
-<div style="width: 100%; height:250px; position: relative; display: block; opacity: 0;">
-</div>
-<div style="position: absolute;">
-    {{#if controller.contactChecking}}
-    {{render contact}}
-    {{/if}}
-</div>
+<div style="width: 100%; height:250px; position: relative; display: block; opacity: 0;"></div>
+
 
 
 <div class="hover panel" style='z-index: 0; float: none;position: relative; width: 87%; height: auto; margin:  auto; background: #fff; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;max-width: 1260px;min-width: 1250px;overflow: hidden;'>
@@ -68,8 +63,10 @@
 
 
                             <!--contact me-->
+
                             <div class="contactmebtn hint--bottom hint--rounded easing" data-hint="Contact us!">
                                 <a class="contactmeicon easing" {{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></a>
+
                             </div>
                             <!--contact me-->
 
@@ -265,11 +262,19 @@
                                                 {{input type="text" class="insert-contactdetails" value=website }}
 
                                                 {{else}}
-                                                <div class="Contact_2child"><a href="#"{{action gotoSize}}>{{website}}</a></div>
+                                                <div class="Contact_2child"><a href="{{unbound  website_url}}"{{action gotoSize}}>{{website}}</a></div>
                                                 {{/if}}
                                             </td>
                                         </tr>
-
+                                        <tr>
+                                                         {{#if controller.editingContact}}   
+                                                        <th style="color: #aaa;text-align: right;font-size: 14px;font-weight: normal;width: 90px;">Website URL:</th>   
+                                                        <td>
+                                                        {{input type="text" class="insert-contactdetails" value=website_url }}  
+                                                        </td>
+                                                        {{else}}
+                                                        {{/if}}
+                                          </tr>
                                     </tbody>
                                 </table>
                                 {{#unless controller.editingContact}}
@@ -1063,3 +1068,10 @@
     {{view HubStar.SelectFunctionView}}
 
     {{/if}}
+    
+    
+ {{#if controller.contactChecking}}
+    {{render contact}}
+    {{/if}}
+    
+   

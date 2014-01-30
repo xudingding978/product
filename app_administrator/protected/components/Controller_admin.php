@@ -56,6 +56,7 @@ class Controller_admin extends CConsoleCommand {
                 //     echo $hit["score"] . ' - ' . $hit['id'] . "\r\n";
                 array_push($data_arr, $hit['id']);
                 echo $hit['id']."\n";
+                echo $i."\n";
             }
             if (sizeof($response) == 0) {
                 $i = 2000;

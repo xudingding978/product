@@ -208,9 +208,9 @@ class ProfilesController extends Controller {
         
 //        $response = $this->getProfileReults($profile_id);
         if (ERunActions::runBackground()) {
-//            $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
-//            $log_path = "/var/log/yii/$start_time.log";
-            $log_path = "/var/log/nginx/backprocess.log";
+            $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+            $log_path = "/var/log/yii/$start_time.log";
+//            $log_path = "/var/log/nginx/backprocess.log";
             $this->writeToLog($log_path, $profile_name);
             $data_arr = $this->findAllAccordingOwner($profile_id);
             while (sizeof($data_arr) > 0) {

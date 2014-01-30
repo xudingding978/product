@@ -204,12 +204,10 @@ class ProfilesController extends Controller {
     public function actionBackgroundProcess() {
         $profile_id = filter_input(INPUT_POST,"profile_id",FILTER_SANITIZE_STRING);
         $profile_name = filter_input(INPUT_POST,"profile_name",FILTER_SANITIZE_STRING);                    
-//        error_log('1111111');
-        
 //        $response = $this->getProfileReults($profile_id);
         if (ERunActions::runBackground()) {
             $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
-            $log_path = "/var/log/yii/$start_time.log";
+            $log_path = "error_log/".$start_time."log";
 //            $log_path = "/var/log/nginx/backprocess.log";
             $this->writeToLog($log_path, $profile_name);
             $data_arr = $this->findAllAccordingOwner($profile_id);

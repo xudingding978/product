@@ -118,7 +118,7 @@ HubStar.SearchRoute = Ember.Route.extend({
         $(window).scrollTop(HubStar.get("setHight"));
         HubStar.set("setHight", 0);
 
-        localStorage.checkUser = "";
+        //     localStorage.checkUser = "";
     },
     deactivate: function() {
         HubStar.set("setHight", $(window).scrollTop());

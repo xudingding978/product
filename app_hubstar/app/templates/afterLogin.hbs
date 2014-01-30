@@ -1,8 +1,8 @@
 <div id="user-header-menu" style="">
 
     <div class="user-face-size" data-toggle="dropdown" style="position: static;">
-        <a class="user-face-size" style="position: absolute;z-index: -1"><img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg" class="profilepic_user " style='width: 45px;height:45px;'/></a>           
-        <a class="user-face-size" style="z-index: 1"><img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user  easing" style='width: 45px;height:45px'/></a>              
+        <a class="user-face-size" style="position: absolute;z-index: -1"><img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg" class="profilepic_user " /></a>           
+        <a class="user-face-size" style="z-index: 1"><img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user  easing" /></a>              
     </div>
 
     <ul id="user-dd-menu" class="hideClass edit-object-ul" style="padding: inherit;  width: 165px; right: 56px; position: relative; top:30px;">
@@ -25,6 +25,10 @@
                         <i class="fa fa-question-circle" style="">&nbsp;&nbsp;</i>
                         <span>Help</span>
                     </a></li>
+                     <li class='ite'><a tabindex="-1" href="javascript:void(0)"  id="startButton" {{action startTour on="click"  target="view"}}>
+                <i class="fa fa-info" style="">&nbsp;&nbsp;</i>
+                <span>User Tour</span>
+            </a></li>
                 <li class="ite"><a tabindex="-1"{{action logout on="click"  target="view"}}  >
                         <i class="fa fa-power-off" style="">&nbsp;&nbsp;</i>
                         <span>Log out</span> 
@@ -33,7 +37,3 @@
     </ul>
 
 </div>
-
-
-
-

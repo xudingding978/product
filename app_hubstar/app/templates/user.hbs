@@ -2,10 +2,11 @@
 <div class="user-board">
     <div class="user-board_left style-box">
         <div id="user-photo_left">
-            <div class="user-profilepic-container" id="profile-picture"> 
+            <div class="user-profilepic-container" id="profile-picture" data-step="1" data-intro="Here is Profile Picture!" data-position='right'> 
                 {{#if controller.is_authentic_user}}
-                <div id="change_profile" class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture" {{action userPhotoEditButton "User Picture"}}>
-                     <i class="fa fa-pencil-square-o"></i>         
+                <div id="change_profile" class="changeuserprofilepic easing hint--right hint--rounded"  data-hint="Choose a profile picture" {{action userPhotoEditButton "User Picture"}}>
+                       <i class="fa fa-pencil-square-o"></i>         
+
                 </div>  
 
                 {{/if}}
@@ -40,7 +41,7 @@
             {{render talk}}
             {{/if}}
 
-            <div id="show_interest" >
+            <div id="show_interest" data-step="2" data-intro="Here is Interests showing place!" data-position='right'>
 
                 <div class="show-interest easing">
                     <div style="font-weight: bold;line-height: 20px; color: #777; font-size: 17px;margin-bottom: 5px; display:inline-block;">INTERESTS</div>
@@ -95,7 +96,7 @@
 
 
         <div id="user-board_right_front" >
-            <div class="user-cover">
+            <div class="user-cover" data-step="3" data-intro="Here is Your own User Cover Picture!" data-position='bottom'>
 
                 <img {{bindAttr src= "controller.cover_url"}} style="width:100%;"/>
 
@@ -105,14 +106,14 @@
                       <i class="fa fa-cogs" ></i>
                 </div>
                 {{/if}}
-                <div style="font-size: 26px;font-weight: bold; line-height: 30px;  color: white;position: absolute;top: 245px;margin:0 30px;text-shadow: 0 0 10px #777;">{{display_name}}</div>
+                <div data-step="4" data-intro="Here is your display name!" data-position='right' style="font-size: 26px;font-weight: bold; line-height: 30px;  color: white;position: absolute;top: 245px;margin:0 30px;text-shadow: 0 0 10px #777;">{{display_name}}</div>
             </div>
 
 
 
 
 
-            <div class="editor-content" style="height: 140px; padding: 10px 20px;display: inline-block;position: relative;width: 100%;">
+            <div class="editor-content" data-step="5" data-intro="Here is your About Me to introduce yourself!" data-position='left' style="height: 140px; padding: 10px 20px;display: inline-block;position: relative;width: 100%;">
                 <div style="font-size:15px;line-height: 20px;margin: 5px 20px;color: #888;">  
 
 
@@ -173,7 +174,7 @@
 
 
             <div style="margin: 10px 30px; width:600px; height: 40px; position:relative; overflow: hidden;">
-                <ul class="locationandlinks">
+                <ul class="locationandlinks" data-step="6" data-intro="Here is your location and social links!" data-position='top'>
                     <li>
                         <span class="locationIcon"><i class="fa fa-map-marker"></i></span>
                         {{location}} 

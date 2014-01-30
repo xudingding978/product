@@ -120,7 +120,7 @@ class LoginController extends Controller {
         $temp['user'][0]['gender'] = $request_array[5];
         $temp['user'][0]['age'] = $request_array[6];
         $temp['user'][0]['description'] = null;
-        $temp['user'][0]['about_me'] = null;
+        $temp['user'][0]['about_me'] = "";
         $temp['user'][0]['facebook_link'] = null;
         $temp['user'][0]['twitter_link'] = null;
         $temp['user'][0]['linkedin_link'] = null;

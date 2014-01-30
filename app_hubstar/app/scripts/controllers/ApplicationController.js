@@ -299,6 +299,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
 
     },
+            encrypt:function(encryptString){
+            var tempstr = '';
+        for (var a = 0; a <encryptString.length; a ++ ) {
+            tempstr = tempstr + (parseInt(encryptString.charCodeAt(a).toString(16),16)+10).toString(16);
+        }
+        return tempstr;
+            },
+                    
+            
     done: function() {
         this.set('loginTime', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age'), this.get('selected_topics')];
@@ -310,7 +319,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             that.set('loginUsername', localStorage.userName);
             localStorage.userType = "email";
             localStorage.loginState = "login";
-            var emailInfo = [params.USER_NAME, params.PWD_HASH];
+
+            
+            
+            var emailInfo = [params.USER_NAME, this.encrypt(params.USER_NAME),this.encrypt(params.PWD_HASH)];
             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
 
             });
@@ -519,7 +531,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginUsername') !== "" && this.get('loginPassword') !== "")
-        {
+        {         
             this.set('loginTime', true);
             document.getElementById("loginUsername").setAttribute("class", "login-textfield");
             document.getElementById("loginPassword").setAttribute("class", "login-textfield");

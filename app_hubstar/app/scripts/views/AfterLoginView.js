@@ -2,10 +2,24 @@
 HubStar.AfterLoginView = Ember.View.extend({
     templateName: 'afterLogin',
     willInsertElement: function() {
-        $(document).ready(function() {
-            window.onload = function(){
-            document.getElementById('startButton').onclick = function() {
-                $("#profileDashboard").attr("style", "display:none");
+    },
+    logout: function() {
+        $.ajax({
+            type: 'POST',
+            url: getRestAPIURL() + '/logout',
+            contentType: 'application/json; charset=uft-8',
+            dataType: 'json',
+            success: function(param) {
+            }
+        });
+        localStorage.removeItem('loginStatus');
+        this.get('controller').transitionTo("indexIndex");
+
+    },
+    
+    startTour:function(){
+     
+                  $("#profileDashboard").attr("style", "display:none");
                 $("#profilePanel").removeClass("panel");
      //           $("#profileFront").removeClass("front");
                 $(".brand").addClass("tour-background");
@@ -34,24 +48,6 @@ HubStar.AfterLoginView = Ember.View.extend({
                     $(window).scrollTop(0);
                     }
                 });
-            };
-
-           };
-
-        });
-    },
-    logout: function() {
-        $.ajax({
-            type: 'POST',
-            url: getRestAPIURL() + '/logout',
-            contentType: 'application/json; charset=uft-8',
-            dataType: 'json',
-            success: function(param) {
-            }
-        });
-        localStorage.removeItem('loginStatus');
-        this.get('controller').transitionTo("indexIndex");
-
     }
 });
 

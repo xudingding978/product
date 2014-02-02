@@ -2,10 +2,9 @@
 
 
     <div class="navbar-inner">
-        <div class="brand" >
-            <a href="/#" > <img class="logonew" {{action showDiscoveryBar}} style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png"></a>
-
-
+        
+            <div class="brand" data-step="1" data-intro="Come to your home feed for all the newest ideas.">
+            <a href="/#/search" > <img class="logonew" {{action showDiscoveryBar}} style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png"></a>
 
         </div>
 
@@ -26,8 +25,8 @@
             {{/if}}
             <div class="Search-box easing" style="">
                 {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
-                <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -75px; right: -5px;border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
-                    <i class="fa fa-search"></i>
+                <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
+                            <i class="fa fa-search"></i>
                 </div>
             </div>
         </div>
@@ -37,11 +36,13 @@
 
         {{#if HubStar.isLogin}}
 
-        <div id="login_detail" style="position: relative;float: right;cursor: pointer;text-align: right;">
+        <div id="login_details" style="position: relative;float: right;cursor: pointer;text-align: right;">
+            <div id="login_detail" style="position: relative;float: right;cursor: pointer;text-align: right;" data-step="4" data-intro="your account detail link ">
             {{view HubStar.AfterLoginView}}
         </div>
-        <div id="Geo-Filter" class="Geo-Filter easing"  style="margin-right: 50px;font-size: 15px;" {{action dropdown "notification"}}>
-             <i class="fa fa-bell fa-lg"></i>
+            </div>
+        <div id="Geo-Filter" class="Geo-Filter easing"  style="margin-right: 50px;font-size: 15px;" {{action dropdown "notification"}} data-step="3" data-intro="Get quick updates about your friends' actions that most affect you. ">
+                       <i class="fa fa-bell fa-lg"></i>
             {{#if isUnReadCountZero}}
             <div style="cursor: pointer;position: absolute;top: 20px;left: 15px;width: auto;padding: 0 5px 0 4px;height: 15px;background-color: red;line-height: 15px;border-radius: 2px;font-size: 11px;font-weight: bold;">{{unReadCount}}</div>
             {{/if}}
@@ -77,8 +78,8 @@
         {{render notificationTop}}
         {{/if}}
 
-        <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdown "geoLocation"}}>
-             <i class="fa fa-angle-down fa-lg">&nbsp;</i>
+        <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdown "geoLocation"}} data-step="2" data-intro="Changing global search Location Filter.">
+                     <i class="fa fa-angle-down fa-lg">&nbsp;</i>
             <span style="font-weight: bold;font-size: 15px;">{{HubStar.geoLocation}}</span>
         </div>
 

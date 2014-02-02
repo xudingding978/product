@@ -206,17 +206,17 @@ class ProfilesController extends Controller {
         $profile_name = filter_input(INPUT_POST,"profile_name",FILTER_SANITIZE_STRING);                    
 //        $response = $this->getProfileReults($profile_id);
         if (ERunActions::runBackground()) {
-            $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
-            $log_path = "error_log/".$start_time."log";
-//            $log_path = "/var/log/nginx/backprocess.log";
-            $this->writeToLog($log_path, $profile_name);
+//            $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+//            $log_path = "error_log/".$start_time."log";
+            $log_path = "/var/log/nginx/error.log";
+//            $this->writeToLog($log_path, $profile_name);
             $data_arr = $this->findAllAccordingOwner($profile_id);
             while (sizeof($data_arr) > 0) {
                 try {
-                $this->writeToLog($log_path, 'loop'.  sizeof($data_arr));
+//                $this->writeToLog($log_path, 'loop'.  sizeof($data_arr));
                 $data_arr = $this->modifyOwnerID($data_arr, $profile_name, $log_path);
                 } catch (Exception $e) {
-                    $this->writeToLog($log_path, 'error when loop');
+//                    $this->writeToLog($log_path, 'error when loop');
                 }
             }
         }
@@ -240,12 +240,12 @@ class ProfilesController extends Controller {
                 $owner['owner_title'] = $profile_name;
                 if ($cb->set($docID, CJSON::encode($owner))) {
                     array_splice($data_arr, $i, 1);
-                    $this->writeToLog($log_path, $docID . 'update success');
+//                    $this->writeToLog($log_path, $docID . 'update success');
                 } else {
-                    $this->writeToLog($log_path, $docID . 'update fail'.'since');
+//                    $this->writeToLog($log_path, $docID . 'update fail'.'since');
                 }
             } catch(Exception $e) {                    
-                $this->writeToLog($log_path, 'error when get data');
+//                $this->writeToLog($log_path, 'error when get data');
             }
 
          }

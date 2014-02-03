@@ -87,6 +87,7 @@ class Hybrid_Providers_Twitter extends Hybrid_Provider_Model_OAuth1
 		$this->user->profile->description = (property_exists($response,'description'))?$response->description:"";
 		$this->user->profile->firstName   = (property_exists($response,'name'))?$response->name:""; 
 		$this->user->profile->photoURL    = (property_exists($response,'profile_image_url'))?$response->profile_image_url:"";
+                                    $this->user->profile->photoURL_large=substr(substr( $this->user->profile->photoURL , 0,strrpos( $this->user->profile->photoURL ,'.' )), 0, -7). substr( $this->user->profile->photoURL , strrpos( $this->user->profile->photoURL ,'.' ));
 		$this->user->profile->profileURL  = (property_exists($response,'screen_name'))?("http://twitter.com/".$response->screen_name):"";
 		$this->user->profile->webSiteURL  = (property_exists($response,'url'))?$response->url:""; 
 		$this->user->profile->region      = (property_exists($response,'location'))?$response->location:"";

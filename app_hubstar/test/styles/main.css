@@ -2789,7 +2789,7 @@ table th[class*="span"],
     *margin-right: .3em;
     line-height: 14px;
     vertical-align: text-top;
-    background-image: url("../images/glyphicons-halflings.png");
+/*    background-image: url("../images/glyphicons-halflings.png");*/
     background-position: 14px 14px;
     background-repeat: no-repeat;
 }
@@ -2809,7 +2809,7 @@ table th[class*="span"],
 .dropdown-menu > .active > a > [class*=" icon-"],
 .dropdown-submenu:hover > a > [class^="icon-"],
 .dropdown-submenu:hover > a > [class*=" icon-"] {
-    background-image: url("../images/glyphicons-halflings-white.png");
+/*    background-image: url("../images/glyphicons-halflings-white.png");*/
 }
 
 .icon-glass {
@@ -7038,7 +7038,7 @@ div.search-loading-invisible{
     margin: auto;
     top: 0;
     bottom: 80%;
-    cursor: move;
+   
 
     z-index: 100;
     background-color: white;
@@ -7052,7 +7052,7 @@ div.search-loading-invisible{
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
     background-clip: padding-box;
-    background:#fff url('../../../images/contactbg.png') repeat;
+  
 }
 
 .addCollection-container{
@@ -7433,6 +7433,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .insert-contactdetails{
     margin-left: 20px;
 }
+
+.insert-profile-name{font-size: 15px;}
 
 .Contact_2child{
     display: block;
@@ -10369,7 +10371,6 @@ div#appfeedback .fresh-message > i.fa-times{
 {
     position:relative;
     margin:-160px 17.5% 0 17.5%;
-    float:left;
     width:65%;
     padding:0 5px;
 }
@@ -10730,7 +10731,8 @@ textarea.add-interests{
 .keyword-pool{
     margin: 0 0 5px; 
     width: 100%; 
-    min-height: 200px;
+    height: 200px;
+    overflow: auto;
     padding: 5px 8px;
 }
 
@@ -11290,7 +11292,7 @@ textarea.add-interests{
 .navbar {
     min-width: 1200px;
     height: 75px;
-    line-height: 75px;
+    line-height: 60px;
     overflow: visible;
     color: white;
     margin-bottom: 0px;
@@ -11904,10 +11906,11 @@ div#forgot-password-container{
 /* Clint Lewis's style's 29/10/13 */
 
 div#login_detail{
-    width:35px;
+    width:55px;
     float:right;
     cursor: pointer;
     vertical-align: top;
+    height:70px;
 }
 
 
@@ -11951,6 +11954,21 @@ div#login_detail{
 
 
 .user-face-size{width: 45px; height: 45px;}
+
+
+/*TOUR*/
+
+
+.tour-background{
+    background-color: #475476;
+    margin: 5px !important;
+    padding: 5px !important;
+}
+
+
+.profileName{
+    text-shadow: 0 0 10px #555;
+}
 
 * {
     box-sizing: border-box;

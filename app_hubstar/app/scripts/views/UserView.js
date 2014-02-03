@@ -2,7 +2,6 @@ HubStar.UserView = Ember.View.extend({
     templateName: 'user',
 //       interestsActive:false,
     didInsertElement: function() {
-
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
         $(".navbar").css("box-shadow", "0 0 10px #333");
@@ -65,7 +64,7 @@ HubStar.UserView = Ember.View.extend({
         }
 
         $(document).ready(function() {
-                  
+
             $("#about_us_contentsssssssw").mCustomScrollbar({
                 scrollButtons: {
                     enable: false, 

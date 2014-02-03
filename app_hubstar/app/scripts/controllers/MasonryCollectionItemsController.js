@@ -208,7 +208,10 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                                         delResult = delResult.substr(0, delResult.length - 1);
 
                                         currentCollection.set('collection_ids', delResult);
-                                        tempItem.deleteRecord();
+                                        if (this.get("profileId") === item.get("owner_id") && item.get("collection_id") === this.get('collectionID')) {
+                                            console.log("ssssssss");
+                                            tempItem.deleteRecord();
+                                        }
                                         currentCollection.store.save();
                                         break;
                                     }
@@ -359,7 +362,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                 }
                 setTimeout(function() {
                     $('#masonry_photo_collection_container').masonry("reload");
-                }, 200);
+                }, 250);
             }
         });
     },

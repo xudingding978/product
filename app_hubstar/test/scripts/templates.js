@@ -576,7 +576,11 @@ function program13(depth0,data) {
   data.buffer.push("\n    \n    \n    <div id=\"loading\" class=\"loading\" >\n        <div id=\"blurringTextG\">\n            <div id=\"blurringTextG_1\" class=\"blurringTextG\">\n                C</div>\n            <div id=\"blurringTextG_2\" class=\"blurringTextG\">\n                r</div>\n            <div id=\"blurringTextG_3\" class=\"blurringTextG\">\n                e</div>\n            <div id=\"blurringTextG_4\" class=\"blurringTextG\">\n                a</div>\n            <div id=\"blurringTextG_5\" class=\"blurringTextG\">\n                t</div>\n            <div id=\"blurringTextG_6\" class=\"blurringTextG\">\n                i</div>\n            <div id=\"blurringTextG_7\" class=\"blurringTextG\">\n                n</div>\n            <div id=\"blurringTextG_8\" class=\"blurringTextG\">\n                g</div>\n            <div id=\"blurringTextG_9\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_10\" class=\"blurringTextG\">\n                y</div>\n            <div id=\"blurringTextG_11\" class=\"blurringTextG\">\n                o</div>\n            <div id=\"blurringTextG_12\" class=\"blurringTextG\">\n                u</div>\n            <div id=\"blurringTextG_13\" class=\"blurringTextG\">\n                r</div>\n            <div id=\"blurringTextG_14\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_15\" class=\"blurringTextG\">\n                i</div>\n            <div id=\"blurringTextG_16\" class=\"blurringTextG\">\n                d</div>\n            <div id=\"blurringTextG_17\" class=\"blurringTextG\">\n                e</div>\n            <div id=\"blurringTextG_18\" class=\"blurringTextG\">\n                a</div>\n            <div id=\"blurringTextG_19\" class=\"blurringTextG\">\n                s</div>\n            <div id=\"blurringTextG_20\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_21\" class=\"blurringTextG\">\n                s</div>\n            <div id=\"blurringTextG_22\" class=\"blurringTextG\">\n                p</div>\n            <div id=\"blurringTextG_23\" class=\"blurringTextG\">\n                a</div>\n            <div id=\"blurringTextG_24\" class=\"blurringTextG\">\n                c</div>\n            <div id=\"blurringTextG_25\" class=\"blurringTextG\">\n                e</div>\n            <div id=\"blurringTextG_26\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_27\" class=\"blurringTextG\">\n                .</div>\n            <div id=\"blurringTextG_28\" class=\"blurringTextG\">\n                .</div>\n            <div id=\"blurringTextG_29\" class=\"blurringTextG\">\n                .</div>\n        </div>\n    </div>\n</div>\n\n\n<!--Background-texture-->\n<div style=\"background-color: #E7E7E7;width:100%;height:100%;position:fixed;z-index:-1;top:0;left:0;\"></div>\n\n");
 =======
   data.buffer.push("\n    \n    \n    <div id=\"loading\" class=\"loading\" >\n        <div id=\"blurringTextG\">\n            <div id=\"blurringTextG_1\" class=\"blurringTextG\">\n                C</div>\n            <div id=\"blurringTextG_2\" class=\"blurringTextG\">\n                r</div>\n            <div id=\"blurringTextG_3\" class=\"blurringTextG\">\n                e</div>\n            <div id=\"blurringTextG_4\" class=\"blurringTextG\">\n                a</div>\n            <div id=\"blurringTextG_5\" class=\"blurringTextG\">\n                t</div>\n            <div id=\"blurringTextG_6\" class=\"blurringTextG\">\n                i</div>\n            <div id=\"blurringTextG_7\" class=\"blurringTextG\">\n                n</div>\n            <div id=\"blurringTextG_8\" class=\"blurringTextG\">\n                g</div>\n            <div id=\"blurringTextG_9\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_10\" class=\"blurringTextG\">\n                y</div>\n            <div id=\"blurringTextG_11\" class=\"blurringTextG\">\n                o</div>\n            <div id=\"blurringTextG_12\" class=\"blurringTextG\">\n                u</div>\n            <div id=\"blurringTextG_13\" class=\"blurringTextG\">\n                r</div>\n            <div id=\"blurringTextG_14\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_15\" class=\"blurringTextG\">\n                i</div>\n            <div id=\"blurringTextG_16\" class=\"blurringTextG\">\n                d</div>\n            <div id=\"blurringTextG_17\" class=\"blurringTextG\">\n                e</div>\n            <div id=\"blurringTextG_18\" class=\"blurringTextG\">\n                a</div>\n            <div id=\"blurringTextG_19\" class=\"blurringTextG\">\n                s</div>\n            <div id=\"blurringTextG_20\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_21\" class=\"blurringTextG\">\n                s</div>\n            <div id=\"blurringTextG_22\" class=\"blurringTextG\">\n                p</div>\n            <div id=\"blurringTextG_23\" class=\"blurringTextG\">\n                a</div>\n            <div id=\"blurringTextG_24\" class=\"blurringTextG\">\n                c</div>\n            <div id=\"blurringTextG_25\" class=\"blurringTextG\">\n                e</div>\n            <div id=\"blurringTextG_26\" class=\"blurringTextG\">\n                &nbsp;\n            </div>\n            <div id=\"blurringTextG_27\" class=\"blurringTextG\">\n                .</div>\n            <div id=\"blurringTextG_28\" class=\"blurringTextG\">\n                .</div>\n            <div id=\"blurringTextG_29\" class=\"blurringTextG\">\n                .</div>\n        </div>\n    </div>\n</div>\n\n\n<!--Background-texture-->\n<script type=\"text/javascript\">\n\nif ($('#RegisterPageId').length > 0){\n        document.getElementById('fixed-bg').style.display=\"none\";\n    }\n</script>\n<div id=\"fixed-bg\" style=\"background-color: #E7E7E7;width:100%;height:100%;position:fixed;z-index:-1;top:0;left:0;\"></div>\n\n");
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> 69aeabcf6698b1f62a42382a1cf54ce2dea82e59
+>>>>>>> 95f28a9a205c5c5c852cb40d1392252165f11192
   stack1 = helpers['if'].call(depth0, "HubStar.checkLoginStatus", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(13, program13, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n<script type=\"text/javascript\">\n\n    function DropDown(el) {\n        this.dd = el;\n        this.placeholder = this.dd.children('span');\n        this.opts = this.dd.find('ul.dropdown > li');\n        this.val = '';\n        this.index = -1;\n        this.initEvents();\n    }\n    DropDown.prototype = {\n        initEvents: function() {\n            var obj = this;\n            obj.dd.on('click', function(event) {\n                $(this).parents('div .wrapper-dropdown-3').toggleClass('active');\n                return false;\n            });\n            obj.opts.on('click', function() {\n                var opt = $(this);\n                obj.val = opt.text();\n                obj.index = opt.index();\n                obj.placeholder.text(obj.val);\n            });\n        },\n        getValue: function() {\n            return this.val;\n        },\n        getIndex: function() {\n            return this.index;\n        }\n    };\n    $(function() {\n        var dd1 = new DropDown($('.dropdown_test_1'));\n        $(document).click(function() {\n            // all dropdowns\n            $('.wrapper-dropdown-3').removeClass('active');\n        });\n        var dd4 = new DropDown($('.dropdown_test_4'));\n        $(document).click(function() {\n            // all dropdowns\n            $('.wrapper-dropdown-3').removeClass('active');\n        });\n    });\n    \n    \n \n    \n</script>\n");
@@ -2762,7 +2766,11 @@ function program10(depth0,data) {
 >>>>>>> 83c6a4349835a08ed21856a6d1dc26b301842041
 =======
   data.buffer.push(" style=\"position: relative; top: 0; margin:0;\" src=\"../../../images/landing-trends.png\"></a>\n\n        </div>\n\n\n        <div id=\"top-about-menu\" class=\"top-about-menu\" style=\"display:block\">\n            <span><a style=\"color: #fff\" class=\"hover-opacity\" target=\"blank\" href=\"http://about.trendsideas.com/\">About</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/business/\">Business</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/learning-centre/\">Learning Centre</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/contact-us/\">Contact us</a></span>\n\n        </div>\n\n\n        <div id=\"search-bar\" class=\"search-bar-ontop\" style=\"display:none\">\n            <div id =\"navigator\" class=\"Nav-btn easing\" style=\"float: left;\" ");
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> 69aeabcf6698b1f62a42382a1cf54ce2dea82e59
+>>>>>>> 95f28a9a205c5c5c852cb40d1392252165f11192
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "dropdownHeaderNavigator", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("><i class=\"fa fa-list\"></i></div>\n            ");
   stack1 = helpers['if'].call(depth0, "controller.isHeaderNavigatorDropdown", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
@@ -6103,7 +6111,11 @@ function program86(depth0,data) {
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n                ");
   stack1 = helpers['if'].call(depth0, "controller.is_authentic_user", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(72, program72, data),contexts:[depth0],types:["ID"],data:data});
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> 69aeabcf6698b1f62a42382a1cf54ce2dea82e59
+>>>>>>> 95f28a9a205c5c5c852cb40d1392252165f11192
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n            </ul>\n        </div>\n\n        <div class=\"tab-content easing\">\n            <div class=\"tab-pane active\" id=\"tab1\">\n                <div style=\"font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;\">Style up your profile!</div>\n\n                <div class='styleup_section'>\n                    <a href=\"#fileuploader\" data-toggle=\"tab\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "setUploadImageMode", "Profile Picture", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["ID","STRING"],data:data})));
@@ -6726,7 +6738,11 @@ function program118(depth0,data) {
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</span>\n                                    <span class=\"caret\"></span>\n                                    ");
   stack1 = helpers['if'].call(depth0, "controller.profileSubcategoryDropdown", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(74, program74, data),contexts:[depth0],types:["ID"],data:data});
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> 69aeabcf6698b1f62a42382a1cf54ce2dea82e59
+>>>>>>> 95f28a9a205c5c5c852cb40d1392252165f11192
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n                                </div>                              \n                            </div>\n                        </td>\n                    </tr>\n\n\n                    <tr>\n                        <td>Physical Address:</td>\n                        <td>\n                            <div  style=\"display: block; margin-bottom: 5px;\" >\n\n                                <div  style=\"margin: 0;width: 50%;display: inline-block;\">\n                                    ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
@@ -6866,7 +6882,11 @@ function program118(depth0,data) {
 >>>>>>> 83c6a4349835a08ed21856a6d1dc26b301842041
 =======
   stack1 = helpers['if'].call(depth0, "controller.isActiveDropdown", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(76, program76, data),contexts:[depth0],types:["ID"],data:data});
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> 69aeabcf6698b1f62a42382a1cf54ce2dea82e59
+>>>>>>> 95f28a9a205c5c5c852cb40d1392252165f11192
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n                            </td>\n                        </tr>\n\n                        <tr>\n                            <td>Deleted*:</td>\n\n                            <td>\n                                <div class=\"new-btn\" style=\"display: block;\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "dropdown", "controller.projectDeleteDropdownType", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["ID","ID"],data:data})));
@@ -6886,7 +6906,11 @@ function program118(depth0,data) {
 >>>>>>> 83c6a4349835a08ed21856a6d1dc26b301842041
 =======
   stack1 = helpers['if'].call(depth0, "controller.isDeleteDropdown", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(76, program76, data),contexts:[depth0],types:["ID"],data:data});
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> 69aeabcf6698b1f62a42382a1cf54ce2dea82e59
+>>>>>>> 95f28a9a205c5c5c852cb40d1392252165f11192
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n                            </td>\n                        </tr>\n\n                        <tr>\n                            <td> Package:</td>\n                            <td>\n                                <div class=\"new-btn\" style=\"display: block;\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "dropdown", "controller.projectCategoryDropdownType", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["ID","ID"],data:data})));
@@ -7281,7 +7305,11 @@ function program121(depth0,data) {
   },hashTypes:{'src': "ID"},hashContexts:{'src': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
   data.buffer.push(" style=\"width:100%;\"/>\n                ");
   stack1 = helpers['if'].call(depth0, "controller.is_authentic_user", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> 69aeabcf6698b1f62a42382a1cf54ce2dea82e59
+>>>>>>> 95f28a9a205c5c5c852cb40d1392252165f11192
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n                <div class=\"corpbanner_mask\" style=\"background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 100%; height: 200px;\">\n                    <div class=\"corpbanner_content\" style=\"position: absolute;bottom:0;margin-left: 30%;width: 70%;\">\n                        <div class=\"main_title\" style=\"height: 120px;\">\n\n                            <div>\n                                ");
   stack1 = helpers['if'].call(depth0, "controller.editing", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(5, program5, data),fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
@@ -7331,7 +7359,11 @@ function program121(depth0,data) {
   },hashTypes:{'src': "ID"},hashContexts:{'src': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
   data.buffer.push(" style=\"border:5px solid white;box-shadow: 0px 0px 5px #888;min-height: 0;width: 100%\">\n                                    </a> \n                                </div>\n                                ");
   stack1 = helpers['if'].call(depth0, "controller.follow_status", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(10, program10, data),fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> 69aeabcf6698b1f62a42382a1cf54ce2dea82e59
+>>>>>>> 95f28a9a205c5c5c852cb40d1392252165f11192
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n                            </div>\n\n                            <div data-step=\"6\" data-intro=\"Who visited your profiles\" data-position='right'>\n                                <div class=\"LatestFollower\" >\n\n                                    ");
   stack1 = helpers.each.call(depth0, "contentFollowerPhoto", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
@@ -7346,7 +7378,11 @@ function program121(depth0,data) {
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "selectFollower", "", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["ID","ID"],data:data})));
   data.buffer.push(">Followed by ");
   stack1 = helpers._triageMustache.call(depth0, "controller.profileFollowerStatistics", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> 69aeabcf6698b1f62a42382a1cf54ce2dea82e59
+>>>>>>> 95f28a9a205c5c5c852cb40d1392252165f11192
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" people.</div>\n                            </div>\n\n\n                            <!--KEYWORDS SECTION-->\n                            <div class=\"aside-container\" data-step=\"7\" data-intro=\"Keyword\" data-position='right'> \n                                <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'>\n                                    <i class='fa fa-bookmark' style='margin-right: 10px;'></i>Keywords\n                                </div>\n\n                                <div style='width: 100%;min-height: 100px;'>\n                                    <ul class=\"Client-Keywords-tags\">    \n                                        ");
   stack1 = helpers.each.call(depth0, "controller.show_keyword_array", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(14, program14, data),contexts:[depth0],types:["ID"],data:data});
@@ -7453,7 +7489,11 @@ function program121(depth0,data) {
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n\n    ");
   stack1 = helpers['if'].call(depth0, "controller.makeSelection", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(119, program119, data),contexts:[depth0],types:["ID"],data:data});
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> 69aeabcf6698b1f62a42382a1cf54ce2dea82e59
+>>>>>>> 95f28a9a205c5c5c852cb40d1392252165f11192
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n    \n    \n ");
   stack1 = helpers['if'].call(depth0, "controller.contactChecking", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(121, program121, data),contexts:[depth0],types:["ID"],data:data});
@@ -9216,7 +9256,11 @@ function program58(depth0,data) {
   data.buffer.push("\n\n\n\n                </div>\n            </div>\n\n\n\n\n            <div style=\"margin: 10px 30px; width:600px; height: 40px; position:relative; overflow: hidden;\">\n                <ul class=\"locationandlinks\">\n                    <li>\n                        <span class=\"locationIcon\"><i class=\"fa fa-map-marker\"></i></span>\n                        ");
 =======
   data.buffer.push("\n\n\n\n                </div>\n            </div>\n\n\n\n\n            <div style=\"margin: 10px 30px; width:600px; height: 40px; position:relative; overflow: hidden;\">\n                <ul class=\"locationandlinks\" data-step=\"6\" data-intro=\"Here is your location and social links!\" data-position='top'>\n                    <li>\n                        <span class=\"locationIcon\"><i class=\"fa fa-map-marker\"></i></span>\n                        ");
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> 69aeabcf6698b1f62a42382a1cf54ce2dea82e59
+>>>>>>> 95f28a9a205c5c5c852cb40d1392252165f11192
   stack1 = helpers._triageMustache.call(depth0, "location", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" \n                    </li>\n                    ");

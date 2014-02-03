@@ -56,6 +56,7 @@ class Hybrid_Providers_Google extends Hybrid_Provider_Model_OAuth2
 		$this->user->profile->lastName      = (property_exists($response,'family_name'))?$response->family_name:"";
 		$this->user->profile->displayName   = (property_exists($response,'name'))?$response->name:"";
 		$this->user->profile->photoURL      = (property_exists($response,'picture'))?$response->picture:"";
+                                    $this->user->profile->photoURL_large = "https://plus.google.com/s2/photos/profile/" . $this->user->profile->identifier . "?sz=400";
 		$this->user->profile->profileURL    = "https://profiles.google.com/" . $this->user->profile->identifier;
 		$this->user->profile->gender        = (property_exists($response,'gender'))?$response->gender:""; 
 		$this->user->profile->email         = (property_exists($response,'email'))?$response->email:"";

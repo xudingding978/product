@@ -3,18 +3,13 @@
 <div class="profile-wallpaper" style="width: 100%; height: 500px; overflow: hidden; position: fixed; top: 70px;">
     <img  {{bindAttr src= model.profile_bg_url}} style="width: 100%; height:auto;">
 </div>
-<div style="width: 100%; height:250px; position: relative; display: block; opacity: 0;">
-</div>
-<div style="position: absolute;">
-    {{#if controller.contactChecking}}
-    {{render contact}}
-    {{/if}}
-</div>
+<div style="width: 100%; height:250px; position: relative; display: block; opacity: 0;"></div>
 
 
-<div class="hover panel" style='z-index: 0; float: none;position: relative; width: 87%; height: auto; margin:  auto; background: #fff; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;max-width: 1260px;min-width: 1250px;overflow: hidden;'>
 
-    <div class="front" style="text-align: inherit; width: auto; height: auto; box-shadow: none; border: none; position: relative;">
+<div id="profilePanel" class="hover panel" style='z-index: auto;  float: none;position: relative !important; width: 87%; height: auto; margin:  auto; background: #fff; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;max-width: 1260px;min-width: 1250px;overflow: hidden;'>
+
+    <div id="profileFront" class="front" style="text-align: inherit; width: auto; height: auto; box-shadow: none; border: none; position: relative !important;">
 
         <div class="profilewrapper premium">
             <!--corpbanner-->
@@ -35,16 +30,17 @@
 
                             <div>
                                 {{#if controller.editing}}
-                                <div style="display: inline-block; width: 350px;">
-
-                                    {{input type="text" class="insert-contactdetails" value=profile_name}}
-                                </div>
-                                <div style="display: inline-block;vertical-align: bottom; margin-left:20px">
+                                <div style="margin-bottom: 10px;">
+                                    <div style="display: inline-block; width: 350px;">
+                                        {{input type="text" class="insert-profile-name" value=profile_name}}
+                                    </div>
+                                    <div style="display: inline-block;vertical-align: bottom; margin-left:20px">
                                     <div class="new-btn blue-btn"{{action yes controller.profileName}}><i class="fa fa-check fa fa-white"></i></div>
                                     <div class="new-btn"{{action no controller.profileName}}><i class="fa fa-times fa fa-white"></i></div>
+                                    </div>
                                 </div>
                                 {{else}}
-                                <div style="display: inline-block; color: white; max-width: 500px; overflow: hidden; font-size: 28px; margin-bottom: 15px; line-height: 32px; vertical-align: middle;">
+                                <div id="profileName" data-step="1" data-intro="Here is Profile Name!" data-position='right' style="display: inline-block; color: white; max-width: 500px; overflow: hidden; font-size: 28px; margin-bottom: 15px; line-height: 32px; vertical-align: middle;">
                                     {{profile_name}}
                                 </div>
                                 {{#if controller.is_authentic_user}}
@@ -58,7 +54,7 @@
 
 
                             <!--STAR RATING-->
-                            <div style="position: absolute;width: 500px;">
+                            <div style="position: absolute;width: 500px;" data-step="2" data-intro="Rating and review the profile!" data-position='right'>
                                 <span class="stars" style="float: left;margin: 5px 15px 5px 0;" ><span id="starsize" ></span></span>  
                                 <div class="hint--right hint--rounded" data-hint="Review this profile!"  {{action rateEditing model.id}} >
                                      <div class="contactmeicon easing" style="float: left;  width: 35px; height: 35px;line-height: 31px;text-align: center;font-weight: bold;font-size: 13px;border: 2px solid #aaa;">{{this.profile_average_review}}</div>
@@ -68,13 +64,14 @@
 
 
                             <!--contact me-->
-                            <div class="contactmebtn hint--bottom hint--rounded easing" data-hint="Contact us!">
-                                <a class="contactmeicon easing" {{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></a>
+                            <div class="contactmebtn hint--bottom hint--rounded easing" data-hint="Contact us!" data-step="4" data-intro="Sending Email" data-position='left'>
+                                   <a class="contactmeicon easing" {{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></a>
+
                             </div>
                             <!--contact me-->
 
-                            <div class="contactmebtn hint--left hint--rounded easing" data-hint="Share this profile!" >
-                                <a class="contactmeicon easing" {{action dropdownPhotoSetting}}><i class="fa fa-share easing" style="font-size: 19px;"></i></a>
+                            <div class="contactmebtn hint--left hint--rounded easing" data-hint="Share this profile!" data-step="3" data-intro="Sharing profile to your social network" data-position='left'>
+                                 <a class="contactmeicon easing" {{action dropdownPhotoSetting}}><i class="fa fa-share easing" style="font-size: 19px;"></i></a>
                             </div>
 
                             <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px;  padding: 0;right: 45px;top: 70px;position: absolute;">
@@ -111,7 +108,7 @@
                 <td class="left_col" width="29%" valign="top">
                     <div class="profileaside">
                         <div class="profileaside_content">
-                            <div class="aside-profilepic">
+                            <div class="aside-profilepic" data-step="5" data-intro="Following time" data-position='right'>
                                 <div style="min-height: 175px; overflow: visible; line-height: 175px;margin-bottom: 20px;" data-hint="{{unbound model.profile_name}}">
                                     <a href="#/profiles/{{unbound model.id}}">
                                         <img {{bindAttr src= model.profile_pic_url}} style="border:5px solid white;box-shadow: 0px 0px 5px #888;min-height: 0;width: 100%">
@@ -126,24 +123,24 @@
 
                             </div>
 
+                            <div data-step="6" data-intro="Who visited your profiles" data-position='right'>
+                                <div class="LatestFollower" >
 
-                            <div class="LatestFollower">
+                                    {{#each contentFollowerPhoto}}                                             
+                                    <a class='radius-circle' href="#/users/{{unbound this.id}}">
+                                        <div class="hint--bottom hint--rounded" data-hint="{{unbound this.name}}">
+                                            <img {{bindAttr src= this.photo_url}}/>
+                                        </div>
+                                    </a>                                             
+                                    {{/each}}
 
-                                {{#each contentFollowerPhoto}}                                             
-                                <a class='radius-circle' href="#/users/{{unbound this.id}}">
-                                    <div class="hint--bottom hint--rounded" data-hint="{{unbound this.name}}">
-                                        <img {{bindAttr src= this.photo_url}}/>
-                                    </div>
-                                </a>                                             
-                                {{/each}}
-
+                                </div>
+                                <div class="Followed-by easing" {{action selectFollower this }}>Followed by {{controller.profileFollowerStatistics}} people.</div>
                             </div>
-                            <div class="Followed-by easing"{{action selectFollower this }}>Followed by {{controller.profileFollowerStatistics}} people.</div>
-
 
 
                             <!--KEYWORDS SECTION-->
-                            <div class="aside-container"> 
+                            <div class="aside-container" data-step="7" data-intro="Keyword" data-position='right'> 
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'>
                                     <i class='fa fa-bookmark' style='margin-right: 10px;'></i>Keywords
                                 </div>
@@ -162,10 +159,8 @@
 
                             <!--PROFILE CONTACT SECTION-->
 
-
-
-                            <div class="aside-container" style="">
-                                <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='fa fa-phone' style='margin-right: 10px;'></i>Contact Detail</div>
+                            <div class="aside-container" style="" data-step="8" data-intro="Contact Detail" data-position='right'>
+                                    <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='fa fa-phone' style='margin-right: 10px;'></i>Contact Detail</div>
                                 {{#unless controller.editingContact}}
                                 {{#if controller.is_authentic_user}}
                                 <div class="edit-btn easing hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing model.phone_number controller.contact}}>
@@ -265,11 +260,19 @@
                                                 {{input type="text" class="insert-contactdetails" value=website }}
 
                                                 {{else}}
-                                                <div class="Contact_2child"><a href="#"{{action gotoSize}}>{{website}}</a></div>
+                                                <div class="Contact_2child"><a href="{{unbound  website_url}}"{{action gotoSize}}>{{website}}</a></div>
                                                 {{/if}}
                                             </td>
                                         </tr>
-
+                                        <tr>
+                                                         {{#if controller.editingContact}}   
+                                                        <th style="color: #aaa;text-align: right;font-size: 14px;font-weight: normal;width: 90px;">Website URL:</th>   
+                                                        <td>
+                                                        {{input type="text" class="insert-contactdetails" value=website_url }}  
+                                                        </td>
+                                                        {{else}}
+                                                        {{/if}}
+                                          </tr>
                                     </tbody>
                                 </table>
                                 {{#unless controller.editingContact}}
@@ -287,7 +290,7 @@
 
                             <!--PROFILE HOURS SECTION-->
 
-                            <div class="aside-container" style="border-top: 1px solid #fff;">
+                            <div class="aside-container" style="border-top: 1px solid #fff;"  data-step="9" data-intro="Hours" data-position='right'>
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='fa fa-clock-o' style='margin-right: 10px;'></i>Hours</div>
 
                                 {{#unless controller.editingTime}}
@@ -301,23 +304,23 @@
                                 {{#each controller.hours}}
 
                                 <table id="aside_contact">
-                                    
-                                    <tbody>
-                                        
-                                            {{#unless controller.editingTime}}
-                                            
-                                             <th class="Contact_1child">{{day}}</th>
-                                           
-                                            {{else}}
-                                           <td> {{input type="text" class="inserthours-day" value=day}}</td>
-                                            {{/unless}}
 
-                                            {{#unless controller.editingTime}}
-                                            <th class="Contact_2child">{{time}}</th>
-                                            {{else}}
-                                          <td>  {{input type="text" class="inserthours-time" value=time  }}</td>
-                                            {{/unless}}
-                                       
+                                    <tbody>
+
+                                        {{#unless controller.editingTime}}
+
+                                    <th class="Contact_1child">{{day}}</th>
+
+                                    {{else}}
+                                    <td> {{input type="text" class="inserthours-day" value=day}}</td>
+                                    {{/unless}}
+
+                                    {{#unless controller.editingTime}}
+                                    <th class="Contact_2child">{{time}}</th>
+                                    {{else}}
+                                    <td>  {{input type="text" class="inserthours-time" value=time  }}</td>
+                                    {{/unless}}
+
                                     </tbody>
                                 </table>
 
@@ -334,9 +337,9 @@
 
 
                             <!--PROFILE GOOGLEMAP SECTION--> 
-                            <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;">
-                                <div id="google-map"  style="width: 300px;height: 250px; border: 5px solid #fff;cursor: pointer" >
-                                    <div class="enlarge-map easing" style=""{{action popUpGoogleMap}}><i class="fa fa-expand"></i></div>
+                            <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;" data-step="10" data-intro="Google map to show the location" data-position='right'>
+                                <div id="google-map"  style="width: 290px;height: 260px; border: 5px solid #fff;cursor: pointer" >
+                                    <div class="enlarge-map easing" style=""{{action popUpGoogleMap}}><k class="fa fa-expand"></k></div>
                                     <img  {{bindAttr src="controller.profile_google_map"}} style="width: 100%; height:auto;" {{action popUpGoogleMap}}>
                                 </div>
                             </div>
@@ -347,7 +350,7 @@
 
                 <!--RIGHT COL BEGINS -->
                 <!--PROFILE PAGE MAIN PART-->
-                <td class="right_col" width="70%" valign="top">
+                <td class="right_col" width="70%" valign="top" data-step="11" data-intro="About us ----your can select templete or HTML5 editor to build your About Us" data-position='left'>
                     {{view HubStar.ProfileAboutUsEditView}}
                 </td>
 
@@ -361,8 +364,8 @@
 
 </div>
 
-
-<div class="back t-style-box"  style='width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0;'>
+{{#unless controller.userTour}}
+<div id="profileDashboard" class="back t-style-box"  style='width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;'>
     <div style="position: relative; top: 0; width: 100%;height: 300px;overflow: hidden; border-radius: 3px 3px 0 0;">
         <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
         <div style="background: url('../images/bannershadow.png') repeat-x; position: absolute; width: 100%; height: 200px; bottom: 0;">
@@ -379,7 +382,9 @@
                 <li class="easing" {{action changeSize}}><a href="#tab3" data-toggle="tab">Account Settings</a></li>
                 <li class="easing" {{action changeSize}}><a href="#tab7" data-toggle="tab">Social Link</a></li>
                 {{#if controller.isAdmin}}
-                <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>                   
+                <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>     
+                {{/if}}
+                {{#if controller.is_authentic_user}}
                 <li class="easing" {{action changeSize}}><a href="#tab5" data-toggle="tab">Keyword Settings</a></li>
                 {{/if}}
             </ul>
@@ -1008,6 +1013,10 @@
     </div>
 
 
+    {{/unless}}
+
+
+
 
 
     {{#if controller.switchPhoto}}
@@ -1061,3 +1070,10 @@
     {{view HubStar.SelectFunctionView}}
 
     {{/if}}
+    
+    
+ {{#if controller.contactChecking}}
+    {{render contact}}
+    {{/if}}
+    
+   

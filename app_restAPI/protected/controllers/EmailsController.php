@@ -121,8 +121,9 @@ class EmailsController extends Controller {
         $request = CJSON::decode($request_json, true);
 
 
-        $username = $request[0];
-        $password = $request[1];
+            $username = $request[0];
+        $encryptusername=$request[1];
+        $encryptpassword = $request[2];
 
 
         $domain = $this->getDomain();
@@ -148,7 +149,7 @@ class EmailsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->confirmationEmailForm($domainWithoutAPI, $username, $password)
+                        "Data" => $this->confirmationEmailForm($domainWithoutAPI, $username, $encryptusername,$encryptpassword)
                     )
                 ),
             ),
@@ -412,7 +413,7 @@ class EmailsController extends Controller {
 ';
     }
 
-    public function confirmationEmailForm($domainWithoutAPI, $username, $password) {
+    public function confirmationEmailForm($domainWithoutAPI, $username,$encryptname, $encryptpassword) {
         return '
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -469,7 +470,7 @@ class EmailsController extends Controller {
                                             </tr> 
                                             <tr>
                                                 <td valign="top">
-                                                    <a style="color: #05B1E5;margin:20px;" href="http://' . $domainWithoutAPI . '/#/verify/' . $username . '?' . $password . '">  Click here to activate your account  </a>
+                                                    <a style="color: #05B1E5;margin:20px;" href="http://' . $domainWithoutAPI . '/#/verify/' . $encryptname . '?' . $encryptpassword . '">  Click here to activate your account  </a>
                                                 </td>
                                             </tr>
 

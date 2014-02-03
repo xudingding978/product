@@ -1,0 +1,4 @@
+<!--it is only use for the mouse enter and leave  and show  or hide the tag contnet -->
+<!--it is only use for the mouse enter and leave  and show  or hide the tag contnet -->
+<!--<i id ="tag_{{unbound this.tag_id}}"  {{action  on="mouseEnter" target="view"}} {{action on="mouseLeave" target="view"}} class="fa fa-bell-o"  style="position: absolute;    margin: auto 220px;color: white;"></i>-->
+<i id ="tag_{{unbound this.tag_id}}"  {{action showContent this.tag_id on="mouseenter" target="view"}} class="fa fa-tag"  style="font-size:35px; position: absolute;   color:gold;"></i>

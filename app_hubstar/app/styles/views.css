@@ -1042,11 +1042,11 @@ div.album-description-bg{
 }
 
 .next {
-    cursor: url(../../../images/nextcursor.png), auto;
+/*    cursor: url(../../../images/nextcursor.png), auto;*/
 }
 
 .previous{
-    cursor: url(../../../images/previouscursor.png), auto;
+/*    cursor: url(../../../images/previouscursor.png), auto;*/
 }
 
 

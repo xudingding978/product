@@ -1,0 +1,51 @@
+<!--<div id ="tagit">
+    <div class="box">
+    </div>
+    <div class="name">
+        <div class="text">Type any  tag
+        </div>
+        <input type="text" name="txtname" id="tagname" />
+        <br>
+        Type description
+          {{view HubStar.SearchAreaTextFieldView valueBinding="productDescription" class="no-resize" placeholder="Write a description..." }}    
+        <input type="button" name="btnsave"  {{action saveTag}}  value="Save" id="btnsave" />
+               <input type="button" name="btncancel" {{action cancelTag}}  value="Cancel" id="btncancel" />
+    </div> 
+
+    
+    </div> 
+-->
+<!--show the tag detail content-->
+
+
+<div id ="tagitshow" class="" style="overflow: hidden;display:block;" {{action hideContent on="mouseLeave" target="view"}}>
+    <div id="tagImg" style=" width: 132px;    height: 132px;   border: 3px solid white;    display: inline-block;   float: left;    margin: 33px 10px 10px 15px;">
+        <img  {{bindAttr src= "controller.tag.pic_url"}}  style="min-width: 100%; min-height: 100%;">
+    </div>
+    <div style="  float: left;  width: 48%;  margin: 10px 10px;">
+        <div style=' height: 40px; overflow: hidden;'>
+            <div id="tagName" class="name" style="display: inline-block; color: white; word-break: break-all; ">
+                {{controller.tag.product_name}}
+            </div>
+        </div>
+        <div style=' margin-top: 10px;height: 130px; overflow: hidden;'>
+            {{#if controller.isNullLink}}
+
+            <div id="tagDesc" style="display: inline-block; margin-top: 10px;color: white; word-break: break-all;">
+                {{controller.tag.desc}}
+            </div>
+            {{else}}
+            <a href="{{unbound controller.tag.linkto}}" >
+                <div id="tagDesc" style="display: inline-block; margin-top: 10px;color: white; word-break: break-all;">
+                    {{controller.tag.desc}}
+                </div>
+            </a>
+            {{/if}}
+        </div>
+
+    </div>
+
+</div>
+
+
+

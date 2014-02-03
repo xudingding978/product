@@ -22,16 +22,72 @@ class ShowTagController extends Controller {
             $oldRecordDeep = CJSON::decode($oldDeep, true);
 
             //create the new tag
-            $newRecord = array();
+
             if (isset($oldRecordDeep["photo"][0]['tags'])) {
-                $newRecord = $oldRecordDeep["photo"][0]['tags'];
+                for ($i = 0; $i < sizeof($oldRecordDeep["photo"][0]['tags']); $i++) {
+                    $pic_url = "";
+                    $profile_id = $oldRecordDeep["photo"][0]['tags'][$i]["profile_id"];
+
+
+                    $domain = $this->getDomain();
+                    $docID = $domain . "/profiles/" . $profile_id;
+                    $tempMega = $cb->get($docID);
+                    $mega = CJSON::decode($tempMega, true);
+                    $oldRecordDeep["photo"][0]['tags'][$i]["pic_url"] = $mega['profile'][0]['profile_hero_cover_url'];
+                }
             }
-            error_log("222222222222222222222222222222");
-            error_log(var_export($newRecord,true));
-            if ($newRecord === null) {
+
+            if (!isset($oldRecordDeep["photo"][0]['tags'])) {
                 $this->sendResponse(204);
             } else {
-                $this->sendResponse(200, CJSON::encode($newRecord));
+                $this->sendResponse(200, CJSON::encode($oldRecordDeep["photo"][0]['tags']));
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
+    }
+
+    public function actionSentRequestEmail() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request_array = CJSON::decode($request_array);
+        $selectedProfile = $request_array[0]; // it is the selected profile
+        $product_name = $request_array[1]; // it is the product name
+        $linkAddress = $request_array[2]; // it is the descript of the  product
+        $time_stamp = $request_array[3]; // it is the x axias of the picture 
+        $photo_id = $request_array[4];
+        $requestEmail = $request_array[5]; // it is the content link  address
+        try {
+            $docIDDeep = $this->getDomain() . "/" . $photo_id; //$id  is the page owner
+            $cb = $this->couchBaseConnection();
+            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+            $oldRecordDeep = CJSON::decode($oldDeep, true);
+
+            //create the new tag
+            $tag = array();
+            $tag["tag_id"] = $tag_id;
+            $tag["profile_id"] = $selectedProfile;
+            $tag["product_name"] = $product_name;
+            $tag["desc"] = $desc;
+            $tag["pic_x"] = $pic_x;
+            $tag["pic_y"] = $pic_y;
+            $tag["linkto"] = $linkAddress;
+            $tag["link_to_click_count"] = $linkto_click_count;
+            $tag["tag_time"] = $time_stamp;
+            $tag["tag_approved"] = $tag_approve;
+            //put the tag into the end of tags array
+            if (!isset($oldRecordDeep["photo"][0]['tags'])) {
+                $oldRecordDeep["photo"][0]['tags'] = array();
+                array_unshift($oldRecordDeep["photo"][0]['tags'], $tag);
+            } else {
+                array_unshift($oldRecordDeep["photo"][0]['tags'], $tag);
+            }
+
+
+            if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                $this->sendResponse(204);
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -81,13 +137,76 @@ class ShowTagController extends Controller {
 
 
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
-                $this->sendResponse(200, CJSON::encode($oldRecordDeep));
+                $this->sendResponse(204);
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
             echo json_decode(file_get_contents('php://input'));
+        }
+    }
+
+    public function actionCreateNotification() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request_array = CJSON::decode($request_array);
+        $owner_ids = $request_array[0]; //photo owners
+        $currentUser = $request_array[1]; //current login user
+        $time_stamp = $request_array[2]; // it is the descript of the  product
+
+        $notification_id = (string) (rand(10000, 99999)) . $time_stamp . $currentUser;
+        for ($i = 0; $i < sizeof($owner_ids); $i++) {
+            if ($owner_ids[$i]["user_id"] !== $currentUser) {
+                $ownerId = $owner_ids[$i]["user_id"];
+                $notificationObject = array();
+                $timeID = date_timestamp_get(new DateTime());
+
+                $notification_id = (string) (rand(10000, 99999)) . $timeID . $commenter_id;
+
+                $notificationObject["notification_id"] = $notification_id;
+                $notificationObject["user_id"] = $currentUser;
+                $notificationObject["time"] = $time_stamp;
+                $notificationObject["type"] = "addTag";
+                $notificationObject["content"] = "";
+                $notificationObject["action_id"] = $ownerId;
+                $notificationObject["isRead"] = false;
+
+
+                $notificationInfo = $this->getDomain() . "/users/" . $ownerId;
+                $cbs = $this->couchBaseConnection();
+                $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
+                $userInfo = CJSON::decode($notificationInfoDeep, true);
+
+                $conversationController = new ConversationsController();
+                if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "message") !== false) {
+                    if (!isset($userInfo['user'][0]['notifications'])) {
+                        $userInfo['user'][0]['notifications'] = array();
+                    }
+                    array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+
+                    if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
+                        if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
+                            $receiveEmail = $userInfo['user'][0]['email'];
+                            $receiveName = $userInfo['user'][0]['display_name'];
+                            $notificationCountFollow = 0;
+                            $notificationCountMessage = 0;
+                            for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
+
+                                if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
+                                    if ($userInfo['user'][0]['notifications'][$i]["type"] === "follow" || $userInfo['user'][0]['notifications'][$i]["type"] === "unFollow") {
+                                        $notificationCountFollow++;
+                                    } else {
+                                        $notificationCountMessage++;
+                                    }
+                                }
+                            }
+                            $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
+                        }
+                    } else {
+                        echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                    }
+                }
+            }
         }
     }
 

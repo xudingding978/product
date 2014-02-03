@@ -20,9 +20,25 @@ body > div.ember-view > div
 #tagit
 {
     position:absolute;
-    top:0;
-    left:0;
+    opacity:0;
     width:530px;
+}
+
+.tagit{
+    opacity:1;
+}
+
+#tagitshow
+{
+    border: solid 3px #ffffff;
+    width: 350px;
+    opacity: 0;
+    height: 210px;
+    border-style: solid;
+    border-color: #ffffff;
+    left: 220px ;
+    position: absolute;
+    background-color: black;
 }
 #tagit .box
 {

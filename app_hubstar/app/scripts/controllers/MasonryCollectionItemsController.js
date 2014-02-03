@@ -209,12 +209,12 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
                                         currentCollection.set('collection_ids', delResult);
                                         if (this.get("profileId") === item.get("owner_id") && item.get("collection_id") === this.get('collectionID')) {
-                                            console.log(item);
+                                            //console.log(item);
                                             item.set("deleted",true);
                                             item.store.save();
                                             //tempItem.deleteRecord();
                                         }
-                                        //currentCollection.store.save();
+                                        currentCollection.store.save();
                                         break;
                                     }
                                 }

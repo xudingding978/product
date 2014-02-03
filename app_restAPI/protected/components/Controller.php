@@ -505,6 +505,7 @@ class Controller extends CController {
                 ->QueryString()->query('"' . $owner_profile_id . '"')
                 ->default_field('couchbaseDocument.doc.owner_id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        error_log($request->query($bool)->toJSON());
         $response = $request->query($bool)->execute();
         return $response;
     }
@@ -537,7 +538,7 @@ class Controller extends CController {
             foreach ($tempResult as $hit) {
 
                 $hit['source']['doc']['editors'] = $profile_editors;
-                $hit['source']['doc']['owner_title'] = $profile_name;
+//                $hit['source']['doc']['owner_title'] = $profile_name;
                 $hit['source']['doc']['owner_contact_email'] = $owner_contact_email;
                 $hit['source']['doc']['owner_contact_cc_emails'] = $owner_contact_cc_emails;
                 $hit['source']['doc']['owner_contact_bcc_emails'] = $owner_contact_bcc_emails;

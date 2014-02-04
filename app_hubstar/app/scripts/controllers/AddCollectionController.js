@@ -19,13 +19,15 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     selectedProfile: "",
     userName: '',
     chosenProfile: '',
+    isSaveTopProfile:"false",
     init: function()
     {
         HubStar.set("isProfile", false);
     },
     setUser: function()
     {
-        var user = HubStar.User.find(localStorage.loginStatus);
+        var user = HubStar.User.find(localStorage.loginStatus);   
+       
         this.set("collections", user.get("collections"));
         if (this.get("collections").objectAt(0) !== null && this.get("collections").objectAt(0) !== undefined) {
             this.setDesc("");
@@ -33,6 +35,14 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             this.setProfile("your profile");
             this.set('selectionPop', false);
         }
+        if (user.get("profiles") === undefined || user.get("profiles") === null || user.get("profiles").get("length") === 0)
+        {
+            this.set("isSaveTopProfile",false);
+        }
+        else {          
+            this.set("isSaveTopProfile",true);
+        }
+
     },
     setImageID: function(id) {
         this.set("objectID", id);

@@ -41,6 +41,20 @@ class RefineDataCommand extends Controller_admin {
             $this->deleteIncorrectRecord();
         } elseif ($action == "fixuserlarge") {
             $this->fixUserPictureLarge();
+        } elseif ($action == 'findhtml') {
+            $this->ticket537HtmlRelocation();
+        } elseif ($action == 'numbersready') {
+            $this->ticket667likesCountCommentCount();
+        } elseif ($action == "finderror") {
+            $this->finduncompletenumbers();
+        } elseif ($action == "countvideo") {
+            $this->setVideoNumber();
+        } elseif ($action == "fixaboutus") {
+            $this->updateUserAbout();
+        } elseif ($action == "createforjohn") {
+            $this->createCollectionForJohnEasier();
+        } elseif ($action == "copy17") {
+            $this->copyProfilestoTemp();
         } elseif ($action == "refineArticle") {
 
 
@@ -220,6 +234,575 @@ class RefineDataCommand extends Controller_admin {
                 echo $user . " can not find couchbase record  for the user------------------\n";
             }
         }
+    }
+
+    public function copyProfilestoTemp() {
+        $bucket = "production";
+        $cb_test = $this->couchBaseConnection("temp");
+        $profile_arr = array("new-home-trends-nz", "renovation-trends-nz", "kitchen-trends-nz", "bathroom-trends-nz", "outdoor-living-trends-nz", "apartment-trends-nz", "new-home-trends-au", "renovation-trends-au", "kitchen-trends-au", "bathroom-trends-au", "outdoor-living-trends-au", "apartment-trends-au", "new-home-trends-us", "renovation-trends-us", "kitchen-trends-us", "bathroom-trends-us", "interior-trends-us");
+        echo var_export($profile_arr, true);
+        //     sleep(10);
+        $cb = $this->couchBaseConnection($bucket);
+        foreach ($profile_arr as $profile) {
+            $profile_id = "trendsideas.com/profiles/" . $profile;
+            $result = $cb->get($profile_id);
+            $result_arr = CJSON::decode($result);
+            $result_arr['owner_profile_pic'] = "http://s3.hubsrv.com/trendsideas.com/users/kitchen-trends-nz/profile_picture/T.jpg";
+            $result_arr['category'] = null;
+            if ($cb_test->set($profile_id, CJSON::encode($result_arr))) {
+                echo $profile_id . " copy done\n";
+            } else {
+                echo $profile_id . " copy failed+++++++++++++\n";
+            }
+        }
+    }
+
+    public function createCollectionForJohnEasier() {
+        $bucket_source = "production";
+        $bucket_destination = "temp";
+        $cb = $this->couchBaseConnection($bucket_source);
+        $cb_test = $this->couchBaseConnection($bucket_destination);
+        $profile_arr = array("new-home-trends-nz", "renovation-trends-nz", "kitchen-trends-nz", "bathroom-trends-nz", "outdoor-living-trends-nz", "apartment-trends-nz", "new-home-trends-au", "renovation-trends-au", "kitchen-trends-au", "bathroom-trends-au", "outdoor-living-trends-au", "apartment-trends-au", "new-home-trends-us", "renovation-trends-us", "kitchen-trends-us", "bathroom-trends-us", "interior-trends-us");
+        $john = $cb->get("trendsideas.com/users/21051211514");
+        if ($john != null) {
+            $john_record = CJSON::decode($john);
+            $collections = $john_record["user"][0]['collections'];
+            foreach ($profile_arr as $profile) {
+                $profile_id = "trendsideas.com/profiles/" . $profile;
+                $profile_result = $cb_test->get($profile_id);
+
+
+                if ($profile_result != null) {
+                    $profile_record = CJSON::decode($profile_result);
+                    $profile_record['profile'][0]['collections'] = $collections;
+                    foreach($collections as $collection){
+                        
+                    }
+                    if ($cb_test->set($profile_id, CJSON::encode($profile_record))) {
+                        echo $profile_id ."saved to couchbase\n";
+                    } else {
+                        echo $profile_id . "save to couchbase failed\n";
+                    }
+                } else {
+                    echo $profile_id . "does not have a value in couchbase\n";
+                }
+            }
+        } else {
+            echo "can not retieve John's profile\n";
+        }
+    }
+
+    public function createCollectionForJohn() {
+        $bucket = "production";
+        $cb_test = $this->couchBaseConnection("develop");
+        $profile_arr = array("new-home-trends-nz", "renovation-trends-nz", "kitchen-trends-nz", "bathroom-trends-nz", "outdoor-living-trends-nz", "apartment-trends-nz", "new-home-trends-au", "renovation-trends-au", "kitchen-trends-au", "bathroom-trends-au", "outdoor-living-trends-au", "apartment-trends-au", "new-home-trends-us", "renovation-trends-us", "kitchen-trends-us", "bathroom-trends-us", "interior-trends-us");
+        echo var_export($profile_arr, true);
+        //     sleep(10);
+        $cb = $this->couchBaseConnection($bucket);
+
+        $john = $cb->get("trendsideas.com/users/21051211514");
+        if ($john != null) {
+            $john_record = CJSON::decode($john);
+            $collections = $john_record["user"][0]['collections'];
+            echo sizeof($collections);
+            $count = 0;
+            $article_count = 0;
+            $photo_count = 0;
+            foreach ($collections as $collection) {
+                $new_collection = array();
+                $ids_str = "";
+                $collection_title = $collection['title'];
+                $collection_desc = $collection['desc'];
+                $collection_cover = $collection['cover'];
+                $collection_arr = explode(",", $collection['collection_ids']);
+                foreach ($profile_arr as $profile) {
+                    $profile_id = "trendsideas.com/profiles/" . $profile;
+                    $profile_result = $cb_test->get($profile_id);
+
+
+                    if ($profile_result != null) {
+                        $profile_record = CJSON::decode($profile_result);
+                        echo $profile_id . "before import collection is:" . var_export($profile_record['profile'][0]['collections'], true) . "\n\n\n";
+                        $profile_keywords = $profile_record['keywords'];
+                        $profile_country = $profile_record['country'];
+
+                        $profile_owner_profile_pic = $profile_record['owner_profile_pic'];
+                        $owner_id = $profile_record['owner_id'];
+
+                        $owner_title = $profile_record['owner_title'];
+                        $region = $profile_record['region'];
+                        $ids_str = "";
+                        foreach ($collection_arr as $item) {
+                            $item_id = "trendsideas.com/" . str_replace(" ", "", $item);
+                            echo $item_id . "\n";
+                            $item_result = $cb->get($item_id);
+                            if ($item_result != null) {
+                                $item_arr = CJSON::decode($item_result);
+                                $id = $this->getNewID();
+                                if (isset($item_arr['keyword'])) {
+                                    unset($item_arr['keyword']);
+                                }
+                                $new_id = "trendsideas.com/" . $id;
+                                $item_arr['id'] = $id;
+                                $item_arr['creator'] = $owner_title;
+                                $item_arr['accessed'] = strtotime(date('Y-m-d H:i:s'));
+                                $item_arr['country'] = $profile_country;
+                                // $item_arr['collection_id']=$collection_title;
+                                $item_arr['keywords'] = $profile_keywords;
+                                $item_arr['owner_profile_pic'] = $profile_owner_profile_pic;
+                                $item_arr['owner_title'] = $owner_title;
+                                $owner_id_record = $item_arr['owner_id'];
+                                $collection_id_record = $item_arr['collection_id'];
+                                $item_arr['owner_id'] = $owner_id;
+                                $item_arr['region'] = $region;
+                                if (isset($item_arr['article'][0]['id'])) {
+                                    $item_arr['article'][0]['id'] = $id;
+                                } elseif (isset($item_arr['photo'][0]['id'])) {
+                                    $item_arr['photo'][0]['id'] = $id;
+                                }
+                                if ($cb_test->set($new_id, CJSON::encode($item_arr))) {
+                                    echo $new_id . " added to couchbase successful\n";
+                                } else {
+                                    echo $new_id . " added to couchbase failed=====================\n";
+                                }
+                                $ids_str.=$id . ",";
+                                if ($item_arr['type'] == "article") {
+                                    $articlePhoto_arr = $this->findarticlePhoto($collection_id_record, $owner_id_record);
+                                    foreach ($articlePhoto_arr as $articlePhoto) {
+                                        $articlePhoto_result = $cb->get($articlePhoto);
+                                        if ($articlePhoto_result != null) {
+                                            $articlePhoto_result_arr = CJSON::decode($articlePhoto_result);
+                                            $articlePhoto_id = $this->getNewID();
+                                            if (isset($articlePhoto_result_arr['keyword'])) {
+                                                unset($articlePhoto_result_arr['keyword']);
+                                            }
+                                            $articlePhoto_new_id = "trendsideas.com/" . $articlePhoto_id;
+                                            $articlePhoto_result_arr['id'] = $articlePhoto_id;
+                                            $articlePhoto_result_arr['accessed'] = strtotime(date('Y-m-d H:i:s'));
+                                            $articlePhoto_result_arr['country'] = $profile_country;
+                                            $articlePhoto_result_arr['creator'] = $owner_title;
+                                            // $item_arr['collection_id']=$collection_title;
+                                            $articlePhoto_result_arr['keywords'] = $profile_keywords;
+                                            $articlePhoto_result_arr['owner_profile_pic'] = $profile_owner_profile_pic;
+                                            $articlePhoto_result_arr['owner_title'] = $owner_title;
+                                            //      $owner_id_record= $item_arr['owner_id'];
+                                            //     $collection_id_record=$item_arr['collection_id'];
+                                            $articlePhoto_result_arr['owner_id'] = $owner_id;
+                                            $articlePhoto_result_arr['region'] = $region;
+
+                                            $articlePhoto_result_arr['photo'][0]['id'] = $articlePhoto_id;
+
+                                            if ($cb_test->set($articlePhoto_new_id, CJSON::encode($articlePhoto_result_arr))) {
+                                                echo $articlePhoto_new_id . " added to couchbase successful\n";
+                                            } else {
+                                                echo $articlePhoto_new_id . " added to couchbase failed=====================\n";
+                                            }
+                                        }
+                                    }
+                                }
+                            } else {
+                                echo "can not find record in couchbase\n";
+                            }
+
+                            $new_collection = array(
+                                "id" => $this->getNewID(),
+                                "title" => $collection_title,
+                                "desc" => $collection_desc,
+                                "collection_ids" => $ids_str,
+                                "created_at" => null,
+                                "cover" => $collection_cover,
+                                "parent_type" => null,
+                                "optional" => $owner_id,
+                                "type" => "user"
+                            );
+                        }
+                        //          echo $profile_id. " ".var_export($new_collection, true)."\n";
+
+                        if (isset($profile_record['profile'][0]['collections'])) {
+
+
+
+                            array_push($profile_record['profile'][0]['collections'], $new_collection);
+                        } else {
+                            $profile_record['profile'][0]['collections'] = array();
+                            array_push($profile_record['profile'][0]['collections'], $new_collection);
+                        }
+                        echo $profile_id . "after import collection is:" . var_export($profile_record['profile'][0]['collections'], true) . "\n";
+                        $cb_test->set($profile_id, CJSON::encode($profile_record));
+                    } else {
+                        echo $profile . "can not find record in couchbase\n";
+                    }
+                }
+                //     echo var_export($collection_arr, true);
+
+                sleep(5);
+            }
+//            echo " \n" . $count . "\n";
+//            echo "article count: " . $article_count . "\n";
+//            echo "photo count: " . $photo_count . "\n";
+        } else {
+            echo "Can not find john's profile\n";
+        }
+    }
+
+    public function findarticlePhoto($collection_id, $owner_id) {
+        $settings['log.enabled'] = true;
+        $return_arr = array();
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = "production";
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"\"' . $owner_id . '"\"')
+                ->default_field('couchbaseDocument.doc.owner_id');
+        $must2 = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()->query($collection_id)
+                ->default_field('couchbaseDocument.doc.collection_id');
+        $must3 = Sherlock\Sherlock::queryBuilder()
+                ->QueryString()->query("photo")
+                ->default_field('couchbaseDocument.doc.type');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
+                        ->must($must2)->must($must3);
+        $request->index($index)->type("couchbaseDocument");
+        $request->from(0)
+                ->size(50);
+        $request->query($bool);
+
+        //  echo "\n" . $request->toJSON() . "\n";
+        $response = $request->execute();
+        foreach ($response as $hit) {
+            array_push($return_arr, $hit['id']);
+        }
+        return $return_arr;
+    }
+
+    public function updateUserAbout() {
+        $bucket = "production";
+        $user_list = $this->findAllAccordingType($bucket, "user");
+        $cb = $this->couchBaseConnection($bucket);
+        foreach ($user_list as $user) {
+            $result = $cb->get($user);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                if (isset($result_arr['user'][0]['about_me']) && $result_arr['user'][0]['about_me'] != null) {
+                    echo $user . " has record in about me\n";
+                } else {
+                    if (isset($result_arr['user'][0]['description']) && $result_arr['user'][0]['description'] != null) {
+                        $result_arr['user'][0]['about_me'] = $result_arr['user'][0]['description'];
+                        echo $user . " about us has been changed to" . $result_arr['user'][0]['description'] . " \n";
+                    } else {
+                        echo $user . " nothing inside description\n";
+                    }
+                }
+
+                if ($cb->set($user, CJSON::encode($result_arr))) {
+                    echo $user . " saved to couchbase\n";
+                } else {
+                    echo $user . " save to couchbase failed\n";
+                }
+            } else {
+                echo $user . " can not find couchbase record\n";
+            }
+        }
+    }
+
+    public function setVideoNumber() {
+        $bucket = 'production';
+        $profile_list = $this->findAllAccordingType($bucket, "profile");
+        $settings['log.enabled'] = true;
+        $sherlock = new \Sherlock\Sherlock($settings);
+        $sherlock->addNode("es1.hubsrv.com", 9200);
+        $request = $sherlock->search();
+        $index = $bucket;
+        $cb = $this->couchBaseConnection($bucket);
+
+
+
+
+
+        foreach ($profile_list as $profile) {
+            $result = $cb->get($profile);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                $id = $result_arr['id'];
+                $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query('"\"' . $id . '"\"')
+                        ->default_field('couchbaseDocument.doc.owner_id');
+                $must2 = Sherlock\Sherlock::queryBuilder()
+                        ->QueryString()->query("video")
+                        ->default_field('couchbaseDocument.doc.type');
+                $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must)
+                        ->must($must2);
+                $request->index($index)->type("couchbaseDocument");
+                $request->from(0)
+                        ->size(500);
+                $request->query($bool);
+
+                echo "\n" . $request->toJSON() . "\n";
+                $response = $request->execute();
+                $video_count = sizeof($response);
+                $result_arr["profile"][0]['profile_video_num'] = $video_count;
+                echo $video_count . "\n";
+                if ($cb->set($profile, CJSON::encode($result_arr))) {
+                    echo $profile . " saved to couchbase\n";
+                } else {
+                    echo $profile . "save to couchbase failed---------------------------\n";
+                }
+            } else {
+                echo $profile . "can't find couchbase record--------------------------\n";
+            }
+        }
+    }
+
+    public function finduncompletenumbers() {
+
+        $check_list = array();
+        array_push($check_list, "view_count");
+        array_push($check_list, "likes_count");
+        array_push($check_list, "comment_count");
+        array_push($check_list, "accessed");
+        array_push($check_list, "created");
+        array_push($check_list, "boost");
+        array_push($check_list, "share_count");
+        $cb = $this->couchBaseConnection('develop');
+        $timestamp = strtotime(date('Y-m-d H:i:s'));
+        foreach ($check_list as $sub_task) {
+            $query = '{
+  "query": {
+    "filtered": {
+      "query": {
+        "bool": {
+          "must": {
+            "queryString": {
+              "default_field": "couchbaseDocument.doc.type",
+              "query": "article"
+            }
+          }
+        }
+      },
+      "filter": {
+        "missing": {
+          "field": "couchbaseDocument.doc.' . $sub_task . '"
+        }
+      }
+    }
+  },
+  "size": "1000"
+}';
+            $ch = curl_init("http://es1.hubsrv.com:9200/develop/_search");
+
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
+            $result = curl_exec($ch);
+//            foreach($result as $found){
+//                echo $found['id'];
+//            }
+            curl_close($ch);
+            $result_arr = CJSON::decode($result, true);
+            $record_arr = $result_arr['hits']['hits'];
+            echo $sub_task . " : " . sizeof($record_arr) . "\n";
+
+            foreach ($record_arr as $record) {
+
+                $id = $record['_id'];
+                $couchbase_record = $cb->get($id);
+                $couchbase_arr = CJSON::decode($couchbase_record);
+                if ($sub_task === "boost") {
+                    $couchbase_arr['boost'] = 100;
+                    //      $cb->delete($id);
+                } else {
+                    if ($sub_task === 'accessed') {
+                        $couchbase_arr['accessed'] = $timestamp;
+                    } else {
+                        if (!isset($couchbase_arr[$sub_task]) || $couchbase_arr[$sub_task] == null) {
+                            $couchbase_arr[$sub_task] = 0;
+                        }
+                    }
+                }
+                if ($cb->set($id, CJSON::encode($couchbase_arr))) {
+                    echo $id . " save to couchbase \n";
+                } else {
+                    echo $id . " save to couchbase failed\n";
+                }
+
+                echo $id . "\n";
+            }
+        }
+    }
+
+    public function ticket667likesCountCommentCount() {
+        $bucket = "develop";
+        $article_arr = $this->findAllAccordingType($bucket, 'article');
+        $cb = $this->couchBaseConnection($bucket);
+        $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = '/var/log/yii/' . $datetime . '.log';
+        foreach ($article_arr as $article) {
+            $message = $article . " ";
+            $result = $cb->get($article);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                if (!isset($result_arr['likes_count']) || $result_arr['likes_count'] == null) {
+                    $result_arr['likes_count'] = 0;
+                } else {
+                    echo $article . " has likes count already\n";
+                    $message.=" has likes count already\n";
+                }
+
+                if (!isset($result_arr['view_count']) || $result_arr['view_count'] == null) {
+                    $result_arr['view_count'] = 0;
+                } else {
+                    echo $article . " has like count already\n";
+                    $message.=" has view_count already\n";
+                }
+
+                if (!isset($result_arr['comment_count']) || $result_arr['comment_count'] == null) {
+                    $result_arr['comment_count'] = 0;
+                    if (isset($result_arr['comments'])) {
+                        //  echo "     ".sizeof($result_arr['comments'])."     ";
+                        $check = sizeof($result_arr['comments']);
+                        //          echo var_export($result_arr['comments'])."\n";
+                        if ($check > 0) {
+                            $result_arr['comment_count'] = $check;
+                            //        echo $article." ".sizeof($result_arr['comments'])."     ";
+                        } else {
+                            echo $article . " does not have comment\n";
+                            $message.=" does not have comment\n";
+                        }
+                    } else {
+                        echo $article . " does not have comment object\n";
+                        $message.=" does not have comment object\n";
+                    }
+                } else {
+                    echo $article . " has comment_count already\n";
+                    $message.=" has comment_count already\n";
+                }
+
+                if ($cb->set($article, CJSON::encode($result_arr))) {
+                    echo $article . " saved successfully\n";
+                    $message.=" saved successfully\n";
+                } else {
+                    echo $article . "save to couchbase failed-----------\n";
+                    $message.= "save to couchbase failed-----------\n";
+                }
+            } else {
+                echo $article . " can not find in couchbase---------\n";
+                $message.=" can not find in couchbase---------\n";
+            }
+            $this->writeToLog($log_path, $message);
+        }
+
+        $photo_arr = $this->findAllAccordingType($bucket, 'photo');
+        foreach ($photo_arr as $photo) {
+            $message = $photo . " ";
+            $result = $cb->get($photo);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                if (!isset($result_arr['likes_count']) || $result_arr['likes_count'] == null) {
+                    $result_arr['likes_count'] = 0;
+                } else {
+                    echo $photo . " has likes count already\n";
+                    $message.=" has likes count already\n";
+                }
+
+                if (!isset($result_arr['view_count']) || $result_arr['view_count'] == null) {
+                    $result_arr['view_count'] = 0;
+                } else {
+                    echo $photo . " has like count already\n";
+                    $message.=" has view_count already\n";
+                }
+
+                if (!isset($result_arr['comment_count']) || $result_arr['comment_count'] == null) {
+                    $result_arr['comment_count'] = 0;
+                    if (isset($result_arr['comments'])) {
+                        $check = sizeof($result_arr['comments']);
+                        if ($check > 0) {
+                            $result_arr['comment_count'] = $check;
+                        } else {
+                            echo $photo . " does not have comment\n";
+                            $message.=" does not have comment\n";
+                        }
+                    } else {
+                        echo $photo . " does not have comment object\n";
+                        $message.=" does not have comment object\n";
+                    }
+                } else {
+                    echo $photo . " has comment_count already\n";
+                    $message.=" has comment_count already\n";
+                }
+
+                if ($cb->set($photo, CJSON::encode($result_arr))) {
+                    echo $photo . " saved successfully\n";
+                    $message.=" saved successfully\n";
+                } else {
+                    echo $photo . "save to couchbase failed-----------\n";
+                    $message.= "save to couchbase failed-----------\n";
+                }
+            } else {
+                echo $photo . " can not find in couchbase---------\n";
+                $message.=" can not find in couchbase---------\n";
+            }
+            $this->writeToLog($log_path, $message);
+        }
+    }
+
+    public function ticket537HtmlRelocation() {
+        $bucket = 'production';
+        $type = 'photo';
+        $datetime = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+        $log_path = '/var/log/yii/' . $datetime . '.log';
+        $cb = $this->couchBaseConnection($bucket);
+        $photo_list = $this->findAllAccordingType($bucket, $type);
+        $count = 0;
+        foreach ($photo_list as $photo) {
+            echo $photo . "\n";
+            $message = $photo . " ";
+            $result = $cb->get($photo);
+            if ($result != null) {
+                $result_arr = CJSON::decode($result);
+                if (isset($result_arr['photo'][0]['photo_caption']) && $result_arr['photo'][0]['photo_caption'] != null) {
+                    $caption_record = $result_arr['photo'][0]['photo_caption'];
+                    if (strpos($caption_record, "<a href") !== false) {
+                        echo $photo . "has html tag+++++++++++++ " . "\n";
+                        $message.= "has html tag+++++++++++++ " . "\n";
+                        //  sleep(5);
+                        $count++;
+                        $caption_arr_url = explode('"', $caption_record);
+
+                        foreach ($caption_arr_url as $part) {
+                            if (strpos($part, "http") !== false) {
+                                $url = $part;
+                            }
+                        }
+                        $result_arr['photo'][0]['photo_link_url'] = $url;
+                        preg_match('/>(.*?)</', $caption_record, $text);
+                        $result_arr['photo'][0]['photo_link_text'] = $text[1];
+                        $result_arr['photo'][0]['photo_caption'] = "";
+                        //     echo $url."\n".$text[1]."\n-------------------------------";
+                        if ($cb->set($photo, CJSON::encode($result_arr))) {
+                            echo "save to couchbase successful\n";
+                            $message.="    save to couchbase successful\n";
+                        } else {
+                            echo "save to couchbase failed";
+                            $message.="    save to couchbase failed";
+                        }
+                        $result_arr['photo'][0]['photo_caption'] = "";
+                    } else {
+                        $message.= " does not have Html tag \n";
+                        echo $photo . " does not have Html tag \n";
+                    }
+                } else {
+                    echo $photo . " does not have caption********** \n";
+                    $message.= " does not have caption********** \n";
+                }
+            } else {
+                echo $photo . " cannot find record in couchbase--------------- \n";
+                $message.= " cannot find record in couchbase--------------- \n";
+            }
+            $this->writeToLog($log_path, $message);
+        }
+        // $this->writeToLog($log_path, $message);
+        echo $count;
     }
 
     public function fixArticlebeenUpdatedwithWrongId() {

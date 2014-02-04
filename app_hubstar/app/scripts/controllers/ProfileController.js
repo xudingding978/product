@@ -368,29 +368,33 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             if (model.get('isLoaded')) {
                 for (var i = 0; i < model.get('content').get('length'); i++)
                 {
-                    if (model.get('content').objectAt(i).data.topic === undefined) {
-                        if (that.get('model').get('profile_category') === model.get('content').objectAt(i).record._data.topic) {
-                             that.set('subcate', []);
-                            for (var j = 0; j < model.get('content').objectAt(i).record._data.subcate.length; j++)
-                            {
-                                that.get('subcate').pushObject({'category_topic': model.get('content').objectAt(i).record._data.subcate.objectAt(j).data.category_topic, 'subcategories': model.get('content').objectAt(i).record._data.subcate.objectAt(j).data.subcategories
-                                });
+
+                    if (that.get('model') !== null) {
+                        if (model.get('content').objectAt(i).data.topic === undefined) {
+                            if (that.get('model').get('profile_category') === model.get('content').objectAt(i).record._data.topic) {
+                                that.set('subcate', []);
+                                for (var j = 0; j < model.get('content').objectAt(i).record._data.subcate.length; j++)
+                                {
+                                    that.get('subcate').pushObject({'category_topic': model.get('content').objectAt(i).record._data.subcate.objectAt(j).data.category_topic, 'subcategories': model.get('content').objectAt(i).record._data.subcate.objectAt(j).data.subcategories
+                                    });
+                                }
                             }
                         }
-                    }
-                    else {
-                        if (that.get('model').get('profile_category') === model.get('content').objectAt(i).data.topic) {
-                            that.set('subcate', []);
-                            for (var j = 0; j < model.get('content').objectAt(i).data.subcate.length; j++)
-                            {
-                                that.get('subcate').pushObject({'category_topic': model.get('content').objectAt(i).data.subcate.objectAt(j).category_topic, 'subcategories': model.get('content').objectAt(i).data.subcate.objectAt(j).subcategories
-                                });
+                        else {
+                            if (that.get('model').get('profile_category') === model.get('content').objectAt(i).data.topic) {
+                                that.set('subcate', []);
+                                for (var j = 0; j < model.get('content').objectAt(i).data.subcate.length; j++)
+                                {
+                                    that.get('subcate').pushObject({'category_topic': model.get('content').objectAt(i).data.subcate.objectAt(j).category_topic, 'subcategories': model.get('content').objectAt(i).data.subcate.objectAt(j).subcategories
+                                    });
+                                }
                             }
                         }
                     }
                 }
+                }
             }
-        });
+        );
 
     },
     topicSelection: function(data) {
@@ -620,8 +624,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (checkingInfo === "profileName") {
             var title_modify_time = Date.parse(new Date());
             var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-            if (title_modify_time > update_profile_record.get('title_modify_time') + 60000) {
-                this.set('editing', !this.get('editing'));
+            if (title_modify_time > update_profile_record.get('title_modify_time')+600000) {
+                this.set('editing', !this.get('editing'));            
                 update_profile_record.set("profile_name", this.get('profile_name'));
                 update_profile_record.set("title_modify_time", title_modify_time);
                 this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
@@ -670,7 +674,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         else if (checkingInfo === "aboutMe") {
 //            this.set('about_me', about_record);
             var author = this.get('model');
-              author.get('transaction').rollback();
+            author.get('transaction').rollback();
             this.setAboutUsObject();
             this.set('editingAbout', !this.get('editingAbout'));
         }
@@ -794,16 +798,16 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.get("controllers.contact").set('firstStepOfContactEmail', false);
 
             contactController.setSelectedMega(this.get('currentUserID'));
-          
-            
-             if (!this.get('contactChecking'))
-        {
-            document.getElementById("body_id").style.overflow = "hidden";
-        }
-        else {
-            document.getElementById("body_id").style.overflow = "auto";
-        }
-        this.set('contactChecking', !this.get('contactChecking'));
+
+
+            if (!this.get('contactChecking'))
+            {
+                document.getElementById("body_id").style.overflow = "hidden";
+            }
+            else {
+                document.getElementById("body_id").style.overflow = "auto";
+            }
+            this.set('contactChecking', !this.get('contactChecking'));
         }
     },
     closeContact: function() {
@@ -1161,6 +1165,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectionForDashborad: function() {
         $('.front').attr("style", "text-align: inherit; width: auto;  box-shadow: none; border: none; position: relative;height:" + $('.back').height() + "px");
+        $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius:3px;border:none;position:absolute;top:0;left:0; display:block");
     },
     changeSize: function() {
         var that = this;

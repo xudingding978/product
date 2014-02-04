@@ -368,6 +368,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             if (model.get('isLoaded')) {
                 for (var i = 0; i < model.get('content').get('length'); i++)
                 {
+
                     if (that.get('model') !== null) {
                         if (model.get('content').objectAt(i).data.topic === undefined) {
                             if (that.get('model').get('profile_category') === model.get('content').objectAt(i).record._data.topic) {
@@ -391,8 +392,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         }
                     }
                 }
+                }
             }
-        });
+        );
 
     },
     topicSelection: function(data) {

@@ -17,7 +17,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
                 $(".brand").addClass("tour-background");
                 $(".Geo-Filter").addClass("tour-background");
                 $("#login_detail").addClass("tour-background");
-                introJs().setOption('doneLabel', 'Next').start().oncomplete(function() {
+                introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
                     localStorage.checkUser = "";
                     $(window).scrollTop(0);
                     location.href = '/#/search';

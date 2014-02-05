@@ -2,7 +2,6 @@ HubStar.ItemView = Ember.View.extend({
     templateName: 'item',
     didInsertElement: function() {
 
-
         $(function() {
             $('#masonry_container').masonry({
                 itemSelector: '.box',

@@ -17,9 +17,9 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
         $(".navbar").css("box-shadow", "");
         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-        setTimeout(function() {
-            $('#masonry_container').masonry();  //masonry();
-        }, 300);
+//        setTimeout(function() {
+//            $('#masonry_container').masonry();  //masonry();
+//        }, 300);
     },
     events: {
 //        transitionToPhoto: function(id) {
@@ -52,15 +52,23 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
         if (HubStar.get("setHight") === null || HubStar.get("setHight") === "null") {
             HubStar.set("setHight", 0);
         }
-
-        $(function() {
-            $('#masonry_container').masonry({
-                itemSelector: '.box',
-                columnWidth: 185,
-                isInitLayout: false,
-                isFitWidth: true
-            });
-        });
+        
+//        var container = document.querySelector('#masonry_container');
+//        var msnry = new Masonry(container, {
+//             itemSelector: '.box',
+//                columnWidth: 185,
+//                isInitLayout: false,
+//                isFitWidth: true
+//        });
+//        
+//        $(function() {
+//            $('#masonry_container').masonry({
+//                itemSelector: '.box',
+//                columnWidth: 185,
+//                isInitLayout: false,
+//                isFitWidth: true
+//            });
+//        });
 
         $(window).scrollTop(HubStar.get("setHight"));
         HubStar.set("setHight", 0);

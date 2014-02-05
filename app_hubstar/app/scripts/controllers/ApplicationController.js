@@ -171,7 +171,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 var megasResults = stat.get("megas");
                 HubStar.set('itemNumber', megasResults.get("length"));
                 that.setContent(megasResults);
-                ;
+                
                 that.set('loadingTime', false);
                 that.set("from", that.get("size"));
 
@@ -182,7 +182,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 statusController.set("time", time);
                 statusController.changeDescription();
             }
-            that.relayout();
+            //that.relayout();
         });
         HubStar.set('searchStart', true);
 
@@ -700,13 +700,19 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             var x = document.getElementById(div_id);
             x.style.display = "block";
             x.className += " box";
+            
         }
     },
     relayout: function()
     {
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-        }, 1000);
+        //setTimeout(function() {
+//            //HubStar.get("tom").layout();
+//            HubStar.get("tom").reloadItems();
+            $('#masonry_container').masonry("reloadItems");
+            setTimeout(function() {
+                 $('#masonry_container').masonry();
+            },100);
+        //}, 0);
     },
     getAds: function() {
 
@@ -714,14 +720,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var adSlots = HubStar.get('ads');
         var that = this;
         var pageCount = this.get("pageCount");
-        var masonryContainer = document.getElementById('masonry_container');
+        var masonryContainer = document.querySelector('#masonry_container');
         try
         {
             for (var i = 0; i < adSlots[pageCount].length; i++) {
                 var ad = adSlots[pageCount][i];
                 var position = ad.slot_position;
 
-                var child = masonryContainer.children[that.get("oldChildren") + position * 4];
+                var child = masonryContainer.children[that.get("oldChildren") + position * 3];
                 var masonrybox = document.createElement('div');
                 masonrybox.id = ad.div + '_box';
                 masonrybox.border = 0;
@@ -733,6 +739,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 adDiv.id = ad.div;
                 masonrybox.appendChild(adDiv);
                 masonryContainer.insertBefore(masonrybox, child);
+                
             }
             that.set("oldChildren", masonryContainer.children.length);
             that.display(adSlots[pageCount]);

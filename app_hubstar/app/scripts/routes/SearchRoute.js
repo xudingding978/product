@@ -26,9 +26,16 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('application').set('isotherpage', false);
         localStorage.checkUser = "";
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-        setTimeout(function() {
-            $('#masonry_container').masonry();  //masonry();
-        }, 300);
+//        setTimeout(function() {
+//            $('#masonry_container').masonry();  //masonry();
+//        }, 300);
+        var container = document.querySelector('#masonry_container');
+        var msnry = new Masonry(container, {
+            itemSelector: '.box',
+            columnWidth: 185,
+            isInitLayout: false,
+            isFitWidth: true
+        });
     },
     model: function(params) {
         var address = document.URL;
@@ -106,15 +113,22 @@ HubStar.SearchRoute = Ember.Route.extend({
         if (HubStar.get("setHight") === null || HubStar.get("setHight") === "null") {
             HubStar.set("setHight", 0);
         }
-
-        $(function() {
-            $('#masonry_container').masonry({
-                itemSelector: '.box',
-                columnWidth: 185,
-                isInitLayout: false,
-                isFitWidth: true
-            });
-        });
+//        var container = document.querySelector('#masonry_container');
+//        var msnry = new Masonry(container, {
+//             itemSelector: '.box',
+//                columnWidth: 185,
+//                isInitLayout: false,
+//                isFitWidth: true
+//        });
+////
+//        $(function() {
+//            $('#masonry_container').masonry({
+//                itemSelector: '.box',
+//                columnWidth: 185,
+//                isInitLayout: false,
+//                isFitWidth: true
+//            });
+//        });
         $(window).scrollTop(HubStar.get("setHight"));
         HubStar.set("setHight", 0);
 

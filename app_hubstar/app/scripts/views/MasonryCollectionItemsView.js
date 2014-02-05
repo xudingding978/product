@@ -1,22 +1,22 @@
 HubStar.MasonryCollectionItemsView = Ember.View.extend({
     templateName: 'masonryCollectionItems',
     didInsertElement: function() {
+//
+//        var container = document.querySelector('#masonry_photo_collection_container');
+//        var msnry = new Masonry(container, {
+//            itemSelector: '.box',
+//            columnWidth: 185,
+//            isInitLayout: false,
+//            isFitWidth: true
+//        });
 
-        var container = document.querySelector('#masonry_photo_collection_container');
-        var msnry = new Masonry(container, {
-            itemSelector: '.box',
-            columnWidth: 185,
-            isInitLayout: false,
-            isFitWidth: true
-        });
-
-//            $(function() {
-//                $('#masonry_photo_collection_container').masonry({
-//                    itemSelector: '.box',
-//                    columnWidth: 185,
-//                    isFitWidth: true
-//                });
-//            });
+            $(function() {
+                $('#masonry_photo_collection_container').masonry({
+                    itemSelector: '.box',
+                    columnWidth: 185,
+                    isFitWidth: true
+                });
+            });
         $('#uploadObject').click(function() {
             $('#uploadObject').attr("style", "display:none");
             $('#uploadingObject').attr('style', "display:block");

@@ -36,8 +36,12 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                         $(window).scrollTop(lastPosition);
                     }
                     that.set('loadingTime', false);
+
                     setTimeout(function() {
-                        $('#masonry_user_container').masonry("reload");
+                        $('#masonry_user_container').masonry("reloadItems");
+                        setTimeout(function() {
+                            $('#masonry_user_container').masonry();
+                        }, 100);
                     }, 200);
                 }
             });
@@ -82,7 +86,12 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             this.removePartnerObject(idDel);
             profileOwner.store.commit();
             this.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
-            $('#masonry_user_container').masonry("reload");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 100);
+            }, 200);
             this.cancelDelete();
         } else {
             this.set('willDelete', true);
@@ -139,21 +148,25 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         profileOwner.store.commit();
         var newPartner = HubStar.Mega.find(client_id);
         this.get("content").pushObject(newPartner);
-        $('#masonry_user_container').masonry("reload");
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
+        }, 200);
 
         $('#masonry_user_container').imagesLoaded(function() {
-            var container = document.querySelector('#masonry_user_container');
-            var msnry = new Masonry(container, {
-                itemSelector: '.box',
-                columnWidth: 185,
-              
-                isFitWidth: true
-            });
-//            $('#masonry_user_container').masonry({
+//            var container = document.querySelector('#masonry_user_container');
+//            var msnry = new Masonry(container, {
 //                itemSelector: '.box',
 //                columnWidth: 185,
 //                isFitWidth: true
 //            });
+            $('#masonry_user_container').masonry({
+                itemSelector: '.box',
+                columnWidth: 185,
+                isFitWidth: true
+            });
         });
 
     },
@@ -183,7 +196,10 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                 that.setContent(data);
                 that.set('loadingTime', false);
                 setTimeout(function() {
-                    $('#masonry_user_container').masonry("reload");
+                    $('#masonry_user_container').masonry("reloadItems");
+                    setTimeout(function() {
+                        $('#masonry_user_container').masonry();
+                    }, 100);
                 }, 200);
             }
         });

@@ -1397,6 +1397,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     rateEditing: function(id) {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
+
             if (this.get('model').get('reviews').get('length') === 0) {
                 this.set("rateTime", true);
             }

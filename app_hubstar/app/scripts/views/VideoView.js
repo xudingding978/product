@@ -118,9 +118,9 @@ HubStar.VideoView = Ember.View.extend({
                 }
                 //window.history.back();
                 $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-                setTimeout(function() {
-                    $('#masonry_container').masonry();  //masonry();
-                }, 300);
+//                setTimeout(function() {
+//                    $('#masonry_container').masonry();  //masonry();
+//                }, 300);
             }
 
         }

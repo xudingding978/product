@@ -8,7 +8,7 @@ HubStar.MasonryView = Ember.View.extend({
                 isInitLayout: false,
                 isFitWidth: true
         });
-        HubStar.set("tom",msnry);
+        //HubStar.set("tom",msnry);
 //        $(function() {
 //            $('#masonry_container').masonry({
 //                itemSelector: '.box',

@@ -86,7 +86,10 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
 
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
-        }, 500);
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
+        }, 200);
 
 
     },
@@ -96,9 +99,12 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
         HubStar.set('data', null);
         this.set('delete_id', null);
 
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 500);
+       setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
+        }, 200);
     },
     addReviewReply: function(reviewID) {
 
@@ -135,8 +141,11 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
             }
 
             setTimeout(function() {
-                $('#masonry_user_container').masonry("reload");
-            }, 10);
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
+        }, 200);
 
         }
         this.set("replyReviewContent", "");
@@ -150,8 +159,11 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
         $('#view-comments_' + event).animate({display: 'block'}, 500);
         $('#reply_' + event).animate({maxHeight: '0px'}, 10);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 10);
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
+        }, 200);
     },
     close: function() {
         this.set("replyReviewContent", "");

@@ -53,7 +53,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
         requiredBackEnd('reviews', 'Update', this.get("model"), 'POST', function(params) {
         });
         this.set("review_is_edit", !this.get('review_is_edit'));
-        
+
     },
     cancelReview: function() {
         this.set("review_is_edit", !this.get('review_is_edit'));
@@ -99,7 +99,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
         HubStar.set('data', null);
         this.set('delete_id', null);
 
-       setTimeout(function() {
+        setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {
                 $('#masonry_user_container').masonry();
@@ -133,7 +133,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
             $('#up-comments_' + reviewID).attr('style', 'background-color: #f3f3f3;text-align: center;font-size: 11px;font-weight: bold;border-top: 1px solid #ddd;border-radius: 0 0 3px 3px;');
             $('#up-comments_' + reviewID).animate({display: 'none'}, 500);
             $('#reply_' + reviewID).animate({maxHeight: '200px'}, 10);
-            
+
             for (var i = 0; i < this.get("controllers.profile").get('reviews').get('length'); i++) {
                 if (this.get("controllers.profile").get('reviews').objectAt(i).get('review_id') !== reviewID) {
                     this.upComments(this.get("controllers.profile").get('reviews').objectAt(i).get("review_id"));
@@ -141,11 +141,11 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
             }
 
             setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-            setTimeout(function() {
-                $('#masonry_user_container').masonry();
-            }, 100);
-        }, 200);
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 100);
+            }, 200);
 
         }
         this.set("replyReviewContent", "");
@@ -181,7 +181,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
     },
     fbShare: function(event) {
         var that = this;
-        var currntUrl = 'http://'+document.domain+'/#/profiles/' + this.get("controllers.profile").get('currentUserID') + '/reviews/' + event.get("review_id");
+        var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get("controllers.profile").get('currentUserID') + '/reviews/' + event.get("review_id");
         var caption = '';
         if (event.get('review_content') !== null)
         {
@@ -231,7 +231,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
         $("meta[property='og\\:image']").attr("content", event.get('review_user_photo_url'));
 
 
-        var currntUrl = 'http://'+document.domain+'/#/profiles/' + this.get("controllers.profile").get('currentUserID') + '/reviews/' + event.get("review_id");
+        var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get("controllers.profile").get('currentUserID') + '/reviews/' + event.get("review_id");
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
         window.open(
@@ -244,7 +244,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
     },
     //share to social twitter
     tShare: function(event) {
-        var currntUrl = 'http://'+document.domain+'/#/profiles/' + this.get("controllers.profile").get('currentUserID') + '/reviews/' + event.get("review_id");
+        var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get("controllers.profile").get('currentUserID') + '/reviews/' + event.get("review_id");
         var url = 'https://twitter.com/share?text=' + event.get('review_user_name') + '&url=' + encodeURIComponent(currntUrl);
         window.open(
                 url,

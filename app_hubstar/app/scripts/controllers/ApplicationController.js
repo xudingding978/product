@@ -705,14 +705,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     relayout: function()
     {
-        //setTimeout(function() {
+        setTimeout(function() {
 //            //HubStar.get("tom").layout();
 //            HubStar.get("tom").reloadItems();
             $('#masonry_container').masonry("reloadItems");
             setTimeout(function() {
                  $('#masonry_container').masonry();
-            },100);
-        //}, 0);
+            },400);
+        }, 1000);
     },
     getAds: function() {
 

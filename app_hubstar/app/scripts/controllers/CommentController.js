@@ -106,6 +106,7 @@ HubStar.CommentController = Ember.Controller.extend({
                 $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
                 setTimeout(function() {
                     $('#masonry_user_container').masonry();
+                    $('#masonry_photo_collection_container').masonry();
                     $('#masonry_container').masonry();
                 }, 10);
             }, 20);
@@ -128,6 +129,7 @@ HubStar.CommentController = Ember.Controller.extend({
         setTimeout(function() {
             $('#masonry_container').masonry();
             $('#masonry_user_container').masonry();
+            $('#masonry_photo_collection_container').masonry();
         }, 100);
 
     },
@@ -178,6 +180,7 @@ HubStar.CommentController = Ember.Controller.extend({
             setTimeout(function() {
                 $('#masonry_container').masonry();
                 $('#masonry_user_container').masonry();
+                $('#masonry_photo_collection_container').masonry();
             }, 100);
         }, 200);
     },
@@ -202,6 +205,7 @@ HubStar.CommentController = Ember.Controller.extend({
             $('#masonry_container').masonry("reloadItems");
             setTimeout(function() {
                 $('#masonry_user_container').masonry();
+                $('#masonry_photo_collection_container').masonry();
                 $('#masonry_container').masonry();
             }, 100);
         }, 200);

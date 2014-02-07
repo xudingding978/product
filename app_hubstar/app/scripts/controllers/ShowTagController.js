@@ -11,7 +11,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
     pic_x: "",
     pic_y: "",
     selectedID: "",
-    contentTags: null, //it is to save the every tag's content
+    contentTags: "", //it is to save the every tag's content
     currentPhoto: "",
     linkTo: "", //the content link address
     photo_owner_user: [],
@@ -79,7 +79,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 if (that.get("contentTags") !== null && that.get("contentTags") !== "" && that.get("contentTags") !== undefined)
                 {
                     that.get("contentTags").pushObject(newTag);
-                    that.createNotification(newTag);
+                    that.createNotification(newTag, mega);
                 }
                 //reset the value
                 //  that.setTagIcon(pic_x, pic_y, tag_id); //set the tag icon location
@@ -93,89 +93,91 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             });
         }
     },
-    getCurrentOwner: function(profile_id)
+    activateUserTag: function(tag_id, photo_id)
+    {
+        /*************set the model data***********/
+        var tagInfo = [tag_id, photo_id];
+        tagInfo = JSON.stringify(tagInfo);
+        var that = this;
+
+        requiredBackEnd('showTag', 'activateTag', tagInfo, 'POST', function(params) {
+            that.readTags(photo_id);
+        });
+    },
+    deleteTag: function(tag_id, photo_id)
+    {
+        var tagInfo = [tag_id, photo_id];
+        tagInfo = JSON.stringify(tagInfo);
+        var that = this;
+        requiredBackEnd('showTag', 'deleteTag', tagInfo, 'POST', function(params) {
+            that.readTags(photo_id);
+        });
+    },
+    isPhotoOwner: function(photo_id)
+    {
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
+        var login_user_id = currentUser.get("id"); // current login user id
+        var photoOwner = this.get("currentPhoto").get("owner_id");
+        if (login_user_id === photoOwner)
+        {
+            this.set("isPhotoOwner", true);
+        }
+        else
+        {
+            this.set("isPhotoOwner", false);
+        }
+
+    },
+    getCurrentOwner: function(profile_id, login_user_id)
     {
         if (profile_id !== null && profile_id !== undefined && profile_id !== "")
         {
-            console.log("profi"+profile_id);
-            var photo_owner_proifle = HubStar.Profile.find(profile_id); 
-                    setTimeout(function() {
-
-                        console.log(photo_owner_proifle);
-console.log(photo_owner_proifle.get("profile"));
-console.log(photo_owner_proifle.profile);
-console.log(photo_owner_proifle["profile"]);
-                    },500);
-            var photo_owner_user = "";
-            if (profile_owner_ids !== undefined && profile_owner_ids !== null & profile_owner_ids !== "")
+            var photo_owner_proifle = HubStar.Profile.find(profile_id);
+            if (photo_owner_proifle.get("profile_owner_ids") !== undefined && photo_owner_proifle.get("profile_owner_ids") !== null & photo_owner_proifle.get("profile_owner_ids") !== "")
             {
-            var profile_owner_ids = photo_owner_proifle.profile.objectAt(0).get("profile_owner_ids");
-               photo_owner_user += profile_owner_ids;
+                var profile_owner_ids = "";
+                for (var i = 0; i < photo_owner_proifle.get("profile_owner_ids").get("length"); i++)
+                {
+                    if (photo_owner_proifle.get("profile_owner_ids").objectAt(i).get("user_id") !== login_user_id)
+                    {
+                        if (profile_owner_ids === "") //it is the first time
+                        {
+                            profile_owner_ids = photo_owner_proifle.get("profile_owner_ids").objectAt(i).get("user_id");
+                        }
+                        else
+                        {
+                            profile_owner_ids += "," + photo_owner_proifle.get("profile_owner_ids").objectAt(i).get("user_id");
+                        }
+                    }
+                }
+                this.set("photo_owner_user", profile_owner_ids);
+
             }
-            this.set("photo_owner_user",photo_owner_user);
+
         }
     },
-    createNotification: function(newTag)
-    {  
-        var mega =  this.get("currentPhoto");
-        var photo_owner = mega.get("owner_id");
-        this.getCurrentOwner(photo_owner);
+    createNotification: function(newTag, mega)
+    {
+
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
+        var login_user_id = currentUser.get("id"); // current login user id
+        var login_user_name = currentUser.get("display_name"); // current login user id
+        var photo_owner = mega.get("owner_id"); //photo owner's profile id 
+        var photo_type = mega.get("owner_type");
+
+        this.getCurrentOwner(photo_owner, login_user_id);
         var current_owners = this.get("photo_owner_user"); // the photo owners
-        var currentUser = HubStar.User.find(localStorage.loginStatus);  // current login user
-        var login_user_id = currentUser.get("id"); 
+        var linkToCompany = newTag["linkto"];
         var time_stamp = newTag["tag_time"];
-       console.log("ssdfsdf");
-            console.log(current_owners);
-            console.log(login_user_id);
-        var tempComment = [current_owners,login_user_id,time_stamp];
+        var photo_id = this.get("photo_id");
+
+
+        var tempComment = [current_owners, login_user_id, time_stamp, photo_id, document.URL, login_user_name,linkToCompany];
         tempComment = JSON.stringify(tempComment);
         var that = this;
         var dataNew = new Array();
         requiredBackEnd('showTag', 'createNotification', tempComment, 'POST', function(params) {
-alert("ppp");
-//            that.set("isPosting", true);
-//            dataNew["message_id"] = params["message_id"];
-//            dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
-//            dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
-//            dataNew["time_stamp"] = params["replyMessageCollection"][0]["time_stamp"];
-//            dataNew["msg"] = params["replyMessageCollection"][0]["msg"];
-//            dataNew["user_name"] = params["replyMessageCollection"][0]["user_name"];
-//            dataNew["photo_url_large"] = params["replyMessageCollection"][0]["photo_url_large"];
-//            dataNew["url"] = params["replyMessageCollection"][0]["url"];
-//            dataNew["enableToEdit"] = false;
-//            dataNew["replyEdit"] = true;
-//            dataNew["replyCount"] = 0;
-//            if (params["replyMessageCollection"][0]["user_id"] === localStorage.loginStatus)
-//            {
-//                dataNew["isUserself"] = true;
-//            }
-//            if (params["replyMessageCollection"][0]["url"] !== null)
-//            {
-//                dataNew["isUrl"] = true;
-//            }
-//            else
-//            {
-//                dataNew["isUrl"] = false;
-//            }
-//            dataNew["replyMessageCollection"] = new Array();
-//            that.get("contentMsg").insertAt(0, dataNew);
-//            var thatthat = that;
-//            var s = '#message_' + dataNew["message_id"];
-//            setTimeout(function() {
-//                var old = thatthat.get("oldPost");
-//                $(old).removeClass("post-focus");
-//
-//                $(s).addClass("post-focus");
-//                thatthat.set("oldPost", s);
-//            }, 200);
-//            that.set("isUploadPhoto", false);
-//            dataNew = new Array();
-//            setTimeout(function() {
-//                $('#masonry_user_container').masonry("reload");
-//            }, 200);
-//            that.set('messageContent', "");
-//            that.set('newStyleImageSource', null);
-//            that.set('newStyleImageName', "");
+
         });
 
         setTimeout(function() {
@@ -199,32 +201,6 @@ alert("ppp");
             var newTag = new Array();
             var that = this;
             requiredBackEnd('showTag', 'sent', tagInfo, 'POST', function(params) {
-                //set the model , data come from the front end rather than the get from the back end
-//                newTag["tag_id"] = tag_id;
-//                newTag["profile_id"] = selectedID;
-//                newTag["product_name"] = product_name;
-//                newTag["desc"] = desc;
-//                newTag["pic_x"] = pic_x;
-//                newTag["pic_y"] = pic_y;
-//                newTag["linkto"] = linkAddress;
-//                newTag["link_to_click_count"] = 0;
-//                newTag["tag_time"] = time_stamp;
-//                newTag["tag_approved"] = false;
-//
-//                if (that.get("contentTags") !== null && that.get("contentTags") !== "" && that.get("contentTags") !== undefined)
-//                {
-//                    that.get("contentTags").pushObject(newTag);
-//                    that.sentRequestEmail(newTag);
-//                }
-//                //reset the value
-//                //  that.setTagIcon(pic_x, pic_y, tag_id); //set the tag icon location
-//                that.get("controllers.mega").set("showRequestTag", true);
-//                that.setDescription("");
-//                that.setLinkTo("");
-//                that.set("product_name", "");
-//                that.readTags(photo_id); //call the read method to show all tags
-//                $('#masonry_user_container').masonry("reloadItems");
-//                $('#masonry_container').masonry("reloadItems");
             });
         }
     },
@@ -264,59 +240,7 @@ alert("ppp");
                     }
                 }
             }
-            , 50);
-
-//            for (var i = 0; i < params.length; i++)
-//            {
-////First reply message and it is the last one of message and it contail the reply message collection
-//                newTag["message_id"] = params[i]["message_id"];
-//                var length = params[i]["replyMessageCollection"].length - 1;
-//                newTag["reply_id"] = params[i]["replyMessageCollection"][length]["reply_id"];
-//                newTag["user_id"] = params[i]["replyMessageCollection"][length]["user_id"];
-//                newTag["time_stamp"] = params[i]["replyMessageCollection"][length]["time_stamp"];
-//                newTag["msg"] = params[i]["replyMessageCollection"][length]["msg"];
-//                newTag["user_name"] = params[i]["replyMessageCollection"][length]["user_name"];
-//                newTag["photo_url_large"] = params[i]["replyMessageCollection"][length]["photo_url_large"];
-//                newTag["url"] = params[i]["replyMessageCollection"][length]["url"];
-//                newTag["enableToEdit"] = false;
-//                newTag["replyEdit"] = true;
-//                newTag["replyCount"] = params[i]["replyMessageCollection"].length - 1;
-//                if (params[i]["replyMessageCollection"][length]["user_id"] === localStorage.loginStatus)
-//                {
-//                    newTag["isUserself"] = true; //dataNew["isUserself"] is true , which means it is the login users is the same as the user page owner
-//                }
-//                if (params[i]["replyMessageCollection"][length]["url"] !== null)
-//                {
-//                    newTag["isUrl"] = true;
-//                }
-//                else
-//                {
-//                    newTag["isUrl"] = false;
-//                }
-//                that.get("contentTags").pushObject(newTag);
-//
-//            }
-            console.log(that.get("contentTags"));
-//            newTag["tag_id"] = params["message_id"];
-//            newTag["profile_id"] = params["replyMessageCollection"][length]["reply_id"];
-//            newTag["product_name"] = params[i]["replyMessageCollection"][length]["user_id"];
-//            newTag["desc"] = params["replyMessageCollection"][length]["time_stamp"];
-//            newTag["pic_x"] = params["replyMessageCollection"][length]["msg"];
-//            newTag["pic_y"] = params["replyMessageCollection"][length]["user_name"];
-//            newTag["linkto"] = params["replyMessageCollection"][length]["photo_url_large"];
-//            newTag["link_to_click_count"] = params["replyMessageCollection"][length]["url"];
-//            newTag["tag_time"] = false;
-//            newTag["tag_approved"] = true;
-
-
-
-            //reset the value
-//            that.get("controllers.mega").set("showRequestTag", true);
-//            that.setDescription("");
-//            that.setLinkTo("");
-//            that.set("product_name", "");
-//            $('#masonry_user_container').masonry("reloadItems");
-//            $('#masonry_container').masonry("reloadItems");
+            , 20);
         });
     },
     cancelTag: function()

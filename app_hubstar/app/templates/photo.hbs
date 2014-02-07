@@ -29,15 +29,28 @@
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;width: 60px;" {{action dropdownPhotoSetting "1"}}>
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
+            {{#if controller.isBusinessProfile}}
             {{#if controller.enableTag}}
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="end tagging this photo" style="position:relative;margin: 0 5px;width: 60px;" {{action endTag}}>
                  <i class="fa fa-tag"></i><span class="pretooltip">EndTag</span> 
             </div>
             {{else}}
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="tag this photo" style="position:relative;margin: 0 5px;width: 60px;" {{action activateTag}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="activate this tag " style="position:relative;margin: 0 5px;width: 60px;" {{action activateTag}}>
                  <i class="fa fa-tag"></i><span class="pretooltip">Tag</span> 
             </div>
             {{/if}}
+            {{/if}}
+
+            {{#if controller.showAllTags}}
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="hide tags this photo" style="position:relative;margin: 0 5px;width: 60px;" {{action hideTags}}>
+                 <i class="fa fa-tag"></i><span class="pretooltip">HideTag</span> 
+            </div>
+            {{else}}
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="show tag this photo" style="position:relative;margin: 0 5px;width: 60px;" {{action showTags}}>
+                 <i class="fa fa-tag"></i><span class="pretooltip">ShowTag</span> 
+            </div>
+            {{/if}}
+
             <ul class="hideClass edit-object-ul" id="dropdown_id_1" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
                 <li class="ite" {{action  fbShare "1"}} >
                     <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
@@ -76,7 +89,7 @@
                 <i id="n" class="fa fa-arrow-right" style="top:400px; right: 138px; color: white; position: absolute; font-size: 50px;"></i></div>
             <!--     image show here-->   
             {{view HubStar.PhotoDisplayAreaView}}
-            
+
             <!--     show add new  tag template-->   
             {{#if  controller.enableTag}}      
             {{#if controller.inImage}} <!--only when it within the image place can add the tag-->
@@ -97,17 +110,20 @@
                                     {{/if}}-->
         </div>
         <!--     show all the tags--> 
-
+        {{#if controller.showAllTags}} <!--      showOrNot tag-->
         {{#each controller.contentTags}}
-        {{view HubStar.TagMouseView}}
+        {{view HubStar.TagMouseView}} 
         {{/each}}
-
-        <!--      showOrNot tag-->
-        {{#if controller.showTag}}
-        <div id="showRequentTag">
-            <i  class="fa  fa-lightbulb-o" style="  border:solid 3px #ff0000;"></i>
-        </div>
         {{/if}}
+    {{#if controller.makeSureActivateTag}}
+    {{view HubStar.ActivateTagFunctionView}}
+    {{/if}}
+
+        <!--        {{#if controller.showTag}}
+                <div id="showRequentTag">
+                    <i  class="fa  fa-lightbulb-o" style="  border:solid 3px #ff0000;"></i>
+                </div>
+                {{/if}}-->
     </div>
     <!--THIS IS THE ALBUM BOX-->
 

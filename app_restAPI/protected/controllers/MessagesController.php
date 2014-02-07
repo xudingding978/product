@@ -678,10 +678,11 @@ class MessagesController extends Controller {
                             }
                         }
                         $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
-                    } else {
+                    } 
+                }
+                else {
                         echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
                     }
-                }
             }
         } elseif ($commenter_id !== $message_owner && $commenter_id !== $id && $message_owner === $id) {
             $notificationInfo = $this->getDomain() . "/users/" . $ownerId;

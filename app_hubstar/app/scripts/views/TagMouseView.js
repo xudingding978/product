@@ -8,7 +8,6 @@ HubStar.TagMouseView = Ember.View.extend({
     {
         var tag_id = evt.target.id.split("_")[1];
         var tags = this.get("controller").get("controllers.showTag").get("contentTags");
-        console.log(tags);
         var pic_x = 0;
         var pic_y = 0;
         for (var i = 0; i < tags.length; i++)
@@ -43,6 +42,7 @@ HubStar.TagMouseView = Ember.View.extend({
 
 
     },
+            // it is not used
     showContent: function(evt)
     {
         this.get("controller").set("showEachTagContent", true);

@@ -4,7 +4,7 @@
 
     <div style="margin: 0 0 20px; position: relative; background-color: #f3f3f3; height: 45px;border-bottom: 1px solid #ddd;border-radius: 3px 3px 0 0;">
         <div style=' color: #555; font-size: 18px; font-weight: bold; text-align: center; line-height: 45px;'>Save to 
-
+            {{#if controller.isSaveTopProfile}}
             <div class="" style="display:inline-block;cursor: pointer;"  {{action profileSwitch }}>
                  {{controller.selectedProfile}}
                  &nbsp;<i class="fa fa-caret-down"></i>
@@ -22,6 +22,12 @@
                 </div>
             </div>
 
+            {{/if}}
+            {{else}}         
+            <div class="" style="display:inline-block;">
+                 {{controller.selectedProfile}}
+                 &nbsp;<i class="fa fa-caret-down"></i>
+            </div>
             {{/if}}
         </div>
 

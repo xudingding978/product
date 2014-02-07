@@ -25,6 +25,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     sharePhotoUrl: '',
     type: null,
     enableTag: false,
+    isBusinessProfile: false,
     selectType: null,
     loadingTime: false,
     selectedProfile: "",
@@ -33,10 +34,14 @@ HubStar.MegaController = Ember.ArrayController.extend({
     makeSureDelete: false,
     showProfilelists: false,
     willDelete: false,
+    makeSureActivateTag: false,
+    willActivate: false,
     contentTags: "", //all the tags
     showEachTagContent: false,
+    showAllTags: true, // users show the tag
     inImage: false,
     tag: [], //every tag content when click
+    enableEditTag:false, //enable  photo owner to edit the tag after activate the tag
     showRequestTag: false, //show the tag after save and sent the request
     showTagAfterSave: false, // show the tag icon afte approve
     init: function()
@@ -206,19 +211,148 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
 
     },
+    showTags: function()
+    {
+
+        this.set("showAllTags", true);
+        this.set("showEachTagContent", true);
+        var tags = this.get("contentTags");
+        setTimeout(function() {
+            if (tags !== undefined && tags !== "" && tags !== null)
+            {
+                for (var i = 0; i < tags.length; i++)
+                {
+                    var tagDiv = "#tag_" + tags[i].tag_id;
+                    $(tagDiv).css({top: tags[i].pic_y, left: tags[i].pic_x});
+                    //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
+                }
+            }
+        }
+        , 10);
+    },
+    EditTag:function(tag_id)
+    {
+        this.set("enableEditTag",true);
+    },
+    hideTags: function()
+    {
+        this.set("showAllTags", false);
+        this.set("showEachTagContent", false);
+ 
+    },
+    JudgeBusinessProfile: function(mega)
+    {
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
+        var photo_owner_email = currentUser.get("email"); //photo owner contact email address
+        var endOfEmail = photo_owner_email.split("@")[1];
+        var trendsAccountEmail = "trendsideas.com"; //all trends account can have the edit right;
+        if (currentUser.get("profiles") !== null && currentUser.get("profiles") !== undefined && currentUser.get("profiles") !== "")
+        {
+            if (currentUser.get("profiles").get("length") > 0 || trendsAccountEmail === endOfEmail)
+            {
+                this.set("isBusinessProfile", true);
+            }
+            else
+            {
+                this.set("isBusinessProfile", false);
+            }
+        }
+
+    },
+    JudgePhotoOwner: function(mega)
+    {
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
+        var login_user_id = currentUser.get("id"); // current login user id
+
+        var profile_id = mega.get("owner_id");
+        var profile = HubStar.Profile.find(profile_id);
+        if (profile.get("profile_owner_ids") !== null && profile.get("profile_owner_ids") !== undefined && profile.get("profile_owner_ids") !== "")
+        {
+            var profile_owner_ids = profile.get("profile_owner_ids");
+            for (var i = 0; i < profile_owner_ids.get("length"); i++)
+            {
+                var photoOwner = profile_owner_ids.objectAt(i).get("user_id");
+                if (login_user_id === photoOwner)
+                {
+                    this.set("isPhotoOwner", true);
+                    break;
+                }
+                else
+                {
+                    this.set("isPhotoOwner", false);
+                }
+            }
+        }
+    },
     /******* function name: enableTag
      * parameter:
-     *  aim: it is to enable user to tag in the photo
+     *  aim: it is to enable user to tag in the photo and can edit the photo
      ***********************/
     activateTag: function()
     {
         this.get("controllers.showTag").set("photo_id", this.get('selectedPhoto').id); //set the selected photo's id
+
         this.set("showRequestTag", false);
         this.set("showTagAfterSave", false);
         this.set("showEachTagContent", false);
         this.set("enableTag", true);
         $("#p").addClass("hideClass");
         $("#n").addClass("hideClass");
+    },
+    /****it is allow the user to active the tag******/
+    activateUserTag: function(tag_id)
+    {
+        console.log(tag_id + "sdfdsfds");
+        this.get("controllers.showTag").activateUserTag(tag_id, this.get('selectedPhoto').id);
+    },
+    sureToActivate: function(tag_id)
+    {
+        var message = "Are you sure to activate this tag?";
+        this.set("message", message);
+        this.set('makeSureActivateTag', true);
+        this.set("tag_id", tag_id);
+        this.set("type", true);
+        if (this.get('willActivate') === true) {
+            this.activateUserTag(tag_id);
+            this.cancelActivate();
+        } else {
+            this.set("s", tag_id);
+            this.set('willActivate', true);
+        }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelActivate: function() {
+        this.set('willActivate', false);
+        this.set('makeSureActivateTag', false);
+    },
+    sureDelTag: function(tag_id)
+    {
+        console.log("sure to delete tag");
+        this.get("controllers.showTag").deleteTag(tag_id, this.get('selectedPhoto').id);
+    },
+    deleteTag: function(tag_id) {
+        var message = "Are you sure to delete  this tag?";
+        this.set("message", message);
+        this.set("tag_id", tag_id);
+        this.set("type", false); //type is false mean delete other it mean activate
+        this.set('makeSureActivateTag', true);
+        if (this.get('willDelTag') === true) {
+            this.sureDelTag(tag_id);
+            this.cancelActivate();
+        } else {
+            this.set("s", tag_id);
+            this.set('willDelTag', true);
+        }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelDelTag: function()
+    {
+        this.set('willDelTag', false);
+        this.set('makeSureActivateTag', false);
     },
     /******* function name: enableTag
      * parameter:
@@ -245,7 +379,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
 //            }
 //            mega.store.save();
 //        });
-
+        this.JudgeBusinessProfile(megaObject); //it is used to judge whether the user has business profile or it is the trends account
+        this.JudgePhotoOwner(megaObject);  //it is used to judge whether the user is the photo owner
         if (megaObject.get("isLoaded")) {
             this.set("is_article_video", true);
             if (megaObject.get("type") === 'article')
@@ -275,7 +410,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 this.get("controllers.showTag").readTags(photoObj.get("id"));
                 console.log(photoObj.get("id"));
                 this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-                this.get("contentTags");
             }
             if (this.get("selectPhoto") === false)   //selectPhoto is user to control left or right operation
             {

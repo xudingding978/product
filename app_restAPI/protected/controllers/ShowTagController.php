@@ -147,67 +147,189 @@ class ShowTagController extends Controller {
         }
     }
 
+    public function actionDeleteTag() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request_array = CJSON::decode($request_array);
+        $tag_id = $request_array[0]; //photo owner
+        $photo_id = $request_array[1]; //current login user
+
+        try {
+            $docIDDeep = $this->getDomain() . "/" . $photo_id; //$id  is the page owner
+            $cb = $this->couchBaseConnection();
+            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+            $oldRecordDeep = CJSON::decode($oldDeep, true);
+            //  $tags = $oldRecordDeep["photo"][0]['tags'];
+            for ($i = 0; $i < sizeof($oldRecordDeep["photo"][0]['tags']); $i++) {
+                if ($oldRecordDeep["photo"][0]['tags'][$i]["tag_id"] === $tag_id) {
+
+                    array_splice($oldRecordDeep["photo"][0]['tags'], $i, 1);
+                    break;
+                }
+            }
+
+            if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                $this->sendResponse(204);
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
+    }
+
+    public function actionActivateTag() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request_array = CJSON::decode($request_array);
+        $tag_id = $request_array[0]; //photo owner
+        $photo_id = $request_array[1]; //current login user
+
+        try {
+            $docIDDeep = $this->getDomain() . "/" . $photo_id; //$id  is the page owner
+            $cb = $this->couchBaseConnection();
+            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+            $oldRecordDeep = CJSON::decode($oldDeep, true);
+            //  $tags = $oldRecordDeep["photo"][0]['tags'];
+            for ($i = 0; $i < sizeof($oldRecordDeep["photo"][0]['tags']); $i++) {
+                if ($oldRecordDeep["photo"][0]['tags'][$i]["tag_id"] === $tag_id) {
+                    $oldRecordDeep["photo"][0]['tags'][$i]["tag_approved"] = true;
+                }
+            }
+
+            if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                $this->sendResponse(204);
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
+    }
+
     public function actionCreateNotification() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request_array = CJSON::decode($request_array);
-        $owner_ids = $request_array[0]; //photo owners
+        $owner_ids = explode(",", $request_array[0]); //photo owners
         $currentUser = $request_array[1]; //current login user
-        $time_stamp = $request_array[2]; // it is the descript of the  product
+        $time_stamp = $request_array[2];
+        $photo_id = $request_array[3];
+        $photo_url = $request_array[4];
+        $currentUserName = $request_array[5];       //get the user's name of tagging  
+        $linkToCompany = $request_array[6];
 
         $notification_id = (string) (rand(10000, 99999)) . $time_stamp . $currentUser;
+        $receiveEmail1 = "linzw07@gmail.com";
         for ($i = 0; $i < sizeof($owner_ids); $i++) {
-            if ($owner_ids[$i]["user_id"] !== $currentUser) {
-                $ownerId = $owner_ids[$i]["user_id"];
-                $notificationObject = array();
-                $timeID = date_timestamp_get(new DateTime());
 
-                $notification_id = (string) (rand(10000, 99999)) . $timeID . $commenter_id;
+            $ownerId = $owner_ids[$i];
+            $notificationObject = array();
+            $timeID = date_timestamp_get(new DateTime());
 
-                $notificationObject["notification_id"] = $notification_id;
-                $notificationObject["user_id"] = $currentUser;
-                $notificationObject["time"] = $time_stamp;
-                $notificationObject["type"] = "addTag";
-                $notificationObject["content"] = "";
-                $notificationObject["action_id"] = $ownerId;
-                $notificationObject["isRead"] = false;
+            $notification_id = (string) (rand(10000, 99999)) . $timeID . $currentUser;
+
+            $notificationObject["notification_id"] = $notification_id;
+            $notificationObject["user_id"] = $currentUser;
+            $notificationObject["time"] = $time_stamp;
+            $notificationObject["type"] = "addTag";
+            $notificationObject["content"] = $photo_url;
+            $notificationObject["action_id"] = $photo_id;
+            $notificationObject["isRead"] = false;
 
 
-                $notificationInfo = $this->getDomain() . "/users/" . $ownerId;
-                $cbs = $this->couchBaseConnection();
-                $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
-                $userInfo = CJSON::decode($notificationInfoDeep, true);
+            $notificationInfo = $this->getDomain() . "/users/" . $ownerId;
 
-                $conversationController = new ConversationsController();
-                if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "message") !== false) {
-                    if (!isset($userInfo['user'][0]['notifications'])) {
-                        $userInfo['user'][0]['notifications'] = array();
-                    }
-                    array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
-
-                    if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
-                        if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
-                            $receiveEmail = $userInfo['user'][0]['email'];
-                            $receiveName = $userInfo['user'][0]['display_name'];
-                            $notificationCountFollow = 0;
-                            $notificationCountMessage = 0;
-                            for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
-
-                                if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
-                                    if ($userInfo['user'][0]['notifications'][$i]["type"] === "follow" || $userInfo['user'][0]['notifications'][$i]["type"] === "unFollow") {
-                                        $notificationCountFollow++;
-                                    } else {
-                                        $notificationCountMessage++;
-                                    }
-                                }
-                            }
-                            $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
-                        }
-                    } else {
-                        echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-                    }
-                }
+            $cbs = $this->couchBaseConnection();
+            $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
+            $userInfo = CJSON::decode($notificationInfoDeep, true);
+            if (!isset($userInfo['user'][0]['notifications'])) {
+                $userInfo['user'][0]['notifications'] = array();
             }
+            array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+            if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
+                if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
+
+                    $receiveEmail = $userInfo['user'][0]['email'];
+                    $receiveName = $userInfo['user'][0]['display_name'];
+
+                    $this->sendEmail($receiveEmail1, $receiveName, $photo_url, $currentUserName, $linkToCompany);
+                } 
+            }
+            else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
         }
+    }
+
+    public function sendEmail($receiveEmail, $receiveName, $photo_url, $currentUserName, $linkToCompany) {
+
+        //$receiveEmail = "dingding@hubstar.co";
+        $domain = $this->getDomain();
+        // $domainWithoutAPI = $this->getDomainWihoutAPI();
+        $configuration = $this->getProviderConfigurationByName($domain, "SES");
+        $amazonSes = Aws\Ses\SesClient::factory($configuration);
+        $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
+        $platformEmail = $platformSettings['support']['email'];
+        $subject_prefix = $receiveName . "  you have tag avtivated pending ";
+        $args = array(
+            "Source" => $platformEmail,
+            "Destination" => array(
+                "ToAddresses" => array(
+                    $receiveEmail),
+//                "BccAddresses" => array(
+//                    $platformEmail)
+            ),
+            "Message" => array(
+                "Subject" => array(
+                    "Data" => $subject_prefix
+                ),
+                "Body" => array(
+                    "Html" => array(
+                        "Data" => $this->confirmationEmailForm($receiveName, $photo_url, $currentUserName, $linkToCompany)
+                    )
+                ),
+            ),
+        );
+        $amazonSes->sendEmail($args);
+    }
+
+    public function confirmationEmailForm($receiveName, $photo_url, $currentUserName, $linkToCompany) {
+        return '
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <body style="background: #E5E5E5; margin: 0 auto; padding: 0;">
+        <div style="width: 600px;  box-shadow: 0 0 5px #888; margin: 50px auto;background-color: white;">
+            <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/header.jpg" />
+            <div style="position: relative; padding: 15px 30px;">
+                <h1 style=" font-size: 2em;   line-height: 200%;font-weight: 700;margin-bottom: 10px">Hi   ' . $receiveName . ' ,</h1>
+                <p style="font-size: 1.5em;">You have new notifications on myTrends!</p>
+                <div style="margin: 20px 10px;font-size: 1.2em;line-height: 30px;height: 90px;">
+                    <div style="height: 45px;">
+                        <div style="margin: 0 5px;float: left;">
+                            <div style="width: 30px;height:30px;">         
+                                <img src="http://develop.devbox.s3.amazonaws.com/followers-icon-for-email.png"  style="width: 30px;height:30px; float: left"/> 
+                            </div>
+                        </div>
+                        <div style="float: left;">' . $currentUserName . '  has tag on your photo </div>
+                    </div>
+
+                </div>
+
+                <div style="font-size: 1.2em;margin: 20px 0;"><a style="cursor: pointer;color: #05B1E5;" href=' . $photo_url . '>View the tag detail on the photo and activate the tag</a> on myTrends</div>
+                                    <div style="font-size: 1.2em;margin: 20px 0;"><a style="cursor: pointer;color: #05B1E5;" href=' . $linkToCompany . '>View the  company detail about the tagging product</div>
+
+                <hr  style="margin-bottom: 5px; color: #333"/>
+                <p>If you do not want to receive these emails from myTrends, please <a style="cursor: pointer;color: #05B1E5;">unsubscribe</a>.</p>
+            </div>
+
+            <div style="margin-top: 20px"><img src="http://develop.devbox.s3.amazonaws.com/email-bottom.jpg"  /></div>
+
+        </div>
+    </body>
+</html>
+';
     }
 
 }

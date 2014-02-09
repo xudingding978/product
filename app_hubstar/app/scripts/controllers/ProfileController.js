@@ -1230,6 +1230,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     cropButton: function()
     {
+        
         this.set('cropsize', $('#panel').text());
         this.set('isPhotoUploadMode', false);
         this.set('isPhotoEditingMode', true);
@@ -1256,7 +1257,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var that = this;
         Ember.run.later(function() {
             crop(that.get('newStyleImageSource'));
-
         }, 0);
 
 
@@ -1289,16 +1289,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             'newStyleImageName': that.get('newStyleImageName'),
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': that.get('model.id')};
-               //         that.set('loadingTime', true);
 
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
-                            //     $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoEditingMode', false);
                             that.set('isPhotoUploadMode', false);
-                            that.set('isFinished', true);
+                               that.set('isUpload', false);
                             that.set("isCrop", false);
                             that.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
                             that.set('loadingTime', false);
+                             that.set('isFinished', true);
                         });
 
                     }

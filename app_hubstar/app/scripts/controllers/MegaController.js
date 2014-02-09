@@ -25,6 +25,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
     sharePhotoUrl: '',
     type: null,
     enableTag: false,
+    tagCount: 0,
+    hasTag: false,
     isBusinessProfile: false,
     selectType: null,
     loadingTime: false,
@@ -41,7 +43,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     showAllTags: true, // users show the tag
     inImage: false,
     tag: [], //every tag content when click
-    enableEditTag:false, //enable  photo owner to edit the tag after activate the tag
+    enableEditTag: false, //enable  photo owner to edit the tag after activate the tag
     showRequestTag: false, //show the tag after save and sent the request
     showTagAfterSave: false, // show the tag icon afte approve
     init: function()
@@ -230,15 +232,15 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
         , 10);
     },
-    EditTag:function(tag_id)
+    EditTag: function(tag_id)
     {
-        this.set("enableEditTag",true);
+        this.set("enableEditTag", true);
     },
     hideTags: function()
     {
         this.set("showAllTags", false);
         this.set("showEachTagContent", false);
- 
+
     },
     JudgeBusinessProfile: function(mega)
     {
@@ -408,8 +410,17 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                 var photoObj = megaObject.get('photo').objectAt(0);
                 this.get("controllers.showTag").readTags(photoObj.get("id"));
-                console.log(photoObj.get("id"));
-                this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+
+                var that = this;
+                setTimeout(function() {
+                    if (that.get("contentTags").get("length") > 0)
+                    {
+                        console.log(that.get("contentTags"));
+                        that.set("hasTag", true);
+                        that.set("tagCount", that.get("contentTags").get("length"));
+                    }
+                    that.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+                }, 25);
             }
             if (this.get("selectPhoto") === false)   //selectPhoto is user to control left or right operation
             {

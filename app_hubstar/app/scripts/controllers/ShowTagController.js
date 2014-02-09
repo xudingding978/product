@@ -206,8 +206,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
     },
     setTagIcon: function(pic_x, pic_y, tag_id)
     {
-        console.log(pic_x + "   " + pic_y);
-
         setTimeout(function() {
             var tagDiv = "#tag_" + tag_id;
             $(tagDiv).fadeIn();
@@ -240,7 +238,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                     }
                 }
             }
-            , 20);
+            , 10);
         });
     },
     cancelTag: function()

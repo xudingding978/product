@@ -6,22 +6,24 @@
 
 HubStar.FollowingRoute = Ember.Route.extend({
     setupController: function(controller, model) {
+      if (this.controllerFor('checkingLoginStatus').popupLogin())
+        {
 
-        this.controllerFor('user').set('profileSelectionStatus', 'Following');
-        this.controllerFor('user').set('collectionTag', false);
+            this.controllerFor('user').set('profileSelectionStatus', 'Following');
+            this.controllerFor('user').set('collectionTag', false);
 
-        this.controllerFor('user').set('followerTag', false);
-        this.controllerFor('user').set('followingTag', true);
-        this.controllerFor('user').set('messageTag', false);
-
-
-
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#ufollowing').addClass('selected-user-stats');
+            this.controllerFor('user').set('followerTag', false);
+            this.controllerFor('user').set('followingTag', true);
+            this.controllerFor('user').set('messageTag', false);
 
 
-        this.controllerFor('userFollowings').setUserFollowings(model);
 
+            $('#user-stats > li').removeClass('selected-user-stats');
+            $('#ufollowing').addClass('selected-user-stats');
+
+
+            this.controllerFor('userFollowings').setUserFollowings(model);
+        }
     },
     model: function(params) {
 

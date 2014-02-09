@@ -62,8 +62,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     pageCount: 0,
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
-        var that = this;
-
+        var that = this;       
         requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
             var array = $.map(callbck, function(value, index) {
                 return [value];
@@ -182,7 +181,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 statusController.set("time", time);
                 statusController.changeDescription();
             }
-            //that.relayout();
+            
         });
         HubStar.set('searchStart', true);
 
@@ -206,7 +205,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             if (results.get('isLoaded')) {
                 that.setContent(results);
                 that.set('loadingTime', false);
-                //that.relayout();
+               
             }
         });
     },
@@ -584,7 +583,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             localStorage.userType = "email";
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndex');
-
+                            that.init();
+                            //location.href="/#/search/default";
+                           // location.reload();
                             if (localStorage.loginStatus)
                             {
                                 if ((params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== "undefined"
@@ -705,13 +706,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     relayout: function()
     {
+        //console.log("qqqqqqqqqqqqqqqqq");
         setTimeout(function() {
-//            //HubStar.get("tom").layout();
-//            HubStar.get("tom").reloadItems();
             $('#masonry_container').masonry("reloadItems");
             setTimeout(function() {
                  $('#masonry_container').masonry();
-            },400);
+            },500);
         }, 1000);
     },
     getAds: function() {

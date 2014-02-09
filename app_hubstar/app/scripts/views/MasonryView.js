@@ -1,22 +1,23 @@
 HubStar.MasonryView = Ember.View.extend({
     templateName: 'masonry',
     didInsertElement: function() {
-        var container = document.querySelector('#masonry_container');
-        var msnry = new Masonry(container, {
-             itemSelector: '.box',
-                columnWidth: 185,
-                isInitLayout: false,
-                isFitWidth: true
-        });
-        //HubStar.set("tom",msnry);
-//        $(function() {
-//            $('#masonry_container').masonry({
-//                itemSelector: '.box',
+//        var container = document.querySelector('#masonry_container');
+//        
+//        var msnry = new Masonry(container, {
+//             itemSelector: '.box',
 //                columnWidth: 185,
 //                isInitLayout: false,
 //                isFitWidth: true
-//            });
 //        });
+        console.log("ddddddddddddddddddddddddddddddddddddd");
+        $(function() {
+            $('#masonry_container').masonry({
+                itemSelector: '.box',
+                columnWidth: 185,
+                isInitLayout: false,
+                isFitWidth: true
+            });
+        });
         if (HubStar.get('searchStart')) {
             HubStar.set('isMansonryPageLoad', true);
         }
@@ -36,8 +37,11 @@ HubStar.MasonryView = Ember.View.extend({
         $(collape_button).attr("style", "display:block");
         $(more_button).attr("style", "display:none");
 
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
+         setTimeout(function() {
+            $('#masonry_container').masonry("reloadItems");
+            setTimeout(function() {
+                 $('#masonry_container').masonry();
+            },100);
         }, 200);
     },
     collapeContent: function(event) {
@@ -50,8 +54,11 @@ HubStar.MasonryView = Ember.View.extend({
         $(collape_button).attr("style", "display:none");
         $(more_button).attr("style", "display:block");
 
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
+         setTimeout(function() {
+            $('#masonry_container').masonry("reloadItems");
+            setTimeout(function() {
+                 $('#masonry_container').masonry();
+            },100);
         }, 200);
     },
     mega: function() {

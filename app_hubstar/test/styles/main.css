@@ -8525,15 +8525,15 @@ a:hover , a:focus {color: #aaa;}
 
 .albumcover-container{
     display: block;
-    width: 343px;
-    height: 343px;
+    width: 340px;
+    height: 345px;
     overflow: hidden;
     padding: 5px;
 }
 .albumcover-container > div{
     float:left;
-    width:auto;
-    height:343px;
+    width:335px;
+    height:335px;
 }
 
 div.album-description{
@@ -8616,10 +8616,10 @@ div.album-description-bg{
 }
 
 .albumcover{
-    min-width: 350px;
-    max-width:420px;
-    min-height: 350px;
-    max-height:425px;
+    min-width: 335px;
+    max-width:335px;
+    min-height: 335px;
+    max-height:335px;
 }
 
 .album-info{

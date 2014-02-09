@@ -1204,6 +1204,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 var size = "Your image size is " + width + "x" + height;
                 that.set('CurrentImageSize', size);
                 that.set('isCrop', true);
+               
                 that.set('isUpload', true);
 
             }

@@ -1,5 +1,5 @@
 HubStar.SearchIndexRoute = Ember.Route.extend({
-    setupController: function() {
+    setupController: function() {       
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
             HubStar.set('isLogin', false);
 
@@ -13,28 +13,18 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
         this.controllerFor('status').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
-              localStorage.checkUser = "";
+        localStorage.checkUser = "";
         $(".navbar").css("box-shadow", "");
         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
 //        setTimeout(function() {
-//            $('#masonry_container').masonry();  //masonry();
-//        }, 300);
+//            $('#masonry_container').masonry("reloadItems");
+//            setTimeout(function() {
+//                $('#masonry_container').masonry();
+//            }, 500);
+//        }, 1000);
     },
-    events: {
-//        transitionToPhoto: function(id) {
-//            this.controllerFor('mega').set("selectPhoto", false);
-//            this.controllerFor('masonryCollectionItems').set("type", "profile");
-//            this.transitionTo("photo", HubStar.Mega.find(id));
-//        },
-//        transitionToProfile: function(id) {
-//
-//            this.transitionTo("profileCollections", HubStar.Profile.find(id));
-//        },
-//        transitionToArticle: function(id) {
-//            this.controllerFor('article').set("accessFromSearchBoard", true);
-//            this.transitionTo("article", HubStar.Article.find(id));
-//        }
+    events: { 
     },
     redirect: function() {
 
@@ -52,7 +42,7 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
         if (HubStar.get("setHight") === null || HubStar.get("setHight") === "null") {
             HubStar.set("setHight", 0);
         }
-        
+
 //        var container = document.querySelector('#masonry_container');
 //        var msnry = new Masonry(container, {
 //             itemSelector: '.box',
@@ -73,7 +63,7 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
         $(window).scrollTop(HubStar.get("setHight"));
         HubStar.set("setHight", 0);
 
-    //    localStorage.checkUser = "";
+        //    localStorage.checkUser = "";
     },
     deactivate: function() {
         HubStar.set("setHight", $(window).scrollTop());

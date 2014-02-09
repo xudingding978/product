@@ -51,8 +51,8 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     $('#masonry_photo_collection_container').masonry("reloadItems");
                     setTimeout(function() {
                         $('#masonry_photo_collection_container').masonry();
-                    }, 100);
-                }, 200);
+                    }, 1000);
+                }, 1000);
             }
         });
         this.checkEditingMode();
@@ -377,8 +377,8 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     $('#masonry_photo_collection_container').masonry("reloadItems");
                     setTimeout(function() {
                         $('#masonry_photo_collection_container').masonry();
-                    }, 100);
-                }, 250);
+                    },1000);
+                }, 1000);
             }
         });
     },

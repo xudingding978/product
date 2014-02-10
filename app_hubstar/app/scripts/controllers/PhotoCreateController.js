@@ -16,7 +16,6 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         HubStar.set("totalFiles", 0);
         HubStar.set("photoIds", "");
         this.set("filesNumber", this.get("filesNumber")+filesLength);
-        console.log(filesLength);
     },
     commitFiles: function(evt) {
         $('#dragAndDroppArea').attr('style', "display:block");
@@ -132,10 +131,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                     $('.' + file.get('photo_source_id')).attr("style", "display:block");
                 }
                 else {
-                    console.log("ssssssssssssssssssss");
                     HubStar.set("totalFiles", HubStar.get("totalFiles") + 1);
-                    console.log(HubStar.get("totalFiles"));
-                    console.log(that.get("filesNumber"));
                     if (HubStar.get("photoIds") === "")
                     {
                         HubStar.set("photoIds", HubStar.get("photoIds") + testID.split("test")[1]);

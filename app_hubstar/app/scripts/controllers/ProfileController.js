@@ -799,19 +799,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
             contactController.setSelectedMega(this.get('currentUserID'));
 
-
-            if (!this.get('contactChecking'))
-            {
                 document.getElementById("body_id").style.overflow = "hidden";
-            }
-            else {
-                document.getElementById("body_id").style.overflow = "auto";
-            }
+            
             this.set('contactChecking', !this.get('contactChecking'));
         }
     },
     closeContact: function() {
         this.set('contactChecking', false);
+        document.getElementById("body_id").style.overflow = "auto";
     },
     uploadImage: function() {
         var user = this.getCurrentProfile(this.get('currentUserID'));

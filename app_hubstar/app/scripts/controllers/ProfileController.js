@@ -1203,9 +1203,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             {
                 var size = "Your image size is " + width + "x" + height;
                 that.set('CurrentImageSize', size);
-                that.set('isCrop', true);
-               
+
                 that.set('isUpload', true);
+                 that.set('isCrop', true);
 
             }
         });
@@ -1290,7 +1290,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             'newStyleImageName': that.get('newStyleImageName'),
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': that.get('model.id')};
-                        that.set('loadingTime', true);
+               //         that.set('loadingTime', true);
 
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
                             //     $('#uploadStyleImg').attr("style", "display:none");

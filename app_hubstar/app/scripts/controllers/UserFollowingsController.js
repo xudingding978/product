@@ -336,7 +336,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
             $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {
                 $('#masonry_user_container').masonry();
-            }, 10);
+            }, 400);
         }, 200);
     }
 

@@ -10,6 +10,7 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('searchs').set("loginInfo", localStorage.loginStatus);
         this.controllerFor('searchs').setLoginImge();
         this.controllerFor('application').set('search_string', model.id);
+       
         if (HubStar.get("escVideo") !== true)
         {
             this.controllerFor('application').newSearch();
@@ -29,13 +30,13 @@ HubStar.SearchRoute = Ember.Route.extend({
 //        setTimeout(function() {
 //            $('#masonry_container').masonry();  //masonry();
 //        }, 300);
-        var container = document.querySelector('#masonry_container');
-        var msnry = new Masonry(container, {
-            itemSelector: '.box',
-            columnWidth: 185,
-            isInitLayout: false,
-            isFitWidth: true
-        });
+//        var container = document.querySelector('#masonry_container');
+//        var msnry = new Masonry(container, {
+//            itemSelector: '.box',
+//            columnWidth: 185,
+//            isInitLayout: false,
+//            isFitWidth: true
+//        });
     },
     model: function(params) {
         var address = document.URL;

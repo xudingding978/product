@@ -8924,7 +8924,7 @@ div.album-description-bg{
     height: 44px;
     left: 0;
     margin: 0 auto;
-    position: absolute;
+    position: relative;
     right: 0px;
     text-align: center;
     background-color: rgba(0,0,0,.6);

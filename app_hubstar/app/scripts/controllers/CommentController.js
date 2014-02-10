@@ -330,7 +330,7 @@ HubStar.CommentController = Ember.Controller.extend({
             $('#masonry_container').masonry();
             $('#masonry_user_container').masonry();
             $('#masonry_photo_collection_container').masonry();
-        }, 100);
+        }, 20);
 
 //        setTimeout(function() {
 //            $('#masonry_container').masonry("reload");
@@ -349,7 +349,7 @@ HubStar.CommentController = Ember.Controller.extend({
             $('#masonry_container').masonry();
             $('#masonry_user_container').masonry();
             $('#masonry_photo_collection_container').masonry();
-        }, 100);
+        }, 20);
     },
     shareDisplay: function(id) {
         $('#share_' + id).children('ul').removeClass("hideClass");

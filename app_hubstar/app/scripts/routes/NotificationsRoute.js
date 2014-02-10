@@ -9,9 +9,7 @@ HubStar.NotificationsRoute = Ember.Route.extend({
 
         var model = localStorage.loginStatus;
         this.controllerFor('messageCenter').selectNotification(model);
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+        
         $(window).scrollTop(550);
 
     },

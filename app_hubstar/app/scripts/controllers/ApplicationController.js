@@ -102,7 +102,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     scrollDownAction: function() {
         this.set('loadingTime', true);
-        this.set("size", 20);
+        this.set("size", 12);
         if (this.get("searchFromTopic") === false)
         {
             this.set("pageCount", this.get("pageCount") + 1);
@@ -157,7 +157,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         this.set("oldChildren", 0);
         this.set("from", 0);
-        this.set("size", 20);
+        this.set("size", 12);
         this.set('loadingTime', true);
         this.set("pageCount", 0);
         var d = new Date();
@@ -713,7 +713,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             setTimeout(function() {
                  $('#masonry_container').masonry();
                  that.set('loadingTime', false);
-            },800);
+            },1000);
         }, 250);
     },
     getAds: function() {

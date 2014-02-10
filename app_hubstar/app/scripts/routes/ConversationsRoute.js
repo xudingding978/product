@@ -1,8 +1,6 @@
 HubStar.ConversationsRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+        
         $(window).scrollTop(0);
     },
     model: function(params) {

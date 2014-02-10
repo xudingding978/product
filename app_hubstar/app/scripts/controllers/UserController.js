@@ -257,8 +257,11 @@ HubStar.UserController = Ember.Controller.extend({
 
         var collections = user.get("collections");
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                 $('#masonry_user_container').masonry();               
+            },100);
+        }, 250);
         if (this.get('editingInterest') === true) {
             this.set('editingInterest', false);
             this.set('interestsActive', false);
@@ -515,8 +518,12 @@ HubStar.UserController = Ember.Controller.extend({
                 this.set("newTitle", "");
                 this.set("newDesc", "");
                 setTimeout(function() {
-                    $('#masonry_user_container').masonry("reload");
-                }, 200);
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                 $('#masonry_user_container').masonry();
+                 
+            },100);
+        }, 250);
             }
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
@@ -823,8 +830,12 @@ HubStar.UserController = Ember.Controller.extend({
         }
         this.statstics();
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                 $('#masonry_user_container').masonry();
+                
+            },100);
+        }, 250);
     },
     deleteTopic: function(topic) {
         var user = HubStar.User.find(localStorage.loginStatus);
@@ -862,8 +873,11 @@ HubStar.UserController = Ember.Controller.extend({
             this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
         }
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                 $('#masonry_user_container').masonry();                 
+            },100);
+        }, 250);
     },
     setSelectedCollection: function(id) {
         for (var i = 0; i < this.get("collections").get("length"); i++) {
@@ -901,9 +915,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         this.set('postTag', false);
 
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+       
         //this.set("Id", this.get('collections').objectAt(0).get('optional'));
         this.set('messageTag', false);
         this.transitionToRoute('userCollections');
@@ -922,9 +934,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         this.transitionToRoute('following', model);
 
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-        }, 200);
+        
     },
     selectFollower: function(model) {
 
@@ -940,9 +950,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         this.set('messageTag', false);
         this.transitionToRoute('followers');
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-        }, 200);
+       
     },
     selectMessage: function(model) {
         this.set('profileSelectionStatus', 'Messages');
@@ -954,9 +962,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         this.transitionToRoute('messageCenter');
 
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-        }, 200);
+       
 
     },
     selectPost: function(model) {
@@ -969,9 +975,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         this.transitionToRoute('userPost');
 
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-        }, 200);
+        
 
     },
     flickButtonClick: function()

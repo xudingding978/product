@@ -62,8 +62,11 @@ HubStar.PhotoCreateInfoSettingController = Ember.Controller.extend({
 
         masonryCollectionItems.newUpload();
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+            $('#masonry_container').masonry("reloadItems");
+            setTimeout(function() {
+                 $('#masonry_container').masonry();                
+            },200);
+        }, 250);
 
     },
     finishUploadingAndInfo: function() {

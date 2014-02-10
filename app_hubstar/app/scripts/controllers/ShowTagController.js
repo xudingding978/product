@@ -46,7 +46,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         this.set('selectTagProfile', false); // show list of profile
         var photo_id = this.get("photo_id");
         var selectedID = this.get("selectedID"); //the selected profile id
-        if (selectedID === ""||selectedID===null||selectedID===undefined)
+        if (selectedID === "" || selectedID === null || selectedID === undefined)
         {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please select the profile before save.", "warnning");
         }
@@ -93,7 +93,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             });
         }
     },
- 
     activateUserTag: function(tag_id, photo_id)
     {
         /*************set the model data***********/
@@ -214,15 +213,18 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         tagInfo = JSON.stringify(tagInfo);
         var newTag = new Array();
         var that = this;
+
         requiredBackEnd('showTag', 'readTag', tagInfo, 'POST', function(params) {
-//set the model
+//set the model          
+            var thatthat = that;
             if (params !== "" && params !== undefined && params !== null)
             {
                 that.set("contentTags", params);
-                that.get("controllers.mega").set("tagCount", params.get("length"));
                 that.get("controllers.mega").set("contentTags", params);
                 var tags = params;
+
                 setTimeout(function() {
+                    thatthat.get("controllers.mega").set("tagCount", params.get("length"));
                     if (tags !== undefined && tags !== "" && tags !== null)
                     {
                         for (var i = 0; i < tags.length; i++)
@@ -233,7 +235,11 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                         }
                     }
                 }
-                , 15);
+                , 20);
+            }
+            else
+            {
+                thatthat.get("controllers.mega").set("tagCount", 0);
             }
         });
 

@@ -12,7 +12,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     from: null,
     selectedPhoto: null,
     isSelected: false,
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'updateTag', 'showTag', 'checkingLoginStatus', 'masonryCollectionItems', 'editComment', 'itemFunction', 'collection','article'],
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'updateTag', 'showTag', 'checkingLoginStatus', 'masonryCollectionItems', 'editComment', 'itemFunction', 'collection', 'article'],
     currentUser: null,
     currentUserProfile: null,
     photo_album_id: null,
@@ -411,10 +411,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         {
                             console.log(that.get("contentTags"));
                             that.set("hasTag", true);
-                            //  that.set("tagCount", that.get("contentTags").get("length"));
+                           // that.set("tagCount", that.get("contentTags").get("length"));
                         }
+
                     }
-                }, 30);
+                }, 50);
                 that.set("currentUser", HubStar.User.find(localStorage.loginStatus));
 
             }

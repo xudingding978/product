@@ -1,14 +1,12 @@
 
-<div  id ="tagit">
-    {{#unless controller.change_tag_show}}
-    <div class="box">
-    </div>
-    <br><br>    <br><br>    <br><br>
-    {{/unless}}
+
+{{#if controller.isUpdateTag}}
+<div  id ="tagit1">
+
     <div id ="savePhoto"class="t-style-box" style="z-index: 1002; position: relative;border-radius: 3px;">
 
         <div style="margin: 0 0 20px; position: relative; background-color: #f3f3f3; height: 45px;border-bottom: 1px solid #ddd;border-radius: 3px 3px 0 0;">
-            <div style=' color: #555; font-size: 18px; font-weight: bold; text-align: center; line-height: 45px;'>Choose profile to click to:
+            <div style=' color: #555; font-size: 18px; font-weight: bold; text-align: center; line-height: 45px;'>Choose ddprofile to click to:
       
                 <div class="" style="display:inline-block;cursor: pointer;"   {{action profileSwitch on="click" target="controller"}}>
                      {{controller.selectedDesc}}
@@ -29,7 +27,7 @@
                 {{/if}}
             </div>
             <div class="exit" style="float: right; position: relative; top: -46px;">
-                <div class="closeview" {{action cancelTag }}>
+                <div class="closeview" {{action cancelUpdateTag }}>
                      <i class="fa fa-times"></i>
                 </div> 
             </div>  
@@ -65,14 +63,11 @@
 
 
         <div class="" style="height: 45px;position: relative;border-top: 1px solid #ddd;top: -1px;border-radius: 0 0 3px 3px;overflow: hidden;">
-            <div  class="message-btn easing" style="height:45px;line-height: 45px; border-right: 1px solid #ddd;" {{action cancelTag }}><i class='fa fa-times'>&nbsp;</i>Cancel</div>
-            <div class="message-btn easing" style='height:45px;line-height: 45px;'{{action saveTag}}><i class='fa fa-check'>&nbsp;</i>Save</div>
+            <div  class="message-btn easing" style="height:45px;line-height: 45px; border-right: 1px solid #ddd;" {{action cancelUpdateTag }}><i class='fa fa-times'>&nbsp;</i>Cancel</div>
+            <div class="message-btn easing" style='height:45px;line-height: 45px;'{{action saveUpdateTag}}><i class='fa fa-check'>&nbsp;</i>Update</div>
         </div>
 
     </div>
-    {{#if controller.change_tag_show}}
-<br>    <br><br>
-    <div class="box">
-    </div>
-    {{/if}}
+
 </div>
+{{/if}}

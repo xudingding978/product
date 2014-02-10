@@ -95,6 +95,43 @@ class ShowTagController extends Controller {
         }
     }
 
+    public function actionUpdateTag() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request_array = CJSON::decode($request_array);
+        $tag_id = $request_array[0];  //tag id : consists of time and photo id
+        $product_name = $request_array[1]; // it is the product name
+        $desc = $request_array[2]; // it is the descript of the  product
+        $linkAddress = $request_array[3]; // it is the content link  address
+        $time_stamp = $request_array[4]; // it is create time      
+        $profile_id = $request_array[5];
+        $photo_id = $request_array[6];  //selected photo's id
+
+        try {
+            $docIDDeep = $this->getDomain() . "/" . $photo_id; //$id  is the page owner
+            $cb = $this->couchBaseConnection();
+            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+            $oldRecordDeep = CJSON::decode($oldDeep, true);
+            for ($i = 0; $i < sizeof($oldRecordDeep["photo"][0]['tags']); $i++) {
+                if ($oldRecordDeep["photo"][0]['tags'][$i]["tag_id"] === $tag_id) {
+                    $oldRecordDeep["photo"][0]['tags'][$i]["profile_id"] = $profile_id;
+                    $oldRecordDeep["photo"][0]['tags'][$i]["product_name"] = $product_name;
+                    $oldRecordDeep["photo"][0]['tags'][$i]["desc"] = $desc;
+                    $oldRecordDeep["photo"][0]['tags'][$i]["linkto"] = $linkAddress;
+                    $oldRecordDeep["photo"][0]['tags'][$i]["tag_time"] = $time_stamp;
+                }
+            }
+
+            if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                $this->sendResponse(200,CJSON::encode($oldRecordDeep["photo"][0]['tags']));
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
+    }
+
     public function actionSaveTag() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request_array = CJSON::decode($request_array);
@@ -253,11 +290,10 @@ class ShowTagController extends Controller {
                     $receiveName = $userInfo['user'][0]['display_name'];
 
                     $this->sendEmail($receiveEmail1, $receiveName, $photo_url, $currentUserName, $linkToCompany);
-                } 
-            }
-            else {
-                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
                 }
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
         }
     }
 

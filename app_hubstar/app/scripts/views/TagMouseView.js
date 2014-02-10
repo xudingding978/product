@@ -32,6 +32,7 @@ HubStar.TagMouseView = Ember.View.extend({
         var picx_content = pic_x + 10;
 
         this.get("controller").set("showEachTagContent", true);
+        this.get("controller").get("controllers.showTag").set("isUpdateTag", false);
 
         setTimeout(function() {
 
@@ -42,10 +43,11 @@ HubStar.TagMouseView = Ember.View.extend({
 
 
     },
-            // it is not used
+    // it is not used
     showContent: function(evt)
     {
         this.get("controller").set("showEachTagContent", true);
+
         //   $("#tagitshow").toggleClass('hideClass');
 //          var that=this;
 //        $("#tagitshow").mouseleave(function() {

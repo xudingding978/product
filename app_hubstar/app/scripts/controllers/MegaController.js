@@ -12,7 +12,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     from: null,
     selectedPhoto: null,
     isSelected: false,
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'showTag', 'checkingLoginStatus', 'masonryCollectionItems', 'editComment', 'itemFunction', 'collection'],
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'updateTag', 'showTag', 'checkingLoginStatus', 'masonryCollectionItems', 'editComment', 'itemFunction', 'collection','article'],
     currentUser: null,
     currentUserProfile: null,
     photo_album_id: null,
@@ -24,9 +24,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
     is_article_video: true,
     sharePhotoUrl: '',
     type: null,
-    enableTag: false,
-    tagCount: 0,
-    hasTag: false,
     isBusinessProfile: false,
     selectType: null,
     loadingTime: false,
@@ -36,6 +33,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
     makeSureDelete: false,
     showProfilelists: false,
     willDelete: false,
+    enableTag: false,
+    tagCount: 0,
+    hasTag: false,
     makeSureActivateTag: false,
     willActivate: false,
     contentTags: "", //all the tags
@@ -235,6 +235,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
     EditTag: function(tag_id)
     {
         this.set("enableEditTag", true);
+        this.get("controllers.updateTag").updateTag(tag_id, this.get('selectedPhoto').id);
+
     },
     hideTags: function()
     {
@@ -297,6 +299,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("showRequestTag", false);
         this.set("showTagAfterSave", false);
         this.set("showEachTagContent", false);
+
         this.set("enableTag", true);
         $("#p").addClass("hideClass");
         $("#n").addClass("hideClass");
@@ -369,18 +372,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         $("#n").removeClass("hideClass");
     },
     getInitData: function(megaObject) {
-//        var mega = HubStar.Mega.find(megaObject.get("id"));;
-//        mega.then(function() {
-//            if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
-//            {
-//                mega.set("view_count", 0);
-//            }
-//            else
-//            {
-//                mega.set("view_count", mega.get("view_count") + 1);
-//            }
-//            mega.store.save();
-//        });
+        console.log("111111111111111");
         this.JudgeBusinessProfile(megaObject); //it is used to judge whether the user has business profile or it is the trends account
         this.JudgePhotoOwner(megaObject);  //it is used to judge whether the user is the photo owner
         if (megaObject.get("isLoaded")) {
@@ -413,14 +405,18 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                 var that = this;
                 setTimeout(function() {
-                    if (that.get("contentTags").get("length") > 0)
+                    if (that.get("contentTags") !== "" && that.get("contentTags") !== null && that.get("contentTags") !== undefined)
                     {
-                        console.log(that.get("contentTags"));
-                        that.set("hasTag", true);
-                        that.set("tagCount", that.get("contentTags").get("length"));
+                        if (that.get("contentTags").get("length") > 0)
+                        {
+                            console.log(that.get("contentTags"));
+                            that.set("hasTag", true);
+                            //  that.set("tagCount", that.get("contentTags").get("length"));
+                        }
                     }
-                    that.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-                }, 25);
+                }, 30);
+                that.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+
             }
             if (this.get("selectPhoto") === false)   //selectPhoto is user to control left or right operation
             {
@@ -1132,7 +1128,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         };
         function callback(response) {
             if (response && response.post_id) {
-                var mega = HubStar.Mega.find(this.get('selectedPhoto').get('id'));
+                var mega = HubStar.Mega.find(that.get('selectedPhoto').get('id'));
                 mega.then(function() {
                     if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
                     {

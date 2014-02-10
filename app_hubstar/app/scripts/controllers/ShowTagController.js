@@ -6,15 +6,18 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
     profiles: [], // the list of profiles that user own
     collections: [],
     product_name: "", //it is the product name
-    selectedDesc: "", //it is selected profile
+    selectedDesc: "", //it is selected profile title
     description: "", //it is the descriptioin of the product
     pic_x: "",
     pic_y: "",
-    selectedID: "",
+    tag_id: "", // it is used to update
+    selectedID: "", //it is selected profile id
     contentTags: "", //it is to save the every tag's content
     currentPhoto: "",
     linkTo: "", //the content link address
     photo_owner_user: [],
+    isUpdateTag: false,
+    selectedPhotoThumbnailUrl: "",
     needs: ["mega", "article", "collection", "applicationFeedback", "comment", "video"],
     ////////////////////////////////////////////////////////////////profileCollection: [],
 
@@ -23,7 +26,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
     selectionPop: false,
     newCollectionName: null,
     objectID: "",
-    selectedPhotoThumbnailUrl: "",
     parentTController: "",
     commentObject: '',
     isComment: false,
@@ -44,7 +46,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         this.set('selectTagProfile', false); // show list of profile
         var photo_id = this.get("photo_id");
         var selectedID = this.get("selectedID"); //the selected profile id
-        if (selectedID === "")
+        if (selectedID === ""||selectedID===null||selectedID===undefined)
         {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please select the profile before save.", "warnning");
         }
@@ -62,9 +64,8 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             tagInfo = JSON.stringify(tagInfo);
             var newTag = new Array();
             var that = this;
-
             requiredBackEnd('showTag', 'saveTag', tagInfo, 'POST', function(params) {
-                //set the model , data come from the front end rather than the get from the back end
+//set the model , data come from the front end rather than the get from the back end
                 newTag["tag_id"] = tag_id;
                 newTag["profile_id"] = selectedID;
                 newTag["product_name"] = product_name;
@@ -75,14 +76,13 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 newTag["link_to_click_count"] = 0;
                 newTag["tag_time"] = time_stamp;
                 newTag["tag_approved"] = false;
-
                 if (that.get("contentTags") !== null && that.get("contentTags") !== "" && that.get("contentTags") !== undefined)
                 {
                     that.get("contentTags").pushObject(newTag);
                     that.createNotification(newTag, mega);
                 }
-                //reset the value
-                //  that.setTagIcon(pic_x, pic_y, tag_id); //set the tag icon location
+//reset the value
+//  that.setTagIcon(pic_x, pic_y, tag_id); //set the tag icon location
                 that.get("controllers.mega").set("showRequestTag", true);
                 that.setDescription("");
                 that.setLinkTo("");
@@ -93,13 +93,13 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             });
         }
     },
+ 
     activateUserTag: function(tag_id, photo_id)
     {
         /*************set the model data***********/
         var tagInfo = [tag_id, photo_id];
         tagInfo = JSON.stringify(tagInfo);
         var that = this;
-
         requiredBackEnd('showTag', 'activateTag', tagInfo, 'POST', function(params) {
             that.readTags(photo_id);
         });
@@ -151,7 +151,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                     }
                 }
                 this.set("photo_owner_user", profile_owner_ids);
-
             }
 
         }
@@ -164,26 +163,21 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         var login_user_name = currentUser.get("display_name"); // current login user id
         var photo_owner = mega.get("owner_id"); //photo owner's profile id 
         var photo_type = mega.get("owner_type");
-
         this.getCurrentOwner(photo_owner, login_user_id);
         var current_owners = this.get("photo_owner_user"); // the photo owners
         var linkToCompany = newTag["linkto"];
         var time_stamp = newTag["tag_time"];
         var photo_id = this.get("photo_id");
-
-
-        var tempComment = [current_owners, login_user_id, time_stamp, photo_id, document.URL, login_user_name,linkToCompany];
+        var tempComment = [current_owners, login_user_id, time_stamp, photo_id, document.URL, login_user_name, linkToCompany];
         tempComment = JSON.stringify(tempComment);
         var that = this;
         var dataNew = new Array();
         requiredBackEnd('showTag', 'createNotification', tempComment, 'POST', function(params) {
 
         });
-
         setTimeout(function() {
             $('#masonry_container').masonry("reloadItems");
         }, 200);
-
     },
     sentRequestEmail: function(newTag)
     {
@@ -211,35 +205,43 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             $(tagDiv).fadeIn();
             $(tagDiv).css({top: pic_y, left: pic_x});
         }, 500);
-
     },
     readTags: function(photo_id)
     {
         var mega = HubStar.Mega.find(this.get("photo_id"));
-
         this.set("currentPhoto", mega);
         var tagInfo = [photo_id];
         tagInfo = JSON.stringify(tagInfo);
         var newTag = new Array();
         var that = this;
         requiredBackEnd('showTag', 'readTag', tagInfo, 'POST', function(params) {
-            //set the model
-            that.set("contentTags", params);
-            that.get("controllers.mega").set("contentTags", params);
-            var tags = params;
-            setTimeout(function() {
-                if (tags !== undefined && tags !== "" && tags !== null)
-                {
-                    for (var i = 0; i < tags.length; i++)
+//set the model
+            if (params !== "" && params !== undefined && params !== null)
+            {
+                that.set("contentTags", params);
+                that.get("controllers.mega").set("tagCount", params.get("length"));
+                that.get("controllers.mega").set("contentTags", params);
+                var tags = params;
+                setTimeout(function() {
+                    if (tags !== undefined && tags !== "" && tags !== null)
                     {
-                        var tagDiv = "#tag_" + tags[i].tag_id;
-                        $(tagDiv).css({top: tags[i].pic_y, left: tags[i].pic_x});
-                        //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
+                        for (var i = 0; i < tags.length; i++)
+                        {
+                            var tagDiv = "#tag_" + tags[i].tag_id;
+                            $(tagDiv).css({top: tags[i].pic_y, left: tags[i].pic_x});
+                            //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
+                        }
                     }
                 }
+                , 15);
             }
-            , 10);
         });
+
+    },
+    cancelUpdateTag: function()
+    {
+        this.set("isUpdateTag", false);
+        this.cancelTag();
     },
     cancelTag: function()
     {

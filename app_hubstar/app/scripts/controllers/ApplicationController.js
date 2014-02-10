@@ -118,7 +118,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
                 that.setContent(results);
-                
+
                 if (results.get("length") === 0) {
                     that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
                 }
@@ -126,7 +126,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         });
 
     },
-    setContent: function(results)
+    setContent: function(results, flag)
     {
         for (var i = 0; i < results.get("length"); i++) {
             var tempmega = results.objectAt(i);
@@ -147,7 +147,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var that = this;
         setTimeout(function() {
             that.getAds();
-            that.relayout();
+            if (flag === "default") {
+                that.relayoutDefault();
+               
+            }
+            else {
+                that.relayout();
+            }
         }, 100);
 
     },
@@ -172,7 +178,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 HubStar.set('itemNumber', megasResults.get("length"));
                 that.setContent(megasResults);
 
-                
+
                 that.set("from", that.get("size"));
 
                 var d = new Date();
@@ -204,9 +210,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
-                that.setContent(results);
-               
-
+                that.setContent(results, "default");
             }
         });
     },
@@ -707,13 +711,24 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     relayout: function()
     {
-        var that =this;
+        var that = this;
         setTimeout(function() {
             $('#masonry_container').masonry("reloadItems");
             setTimeout(function() {
-                 $('#masonry_container').masonry();
-                 that.set('loadingTime', false);
-            },1000);
+                $('#masonry_container').masonry();
+                that.set('loadingTime', false);
+            }, 1000);
+        }, 250);
+    },
+    relayoutDefault: function()
+    {
+        var that = this;
+        setTimeout(function() {
+            $('#masonry_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_container').masonry();
+                that.set('loadingTime', false);
+            }, 2500);
         }, 250);
     },
     getAds: function() {

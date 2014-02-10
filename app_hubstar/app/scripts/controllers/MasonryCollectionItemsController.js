@@ -365,6 +365,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
         var pics = HubStar.Mega.find({RquireType: "profileCollection", user_id: owner_id, collection_id: title});
         var that = this;
+        this.set("loadingTime",true);
         pics.addObserver('isLoaded', function() {
             if (pics.get('isLoaded')) {
                 for (var i = 0; i < this.get("content").length; i++) {
@@ -376,8 +377,9 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                     $('#masonry_photo_collection_container').masonry("reloadItems");
                     setTimeout(function() {
                         $('#masonry_photo_collection_container').masonry();
+                        that.set("loadingTime",false);
                     }, 300);
-                }, 800);
+                }, 1500);
             }
         });
     },

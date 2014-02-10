@@ -448,7 +448,7 @@ HubStar.UserFollowersController = Ember.Controller.extend({
             setTimeout(function() {
                 $('#masonry_user_container').masonry();
             }, 400);
-        }, 200);
+        }, 300);
     }
 
 }

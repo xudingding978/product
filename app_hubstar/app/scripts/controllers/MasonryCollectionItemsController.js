@@ -41,18 +41,33 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         }
         var results = HubStar.Mega.find({RquireType: "personalCollection", user_id: user_id, collection_id: collection_id});
         var that = this;
+        this.set("loadingTime", false);
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
                 for (var i = 0; i < this.get("content").length; i++) {
                     var tempObject = results.objectAt(i);
                     that.get("content").pushObject(tempObject);
                 }
-                setTimeout(function() {
-                    $('#masonry_photo_collection_container').masonry("reloadItems");
+                $(document).ready(function() {
                     setTimeout(function() {
-                        $('#masonry_photo_collection_container').masonry();
-                    }, 200);
-                }, 800);
+                        for (var i = 0; i < results.get("length"); i++) {
+                            var tempmega = results.objectAt(i);
+                            if (tempmega.get("getPhoto") === true || tempmega.get("getArticle") === true)
+                            {
+                                if (tempmega.get("object_image_url") !== null) {
+                                    var url = tempmega.get("object_image_url").split("_");
+                                    var length = url.length;
+                                    var size = url[length - 1].split(".")[0].split("x")[1];
+                                    if (size !== undefined)
+                                    {
+                                        $("#init_photo_" + tempmega.get("id")).css({height: size});
+                                    }
+                                }
+                            }
+                        }
+                        that.relayout();
+                    }, 5);
+                });
             }
         });
         this.checkEditingMode();
@@ -245,9 +260,11 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         }
     },
     reLayout: function() {
+        var that = this;
         setTimeout(function() {
             $('#masonry_photo_collection_container').masonry("reloadItems");
             setTimeout(function() {
+                that.set("loadingTime", false);
                 $('#masonry_photo_collection_container').masonry();
             }, 300);
         }, 800);
@@ -365,21 +382,33 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
         var pics = HubStar.Mega.find({RquireType: "profileCollection", user_id: owner_id, collection_id: title});
         var that = this;
-        this.set("loadingTime",true);
+        this.set("loadingTime", true);
         pics.addObserver('isLoaded', function() {
             if (pics.get('isLoaded')) {
                 for (var i = 0; i < this.get("content").length; i++) {
                     var tempObject = pics.objectAt(i);
                     that.get("content").pushObject(tempObject);
                 }
-                setTimeout(function() {
-//                    //$('#masonry_photo_collection_container').masonry("reload");
-                    $('#masonry_photo_collection_container').masonry("reloadItems");
+                $(document).ready(function() {
                     setTimeout(function() {
-                        $('#masonry_photo_collection_container').masonry();
-                        that.set("loadingTime",false);
-                    }, 300);
-                }, 1500);
+                        for (var i = 0; i < results.get("length"); i++) {
+                            var tempmega = results.objectAt(i);
+                            if (tempmega.get("getPhoto") === true || tempmega.get("getArticle") === true)
+                            {
+                                if (tempmega.get("object_image_url") !== null) {
+                                    var url = tempmega.get("object_image_url").split("_");
+                                    var length = url.length;
+                                    var size = url[length - 1].split(".")[0].split("x")[1];
+                                    if (size !== undefined)
+                                    {
+                                        $("#init_photo_" + tempmega.get("id")).css({height: size});
+                                    }
+                                }
+                            }
+                        }
+                        that.relayout();
+                    }, 5);
+                });
             }
         });
     },

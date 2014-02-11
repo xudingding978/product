@@ -21,10 +21,8 @@ HubStar.SearchsRoute = Ember.Route.extend({
                     localStorage.checkUser = "";
                     $(window).scrollTop(0);
                     location.href = '/#/search';
-
                 });
             }, 5500);
-
         }
         else {
             localStorage.checkUser = "";

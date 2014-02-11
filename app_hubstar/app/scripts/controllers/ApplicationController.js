@@ -72,7 +72,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }
             HubStar.set('ads', array);
             that.set("pageCount", 0);
-            that.defaultSearch();
+            var address = document.URL;
+            var search_id = address.split("#")[1].split("/")[2];
+            if (search_id === "default")
+            {
+                that.defaultSearch();
+            }
         });
         HubStar.set("escVideo", false);
         this.set('search_string', '');
@@ -101,8 +106,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("test", !this.get("test"));
     },
     scrollDownAction: function() {
-        this.set('loadingTime', true);
-        this.set("size", 12);
+        //this.set('loadingTime', true);
+        HubStar.set("scrollDownSearch",true);
+        this.set("size", 15);
         if (this.get("searchFromTopic") === false)
         {
             this.set("pageCount", this.get("pageCount") + 1);
@@ -145,25 +151,41 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.pushObject(tempmega);
         }
         var that = this;
-        setTimeout(function() {
-            that.getAds();
-            if (flag === "default") {
-                that.relayoutDefault();
-               
-            }
-            else {
-                that.relayout();
-            }
-        }, 100);
-
+        $(document).ready(function() {
+            setTimeout(function() {
+                for (var i = 0; i < results.get("length"); i++) {
+                    var tempmega = results.objectAt(i);
+                    if (tempmega.get("getPhoto") === true || tempmega.get("getArticle") === true)
+                    {
+                        if (tempmega.get("object_image_url") !== null) {
+                            var url = tempmega.get("object_image_url").split("_");
+                            var length = url.length;
+                            var size = url[length - 1].split(".")[0].split("x")[1];
+                            if (size !== undefined)
+                            {
+                                $("#init_photo_" + tempmega.get("id")).css({height: size});
+                                //console.log(size);
+                            }
+                        }
+                    }
+                }
+                that.getAds();
+                if (flag === "default") {
+                    that.relayoutDefault();
+                }
+                else {
+                    that.relayout();
+                }
+            }, 5);
+        });
     },
     newSearch: function() {
         this.set("googletagCmd", []);
         this.set("content", []);
-
+        $(document).scrollTop();
         this.set("oldChildren", 0);
         this.set("from", 0);
-        this.set("size", 12);
+        this.set("size", 15);
         this.set('loadingTime', true);
         this.set("pageCount", 0);
         var d = new Date();
@@ -200,6 +222,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("googletagCmd", []);
         this.set("content", []);
         this.set("adPageNo", 0);
+        $(document).scrollTop();
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
         } else {
             this.set('loadingTime', true);
@@ -712,13 +735,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     relayout: function()
     {
         var that = this;
-        setTimeout(function() {
             $('#masonry_container').masonry("reloadItems");
             setTimeout(function() {
                 $('#masonry_container').masonry();
+                HubStar.set("scrollDownSearch",false);
                 that.set('loadingTime', false);
-            }, 1000);
-        }, 250);
+            }, 15);
     },
     relayoutDefault: function()
     {
@@ -728,8 +750,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             setTimeout(function() {
                 $('#masonry_container').masonry();
                 that.set('loadingTime', false);
-            }, 2500);
-        }, 250);
+            }, 50);
+        }, 50);
     },
     getAds: function() {
 

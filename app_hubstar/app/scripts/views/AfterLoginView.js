@@ -16,38 +16,68 @@ HubStar.AfterLoginView = Ember.View.extend({
         this.get('controller').transitionTo("indexIndex");
 
     },
-    
-    startTour:function(){
-     
-                  $("#profileDashboard").attr("style", "display:none");
-                $("#profilePanel").removeClass("panel");
-     //           $("#profileFront").removeClass("front");
-                $(".brand").addClass("tour-background");
-                $(".Geo-Filter").addClass("tour-background");
-                $("#login_detail").addClass("tour-background");
-                 $("#profileName").addClass("profileName");
-                
+    showUserDropDown: function() {
+        if ($('#user-dd-menu').css('display') === 'block') {
+            $("#user-dd-menu").attr("style", "padding: inherit; width: 165px; right: 56px; position: relative; top:30px;display:none");
+        }
+        else {
+            $("#user-dd-menu").attr("style", "padding: inherit; width: 165px; right: 56px; position: relative; top:30px;display:block");
+        }
+    },
+    userDisplaynone: function(checking) {
+        if (checking === "myUserProfile") {
+            location.href = this.get("controller").get("myUserProfile");
+            $("#user-dd-menu").attr("style", "display:none");
+
+        } else if (checking === "myMessageBoard") {
+            location.href = this.get("controller").get("myMessageBoard");
+            $("#user-dd-menu").attr("style", "display:none");
+
+        } else if (checking === "about") {
+
+            window.open('http://about.trendsideas.com/');
+            $("#user-dd-menu").attr("style", "display:none");
+
+        } else if (checking === "new") {
+            location.href = '#/profiles/new';
+            $("#user-dd-menu").attr("style", "display:none");
+
+        }
+
+    },
+    startTour: function() {
+
+        $("#user-dd-menu").attr("style", "display:none");
+
+        $("#profileDashboard").attr("style", "display:none");
+        $("#profilePanel").removeClass("panel");
+        //           $("#profileFront").removeClass("front");
+        $(".brand").addClass("tour-background");
+        $(".Geo-Filter").addClass("tour-background");
+        $("#login_detail").addClass("tour-background");
+        $("#profileName").addClass("profileName");
 
 
-                introJs().setOption('doneLabel', 'Next').start().oncomplete(function() {
-                    var address = document.URL;
-                    var urlName = address.split("#")[1].split("/")[1];
-                    var target = address.split("#")[1].split("/")[2];
-                    if (urlName === "users")
-                    {
-                        window.location.href = '/#/users/' + target;
-                        $(window).scrollTop(0);
-                        
-                    }
-                    else if (urlName === "profiles") {
-                        window.location.href = '/#/profiles/' + target;
-                        $(window).scrollTop(500);
-                    }
-                    else{
-                    window.location.href = '/#/search';
-                    $(window).scrollTop(0);
-                    }
-                });
+
+        introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
+            var address = document.URL;
+            var urlName = address.split("#")[1].split("/")[1];
+            var target = address.split("#")[1].split("/")[2];
+            if (urlName === "users")
+            {
+                window.location.href = '/#/users/' + target;
+                $(window).scrollTop(0);
+
+            }
+            else if (urlName === "profiles") {
+                window.location.href = '/#/profiles/' + target;
+                $(window).scrollTop(500);
+            }
+            else {
+                window.location.href = '/#/search';
+                $(window).scrollTop(0);
+            }
+        });
     }
 });
 

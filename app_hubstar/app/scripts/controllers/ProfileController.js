@@ -799,19 +799,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
             contactController.setSelectedMega(this.get('currentUserID'));
 
-
-            if (!this.get('contactChecking'))
-            {
                 document.getElementById("body_id").style.overflow = "hidden";
-            }
-            else {
-                document.getElementById("body_id").style.overflow = "auto";
-            }
+            
             this.set('contactChecking', !this.get('contactChecking'));
         }
     },
     closeContact: function() {
         this.set('contactChecking', false);
+        document.getElementById("body_id").style.overflow = "auto";
     },
     uploadImage: function() {
         var user = this.getCurrentProfile(this.get('currentUserID'));
@@ -1203,8 +1198,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             {
                 var size = "Your image size is " + width + "x" + height;
                 that.set('CurrentImageSize', size);
-                that.set('isCrop', true);
                 that.set('isUpload', true);
+                 that.set('isCrop', true);
 
             }
         });
@@ -1230,6 +1225,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     cropButton: function()
     {
+        
         this.set('cropsize', $('#panel').text());
         this.set('isPhotoUploadMode', false);
         this.set('isPhotoEditingMode', true);
@@ -1256,7 +1252,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var that = this;
         Ember.run.later(function() {
             crop(that.get('newStyleImageSource'));
-
         }, 0);
 
 
@@ -1289,16 +1284,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             'newStyleImageName': that.get('newStyleImageName'),
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': that.get('model.id')};
-                        that.set('loadingTime', true);
 
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
-                            //     $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoEditingMode', false);
                             that.set('isPhotoUploadMode', false);
-                            that.set('isFinished', true);
+                               that.set('isUpload', false);
                             that.set("isCrop", false);
                             that.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
                             that.set('loadingTime', false);
+                             that.set('isFinished', true);
                         });
 
                     }

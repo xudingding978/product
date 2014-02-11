@@ -34,6 +34,8 @@
             nextLabel: 'Next &rarr;',
             /* Previous button label in tooltip box */
             prevLabel: '&larr; Back',
+            /* Finish button label in tooltip box */
+            finishLabel: 'Finish',
             /* Skip button label in tooltip box */
             skipLabel: 'Skip',
             /* Done button label in tooltip box */
@@ -168,7 +170,7 @@
                     $(".Geo-Filter").removeClass("tour-background");
                     $("#login_detail").removeClass("tour-background");
                     //      $("#profileFront").addClass("front");
-                      $("#profileName").removeClass("profileName");
+                    $("#profileName").removeClass("profileName");
                     $("#profilePanel").addClass("panel");
                     $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
 
@@ -251,7 +253,7 @@
             $("#login_detail").removeClass("tour-background");
             $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
             $("#profilePanel").addClass("panel");
-             $("#profileName").removeClass("profileName");
+            $("#profileName").removeClass("profileName");
             //      $("#profileFront").addClass("front");
 
             return;
@@ -368,7 +370,7 @@
         var currentTooltipPosition = this._introItems[this._currentStep].position;
         switch (currentTooltipPosition) {
             case 'top':
-                tooltipLayer.style.left ='-' +  (_getOffset(targetElement).width+ 20) +  'px';
+                tooltipLayer.style.left = '-' + (_getOffset(targetElement).width + 20) + 'px';
                 tooltipLayer.style.top = '-' + (_getOffset(tooltipLayer).height + 10) + 'px';
                 arrowLayer.className = 'introjs-arrow bottom';
                 break;
@@ -385,7 +387,7 @@
                 // Bottom going to follow the default behavior
             default:
                 tooltipLayer.style.bottom = '-' + (_getOffset(tooltipLayer).height + 10) + 'px';
-                tooltipLayer.style.right =  '10px';
+                tooltipLayer.style.right = '10px';
                 arrowLayer.className = 'introjs-arrow top';
                 break;
         }
@@ -550,16 +552,24 @@
 
             //next button
             var nextTooltipButton = document.createElement('a');
-
             nextTooltipButton.onclick = function() {
                 if (self._introItems.length - 1 != self._currentStep) {
-                    _nextStep.call(self);
+                    _nextStep.call(self);      
+                }else if (self._introItems.length - 1 == self._currentStep) {
+                    _exitIntro.call(self, self._targetElement);
+                $(".brand").removeClass("tour-background");
+                $(".Geo-Filter").removeClass("tour-background");
+                $("#login_detail").removeClass("tour-background");
+                $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
+                $("#profilePanel").addClass("panel");
+                $("#profileName").removeClass("profileName");
+                //    $("#profileFront").addClass("front");
+                     $(window).scrollTop(0);
                 }
             };
 
             nextTooltipButton.href = 'javascript:void(0);';
             nextTooltipButton.innerHTML = this._options.nextLabel;
-
             //previous button
             var prevTooltipButton = document.createElement('a');
 
@@ -596,12 +606,14 @@
                 $("#login_detail").removeClass("tour-background");
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
-                 $("#profileName").removeClass("profileName");
+                $("#profileName").removeClass("profileName");
                 //    $("#profileFront").addClass("front");
             };
 
             buttonsLayer.appendChild(skipTooltipButton);
 
+           
+      
             //in order to prevent displaying next/previous button always
             if (this._introItems.length > 1) {
                 buttonsLayer.appendChild(prevTooltipButton);
@@ -618,14 +630,17 @@
             prevTooltipButton.className = 'introjs-button introjs-prevbutton introjs-disabled';
             nextTooltipButton.className = 'introjs-button introjs-nextbutton';
             skipTooltipButton.innerHTML = this._options.skipLabel;
+            nextTooltipButton.innerHTML = this._options.nextLabel;
         } else if (this._introItems.length - 1 == this._currentStep) {
             skipTooltipButton.innerHTML = this._options.doneLabel;
             prevTooltipButton.className = 'introjs-button introjs-prevbutton';
-            nextTooltipButton.className = 'introjs-button introjs-nextbutton introjs-disabled';
+            nextTooltipButton.className = 'introjs-button introjs-nextbutton';
+             nextTooltipButton.innerHTML = this._options.finishLabel;
         } else {
             prevTooltipButton.className = 'introjs-button introjs-prevbutton';
             nextTooltipButton.className = 'introjs-button introjs-nextbutton';
             skipTooltipButton.innerHTML = this._options.skipLabel;
+             nextTooltipButton.innerHTML = this._options.nextLabel;
         }
 
         //Set focus on "next" button, so that hitting Enter always moves you onto the next step
@@ -770,7 +785,7 @@
                 $("#login_detail").removeClass("tour-background");
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
-                 $("#profileName").removeClass("profileName");
+                $("#profileName").removeClass("profileName");
                 //      $("#profileFront").addClass("front");
 
                 //check if any callback is defined

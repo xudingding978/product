@@ -35,6 +35,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             this.setProfile("your profile");
             this.set('selectionPop', false);
         }
+        
         if (user.get("profiles") === undefined || user.get("profiles") === null || user.get("profiles").get("length") === 0)
         {
             this.set("isSaveTopProfile",false);

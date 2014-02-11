@@ -13,13 +13,15 @@ HubStar.PhotoView = Ember.View.extend({
         var mouseX = 0;
         var mouseY = 0;
         $('.next').mousedown(function(event) {
+            alert("00");
             if (event.which === 1) //2:middle 
             {
                 var url = window.location.href;
-                if (url.indexOf("articles") === -1)
+                if (url.indexOf("article") === -1)
                 {
+                    alert("22");
                     that.get("controller").set("contentTags", "");
-                     that.get("controller").get("controllers.showTag").set("contentTags", "");
+                    that.get("controller").get("controllers.showTag").set("contentTags", "");
                     var imgtag = $(this).parent(); // get the div to append the tagging entry
                     mouseX = event.pageX - $(imgtag).offset().left - 265; // x and y axis
                     mouseY = event.pageY - $(imgtag).offset().top - 45;
@@ -50,38 +52,40 @@ HubStar.PhotoView = Ember.View.extend({
                     that.get("controller").nextImage(event, mouseX, mouseY);
 
                 }
-            }
-            else
-            {
-                var imgtag = $(this).parent(); // get the div to append the tagging entry
-                mouseX = event.pageX - $(imgtag).offset().left - 265; // x and y axis
-                mouseY = event.pageY - $(imgtag).offset().top - 45;
-                console.log(mouseX);
-                that.get("controller").get("controllers.showTag").set("pic_x", mouseX); //set 
-                that.get("controller").get("controllers.showTag").set("pic_y", mouseY);
-                if (that.get("controller").get("controllers.article").get("enableTag") === true)
-                {
-
-
-                    that.get("controller").get("controllers.article").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
-                }
                 else
                 {
-                    // $(".next").css({display: block});
-                    that.get("controller").get("controllers.article").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
-                }
-                if (mouseY > 420)
-                {
-                    that.get("controller").get("controllers.showTag").set("change_tag_show", true); //chage tag show style
-                    mouseY = mouseY - 420;
-                }
-                else
-                {
-                    that.get("controller").get("controllers.showTag").set("change_tag_show", false);
-                }
+                    alert("33");
+                    var imgtag = $(this).parent(); // get the div to append the tagging entry
+                    mouseX = event.pageX - $(imgtag).offset().left - 265; // x and y axis
+                    mouseY = event.pageY - $(imgtag).offset().top - 45;
+                    console.log(mouseX);
+                    that.get("controller").get("controllers.showTag").set("pic_x", mouseX); //set 
+                    that.get("controller").get("controllers.showTag").set("pic_y", mouseY);
+                    if (that.get("controller").get("controllers.article").get("enableTag") === true)
+                    {
 
-                that.get("controller").get("controllers.article").nextImage(event, mouseX, mouseY);
+
+                        that.get("controller").get("controllers.article").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
+                    }
+                    else
+                    {
+                        // $(".next").css({display: block});
+                        that.get("controller").get("controllers.article").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
+                    }
+                    if (mouseY > 420)
+                    {
+                        that.get("controller").get("controllers.showTag").set("change_tag_show", true); //chage tag show style
+                        mouseY = mouseY - 420;
+                    }
+                    else
+                    {
+                        that.get("controller").get("controllers.showTag").set("change_tag_show", false);
+                    }
+
+                    that.get("controller").get("controllers.article").nextImage(event, mouseX, mouseY);
+                }
             }
+
 
         });
         $('.previous').mousedown(function(event) {
@@ -89,10 +93,10 @@ HubStar.PhotoView = Ember.View.extend({
             {
                 var url = window.location.href;
 
-                if (url.indexOf("articles") === -1)
+                if (url.indexOf("article") === -1)
                 {
                     that.get("controller").set("contentTags", "");
-                              that.get("controller").get("controllers.showTag").set("contentTags", "");
+                    that.get("controller").get("controllers.showTag").set("contentTags", "");
                     var imgtag = $(this).parent(); // get the div to append the tagging entry
                     mouseX = event.pageX - $(imgtag).offset().left - 265; // x and y axis
                     mouseY = event.pageY - $(imgtag).offset().top - 45;
@@ -120,38 +124,36 @@ HubStar.PhotoView = Ember.View.extend({
 
                     that.get("controller").previesImage(event, mouseX, mouseY);
 
+                } else
+                {
+                    var imgtag = $(this).parent(); // get the div to append the tagging entry
+                    mouseX = event.pageX - $(imgtag).offset().left - 265; // x and y axis
+                    mouseY = event.pageY - $(imgtag).offset().top - 45;
+                    that.get("controller").get("controllers.showTag").set("pic_x", mouseX);
+                    that.get("controller").get("controllers.showTag").set("pic_y", mouseY);
+                    if (that.get("controller").get("controllers.article").get("enableTag") === true)
+                    {
+
+                        that.get("controller").get("controllers.article").set("inImage", true);
+                    }
+                    else
+                    {
+                        //  $(".previous").attr('style', 'display:block');
+                        that.get("controller").get("controllers.article").set("inImage", false);
+                    }
+                    if (mouseY > 420)
+                    {
+                        mouseY = mouseY - 420;
+                        that.get("controller").get("controllers.showTag").set("change_tag_show", true);
+                    }
+                    else
+                    {
+                        that.get("controller").get("controllers.showTag").set("change_tag_show", false);
+                    }
+
+                    that.get("controller").get("controllers.article").previesImage(event, mouseX, mouseY);
                 }
             }
-            else
-            {
-                var imgtag = $(this).parent(); // get the div to append the tagging entry
-                mouseX = event.pageX - $(imgtag).offset().left - 265; // x and y axis
-                mouseY = event.pageY - $(imgtag).offset().top - 45;
-                that.get("controller").get("controllers.showTag").set("pic_x", mouseX);
-                that.get("controller").get("controllers.showTag").set("pic_y", mouseY);
-                if (that.get("controller").get("controllers.article").get("enableTag") === true)
-                {
-
-                    that.get("controller").get("controllers.article").set("inImage", true);
-                }
-                else
-                {
-                    //  $(".previous").attr('style', 'display:block');
-                    that.get("controller").get("controllers.article").set("inImage", false);
-                }
-                if (mouseY > 420)
-                {
-                    mouseY = mouseY - 420;
-                    that.get("controller").get("controllers.showTag").set("change_tag_show", true);
-                }
-                else
-                {
-                    that.get("controller").get("controllers.showTag").set("change_tag_show", false);
-                }
-
-                that.get("controller").get("controllers.article").previesImage(event, mouseX, mouseY);
-            }
-
         });
 
 

@@ -14,7 +14,21 @@ HubStar.ArticleController = Ember.Controller.extend({
     isShowPhotoUrl: false,
     accessFromSearchBoard: false, //false: access the articlePhoto  true: access the article
     isCreditListExist: false,
-    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems'],
+    ////
+    enableTag: false,
+    tagCount: 0,
+    hasTag: false,
+    makeSureActivateTag: false,
+    willActivate: false,
+    contentTags: "", //all the tags
+    showEachTagContent: false,
+    showAllTags: true, // users show the tag
+    inImage: false,
+    tag: [], //every tag content when click
+    enableEditTag: false, //enable  photo owner to edit the tag after activate the tag
+    showRequestTag: false, //show the tag after save and sent the request
+    showTagAfterSave: false, // show the tag icon afte approve
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems','showTag','mega'],
     init: function() {
         HubStar.set("readCaption", true);
     },
@@ -26,6 +40,36 @@ HubStar.ArticleController = Ember.Controller.extend({
             }
         }
         return 0;
+    },
+    /******* function name: enableTag
+     * parameter:
+     *  aim: it is to enable user to tag in the photo and can edit the photo
+     ***********************/
+    activateTag: function()
+    {
+        $("#pa").addClass("hideClass");
+        $("#na").addClass("hideClass");
+        this.get("controllers.showTag").set("photo_id", this.get('selectedPhoto').id); //set the selected photo's id
+
+        this.set("showRequestTag", false);
+        this.set("showTagAfterSave", false);
+        this.set("showEachTagContent", false);
+
+        this.set("enableTag", true);
+        
+    },
+        /******* function name: enableTag
+     * parameter:
+     *  aim: it is to enable user to tag in the photo
+     ***********************/
+    endTag: function()
+    {
+            $("#pa").removeClass("hideClass"); //remove the left and right icon
+        $("#na").removeClass("hideClass");
+        this.set("enableTag", false);
+        this.set("inImage", false);  //click the end tag recove the value
+        this.set("showTagAfterSave", false);
+    
     },
     previesImage: function() {
         if (!this.get('selectedPhoto')) {
@@ -105,6 +149,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
         this.set('image_no', selectedIndex + 1);
         this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
+        console.log(this.get('selectedPhoto').id);
         this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
         if (this.get("accessFromSearchBoard") === false)
         {
@@ -116,6 +161,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             }
             else
             {
+                console.log(this.get('megaResouce').get("photo"));
                 this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
             }
         }
@@ -258,15 +304,15 @@ HubStar.ArticleController = Ember.Controller.extend({
             megaResouce.set("view_count", megaData + 1);
         }
         megaResouce.store.save();
-        var that= this;
- setTimeout(function() {
-                that.set('articleResouce', megaResouce.get('article').objectAt(0));
-                that.set('article', megaResouce);
-                that.set('articleID', megaObject.id);
-                that.set('megaResouce', megaResouce);
-                that.addRelatedData(megaObject);
-                that.getCommentsById(megaObject.id);
-                that.checkCreditExist(megaResouce.get('article').objectAt(0).get('credits'));
+        var that = this;
+        setTimeout(function() {
+            that.set('articleResouce', megaResouce.get('article').objectAt(0));
+            that.set('article', megaResouce);
+            that.set('articleID', megaObject.id);
+            that.set('megaResouce', megaResouce);
+            that.addRelatedData(megaObject);
+            that.getCommentsById(megaObject.id);
+            that.checkCreditExist(megaResouce.get('article').objectAt(0).get('credits'));
         }, 1000);
     },
     checkCreditExist: function(credits) {

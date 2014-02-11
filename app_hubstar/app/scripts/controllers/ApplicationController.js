@@ -110,7 +110,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("test", !this.get("test"));
     },
     scrollDownAction: function() {
-        //this.set('loadingTime', true);
+        this.set('loadingTime', true);
         HubStar.set("scrollDownSearch", true);
         this.set("size", 30);
         if (this.get("searchFromTopic") === false)

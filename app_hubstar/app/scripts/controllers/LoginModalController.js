@@ -49,16 +49,30 @@ HubStar.LoginModalController = Ember.Controller.extend({
                 }// INVALID user name when the user attempts to login.
 
 
-                else if (params === 0) {
-
+                 else if (params === 0) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
-
-
+                    that.set('loginTime', false);
                     $('.black-tool-tip').css('display', 'none');
-                    $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
-
-
-                } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is a social network login account
+                    $('#invalid-account-type-facebook').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Facebook account
+               else  if (params === 3) {
+                    document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                    that.set('loginTime', false);
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-account-type-twitter').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Twitter account
+                 else if (params === 4) {
+                    document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                    that.set('loginTime', false);
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-account-type-google').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Google account
+               else  if (params === 5) {
+                    document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                    that.set('loginTime', false);
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-account-type-linkedin').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Linkedin account
                 else {
 
                     if (that.get('loginPassword') === params[0]["PWD_HASH"] && that.get('loginPassword') !== undefined) {

@@ -31,6 +31,7 @@ and (max-device-width : 1024px)  {
     
     div.Register-Page{
         z-index:999;
+        position:relative;
     }
     /* Register page */
     
@@ -44,7 +45,23 @@ and (max-device-width : 1024px)  {
     }
     /* misc */
     
-   
+    #login_details{
+         margin-right: 175px;
+     }
+     #top-about-menu span{
+         margin-right:0px;
+     }
+     
+     #search-bar .Search-box{
+         width:60%;
+     }
+     #geoDropdown{
+         left:-60px;
+         top:5px
+     }
+     .popular-topics>div{
+         padding:5px 5px;
+     }
 
     
     
@@ -87,8 +104,27 @@ and (-webkit-min-device-pixel-ratio: 1)  {
     
     div.Register-Page{
         z-index:999;
+          position:relative;
     }
     /* Register page */
+    
+     #login_details{
+         margin-right: 175px;
+     }
+     #top-about-menu span{
+         margin-right:0px;
+     }
+     
+     #search-bar .Search-box{
+         width:60%;
+     }
+     #geoDropdown{
+         left:-60px;
+         top:5px
+     }
+     .popular-topics>div{
+         padding:5px 5px;
+     }
 }/* iPad mini in portrait & landscape  ENDS*/
 
 /* iPad mini in landscape */
@@ -157,6 +193,7 @@ and (max-device-width : 568px) {
     
     div.Register-Page{
         z-index:999;
+          position:relative;
     }
     /* Register page */
     
@@ -169,6 +206,24 @@ and (max-device-width : 568px) {
         opacity:1;
     }
      /* misc */
+     
+      #login_details{
+         margin-right: 175px;
+     }
+     #top-about-menu span{
+         margin-right:0px;
+     }
+     
+     #search-bar .Search-box{
+         width:60%;
+     }
+     #geoDropdown{
+         left:-60px;
+         top:5px
+     }
+     .popular-topics>div{
+         padding:5px 5px;
+     }
      
 }
 
@@ -231,6 +286,7 @@ and (max-device-width : 480px) {
     
     div.Register-Page{
         z-index:999;
+          position:relative;
     }
     /* Register page */
     
@@ -243,6 +299,23 @@ and (max-device-width : 480px) {
         opacity:1;
     }
      /* misc  */
+      #login_details{
+         margin-right: 175px;
+     }
+     #top-about-menu span{
+         margin-right:0px;
+     }
+     
+     #search-bar .Search-box{
+         width:60%;
+     }
+     #geoDropdown{
+         left:-60px;
+         top:5px
+     }
+     .popular-topics>div{
+         padding:5px 5px;
+     }
      
 }
 

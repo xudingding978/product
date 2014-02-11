@@ -6,7 +6,7 @@ header('Content-type: *');
 header('Access-Control-Request-Method: *');
 header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-
+Yii::import('ext.runactions.components.ERunActions');
 class ProfilesController extends Controller {
 
     const JSON_RESPONSE_ROOT_SINGLE = 'profile';
@@ -66,7 +66,7 @@ class ProfilesController extends Controller {
     }
 
     public function actionCreate() {
-        try {
+        try {            
             $request_json = file_get_contents('php://input');
             $request_arr = CJSON::decode($request_json, true);
             $tempProfile = $request_arr['profile'];
@@ -157,7 +157,6 @@ class ProfilesController extends Controller {
             if ($oldRecord['profile'][0]['profile_package_name'] !== $newRecord['profile_package_name']) {
                 $oldRecord['profile'][0]['profile_package_name'] = $newRecord['profile_package_name'];
                 $boost = $this->setBoost($newRecord['profile_package_name']);
-                error_log(var_export($boost, true));
                 $oldRecord['profile'][0]['profile_boost'] = $boost;
                 $setPhotoBoost = TRUE;
             } else {
@@ -182,23 +181,100 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['show_template'] = $newRecord['show_template'];
             
             $oldRecord['profile'][0]['show_keyword_id'] = $newRecord['show_keyword_id'];
-            $cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true));
-            error_log($setProfileName);
+            $cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true));           
             if ($setProfileName) {
-                $this->setProfileName($newRecord['profile_name'], $oldRecord['profile'][0]['id']);
+//                ERunActions::touchUrlExt('http://api.develop.trendsideas.com/profiles/backgroundProcess',$postData=null,$contentType=null,$httpClientConfig=array());
+                ERunActions::httpPOST('http://api.develop.trendsideas.com/profiles/backgroundProcess',array('profile_id'=>$oldRecord['profile'][0]['id'],'profile_name'=>$newRecord['profile_name']));
             }
-            if ($setPhotoBoost) {
-                $this->setPhotoBoost($oldRecord['profile'][0]['profile_boost'], $oldRecord['profile'][0]['id']);
-            }
-
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
             }
+//            error_log($setProfileName);
+//            if ($setProfileName) {
+//                $this->setProfileName($newRecord['profile_name'], $oldRecord['profile'][0]['id']);
+//            }
+//            if ($setPhotoBoost) {
+//                $this->setPhotoBoost($oldRecord['profile'][0]['profile_boost'], $oldRecord['profile'][0]['id']);
+//            }
         } catch (Exception $exc) {
-            
+            error_log($exc);
         }
     }
+    
+    public function actionBackgroundProcess() {
+        $profile_id = filter_input(INPUT_POST,"profile_id",FILTER_SANITIZE_STRING);
+        $profile_name = filter_input(INPUT_POST,"profile_name",FILTER_SANITIZE_STRING);                    
+//        $response = $this->getProfileReults($profile_id);
+        if (ERunActions::runBackground()) {
+//            $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+//            $log_path = "error_log/".$start_time."log";
+            $log_path = "/var/log/nginx/error.log";
+//            $this->writeToLog($log_path, $profile_name);
+            $data_arr = $this->findAllAccordingOwner($profile_id);
+            while (sizeof($data_arr) > 0) {
+                try {
+//                $this->writeToLog($log_path, 'loop'.  sizeof($data_arr));
+                $data_arr = $this->modifyOwnerID($data_arr, $profile_name, $log_path);
+                } catch (Exception $e) {
+//                    $this->writeToLog($log_path, 'error when loop');
+                }
+            }
+        }
+//        error_log('background');
+//        error_log(filter_input(INPUT_POST,"profile_name",FILTER_SANITIZE_STRING));
+    }
+    
+    public function modifyOwnerID($data_arr, $profile_name, $log_path) {
+        $cb = $this->couchBaseConnection();   
+                     
+         for ($i = 0; $i < sizeof($data_arr); $i ++) {                          
+            try {
+            $docID = $data_arr[$i];
+//            $this->writeToLog('/var/log/nginx/backprocess.log', $docID);
+            $profileOwn = $cb->get($docID);
 
+//            $this->writeToLog('/var/log/nginx/backprocess.log', $docID . ' get');
+            $owner = CJSON::decode($profileOwn, true);
+//            $this->writeToLog('/var/log/nginx/backprocess.log', $docID. 'decode');
+
+                $owner['owner_title'] = $profile_name;
+                if ($cb->set($docID, CJSON::encode($owner))) {
+                    array_splice($data_arr, $i, 1);
+//                    $this->writeToLog($log_path, $docID . 'update success');
+                } else {
+//                    $this->writeToLog($log_path, $docID . 'update fail'.'since');
+                }
+            } catch(Exception $e) {                    
+//                $this->writeToLog($log_path, 'error when get data');
+            }
+
+         }
+         return $data_arr;
+    }
+
+     public function findAllAccordingOwner($owner_id) {
+        $request = $this->getElasticSearch();
+        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"$owner_id\"")
+                ->default_field('couchbaseDocument.doc.owner_id');
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        $data_arr = array();
+        for ($i = 0; $i < 2000; $i++) {
+            $request->from($i * 50)
+                    ->size(50);
+            $request->query($bool);
+            $response = $request->execute();
+            foreach ($response as $hit) {
+                //     echo $hit["score"] . ' - ' . $hit['id'] . "\r\n";
+                array_push($data_arr, $hit['id']);
+//                 $this->writeToLog('/var/log/nginx/backprocess.log', $hit['id']);
+            }
+            if (sizeof($response) == 0) {
+                $i = 2000;
+            }
+        }
+        return $data_arr;
+     }
+    
     public function setBoost($package_name) {
         $domain = $this->getDomain();
         $configuration = $this->getProviderConfigurationByName($domain, "package_details");
@@ -206,7 +282,7 @@ class ProfilesController extends Controller {
         return $boost;
     }
 
-    public function setPhotoBoost($boost, $profile_id) {
+    public function actionSetPhotoBoost($boost, $profile_id) {
         $response = $this->getProfileReults($profile_id);
         $responseArray = array();
         foreach ($response as $hit) {
@@ -228,8 +304,11 @@ class ProfilesController extends Controller {
         }
     }
 
-    public function setProfileName($profile_name, $profile_id) {
-        error_log('setProfileName');
+    public function actionSetProfileName() {
+        $payloads_arr = CJSON::decode(file_get_contents('php://input'));
+        $infoDel = CJSON::decode($payloads_arr, true);
+        $profile_name = $infoDel[0];
+        $profile_id = $infoDel[1];
         $response = $this->getProfileReults($profile_id);
         $responseArray = array();
         foreach ($response as $hit) {
@@ -253,7 +332,6 @@ class ProfilesController extends Controller {
 
     public function actionGoogleMap() {
         $payloads_arr = CJSON::decode(file_get_contents('php://input'));
-        error_log(var_export($payloads_arr, true));
         $googleMap = $payloads_arr[0];
         $id = $payloads_arr[1];
         $cb = $this->couchBaseConnection();
@@ -300,17 +378,14 @@ class ProfilesController extends Controller {
         if ($mode == 'profile_hero') {
             $oldRecord['profile'][0]['profile_hero_url'] = null;
             $oldRecord['profile'][0]['profile_hero_url'] = $url;
-            error_log(var_export($url, true));
         } elseif
         ($mode == 'background') {
             $oldRecord['profile'][0]['profile_bg_url'] = null;
             $oldRecord['profile'][0]['profile_bg_url'] = $url;
-            error_log(var_export($url, true));
         } elseif
         ($mode == 'profile_picture') {
             $oldRecord['profile'][0]['profile_pic_url'] = null;
             $oldRecord['profile'][0]['profile_pic_url'] = $url;
-            error_log(var_export($url, true));
         }
 
         if ($mode == 'profile_hero') {
@@ -334,6 +409,16 @@ class ProfilesController extends Controller {
             $cb->set($url, $tempUpdateResult);
             $this->sendResponse(500, 'something wrong');
         }
+    }
+    
+        public function writeToLog($fileName, $content) {
+//   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
+        $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
+        $output = "\n" . $content;
+        fwrite($handle, $output);
+        fclose($handle);
+
+        unset($fileName, $content, $handle, $output);
     }
 
 }

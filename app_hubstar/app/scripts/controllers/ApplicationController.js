@@ -237,8 +237,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var that = this;
         requiredBackEnd('login', 'verify', emailVerify, 'POST', function(params) {
             localStorage.loginStatus = params;
+            localStorage.checkUser = "newUser";
             HubStar.set("isLogin", true);
+
             that.transitionToRoute("searchIndex");
+
+
         });
 
 
@@ -299,6 +303,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
 
     },
+    encrypt: function(encryptString) {
+        var tempstr = '';
+        for (var a = 0; a < encryptString.length; a++) {
+            tempstr = tempstr + (parseInt(encryptString.charCodeAt(a).toString(16), 16) + 10).toString(16);
+        }
+        return tempstr;
+    },
     done: function() {
         this.set('loginTime', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age'), this.get('selected_topics')];
@@ -310,7 +321,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             that.set('loginUsername', localStorage.userName);
             localStorage.userType = "email";
             localStorage.loginState = "login";
-            var emailInfo = [params.USER_NAME, params.PWD_HASH];
+
+            var emailInfo = [params.USER_NAME, that.encrypt(params.USER_NAME), that.encrypt(params.PWD_HASH)];
             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
 
             });
@@ -537,8 +549,26 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                     that.set('loginTime', false);
                     $('.black-tool-tip').css('display', 'none');
-                    $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
-                } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is a social network login account
+                    $('#invalid-account-type-facebook').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Facebook account
+                else if (params === 3) {
+                    document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                    that.set('loginTime', false);
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-account-type-twitter').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Twitter account
+                else if (params === 4) {
+                    document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                    that.set('loginTime', false);
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-account-type-google').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Google account
+                else if (params === 5) {
+                    document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                    that.set('loginTime', false);
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-account-type-linkedin').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Linkedin account
                 else {
 
 
@@ -557,15 +587,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
                             if (localStorage.loginStatus)
                             {
-                                if ((params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== "undefined" 
-                                        || (params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== "" 
-                                        || (params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== null )
+                                if ((params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== "undefined"
+                                        || (params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== ""
+                                        || (params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== null)
                                 {
-                                   
+
                                     that.set("is_trends_user", true);
                                 }
                                 else {
-                                    
+
                                     that.set("is_trends_user", false);
                                 }
                             }

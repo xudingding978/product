@@ -163,6 +163,7 @@ HubStar.UserFollowersController = Ember.Controller.extend({
         {
             follow_object.set("following_status", false);
         }
+        if(localStorage.loginStatus !==null && localStorage.loginStatus!==""&&localStorage.loginStatus!==undefined){
         for (var j = 0; j < followersCurrent.get("length"); j++)
         {
             followerIdCurrent = followersCurrent.objectAt(j).get("follower_id");
@@ -183,6 +184,8 @@ HubStar.UserFollowersController = Ember.Controller.extend({
                 }
             }
         }
+        
+    }
     },
     followUser: function(user_id, that, follow_object) {
 

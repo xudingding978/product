@@ -52,9 +52,10 @@ HubStar.ProfileRoute = Ember.Route.extend({
 
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
-        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-
+        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)"); 
         ProfileController.setProfile(model.id);
+
+        
 //        var address = document.URL;
 //        var urlArray = address.split("#")[1].split("/");
 //        if (urlArray.length < 4)

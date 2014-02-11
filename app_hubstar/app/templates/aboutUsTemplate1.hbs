@@ -2,7 +2,7 @@
 <!--EDIT MODE-->
 {{#if controller.editingAbout}}
 <div>
-    {{#each about_us}}
+    {{#each controller.about_us}}
     <div>Description: </div>
     <div>{{view Ember.TextArea valueBinding="about_desc" class="no-resize"  placeholder="*"}}</div> 
 

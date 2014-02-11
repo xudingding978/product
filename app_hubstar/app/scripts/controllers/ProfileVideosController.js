@@ -6,19 +6,19 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
     isRenderDeleteItemTemplate: false,
     needs: ['profile', 'permission', 'applicationFeedback'],
     getClientId: function(model) {
-
         var results = HubStar.Mega.find({"RquireType": "video", 'ownerid': model.get("id")});
+
         var that = this;
-        results.addObserver('isLoaded', function() {
-            if (results.get('isLoaded')) {
-                that.set('videoesContent', []);
-                for (var i = 0; i < results.get("length"); i++) {
-                    var tempmega = results.objectAt(i);
-                    that.get("videoesContent").pushObject(tempmega);
-                }              
-                that.get("controllers.profile").set("profileVideoStatistics", results.get("length"));
-                that.relayout();
+        this.set("loadingTime",true);
+        results.then(function() {
+            that.set('videoesContent', []);
+            for (var i = 0; i < results.get("length"); i++) {
+                var tempmega = results.objectAt(i);
+                that.get("videoesContent").pushObject(tempmega);
             }
+            that.get("controllers.profile").set("profileVideoStatistics", results.get("length"));
+            that.set("loadingTime",false);
+            that.relayout();
         });
         this.checkEditingMode();
     },
@@ -101,10 +101,10 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
                 tempmega.deleteRecord();
                 tempmega.store.save();
                 this.get('videoesContent').removeObject(tempmega);
-                 var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
-                
-                profile.set("profile_video_num",this.get('videoesContent').get("length"));
-               
+                var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
+
+                profile.set("profile_video_num", this.get('videoesContent').get("length"));
+
                 profile.store.save();
                 this.get("controllers.profile").set("profileVideoStatistics", this.get('videoesContent').get("length"));
                 break;

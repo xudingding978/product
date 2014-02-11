@@ -115,11 +115,11 @@
         {{#each about_book}}
         <div style="font-size: 15px; font-weight: bold"><a>{{book_description}}</a></div> 
         <div class="latestebook" style = "max-width: 180px;"> 
-            {{#if this.display_size}}
-             <img alt="" {{bindAttr src="book_image_url"}} style=" width: 100%;"> 
-             {{else}}
+            {{#unless this.display_size}}
              <img alt="" {{bindAttr src="book_image_url"}} style=" width: 75%;"> 
-             {{/if}}
+             {{else}}
+             <img alt="" {{bindAttr src="book_image_url"}} style=" width: 100%;"> 
+             {{/unless}}
             <div class="latestebook-control easing">
                 {{#if this.read_available}}
                 <a rel="nofollow" target="_blank" {{bindAttr href="book_read_url"}} class="new-btn">Read</a> 

@@ -73,10 +73,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             HubStar.set('ads', array);
             that.set("pageCount", 0);
             var address = document.URL;
-            var search_id = address.split("#")[1].split("/")[2];
-            if (search_id === "default")
-            {
-                that.defaultSearch();
+
+            var search_id = address.split("#")[1];
+            if (search_id!==undefined){
+                var search = search_id.split("/")[2];
+                if (search === "default")
+                {
+                    that.defaultSearch();
+                }
             }
         });
         HubStar.set("escVideo", false);
@@ -107,7 +111,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     scrollDownAction: function() {
         //this.set('loadingTime', true);
-        HubStar.set("scrollDownSearch",true);
+        HubStar.set("scrollDownSearch", true);
         this.set("size", 30);
         if (this.get("searchFromTopic") === false)
         {
@@ -124,10 +128,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
                 that.setContent(results);
-                HubStar.set("scrollDownSearch",false);
+                HubStar.set("scrollDownSearch", false);
                 if (results.get("length") === 0) {
                     that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
-                    HubStar.set("scrollDownSearch",true);
+                    HubStar.set("scrollDownSearch", true);
                 }
             }
         });
@@ -193,7 +197,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var start = d.getTime();
         var that = this;
         var statusController = this.get('controllers.status');
-        HubStar.set("scrollDownSearch",false);
+        HubStar.set("scrollDownSearch", false);
         var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation')});
         stats.addObserver('isLoaded', function() {
             if (stats.get('isLoaded')) {
@@ -727,21 +731,23 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         for (var i = 0; i < ads.length; i++) {
             var ad = ads[i];
+            var height = ad.size[1];
             var div_id = ad.div + "_box";
             var x = document.getElementById(div_id);
             x.style.display = "block";
             x.className += " box";
 
+            x.style.height = height + "px";
         }
     },
     relayout: function()
     {
         var that = this;
-            $('#masonry_container').masonry("reloadItems");
-            setTimeout(function() {
-                $('#masonry_container').masonry();               
-                that.set('loadingTime', false);
-            }, 15);
+        $('#masonry_container').masonry("reloadItems");
+        setTimeout(function() {
+            $('#masonry_container').masonry();
+            that.set('loadingTime', false);
+        }, 5);
     },
     relayoutDefault: function()
     {
@@ -775,6 +781,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 masonrybox.textAlign = "center";
                 masonrybox.className = "colAd noStyle1";
                 masonrybox.style.display = "none";
+                //masonrybox.height = height;
                 var adDiv = document.createElement('div');
                 adDiv.id = ad.div;
                 masonrybox.appendChild(adDiv);

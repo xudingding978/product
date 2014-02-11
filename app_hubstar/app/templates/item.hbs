@@ -52,8 +52,9 @@
     <div class="masonry-object_mainfeature">
         <div class="mainfeature-wrapper">
             <a class="mainfeature-container" href="#/photos/{{unbound id}}" style="cursor: pointer">
-
-                <img id="init_photo_{{unbound id}}" class="this-is-the-object" {{bindAttr src="object_image_url" }} {{action transitionToPhoto id}} />
+                <div id="init_photo_{{unbound id}}">
+                    <img  class="this-is-the-object" {{bindAttr src="object_image_url" }} {{action transitionToPhoto id}} />
+                </div>
             </a>
 
             <span class='edit-object easing' style="position: absolute;margin: 10px; top: 11px;left: 115px;">
@@ -309,7 +310,7 @@
         <div class="mainfeature-wrapper">
             <a class="mainfeature-container" href="#/articles/{{unbound id}}" >
                 <div id="init_photo_{{unbound id}}">
-                {{#if controller.isUser}}             
+                    {{#if controller.isUser}}             
                     <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToPhoto id}} />
                          {{else}}
                          <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} /> <!--it is the cover of the article-->

@@ -108,7 +108,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     scrollDownAction: function() {
         //this.set('loadingTime', true);
         HubStar.set("scrollDownSearch",true);
-        this.set("size", 15);
+        this.set("size", 30);
         if (this.get("searchFromTopic") === false)
         {
             this.set("pageCount", this.get("pageCount") + 1);
@@ -124,9 +124,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
                 that.setContent(results);
-
+                HubStar.set("scrollDownSearch",false);
                 if (results.get("length") === 0) {
                     that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
+                    HubStar.set("scrollDownSearch",true);
                 }
             }
         });
@@ -185,13 +186,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $(document).scrollTop();
         this.set("oldChildren", 0);
         this.set("from", 0);
-        this.set("size", 15);
+        this.set("size", 30);
         this.set('loadingTime', true);
         this.set("pageCount", 0);
         var d = new Date();
         var start = d.getTime();
         var that = this;
         var statusController = this.get('controllers.status');
+        HubStar.set("scrollDownSearch",false);
         var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation')});
         stats.addObserver('isLoaded', function() {
             if (stats.get('isLoaded')) {
@@ -737,8 +739,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var that = this;
             $('#masonry_container').masonry("reloadItems");
             setTimeout(function() {
-                $('#masonry_container').masonry();
-                HubStar.set("scrollDownSearch",false);
+                $('#masonry_container').masonry();               
                 that.set('loadingTime', false);
             }, 15);
     },

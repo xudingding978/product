@@ -125,7 +125,7 @@ HubStar.ApplicationView = Ember.View.extend({
             var distanceToTop = $(document).height() - $(window).height(),
                     top = $(document).scrollTop();
             //console.log(distanceToTop-top);
-            return (distanceToTop - top) < 1000;
+            return (distanceToTop - top) < 2000;
         }
         else{
             return false;

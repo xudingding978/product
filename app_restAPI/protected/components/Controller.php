@@ -291,12 +291,39 @@ class Controller extends CController {
             $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
                 "query": {
                   "bool": {
-                    "must": {
+                    "must": [{
                       "queryString": {
                         "default_field": "couchbaseDocument.doc.country",
                         "query": "' . $location . '"
                       }
                     },
+                    {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.is_deleted",
+                        "query": "' . 0 . '"
+                      }
+                    }
+                    ],
+                    "must_not": {
+                   
+                  }
+                }
+                }
+              }');
+
+            $request->filter($filter);
+        }else{
+             $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+                "query": {
+                  "bool": {
+                    "must": [
+                    {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.is_deleted",
+                        "query": "' . 0 . '"
+                      }
+                    }
+                    ],
                     "must_not": {
                    
                   }
@@ -352,7 +379,8 @@ class Controller extends CController {
 //        $request->sort($sort1, $sort2);
 //        error_log($request->query($termQuery)->toJSON());
         $response = $request->query($termQuery)->execute();
-        error_log("\n".$request->toJSON()."\n") ;
+  //       error_log($request->query($termQuery)->toJSON());
+    //    error_log("\n".$request->toJSON()."\n") ;
         return $response;
     }
 

@@ -20,7 +20,7 @@ HubStar.Mega = DS.Model.extend({
     country: DS.attr('string'),
     collection_id: DS.attr('string'),
     collection_count: DS.attr('string'),
-    deleted: DS.attr('string'),
+    is_deleted: DS.attr('boolean'),
     domains: DS.attr('string'),
     editors: DS.attr('string'),
     geography: DS.attr('string'),

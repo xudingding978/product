@@ -170,6 +170,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 var stat = stats.objectAt(0);
                 var megasResults = stat.get("megas");
                 HubStar.set('itemNumber', megasResults.get("length"));
+                 if (megasResults.get("length") === 0) {
+                     console.log("sssssssssss");
+                    $("show_more_button").css(display,"none");
+                }
                 that.setContent(megasResults);
                 ;
                 that.set('loadingTime', false);

@@ -83,6 +83,7 @@ HubStar.SearchRoute = Ember.Route.extend({
 
             if (search_id === "articles" || search_id === "photos" || search_id === "videos") //it is the search index
             {
+
                 this.transitionTo("article", HubStar.Article.find(id));
             }
             else

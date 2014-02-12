@@ -359,11 +359,12 @@ HubStar.ArticleController = Ember.Controller.extend({
             var data = HubStar.Mega.find({RequireType: "articleRelatedImage", "article_id": collection_id, "owner_id": owner_profile_id});
             data.addObserver('isLoaded', function() {
                 if (data.get('isLoaded')) {
-                    var length = data.get("content").get("length");
+                    
+                    var length = this.get("length");
                     for (var i = 0; i < length; i++) {
-                        var temp = data.get("content").objectAt(i);
-                        if (temp.data.photo !== undefined) {
-                            that.get("content").pushObject(temp.data.photo.objectAt(0));                                  //find the object which contain photos and push it into model
+                        var temp = this.objectAt(i);
+                        if (temp.get("photo") !== undefined) {
+                            that.get("content").pushObject(temp.get("photo").objectAt(0));                                  //find the object which contain photos and push it into model
                         }
                     }
 
@@ -379,6 +380,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                             }
                             else
                             {
+
                                 that.transitionTo("articlePhoto", that.get('content').objectAt(0));
                             }
                             this.set("isShowPhotoUrl", false);
@@ -387,24 +389,24 @@ HubStar.ArticleController = Ember.Controller.extend({
                     }
                     else
                     {
-
                         var address = document.URL;
                         var search_id = address.split("#")[1].split("/")[2];
                         var search_type = address.split("#")[1].split("/")[1];
-                        if (this.get("isShowPhotoUrl") === true)
+                       // if (this.get("isShowPhotoUrl") === true)
                         {
                             if (search_type === "search" || search_type === "searchs")
                             {
                                 if (search_id === "default")
                                 {
-                                    that.transitionTo("searchDefaultArticlePhoto", that.get('content').objectAt(0));
+                                                          
+                                    that.transitionTo("searchDefaultArticlePhoto",that.get("content").objectAt(0));
+                                 
                                 } else
-                                {
-                                    that.transitionTo("searchIndexArticlePhoto", that.get('content').objectAt(0));
+                                {      
+                                    that.transitionTo("searchIndexArticlePhoto", that.get("content").objectAt(0));
                                 }
                             } else if (search_type === "profiles")
                             {
-
                                 that.transitionTo("profileArticlePhoto", that.get('content').objectAt(0));
 
                             }

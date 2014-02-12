@@ -192,7 +192,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         var contents = this.get('content');
         var selectedIndex = 1;
         for (var index = 0; index <= contents.get('length') - 1; index++) {
-            if (this.get('selectedPhoto').get("id") === contents.objectAt(index).id) {
+            
+            if (this.get('selectedPhoto').get("id") === contents.objectAt(index).get("id")) {
                 selectedIndex = index + 1;
             }
         }
@@ -258,15 +259,15 @@ HubStar.ArticleController = Ember.Controller.extend({
             megaResouce.set("view_count", megaData + 1);
         }
         megaResouce.store.save();
-        var that= this;
- setTimeout(function() {
-                that.set('articleResouce', megaResouce.get('article').objectAt(0));
-                that.set('article', megaResouce);
-                that.set('articleID', megaObject.id);
-                that.set('megaResouce', megaResouce);
-                that.addRelatedData(megaObject);
-                that.getCommentsById(megaObject.id);
-                that.checkCreditExist(megaResouce.get('article').objectAt(0).get('credits'));
+        var that = this;
+        setTimeout(function() {
+            that.set('articleResouce', megaResouce.get('article').objectAt(0));
+            that.set('article', megaResouce);
+            that.set('articleID', megaObject.id);
+            that.set('megaResouce', megaResouce);
+            that.addRelatedData(megaObject);
+            that.getCommentsById(megaObject.id);
+            that.checkCreditExist(megaResouce.get('article').objectAt(0).get('credits'));
         }, 1000);
     },
     checkCreditExist: function(credits) {
@@ -358,10 +359,10 @@ HubStar.ArticleController = Ember.Controller.extend({
         if (isProfileIDExist && isCollectionIDExist) {
             var data = HubStar.Mega.find({RequireType: "articleRelatedImage", "article_id": collection_id, "owner_id": owner_profile_id});
             data.addObserver('isLoaded', function() {
-                if (data.get('isLoaded')) {
-                    
+                if (data.get('isLoaded')) {                  
+
                     var length = this.get("length");
-                    for (var i = 0; i < length; i++) {
+                    for (var i = 0; i < length-1; i++) {
                         var temp = this.objectAt(i);
                         if (temp.get("photo") !== undefined) {
                             that.get("content").pushObject(temp.get("photo").objectAt(0));                                  //find the object which contain photos and push it into model
@@ -392,17 +393,18 @@ HubStar.ArticleController = Ember.Controller.extend({
                         var address = document.URL;
                         var search_id = address.split("#")[1].split("/")[2];
                         var search_type = address.split("#")[1].split("/")[1];
-                       // if (this.get("isShowPhotoUrl") === true)
+
+                        if (this.get("isShowPhotoUrl") === true)
                         {
                             if (search_type === "search" || search_type === "searchs")
                             {
                                 if (search_id === "default")
                                 {
-                                                          
-                                    that.transitionTo("searchDefaultArticlePhoto",that.get("content").objectAt(0));
-                                 
+
+                                    that.transitionTo("searchDefaultArticlePhoto", that.get("content").objectAt(0));
+
                                 } else
-                                {      
+                                {
                                     that.transitionTo("searchIndexArticlePhoto", that.get("content").objectAt(0));
                                 }
                             } else if (search_type === "profiles")
@@ -426,6 +428,12 @@ HubStar.ArticleController = Ember.Controller.extend({
 
 
                     that.captionDisplay();
+                    var address1 = document.URL;
+                    var articlePhoto = address1.split("#")[1].split("/");
+                    if (articlePhoto[articlePhoto.get("length") - 2] === "photos")
+                    {
+                        that.selectImage(articlePhoto[articlePhoto.get("length") - 1]);
+                    }
                 }
             }
             );

@@ -451,7 +451,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("contentTagsArticle", "");
         this.set("enableTag", false);
         this.set("showTagAfterSave", false);
-        this.JudgeBusinessProfile(); //it is used to judge whether the user has business profile or it is the trends account
+      //  this.JudgeBusinessProfile(); //it is used to judge whether the user has business profile or it is the trends account
         console.log("0000000000000000000000000000000000");
         console.log("article init data");
         this.set("content", []);
@@ -654,6 +654,13 @@ HubStar.ArticleController = Ember.Controller.extend({
 
 
                     that.captionDisplay();
+                                        that.captionDisplay();
+                    var address1 = document.URL;
+                    var articlePhoto = address1.split("#")[1].split("/");
+                    if (articlePhoto[articlePhoto.get("length") - 2] === "photos")
+                    {
+                        that.selectImage(articlePhoto[articlePhoto.get("length") - 1]);
+                    }
                 }
             }
             );

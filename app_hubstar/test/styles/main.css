@@ -7038,7 +7038,7 @@ div.search-loading-invisible{
     margin: auto;
     top: 0;
     bottom: 80%;
-    cursor: move;
+   
 
     z-index: 100;
     background-color: white;
@@ -7052,7 +7052,7 @@ div.search-loading-invisible{
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
     background-clip: padding-box;
-    background:#fff url('../../../images/contactbg.png') repeat;
+  
 }
 
 .addCollection-container{
@@ -7433,6 +7433,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .insert-contactdetails{
     margin-left: 20px;
 }
+
+.insert-profile-name{font-size: 15px;}
 
 .Contact_2child{
     display: block;
@@ -8586,15 +8588,15 @@ a:hover , a:focus {color: #aaa;}
 
 .albumcover-container{
     display: block;
-    width: 343px;
-    height: 343px;
+    width: 340px;
+    height: 345px;
     overflow: hidden;
     padding: 5px;
 }
 .albumcover-container > div{
     float:left;
-    width:auto;
-    height:343px;
+    width:335px;
+    height:335px;
 }
 
 div.album-description{
@@ -8677,10 +8679,10 @@ div.album-description-bg{
 }
 
 .albumcover{
-    min-width: 350px;
-    max-width:420px;
-    min-height: 350px;
-    max-height:425px;
+    min-width: 335px;
+    max-width:335px;
+    min-height: 335px;
+    max-height:335px;
 }
 
 .album-info{
@@ -8985,7 +8987,7 @@ div.album-description-bg{
     height: 44px;
     left: 0;
     margin: 0 auto;
-    position: absolute;
+    position: relative;
     right: 0px;
     text-align: center;
     background-color: rgba(0,0,0,.6);
@@ -9314,6 +9316,50 @@ div.album-description-bg{
     width: 45px;
     height: 45px;
     box-shadow: 0px 1px 5px #555;
+}
+
+.classfication{
+cursor: pointer;
+    display: inline-block;
+    width: auto;
+    position: relative;
+    top: -4px;
+
+    -webkit-transition: background-color .218s,border-color .218s,box-shadow .218s;
+    -moz-transition:  background-color .218s,border-color .218s,box-shadow .218s;
+    -o-transition:  background-color .218s,border-color .218s,box-shadow .218s;
+    transition: background-color .218s,border-color .218s,box-shadow .218s;
+    -webkit-user-select: none;
+
+    /*BOX STYLE*/
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.05);
+    -o-box-shadow: 0 1px 0 rgba(0,0,0,.05);
+    -ms-box-shadow: 0 1px 0 rgba(0,0,0,.05);
+    -moz-box-shadow: 0 1px 0 rgba(0,0,0,.05);
+    box-shadow: 0 1px 0 rgba(0,0,0,.05);
+    background-color: #fff;
+    background-image: -webkit-linear-gradient(top, transparent, transparent);
+    background-image: linear-gradient(top, transparent, transparent);
+    color:#404040;
+    border: 1px solid #d9d9d9;
+    border: 1px solid rgba(0,0,0,.15);
+
+    /*font-style:*/
+    -webkit-border-radius: 2px;
+    -o-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    cursor: default;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    height: 28px;
+    line-height: 28px;
+    min-width: 35px;
+    outline: 0;
+    padding: 0 8px;
 }
 
 
@@ -10432,7 +10478,6 @@ div#appfeedback .fresh-message > i.fa-times{
 {
     position:relative;
     margin:-160px 17.5% 0 17.5%;
-    float:left;
     width:65%;
     padding:0 5px;
 }
@@ -11227,6 +11272,11 @@ textarea.add-interests{
 }
 
 
+.selected{
+    background-color: #ccc;
+}
+
+
 /*MAP SECTION*/
 
 .enlarge-map{width: 45px;height: 45px;line-height: 45px; background-color: #fff; color: #555;opacity: 0;position: absolute;right: 9px;text-align: center;font-size: 15px;}
@@ -11354,7 +11404,7 @@ textarea.add-interests{
 .navbar {
     min-width: 1200px;
     height: 75px;
-    line-height: 75px;
+    line-height: 60px;
     overflow: visible;
     color: white;
     margin-bottom: 0px;
@@ -11367,6 +11417,9 @@ textarea.add-interests{
     background-image: url(../../images/discoverybarbg.jpg);
 }
 
+.selected-navigation{
+    background-color: #d2d2d2;
+}
 
 .navbar .brand {
     display: block;
@@ -11968,10 +12021,11 @@ div#forgot-password-container{
 /* Clint Lewis's style's 29/10/13 */
 
 div#login_detail{
-    width:35px;
+    width:55px;
     float:right;
     cursor: pointer;
     vertical-align: top;
+    height:70px;
 }
 
 
@@ -12015,6 +12069,21 @@ div#login_detail{
 
 
 .user-face-size{width: 45px; height: 45px;}
+
+
+/*TOUR*/
+
+
+.tour-background{
+    background-color: #475476;
+    margin: 5px !important;
+    padding: 5px !important;
+}
+
+
+.profileName{
+    text-shadow: 0 0 10px #555;
+}
 
 * {
     box-sizing: border-box;

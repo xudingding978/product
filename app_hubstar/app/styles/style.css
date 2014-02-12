@@ -486,7 +486,7 @@ div.search-loading-invisible{
     margin: auto;
     top: 0;
     bottom: 80%;
-    cursor: move;
+   
 
     z-index: 100;
     background-color: white;
@@ -500,7 +500,7 @@ div.search-loading-invisible{
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
     background-clip: padding-box;
-    background:#fff url('../../../images/contactbg.png') repeat;
+  
 }
 
 .addCollection-container{
@@ -881,6 +881,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .insert-contactdetails{
     margin-left: 20px;
 }
+
+.insert-profile-name{font-size: 15px;}
 
 .Contact_2child{
     display: block;

@@ -30,40 +30,19 @@ HubStar.StatusView = Ember.View.extend({
                 if (mousedownX < middle - d / 2) {
                     $('#switchbarBtn').attr("style", "margin-left:0px;");
                     that.get("controller").get("controllers.application").set("classification", "residential");
-                    //that.get("controller").get("controllers.application").set("commercial", "0");
-//                    if (type === "default")
-//                    {
-//                        that.get("controller").get("controllers.application").defaultSearch();
-//                    }
-//                    else
-//                    {
-//                        that.get("controller").get("controllers.application").newSearch();
-//                    }
+                    $("#Commercial").css("opacity","0.4");
+                    $("#Residential").css("opacity","1");
                 } else if (mousedownX >= (middle - d / 2) && mousedownX < (middle + d / 2)) {
                     $('#switchbarBtn').attr("style", "margin-left:13px;");
                     that.get("controller").get("controllers.application").set("classification", "All");
- //                   that.get("controller").get("controllers.application").set("commercial", "1");
-//                    if (type === "default")
-//                    {
-//                        that.get("controller").get("controllers.application").defaultSearch();
-//                    }
-//                    else
-//                    {
-//                       that.get("controller").get("controllers.application").newSearch();
-//                    }
+                    $("#Residential").css("opacity","1");
+                    $("#Commercial").css("opacity","1");
                 }
                 else if (mousedownX >= (middle + d / 2)) {
                     $('#switchbarBtn').attr("style", "margin-left:28px;");
                      that.get("controller").get("controllers.application").set("classification", "commercial");
-                  //  that.get("controller").get("controllers.application").set("commercial", "1");
-//                    if (type === "default")
-//                    {
-//                        that.get("controller").get("controllers.application").defaultSearch();
-//                    }
-//                    else
-//                    {
-//                        that.get("controller").get("controllers.application").newSearch();
-//                    }
+                     $("#Residential").css("opacity","0.4");
+                     $("#Commercial").css("opacity","1");
                 }
 
 

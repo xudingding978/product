@@ -122,7 +122,7 @@ module.exports = function(grunt) {
             options: {
                 port: 9000,
                 // change this to '0.0.0.0' to access the server from outside
-                hostname: 'localhost'
+                hostname: '0.0.0.0'
             },
             livereload: {
                 options: {
@@ -250,7 +250,6 @@ module.exports = function(grunt) {
         // not used since Uglify task does concat,
         // but still available if needed
         concat: {
-
             dist: {
                 src: [
                     '<%= yeoman.app %>/bower_components/modernizr/modernizr.js',
@@ -262,7 +261,6 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/bootstrap/bootstrap.min.js',
                     '<%= yeoman.app %>/bower_components/ember/ember.min.js',
                     '<%= yeoman.app %>/bower_components/ember-data-shim/ember-data.min.js',
-                    
                     '<%= yeoman.app %>/bower_components/moment/moment.min.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/html5ImageCropper.js',
@@ -272,13 +270,14 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/starrating/jquery.ratings.js',
                     '<%= yeoman.app %>/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js',
                     '<%= yeoman.app %>/bower_components/dfp.js',
-                    '<%= yeoman.app %>/bower_components/countries.js'
+                    '<%= yeoman.app %>/bower_components/countries.js',
+                    '<%= yeoman.app %>/bower_components/intro/intro.js'
                 ],
                 dest: '<%= yeoman.dist %>/scripts/components.js'
             },
             testcomponent: {
                 src: [
-                     '<%= yeoman.app %>/bower_components/modernizr/modernizr.js',
+                    '<%= yeoman.app %>/bower_components/modernizr/modernizr.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/browserdetecter.js',
                     '<%= yeoman.app %>/bower_components/jquery/jquery.min.js',
                     '<%= yeoman.app %>/bower_components/handlebars/handlebars-v1.2.1.js',
@@ -287,7 +286,6 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/bootstrap/bootstrap.min.js',
                     '<%= yeoman.app %>/bower_components/ember/ember.min.js',
                     '<%= yeoman.app %>/bower_components/ember-data-shim/ember-data.min.js',
-                    
                     '<%= yeoman.app %>/bower_components/moment/moment.min.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/javascriptHelper.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/html5ImageCropper.js',
@@ -297,9 +295,9 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/starrating/jquery.ratings.js',
                     '<%= yeoman.app %>/bower_components/custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js',
                     '<%= yeoman.app %>/bower_components/dfp.js',
-                    
-                    '<%= yeoman.app %>/bower_components/countries.js'
-                   
+                    '<%= yeoman.app %>/bower_components/countries.js',
+                    '<%= yeoman.app %>/bower_components/intro/intro.js'
+
                 ],
                 dest: '<%= yeoman.test %>/scripts/components.js'
             },

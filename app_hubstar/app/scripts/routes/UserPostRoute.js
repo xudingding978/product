@@ -6,6 +6,8 @@
 
 HubStar.UserPostRoute = Ember.Route.extend({
     setupController: function(controller, model) {
+      if (this.controllerFor('checkingLoginStatus').popupLogin())
+        {
         
         this.controllerFor('user').set('profileSelectionStatus', 'Posts');
         this.controllerFor('user').set('collectionTag', false);
@@ -41,6 +43,7 @@ HubStar.UserPostRoute = Ember.Route.extend({
         this.controllerFor('userMessage').setUserMessage(model);
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#post').addClass('selected-user-stats');
+        }
     },
     model: function(params) {
 

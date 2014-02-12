@@ -164,7 +164,7 @@ class Controller extends CController {
             $response = $this->getReponseResult($response, $returnType);
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
-            $owner_profile_id = $this->getUserInput($requireParams[2]);
+            $owner_profile_id = $this->getUserInput($requireParams[2]);           
             $response = $this->getCollectionReults($collection_id, $owner_profile_id);
             $response = $this->profileSetting($response, $returnType);
         } elseif ($requireType == 'partner') {
@@ -672,7 +672,6 @@ class Controller extends CController {
     }
 
     protected function getCollectionReults($collection_id, $owner_profile_id) {
-
         $request = $this->getElasticSearch();
         $request->from(0)
                 ->size(100);
@@ -700,6 +699,7 @@ class Controller extends CController {
                 ->QueryString()->query('"' . $owner_profile_id . '"')
                 ->default_field('couchbaseDocument.doc.owner_id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
+        error_log($request->query($bool)->toJSON());
         $response = $request->query($bool)->execute();
         return $response;
     }
@@ -710,7 +710,6 @@ class Controller extends CController {
         foreach ($tempResult as $hit) {
             $profile_id = $hit['source']['doc']['owner_id'];
         }
-
         if ($profile_id !== '') {
             $cb = $this->couchBaseConnection();
             $domain = $this->getDomain();
@@ -733,7 +732,7 @@ class Controller extends CController {
             foreach ($tempResult as $hit) {
 
                 $hit['source']['doc']['editors'] = $profile_editors;
-                $hit['source']['doc']['owner_title'] = $profile_name;
+//                $hit['source']['doc']['owner_title'] = $profile_name;
                 $hit['source']['doc']['owner_contact_email'] = $owner_contact_email;
                 $hit['source']['doc']['owner_contact_cc_emails'] = $owner_contact_cc_emails;
                 $hit['source']['doc']['owner_contact_bcc_emails'] = $owner_contact_bcc_emails;

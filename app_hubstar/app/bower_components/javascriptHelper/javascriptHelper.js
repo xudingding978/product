@@ -110,6 +110,7 @@ function requiredBackEnd(controller, method, para, ajaxType, callback) {
             url: tempurl + '/' + controller + '/' + method,
             type: ajaxType,
             data: JSON.stringify(para),
+            crossDomain: true,
             success: function(feedback) {
                 
                 //HubStar.Store.save();

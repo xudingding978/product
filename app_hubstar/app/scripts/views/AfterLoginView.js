@@ -14,7 +14,7 @@ HubStar.AfterLoginView = Ember.View.extend({
         });
         localStorage.removeItem('loginStatus');
         this.get('controller').transitionTo("indexIndex");
-
+        document.cookie = 'Session=; path=/; domain=.trendsideas.com; expires=Thu, 01 Jan 1970 00:00:00 GMT';
     },
     showUserDropDown: function() {
         if ($('#user-dd-menu').css('display') === 'block') {

@@ -493,7 +493,7 @@ class PhotosController extends Controller {
             $photoCaption = $mega['mega']['photo'][0]['photo_caption'];
             $linkText = $mega['mega']['photo'][0]['photo_link_text'];
             $linkUrl = $mega['mega']['photo'][0]['photo_link_url'];
-            $deleted = $mega['mega']['deleted'];
+            $deleted = $mega['mega']['is_deleted'];
 
             
             $url = $this->getDomain() . "/" . $id;
@@ -519,7 +519,7 @@ class PhotosController extends Controller {
             $oldRecord['photo'][0]['photo_caption'] = $photoCaption;
             $oldRecord['photo'][0]['photo_link_text'] = $linkText;
             $oldRecord['photo'][0]['photo_link_url'] = $linkUrl;
-            $oldRecord['deleted'] = $deleted;
+            $oldRecord['is_deleted'] = $deleted;
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {

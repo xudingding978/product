@@ -53,7 +53,8 @@ class KeywordsController extends Controller {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         error_log(var_export(CJSON::decode($request_arr[0]),true));
-        $profile_id = CJSON::decode($request_arr[0])['profile_id'];
+        $keyword = CJSON::decode($request_arr[0]);
+        $profile_id = $keyword['profile_id'];
         $cb = $this->couchBaseConnection();
         $domain = $this->getDomain();
         $docID = $domain . "/profiles/" . $profile_id;

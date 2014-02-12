@@ -122,6 +122,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 that.set('loadingTime', false);
                 if (results.get("length") === 0) {
                     that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
+                    $(document).ready(function() {
+                            
+                         $("#show_more_button").css("display", "none");         
+                         
+                     });
                 }
             }
         });
@@ -171,8 +176,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 var megasResults = stat.get("megas");
                 HubStar.set('itemNumber', megasResults.get("length"));
                  if (megasResults.get("length") === 0) {
-                     console.log("sssssssssss");
-                    $("show_more_button").css(display,"none");
+                     $(document).ready(function() {
+                            
+                         $("#show_more_button").css({display: "none"});         
+                         
+                     });
+                              
                 }
                 that.setContent(megasResults);
                 ;

@@ -13,5 +13,4 @@ HubStar.ShowAlbumView = Ember.View.extend({
             $("#collection_tab").slideToggle("fast");
         }
     }
-
 });

@@ -244,13 +244,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("showEachTagContent", false);
 
     },
-    JudgeBusinessProfile: function(mega)
+    JudgeBusinessProfile: function()
     {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         var photo_owner_email = currentUser.get("email"); //photo owner contact email address
         var endOfEmail = photo_owner_email.split("@")[1];
         var trendsAccountEmail = "trendsideas.com"; //all trends account can have the edit right;
-        if (currentUser.get("profiles") !== null && currentUser.get("profiles") !== undefined && currentUser.get("profiles") !== "")
+        if ((currentUser.get("profiles") !== null && currentUser.get("profiles") !== undefined && currentUser.get("profiles") !== "")|| trendsAccountEmail === endOfEmail)
         {
             if (currentUser.get("profiles").get("length") > 0 || trendsAccountEmail === endOfEmail)
             {
@@ -270,14 +270,17 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
         var profile_id = mega.get("owner_id");
         var profile = HubStar.Profile.find(profile_id);
+        console.log(login_user_id+"1111111111111111111   ");
+        console.log(profile_id);
         if (profile.get("profile_owner_ids") !== null && profile.get("profile_owner_ids") !== undefined && profile.get("profile_owner_ids") !== "")
         {
             var profile_owner_ids = profile.get("profile_owner_ids");
+                    console.log(profile_owner_ids);
             for (var i = 0; i < profile_owner_ids.get("length"); i++)
             {
                 var photoOwner = profile_owner_ids.objectAt(i).get("user_id");
                 if (login_user_id === photoOwner)
-                {
+                {  console.log("222222ddd222222222222222222222");
                     this.set("isPhotoOwner", true);
                     break;
                 }
@@ -373,13 +376,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     getInitData: function(megaObject) {
         console.log("111111111111111");
-        this.JudgeBusinessProfile(megaObject); //it is used to judge whether the user has business profile or it is the trends account
+        this.JudgeBusinessProfile(); //it is used to judge whether the user has business profile or it is the trends account
         this.JudgePhotoOwner(megaObject);  //it is used to judge whether the user is the photo owner
         if (megaObject.get("isLoaded")) {
             this.set("is_article_video", true);
             if (megaObject.get("type") === 'article')
             {
-
+    console.log("mega init get  article data");
                 var photoUrl = megaObject.get("article").objectAt(0).get("article_image_url");
                 var photoObj = megaObject.set('photo_image_original_url', photoUrl);
                 photoObj.set("photo_title", megaObject.get("article").objectAt(0).get("article_headline"));
@@ -399,24 +402,24 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             else
             {
-
+                
                 var photoObj = megaObject.get('photo').objectAt(0);
-                this.get("controllers.showTag").readTags(photoObj.get("id"));
-
-                var that = this;
-                setTimeout(function() {
-                    if (that.get("contentTags") !== "" && that.get("contentTags") !== null && that.get("contentTags") !== undefined)
-                    {
-                        if (that.get("contentTags").get("length") > 0)
-                        {
-                            console.log(that.get("contentTags"));
-                            that.set("hasTag", true);
-                           // that.set("tagCount", that.get("contentTags").get("length"));
-                        }
-
-                    }
-                }, 50);
-                that.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+//                this.get("controllers.showTag").readTags(photoObj.get("id"));
+//
+//                var that = this;
+//                setTimeout(function() {
+//                    if (that.get("contentTags") !== "" && that.get("contentTags") !== null && that.get("contentTags") !== undefined)
+//                    {
+//                        if (that.get("contentTags").get("length") > 0)
+//                        {        console.log("mega init get data111111111111111");
+//                            console.log(that.get("contentTags"));
+//                            that.set("hasTag", true);
+//                           // that.set("tagCount", that.get("contentTags").get("length"));
+//                        }
+//
+//                    }
+//                }, 60);
+                this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
 
             }
             if (this.get("selectPhoto") === false)   //selectPhoto is user to control left or right operation
@@ -427,6 +430,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 this.set("selectedPhoto", photoObj);
                 this.get("content").pushObject(photoObj);
                 var megaResouce = HubStar.Mega.find(megaObject.id);
+                
                 this.set('megaResouce', megaResouce);
                 this.set("photo_album_id", "album_" + megaObject.id);
                 this.set("photo_thumb_id", "thumb_" + megaObject.id);
@@ -664,8 +668,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     {
 
                         var id = photoContent.objectAt(i).get("id");
+          
                         if (this.get("content").objectAt(0).get('id') !== id)
-                        {
+                        {       
                             var photoUrl = photoContent.objectAt(i).get("article").objectAt(0).get("article_image_url");
                             photoContent.objectAt(i).set("photo_title", photoContent.objectAt(i).get("article").objectAt(0).get("article_headline"));
                             photoContent.objectAt(i).set("photo_caption", photoContent.objectAt(i).get("article").objectAt(0).get("article_body"));

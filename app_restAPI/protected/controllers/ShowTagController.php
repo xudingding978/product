@@ -286,7 +286,7 @@ class ShowTagController extends Controller {
             if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
                 if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
 
-                    $receiveEmail = $userInfo['user'][0]['email'];
+                  //  $receiveEmail = $userInfo['user'][0]['email'];
                     $receiveName = $userInfo['user'][0]['display_name'];
 
                     $this->sendEmail($receiveEmail1, $receiveName, $photo_url, $currentUserName, $linkToCompany);

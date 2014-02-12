@@ -18,6 +18,7 @@
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;width: 60px;margin: 0 5px;" {{action dropdownPhotoSetting "1"}}>
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
+            {{#if controller.isBusinessProfile}}
             {{#if controller.enableTag}}
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="end tagging this photo" style="position:relative;margin: 0 5px;width: 60px;" {{action endTag}}>
                  <i class="fa fa-tag"></i><span class="pretooltip">EndTag</span> 
@@ -27,7 +28,8 @@
                  <i class="fa fa-tag"></i><span class="pretooltip">Tag</span> 
             </div>
             {{/if}}
-            {{#if controller.showAllTags}}
+            {{/if}}
+            {{#if controller.showAllTagsArticle}}
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="hide tags this photo" style="position:relative;margin: 0 5px;width: 60px;" {{action hideTags}}>
                  <i class="fa fa-tag"></i><span class="pretooltip">HideTag</span> 
             </div>
@@ -67,20 +69,36 @@
         </div>
 
         <div class="mainfeature">
-            <div  class="previous" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="view"}}>
+            <div  class="previous" id ="previousarticlephoto"style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="view"}}>
                 <i id="pa" class="fa fa-arrow-left" style="top:400px; left: 138px; color: white; position: absolute; font-size: 50px;"></i>
             </div>
-            <div  class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="view"}}>
-                <i id="na" class="fa fa-arrow-right" style="top:400px; right: 138px; color: white; position: absolute; font-size: 50px;"></i></div>
+            <div  class="next" id ="nextarticlephoto" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="view"}}>
+                <i id="na" class="fa fa-arrow-right" style="top:400px; right: 138px; color: white; position: absolute; font-size: 50px;"></i>
+            </div>
             {{view HubStar.PhotoDisplayAreaView}}
-                        <!--     show add new  tag template-->   
+            <!--     show add new  tag template-->   
             {{#if  controller.enableTag}}      
             {{#if controller.inImage}} <!--only when it within the image place can add the tag-->
             {{  render showTag }}
             {{/if}}
             {{/if}}
+            <!--     show   tag's detail content  template-->   
+            <!--              only when is not in the edit tag state and mouse over the tag can show the detail content-->
+            {{#unless controller.enableTag}}
+            {{#if controller.showEachTagContent }}
+            {{  view HubStar.TagContentView }}
+            {{/if}}
+            {{/unless}}
         </div>
-
+        <!--     show all the tags--> 
+        {{#if controller.showAllTagsArticle}} <!--      showOrNot tag-->
+        {{#each controller.contentTagsArticle}}
+        {{view HubStar.TagMouseView}} 
+        {{/each}}
+        {{/if}}
+        {{#if controller.makeSureActivateTag}}
+        {{view HubStar.ActivateTagFunctionView}}
+        {{/if}}
 
         <div class="caption-container" id="caption_action">
             {{#if HubStar.readCaption}}
@@ -256,6 +274,52 @@
         {{/if}}
 
 
+        <!-- add the tag content-->
+
+        <!--        <div style=background-color:red;">
+                    <div class="object-collapes-title" {{action setTag on="click" target="view"}}  >
+                        <div class="collapes-title_inner">
+                            Tags  {{controller.tagCount}}
+                        </div>
+                        <div class="dropdownicon">
+                            <i class="fa fa-angle-down" style="height: 16px; width: 16px;"></i>
+        
+                        </div>
+                    </div> 
+        
+        
+                    <div class="collapes-container"  id="tag_action" style="display:block">
+                        {{#if controller.hasTag}}
+                        {{#each controller.contentTags}}
+                        <div id="tagImg" style=" width: 132px;    height: 132px;   border: 3px solid white;    display: inline-block;   float: left;    margin: 33px 10px 10px 15px;">
+                            <img  {{bindAttr src= "this.pic_url"}}  style="min-width: 100%; min-height: 100%;">
+                        </div>
+                        <div style="  float: left;  width: 48%;  margin: 10px 10px;">
+                            <div style=' height: 40px; overflow: hidden;'>
+                                <div id="tagName" class="name" style="display: inline-block; color: white; word-break: break-all; ">
+                                    {{this.product_name}}
+                                </div>
+                            </div>
+                            <div style=' margin-top: 10px;height: 130px; overflow: hidden;'>
+        
+                                <a href="{{unbound controller.tag.linkto}}" >
+                                    <div id="tagDesc" style="display: inline-block; margin-top: 10px;color: white; word-break: break-all;">
+                                        {{this.desc}}
+                                    </div>
+                                </a>
+        
+                            </div>        
+                        </div>
+                        {{/each}}
+                        {{/if}}
+                    </div>
+        
+        
+                </div>
+        -->
+
+
+        <!--end of tag content-->
 
 
         <!-- OBJECT DISCUSSION SECTION -->

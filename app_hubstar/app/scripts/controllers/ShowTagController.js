@@ -84,6 +84,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
 //reset the value
 //  that.setTagIcon(pic_x, pic_y, tag_id); //set the tag icon location
                 that.get("controllers.mega").set("showRequestTag", true);
+                that.get("controllers.article").set("showRequestTag", true);
                 that.setDescription("");
                 that.setLinkTo("");
                 that.set("product_name", "");
@@ -220,7 +221,8 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             if (params !== "" && params !== undefined && params !== null)
             {
                 that.set("contentTags", params);
-                that.get("controllers.mega").set("contentTags", params);
+               // that.get("controllers.mega").set("contentTags", params);
+                that.get("controllers.article").set("contentTagsArticle", params);
                 var tags = params;
 
                 setTimeout(function() {

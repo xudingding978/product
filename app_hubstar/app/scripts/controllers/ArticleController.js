@@ -15,20 +15,21 @@ HubStar.ArticleController = Ember.Controller.extend({
     accessFromSearchBoard: false, //false: access the articlePhoto  true: access the article
     isCreditListExist: false,
     ////
+    isBusinessProfile: false,
     enableTag: false,
     tagCount: 0,
     hasTag: false,
     makeSureActivateTag: false,
     willActivate: false,
-    contentTags: "", //all the tags
+    contentTagsArticle: "", //all the tags
     showEachTagContent: false,
-    showAllTags: true, // users show the tag
+    showAllTagsArticle: true, // users show the tag
     inImage: false,
     tag: [], //every tag content when click
     enableEditTag: false, //enable  photo owner to edit the tag after activate the tag
     showRequestTag: false, //show the tag after save and sent the request
     showTagAfterSave: false, // show the tag icon afte approve
-    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems','showTag','mega'],
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems', 'showTag', 'mega', 'updateTag'],
     init: function() {
         HubStar.set("readCaption", true);
     },
@@ -49,158 +50,315 @@ HubStar.ArticleController = Ember.Controller.extend({
     {
         $("#pa").addClass("hideClass");
         $("#na").addClass("hideClass");
-        this.get("controllers.showTag").set("photo_id", this.get('selectedPhoto').id); //set the selected photo's id
-
+        this.get("controllers.showTag").set("photo_id", this.get('selectedPhoto').id); //set the selected photo's id, it also contain the first photo
         this.set("showRequestTag", false);
         this.set("showTagAfterSave", false);
         this.set("showEachTagContent", false);
-
         this.set("enableTag", true);
-        
+
     },
-        /******* function name: enableTag
+    /******* function name: enableTag
      * parameter:
      *  aim: it is to enable user to tag in the photo
      ***********************/
     endTag: function()
     {
-            $("#pa").removeClass("hideClass"); //remove the left and right icon
+        $("#pa").removeClass("hideClass"); //remove the left and right icon
         $("#na").removeClass("hideClass");
         this.set("enableTag", false);
-        this.set("inImage", false);  //click the end tag recove the value
         this.set("showTagAfterSave", false);
-    
+        this.set("inImage", false);  //click the end tag recove the value
+
     },
-    previesImage: function() {
-        if (!this.get('selectedPhoto')) {
-            this.set('selectedPhoto', this.get('content').get('lastObject'));
-        }
-        var selectedIndex = this.findSelectedItemIndex();
-        selectedIndex--;
-        if (selectedIndex < 0) {
-            selectedIndex = this.get('content').get('length') - 1;
-            this.set('image_no', this.get('content').get('length'));
-        }
-        this.set("isShowPhotoUrl", true);
-        this.set('image_no', selectedIndex + 1);
-        this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
-        this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
-        if (this.get("accessFromSearchBoard") === false)
-        {
-            if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
+    showTags: function()
+    {
+
+        this.set("showAllTagsArticle", true);
+        this.set("showEachTagContent", true);
+        var tags = this.get("contentTagsArticle");
+        console.log(tags);
+        setTimeout(function() {
+            if (tags !== undefined && tags !== "" && tags !== null)
             {
+                for (var i = 0; i < tags.length; i++)
+                {
+                    var tagDiv = "#tag_" + tags[i].tag_id;
+                    $(tagDiv).css({top: tags[i].pic_y, left: tags[i].pic_x});
+                    //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
+                }
+            }
+        }
+        , 10);
+    },
+    hideTags: function()
+    {
+        this.set("showAllTagsArticle", false);
+        this.set("showEachTagContent", false);
 
-                this.transitionTo("profileArticlePhoto", this.get("megaResouce").get('photo').objectAt(0));
+    },
+    EditTag: function(tag_id)
+    {
+        this.set("enableEditTag", true);
+        this.get("controllers.updateTag").updateTag(tag_id, this.get('selectedPhoto').id);
 
+    },
+    JudgeBusinessProfile: function()
+    {
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
+        var photo_owner_email = currentUser.get("email"); //photo owner contact email address
+        var endOfEmail = photo_owner_email.split("@")[1];
+        var trendsAccountEmail = "trendsideas.com"; //all trends account can have the edit right;
+        if ((currentUser.get("profiles") !== null && currentUser.get("profiles") !== undefined && currentUser.get("profiles") !== "") || trendsAccountEmail === endOfEmail)
+        {
+            if (currentUser.get("profiles").get("length") > 0 || trendsAccountEmail === endOfEmail)
+            {
+                this.set("isBusinessProfile", true);
             }
             else
             {
-                this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                this.set("isBusinessProfile", false);
             }
         }
-        else
+
+    },
+    JudgePhotoOwner: function(mega)
+    {
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
+        var login_user_id = currentUser.get("id"); // current login user id
+
+        var profile_id = mega.get("owner_id");
+        var profile = HubStar.Profile.find(profile_id);
+        if (profile.get("profile_owner_ids") !== null && profile.get("profile_owner_ids") !== undefined && profile.get("profile_owner_ids") !== "")
+        {
+            var profile_owner_ids = profile.get("profile_owner_ids");
+            for (var i = 0; i < profile_owner_ids.get("length"); i++)
+            {
+                var photoOwner = profile_owner_ids.objectAt(i).get("user_id");
+                if (login_user_id === photoOwner)
+                {
+                    this.set("isPhotoOwner", true);
+                    break;
+                }
+                else
+                {
+                    this.set("isPhotoOwner", false);
+                }
+            }
+        }
+    },
+    sureToActivate: function(tag_id)
+    {
+        var message = "Are you sure to activate this tag?";
+        this.set("message", message);
+        this.set('makeSureActivateTag', true);
+        this.set("tag_id", tag_id);
+        this.set("type", true);
+        if (this.get('willActivate') === true) {
+            this.activateUserTag(tag_id);
+            this.cancelActivate();
+        } else {
+            this.set("s", tag_id);
+            this.set('willActivate', true);
+        }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelActivate: function() {
+        this.set('willActivate', false);
+        this.set('makeSureActivateTag', false);
+    },
+    sureDelTag: function(tag_id)
+    {
+        console.log("sure to delete tag");
+        this.get("controllers.showTag").deleteTag(tag_id, this.get('selectedPhoto').id);
+    },
+    deleteTag: function(tag_id) {
+        var message = "Are you sure to delete  this tag?";
+        this.set("message", message);
+        this.set("tag_id", tag_id);
+        this.set("type", false); //type is false mean delete other it mean activate
+        this.set('makeSureActivateTag', true);
+        if (this.get('willDelTag') === true) {
+            this.sureDelTag(tag_id);
+            console.log(tag_id);
+            this.cancelDelTag();
+        } else {
+            this.set("s", tag_id);
+            this.set('willDelTag', true);
+        }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelDelTag: function()
+    {
+        this.set('willDelTag', false);
+        this.set('makeSureActivateTag', false);
+    },
+    previesImage: function(event, pic_x, pic_y) {
+        this.set("contentTagsArticle", "");
+        this.get("controllers.showTag").set("contentTags", "");
+        if (this.get("enableTag") === true)
         {
 
-            var address = document.URL;
-            var id = address.split("#")[1].split("/")[2];
-            var search_type = address.split("#")[1].split("/")[1];
+            setTimeout(function() {
+                $('#tagit').fadeIn();
+                $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
 
-            if (search_type === "search" || search_type === "searchs") //it is the search index
+                $('#tagname').focus();
+                $('#masonry_container').masonry(); //masonry();
+            }, 20);
+// $('#tagit').remove(); // remove any tagit div first
+//            $('#tagit').fadeIn();
+//            $('#tagit').css({top: pic_y, left: pic_x});
+        } else
+        {
+            if (!this.get('selectedPhoto')) {
+                this.set('selectedPhoto', this.get('content').get('lastObject'));
+            }
+            var selectedIndex = this.findSelectedItemIndex();
+            selectedIndex--;
+            if (selectedIndex < 0) {
+                selectedIndex = this.get('content').get('length') - 1;
+                this.set('image_no', this.get('content').get('length'));
+            }
+            this.set("isShowPhotoUrl", true);
+            this.set('image_no', selectedIndex + 1);
+            this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
+            this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
+            if (this.get("accessFromSearchBoard") === false)
             {
-                if (id === "default")
+                if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
                 {
-                    this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+
+                    this.transitionTo("profileArticlePhoto", this.get("megaResouce").get('photo').objectAt(0));
 
                 }
                 else
                 {
-                    this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                    this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                 }
-
-            }
-            else if (search_type === "profiles")
-            {
-                this.transitionTo("profileArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
-            }
-            else if (search_type === "users")
-            {
-                this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
-            }
-        }
-
-        this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
-        this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
-        this.selectedImage(this.get('selectedPhoto').id);
-        this.set('captionTitle', this.get('selectedPhoto').photo_title);
-        this.set('caption', this.get('selectedPhoto').photo_caption);
-
-        this.captionDisplay();
-    },
-    nextImage: function() {
-        this.set("isShowPhotoUrl", true);
-        if (!this.get('selectedPhoto')) {
-            this.set('selectedPhoto', this.get('content').get('firstObject'));
-        }
-        var selectedIndex = this.findSelectedItemIndex();
-        selectedIndex++;
-        if (selectedIndex >= (this.get('content').get('length'))) {
-            this.set('image_no', 1);
-            selectedIndex = 0;
-        }
-        this.set('image_no', selectedIndex + 1);
-        this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
-        console.log(this.get('selectedPhoto').id);
-        this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
-        if (this.get("accessFromSearchBoard") === false)
-        {
-            if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
-            {
-
-                this.transitionTo("profileArticlePhoto", this.get("megaResouce").get('photo').objectAt(0));
-
             }
             else
             {
-                console.log(this.get('megaResouce').get("photo"));
-                this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+
+                var address = document.URL;
+                var id = address.split("#")[1].split("/")[2];
+                var search_type = address.split("#")[1].split("/")[1];
+
+                if (search_type === "search" || search_type === "searchs") //it is the search index
+                {
+                    if (id === "default")
+                    {
+                        this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+
+                    }
+                    else
+                    {
+                        this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                    }
+
+                }
+                else if (search_type === "profiles")
+                {
+                    this.transitionTo("profileArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                }
+                else if (search_type === "users")
+                {
+                    this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                }
             }
+
+            this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
+            this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
+            this.selectedImage(this.get('selectedPhoto').id);
+            this.set('captionTitle', this.get('selectedPhoto').photo_title);
+            this.set('caption', this.get('selectedPhoto').photo_caption);
+
+            this.captionDisplay();
         }
-        else
+    },
+    nextImage: function(event, pic_x, pic_y) {
+        this.set("contentTagsArticle", "");
+        this.get("controllers.showTag").set("contentTags", "");
+        if (this.get("enableTag") === true)
         {
-            var address = document.URL;
-            var id = address.split("#")[1].split("/")[2];
-            var search_type = address.split("#")[1].split("/")[1];
-            if (search_type === "search" || search_type === "searchs") //it is the search index
+            setTimeout(function() {
+                $('#tagit').fadeIn();
+                $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                $('#tagname').focus();
+
+                $('#masonry_container').masonry(); //masonry();
+            }, 20);
+
+        } else
+        {
+            this.set("isShowPhotoUrl", true);
+            if (!this.get('selectedPhoto')) {
+                this.set('selectedPhoto', this.get('content').get('firstObject'));
+            }
+            var selectedIndex = this.findSelectedItemIndex();
+            selectedIndex++;
+            if (selectedIndex >= (this.get('content').get('length'))) {
+                this.set('image_no', 1);
+                selectedIndex = 0;
+            }
+            this.set('image_no', selectedIndex + 1);
+            this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
+            this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
+            if (this.get("accessFromSearchBoard") === false)
             {
-                if (id === "default")
+                if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
                 {
 
-                    this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                    this.transitionTo("profileArticlePhoto", this.get("megaResouce").get('photo').objectAt(0));
 
                 }
                 else
                 {
-                    this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                    console.log("555555555555555555555555");
+                    this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                }
+            }
+            else
+            {
+                var address = document.URL;
+                var id = address.split("#")[1].split("/")[2];
+                var search_type = address.split("#")[1].split("/")[1];
+                if (search_type === "search" || search_type === "searchs") //it is the search index
+                {
+                    if (id === "default")
+                    {
+
+                        this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+
+                    }
+                    else
+                    {
+                        this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                    }
+
+                }
+                else if (search_type === "profiles")
+                {
+                    this.transitionTo("profileArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                }
+                else if (search_type === "users")
+                {
+
+                    this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                 }
 
             }
-            else if (search_type === "profiles")
-            {
-                this.transitionTo("profileArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
-            }
-            else if (search_type === "users")
-            {
-                this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
-            }
 
+            this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
+            this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
+            this.selectedImage(this.get('selectedPhoto').id);
+            this.set('captionTitle', this.get('selectedPhoto').photo_title);
+            this.set('caption', this.get('selectedPhoto').photo_caption);
+            this.captionDisplay();
         }
-
-        this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
-        this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
-        this.selectedImage(this.get('selectedPhoto').id);
-        this.set('captionTitle', this.get('selectedPhoto').photo_title);
-        this.set('caption', this.get('selectedPhoto').photo_caption);
-        this.captionDisplay();
     },
     captionDisplay: function()
     {
@@ -290,10 +448,17 @@ HubStar.ArticleController = Ember.Controller.extend({
     getInitData: function(megaObject) {
 
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+        this.set("contentTagsArticle", "");
+        this.set("enableTag", false);
+        this.set("showTagAfterSave", false);
+        this.JudgeBusinessProfile(); //it is used to judge whether the user has business profile or it is the trends account
+        console.log("0000000000000000000000000000000000");
+        console.log("article init data");
         this.set("content", []);
         this.set("selectedPhoto", '');
         this.set('image_no', 1);
         var megaResouce = HubStar.Mega.find(megaObject.id);
+
         if (megaResouce.get("view_count") === undefined || megaResouce.get("view_count") === null || megaResouce.get("view_count") === "")
         {
             megaResouce.set("view_count", 1);
@@ -412,15 +577,34 @@ HubStar.ArticleController = Ember.Controller.extend({
                             that.get("content").pushObject(temp.data.photo.objectAt(0));                                  //find the object which contain photos and push it into model
                         }
                     }
-
+                    //set the photo id which include the first photo id 
+                    console.log("article related data");
+                    console.log(that.get('content').objectAt(0).id);
+//                    that.JudgePhotoOwner(that.get('content').objectAt(0));  //it is used to judge whether the user is the photo owner
+//                    that.get("controllers.showTag").readTags(that.get('content').objectAt(0).id);
+//                    var thatthat = that;
+//                    setTimeout(function() {
+//                        if (thatthat.get("contentTagsArticle") !== "" && thatthat.get("contentTagsArticle") !== null && thatthat.get("contentTagsArticle") !== undefined)
+//                        {
+//                            if (thatthat.get("contentTagsArticle").get("length") > 0)
+//                            {
+//                                console.log(thatthat.get("contentTagsArticle"));
+//                                thatthat.set("hasTag", true);
+//                                // that.set("tagCount", that.get("contentTags").get("length"));
+//                            }
+//
+//                        }
+//                    }, 50);
                     if (that.get("accessFromSearchBoard") === false)
                     {
 
                         if (this.get("isShowPhotoUrl") === true) //to controll show the photo url or not
                         {
+
                             if (that.get("controllers.masonryCollectionItems").get("type") === "profile")
                             {
                                 that.transitionTo("profileArticlePhoto", that.get('content').objectAt(0));
+
 
                             }
                             else

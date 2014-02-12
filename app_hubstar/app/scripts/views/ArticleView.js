@@ -6,6 +6,74 @@ HubStar.ArticleView = Ember.View.extend({
         return "test";
     }).property(),
     didInsertElement: function() {
+        var that = this;
+        var counter = 0;
+        var mouseX = 0;
+        var mouseY = 0;
+        $('#nextarticlephoto').mousedown(function(event) {
+            if (event.which === 1) //2:middle 
+            {
+                var imgtag = $(this).parent(); // get the div to append the tagging entry
+                mouseX = event.pageX - $(imgtag).offset().left - 265; // x and y axis
+                mouseY = event.pageY - $(imgtag).offset().top - 45;
+                console.log(mouseX);
+                that.get("controller").get("controllers.showTag").set("pic_x", mouseX); //set 
+                that.get("controller").get("controllers.showTag").set("pic_y", mouseY);
+                if (that.get("controller").get("enableTag") === true)
+                {
+                    that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
+                }
+                else
+                {
+                    // $(".next").css({display: block});
+                    that.get("controller").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
+                }
+                if (mouseY > 420)
+                {
+                    that.get("controller").get("controllers.showTag").set("change_tag_show", true); //chage tag show style
+                    mouseY = mouseY - 420;
+                }
+                else
+                {
+                    that.get("controller").get("controllers.showTag").set("change_tag_show", false);
+                }
+
+                that.get("controller").nextImage(event, mouseX, mouseY);
+            }
+        });
+        $('#previousarticlephoto').mousedown(function(event) {
+            if (event.which === 1) //2:middle 
+            {
+                var imgtag = $(this).parent(); // get the div to append the tagging entry
+                mouseX = event.pageX - $(imgtag).offset().left - 265; // x and y axis
+                mouseY = event.pageY - $(imgtag).offset().top - 45;
+                that.get("controller").get("controllers.showTag").set("pic_x", mouseX);
+                that.get("controller").get("controllers.showTag").set("pic_y", mouseY);
+                if (that.get("controller").get("enableTag") === true)
+                {
+
+                    that.get("controller").set("inImage", true);
+                }
+                else
+                {
+                    //  $(".previous").attr('style', 'display:block');
+                    that.get("controller").set("inImage", false);
+                }
+                if (mouseY > 420)
+                {
+                    mouseY = mouseY - 420;
+                    that.get("controller").get("controllers.showTag").set("change_tag_show", true);
+                }
+                else
+                {
+                    that.get("controller").get("controllers.showTag").set("change_tag_show", false);
+                }
+
+                that.get("controller").previesImage(event, mouseX, mouseY);
+            }
+
+        });
+
 
         return this.$().attr({tabindex: 1}), this.$().focus();
     },
@@ -53,6 +121,30 @@ HubStar.ArticleView = Ember.View.extend({
         this.set('readContent', !this.get("readContent"));
         $('#read_more_cue').attr("style", "display:block;");
 //        $('#article_action').slideToggle(1000);
+    },
+    setTag: function() {
+
+        $('#tag_action').slideToggle("slow");
+        //     this.set('discussionTag', !this.get('discussionTag'));
+
+    },
+    //set the mouse over event
+    showTagContent: function(tag_id, pic_x, pic_y)
+    {
+        var that = this;
+        //alert(tag_id + "  " + pic_x + "  " + pic_y);
+        var picx_content = pic_x + 5;
+        $("#tag_" + tag_id).mouseover(function() {
+            that.get("controller").set("showEachTagContent", true);
+
+            setTimeout(function() {
+
+                $("#tagitshow").fadeIn();
+                $("#tagitshow").css({top: pic_y, left: picx_content});
+            }, 500);
+            //alert(that.get("controller").get("showEachTagContent"));
+        });
+
     },
     setDiscussionTag: function() {
         $('#discuss_action').slideToggle("slow");

@@ -1,9 +1,9 @@
-
+<!--
 {{#if controller.loadingTime}}
 
 {{render loadingSpinner}}
 
-{{/if}}
+{{/if}}-->
 <div  id ="ssss" class="objectview-wrapper" >
 
     <div class="objectview-left">
@@ -82,10 +82,10 @@
         </div>
 
         <div class="mainfeature">
-            <div  class="previous" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="view"}}>
+            <div  class="previous" id ="previousphoto" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="view"}}>
                 <i id="p" class="fa fa-arrow-left" style="top:400px; left: 138px; color: white; position: absolute; font-size: 50px;"></i>
             </div>
-            <div  class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="view"}}>
+            <div  class="next" id ="nextphoto" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="view"}}>
                 <i id="n" class="fa fa-arrow-right" style="top:400px; right: 138px; color: white; position: absolute; font-size: 50px;"></i></div>
             <!--     image show here-->   
             {{view HubStar.PhotoDisplayAreaView}}

@@ -48,13 +48,10 @@ HubStar.UserRoute = Ember.Route.extend({
             this.transitionTo("collection", data);
         },
         transitionToArticle: function(article_id) {
-
+console.log("sdfsdfsdfdsfdsf");
             this.transitionTo("article", article_id);
             this.transitionTo("articlePhoto");
         }
-//        transitionToVideo: function(video_id) {
-//            this.transitionTo("userVideo", video_id);
-//        }
     },
     redirect: function() {
 

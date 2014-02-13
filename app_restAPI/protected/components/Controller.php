@@ -365,8 +365,9 @@ class Controller extends CController {
                                 "query": "' . $queryString . '",
                                 "fields": [
                                                 "keywords^8",
-                                                "couchbaseDocument.doc.keyword.keyword_name^10",
-                                                "couchbaseDocument.doc.article.article_spark_job_id^5",
+                                                              "couchbaseDocument.doc.keyword.keyword_name^10",
+              "couchbaseDocument.doc.article.article_spark_job_id^5",
+              "couchbaseDocument.doc.photo.photo_sparkJobId^5",
                                                 "owner_title^2",
                                                 "country",
                                                 "region",
@@ -381,9 +382,10 @@ class Controller extends CController {
 
 //        $request->sort($sort1, $sort2);
 //        error_log($request->query($termQuery)->toJSON());
+
         $response = $request->query($termQuery)->execute();
   //       error_log($request->query($termQuery)->toJSON());
-    //    error_log("\n".$request->toJSON()."\n") ;
+        error_log("\n".$request->toJSON()."\n") ;
         return $response;
     }
 

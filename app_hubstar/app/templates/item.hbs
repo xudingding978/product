@@ -1,5 +1,5 @@
 {{#if getProfile}}
-<div class="box col2 noStyle1"  data-step="6" data-intro="Here is the profile." data-position='right' {{action checkingLoginStatus target="view" on="click"}} >
+<div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}} >
     <div class="masonry-object">
 
         {{render itemProfiles this}}
@@ -12,7 +12,7 @@
 
 
 {{#if getPhoto}}
-<div class="box col2 noStyle1" data-step="7" data-intro="Here is your Photo" data-position='left' {{action checkingLoginStatus target="view" on="click"}} >
+<div class="box col2 noStyle1" data-step="6" data-intro="This is an <b>image</b> result. Click the image to see a full screen view and to read the caption." data-position='left' {{action checkingLoginStatus target="view" on="click"}} >
 
     {{render itemFunction this}}
 
@@ -140,7 +140,7 @@
 
 
 {{#if getVideo}}
-<div class="box col2 noStyle1" data-step="8" data-intro="Here is your VIdeo" data-position='right'  {{action checkingLoginStatus target="view" on="click"}}  >
+<div class="box col2 noStyle1" {{action checkingLoginStatus target="view" on="click"}}  >
     <div class="object-tags-box">
         <div class="object-tags">
             <span class="tags-mark" style="background-color: #427fed"></span>
@@ -267,7 +267,7 @@
 
 
 {{#if getArticle}}
-<div class="box col2 noStyle1"  data-step="9" data-intro="Here is your Article" data-position='right' {{action checkingLoginStatus target="view" on="click"}}>
+<div class="box col2 noStyle1"  data-step="7" data-intro="This is an <b>article</b> result. Click the image to read the article and see all the images associated with it." data-position='right' {{action checkingLoginStatus target="view" on="click"}}>
 
     <div class="object-tags-box">
         <div class="object-tags">

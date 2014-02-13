@@ -315,7 +315,6 @@ HubStar.UserController = Ember.Controller.extend({
     trendsUser: function() {
         if (localStorage.loginStatus)
         {
-
             if (this.get("user").get("email").match(/@trendsideas.com/g) !== "" && this.get("user").get("email").match(/@trendsideas.com/g) !== "undefined" && this.get("user").get("email").match(/@trendsideas.com/g) !== null)
             {
                 this.get("controllers.application").set("is_trends_user", true);
@@ -325,7 +324,6 @@ HubStar.UserController = Ember.Controller.extend({
             }
         }
         else {
-
         }
 
     },

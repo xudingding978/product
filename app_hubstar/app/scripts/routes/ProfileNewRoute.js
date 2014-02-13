@@ -15,6 +15,7 @@ HubStar.ProfileNewRoute = Ember.Route.extend({
         if (localStorage.loginStatus === null || (localStorage.loginStatus === ""))
         {
             HubStar.set("isLogin", false);
+            this.transitionTo("index");
         } else {
             HubStar.set("isLogin", true);
 
@@ -24,7 +25,9 @@ HubStar.ProfileNewRoute = Ember.Route.extend({
 
                 this.controllerFor('application').set("is_trends_user", true);
             } else {
+                
                 this.controllerFor('application').set("is_trends_user", false);
+                this.transitionTo("searchIndex");
             }
         }
     },

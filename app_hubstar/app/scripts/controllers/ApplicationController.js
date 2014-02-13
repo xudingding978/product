@@ -89,6 +89,20 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     grapData: function() {
         var u = HubStar.User.find(localStorage.loginStatus);
+        var that =this;
+        u.then(function() {           
+            if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
+                    && (u.get("email")).match(/@trendsideas.com/g) !== ""
+                    && (u.get("email")).match(/@trendsideas.com/g) !== null)
+            {
+                
+                that.set("is_trends_user", true);
+            }
+            else {
+                
+                that.set("is_trends_user", false);
+            }
+        });
         this.set("user", u);
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
@@ -598,23 +612,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndex');
 
-                            if (localStorage.loginStatus)
-                            {
-                                if ((params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== "undefined"
-                                        || (params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== ""
-                                        || (params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== null)
-                                {
-
-                                    that.set("is_trends_user", true);
-                                }
-                                else {
-
-                                    that.set("is_trends_user", false);
-                                }
-                            }
-                            else {
-
-                            }
+                          
 
                             HubStar.set("showDiscoveryBar", true);
                             that.set('loginPassword', "");

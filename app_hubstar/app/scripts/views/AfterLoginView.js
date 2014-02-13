@@ -48,18 +48,12 @@ HubStar.AfterLoginView = Ember.View.extend({
     startTour: function() {
 
         $("#user-dd-menu").attr("style", "display:none");
-
         $("#profileDashboard").attr("style", "display:none");
         $("#profilePanel").removeClass("panel");
-        //           $("#profileFront").removeClass("front");
         $(".brand").addClass("tour-background");
         $(".Geo-Filter").addClass("tour-background");
         $("#login_detail").addClass("tour-background");
-        $("#profileName").addClass("profileName");
-
-
-
-        introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
+   introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
             var address = document.URL;
             var urlName = address.split("#")[1].split("/")[1];
             var target = address.split("#")[1].split("/")[2];

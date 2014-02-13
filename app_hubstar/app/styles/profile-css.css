@@ -1176,7 +1176,7 @@ textarea.add-interests{
     line-height: 20px;
 }
 
-.each-conversation:hover{
+.each-conversation > .each-conversation:hover{
     background-color: rgba(150,150,150,.1) !important;
     color:#404040 !important;
 }

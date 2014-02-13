@@ -179,8 +179,10 @@ HubStar.ContactController = Ember.Controller.extend({
             "projectTimeframe": this.get('timeframeSelection').trim(),
             "projectBudget": this.get('projectBudgetSelection').trim(),
             "projectExperience": this.get('projectExperienceSelection').trim(),
+            "objectUrl": document.URL,
             "projectSubCategoryItem": projectSubCategoryItem
         });
+        
         tempEmail.store.commit();
         this.get('controllers.applicationFeedback').statusObserver(null, "Your message has been sent.");
         if (!this.get('rememberMessage')) {

@@ -42,7 +42,6 @@ HubStar.SearchsRoute = Ember.Route.extend({
             this.transitionTo("profileCollections", HubStar.Profile.find(id));
         },
         transitionToArticle: function(id) {
-
             this.controllerFor('article').set("accessFromSearchBoard", true);
             this.transitionTo("searchDefaultArticle", HubStar.Article.find(id)); //it will got to default search without go to the new search
         }
@@ -50,7 +49,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
     redirect: function() {
 
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-            this.transitionTo('indexIndex');
+//            this.transitionTo('indexIndex');
 
         } else {
             // this.transitionTo('searchIndex');

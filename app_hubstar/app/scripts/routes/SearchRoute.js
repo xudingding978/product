@@ -39,9 +39,8 @@ HubStar.SearchRoute = Ember.Route.extend({
 //        });
     },
     model: function(params) {
-        var address = document.URL;
+        var address=decodeURIComponent(document.URL);       
         var search_id = address.split("#")[1].split("/")[2];
-
         if (search_id === null || search_id === undefined || search_id === '') {
             search_id = '';
         }
@@ -92,6 +91,7 @@ HubStar.SearchRoute = Ember.Route.extend({
 
             if (search_id === "articles" || search_id === "photos" || search_id === "videos") //it is the search index
             {
+
                 this.transitionTo("article", HubStar.Article.find(id));
             }
             else
@@ -102,7 +102,7 @@ HubStar.SearchRoute = Ember.Route.extend({
     },
     redirect: function() {
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-            this.transitionTo('indexIndex');
+//            this.transitionTo('indexIndex');
 
         } else {
             // this.transitionTo('searchIndex');

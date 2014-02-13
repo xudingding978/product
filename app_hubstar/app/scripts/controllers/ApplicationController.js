@@ -63,6 +63,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
         var that = this;
+        
         requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
             var array = $.map(callbck, function(value, index) {
                 return [value];
@@ -97,6 +98,20 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     grapData: function() {
         var u = HubStar.User.find(localStorage.loginStatus);
+        var that =this;
+        u.then(function() {           
+            if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
+                    && (u.get("email")).match(/@trendsideas.com/g) !== ""
+                    && (u.get("email")).match(/@trendsideas.com/g) !== null)
+            {
+                
+                that.set("is_trends_user", true);
+            }
+            else {
+                
+                that.set("is_trends_user", false);
+            }
+        });
         this.set("user", u);
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
@@ -110,7 +125,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("test", !this.get("test"));
     },
     scrollDownAction: function() {
-        this.set('loadingTime', true);
+        //this.set('loadingTime', true);
         HubStar.set("scrollDownSearch", true);
         this.set("size", 30);
         if (this.get("searchFromTopic") === false)
@@ -131,7 +146,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 HubStar.set("scrollDownSearch", false);
                 if (results.get("length") === 0) {
                     that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
+
                     HubStar.set("scrollDownSearch", true);
+
+                    $(document).ready(function() {
+                            
+                         $("#show_more_button").css("display", "none");         
+                         
+                     });
                 }
             }
         });
@@ -204,6 +226,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 var stat = stats.objectAt(0);
                 var megasResults = stat.get("megas");
                 HubStar.set('itemNumber', megasResults.get("length"));
+                 if (megasResults.get("length") === 0) {
+                     $(document).ready(function() {
+                            
+                         $("#show_more_button").css({display: "none"});         
+                         
+                     });
+                              
+                }
                 that.setContent(megasResults);
 
 
@@ -617,26 +647,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             localStorage.userType = "email";
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndex');
+
                             that.init();
-                            //location.href="/#/search/default";
-                            // location.reload();
-                            if (localStorage.loginStatus)
-                            {
-                                if ((params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== "undefined"
-                                        || (params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== ""
-                                        || (params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== null)
-                                {
-
-                                    that.set("is_trends_user", true);
-                                }
-                                else {
-
-                                    that.set("is_trends_user", false);
-                                }
-                            }
-                            else {
-
-                            }
+                            
 
                             HubStar.set("showDiscoveryBar", true);
                             that.set('loginPassword', "");
@@ -707,7 +720,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 for (var i = 0; i < ads.length; i++) {
                     var ad = ads[i];
                     var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
-
+                    console.log(slot1);
                     googletag.pubads().enableSingleRequest();
                     googletag.enableServices();
                     googletag.display(ad.div);

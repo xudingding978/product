@@ -587,15 +587,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 if (i === 0) {
                     var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '', "book_description": 'Renovation Trends (29/11)',
                         "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0',
-                        "book_read_url": 'http://ebooks.trendsideas.com/Book885', "book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/455/Renovation_Ideas_Trends_Vol_2911.aspx', "optional": this.get('model').get('id')});
+                        "book_read_url": 'http://ebooks.trendsideas.com/Book885', "book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/455/Renovation_Ideas_Trends_Vol_2911.aspx',
+                        "optional": this.get('model').get('id'), "display_size": 1, "read_available": true, "buy_available": true});
                 } else if (i === 1) {
                     var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '', "book_description": 'New Home Trends (29/10)',
                         "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=483&w=300&tabid=101&h=0',
-                        "book_read_url": 'http://ebooks.trendsideas.com/Book873', "book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/447/New_Home_Trends_Vol_2910.aspx', "optional": this.get('model').get('id')});
+                        "book_read_url": 'http://ebooks.trendsideas.com/Book873', "book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/447/New_Home_Trends_Vol_2910.aspx', 
+                        "optional": this.get('model').get('id'), "display_size": 1, "read_available": true, "buy_available": true});
                 } else {
                     var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '', "book_description": 'Limited Edition!',
                         "book_image_url": 'http://library.trendsideas.com/Portals/0/productimages/418_06894.jpg',
-                        "book_read_url": '', "book_buy_url": 'http://shop.trendsideas.co.nz/homeseries.aspx?prodid=418', "optional": this.get('model').get('id')});
+                        "book_read_url": '', "book_buy_url": 'http://shop.trendsideas.co.nz/homeseries.aspx?prodid=418', "optional": this.get('model').get('id'),
+                        "display_size": 1, "read_available": false, "buy_available": true});
                 }
                 about_us.get('about_book').pushObject(about_book);
             }
@@ -613,6 +616,20 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('editingAbout', !this.get('editingAbout'));
         }
         if (this.get('model').get('show_template')) {
+            for (var i =0; i< this.get('about_us').objectAt(0).get('about_book').get('length'); i++) {
+                var about_book = this.get('about_us').objectAt(0).get('about_book').objectAt(i);
+                if (about_book.get('book_read_url') !== null && about_book.get('book_read_url') !== '' && about_book.get('book_read_url') !== undefined) {
+                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('read_available', true);
+                } else {
+                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('read_available', false);
+                }
+                
+                if (about_book.get('book_buy_url') !== null && about_book.get('book_buy_url') !== '' && about_book.get('book_buy_url') !== undefined) {
+                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('buy_available', true);
+                } else {
+                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('buy_available', false);
+                }
+            }
             if (this.get('model').get('about_us') === null || this.get('model').get('about_us') === 'undefined' || this.get('model').get('about_us').get('length') === 0) {
                 this.get('model').get('about_us').pushObject(this.get('about_us').objectAt(0));
             }
@@ -627,15 +644,17 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (checkingInfo === "profileName") {
             var title_modify_time = Date.parse(new Date());
             var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-            if (title_modify_time > update_profile_record.get('title_modify_time') + 600000) {
-                this.set('editing', !this.get('editing'));
+
+//            if (title_modify_time > update_profile_record.get('title_modify_time')+600000) {
+                this.set('editing', !this.get('editing'));            
+
                 update_profile_record.set("profile_name", this.get('profile_name'));
                 update_profile_record.set("title_modify_time", title_modify_time);
                 this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
                 update_profile_record.store.save();
-            } else {
-                this.get('controllers.applicationFeedback').statusObserver(null, "Please do not change your profile title so frequently.", "warnning");
-            }
+//            } else {
+//                this.get('controllers.applicationFeedback').statusObserver(null, "Please do not change your profile title so frequently.", "warnning");
+//            }
         }
         else if (checkingInfo === "contact") {
             if (this.get("website_url") !== null) {
@@ -807,19 +826,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
             contactController.setSelectedMega(this.get('currentUserID'));
 
-
-            if (!this.get('contactChecking'))
-            {
                 document.getElementById("body_id").style.overflow = "hidden";
-            }
-            else {
-                document.getElementById("body_id").style.overflow = "auto";
-            }
+            
             this.set('contactChecking', !this.get('contactChecking'));
         }
     },
     closeContact: function() {
         this.set('contactChecking', false);
+        document.getElementById("body_id").style.overflow = "auto";
     },
     uploadImage: function() {
         var user = this.getCurrentProfile(this.get('currentUserID'));
@@ -1240,6 +1254,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     cropButton: function()
     {
+        
         this.set('cropsize', $('#panel').text());
         this.set('isPhotoUploadMode', false);
         this.set('isPhotoEditingMode', true);
@@ -1266,7 +1281,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var that = this;
         Ember.run.later(function() {
             crop(that.get('newStyleImageSource'));
-
         }, 0);
 
 
@@ -1299,16 +1313,16 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             'newStyleImageName': that.get('newStyleImageName'),
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': that.get('model.id')};
-                        //         that.set('loadingTime', true);
+
 
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
-                            //     $('#uploadStyleImg').attr("style", "display:none");
                             that.set('isPhotoEditingMode', false);
                             that.set('isPhotoUploadMode', false);
-                            that.set('isFinished', true);
+                               that.set('isUpload', false);
                             that.set("isCrop", false);
                             that.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
                             that.set('loadingTime', false);
+                             that.set('isFinished', true);
                         });
 
                     }

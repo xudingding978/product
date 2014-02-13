@@ -15,8 +15,9 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     fileChecking: function(filesLength) {
         HubStar.set("totalFiles", 0);
         HubStar.set("photoIds", "");
-        this.set("filesNumber", this.get("filesNumber") + filesLength);
-        console.log(filesLength);
+
+        this.set("filesNumber", this.get("filesNumber")+filesLength);
+
     },
     commitFiles: function(evt) {
         $('#dragAndDroppArea').attr('style', "display:block");

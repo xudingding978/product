@@ -141,6 +141,9 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_domains'] = $newRecord['profile_domains'];
             $oldRecord['profile'][0]['profile_country'] = $newRecord['profile_country'];
             $oldRecord['profile'][0]['profile_editors'] = $newRecord['profile_editors'];
+             $oldRecord['profile'][0]['profile_editors'] = $newRecord['profile_editors'];
+             $oldRecord['profile'][0]['profile_creater'] = $newRecord['profile_creater'];
+             $oldRecord['creator'] == $newRecord['profile_creater'];
             $oldRecord['profile'][0]['profile_hours'] = $newRecord['profile_hours'];
             $oldRecord['profile'][0]['profile_is_active'] = $newRecord['profile_is_active'];
             $oldRecord['profile'][0]['profile_is_deleted'] = $newRecord['profile_is_deleted'];
@@ -182,10 +185,10 @@ class ProfilesController extends Controller {
             
             $oldRecord['profile'][0]['show_keyword_id'] = $newRecord['show_keyword_id'];
             $cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true));           
-            if ($setProfileName) {
-//                ERunActions::touchUrlExt('http://api.develop.trendsideas.com/profiles/backgroundProcess',$postData=null,$contentType=null,$httpClientConfig=array());
-                ERunActions::httpPOST('http://api.develop.trendsideas.com/profiles/backgroundProcess',array('profile_id'=>$oldRecord['profile'][0]['id'],'profile_name'=>$newRecord['profile_name']));
-            }
+//            if ($setProfileName) {
+////                ERunActions::touchUrlExt('http://api.develop.trendsideas.com/profiles/backgroundProcess',$postData=null,$contentType=null,$httpClientConfig=array());
+//                ERunActions::httpPOST('http://api.develop.trendsideas.com/profiles/backgroundProcess',array('profile_id'=>$oldRecord['profile'][0]['id'],'profile_name'=>$newRecord['profile_name']));
+//            }
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
             }

@@ -6,15 +6,15 @@
 
 
 
-<div style="z-index: 11;background-color: white; border: 1px rgba(0,0,0,.6); border-radius: 3px;box-shadow: 0 0 20px 5px #aaa;  width: 500px;margin: 0 auto; padding: 20px 40px;position: fixed; top: 35%;left: 0;right: 0;">
-    <i class="fa fa-exclamation-sign" style="font-size: 35px;margin: auto;width: 40px;position: relative;left: 0;right: 0;display: block;text-align: center;margin-top: 5px;"></i>
-    <div style=" color: #333; font-size: 18px; font-weight: bold; line-height: 20px; text-align: center;margin: 10px 0;">
+<div style="z-index: 11;background-color: white; border: 1px rgba(0,0,0,.6); border-radius: 3px;box-shadow: 0 0 20px 5px #aaa;  width: 450px;margin: 0 auto; padding: 20px 30px;position: fixed; top: 35%;left: 0;right: 0;">
+    <i class="fa fa-exclamation-circle" style="color: #333; font-size: 35px;margin: auto;width: 40px;position: relative;left: 0;right: 0;display: block;text-align: center;margin-top: 5px;"></i>
+    <div style=" color: #333; font-size: 22px; font-weight: bold; line-height: 18px; text-align: center; margin: 10px 0;">
         {{controller.message}}
     </div>
-    <div style="font-weight: normal; font-size: 13px;text-align: center;"> You won't be able to undo this!</div>
+    <div style="color: #333; font-weight: normal; font-size: 15px;text-align: center;"> You won't be able to undo this!</div>
     <div style="width:200px; margin: 20px auto 5px;text-align: center;">       
         <div class="new-btn red-btn" {{action deleteSelection target="view"}}>Remove</div>
-        <div  class="new-btn" {{action cancelDelete target="view"}}>Cancel</div>
+        <div class="new-btn" {{action cancelDelete target="view"}}>Cancel</div>
     </div>
 
 </div>

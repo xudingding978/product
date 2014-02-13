@@ -412,7 +412,13 @@ class Controller extends CController {
                 echo "no such search type, please input: must or should as a search type.";
             }
         }
+         $sort = Sherlock\Sherlock::sortBuilder();
+        $sort1 = $sort->Field()->name("couchbaseDocument.doc.photo.photo_isExtra")->order('asd');
+        $sort2 = $sort->Field()->name("couchbaseDocument.doc.photo.photo_sequence")->order("asd");
+        
         $request->query($bool);
+        $request->sort($sort1, $sort2);
+        error_log($request->toJSON());
         $response = $request->execute();
 
         return $response;

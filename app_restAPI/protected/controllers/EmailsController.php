@@ -43,14 +43,14 @@ class EmailsController extends Controller {
         $sub_category = explode(",", $request_arr['project_sub_category_item']);
 
         $description = $this->linkCategory($sub_category);
-
-
-
+        
+        $objectUrl = $request_arr['object_url'];
+        
         $domain = $this->getDomain();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
-        $platformEmail = $platformSettings['direct_enquiries']['email'];
+        $platformEmail = $platformSettings['direct_enquiries']['email'];        
         $subject_prefix = $platformSettings['direct_enquiries']['subject_prefix'];
         $args = array(
             "Source" => $platformEmail,
@@ -65,7 +65,7 @@ class EmailsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->getEmailForm($request_arr['email_subject'], $request_arr['email_body'], $request_arr['display_name'], $request_arr['recieve_profile'], $request_arr['project_timeframe'], $request_arr['project_category'], $request_arr['project_budget'], $request_arr['project_experience'], $description
+                        "Data" => $this->getEmailForm($request_arr['email_subject'], $request_arr['email_body'], $request_arr['display_name'], $request_arr['recieve_profile'], $request_arr['project_timeframe'], $request_arr['project_category'], $request_arr['project_budget'], $request_arr['project_experience'], $description,$objectUrl
                         )
                     )
                 ),
@@ -134,6 +134,7 @@ class EmailsController extends Controller {
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
         $platformEmail = $platformSettings['support']['email'];
+        
         $subject_prefix = 'Confirmation of registration';
         $args = array(
             "Source" => $platformEmail,
@@ -174,7 +175,7 @@ class EmailsController extends Controller {
         }
     }
 
-    public function getEmailForm($subject, $emailBody, $sendPersonName, $recieveProfile, $timeframe, $category, $budget, $experience, $description) {
+    public function getEmailForm($subject, $emailBody, $sendPersonName, $recieveProfile, $timeframe, $category, $budget, $experience, $description,$objectUrl) {
         return '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -187,7 +188,7 @@ class EmailsController extends Controller {
                 <tr>
                     <td align="center">
                         <br />
-                        &nbsp
+                        &nbsp;
                         <table width="600" cellpadding="0" cellspacing="0" border="0" style="background: #fff;">
                             <tbody>
                                 <tr>
@@ -225,6 +226,14 @@ class EmailsController extends Controller {
                                                     </td>
                                                     <td align="left" width="484">
                                                         ' . $subject . '
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="right" width="56">
+                                                        Link:&nbsp;
+                                                    </td>
+                                                    <td align="left" width="484">
+                                                        ' . $objectUrl . '
                                                     </td>
                                                 </tr>
                                                 <tr>

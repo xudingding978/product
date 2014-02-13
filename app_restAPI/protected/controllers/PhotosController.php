@@ -202,6 +202,14 @@ class PhotosController extends Controller {
         return $profile['keyword'];
     }
 
+     public function getProfileEditors($owner_id) {
+        $cb = $this->couchBaseConnection();
+        $url = $this->getDomain() . "/profiles/" . $owner_id;
+        $tempProfile = $cb->get($url);
+        $profile = CJSON::decode($tempProfile, true);
+        return $profile['profile'][0]['profile_editors'];
+    }
+    
     public function updateCouchbasePhoto($id) {
         $ch = $this->couchBaseConnection("develop");
         $result = $ch->get($id);
@@ -289,7 +297,9 @@ class PhotosController extends Controller {
         $mega['photo'][0]['photo_original_width'] = $orig_size['width'];
 
         $keyword = $this->getProfileKeyword($mega['owner_id']);
+        $editors = $this->getProfileEditors($mega['owner_id']); 
         $mega['keyword'] = $keyword;
+        $mega['editors'] = $editors;
 
         return $mega;
     }

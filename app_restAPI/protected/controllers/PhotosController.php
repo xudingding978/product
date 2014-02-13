@@ -202,6 +202,14 @@ class PhotosController extends Controller {
         return $profile['keyword'];
     }
 
+     public function getProfileEditors($owner_id) {
+        $cb = $this->couchBaseConnection();
+        $url = $this->getDomain() . "/profiles/" . $owner_id;
+        $tempProfile = $cb->get($url);
+        $profile = CJSON::decode($tempProfile, true);
+        return $profile['profile'][0]['profile_editors'];
+    }
+    
     public function updateCouchbasePhoto($id) {
         $ch = $this->couchBaseConnection("develop");
         $result = $ch->get($id);
@@ -289,7 +297,9 @@ class PhotosController extends Controller {
         $mega['photo'][0]['photo_original_width'] = $orig_size['width'];
 
         $keyword = $this->getProfileKeyword($mega['owner_id']);
+        $editors = $this->getProfileEditors($mega['owner_id']); 
         $mega['keyword'] = $keyword;
+        $mega['editors'] = $editors;
 
         return $mega;
     }
@@ -493,7 +503,7 @@ class PhotosController extends Controller {
             $photoCaption = $mega['mega']['photo'][0]['photo_caption'];
             $linkText = $mega['mega']['photo'][0]['photo_link_text'];
             $linkUrl = $mega['mega']['photo'][0]['photo_link_url'];
-            $deleted = $mega['mega']['deleted'];
+            $deleted = $mega['mega']['is_deleted'];
 
             
             $url = $this->getDomain() . "/" . $id;
@@ -519,7 +529,7 @@ class PhotosController extends Controller {
             $oldRecord['photo'][0]['photo_caption'] = $photoCaption;
             $oldRecord['photo'][0]['photo_link_text'] = $linkText;
             $oldRecord['photo'][0]['photo_link_url'] = $linkUrl;
-            $oldRecord['deleted'] = $deleted;
+            $oldRecord['is_deleted'] = $deleted;
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {

@@ -18,10 +18,10 @@ HubStar.AfterLoginView = Ember.View.extend({
     },
     showUserDropDown: function() {
         if ($('#user-dd-menu').css('display') === 'block') {
-            $("#user-dd-menu").attr("style", "padding: inherit; width: 165px; right: 56px; position: relative; top:30px;display:none");
+            $("#user-dd-menu").attr("style", "padding: inherit; width: 178px; right: 60px; position: relative; top:30px;display:none");
         }
         else {
-            $("#user-dd-menu").attr("style", "padding: inherit; width: 165px; right: 56px; position: relative; top:30px;display:block");
+            $("#user-dd-menu").attr("style", "padding: inherit; width: 178px; right: 60px; position: relative; top:30px;display:block");
         }
     },
     userDisplaynone: function(checking) {

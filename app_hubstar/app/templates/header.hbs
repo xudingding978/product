@@ -3,7 +3,7 @@
 
     <div class="navbar-inner">
         
-            <div class="brand" data-step="1" data-intro="Come to your home feed for all the newest ideas.">
+        <div class="brand" data-step="1" data-intro="Click on the <b>Trends logo</b> to return to the main Search Wall.">
             <a href="/#/search" > <img class="logonew" {{action showDiscoveryBar}} style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png"></a>
 
         </div>
@@ -37,11 +37,11 @@
         {{#if HubStar.isLogin}}
 
         <div id="login_details" style="position: relative;float: right;cursor: pointer;text-align: right;">
-            <div id="login_detail" style="position: relative;float: right;cursor: pointer;text-align: right;" data-step="4" data-intro="your account detail link ">
+            <div id="login_detail" style="position: relative;float: right;cursor: pointer;text-align: right;" data-step="4" data-intro="Click on your <b>Profile Picture</b> to access your Profile, Message Centre, Help options or to log out.">
             {{view HubStar.AfterLoginView}}
         </div>
             </div>
-        <div id="Geo-Filter" class="Geo-Filter easing"  style="margin-right: 50px;font-size: 15px;" {{action dropdown "notification"}} data-step="3" data-intro="Get quick updates about your friends' actions that most affect you. ">
+        <div id="Geo-Filter" class="Geo-Filter easing"  style="margin-right: 50px;font-size: 15px;" {{action dropdown "notification"}} data-step="3" data-intro="New notifications will appear beside the <b>Notification icon</b>. Click the icon to see your latest notifications.">
                        <i class="fa fa-bell fa-lg"></i>
             {{#if isUnReadCountZero}}
             <div style="cursor: pointer;position: absolute;top: 20px;left: 15px;width: auto;padding: 0 5px 0 4px;height: 15px;background-color: red;line-height: 15px;border-radius: 2px;font-size: 11px;font-weight: bold;">{{unReadCount}}</div>
@@ -78,7 +78,7 @@
         {{render notificationTop}}
         {{/if}}
 
-        <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdown "geoLocation"}} data-step="2" data-intro="Changing global search Location Filter.">
+        <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdown "geoLocation"}} data-step="2" data-intro=" Use the <b>Location Filter</b> to filter search results by region.">
                      <i class="fa fa-angle-down fa-lg">&nbsp;</i>
             <span style="font-weight: bold;font-size: 15px;">{{HubStar.geoLocation}}</span>
         </div>

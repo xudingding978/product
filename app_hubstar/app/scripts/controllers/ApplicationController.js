@@ -209,7 +209,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     newSearch: function() {
         this.set("googletagCmd", []);
         this.set("content", []);
-        $(document).scrollTop();
+        $(document).scrollTop(0);
         this.set("oldChildren", 0);
         this.set("from", 0);
         this.set("size", 30);
@@ -258,7 +258,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("googletagCmd", []);
         this.set("content", []);
         this.set("adPageNo", 0);
-        $(document).scrollTop();
+        $(document).scrollTop(0);
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
         } else {
             this.set('loadingTime', true);

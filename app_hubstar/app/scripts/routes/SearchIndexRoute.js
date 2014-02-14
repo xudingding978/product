@@ -18,12 +18,8 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
         $(".navbar").css("box-shadow", "");
         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-//        setTimeout(function() {
-//            $('#masonry_container').masonry("reloadItems");
-//            setTimeout(function() {
-//                $('#masonry_container').masonry();
-//            }, 500);
-//        }, 1000);
+        
+
     },
     events: { 
     },

@@ -16,7 +16,6 @@ HubStar.ArticleView = Ember.View.extend({
                 var imgtag = $(this).parent(); // get the div to append the tagging entry
                 mouseX = event.pageX - $(imgtag).offset().left - 265; // x and y axis
                 mouseY = event.pageY - $(imgtag).offset().top - 45;
-                console.log(mouseX);
                 that.get("controller").get("controllers.showTag").set("pic_x", mouseX); //set 
                 that.get("controller").get("controllers.showTag").set("pic_y", mouseY);
                 if (that.get("controller").get("enableTag") === true)
@@ -74,25 +73,42 @@ HubStar.ArticleView = Ember.View.extend({
 
         });
 
+        var that = this;
+        window.onresize = function() {
+            HubStar.set("window_last_height", HubStar.get("window_current_height"));
+            HubStar.set("window_last_width", HubStar.get("window_current_width"));
+            HubStar.set("window_current_height", window.innerHeight);
+            HubStar.set("window_current_width", window.innerWidth);
+            HubStar.set("window_resize_height_times", window.innerHeight / HubStar.get("window_last_height"));
+            HubStar.set("window_resize_width_times", window.innerWidth / HubStar.get("window_last_width"));
+            var tags = that.get("controller").get("controllers.showTag").get("contentTags");
+            console.log(tags);
 
+            if (tags !== undefined && tags !== "" && tags !== null)
+            {
+                for (var i = 0; i < tags.length; i++)
+                {
+                    //var tagDiv = "#tag_" + tags[i].tag_id;
+                    console.log(HubStar.get("window_resize_height_times"));
+                    console.log(tags[i].pic_y + "   " + tags[i].pic_y * HubStar.get("window_resize_height_times"));
+                    tags[i].pic_y = tags[i].pic_y * HubStar.get("window_resize_height_times");
+                    tags[i].pic_x = tags[i].pic_x * HubStar.get("window_resize_width_times");
+                    console.log(tags[i].tag_id);
+
+                    //   $(tagDiv).css({top: tags[i].pic_y * HubStar.get("window_resize_height_times"), left: tags[i].pic_x * HubStar.get("window_resize_width_times")});
+                    //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
+                }
+                that.get("controller").windowResizeTags(tags);
+            }
+
+
+            //   console.log(mouseY+" ddddddddddddddd "+mouseX);
+            // $('#tagit').css({top: mouseY*HubStar.get("window_resize_height_times"), left: mouseX*HubStar.get("window_resize_width_times")});
+        };
         return this.$().attr({tabindex: 1}), this.$().focus();
     },
     checkReading: function() {
-//        $('.article-objectview-right').animate({
-//            width: '55%'
-//        }, 500, function() {
-//            // Animation complete.
-//        });
-//
-//
-//        $('.article-objectview-left').animate({
-//            width: '45%'
-//        }, 500, function() {
-//            // Animation complete.
-//        });
-//        $('.lightbox').attr("style", "min-width:700px");
         this.set('readContent', !this.get("readContent"));
-//        $('#article_action').attr("style", "display:block;overflow: hidden;");
         $('#article_text_action').css('height', 'auto');
         var height = $('#article_text_action').height();
         $("#article_text_action").height('215px').animate({height: height}, "slow");
@@ -101,38 +117,20 @@ HubStar.ArticleView = Ember.View.extend({
     },
     checkClosed: function() {
 
-//        $('.article-objectview-right').animate({
-//            width: '320px'
-//        }, 500, function() {
-//            // Animation complete.
-//        });
-//
-//
-//        $('.article-objectview-left').animate({
-//            width: 'auto'
-//        }, 500, function() {
-//            // Animation complete.
-//        });
-//         $('#article_action').attr("style", "display:block;overflow: hidden;");
         var height = $('#article_text_action').offset().height;
         $("#article_text_action").css({height: height}).animate({"height": "210px"}, "slow");
-        //$('#article_action'),animate({height:"215px"},1000);
-//        $('.article-objectview-left').attr("style", "bottom: 0; top: 0; left: 0; margin: 0; position: absolute; right: 320px; overflow: hidden; transition:all 0.5 ease; ");
         this.set('readContent', !this.get("readContent"));
         $('#read_more_cue').attr("style", "display:block;");
-//        $('#article_action').slideToggle(1000);
     },
-    setTag: function() {
+    setArticleTag: function() {
 
-        $('#tag_action').slideToggle("slow");
-        //     this.set('discussionTag', !this.get('discussionTag'));
+        $('#tag_article_action').slideToggle("slow");
 
     },
     //set the mouse over event
     showTagContent: function(tag_id, pic_x, pic_y)
     {
         var that = this;
-        //alert(tag_id + "  " + pic_x + "  " + pic_y);
         var picx_content = pic_x + 5;
         $("#tag_" + tag_id).mouseover(function() {
             that.get("controller").set("showEachTagContent", true);
@@ -152,21 +150,16 @@ HubStar.ArticleView = Ember.View.extend({
     },
     setNameTag: function() {
         $('#poster_action').slideToggle("slow");
-        //       this.set('nameTag', !this.get('nameTag'));
-
     },
     setPartnerTag: function() {
 
         $('#partner_action').slideToggle("slow");
-        //       this.set('partnerTag', !this.get('partnerTag'));
 
     },
     popupAibum: function(id) {
         HubStar.set('what', true);
-        // $("#collection_tab1").slideToggle("slow");
         setTimeout(function() {
             $('.collection_tab1').attr('style', 'bottom: 0px; right: 0px; height: 300px;background-color: black;overflow:hidden;display:block; position: absolute;z-index: 5; width: 100%; opacity: .9;');
-            //$("#collection_tab1").attr('style', 'display: block');
         }, 200);
     },
     openComment: function() {

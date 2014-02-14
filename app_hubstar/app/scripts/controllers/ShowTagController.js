@@ -18,10 +18,12 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
     photo_owner_user: [],
     isUpdateTag: false,
     selectedPhotoThumbnailUrl: "",
+    chosenProfile: '',
+    selectedTitle: "Choose your Collection",
     needs: ["mega", "article", "collection", "applicationFeedback", "comment", "video"],
     ////////////////////////////////////////////////////////////////profileCollection: [],
 
-    selectedTitle: "Choose your Collection",
+
     //selectedCollection: "",
     selectionPop: false,
     newCollectionName: null,
@@ -31,7 +33,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
     isComment: false,
     //isProfile: false,
     userName: '',
-    chosenProfile: '',
     init: function()
     {
         HubStar.set("isProfile", false);
@@ -81,10 +82,18 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                     that.get("contentTags").pushObject(newTag);
                     that.createNotification(newTag, mega);
                 }
-//reset the value
-//  that.setTagIcon(pic_x, pic_y, tag_id); //set the tag icon location
-                that.get("controllers.mega").set("showRequestTag", true);
-                that.get("controllers.article").set("showRequestTag", true);
+//                that.get("controllers.article").set("showRequestTag", true);
+//                that.get("controllers.mega").set("showRequestTag", true);
+////reset the value
+////  that.setTagIcon(pic_x, pic_y, tag_id); //set the tag icon location
+                if (HubStar.get("isArticleTag") === true)
+                {
+                    that.get("controllers.article").set("showRequestTag", true);
+                }
+                else
+                {
+                    that.get("controllers.mega").set("showRequestTag", true);
+                }
                 that.setDescription("");
                 that.setLinkTo("");
                 that.set("product_name", "");
@@ -220,13 +229,29 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             var thatthat = that;
             if (params !== "" && params !== undefined && params !== null)
             {
+
                 that.set("contentTags", params);
-               // that.get("controllers.mega").set("contentTags", params);
-                that.get("controllers.article").set("contentTagsArticle", params);
+                //    that.get("controllers.article").set("contentTagsArticle", params);
+                if (HubStar.get("isArticleTag") === true)
+                {
+                    that.get("controllers.article").set("contentTagsArticle", params);
+                }
+                else
+                {
+                    that.get("controllers.mega").set("contentTags", params);
+                }
+
                 var tags = params;
 
                 setTimeout(function() {
-                    thatthat.get("controllers.mega").set("tagCount", params.get("length"));
+                    //thatthat.get("controllers.mega").set("tagCount", params.get("length"));
+                    if (HubStar.get("isArticleTag") === true)
+                    {
+                        thatthat.get("controllers.article").set("tagCount", params.get("length"));
+                    } else
+                    {
+                        thatthat.get("controllers.mega").set("tagCount", params.get("length"));
+                    }
                     if (tags !== undefined && tags !== "" && tags !== null)
                     {
                         for (var i = 0; i < tags.length; i++)
@@ -241,7 +266,17 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             }
             else
             {
-                thatthat.get("controllers.mega").set("tagCount", 0);
+                //    thatthat.get("controllers.article").set("tagCount", 0);
+                if (HubStar.get("isArticleTag") === true)
+                {
+                    thatthat.get("controllers.article").set("tagCount", 0);
+                }
+                else
+                {
+                    thatthat.get("controllers.mega").set("tagCount", 0);
+                }
+
+
             }
         });
 

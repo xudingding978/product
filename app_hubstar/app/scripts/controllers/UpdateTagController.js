@@ -82,8 +82,14 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
                 break;
             }
         }
-        this.get("controllers.mega").set("contentTags", this.get("controllers.showTag").get("contentTags"));
-
+        if (HubStar.get("isArticleTag") === true)
+        {
+            this.get("controllers.article").set("contentTagsArticle", this.get("controllers.showTag").get("contentTags"));
+        }
+        else
+        {
+            this.get("controllers.mega").set("contentTags", this.get("controllers.showTag").get("contentTags"));
+        }
         var tagInfo = [tag_id, this.get("product_name"), this.get("description"), this.get("linkTo"), time_stamp, this.get("selectedID"), photo_id];
         tagInfo = JSON.stringify(tagInfo);
         var that = this;
@@ -91,15 +97,29 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
 //reset the value
 //  that.setTagIcon(pic_x, pic_y, tag_id); //set the tag icon location
             that.set("isUpdateTag", false);
-            that.get("controllers.mega").set("enableEditTag", false);
-            console.log(params);
-            that.get("controllers.mega").set("contentTags", params);
-             that.get("controllers.showTag").readTags(photo_id);
+            if (HubStar.get("isArticleTag") === true)
+            {
+                that.get("controllers.article").set("enableEditTag", false);
+                that.get("controllers.article").set("contentTagsArticle", params);
+            }
+            else
+            {
+                that.get("controllers.mega").set("enableEditTag", false);
+                that.get("controllers.mega").set("contentTags", params);
+            }
+            that.get("controllers.showTag").readTags(photo_id);
         });
     },
     cancelUpdateTag: function()
     {
-        this.get("controllers.mega").set("enableEditTag", false);
+        if (HubStar.get("isArticleTag") === true)
+        {
+            this.get("controllers.article").set("enableEditTag", false);
+        }
+        else
+        {
+            this.get("controllers.mega").set("enableEditTag", false);
+        }
         this.set("isUpdateTag", false);
         this.cancelTag();
     },

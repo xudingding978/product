@@ -10,38 +10,42 @@ HubStar.ArticlePhotoRoute = Ember.Route.extend({
         } else {
             temp = model.id;
         }
-        // var type= url []s
-        // this.controllerFor("article").set("showAllTagsArticle","");
+
         this.controllerFor("showTag").readTags(temp);
-
-
-        var that = this;
-        setTimeout(function() {
-            if (that.controllerFor("article").get("contentTagsArticle") !== "" && that.controllerFor("article").get("contentTagsArticle") !== null && that.controllerFor("article").get("contentTagsArticle") !== undefined)
-            {
-                if (that.controllerFor("article").get("contentTagsArticle").get("length") > 0)
-                {
-                    console.log(that.controllerFor("article").get("contentTagsArticle"));
-                    that.controllerFor("article").set("hasTag", true);
-                    // that.set("tagCount", that.get("contentTags").get("length"));
-                    that.controllerFor("masonryCollectionItems").set("type", "user");
-                    var megaModel = HubStar.Mega.find(temp);
-                    that.controllerFor("article").JudgePhotoOwner(megaModel);
-                    console.log(temp);
-                    that.controllerFor('mega').getInitData(megaModel);
-
-                }
-
-            }
-            else
-            {
-                //  that.controllerFor("article").set("showAllTagsArticle","");
-                that.controllerFor("masonryCollectionItems").set("type", "user");
-                var megaModel = HubStar.Mega.find(temp);
-                console.log(temp);
-                that.controllerFor('mega').getInitData(megaModel);
-            }
-        }, 50);
+        
+        HubStar.set("isArticleTag",true);  //isArticleTag is true mean is the  photo tag,so it will set different tagcontent in showTagController
+        var megaModel = HubStar.Mega.find(temp);
+        this.controllerFor("article").JudgePhotoOwner(megaModel);
+        this.controllerFor("masonryCollectionItems").set("type", "user");
+        this.controllerFor('mega').getInitData(megaModel);
+//        var that = this;
+//        setTimeout(function() {
+//            if (that.controllerFor("article").get("contentTagsArticle") !== "" && that.controllerFor("article").get("contentTagsArticle") !== null && that.controllerFor("article").get("contentTagsArticle") !== undefined)
+//            {
+//                if (that.controllerFor("article").get("contentTagsArticle").get("length") > 0)
+//                {
+//                    console.log("44444444400000000000000");
+//
+//                    that.controllerFor("article").set("hasTag", true);
+//                    that.controllerFor("article").set("tagCount", that.controllerFor("article").get("contentTagsArticle").get("length"));
+//                    that.controllerFor("masonryCollectionItems").set("type", "user");
+//
+//
+//                    that.controllerFor('mega').getInitData(megaModel);
+//
+//                }
+//
+//            }
+//            else
+//            {
+//                console.log("4444444441111111111111111111");
+//                console.log(that.controllerFor("article").get("contentTagsArticle"));
+//                //  that.controllerFor("article").set("showAllTagsArticle","");
+//                that.controllerFor("masonryCollectionItems").set("type", "user");
+//                console.log(temp);
+//                that.controllerFor('mega').getInitData(megaModel);
+//            }
+//        }, 50);
 
 
     },

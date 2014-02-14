@@ -5,7 +5,7 @@ HubStar.ActivateTagFunctionView = Ember.View.extend({
     },
     activateTag: function() {
         var controller = this.get('controller');
-        if (controller._debugContainerKey.indexOf("mega") !== -1) {
+      if (controller._debugContainerKey.indexOf("mega") !== -1||controller._debugContainerKey.indexOf("article") !== -1) {
             var tag_id = controller.get("tag_id");
             controller.sureToActivate(tag_id);
         }
@@ -13,27 +13,21 @@ HubStar.ActivateTagFunctionView = Ember.View.extend({
     cancelActivate: function() {
         var controller = this.get('controller');
 
-        if (controller._debugContainerKey.indexOf("mega") !== -1) {
-
-
+   if (controller._debugContainerKey.indexOf("mega") !== -1||controller._debugContainerKey.indexOf("article") !== -1) {
             controller.cancelActivate();
-
         }
     },
     deleteTag: function() {
         var controller = this.get('controller');
-        if (controller._debugContainerKey.indexOf("mega") !== -1) {
+       if (controller._debugContainerKey.indexOf("mega") !== -1||controller._debugContainerKey.indexOf("article") !== -1){
             var tag_id = controller.get("tag_id");
-            
             controller.deleteTag(tag_id);
         }
     },
     cancelDeleteTag: function() {
         var controller = this.get('controller');
-
-        if (controller._debugContainerKey.indexOf("mega") !== -1) {
+        if (controller._debugContainerKey.indexOf("mega") !== -1||controller._debugContainerKey.indexOf("article") !== -1) {
             controller.cancelDelTag();
-
         }
-    },
+    }
 });

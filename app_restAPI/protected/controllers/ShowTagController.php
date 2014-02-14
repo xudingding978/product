@@ -48,6 +48,36 @@ class ShowTagController extends Controller {
         }
     }
 
+    public function actionResizeWindow() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request_array = CJSON::decode($request_array);
+        $tags = $request_array[0]; // it is the selected profile
+        $photo_id = $request_array[1];
+        try {
+            $docIDDeep = $this->getDomain() . "/" . $photo_id; //$id  is the page owner
+            $cb = $this->couchBaseConnection();
+            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+            $oldRecordDeep = CJSON::decode($oldDeep, true);
+
+            //create the new tag
+
+            if (isset($oldRecordDeep["photo"][0]['tags'])) {
+                $oldRecordDeep["photo"][0]['tags'] = $tags;
+            }
+
+
+            if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                     $this->sendResponse(200, CJSON::encode($oldRecordDeep["photo"][0]['tags']));
+             
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
+    }
+
     public function actionSentRequestEmail() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request_array = CJSON::decode($request_array);
@@ -122,7 +152,7 @@ class ShowTagController extends Controller {
             }
 
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
-                $this->sendResponse(200,CJSON::encode($oldRecordDeep["photo"][0]['tags']));
+                $this->sendResponse(200, CJSON::encode($oldRecordDeep["photo"][0]['tags']));
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
             }
@@ -286,7 +316,7 @@ class ShowTagController extends Controller {
             if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
                 if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
 
-                  //  $receiveEmail = $userInfo['user'][0]['email'];
+                    //  $receiveEmail = $userInfo['user'][0]['email'];
                     $receiveName = $userInfo['user'][0]['display_name'];
 
                     $this->sendEmail($receiveEmail1, $receiveName, $photo_url, $currentUserName, $linkToCompany);

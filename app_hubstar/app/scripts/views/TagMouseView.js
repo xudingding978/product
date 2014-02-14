@@ -38,7 +38,7 @@ HubStar.TagMouseView = Ember.View.extend({
 
             $("#tagitshow").fadeIn();
             $("#tagitshow").css({top: pic_y, left: picx_content, opacity: 1});
-        }, 50);
+        }, 20);
         //alert(that.get("controller").get("showEachTagContent"));
 
 
@@ -47,14 +47,6 @@ HubStar.TagMouseView = Ember.View.extend({
     showContent: function(evt)
     {
         this.get("controller").set("showEachTagContent", true);
-
-        //   $("#tagitshow").toggleClass('hideClass');
-//          var that=this;
-//        $("#tagitshow").mouseleave(function() {
-//            console.log("ddd");
-//             that.get("controller").set("showEachTagContent", false);
-//            $(this).addClass('hideClass');
-//        });
 
     },
     mouseEnter: Ember.aliasMethod('showTagContent1'),

@@ -37,7 +37,8 @@ HubStar.CollectionRoute = Ember.Route.extend({
     console.log("ssssssssssssss");
             this.controllerFor("article").set("collectionArticleId", id);
             var article = HubStar.Article.find(id);
-                        console.log(article.get("isLoaded"));
+                        console.log(article.get("isLoaded")+"  "+id);
+                              console.log(article);
             this.transitionTo("userArticle", article);
 
         },

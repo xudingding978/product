@@ -102,24 +102,63 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.get("controllers.updateTag").updateTag(tag_id, this.get('selectedPhoto').id);
 
     },
+    windowResizeTags: function(tags)
+    {
+        var photo_id = "";
+        photo_id = this.get('selectedPhoto').id;
+
+        var delInfo = [tags, photo_id];
+        delInfo = JSON.stringify(delInfo);
+        var that = this;
+        //this.get('megaResouce').get('comments').removeObject(object);
+        requiredBackEnd('showTag', 'resizeWindow', delInfo, 'POST', function(params) {
+
+            //  that.get("controllers.showTag").readTags(that.get('selectedPhoto').id);
+            var tags = params;
+            var thatthat = that;
+            setTimeout(function() {
+                //thatthat.get("controllers.mega").set("tagCount", params.get("length"));
+
+                thatthat.get("controllers.article").set("tagCount", params.get("length"));
+                if (tags !== undefined && tags !== "" && tags !== null)
+                {
+                    for (var i = 0; i < tags.length; i++)
+                    {
+                        var tagDiv = "#tag_" + tags[i].tag_id;
+                        $(tagDiv).css({top: tags[i].pic_y, left: tags[i].pic_x});
+                        //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
+                    }
+                }
+            }
+            , 20);
+        });
+    },
     JudgeBusinessProfile: function()
     {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         var photo_owner_email = currentUser.get("email"); //photo owner contact email address
-        var endOfEmail = photo_owner_email.split("@")[1];
-        var trendsAccountEmail = "trendsideas.com"; //all trends account can have the edit right;
-        if ((currentUser.get("profiles") !== null && currentUser.get("profiles") !== undefined && currentUser.get("profiles") !== "") || trendsAccountEmail === endOfEmail)
+        var endOfEmail = "";
+        if (photo_owner_email.search("@") !== -1)
         {
-            if (currentUser.get("profiles").get("length") > 0 || trendsAccountEmail === endOfEmail)
+            endOfEmail = photo_owner_email.split("@")[1];
+
+            var trendsAccountEmail = "trendsideas.com"; //all trends account can have the edit right;
+            if ((currentUser.get("profiles") !== null && currentUser.get("profiles") !== undefined && currentUser.get("profiles") !== "") || trendsAccountEmail === endOfEmail)
             {
-                this.set("isBusinessProfile", true);
-            }
-            else
-            {
-                this.set("isBusinessProfile", false);
+                if (currentUser.get("profiles").get("length") > 0 || trendsAccountEmail === endOfEmail)
+                {
+                    this.set("isBusinessProfile", true);
+                }
+                else
+                {
+                    this.set("isBusinessProfile", false);
+                }
             }
         }
-
+        else
+        {
+            this.set("isBusinessProfile", false);
+        }
     },
     JudgePhotoOwner: function(mega)
     {
@@ -146,6 +185,12 @@ HubStar.ArticleController = Ember.Controller.extend({
             }
         }
     },
+    /****it is allow the user to active the tag******/
+    activateUserTag: function(tag_id)
+    {
+        console.log(tag_id + "sdfdsfds");
+        this.get("controllers.showTag").activateUserTag(tag_id, this.get('selectedPhoto').id);
+    },
     sureToActivate: function(tag_id)
     {
         var message = "Are you sure to activate this tag?";
@@ -171,6 +216,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     sureDelTag: function(tag_id)
     {
         console.log("sure to delete tag");
+        console.log(this.get('selectedPhoto').id + "mmmmmmmmmmmmmm");
         this.get("controllers.showTag").deleteTag(tag_id, this.get('selectedPhoto').id);
     },
     deleteTag: function(tag_id) {
@@ -195,6 +241,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     {
         this.set('willDelTag', false);
         this.set('makeSureActivateTag', false);
+        console.log("aaaaaaaaaaaaa");
     },
     previesImage: function(event, pic_x, pic_y) {
         this.set("contentTagsArticle", "");
@@ -209,11 +256,9 @@ HubStar.ArticleController = Ember.Controller.extend({
                 $('#tagname').focus();
                 $('#masonry_container').masonry(); //masonry();
             }, 20);
-// $('#tagit').remove(); // remove any tagit div first
-//            $('#tagit').fadeIn();
-//            $('#tagit').css({top: pic_y, left: pic_x});
         } else
         {
+            this.set("contentTagsArticle", "");
             if (!this.get('selectedPhoto')) {
                 this.set('selectedPhoto', this.get('content').get('lastObject'));
             }
@@ -269,7 +314,6 @@ HubStar.ArticleController = Ember.Controller.extend({
                     this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                 }
             }
-
             this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
             this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
             this.selectedImage(this.get('selectedPhoto').id);
@@ -280,7 +324,6 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
     },
     nextImage: function(event, pic_x, pic_y) {
-        this.set("contentTagsArticle", "");
         this.get("controllers.showTag").set("contentTags", "");
         if (this.get("enableTag") === true)
         {
@@ -292,8 +335,10 @@ HubStar.ArticleController = Ember.Controller.extend({
                 $('#masonry_container').masonry(); //masonry();
             }, 20);
 
+
         } else
         {
+            this.set("contentTagsArticle", "");
             this.set("isShowPhotoUrl", true);
             if (!this.get('selectedPhoto')) {
                 this.set('selectedPhoto', this.get('content').get('firstObject'));
@@ -351,7 +396,6 @@ HubStar.ArticleController = Ember.Controller.extend({
                 }
 
             }
-
             this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
             this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
             this.selectedImage(this.get('selectedPhoto').id);
@@ -387,6 +431,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     selectImage: function(e) { // it is click the photo
         this.set("isShowPhotoUrl", true);
+        this.set("contentTagsArticle", "");
         this.set('megaResouce', HubStar.Mega.find(e));
         this.set('selectedPhoto', HubStar.Mega.find(e).get('photo').objectAt(0));
 
@@ -451,7 +496,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("contentTagsArticle", "");
         this.set("enableTag", false);
         this.set("showTagAfterSave", false);
-      //  this.JudgeBusinessProfile(); //it is used to judge whether the user has business profile or it is the trends account
+        this.JudgeBusinessProfile(); //it is used to judge whether the user has business profile or it is the trends account
         console.log("0000000000000000000000000000000000");
         console.log("article init data");
         this.set("content", []);
@@ -654,7 +699,6 @@ HubStar.ArticleController = Ember.Controller.extend({
 
 
                     that.captionDisplay();
-                                        that.captionDisplay();
                     var address1 = document.URL;
                     var articlePhoto = address1.split("#")[1].split("/");
                     if (articlePhoto[articlePhoto.get("length") - 2] === "photos")

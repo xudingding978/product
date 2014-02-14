@@ -15,7 +15,8 @@ HubStar.UserArticleRoute = Ember.Route.extend({
             var address = document.URL;
             var temp = address.split("#")[1].split("/")[6];
         }
-
+        console.log(this.controllerFor("article").get("searchFromRoute") );
+        console.log("ppp"+"user article route"+temp);
         var d = HubStar.Mega.find(temp);
         this.controllerFor("article").getInitData(d);
     },

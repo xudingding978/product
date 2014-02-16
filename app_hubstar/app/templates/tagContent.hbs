@@ -1,46 +1,49 @@
     {{#unless controller.enableEditTag}}  
-<div id ="tagitshow" class="" style="overflow: hidden;display:block;" {{action hideContent on="mouseLeave" target="view"}}>
+<div id ="tagitshow" class="" style="display:block;" {{action hideContent on="mouseLeave" target="view"}}>
     <!--              enable to edit the tag controller-->
 
-    <div id="tagImg" style=" width: 132px;    height: 132px;   border: 3px solid white;    display: inline-block;   float: left;    margin: 33px 10px 10px 15px;">
+    <div id="tagImg" style=" ">
         <img  {{bindAttr src= "controller.tag.pic_url"}}  style="min-width: 100%; min-height: 100%;">
     </div>
-    <div style="  float: left;  width: 48%;  margin: 10px 10px;">
-        <div style=' height: 40px; overflow: hidden;'>
-            <div id="tagName" class="name" style="display: inline-block; color: white; word-break: break-all; ">
+    <div id="tagContent" style="">
+            <div id="tagName" class="name" style="">
                 {{controller.tag.product_name}}
-            </div>
         </div>
-        <div style=' margin-top: 10px;height: 130px; overflow: hidden;'>
+        <div style=' overflow: hidden;'>
             {{#if controller.isNullLink}}
 
-            <div id="tagDesc" style="display: inline-block; margin-top: 10px;color: white; word-break: break-all;">
+            <div id="tagDesc" style="">
                 {{controller.tag.desc}}
             </div>
             {{else}}
             <a href="{{unbound controller.tag.linkto}}" >
-                <div id="tagDesc" style="display: inline-block; margin-top: 10px;color: white; word-break: break-all;">
+                <div id="tagDesc" style="">
                     {{controller.tag.desc}}
                 </div>
             </a>
             {{/if}}
-        </div>        
-        <!--        only the tag owner and the tag is not activate can have the activate button-->
-        {{#if controller.isPhotoOwner}}
-        {{#unless controller.tag.tag_approved}}
-        <div  role="button" class="disabled-btn disabled-green"  data-hint=" Activate this tag" {{action sureToActivate controller.tag.tag_id }}>Activate</div>
-        {{else}}
-        <div  role="button" class="disabled-btn disabled-green "  data-hint=" Edit this tag" {{action EditTag controller.tag.tag_id }}>Edit</div>
-        {{/unless}}
-        <!--        only the tag owner can delete the tag button-->
-        <div  role="button" class="disabled-btn disabled-green "  data-hint=" Delete this tag" {{action deleteTag controller.tag.tag_id }}>Delete</div>
-        <!--        only the tag owner can delete the tag button-->
-
-        {{/if}}
-
+        </div>  
+        
+            
+            
+       
 
     </div>
-
+    <!--        only the tag owner and the tag is not activate can have the activate button-->
+    <div id="tagBtn">
+            {{#if controller.isPhotoOwner}}
+            {{#unless controller.tag.tag_approved}}
+                <div  role="button" class="disabled-btn disabled-green"  data-hint=" Activate this tag" {{action sureToActivate controller.tag.tag_id }}>Activate</div>
+                {{else}}
+                <div  role="button" class="disabled-btn disabled-green "  data-hint=" Edit this tag" {{action EditTag controller.tag.tag_id }}>Edit</div>
+                {{/unless}}
+                <!--        only the tag owner can delete the tag button-->
+                <div  role="button" class="disabled-btn disabled-green "  data-hint=" Delete this tag" {{action deleteTag controller.tag.tag_id }}>Delete</div>
+                <!--        only the tag owner can delete the tag button-->
+             
+            {{/if}}
+            </div>
+    <div id="tagitBg">&nbsp;</div>
 </div>
 
     {{else}}

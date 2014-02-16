@@ -1042,11 +1042,11 @@ div.album-description-bg{
 }
 
 .next {
-    cursor: url(../../../images/nextcursor.png), auto;
+/*    cursor: url(../../../images/nextcursor.png), auto;*/
 }
 
 .previous{
-    cursor: url(../../../images/previouscursor.png), auto;
+/*    cursor: url(../../../images/previouscursor.png), auto;*/
 }
 
 
@@ -1760,6 +1760,25 @@ div.album-description-bg{
     resize: none;
 }
 
+.tag_descriptionbox {
+    width:300px;
+    margin: 0px 0px 10px;
+    height: 95px;
+    resize: none;
+}
+.tag_currenprofile {
+    width:300px;
+    margin: 0px 0px 10px;
+    height: 30px;
+        resize: none;
+}
+
+.tag_linkto {
+    width:300px;
+    margin: 0px 0px 10px;
+    height: 30px;
+    resize: none;
+}
 .collect_newcollection-name{
     width: 240px;
     padding: 4px;

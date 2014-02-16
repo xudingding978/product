@@ -15,6 +15,8 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     commenter_photo_url: null,
     makeSureDelete: false,
     willDelete: false,
+    isTag: false,
+    photo_url: "",
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'application', 'notification', 'userMessage', 'application'],
     isUploadPhoto: false,
     init: function()
@@ -42,6 +44,16 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                     dataNew["notification_id"] = params.objectAt(i)["notification_id"];
                     dataNew["isRead"] = params.objectAt(i)["isRead"];
                     dataNew["content"] = params.objectAt(i)["content"];
+                    if (dataNew["type"] === "addTag")
+                    {
+           
+                        that.set("photo_url", params.objectAt(i)["content"]);
+                        that.set("isTag", true);
+                    }
+                    else
+                    {
+                        that.set("isTag", false);
+                    }
                     dataNew["action_id"] = params.objectAt(i)["action_id"];
                     that.get("notificationTopContent").pushObject(dataNew);
                     dataNew = new Array();
@@ -183,9 +195,9 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             this.get("controllers.application").set("isUnReadCountZero", false);
         }
         else
-            {
-                this.get("controllers.application").set("isUnReadCountZero", true);
-            }
+        {
+            this.get("controllers.application").set("isUnReadCountZero", true);
+        }
         this.get("controllers.messageCenter").set("unReadCount", count);
         this.get("controllers.messageCenter").set("isUnReadCountZero", this.get("controllers.application").get("isUnReadCountZero"));
     },
@@ -217,6 +229,16 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         else if (obj.get("type") === "addReply")
         {
             this.gotoReply(obj.get("action_id"));
+        }
+        else if (obj.get("type") === "addReply")
+        {
+            this.gotoTagPhoto(obj.get("action_id"));
+        }
+        else if (obj.get("type") === "addTag")
+        {
+
+            this.set("photo_url", obj.get("content"));
+            this.set("isTag", true);
         }
 
     },
@@ -332,7 +354,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     },
     reviewCancel: function() {
         this.get("controllers.application").set("isNotification", false);
-         $('#Geo-Filter').toggleClass('Geo-Filter-active');
+        $('#Geo-Filter').toggleClass('Geo-Filter-active');
     }
 }
 );

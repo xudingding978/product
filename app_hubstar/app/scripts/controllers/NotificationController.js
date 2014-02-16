@@ -13,6 +13,8 @@
 HubStar.NotificationController = Ember.Controller.extend({
     notificationContent: null,
     commenter_photo_url: null,
+    photo_url: "",
+    isTag: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'notificationTop', 'conversation', 'application'],
     isUploadPhoto: false,
     init: function()
@@ -45,6 +47,10 @@ HubStar.NotificationController = Ember.Controller.extend({
         {
             displayString = " sent you a message";
         }
+        else if (type === "addTag")
+        {
+            displayString = " add a tag on your photo, please activate";
+        }
         return displayString;
     },
     getClientId: function(id) {
@@ -70,6 +76,16 @@ HubStar.NotificationController = Ember.Controller.extend({
                     dataNew["notification_id"] = params.objectAt(i)["notification_id"];
                     dataNew["isRead"] = params.objectAt(i)["isRead"];
                     dataNew["content"] = params.objectAt(i)["content"];
+
+                    if (dataNew["type"] === "addTag")
+                    {
+                        that.set("photo_url", params.objectAt(i)["content"]);
+                        that.set("isTag", true);
+                    }
+                    else
+                    {
+                        that.set("isTag", false);
+                    }
                     dataNew["action_id"] = params.objectAt(i)["action_id"];
                     that.get("notificationContent").pushObject(dataNew);
                     dataNew = new Array();
@@ -193,7 +209,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                 count++;
             }
         }
-        
+
         this.get("controllers.application").set("unReadCount", count);
         this.get("controllers.messageCenter").set("unReadCount", count);
     },
@@ -215,6 +231,13 @@ HubStar.NotificationController = Ember.Controller.extend({
         {
             this.gotoReply(obj.get("action_id"));
         }
+        else if (obj.get("type") === "addTag")
+        {
+
+            this.set("photo_url", obj.get("content"));
+            this.set("isTag", true);
+        }
+
 
     },
     gotoUser: function(id) {

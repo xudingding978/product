@@ -12,7 +12,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     from: null,
     selectedPhoto: null,
     isSelected: false,
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'checkingLoginStatus', 'masonryCollectionItems', 'editComment', 'itemFunction', 'collection'],
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'updateTag', 'showTag', 'checkingLoginStatus', 'masonryCollectionItems', 'editComment', 'itemFunction', 'collection', 'article'],
     currentUser: null,
     currentUserProfile: null,
     photo_album_id: null,
@@ -24,11 +24,28 @@ HubStar.MegaController = Ember.ArrayController.extend({
     is_article_video: true,
     sharePhotoUrl: '',
     type: null,
+    isBusinessProfile: false,
     selectType: null,
     loadingTime: false,
+    selectedProfile: "",
+    profiles: [],
     sharePhotoName: '',
     makeSureDelete: false,
+    showProfilelists: false,
     willDelete: false,
+    enableTag: false,
+    tagCount: 0,
+    hasTag: false,
+    makeSureActivateTag: false,
+    willActivate: false,
+    contentTags: "", //all the tags
+    showEachTagContent: false,
+    showAllTags: true, // users show the tag
+    inImage: false,
+    tag: [], //every tag content when click
+    enableEditTag: false, //enable  photo owner to edit the tag after activate the tag
+    showRequestTag: false, //show the tag after save and sent the request
+    showTagAfterSave: false, // show the tag icon afte approve
     init: function()
     {
 
@@ -80,126 +97,286 @@ HubStar.MegaController = Ember.ArrayController.extend({
             window.history.back();
         }
     },
-    previesImage: function() {
-        if (!this.get('selectedPhoto')) {
-            this.set('selectedPhoto', this.get('content').get('lastObject'));
+    previesImage: function(event, pic_x, pic_y) {
 
-        }
-        var selectedIndex = this.findSelectedItemIndex();
-        selectedIndex--;
-        if (selectedIndex < 0) {
-            selectedIndex = this.get('content').get('length') - 1;
-            this.set('image_no', this.get('content').get('length'));
-        }
-        this.set("selectPhoto", true);
-        this.set('image_no', selectedIndex + 1);
-        this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
-        this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
-        this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
-        this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
-        if (this.get("controllers.masonryCollectionItems").get("type") === "user")
+        if (this.get("enableTag") === true)
         {
-            this.transitionTo("userPhoto", this.get("megaResouce"));
-        }
-        else if (this.get("selectType") === "profile")
+
+            setTimeout(function() {
+                $('#tagit').fadeIn();
+                $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+
+                $('#tagname').focus();
+                $('#masonry_container').masonry(); //masonry();
+            }, 20);
+// $('#tagit').remove(); // remove any tagit div first
+//            $('#tagit').fadeIn();
+//            $('#tagit').css({top: pic_y, left: pic_x});
+        } else
         {
-            var address = document.URL;
-            var owner_id = address.split("#")[1].split("/")[2];
-
-
-            var collection_id = address.split("#")[1].split("/")[4];
-            var profile = HubStar.Profile.find(owner_id);
-            for (var i = 0; i < profile.get('collections').get("length"); i++) {
-                var data = profile.get('collections').objectAt(i);
-                if (data.id === collection_id) {
-                    break;
-                }
+            if (!this.get('selectedPhoto')) {
+                this.set('selectedPhoto', this.get('content').get('lastObject'));
             }
+            var selectedIndex = this.findSelectedItemIndex();
+            selectedIndex--;
+            if (selectedIndex < 0) {
+                selectedIndex = this.get('content').get('length') - 1;
+                this.set('image_no', this.get('content').get('length'));
+            }
+            this.set("selectPhoto", true);
+            this.set('image_no', selectedIndex + 1);
+            this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
+            this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
+            this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
+            this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
+            if (this.get("controllers.masonryCollectionItems").get("type") === "user")
+            {
+                this.transitionTo("userPhoto", this.get("megaResouce"));
+            }
+            else if (this.get("selectType") === "profile")
+            {
+                var address = document.URL;
+                var owner_id = address.split("#")[1].split("/")[2];
+                var collection_id = address.split("#")[1].split("/")[4];
+                var profile = HubStar.Profile.find(owner_id);
+                for (var i = 0; i < profile.get('collections').get("length"); i++) {
+                    var data = profile.get('collections').objectAt(i);
+                    if (data.id === collection_id) {
+                        break;
+                    }
+                }
 
-            this.transitionTo("profileCollection", data);
-            this.transitionTo("profilePhoto", this.get("megaResouce"));
+                this.transitionTo("profileCollection", data);
+                this.transitionTo("profilePhoto", this.get("megaResouce"));
+            }
+            else
+            {
+                this.transitionTo("newSearchPhoto", this.get("megaResouce"));
+            }
+            this.selectedImage(this.get('selectedPhoto').id);
         }
-        else
-        {
-//            var address = document.URL;
-//            var search_id = address.split("#")[1].split("/")[2];
-//            if (search_id === "default")
-//            {
-//                //this.transitionTo("profilePhoto", this.get("megaResouce"));
-//            }
-//            else
-//            {
-//                this.transitionTo("profilePhoto", this.get("megaResouce"));
-//            }
-            this.transitionTo("newSearchPhoto", this.get("megaResouce"));
-        }
-        this.selectedImage(this.get('selectedPhoto').id);
 
     },
-    nextImage: function() {
-        if (!this.get('selectedPhoto')) {
-            this.set('selectedPhoto', this.get('content').get('firstObject'));
-        }
-        var selectedIndex = this.findSelectedItemIndex();
-        selectedIndex++;
-        if (selectedIndex >= (this.get('content').get('length'))) {
-            this.set('image_no', 1);
-            selectedIndex = 0;
-        }
-        this.set("selectPhoto", true);
-        this.set('image_no', selectedIndex + 1);
-        this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
-        this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
-        if (this.get("controllers.masonryCollectionItems").get("type") === "user")
+    nextImage: function(event, pic_x, pic_y) {
+        var counter = 2;
+        if (this.get("enableTag") === true)
         {
-            this.transitionTo("userPhoto", this.get("megaResouce"));
-        }
-        else if (this.get("selectType") === "profile")
+            setTimeout(function() {
+                $('#tagit').fadeIn();
+                $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                $('#tagname').focus();
+
+                $('#masonry_container').masonry(); //masonry();
+            }, 20);
+
+        } else
         {
-            var address = document.URL;
-            var owner_id = address.split("#")[1].split("/")[2];
+            if (!this.get('selectedPhoto')) {
+                this.set('selectedPhoto', this.get('content').get('firstObject'));
+            }
+            var selectedIndex = this.findSelectedItemIndex();
+            selectedIndex++;
+            if (selectedIndex >= (this.get('content').get('length'))) {
+                this.set('image_no', 1);
+                selectedIndex = 0;
+            }
+            this.set("selectPhoto", true);
+            this.set('image_no', selectedIndex + 1);
+            this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
+            this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
+            if (this.get("controllers.masonryCollectionItems").get("type") === "user")
+            {
+                this.transitionTo("userPhoto", this.get("megaResouce"));
+            }
+            else if (this.get("selectType") === "profile")
+            {
+                var address = document.URL;
+                var owner_id = address.split("#")[1].split("/")[2];
+                var collection_id = address.split("#")[1].split("/")[4];
+                var profile = HubStar.Profile.find(owner_id);
+                for (var i = 0; i < profile.get('collections').get("length"); i++) {
+                    var data = profile.get('collections').objectAt(i);
+                    if (data.id === collection_id) {
+                        break;
+                    }
+                }
+                this.transitionTo("profileCollection", data);
+                this.transitionTo("profilePhoto", this.get("megaResouce"));
+            }
+            else
+            {
+                this.transitionTo("newSearchPhoto", this.get("megaResouce"));
+            }
+            this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
+            this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
+            this.selectedImage(this.get('selectedPhoto').id);
+        }
 
+    },
+    showTags: function()
+    {
 
-            var collection_id = address.split("#")[1].split("/")[4];
-            var profile = HubStar.Profile.find(owner_id);
-            for (var i = 0; i < profile.get('collections').get("length"); i++) {
-                var data = profile.get('collections').objectAt(i);
-                if (data.id === collection_id) {
-                    break;
+        this.set("showAllTags", true);
+        this.set("showEachTagContent", true);
+        var tags = this.get("contentTags");
+        setTimeout(function() {
+            if (tags !== undefined && tags !== "" && tags !== null)
+            {
+                for (var i = 0; i < tags.length; i++)
+                {
+                    var tagDiv = "#tag_" + tags[i].tag_id;
+                    $(tagDiv).css({top: tags[i].pic_y, left: tags[i].pic_x});
+                    //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
                 }
             }
-            this.transitionTo("profileCollection", data);
-
-            this.transitionTo("profilePhoto", this.get("megaResouce"));
         }
-        else
+        , 10);
+    },
+    EditTag: function(tag_id)
+    {
+        this.set("enableEditTag", true);
+        this.get("controllers.updateTag").updateTag(tag_id, this.get('selectedPhoto').id);
+
+    },
+    hideTags: function()
+    {
+        this.set("showAllTags", false);
+        this.set("showEachTagContent", false);
+
+    },
+    JudgeBusinessProfile: function(mega)
+    {
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
+        var photo_owner_email = currentUser.get("email"); //photo owner contact email address
+        var endOfEmail = photo_owner_email.split("@")[1];
+        var trendsAccountEmail = "trendsideas.com"; //all trends account can have the edit right;
+        if (currentUser.get("profiles") !== null && currentUser.get("profiles") !== undefined && currentUser.get("profiles") !== "")
         {
-            this.transitionTo("newSearchPhoto", this.get("megaResouce"));
-
+            if (currentUser.get("profiles").get("length") > 0 || trendsAccountEmail === endOfEmail)
+            {
+                this.set("isBusinessProfile", true);
+            }
+            else
+            {
+                this.set("isBusinessProfile", false);
+            }
         }
-        this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
-        this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
 
-        this.selectedImage(this.get('selectedPhoto').id);
+    },
+    JudgePhotoOwner: function(mega)
+    {
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
+        var login_user_id = currentUser.get("id"); // current login user id
 
+        var profile_id = mega.get("owner_id");
+        var profile = HubStar.Profile.find(profile_id);
+        if (profile.get("profile_owner_ids") !== null && profile.get("profile_owner_ids") !== undefined && profile.get("profile_owner_ids") !== "")
+        {
+            var profile_owner_ids = profile.get("profile_owner_ids");
+            for (var i = 0; i < profile_owner_ids.get("length"); i++)
+            {
+                var photoOwner = profile_owner_ids.objectAt(i).get("user_id");
+                if (login_user_id === photoOwner)
+                {
+                    this.set("isPhotoOwner", true);
+                    break;
+                }
+                else
+                {
+                    this.set("isPhotoOwner", false);
+                }
+            }
+        }
+    },
+    /******* function name: enableTag
+     * parameter:
+     *  aim: it is to enable user to tag in the photo and can edit the photo
+     ***********************/
+    activateTag: function()
+    {
+        this.get("controllers.showTag").set("photo_id", this.get('selectedPhoto').id); //set the selected photo's id
 
+        this.set("showRequestTag", false);
+        this.set("showTagAfterSave", false);
+        this.set("showEachTagContent", false);
+
+        this.set("enableTag", true);
+        $("#p").addClass("hideClass");
+        $("#n").addClass("hideClass");
+    },
+    /****it is allow the user to active the tag******/
+    activateUserTag: function(tag_id)
+    {
+        console.log(tag_id + "sdfdsfds");
+        this.get("controllers.showTag").activateUserTag(tag_id, this.get('selectedPhoto').id);
+    },
+    sureToActivate: function(tag_id)
+    {
+        var message = "Are you sure to activate this tag?";
+        this.set("message", message);
+        this.set('makeSureActivateTag', true);
+        this.set("tag_id", tag_id);
+        this.set("type", true);
+        if (this.get('willActivate') === true) {
+            this.activateUserTag(tag_id);
+            this.cancelActivate();
+        } else {
+            this.set("s", tag_id);
+            this.set('willActivate', true);
+        }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelActivate: function() {
+        this.set('willActivate', false);
+        this.set('makeSureActivateTag', false);
+    },
+    sureDelTag: function(tag_id)
+    {
+        console.log("sure to delete tag");
+        this.get("controllers.showTag").deleteTag(tag_id, this.get('selectedPhoto').id);
+    },
+    deleteTag: function(tag_id) {
+        var message = "Are you sure to delete  this tag?";
+        this.set("message", message);
+        this.set("tag_id", tag_id);
+        this.set("type", false); //type is false mean delete other it mean activate
+        this.set('makeSureActivateTag', true);
+        if (this.get('willDelTag') === true) {
+            this.sureDelTag(tag_id);
+            this.cancelActivate();
+        } else {
+            this.set("s", tag_id);
+            this.set('willDelTag', true);
+        }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelDelTag: function()
+    {
+        this.set('willDelTag', false);
+        this.set('makeSureActivateTag', false);
+    },
+    /******* function name: enableTag
+     * parameter:
+     *  aim: it is to enable user to tag in the photo
+     ***********************/
+    endTag: function()
+    {
+        this.set("enableTag", false);
+        this.set("inImage", false);  //click the end tag recove the value
+        this.set("showTagAfterSave", false);
+        $("#p").removeClass("hideClass"); //remove the left and right icon
+        $("#n").removeClass("hideClass");
     },
     getInitData: function(megaObject) {
-//        var mega = HubStar.Mega.find(megaObject.get("id"));;
-//        mega.then(function() {
-//            if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
-//            {
-//                mega.set("view_count", 0);
-//            }
-//            else
-//            {
-//                mega.set("view_count", mega.get("view_count") + 1);
-//            }
-//            mega.store.save();
-//        });
+        console.log("111111111111111");
+        this.JudgeBusinessProfile(megaObject); //it is used to judge whether the user has business profile or it is the trends account
+        this.JudgePhotoOwner(megaObject);  //it is used to judge whether the user is the photo owner
         if (megaObject.get("isLoaded")) {
             this.set("is_article_video", true);
-
             if (megaObject.get("type") === 'article')
             {
 
@@ -215,7 +392,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                 var photoUrl = megaObject.get("videoes").objectAt(0).get("videoImg");
                 var photoObj = megaObject.set('photo_image_original_url', photoUrl);
-
                 photoObj.set("photo_title", megaObject.get("videoes").objectAt(0).get("videoTitle"));
                 photoObj.set("photo_caption", megaObject.get("videoes").objectAt(0).get("videoDesc"));
                 this.set("is_article_video", false);
@@ -225,7 +401,22 @@ HubStar.MegaController = Ember.ArrayController.extend({
             {
 
                 var photoObj = megaObject.get('photo').objectAt(0);
-                this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+                this.get("controllers.showTag").readTags(photoObj.get("id"));
+
+                var that = this;
+                setTimeout(function() {
+                    if (that.get("contentTags") !== "" && that.get("contentTags") !== null && that.get("contentTags") !== undefined)
+                    {
+                        if (that.get("contentTags").get("length") > 0)
+                        {
+                            console.log(that.get("contentTags"));
+                            that.set("hasTag", true);
+                           // that.set("tagCount", that.get("contentTags").get("length"));
+                        }
+
+                    }
+                }, 50);
+                that.set("currentUser", HubStar.User.find(localStorage.loginStatus));
 
             }
             if (this.get("selectPhoto") === false)   //selectPhoto is user to control left or right operation
@@ -239,7 +430,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 this.set('megaResouce', megaResouce);
                 this.set("photo_album_id", "album_" + megaObject.id);
                 this.set("photo_thumb_id", "thumb_" + megaObject.id);
-
                 if (megaObject.get("type") === 'article' || megaObject.get("type") === 'video')
                 {
                     if (this.get("controllers.masonryCollectionItems").get("type") === "user")
@@ -269,13 +459,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     else
                     {
 
-                        this.addRelatedData(megaObject);  //it is for profile's collection
+                        this.addRelatedData(megaObject); //it is for profile's collection
                     }
                     this.checkAuthenticUser();
                     this.getCommentsById(megaObject.id);
                 }
             }
-       
+
             if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
             {
                 megaObject.set("view_count", 1);
@@ -285,7 +475,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 megaObject.set("view_count", megaObject.get("view_count") + 1);
             }
             megaObject.store.save();
-        
         }
 
     },
@@ -293,10 +482,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
     {
         var collection_id = mega.get("collection_id");
         var owner_profile_id = mega.get("owner_id");
-
         var isProfileIDExist = this.isParamExist(owner_profile_id);
         var isCollectionIDExist = this.isParamExist(collection_id);
-
         var that = this;
         if (isProfileIDExist && isCollectionIDExist) {
             var data = HubStar.Mega.find({RequireType: "collection", "collection_id": collection_id, "owner_profile_id": owner_profile_id});
@@ -304,11 +491,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 if (data.get('isLoaded')) {
                     for (var i = 0; i < this.get("content").length; i++) {
                         var id = this.get("content").objectAt(i).id;
-
                         if (HubStar.Mega.find(id).get('photo').get('length') === 1 && mega.get('id') !== id)
                         {
                             if (HubStar.Mega.find(id).get('collection_id') === collection_id) {
-                                // that.setPhotoStatus(HubStar.Mega.find(id).get("comments"));
+// that.setPhotoStatus(HubStar.Mega.find(id).get("comments"));
                                 that.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
                             }
 
@@ -322,15 +508,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
     {
         var a = document.URL;
         var collection_id = a.split("#")[1].split("/")[4];
-
-
         if (this.get("clickOrRoute") === false) //it  accesses the collection photo by click
         {
             var photoContent = "";
             photoContent = this.get("controllers.masonryCollectionItems").get("content");
-
             var isCollectionIDExist = this.isParamExist(collection_id);
-
             if ((isCollectionIDExist || mega.get("type") === "video")) {
 
                 for (var i = 0; i < photoContent.length; i++) {
@@ -338,7 +520,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     if (photoContent.objectAt(i).get("type") === "photo")
                     {
                         var id = photoContent.objectAt(i).get("id");
-
                         if (this.get("content").objectAt(0).get('id') !== id)
                         {
 
@@ -349,7 +530,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     {
 
                         var id = photoContent.objectAt(i).get("id");
-
                         if (this.get("content").objectAt(0).get('id') !== id)
                         {
                             var photoUrl = photoContent.objectAt(i).get("article").objectAt(0).get("article_image_url");
@@ -357,7 +537,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                             photoContent.objectAt(i).set("photo_caption", photoContent.objectAt(i).get("article").objectAt(0).get("article_body"));
                             photoContent.objectAt(i).set("photo_image_original_url", photoUrl);
                             photoContent.objectAt(i).set("photo_image_thumbnail_url", photoUrl);
-
                             this.get("content").pushObject(photoContent.objectAt(i));
                         }
                     }
@@ -423,7 +602,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         {
                             if (that.get("content").objectAt(0).get("id") !== pics.objectAt(i).get("id")) {
                                 var idd = pics.objectAt(i).get("id");
-
                                 that.get("content").pushObject(pics.objectAt(i).get('photo').objectAt(0));
                             }
 
@@ -432,7 +610,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         {
                             if (that.get("content").objectAt(0).get("id") !== pics.objectAt(i).get("id")) {
                                 var idd = pics.objectAt(i).get("id");
-
                                 var photoUrl = pics.objectAt(i).get("article").objectAt(0).get("article_image_url");
                                 var article = pics.objectAt(i);
                                 article.set("photo_image_original_url", photoUrl);
@@ -447,11 +624,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                             if (that.get("content").objectAt(0).get("id") !== pics.objectAt(i).get("id")) {
                                 var idd = pics.objectAt(i).get("id");
                                 var photoUrl = pics.objectAt(i).get("videoes").objectAt(0).get("videoImg");
-
-
-
-
-
                                 var article = pics.objectAt(i);
                                 article.set("photo_image_original_url", photoUrl);
                                 article.set("photo_image_thumbnail_url", photoUrl);
@@ -462,9 +634,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                 }
             });
-
-
-
         }
         this.set("clickOrRoute", false);
     },
@@ -472,15 +641,12 @@ HubStar.MegaController = Ember.ArrayController.extend({
     {
         var collection_id = mega.get("collection_id");
         var owner_profile_id = mega.get("owner_id");
-
         if (this.get("clickOrRoute") === false) //it  accesses the collection photo by click
         {
             var photoContent = "";
             photoContent = this.get("controllers.masonryCollectionItems").get("content");
-
             var isProfileIDExist = this.isParamExist(owner_profile_id);
             var isCollectionIDExist = this.isParamExist(collection_id);
-
             if (isProfileIDExist && (isCollectionIDExist || mega.get("type") === "video")) {
 
                 for (var i = 0; i < photoContent.length; i++) {
@@ -488,7 +654,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     if (photoContent.objectAt(i).get("type") === "photo")
                     {
                         var id = photoContent.objectAt(i).get("id");
-
                         if (this.get("content").objectAt(0).get('id') !== id)
                         {
 
@@ -499,7 +664,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     {
 
                         var id = photoContent.objectAt(i).get("id");
-
                         if (this.get("content").objectAt(0).get('id') !== id)
                         {
                             var photoUrl = photoContent.objectAt(i).get("article").objectAt(0).get("article_image_url");
@@ -507,7 +671,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                             photoContent.objectAt(i).set("photo_caption", photoContent.objectAt(i).get("article").objectAt(0).get("article_body"));
                             photoContent.objectAt(i).set("photo_image_original_url", photoUrl);
                             photoContent.objectAt(i).set("photo_image_thumbnail_url", photoUrl);
-
                             this.get("content").pushObject(photoContent.objectAt(i));
                         }
                     }
@@ -550,11 +713,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         if (photoContent.objectAt(i).record.get("type") === "photo")
                         {
                             var id = photoContent.objectAt(i).record.get("id");
-
                             if (that.get("content").objectAt(0).get('id') !== id)
                             {
                                 that.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
-
                             }
                         }
                         else if (photoContent.objectAt(i).record.get("type") === "article")
@@ -579,7 +740,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                             if (that.get("content").objectAt(0).get('id') !== id)
                             {
                                 var photoUrl = photoContent.objectAt(i).record.get("videoes").objectAt(0).get("videoImg");
-
                                 var article = HubStar.Mega.find(id);
                                 article.set("photo_image_original_url", photoUrl);
                                 article.set("photo_image_thumbnail_url", photoUrl);
@@ -590,15 +750,12 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                 }
             });
-
         }
         this.set("clickOrRoute", false);
     },
     selectImage: function(e) {
 
         this.set('megaResouce', HubStar.Mega.find(e));
-
-
         if (this.get('megaResouce').get("type") === "photo")
         {
             this.set('selectedPhoto', this.get('megaResouce').get('photo').objectAt(0));
@@ -611,15 +768,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 var address = document.URL;
                 var type = address.split("#")[1].split("/")[1];
                 var owner_id = address.split("#")[1].split("/")[2];
-
-
                 var collection_id = address.split("#")[1].split("/")[4];
-
                 if (type === "search")
                 {
 
                     this.transitionTo("newSearchPhoto", this.get("megaResouce").get('photo').objectAt(0));
-
                 }
                 else
                 {
@@ -633,7 +786,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     }
 
                     this.transitionTo("profileCollection", data);
-
                     this.transitionTo("profilePhoto", this.get("megaResouce").get('photo').objectAt(0));
                 }
 
@@ -651,7 +803,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
             {
 
                 this.transitionTo("profilePhoto", this.get("megaResouce").get('photo').objectAt(0));
-
             }
         }
         else if (this.get('megaResouce').get("type") === "video")
@@ -665,11 +816,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
             {
 
                 this.transitionTo("profilePhoto", this.get("megaResouce").get('photo').objectAt(0));
-
             }
         }
         this.set("selectedPhoto", this.get('selectedPhoto'));
-
         var contents = this.get('content');
         var selectedIndex = 1;
         for (var index = 0; index <= contents.get('length') - 1; index++) {
@@ -716,12 +865,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     keydown: function(e) {
         var currKey = 0, e = e || event;
-
-
-        currKey = e.keyCode || e.which || e.charCode;    //支持IE、FF
+        currKey = e.keyCode || e.which || e.charCode; //支持IE、FF
         if (currKey === 27) {
             window.history.back();
-
         }
     },
     closeWindow: function() {
@@ -735,7 +881,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
             if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
             {
-                // this.transitionTo("indexIndex"); //search page
+// this.transitionTo("indexIndex"); //search page
                 var address = document.URL;
                 var search_id = address.split("#")[1].split("/")[2];
                 if (search_id === "search") //this go to the search index
@@ -749,14 +895,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
                 $('#masonry_wrapper').attr('style', "top:100px;position:relative");
                 setTimeout(function() {
-                    $('#masonry_container').masonry();  //masonry();
+                    $('#masonry_container').masonry(); //masonry();
                 }, 300);
-
             }
             else
             {
 
-                //   var collection_id = address.split("#")[1].split("/")[4];
+//   var collection_id = address.split("#")[1].split("/")[4];
                 var address = document.URL;
                 var collection_id = address.split("#")[1].split("/")[4];
                 var owner_id = address.split("#")[1].split("/")[2];
@@ -780,7 +925,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
             var id = address.split("#")[1].split("/")[2]; //user id
             var user = HubStar.User.find(id);
             var data = null;
-
             for (var i = 0; i < user.get('collections').get("length"); i++) {
                 data = user.get('collections').objectAt(i);
                 if (data.id === collection_id) {
@@ -804,7 +948,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.get("controllers.contact").set('firstStepOfContactEmail', false);
             contactController.setSelectedMega(selectid);
             contactController.selectionCheckBox();
-
             this.set('contact', !this.get('contact'));
         }
 
@@ -866,7 +1009,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var id = this.get('megaResouce').get("id");
         var message_id = object.get("message_id");
         var delInfo = [id, message_id];
-
         delInfo = JSON.stringify(delInfo);
         var that = this;
         this.get('megaResouce').get('comments').removeObject(object);
@@ -954,7 +1096,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var that = this;
         var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
         var caption = '';
-
         if (this.get('selectedPhoto').get('photo_caption') !== null)
         {
             caption = this.get('selectedPhoto').get('photo_caption');
@@ -986,10 +1127,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
             caption: 'Trends Ideas',
             description: caption
         };
-
         function callback(response) {
             if (response && response.post_id) {
-                var mega = HubStar.Mega.find(this.get('selectedPhoto').get('id'));
+                var mega = HubStar.Mega.find(that.get('selectedPhoto').get('id'));
                 mega.then(function() {
                     if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
                     {
@@ -1008,7 +1148,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
 
         FB.ui(obj, callback);
-
         return false;
     },
     //share to social google plus
@@ -1038,9 +1177,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         $("meta[property='og\\:title']").attr("content", descript);
         $("meta[property='og\\:description']").attr("content", caption);
         $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_thumbnail_url'));
-
         var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
-
         var mega = HubStar.Mega.find(this.get('selectedPhoto').get('id'));
         mega.then(function() {
             if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
@@ -1053,13 +1190,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             mega.store.save();
         });
-
         window.open(
                 url,
                 'popupwindow',
                 'scrollbars=yes,width=800,height=400'
                 ).focus();
-
         return false;
     },
     //share to social twitter
@@ -1099,11 +1234,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     pShare: function(param) {
         this.dropdownPhotoSetting(param);
-
         var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
-
         var descript = this.get('selectedPhoto').get('photo_title');
-
         if (this.get('selectedPhoto').get("type") === "article")
         {
             descript = this.get('selectedPhoto').get('article').objectAt(0).get("article_headline");

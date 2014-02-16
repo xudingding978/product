@@ -10,8 +10,47 @@
     <div id="notititopbar" style="position: absolute">
         {{#each controller.notificationTopContent}}
         {{#if this.isRead}}
+
+        {{#if controller.isTag}}
         <div class='each-conversation easing' style="min-height: 0;">
-            <div style="padding: 10px 10px 10px 70px;position: relative;" {{action go this.notification_id}}>
+            <div style="padding: 10px 10px 10px 70px;position: relative;" >
+                <a class="" style="position: absolute; top: 15px;margin: 0 0 0 -50px;" >
+                    <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.photo_url}} /> 
+                </a>
+                <a {{bindAttr href= "controller.photo_url"}}>                  
+                    <div style="">
+                        <div class="comment-namentime">
+                            <div class="" style="color: #555">
+
+                                <span class="comment-username" >
+                                    {{this.name}}
+                                </span>
+                                <span style="display: inline-block; vertical-align: bottom; font-size: 11px;"> {{this.typeDisplay}}</span>               
+
+                            </div>
+                        </div>
+
+                        <div class="comment-content" style=" width: 330px; height: 15px; font-size: 11px;">
+                            <span style="text-overflow: ellipsis">
+                                {{this.content}}
+                            </span>
+                        </div>
+
+                        <div class="posttime-container">
+                            <span class="posttime" style="font-size: 9px; line-height: 10px;">{{date this.time}}</span>
+                        </div>
+
+                    </div>
+                </a>
+            </div>
+            <div class="reply-comment easing" style="right:25px;position: relative;float: right;top: -60px;font-size: 10px;">  
+                <i class="fa fa-check-circle"></i>                 
+                <i class="fa fa-times-circle" {{action removeNotificationItem this.notification_id}}></i>
+            </div>
+        </div>
+        {{else}}
+        <div class='each-conversation easing' style="min-height: 0;">
+            <div style="padding: 10px 10px 10px 70px;position: relative;"{{action go this.notification_id}}>
                  <a class="" style="position: absolute; top: 15px;margin: 0 0 0 -50px;" >
                     <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.photo_url}} /> 
                 </a>
@@ -26,11 +65,6 @@
                         </div>
                     </div>
 
-                    <div class="comment-content" style=" width: 330px; height: 15px; font-size: 11px;">
-                        <span style="text-overflow: ellipsis">
-                            {{this.content}}
-                        </span>
-                    </div>
 
                     <div class="posttime-container">
                         <span class="posttime" style="font-size: 9px; line-height: 10px;">{{date this.time}}</span>
@@ -43,10 +77,45 @@
                 <i class="fa fa-times-circle" {{action removeNotificationItem this.notification_id}}></i>
             </div>
         </div>
+        {{/if}}
+        {{else}}
+
+        {{#if controller.isTag}}
+        <div class='each-conversation easing unread-style' style="min-height: 0;">
+            <div style="padding: 10px 10px 10px 70px;position: relative;" >
+                 <a class="" style="position: absolute; top: 15px;margin: 0 0 0 -50px;"  {{bindAttr href="controller.photo_url"}}>
+                    <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.photo_url}} /> 
+                </a>
+                <a {{bindAttr href= "controller.photo_url"}}>                  
+                    <div style="">
+                        <div class="comment-namentime">
+                            <div class="" style="color: #555">
+                                <span class="comment-username" >
+                                    {{this.name}}
+                                </span>
+                                <span style="display: inline-block; vertical-align: bottom; font-size: 11px;"> {{this.typeDisplay}}</span>               
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="posttime-container">
+                            <span class="posttime" style="font-size: 9px; line-height: 10px;" >{{date this.time}}</span>
+                        </div>
+
+                    </div>
+                </a>
+            </div>
+            <div class="reply-comment easing" style="right:25px;position: relative;float: right;top: -60px;font-size: 10px;">  
+                <i class="fa fa-check-circle  " {{action markRead this.notification_id}}></i>                 
+                <i class="fa fa-times-circle" {{action removeNotificationItem this.notification_id}}></i>
+            </div>
+        </div>
         {{else}}
         <div class='each-conversation easing unread-style' style="min-height: 0;">
             <div style="padding: 10px 10px 10px 70px;position: relative;" {{action go this.notification_id}}>
-                 <a class="" style="position: absolute; top: 15px;margin: 0 0 0 -50px;" >
+                 <a class="" style="position: absolute; top: 15px;margin: 0 0 0 -50px;"  {{bindAttr href="controller.photo_url"}}>
                     <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.photo_url}} /> 
                 </a>
                 <div style="">
@@ -77,6 +146,7 @@
                 <i class="fa fa-times-circle" {{action removeNotificationItem this.notification_id}}></i>
             </div>
         </div>
+        {{/if}}
         {{/if}}
         {{/each}}
     </div>

@@ -55,8 +55,8 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         {
             var product_name = this.get("product_name");
             var desc = this.get("description");
-            var pic_x = this.get("pic_x") + 237; //set the tag location
-            var pic_y = this.get("pic_y") + 45;
+            var pic_x = this.get("pic_x"); //set the tag location
+            var pic_y = this.get("pic_y");
             var linkAddress = this.get("linkTo");
             var time_stamp = new Date();
             var tag_id = time_stamp.getTime().toString();
@@ -255,9 +255,11 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                     if (tags !== undefined && tags !== "" && tags !== null)
                     {
                         for (var i = 0; i < tags.length; i++)
-                        {
+                        { 
                             var tagDiv = "#tag_" + tags[i].tag_id;
-                            $(tagDiv).css({top: tags[i].pic_y, left: tags[i].pic_x});
+                            var height = tags[i].pic_y*HubStar.get("pic_current_height")+$("#tag_image_object").offset().top;  //set the tag's place which is the percentage of image and add the picture origin left point place
+                            var width =tags[i].pic_x*HubStar.get("pic_current_width")+$("#tag_image_object").offset().left;
+                            $(tagDiv).css({top:height, left: width});
                             //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
                         }
                     }

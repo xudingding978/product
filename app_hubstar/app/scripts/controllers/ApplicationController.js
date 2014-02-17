@@ -87,10 +87,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     loginStatus: function() {
     },
     grapData: function() {
-        HubStar.set("window_current_height", window.innerHeight);
-        HubStar.set("window_current_width", window.innerWidth);
-        HubStar.set("window_resize_height_times", 1.0);
-        HubStar.set("window_resize_width_times", 1.0);
         var u = HubStar.User.find(localStorage.loginStatus);
         this.set("user", u);
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);

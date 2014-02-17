@@ -76,14 +76,15 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("showAllTagsArticle", true);
         this.set("showEachTagContent", true);
         var tags = this.get("contentTagsArticle");
-        console.log(tags);
         setTimeout(function() {
             if (tags !== undefined && tags !== "" && tags !== null)
             {
                 for (var i = 0; i < tags.length; i++)
                 {
                     var tagDiv = "#tag_" + tags[i].tag_id;
-                    $(tagDiv).css({top: tags[i].pic_y, left: tags[i].pic_x});
+                    var height = tags[i].pic_y*HubStar.get("pic_current_height")+$("#tag_image_object").offset().top;
+                    var width = tags[i].pic_x*HubStar.get("pic_current_width")+$("#tag_image_object").offset().left;
+                    $(tagDiv).css({top: height , left: width});
                     //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
                 }
             }
@@ -94,7 +95,6 @@ HubStar.ArticleController = Ember.Controller.extend({
     {
         this.set("showAllTagsArticle", false);
         this.set("showEachTagContent", false);
-
     },
     EditTag: function(tag_id)
     {
@@ -102,37 +102,53 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.get("controllers.updateTag").updateTag(tag_id, this.get('selectedPhoto').id);
 
     },
-    windowResizeTags: function(tags)
+    windowResizeTags: function(tags, width, height)
     {
         var photo_id = "";
         photo_id = this.get('selectedPhoto').id;
-
-        var delInfo = [tags, photo_id];
-        delInfo = JSON.stringify(delInfo);
         var that = this;
-        //this.get('megaResouce').get('comments').removeObject(object);
-        requiredBackEnd('showTag', 'resizeWindow', delInfo, 'POST', function(params) {
-
-            //  that.get("controllers.showTag").readTags(that.get('selectedPhoto').id);
-            var tags = params;
-            var thatthat = that;
-            setTimeout(function() {
-                //thatthat.get("controllers.mega").set("tagCount", params.get("length"));
-
-                thatthat.get("controllers.article").set("tagCount", params.get("length"));
-                if (tags !== undefined && tags !== "" && tags !== null)
-                {
-                    for (var i = 0; i < tags.length; i++)
-                    {
-                        var tagDiv = "#tag_" + tags[i].tag_id;
-                        $(tagDiv).css({top: tags[i].pic_y, left: tags[i].pic_x});
-                        //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
-                    }
-                }
-            }
-            , 20);
-        });
+        HubStar.set("pic_current_width", width);
+        HubStar.set("pic_current_height", height);
+        for (var i = 0; i < tags.length; i++)
+        {
+            var tagDiv = "#tag_" + tags[i].tag_id;
+            var pic_width = width * tags[i].pic_x + $("#tag_image_object").offset().left;
+            var pic_height = height * tags[i].pic_y + $("#tag_image_object").offset().top;
+            $(tagDiv).css({top: pic_height, left: pic_width});
+            //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
+        }
     },
+//    windowResizeTags: function(tags)
+//    {
+//        var photo_id = "";
+//        photo_id = this.get('selectedPhoto').id;
+//
+//        var delInfo = [tags, photo_id];
+//        delInfo = JSON.stringify(delInfo);
+//        var that = this;
+//        //this.get('megaResouce').get('comments').removeObject(object);
+//        requiredBackEnd('showTag', 'resizeWindow', delInfo, 'POST', function(params) {
+//
+//            //  that.get("controllers.showTag").readTags(that.get('selectedPhoto').id);
+//            var tags = params;
+//            var thatthat = that;
+//            setTimeout(function() {
+//                //thatthat.get("controllers.mega").set("tagCount", params.get("length"));
+//
+//                thatthat.get("controllers.article").set("tagCount", params.get("length"));
+//                if (tags !== undefined && tags !== "" && tags !== null)
+//                {
+//                    for (var i = 0; i < tags.length; i++)
+//                    {
+//                        var tagDiv = "#tag_" + tags[i].tag_id;
+//                        $(tagDiv).css({top: tags[i].pic_y, left: tags[i].pic_x});
+//                        //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
+//                    }
+//                }
+//            }
+//            , 20);
+//        });
+//    },
     JudgeBusinessProfile: function()
     {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
@@ -166,6 +182,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         var login_user_id = currentUser.get("id"); // current login user id
 
         var profile_id = mega.get("owner_id");
+        console.log("aaaaaaaaaaaaaaaaaaa");
+        console.log(mega);
         var profile = HubStar.Profile.find(profile_id);
         if (profile.get("profile_owner_ids") !== null && profile.get("profile_owner_ids") !== undefined && profile.get("profile_owner_ids") !== "")
         {

@@ -1,6 +1,5 @@
 HubStar.ArticlePhotoRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-        console.log("444444444");
 
         var temp;
         var url = window.location.href;
@@ -12,12 +11,24 @@ HubStar.ArticlePhotoRoute = Ember.Route.extend({
         }
 
         this.controllerFor("showTag").readTags(temp);
-        
-        HubStar.set("isArticleTag",true);  //isArticleTag is true mean is the  photo tag,so it will set different tagcontent in showTagController
+
+        HubStar.set("isArticleTag", true);  //isArticleTag is true mean is the  photo tag,so it will set different tagcontent in showTagController
         var megaModel = HubStar.Mega.find(temp);
         this.controllerFor("article").JudgePhotoOwner(megaModel);
+
         this.controllerFor("masonryCollectionItems").set("type", "user");
-        this.controllerFor('mega').getInitData(megaModel);
+        var that = this;
+       // setTimeout(function() {
+       megaModel.then(function() {
+           console.log(megaModel.get("isLoaded"));
+            console.log("teststestsetset");
+            console.log(megaModel.get("photo").objectAt(0).get("photo_original_height"));
+            HubStar.set("pic_current_height", megaModel.get("photo").objectAt(0).get("photo_original_height"));
+            HubStar.set("pic_current_width", megaModel.get("photo").objectAt(0).get("photo_original_width"));
+            that.controllerFor('mega').getInitData(megaModel);
+       });
+      //  }, 150);  //add on doing the tag
+
 //        var that = this;
 //        setTimeout(function() {
 //            if (that.controllerFor("article").get("contentTagsArticle") !== "" && that.controllerFor("article").get("contentTagsArticle") !== null && that.controllerFor("article").get("contentTagsArticle") !== undefined)

@@ -101,8 +101,7 @@
             {{  view HubStar.TagContentView }}
             {{/if}}
             {{/unless}}
-        </div>
-        <!--     show all the tags--> 
+                    <!--     show all the tags--> 
         {{#if controller.showAllTagsArticle}} <!--      showOrNot tag-->
         {{#each controller.contentTagsArticle}}
         {{view HubStar.TagMouseView}} 
@@ -111,6 +110,8 @@
         {{#if controller.makeSureActivateTag}}
         {{view HubStar.ActivateTagFunctionView}}
         {{/if}}
+        </div>
+
 
         <div class="caption-container" id="caption_action">
             {{#if HubStar.readCaption}}

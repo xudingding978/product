@@ -88,6 +88,7 @@
             <div  class="next" id ="nextphoto" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="view"}}>
                 <i id="n" class="fa fa-arrow-right" style="top:400px; right: 138px; color: white; position: absolute; font-size: 50px;"></i></div>
             <!--     image show here-->   
+            <div id ="tag_image">
             {{view HubStar.PhotoDisplayAreaView}}
 
             <!--     show add new  tag template-->   
@@ -104,8 +105,6 @@
             {{  view HubStar.TagContentView }}
             {{/if}}
             {{/unless}}
-
-        </div>
         <!--     show all the tags--> 
         {{#if controller.showAllTags}} <!--      showOrNot tag-->
         {{#each controller.contentTags}}
@@ -115,6 +114,8 @@
         {{#if controller.makeSureActivateTag}}
         {{view HubStar.ActivateTagFunctionView}}
         {{/if}}
+        </div>
+     </div>
 
         <!--        {{#if controller.showTag}}
                 <div id="showRequentTag">
@@ -128,7 +129,7 @@
 
     <!--THIS IS THE ALBUM BOX-->
 
-    <div class="bottom-controlbar easing" >
+    <div class="bottom-controlbar easing" style="margin-right: 321px;">
         <div class="text-on-black" style="right: 132px;"></div>
         <div class="fa icon-on-black"  {{action previesImage on="click" target="controller"}} style="display:inline-block; vertical-align: top; position:relative; left:44px;">
 

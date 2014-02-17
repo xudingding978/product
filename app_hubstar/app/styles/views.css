@@ -1000,9 +1000,9 @@ div.album-description-bg{
     left: 0;
     margin: 0 auto;
     position: absolute;
-    right: 0px;
+    right:0;
     background-color: rgba(0,0,0,.6);
-    opacity: 0;
+    opacity: 1;
     text-align: center;
 
     cursor: pointer;
@@ -1015,9 +1015,9 @@ div.album-description-bg{
     opacity: 1;
 }
 
-.objectview-left:hover > .bottom-controlbar{
+/*.objectview-left:hover > .bottom-controlbar{
     opacity: 1;
-}
+}*/
 
 
 .mainfeature{

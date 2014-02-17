@@ -37,8 +37,9 @@ body > div.ember-view > div
 
 #tagitshow
 {
-    width: 350px;
+    width: 390px;
     opacity: 0;
+    margin:12px 0 0 0px;
     height: 186px;
     border-style: solid;
     border-color: #ffffff;
@@ -62,7 +63,7 @@ body > div.ember-view > div
     background:#fff;
     opacity:.92;
     height:186px;
-    width:350px;
+    width:390px;
     
     position:absolute;
     z-index:0;
@@ -135,8 +136,8 @@ body > div.ember-view > div
 #tagImg{
     position:relative;
     z-index:1;
-    width: 128px;
-    height: 128px;
+    width: 115px;
+    height: 115px;
     background:#333;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -144,7 +145,8 @@ body > div.ember-view > div
 
     display: inline-block;
     float: left;
-    margin:12px;
+    margin:20px;
+    overflow:hidden;
     
    
 }
@@ -152,29 +154,38 @@ body > div.ember-view > div
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+    border:0 none;
 }
 
 #tagContent{
     position:relative;
     z-index:1;
     float: left; 
-    width: 170px;
-    margin:12px;
+    
+    width: 215px;
+    margin:20px 20px 20px 0;
+    
+    font-size:12px;
+    line-height:130%;
     
 }
+#tagContent > div{max-height:91px;overflow:hidden;}
 #tagBtn
 {
     position:absolute;
     z-index:1;
-    top:146px;
-    left:12px;
-    padding-bottom:12px;
+    bottom:0;
+    left:0;
+    
+    border-top: 1px solid #ddd;
+    width:390px;
 }
 #tagBtn >  div.disabled-btn{top:0;position:relative;left:0;}
 #tagName
 {
     margin-top:0;
     line-height:24px;
+    height:24px;
     font-size:18px;
     color:#333;
     font-weight:bold;
@@ -197,9 +208,6 @@ body > div.ember-view > div
     
 }
 .ember-view > .fa-tag:hover, .ember-view > .fa-tag:focus{
-    animation: tagBounce;
-    -moz-animation:tagBounce; /* Firefox */
-    -webkit-animation: tagBounce; /* Safari and Chrome */
     font-size:64px!important;
 }
 *

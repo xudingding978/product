@@ -33,12 +33,12 @@
     <div id="tagBtn">
             {{#if controller.isPhotoOwner}}
             {{#unless controller.tag.tag_approved}}
-                <div  role="button" class="disabled-btn disabled-green"  data-hint=" Activate this tag" {{action sureToActivate controller.tag.tag_id }}>Activate</div>
+                <div  style="border-right:1px solid #DDD;" role="button" class="message-btn easing"  data-hint=" Activate this tag" {{action sureToActivate controller.tag.tag_id }}>Activate</div>
                 {{else}}
-                <div  role="button" class="disabled-btn disabled-green "  data-hint=" Edit this tag" {{action EditTag controller.tag.tag_id }}>Edit</div>
+                <div style="border-right:1px solid #DDD;" role="button" class="message-btn easing"  data-hint=" Edit this tag" {{action EditTag controller.tag.tag_id }}>Edit</div>
                 {{/unless}}
                 <!--        only the tag owner can delete the tag button-->
-                <div  role="button" class="disabled-btn disabled-green "  data-hint=" Delete this tag" {{action deleteTag controller.tag.tag_id }}>Delete</div>
+                <div  role="button" class="message-btn easing"  data-hint=" Delete this tag" {{action deleteTag controller.tag.tag_id }}>Delete</div>
                 <!--        only the tag owner can delete the tag button-->
              
             {{/if}}

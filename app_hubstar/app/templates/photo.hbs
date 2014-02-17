@@ -13,11 +13,7 @@
         <div class="top-controlbar easing" >
             <!--            <div class="fa icon-on-black" style="left: 8px;"><i class="fa fa-thumbs-up"></i></div>-->
 
-            {{#if controller.megaResouce.getArticle}}
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Read this article" style="position:relative;margin: 0 5px;width: 60px;" {{action transitionToArticle controller.megaResouce.id}}>
-                 <i class="fa fa-book"></i><span class="pretooltip">Read</span>
-            </div>       
-            {{/if}}
+            
             {{#if controller.megaResouce.getVideo}}
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Watch this Video" style="position:relative;margin: 0 5px;width: 60px;"  {{action transitionToVideo controller.megaResouce}}>
                  <i class="fa fa-film"></i><span class="pretooltip">Watch</span>
@@ -179,6 +175,12 @@
             <div class="square-button hint--rounded hint--bottom for-tooltip-position" data-hint="Share this photo to other social platform" style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting "2"}}>
                  <i class="fa fa-share" >&nbsp;</i>
             </div>
+            
+            {{#if controller.megaResouce.getArticle}}
+            <div class="square-button hint--rounded hint--bottom" data-hint="Read this article"  {{action transitionToArticle controller.megaResouce.id}}>
+                 <i class="fa fa-book">&nbsp;</i>
+            </div>       
+            {{/if}}
 
             {{#if controller.is_authentic_user}}
             <div class='square-button hint--left hint--rounded' data-hint='Edit Photo Info' style="float: right;">

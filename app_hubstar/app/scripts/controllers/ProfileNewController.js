@@ -279,7 +279,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
 
 
         this.set("profile_url", this.spaceChecking(this.get("profile_name").toLowerCase()) + "-" + this.spaceChecking($('#regionSelection').text().toLowerCase()) + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase()));
-
+        
 
     },
     setTopicModel: function(model) {
@@ -323,7 +323,9 @@ HubStar.ProfileNewController = Ember.Controller.extend({
     },
     save: function() {
         this.fillInChecking();
-
+        var u = HubStar.User.find(localStorage.loginStatus);
+        this.set("creater", u.get("email"));
+        
         if (passSubmit) {
 
             var newMegaNewModel = HubStar.Meganew.createRecord({

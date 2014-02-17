@@ -1176,8 +1176,9 @@ textarea.add-interests{
     line-height: 20px;
 }
 
-.each-conversation:hover{
+.each-conversation > .each-conversation:hover{
     background-color: rgba(150,150,150,.1) !important;
+    color:#404040 !important;
 }
 
 
@@ -1210,10 +1211,9 @@ textarea.add-interests{
 .invite-friend:hover > .invite-this-friend{opacity: .8}
 
 
-.selected-conversation{background-color: #555 !important;}
-.selected-conversation > div {color: #fff !important;}
+.selected-conversation{background-color: #555 !important }
 
-.selected-conversation .comment-username, .selected-conversation .comment-content, .selected-conversation .icon-trash{color: #fff !important}
+ .selected-conversation .comment-content, .selected-conversation .comment-username, .selected-conversation .fa-trash-o{color: #fff !important}
 
 
 #search_business{vertical-align: top;}

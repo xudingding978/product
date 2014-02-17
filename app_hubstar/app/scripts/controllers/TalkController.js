@@ -108,10 +108,7 @@ HubStar.TalkController = Ember.Controller.extend({
         var target = getTarget(e, "single");
         var src = target.result;
         this.set('newStyleImageSource', src);
-        this.set('newStyleImageName', name);
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+        this.set('newStyleImageName', name);       
     }
 }
 );

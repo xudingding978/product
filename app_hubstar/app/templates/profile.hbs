@@ -40,7 +40,7 @@
                                     </div>
                                 </div>
                                 {{else}}
-                                <div id="profileName" data-step="1" data-intro="Here is Profile Name!" data-position='right' style="display: inline-block; color: white; max-width: 500px; overflow: hidden; font-size: 28px; margin-bottom: 15px; line-height: 32px; vertical-align: middle;">
+                                <div id="profileName"  style="display: inline-block; color: white; max-width: 500px; overflow: hidden; font-size: 28px; margin-bottom: 15px; line-height: 32px; vertical-align: middle;">
                                     {{profile_name}}
                                 </div>
                                 {{#if controller.is_authentic_user}}
@@ -54,7 +54,7 @@
 
 
                             <!--STAR RATING-->
-                            <div style="position: absolute;width: 500px;" data-step="2" data-intro="Rating and review the profile!" data-position='right'>
+                            <div style="position: absolute;width: 500px;" data-step="1" data-intro="Click here to <b>Rate and Review</b> a profile." data-position='right'>
                                 <span class="stars" style="float: left;margin: 5px 15px 5px 0;" ><span id="starsize" ></span></span>  
                                 <div class="hint--right hint--rounded" data-hint="Review this profile!"  {{action rateEditing model.id}} >
                                      <div class="contactmeicon easing" style="float: left;  width: 35px; height: 35px;line-height: 31px;text-align: center;font-weight: bold;font-size: 13px;border: 2px solid #aaa;">{{this.profile_average_review}}</div>
@@ -64,13 +64,13 @@
 
 
                             <!--contact me-->
-                            <div class="contactmebtn hint--bottom hint--rounded easing" data-hint="Contact us!" data-step="4" data-intro="Sending Email" data-position='left'>
+                            <div class="contactmebtn hint--bottom hint--rounded easing" data-hint="Contact us!" data-step="3" data-intro="Click here to <b>Contact</b> the profile owner." data-position='left'>
                                    <a class="contactmeicon easing" {{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></a>
 
                             </div>
                             <!--contact me-->
 
-                            <div class="contactmebtn hint--left hint--rounded easing" data-hint="Share this profile!" data-step="3" data-intro="Sharing profile to your social network" data-position='left'>
+                            <div class="contactmebtn hint--left hint--rounded easing" data-hint="Share this profile!" data-step="2" data-intro="Click here to <b>Share</b> a link to this profile through social media." data-position='left'>
                                  <a class="contactmeicon easing" {{action dropdownPhotoSetting}}><i class="fa fa-share easing" style="font-size: 19px;"></i></a>
                             </div>
 
@@ -108,7 +108,7 @@
                 <td class="left_col" width="29%" valign="top">
                     <div class="profileaside">
                         <div class="profileaside_content">
-                            <div class="aside-profilepic" data-step="5" data-intro="Following time" data-position='right'>
+                            <div class="aside-profilepic" data-step="4" data-intro="Start following this profile by clicking <b>+ Follow</b>." data-position='right'>
                                 <div style="min-height: 175px; overflow: visible; line-height: 175px;margin-bottom: 20px;" data-hint="{{unbound model.profile_name}}">
                                     <a href="#/profiles/{{unbound model.id}}">
                                         <img {{bindAttr src= model.profile_pic_url}} style="border:5px solid white;box-shadow: 0px 0px 5px #888;min-height: 0;width: 100%">
@@ -123,7 +123,7 @@
 
                             </div>
 
-                            <div data-step="6" data-intro="Who visited your profiles" data-position='right'>
+                            <div>
                                 <div class="LatestFollower" >
 
                                     {{#each contentFollowerPhoto}}                                             
@@ -140,7 +140,7 @@
 
 
                             <!--KEYWORDS SECTION-->
-                            <div class="aside-container" data-step="7" data-intro="Keyword" data-position='right'> 
+                            <div class="aside-container" > 
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'>
                                     <i class='fa fa-bookmark' style='margin-right: 10px;'></i>Keywords
                                 </div>
@@ -159,7 +159,7 @@
 
                             <!--PROFILE CONTACT SECTION-->
 
-                            <div class="aside-container" style="" data-step="8" data-intro="Contact Detail" data-position='right'>
+                            <div class="aside-container" style="" data-step="5" data-intro="Find <b>Contact Details</b> for the profile owner here." data-position='right'>
                                     <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='fa fa-phone' style='margin-right: 10px;'></i>Contact Detail</div>
                                 {{#unless controller.editingContact}}
                                 {{#if controller.is_authentic_user}}
@@ -290,7 +290,7 @@
 
                             <!--PROFILE HOURS SECTION-->
 
-                            <div class="aside-container" style="border-top: 1px solid #fff;"  data-step="9" data-intro="Hours" data-position='right'>
+                            <div class="aside-container" style="border-top: 1px solid #fff;"  data-step="6" data-intro="Find out <b>Opening Hours</b> for the profile owner here." data-position='right'>
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='fa fa-clock-o' style='margin-right: 10px;'></i>Hours</div>
 
                                 {{#unless controller.editingTime}}
@@ -337,7 +337,7 @@
 
 
                             <!--PROFILE GOOGLEMAP SECTION--> 
-                            <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;" data-step="10" data-intro="Google map to show the location" data-position='right'>
+                            <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;" data-step="7" data-intro=" Click the <b>Location Map</b> to find out how to reach the profile owner’s address from your location." data-position='right'>
                                 <div id="google-map"  style="width: 290px;height: 260px; border: 5px solid #fff;cursor: pointer" >
                                     <div class="enlarge-map easing" style=""{{action popUpGoogleMap}}><k class="fa fa-expand"></k></div>
                                     <img  {{bindAttr src="controller.profile_google_map"}} style="width: 100%; height:auto;" {{action popUpGoogleMap}}>
@@ -350,7 +350,7 @@
 
                 <!--RIGHT COL BEGINS -->
                 <!--PROFILE PAGE MAIN PART-->
-                <td class="right_col" width="70%" valign="top" data-step="11" data-intro="About us ----your can select templete or HTML5 editor to build your About Us" data-position='left'>
+                <td class="right_col" width="70%" valign="top">
                     {{view HubStar.ProfileAboutUsEditView}}
                 </td>
 
@@ -1047,9 +1047,7 @@
     {{/if}}
 
 
-    {{#unless HubStar.isLogin}}
-    {{render "footer"}}
-    {{/unless}}
+
 
 
 

@@ -392,8 +392,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         }
                     }
                 }
-                }
             }
+        }
         );
 
     },
@@ -508,8 +508,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.set("newTitle", "");
                 this.set("newDesc", "");
                 setTimeout(function() {
-                    $('#masonry_user_container').masonry("reload");
-                }, 200);
+                    $('#masonry_user_container').masonry("reloadItems");
+                    setTimeout(function() {
+                        $('#masonry_user_container').masonry();
+                    }, 300);
+                }, 250);
             }
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
@@ -584,15 +587,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 if (i === 0) {
                     var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '', "book_description": 'Renovation Trends (29/11)',
                         "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0',
-                        "book_read_url": 'http://ebooks.trendsideas.com/Book885', "book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/455/Renovation_Ideas_Trends_Vol_2911.aspx', "optional": this.get('model').get('id')});
+                        "book_read_url": 'http://ebooks.trendsideas.com/Book885', "book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/455/Renovation_Ideas_Trends_Vol_2911.aspx',
+                        "optional": this.get('model').get('id'), "display_size": 1, "read_available": true, "buy_available": true});
                 } else if (i === 1) {
                     var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '', "book_description": 'New Home Trends (29/10)',
                         "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=483&w=300&tabid=101&h=0',
-                        "book_read_url": 'http://ebooks.trendsideas.com/Book873', "book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/447/New_Home_Trends_Vol_2910.aspx', "optional": this.get('model').get('id')});
+                        "book_read_url": 'http://ebooks.trendsideas.com/Book873', "book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/447/New_Home_Trends_Vol_2910.aspx', 
+                        "optional": this.get('model').get('id'), "display_size": 1, "read_available": true, "buy_available": true});
                 } else {
                     var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '', "book_description": 'Limited Edition!',
                         "book_image_url": 'http://library.trendsideas.com/Portals/0/productimages/418_06894.jpg',
-                        "book_read_url": '', "book_buy_url": 'http://shop.trendsideas.co.nz/homeseries.aspx?prodid=418', "optional": this.get('model').get('id')});
+                        "book_read_url": '', "book_buy_url": 'http://shop.trendsideas.co.nz/homeseries.aspx?prodid=418', "optional": this.get('model').get('id'),
+                        "display_size": 1, "read_available": false, "buy_available": true});
                 }
                 about_us.get('about_book').pushObject(about_book);
             }
@@ -610,6 +616,20 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('editingAbout', !this.get('editingAbout'));
         }
         if (this.get('model').get('show_template')) {
+            for (var i =0; i< this.get('about_us').objectAt(0).get('about_book').get('length'); i++) {
+                var about_book = this.get('about_us').objectAt(0).get('about_book').objectAt(i);
+                if (about_book.get('book_read_url') !== null && about_book.get('book_read_url') !== '' && about_book.get('book_read_url') !== undefined) {
+                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('read_available', true);
+                } else {
+                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('read_available', false);
+                }
+                
+                if (about_book.get('book_buy_url') !== null && about_book.get('book_buy_url') !== '' && about_book.get('book_buy_url') !== undefined) {
+                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('buy_available', true);
+                } else {
+                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('buy_available', false);
+                }
+            }
             if (this.get('model').get('about_us') === null || this.get('model').get('about_us') === 'undefined' || this.get('model').get('about_us').get('length') === 0) {
                 this.get('model').get('about_us').pushObject(this.get('about_us').objectAt(0));
             }
@@ -624,15 +644,17 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (checkingInfo === "profileName") {
             var title_modify_time = Date.parse(new Date());
             var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-            if (title_modify_time > update_profile_record.get('title_modify_time')+600000) {
+
+//            if (title_modify_time > update_profile_record.get('title_modify_time')+600000) {
                 this.set('editing', !this.get('editing'));            
+
                 update_profile_record.set("profile_name", this.get('profile_name'));
                 update_profile_record.set("title_modify_time", title_modify_time);
                 this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
                 update_profile_record.store.save();
-            } else {
-                this.get('controllers.applicationFeedback').statusObserver(null, "Please do not change your profile title so frequently.", "warnning");
-            }
+//            } else {
+//                this.get('controllers.applicationFeedback').statusObserver(null, "Please do not change your profile title so frequently.", "warnning");
+//            }
         }
         else if (checkingInfo === "contact") {
             if (this.get("website_url") !== null) {
@@ -752,7 +774,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             });
             this.get("collections").removeObject(this.get("selectedCollection"));
             this.statstics();
-            $('#masonry_user_container').masonry("reload");
+             setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 300);
+        }, 800);
             this.cancelDelete();
         } else {
             this.set('willDelete', true);
@@ -932,8 +959,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.transitionToRoute('profileCollections');
 
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+
+            }, 200);
+        }, 250);
 
     },
     selectVideo: function(model) {
@@ -970,8 +1001,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.transitionToRoute('partners');
 
             setTimeout(function() {
-                $('#masonry_user_container').masonry("reload");
-            }, 200);
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 100);
+            }, 250);
 
         }
     },
@@ -987,9 +1021,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('reviewTag', false);
             this.set('videoTag', false);
             this.transitionToRoute('profileFollowers');
-            setTimeout(function() {
-                $('#masonry_user_container').masonry("reload");
-            }, 200);
         }
     },
     selectReview: function(model) {
@@ -1003,9 +1034,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('reviewTag', true);
             this.set('videoTag', false);
             this.transitionToRoute('reviews');
-            setTimeout(function() {
-                $('#masonry_user_container').masonry("reload");
-            }, 200);
         }
     },
     saveUpdateAboutUs: function() {
@@ -1198,8 +1226,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             {
                 var size = "Your image size is " + width + "x" + height;
                 that.set('CurrentImageSize', size);
+
                 that.set('isUpload', true);
-                 that.set('isCrop', true);
+                that.set('isCrop', true);
 
             }
         });
@@ -1284,6 +1313,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             'newStyleImageName': that.get('newStyleImageName'),
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': that.get('model.id')};
+
 
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
                             that.set('isPhotoEditingMode', false);
@@ -1391,6 +1421,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     rateEditing: function(id) {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
+
             if (this.get('model').get('reviews').get('length') === 0) {
                 this.set("rateTime", true);
             }

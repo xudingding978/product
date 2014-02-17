@@ -12,21 +12,7 @@ HubStar.ProfileNewRoute = Ember.Route.extend({
         }, 10);
 
         HubStar.set('editingMode', 'user');
-        if (localStorage.loginStatus === null || (localStorage.loginStatus === ""))
-        {
-            HubStar.set("isLogin", false);
-        } else {
-            HubStar.set("isLogin", true);
-
-            if (HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== ""
-                    && HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== "undefined"
-                    && HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== null) {
-
-                this.controllerFor('application').set("is_trends_user", true);
-            } else {
-                this.controllerFor('application').set("is_trends_user", false);
-            }
-        }
+        
     },
     model: function() {
         var user = HubStar.User.find(localStorage.loginStatus);

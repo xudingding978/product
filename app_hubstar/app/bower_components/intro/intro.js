@@ -169,8 +169,6 @@
                     $(".brand").removeClass("tour-background");
                     $(".Geo-Filter").removeClass("tour-background");
                     $("#login_detail").removeClass("tour-background");
-                    //      $("#profileFront").addClass("front");
-                    $("#profileName").removeClass("profileName");
                     $("#profilePanel").addClass("panel");
                     $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
 
@@ -253,8 +251,6 @@
             $("#login_detail").removeClass("tour-background");
             $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
             $("#profilePanel").addClass("panel");
-            $("#profileName").removeClass("profileName");
-            //      $("#profileFront").addClass("front");
 
             return;
         }
@@ -562,8 +558,6 @@
                 $("#login_detail").removeClass("tour-background");
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
-                $("#profileName").removeClass("profileName");
-                //    $("#profileFront").addClass("front");
                      $(window).scrollTop(0);
                 }
             };
@@ -606,8 +600,6 @@
                 $("#login_detail").removeClass("tour-background");
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
-                $("#profileName").removeClass("profileName");
-                //    $("#profileFront").addClass("front");
             };
 
             buttonsLayer.appendChild(skipTooltipButton);
@@ -785,8 +777,6 @@
                 $("#login_detail").removeClass("tour-background");
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
-                $("#profileName").removeClass("profileName");
-                //      $("#profileFront").addClass("front");
 
                 //check if any callback is defined
                 if (self._introExitCallback != undefined) {

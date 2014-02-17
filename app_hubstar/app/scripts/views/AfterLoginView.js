@@ -14,14 +14,14 @@ HubStar.AfterLoginView = Ember.View.extend({
         });
         localStorage.removeItem('loginStatus');
         this.get('controller').transitionTo("indexIndex");
-
+        document.cookie = 'Session=; path=/; domain=.trendsideas.com; expires=Thu, 01 Jan 1970 00:00:00 GMT';
     },
     showUserDropDown: function() {
         if ($('#user-dd-menu').css('display') === 'block') {
-            $("#user-dd-menu").attr("style", "padding: inherit; width: 165px; right: 56px; position: relative; top:30px;display:none");
+            $("#user-dd-menu").attr("style", "padding: inherit; width: 178px; right: 60px; position: relative; top:30px;display:none");
         }
         else {
-            $("#user-dd-menu").attr("style", "padding: inherit; width: 165px; right: 56px; position: relative; top:30px;display:block");
+            $("#user-dd-menu").attr("style", "padding: inherit; width: 178px; right: 60px; position: relative; top:30px;display:block");
         }
     },
     userDisplaynone: function(checking) {
@@ -48,18 +48,12 @@ HubStar.AfterLoginView = Ember.View.extend({
     startTour: function() {
 
         $("#user-dd-menu").attr("style", "display:none");
-
         $("#profileDashboard").attr("style", "display:none");
         $("#profilePanel").removeClass("panel");
-        //           $("#profileFront").removeClass("front");
         $(".brand").addClass("tour-background");
         $(".Geo-Filter").addClass("tour-background");
         $("#login_detail").addClass("tour-background");
-        $("#profileName").addClass("profileName");
-
-
-
-        introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
+   introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
             var address = document.URL;
             var urlName = address.split("#")[1].split("/")[1];
             var target = address.split("#")[1].split("/")[2];

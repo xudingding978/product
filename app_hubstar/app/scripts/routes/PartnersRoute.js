@@ -23,9 +23,7 @@ HubStar.PartnersRoute = Ember.Route.extend({
         $('#partners').addClass('selected-user-stats');
         this.controllerFor('profilePartners').getClientId(model);
         this.controllerFor('profile').selectPartner(model);
-                setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+              
         }
     },
     model: function(params) {

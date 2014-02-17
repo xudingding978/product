@@ -459,7 +459,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         var contents = this.get('content');
         var selectedIndex = 1;
         for (var index = 0; index <= contents.get('length') - 1; index++) {
-            if (this.get('selectedPhoto').get("id") === contents.objectAt(index).id) {
+            
+            if (this.get('selectedPhoto').get("id") === contents.objectAt(index).get("id")) {
                 selectedIndex = index + 1;
             }
         }
@@ -632,12 +633,13 @@ HubStar.ArticleController = Ember.Controller.extend({
         if (isProfileIDExist && isCollectionIDExist) {
             var data = HubStar.Mega.find({RequireType: "articleRelatedImage", "article_id": collection_id, "owner_id": owner_profile_id});
             data.addObserver('isLoaded', function() {
-                if (data.get('isLoaded')) {
-                    var length = data.get("content").get("length");
-                    for (var i = 0; i < length; i++) {
-                        var temp = data.get("content").objectAt(i);
-                        if (temp.data.photo !== undefined) {
-                            that.get("content").pushObject(temp.data.photo.objectAt(0));                                  //find the object which contain photos and push it into model
+                if (data.get('isLoaded')) {                  
+
+                    var length = this.get("length");
+                    for (var i = 0; i < length-1; i++) {
+                        var temp = this.objectAt(i);
+                        if (temp.get("photo") !== undefined) {
+                            that.get("content").pushObject(temp.get("photo").objectAt(0));                                  //find the object which contain photos and push it into model
                         }
                     }
                     //set the photo id which include the first photo id 
@@ -672,6 +674,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                             }
                             else
                             {
+
                                 that.transitionTo("articlePhoto", that.get('content').objectAt(0));
                             }
                             this.set("isShowPhotoUrl", false);
@@ -680,24 +683,25 @@ HubStar.ArticleController = Ember.Controller.extend({
                     }
                     else
                     {
-
                         var address = document.URL;
                         var search_id = address.split("#")[1].split("/")[2];
                         var search_type = address.split("#")[1].split("/")[1];
+
                         if (this.get("isShowPhotoUrl") === true)
                         {
                             if (search_type === "search" || search_type === "searchs")
                             {
                                 if (search_id === "default")
                                 {
-                                    that.transitionTo("searchDefaultArticlePhoto", that.get('content').objectAt(0));
+
+                                    that.transitionTo("searchDefaultArticlePhoto", that.get("content").objectAt(0));
+
                                 } else
                                 {
-                                    that.transitionTo("searchIndexArticlePhoto", that.get('content').objectAt(0));
+                                    that.transitionTo("searchIndexArticlePhoto", that.get("content").objectAt(0));
                                 }
                             } else if (search_type === "profiles")
                             {
-
                                 that.transitionTo("profileArticlePhoto", that.get('content').objectAt(0));
 
                             }

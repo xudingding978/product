@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-function getRestAPIURL(){
+function getRestAPIURL() {
 //    var api_url = document.domain;
 //    api_url = "http://api." + api_url;
 //    console.log(api_url);
@@ -35,6 +35,11 @@ function createReviewid() {
     return result.toString();
 }
 
+
+function multiRow(s) {
+    s = s.replace(/\n/g, '<br>');
+    return s;
+}
 function createMessageid() {
 
     var dateObject = new Date();
@@ -112,7 +117,7 @@ function requiredBackEnd(controller, method, para, ajaxType, callback) {
             data: JSON.stringify(para),
             crossDomain: true,
             success: function(feedback) {
-                
+
                 //HubStar.Store.save();
                 callback(feedback);
             }
@@ -141,7 +146,7 @@ function ReplaceContentInContainer(matchClass, content)
     {
         if ((" " + elems[i].className + " ").indexOf(" " + matchClass + " ") > -1)
         {
-            
+
             elems[i].style.display = 'none';
         }
     }

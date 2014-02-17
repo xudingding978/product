@@ -563,7 +563,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var isCollectionIDExist = this.isParamExist(collection_id);
         var that = this;
         if (isProfileIDExist && isCollectionIDExist) {
-            var data = HubStar.Mega.find({RequireType: "collection", "collection_id": collection_id, "owner_profile_id": owner_profile_id});
+            var data = HubStar.Mega.find({RequireType: "profileCollection", "collection_id": collection_id, "owner_profile_id": owner_profile_id});
             data.addObserver('isLoaded', function() {
                 if (data.get('isLoaded')) {
                     for (var i = 0; i < this.get("content").length; i++) {

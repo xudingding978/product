@@ -271,17 +271,24 @@ class Controller extends CController {
         $requestStringOne = 'couchbaseDocument.doc.profile.id=' . $userid;
         array_push($conditions, $requestStringOne);
         $requestStringTwo = 'couchbaseDocument.doc.profile.collections.id=' . $collection_id;
+        //error_log(var_export($userid, true));
+        //error_log(var_export($collection_id, true));
         array_push($conditions, $requestStringTwo);
         $tempResult = $this->searchWithCondictions($conditions, 'must');
         $tempResult = $this->getReponseResult($tempResult, $returnType);
         $mega = CJSON::decode($tempResult, true);
+        //error_log(var_export($mega, true));
         if (!isset($mega['megas'][0]['profile'][0]['collections'])) {
             $collections = array();
         } else {
             $collections = $mega['megas'][0]['profile'][0]['collections'];
         }
+        //error_log(var_export($collections, true));
         for ($i = 0; $i < sizeof($collections); $i++) {
+            error_log(var_export($collections[$i]['id'], true));
+            error_log(var_export($collection_id,true));
             if ($collections[$i]['id'] === $collection_id) {
+                error_log("sssssssssssss");
                 $collection = $collections[$i];
                 break;
             }

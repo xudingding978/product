@@ -213,11 +213,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     newSearch: function() {
         this.set("googletagCmd", []);
         this.set("content", []);
-<<<<<<< HEAD
-        
-=======
-        $(document).scrollTop(0);
->>>>>>> 18c974c37217892e2f064994b80f4d4ad69a95b7
+
         this.set("oldChildren", 0);
         this.set("from", 0);
         this.set("size", 30);

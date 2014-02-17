@@ -186,6 +186,7 @@ class Controller extends CController {
             $userid = $this->getUserInput($requireParams[1]);
             $collection_id = $this->getUserInput($requireParams[2], false);
             $response = $this->searchCollectionItem($userid, $collection_id, $returnType);
+            $response = $this->profileSetting($response, $returnType, 'profilecollection');
         } elseif ($requireType == 'profileCollection') {
             $userid = $this->getUserInput($requireParams[1]);
             $collection_id = $this->getUserInput($requireParams[2], false);
@@ -193,6 +194,7 @@ class Controller extends CController {
             $response = $this->profileSetting($response, $returnType, 'profilecollection');
         } elseif ($requireType == 'defaultSearch') {
             $response = $this->searchCollectionItem('21051211514', 'editor-picks', $returnType);
+            $response = $this->profileSetting($response, $returnType, 'profilecollection');
         } elseif ($requireType == 'video') {
             $videoOwnerId = $this->getUserInput($requireParams[1]);
             $response = $this->getVideoesByOwner($returnType, $videoOwnerId);

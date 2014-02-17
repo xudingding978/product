@@ -84,11 +84,11 @@ HubStar.ArticleController = Ember.Controller.extend({
             }
         }
 
-        this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
-        this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
-        this.selectedImage(this.get('selectedPhoto').id);
-        this.set('captionTitle', this.get('selectedPhoto').photo_title);
-        this.set('caption', this.get('selectedPhoto').photo_caption);
+        this.set("photo_album_id", "album_" + this.get('selectedPhoto').get("id"));
+        this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').get("id"));
+        this.selectedImage(this.get('selectedPhoto').get("id"));
+        this.set('captionTitle', this.get('selectedPhoto').get("photo_title"));
+        this.set('caption', this.get('selectedPhoto').get("photo_caption"));
 
         this.captionDisplay();
     },
@@ -149,17 +149,18 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         }
 
-        this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
-        this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
-        this.selectedImage(this.get('selectedPhoto').id);
-        this.set('captionTitle', this.get('selectedPhoto').photo_title);
-        this.set('caption', this.get('selectedPhoto').photo_caption);
+        this.set("photo_album_id", "album_" + this.get('selectedPhoto').get("id"));
+        this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').get("id"));
+        this.selectedImage(this.get('selectedPhoto').get("id"));
+        this.set('captionTitle', this.get('selectedPhoto').get("photo_title"));
+        this.set('caption', this.get('selectedPhoto').get("photo_caption"));
         this.captionDisplay();
     },
     captionDisplay: function()
     {
         if (this.get("caption") === null || this.get("caption") === "")
         {
+           
             if (HubStar.get("readCaption"))
             {
                 $('#caption_action').attr('style', 'left: 0px; display:none');
@@ -422,9 +423,9 @@ HubStar.ArticleController = Ember.Controller.extend({
                     }
 
                     that.set('selectedPhoto', that.get('content').objectAt(0));                                                  //set selectedPhoto to the first photo
-                    that.set('captionTitle', that.get('selectedPhoto').photo_title);
+                    that.set('captionTitle', that.get('selectedPhoto').get("photo_title"));
 
-                    that.set('caption', that.get('selectedPhoto').photo_caption);
+                    that.set('caption', that.get('selectedPhoto').get("photo_caption"));
 
 
                     that.captionDisplay();

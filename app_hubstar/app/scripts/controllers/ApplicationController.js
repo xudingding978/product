@@ -221,8 +221,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var d = new Date();
         var start = d.getTime();
         var that = this;
-        var statusController = this.get('controllers.status');
-        
+        var statusController = this.get('controllers.status');        
         var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation')});
         stats.addObserver('isLoaded', function() {
             if (stats.get('isLoaded')) {

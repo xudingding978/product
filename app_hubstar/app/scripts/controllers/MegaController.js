@@ -396,22 +396,22 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
 
 
-            var results = HubStar.Mega.find({RquireType: "collection", "collection_id": collection_id, "owner_profile_id": id});
-            var that = this;
-            results.addObserver('isLoaded', function() {
-                if (results.get('isLoaded')) {
-                    for (var i = 0; i < this.get("length"); i++) {
-                        var tempmega = results.objectAt(i);
-                        if (tempmega.get('profile').get('length') === 0 && tempmega.get('user').get('length') === 0 && (collection_id === tempmega.get('collection_id')))
-                        {
-                            if (that.get("content").objectAt(0).get("id") !== tempmega.get("id")) {
-                                that.get("content").pushObject(tempmega.get('photo').objectAt(0));
-                            }
-                        }
-                    }
-
-                }
-            });
+//            var results = HubStar.Mega.find({RquireType: "profileCollection", user_id: id, collection_id: collection_id});
+//            var that = this;
+//            results.addObserver('isLoaded', function() {
+//                if (results.get('isLoaded')) {
+//                    for (var i = 0; i < this.get("length"); i++) {
+//                        var tempmega = results.objectAt(i);
+//                        if (tempmega.get('profile').get('length') === 0 && tempmega.get('user').get('length') === 0 && (collection_id === tempmega.get('collection_id')))
+//                        {
+//                            if (that.get("content").objectAt(0).get("id") !== tempmega.get("id")) {
+//                                that.get("content").pushObject(tempmega.get('photo').objectAt(0));
+//                            }
+//                        }
+//                    }
+//
+//                }
+//            });
             var pics = HubStar.Mega.find({RquireType: "profileCollection", user_id: id, collection_id: collection_id});
             var that = this;
             pics.addObserver('isLoaded', function() {
@@ -542,14 +542,14 @@ HubStar.MegaController = Ember.ArrayController.extend({
             results.addObserver('isLoaded', function() {
                 if (results.get('isLoaded')) {
 
-                    for (var i = 0; i < this.get("content").length; i++) {
-                        var tempObject = this.get("content").objectAt(i);
+                    for (var i = 0; i < this.get("length"); i++) {
+                        var tempObject = this.objectAt(i);
                         photoContent.pushObject(tempObject);
                     }
-                    for (var i = 0; i < photoContent.length; i++) {
-                        if (photoContent.objectAt(i).record.get("type") === "photo")
+                    for (var i = 0; i < photoContent.get("length"); i++) {
+                        if (photoContent.objectAt(i).get("type") === "photo")
                         {
-                            var id = photoContent.objectAt(i).record.get("id");
+                            var id = photoContent.objectAt(i).get("id");
 
                             if (that.get("content").objectAt(0).get('id') !== id)
                             {
@@ -557,13 +557,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                             }
                         }
-                        else if (photoContent.objectAt(i).record.get("type") === "article")
+                        else if (photoContent.objectAt(i).get("type") === "article")
                         {
 
-                            var id = photoContent.objectAt(i).record.get("id");
+                            var id = photoContent.objectAt(i).get("id");
                             if (that.get("content").objectAt(0).get('id') !== id)
                             {
-                                var photoUrl = photoContent.objectAt(i).record.get("article").objectAt(0).get("article_image_url");
+                                var photoUrl = photoContent.objectAt(i).get("article").objectAt(0).get("article_image_url");
                                 var article = HubStar.Mega.find(id);
                                 if (that.get("content").objectAt(0).get('id') !== id)
                                 {
@@ -573,12 +573,12 @@ HubStar.MegaController = Ember.ArrayController.extend({
                                 }
                             }
                         }
-                        else if (photoContent.objectAt(i).record.get("type") === "video")
+                        else if (photoContent.objectAt(i).get("type") === "video")
                         {
-                            var id = photoContent.objectAt(i).record.get("id");
+                            var id = photoContent.objectAt(i).get("id");
                             if (that.get("content").objectAt(0).get('id') !== id)
                             {
-                                var photoUrl = photoContent.objectAt(i).record.get("videoes").objectAt(0).get("videoImg");
+                                var photoUrl = photoContent.objectAt(i).get("videoes").objectAt(0).get("videoImg");
 
                                 var article = HubStar.Mega.find(id);
                                 article.set("photo_image_original_url", photoUrl);

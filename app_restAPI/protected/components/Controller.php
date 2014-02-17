@@ -284,32 +284,41 @@ class Controller extends CController {
             $collections = $mega['megas'][0]['profile'][0]['collections'];
         }
         //error_log(var_export($collections, true));
+
         for ($i = 0; $i < sizeof($collections); $i++) {
             error_log(var_export($collections[$i]['id'], true));
-            error_log(var_export($collection_id,true));
+            error_log(var_export($collection_id, true));
             if ($collections[$i]['id'] === $collection_id) {
                 error_log("sssssssssssss");
                 $collection = $collections[$i];
                 break;
             }
         }
-        $collectionIds = explode(",", $collection['collection_ids']);
-        $response = Array();
-        $megas = Array();
-        $cb = $this->couchBaseConnection();
+        if (isset($collection)) {
+            $collectionIds = explode(",", $collection['collection_ids']);
+            $response = Array();
+            $megas = Array();
+            $cb = $this->couchBaseConnection();
 
-        for ($i = 0; $i < sizeof($collectionIds); $i++) {
-            if ($collectionIds[$i] !== "") {
-                $owner = $this->getDomain() . "/" . trim($collectionIds[$i]);
-                $mega = $cb->get($owner);
-                $megaNew = CJSON::decode($mega, true);
-                if ($megaNew !== null && $megaNew !== "") {
-                    array_push($megas, $megaNew);
+            for ($i = 0; $i < sizeof($collectionIds); $i++) {
+                if ($collectionIds[$i] !== "") {
+                    $owner = $this->getDomain() . "/" . trim($collectionIds[$i]);
+                    $mega = $cb->get($owner);
+                    $megaNew = CJSON::decode($mega, true);
+                    if ($megaNew !== null && $megaNew !== "") {
+                        array_push($megas, $megaNew);
+                    }
                 }
             }
-        }
 
-        $response["megas"] = $megas;
+            $response["megas"] = $megas;
+        }
+        else
+        {
+            $response = Array();
+            $megas = Array();
+            $response["megas"] = $megas;
+        }
         return CJSON::encode($response);
     }
 

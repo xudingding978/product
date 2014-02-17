@@ -50,7 +50,7 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
         }
         var model = HubStar.Mega.find({RquireType: "profileCollection", owner_profile_id: id, collection_id: params.profileCollection_id});
         model.set("id", params.profileCollection_id);
-        console.log(model);
+       
         return model;
     },
     events: {

@@ -15,7 +15,7 @@ HubStar.ArticlePhotoRoute = Ember.Route.extend({
 
     },
     model: function(params) {
-        var model = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
+        var model = HubStar.Mega.find(params.photo_id);
          this.controllerFor("article").set("searchFromRoute", true); //only use in userarticle route to get the temp id;
         this.controllerFor("mega").set("clickOrRoute", true);
         return model;

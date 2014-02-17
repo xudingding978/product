@@ -5574,7 +5574,7 @@ var e=function(){},t=0,r=function(){return"undefined"!=typeof MetamorphENV?Metam
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-function getRestAPIURL(){
+function getRestAPIURL() {
 //    var api_url = document.domain;
 //    api_url = "http://api." + api_url;
 //    console.log(api_url);
@@ -5607,6 +5607,11 @@ function createReviewid() {
     return result.toString();
 }
 
+
+function multiRow(s) {
+    s = s.replace(/\n/g, '<br>');
+    return s;
+}
 function createMessageid() {
 
     var dateObject = new Date();
@@ -5682,8 +5687,9 @@ function requiredBackEnd(controller, method, para, ajaxType, callback) {
             url: tempurl + '/' + controller + '/' + method,
             type: ajaxType,
             data: JSON.stringify(para),
+            crossDomain: true,
             success: function(feedback) {
-                
+
                 //HubStar.Store.save();
                 callback(feedback);
             }
@@ -5712,7 +5718,7 @@ function ReplaceContentInContainer(matchClass, content)
     {
         if ((" " + elems[i].className + " ").indexOf(" " + matchClass + " ") > -1)
         {
-            
+
             elems[i].style.display = 'none';
         }
     }
@@ -18451,8 +18457,6 @@ function print_state()
                     $(".brand").removeClass("tour-background");
                     $(".Geo-Filter").removeClass("tour-background");
                     $("#login_detail").removeClass("tour-background");
-                    //      $("#profileFront").addClass("front");
-                    $("#profileName").removeClass("profileName");
                     $("#profilePanel").addClass("panel");
                     $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
 
@@ -18535,8 +18539,6 @@ function print_state()
             $("#login_detail").removeClass("tour-background");
             $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
             $("#profilePanel").addClass("panel");
-            $("#profileName").removeClass("profileName");
-            //      $("#profileFront").addClass("front");
 
             return;
         }
@@ -18844,8 +18846,6 @@ function print_state()
                 $("#login_detail").removeClass("tour-background");
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
-                $("#profileName").removeClass("profileName");
-                //    $("#profileFront").addClass("front");
                      $(window).scrollTop(0);
                 }
             };
@@ -18888,8 +18888,6 @@ function print_state()
                 $("#login_detail").removeClass("tour-background");
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
-                $("#profileName").removeClass("profileName");
-                //    $("#profileFront").addClass("front");
             };
 
             buttonsLayer.appendChild(skipTooltipButton);
@@ -19067,8 +19065,6 @@ function print_state()
                 $("#login_detail").removeClass("tour-background");
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
-                $("#profileName").removeClass("profileName");
-                //      $("#profileFront").addClass("front");
 
                 //check if any callback is defined
                 if (self._introExitCallback != undefined) {

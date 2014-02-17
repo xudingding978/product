@@ -44,7 +44,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.set("loadingTime", false);
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
-                for (var i = 0; i<this.get("content").length; i++) {
+                for (var i = 0; i < this.get("content").length; i++) {
                     var tempObject = results.objectAt(i);
                     that.get("content").pushObject(tempObject);
                 }
@@ -65,7 +65,12 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                                 }
                             }
                         }
-                        that.relayout();
+                        setTimeout(function() {
+                            $('#masonry_photo_collection_container').masonry("reloadItems");
+                            setTimeout(function() {
+                                $('#masonry_photo_collection_container').masonry();
+                            }, 15);
+                        }, 15);
                     }, 5);
                 });
             }
@@ -232,7 +237,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                                         if (this.get("profileId") === item.get("owner_id") && item.get("collection_id") === this.get('collectionID')) {
                                             //console.log(item);
 
-                                            item.set("is_deleted",true);
+                                            item.set("is_deleted", true);
 
                                             item.store.save();
                                             //tempItem.deleteRecord();
@@ -268,8 +273,8 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             setTimeout(function() {
                 that.set("loadingTime", false);
                 $('#masonry_photo_collection_container').masonry();
-            }, 300);
-        }, 800);
+            }, 100);
+        }, 300);
     },
     cancelDelete: function() {
         this.set('willDelete', false);
@@ -387,14 +392,14 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.set("loadingTime", true);
         pics.addObserver('isLoaded', function() {
             if (pics.get('isLoaded')) {
-                for (var i = this.get("content").length-1; i >= 0; i--) {
+                for (var i = this.get("content").length - 1; i >= 0; i--) {
                     var tempObject = pics.objectAt(i);
                     that.get("content").pushObject(tempObject);
                 }
                 $(document).ready(function() {
                     setTimeout(function() {
-                        for (var i = 0; i < results.get("length"); i++) {
-                            var tempmega = results.objectAt(i);
+                        for (var i = 0; i < pics.get("length"); i++) {
+                            var tempmega = pics.objectAt(i);
                             if (tempmega.get("getPhoto") === true || tempmega.get("getArticle") === true)
                             {
                                 if (tempmega.get("object_image_url") !== null) {
@@ -408,7 +413,13 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                                 }
                             }
                         }
-                        that.relayout();
+                        setTimeout(function() {
+                            $('#masonry_photo_collection_container').masonry("reloadItems");
+                            setTimeout(function() {
+                                that.set("loadingTime", false);
+                                $('#masonry_photo_collection_container').masonry();
+                            }, 15);
+                        }, 15);
                     }, 5);
                 });
             }

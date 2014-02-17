@@ -10,15 +10,15 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('searchs').set("loginInfo", localStorage.loginStatus);
         this.controllerFor('searchs').setLoginImge();
         this.controllerFor('application').set('search_string', model.id);
-       
+       $(window).scrollTop(0);
         if (HubStar.get("escVideo") !== true)
         {
             this.controllerFor('application').newSearch();
+            HubStar.set("scrollDownSearch", true);
         }
         else {
             HubStar.set("escVideo", false);
-        }
-
+        }      
         this.controllerFor('index').setLogin();
 
         this.controllerFor('application').set('islogin', true);

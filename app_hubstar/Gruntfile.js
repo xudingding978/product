@@ -75,8 +75,8 @@ module.exports = function(grunt) {
 //        },
         replace: {
             dist: {
-                src: '<%= yeoman.app %>/templates/header.hbs',
-                dest: '<%= yeoman.app %>/templates/header.hbs',
+                src: '<%= yeoman.app %>/templates/navigator.hbs',
+                dest: '<%= yeoman.app %>/templates/navigator.hbs',
                 replacements: [{
                         from: /lastidentifie\"\>\d\.\d\-[0-9]{1,500}/g,
                         to: function(matchedWord) {

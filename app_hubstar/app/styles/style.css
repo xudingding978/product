@@ -195,6 +195,7 @@ body > div.ember-view > div
 
 .ember-view > .fa-tag
 {
+    
     animation-delay:2s;
     -webkit-animation-delay:2s; /* Safari and Chrome */
     
@@ -202,15 +203,23 @@ body > div.ember-view > div
     -moz-animation:tagBounce; /* Firefox */
     -webkit-animation: tagBounce; /* Safari and Chrome */
     
-    animation-duration:.9s;
-    -webkit-animation-duration:.9s; /* Safari and Chrome */
-    -moz-animation-duration:.9s; /* Firefox */
+    animation-duration:.87s;
+    -webkit-animation-duration:.87s; /* Safari and Chrome */
+    -moz-animation-duration:.87s; /* Firefox */
+    
+    
+    transform-origin:top left;
+    -ms-transform-origin:top left; /* IE 9 */
+    -webkit-transform-origin:top left; /* Safari and Chrome */
     
 }
 .ember-view > .fa-tag:hover, .ember-view > .fa-tag:focus{
     font-size:64px!important;
+    
+    nimation: tagBounce;
+    -moz-animation:tagBounce; /* Firefox */
+    -webkit-animation: tagBounce; /* Safari and Chrome */
 }
-*
 
 @-moz-keyframes tagBounce { 
     50% { -moz-transform: rotate(70deg); } 

@@ -542,6 +542,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             that.addRelatedData(megaObject);
             that.getCommentsById(megaObject.id);
             that.checkCreditExist(megaResouce.get('article').objectAt(0).get('credits'));
+            that.selectImage(this.get('selectedPhoto').id);
         }, 1000);
     },
     checkCreditExist: function(credits) {

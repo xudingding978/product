@@ -16,6 +16,7 @@ HubStar.NewSearchPhotoRoute = Ember.Route.extend({
 
     },
     model: function(params) {
+console.log("seeeeeeeeeee"+ params.photo_id);
         var model = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
         this.controllerFor("mega").set("clickOrRoute", true);
         return model;

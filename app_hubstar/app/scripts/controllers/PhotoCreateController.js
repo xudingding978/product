@@ -15,7 +15,9 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     fileChecking: function(filesLength) {
         HubStar.set("totalFiles", 0);
         HubStar.set("photoIds", "");
+
         this.set("filesNumber", this.get("filesNumber")+filesLength);
+
     },
     commitFiles: function(evt) {
         $('#dragAndDroppArea').attr('style', "display:block");
@@ -40,8 +42,8 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     back: function()
     {
         HubStar.set('isNewUpload', true);
-        
-        this.set("filesNumber",0);
+
+        this.set("filesNumber", 0);
         $('#dragAndDroppArea').attr('style', "display:none");
         var masonryCollectionItems = this.get('controllers.masonryCollectionItems');
 
@@ -131,7 +133,9 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                     $('.' + file.get('photo_source_id')).attr("style", "display:block");
                 }
                 else {
+
                     HubStar.set("totalFiles", HubStar.get("totalFiles") + 1);
+
                     if (HubStar.get("photoIds") === "")
                     {
                         HubStar.set("photoIds", HubStar.get("photoIds") + testID.split("test")[1]);
@@ -141,13 +145,14 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                     }
 
                     $('.' + file.get('photo_source_id')).attr("style", "display:none");
-
+                    console.log(HubStar.get("totalFiles"));
+                    console.log(that.get("filesNumber"));
                     if (HubStar.get("totalFiles") === that.get("filesNumber")) {
                         //console.log(HubStar.get("photoIds"));
                         var masonryCollectionItems = that.get('controllers.masonryCollectionItems');
                         var photoCreateInfoSettingController = that.get('controllers.photoCreateInfoSetting');
                         HubStar.set('UploadImageInfoData', masonryCollectionItems.get("uploadImageContent"));
-                        that.set("filesNumber",0);
+                        that.set("filesNumber", 0);
                         //console.log(that.get('controllers.masonryCollectionItems').get('collection_id'));
                         that.saveToCollection(that.get('controllers.masonryCollectionItems').get('collection_id'), HubStar.get("photoIds"));
 
@@ -156,6 +161,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
 
 
                         masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
+                       
                         that.set("fileSize", 0);
                     }
                 }

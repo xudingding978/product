@@ -52,12 +52,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
 //        {
 //            ProfileController.selectCollection();
 //        }
-//        console.log(urlArray.length);
-        setTimeout(function() {
-            // $('#masonry_user_container').masonry();            
-            $('#masonry_user_container').masonry("reload");
-            //$('#masonry_user_container').masonry("reloadItems");
-        }, 2000);
+//        console.log(urlArray.length);      
     },
     model: function(params) {
 

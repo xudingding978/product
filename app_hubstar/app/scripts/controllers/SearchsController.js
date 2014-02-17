@@ -27,6 +27,10 @@ HubStar.SearchsController = Ember.ArrayController.extend({
 //            this.controllerFor('application').set('search_string', '');
 //            this.controllerFor('application').defaultSearch();
 //        }
+        $('#masonry_container').masonry("reloadItems");
+        setTimeout(function() {
+            $('#masonry_container').masonry();         
+        }, 5);
     },
     getResponseTime: function(start, end) {
         var totalTime = end - start;

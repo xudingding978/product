@@ -100,7 +100,6 @@ HubStar.Router.map(function() {
                 this.resource("searchIndexArticle", {path: '/articles/:article_id'}, function() {
                     this.resource("searchIndexArticlePhoto", {path: '/photos/:photo_id'});
                 });
-
                 this.resource("newSearchVideo", {path: '/videos/:video_id'});
                 this.resource("newSearchPhoto", {path: '/photos/:photo_id'});
             });

@@ -73,7 +73,7 @@ class MegasController extends Controller {
             $mega['videoes'][0]['id'] = $mega['id'];
             
             $keyword = $this->getProfileKeyword($mega['owner_id']);
-            error_log(var_export($keyword, true));
+            //error_log(var_export($keyword, true));
             $mega['keyword'] = $keyword;
             
             $this->createUploadedVideo($mega);

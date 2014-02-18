@@ -275,7 +275,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     this.getCommentsById(megaObject.id);
                 }
             }
-       
+        }
+        setTimeout(function() {
             if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
             {
                 megaObject.set("view_count", 1);
@@ -285,9 +286,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 megaObject.set("view_count", megaObject.get("view_count") + 1);
             }
             megaObject.store.save();
-        
-        }
-
+        }, 5000);
     },
     addRelatedData: function(mega)
     {

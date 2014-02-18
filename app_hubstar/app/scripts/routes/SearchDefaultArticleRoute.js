@@ -18,7 +18,12 @@ HubStar.SearchDefaultArticleRoute = Ember.Route.extend({
             this.controllerFor('article').set("accessFromSearchBoard", true); //accessFromSearchBoard is true, it will not transition to the articlePhoto route 
         }
         var d = HubStar.Mega.find(temp);
-         this.controllerFor('article').getInitData(d);
+        var that = this;
+        d.then(function() {           
+           that.controllerFor('article').getInitData(d);
+        });  
+         
+         
     },
     model: function(params) {
         var model = HubStar.Mega.find({"RequireType": "articles", "article_id": params.article_id});

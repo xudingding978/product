@@ -10,7 +10,11 @@ HubStar.SearchDefaultArticlePhoto = Ember.Route.extend({
         }
         var megaModel = HubStar.Mega.find(temp);
 
-        this.controllerFor('mega').getInitData(megaModel);
+        
+        var that = this;
+        megaModel.then(function() {           
+           that.controllerFor('mega').getInitData(megaModel);
+        });  
 
     },
     model: function(params) {

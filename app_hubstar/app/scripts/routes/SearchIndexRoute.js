@@ -26,7 +26,7 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
     redirect: function() {
 
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-//            this.transitionTo('indexIndex');
+            this.transitionTo('indexIndex');
 
         } else {
             //   this.transitionTo('searchIndex');

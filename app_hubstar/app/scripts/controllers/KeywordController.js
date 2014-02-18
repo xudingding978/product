@@ -39,6 +39,7 @@ HubStar.KeywordController.Dragable = Ember.Mixin.create(HubStar.KeywordControlle
     draggable: 'true',
     dragStart: function(event) {
 //        var dataTransfer = event.originalEvent.dataTransfer;
+        event.originalEvent.dataTransfer.setData('text/plain', 'anything');
         this.get('controller').set('dragTargetIndex', this.get('_parentView').get('contentIndex'));
 //        this.set('dragTargetId', this.get('elementId'));
 //        dataTransfer.setData('Text', this.get('elementId'));

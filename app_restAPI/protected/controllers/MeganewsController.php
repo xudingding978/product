@@ -122,7 +122,7 @@ class MeganewsController extends Controller {
          if ($cb->add($docID, CJSON::encode($mega))) {
             $this->sendResponse(204);
         } else {
-            $this->sendResponse(200, "some thing wronggggggggggggggggg");
+            $this->sendResponse(409, "some thing wronggggggggggggggggg");
         }
     }
 

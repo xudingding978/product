@@ -120,7 +120,7 @@ class LoginController extends Controller {
         $temp['user'][0]['gender'] = $request_array[5];
         $temp['user'][0]['age'] = $request_array[6];
         $temp['user'][0]['description'] = null;
-        $temp['user'][0]['about_me'] = null;
+        $temp['user'][0]['about_me'] = "";
         $temp['user'][0]['facebook_link'] = null;
         $temp['user'][0]['twitter_link'] = null;
         $temp['user'][0]['linkedin_link'] = null;
@@ -259,7 +259,31 @@ class LoginController extends Controller {
             if (isset($currentUser)) {
 
                 if ($currentUser->PWD_HASH === "blankblankblank") {
-                    $this->sendResponse(200, 0);
+                    $userProfile = UserProfile::model()
+                    ->findByAttributes(array('EMAIL' => $request_array[0]));
+                    
+                    if($userProfile->LOGIN_PROVIDER=="Facebook")
+                    {
+                        $this->sendResponse(200, 0);
+                    }
+                    else    if($userProfile->LOGIN_PROVIDER=="Twitter")
+                    {
+                        $this->sendResponse(200, 3);
+                    }
+                    else    if($userProfile->LOGIN_PROVIDER=="Google")
+                    {
+                        $this->sendResponse(200, 4);
+                    }
+                    else    if($userProfile->LOGIN_PROVIDER=="LinkedIn")
+                    {
+                        $this->sendResponse(200, 5);
+                    }
+//                    else   if($userProfile->LOGIN_PROVIDER="Sina")
+//                    {
+//                        $this->sendResponse(200, 0);
+//                    }
+                    
+                    
                 } else {
                     //     $_SESSION['couchbase_id'] = $currentUser->COUCHBASE_ID;
                     $data = array();
@@ -296,7 +320,25 @@ class LoginController extends Controller {
                     ->findByAttributes(array('USER_NAME' => $request_array[0]));
             if (isset($currentUser)) {
                 if ($currentUser->PWD_HASH === "blankblankblank") {
-                    $this->sendResponse(200, 0);
+                     $userProfile = UserProfile::model()
+                    ->findByAttributes(array('EMAIL' => $currentUser->EMAIL_ADDRESS));
+                    
+                    if($userProfile->LOGIN_PROVIDER=="Facebook")
+                    {
+                        $this->sendResponse(200, 0);
+                    }
+                    else    if($userProfile->LOGIN_PROVIDER=="Twitter")
+                    {
+                        $this->sendResponse(200, 3);
+                    }
+                    else    if($userProfile->LOGIN_PROVIDER=="Google")
+                    {
+                        $this->sendResponse(200, 4);
+                    }
+                    else    if($userProfile->LOGIN_PROVIDER=="LinkedIn")
+                    {
+                        $this->sendResponse(200, 5);
+                    }
                 } else {
                     $data = array();
                     $data[0] = $currentUser;

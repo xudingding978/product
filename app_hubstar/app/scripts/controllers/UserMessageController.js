@@ -65,7 +65,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 dataNew["reply_id"] = params[i]["replyMessageCollection"][length]["reply_id"];
                 dataNew["user_id"] = params[i]["replyMessageCollection"][length]["user_id"];
                 dataNew["time_stamp"] = params[i]["replyMessageCollection"][length]["time_stamp"];
-                dataNew["msg"] = params[i]["replyMessageCollection"][length]["msg"];
+                dataNew["msg"] = multiRow(params[i]["replyMessageCollection"][length]["msg"]);
                 dataNew["user_name"] = params[i]["replyMessageCollection"][length]["user_name"];
                 dataNew["photo_url_large"] = params[i]["replyMessageCollection"][length]["photo_url_large"];
                 dataNew["url"] = params[i]["replyMessageCollection"][length]["url"];
@@ -129,8 +129,10 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 that.goToMessageTop(s);
             }
             setTimeout(function() {
-                //$('#masonry_user_container').masonry();
-                $('#masonry_user_container').masonry("reload");
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 100);
             }, 200);
         });
     },
@@ -192,9 +194,12 @@ HubStar.UserMessageController = Ember.Controller.extend({
             this.set("s", s);
             this.set('willDelete', true);
         }
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+//        setTimeout(function() {
+//            $('#masonry_user_container').masonry("reloadItems");
+//            setTimeout(function() {
+//                $('#masonry_user_container').masonry();
+//            }, 100);
+//        }, 200);
     },
     cancelDelete: function() {
         this.set('willDelete', false);
@@ -226,13 +231,19 @@ HubStar.UserMessageController = Ember.Controller.extend({
             }
 
             setTimeout(function() {
-                $('#masonry_user_container').masonry("reload");
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 100);
             }, 200);
         });
         $('#addcommetBut').attr('style', 'display:block');
         $('#commentBox').attr('style', 'display:none');
         setTimeout(function() {
-            $('#masonry_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
         }, 200);
     }
     ,
@@ -240,9 +251,12 @@ HubStar.UserMessageController = Ember.Controller.extend({
         this.set('newStyleImageSource', null);
         this.set('newStyleImageName', "");
         this.set("isUploadPhoto", false);
+
+       
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-        }, 200);
+            $('#masonry_user_container').masonry();
+        }, 100);
+
     },
     addComment: function() {
 
@@ -326,16 +340,19 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 that.set("isUploadPhoto", false);
                 dataNew = new Array();
                 setTimeout(function() {
-                    $('#masonry_user_container').masonry("reload");
+                    $('#masonry_user_container').masonry("reloadItems");
+                    setTimeout(function() {
+                        $('#masonry_user_container').masonry();
+                    }, 100);
                 }, 200);
                 that.set('messageContent', "");
                 that.set('newStyleImageSource', null);
                 that.set('newStyleImageName', "");
             });
 
-            setTimeout(function() {
-                $('#masonry_container').masonry("reloadItems");
-            }, 200);
+//            setTimeout(function() {
+//                $('#masonry_container').masonry("reloadItems");
+//            }, 200);
         }
     },
     profileStyleImageDrop: function(e, name)
@@ -345,9 +362,11 @@ HubStar.UserMessageController = Ember.Controller.extend({
         var src = target.result;
         this.set('newStyleImageSource', src);
         this.set('newStyleImageName', name);
+
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+            $('#masonry_user_container').masonry();
+        }, 100);
+
     }
 }
 );

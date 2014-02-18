@@ -87,7 +87,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 && this.validateEmail($('.contactEmail').val())
                 && this.validateEmail($('.admins').val())
                 && this.validateEmail($('.clientEmail').val())
-             //   && this.numberChecking("#numberFormat", $('.contactNumber').val())
+                //   && this.numberChecking("#numberFormat", $('.contactNumber').val())
                 )
 
         {
@@ -279,7 +279,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
 
 
         this.set("profile_url", this.spaceChecking(this.get("profile_name").toLowerCase()) + "-" + this.spaceChecking($('#regionSelection').text().toLowerCase()) + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase()));
-
+        
 
     },
     setTopicModel: function(model) {
@@ -323,7 +323,9 @@ HubStar.ProfileNewController = Ember.Controller.extend({
     },
     save: function() {
         this.fillInChecking();
-
+        var u = HubStar.User.find(localStorage.loginStatus);
+        this.set("creater", u.get("email"));
+        
         if (passSubmit) {
 
             var newMegaNewModel = HubStar.Meganew.createRecord({
@@ -397,7 +399,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
             });
 
 
-            newMegaNewModel.get("profile").pushObject(newProfile);
+            //newMegaNewModel.get("profile").pushObject(newProfile);
 
             var that = this;
             requiredBackEnd('meganews', 'createNewProfile', newMegaNewModel, 'POST', function(params) {
@@ -405,16 +407,37 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                     that.get('controllers.applicationFeedback').statusObserver(null, "The profile has been created with the same profile URL, Please change a new profile name, thank you!", "warnning");
                 }
                 else {
-                    newMegaNewModel.store.save();
+                    newMegaNewModel.save();
+                    newMegaNewModel.get('isSaving');
                     newMegaNewModel.addObserver('isDirty', function() {
                         if (!newMegaNewModel.get('isDirty')) {
-                            //that.transitionToRoute('profile', newProfile);
-                            location.href = "#/profiles/" + that.get("profile_url");
-                            location.reload();
-                        } else {
+                            newProfile.save();
+                            newProfile.get('isSaving');
+                            newProfile.addObserver('isDirty', function() {
+                                if (!newProfile.get('isDirty')) {
+                                    location.href = "#/profiles/" + that.get("profile_url");
+                                    location.reload();
+                                }
+                            });
+                        }
+                        else
+                        {
+                            //console.log("sssssssssssssssss");
                         }
 
                     });
+
+
+//                    newMegaNewModel.addObserver('isDirty', function() {
+//                        if (!newMegaNewModel.get('isDirty')) {
+//                            newProfile.store.save();
+//                            //that.transitionToRoute('profile', newProfile);
+//                            //location.href = "#/profiles/" + that.get("profile_url");
+//                            //location.reload();
+//                        } else {
+//                        }
+//
+//                    });
 
                 }
             });

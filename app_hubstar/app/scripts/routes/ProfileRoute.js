@@ -6,16 +6,6 @@ HubStar.ProfileRoute = Ember.Route.extend({
             HubStar.set("isLogin", false);
         } else {
             HubStar.set("isLogin", true);
-            if (HubStar.User.find(localStorage.loginStatus).get("isLoaded")) {
-                if (HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== ""
-                        && HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== "undefined"
-                        && HubStar.User.find(localStorage.loginStatus).get("email").match(/@trendsideas.com/g) !== null) {
-
-                    this.controllerFor('application').set("is_trends_user", true);
-                } else {
-                    this.controllerFor('application').set("is_trends_user", false);
-                }
-            }
         }
         if (ProfileController.get('goBackType') === true)
         {
@@ -52,21 +42,17 @@ HubStar.ProfileRoute = Ember.Route.extend({
 
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
-        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-
+        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)"); 
         ProfileController.setProfile(model.id);
+
+        
 //        var address = document.URL;
 //        var urlArray = address.split("#")[1].split("/");
 //        if (urlArray.length < 4)
 //        {
 //            ProfileController.selectCollection();
 //        }
-//        console.log(urlArray.length);
-        setTimeout(function() {
-            // $('#masonry_user_container').masonry();            
-            $('#masonry_user_container').masonry("reload");
-            //$('#masonry_user_container').masonry("reloadItems");
-        }, 2000);
+//        console.log(urlArray.length);      
     },
     model: function(params) {
 

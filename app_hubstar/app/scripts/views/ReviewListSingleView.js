@@ -42,9 +42,11 @@ HubStar.ReviewListSingleView = Ember.View.extend({
         $(content).animate({width: '420px', maxHeight: '600px', position: 'relative', display: 'inline-block', overflow: 'auto'}, 500);
         $(content).parent().parent().addClass('active');
         $(review_reply).show(10);
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 100);
+        
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 10);
+       
 
     },
     upContent: function(event) {
@@ -59,9 +61,11 @@ HubStar.ReviewListSingleView = Ember.View.extend({
         $(content).animate({width: '390px', maxHeight: '100px', position: 'relative', dispaly: 'none', overflow: 'hidden'}, 500);
 
 
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 10);
+         
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 10);
+       
     },
     showOneReview: function(event, checking) {
 
@@ -91,7 +95,7 @@ HubStar.ReviewListSingleView = Ember.View.extend({
         this.get("controller").transitionToRoute('review', {id: event});
         $('#reply_' + event).animate({maxHeight: '200px'}, 10);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry();
         }, 10);
     },
     upComments: function(event) {
@@ -102,7 +106,7 @@ HubStar.ReviewListSingleView = Ember.View.extend({
         $('#view-comments_' + event).animate({display: 'block'}, 10);
         $('#reply_' + event).animate({maxHeight: '0px'}, 10);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry();
         }, 10);
     }
 

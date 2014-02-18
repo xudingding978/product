@@ -1,11 +1,13 @@
 <div style="width:100%; height: 110px; display:block;"></div>
+
 <div class="user-board">
     <div class="user-board_left style-box">
         <div id="user-photo_left">
-            <div class="user-profilepic-container" id="profile-picture"> 
+            <div class="user-profilepic-container" id="profile-picture" data-step="1" data-intro="Click here to upload a <b>Profile Picture</b>." data-position='right'> 
                 {{#if controller.is_authentic_user}}
-                <div id="change_profile" class="changeuserprofilepic easing hint--right hint--rounded" data-hint="Choose a profile picture" {{action userPhotoEditButton "User Picture"}}>
-                     <i class="fa fa-pencil-square-o"></i>         
+                <div id="change_profile" class="changeuserprofilepic easing hint--right hint--rounded"  data-hint="Choose a profile picture" {{action userPhotoEditButton "User Picture"}}>
+                       <i class="fa fa-pencil-square-o"></i>         
+
                 </div>  
 
                 {{/if}}
@@ -14,23 +16,25 @@
             {{#if controller.followDisplay}}
             <div style="margin: 30px auto 20px;display: block; text-align: center;">
                 {{#if controller.isUserSelf}}
-                    <div href="#question_modal" role="button" class="disabled-btn follow-btn" data-toggle="modal" style="">Follow</div>
+                <div href="#question_modal" role="button" class="disabled-btn follow-btn" data-toggle="modal" style="">Follow</div>
 
                 {{else}}
-                    {{#if controller.follow_status}}
-                        {{#if controller.following_status}}
-                            <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='fa fa-exchange' >&nbsp; </i> Following</div>
-                        {{else}}
-                            <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='fa fa-circle-o' >&nbsp; </i> Following</div>
-                        {{/if}}
-                    {{else}}
-                        {{#if controller.following_status}}
-                            <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='fa fa-check' >&nbsp; </i> Follow</div>
-                        {{else}}
-                            <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='fa fa-plus' >&nbsp; </i> Follow</div>
-                        {{/if}}
-                    {{/if}}
-                    <div class="new-btn blue-btn" {{action talkToPeople}}><i class="fa fa-envelope" ></i></div>
+
+                {{#if controller.follow_status}}
+                {{#if controller.following_status}}
+                <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='fa fa-exchange' >&nbsp; </i> Following</div>
+                {{else}}
+                <div href="#question_modal" role="button" class="disabled-btn disabled-green follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='fa fa-circle-o' >&nbsp; </i> Following</div>
+                {{/if}}
+                {{else}}
+                {{#if controller.following_status}}
+                <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='fa fa-check' >&nbsp; </i> Follow</div>
+                {{else}}
+                <div href="#question_modal" role="button" class="new-btn green-btn follow-btn" data-toggle="modal" style=""{{action followThisUser}}><i class='fa fa-plus' >&nbsp; </i> Follow</div>
+                {{/if}}
+                {{/if}}
+                <div class="new-btn blue-btn" {{action talkToPeople}}><i class="fa fa-envelope" ></i></div>
+
                 {{/if}}           
             </div>
             {{/if}}
@@ -38,7 +42,7 @@
             {{render talk}}
             {{/if}}
 
-            <div id="show_interest" >
+            <div id="show_interest" data-step="2" data-intro=" Click the <b>+</b> button to add <b>Interests</b> to your profile." data-position='right'>
 
                 <div class="show-interest easing">
                     <div style="font-weight: bold;line-height: 20px; color: #777; font-size: 17px;margin-bottom: 5px; display:inline-block;">INTERESTS</div>
@@ -93,7 +97,7 @@
 
 
         <div id="user-board_right_front" >
-            <div class="user-cover">
+            <div class="user-cover" data-step="3" data-intro="Hover over your <b>Cover Image</b> to access your profile Dashboard, where you can change the cover image and manage your Profile Settings." data-position='bottom'>
 
                 <img {{bindAttr src= "controller.cover_url"}} style="width:100%;"/>
 
@@ -103,27 +107,28 @@
                       <i class="fa fa-cogs" ></i>
                 </div>
                 {{/if}}
-                <div style="font-size: 26px;font-weight: bold; line-height: 30px;  color: white;position: absolute;top: 245px;margin:0 30px;text-shadow: 0 0 10px #777;">{{display_name}}</div>
+                <div  style="font-size: 26px;font-weight: bold; line-height: 30px;  color: white;position: absolute;top: 245px;margin:0 30px;text-shadow: 0 0 10px #777;">{{display_name}}</div>
             </div>
 
 
 
 
 
-            <div class="editor-content" style="height: 140px; padding: 10px 20px;display: inline-block;position: relative;width: 100%;">
+            <div class="editor-content" data-step="4" data-intro="Write something about yourself in the <b>About me</b> section." data-position='left' style="height: 140px; padding: 10px 20px;display: inline-block;position: relative;width: 100%;">
                 <div style="font-size:15px;line-height: 20px;margin: 5px 20px;color: #888;">  
 
 
                     <p style='margin-bottom: 5px;display: inline-block; font-size: 18px;padding:0'>
-                        <i class='fa fa-user' style='margin-right: 10px;display: inline-block;'></i>About me
+                        <i class='fa fa-user' style='margin-right: 10px;display: inline-block;'></i>About me  
                     </p>
 
                     {{#if controller.editingAbout}}
                     <div  style="height: 100px;border-radius: 3px;">
-                        {{view Ember.TextArea valueBinding="about_me" class="no-resize" placeholder="Say something interesting about yourself (Maximum 600 characters)."}}
+                        {{view HubStar.UserAboutUsView valueBinding="about_me" class="no-resize" placeholder="Say something interesting about yourself (Maximum 430 characters)."}}
                     </div>
 
                     <div style="right: 40px;bottom: -49px;position: absolute;">
+                        &nbsp;  {{controller.left_count_aboutme}} 
                         <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="fa fa-check fa fa-white"></i></div>
                         <div class="new-btn" {{action no controller.aboutMe}}><i class="fa fa-times"></i></div>
                     </div>
@@ -136,8 +141,33 @@
                     </div>
                     {{/if}}
 
-                    <div style="display: block;" >{{about_me}}</div>
+                    {{#if controller.about_me_limit}}
+                    <div class="limit_about_us" style="word-break: break-all;" >
+
+                        {{about_me_limit_data}}...<!--   <i class='new-btn'  {{action showMore}}> more...</i>  -->
+                    </div>
+
+                    {{else}}
+                    <div style="display: block; word-break: break-all; " >{{about_me}}</div>  
                     {{/if}}
+
+
+                    <div id ="tom" style="display: none;">
+                        <div class="more_about_us" style="display: block;" >
+                            <div id="about_us_contentsssssssw">
+                                {{about_me}}
+                            </div>
+                        </div>
+
+                        <div style="right: 40px;bottom: -49px;position: absolute;">
+                            <div class="new-btn" {{action collap controller.about_me}}><i class="icon-remove"></i></div>
+                        </div>
+                    </div>
+
+                    {{/if}}
+
+
+
                 </div>
             </div>
 
@@ -145,7 +175,7 @@
 
 
             <div style="margin: 10px 30px; width:600px; height: 40px; position:relative; overflow: hidden;">
-                <ul class="locationandlinks">
+                <ul class="locationandlinks" >
                     <li>
                         <span class="locationIcon"><i class="fa fa-map-marker"></i></span>
                         {{location}} 
@@ -202,7 +232,7 @@
 
 
 {{#if controller.switchPhoto}}
- 
+
 {{view HubStar.MasonryCollectionView}}
 
 {{else}}

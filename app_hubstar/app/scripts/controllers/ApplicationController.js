@@ -63,17 +63,30 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
         var that = this;
-
         requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
             var array = $.map(callbck, function(value, index) {
                 return [value];
             });
-            for (var i = 0; i < array.length; i++) {
-                array[i]["isNew"] = true;
+            if (HubStar.get("ads") !== null && HubStar.get("ads") !== undefined) {
+            }
+            else
+            {
+                for (var i = 0; i < array.length; i++) {
+                    array[i]["isNew"] = true;
+                }
             }
             HubStar.set('ads', array);
             that.set("pageCount", 0);
-            that.defaultSearch();
+            var address = document.URL;
+
+            var search_id = address.split("#")[1];
+            if (search_id !== undefined) {
+                var search = search_id.split("/")[2];
+                if (search === "default")
+                {
+                    that.defaultSearch();
+                }
+            }
         });
         HubStar.set("escVideo", false);
         this.set('search_string', '');
@@ -89,6 +102,20 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     grapData: function() {
         var u = HubStar.User.find(localStorage.loginStatus);
+        var that = this;
+        u.then(function() {
+            if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
+                    && (u.get("email")).match(/@trendsideas.com/g) !== ""
+                    && (u.get("email")).match(/@trendsideas.com/g) !== null)
+            {
+
+                that.set("is_trends_user", true);
+            }
+            else {
+
+                that.set("is_trends_user", false);
+            }
+        });
         this.set("user", u);
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
@@ -102,8 +129,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("test", !this.get("test"));
     },
     scrollDownAction: function() {
-        this.set('loadingTime', true);
-        this.set("size", 20);
+        //this.set('loadingTime', true);
+       
+        HubStar.set("scrollDownSearch", true);
+        this.set("size", 30);
         if (this.get("searchFromTopic") === false)
         {
             this.set("pageCount", this.get("pageCount") + 1);
@@ -118,16 +147,23 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var that = this;
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
-                that.setContent(results);
-                that.set('loadingTime', false);
+                that.setContent(results);               
                 if (results.get("length") === 0) {
                     that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
+
+                    HubStar.set("scrollDownSearch", true);
+
+                    $(document).ready(function() {
+
+                        $("#show_more_button").css("display", "none");
+
+                    });
                 }
             }
         });
 
     },
-    setContent: function(results)
+    setContent: function(results, flag)
     {
         for (var i = 0; i < results.get("length"); i++) {
             var tempmega = results.objectAt(i);
@@ -146,33 +182,64 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.pushObject(tempmega);
         }
         var that = this;
-        setTimeout(function() {
-            that.getAds();
-            that.relayout();
-        }, 200);
+        $(document).ready(function() {
+            setTimeout(function() {
+                for (var i = 0; i < results.get("length"); i++) {
+                    var tempmega = results.objectAt(i);
+                    if (tempmega.get("getPhoto") === true || tempmega.get("getArticle") === true)
+                    {
+                        if (tempmega.get("object_image_url") !== null) {
+                            var url = tempmega.get("object_image_url").split("_");
+                            var length = url.length;
+                            var size = url[length - 1].split(".")[0].split("x")[1];
+                            if (size !== undefined)
+                            {
+                                $("#init_photo_" + tempmega.get("id")).css({height: size});
+                                //console.log(size);
+                            }
+                        }
+                    }
+                }
+                that.getAds();
+                if (flag === "default") {
+                    that.relayoutDefault();
+                }
+                else {
+                    that.relayout();
+                }
+            }, 5);
+        });
     },
     newSearch: function() {
         this.set("googletagCmd", []);
         this.set("content", []);
-
         this.set("oldChildren", 0);
         this.set("from", 0);
-        this.set("size", 20);
+        this.set("size", 30);
         this.set('loadingTime', true);
         this.set("pageCount", 0);
         var d = new Date();
         var start = d.getTime();
         var that = this;
-        var statusController = this.get('controllers.status');
+        var statusController = this.get('controllers.status');        
         var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation')});
         stats.addObserver('isLoaded', function() {
             if (stats.get('isLoaded')) {
                 var stat = stats.objectAt(0);
                 var megasResults = stat.get("megas");
                 HubStar.set('itemNumber', megasResults.get("length"));
+                if (megasResults.get("length") === 0) {
+                    $(document).ready(function() {
+                        
+                        $("#show_more_button").css({display: "none"});
+
+                    });
+
+                }
+                //HubStar.set("scrollDownSearch", false);
                 that.setContent(megasResults);
-                ;
-                that.set('loadingTime', false);
+
+
                 that.set("from", that.get("size"));
 
                 var d = new Date();
@@ -182,7 +249,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 statusController.set("time", time);
                 statusController.changeDescription();
             }
-            that.relayout();
+
         });
         HubStar.set('searchStart', true);
 
@@ -194,6 +261,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("googletagCmd", []);
         this.set("content", []);
         this.set("adPageNo", 0);
+
+        this.set("oldChildren", 0);
+        $(window).scrollTop(0);
+
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
         } else {
             this.set('loadingTime', true);
@@ -201,12 +272,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
-
+        HubStar.set("scrollDownSearch", true);
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
-                that.setContent(results);
-                that.set('loadingTime', false);
-                //that.relayout();
+                that.setContent(results, "default");
             }
         });
     },
@@ -237,8 +306,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var that = this;
         requiredBackEnd('login', 'verify', emailVerify, 'POST', function(params) {
             localStorage.loginStatus = params;
+            localStorage.checkUser = "newUser";
             HubStar.set("isLogin", true);
+
             that.transitionToRoute("searchIndex");
+
+
         });
 
 
@@ -299,6 +372,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
 
     },
+    encrypt: function(encryptString) {
+        var tempstr = '';
+        for (var a = 0; a < encryptString.length; a++) {
+            tempstr = tempstr + (parseInt(encryptString.charCodeAt(a).toString(16), 16) + 10).toString(16);
+        }
+        return tempstr;
+    },
     done: function() {
         this.set('loginTime', true);
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age'), this.get('selected_topics')];
@@ -310,7 +390,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             that.set('loginUsername', localStorage.userName);
             localStorage.userType = "email";
             localStorage.loginState = "login";
-            var emailInfo = [params.USER_NAME, params.PWD_HASH];
+
+            var emailInfo = [params.USER_NAME, that.encrypt(params.USER_NAME), that.encrypt(params.PWD_HASH)];
             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
 
             });
@@ -537,8 +618,26 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                     that.set('loginTime', false);
                     $('.black-tool-tip').css('display', 'none');
-                    $('#invalid-account-type').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
-                } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is a social network login account
+                    $('#invalid-account-type-facebook').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Facebook account
+                else if (params === 3) {
+                    document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                    that.set('loginTime', false);
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-account-type-twitter').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Twitter account
+                else if (params === 4) {
+                    document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                    that.set('loginTime', false);
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-account-type-google').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Google account
+                else if (params === 5) {
+                    document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
+                    that.set('loginTime', false);
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-account-type-linkedin').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Linkedin account
                 else {
 
 
@@ -554,24 +653,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             localStorage.userType = "email";
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndex');
+                            that.init();
 
-                            if (localStorage.loginStatus)
-                            {
-                                if ((params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== "undefined" 
-                                        || (params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== "" 
-                                        || (params[0].EMAIL_ADDRESS).match(/@trendsideas.com/g) !== null )
-                                {
-                                   
-                                    that.set("is_trends_user", true);
-                                }
-                                else {
-                                    
-                                    that.set("is_trends_user", false);
-                                }
-                            }
-                            else {
 
-                            }
+
 
                             HubStar.set("showDiscoveryBar", true);
                             that.set('loginPassword', "");
@@ -642,7 +727,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 for (var i = 0; i < ads.length; i++) {
                     var ad = ads[i];
                     var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
-
                     googletag.pubads().enableSingleRequest();
                     googletag.enableServices();
                     googletag.display(ad.div);
@@ -666,17 +750,35 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         for (var i = 0; i < ads.length; i++) {
             var ad = ads[i];
+            var height = ad.size[1];
             var div_id = ad.div + "_box";
             var x = document.getElementById(div_id);
             x.style.display = "block";
             x.className += " box";
+
+            x.style.height = height + "px";
         }
     },
     relayout: function()
     {
+        var that = this;
+        $('#masonry_container').masonry("reloadItems");
         setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-        }, 1000);
+            $('#masonry_container').masonry();
+            that.set('loadingTime', false);
+            HubStar.set("scrollDownSearch", false);
+        }, 5);
+    },
+    relayoutDefault: function()
+    {
+        var that = this;
+        setTimeout(function() {
+            $('#masonry_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_container').masonry();
+                that.set('loadingTime', false);
+            }, 50);
+        }, 50);
     },
     getAds: function() {
 
@@ -684,14 +786,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var adSlots = HubStar.get('ads');
         var that = this;
         var pageCount = this.get("pageCount");
-        var masonryContainer = document.getElementById('masonry_container');
+        var masonryContainer = document.querySelector('#masonry_container');
+
         try
         {
             for (var i = 0; i < adSlots[pageCount].length; i++) {
                 var ad = adSlots[pageCount][i];
                 var position = ad.slot_position;
+                var child = masonryContainer.children[that.get("oldChildren") + position * 3];
 
-                var child = masonryContainer.children[that.get("oldChildren") + position * 4];
                 var masonrybox = document.createElement('div');
                 masonrybox.id = ad.div + '_box';
                 masonrybox.border = 0;
@@ -699,12 +802,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 masonrybox.textAlign = "center";
                 masonrybox.className = "colAd noStyle1";
                 masonrybox.style.display = "none";
+                //masonrybox.height = height;
                 var adDiv = document.createElement('div');
                 adDiv.id = ad.div;
                 masonrybox.appendChild(adDiv);
                 masonryContainer.insertBefore(masonrybox, child);
+
             }
             that.set("oldChildren", masonryContainer.children.length);
+//            console.log(pageCount);
             that.display(adSlots[pageCount]);
         }
         catch (err) {

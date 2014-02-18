@@ -47,7 +47,10 @@ HubStar.EditReplyController = Ember.Controller.extend({
         }
         this.set("isUploadPhoto", false);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
         }, 200);
     },
     removePic: function(id) {
@@ -55,25 +58,29 @@ HubStar.EditReplyController = Ember.Controller.extend({
         this.set('newStyleImageSource', null);
         this.set('newStyleImageName', "");
         this.set("isUploadPhoto", false);
+
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+            $('#masonry_user_container').masonry();
+        }, 100);
+
     },
     removeOriginPic: function(id) {
 
-    for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
+        for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
         {
             for (var j = 0; j < this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
                 if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
                 {
-                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("url",null);
-                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("isUrl",false);
+                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("url", null);
+                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("isUrl", false);
                     break;
                 }
         }
+
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+            $('#masonry_user_container').masonry();
+        }, 100);
+
     },
     updateReply: function(id) {
 
@@ -118,8 +125,8 @@ HubStar.EditReplyController = Ember.Controller.extend({
                         var imageType = imageName[imageName.length - 1];
                     }
                     var replyContent = this.get("replyContent");
-                    var url =  this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("url");
-                    var tempComment = [owner_id, date.toString(), replyContent, newStyleImage, imageType, imageStyleName, id, replyID,url];
+                    var url = this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("url");
+                    var tempComment = [owner_id, date.toString(), replyContent, newStyleImage, imageType, imageStyleName, id, replyID, url];
 
                     tempComment = JSON.stringify(tempComment);
                     var that = this;
@@ -154,7 +161,10 @@ HubStar.EditReplyController = Ember.Controller.extend({
                         that.set('newStyleImageName', "");
                         that.set("isUploadPhoto", true);
                         setTimeout(function() {
-                            $('#masonry_user_container').masonry("reload");
+                            $('#masonry_user_container').masonry("reloadItems");
+                            setTimeout(function() {
+                                $('#masonry_user_container').masonry();
+                            }, 100);
                         }, 200);
                     });
                 }
@@ -168,9 +178,11 @@ HubStar.EditReplyController = Ember.Controller.extend({
         var src = target.result;
         this.set('newStyleImageSource', src);
         this.set('newStyleImageName', name);
+
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry();
         }, 100);
+
     }
 }
 );

@@ -6,6 +6,7 @@ HubStar.NewConversationController = Ember.Controller.extend({
     isInvitePeople: false,
     isAdded: false,
     contentFollowerPhoto: null,
+    isPosting: true,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -24,6 +25,7 @@ HubStar.NewConversationController = Ember.Controller.extend({
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var commentContent = this.get('messageContent');
         if (commentContent) {
+            this.set("isPosting", false);
             var commenter_id = this.get("currentUser").get('id');
             var date = new Date();
             var owner_id = this.get("currentOwner").get("id");
@@ -74,7 +76,7 @@ HubStar.NewConversationController = Ember.Controller.extend({
                     }
                 }
 
-            }        
+            }
 
             var tempComment = [commenter_id, date.toString(), commentContent, newStyleImage, imageType, imageStyleName, conversationID, conversationItemID, participation_ids];
 
@@ -119,7 +121,7 @@ HubStar.NewConversationController = Ember.Controller.extend({
                     dataNew["four"] = false;
                     dataNew["onePic"] = params["conversationPhoto"][0]["photo_url"];
                     dataNew["twoPic"] = params["conversationPhoto"][1]["photo_url"];
-                    dataNew["threePic"] = params["conversationPhoto"][2]["photo_url"];               
+                    dataNew["threePic"] = params["conversationPhoto"][2]["photo_url"];
                 }
                 else
                 {
@@ -160,16 +162,20 @@ HubStar.NewConversationController = Ember.Controller.extend({
                 dataNew = new Array();
 
                 that.set("isUploadPhoto", false);
-                that.set("isAdded",false);
+                that.set("isAdded", false);
                 that.set('messageContent', "");
-                that.set("contentFollowerPhoto",null);
+                that.set("contentFollowerPhoto", null);
                 that.set('newStyleImageSource', null);
                 that.set('newStyleImageName', "");
+                that.set("isPosting", true);
                 setTimeout(function() {
-                $('#masonry_container').masonry("reloadItems");
-            }, 200);
+                    $('#masonry_user_container').masonry("reloadItems");
+                    setTimeout(function() {
+                        $('#masonry_user_container').masonry();
+                    }, 100);
+                }, 200);
             });
-           
+
         }
     },
     invitePeople: function()
@@ -195,9 +201,7 @@ HubStar.NewConversationController = Ember.Controller.extend({
         var src = target.result;
         this.set('newStyleImageSource', src);
         this.set('newStyleImageName', name);
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+       
     }
 }
 );

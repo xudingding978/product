@@ -20,7 +20,7 @@ HubStar.Mega = DS.Model.extend({
     country: DS.attr('string'),
     collection_id: DS.attr('string'),
     collection_count: DS.attr('string'),
-    deleted: DS.attr('string'),
+    is_deleted: DS.attr('boolean'),
     domains: DS.attr('string'),
     editors: DS.attr('string'),
     geography: DS.attr('string'),
@@ -67,7 +67,7 @@ HubStar.Mega = DS.Model.extend({
     keywordShow: function() {
        
         var a = new Array();
-
+        
         for (var i = 0; i < 3 && this.get("keyword").get("length"); i++)
         {
             var b = new Array();

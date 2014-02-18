@@ -202,6 +202,14 @@ class PhotosController extends Controller {
         return $profile['keyword'];
     }
 
+     public function getProfileEditors($owner_id) {
+        $cb = $this->couchBaseConnection();
+        $url = $this->getDomain() . "/profiles/" . $owner_id;
+        $tempProfile = $cb->get($url);
+        $profile = CJSON::decode($tempProfile, true);
+        return $profile['profile'][0]['profile_editors'];
+    }
+    
     public function updateCouchbasePhoto($id) {
         $ch = $this->couchBaseConnection("develop");
         $result = $ch->get($id);
@@ -275,10 +283,10 @@ class PhotosController extends Controller {
         $compressed_photo = $this->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = intval(imagesx($compressed_photo));
         $orig_size['height'] = intval(imagesy($compressed_photo));
-        $thumbnailUrl = $this->savePhotoInTypes($orig_size, "thumbnail", $photo_name, $photo, $data_arr, $owner_id);
-        $heroUrl = $this->savePhotoInTypes($orig_size, "hero", $photo_name, $photo, $data_arr, $owner_id);
-        $previewUrl = $this->savePhotoInTypes($orig_size, "preview", $photo_name, $photo, $data_arr, $owner_id);
-        $originalUrl = $this->savePhotoInTypes($orig_size, "original", $photo_name, $compressed_photo, $data_arr, $owner_id);
+        $thumbnailUrl = $this->savePhotoInTypes($orig_size, "thumbnail", $photo_name, $photo, $data_arr, $owner_id,"photo");
+        $heroUrl = $this->savePhotoInTypes($orig_size, "hero", $photo_name, $photo, $data_arr, $owner_id,"photo");
+        $previewUrl = $this->savePhotoInTypes($orig_size, "preview", $photo_name, $photo, $data_arr, $owner_id,"photo");
+        $originalUrl = $this->savePhotoInTypes($orig_size, "original", $photo_name, $compressed_photo, $data_arr, $owner_id,"photo");
 
         $mega['object_image_url'] = $heroUrl;
         $mega['photo'][0]['photo_image_original_url'] = $originalUrl;
@@ -289,7 +297,9 @@ class PhotosController extends Controller {
         $mega['photo'][0]['photo_original_width'] = $orig_size['width'];
 
         $keyword = $this->getProfileKeyword($mega['owner_id']);
+        $editors = $this->getProfileEditors($mega['owner_id']); 
         $mega['keyword'] = $keyword;
+        $mega['editors'] = $editors;
 
         return $mega;
     }
@@ -297,15 +307,16 @@ class PhotosController extends Controller {
     public function savePhotoInTypes($orig_size, $photo_type, $photo_name, $compressed_photo, $data_arr, $owner_id, $optional = null, $type = null) {
 
         $new_size = $this->getNewPhotoSize($orig_size, $photo_type);
+        
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
         //$new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
-        $bucket = 's3.hubsrv.com';
+        $bucket = 's3.hubsrv.com';     
         if ($optional == null || $optional == 'undefined' || $optional == "") {
             $url = $this->getDomain() . '/users' . "/" . $owner_id . "/" . $photo_type . "/" . $photo_name;
         } else if($optional == 'profile_picture'){
             $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $optional;
         }
-          else  {
+        else  if($optional =="photo"){
             $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
             $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $new_photo_name;
         }
@@ -493,7 +504,7 @@ class PhotosController extends Controller {
             $photoCaption = $mega['mega']['photo'][0]['photo_caption'];
             $linkText = $mega['mega']['photo'][0]['photo_link_text'];
             $linkUrl = $mega['mega']['photo'][0]['photo_link_url'];
-
+            $deleted = $mega['mega']['is_deleted'];
 
             
             $url = $this->getDomain() . "/" . $id;
@@ -519,7 +530,7 @@ class PhotosController extends Controller {
             $oldRecord['photo'][0]['photo_caption'] = $photoCaption;
             $oldRecord['photo'][0]['photo_link_text'] = $linkText;
             $oldRecord['photo'][0]['photo_link_url'] = $linkUrl;
-
+            $oldRecord['is_deleted'] = $deleted;
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {

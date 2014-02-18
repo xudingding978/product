@@ -259,16 +259,14 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                             var tagDiv = "#tag_" + tags[i].tag_id;
                              console.log(tags[i].pic_x);
                              console.log($("#tag_image_object").offset().left);
-                            console.log(HubStar.get("pic_current_height"));
-                            console.log(HubStar.get("pic_current_width"));
-                            var height = tags[i].pic_y*HubStar.get("pic_current_height")+$("#tag_image_object").offset().top;  //set the tag's place which is the percentage of image and add the picture origin left point place
+                            var height = tags[i].pic_y*HubStar.get("pic_current_height")+$("#tag_image_object").offset().top-50;  //set the tag's place which is the percentage of image and add the picture origin left point place
                             var width =tags[i].pic_x*HubStar.get("pic_current_width")+$("#tag_image_object").offset().left;
                             $(tagDiv).css({top:height, left: width});
                             //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
                         }
                     }
                 }
-                , 30);
+                , 40);
             }
             else
             {

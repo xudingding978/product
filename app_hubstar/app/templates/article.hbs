@@ -87,6 +87,7 @@
             <div  class="next" id ="nextarticlephoto" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="view"}}>
                 <i id="na" class="fa fa-arrow-right" style="top:400px; right: 138px; color: white; position: absolute; font-size: 50px;"></i>
             </div>
+             <div id ="tag_article_image">
             {{view HubStar.PhotoDisplayAreaView}}
             <!--     show add new  tag template-->   
             {{#if  controller.enableTag}}      
@@ -101,7 +102,7 @@
             {{  view HubStar.TagContentView }}
             {{/if}}
             {{/unless}}
-                    <!--     show all the tags--> 
+       <!--     show all the tags--> 
         {{#if controller.showAllTagsArticle}} <!--      showOrNot tag-->
         {{#each controller.contentTagsArticle}}
         {{view HubStar.TagMouseView}} 
@@ -112,7 +113,7 @@
         {{/if}}
         </div>
 
-
+     </div>
         <div class="caption-container" id="caption_action">
             {{#if HubStar.readCaption}}
             <div style="margin-bottom: 5px;">

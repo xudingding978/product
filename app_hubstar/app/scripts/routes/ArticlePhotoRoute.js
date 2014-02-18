@@ -20,9 +20,7 @@ HubStar.ArticlePhotoRoute = Ember.Route.extend({
         var that = this;
        // setTimeout(function() {
        megaModel.then(function() {
-           console.log(megaModel.get("isLoaded"));
-            console.log("teststestsetset");
-            console.log(megaModel.get("photo").objectAt(0).get("photo_original_height"));
+            console.log(megaModel.get("photo").objectAt(0).get("photo_original_height")+"   "+megaModel.get("photo").objectAt(0).get("photo_original_width"));
             HubStar.set("pic_current_height", megaModel.get("photo").objectAt(0).get("photo_original_height"));
             HubStar.set("pic_current_width", megaModel.get("photo").objectAt(0).get("photo_original_width"));
             that.controllerFor('mega').getInitData(megaModel);
@@ -61,7 +59,7 @@ HubStar.ArticlePhotoRoute = Ember.Route.extend({
 
     },
     model: function(params) {
-        var model = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
+        var model = HubStar.Mega.find(params.photo_id);
         this.controllerFor("article").set("searchFromRoute", true); //only use in userarticle route to get the temp id;
         this.controllerFor("mega").set("clickOrRoute", true);
         return model;

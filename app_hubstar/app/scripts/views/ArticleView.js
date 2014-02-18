@@ -48,6 +48,8 @@ HubStar.ArticleView = Ember.View.extend({
                 var imgtag = $(this).parent(); // get the div to append the tagging entry
                 mouseX = event.pageX - 265; // x and y axis
                 mouseY = event.pageY - 50;
+                  console.log("aaaaaaaaaaaa  "+ event.pageX +"dddddddddddd   "+ $("#tag_image_object").offset().left);
+                console.log("ddddddddddddddd   "+ (event.pageX - $("#tag_image_object").offset().left));
                 that.get("controller").get("controllers.showTag").set("pic_x", (event.pageX - $("#tag_image_object").offset().left) / HubStar.get("pic_current_width")); //set 
                 that.get("controller").get("controllers.showTag").set("pic_y", (event.pageY - $("#tag_image_object").offset().top) / HubStar.get("pic_current_height"));
 //                that.get("controller").get("controllers.showTag").set("pic_x", mouseX);

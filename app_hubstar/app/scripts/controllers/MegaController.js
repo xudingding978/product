@@ -170,11 +170,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.get("controllers.showTag").set("contentTags", "");
         if (this.get("enableTag") === true)
         {
-            if (this.get("inImage") === false)
-            {
-                this.get('controllers.applicationFeedback').statusObserver(null, "Please add the tag within the photo.", "warnning");
-            }
-            else
+//            if (this.get("inImage") === false)
+//            {
+//                this.get('controllers.applicationFeedback').statusObserver(null, "Please add the tag within the photo.", "warnning");
+//            }
+//            else
             {
                 setTimeout(function() {
                     $('#tagit').fadeIn();
@@ -804,12 +804,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
                             {
                                 var photoUrl = photoContent.objectAt(i).get("article").objectAt(0).get("article_image_url");
                                 var article = HubStar.Mega.find(id);
-                                if (that.get("content").objectAt(0).get('id') !== id)
-                                {
-                                    article.set("photo_image_original_url", photoUrl);
-                                    article.set("photo_image_thumbnail_url", photoUrl);
-                                    that.get("content").pushObject(article);
-                                }
+
+                                article.set("photo_image_original_url", photoUrl);
+                                article.set("photo_image_thumbnail_url", photoUrl);
+                                that.get("content").pushObject(article);
+
                             }
                         }
                         else if (photoContent.objectAt(i).get("type") === "video")

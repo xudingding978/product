@@ -245,7 +245,6 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('makeSureActivateTag', true);
         if (this.get('willDelTag') === true) {
             this.sureDelTag(tag_id);
-            console.log(tag_id);
             this.cancelDelTag();
         } else {
             this.set("s", tag_id);
@@ -262,7 +261,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         console.log("aaaaaaaaaaaaa");
     },
     previesImage: function(event, pic_x, pic_y) {
-        this.set("contentTagsArticle", "");
+        this.set("showEachTagContent", false);
+//        this.set("contentTagsArticle", "");
         this.get("controllers.showTag").set("contentTags", "");
         if (this.get("enableTag") === true)
         {
@@ -342,7 +342,9 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
     },
     nextImage: function(event, pic_x, pic_y) {
+        this.set("showEachTagContent", false);
         this.get("controllers.showTag").set("contentTags", "");
+        
         if (this.get("enableTag") === true)
         {
             setTimeout(function() {
@@ -542,7 +544,6 @@ HubStar.ArticleController = Ember.Controller.extend({
             that.addRelatedData(megaObject);
             that.getCommentsById(megaObject.id);
             that.checkCreditExist(megaResouce.get('article').objectAt(0).get('credits'));
-            that.selectImage(this.get('selectedPhoto').id);
         }, 1000);
     },
     checkCreditExist: function(credits) {

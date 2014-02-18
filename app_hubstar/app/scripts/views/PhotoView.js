@@ -12,11 +12,11 @@ HubStar.PhotoView = Ember.View.extend({
         var counter = 0;
         var mouseX = 0;
         var mouseY = 0;
-        $('#nextphoto').mousedown(function(event) {
-            if (event.which === 1) //2:middle 
+        $('#nextphoto').mousedown(function(e) {
+            if (e.which === 1) //2:middle 
             {
                 var imgtag = $(this).parent(); // get the div to append the tagging entry
-
+               HubStar.set("changeHeight",1900);
 //                if ((parseFloat(event.pageX) < parseFloat($("#tag_image_object").offset().left)) || (parseFloat(event.pageX) > parseFloat($("#tag_image_object").offset().left) + parseFloat(HubStar.get("pic_current_width"))) ||
 //                        (parseFloat(event.pageY) < parseFloat($("#tag_image_object").offset().top)) || (parseFloat(event.pageY) > (parseFloat($("#tag_image_object").offset().top) + parseFloat(HubStar.get("pic_current_height")))))
 //                {
@@ -27,10 +27,10 @@ HubStar.PhotoView = Ember.View.extend({
 //                else
                 {
                    //  console.log(parseFloat(event.pageX) +"  sssss  "+parseFloat($("#tag_image_object").offset().left) +"   "+ parseFloat(HubStar.get("pic_current_width")));
-                    mouseX = event.pageX - 265; // x and y axis
-                    mouseY = event.pageY - 50;
-                    that.get("controller").get("controllers.showTag").set("pic_x", (event.pageX - $("#tag_image_object").offset().left) / HubStar.get("pic_current_width")); //set 
-                    that.get("controller").get("controllers.showTag").set("pic_y", (event.pageY - $("#tag_image_object").offset().top) / HubStar.get("pic_current_height"));
+                    mouseX = e.pageX - 265; // x and y axis
+                    mouseY = e.pageY - HubStar.get("changeHeight");
+                    that.get("controller").get("controllers.showTag").set("pic_x", (e.pageX - $("#tag_image_object").offset().left) / HubStar.get("pic_current_width")); //set 
+                    that.get("controller").get("controllers.showTag").set("pic_y", (e.pageY - $("#tag_image_object").offset().top) / HubStar.get("pic_current_height"));
                     if (that.get("controller").get("enableTag") === true)
                     {
 
@@ -50,8 +50,8 @@ HubStar.PhotoView = Ember.View.extend({
                     {
                         that.get("controller").get("controllers.showTag").set("change_tag_show", false);
                     }
-
-                    that.get("controller").nextImage(event, mouseX, mouseY);
+console.log("eeeeeeeeeeeee"+e.pageY );
+                    that.get("controller").nextImage(e, mouseX, mouseY);
 //                    HubStar.set("pic_current_height", document.getElementById('tag_image_object').offsetWidth);
 //                    HubStar.set("pic_current_width", document.getElementById('tag_image_object').offsetHeight);
                 }
@@ -74,12 +74,13 @@ HubStar.PhotoView = Ember.View.extend({
 //                else
                 {
                     mouseX = event.pageX - 265; // x and y axis
-                    mouseY = event.pageY - 50;
+                    mouseY = event.pageY - 1900;
                     that.get("controller").get("controllers.showTag").set("pic_x", (event.pageX - $("#tag_image_object").offset().left) / HubStar.get("pic_current_width"));
                     that.get("controller").get("controllers.showTag").set("pic_y", (event.pageY - $("#tag_image_object").offset().top) / HubStar.get("pic_current_height"));
                     if (that.get("controller").get("enableTag") === true)
                     {
                         that.get("controller").set("inImage", true);
+                        console.log(that.get("controller").get("controllers.showTag").get("pic_x"));
                     }
                     else
                     {

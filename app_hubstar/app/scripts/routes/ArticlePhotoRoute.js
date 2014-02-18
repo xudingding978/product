@@ -14,6 +14,7 @@ HubStar.ArticlePhotoRoute = Ember.Route.extend({
 
         HubStar.set("isArticleTag", true);  //isArticleTag is true mean is the  photo tag,so it will set different tagcontent in showTagController
         var megaModel = HubStar.Mega.find(temp);
+
         this.controllerFor("article").JudgePhotoOwner(megaModel);
 
         this.controllerFor("masonryCollectionItems").set("type", "user");
@@ -59,7 +60,9 @@ HubStar.ArticlePhotoRoute = Ember.Route.extend({
 
     },
     model: function(params) {
-        var model = HubStar.Mega.find(params.photo_id);
+        
+         var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});// = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
+
         this.controllerFor("article").set("searchFromRoute", true); //only use in userarticle route to get the temp id;
         this.controllerFor("mega").set("clickOrRoute", true);
         return model;

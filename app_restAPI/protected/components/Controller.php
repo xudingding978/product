@@ -186,6 +186,7 @@ class Controller extends CController {
             $userid = $this->getUserInput($requireParams[1]);
             $collection_id = $this->getUserInput($requireParams[2], false);
             $response = $this->searchCollectionItem($userid, $collection_id, $returnType);
+            $response = $this->profileSetting($response, $returnType, 'profilecollection');
         } elseif ($requireType == 'profileCollection') {
             $userid = $this->getUserInput($requireParams[1]);
             $collection_id = $this->getUserInput($requireParams[2], false);
@@ -193,6 +194,7 @@ class Controller extends CController {
             $response = $this->profileSetting($response, $returnType, 'profilecollection');
         } elseif ($requireType == 'defaultSearch') {
             $response = $this->searchCollectionItem('21051211514', 'editor-picks', $returnType);
+            $response = $this->profileSetting($response, $returnType, 'profilecollection');
         } elseif ($requireType == 'video') {
             $videoOwnerId = $this->getUserInput($requireParams[1]);
             $response = $this->getVideoesByOwner($returnType, $videoOwnerId);
@@ -269,38 +271,54 @@ class Controller extends CController {
         $requestStringOne = 'couchbaseDocument.doc.profile.id=' . $userid;
         array_push($conditions, $requestStringOne);
         $requestStringTwo = 'couchbaseDocument.doc.profile.collections.id=' . $collection_id;
+        //error_log(var_export($userid, true));
+        //error_log(var_export($collection_id, true));
         array_push($conditions, $requestStringTwo);
         $tempResult = $this->searchWithCondictions($conditions, 'must');
         $tempResult = $this->getReponseResult($tempResult, $returnType);
         $mega = CJSON::decode($tempResult, true);
+        //error_log(var_export($mega, true));
         if (!isset($mega['megas'][0]['profile'][0]['collections'])) {
             $collections = array();
         } else {
             $collections = $mega['megas'][0]['profile'][0]['collections'];
         }
+        //error_log(var_export($collections, true));
+
         for ($i = 0; $i < sizeof($collections); $i++) {
+            error_log(var_export($collections[$i]['id'], true));
+            error_log(var_export($collection_id, true));
             if ($collections[$i]['id'] === $collection_id) {
+                error_log("sssssssssssss");
                 $collection = $collections[$i];
                 break;
             }
         }
-        $collectionIds = explode(",", $collection['collection_ids']);
-        $response = Array();
-        $megas = Array();
-        $cb = $this->couchBaseConnection();
+        if (isset($collection)) {
+            $collectionIds = explode(",", $collection['collection_ids']);
+            $response = Array();
+            $megas = Array();
+            $cb = $this->couchBaseConnection();
 
-        for ($i = 0; $i < sizeof($collectionIds); $i++) {
-            if ($collectionIds[$i] !== "") {
-                $owner = $this->getDomain() . "/" . trim($collectionIds[$i]);
-                $mega = $cb->get($owner);
-                $megaNew = CJSON::decode($mega, true);
-                if ($megaNew !== null && $megaNew !== "") {
-                    array_push($megas, $megaNew);
+            for ($i = 0; $i < sizeof($collectionIds); $i++) {
+                if ($collectionIds[$i] !== "") {
+                    $owner = $this->getDomain() . "/" . trim($collectionIds[$i]);
+                    $mega = $cb->get($owner);
+                    $megaNew = CJSON::decode($mega, true);
+                    if ($megaNew !== null && $megaNew !== "") {
+                        array_push($megas, $megaNew);
+                    }
                 }
             }
-        }
 
-        $response["megas"] = $megas;
+            $response["megas"] = $megas;
+        }
+        else
+        {
+            $response = Array();
+            $megas = Array();
+            $response["megas"] = $megas;
+        }
         return CJSON::encode($response);
     }
 

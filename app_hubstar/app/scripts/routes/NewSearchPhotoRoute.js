@@ -12,12 +12,17 @@ HubStar.NewSearchPhotoRoute = Ember.Route.extend({
         //    this.controllerFor("masonryCollectionItems").set("type", "user");
         var megaModel = HubStar.Mega.find(temp);
         //   this.controllerFor('mega').set("selectPhoto", true);
-        this.controllerFor('mega').getInitData(megaModel);
+        var that = this;
+        megaModel.then(function() {           
+           that.controllerFor('mega').getInitData(megaModel);
+        }); 
+        
 
     },
     model: function(params) {
-console.log("seeeeeeeeeee"+ params.photo_id);
-        var model = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
+
+        var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});
+
         this.controllerFor("mega").set("clickOrRoute", true);
         return model;
     },

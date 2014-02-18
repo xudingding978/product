@@ -15,10 +15,14 @@ HubStar.UserArticleRoute = Ember.Route.extend({
             var address = document.URL;
             var temp = address.split("#")[1].split("/")[6];
         }
-        console.log(this.controllerFor("article").get("searchFromRoute") );
-        console.log("ppp"+"user article route"+temp);
-        var d = HubStar.Mega.find(temp);
-        this.controllerFor("article").getInitData(d);
+
+        var megaModel = HubStar.Mega.find(temp);
+        var that = this;
+        megaModel.then(function() {           
+           that.controllerFor("article").getInitData(megaModel);
+        }); 
+        
+
     },
     model: function(params) {
         var model = HubStar.Mega.find({"RequireType": "articles", "article_id": params.article_id});

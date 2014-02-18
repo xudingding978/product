@@ -415,9 +415,9 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                         }
                         setTimeout(function() {
                             $('#masonry_photo_collection_container').masonry("reloadItems");
-                            setTimeout(function() {
-                                that.set("loadingTime", false);
+                            setTimeout(function() {                                
                                 $('#masonry_photo_collection_container').masonry();
+                                that.set("loadingTime", false);
                             }, 15);
                         }, 15);
                     }, 5);

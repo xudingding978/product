@@ -311,20 +311,25 @@ HubStar.MegaController = Ember.ArrayController.extend({
     JudgeBusinessProfile: function()
     {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
-        var photo_owner_email = currentUser.get("email"); //photo owner contact email address
-        var endOfEmail = photo_owner_email.split("@")[1];
-        var trendsAccountEmail = "trendsideas.com"; //all trends account can have the edit right;
-        if ((currentUser.get("profiles") !== null && currentUser.get("profiles") !== undefined && currentUser.get("profiles") !== "") || trendsAccountEmail === endOfEmail)
-        {
-            if (currentUser.get("profiles").get("length") > 0 || trendsAccountEmail === endOfEmail)
+
+        var that = this;
+        currentUser.then(function() {
+            var photo_owner_email = currentUser.get("email"); //photo owner contact email address
+
+            var endOfEmail = photo_owner_email.split("@")[1];
+            var trendsAccountEmail = "trendsideas.com"; //all trends account can have the edit right;
+            if ((currentUser.get("profiles") !== null && currentUser.get("profiles") !== undefined && currentUser.get("profiles") !== "") || trendsAccountEmail === endOfEmail)
             {
-                this.set("isBusinessProfile", true);
+                if (currentUser.get("profiles").get("length") > 0 || trendsAccountEmail === endOfEmail)
+                {
+                    that.set("isBusinessProfile", true);
+                }
+                else
+                {
+                    that.set("isBusinessProfile", false);
+                }
             }
-            else
-            {
-                this.set("isBusinessProfile", false);
-            }
-        }
+        });
 
     },
     JudgePhotoOwner: function(mega)
@@ -543,6 +548,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
             }
 
+        }
+        setTimeout(function() {
+
             if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
             {
                 megaObject.set("view_count", 1);
@@ -552,7 +560,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 megaObject.set("view_count", megaObject.get("view_count") + 1);
             }
             megaObject.store.save();
-        }
+
+        }, 5000);
 
     },
     addRelatedData: function(mega)
@@ -652,22 +661,22 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
 
 
-            var results = HubStar.Mega.find({RquireType: "collection", "collection_id": collection_id, "owner_profile_id": id});
-            var that = this;
-            results.addObserver('isLoaded', function() {
-                if (results.get('isLoaded')) {
-                    for (var i = 0; i < this.get("length"); i++) {
-                        var tempmega = results.objectAt(i);
-                        if (tempmega.get('profile').get('length') === 0 && tempmega.get('user').get('length') === 0 && (collection_id === tempmega.get('collection_id')))
-                        {
-                            if (that.get("content").objectAt(0).get("id") !== tempmega.get("id")) {
-                                that.get("content").pushObject(tempmega.get('photo').objectAt(0));
-                            }
-                        }
-                    }
-
-                }
-            });
+//            var results = HubStar.Mega.find({RquireType: "profileCollection", user_id: id, collection_id: collection_id});
+//            var that = this;
+//            results.addObserver('isLoaded', function() {
+//                if (results.get('isLoaded')) {
+//                    for (var i = 0; i < this.get("length"); i++) {
+//                        var tempmega = results.objectAt(i);
+//                        if (tempmega.get('profile').get('length') === 0 && tempmega.get('user').get('length') === 0 && (collection_id === tempmega.get('collection_id')))
+//                        {
+//                            if (that.get("content").objectAt(0).get("id") !== tempmega.get("id")) {
+//                                that.get("content").pushObject(tempmega.get('photo').objectAt(0));
+//                            }
+//                        }
+//                    }
+//
+//                }
+//            });
             var pics = HubStar.Mega.find({RquireType: "profileCollection", user_id: id, collection_id: collection_id});
             var that = this;
             pics.addObserver('isLoaded', function() {
@@ -791,6 +800,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         if (photoContent.objectAt(i).get("type") === "photo")
                         {
                             var id = photoContent.objectAt(i).get("id");
+
                             if (that.get("content").objectAt(0).get('id') !== id)
                             {
                                 that.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
@@ -817,6 +827,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                             if (that.get("content").objectAt(0).get('id') !== id)
                             {
                                 var photoUrl = photoContent.objectAt(i).get("videoes").objectAt(0).get("videoImg");
+
                                 var article = HubStar.Mega.find(id);
                                 article.set("photo_image_original_url", photoUrl);
                                 article.set("photo_image_thumbnail_url", photoUrl);

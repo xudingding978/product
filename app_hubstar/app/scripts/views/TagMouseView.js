@@ -29,7 +29,7 @@ HubStar.TagMouseView = Ember.View.extend({
                 break;
             }
         }
-        var picx_content = pic_x + 10;
+        var picx_content = pic_x;
 
         this.get("controller").set("showEachTagContent", true);
         this.get("controller").get("controllers.showTag").set("isUpdateTag", false);

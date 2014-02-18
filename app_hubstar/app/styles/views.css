@@ -1052,17 +1052,18 @@ div.album-description-bg{
 
 .closeview{
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px;
     height: 44px;
     position: absolute;
     right: 0;
     top: 0;
     width: 44px;
-    color: #737373;
+    color: #aaa;
 
     -webkit-transition: all 0.8s ease;
     -moz-transition: all 0.8s ease;
     -o-transition: all 0.8s ease;
+    z-index: 100;
 }
 
 .closeview:hover{

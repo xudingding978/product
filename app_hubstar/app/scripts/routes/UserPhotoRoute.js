@@ -12,8 +12,10 @@ HubStar.UserPhotoRoute = Ember.Route.extend({
         this.controllerFor("masonryCollectionItems").set("type", "user");
         var megaModel = HubStar.Mega.find(temp);
         var that = this;
-        megaModel.then(function() {
-            that.controllerFor('mega').getInitData(megaModel);
+
+        megaModel.then(function() {           
+           that.controllerFor('mega').getInitData(megaModel);
+
         });
     },
     model: function(params) {

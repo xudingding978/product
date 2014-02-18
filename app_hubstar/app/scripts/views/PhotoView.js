@@ -16,7 +16,7 @@ HubStar.PhotoView = Ember.View.extend({
             if (e.which === 1) //2:middle 
             {
                 var imgtag = $(this).parent(); // get the div to append the tagging entry
-               HubStar.set("changeHeight",1900);
+               HubStar.set("changeHeight",50);
 //                if ((parseFloat(event.pageX) < parseFloat($("#tag_image_object").offset().left)) || (parseFloat(event.pageX) > parseFloat($("#tag_image_object").offset().left) + parseFloat(HubStar.get("pic_current_width"))) ||
 //                        (parseFloat(event.pageY) < parseFloat($("#tag_image_object").offset().top)) || (parseFloat(event.pageY) > (parseFloat($("#tag_image_object").offset().top) + parseFloat(HubStar.get("pic_current_height")))))
 //                {
@@ -74,7 +74,7 @@ console.log("eeeeeeeeeeeee"+e.pageY );
 //                else
                 {
                     mouseX = event.pageX - 265; // x and y axis
-                    mouseY = event.pageY - 1900;
+                    mouseY = event.pageY - 50;
                     that.get("controller").get("controllers.showTag").set("pic_x", (event.pageX - $("#tag_image_object").offset().left) / HubStar.get("pic_current_width"));
                     that.get("controller").get("controllers.showTag").set("pic_y", (event.pageY - $("#tag_image_object").offset().top) / HubStar.get("pic_current_height"));
                     if (that.get("controller").get("enableTag") === true)
@@ -105,7 +105,7 @@ console.log("eeeeeeeeeeeee"+e.pageY );
         window.onresize = function() {
             var pic_width = document.getElementById('tag_image_object').offsetWidth;
             var pic_height = document.getElementById('tag_image_object').offsetHeight;
-            alert(pic_width);
+ 
             var tags = that.get("controller").get("controllers.showTag").get("contentTags");
             if (tags !== undefined && tags !== "" && tags !== null)
             {

@@ -1211,7 +1211,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         } else if (mode === "Profile Hero") {
             this.set("backgroundImage","http://develop.devbox.s3.amazonaws.com/uploaddemo-profilehero.png");
         } else {
-            this.set("backgroundImage","http://develop.devbox.s3.amazonaws.com/uploaddemo-profilepicture.png");
+            this.set("backgroundImage","http://develop.devbox.s3.amazonaws.com/uploaddemo-profilebackground.png");
         }
         var data = {"RequireIamgeType": mode};
         var that = this;

@@ -32,7 +32,7 @@ HubStar.MessageCenterController = Ember.Controller.extend({
     },
     getClientId: function(id, conversation_id) {
 
-        
+
         if (id === localStorage.loginStatus)
         {
             this.set("isUserself", true);
@@ -42,7 +42,7 @@ HubStar.MessageCenterController = Ember.Controller.extend({
         else
         {
             this.set("isUserself", false);
-        }      
+        }
         //this.selectConversationItem();
         this.set("id", id);
     },
@@ -85,7 +85,10 @@ HubStar.MessageCenterController = Ember.Controller.extend({
 
 
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
         }, 200);
     },
     selectNewConversation: function() {
@@ -100,7 +103,10 @@ HubStar.MessageCenterController = Ember.Controller.extend({
 
         this.transitionToRoute("conversation");
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
         }, 200);
     }
 }

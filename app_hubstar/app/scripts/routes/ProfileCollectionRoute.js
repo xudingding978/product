@@ -34,9 +34,6 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
         this.controllerFor('masonryCollectionItems').set('uploadStuff', true);
         this.controllerFor('masonryCollectionItems').set('canEditbyOwner', true);
 
-        setTimeout(function() {
-            $('#masonry_photo_collection_container').masonry("reloadItems");
-        }, 3000);
 
     },
     model: function(params) {
@@ -51,7 +48,7 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
                 id = profile.get('collections').objectAt(j).get('optional');
             }
         }
-        var model = HubStar.Mega.find({RquireType: "collection", collection_id: params.profileCollection_id, owner_profile_id: id});
+        var model = HubStar.Mega.find({RquireType: "profileCollection", collection_id: params.profileCollection_id, owner_profile_id: id});
         model.set("id", params.profileCollection_id);
         return model;
     },

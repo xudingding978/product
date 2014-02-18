@@ -6,13 +6,22 @@ HubStar.UserView = Ember.View.extend({
         $("#search-bar").css('display', 'block');
         $(".navbar").css("box-shadow", "0 0 10px #333");
         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-        $(function() {
-            $('#masonry_user_container').masonry({
-                itemSelector: '.box',
+        
+        var container = document.querySelector('#masonry_user_container');
+        var msnry = new Masonry(container, {
+             itemSelector: '.box',
                 columnWidth: 185,
+                //isInitLayout: false,
                 isFitWidth: true
-            });
         });
+        
+//        $(function() {
+//            $('#masonry_user_container').masonry({
+//                itemSelector: '.box',
+//                columnWidth: 185,
+//                isFitWidth: true
+//            });
+//        });
 
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[3];

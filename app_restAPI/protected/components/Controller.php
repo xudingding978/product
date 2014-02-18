@@ -174,6 +174,7 @@ class Controller extends CController {
             $owner_id = $this->getUserInput($requireParams[2]);
             $response = $this->getArticleRelatedImages($article_id, $owner_id);
             $response = $this->getReponseResult($response, $returnType);
+            $response = $this->profileSetting($response, $returnType, 'profilecollection');
         } elseif ($requireType == 'firstsearch') {
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
@@ -633,9 +634,10 @@ class Controller extends CController {
                     $mega_profile = CJSON::decode($tempMega_profile, true);
                     $profile_editors = $mega_profile["profile"][0]["profile_editors"];
                     $profile_name = $mega_profile["profile"][0]["profile_name"];
-
+                    $profile_pic = $mega_profile["profile"][0]["profile_pic_url"];
                     $tempResult['stats'][0]['megas'][$i]['editors'] = $profile_editors;
                     $tempResult['stats'][0]['megas'][$i]['owner_title'] = $profile_name;
+                    $tempResult['stats'][0]['megas'][$i]['owner_profile_pic'] = $profile_pic;
                 }
             }
         } else {
@@ -650,8 +652,10 @@ class Controller extends CController {
                     $mega_profile = CJSON::decode($tempMega_profile, true);
                     $profile_editors = $mega_profile["profile"][0]["profile_editors"];
                     $profile_name = $mega_profile["profile"][0]["profile_name"];
+                    $profile_pic = $mega_profile["profile"][0]["profile_pic_url"];
                     $tempResult['megas'][$i]['editors'] = $profile_editors;
                     $tempResult['megas'][$i]['owner_title'] = $profile_name;
+                    $tempResult['megas'][$i]['owner_profile_pic'] = $profile_pic;
                 }
             }
         }

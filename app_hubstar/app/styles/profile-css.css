@@ -1457,7 +1457,7 @@ textarea.add-interests{
 .clear-all:before{
     content: "";
     float: left;
-    margin-left: -4px;
+    margin-left: -5px;
     width: 0;
     height: 0;
     border-color: transparent #333 transparent transparent;

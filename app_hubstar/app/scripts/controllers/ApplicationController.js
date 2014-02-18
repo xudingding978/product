@@ -810,7 +810,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
             }
             that.set("oldChildren", masonryContainer.children.length);
-      
+
             that.display(adSlots[pageCount]);
         }
         catch (err) {

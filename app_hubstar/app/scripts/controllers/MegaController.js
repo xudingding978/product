@@ -246,37 +246,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
             //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
         }
     },
-//    windowResizeTags: function(tags)
-//    {
-//        var photo_id = "";
-//        photo_id = this.get('selectedPhoto').id;
-//
-//        var delInfo = [tags, photo_id];
-//        delInfo = JSON.stringify(delInfo);
-//        var that = this;
-//        //this.get('megaResouce').get('comments').removeObject(object);
-//        requiredBackEnd('showTag', 'resizeWindow', delInfo, 'POST', function(params) {
-//
-//            //  that.get("controllers.showTag").readTags(that.get('selectedPhoto').id);
-//            var tags = params;
-//            var thatthat = that;
-//            setTimeout(function() {
-//                //thatthat.get("controllers.mega").set("tagCount", params.get("length"));
-//
-//                thatthat.set("tagCount", params.get("length"));
-//                if (tags !== undefined && tags !== "" && tags !== null)
-//                {
-//                    for (var i = 0; i < tags.length; i++)
-//                    {
-//                        var tagDiv = "#tag_" + tags[i].tag_id;
-//                        $(tagDiv).css({top: tags[i].pic_y, left: tags[i].pic_x});
-//                        //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
-//                    }
-//                }
-//            }
-//            , 20);
-//        });
-//    },
     showTags: function()
     {
 
@@ -289,7 +258,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 for (var i = 0; i < tags.length; i++)
                 {
                     var tagDiv = "#tag_" + tags[i].tag_id;
-                    $(tagDiv).css({top: tags[i].pic_y, left: tags[i].pic_x});
+                    var height = tags[i].pic_y * HubStar.get("pic_current_height") + $("#tag_image_object").offset().top - 50;  //set the tag's place which is the percentage of image and add the picture origin left point place
+                    var width = tags[i].pic_x * HubStar.get("pic_current_width") + $("#tag_image_object").offset().left;
+                    $(tagDiv).css({top: height, left: width});
                     //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
                 }
             }
@@ -332,12 +303,12 @@ HubStar.MegaController = Ember.ArrayController.extend({
         });
 
     },
-    addClickCount: function(tag_id,photo_url)
+    addClickCount: function(tag_id, photo_url)
     {
         var photo_id = this.get('selectedPhoto').id;
         var delInfo = [tag_id, photo_id];
         delInfo = JSON.stringify(delInfo);
-          window.open(
+        window.open(
                 photo_url,
                 'popupwindow',
                 'height=436,width=626'

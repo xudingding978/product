@@ -220,7 +220,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         }
                     }
                 }
-                that.getAds();
+                //that.getAds();
                 if (flag === "default") {
                     that.relayoutDefault();
                 }
@@ -781,6 +781,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     relayout: function(l)
     {
+        this.getAds();
         if (this.get("pageCount") === 0)
         {
             l = l + 2;
@@ -803,6 +804,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         for (var i = 0; i < l; i++) {
             var item = cusid_ele[i];
             items.push(item);
+            console.log(items);
         }
         $('#masonry_container').append(items).masonry('appended', items);
 //        $('#masonry_container').masonry("reloadItems");
@@ -829,15 +831,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var adSlots = HubStar.get('ads');
         var that = this;
         var pageCount = this.get("pageCount");
-        var masonryContainer = document.querySelector('#masonry_container');
-        console.log(masonryContainer);
+        var masonryContainer = document.querySelector('#masonry_container');        
         try
         {
             for (var i = 0; i < adSlots[pageCount].length; i++) {
                 var ad = adSlots[pageCount][i];
                 var position = ad.slot_position;
-                var child = masonryContainer.children[that.get("oldChildren") + position * 3];
-
+                var child = masonryContainer.children[that.get("pageCount")*60 + position * 3];
+                console.log(child);
+                console.log(that.get("oldChildren") + position * 3);
                 var masonrybox = document.createElement('div');
                 masonrybox.id = ad.div + '_box';
                 masonrybox.border = 0;

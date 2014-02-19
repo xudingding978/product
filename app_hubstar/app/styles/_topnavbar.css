@@ -278,6 +278,7 @@
     width: 100%;
     height: 100%;
     position: fixed;
+    z-index: 1;
 }
 
 .Register-Page .ember-text-field, .Register-Page .ember-text-field:focus{

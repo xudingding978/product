@@ -11,13 +11,16 @@ HubStar.SearchIndexArticleRoute = Ember.Route.extend({
         }
         var address = document.URL;
         var type = address.split("#")[1].split("/")[1];
-        if (type === "search")  
+        if (type === "search")
         {
             this.controllerFor('article').set("accessFromSearchBoard", true); //accessFromSearchBoard is true, it will not transition to the articlePhoto route 
         }
         var d = HubStar.Mega.find(temp);
+        var that = this;
+        d.then(function() {
+            that.controllerFor('article').getInitData(d);
+        });
 
-        this.controllerFor('article').getInitData(d); 
     },
     model: function(params) {
         var model = HubStar.Mega.find({"RequireType": "articles", "article_id": params.article_id});

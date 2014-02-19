@@ -145,8 +145,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                     }
 
                     $('.' + file.get('photo_source_id')).attr("style", "display:none");
-//                    console.log(HubStar.get("totalFiles"));
-//                    console.log(that.get("filesNumber"));
+
                     if (HubStar.get("totalFiles") === that.get("filesNumber")) {
                         //console.log(HubStar.get("photoIds"));
                         var masonryCollectionItems = that.get('controllers.masonryCollectionItems');

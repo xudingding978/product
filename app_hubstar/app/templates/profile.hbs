@@ -888,10 +888,9 @@
                 {{#if controller.isPhotoUploadMode}}
                 {{#view HubStar.SingleFileUploaderView }}
                 <div style="position: relative; margin: 15px auto;height: 520px; width: 87%; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;">
-                    <div style="top: 190px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
+                    <div style="top: 120px;position: relative;margin: auto;width: 80%; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
+                        <img  {{bindAttr src= "backgroundImage"}}  style="max-width: 100%; max-height: 35%;">
 
-
-                        <i class="fa fa-arrow-circle-o-up" style="font-size: 45px;"></i>
                         <p style="font-weight: bold; margin: 10px;">
                             {{controller.UploadImageMode}} 
 

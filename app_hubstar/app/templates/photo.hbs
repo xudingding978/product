@@ -13,7 +13,7 @@
         <div class="top-controlbar easing" >
             <!--            <div class="fa icon-on-black" style="left: 8px;"><i class="fa fa-thumbs-up"></i></div>-->
 
-            
+
             {{#if controller.megaResouce.getVideo}}
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Watch this Video" style="position:relative;margin: 0 5px;width: 60px;"  {{action transitionToVideo controller.megaResouce}}>
                  <i class="fa fa-film"></i><span class="pretooltip">Watch</span>
@@ -85,33 +85,33 @@
                 <i id="n" class="fa fa-arrow-right" style="top:400px; right: 138px; color: white; position: absolute; font-size: 50px;"></i></div>
             <!--     image show here-->   
             <div id ="tag_image">
-            {{view HubStar.PhotoDisplayAreaView}}
+                {{view HubStar.PhotoDisplayAreaView}}
 
-            <!--     show add new  tag template-->   
-            {{#if  controller.enableTag}}      
-            {{#if controller.inImage}} <!--only when it within the image place can add the tag-->
-            {{ render showTag }}
-            {{/if}}
-            {{/if}}
+                <!--     show add new  tag template-->   
+                {{#if  controller.enableTag}}      
+                {{#if controller.inImage}} <!--only when it within the image place can add the tag-->
+                {{ render showTag }}
+                {{/if}}
+                {{/if}}
 
-            <!--     show   tag's detail content  template-->   
-            <!--              only when is not in the edit tag state and mouse over the tag can show the detail content-->
-            {{#unless controller.enableTag}}
-            {{#if controller.showEachTagContent }}
-            {{  view HubStar.TagContentView }}
-            {{/if}}
-            {{/unless}}
-        <!--     show all the tags--> 
-        {{#if controller.showAllTags}} <!--      showOrNot tag-->
-        {{#each controller.contentTags}}
-        {{view HubStar.TagMouseView}} 
-        {{/each}}
-        {{/if}}
-        {{#if controller.makeSureActivateTag}}
-        {{view HubStar.ActivateTagFunctionView}}
-        {{/if}}
+                <!--     show   tag's detail content  template-->   
+                <!--              only when is not in the edit tag state and mouse over the tag can show the detail content-->
+                {{#unless controller.enableTag}}
+                {{#if controller.showEachTagContent }}
+                {{  view HubStar.TagContentView }}
+                {{/if}}
+                {{/unless}}
+                <!--     show all the tags--> 
+                {{#if controller.showAllTags}} <!--      showOrNot tag-->
+                {{#each controller.contentTags}}
+                {{view HubStar.TagMouseView}} 
+                {{/each}}
+                {{/if}}
+                {{#if controller.makeSureActivateTag}}
+                {{view HubStar.ActivateTagFunctionView}}
+                {{/if}}
+            </div>
         </div>
-     </div>
 
         <!--        {{#if controller.showTag}}
                 <div id="showRequentTag">
@@ -175,7 +175,7 @@
             <div class="square-button hint--rounded hint--bottom for-tooltip-position" data-hint="Share this photo to other social platform" style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting "2"}}>
                  <i class="fa fa-share" >&nbsp;</i>
             </div>
-            
+
             {{#if controller.megaResouce.getArticle}}
             <div class="square-button hint--rounded hint--bottom" data-hint="Read this article"  {{action transitionToArticle controller.megaResouce.id}}>
                  <i class="fa fa-book">&nbsp;</i>
@@ -298,49 +298,12 @@
 
 
     </div>
-    
-    
+
+
     <!-- add the tag content-->
-  
-        <div style=background-color:red;">
-            <div class="object-collapes-title" {{action setTag on="click" target="view"}}  >
-                <div class="collapes-title_inner">
-                    Tags  {{controller.tagCount}}
-                </div>
-                <div class="dropdownicon">
-                    <i class="fa fa-angle-down" style="height: 16px; width: 16px;"></i>
-
-                </div>
-            </div> 
 
 
-            <div class="collapes-container"  id="tag_action" style="display:block">
-                {{#each controller.contentTags}}
-                <div id="tagImg" style=" width: 132px;    height: 132px;   border: 3px solid white;    display: inline-block;   float: left;    margin: 33px 10px 10px 15px;">
-                    <img  {{bindAttr src= "this.pic_url"}}  style="min-width: 100%; min-height: 100%;">
-                </div>
-                <div style="  float: left;  width: 48%;  margin: 10px 10px;">
-                    <div style=' height: 40px; overflow: hidden;'>
-                        <div id="tagName" class="name" style="display: inline-block; color: white; word-break: break-all; ">
-                            {{this.product_name}}
-                        </div>
-                    </div>
-                    <div style=' margin-top: 10px;height: 130px; overflow: hidden;'>
 
-                        <a href="{{unbound controller.tag.linkto}}" >
-                            <div id="tagDesc" style="display: inline-block; margin-top: 10px;color: white; word-break: break-all;">
-                                {{this.desc}}
-                            </div>
-                        </a>
-
-                    </div>        
-                </div>
-                {{/each}}
-            </div>
-
-
-        </div>
-    
 
 
     <!--end of tag content-->
@@ -443,16 +406,47 @@
     </div>
 
 
+    <div style=background-color:red;">
+        <div class="object-collapes-title" {{action setTag on="click" target="view"}}  >
+            <div class="collapes-title_inner">
+                Tags  {{controller.tagCount}}
+            </div>
+            <div class="dropdownicon">
+                <i class="fa fa-angle-down" style="height: 16px; width: 16px;"></i>
+
+            </div>
+        </div> 
 
 
+        <div class="collapes-container"  id="tag_action" style="display:block">
+            {{#each controller.contentTags}}
+            <div id="tagImg" style=" float: left;  width: 30%;    height: 132px;   border: 3px solid white;    display: inline-block;   float: left;    margin: 33px 10px 10px 15px;">
+                <a href="#/profiles/{{unbound this.profile_id}}">          <img  {{bindAttr src= "this.pic_url"}}  style="min-width: 100%; min-height: 100%;"></a>
+            </div>
+            <div style="  float: right;  width: 40%;  margin: 10px 10px;">
+                <div style=' height: 40px; overflow: hidden;'>
+
+                    <a href="#/profiles/{{unbound this.profile_id}}">      {{this.product_name}}</a>
+                    <!--                        </div>-->
+                </div>
+
+                <div {{action addClickCount this.tag_id this.linkto}} >
+                    <a>
+                        {{this.desc}}
+                    </a>
+                </div>
 
 
+            </div>
+            {{/each}}
+        </div>
 
+
+    </div>
 
 </div>
 
 
-</div>
 
 
 {{#if controller.makeSureDelete}}

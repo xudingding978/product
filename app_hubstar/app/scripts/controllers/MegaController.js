@@ -332,6 +332,33 @@ HubStar.MegaController = Ember.ArrayController.extend({
         });
 
     },
+    addClickCount: function(tag_id,photo_url)
+    {
+        var photo_id = this.get('selectedPhoto').id;
+        var delInfo = [tag_id, photo_id];
+        delInfo = JSON.stringify(delInfo);
+          window.open(
+                photo_url,
+                'popupwindow',
+                'height=436,width=626'
+                ).focus();
+        var that = this;
+        setTimeout(function() {
+            if (that.get("contentTags") !== undefined && that.get("contentTags") !== "" && that.get("contentTags") !== null)
+            {
+                for (var i = 0; i < that.get("contentTags").length; i++)
+                {
+                    if (that.get("contentTags").objectAt(i).get("tag_id") === tag_id)
+                    {
+                        that.get("contentTags").objectAt(i).set("link_to_click_count", that.get("contentTags").objectAt(i).get("link_to_click_count") + 1);
+                    }
+                }
+            }
+        }
+        , 10);
+        requiredBackEnd('showTag', 'ViewCount', delInfo, 'POST', function(params) {
+        });
+    },
     JudgePhotoOwner: function(mega)
     {
         var currentUser = HubStar.User.find(localStorage.loginStatus);

@@ -48,6 +48,38 @@ class ShowTagController extends Controller {
         }
     }
 
+    public function actionViewCount() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request_array = CJSON::decode($request_array);
+        $tag_id = $request_array[0]; // it is the selected profile
+        $photo_id = $request_array[1];
+        try {
+            $docIDDeep = $this->getDomain() . "/" . $photo_id; //$id  is the page owner
+            $cb = $this->couchBaseConnection();
+            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+            $oldRecordDeep = CJSON::decode($oldDeep, true);
+
+            //create the new tag
+
+            if (isset($oldRecordDeep["photo"][0]['tags'])) {
+                for($i = 0;$i<sizeof($oldRecordDeep["photo"][0]['tags']);$i++) {
+                    if ($oldRecordDeep["photo"][0]['tags'][$i]["tag_id"] === $tag_id) {
+                        $oldRecordDeep["photo"][0]['tags'][$i]["link_to_click_count"] = $oldRecordDeep["photo"][0]['tags'][$i]["link_to_click_count"] + 1;
+                        break;
+                    }
+                }
+            }
+            if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                $this->sendResponse(204);
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+            echo json_decode(file_get_contents('php://input'));
+        }
+    }
+
     public function actionResizeWindow() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request_array = CJSON::decode($request_array);
@@ -67,8 +99,7 @@ class ShowTagController extends Controller {
 
 
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
-                     $this->sendResponse(200, CJSON::encode($oldRecordDeep["photo"][0]['tags']));
-             
+                $this->sendResponse(200, CJSON::encode($oldRecordDeep["photo"][0]['tags']));
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
             }

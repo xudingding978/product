@@ -36,16 +36,40 @@ body > div.ember-view > div
 
 #tagitshow
 {
-    border: solid 3px #ffffff;
-    width: 350px;
+    width: 390px;
     opacity: 0;
-    height: 210px;
+    margin:12px 0 0 0px;
+    height: 186px;
     border-style: solid;
     border-color: #ffffff;
     left: 220px ;
     position: absolute;
-    background-color: black;
+    z-index:2;
+    background-color:transparent;
+    border:0 none;
+    overflow: hidden;
+    
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    
+    -moz-box-shadow: 2px 2px 5px #666;
+    -webkit-box-shadow: 2px 2px 5px#666;
+    box-shadow: 2px 2px 5px #666;
 }
+
+#tagitBg{
+    background:#fff;
+    opacity:.92;
+    height:186px;
+    width:390px;
+    
+    position:absolute;
+    z-index:0;
+    top:0 ;
+    left:0;
+}
+
 #tagit .box
 {
     border:solid 3px #ffffff;
@@ -106,6 +130,117 @@ body > div.ember-view > div
     width:100%;
     float:left;
 }
+
+
+#tagImg{
+    position:relative;
+    z-index:1;
+    width: 115px;
+    height: 115px;
+    background:#333;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    display: inline-block;
+    float: left;
+    margin:20px;
+    overflow:hidden;
+    
+   
+}
+#tagImg > img{
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border:0 none;
+}
+
+#tagContent{
+    position:relative;
+    z-index:1;
+    float: left; 
+    
+    width: 215px;
+    margin:20px 20px 20px 0;
+    
+    font-size:12px;
+    line-height:130%;
+    
+}
+#tagContent > div{max-height:91px;overflow:hidden;}
+#tagBtn
+{
+    position:absolute;
+    z-index:1;
+    bottom:0;
+    left:0;
+    
+    border-top: 1px solid #ddd;
+    width:390px;
+}
+#tagBtn >  div.disabled-btn{top:0;position:relative;left:0;}
+#tagName
+{
+    margin-top:0;
+    line-height:24px;
+    height:24px;
+    font-size:18px;
+    color:#333;
+    font-weight:bold;
+    max-height:48px;
+    overflow:hidden;
+}
+
+.ember-view > .fa-tag
+{
+    
+    animation-delay:2s;
+    -webkit-animation-delay:2s; /* Safari and Chrome */
+    
+    animation: tagBounce;
+    -moz-animation:tagBounce; /* Firefox */
+    -webkit-animation: tagBounce; /* Safari and Chrome */
+    
+    animation-duration:.87s;
+    -webkit-animation-duration:.87s; /* Safari and Chrome */
+    -moz-animation-duration:.87s; /* Firefox */
+    
+    
+    transform-origin:top left;
+    -ms-transform-origin:top left; /* IE 9 */
+    -webkit-transform-origin:top left; /* Safari and Chrome */
+    
+}
+.ember-view > .fa-tag:hover, .ember-view > .fa-tag:focus{
+    font-size:64px!important;
+    
+    nimation: tagBounce;
+    -moz-animation:tagBounce; /* Firefox */
+    -webkit-animation: tagBounce; /* Safari and Chrome */
+}
+
+@-moz-keyframes tagBounce { 
+    50% { -moz-transform: rotate(70deg); } 
+    68% { -moz-transform: rotate(10deg); } 
+    82% { -moz-transform: rotate(35deg); } 
+    99% { -moz-transform: rotate(0deg); } 
+
+}
+@-webkit-keyframes tagBounce { 
+    50% { -webkit-transform: rotate(70deg); } 
+    68% { -webkit-transform: rotate(10deg); } 
+    82% { -webkit-transform: rotate(35deg); } 
+    99% { -webkit-transform: rotate(0deg); } 
+}
+@keyframes tagBounce { 
+    50% {transform:rotate(70deg); }
+    68% {transform:rotate(10deg); }
+    82% {transform:rotate(35deg);}
+    99% {transform:rotate(0deg);}
+    
+}
+
 .plaform_bar{
     height: 280px;
 
@@ -122,6 +257,9 @@ body > div.ember-view > div
     box-shadow: 0 0 10px #fff;
     height:256px;
 }
+
+
+
 #masonry_user_container
 {
     clear:both;

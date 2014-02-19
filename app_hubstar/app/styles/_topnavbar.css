@@ -287,6 +287,35 @@
     margin: 0 0 0 0;
 }
 
+.Register-Page_background{
+    width: 100%; 
+    height: 100%;
+    position: absolute;
+    display: block; 
+    background: url(../../../images/landingpagebg.jpg) no-repeat center center fixed;
+
+    -webkit-background-size: 100%; 
+    -moz-background-size: 100%; 
+    -o-background-size: 100%; 
+    background-size: 100%; 
+    -webkit-background-size: cover; 
+    -moz-background-size: cover; 
+    -o-background-size: cover; 
+    background-size: cover;
+}
+
+
+#fadein-image{
+    position: relative;
+    margin: 0 auto 40px; 
+    min-height: 150px;
+    max-height: 256px; 
+    height: 20%;
+    display: block; top: 5%
+}
+
+
+
 .error-textfield{
     box-shadow: 0 0 10px rgba(255,0,0,.5);
     -webkit-box-shadow: 0 0 10px rgba(255,0,0,.5);

@@ -288,50 +288,7 @@
         {{/if}}
 
 
-        <!-- add the tag content-->
-                <div style=background-color:red;">
-                    <div class="object-collapes-title" {{action setTag on="click" target="view"}}  >
-                        <div class="collapes-title_inner">
-                            Tags  {{controller.tagCount}}
-                        </div>
-                        <div class="dropdownicon">
-                            <i class="fa fa-angle-down" style="height: 16px; width: 16px;"></i>
-        
-                        </div>
-                    </div> 
-        
-        
-                    <div class="collapes-container"  id="tag_article_action" style="display:block">
-                        {{#each controller.contentTagsArticle}}
-                        <div id="tagImg" style=" width: 132px;    height: 132px;   border: 3px solid white;    display: inline-block;   float: left;    margin: 33px 10px 10px 15px;">
-                            <img  {{bindAttr src= "this.pic_url"}}  style="min-width: 100%; min-height: 100%;">
-                        </div>
-                        <div style="  float: left;  width: 48%;  margin: 10px 10px;">
-                            <div style=' height: 40px; overflow: hidden;'>
-                                <div id="tagName" class="name" style="display: inline-block; color: white; word-break: break-all; ">
-                                    {{this.product_name}}
-                                </div>
-                            </div>
-                            <div style=' margin-top: 10px;height: 130px; overflow: hidden;'>
-        
-                                <a href="{{unbound controller.tag.linkto}}" >
-                                    <div id="tagDesc" style="display: inline-block; margin-top: 10px;color: white; word-break: break-all;">
-                                        {{this.desc}}
-                                    </div>
-                                </a>
-        
-                            </div>        
-                        </div>
-                        {{/each}}
-                    </div>
-        
-        
-                </div>
-        
-
-
-        <!--end of tag content-->
-
+     
 
         <!-- OBJECT DISCUSSION SECTION -->
         <div>
@@ -424,6 +381,49 @@
         </div>
 
 
+   <!-- add the tag content-->
+                <div style=background-color:red;">
+                    <div class="object-collapes-title" {{action setTag on="click" target="view"}}  >
+                        <div class="collapes-title_inner">
+                            Tags  {{controller.tagCount}}
+                        </div>
+                        <div class="dropdownicon">
+                            <i class="fa fa-angle-down" style="height: 16px; width: 16px;"></i>
+        
+                        </div>
+                    </div> 
+        
+        
+                    <div class="collapes-container"  id="tag_article_action" style="display:block">
+                        {{#each controller.contentTagsArticle}}
+                        <div id="tagImg" style=" width: 132px;    height: 132px;   border: 3px solid white;    display: inline-block;   float: left;    margin: 33px 10px 10px 15px;">
+                            <img  {{bindAttr src= "this.pic_url"}}  style="min-width: 100%; min-height: 100%;">
+                        </div>
+                        <div style="  float: left;  width: 48%;  margin: 10px 10px;">
+                            <div style=' height: 40px; overflow: hidden;'>
+                                <div id="tagName" class="name" style="display: inline-block; color: white; word-break: break-all; ">
+                                    {{this.product_name}}
+                                </div>
+                            </div>
+                            <div style=' margin-top: 10px;height: 130px; overflow: hidden;'>
+        
+                                <a href="{{unbound controller.tag.linkto}}" >
+                                    <div id="tagDesc" style="display: inline-block; margin-top: 10px;color: white; word-break: break-all;">
+                                        {{this.desc}}
+                                    </div>
+                                </a>
+        
+                            </div>        
+                        </div>
+                        {{/each}}
+                    </div>
+        
+        
+                </div>
+        
+
+
+        <!--end of tag content-->
 
 
     </div>

@@ -314,7 +314,8 @@ class PhotosController extends Controller {
         if ($optional == null || $optional == 'undefined' || $optional == "") {
             $url = $this->getDomain() . '/users' . "/" . $owner_id . "/" . $photo_type . "/" . $photo_name;
         } else if($optional == 'profile_picture'){
-            $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $optional;
+            $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
+            $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $new_photo_name;
         }
         else  if($optional =="photo"){
             $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);

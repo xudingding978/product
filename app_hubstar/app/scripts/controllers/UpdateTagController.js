@@ -7,22 +7,20 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
     collections: [],
     product_name: "", //it is the product name
     selectedDesc: "", //it is selected profile title
+    selectedID: "",
     description: "", //it is the descriptioin of the product
     pic_x: "",
     pic_y: "",
-    aa:false,
+    aa: false,
     tag_id: "", // it is used to update
     photo_id:"", //it is used to update
             selectedID: "", //it is selected profile id
-    contentTags: "", //it is to save the every tag's content
+            contentTags: "", //it is to save the every tag's content
     currentPhoto: "",
     linkTo: "", //the content link address
     photo_owner_user: [],
     isUpdateTag: false,
     selectedPhotoThumbnailUrl: "",
-    needs: ["mega", "article", "collection", "applicationFeedback", "comment", "video", "showTag"],
-    ////////////////////////////////////////////////////////////////profileCollection: [],
-
     selectedTitle: "Choose your Collection",
     //selectedCollection: "",
     selectionPop: false,
@@ -34,6 +32,7 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
     //isProfile: false,
     userName: '',
     chosenProfile: '',
+    needs: ["mega", "article", "collection", "applicationFeedback", "comment", "video", "showTag"],
     init: function()
     {
         HubStar.set("isProfile", false);
@@ -58,21 +57,18 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
         this.set("description", tag["desc"]);
         this.set("linkTo", tag["linkto"]);
         this.set("selectedDesc", tag["profile_id"]);  //selectedDesc is the profile id now
+        this.set("selectedID", tag["profile_id"]);  //selectedDesc is the profile id now
         this.setThumbnailUrl(tag["pic_url"]);
         this.set("tag_id", tag_id);
         this.set("photo_id", photo_id);
-        //   this.set()
     },
     saveUpdateTag: function(profile_id)
     {
         var tag_id = this.get("tag_id");
         var photo_id = this.get("photo_id");
-        console.log(photo_id + "  444444  " + tag_id + "   555555555  " + profile_id+"666  "+ this.get("controllers.showTag").get("contentTags").get("length"));
         var time_stamp = new Date();
         time_stamp = time_stamp.toString();
-//        console.log( this.get("controllers.showTag").get("selectedPhotoThumbnailUrl"));
-//        this.get("controllers.showTag").set("selectedPhotoThumbnailUrl",this.get("selectedPhotoThumbnailUrl"));
-//                console.log( this.get("controllers.showTag").get("selectedPhotoThumbnailUrl"));
+
         for (var i = 0; i < this.get("controllers.showTag").get("contentTags").get("length"); i++)
         {
             if (this.get("controllers.showTag").get("contentTags").objectAt(i)["tag_id"] === tag_id)
@@ -81,13 +77,8 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
                 this.get("controllers.showTag").get("contentTags").objectAt(i)["desc"] = this.get("description");
                 this.get("controllers.showTag").get("contentTags").objectAt(i)["product_name"] = this.get("product_name");
                 this.get("controllers.showTag").get("contentTags").objectAt(i)["tag_time"] = time_stamp;
+                this.get("controllers.showTag").get("contentTags").objectAt(i)["profile_id"] = this.get("selectedID");
 
-                if (this.get("aa") !== true)
-                {
-                this.get("controllers.showTag").get("contentTags").objectAt(i)["profile_id"] = this.get("selectedDesc");
-                    console.log("sssssssssss  " +this.get("selectedID"));
-                   //   this.set("selectedID", this.get("controllers.showTag").get("contentTags").objectAt(i)["profile_id"]);
-                }
                 break;
             }
         }
@@ -99,18 +90,10 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
         {
             this.get("controllers.mega").set("contentTags", this.get("controllers.showTag").get("contentTags"));
         }
-//        if (this.get("aa") !== true)
-//        {
-//
-//            console.log("sssssssssss  " + profile_id);
-//            //    this.set("selectedID");
-//        }
         var tagInfo = [tag_id, this.get("product_name"), this.get("description"), this.get("linkTo"), time_stamp, this.get("selectedID"), photo_id];
         tagInfo = JSON.stringify(tagInfo);
         var that = this;
         requiredBackEnd('showTag', 'updateTag', tagInfo, 'POST', function(params) {
-//reset the value
-//  that.setTagIcon(pic_x, pic_y, tag_id); //set the tag icon location
             that.set("isUpdateTag", false);
             if (HubStar.get("isArticleTag") === true)
             {

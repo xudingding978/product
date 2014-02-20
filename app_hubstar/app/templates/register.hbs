@@ -1,27 +1,27 @@
 <div class="Register-Page" style="">
     <div class="Register-Page_background"></div>
-    <div style="width: 87%;margin: 40px auto;display: block;line-height: 45px;text-align: center;">
-        <img class="logonew" style="position: relative; height: 30px;margin: 8px;float: left;" src="../../../images/landing-trends.png">
-        <div style="position:relative; float:right;color: #fff; font-size:15px;font-weight: bold;">
-            <span style="letter-spacing: 1px; margin: 0 0 0 10px;cursor:pointer;" id="login-btn" class="white-text-hover easing" {{action loginPane on="click"  target="view"}}>LOG IN</span>
+    <div class="register-page-top-bar">
+        <img class="logonew"  src="../../../images/landing-trends.png">
+        <div class="Login-or-Register" style="">
+            <span id="login-btn" class="white-text-hover easing" {{action loginPane on="click"  target="view"}}>LOG IN</span>
             <span>&nbsp | &nbsp</span>
-            <a href="http://about.trendsideas.com" target="blank"><span class="white-text-hover easing" style="letter-spacing: 1px; margin: 0 0 0 10px;">HELP</span></a>
+            <a href="http://about.trendsideas.com" target="blank"><span class="white-text-hover easing">HELP</span></a>
         </div>
 
-        <div style="position: relative;  color: #fff; width: 500px; margin: auto;font-size: 13px; font-family: 'Montserrat', sans-serif; letter-spacing: 2px;opacity: .9;display: inline-block;">
+        <div class="promotion-line" style="">
             <span>83,000 IDEAS</span>
             <span>&nbsp | &nbsp</span>
             <span>210,000 PRODUCTS</span>
             <span>&nbsp | &nbsp</span>
             <span>650 SERVICES</span>
         </div>
-    
-    </div>
+       
+    </div> 
 
 
     <img id="fadein-image" src="../../../images/landing-page-title(LOGO).png">
 
-    <div id="profiles-main-container" style="position: relative;width: 300px;text-align: center;top: 40px;margin: auto;display: block;left: 0;right: 0;">   
+    <div id="profiles-main-container" style="position: relative;width: 300px;text-align: center;margin: auto;display: block;left: 0;right: 0;">   
 
         <div id="click-register-social" class="register-with easing social-active" style="border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;">
             <i class="fa fa-facebook">&nbsp</i><a style="color: #888"> Register with social account</a>
@@ -55,10 +55,10 @@
         <!--This is the email register section-->
         <div>
             <div id="click-register" class="register-with easing register-clicker">
-                <i class="fa fa-envelope">&nbsp </i><a style="color: #888"> Register with Email</a>
+                <i class="fa fa-envelope">&nbsp </i><a style="color: #888"> Register with Email</a> 
             </div>
 
-            <div   id="register-with-email-drop-down" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
+            <div   id="register-with-email-drop-down" class="register-info-box" style="display:none;">
                 <div style="padding: 0 8px;position: relative;">
 
                     <div style="border-bottom: 1px solid #e3e3e3; border-top:1px solid #e3e3e3;">
@@ -82,7 +82,7 @@
 
                 <div id="register-btn" class="register-btn easing" style="" {{action signUp}} > Register</div>
             </div>
-
+ 
 
             <div id="register-with-email-step-2" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
                 <div style="padding: 0 8px;position: relative;">

@@ -226,20 +226,6 @@ and (max-device-width : 568px) {
     }
 
 
-    /*2014.2.19 by Colin*/
-    #fadein-image{
-        position: relative;
-        margin: 0 auto 40px;
-        height: 90px;
-        display: block;
-        
-        min-height: 0;
-        min-width:  0;
-    }
-
-
-
-
 }
 
 

@@ -46,6 +46,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         $('#tagit').fadeOut();
         this.set('selectTagProfile', false); // show list of profile
         var photo_id = this.get("photo_id");
+        alert(photo_id);
         var selectedID = this.get("selectedID"); //the selected profile id
         if (selectedID === "" || selectedID === null || selectedID === undefined)
         {

@@ -154,8 +154,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         var photo_owner_email = currentUser.get("email"); //photo owner contact email address
         var endOfEmail = "";
-        if (photo_owner_email.search("@") !== -1)
-        {
+//        if (photo_owner_email.search("@") !== -1)
+//        {
             endOfEmail = photo_owner_email.split("@")[1];
 
             var trendsAccountEmail = "trendsideas.com"; //all trends account can have the edit right;
@@ -170,11 +170,11 @@ HubStar.ArticleController = Ember.Controller.extend({
                     this.set("isBusinessProfile", false);
                 }
             }
-        }
-        else
-        {
-            this.set("isBusinessProfile", false);
-        }
+      //  }
+//        else
+//        {
+//            this.set("isBusinessProfile", false);
+//        }
     },
     JudgePhotoOwner: function(mega)
     {
@@ -518,7 +518,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         $(selectedImage_id).addClass('selected_image_style');
     },
     getInitData: function(megaObject) {
-
+      
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         this.set("contentTagsArticle", "");
         this.set("enableTag", false);
@@ -670,11 +670,10 @@ HubStar.ArticleController = Ember.Controller.extend({
 //                        }
 //                    }, 50);
                     if (that.get("accessFromSearchBoard") === false)
-                    {
+                    {                            
 
-                        if (this.get("isShowPhotoUrl") === true) //to controll show the photo url or not
+                      //  if (this.get("isShowPhotoUrl") === true) //to controll show the photo url or not
                         {
-
                             if (that.get("controllers.masonryCollectionItems").get("type") === "profile")
                             {
                                 that.transitionTo("profileArticlePhoto", that.get('content').objectAt(0));
@@ -688,23 +687,22 @@ HubStar.ArticleController = Ember.Controller.extend({
                             }
                             this.set("isShowPhotoUrl", false);
                         }
+             
 
                     }
                     else
-                    {
+                    {console.log("333333333333");
                         var address = document.URL;
                         var search_id = address.split("#")[1].split("/")[2];
                         var search_type = address.split("#")[1].split("/")[1];
 
-                        if (this.get("isShowPhotoUrl") === true)
+                    //    if (this.get("isShowPhotoUrl") === true)
                         {
                             if (search_type === "search" || search_type === "searchs")
                             {
                                 if (search_id === "default")
                                 {
-
                                     that.transitionTo("searchDefaultArticlePhoto", that.get("content").objectAt(0));
-
                                 } else
                                 {
                                     that.transitionTo("searchIndexArticlePhoto", that.get("content").objectAt(0));

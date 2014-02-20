@@ -731,9 +731,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var address = document.URL;
         if (this.get('controllers.masonryCollectionItems').get("type") === "profile")
         {
-
+           
             if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
             {
+                
                 // this.transitionTo("indexIndex"); //search page
                 var address = document.URL;
                 var search_id = address.split("#")[1].split("/")[2];
@@ -746,10 +747,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     HubStar.set("escVideo", true);
                     this.transitionTo("search", {id: search_id});
                 }
-                $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-                setTimeout(function() {
-                    $('#masonry_container').masonry();  //masonry();
-                }, 300);
+               // $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+//                setTimeout(function() {
+//                    $('#masonry_container').masonry();  //masonry();
+//                }, 300);
 
             }
             else

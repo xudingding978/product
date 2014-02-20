@@ -801,7 +801,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var x = document.getElementById("masonry_container");
         var cusid_ele = x.getElementsByClassName('tomtomtom');
         var items = Array();
-
         for (var i = 0; i < l; i++) {
             var item = cusid_ele[i];
             items.push(item);           

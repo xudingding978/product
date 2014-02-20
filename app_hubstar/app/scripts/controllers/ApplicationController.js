@@ -101,21 +101,23 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     loginStatus: function() {
     },
     grapData: function() {
-        var u = HubStar.User.find(localStorage.loginStatus);
-        var that = this;
-        u.then(function() {
-            if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
-                    && (u.get("email")).match(/@trendsideas.com/g) !== ""
-                    && (u.get("email")).match(/@trendsideas.com/g) !== null)
-            {
+        if (localStorage.loginStatus) {
+            var u = HubStar.User.find(localStorage.loginStatus);
+            var that = this;
+            u.then(function() {
+                if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
+                        && (u.get("email")).match(/@trendsideas.com/g) !== ""
+                        && (u.get("email")).match(/@trendsideas.com/g) !== null)
+                {
 
-                that.set("is_trends_user", true);
-            }
-            else {
+                    that.set("is_trends_user", true);
+                }
+                else {
 
-                that.set("is_trends_user", false);
-            }
-        });
+                    that.set("is_trends_user", false);
+                }
+            });
+        }
         this.set("user", u);
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
@@ -130,7 +132,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     scrollDownAction: function() {
         //this.set('loadingTime', true);
-       
+
         HubStar.set("scrollDownSearch", true);
         this.set("size", 30);
         if (this.get("searchFromTopic") === false)
@@ -147,7 +149,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var that = this;
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
-                that.setContent(results);               
+                that.setContent(results);
                 if (results.get("length") === 0) {
                     that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
 
@@ -221,7 +223,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var d = new Date();
         var start = d.getTime();
         var that = this;
-        var statusController = this.get('controllers.status');        
+        var statusController = this.get('controllers.status');
         var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation')});
         stats.addObserver('isLoaded', function() {
             if (stats.get('isLoaded')) {
@@ -230,7 +232,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 HubStar.set('itemNumber', megasResults.get("length"));
                 if (megasResults.get("length") === 0) {
                     $(document).ready(function() {
-                        
+
                         $("#show_more_button").css({display: "none"});
 
                     });

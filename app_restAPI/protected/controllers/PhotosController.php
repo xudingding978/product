@@ -306,8 +306,7 @@ class PhotosController extends Controller {
 
     public function savePhotoInTypes($orig_size, $photo_type, $photo_name, $compressed_photo, $data_arr, $owner_id, $optional = null, $type = null) {
 
-        $new_size = $this->getNewPhotoSize($orig_size, $photo_type);
-        
+        $new_size = $this->getNewPhotoSize($orig_size, $photo_type);        
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
         //$new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
         $bucket = 's3.hubsrv.com';     
@@ -319,6 +318,10 @@ class PhotosController extends Controller {
         else  if($optional =="photo"){
             $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
             $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $new_photo_name;
+        }
+        else
+        {
+            $url = $this->getDomain() . '/users' . "/" . $owner_id . "/" . $photo_type . "/" . $photo_name;
         }
         $this->saveImageToS3($url, $new_photo_data, $bucket, $type);
         $s3url = 'http://' . $bucket . '/' . $url;

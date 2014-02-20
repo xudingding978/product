@@ -1,17 +1,36 @@
-    {{#unless controller.enableEditTag}}  
+{{#unless controller.enableEditTag}}  
 <div id ="tagitshow" class="" style="display:block;" {{action hideContent on="mouseLeave" target="view"}}>
     <!--              enable to edit the tag controller-->
 
+
     <div id="tagImg" style=" ">
-        <img  {{bindAttr src= "controller.tag.pic_url"}}  style="min-width: 100%; min-height: 100%;">
+        <img  {{bindAttr src= "controller.tag.pic_url"}}  style="">
     </div>
+
+    <!--        only the tag owner and the tag is not activate can have the activate button-->
+    <div id="tagBtn">
+        {{#if controller.isPhotoOwner}}
+        {{#unless controller.tag.tag_approved}}
+        <div role="button"   data-hint=" Activate this tag" {{action sureToActivate controller.tag.tag_id }} style="margin:0 2px;"><i class="fa fa-check-circle"></i></div>
+        {{else}}
+        <div role="button"   data-hint=" Edit this tag" {{action EditTag controller.tag.tag_id }} style="margin:0 2px;"><i class="fa fa-pencil-square-o"></i></div>
+        {{/unless}}
+        <!--        only the tag owner can delete the tag button-->
+        <div  role="button" data-hint=" Delete this tag" {{action deleteTag controller.tag.tag_id }} style="margin:0 2px;"><i class="fa fa-trash-o"></i></div>
+        <!--        only the tag owner can delete the tag button-->
+
+        {{/if}}
+    </div>
+
+
+
+    <div id="tagName" class="name" style="">
+        {{controller.tag.product_name}}
+    </div>
+
     <div id="tagContent" style="">
-            <div id="tagName" class="name" style="">
-                {{controller.tag.product_name}}
-        </div>
         <div style=' overflow: hidden;'>
             {{#if controller.isNullLink}}
-
             <div id="tagDesc" style="">
                 {{controller.tag.desc}}
             </div>
@@ -22,29 +41,14 @@
                 </div>
             </a>
             {{/if}}
-
         </div>        
 
-
-
     </div>
-    <!--        only the tag owner and the tag is not activate can have the activate button-->
-    <div id="tagBtn">
-            {{#if controller.isPhotoOwner}}
-            {{#unless controller.tag.tag_approved}}
-                <div  style="border-right:1px solid #DDD;" role="button" class="message-btn easing"  data-hint=" Activate this tag" {{action sureToActivate controller.tag.tag_id }}>Activate</div>
-                {{else}}
-                <div style="border-right:1px solid #DDD;" role="button" class="message-btn easing"  data-hint=" Edit this tag" {{action EditTag controller.tag.tag_id }}>Edit</div>
-                {{/unless}}
-                <!--        only the tag owner can delete the tag button-->
-                <div  role="button" class="message-btn easing"  data-hint=" Delete this tag" {{action deleteTag controller.tag.tag_id }}>Delete</div>
-                <!--        only the tag owner can delete the tag button-->
-             
-            {{/if}}
-            </div>
-    <div id="tagitBg">&nbsp;</div>
+
+
+
 </div>
 
-    {{else}}
-    {{render updateTag}}
-    {{/unless}}
+{{else}}
+{{render updateTag}}
+{{/unless}}

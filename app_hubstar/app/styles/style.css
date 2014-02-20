@@ -34,41 +34,23 @@ body > div.ember-view > div
     opacity:1;
 }
 
-#tagitshow
-{
-    width: 390px;
+#tagitshow{
+    width: 300px;
     opacity: 0;
-    margin:12px 0 0 0px;
-    height: 186px;
     border-style: solid;
     border-color: #ffffff;
-    left: 220px ;
     position: absolute;
-    z-index:2;
-    background-color:transparent;
-    border:0 none;
+    z-index: 2;
+    background-color: rgba(255,255,255,.9);
+    border: 0 none;
     overflow: hidden;
-    
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    
-    -moz-box-shadow: 2px 2px 5px #666;
-    -webkit-box-shadow: 2px 2px 5px#666;
-    box-shadow: 2px 2px 5px #666;
+
+    -moz-box-shadow: 0px 0px 5px #555;
+    -webkit-box-shadow: 0px 0px 5px#555;
+    box-shadow: 0px 0px 5px #555;
+    padding: 10px 15px;
 }
 
-#tagitBg{
-    background:#fff;
-    opacity:.92;
-    height:186px;
-    width:390px;
-    
-    position:absolute;
-    z-index:0;
-    top:0 ;
-    left:0;
-}
 
 #tagit .box
 {
@@ -133,88 +115,72 @@ body > div.ember-view > div
 
 
 #tagImg{
-    position:relative;
-    z-index:1;
-    width: 115px;
-    height: 115px;
-    background:#333;
+    z-index: 1;
+    position: relative;
+    width: 29%;
+    height: 70px;
+    line-height: 70px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-
-    display: inline-block;
     float: left;
-    margin:20px;
-    overflow:hidden;
-    
-   
+    overflow: hidden;
 }
-#tagImg > img{
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    border:0 none;
-}
+
 
 #tagContent{
-    position:relative;
-    z-index:1;
-    float: left; 
-    
-    width: 215px;
-    margin:20px 20px 20px 0;
-    
-    font-size:12px;
-    line-height:130%;
-    
+    z-index: 1;
+    float: left;
+    width: 100%;
+    font-size: 12px;
+    margin-bottom: 10px;
 }
+
 #tagContent > div{max-height:91px;overflow:hidden;}
-#tagBtn
-{
-    position:absolute;
-    z-index:1;
-    bottom:0;
-    left:0;
-    
-    border-top: 1px solid #ddd;
-    width:390px;
+
+#tagBtn{
+    margin-left: 10px;
+    float: left;
+    width: 180px;
 }
+
+
 #tagBtn >  div.disabled-btn{top:0;position:relative;left:0;}
-#tagName
-{
-    margin-top:0;
-    line-height:24px;
-    height:24px;
-    font-size:18px;
-    color:#333;
-    font-weight:bold;
-    max-height:48px;
-    overflow:hidden;
+
+
+#tagName{
+    margin-left: 10px;
+    line-height: 18px;
+    font-size: 15px;
+    color: #333;
+    font-weight: bold;
+    float: left;
+    max-height: 50px;
 }
 
 .ember-view > .fa-tag
 {
-    
+
     animation-delay:2s;
     -webkit-animation-delay:2s; /* Safari and Chrome */
-    
+
     animation: tagBounce;
     -moz-animation:tagBounce; /* Firefox */
     -webkit-animation: tagBounce; /* Safari and Chrome */
-    
+
     animation-duration:.87s;
     -webkit-animation-duration:.87s; /* Safari and Chrome */
     -moz-animation-duration:.87s; /* Firefox */
-    
-    
+
+
     transform-origin:top left;
     -ms-transform-origin:top left; /* IE 9 */
     -webkit-transform-origin:top left; /* Safari and Chrome */
-    
+
 }
 .ember-view > .fa-tag:hover, .ember-view > .fa-tag:focus{
     font-size:64px!important;
-    
+
     nimation: tagBounce;
     -moz-animation:tagBounce; /* Firefox */
     -webkit-animation: tagBounce; /* Safari and Chrome */
@@ -238,7 +204,7 @@ body > div.ember-view > div
     68% {transform:rotate(10deg); }
     82% {transform:rotate(35deg);}
     99% {transform:rotate(0deg);}
-    
+
 }
 
 .plaform_bar{
@@ -1389,76 +1355,76 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 @-moz-keyframes bounce_blurringTextG{
     0%{
-    text-shadow: #555555 0 0 0;
-}
+        text-shadow: #555555 0 0 0;
+    }
 
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
+    50%{
+        text-shadow: #FFFFFF 0 0 20px;
+    }
 
-100%{
-    text-shadow: #555555 0 0 0;
-}
+    100%{
+        text-shadow: #555555 0 0 0;
+    }
 
 }
 
 @-webkit-keyframes bounce_blurringTextG{
     0%{
-    text-shadow: #555555 0 0 0;
-}
+        text-shadow: #555555 0 0 0;
+    }
 
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
+    50%{
+        text-shadow: #FFFFFF 0 0 20px;
+    }
 
-100%{
-    text-shadow: #555555 0 0 0;
-}
+    100%{
+        text-shadow: #555555 0 0 0;
+    }
 
 }
 
 @-ms-keyframes bounce_blurringTextG{
     0%{
-    text-shadow: #555555 0 0 0;
-}
+        text-shadow: #555555 0 0 0;
+    }
 
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
+    50%{
+        text-shadow: #FFFFFF 0 0 20px;
+    }
 
-100%{
-    text-shadow: #555555 0 0 0;
-}
+    100%{
+        text-shadow: #555555 0 0 0;
+    }
 
 }
 
 @-o-keyframes bounce_blurringTextG{
     0%{
-    text-shadow: #555555 0 0 0;
-}
+        text-shadow: #555555 0 0 0;
+    }
 
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
+    50%{
+        text-shadow: #FFFFFF 0 0 20px;
+    }
 
-100%{
-    text-shadow: #555555 0 0 0;
-}
+    100%{
+        text-shadow: #555555 0 0 0;
+    }
 
 }
 
 @keyframes bounce_blurringTextG{
     0%{
-    text-shadow: #555555 0 0 0;
-}
+        text-shadow: #555555 0 0 0;
+    }
 
-50%{
-    text-shadow: #FFFFFF 0 0 20px;
-}
+    50%{
+        text-shadow: #FFFFFF 0 0 20px;
+    }
 
-100%{
-    text-shadow: #555555 0 0 0;
-}
+    100%{
+        text-shadow: #555555 0 0 0;
+    }
 
 }
 
@@ -1564,20 +1530,20 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 @-webkit-keyframes rotating {
     from{
-    -webkit-transform: rotate(0deg);
-}
-to{
-    -webkit-transform: rotate(360deg);
-}
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 @-moz-keyframes rotating {
     from{
-    -webkit-transform: rotate(0deg);
-}
-to{
-    -webkit-transform: rotate(360deg);
-}
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 

@@ -132,7 +132,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         //this.set('loadingTime', true);
 
         HubStar.set("scrollDownSearch", true);
-        this.set("size", 30);
+        this.set("size",20 );
         if (this.get("searchFromTopic") === false)
         {
             this.set("pageCount", this.get("pageCount") + 1);
@@ -222,6 +222,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 //that.getAds();
                 if (flag === "default") {
+                    that.getAds();
                     that.relayoutDefault();
                 }
                 else {
@@ -235,7 +236,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("content", []);
         this.set("oldChildren", 0);
         this.set("from", 0);
-        this.set("size", 30);
+        this.set("size", 20);
         this.set('loadingTime', true);
         this.set("pageCount", 0);
         var d = new Date();
@@ -803,8 +804,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         for (var i = 0; i < l; i++) {
             var item = cusid_ele[i];
-            items.push(item);
-            console.log(items);
+            items.push(item);           
         }
         $('#masonry_container').append(items).masonry('appended', items);
 //        $('#masonry_container').masonry("reloadItems");
@@ -837,9 +837,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             for (var i = 0; i < adSlots[pageCount].length; i++) {
                 var ad = adSlots[pageCount][i];
                 var position = ad.slot_position;
-                var child = masonryContainer.children[that.get("pageCount")*60 + position * 3];
-                console.log(child);
-                console.log(that.get("oldChildren") + position * 3);
+                var child = masonryContainer.children[that.get("pageCount")*40 + position * 3];               
                 var masonrybox = document.createElement('div');
                 masonrybox.id = ad.div + '_box';
                 masonrybox.border = 0;

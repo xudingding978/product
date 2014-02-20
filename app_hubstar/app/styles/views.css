@@ -768,9 +768,8 @@ div.album-description-bg{
 }
 
 .profilepic-on-masonry{
+    height: 46px;
     max-width: 46px;
-    max-height: 60px;
-
     float: left;
     margin: 15px 15px 12px 0;
     padding: 0;
@@ -1573,7 +1572,7 @@ div.album-description-bg{
     line-height: 30px;
     margin-bottom: 10px;
     word-break: break-word;
-    
+
 }
 
 .article-text{  
@@ -1717,7 +1716,7 @@ div.album-description-bg{
     -o-transition: color .218s;
     -moz-transition: color .218s;
     transition: color .218s;
-   color:#404040 !important;
+    color:#404040 !important;
     font-size: 13px;
     font-weight: bold;
 }
@@ -1738,7 +1737,7 @@ div.album-description-bg{
 }
 
 .comment-content{
-   color:#404040 !important;
+    color:#404040 !important;
     font-size: 13px;
     line-height:16px;
     margin: 0 0 0 0;

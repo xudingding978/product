@@ -230,7 +230,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             var thatthat = that;
             if (params !== "" && params !== undefined && params !== null)
             {
-
+console.log("aaaaaaaaaaabbbbbbbbbbbbb");
                 that.set("contentTags", params);
                 //    that.get("controllers.article").set("contentTagsArticle", params);
                 if (HubStar.get("isArticleTag") === true)
@@ -254,7 +254,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                         thatthat.get("controllers.mega").set("tagCount", params.get("length"));
                     }
                     if (tags !== undefined && tags !== "" && tags !== null)
-                    {
+                    {console.log("bbbbbbbbbbbbbbbbbbbbbbb");
                         for (var i = 0; i < tags.length; i++)
                         { 
                             var tagDiv = "#tag_" + tags[i].tag_id;
@@ -265,7 +265,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                         }
                     }
                 }
-                , 40);
+                , 50);
             }
             else
             {

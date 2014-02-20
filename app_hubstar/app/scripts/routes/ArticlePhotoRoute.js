@@ -9,7 +9,6 @@ HubStar.ArticlePhotoRoute = Ember.Route.extend({
         } else {
             temp = model.id;
         }
-
         this.controllerFor("showTag").readTags(temp);
 
         HubStar.set("isArticleTag", true);  //isArticleTag is true mean is the  photo tag,so it will set different tagcontent in showTagController

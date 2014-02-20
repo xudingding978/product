@@ -82,7 +82,7 @@ HubStar.ArticleView = Ember.View.extend({
         window.onresize = function() {
             var pic_width = document.getElementById('tag_image_object').offsetWidth;
             var pic_height = document.getElementById('tag_image_object').offsetHeight;
-            console.log("last data" + HubStar.get("pic_current_width") + "   height    :" + HubStar.get("pic_current_height"));
+            console.log("lwwwwwwwwwwwwwwwwwwwwast data" + HubStar.get("pic_current_width") + "   height    :" + HubStar.get("pic_current_height"));
             console.log("pic_width    " + pic_width + "     " + pic_height);
             var tags = that.get("controller").get("controllers.showTag").get("contentTags");
             if (tags !== undefined && tags !== "" && tags !== null)

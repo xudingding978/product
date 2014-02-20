@@ -1,5 +1,7 @@
 <?php
 
+header('Access-Control-Allow-Origin: *');
+
 session_start();
 
 class Controller extends CController {
@@ -720,7 +722,7 @@ class Controller extends CController {
 //                    $profile_name = $mega_profile["profile"][0]["profile_name"];
 //                    $profile_pic = $mega_profile["profile"][0]["profile_pic_url"];
                     $profile_editors = (isset($mega_profile["profile"][0]["profile_editors"])) ? $mega_profile["profile"][0]["profile_editors"] : '*@trendsideas.com';
-                    error_log("this is editor:" . $profile_editors);
+                    //error_log("this is editor:" . $profile_editors);
                     //    $profile_editors = $mega_profile["profile"][0]["profile_editors"];
                     $profile_name = (isset($mega_profile["profile"][0]["profile_name"])) ? $mega_profile["profile"][0]["profile_name"] : 'Trends Ideas';
                     //          $profile_name = $mega_profile["profile"][0]["profile_name"];
@@ -742,7 +744,7 @@ class Controller extends CController {
                     $tempMega_profile = $cb->get($docID_profile);
                     $mega_profile = CJSON::decode($tempMega_profile, true);
                     $profile_editors = (isset($mega_profile["profile"][0]["profile_editors"])) ? $mega_profile["profile"][0]["profile_editors"] : '*@trendsideas.com';
-                    error_log("this is editor:" . $profile_editors);
+                    //error_log("this is editor:" . $profile_editors);
                     //    $profile_editors = $mega_profile["profile"][0]["profile_editors"];
                     $profile_name = (isset($mega_profile["profile"][0]["profile_name"])) ? $mega_profile["profile"][0]["profile_name"] : 'Trends Ideas';
                     //          $profile_name = $mega_profile["profile"][0]["profile_name"];

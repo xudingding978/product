@@ -70,6 +70,33 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("inImage", false);  //click the end tag recove the value
 
     },
+    addClickCount: function(tag_id, photo_url)
+    {
+        var photo_id = this.get('selectedPhoto').id;
+        var delInfo = [tag_id, photo_id];
+        delInfo = JSON.stringify(delInfo);
+        window.open(
+                photo_url,
+                'popupwindow',
+                'height=436,width=626'
+                ).focus();
+        var that = this;
+        setTimeout(function() {
+            if (that.get("contentTagsArticle") !== undefined && that.get("contentTagsArticle") !== "" && that.get("contentTagsArticle") !== null)
+            {
+                for (var i = 0; i < that.get("contentTagsArticle").length; i++)
+                {
+                    if (that.get("contentTagsArticle").objectAt(i).get("tag_id") === tag_id)
+                    {
+                        that.get("contentTagsArticle").objectAt(i).set("link_to_click_count", that.get("contentTagsArticle").objectAt(i).get("link_to_click_count") + 1);
+                    }
+                }
+            }
+        }
+        , 10);
+        requiredBackEnd('showTag', 'ViewCount', delInfo, 'POST', function(params) {
+        });
+    },
     showTags: function()
     {
 
@@ -156,21 +183,21 @@ HubStar.ArticleController = Ember.Controller.extend({
         var endOfEmail = "";
 //        if (photo_owner_email.search("@") !== -1)
 //        {
-            endOfEmail = photo_owner_email.split("@")[1];
+        endOfEmail = photo_owner_email.split("@")[1];
 
-            var trendsAccountEmail = "trendsideas.com"; //all trends account can have the edit right;
-            if ((currentUser.get("profiles") !== null && currentUser.get("profiles") !== undefined && currentUser.get("profiles") !== "") || trendsAccountEmail === endOfEmail)
+        var trendsAccountEmail = "trendsideas.com"; //all trends account can have the edit right;
+        if ((currentUser.get("profiles") !== null && currentUser.get("profiles") !== undefined && currentUser.get("profiles") !== "") || trendsAccountEmail === endOfEmail)
+        {
+            if (currentUser.get("profiles").get("length") > 0 || trendsAccountEmail === endOfEmail)
             {
-                if (currentUser.get("profiles").get("length") > 0 || trendsAccountEmail === endOfEmail)
-                {
-                    this.set("isBusinessProfile", true);
-                }
-                else
-                {
-                    this.set("isBusinessProfile", false);
-                }
+                this.set("isBusinessProfile", true);
             }
-      //  }
+            else
+            {
+                this.set("isBusinessProfile", false);
+            }
+        }
+        //  }
 //        else
 //        {
 //            this.set("isBusinessProfile", false);
@@ -518,7 +545,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         $(selectedImage_id).addClass('selected_image_style');
     },
     getInitData: function(megaObject) {
-      
+
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         this.set("contentTagsArticle", "");
         this.set("enableTag", false);
@@ -670,9 +697,9 @@ HubStar.ArticleController = Ember.Controller.extend({
 //                        }
 //                    }, 50);
                     if (that.get("accessFromSearchBoard") === false)
-                    {                            
+                    {
 
-                      //  if (this.get("isShowPhotoUrl") === true) //to controll show the photo url or not
+                        //  if (this.get("isShowPhotoUrl") === true) //to controll show the photo url or not
                         {
                             if (that.get("controllers.masonryCollectionItems").get("type") === "profile")
                             {
@@ -687,16 +714,17 @@ HubStar.ArticleController = Ember.Controller.extend({
                             }
                             this.set("isShowPhotoUrl", false);
                         }
-             
+
 
                     }
                     else
-                    {console.log("333333333333");
+                    {
+                        console.log("333333333333");
                         var address = document.URL;
                         var search_id = address.split("#")[1].split("/")[2];
                         var search_type = address.split("#")[1].split("/")[1];
 
-                    //    if (this.get("isShowPhotoUrl") === true)
+                        //    if (this.get("isShowPhotoUrl") === true)
                         {
                             if (search_type === "search" || search_type === "searchs")
                             {

@@ -21,10 +21,17 @@ HubStar.ArticlePhotoRoute = Ember.Route.extend({
         var that = this;
        // setTimeout(function() {
        megaModel.then(function() {
-            console.log(megaModel.get("photo").objectAt(0).get("photo_original_height")+"   "+megaModel.get("photo").objectAt(0).get("photo_original_width"));
-            HubStar.set("pic_current_height", megaModel.get("photo").objectAt(0).get("photo_original_height"));
-            HubStar.set("pic_current_width", megaModel.get("photo").objectAt(0).get("photo_original_width"));
-            that.controllerFor('mega').getInitData(megaModel);
+      that.controllerFor('mega').getInitData(megaModel);
+                      setTimeout(function() {
+   console.log(megaModel.get("photo").objectAt(0).get("photo_original_height")+"   "+megaModel.get("photo").objectAt(0).get("photo_original_width"));
+                        console.log(document.getElementById('tag_image_object').offsetHeight+"   "+document.getElementById('tag_image_object').offsetWidth);
+                                   HubStar.set("pic_current_height", document.getElementById('tag_image_object').offsetHeight);
+            HubStar.set("pic_current_width", document.getElementById('tag_image_object').offsetWidth);
+            
+
+                    },500);
+         
+
        });
       //  }, 150);  //add on doing the tag
 

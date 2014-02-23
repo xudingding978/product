@@ -333,8 +333,9 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 "type": "profile",
                 boost: this.get("keywordNumber"),
                 accessed: null,
-                is_active: "true",
-                is_indexed: "true",
+                is_active: true,
+                is_indexed: true,
+                 is_deleted: false,
                 categories: $('#categorySelection').text(),
                 subcategories: $('#subcategorySelection').text(),
                 created: "",
@@ -422,7 +423,6 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                         }
                         else
                         {
-                            //console.log("sssssssssssssssss");
                         }
 
                     });

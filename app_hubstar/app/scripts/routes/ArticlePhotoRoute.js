@@ -17,22 +17,23 @@ HubStar.ArticlePhotoRoute = Ember.Route.extend({
         this.controllerFor("article").JudgePhotoOwner(megaModel);
 
         this.controllerFor("masonryCollectionItems").set("type", "user");
+        HubStar.set("isset",false);
         var that = this;
-       // setTimeout(function() {
-       megaModel.then(function() {
-      that.controllerFor('mega').getInitData(megaModel);
-                      setTimeout(function() {
-   console.log(megaModel.get("photo").objectAt(0).get("photo_original_height")+"   "+megaModel.get("photo").objectAt(0).get("photo_original_width"));
-                        console.log(document.getElementById('tag_image_object').offsetHeight+"   "+document.getElementById('tag_image_object').offsetWidth);
-                                   HubStar.set("pic_current_height", document.getElementById('tag_image_object').offsetHeight);
-            HubStar.set("pic_current_width", document.getElementById('tag_image_object').offsetWidth);
-            
+        // setTimeout(function() {
+        megaModel.then(function() {
+            that.controllerFor('mega').getInitData(megaModel);
+            setTimeout(function() {
+                
+                console.log(megaModel.get("photo").objectAt(0).get("photo_original_height") + "   " + megaModel.get("photo").objectAt(0).get("photo_original_width"));
+                console.log(document.getElementById('tag_image_object').offsetHeight + "   " + document.getElementById('tag_image_object').offsetWidth);
+                HubStar.set("pic_current_height", megaModel.get("photo").objectAt(0).get("photo_original_height"));
+                HubStar.set("pic_current_width", megaModel.get("photo").objectAt(0).get("photo_original_width"));
 
-                    },500);
-         
+            }, 500);
 
-       });
-      //  }, 150);  //add on doing the tag
+
+        });
+        //  }, 150);  //add on doing the tag
 
 //        var that = this;
 //        setTimeout(function() {
@@ -66,8 +67,8 @@ HubStar.ArticlePhotoRoute = Ember.Route.extend({
 
     },
     model: function(params) {
-        
-         var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});// = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
+
+        var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});// = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
 
         this.controllerFor("article").set("searchFromRoute", true); //only use in userarticle route to get the temp id;
         this.controllerFor("mega").set("clickOrRoute", true);

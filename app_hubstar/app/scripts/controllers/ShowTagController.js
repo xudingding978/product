@@ -230,15 +230,14 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             var thatthat = that;
             if (params !== "" && params !== undefined && params !== null)
             {
-console.log("aaaaaaaaaaabbbbbbbbbbbbb");
                 that.set("contentTags", params);
                 //    that.get("controllers.article").set("contentTagsArticle", params);
                 if (HubStar.get("isArticleTag") === true)
-                {
+                {console.log("aaaaaaaaaaabbbbbbbbbbbbb");
                     that.get("controllers.article").set("contentTagsArticle", params);
                 }
                 else
-                {
+                {console.log("11111111111");
                     that.get("controllers.mega").set("contentTags", params);
                 }
 
@@ -258,14 +257,14 @@ console.log("aaaaaaaaaaabbbbbbbbbbbbb");
                         for (var i = 0; i < tags.length; i++)
                         { 
                             var tagDiv = "#tag_" + tags[i].tag_id;
-                            var height = tags[i].pic_y*HubStar.get("pic_current_height")+$("#tag_image_object").offset().top-50;  //set the tag's place which is the percentage of image and add the picture origin left point place
+                            var height = tags[i].pic_y*HubStar.get("pic_current_height")+$("#tag_image_object").offset().top;  //set the tag's place which is the percentage of image and add the picture origin left point place
                             var width =tags[i].pic_x*HubStar.get("pic_current_width")+$("#tag_image_object").offset().left;
                             $(tagDiv).css({top:height, left: width});
                             //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
                         }
                     }
                 }
-                , 50);
+                , 45);
             }
             else
             {

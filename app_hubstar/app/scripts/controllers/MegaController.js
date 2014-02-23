@@ -335,27 +335,35 @@ HubStar.MegaController = Ember.ArrayController.extend({
     JudgePhotoOwner: function(mega)
     {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
-        var login_user_id = currentUser.get("id"); // current login user id
+        var that = this;
+        currentUser.then(function() {
+            var login_user_id = currentUser.get("id"); // current login user id
 
-        var profile_id = mega.get("owner_id");
-        var profile = HubStar.Profile.find(profile_id);
-        if (profile.get("profile_owner_ids") !== null && profile.get("profile_owner_ids") !== undefined && profile.get("profile_owner_ids") !== "")
-        {
-            var profile_owner_ids = profile.get("profile_owner_ids");
-            for (var i = 0; i < profile_owner_ids.get("length"); i++)
-            {
-                var photoOwner = profile_owner_ids.objectAt(i).get("user_id");
-                if (login_user_id === photoOwner)
+            var profile_id = mega.get("owner_id");
+            var thatthat = that;
+            var profile = HubStar.Profile.find(profile_id);
+            profile.then(function() {
+                if (profile.get("profile_owner_ids") !== null && profile.get("profile_owner_ids") !== undefined && profile.get("profile_owner_ids") !== "")
                 {
-                    this.set("isPhotoOwner", true);
-                    break;
+                    var profile_owner_ids = profile.get("profile_owner_ids");
+                    for (var i = 0; i < profile_owner_ids.get("length"); i++)
+                    {
+                        var photoOwner = profile_owner_ids.objectAt(i).get("user_id");
+                        if (login_user_id === photoOwner)
+                        {
+                            thatthat.set("isPhotoOwner", true);
+                            break;
+                        }
+                        else
+                        {
+                            thatthat.set("isPhotoOwner", false);
+                        }
+                    }
                 }
-                else
-                {
-                    this.set("isPhotoOwner", false);
-                }
-            }
-        }
+            });
+
+        });
+
     },
     /******* function name: enableTag
      * parameter:

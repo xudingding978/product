@@ -590,7 +590,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                 megaObject.set("view_count", megaData + 1);
             }
             megaObject.store.save();
-        }, 5000);
+        }, 6000);
     },
     checkCreditExist: function(credits) {
         if (credits !== null && credits !== 'undefined' && credits.get('length') > 0) {

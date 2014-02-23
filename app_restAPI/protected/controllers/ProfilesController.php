@@ -359,8 +359,9 @@ class ProfilesController extends Controller {
     }
 
     public function actionUpdateStyleImage() {
+        
         $payloads_arr = CJSON::decode(file_get_contents('php://input'));
-
+        
         $photo_string = $payloads_arr['newStyleImageSource'];
         $photo_name = $payloads_arr['newStyleImageName'];
 
@@ -372,9 +373,9 @@ class ProfilesController extends Controller {
         $compressed_photo = $photoController->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
-
+       
         $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $owner_id, $mode);
-
+        
         $cb = $this->couchBaseConnection();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/profiles/' . $owner_id));
 
@@ -390,7 +391,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_pic_url'] = null;
             $oldRecord['profile'][0]['profile_pic_url'] = $url;
         }
-
+        
         if ($mode == 'profile_hero') {
             $smallimage = $photoController->savePhotoInTypes($orig_size, 'hero', $photo_name, $compressed_photo, $data_arr, $owner_id, $mode);
             $oldRecord['profile'][0]['profile_hero_cover_url'] = null;

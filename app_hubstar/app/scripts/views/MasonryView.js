@@ -9,13 +9,14 @@ HubStar.MasonryView = Ember.View.extend({
 //                isInitLayout: false,
 //                isFitWidth: true
 //        });
-        
+
         $(function() {
             $('#masonry_container').masonry({
                 itemSelector: '.box',
                 columnWidth: 185,
                 isInitLayout: false,
-                isFitWidth: true
+                isFitWidth: true,
+                transitionDuration: 0               
             });
         });
         if (HubStar.get('searchStart')) {
@@ -37,11 +38,11 @@ HubStar.MasonryView = Ember.View.extend({
         $(collape_button).attr("style", "display:block");
         $(more_button).attr("style", "display:none");
 
-         setTimeout(function() {
+        setTimeout(function() {
             $('#masonry_container').masonry("reloadItems");
             setTimeout(function() {
-                 $('#masonry_container').masonry();
-            },100);
+                $('#masonry_container').masonry();
+            }, 100);
         }, 200);
     },
     collapeContent: function(event) {
@@ -54,11 +55,11 @@ HubStar.MasonryView = Ember.View.extend({
         $(collape_button).attr("style", "display:none");
         $(more_button).attr("style", "display:block");
 
-         setTimeout(function() {
+        setTimeout(function() {
             $('#masonry_container').masonry("reloadItems");
             setTimeout(function() {
-                 $('#masonry_container').masonry();
-            },100);
+                $('#masonry_container').masonry();
+            }, 100);
         }, 200);
     },
     mega: function() {

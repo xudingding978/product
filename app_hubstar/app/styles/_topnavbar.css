@@ -371,6 +371,16 @@
     border-radius: 0 0 5px 5px;
 }
 
+#login-with-email-drop-down{
+    width: 300px;
+    margin: 0 auto ;
+    background-color: #fff;
+    border-radius: 0 0 5px 5px;
+}
+
+
+
+
 
 
 .error-textfield{
@@ -859,8 +869,13 @@ div#login_detail{
                 border-radius: 0 0 5px 5px;*/
     }
 
-    #register-with-email-step-2{
-        width: 250px;
+    #register-with-email-step-2{width: 250px;}
+
+    #login-with-email-drop-down{width: 250px;}
+
+    .login-textfield {
+        height: 40px;
+        line-height: 40px;
     }
 
 
@@ -868,12 +883,27 @@ div#login_detail{
         font-size: 13px;
     }
 
+    .login-select {
+        height:40px;
+        line-height: 40px;
+    }
+
+
     .register-btn {
         width: 250px;
         height: 40px;
         line-height: 40px;
         font-size: 13px;
     }
+
+    .back-btn {
+        width: 49%;
+        height: 40px;
+        line-height: 40px;
+        font-size: 13px;
+    }
+
+    div.register-btn-small {width: 49%}
 
 }
 

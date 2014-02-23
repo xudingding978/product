@@ -75,8 +75,8 @@ module.exports = function(grunt) {
 //        },
         replace: {
             dist: {
-                src: '<%= yeoman.app %>/templates/header.hbs',
-                dest: '<%= yeoman.app %>/templates/header.hbs',
+                src: '<%= yeoman.app %>/templates/navigator.hbs',
+                dest: '<%= yeoman.app %>/templates/navigator.hbs',
                 replacements: [{
                         from: /lastidentifie\"\>\d\.\d\-[0-9]{1,500}/g,
                         to: function(matchedWord) {
@@ -122,7 +122,7 @@ module.exports = function(grunt) {
             options: {
                 port: 9000,
                 // change this to '0.0.0.0' to access the server from outside
-                hostname: 'localhost'
+                hostname: '0.0.0.0'
             },
             livereload: {
                 options: {

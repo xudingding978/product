@@ -10,14 +10,15 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('searchs').set("loginInfo", localStorage.loginStatus);
         this.controllerFor('searchs').setLoginImge();
         this.controllerFor('application').set('search_string', model.id);
+       $(window).scrollTop(0);
         if (HubStar.get("escVideo") !== true)
         {
             this.controllerFor('application').newSearch();
+            HubStar.set("scrollDownSearch", true);
         }
         else {
             HubStar.set("escVideo", false);
-        }
-
+        }      
         this.controllerFor('index').setLogin();
 
         this.controllerFor('application').set('islogin', true);
@@ -26,9 +27,16 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('application').set('isotherpage', false);
         localStorage.checkUser = "";
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-        setTimeout(function() {
-            $('#masonry_container').masonry();  //masonry();
-        }, 300);
+//        setTimeout(function() {
+//            $('#masonry_container').masonry();  //masonry();
+//        }, 300);
+//        var container = document.querySelector('#masonry_container');
+//        var msnry = new Masonry(container, {
+//            itemSelector: '.box',
+//            columnWidth: 185,
+//            isInitLayout: false,
+//            isFitWidth: true
+//        });
     },
     model: function(params) {
         var address=decodeURIComponent(document.URL);       
@@ -94,7 +102,7 @@ HubStar.SearchRoute = Ember.Route.extend({
     },
     redirect: function() {
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-//            this.transitionTo('indexIndex');
+            this.transitionTo('indexIndex');
 
         } else {
             // this.transitionTo('searchIndex');
@@ -106,15 +114,22 @@ HubStar.SearchRoute = Ember.Route.extend({
         if (HubStar.get("setHight") === null || HubStar.get("setHight") === "null") {
             HubStar.set("setHight", 0);
         }
-
-        $(function() {
-            $('#masonry_container').masonry({
-                itemSelector: '.box',
-                columnWidth: 185,
-                isInitLayout: false,
-                isFitWidth: true
-            });
-        });
+//        var container = document.querySelector('#masonry_container');
+//        var msnry = new Masonry(container, {
+//             itemSelector: '.box',
+//                columnWidth: 185,
+//                isInitLayout: false,
+//                isFitWidth: true
+//        });
+////
+//        $(function() {
+//            $('#masonry_container').masonry({
+//                itemSelector: '.box',
+//                columnWidth: 185,
+//                isInitLayout: false,
+//                isFitWidth: true
+//            });
+//        });
         $(window).scrollTop(HubStar.get("setHight"));
         HubStar.set("setHight", 0);
 

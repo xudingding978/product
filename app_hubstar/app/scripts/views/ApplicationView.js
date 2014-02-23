@@ -121,9 +121,15 @@ HubStar.ApplicationView = Ember.View.extend({
         }
     },
     isScrolledToBottom: function() {
-        var distanceToTop = $(document).height() - $(window).height(),
-                top = $(document).scrollTop();
-        return top === distanceToTop;
+        if (!HubStar.get("scrollDownSearch")) {
+            var distanceToTop = $(document).height() - $(window).height(),
+                    top = $(document).scrollTop();
+            //console.log(distanceToTop-top);
+            return (distanceToTop - top) < 2000;
+        }
+        else{
+            return false;
+        }
     },
     willDestroyElement: function() {
     },

@@ -283,10 +283,10 @@ class PhotosController extends Controller {
         $compressed_photo = $this->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = intval(imagesx($compressed_photo));
         $orig_size['height'] = intval(imagesy($compressed_photo));
-        $thumbnailUrl = $this->savePhotoInTypes($orig_size, "thumbnail", $photo_name, $photo, $data_arr, $owner_id);
-        $heroUrl = $this->savePhotoInTypes($orig_size, "hero", $photo_name, $photo, $data_arr, $owner_id);
-        $previewUrl = $this->savePhotoInTypes($orig_size, "preview", $photo_name, $photo, $data_arr, $owner_id);
-        $originalUrl = $this->savePhotoInTypes($orig_size, "original", $photo_name, $compressed_photo, $data_arr, $owner_id);
+        $thumbnailUrl = $this->savePhotoInTypes($orig_size, "thumbnail", $photo_name, $photo, $data_arr, $owner_id,"photo");
+        $heroUrl = $this->savePhotoInTypes($orig_size, "hero", $photo_name, $photo, $data_arr, $owner_id,"photo");
+        $previewUrl = $this->savePhotoInTypes($orig_size, "preview", $photo_name, $photo, $data_arr, $owner_id,"photo");
+        $originalUrl = $this->savePhotoInTypes($orig_size, "original", $photo_name, $compressed_photo, $data_arr, $owner_id,"photo");
 
         $mega['object_image_url'] = $heroUrl;
         $mega['photo'][0]['photo_image_original_url'] = $originalUrl;
@@ -306,18 +306,22 @@ class PhotosController extends Controller {
 
     public function savePhotoInTypes($orig_size, $photo_type, $photo_name, $compressed_photo, $data_arr, $owner_id, $optional = null, $type = null) {
 
-        $new_size = $this->getNewPhotoSize($orig_size, $photo_type);
+        $new_size = $this->getNewPhotoSize($orig_size, $photo_type);        
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
         //$new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
-        $bucket = 's3.hubsrv.com';
+        $bucket = 's3.hubsrv.com';     
         if ($optional == null || $optional == 'undefined' || $optional == "") {
             $url = $this->getDomain() . '/users' . "/" . $owner_id . "/" . $photo_type . "/" . $photo_name;
         } else if($optional == 'profile_picture'){
             $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $optional;
         }
-          else  {
+        else  if($optional =="photo"){
             $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
             $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $new_photo_name;
+        }
+        else
+        {
+            $url = $this->getDomain() . '/users' . "/" . $owner_id . "/" . $photo_type . "/" . $photo_name;
         }
         $this->saveImageToS3($url, $new_photo_data, $bucket, $type);
         $s3url = 'http://' . $bucket . '/' . $url;

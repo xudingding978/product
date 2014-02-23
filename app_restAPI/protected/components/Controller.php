@@ -1,5 +1,7 @@
 <?php
 
+header('Access-Control-Allow-Origin: *');
+
 session_start();
 
 class Controller extends CController {
@@ -33,10 +35,12 @@ class Controller extends CController {
     protected function couchBaseConnection_production() {
         return new Couchbase("cb1.hubsrv.com:8091", "", "", "production", true);
     }
-        protected function couchBaseConnection_test() {
+
+    protected function couchBaseConnection_test() {
         return new Couchbase("cb1.hubsrv.com:8091", "", "", "test", true);
     }
-        protected function couchBaseConnection_develop() {
+
+    protected function couchBaseConnection_develop() {
         return new Couchbase("cb1.hubsrv.com:8091", "", "", "develop", true);
     }
 
@@ -158,9 +162,9 @@ class Controller extends CController {
             $response = $this->profileSetting($response, $returnType, 'search');
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
-            $owner_profile_id = $this->getUserInput($requireParams[2]);           
+            $owner_profile_id = $this->getUserInput($requireParams[2]);
             $response = $this->getCollectionReults($collection_id, $owner_profile_id);
-            $response = $this->profileSetting($response, $returnType);
+            $response = $this->profileSetting($response, $returnType, 'collection');
         } elseif ($requireType == 'partner') {
             $response = $this->getPartnerResults($requireParams[1]);
             $response = $this->getReponseResult($response, $returnType);
@@ -172,6 +176,7 @@ class Controller extends CController {
             $owner_id = $this->getUserInput($requireParams[2]);
             $response = $this->getArticleRelatedImages($article_id, $owner_id);
             $response = $this->getReponseResult($response, $returnType);
+            $response = $this->profileSetting($response, $returnType, 'profilecollection');
         } elseif ($requireType == 'firstsearch') {
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
@@ -184,6 +189,7 @@ class Controller extends CController {
             $userid = $this->getUserInput($requireParams[1]);
             $collection_id = $this->getUserInput($requireParams[2], false);
             $response = $this->searchCollectionItem($userid, $collection_id, $returnType);
+            $response = $this->profileSetting($response, $returnType, 'profilecollection');
         } elseif ($requireType == 'profileCollection') {
             $userid = $this->getUserInput($requireParams[1]);
             $collection_id = $this->getUserInput($requireParams[2], false);
@@ -191,6 +197,7 @@ class Controller extends CController {
             $response = $this->profileSetting($response, $returnType, 'profilecollection');
         } elseif ($requireType == 'defaultSearch') {
             $response = $this->searchCollectionItem('21051211514', 'editor-picks', $returnType);
+            $response = $this->profileSetting($response, $returnType, 'profilecollection');
         } elseif ($requireType == 'video') {
             $videoOwnerId = $this->getUserInput($requireParams[1]);
             $response = $this->getVideoesByOwner($returnType, $videoOwnerId);
@@ -219,22 +226,60 @@ class Controller extends CController {
     }
 
     protected function searchCollectionItem($userid, $collection_id, $returnType) {
-        $conditions = array();
-        $requestStringOne = 'couchbaseDocument.doc.user.id=' . $userid;
-        array_push($conditions, $requestStringOne);
-        $requestStringTwo = 'couchbaseDocument.doc.user.collections.id=' . $collection_id;
-        array_push($conditions, $requestStringTwo);
-        $tempResult = $this->searchWithCondictions($conditions, 'must');
-        $tempResult = $this->getReponseResult($tempResult, $returnType);
+//        $conditions = array();
+//        $requestStringOne = 'couchbaseDocument.doc.user.id=' . $userid;
+//        array_push($conditions, $requestStringOne);
+//        $requestStringTwo = 'couchbaseDocument.doc.user.collections.id=' . $collection_id;
+//        array_push($conditions, $requestStringTwo);
+//        $tempResult = $this->searchWithCondictions($conditions, 'must');
+//        $tempResult = $this->getReponseResult($tempResult, $returnType);
+
+        $cb = $this->couchBaseConnection();
+
+        $tempResult = $this->getDomain() . "/users/" . $userid;
+        $tempResult = $cb->get($tempResult);
+
+
+
         $mega = CJSON::decode($tempResult, true);
-        if (!isset($mega['megas'][0]['user'][0]['collections'])) {
+        if (!isset($mega['user'][0]['collections'])) {
             $collections = array();
         } else {
-            $collections = $mega['megas'][0]['user'][0]['collections'];
+            $collections = $mega['user'][0]['collections'];
         }
-        $response = $this->getCollections($collections, $collection_id, $returnType);
 
-        return $response;
+        $collection = null;
+        
+
+
+        for ($i = 0; $i < sizeof($collections); $i++) {
+           
+            if ($collections[$i]['id'] === $collection_id) {
+                $collection = $collections[$i];
+
+                break;
+            }
+        }
+        $collectionIds = explode(",", $collection['collection_ids']);
+        $response = Array();
+        $megas = Array();
+
+
+        for ($i = 0; $i < sizeof($collectionIds); $i++) {
+            if ($collectionIds[$i] !== "") {
+                $owner = $this->getDomain() . "/" . trim($collectionIds[$i]);
+                $mega = $cb->get($owner);
+                $megaNew = CJSON::decode($mega, true);
+                if ($megaNew !== null && $megaNew !== "") {
+                    array_push($megas, $megaNew);
+                }
+            }
+        }
+
+        $response["megas"] = $megas;
+        return CJSON::encode($response);
+
+        //$response = $this->getCollections($collections, $collection_id, $returnType);
     }
 
     protected function searchProfileCollectionItem($userid, $collection_id, $returnType) {
@@ -242,22 +287,57 @@ class Controller extends CController {
         $requestStringOne = 'couchbaseDocument.doc.profile.id=' . $userid;
         array_push($conditions, $requestStringOne);
         $requestStringTwo = 'couchbaseDocument.doc.profile.collections.id=' . $collection_id;
+        error_log(var_export($userid, true));
+        error_log(var_export($collection_id, true));
         array_push($conditions, $requestStringTwo);
         $tempResult = $this->searchWithCondictions($conditions, 'must');
         $tempResult = $this->getReponseResult($tempResult, $returnType);
+        
         $mega = CJSON::decode($tempResult, true);
+        error_log(var_export($mega, true));
         if (!isset($mega['megas'][0]['profile'][0]['collections'])) {
             $collections = array();
         } else {
             $collections = $mega['megas'][0]['profile'][0]['collections'];
         }
-        $response = $this->getCollections($collections, $collection_id, $returnType);
+        //error_log(var_export($collections, true));
 
-        return $response;
+        for ($i = 0; $i < sizeof($collections); $i++) {
+            error_log(var_export($collections[$i]['id'], true));
+            error_log(var_export($collection_id, true));
+            if ($collections[$i]['id'] === $collection_id) {
+                error_log("sssssssssssss");
+                $collection = $collections[$i];
+                break;
+            }
+        }
+        if (isset($collection)) {
+            $collectionIds = explode(",", $collection['collection_ids']);
+            $response = Array();
+            $megas = Array();
+            $cb = $this->couchBaseConnection();
+
+            for ($i = 0; $i < sizeof($collectionIds); $i++) {
+                if ($collectionIds[$i] !== "") {
+                    $owner = $this->getDomain() . "/" . trim($collectionIds[$i]);
+                    $mega = $cb->get($owner);
+                    $megaNew = CJSON::decode($mega, true);
+                    if ($megaNew !== null && $megaNew !== "") {
+                        array_push($megas, $megaNew);
+                    }
+                }
+            }
+
+            $response["megas"] = $megas;
+        } else {
+            $response = Array();
+            $megas = Array();
+            $response["megas"] = $megas;
+        }
+        return CJSON::encode($response);
     }
-    
-    
-    public function fixUserpicture(){
+
+    public function fixUserpicture() {
         
     }
 
@@ -315,8 +395,8 @@ class Controller extends CController {
               }');
 
             $request->filter($filter);
-        }else{
-             $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+        } else {
+            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
                 "query": {
                   "bool": {
                     "must": [
@@ -335,7 +415,7 @@ class Controller extends CController {
               }');
 
             $request->filter($filter);
-        } 
+        }
 //        else {
 //            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
 //                "query": {
@@ -384,12 +464,84 @@ class Controller extends CController {
 //        error_log($request->query($termQuery)->toJSON());
 
         $response = $request->query($termQuery)->execute();
-  //       error_log($request->query($termQuery)->toJSON());
-        error_log("\n".$request->toJSON()."\n") ;
+        //       error_log($request->query($termQuery)->toJSON());
+        error_log("\n" . $request->toJSON() . "\n");
         return $response;
     }
 
     protected function searchWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50, $location = 'Global') {
+        $request = $this->getElasticSearch();
+        $request->from($from);
+        $request->size($size);
+        if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
+            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+                "query": {
+                  "bool": {
+                    "must": [{
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.country",
+                        "query": "' . $location . '"
+                      }
+                    },
+                    {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.is_deleted",
+                        "query": "' . 0 . '"
+                      }
+                    }
+                    ],
+                    "must_not": {
+                   
+                  }
+                }
+                }
+              }');
+
+            $request->filter($filter);
+        } else {
+            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+                "query": {
+                  "bool": {
+                    "must": [
+                    {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.is_deleted",
+                        "query": "' . 0 . '"
+                      }
+                    }
+                    ],
+                    "must_not": {
+                   
+                  }
+                }
+                }
+              }');
+
+            $request->filter($filter);
+        }
+        $max = sizeof($conditions);
+        $bool = Sherlock\Sherlock::queryBuilder()->Bool();
+        for ($i = 0; $i < $max; $i++) {
+            $must = $this->getmustQuestWithQueryString($conditions[$i]);
+            if ($search_type == "must") {
+                $bool->must($must);
+            } else if ($search_type == "should") {
+                $bool->must($must);
+            } else {
+                echo "no such search type, please input: must or should as a search type.";
+            }
+        }
+
+        error_log("second search------\n");
+        $request->query($bool);
+
+        error_log($request->toJSON());
+        $response = $request->execute();
+
+        return $response;
+    }
+
+    protected function searchArticleWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50, $location = 'Global') {
         $request = $this->getElasticSearch();
         $request->from($from);
         $request->size($size);
@@ -414,10 +566,10 @@ class Controller extends CController {
                 echo "no such search type, please input: must or should as a search type.";
             }
         }
-         $sort = Sherlock\Sherlock::sortBuilder();
+        $sort = Sherlock\Sherlock::sortBuilder();
         $sort1 = $sort->Field()->name("couchbaseDocument.doc.photo.photo_isExtra")->order('asd');
         $sort2 = $sort->Field()->name("couchbaseDocument.doc.photo.photo_sequence")->order("asd");
-        
+
         $request->query($bool);
         $request->sort($sort1, $sort2);
         error_log($request->toJSON());
@@ -552,37 +704,56 @@ class Controller extends CController {
     protected function profileSetting($tempResult, $returnType, $type) {
 
         $profile_id = "";
-        $tempResult = CJSON::decode($tempResult);
-        $cb = $this->couchBaseConnection();            
+        if ($type !== 'collection') {
+            $tempResult = CJSON::decode($tempResult);
+        }
+        $cb = $this->couchBaseConnection();
         if ($type === 'firstsearch') {
-            for ($i = 0; $i <sizeof($tempResult['stats'][0]['megas']); $i++) {
+            for ($i = 0; $i < sizeof($tempResult['stats'][0]['megas']); $i++) {
 //                error_log(var_export($hit, TRUE));
                 $hit = $tempResult['stats'][0]['megas'][$i];
-                $profile_id = $hit['owner_id'];                
-                $domain = $this->getDomain();
-                $docID_profile = $domain . "/profiles/" . $profile_id;
-                $tempMega_profile = $cb->get($docID_profile);
-                $mega_profile = CJSON::decode($tempMega_profile, true);
-                $profile_editors = $mega_profile["profile"][0]["profile_editors"];
-                $profile_name = $mega_profile["profile"][0]["profile_name"];
-                error_log($profile_name);
-                $tempResult['stats'][0]['megas'][$i]['editors'] = $profile_editors;
-                $tempResult['stats'][0]['megas'][$i]['owner_title'] = $profile_name;
+                if (isset($hit['owner_id'])) {
+                    $profile_id = $hit['owner_id'];
+                    $domain = $this->getDomain();
+                    $docID_profile = $domain . "/profiles/" . $profile_id;
+                    $tempMega_profile = $cb->get($docID_profile);
+                    $mega_profile = CJSON::decode($tempMega_profile, true);
+//                    $profile_editors = $mega_profile["profile"][0]["profile_editors"];
+//                    $profile_name = $mega_profile["profile"][0]["profile_name"];
+//                    $profile_pic = $mega_profile["profile"][0]["profile_pic_url"];
+                    $profile_editors = (isset($mega_profile["profile"][0]["profile_editors"])) ? $mega_profile["profile"][0]["profile_editors"] : '*@trendsideas.com';
+                    //error_log("this is editor:" . $profile_editors);
+                    //    $profile_editors = $mega_profile["profile"][0]["profile_editors"];
+                    $profile_name = (isset($mega_profile["profile"][0]["profile_name"])) ? $mega_profile["profile"][0]["profile_name"] : 'Trends Ideas';
+                    //          $profile_name = $mega_profile["profile"][0]["profile_name"];
+                    $profile_pic = (isset($mega_profile["profile"][0]["profile_pic_url"])) ? $mega_profile["profile"][0]["profile_pic_url"] : 'http://s3.hubsrv.com/trendsideas.com/profiles/new-home-trends/profile_picture/profile_picture_192x192.jpg';
+                    //   $profile_pic = $mega_profile["profile"][0]["profile_pic_url"];
+                    $tempResult['stats'][0]['megas'][$i]['editors'] = $profile_editors;
+                    $tempResult['stats'][0]['megas'][$i]['owner_title'] = $profile_name;
+                    $tempResult['stats'][0]['megas'][$i]['owner_profile_pic'] = $profile_pic;
+                }
             }
-        }else {
-            for ($i = 0; $i <sizeof($tempResult['megas']); $i++) {
-//                error_log(var_export($hit, TRUE));
+        } else {
+
+            for ($i = 0; $i < sizeof($tempResult['megas']); $i++) {
                 $hit = $tempResult['megas'][$i];
-                $profile_id = $hit['owner_id'];                
-                $domain = $this->getDomain();
-                $docID_profile = $domain . "/profiles/" . $profile_id;
-                $tempMega_profile = $cb->get($docID_profile);
-                $mega_profile = CJSON::decode($tempMega_profile, true);
-                $profile_editors = $mega_profile["profile"][0]["profile_editors"];
-                $profile_name = $mega_profile["profile"][0]["profile_name"];
-                error_log($profile_name);
-                $tempResult['megas'][$i]['editors'] = $profile_editors;
-                $tempResult['megas'][$i]['owner_title'] = $profile_name;
+                if (isset($hit['owner_id'])) {
+                    $profile_id = $hit['owner_id'];
+                    $domain = $this->getDomain();
+                    $docID_profile = $domain . "/profiles/" . $profile_id;
+                    $tempMega_profile = $cb->get($docID_profile);
+                    $mega_profile = CJSON::decode($tempMega_profile, true);
+                    $profile_editors = (isset($mega_profile["profile"][0]["profile_editors"])) ? $mega_profile["profile"][0]["profile_editors"] : '*@trendsideas.com';
+                    //error_log("this is editor:" . $profile_editors);
+                    //    $profile_editors = $mega_profile["profile"][0]["profile_editors"];
+                    $profile_name = (isset($mega_profile["profile"][0]["profile_name"])) ? $mega_profile["profile"][0]["profile_name"] : 'Trends Ideas';
+                    //          $profile_name = $mega_profile["profile"][0]["profile_name"];
+                    $profile_pic = (isset($mega_profile["profile"][0]["profile_pic_url"])) ? $mega_profile["profile"][0]["profile_pic_url"] : 'http://s3.hubsrv.com/trendsideas.com/profiles/new-home-trends/profile_picture/profile_picture_192x192.jpg';
+                    //   $profile_pic = $mega_profile["profile"][0]["profile_pic_url"];
+                    $tempResult['megas'][$i]['editors'] = $profile_editors;
+                    $tempResult['megas'][$i]['owner_title'] = $profile_name;
+                    $tempResult['megas'][$i]['owner_profile_pic'] = $profile_pic;
+                }
             }
         }
         return CJSON::encode($tempResult);
@@ -703,7 +874,7 @@ class Controller extends CController {
         array_push($conditions, $requestStringOne);
         $requestStringTwo = 'couchbaseDocument.doc.owner_id=' . $owner_id;
         array_push($conditions, $requestStringTwo);
-        $response = $this->searchWithCondictions($conditions, 'must');
+        $response = $this->searchArticleWithCondictions($conditions, 'must');
         return $response;
     }
 

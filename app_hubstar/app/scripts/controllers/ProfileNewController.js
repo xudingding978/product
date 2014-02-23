@@ -6,7 +6,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
     categorySelection: "Category",
     subcategorySelection: "Subcategory",
     countrySelection: "Country",
-    regionSelection: "Regoin/State",
+    regionSelection: "Region/State",
     numberSelection: "-",
     keywordNumber: "5",
     heroImage: false,
@@ -81,7 +81,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 && $('#categorySelection').text() !== "Category"
                 && $('#subcategorySelection').text() !== "Subcategory"
                 && $('#countrySelection').text() !== "Country"
-                && $('#regionSelection').text() !== "Regoin/State"
+                && $('#regionSelection').text() !== "Region/State"
                 && $('#contactEmail').val() !== ""
                 && $('#admins_1').val() !== ""
                 && this.validateEmail($('.contactEmail').val())
@@ -159,7 +159,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
             $('#errorMessage4').attr('style', 'display:none');
             document.getElementById('countrySelectionCheck').setAttribute("class", "new-btn");
         }
-        if ($('#regionSelection').text() === "Regoin/State") {
+        if ($('#regionSelection').text() === "Region/State") {
             $('#errorMessage4').attr('style', 'display:block');
             document.getElementById('regionSelectionCheck').setAttribute("class", "error-textfield new-btn");
 

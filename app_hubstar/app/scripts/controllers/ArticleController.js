@@ -136,14 +136,15 @@ HubStar.ArticleController = Ember.Controller.extend({
         var that = this;
         HubStar.set("pic_current_width", width);
         HubStar.set("pic_current_height", height);
-        for (var i = 0; i < tags.length; i++)
-        {
-            var tagDiv = "#tag_" + tags[i].tag_id;
-            var pic_width = width * tags[i].pic_x + $("#tag_image_object").offset().left;
-            var pic_height = height * tags[i].pic_y + $("#tag_image_object").offset().top;
-            $(tagDiv).css({top: pic_height, left: pic_width});
-            //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
-        }
+         this.get("controllers.showTag").readTags(photo_id);
+//        for (var i = 0; i < tags.length; i++)
+//        {
+//            var tagDiv = "#tag_" + tags[i].tag_id;
+//            var pic_width = width * tags[i].pic_x + $("#tag_image_object").offset().left;
+//            var pic_height = height * tags[i].pic_y + $("#tag_image_object").offset().top;
+//            $(tagDiv).css({top: pic_height, left: pic_width});
+//            //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
+//        }
     },
 //    windowResizeTags: function(tags)
 //    {
@@ -550,6 +551,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
         this.selectedImage(e);
         this.captionDisplay();
+        ////alert(this.get('megaResouce').get("photo").objectAt(0).get("id"));
+       // this.get("controllers.showTag").readTags(this.get('megaResouce').get("photo").objectAt(0).get("id"));
     },
     selectedImage: function(id) {
         var selectedImage_id = "#" + id;

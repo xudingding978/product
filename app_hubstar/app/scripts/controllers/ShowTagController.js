@@ -46,7 +46,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         $('#tagit').fadeOut();
         this.set('selectTagProfile', false); // show list of profile
         var photo_id = this.get("photo_id");
-        alert(photo_id);
         var selectedID = this.get("selectedID"); //the selected profile id
         if (selectedID === "" || selectedID === null || selectedID === undefined)
         {
@@ -233,38 +232,43 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 that.set("contentTags", params);
                 //    that.get("controllers.article").set("contentTagsArticle", params);
                 if (HubStar.get("isArticleTag") === true)
-                {console.log("aaaaaaaaaaabbbbbbbbbbbbb");
+                {
+                    console.log("aaaaaaaaaaabbbbbbbbbbbbb");
                     that.get("controllers.article").set("contentTagsArticle", params);
                 }
                 else
-                {console.log("11111111111");
+                {
+                    console.log("11111111111");
                     that.get("controllers.mega").set("contentTags", params);
                 }
 
                 var tags = params;
 
-                setTimeout(function() {
-                    //thatthat.get("controllers.mega").set("tagCount", params.get("length"));
-                    if (HubStar.get("isArticleTag") === true)
-                    {
-                        thatthat.get("controllers.article").set("tagCount", params.get("length"));
-                    } else
-                    {
-                        thatthat.get("controllers.mega").set("tagCount", params.get("length"));
-                    }
-                    if (tags !== undefined && tags !== "" && tags !== null)
-                    {console.log("bbbbbbbbbbbbbbbbbbbbbbb");
-                        for (var i = 0; i < tags.length; i++)
-                        { 
-                            var tagDiv = "#tag_" + tags[i].tag_id;
-                            var height = tags[i].pic_y*HubStar.get("pic_current_height")+$("#tag_image_object").offset().top;  //set the tag's place which is the percentage of image and add the picture origin left point place
-                            var width =tags[i].pic_x*HubStar.get("pic_current_width")+$("#tag_image_object").offset().left;
-                            $(tagDiv).css({top:height, left: width});
-                            //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
+
+                    setTimeout(function() {
+                        //thatthat.get("controllers.mega").set("tagCount", params.get("length"));
+                        if (HubStar.get("isArticleTag") === true)
+                        {
+                            thatthat.get("controllers.article").set("tagCount", params.get("length"));
+                        } else
+                        {
+                            thatthat.get("controllers.mega").set("tagCount", params.get("length"));
+                        }                       
+                        if (tags !== undefined && tags !== "" && tags !== null)
+                        {
+                            console.log("bbbbbbbbbbbbbbbbbbbbbbb");
+                              console.log(HubStar.get("pic_current_height") +"   "+ document.getElementById('tag_image_object').offsetTop);
+                                          console.log(HubStar.get("pic_current_width") +"   "+ document.getElementById('tag_image_object').offsetLeft);
+                            for (var i = 0; i < tags.length; i++)
+                            {
+                                var tagDiv = "#tag_" + tags[i].tag_id;
+                                var height = tags[i].pic_y * HubStar.get("pic_current_height") + document.getElementById('tag_image_object').offsetTop;  //set the tag's place which is the percentage of image and add the picture origin left point place
+                                var width = tags[i].pic_x * HubStar.get("pic_current_width") + document.getElementById('tag_image_object').offsetLeft;
+                                $(tagDiv).css({top: height, left: width});
+                            }
                         }
-                    }
-                }
-                , 45);
+                    },650);
+              
             }
             else
             {

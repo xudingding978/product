@@ -24,8 +24,8 @@ HubStar.ArticlePhotoRoute = Ember.Route.extend({
             that.controllerFor('mega').getInitData(megaModel);
             setTimeout(function() {
                 
-                console.log(megaModel.get("photo").objectAt(0).get("photo_original_height") + "   " + megaModel.get("photo").objectAt(0).get("photo_original_width"));
-                console.log(document.getElementById('tag_image_object').offsetHeight + "   " + document.getElementById('tag_image_object').offsetWidth);
+               // console.log(megaModel.get("photo").objectAt(0).get("photo_original_height") + "   " + megaModel.get("photo").objectAt(0).get("photo_original_width"));
+              ///  console.log(document.getElementById('tag_image_object').offsetHeight + "   " + document.getElementById('tag_image_object').offsetWidth);
                 HubStar.set("pic_current_height", megaModel.get("photo").objectAt(0).get("photo_original_height"));
                 HubStar.set("pic_current_width", megaModel.get("photo").objectAt(0).get("photo_original_width"));
 

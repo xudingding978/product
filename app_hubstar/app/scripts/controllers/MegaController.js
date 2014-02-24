@@ -488,24 +488,30 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 var photoObj = megaObject.get('photo').objectAt(0);
                 HubStar.set("pic_current_height", photoObj.get("photo_original_height"));
                 HubStar.set("pic_current_width", photoObj.get("photo_original_width"));
-                if (HubStar.get("isArticleTag") !== true)
-                {
+                var that =this;
+                photoObj.then(function() {
+                    if (HubStar.get("isArticleTag") !== true)
+                    {
+console.log("22222222222222222222222");
 
-                    this.get("controllers.showTag").readTags(photoObj.get("id"));
-
-                    var that = this;
-                    setTimeout(function() {
-                        if (that.get("contentTags") !== "" && that.get("contentTags") !== null && that.get("contentTags") !== undefined)
-                        {
-                            if (that.get("contentTags").get("length") > 0)
+                        that.get("controllers.showTag").readTags(photoObj.get("id"));
+                        // that.get("controllers.showTag").set("showEachTagContent",true);
+                      
+                        var thatthat = that;
+                        setTimeout(function() {
+                            if (thatthat.get("contentTags") !== "" && thatthat.get("contentTags") !== null && thatthat.get("contentTags") !== undefined)
                             {
-                                that.set("hasTag", true);
-                                // that.set("tagCount", that.get("contentTags").get("length"));
+                                if (thatthat.get("contentTags").get("length") > 0)
+                                {
+                                    thatthat.set("hasTag", true);
+                                    // that.set("tagCount", that.get("contentTags").get("length"));
+                                }
                             }
-                        }
-                    }, 60);
-                    this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-                }
+                        }, 660); //original is 60
+                        that.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+                    }
+                });
+
             }
             if (this.get("selectPhoto") === false)   //selectPhoto is user to control left or right operation
             {

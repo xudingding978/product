@@ -353,7 +353,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         HubStar.set("updateCommentmsg", msg);
     },
     addRelatedData: function(mega) {
-
+       
         var collection_id = mega.get("collection_id");
         var owner_profile_id = mega.get("owner_id");
         var isProfileIDExist = this.isParamExist(owner_profile_id);
@@ -371,7 +371,6 @@ HubStar.ArticleController = Ember.Controller.extend({
                             that.get("content").pushObject(temp.get("photo").objectAt(0));                                  //find the object which contain photos and push it into model
                         }
                     }
-
                     if (that.get("accessFromSearchBoard") === false)
                     {
 
@@ -395,8 +394,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                     {
                         var address = document.URL;
                         var search_id = address.split("#")[1].split("/")[2];
-                        var search_type = address.split("#")[1].split("/")[1];
-
+                        var search_type = address.split("#")[1].split("/")[1];                       
                         if (this.get("isShowPhotoUrl") === true)
                         {
                             if (search_type === "search" || search_type === "searchs")

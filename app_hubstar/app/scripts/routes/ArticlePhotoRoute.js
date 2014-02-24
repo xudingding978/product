@@ -15,7 +15,7 @@ HubStar.ArticlePhotoRoute = Ember.Route.extend({
         var megaModel = HubStar.Mega.find(temp);
 
         this.controllerFor("article").JudgePhotoOwner(megaModel);
-
+        
         this.controllerFor("masonryCollectionItems").set("type", "user");
         HubStar.set("isset",false);
         var that = this;

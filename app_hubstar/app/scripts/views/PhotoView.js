@@ -29,6 +29,7 @@ HubStar.PhotoView = Ember.View.extend({
                    //  console.log(parseFloat(event.pageX) +"  sssss  "+parseFloat($("#tag_image_object").offset().left) +"   "+ parseFloat(HubStar.get("pic_current_width")));
                     mouseX = e.pageX - 265; // x and y axis
                     mouseY = e.pageY - HubStar.get("changeHeight");
+                    alert(mouseY);
                     that.get("controller").get("controllers.showTag").set("pic_x", (e.pageX - $("#tag_image_object").offset().left) / HubStar.get("pic_current_width")); //set 
                     that.get("controller").get("controllers.showTag").set("pic_y", (e.pageY - $("#tag_image_object").offset().top) / HubStar.get("pic_current_height"));
                     if (that.get("controller").get("enableTag") === true)

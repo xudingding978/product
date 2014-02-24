@@ -892,6 +892,13 @@ HubStar.ArticleController = Ember.Controller.extend({
         return "test";
 
     },
+            
+            showArticleContent:function(){
+        $('.article-objectview-right').animate({
+                width: "45%"
+            }, 1000);
+            },
+            
     dropdownPhotoSetting: function(param) {
         $('#dropdown_id_' + param).toggleClass('hideClass');
     },

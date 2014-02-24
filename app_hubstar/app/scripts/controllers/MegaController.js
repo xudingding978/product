@@ -493,7 +493,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     if (HubStar.get("isArticleTag") !== true)
                     {
 console.log("22222222222222222222222");
-
+                              HubStar.set("isset",true);
                         that.get("controllers.showTag").readTags(photoObj.get("id"));
                         // that.get("controllers.showTag").set("showEachTagContent",true);
                       

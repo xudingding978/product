@@ -961,7 +961,7 @@ div.album-description-bg{
     top: 0;
     left: 0;
     margin: 0;
-    position: absolute;
+    position: fixed;
     right: 320px;
     overflow: hidden;
 }
@@ -1028,6 +1028,8 @@ div.album-description-bg{
     right: 0px;
     top: 0px;
 }
+
+
 
 .mainfeature_object{
     bottom: 0;
@@ -1182,10 +1184,10 @@ div.album-description-bg{
 }
 
 .article-objectview-right{
-    width: 45%;
+    width: 15%;
 }
 .article-objectview-left{
-    right: 45%;
+
 }
 
 .object-poster{

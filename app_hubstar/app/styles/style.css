@@ -56,10 +56,10 @@ body > div.ember-view > div
 {
     border:solid 3px #ffffff;
     width:100px;
-    opacity:1;
+    opacity:.2;
     height:100px;
     border-style:solid;
-    border-color:#ff0000 ;
+    border-color:#020202;
     margin: auto 220px;
 
 

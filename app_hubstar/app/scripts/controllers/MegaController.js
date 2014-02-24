@@ -747,6 +747,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     HubStar.set("escVideo", true);
                     this.transitionTo("search", {id: search_id});
                 }
+                console.log("sssssssssssssssssss");
                // $('#masonry_wrapper').attr('style', "top:100px;position:relative");
 //                setTimeout(function() {
 //                    $('#masonry_container').masonry();  //masonry();
@@ -853,9 +854,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.set("obj", object);
             this.set('willDelete', true);
         }
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+        
     },
     cancelDelete: function() {
         this.set('willDelete', false);

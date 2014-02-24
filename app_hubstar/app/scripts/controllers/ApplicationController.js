@@ -132,7 +132,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         //this.set('loadingTime', true);
 
         HubStar.set("scrollDownSearch", true);
-        this.set("size",20 );
+        this.set("size", 20);
         if (this.get("searchFromTopic") === false)
         {
             this.set("pageCount", this.get("pageCount") + 1);
@@ -226,6 +226,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     that.relayoutDefault();
                 }
                 else {
+                    //that.set('loadingTime', false);
                     that.relayout(results.get("length"));
                 }
             }, 5);
@@ -782,30 +783,34 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     relayout: function(l)
     {
-        this.getAds();
+//        this.getAds();
         if (this.get("pageCount") === 0)
         {
-            l = l + 2;
+            l = l + 1;
         }
-        else if (this.get("pageCount") === 1)
-        {
-            l = l + 3;
-        }
-        else if (this.get("pageCount") === 2)
-        {
-            l = l + 2;
-        }
+//        else if (this.get("pageCount") === 1)
+//        {
+//            l = l + 3;
+//        }
+//        else if (this.get("pageCount") === 2)
+//        {
+//            l = l + 2;
+//        }
         var that = this;
         that.set('loadingTime', false);
-        HubStar.set("scrollDownSearch", false);
+        //HubStar.set("scrollDownSearch", false);
         var x = document.getElementById("masonry_container");
-        var cusid_ele = x.getElementsByClassName('tomtomtom');
+        var cusid_ele = x.getElementsByClassName('box');
         var items = Array();
         for (var i = 0; i < l; i++) {
-            var item = cusid_ele[i];
-            items.push(item);           
+            var item = cusid_ele[i].parentNode;
+            if (item.id !== "masonry_container") {               
+                items.push(item.parentNode);
+                break;
+            }
         }
-        $('#masonry_container').append(items).masonry('appended', items);
+        console.log(items);
+        //$('#masonry_container').append(items).masonry('appended', items);
 //        $('#masonry_container').masonry("reloadItems");
 //        setTimeout(function() {
 //            $('#masonry_container').masonry();
@@ -830,13 +835,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var adSlots = HubStar.get('ads');
         var that = this;
         var pageCount = this.get("pageCount");
-        var masonryContainer = document.querySelector('#masonry_container');        
+        var masonryContainer = document.querySelector('#masonry_container');
         try
         {
             for (var i = 0; i < adSlots[pageCount].length; i++) {
                 var ad = adSlots[pageCount][i];
                 var position = ad.slot_position;
-                var child = masonryContainer.children[that.get("pageCount")*40 + position * 3];               
+                var child = masonryContainer.children[that.get("pageCount") * 40 + position * 3];
                 var masonrybox = document.createElement('div');
                 masonrybox.id = ad.div + '_box';
                 masonrybox.border = 0;

@@ -11,13 +11,13 @@ HubStar.MasonryView = Ember.View.extend({
 //        });
 
         $(function() {
-            $('#masonry_container').masonry({
-                itemSelector: '.box',
-                columnWidth: 185,
-                isInitLayout: false,
-                isFitWidth: true,
-                transitionDuration: 0               
-            });
+//            $('#masonry_container').masonry({
+//                itemSelector: '.box',
+//                columnWidth: 185,
+//                isInitLayout: false,
+//                isFitWidth: true,
+//                transitionDuration: 0               
+//            });
         });
         if (HubStar.get('searchStart')) {
             HubStar.set('isMansonryPageLoad', true);

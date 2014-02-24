@@ -10,7 +10,7 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('searchs').set("loginInfo", localStorage.loginStatus);
         this.controllerFor('searchs').setLoginImge();
         this.controllerFor('application').set('search_string', model.id);
-       $(window).scrollTop(0);
+   //    $(window).scrollTop(0);
         if (HubStar.get("escVideo") !== true)
         {
             this.controllerFor('application').newSearch();
@@ -26,7 +26,7 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
         localStorage.checkUser = "";
-        $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+    //    $('#masonry_wrapper').attr('style', "top:100px;position:relative");
 //        setTimeout(function() {
 //            $('#masonry_container').masonry();  //masonry();
 //        }, 300);

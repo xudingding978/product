@@ -6,11 +6,12 @@ HubStar.SearchRoute = Ember.Route.extend({
         } else {
             HubStar.set('isLogin', true);
         }
-//        HubStar.set('isLogin', true);
+        
+
+
         this.controllerFor('searchs').set("loginInfo", localStorage.loginStatus);
         this.controllerFor('searchs').setLoginImge();
         this.controllerFor('application').set('search_string', model.id);
-   //    $(window).scrollTop(0);
         if (HubStar.get("escVideo") !== true)
         {
             this.controllerFor('application').newSearch();
@@ -26,17 +27,10 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
         localStorage.checkUser = "";
-    //    $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+//        $('#masonry_wrapper').attr('style', "top:100px;position:relative");
 //        setTimeout(function() {
 //            $('#masonry_container').masonry();  //masonry();
 //        }, 300);
-//        var container = document.querySelector('#masonry_container');
-//        var msnry = new Masonry(container, {
-//            itemSelector: '.box',
-//            columnWidth: 185,
-//            isInitLayout: false,
-//            isFitWidth: true
-//        });
     },
     model: function(params) {
         var address=decodeURIComponent(document.URL);       
@@ -50,7 +44,6 @@ HubStar.SearchRoute = Ember.Route.extend({
     events: {
         transitionToPhoto: function(id) {
             this.controllerFor('masonryCollectionItems').set("type", "profile");
-            //     this.controllerFor('mega').set("from", "profile");
 
             var address = document.URL;
             var search_id = address.split("#")[1].split("/")[2];

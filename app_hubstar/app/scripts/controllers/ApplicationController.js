@@ -7,6 +7,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     isAdd: false,
     is_authentic_user: false,
     trendsUser: false,
+    totalItems: 0,
     contentTopic: [
         {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
         {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'},
@@ -236,6 +237,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("googletagCmd", []);
         this.set("content", []);
         this.set("oldChildren", 0);
+        this.set("totalItems",0);
         this.set("from", 0);
         this.set("size", 20);
         this.set('loadingTime', true);
@@ -250,7 +252,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 var stat = stats.objectAt(0);
                 var megasResults = stat.get("megas");
                 HubStar.set('itemNumber', megasResults.get("length"));
-                if (megasResults.get("length") === 0) {
+                if (megasResults.get("length") < 20) {
+                    HubStar.set("scrollDownSearch", true);
                     $(document).ready(function() {
 
                         $("#show_more_button").css({display: "none"});
@@ -284,8 +287,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("content", []);
         this.set("adPageNo", 0);
 
-        this.set("oldChildren", 0);
-        $(window).scrollTop(0);
+        this.set("oldChildren", 0);       
 
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
         } else {
@@ -566,9 +568,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $(".navbar").css("box-shadow", "");
         //    $('#masonry_container').attr('style', "top:100px;position:relative");
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-        setTimeout(function() {
-            $('#masonry_container').masonry();  //masonry();
-        }, 300);
 
     },
     closeDropdownNavigator: function() {
@@ -783,40 +782,33 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     relayout: function(l)
     {
-//        this.getAds();
+        this.getAds();      
         if (this.get("pageCount") === 0)
         {
-            l = l + 1;
+            l = l + 3;
         }
-//        else if (this.get("pageCount") === 1)
-//        {
-//            l = l + 3;
-//        }
-//        else if (this.get("pageCount") === 2)
-//        {
-//            l = l + 2;
-//        }
+        else if (this.get("pageCount") === 1)
+        {
+            l = l + 3;
+        }
+        else if (this.get("pageCount") === 2)
+        {
+            l = l + 2;
+        }
         var that = this;
         that.set('loadingTime', false);
-        //HubStar.set("scrollDownSearch", false);
+        HubStar.set("scrollDownSearch", false);
         var x = document.getElementById("masonry_container");
         var cusid_ele = x.getElementsByClassName('box');
         var items = Array();
-        for (var i = 0; i < l; i++) {
-            var item = cusid_ele[i].parentNode;
+        for (var i = this.get("totalItems"); i < this.get("totalItems")+l; i++) {
+            var item = cusid_ele[i].parentNode;           
             if (item.id !== "masonry_container") {               
-                items.push(item.parentNode);
-                break;
+                items.push(item);
             }
         }
-        console.log(items);
-        //$('#masonry_container').append(items).masonry('appended', items);
-//        $('#masonry_container').masonry("reloadItems");
-//        setTimeout(function() {
-//            $('#masonry_container').masonry();
-//            that.set('loadingTime', false);
-//            HubStar.set("scrollDownSearch", false);
-//        }, 5);
+        this.set("totalItems",this.get("totalItems")+l);
+        $('#masonry_container').append(items).masonry('appended', items);
     },
     relayoutDefault: function()
     {
@@ -835,13 +827,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var adSlots = HubStar.get('ads');
         var that = this;
         var pageCount = this.get("pageCount");
-        var masonryContainer = document.querySelector('#masonry_container');
+        var masonry_container = document.querySelector('#masonry_container');
+        var cusid_ele = masonry_container.getElementsByClassName('box');
+        var masonryContainer = cusid_ele[1].parentNode.parentNode;
+        
         try
         {
             for (var i = 0; i < adSlots[pageCount].length; i++) {
                 var ad = adSlots[pageCount][i];
                 var position = ad.slot_position;
-                var child = masonryContainer.children[that.get("pageCount") * 40 + position * 3];
+                var child = masonryContainer.children[that.get("totalItems") + position];
                 var masonrybox = document.createElement('div');
                 masonrybox.id = ad.div + '_box';
                 masonrybox.border = 0;

@@ -731,7 +731,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var address = document.URL;
         if (this.get('controllers.masonryCollectionItems').get("type") === "profile")
         {
-            console.log("sss");
+
             if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
             {
                 

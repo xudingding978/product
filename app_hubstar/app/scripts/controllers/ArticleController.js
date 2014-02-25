@@ -675,7 +675,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         HubStar.set("updateCommentmsg", msg);
     },
     addRelatedData: function(mega) {
-
+       
         var collection_id = mega.get("collection_id");
         var owner_profile_id = mega.get("owner_id");
         var isProfileIDExist = this.isParamExist(owner_profile_id);
@@ -693,24 +693,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                             that.get("content").pushObject(temp.get("photo").objectAt(0));                                  //find the object which contain photos and push it into model
                         }
                     }
-                    //set the photo id which include the first photo id 
-                    console.log("article related data");
-                    console.log(that.get('content').objectAt(0).id);
-//                    that.JudgePhotoOwner(that.get('content').objectAt(0));  //it is used to judge whether the user is the photo owner
-//                    that.get("controllers.showTag").readTags(that.get('content').objectAt(0).id);
-//                    var thatthat = that;
-//                    setTimeout(function() {
-//                        if (thatthat.get("contentTagsArticle") !== "" && thatthat.get("contentTagsArticle") !== null && thatthat.get("contentTagsArticle") !== undefined)
-//                        {
-//                            if (thatthat.get("contentTagsArticle").get("length") > 0)
-//                            {
-//                                console.log(thatthat.get("contentTagsArticle"));
-//                                thatthat.set("hasTag", true);
-//                                // that.set("tagCount", that.get("contentTags").get("length"));
-//                            }
-//
-//                        }
-//                    }, 50);
+
                     if (that.get("accessFromSearchBoard") === false)
                     {
 
@@ -737,9 +720,11 @@ HubStar.ArticleController = Ember.Controller.extend({
                         console.log("333333333333");
                         var address = document.URL;
                         var search_id = address.split("#")[1].split("/")[2];
+
                         var search_type = address.split("#")[1].split("/")[1];
 
                         //    if (this.get("isShowPhotoUrl") === true)
+
                         {
                             if (search_type === "search" || search_type === "searchs")
                             {

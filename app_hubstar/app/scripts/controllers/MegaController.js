@@ -507,7 +507,7 @@ console.log("22222222222222222222222");
                                     // that.set("tagCount", that.get("contentTags").get("length"));
                                 }
                             }
-                        }, 660); //original is 60
+                        }, 760); //original is 60
                         that.set("currentUser", HubStar.User.find(localStorage.loginStatus));
                     }
                 });

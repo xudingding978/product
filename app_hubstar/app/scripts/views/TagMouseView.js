@@ -36,7 +36,7 @@ HubStar.TagMouseView = Ember.View.extend({
 
         setTimeout(function() {
 
-           // $("#tagitshow").fadeIn();
+            $("#tagitshow").fadeIn();
             $("#tagitshow").css({top: pic_y, left: picx_content, opacity: 1});
         }, 50);
         //alert(that.get("controller").get("showEachTagContent"));

@@ -55,8 +55,10 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         {
             var product_name = this.get("product_name");
             var desc = this.get("description");
+      
             var pic_x = this.get("pic_x"); //set the tag location
             var pic_y = this.get("pic_y");
+                  console.log("savetag "+"pic_x="+pic_x+"pic_y="+pic_y);
             var linkAddress = this.get("linkTo");
             var time_stamp = new Date();
             var tag_id = time_stamp.getTime().toString();
@@ -94,6 +96,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 {
                     that.get("controllers.mega").set("showRequestTag", true);
                 }
+                
                 that.setDescription("");
                 that.setLinkTo("");
                 that.set("product_name", "");
@@ -233,18 +236,14 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 //    that.get("controllers.article").set("contentTagsArticle", params);
                 if (HubStar.get("isArticleTag") === true)
                 {
-                    console.log("aaaaaaaaaaabbbbbbbbbbbbb");
                     that.get("controllers.article").set("contentTagsArticle", params);
                 }
                 else
                 {
-                    console.log("11111111111");
                     that.get("controllers.mega").set("contentTags", params);
                 }
 
                 var tags = params;
-
-
                     setTimeout(function() {
                         //thatthat.get("controllers.mega").set("tagCount", params.get("length"));
                         if (HubStar.get("isArticleTag") === true)
@@ -262,12 +261,13 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                             for (var i = 0; i < tags.length; i++)
                             {
                                 var tagDiv = "#tag_" + tags[i].tag_id;
+       
                                 var height = tags[i].pic_y * HubStar.get("pic_current_height") + document.getElementById('tag_image_object').offsetTop;  //set the tag's place which is the percentage of image and add the picture origin left point place
                                 var width = tags[i].pic_x * HubStar.get("pic_current_width") + document.getElementById('tag_image_object').offsetLeft;
                                 $(tagDiv).css({top: height, left: width});
                             }
                         }
-                    },750);
+                    },650);
               
             }
             else

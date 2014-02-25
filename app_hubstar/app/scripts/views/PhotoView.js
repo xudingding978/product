@@ -27,10 +27,11 @@ HubStar.PhotoView = Ember.View.extend({
 //                else
                 {
                    //  console.log(parseFloat(event.pageX) +"  sssss  "+parseFloat($("#tag_image_object").offset().left) +"   "+ parseFloat(HubStar.get("pic_current_width")));
-                    mouseX = e.pageX - 265; // x and y axis
-                    mouseY = e.pageY - HubStar.get("changeHeight");
-                    that.get("controller").get("controllers.showTag").set("pic_x", (e.pageX - $("#tag_image_object").offset().left) / HubStar.get("pic_current_width")); //set 
-                    that.get("controller").get("controllers.showTag").set("pic_y", (e.pageY - $("#tag_image_object").offset().top) / HubStar.get("pic_current_height"));
+                    mouseX = e.clientX - 265; // x and y axis
+                    mouseY = e.clientY - HubStar.get("changeHeight");
+                    console.log(e.clientY +"   11111111  "+$("#tag_image_object").offset().top+"    "+document.getElementById('tag_image_object').offsetTop);
+                    that.get("controller").get("controllers.showTag").set("pic_x", (e.clientX - document.getElementById('tag_image_object').offsetLeft) / HubStar.get("pic_current_width")); //set 
+                    that.get("controller").get("controllers.showTag").set("pic_y", (e.clientY - document.getElementById('tag_image_object').offsetTop) / HubStar.get("pic_current_height"));
                     if (that.get("controller").get("enableTag") === true)
                     {
 
@@ -50,7 +51,8 @@ HubStar.PhotoView = Ember.View.extend({
                     {
                         that.get("controller").get("controllers.showTag").set("change_tag_show", false);
                     }
-console.log("eeeeeeeeeeeee"+e.pageY );
+                    
+console.log("eeeeeeeeeeeee"+e.clientY);
                     that.get("controller").nextImage(e, mouseX, mouseY);
 //                    HubStar.set("pic_current_height", document.getElementById('tag_image_object').offsetWidth);
 //                    HubStar.set("pic_current_width", document.getElementById('tag_image_object').offsetHeight);
@@ -73,10 +75,10 @@ console.log("eeeeeeeeeeeee"+e.pageY );
 //                }
 //                else
                 {
-                    mouseX = event.pageX - 265; // x and y axis
-                    mouseY = event.pageY - 50;
-                    that.get("controller").get("controllers.showTag").set("pic_x", (event.pageX - $("#tag_image_object").offset().left) / HubStar.get("pic_current_width"));
-                    that.get("controller").get("controllers.showTag").set("pic_y", (event.pageY - $("#tag_image_object").offset().top) / HubStar.get("pic_current_height"));
+                    mouseX = event.clientX - 265; // x and y axis
+                    mouseY = event.clientY - 50;
+                    that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - document.getElementById('tag_image_object').offsetLeft) / HubStar.get("pic_current_width"));
+                    that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY - document.getElementById('tag_image_object').offsetTop) / HubStar.get("pic_current_height"));
                     if (that.get("controller").get("enableTag") === true)
                     {
                         that.get("controller").set("inImage", true);

@@ -21,6 +21,7 @@ HubStar.Meganew = DS.Model.extend({
     likes_count: DS.attr('string'),
     is_active: DS.attr('boolean'),
     is_indexed: DS.attr('boolean'),
+    is_deleted:DS.attr('boolean'),
     keywords: DS.attr('string'),
     keyword_num: DS.attr('number'),
     object_image_linkto: DS.attr('string'),

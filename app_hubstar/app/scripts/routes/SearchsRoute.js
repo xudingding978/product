@@ -48,8 +48,28 @@ HubStar.SearchsRoute = Ember.Route.extend({
     },
     redirect: function() {
 
-        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-            this.transitionTo('indexIndex');
+       
+            if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+            var address = decodeURIComponent(document.URL);
+            var type = address.split("#")[1].split("/")[3];
+            var id = address.split("#")[1].split("/")[4];
+            var that =this;
+             var model = {id: id};
+            if (type === "articles")
+            {
+                 that.transitionTo("article",id);
+            }
+            else if (type === "photos")
+            {
+                this.transitionTo("photo", id);
+            }
+            else if (type === "videos")
+            {
+                this.transitionTo("video", id);
+            }
+            else {
+                this.transitionTo('indexIndex');
+            }
 
         } else {
             // this.transitionTo('searchIndex');
@@ -70,7 +90,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
 //                isInitLayout: false,
 //                isFitWidth: true
 //        });
-        
+
 //        $(function() {
 //            $('#masonry_container').masonry({
 //                itemSelector: '.box',

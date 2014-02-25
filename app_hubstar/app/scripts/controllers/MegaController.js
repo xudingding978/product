@@ -197,9 +197,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
 //            }
 //            mega.store.save();
 //        });
+        var that = this;
         megaObject.then(function() {
             //if (megaObject.get("isLoaded")) {
-            this.set("is_article_video", true);
+            that.set("is_article_video", true);
 
             if (megaObject.get("type") === 'article')
             {
@@ -208,7 +209,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 var photoObj = megaObject.set('photo_image_original_url', photoUrl);
                 photoObj.set("photo_title", megaObject.get("article").objectAt(0).get("article_headline"));
                 photoObj.set("photo_caption", megaObject.get("article").objectAt(0).get("article_body"));
-                this.set("is_article_video", false);
+                that.set("is_article_video", false);
                 photoObj.set("photo_image_thumbnail_url", photoUrl);
             }
             else if (megaObject.get("type") === 'video')
@@ -219,61 +220,61 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                 photoObj.set("photo_title", megaObject.get("videoes").objectAt(0).get("videoTitle"));
                 photoObj.set("photo_caption", megaObject.get("videoes").objectAt(0).get("videoDesc"));
-                this.set("is_article_video", false);
+                that.set("is_article_video", false);
                 photoObj.set("photo_image_thumbnail_url", photoUrl);
             }
             else
             {
 
                 var photoObj = megaObject.get('photo').objectAt(0);
-                this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+                that.set("currentUser", HubStar.User.find(localStorage.loginStatus));
 
             }
-            if (this.get("selectPhoto") === false)   //selectPhoto is user to control left or right operation
+            if (that.get("selectPhoto") === false)   //selectPhoto is user to control left or right operation
             {
-                this.set("content", []);
-                this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+                that.set("content", []);
+                that.set("currentUser", HubStar.User.find(localStorage.loginStatus));
 //                this.set('image_no', 1);
-                this.set("selectedPhoto", photoObj);
-                this.get("content").pushObject(photoObj);
+                that.set("selectedPhoto", photoObj);
+                that.get("content").pushObject(photoObj);
                 var megaResouce = HubStar.Mega.find(megaObject.id);
-                this.set('megaResouce', megaResouce);
-                this.set("photo_album_id", "album_" + megaObject.id);
-                this.set("photo_thumb_id", "thumb_" + megaObject.id);
+                that.set('megaResouce', megaResouce);
+                that.set("photo_album_id", "album_" + megaObject.id);
+                that.set("photo_thumb_id", "thumb_" + megaObject.id);
 
                 if (megaObject.get("type") === 'article' || megaObject.get("type") === 'video')
                 {
-                    if (this.get("controllers.masonryCollectionItems").get("type") === "user")
+                    if (that.get("controllers.masonryCollectionItems").get("type") === "user")
                     {
 
-                        this.addRelatedCollectionItemData(megaObject);
+                        that.addRelatedCollectionItemData(megaObject);
                     }
-                    else if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
+                    else if (that.get("controllers.masonryCollectionItems").get("type") === "profile")
                     {
 
-                        this.addProfileRelatedData(megaObject);
+                        that.addProfileRelatedData(megaObject);
                     }
 
                 }
                 else
                 {
-                    if (this.get("controllers.masonryCollectionItems").get("type") === "user") //it is for user's collection
+                    if (that.get("controllers.masonryCollectionItems").get("type") === "user") //it is for user's collection
                     {
 
-                        this.addRelatedCollectionItemData(megaObject);
+                        that.addRelatedCollectionItemData(megaObject);
                     }
-                    else if (this.get("selectType") === "profile")
+                    else if (that.get("selectType") === "profile")
                     {
 
-                        this.addProfileRelatedData(megaObject);
+                        that.addProfileRelatedData(megaObject);
                     }
                     else
                     {
 
-                        this.addRelatedData(megaObject);  //it is for profile's collection
+                        that.addRelatedData(megaObject);  //it is for profile's collection
                     }
-                    this.checkAuthenticUser();
-                    this.getCommentsById(megaObject.id);
+                    that.checkAuthenticUser();
+                    that.getCommentsById(megaObject.id);
                 }
             }
             setTimeout(function() {

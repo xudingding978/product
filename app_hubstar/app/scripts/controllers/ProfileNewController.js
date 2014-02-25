@@ -352,7 +352,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 subcategories: $('#subcategorySelection').text(),
                 created: "",
                 creator: this.get("creater"),
-                classification: this.get("creater"),
+                classification: this.get("classification"),
                 country: $('#countrySelection').text(),
                 region: $('#regionSelection').text(),
                 suburb: this.get("suburb"),

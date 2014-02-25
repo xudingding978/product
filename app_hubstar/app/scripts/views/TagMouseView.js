@@ -15,8 +15,8 @@ HubStar.TagMouseView = Ember.View.extend({
 
             if (tags.objectAt(i)["tag_id"] === tag_id)
             {
-                pic_x = tags.objectAt(i)["pic_x"]*HubStar.get("pic_current_width")+$("#tag_image_object").offset().left; //set the place of the tag content
-                pic_y = tags.objectAt(i)["pic_y"]*HubStar.get("pic_current_height")+$("#tag_image_object").offset().top;
+                pic_x = tags.objectAt(i)["pic_x"]*HubStar.get("pic_current_width")+document.getElementById('tag_image_object').offsetLeft; //set the place of the tag content
+                pic_y = tags.objectAt(i)["pic_y"]*HubStar.get("pic_current_height")+document.getElementById('tag_image_object').offsetTop;
                 this.get("controller").set("tag", tags.objectAt(i));  //set the mouse over tag's detail content
                 if ((tags.objectAt(i)["linkto"] === undefined) || (tags.objectAt(i)["linkto"] === "") || (tags.objectAt(i)["linkto"] === null))
                 {
@@ -30,15 +30,15 @@ HubStar.TagMouseView = Ember.View.extend({
             }
         }
         var picx_content = pic_x;
-
+             console.log("#tag_image_obj. left= "+document.getElementById('tag_image_object').offsetTop+"tagmouse view  "+ "pic_x ="+pic_x+ "  pic_y =   "+pic_y);
         this.get("controller").set("showEachTagContent", true);
         this.get("controller").get("controllers.showTag").set("isUpdateTag", false);
 
         setTimeout(function() {
 
-            $("#tagitshow").fadeIn();
+           // $("#tagitshow").fadeIn();
             $("#tagitshow").css({top: pic_y, left: picx_content, opacity: 1});
-        }, 20);
+        }, 50);
         //alert(that.get("controller").get("showEachTagContent"));
 
 

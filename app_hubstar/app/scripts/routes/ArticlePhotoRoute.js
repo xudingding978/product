@@ -18,6 +18,7 @@ HubStar.ArticlePhotoRoute = Ember.Route.extend({
         
         this.controllerFor("masonryCollectionItems").set("type", "user");
         HubStar.set("isset",false);
+        console.log("ppppppppppppppppp");
         var that = this;
         // setTimeout(function() {
         megaModel.then(function() {

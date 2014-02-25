@@ -29,7 +29,6 @@ HubStar.PhotoView = Ember.View.extend({
                    //  console.log(parseFloat(event.pageX) +"  sssss  "+parseFloat($("#tag_image_object").offset().left) +"   "+ parseFloat(HubStar.get("pic_current_width")));
                     mouseX = e.pageX - 265; // x and y axis
                     mouseY = e.pageY - HubStar.get("changeHeight");
-                    alert(mouseY);
                     that.get("controller").get("controllers.showTag").set("pic_x", (e.pageX - $("#tag_image_object").offset().left) / HubStar.get("pic_current_width")); //set 
                     that.get("controller").get("controllers.showTag").set("pic_y", (e.pageY - $("#tag_image_object").offset().top) / HubStar.get("pic_current_height"));
                     if (that.get("controller").get("enableTag") === true)
@@ -228,7 +227,7 @@ console.log("eeeeeeeeeeeee"+e.pageY );
         { // pressed 'esc'
 
             //this.get("controller").transitionTo("search");
-
+  this.get("controller").set("enableTag", false);  //close the showTag template
             var address = document.URL;
             var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
             var id = address.split("#")[1].split("/")[2];

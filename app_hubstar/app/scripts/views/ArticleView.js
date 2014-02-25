@@ -17,7 +17,7 @@ HubStar.ArticleView = Ember.View.extend({
                 mouseX = event.pageX - 265; // x and y axis
                 mouseY = event.pageY - 50;
                 var sss =event.pageX - $("#tag_image_object").offset().left;
-                console.log("event.pageX="+event.pageX+"  tag_image_object x="+$("#tag_image_object").offset().left+" inimage Width = "+sss);
+                console.log("event.pageY="+mouseY+" inimage Width = "+sss);
                 
                 that.get("controller").get("controllers.showTag").set("pic_x", (event.pageX - $("#tag_image_object").offset().left) / HubStar.get("pic_current_width")); //set 
                 that.get("controller").get("controllers.showTag").set("pic_y", (event.pageY - $("#tag_image_object").offset().top) / HubStar.get("pic_current_height"));

@@ -165,6 +165,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     nextImage: function(event, pic_x, pic_y) {
         var counter = 2;
+        console.log(pic_x + "sssssssssssssaaaaaaaaaaaa");
         //this.set("contentTags", "");
         this.set("showEachTagContent", false);
         this.get("controllers.showTag").set("contentTags", "");
@@ -233,6 +234,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     windowResizeTags: function(tags, width, height)
     {
         var photo_id = "";
+        console.log("111111111111111111111111111111111111111");
         photo_id = this.get('selectedPhoto').id;
         var that = this;
         HubStar.set("pic_current_width", width);
@@ -248,7 +250,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     showTags: function()
     {
-
         this.set("showAllTags", true);
         this.set("showEachTagContent", true);
         var tags = this.get("contentTags");
@@ -258,10 +259,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 for (var i = 0; i < tags.length; i++)
                 {
                     var tagDiv = "#tag_" + tags[i].tag_id;
-
-                    var height = tags[i].pic_y * HubStar.get("pic_current_height") + $("#tag_image_object").offset().top - 50;  //set the tag's place which is the percentage of image and add the picture origin left point place
-                    var width = tags[i].pic_x * HubStar.get("pic_current_width") + $("#tag_image_object").offset().left;
-
+                    var height = tags[i].pic_y * HubStar.get("pic_current_height") + document.getElementById('tag_image_object').offsetTop;  //set the tag's place which is the percentage of image and add the picture origin left point place
+                    var width = tags[i].pic_x * HubStar.get("pic_current_width") + document.getElementById('tag_image_object').offsetLeft;
                     $(tagDiv).css({top: height, left: width});
                     //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
                 }
@@ -380,6 +379,19 @@ HubStar.MegaController = Ember.ArrayController.extend({
         $("#p").addClass("hideClass");
         $("#n").addClass("hideClass");
     },
+    /******* function name: enableTag
+     * parameter:
+     *  aim: it is to enable user to tag in the photo
+     ***********************/
+    endTag: function()
+    {
+        this.set("enableTag", false);
+        this.set("inImage", false);  //click the end tag recove the value
+        this.set("showTagAfterSave", true);
+        this.set("showRequestTag", true);
+        $("#p").removeClass("hideClass"); //remove the left and right icon
+        $("#n").removeClass("hideClass");
+    },
     /****it is allow the user to active the tag******/
     activateUserTag: function(tag_id)
     {
@@ -434,18 +446,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set('willDelTag', false);
         this.set('makeSureActivateTag', false);
     },
-    /******* function name: enableTag
-     * parameter:
-     *  aim: it is to enable user to tag in the photo
-     ***********************/
-    endTag: function()
-    {
-        this.set("enableTag", false);
-        this.set("inImage", false);  //click the end tag recove the value
-        this.set("showTagAfterSave", false);
-        $("#p").removeClass("hideClass"); //remove the left and right icon
-        $("#n").removeClass("hideClass");
-    },
     getInitData: function(megaObject) {
         var address = document.URL;
         //console.log(megaObject.get("photo").objectAt(0).get("photo_original_height") + "  " + megaObject.get("photo").objectAt(0).get("photo_original_width") + "444444444");
@@ -488,15 +488,15 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 var photoObj = megaObject.get('photo').objectAt(0);
                 HubStar.set("pic_current_height", photoObj.get("photo_original_height"));
                 HubStar.set("pic_current_width", photoObj.get("photo_original_width"));
-                var that =this;
+                var that = this;
                 photoObj.then(function() {
                     if (HubStar.get("isArticleTag") !== true)
                     {
-console.log("22222222222222222222222");
-                              HubStar.set("isset",true);
+                        HubStar.set("isset", true);
+                        console.log("megacontroller init");
                         that.get("controllers.showTag").readTags(photoObj.get("id"));
                         // that.get("controllers.showTag").set("showEachTagContent",true);
-                      
+
                         var thatthat = that;
                         setTimeout(function() {
                             if (thatthat.get("contentTags") !== "" && thatthat.get("contentTags") !== null && thatthat.get("contentTags") !== undefined)
@@ -977,6 +977,7 @@ console.log("22222222222222222222222");
         this.set('collectable', false);
         this.set('contact', false);
         this.set("selectPhoto", false);
+        this.set("enableTag", false);  //close the showTag template
         var address = document.URL;
         if (this.get('controllers.masonryCollectionItems').get("type") === "profile")
         {

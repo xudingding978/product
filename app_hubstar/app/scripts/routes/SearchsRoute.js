@@ -42,6 +42,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
             this.transitionTo("profileCollections", HubStar.Profile.find(id));
         },
         transitionToArticle: function(id) {
+        console.log("999aaaaaaaaaaa999999999999999");
             this.controllerFor('article').set("accessFromSearchBoard", true);
             this.transitionTo("searchDefaultArticle", HubStar.Article.find(id)); //it will got to default search without go to the new search
         }

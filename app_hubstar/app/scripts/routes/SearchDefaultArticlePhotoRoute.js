@@ -1,6 +1,6 @@
 HubStar.SearchDefaultArticlePhoto = Ember.Route.extend({
     setupController: function(controller, model) {
-        var temp;     
+        var temp;
         var url = window.location.href;
         var urlArray = url.split("/");
         if (model.id === undefined) {                               //reload page model id can not be find
@@ -8,19 +8,29 @@ HubStar.SearchDefaultArticlePhoto = Ember.Route.extend({
         } else {
             temp = model.id;
         }
-        var megaModel = HubStar.Mega.find(temp);
+                this.controllerFor("showTag").readTags(temp);
 
-        
+        HubStar.set("isArticleTag", true);  //isArticleTag is true mean is the  photo tag,so it will set different tagcontent in showTagController
+        var megaModel = HubStar.Mega.find(temp);
+ this.controllerFor("article").JudgePhotoOwner(megaModel);
+
         var that = this;
-        megaModel.then(function() {           
-           that.controllerFor('mega').getInitData(megaModel);
-        });  
+
+        megaModel.then(function() {
+            that.controllerFor('mega').getInitData(megaModel);
+            setTimeout(function() {
+                       console.log("ssssssff "+megaModel.get("photo").objectAt(0).get("photo_original_height"));
+                HubStar.set("pic_current_height", megaModel.get("photo").objectAt(0).get("photo_original_height"));
+                HubStar.set("pic_current_width", megaModel.get("photo").objectAt(0).get("photo_original_width"));
+
+            }, 600);
+        });
 
     },
     model: function(params) {
         var model = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
         this.controllerFor("mega").set("clickOrRoute", true);
-  
+
         return model;
     },
     activate: function() {

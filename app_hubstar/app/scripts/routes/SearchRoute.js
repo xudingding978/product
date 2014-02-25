@@ -85,6 +85,7 @@ HubStar.SearchRoute = Ember.Route.extend({
             }
         },
         transitionToArticle: function(id) {
+    console.log("999999999999999999");
             var address = document.URL;
             var search_id = address.split("#")[1].split("/")[2];
             this.controllerFor('article').set("accessFromSearchBoard", true);

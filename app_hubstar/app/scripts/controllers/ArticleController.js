@@ -459,8 +459,6 @@ HubStar.ArticleController = Ember.Controller.extend({
         var collection_id = address.split("#")[1].split("/")[6];
         var user_id = address.split("#")[1].split("/")[2];
         var type = address.split("#")[1].split("/")[1];
-
-
         if (type === "search") //search from the seach board
         {
             if (user_id === "default") //it is the search index
@@ -470,11 +468,8 @@ HubStar.ArticleController = Ember.Controller.extend({
             else
             {
                 HubStar.set("escVideo", true);
-                console.log(user_id);
                 this.transitionTo("search", {id: user_id}); // go to search page, this can  work, but it is too slowlly.
             }
-
-            // window.history.back();
         }
         else
         {
@@ -491,10 +486,6 @@ HubStar.ArticleController = Ember.Controller.extend({
                 this.transitionTo("profilePhoto", photoObject); // profile photo
             }
         }
-      //  $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-//        setTimeout(function() {
-//            $('#masonry_container').masonry();  //masonry();
-//        }, 300);
     },
     switchCollection: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())

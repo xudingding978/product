@@ -63,6 +63,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     pageCount: 0,
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
+        
         var that = this;
         requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
             var array = $.map(callbck, function(value, index) {
@@ -557,7 +558,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     showDiscoveryBar: function() {
 
         HubStar.set("showDiscoveryBar", true);
-
+        
         HubStar.set("escVideo", true);
         HubStar.set("defaultSearch", true);
         this.transitionToRoute('indexIndex');

@@ -6,7 +6,7 @@ HubStar.SearchRoute = Ember.Route.extend({
         } else {
             HubStar.set('isLogin', true);
         }
-        
+        console.log("search");
         this.controllerFor('searchs').set("loginInfo", localStorage.loginStatus);
         this.controllerFor('searchs').setLoginImge();
         this.controllerFor('application').set('search_string', model.id);
@@ -94,9 +94,7 @@ HubStar.SearchRoute = Ember.Route.extend({
     redirect: function() {
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
             this.transitionTo('indexIndex');
-
         } else {
-            // this.transitionTo('searchIndex');
         }
     },
    activate: function() {

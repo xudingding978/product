@@ -8,6 +8,7 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
         }
         HubStar.set("escVideo",false);
         this.controllerFor('article').set("accessFromSearchBoard", true);
+        console.log("searchindex");
         this.controllerFor('searchs').defaultSearch();
         this.controllerFor('index').setLogin();
         this.controllerFor('application').set('islogin', true);

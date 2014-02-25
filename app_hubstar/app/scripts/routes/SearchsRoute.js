@@ -6,9 +6,10 @@ HubStar.SearchsRoute = Ember.Route.extend({
 
         } else {
             HubStar.set('isLogin', true);
-        }
+        }    
         this.controllerFor('searchs').defaultSearch();
         this.controllerFor('index').setLogin();
+        console.log("route");
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('status').set('islogin', true);
         if (localStorage.checkUser === "newUser") {
@@ -50,9 +51,8 @@ HubStar.SearchsRoute = Ember.Route.extend({
 
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
             this.transitionTo('indexIndex');
-
         } else {
-            // this.transitionTo('searchIndex');
+           
         }
 
     },

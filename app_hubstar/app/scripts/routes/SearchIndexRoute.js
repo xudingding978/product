@@ -39,24 +39,6 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
         if (HubStar.get("setHight") === null || HubStar.get("setHight") === "null") {
             HubStar.set("setHight", 0);
         }
-
-//        var container = document.querySelector('#masonry_container');
-//        var msnry = new Masonry(container, {
-//             itemSelector: '.box',
-//                columnWidth: 185,
-//                isInitLayout: false,
-//                isFitWidth: true
-//        });
-//        
-//        $(function() {
-//            $('#masonry_container').masonry({
-//                itemSelector: '.box',
-//                columnWidth: 185,
-//                isInitLayout: false,
-//                isFitWidth: true
-//            });
-//        });
-
         $(window).scrollTop(HubStar.get("setHight"));
         HubStar.set("setHight", 0);
 

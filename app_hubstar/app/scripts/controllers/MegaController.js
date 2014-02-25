@@ -744,7 +744,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
                 else
                 {
-                    HubStar.set("escVideo", true);
+                     HubStar.set("escVideo", true);
                     this.transitionTo("search", {id: search_id});
                 }
 

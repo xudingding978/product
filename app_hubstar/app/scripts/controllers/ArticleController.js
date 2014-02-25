@@ -314,10 +314,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         } else {
             this.set("obj", object);
             this.set('willDelete', true);
-        }
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+        }    
     },
     cancelDelete: function() {
         this.set('willDelete', false);
@@ -493,11 +490,10 @@ HubStar.ArticleController = Ember.Controller.extend({
                 this.transitionTo("profilePhoto", photoObject); // profile photo
             }
         }
-        $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-        setTimeout(function() {
-            $('#masonry_container').masonry();  //masonry();
-        }, 300);
-
+      //  $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+//        setTimeout(function() {
+//            $('#masonry_container').masonry();  //masonry();
+//        }, 300);
     },
     switchCollection: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())

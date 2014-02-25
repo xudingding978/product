@@ -286,7 +286,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("googletagCmd", []);
         this.set("content", []);
         this.set("adPageNo", 0);
-
+        this.set("totalItems",0);
         this.set("oldChildren", 0);       
 
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
@@ -795,13 +795,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         {
             l = l + 2;
         }
+        
         var that = this;
         that.set('loadingTime', false);
         HubStar.set("scrollDownSearch", false);
         var x = document.getElementById("masonry_container");
-        var cusid_ele = x.getElementsByClassName('box');
+        var cusid_ele = x.getElementsByClassName('box');       
         var items = Array();
-        for (var i = this.get("totalItems"); i < this.get("totalItems")+l; i++) {
+        for (var i = this.get("totalItems"); i < this.get("totalItems")+l; i++) {            
             var item = cusid_ele[i].parentNode;           
             if (item.id !== "masonry_container") {               
                 items.push(item);

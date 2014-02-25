@@ -349,9 +349,6 @@
 #fadein-image{
     position: relative;
     margin: 0 auto 3%; 
-    /*    min-width: 340px;
-        max-width: 400px;
-        width: 20%;*/
     height: 180px;
     display: block; 
     top: 5%
@@ -378,7 +375,61 @@
     border-radius: 0 0 5px 5px;
 }
 
+.interest-selecting-container{
+    z-index: 11;
+    overflow: hidden; 
+    background-color: white;
+    border-radius: 5px;  
+    width: 75%;
+    max-width: 900px; 
+    margin: 0px auto; 
+    position: absolute; 
+    top: 20%; 
+    left: 0px; 
+    right: 0px;
+    box-shadow: 0 0 5px #999;
+}
 
+.interest-image-container{
+    width: 100px; 
+    height: 100px; 
+    overflow: hidden;
+}
+
+.interest-topic-name{
+    position: relative;
+    text-align: center;
+    font-size: 13px;
+}
+
+.tell-us-what-ur-interested-in{
+    text-align: center;
+    line-height: 25px;
+    margin: 5px auto;
+    font-size: 18px;
+    background-color: #f3f3f3;
+    opacity: 0.5;
+}
+
+#register-with-email-step-4{
+    overflow: hidden;
+    z-index: 11;
+    background-color: white;
+    border-radius: 5px;
+    width: 300px;
+    margin: 20px auto 0;
+    position: fixed;
+    left: 0px;
+    right: 0px;
+}
+
+.registraion-suceesful-message{
+     text-align: center; 
+     padding: 10px 20px; 
+     height: 150px; 
+     font-size: 13px; 
+     color: #333;
+}
 
 
 
@@ -655,6 +706,14 @@ div#forgot-password-container{
 .learnmore-btn:hover{opacity: 1;}
 
 
+.select-interest{
+    width: auto;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px 15px;
+}
+
 .select-interest > .invite-this-friend {opacity: 0}
 
 .select-interest:hover > .invite-this-friend {opacity: 0.8}
@@ -905,17 +964,54 @@ div#login_detail{
 
     div.register-btn-small {width: 49%}
 
+    .interest-image-container{width: 70px; height: 70px;}
+
+    .select-interest{margin: 8px 10px;}
+
+    .interest-selecting-container{max-width: 650px;}
+
+
 }
+
+
+
 
 @media only screen 
 and (max-width : 900px) {
     .promotion-line{ display: none; }
+
+    .interest-image-container{width: 70px; height: 70px;}
+
+    .select-interest{margin: 8px 10px;}
+
+    .usersobject-hoverarea {width: 70px; height: 90px;}
+
+    .interest-topic-name{font-size: 11px;}
+
+    #register-with-email-step-4{width: 250px}
+    
+    .registraion-suceesful-message{font-size: 11px; line-height: 15px;}
 }
 
 @media only screen 
 and (max-width : 480px) {
     #fadein-image{ display: none;}
     .register-page-top-bar {margin: 40px auto 15%;}
+
+    .interest-image-container{width: 50px; height: 50px;}
+
+    .select-interest{margin: 6px 8px;}
+
+    .usersobject-hoverarea {width: 50px; height: 70px;}
+
+    .interest-topic-name{font-size: 9px;}
+
+    .tell-us-what-ur-interested-in{
+        line-height: 20px;
+        margin: 4px auto;
+        font-size: 15px;
+    }
+
 
 }
 

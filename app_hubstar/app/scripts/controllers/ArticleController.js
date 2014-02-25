@@ -259,19 +259,20 @@ HubStar.ArticleController = Ember.Controller.extend({
             that.addRelatedData(megaObject);
             that.getCommentsById(megaObject.id);
             that.checkCreditExist(megaObject.get('article').objectAt(0).get('credits'));
+
+            setTimeout(function() {
+                if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
+                {
+                    megaObject.set("view_count", 1);
+                }
+                else
+                {
+                    var megaData = megaObject.get("view_count");
+                    megaObject.set("view_count", megaData + 1);
+                }
+                megaObject.store.save();
+            }, 6000);
         });
-        setTimeout(function() {
-            if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
-            {
-                megaObject.set("view_count", 1);
-            }
-            else
-            {
-                var megaData = megaObject.get("view_count");
-                megaObject.set("view_count", megaData + 1);
-            }
-            megaObject.store.save();
-        }, 6000);
     },
     checkCreditExist: function(credits) {
         if (credits !== null && credits !== 'undefined' && credits.get('length') > 0) {
@@ -314,7 +315,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         } else {
             this.set("obj", object);
             this.set('willDelete', true);
-        }    
+        }
     },
     cancelDelete: function() {
         this.set('willDelete', false);
@@ -350,7 +351,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         HubStar.set("updateCommentmsg", msg);
     },
     addRelatedData: function(mega) {
-       
+
         var collection_id = mega.get("collection_id");
         var owner_profile_id = mega.get("owner_id");
         var isProfileIDExist = this.isParamExist(owner_profile_id);
@@ -391,7 +392,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                     {
                         var address = document.URL;
                         var search_id = address.split("#")[1].split("/")[2];
-                        var search_type = address.split("#")[1].split("/")[1];                       
+                        var search_type = address.split("#")[1].split("/")[1];
                         if (this.get("isShowPhotoUrl") === true)
                         {
                             if (search_type === "search" || search_type === "searchs")
@@ -459,10 +460,9 @@ HubStar.ArticleController = Ember.Controller.extend({
         var type = address.split("#")[1].split("/")[1];
         if (type === "search") //search from the seach board
         {
-            console.log(user_id);
             if (user_id === "default") //it is the search index
             {
-                this.transitionTo("searchIndex");
+                this.transitionTo("searchIndexTom");
             }
             else
             {

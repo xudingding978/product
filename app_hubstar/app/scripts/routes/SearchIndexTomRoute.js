@@ -1,4 +1,4 @@
-HubStar.SearchIndexRoute = Ember.Route.extend({
+HubStar.SearchIndexTom = Ember.Route.extend({
     setupController: function() {       
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
             HubStar.set('isLogin', false);
@@ -8,7 +8,6 @@ HubStar.SearchIndexRoute = Ember.Route.extend({
         }
         HubStar.set("escVideo",false);
         this.controllerFor('article').set("accessFromSearchBoard", true);
-        console.log("searchindex");
         this.controllerFor('searchs').defaultSearch();
         this.controllerFor('index').setLogin();
         this.controllerFor('application').set('islogin', true);

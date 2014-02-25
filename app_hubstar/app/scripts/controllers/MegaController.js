@@ -197,7 +197,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
 //            }
 //            mega.store.save();
 //        });
-        if (megaObject.get("isLoaded")) {
+        megaObject.then(function() {
+            //if (megaObject.get("isLoaded")) {
             this.set("is_article_video", true);
 
             if (megaObject.get("type") === 'article')
@@ -275,18 +276,19 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     this.getCommentsById(megaObject.id);
                 }
             }
-        }
-        setTimeout(function() {
-            if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
-            {
-                megaObject.set("view_count", 1);
-            }
-            else
-            {
-                megaObject.set("view_count", megaObject.get("view_count") + 1);
-            }
-            megaObject.store.save();
-        }, 5000);
+            setTimeout(function() {
+                if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
+                {
+                    megaObject.set("view_count", 1);
+                }
+                else
+                {
+                    megaObject.set("view_count", megaObject.get("view_count") + 1);
+                }
+                megaObject.store.save();
+            }, 5000);
+        });
+
     },
     addRelatedData: function(mega)
     {
@@ -734,17 +736,17 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
             if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
             {
-                
+
                 // this.transitionTo("indexIndex"); //search page
                 var address = document.URL;
                 var search_id = address.split("#")[1].split("/")[2];
                 if (search_id === "search") //this go to the search index
                 {
-                    this.transitionTo("searchIndex");
+                    this.transitionTo("searchIndexTom");
                 }
                 else
                 {
-                     HubStar.set("escVideo", true);
+                    HubStar.set("escVideo", true);
                     this.transitionTo("search", {id: search_id});
                 }
 
@@ -854,7 +856,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.set("obj", object);
             this.set('willDelete', true);
         }
-        
+
     },
     cancelDelete: function() {
         this.set('willDelete', false);

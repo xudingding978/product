@@ -9,7 +9,6 @@ HubStar.SearchsRoute = Ember.Route.extend({
         }    
         this.controllerFor('searchs').defaultSearch();
         this.controllerFor('index').setLogin();
-        console.log("route");
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('status').set('islogin', true);
         if (localStorage.checkUser === "newUser") {
@@ -48,9 +47,29 @@ HubStar.SearchsRoute = Ember.Route.extend({
         }
     },
     redirect: function() {
+       
+            if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+            var address = decodeURIComponent(document.URL);
+            var type = address.split("#")[1].split("/")[3];
+            var id = address.split("#")[1].split("/")[4];
+            var that =this;
+             var model = {id: id};
+            if (type === "articles")
+            {
+                 that.transitionTo("article",id);
+            }
+            else if (type === "photos")
+            {
+                this.transitionTo("photo", id);
+            }
+            else if (type === "videos")
+            {
+                this.transitionTo("video", id);
+            }
+            else {
+                this.transitionTo('indexIndex');
+            }
 
-        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-            this.transitionTo('indexIndex');
         } else {
            
         }
@@ -62,7 +81,6 @@ HubStar.SearchsRoute = Ember.Route.extend({
 //        if (HubStar.get("setHight") === null || HubStar.get("setHight") === "null") {
 //            HubStar.set("setHight", 0);
 //        }
-//
 //        $(window).scrollTop(HubStar.get("setHight"));
 //        HubStar.set("setHight", 0);
     },

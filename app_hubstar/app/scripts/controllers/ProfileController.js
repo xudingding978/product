@@ -152,6 +152,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     profileSubcategorySelection: "",
     categorys: [],
     subcate: [],
+    backgroundImage: "",
     init: function() {
 
         this.set('is_authentic_user', false);
@@ -1206,6 +1207,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('isPhotoEditingMode', false);
         this.set('isFinished', false);
         this.set('UploadImageMode', mode);
+        if (mode === "Profile Picture") {
+            this.set("backgroundImage","http://develop.devbox.s3.amazonaws.com/uploaddemo-profilepicture.png");
+        } else if (mode === "Profile Hero") {
+            this.set("backgroundImage","http://develop.devbox.s3.amazonaws.com/uploaddemo-profilehero.png");
+        } else {
+            this.set("backgroundImage","http://develop.devbox.s3.amazonaws.com/uploaddemo-profilebackground.png");
+        }
         var data = {"RequireIamgeType": mode};
         var that = this;
         requiredBackEnd('tenantConfiguration', 'getRequireIamgeSize', data, 'POST', function(params) {

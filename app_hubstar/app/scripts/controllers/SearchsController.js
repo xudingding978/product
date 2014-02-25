@@ -22,22 +22,15 @@ HubStar.SearchsController = Ember.ArrayController.extend({
         this.set("loginInfo", localStorage.loginStatus);
         this.setLoginImge();
         console.log("default");
+        
+        
+        
 //        if (HubStar.get("defaultSearch") === true)
 //        {
 //            this.controllerFor('application').set('content', []);
 //            this.controllerFor('application').set('search_string', '');
 //            this.controllerFor('application').defaultSearch();
 //        }
-        console.log("sssss");
-      $(function() {
-            $('#masonry_container').masonry({
-                itemSelector: '.box',
-                columnWidth: 185,
-                isInitLayout: false,
-                isFitWidth: true,
-                transitionDuration: 0               
-            });
-        });
 //        $('#masonry_container').masonry("reloadItems");
 //        setTimeout(function() {
 //            $('#masonry_container').masonry();

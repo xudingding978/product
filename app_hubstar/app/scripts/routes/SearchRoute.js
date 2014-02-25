@@ -17,7 +17,7 @@ HubStar.SearchRoute = Ember.Route.extend({
         }
         else {
             HubStar.set("escVideo", false);
-        }      
+        }
         this.controllerFor('index').setLogin();
 
         this.controllerFor('application').set('islogin', true);
@@ -31,7 +31,7 @@ HubStar.SearchRoute = Ember.Route.extend({
 //        }, 300);
     },
     model: function(params) {
-        var address=decodeURIComponent(document.URL);       
+        var address = decodeURIComponent(document.URL);
         var search_id = address.split("#")[1].split("/")[2];
         if (search_id === null || search_id === undefined || search_id === '') {
             search_id = '';
@@ -92,10 +92,6 @@ HubStar.SearchRoute = Ember.Route.extend({
         }
     },
     redirect: function() {
-        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-            this.transitionTo('indexIndex');
-        } else {
-        }
     },
    activate: function() {
         $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");

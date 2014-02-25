@@ -470,6 +470,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             else
             {
                 HubStar.set("escVideo", true);
+                console.log(user_id);
                 this.transitionTo("search", {id: user_id}); // go to search page, this can  work, but it is too slowlly.
             }
 

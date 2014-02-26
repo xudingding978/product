@@ -7,7 +7,7 @@ HubStar.MasonryView = Ember.View.extend({
                 columnWidth: 185,
                 isInitLayout: false,
                 isFitWidth: true,
-                transitionDuration: 0               
+                transitionDuration: 10               
             });
         });
         if (HubStar.get('searchStart')) {

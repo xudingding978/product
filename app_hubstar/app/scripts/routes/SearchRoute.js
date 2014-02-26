@@ -95,6 +95,12 @@ HubStar.SearchRoute = Ember.Route.extend({
    activate: function() {
         $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
         $('#masonry_container').attr('style', "display:block;position:relative");
+        console.log("dsadgd thsadgdsadgdsadgdsadgdsadgdsad");
+        
+       $(document).ready(function() {
+            $('#footer').attr("style","display:none");
+        });
+        
 //        if (HubStar.get("setHight") === null || HubStar.get("setHight") === "null") {
 //            HubStar.set("setHight", 0);
 //        }
@@ -102,6 +108,7 @@ HubStar.SearchRoute = Ember.Route.extend({
 //        HubStar.set("setHight", 0);
     },
     deactivate: function() {
+        $('#footer').attr( "style","display:block");
 //        HubStar.set("setHight", $(window).scrollTop());
     },
     renderTemplate: function() {

@@ -255,6 +255,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 var stat = stats.objectAt(0);
                 var megasResults = stat.get("megas");
                 HubStar.set('itemNumber', megasResults.get("length"));
+                that.setContent(megasResults, "new");
                 if (megasResults.get("length") < 20) {
                     HubStar.set("scrollDownSearch", true);
                     $(document).ready(function() {
@@ -265,7 +266,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
                 }
                 //HubStar.set("scrollDownSearch", false);
-                that.setContent(megasResults, "new");
+                
 
 
                 that.set("from", that.get("size"));
@@ -809,6 +810,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             var cusid_ele = x.getElementsByClassName('box');
             var items = Array();
             for (var i = this.get("totalItems"); i < this.get("totalItems") + l; i++) {
+                
                 var item = cusid_ele[i].parentNode;
                 if (item.id !== "masonry_container") {
                     items.push(item);

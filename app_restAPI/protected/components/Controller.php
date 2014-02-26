@@ -365,6 +365,12 @@ class Controller extends CController {
                         "default_field": "couchbaseDocument.doc.classification",
                         "query": "' . $classification . '"
                       }
+                    },
+                       {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.is_deleted",
+                        "query": 0
+                      }
                     }    
                     ],
                     "must_not": {
@@ -389,7 +395,13 @@ class Controller extends CController {
                         "default_field": "couchbaseDocument.doc.country",
                         "query": "' . $location . '"
                       }
-                    }    
+                    },
+                       {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.is_deleted",
+                        "query": 0
+                      }
+                    }   
                     ],
                     "must_not": {
                    
@@ -412,7 +424,13 @@ class Controller extends CController {
                         "default_field": "couchbaseDocument.doc.country",
                         "query": "' . $location . '"
                       }
-                    }  
+                    },
+                       {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.is_deleted",
+                        "query": 0
+                      }
+                    }   
                     ],
                     "must_not": {
                    
@@ -503,7 +521,13 @@ class Controller extends CController {
                         "default_field": "couchbaseDocument.doc.classification",
                         "query": "' . $classification . '"
                       }
-                    }    
+                    },
+                        {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.is_deleted",
+                        "query": 0
+                      }
+                    }   
                     ],
                     "must_not": {
                    
@@ -527,7 +551,13 @@ class Controller extends CController {
                         "default_field": "couchbaseDocument.doc.country",
                         "query": "' . $location . '"
                       }
-                    }    
+                    },
+                        {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.is_deleted",
+                        "query": 0
+                      }
+                    }       
                     ],
                     "must_not": {
                    
@@ -550,7 +580,13 @@ class Controller extends CController {
                         "default_field": "couchbaseDocument.doc.country",
                         "query": "' . $location . '"
                       }
-                    }  
+                    },
+                        {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.is_deleted",
+                        "query": 0
+                      }
+                    }     
                     ],
                     "must_not": {
                    

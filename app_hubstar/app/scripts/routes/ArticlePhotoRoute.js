@@ -18,52 +18,12 @@ HubStar.ArticlePhotoRoute = Ember.Route.extend({
         
         this.controllerFor("masonryCollectionItems").set("type", "user");
         HubStar.set("isset",false);
-        console.log("ppppppppppppppppp");
         var that = this;
-        // setTimeout(function() {
         megaModel.then(function() {
             that.controllerFor('mega').getInitData(megaModel);
-            setTimeout(function() {
-                
-               // console.log(megaModel.get("photo").objectAt(0).get("photo_original_height") + "   " + megaModel.get("photo").objectAt(0).get("photo_original_width"));
-              ///  console.log(document.getElementById('tag_image_object').offsetHeight + "   " + document.getElementById('tag_image_object').offsetWidth);
                 HubStar.set("pic_current_height", megaModel.get("photo").objectAt(0).get("photo_original_height"));
                 HubStar.set("pic_current_width", megaModel.get("photo").objectAt(0).get("photo_original_width"));
-
-            }, 500);
-
-
         });
-        //  }, 150);  //add on doing the tag
-
-//        var that = this;
-//        setTimeout(function() {
-//            if (that.controllerFor("article").get("contentTagsArticle") !== "" && that.controllerFor("article").get("contentTagsArticle") !== null && that.controllerFor("article").get("contentTagsArticle") !== undefined)
-//            {
-//                if (that.controllerFor("article").get("contentTagsArticle").get("length") > 0)
-//                {
-//                    console.log("44444444400000000000000");
-//
-//                    that.controllerFor("article").set("hasTag", true);
-//                    that.controllerFor("article").set("tagCount", that.controllerFor("article").get("contentTagsArticle").get("length"));
-//                    that.controllerFor("masonryCollectionItems").set("type", "user");
-//
-//
-//                    that.controllerFor('mega').getInitData(megaModel);
-//
-//                }
-//
-//            }
-//            else
-//            {
-//                console.log("4444444441111111111111111111");
-//                console.log(that.controllerFor("article").get("contentTagsArticle"));
-//                //  that.controllerFor("article").set("showAllTagsArticle","");
-//                that.controllerFor("masonryCollectionItems").set("type", "user");
-//                console.log(temp);
-//                that.controllerFor('mega').getInitData(megaModel);
-//            }
-//        }, 50);
 
 
     },

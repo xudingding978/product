@@ -2,6 +2,7 @@ HubStar.ArticleView = Ember.View.extend({
     classNames: ["lightbox"],
     templateName: 'article',
     readContent: false,
+    showContent: false,
     fullName: (function() {
         return "test";
     }).property(),
@@ -14,13 +15,11 @@ HubStar.ArticleView = Ember.View.extend({
             if (event.which === 1) //2:middle 
             {
                 var imgtag = $(this).parent(); // get the div to append the tagging entry
-                mouseX = event.pageX - 265; // x and y axis
-                mouseY = event.pageY - 50;
-                var sss =event.pageX - $("#tag_image_object").offset().left;
-                console.log("event.pageY="+mouseY+" inimage Width = "+sss);
-                
-                that.get("controller").get("controllers.showTag").set("pic_x", (event.pageX - $("#tag_image_object").offset().left) / HubStar.get("pic_current_width")); //set 
-                that.get("controller").get("controllers.showTag").set("pic_y", (event.pageY - $("#tag_image_object").offset().top) / HubStar.get("pic_current_height"));
+                mouseX = event.clientX - 265; // x and y axis
+                mouseY = event.clientY - 50;
+
+                that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - document.getElementById('tag_image_object').offsetLeft) / HubStar.get("pic_current_width")); //set 
+                that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY - document.getElementById('tag_image_object').offsetTop) / HubStar.get("pic_current_height"));
                 if (that.get("controller").get("enableTag") === true)
                 {
                     that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
@@ -45,15 +44,13 @@ HubStar.ArticleView = Ember.View.extend({
         });
         $('#previousarticlephoto').mousedown(function(event) {
             if (event.which === 1) //2:middle 
-            {                      var sss =event.pageX - $("#tag_image_object").offset().left;
-                console.log("event.pageX="+event.pageX+"  tag_image_object x="+$("#tag_image_object").offset().left+" inimage Width = "+sss);
+            {
+                var sss = event.clientX - $("#tag_image_object").offset().left;
                 var imgtag = $(this).parent(); // get the div to append the tagging entry
-                mouseX = event.pageX - 265; // x and y axis
-                mouseY = event.pageY - 50;
-                that.get("controller").get("controllers.showTag").set("pic_x", (event.pageX - $("#tag_image_object").offset().left) / HubStar.get("pic_current_width")); //set 
-                that.get("controller").get("controllers.showTag").set("pic_y", (event.pageY - $("#tag_image_object").offset().top) / HubStar.get("pic_current_height"));
-//                that.get("controller").get("controllers.showTag").set("pic_x", mouseX);
-//                that.get("controller").get("controllers.showTag").set("pic_y", mouseY);
+                mouseX = event.clientX - 265; // x and y axis
+                mouseY = event.clientY - 50;
+                that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - document.getElementById('tag_image_object').offsetLeft) / HubStar.get("pic_current_width")); //set 
+                that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY - document.getElementById('tag_image_object').offsetTop) / HubStar.get("pic_current_height"));
                 if (that.get("controller").get("enableTag") === true)
                 {
 
@@ -82,41 +79,12 @@ HubStar.ArticleView = Ember.View.extend({
         window.onresize = function() {
             var pic_width = document.getElementById('tag_image_object').offsetWidth;
             var pic_height = document.getElementById('tag_image_object').offsetHeight;
-            console.log("lwwwwwwwwwwwwwwwwwwwwast data" + HubStar.get("pic_current_width") + "   height    :" + HubStar.get("pic_current_height"));
-            console.log("pic_width    " + pic_width + "     " + pic_height);
             var tags = that.get("controller").get("controllers.showTag").get("contentTags");
             if (tags !== undefined && tags !== "" && tags !== null)
             {
                 that.get("controller").windowResizeTags(tags, pic_width, pic_height);
             }
         };
-//        window.onresize = function() {
-//            HubStar.set("window_last_height", HubStar.get("window_current_height"));
-//            HubStar.set("window_last_width", HubStar.get("window_current_width"));
-//            HubStar.set("window_current_height", window.innerHeight);
-//            HubStar.set("window_current_width", window.innerWidth);
-//            HubStar.set("window_resize_height_times", window.innerHeight / HubStar.get("window_last_height"));
-//            HubStar.set("window_resize_width_times", window.innerWidth / HubStar.get("window_last_width"));
-//            var tags = that.get("controller").get("controllers.showTag").get("contentTags");
-//            console.log(tags);
-//
-//            if (tags !== undefined && tags !== "" && tags !== null)
-//            {
-//                for (var i = 0; i < tags.length; i++)
-//                {
-//                    //var tagDiv = "#tag_" + tags[i].tag_id;
-//                    console.log(HubStar.get("window_resize_height_times"));
-//                    console.log(tags[i].pic_y + "   " + tags[i].pic_y * HubStar.get("window_resize_height_times"));
-//                    tags[i].pic_y = tags[i].pic_y * HubStar.get("window_resize_height_times");
-//                    tags[i].pic_x = tags[i].pic_x * HubStar.get("window_resize_width_times");
-//                    console.log(tags[i].tag_id);
-//
-//                    //   $(tagDiv).css({top: tags[i].pic_y * HubStar.get("window_resize_height_times"), left: tags[i].pic_x * HubStar.get("window_resize_width_times")});
-//                    //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
-//                }
-//                that.get("controller").windowResizeTags(tags);
-//            }
-//        };
         return this.$().attr({tabindex: 1}), this.$().focus();
     },
     checkReading: function() {
@@ -134,9 +102,18 @@ HubStar.ArticleView = Ember.View.extend({
         this.set('readContent', !this.get("readContent"));
         $('#read_more_cue').attr("style", "display:block;");
     },
+    showMore: function() {
+        this.set('showContent', !this.get("showContent"));
+        $('.article-objectview-right').css('height', 'auto');
+        $(".article-objectview-right").animate({width: "45%"}, "slow");
+    },
+    showClosed: function() {
+        $(".article-objectview-right").animate({width: "15%"}, "slow");
+        this.set('showContent', !this.get("showContent"));
+    },
     setArticleTag: function() {
 
-        $('#tag_article_action').slideToggle("slow");
+        $('#article_tag_action').slideToggle("slow");
 
     },
     //set the mouse over event
@@ -152,7 +129,6 @@ HubStar.ArticleView = Ember.View.extend({
                 $("#tagitshow").fadeIn();
                 $("#tagitshow").css({top: pic_y, left: picx_content});
             }, 500);
-            //alert(that.get("controller").get("showEachTagContent"));
         });
 
     },
@@ -195,7 +171,7 @@ HubStar.ArticleView = Ember.View.extend({
         { // pressed 'esc'
 
             //this.get("controller").transitionTo("search");
-
+ this.get("controller").get("controllers.article").set("contentTagsArticle","");
             var address = document.URL;
             var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
             var id = address.split("#")[1].split("/")[2];

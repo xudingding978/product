@@ -16,7 +16,7 @@ HubStar.PhotoView = Ember.View.extend({
             if (e.which === 1) //2:middle 
             {
                 var imgtag = $(this).parent(); // get the div to append the tagging entry
-               HubStar.set("changeHeight",50);
+                HubStar.set("changeHeight", 50);
 //                if ((parseFloat(event.pageX) < parseFloat($("#tag_image_object").offset().left)) || (parseFloat(event.pageX) > parseFloat($("#tag_image_object").offset().left) + parseFloat(HubStar.get("pic_current_width"))) ||
 //                        (parseFloat(event.pageY) < parseFloat($("#tag_image_object").offset().top)) || (parseFloat(event.pageY) > (parseFloat($("#tag_image_object").offset().top) + parseFloat(HubStar.get("pic_current_height")))))
 //                {
@@ -26,10 +26,8 @@ HubStar.PhotoView = Ember.View.extend({
 //                }
 //                else
                 {
-                   //  console.log(parseFloat(event.pageX) +"  sssss  "+parseFloat($("#tag_image_object").offset().left) +"   "+ parseFloat(HubStar.get("pic_current_width")));
                     mouseX = e.clientX - 265; // x and y axis
                     mouseY = e.clientY - HubStar.get("changeHeight");
-                    console.log(e.clientY +"   11111111  "+$("#tag_image_object").offset().top+"    "+document.getElementById('tag_image_object').offsetTop);
                     that.get("controller").get("controllers.showTag").set("pic_x", (e.clientX - document.getElementById('tag_image_object').offsetLeft) / HubStar.get("pic_current_width")); //set 
                     that.get("controller").get("controllers.showTag").set("pic_y", (e.clientY - document.getElementById('tag_image_object').offsetTop) / HubStar.get("pic_current_height"));
                     if (that.get("controller").get("enableTag") === true)
@@ -51,11 +49,8 @@ HubStar.PhotoView = Ember.View.extend({
                     {
                         that.get("controller").get("controllers.showTag").set("change_tag_show", false);
                     }
-                    
-console.log("eeeeeeeeeeeee"+e.clientY);
+
                     that.get("controller").nextImage(e, mouseX, mouseY);
-//                    HubStar.set("pic_current_height", document.getElementById('tag_image_object').offsetWidth);
-//                    HubStar.set("pic_current_width", document.getElementById('tag_image_object').offsetHeight);
                 }
             }
 
@@ -107,11 +102,11 @@ console.log("eeeeeeeeeeeee"+e.clientY);
         window.onresize = function() {
             var pic_width = document.getElementById('tag_image_object').offsetWidth;
             var pic_height = document.getElementById('tag_image_object').offsetHeight;
- 
+
             var tags = that.get("controller").get("controllers.showTag").get("contentTags");
             if (tags !== undefined && tags !== "" && tags !== null)
             {
-                that.get("controller").windowResizeTags(tags,pic_width,pic_height);
+                that.get("controller").windowResizeTags(tags, pic_width, pic_height);
 
             }
 
@@ -229,7 +224,7 @@ console.log("eeeeeeeeeeeee"+e.clientY);
         { // pressed 'esc'
 
             //this.get("controller").transitionTo("search");
-  this.get("controller").set("enableTag", false);  //close the showTag template
+            this.get("controller").set("enableTag", false);  //close the showTag template
             var address = document.URL;
             var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
             var id = address.split("#")[1].split("/")[2];

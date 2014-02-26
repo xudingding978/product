@@ -100,7 +100,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     previesImage: function(event, pic_x, pic_y) {
         // this.set("contentTags", "");
         this.set("showEachTagContent", false);
-        this.get("controllers.showTag").set("contentTags", "");
+
         if (this.get("enableTag") === true)
         {
 //            if (this.get("inImage") === false)
@@ -120,6 +120,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
         } else
         {
             this.set("contentTags", "");
+            this.get("controllers.showTag").set("contentTags", "");
+           // this.get("controllers.showTag").readTags();
             if (!this.get('selectedPhoto')) {
                 this.set('selectedPhoto', this.get('content').get('lastObject'));
             }
@@ -133,6 +135,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.set('image_no', selectedIndex + 1);
             this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
             this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
+                    this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
             this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
             this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
             if (this.get("controllers.masonryCollectionItems").get("type") === "user")
@@ -165,10 +168,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     nextImage: function(event, pic_x, pic_y) {
         var counter = 2;
-        console.log(pic_x + "sssssssssssssaaaaaaaaaaaa");
-        //this.set("contentTags", "");
         this.set("showEachTagContent", false);
-        this.get("controllers.showTag").set("contentTags", "");
+
         if (this.get("enableTag") === true)
         {
 //            if (this.get("inImage") === false)
@@ -189,6 +190,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
         } else
         {
             this.set("contentTags", "");
+            this.get("controllers.showTag").set("contentTags", "");
+
             if (!this.get('selectedPhoto')) {
                 this.set('selectedPhoto', this.get('content').get('firstObject'));
             }
@@ -202,6 +205,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.set('image_no', selectedIndex + 1);
             this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
             this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
+                        this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
             if (this.get("controllers.masonryCollectionItems").get("type") === "user")
             {
                 this.transitionTo("userPhoto", this.get("megaResouce"));
@@ -234,7 +238,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
     windowResizeTags: function(tags, width, height)
     {
         var photo_id = "";
-        console.log("111111111111111111111111111111111111111");
         photo_id = this.get('selectedPhoto').id;
         var that = this;
         HubStar.set("pic_current_width", width);
@@ -242,8 +245,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
         for (var i = 0; i < tags.length; i++)
         {
             var tagDiv = "#tag_" + tags[i].tag_id;
-            var pic_width = width * tags[i].pic_x + $("#tag_image_object").offset().left;
-            var pic_height = height * tags[i].pic_y + $("#tag_image_object").offset().top;
+            var pic_width = width * tags[i].pic_x + document.getElementById('tag_image_object').offsetLeft;
+            var pic_height = height * tags[i].pic_y + document.getElementById('tag_image_object').offsetTop;
             $(tagDiv).css({top: pic_height, left: pic_width});
             //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
         }
@@ -253,20 +256,21 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("showAllTags", true);
         this.set("showEachTagContent", true);
         var tags = this.get("contentTags");
-        setTimeout(function() {
-            if (tags !== undefined && tags !== "" && tags !== null)
-            {
-                for (var i = 0; i < tags.length; i++)
-                {
-                    var tagDiv = "#tag_" + tags[i].tag_id;
-                    var height = tags[i].pic_y * HubStar.get("pic_current_height") + document.getElementById('tag_image_object').offsetTop;  //set the tag's place which is the percentage of image and add the picture origin left point place
-                    var width = tags[i].pic_x * HubStar.get("pic_current_width") + document.getElementById('tag_image_object').offsetLeft;
-                    $(tagDiv).css({top: height, left: width});
-                    //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
-                }
-            }
-        }
-        , 10);
+        this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
+//        setTimeout(function() {
+//            if (tags !== undefined && tags !== "" && tags !== null)
+//            {
+//                for (var i = 0; i < tags.length; i++)
+//                {
+//                    var tagDiv = "#tag_" + tags[i].tag_id;
+//                    var height = tags[i].pic_y * HubStar.get("pic_current_height") + document.getElementById('tag_image_object').offsetTop;  //set the tag's place which is the percentage of image and add the picture origin left point place
+//                    var width = tags[i].pic_x * HubStar.get("pic_current_width") + document.getElementById('tag_image_object').offsetLeft;
+//                    $(tagDiv).css({top: height, left: width});
+//                    //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
+//                }
+//            }
+//        }
+//        , 10);
     },
     EditTag: function(tag_id)
     {
@@ -448,8 +452,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     getInitData: function(megaObject) {
         var address = document.URL;
-        //console.log(megaObject.get("photo").objectAt(0).get("photo_original_height") + "  " + megaObject.get("photo").objectAt(0).get("photo_original_width") + "444444444");
-
+        //  this.set("contentTags", "");
 
         if (address.search("article") !== -1)
         {
@@ -465,6 +468,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.set("is_article_video", true);
             if (megaObject.get("type") === 'article')
             {
+                console.log("99");
+                this.set("contentTags", "");
                 var photoUrl = megaObject.get("article").objectAt(0).get("article_image_url");
                 var photoObj = megaObject.set('photo_image_original_url', photoUrl);
                 photoObj.set("photo_title", megaObject.get("article").objectAt(0).get("article_headline"));
@@ -484,7 +489,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             else
             {
-
                 var photoObj = megaObject.get('photo').objectAt(0);
                 HubStar.set("pic_current_height", photoObj.get("photo_original_height"));
                 HubStar.set("pic_current_width", photoObj.get("photo_original_width"));
@@ -493,7 +497,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     if (HubStar.get("isArticleTag") !== true)
                     {
                         HubStar.set("isset", true);
-                        console.log("megacontroller init");
                         that.get("controllers.showTag").readTags(photoObj.get("id"));
                         // that.get("controllers.showTag").set("showEachTagContent",true);
 
@@ -507,7 +510,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                                     // that.set("tagCount", that.get("contentTags").get("length"));
                                 }
                             }
-                        }, 760); //original is 60
+                        }, 800); //original is 60
                         that.set("currentUser", HubStar.User.find(localStorage.loginStatus));
                     }
                 });

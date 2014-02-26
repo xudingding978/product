@@ -20,26 +20,27 @@ HubStar.CollectionRoute = Ember.Route.extend({
     },
     events: {
         transitionToPhoto: function(id) {
-            
+
             this.controllerFor('mega').set("selectPhoto", false);
-             
+
             var obj = HubStar.Mega.find(id);
             this.transitionTo("userPhoto", obj);//photo          
         },
-        transitionToProfile: function(id) {          
+        transitionToProfile: function(id) {
             this.controllerFor('user').set('switchPhoto', false);
 //            var address = document.URL;
 //            var user_id = address.split("#")[1].split("/")[2];
-           
-             this.transitionTo("profile", HubStar.Profile.find(id));
+
+            this.transitionTo("profile", HubStar.Profile.find(id));
         },
         transitionToArticle: function(id) {
-    console.log("ssssssssssssss");
             this.controllerFor("article").set("collectionArticleId", id);
             var article = HubStar.Article.find(id);
-                        console.log(article.get("isLoaded")+"  "+id);
-                              console.log(article);
-            this.transitionTo("userArticle", article);
+            var that = this;
+            article.then(function() {
+                that.transitionTo("userArticle", article);
+            });
+
 
         },
         transitionToVideo: function(video_id) {

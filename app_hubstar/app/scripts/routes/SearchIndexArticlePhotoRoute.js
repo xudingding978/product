@@ -1,6 +1,7 @@
 HubStar.SearchIndexArticlePhotoRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         var temp;
+        var that = this;
         var url = window.location.href;
         var urlArray = url.split("/");
         if (model.id === undefined) {                               //reload page model id can not be find
@@ -8,13 +9,13 @@ HubStar.SearchIndexArticlePhotoRoute = Ember.Route.extend({
         } else {
             temp = model.id;
         }
-       // var type= url []
+        // var type= url []
         var megaModel = HubStar.Mega.find(temp);
         var that = this;
-        megaModel.then(function() {           
-           that.controllerFor('mega').getInitData(megaModel);
-        });  
-        
+        megaModel.then(function() {
+            that.controllerFor('mega').getInitData(megaModel);
+        });
+
     },
     model: function(params) {
         var model = HubStar.Mega.find(params.photo_id);

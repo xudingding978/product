@@ -379,12 +379,10 @@
                     tooltipLayer.style.top = '15px';
                     tooltipLayer.style.right = (_getOffset(targetElement).width + 20) + 'px';
                      arrowLayer.className = 'introjs-arrow right';
-                }
-                
+                }  
                 break;
             case 'left':
                 tooltipLayer.style.top = '15px';
-                console.log("left"+_getOffset(targetElement).left);
                 tooltipLayer.style.right = (_getOffset(targetElement).width + 10) + 'px';
                 arrowLayer.className = 'introjs-arrow right';
                 break;

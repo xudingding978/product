@@ -32,7 +32,6 @@ HubStar.PhotoView = Ember.View.extend({
                     that.get("controller").get("controllers.showTag").set("pic_y", (e.clientY - document.getElementById('tag_image_object').offsetTop) / HubStar.get("pic_current_height"));
                     if (that.get("controller").get("enableTag") === true)
                     {
-
                         that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
                     }
                     else

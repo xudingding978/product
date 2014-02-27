@@ -458,6 +458,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
     },
     selectImage: function(e) { // it is click the photo
+alert("selected image in article");
         this.set("isShowPhotoUrl", true);
         this.set("contentTagsArticle", "");
         var megaModel = HubStar.Mega.find(e);
@@ -660,7 +661,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                     }
                     if (that.get("accessFromSearchBoard") === false)
                     {
-                        //  if (this.get("isShowPhotoUrl") === true) //to controll show the photo url or not
+                          if (this.get("isShowPhotoUrl") === true) //to controll show the photo url or not
                         {
                             if (that.get("controllers.masonryCollectionItems").get("type") === "profile")
                             {
@@ -685,7 +686,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                         var search_id = address.split("#")[1].split("/")[2];
                         var search_type = address.split("#")[1].split("/")[1];
 
-                        //    if (this.get("isShowPhotoUrl") === true)
+                          if (this.get("isShowPhotoUrl") === true)
                         {
                             if (search_type === "search" || search_type === "searchs")
                             {

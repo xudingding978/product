@@ -147,7 +147,6 @@ HubStar.ArticleController = Ember.Controller.extend({
 //            //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
 //        }
     },
-
     JudgeBusinessProfile: function()
     {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
@@ -272,7 +271,6 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.get("controllers.showTag").set("contentTags", "");
         if (this.get("enableTag") === true)
         {
-
             setTimeout(function() {
                 $('#tagit').fadeIn();
                 $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
@@ -283,7 +281,6 @@ HubStar.ArticleController = Ember.Controller.extend({
         } else
         {
             this.set("contentTagsArticle", "");
-
             if (!this.get('selectedPhoto')) {
                 this.set('selectedPhoto', this.get('content').get('lastObject'));
             }
@@ -352,8 +349,6 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     nextImage: function(event, pic_x, pic_y) {
         this.set("showEachTagContent", false);
-        this.get("controllers.showTag").set("contentTags", "");
-
         if (this.get("enableTag") === true)
         {
             setTimeout(function() {
@@ -368,7 +363,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         } else
         {
             this.set("contentTagsArticle", "");
-           
+            this.get("controllers.showTag").set("contentTags", "");
             this.set("isShowPhotoUrl", true);
             if (!this.get('selectedPhoto')) {
                 this.set('selectedPhoto', this.get('content').get('firstObject'));

@@ -121,7 +121,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         {
             this.set("contentTags", "");
             this.get("controllers.showTag").set("contentTags", "");
-           // this.get("controllers.showTag").readTags();
+            // this.get("controllers.showTag").readTags();
             if (!this.get('selectedPhoto')) {
                 this.set('selectedPhoto', this.get('content').get('lastObject'));
             }
@@ -135,7 +135,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.set('image_no', selectedIndex + 1);
             this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
             this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
-                    this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
+            this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
             this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
             this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
             if (this.get("controllers.masonryCollectionItems").get("type") === "user")
@@ -189,6 +189,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
         } else
         {
+            alert("nextimage");
             this.set("contentTags", "");
             this.get("controllers.showTag").set("contentTags", "");
 
@@ -205,7 +206,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.set('image_no', selectedIndex + 1);
             this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
             this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
-                        this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
+            this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
             if (this.get("controllers.masonryCollectionItems").get("type") === "user")
             {
                 this.transitionTo("userPhoto", this.get("megaResouce"));

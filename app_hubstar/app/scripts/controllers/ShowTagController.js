@@ -267,7 +267,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                                 $(tagDiv).css({top: height, left: width});
                             }
                         }
-                    }, 50);
+                    }, 650);
                 });
             }
             else

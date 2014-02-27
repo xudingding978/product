@@ -972,8 +972,6 @@ HubStar.UserController = Ember.Controller.extend({
 
         this.transitionToRoute('messageCenter');
 
-
-
     },
     selectPost: function(model) {
         if (this.get("controllers.checkingLoginStatus").popupLogin())

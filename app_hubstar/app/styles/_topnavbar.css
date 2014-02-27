@@ -15,6 +15,9 @@
     background-image: url(../../images/discoverybarbg.jpg);
 }
 
+.selected-navigation{
+    background-color: #d2d2d2;
+}
 
 .navbar .brand {
     display: block;
@@ -202,7 +205,7 @@
 .Navigator-box{
     margin-top: 60px;
     width: 665px;
-    height: 450px;
+    height: 460px;
     border-radius: 3px;
     box-shadow: 0 0 10px #aaa;
     background-color: white;

@@ -80,6 +80,7 @@
         <div class="mustfull" id="errorMessage6" style="display: none">please fill in Admins Emails. </div>
          <div class="mustfull" id="numberFormat" style="display: none">please fill in info as number </div>
         <div class="mustfull" id="errorMessage4" style="display: none">please select one from the dropdown list </div>
+        <div class="mustfull" id="errorMessage7" style="display: none">please select one classfication </div>
         <div class="contactme-table easing" style="width: 87%;margin: auto;padding-bottom: 0px;">
 
             <div id="step3" style="padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 40px 0 30px 20px;">
@@ -95,6 +96,24 @@
                                 {{view Ember.TextField valueBinding="profile_name"   class="profileName" placeholder="Your Business Name"}} 
                             </div>
                            
+                        </div>
+                    </div>
+                
+                 <div style="display:table-row">
+                        <div style="display:table-cell;text-align: right;" >Classification*:</div> 
+
+                        <div  style="display:table-cell">
+                     
+                                <div id="residential" class="classfication" style="margin: 10px 10px 0;width: 34%;display: inline-block;" {{action classSelection "Residential"}}>
+                                     <span id="">Residential</span>
+                                    
+                                </div>
+                                <div id="commercial" class="classfication" style="margin: 10px -1px 0;width: 34%;display: inline-block;" {{action classSelection "Commercial"}}>
+                                     <span id="">Commercial</span>
+                                   
+                                   
+                                </div>                              
+                         
                         </div>
                     </div>
 

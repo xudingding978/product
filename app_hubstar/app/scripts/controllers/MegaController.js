@@ -185,18 +185,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
     },
     getInitData: function(megaObject) {
-//        var mega = HubStar.Mega.find(megaObject.get("id"));;
-//        mega.then(function() {
-//            if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
-//            {
-//                mega.set("view_count", 0);
-//            }
-//            else
-//            {
-//                mega.set("view_count", mega.get("view_count") + 1);
-//            }
-//            mega.store.save();
-//        });
         var that = this;
         megaObject.then(function() {
             //if (megaObject.get("isLoaded")) {
@@ -277,6 +265,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     that.getCommentsById(megaObject.id);
                 }
             }
+            
             setTimeout(function() {
                 if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
                 {
@@ -288,6 +277,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
                 megaObject.store.save();
             }, 5000);
+                
         });
 
     },

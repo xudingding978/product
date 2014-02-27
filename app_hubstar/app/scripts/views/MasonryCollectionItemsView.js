@@ -6,7 +6,8 @@ HubStar.MasonryCollectionItemsView = Ember.View.extend({
                 $('#masonry_photo_collection_container').masonry({
                     itemSelector: '.box',
                     columnWidth: 185,
-                    isFitWidth: true
+                    isFitWidth: true,
+                    transitionDuration: 10      
                 });
             });
         $('#uploadObject').click(function() {
@@ -20,7 +21,8 @@ HubStar.MasonryCollectionItemsView = Ember.View.extend({
                 $('#masonry_photo_collection_container').masonry({
                     itemSelector: '.box',
                     columnWidth: 185,
-                    isFitWidth: true
+                    isFitWidth: true,
+                    transitionDuration: 10      
                 });
             });
         });

@@ -259,19 +259,19 @@ HubStar.ArticleController = Ember.Controller.extend({
             that.addRelatedData(megaObject);
             that.getCommentsById(megaObject.id);
             that.checkCreditExist(megaObject.get('article').objectAt(0).get('credits'));
-
-            setTimeout(function() {
-                if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
-                {
-                    megaObject.set("view_count", 1);
-                }
-                else
-                {
-                    var megaData = megaObject.get("view_count");
-                    megaObject.set("view_count", megaData + 1);
-                }
-                megaObject.store.save();
-            }, 6000);
+            
+//            setTimeout(function() {
+//                if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
+//                {
+//                    megaObject.set("view_count", 1);
+//                }
+//                else
+//                {
+//                    var megaData = megaObject.get("view_count");
+//                    megaObject.set("view_count", megaData + 1);
+//                }
+//                megaObject.store.save();
+//            }, 6000);
         });
     },
     checkCreditExist: function(credits) {
@@ -360,10 +360,9 @@ HubStar.ArticleController = Ember.Controller.extend({
         if (isProfileIDExist && isCollectionIDExist) {
             var data = HubStar.Mega.find({RequireType: "articleRelatedImage", "article_id": collection_id, "owner_id": owner_profile_id});
             data.addObserver('isLoaded', function() {
-                if (data.get('isLoaded')) {
-
+                if (data.get('isLoaded')) {                   
                     var length = this.get("length");
-                    for (var i = 0; i < length - 1; i++) {
+                    for (var i = 0; i < length ; i++) {
                         var temp = this.objectAt(i);
                         if (temp.get("photo") !== undefined) {
                             that.get("content").pushObject(temp.get("photo").objectAt(0));                                  //find the object which contain photos and push it into model

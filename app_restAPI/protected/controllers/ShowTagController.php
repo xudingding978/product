@@ -317,7 +317,7 @@ class ShowTagController extends Controller {
         $linkToCompany = $request_array[6];
 
         $notification_id = (string) (rand(10000, 99999)) . $time_stamp . $currentUser;
-        $receiveEmail1 = "linzw07@gmail.com";
+      //  $receiveEmail1 = "linzw07@gmail.com";
         for ($i = 0; $i < sizeof($owner_ids); $i++) {
 
             $ownerId = $owner_ids[$i];
@@ -347,10 +347,10 @@ class ShowTagController extends Controller {
             if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
                 if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
 
-                    //  $receiveEmail = $userInfo['user'][0]['email'];
+                      $receiveEmail = $userInfo['user'][0]['email'];
                     $receiveName = $userInfo['user'][0]['display_name'];
 
-                    $this->sendEmail($receiveEmail1, $receiveName, $photo_url, $currentUserName, $linkToCompany);
+                    $this->sendEmail($receiveEmail, $receiveName, $photo_url, $currentUserName, $linkToCompany);
                 }
             } else {
                 echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');

@@ -55,7 +55,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
 
             var pic_x = this.get("pic_x"); //set the tag location
             var pic_y = this.get("pic_y");
-            console.log("savetag " + "pic_x=" + pic_x + "pic_y=" + pic_y);
             var linkAddress = this.get("linkTo");
             var time_stamp = new Date();
             var tag_id = time_stamp.getTime().toString();
@@ -256,9 +255,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                         }
                         if (tags !== undefined && tags !== "" && tags !== null)
                         {
-                            console.log("bbbbbbbbbbbbbbbbbbbbbbb   ");
-                            console.log(HubStar.get("pic_current_height") + "   " + document.getElementById('tag_image_object').offsetTop);
-                            console.log(HubStar.get("pic_current_width") + "   " + document.getElementById('tag_image_object').offsetLeft);
                             for (var i = 0; i < tags.length; i++)
                             {
                                 var tagDiv = "#tag_" + tags[i].tag_id;
@@ -515,7 +511,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
     exit: function() {
         this.set('selectionPop', false);
         this.set('selectTagProfile', false);
-        //console.log(this.get("parentTController"));
         if (this.get('parentTController') === 'article')
         {
             this.get("controllers.article").switchCollection();
@@ -524,7 +519,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         else if (this.get('parentTController') === 'itemFunction')
         {
             var id = this.get("objectID");
-            //console.log(id);
             $('#addCollection_' + id).attr('style', 'display: none');
         }
 

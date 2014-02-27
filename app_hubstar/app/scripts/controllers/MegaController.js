@@ -189,7 +189,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
         } else
         {
-            alert("nextimage");
             this.set("contentTags", "");
             this.get("controllers.showTag").set("contentTags", "");
 
@@ -469,7 +468,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.set("is_article_video", true);
             if (megaObject.get("type") === 'article')
             {
-                console.log("99");
                 this.set("contentTags", "");
                 var photoUrl = megaObject.get("article").objectAt(0).get("article_image_url");
                 var photoObj = megaObject.set('photo_image_original_url', photoUrl);

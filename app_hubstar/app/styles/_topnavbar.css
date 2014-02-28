@@ -291,6 +291,152 @@
     margin: 0 0 0 0;
 }
 
+.Register-Page_background{
+    width: 100%; 
+    height: 100%;
+    position: absolute;
+    display: block; 
+    background: url(../../../images/landingpagebg.jpg) no-repeat center center fixed;
+
+    -webkit-background-size: 100%; 
+    -moz-background-size: 100%; 
+    -o-background-size: 100%; 
+    background-size: 100%; 
+    -webkit-background-size: cover; 
+    -moz-background-size: cover; 
+    -o-background-size: cover; 
+    background-size: cover;
+}
+
+
+.register-page-top-bar > .logonew{
+    position: relative; 
+    height: 30px;
+    margin: 8px;
+    float: left;
+}
+
+.register-page-top-bar{
+    width: 87%;
+    margin: 40px auto;
+    display: block;
+    line-height: 45px;
+    text-align: center;
+    min-height: 40px;
+    min-width: 265px;
+}
+
+.promotion-line{
+    color: #fff;
+    font-size: 13px;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+    opacity: .9;
+
+    width: 60%;
+    margin: auto;
+}
+
+.Login-or-Register{
+    position:relative; 
+    float:right;
+    color: #fff; 
+    font-size:15px;
+    font-weight: bold; 
+    letter-spacing: 1px; 
+    margin: 0 0 0 10px;
+    cursor:pointer;
+}
+
+
+#fadein-image{
+    position: relative;
+    margin: 0 auto 3%; 
+    height: 180px;
+    display: block; 
+    top: 5%
+}
+
+.register-info-box{
+    width: 300px;margin: 0 auto ;
+    background-color: #fff;
+    border-radius: 0 0 5px 5px;
+}
+
+
+#register-with-email-step-2{
+    width: 300px;
+    margin: 0 auto ;
+    background-color: #fff;
+    border-radius: 0 0 5px 5px;
+}
+
+#login-with-email-drop-down{
+    width: 300px;
+    margin: 0 auto ;
+    background-color: #fff;
+    border-radius: 0 0 5px 5px;
+}
+
+.interest-selecting-container{
+    z-index: 11;
+    overflow: hidden; 
+    background-color: white;
+    border-radius: 5px;  
+    width: 75%;
+    max-width: 900px; 
+    margin: 0px auto; 
+    position: absolute; 
+    top: 20%; 
+    left: 0px; 
+    right: 0px;
+    box-shadow: 0 0 5px #999;
+}
+
+.interest-image-container{
+    width: 100px; 
+    height: 100px; 
+    overflow: hidden;
+}
+
+.interest-topic-name{
+    position: relative;
+    text-align: center;
+    font-size: 13px;
+}
+
+.tell-us-what-ur-interested-in{
+    text-align: center;
+    line-height: 25px;
+    margin: 5px auto;
+    font-size: 18px;
+    background-color: #f3f3f3;
+    opacity: 0.5;
+}
+
+#register-with-email-step-4{
+    overflow: hidden;
+    z-index: 11;
+    background-color: white;
+    border-radius: 5px;
+    width: 300px;
+    margin: 20px auto 0;
+    position: fixed;
+    left: 0px;
+    right: 0px;
+}
+
+.registraion-suceesful-message{
+     text-align: center; 
+     padding: 10px 20px; 
+     height: 150px; 
+     font-size: 13px; 
+     color: #333;
+}
+
+
+
+
 .error-textfield{
     box-shadow: 0 0 10px rgba(255,0,0,.5);
     -webkit-box-shadow: 0 0 10px rgba(255,0,0,.5);
@@ -563,6 +709,14 @@ div#forgot-password-container{
 .learnmore-btn:hover{opacity: 1;}
 
 
+.select-interest{
+    width: auto;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px 15px;
+}
+
 .select-interest > .invite-this-friend {opacity: 0}
 
 .select-interest:hover > .invite-this-friend {opacity: 0.8}
@@ -679,3 +833,198 @@ div#login_detail{
     padding: 5px !important;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*DEVICES FOR REGISTER PAGE*/
+
+
+/*letop & tablet*/
+@media all and (max-width: 1800px){
+
+    .register-page-top-bar{
+        width: 87%;
+        margin: 40px auto 2%;
+
+    }
+
+    .register-page-top-bar > .logonew{
+        height: 28px;    
+    }
+
+    .promotion-line{
+        font-size: 11px;
+    }
+
+    .Login-or-Register{
+        font-size: 11px;
+    }
+
+    #fadein-image{
+        margin: 0 auto 30px;
+        height: 130px;
+        top: 0%;
+    }
+
+    .register-with{
+        width: 250px;
+        font-size: 13px;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .social-links-container {
+        width: 250px;
+    }
+
+    .register-info-box{
+        width: 250px;
+        /*        margin: 0 auto ;
+                background-color: #fff;
+                border-radius: 0 0 5px 5px;*/
+    }
+
+    #register-with-email-step-2{width: 250px;}
+
+    #login-with-email-drop-down{width: 250px;}
+
+    .login-textfield {
+        height: 40px;
+        line-height: 40px;
+    }
+
+
+    .login-textfield > input{
+        font-size: 13px;
+    }
+
+    .login-select {
+        height:40px;
+        line-height: 40px;
+    }
+
+
+    .register-btn {
+        width: 250px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 13px;
+    }
+
+    .back-btn {
+        width: 49%;
+        height: 40px;
+        line-height: 40px;
+        font-size: 13px;
+    }
+
+    div.register-btn-small {width: 49%}
+
+    .interest-image-container{width: 70px; height: 70px;}
+
+    .select-interest{margin: 8px 10px;}
+
+    .interest-selecting-container{max-width: 650px;}
+
+
+}
+
+
+
+
+@media only screen 
+and (max-width : 900px) {
+    .promotion-line{ display: none; }
+
+    .interest-image-container{width: 70px; height: 70px;}
+
+    .select-interest{margin: 8px 10px;}
+
+    .usersobject-hoverarea {width: 70px; height: 90px;}
+
+    .interest-topic-name{font-size: 11px;}
+
+    #register-with-email-step-4{width: 250px}
+    
+    .registraion-suceesful-message{font-size: 11px; line-height: 15px;}
+}
+
+@media only screen 
+and (max-width : 480px) {
+    #fadein-image{ display: none;}
+    .register-page-top-bar {margin: 40px auto 15%;}
+
+    .interest-image-container{width: 50px; height: 50px;}
+
+    .select-interest{margin: 6px 8px;}
+
+    .usersobject-hoverarea {width: 50px; height: 70px;}
+
+    .interest-topic-name{font-size: 9px;}
+
+    .tell-us-what-ur-interested-in{
+        line-height: 20px;
+        margin: 4px auto;
+        font-size: 15px;
+    }
+
+
+}
+
+
+
+
+
+
+/*smart phone*/
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+
+
+}

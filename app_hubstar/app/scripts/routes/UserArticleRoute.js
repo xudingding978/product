@@ -18,14 +18,16 @@ HubStar.UserArticleRoute = Ember.Route.extend({
 
         var megaModel = HubStar.Mega.find(temp);
         var that = this;
-        megaModel.then(function() {           
+      
+        megaModel.then(function() {       
+        
            that.controllerFor("article").getInitData(megaModel);
         }); 
         
 
     },
     model: function(params) {
-        var model = HubStar.Mega.find({"RequireType": "articles", "article_id": params.article_id});
+        var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.article_id});
         model.set("id", params.article_id);
         return model;
     },

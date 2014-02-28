@@ -21,16 +21,22 @@ HubStar.SearchsController = Ember.ArrayController.extend({
     defaultSearch: function() {
         this.set("loginInfo", localStorage.loginStatus);
         this.setLoginImge();
+        
+        
+        
 //        if (HubStar.get("defaultSearch") === true)
 //        {
 //            this.controllerFor('application').set('content', []);
 //            this.controllerFor('application').set('search_string', '');
 //            this.controllerFor('application').defaultSearch();
 //        }
-        $('#masonry_container').masonry("reloadItems");
-        setTimeout(function() {
-            $('#masonry_container').masonry();         
-        }, 5);
+//        $('#masonry_container').masonry("reloadItems");
+//        setTimeout(function() {
+//            $('#masonry_container').masonry();
+//        }, 5);
+
+
+
     },
     getResponseTime: function(start, end) {
         var totalTime = end - start;
@@ -38,7 +44,7 @@ HubStar.SearchsController = Ember.ArrayController.extend({
         this.set("time", totalTime);
     },
     //get user model data after login
-    /***/     setLoginImge: function() {                                           /***/
+    /***/     setLoginImge: function() {    /***/
         /***/            var ac = this.get("controllers.application");          /***/
         /***/           var st = this.get("controllers.status");                   /***/
         /***/          ac.grapData();                                                       /***/

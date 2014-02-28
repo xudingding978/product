@@ -2,7 +2,7 @@
 
 
     <div class="navbar-inner">
-        
+
         <div class="brand" data-step="1" data-intro="Click on the <b>Trends logo</b> to return to the main Search Wall.">
             <a href="/#/search" > <img class="logonew" {{action showDiscoveryBar}} style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png"></a>
 
@@ -18,6 +18,8 @@
         </div>
 
 
+
+
         <div id="search-bar" class="search-bar-ontop" style="display:none">
             <div id ="navigator" class="Nav-btn easing" style="float: left;" {{action dropdownHeaderNavigator}}><i class="fa fa-list"></i></div>
             {{#if controller.isHeaderNavigatorDropdown}}
@@ -26,10 +28,12 @@
             <div class="Search-box easing" style="">
                 {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
                 <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
-                            <i class="fa fa-search"></i>
+                    <i class="fa fa-search"></i>
                 </div>
             </div>
         </div>
+
+
 
 
 
@@ -38,16 +42,16 @@
 
         <div id="login_details" style="position: relative;float: right;cursor: pointer;text-align: right;">
             <div id="login_detail" style="position: relative;float: right;cursor: pointer;text-align: right;" data-step="4" data-intro="Click on your <b>Profile Picture</b> to access your Profile, Message Centre, Help options or to log out.">
-            {{view HubStar.AfterLoginView}}
-        </div>
+                {{view HubStar.AfterLoginView}}
             </div>
+        </div>
         <div id="Geo-Filter" class="Geo-Filter easing"  style="margin-right: 50px;font-size: 15px;" {{action dropdown "notification"}} data-step="3" data-intro="New notifications will appear beside the <b>Notification icon</b>. Click the icon to see your latest notifications.">
-                       <i class="fa fa-bell fa-lg"></i>
+            <i class="fa fa-bell fa-lg"></i>
             {{#if isUnReadCountZero}}
             <div style="cursor: pointer;position: absolute;top: 20px;left: 15px;width: auto;padding: 0 5px 0 4px;height: 15px;background-color: red;line-height: 15px;border-radius: 2px;font-size: 11px;font-weight: bold;">{{unReadCount}}</div>
             {{/if}}
 
-            
+
         </div>
 
 
@@ -79,7 +83,7 @@
         {{/if}}
 
         <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdown "geoLocation"}} data-step="2" data-intro=" Use the <b>Location Filter</b> to filter search results by region.">
-                     <i class="fa fa-angle-down fa-lg">&nbsp;</i>
+            <i class="fa fa-angle-down fa-lg">&nbsp;</i>
             <span style="font-weight: bold;font-size: 15px;">{{HubStar.geoLocation}}</span>
         </div>
 
@@ -87,6 +91,24 @@
         {{view HubStar.DropdownListView}}
         {{/if}}
 
+        
+        
+        <div class="switch-container">
+            <div id="Residential" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;">Residential</div>
+            <div  id="switchbar" class="insetbox-shadow switch-groove" style="display: inline-block">
+                <div style="height: 10px;width: 50%;border-right: 1px solid rgba(0,0,0,.3);float: left;margin: 6px 0;"></div>
+                <div style="height: 10px;width: 50%;border-left: 1px solid rgba(255,255,255,.5); float: right;margin: 6px 0;"></div>
+
+                <div id="switchbarBtn" class="radius-circle gradient1 switch-btn" style="margin-left: 13px"></div>
+
+            </div>
+            <div id="Commercial" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;">Commercial</div>
+        </div>
+
+
+
+
+        
 
     </div>
 </div>

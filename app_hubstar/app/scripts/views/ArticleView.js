@@ -214,7 +214,7 @@ HubStar.ArticleView = Ember.View.extend({
                 }
                 else if (id === "default") //it is the search index
                 {
-                    this.get("controller").transitionTo("searchIndex");
+                    this.get("controller").transitionTo("searchIndexTom");
                 }
                 else
                 {

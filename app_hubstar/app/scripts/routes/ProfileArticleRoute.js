@@ -20,7 +20,7 @@ HubStar.ProfileArticleRoute = Ember.Route.extend({
         this.controllerFor("article").getInitData(d);
     },
     model: function(params) {
-        var model = HubStar.Mega.find({"RequireType": "articles", "article_id": params.article_id});
+        var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.article_id});
         model.set("id", params.article_id); //when refresh the page of profile article photo and set the article id
         return model;
     },

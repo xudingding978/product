@@ -6,7 +6,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
 
         } else {
             HubStar.set('isLogin', true);
-        }
+        }    
         this.controllerFor('searchs').defaultSearch();
         this.controllerFor('index').setLogin();
         this.controllerFor('application').set('islogin', true);
@@ -47,7 +47,6 @@ HubStar.SearchsRoute = Ember.Route.extend({
         }
     },
     redirect: function() {
-
        
             if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
             var address = decodeURIComponent(document.URL);
@@ -72,42 +71,21 @@ HubStar.SearchsRoute = Ember.Route.extend({
             }
 
         } else {
-            // this.transitionTo('searchIndex');
+           
         }
 
     },
     activate: function() {
         $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
         $('#masonry_container').attr('style', "display:block;position:relative");
-        if (HubStar.get("setHight") === null || HubStar.get("setHight") === "null") {
-            HubStar.set("setHight", 0);
-        }
-
-//        var container = document.querySelector('#masonry_container');
-//        var msnry = new Masonry(container, {
-//             itemSelector: '.box',
-//                columnWidth: 185,
-//                isInitLayout: false,
-//                isFitWidth: true
-//        });
-
-//        $(function() {
-//            $('#masonry_container').masonry({
-//                itemSelector: '.box',
-//                columnWidth: 185,
-//                isInitLayout: false,
-//                isFitWidth: true
-//            });
-//        });
-
-        $(window).scrollTop(HubStar.get("setHight"));
-        HubStar.set("setHight", 0);
-
-        //     localStorage.checkUser = "";
+//        if (HubStar.get("setHight") === null || HubStar.get("setHight") === "null") {
+//            HubStar.set("setHight", 0);
+//        }
+//        $(window).scrollTop(HubStar.get("setHight"));
+//        HubStar.set("setHight", 0);
     },
     deactivate: function() {
-        HubStar.set("setHight", $(window).scrollTop());
-
+//        HubStar.set("setHight", $(window).scrollTop());
     },
     renderTemplate: function() {
 

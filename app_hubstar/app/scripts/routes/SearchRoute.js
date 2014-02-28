@@ -6,11 +6,9 @@ HubStar.SearchRoute = Ember.Route.extend({
         } else {
             HubStar.set('isLogin', true);
         }
-//        HubStar.set('isLogin', true);
         this.controllerFor('searchs').set("loginInfo", localStorage.loginStatus);
         this.controllerFor('searchs').setLoginImge();
         this.controllerFor('application').set('search_string', model.id);
-        $(window).scrollTop(0);
         if (HubStar.get("escVideo") !== true)
         {
             this.controllerFor('application').newSearch();
@@ -26,17 +24,10 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
         localStorage.checkUser = "";
-        $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+//        $('#masonry_wrapper').attr('style', "top:100px;position:relative");
 //        setTimeout(function() {
 //            $('#masonry_container').masonry();  //masonry();
 //        }, 300);
-//        var container = document.querySelector('#masonry_container');
-//        var msnry = new Masonry(container, {
-//            itemSelector: '.box',
-//            columnWidth: 185,
-//            isInitLayout: false,
-//            isFitWidth: true
-//        });
     },
     model: function(params) {
         var address = decodeURIComponent(document.URL);
@@ -50,7 +41,6 @@ HubStar.SearchRoute = Ember.Route.extend({
     events: {
         transitionToPhoto: function(id) {
             this.controllerFor('masonryCollectionItems').set("type", "profile");
-            //     this.controllerFor('mega').set("from", "profile");
 
             var address = document.URL;
             var search_id = address.split("#")[1].split("/")[2];
@@ -101,45 +91,24 @@ HubStar.SearchRoute = Ember.Route.extend({
         }
     },
     redirect: function() {
-//        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-//            
-//                this.transitionTo('indexIndex');
-//            
-//
-//        } else {
-//            // this.transitionTo('searchIndex');
-//        }
     },
-    activate: function() {
+   activate: function() {
         $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
         $('#masonry_container').attr('style', "display:block;position:relative");
-        if (HubStar.get("setHight") === null || HubStar.get("setHight") === "null") {
-            HubStar.set("setHight", 0);
-        }
-//        var container = document.querySelector('#masonry_container');
-//        var msnry = new Masonry(container, {
-//             itemSelector: '.box',
-//                columnWidth: 185,
-//                isInitLayout: false,
-//                isFitWidth: true
-//        });
-////
-//        $(function() {
-//            $('#masonry_container').masonry({
-//                itemSelector: '.box',
-//                columnWidth: 185,
-//                isInitLayout: false,
-//                isFitWidth: true
-//            });
-//        });
-        $(window).scrollTop(HubStar.get("setHight"));
-        HubStar.set("setHight", 0);
-
-        //     localStorage.checkUser = "";
+        
+       $(document).ready(function() {
+            $('#footer').attr("style","display:none");
+        });
+        
+//        if (HubStar.get("setHight") === null || HubStar.get("setHight") === "null") {
+//            HubStar.set("setHight", 0);
+//        }
+//        $(window).scrollTop(HubStar.get("setHight"));
+//        HubStar.set("setHight", 0);
     },
     deactivate: function() {
-        HubStar.set("setHight", $(window).scrollTop());
-
+        $('#footer').attr( "style","display:block");
+//        HubStar.set("setHight", $(window).scrollTop());
     },
     renderTemplate: function() {
 

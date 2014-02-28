@@ -5,7 +5,7 @@ HubStar.WelcomeRoute = Ember.Route.extend({
 
         } else {
 
-            this.transitionTo('searchIndex');
+            this.transitionTo('searchIndexTom');
 
         }
 

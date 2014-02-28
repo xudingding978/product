@@ -1,18 +1,16 @@
-HubStar.MasonryView = Ember.View.extend({
-    templateName: 'masonry',
+HubStar.MasonryTestView = Ember.CollectionView.extend({
+    itemViewClass: HubStar.ItemView,
+    contentBinding: "controller.content",
     didInsertElement: function() {
-        $(function() {
+          $(function() {
             $('#masonry_container').masonry({
                 itemSelector: '.box',
                 columnWidth: 185,
                 isInitLayout: false,
                 isFitWidth: true,
-                transitionDuration: 10               
+                transitionDuration: 0               
             });
         });
-        if (HubStar.get('searchStart')) {
-            HubStar.set('isMansonryPageLoad', true);
-        }
     },
     willDestroyElement: function() {
         HubStar.set('isMansonryPageLoad', false);

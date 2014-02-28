@@ -23,7 +23,7 @@ HubStar.UsersRoute = Ember.Route.extend({
                 this.transitionTo('indexIndex');
                 this.controllerFor('application').set('popup', true);
             } else {
-                this.transitionTo('searchIndex');
+                this.transitionTo('searchIndexTom');
             }
         }
 

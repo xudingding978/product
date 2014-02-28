@@ -1625,7 +1625,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         return false;
     },
     keywordSearch: function(keyword) {
-        this.transitionToRoute('searchIndex');
+        this.transitionToRoute('searchIndexTom');
         this.get("controllers.application").set('search_string', keyword);
         this.get("controllers.application").newSearch();
     },

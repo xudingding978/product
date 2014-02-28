@@ -259,19 +259,20 @@ HubStar.ArticleController = Ember.Controller.extend({
             that.addRelatedData(megaObject);
             that.getCommentsById(megaObject.id);
             that.checkCreditExist(megaObject.get('article').objectAt(0).get('credits'));
+            
+//            setTimeout(function() {
+//                if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
+//                {
+//                    megaObject.set("view_count", 1);
+//                }
+//                else
+//                {
+//                    var megaData = megaObject.get("view_count");
+//                    megaObject.set("view_count", megaData + 1);
+//                }
+//                megaObject.store.save();
+//            }, 6000);
         });
-        setTimeout(function() {
-            if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
-            {
-                megaObject.set("view_count", 1);
-            }
-            else
-            {
-                var megaData = megaObject.get("view_count");
-                megaObject.set("view_count", megaData + 1);
-            }
-            megaObject.store.save();
-        }, 6000);
     },
     checkCreditExist: function(credits) {
         if (credits !== null && credits !== 'undefined' && credits.get('length') > 0) {
@@ -315,9 +316,6 @@ HubStar.ArticleController = Ember.Controller.extend({
             this.set("obj", object);
             this.set('willDelete', true);
         }
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
     },
     cancelDelete: function() {
         this.set('willDelete', false);
@@ -353,7 +351,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         HubStar.set("updateCommentmsg", msg);
     },
     addRelatedData: function(mega) {
-       
+
         var collection_id = mega.get("collection_id");
         var owner_profile_id = mega.get("owner_id");
         var isProfileIDExist = this.isParamExist(owner_profile_id);
@@ -362,10 +360,9 @@ HubStar.ArticleController = Ember.Controller.extend({
         if (isProfileIDExist && isCollectionIDExist) {
             var data = HubStar.Mega.find({RequireType: "articleRelatedImage", "article_id": collection_id, "owner_id": owner_profile_id});
             data.addObserver('isLoaded', function() {
-                if (data.get('isLoaded')) {
-
+                if (data.get('isLoaded')) {                   
                     var length = this.get("length");
-                    for (var i = 0; i < length - 1; i++) {
+                    for (var i = 0; i < length ; i++) {
                         var temp = this.objectAt(i);
                         if (temp.get("photo") !== undefined) {
                             that.get("content").pushObject(temp.get("photo").objectAt(0));                                  //find the object which contain photos and push it into model
@@ -394,7 +391,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                     {
                         var address = document.URL;
                         var search_id = address.split("#")[1].split("/")[2];
-                        var search_type = address.split("#")[1].split("/")[1];                       
+                        var search_type = address.split("#")[1].split("/")[1];
                         if (this.get("isShowPhotoUrl") === true)
                         {
                             if (search_type === "search" || search_type === "searchs")
@@ -460,21 +457,17 @@ HubStar.ArticleController = Ember.Controller.extend({
         var collection_id = address.split("#")[1].split("/")[6];
         var user_id = address.split("#")[1].split("/")[2];
         var type = address.split("#")[1].split("/")[1];
-
-
         if (type === "search") //search from the seach board
         {
             if (user_id === "default") //it is the search index
             {
-                this.transitionTo("searchIndex");
+                this.transitionTo("searchIndexTom");
             }
             else
             {
                 HubStar.set("escVideo", true);
                 this.transitionTo("search", {id: user_id}); // go to search page, this can  work, but it is too slowlly.
             }
-
-            // window.history.back();
         }
         else
         {
@@ -491,11 +484,6 @@ HubStar.ArticleController = Ember.Controller.extend({
                 this.transitionTo("profilePhoto", photoObject); // profile photo
             }
         }
-        $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-        setTimeout(function() {
-            $('#masonry_container').masonry();  //masonry();
-        }, 300);
-
     },
     switchCollection: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())

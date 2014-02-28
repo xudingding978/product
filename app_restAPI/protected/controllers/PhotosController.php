@@ -202,14 +202,25 @@ class PhotosController extends Controller {
         return $profile['keyword'];
     }
 
-     public function getProfileEditors($owner_id) {
+    public function getProfileEditors($owner_id) {
         $cb = $this->couchBaseConnection();
         $url = $this->getDomain() . "/profiles/" . $owner_id;
         $tempProfile = $cb->get($url);
         $profile = CJSON::decode($tempProfile, true);
         return $profile['profile'][0]['profile_editors'];
     }
-    
+
+    public function getProfileClassification($owner_id) {
+        $cb = $this->couchBaseConnection();
+        $url = $this->getDomain() . "/profiles/" . $owner_id;
+        $tempProfile = $cb->get($url);
+        $profile = CJSON::decode($tempProfile, true);
+        if (!isset($profile['classification'])) {
+            $profile['classification'] = "";
+        }
+        return $profile['classification'];
+    }
+
     public function updateCouchbasePhoto($id) {
         $ch = $this->couchBaseConnection("develop");
         $result = $ch->get($id);
@@ -283,10 +294,10 @@ class PhotosController extends Controller {
         $compressed_photo = $this->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = intval(imagesx($compressed_photo));
         $orig_size['height'] = intval(imagesy($compressed_photo));
-        $thumbnailUrl = $this->savePhotoInTypes($orig_size, "thumbnail", $photo_name, $photo, $data_arr, $owner_id,"photo");
-        $heroUrl = $this->savePhotoInTypes($orig_size, "hero", $photo_name, $photo, $data_arr, $owner_id,"photo");
-        $previewUrl = $this->savePhotoInTypes($orig_size, "preview", $photo_name, $photo, $data_arr, $owner_id,"photo");
-        $originalUrl = $this->savePhotoInTypes($orig_size, "original", $photo_name, $compressed_photo, $data_arr, $owner_id,"photo");
+        $thumbnailUrl = $this->savePhotoInTypes($orig_size, "thumbnail", $photo_name, $photo, $data_arr, $owner_id, "photo");
+        $heroUrl = $this->savePhotoInTypes($orig_size, "hero", $photo_name, $photo, $data_arr, $owner_id, "photo");
+        $previewUrl = $this->savePhotoInTypes($orig_size, "preview", $photo_name, $photo, $data_arr, $owner_id, "photo");
+        $originalUrl = $this->savePhotoInTypes($orig_size, "original", $photo_name, $compressed_photo, $data_arr, $owner_id, "photo");
 
         $mega['object_image_url'] = $heroUrl;
         $mega['photo'][0]['photo_image_original_url'] = $originalUrl;
@@ -297,30 +308,35 @@ class PhotosController extends Controller {
         $mega['photo'][0]['photo_original_width'] = $orig_size['width'];
 
         $keyword = $this->getProfileKeyword($mega['owner_id']);
-        $editors = $this->getProfileEditors($mega['owner_id']); 
+        $editors = $this->getProfileEditors($mega['owner_id']);
         $mega['keyword'] = $keyword;
+
         $mega['editors'] = $editors;
+
+
+
+        $mega['classification'] = $this->getProfileClassification($mega['owner_id']);
+
+
 
         return $mega;
     }
 
     public function savePhotoInTypes($orig_size, $photo_type, $photo_name, $compressed_photo, $data_arr, $owner_id, $optional = null, $type = null) {
 
-        $new_size = $this->getNewPhotoSize($orig_size, $photo_type);        
+        $new_size = $this->getNewPhotoSize($orig_size, $photo_type);
         $new_photo_data = $this->createNewImage($orig_size, $new_size, $compressed_photo, $data_arr['type']);
         //$new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
-        $bucket = 's3.hubsrv.com';     
+        $bucket = 's3.hubsrv.com';
         if ($optional == null || $optional == 'undefined' || $optional == "") {
             $url = $this->getDomain() . '/users' . "/" . $owner_id . "/" . $photo_type . "/" . $photo_name;
-        } else if($optional == 'profile_picture'){
-            $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $optional;
-        }
-        else  if($optional =="photo"){
+        } else if ($optional == 'profile_picture') {
             $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
             $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $new_photo_name;
-        }
-        else
-        {
+        } else if ($optional == "photo") {
+            $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
+            $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $new_photo_name;
+        } else {
             $url = $this->getDomain() . '/users' . "/" . $owner_id . "/" . $photo_type . "/" . $photo_name;
         }
         $this->saveImageToS3($url, $new_photo_data, $bucket, $type);
@@ -509,15 +525,15 @@ class PhotosController extends Controller {
             $linkUrl = $mega['mega']['photo'][0]['photo_link_url'];
             $deleted = $mega['mega']['is_deleted'];
 
-            
+
             $url = $this->getDomain() . "/" . $id;
             $tempRecord = $cb->get($url);
             $oldRecord = CJSON::decode($tempRecord, true);
             $oldRecord['object_description'] = $photoCaption;
-            if (!isset($oldRecord['view_count'])) { 
+            if (!isset($oldRecord['view_count'])) {
                 $oldRecord["view_count"] = 1;
             } else {
-                $oldRecord['view_count'] =   $mega['mega']['view_count']; // ,but it  will also add one when share  //$mega['mega']['view_count']; 
+                $oldRecord['view_count'] = $mega['mega']['view_count']; // ,but it  will also add one when share  //$mega['mega']['view_count']; 
             }
             if (!isset($oldRecord['accessed'])) {
                 $oldRecord["accessed"] = 1;

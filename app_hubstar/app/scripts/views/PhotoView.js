@@ -86,7 +86,7 @@ HubStar.PhotoView = Ember.View.extend({
 
                 if (id === "default") //it is the search index
                 {
-                    this.get("controller").transitionTo("searchIndex");
+                    this.get("controller").transitionTo("searchIndexTom");
                     this.get("controller").set("selectPhoto", false);
                     this.get("controller").set('image_no', 1);
                 }

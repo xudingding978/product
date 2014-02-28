@@ -12,7 +12,7 @@ class MegasController extends Controller {
     const JSON_RESPONSE_ROOT_PLURAL = 'megas';
     
     public function actionIndex() {
-        try {
+        try {        
             $temp = explode("?", $_SERVER['REQUEST_URI']);
             $request_string = $temp [sizeof($temp) - 1];
             $response = "";
@@ -83,6 +83,7 @@ class MegasController extends Controller {
 
     public function actionRead() {
         try {
+            
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $cb = $this->couchBaseConnection();

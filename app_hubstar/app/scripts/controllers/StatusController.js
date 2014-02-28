@@ -4,6 +4,10 @@ HubStar.StatusController = Ember.Controller.extend({
         user: null,
         myUserProfile: null,
         response: 'Start searching for ideas now.',
+        residential:true,
+        commercial:true,
+        needs: ['application'],
+    
         getSearchResultNum: function(hits) {
 
             this.set("searchResultNum", "Item: " + hits);

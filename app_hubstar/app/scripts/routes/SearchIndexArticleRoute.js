@@ -23,7 +23,7 @@ HubStar.SearchIndexArticleRoute = Ember.Route.extend({
 
     },
     model: function(params) {
-        var model = HubStar.Mega.find({"RequireType": "articles", "article_id": params.article_id});
+        var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.article_id});
         model.set("id", params.article_id);
 
         return model;

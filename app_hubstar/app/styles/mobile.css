@@ -22,49 +22,49 @@ and (max-device-width : 1024px)  {
         min-width:100%;
         max-width:100%;
     }/* user profile page master container */
-    
+
     .plaform_bar > .showsidebar{
         opacity:.5;
     }
     /* side nav styles */
 
-    
+
     div.Register-Page{
         z-index:999;
         position:relative;
     }
     /* Register page */
-    
-    
+
+
     .show-interest #interest_btn{
         opacity:1;
     }
-    
+
     .interest-insert-hint{
         font-size:.9em!important;
     }
     /* misc */
-    
-    #login_details{
-         margin-right: 175px;
-     }
-     #top-about-menu span{
-         margin-right:0px;
-     }
-     
-     #search-bar .Search-box{
-         width:60%;
-     }
-     #geoDropdown{
-         left:-60px;
-         top:5px
-     }
-     .popular-topics>div{
-         padding:5px 5px;
-     }
 
-    
-    
+    #login_details{
+        margin-right: 175px;
+    }
+    #top-about-menu span{
+        margin-right:0px;
+    }
+
+    #search-bar .Search-box{
+        width:60%;
+    }
+    #geoDropdown{
+        left:-60px;
+        top:5px
+    }
+    .popular-topics>div{
+        padding:5px 5px;
+    }
+
+
+
 } /* iPad in portrait & landscape; All iPads will be affected by this styling ENDS */
 
 
@@ -101,30 +101,30 @@ and (-webkit-min-device-pixel-ratio: 1)  {
         min-width:100%;
         max-width:100%;
     }/* user profile page master container */
-    
+
     div.Register-Page{
         z-index:999;
-          position:relative;
+        position:relative;
     }
     /* Register page */
-    
-     #login_details{
-         margin-right: 175px;
-     }
-     #top-about-menu span{
-         margin-right:0px;
-     }
-     
-     #search-bar .Search-box{
-         width:60%;
-     }
-     #geoDropdown{
-         left:-60px;
-         top:5px
-     }
-     .popular-topics>div{
-         padding:5px 5px;
-     }
+
+    #login_details{
+        margin-right: 175px;
+    }
+    #top-about-menu span{
+        margin-right:0px;
+    }
+
+    #search-bar .Search-box{
+        width:60%;
+    }
+    #geoDropdown{
+        left:-60px;
+        top:5px
+    }
+    .popular-topics>div{
+        padding:5px 5px;
+    }
 }/* iPad mini in portrait & landscape  ENDS*/
 
 /* iPad mini in landscape */
@@ -185,46 +185,47 @@ and (max-device-width : 568px) {
     /* header styles end */
 
 
-   .plaform_bar > .showsidebar{
+    .plaform_bar > .showsidebar{
         display:none;
     }
     /* side nav styles */
 
-    
+
     div.Register-Page{
         z-index:999;
-          position:relative;
+        position:relative;
     }
     /* Register page */
-    
-    
+
+
     .interest-insert-hint{
         font-size:.9em!important;
     }
-   
+
     .show-interest #interest_btn{
         opacity:1;
     }
-     /* misc */
-     
-      #login_details{
-         margin-right: 175px;
-     }
-     #top-about-menu span{
-         margin-right:0px;
-     }
-     
-     #search-bar .Search-box{
-         width:60%;
-     }
-     #geoDropdown{
-         left:-60px;
-         top:5px
-     }
-     .popular-topics>div{
-         padding:5px 5px;
-     }
-     
+    /* misc */
+
+    #login_details{
+        margin-right: 175px;
+    }
+    #top-about-menu span{
+        margin-right:0px;
+    }
+
+    #search-bar .Search-box{
+        width:60%;
+    }
+    #geoDropdown{
+        left:-60px;
+        top:5px
+    }
+    .popular-topics>div{
+        padding:5px 5px;
+    }
+
+
 }
 
 
@@ -278,45 +279,45 @@ and (max-device-width : 480px) {
     .navbar .brand{padding:2.5px 0;}
     .logonew{height:40px;}
     /* header styles end */
-    
-     .plaform_bar > .showsidebar{
+
+    .plaform_bar > .showsidebar{
         display:none;
     }
     /* side nav styles */
-    
+
     div.Register-Page{
         z-index:999;
-          position:relative;
+        position:relative;
     }
     /* Register page */
-    
-    
+
+
     .interest-insert-hint{
         font-size:.9em!important;
     }
-    
+
     .show-interest #interest_btn{
         opacity:1;
     }
-     /* misc  */
-      #login_details{
-         margin-right: 175px;
-     }
-     #top-about-menu span{
-         margin-right:0px;
-     }
-     
-     #search-bar .Search-box{
-         width:60%;
-     }
-     #geoDropdown{
-         left:-60px;
-         top:5px
-     }
-     .popular-topics>div{
-         padding:5px 5px;
-     }
-     
+    /* misc  */
+    #login_details{
+        margin-right: 175px;
+    }
+    #top-about-menu span{
+        margin-right:0px;
+    }
+
+    #search-bar .Search-box{
+        width:60%;
+    }
+    #geoDropdown{
+        left:-60px;
+        top:5px
+    }
+    .popular-topics>div{
+        padding:5px 5px;
+    }
+
 }
 
 

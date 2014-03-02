@@ -142,13 +142,13 @@
                     {{/if}}
 
                     {{#if controller.about_me_limit}}
-                    <div class="limit_about_us" style="word-break: break-all;" >
+                    <div class="limit_about_us" style="word-wrap: break-word;" >
 
                         {{about_me_limit_data}}...<!--   <i class='new-btn'  {{action showMore}}> more...</i>  -->
                     </div>
 
                     {{else}}
-                    <div style="display: block; word-break: break-all; " >{{about_me}}</div>  
+                    <div style="display: block; word-wrap: break-word; " >{{about_me}}</div>  
                     {{/if}}
 
 

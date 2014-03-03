@@ -171,6 +171,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         else
         {
             addPhoto = true;
+            this.back();
             alert("The limit size of uploading is 25MB");
         }
     },

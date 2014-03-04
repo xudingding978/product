@@ -477,9 +477,20 @@ class Controller extends CController {
                       }
                     }   
                     ],
-                    "must_not": {
-                   
+                      "must_not": [
+                    {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "user"
+                      }
+                  },
+                  {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "conversation"
+                      }
                   }
+                  ]
                 }
                 }
               }');
@@ -506,9 +517,43 @@ class Controller extends CController {
                       }
                     }   
                     ],
-                    "must_not": {
-                   
+                    "must_not": [
+                    {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "user"
+                      }
+                  },
+                  {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "conversation"
+                      }
                   }
+                  ]
+                }
+                }
+              }');
+            }else{
+                     $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+                "query": {
+                  "bool": {
+                    "must": [    
+                    ],
+                    "must_not": [
+                    {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "user"
+                      }
+                  },
+                  {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "conversation"
+                      }
+                  }
+                  ]
                 }
                 }
               }');
@@ -558,7 +603,21 @@ class Controller extends CController {
                                                 "couchbaseDocument.doc.object_description^4"]
                                                     }
                         }
-                    ]
+                    ],
+                           "must_not": [
+                    {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "user"
+                      }
+                  },
+                  {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "conversation"
+                      }
+                  }
+                  ]
                 }
             }');
 
@@ -604,9 +663,20 @@ class Controller extends CController {
                       }
                     }   
                     ],
-                    "must_not": {
-                   
+                    "must_not": [
+                    {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "user"
+                      }
+                  },
+                  {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "conversation"
+                      }
                   }
+                  ]
                 }
                 }
               }');
@@ -634,9 +704,20 @@ class Controller extends CController {
                       }
                     }       
                     ],
-                    "must_not": {
-                   
+                     "must_not": [
+                    {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "user"
+                      }
+                  },
+                  {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "conversation"
+                      }
                   }
+                  ]
                 }
                 }
               }');
@@ -663,9 +744,44 @@ class Controller extends CController {
                       }
                     }     
                     ],
-                    "must_not": {
-                   
+                     "must_not": [
+                    {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "user"
+                      }
+                  },
+                  {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "conversation"
+                      }
                   }
+                  ]
+                }
+                }
+              }');
+                  $request->filter($filter);
+            }else{
+                  $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+                "query": {
+                  "bool": {
+                    "must": [   
+                    ],
+                     "must_not": [
+                    {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "user"
+                      }
+                  },
+                  {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "conversation"
+                      }
+                  }
+                  ]
                 }
                 }
               }');

@@ -592,7 +592,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     dropdownNavigator: function() {
 
-        console.log("ssssssssssssssssssss");
+        //console.log("ssssssssssssssssssss");
         this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
 
 
@@ -867,7 +867,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     relayout: function(l)
     {
-        console.log(l);
+        //console.log(l);
         this.set('loadingTime', false);
         this.set("nextPageSpinner",false);
         if (l !== 0) {

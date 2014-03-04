@@ -975,8 +975,12 @@ div#login_detail{
 
 
 }
-
-
+@media only screen 
+and (max-width : 1239px) {
+    #top-about-menu{
+        display:none!Important;
+    }
+}
 
 
 @media only screen 
@@ -996,9 +1000,13 @@ and (max-width : 900px) {
     .registraion-suceesful-message{font-size: 11px; line-height: 15px;}
 }
 
+
+
+
 @media only screen 
 and (max-width : 480px) {
-    #fadein-image{ display: none;}
+    #fadein-image{ display: none!important;}
+    
     .register-page-top-bar {margin: 40px auto 15%;}
 
     .interest-image-container{width: 50px; height: 50px;}

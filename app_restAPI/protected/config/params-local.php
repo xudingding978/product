@@ -28,12 +28,12 @@ return array(
     
     //ElasticSearch Configurations
     'elasticSearch.node' => 'es1.hubsrv.com',
-    //'elasticSearch.index' => 'develop',
-     'elasticSearch.index' => 'test',
+    'elasticSearch.index' => 'develop',
+    
     //CouchBase Configurations
     'couchBase.node'=>'cb1.hubsrv.com:8091',
-   // 'couchBase.bucket'=>'develop',
-    'couchBase.bucket'=>'test',
+    'couchBase.bucket'=>'develop',
+    
       //MySQL Database Configurations
     'db_live.name' => 'db_live',
     'db_live.connectionString' => 'mysql:host=db1.hubsrv.com;dbname=hubstar_live',

@@ -25,14 +25,14 @@ return array(
     'env.code' => 'prod',
     //ElasticSearch Configurations
     'elasticSearch.node' => 'es1.hubsrv.com',
-   // 'elasticSearch.index' => 'develop',
-     'elasticSearch.index' => 'test',
+    'elasticSearch.index' => 'develop',
+    
     //CouchBase Configurations
     'couchBase.node' => 'cb1.hubsrv.com:8091',
     'couchBase.account' => '',
     'couchBase.password' => '',
-   // 'couchBase.bucket' => 'develop',
-    'couchBase.bucket' => 'test',
+    'couchBase.bucket' => 'develop',
+    
     //CouchBase default bucket  Configurations
     'couchBase.defaultNode' => 'cb1.hubsrv.com:8091',
     'couchBase.defaultAccount' => '',

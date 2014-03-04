@@ -9,6 +9,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     trendsUser: false,
     totalItems: 0,
     navigator_id: "",
+    nextPageSpinner:false,
     navigator_id1: "",
     contentTopic: [
         {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
@@ -153,7 +154,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     scrollDownAction: function() {
         //this.set('loadingTime', true);
-
+        this.set("nextPageSpinner",true);
         HubStar.set("scrollDownSearch", true);
         this.set("size", 20);
         if (this.get("searchFromTopic") === false)
@@ -295,7 +296,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     });
 
                 }
-                //HubStar.set("scrollDownSearch", false);
 
 
 
@@ -880,8 +880,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     relayout: function(l)
     {
+        console.log(l);
         this.set('loadingTime', false);
-
+        this.set("nextPageSpinner",false);
         if (l !== 0) {
             this.getAds();
             HubStar.set("scrollDownSearch", false);
@@ -904,7 +905,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             var cusid_ele = x.getElementsByClassName('box');
             var items = Array();
             for (var i = this.get("totalItems"); i < this.get("totalItems") + l; i++) {
-                if (cusid_ele[i].parentNode !== undefined) {
+                if (cusid_ele[i] !== undefined) {
                     var item = cusid_ele[i].parentNode;
                     if (item.id !== "masonry_container") {
                         items.push(item);

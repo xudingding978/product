@@ -1404,9 +1404,12 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 
 .switch-container{
-    margin-right: 50px;
-    float: right;
+    position:absolute;
+    top:0;
+    line-height:45px;
+    right:15px;
 }
+.switch-container > div {color:#333;}
 
 .switch-btn {
     width: 20px;

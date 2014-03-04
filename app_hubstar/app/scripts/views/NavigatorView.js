@@ -33,7 +33,7 @@ HubStar.NavigatorView = Ember.View.extend({
                     $("#Residential1").css("opacity","0.4");
                     $("#Commercial").css("opacity","1");
                     $("#Residential").css("opacity","0.4");
-                      that.get("controller").set("classification", "commercial");
+                    that.get("controller").set("classification", "commercial");
                 }
             });
 

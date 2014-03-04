@@ -11,11 +11,14 @@
 
 </div>
 {{#if controller.nextPageSpinner}}
-<div class="spinner-box"style="width:100%;float:left;clear:both;display: block;">
-    <div class="loader2"></div>
+<div id ="show_more_button"style="width:100%;float:left;clear:both;display: block;">
+    <div id="more-result-button" class="new-btn" style=' width: 300px;margin: 60px auto;display: block; height: 35px; box-shadow: 0 0 10px #fff;'>
+        <div class="loader2" style='left:10px'></div>
+        <div style='position: relative;line-height: 21px;padding-left: 35px;font-size:20px'{{action scrollDownAction}}>Loading more results...</div>
+     </div>
 </div>
 {{/if}}
-<div id ="show_more_button"style="width:100%;float:left;clear:both;display: block;">
+<div id ="show_more_button"style="width:10%;float:left;clear:both;display: block;">
     <div id="more-result-button" class="new-btn" style=' width: 200px;margin: 60px auto;display: block; box-shadow: 0 0 10px #fff;'{{action scrollDownAction}}><i class="fa fa-long-arrow-down" style="margin-right: 8px"></i>Show more results!
     </div>
 </div>

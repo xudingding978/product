@@ -2791,7 +2791,7 @@ function program6(depth0,data) {
 function program8(depth0,data) {
   
   var buffer = '', helper, options;
-  data.buffer.push("\n        <div style=\"position: relative; float: right; top: 55px; z-index: 100;\">\n            <div style=\"position: absolute;border-color: transparent transparent #f3f3f3 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: 0;\"></div>\n            <div style=\"position: absolute;border-color: transparent transparent #888 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: -1;\"></div>\n        </div>\n        ");
+  data.buffer.push("\n        <div style=\"position: relative; float: right; top: 48px; z-index: 100;\">\n            <div style=\"position: absolute;border-color: transparent transparent #f3f3f3 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: 0;\"></div>\n            <div style=\"position: absolute;border-color: transparent transparent #888 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: -1;\"></div>\n        </div>\n        ");
   data.buffer.push(escapeExpression((helper = helpers.render || (depth0 && depth0.render),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "notificationTop", options) : helperMissing.call(depth0, "render", "notificationTop", options))));
   data.buffer.push("\n        ");
   return buffer;
@@ -2828,18 +2828,18 @@ function program10(depth0,data) {
   data.buffer.push(">\n                    <i class=\"fa fa-search\"></i>\n                </div>\n            </div>\n        </div>\n\n\n\n\n\n\n        ");
   stack1 = helpers['if'].call(depth0, "HubStar.isLogin", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(6, program6, data),fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n\n\n        <!-- user is logged in -->\n\n\n\n        ");
+  data.buffer.push("\n\n\n\n        <!-- user is logged in -->\n\n \n\n        ");
   stack1 = helpers['if'].call(depth0, "isNotification", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n        <div id=\"geo-filter\" class=\"Geo-Filter easing \" style=\"\" ");
+  data.buffer.push("\n\n\n        <div class=\"switch-container\">\n            <div id=\"Residential\" style=\"display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;\">Residential</div>\n            <div  id=\"switchbar\" class=\"insetbox-shadow switch-groove\" style=\"display: inline-block\">\n                <div style=\"height: 10px;width: 50%;border-right: 1px solid rgba(0,0,0,.3);float: left;margin: 6px 0;\"></div>\n                <div style=\"height: 10px;width: 50%;border-left: 1px solid rgba(255,255,255,.5); float: right;margin: 6px 0;\"></div>\n\n                <div id=\"switchbarBtn\" class=\"radius-circle gradient1 switch-btn\" style=\"margin-left: 13px\"></div>\n\n            </div>\n            <div id=\"Commercial\" style=\"display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;\">Commercial</div>\n        </div>\n\n\n\n        <div id=\"geo-filter\" class=\"Geo-Filter easing \" style=\"\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "dropdown", "geoLocation", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["ID","STRING"],data:data})));
-  data.buffer.push(" data-step=\"2\" data-intro=\" Use the <b>Location Filter</b> to filter search results by region.\">\n            <i class=\"fa fa-angle-down fa-lg\">&nbsp;</i>\n            <span style=\"font-weight: bold;font-size: 15px;\">");
+  data.buffer.push(" data-step=\"2\" data-intro=\" Use the <b>Location Filter</b> to filter search results by region.\">\n            <i class=\"fa fa-angle-down fa-lg\">&nbsp;</i>\n            <span style=\"font-weight: bold;font-size: 13px;\">");
   stack1 = helpers._triageMustache.call(depth0, "HubStar.geoLocation", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</span>\n        </div>\n\n        ");
   stack1 = helpers['if'].call(depth0, "controller.isGeoDropdown", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(10, program10, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n        \n        \n        <div class=\"switch-container\">\n            <div id=\"Residential\" style=\"display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;\">Residential</div>\n            <div  id=\"switchbar\" class=\"insetbox-shadow switch-groove\" style=\"display: inline-block\">\n                <div style=\"height: 10px;width: 50%;border-right: 1px solid rgba(0,0,0,.3);float: left;margin: 6px 0;\"></div>\n                <div style=\"height: 10px;width: 50%;border-left: 1px solid rgba(255,255,255,.5); float: right;margin: 6px 0;\"></div>\n\n                <div id=\"switchbarBtn\" class=\"radius-circle gradient1 switch-btn\" style=\"margin-left: 13px\"></div>\n\n            </div>\n            <div id=\"Commercial\" style=\"display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;\">Commercial</div>\n        </div>\n\n\n\n\n        \n\n    </div>\n</div>\n\n\n\n\n<script type=\"text/javascript\">\n\n    $(document).ready(function() {\n        // left hiding menu bar\n\n        // hide #back-top first\n        $(\"#back-top\").hide();\n        $(window).scroll(function() {\n\n            if ($(this).scrollTop() > 150) {\n                $('#back-top').fadeIn();\n            } else {\n                $('#back-top').fadeOut();\n            }\n\n        });\n        $('#back-top a').click(function() {\n            $('body,html').animate({\n                scrollTop: 0\n            }, 800);\n            return false;\n        });\n    });\n\n\n\n\n\n\n    function setDomain() {\n\n        var api_url = document.domain;\n        var api_domain_start_pos = api_url.indexOf('.');\n        var api_url = api_url.slice(api_domain_start_pos);\n\n        return api_url;\n    }\n\n\n\n\n</script>\n");
+  data.buffer.push("\n\n\n\n\n    </div>\n</div>\n\n\n\n\n<script type=\"text/javascript\">\n\n    $(document).ready(function() {\n        // left hiding menu bar\n\n        // hide #back-top first\n        $(\"#back-top\").hide();\n        $(window).scroll(function() {\n\n            if ($(this).scrollTop() > 150) {\n                $('#back-top').fadeIn();\n            } else {\n                $('#back-top').fadeOut();\n            }\n\n        });\n        $('#back-top a').click(function() {\n            $('body,html').animate({\n                scrollTop: 0\n            }, 800);\n            return false;\n        });\n    });\n\n\n\n\n\n\n    function setDomain() {\n\n        var api_url = document.domain;\n        var api_domain_start_pos = api_url.indexOf('.');\n        var api_url = api_url.slice(api_domain_start_pos);\n\n        return api_url;\n    }\n\n\n\n\n</script>\n");
   return buffer;
   
 });
@@ -3797,14 +3797,22 @@ function program1(depth0,data) {
 Ember.TEMPLATES["masonry"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
 
+function program1(depth0,data) {
+  
+  
+  data.buffer.push("\n<div class=\"spinner-box\"style=\"width:100%;float:left;clear:both;display: block;\">\n    <div class=\"loader2\"></div>\n</div>\n");
+  }
 
   data.buffer.push("<div id=\"masonry_wrapper\" style=\"min-height:300px;\">\n    <div id=\"masonry_container\" class=\" centered clearfix noStyle1\" style=\"top: 100px;\">\n        <div class=\"box col2 noStyle1\">\n            ");
   data.buffer.push(escapeExpression((helper = helpers.render || (depth0 && depth0.render),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "status", options) : helperMissing.call(depth0, "render", "status", options))));
-  data.buffer.push("\n        </div>\n ");
+  data.buffer.push("\n        </div>\n        ");
   data.buffer.push(escapeExpression((helper = helpers.collection || (depth0 && depth0.collection),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "HubStar.MasonryTestView", options) : helperMissing.call(depth0, "collection", "HubStar.MasonryTestView", options))));
-  data.buffer.push("\n   </div> <!-- #container -->\n</div><!-- #wrapper -->\n\n<div id =\"show_more\" style=\"width:100%;clear:both;display: block;background-color: white; opacity: 0; height: 10px;position: absolute;bottom: 800px;\">\n\n</div>\n\n<div id =\"show_more_button\"style=\"width:100%;float:left;clear:both;display: block;\">\n    <div id=\"more-result-button\" class=\"new-btn\" style=' width: 200px;margin: 60px auto;display: block; box-shadow: 0 0 10px #fff;'");
+  data.buffer.push("\n    </div> <!-- #container -->\n</div><!-- #wrapper -->\n\n<div id =\"show_more\" style=\"width:100%;clear:both;display: block;background-color: white; opacity: 0; height: 10px;position: absolute;bottom: 800px;\">\n\n</div>\n");
+  stack1 = helpers['if'].call(depth0, "controller.nextPageSpinner", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n<div id =\"show_more_button\"style=\"width:100%;float:left;clear:both;display: block;\">\n    <div id=\"more-result-button\" class=\"new-btn\" style=' width: 200px;margin: 60px auto;display: block; box-shadow: 0 0 10px #fff;'");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "scrollDownAction", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("><i class=\"fa fa-long-arrow-down\" style=\"margin-right: 8px\"></i>Show more results!\n    </div>\n</div>\n\n\n\n\n\n");
   return buffer;
@@ -4578,7 +4586,7 @@ function program5(depth0,data) {
   data.buffer.push("\n        </div>\n\n        <div id=\"search_topic\" style=\"width: 33.5%;height: 100%;float: left;padding: 8px 0;overflow: auto\">\n            ");
   stack1 = helpers.each.call(depth0, "controller.subcategories", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n        </div>\n\n\n    </div>\n\n    <div class=\"Navigator_links\" style=\"\">\n        <div style=\"float: left\">\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/\">About</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/business/\">Business</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/learning-centre/\">Learning Centre</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/contact-us/\">Contact us</a></span>\n        </div>\n        <div style=\"float: right\">\n             ver.\n            <span id=\"lastidentifie\">0.4-104</span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/terms-of-use-agreement/\">Terms of Use</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/privacy-policy/\">Privacy Policy</a></span>\n        </div>\n    </div>\n</div>\n\n\n\n\n<script>\n    $(function() {\n        $(\"#category_topic\").mCustomScrollbar({\n            scrollButtons: {\n                enable: false,\n                scrollSpeed: \"auto\"\n            },\n            advanced: {\n                updateOnBrowserResize: true,\n                updateOnContentResize: true,\n                autoScrollOnFocus: false,\n                normalizeMouseWheelDelta: false\n            },\n            autoHideScrollbar: true,\n            mouseWheel: true,\n            theme: \"dark-2\",\n            set_height: 388\n        });\n    });\n\n\n</script>");
+  data.buffer.push("\n        </div>\n\n\n    </div>\n\n    <div class=\"Navigator_links\" style=\"\">\n        <div style=\"float: left\">\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/\">About</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/business/\">Business</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/learning-centre/\">Learning Centre</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/contact-us/\">Contact us</a></span>\n        </div>\n        <div style=\"float: right\">\n             ver.\n            <span id=\"lastidentifie\">0.4-105</span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/terms-of-use-agreement/\">Terms of Use</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/privacy-policy/\">Privacy Policy</a></span>\n        </div>\n    </div>\n</div>\n\n\n\n\n<script>\n    $(function() {\n        $(\"#category_topic\").mCustomScrollbar({\n            scrollButtons: {\n                enable: false,\n                scrollSpeed: \"auto\"\n            },\n            advanced: {\n                updateOnBrowserResize: true,\n                updateOnContentResize: true,\n                autoScrollOnFocus: false,\n                normalizeMouseWheelDelta: false\n            },\n            autoHideScrollbar: true,\n            mouseWheel: true,\n            theme: \"dark-2\",\n            set_height: 388\n        });\n    });\n\n\n</script>");
   return buffer;
   
 });
@@ -7875,7 +7883,7 @@ function program1(depth0,data) {
 function program3(depth0,data) {
   
   var buffer = '', stack1, helper, options;
-  data.buffer.push("\n\n\n        <div id=\"afterLogin\">\n            <div class=\"profilepic-container\" style=\"margin:0 0 10px;\">\n                <a ");
+  data.buffer.push(" \n\n\n        <div id=\"afterLogin\">\n            <div class=\"profilepic-container\" style=\"margin:0 0 10px;\">\n                <a ");
   data.buffer.push(escapeExpression((helper = helpers.bindAttr || (depth0 && depth0.bindAttr),options={hash:{
     'href': ("controller.myUserProfile")
   },hashTypes:{'href': "STRING"},hashContexts:{'href': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
@@ -7889,14 +7897,14 @@ function program3(depth0,data) {
   data.buffer.push("</b> </p>\n            <h4>");
   stack1 = helpers._triageMustache.call(depth0, "controller.response", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</h4>\n\n        </div>\n\n        \n        \n        ");
+  data.buffer.push("</h4>\n\n        </div>\n\n\n\n        ");
   return buffer;
   }
 
-  data.buffer.push("\n\n\n<div class=\"gradient1\" style=\"color:#555;\">\n\n\n\n\n\n\n\n    <div style=\"padding: 20px;text-align: center; background-color: #FFFFFF;\" data-step=\"5\" data-intro=\"Here is your <b>status</b>.\" data-position='right'>\n\n\n        ");
+  data.buffer.push("\n\n\n<div class=\"gradient1\" style=\"color:#555;\">\n\n\n\n\n\n\n\n    <div style=\"padding: 20px;text-align: center;\" data-step=\"5\" data-intro=\"Here is your <b>status</b>.\" data-position='right'>\n\n\n        ");
   stack1 = helpers.unless.call(depth0, "HubStar.isLogin", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n    </div>\n\n\n\n\n\n\n\n</div>\n\n");
+  data.buffer.push("\n    </div>\n\n    \n\n\n\n\n\n</div>\n\n");
   return buffer;
   
 });
@@ -8223,7 +8231,7 @@ function program34(depth0,data) {
 function program36(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\n                    <div class=\"limit_about_us\" style=\"word-break: break-all;\" >\n\n                        ");
+  data.buffer.push("\n                    <div class=\"limit_about_us\" style=\"word-wrap: break-word;\" >\n\n                        ");
   stack1 = helpers._triageMustache.call(depth0, "about_me_limit_data", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("...<!--   <i class='new-btn'  ");
@@ -8235,7 +8243,7 @@ function program36(depth0,data) {
 function program38(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\n                    <div style=\"display: block; word-break: break-all; \" >");
+  data.buffer.push("\n                    <div style=\"display: block; word-wrap: break-word; \" >");
   stack1 = helpers._triageMustache.call(depth0, "about_me", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</div>  \n                    ");

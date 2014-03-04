@@ -288,9 +288,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 HubStar.set('itemNumber', megasResults.get("length"));
                 that.setContent(megasResults, "new");
                 if (megasResults.get("length") < 20) {
-                    HubStar.set("scrollDownSearch", true);
+                    
                     $(document).ready(function() {
-
+                        setTimeout(function() {
+                            HubStar.set("scrollDownSearch", true);
+                        },100);
+                        
                         $("#show_more_button").css({display: "none"});
 
                     });
@@ -899,7 +902,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     }
                 }
             }
-            this.set("totalItems", this.get("totalItems") + l);
+            if (this.get("pageCount") === 0){
+                this.set("totalItems", this.get("totalItems") + 1);
+            }
+            this.set("totalItems", this.get("totalItems") + items.length);
             $('#masonry_container').append(items).masonry('appended', items);
         }
     },

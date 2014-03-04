@@ -17,10 +17,15 @@ HubStar.SearchsRoute = Ember.Route.extend({
                 $(".brand").addClass("tour-background");
                 $(".Geo-Filter").addClass("tour-background");
                 $("#login_detail").addClass("tour-background");
+                 console.log("hhh");
+                 var that = this;
                 introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
-                    localStorage.checkUser = "";
-                    $(window).scrollTop(0);
-                    location.href = '/#/search';
+                    console.log("hhhsss");
+//                    if(localStorage.loginStatus!==""&&localStorage.loginStatus!==null && localStorage.loginStatus!=="undefined"){
+//                    window.location.href = '/#/users/' + localStorage.loginStatus;
+//                    }
+//                $(window).scrollTop(0);
+that.transitionTo("User", HubStar.User.find(localStorage.loginStatus));
                 });
             }, 5500);
         }

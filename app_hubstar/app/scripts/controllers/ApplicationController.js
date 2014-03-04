@@ -10,7 +10,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     totalItems: 0,
     navigator_id: "",
     navigator_id1: "",
-    contentTopic: [
+    contentTopicResidential: [
         {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
         {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'},
         {id: "3", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/kitchen.png', topic: 'Kitchens'},
@@ -371,7 +371,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             HubStar.set("isLogin", true);
 
             that.transitionToRoute("searchIndexTom");
-
+            that.init();
 
         });
 
@@ -439,7 +439,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     backRegister: function() {
         $('#register-with-email-step-3').css('display', 'none');
         $('#register-with-email-step-2').css('display', 'block');
-         $('#click-register-social').css('display', 'block');
+        $('#click-register-social').css('display', 'block');
         $('#click-register').css('display', 'block');
         $('.learnmore-btn').css('display', 'block');
     },

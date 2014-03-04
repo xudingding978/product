@@ -16,6 +16,22 @@ HubStar.UserRoute = Ember.Route.extend({
         this.controller.set('switchPhoto', true);
         this.controller.set('collectionTag', true);
         //  this.controller.set('partnerTag', false);
+        
+        if (localStorage.checkUser === "newUser") {
+            setTimeout(function() {
+                window.location.href = '/#';
+                $(".brand").addClass("tour-background");
+                $(".Geo-Filter").addClass("tour-background");
+                $("#login_detail").addClass("tour-background");
+                introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
+                    window.location.href = '/#/profiles/iu';
+                $(window).scrollTop(500);
+                });
+            }, 5500);
+        }
+        else {
+            localStorage.checkUser = "";
+        }
         $('#default').toggle('selected-user-stats');
         this.controller.set('followerTag', false);
         this.controller.set('followingTag', false);

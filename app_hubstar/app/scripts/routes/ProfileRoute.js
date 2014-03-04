@@ -19,6 +19,23 @@ HubStar.ProfileRoute = Ember.Route.extend({
         ProfileController.set('partnerTag', false);
         ProfileController.set('reviewTag', false);       
         ProfileController.set('videoTag', false);
+        
+        if (localStorage.checkUser === "newUser") {
+            setTimeout(function() {
+                window.location.href = '/#';
+                $(".brand").addClass("tour-background");
+                $(".Geo-Filter").addClass("tour-background");
+                $("#login_detail").addClass("tour-background");
+                introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
+                   localStorage.checkUser = "";
+                    $(window).scrollTop(0);
+                    location.href = '/#/search';
+                });
+            }, 5500);
+        }
+        else {
+            localStorage.checkUser = "";
+        }
 
         /*************************            partner cehcking           ***********8*/
         this.controllerFor('mega').set("from", "profile");

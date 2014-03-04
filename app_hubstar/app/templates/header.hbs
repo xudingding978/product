@@ -72,27 +72,17 @@
 
         <!-- user is logged in -->
 
-
+ 
 
         {{#if isNotification}}
-        <div style="position: relative; float: right; top: 55px; z-index: 100;">
+        <div style="position: relative; float: right; top: 48px; z-index: 100;">
             <div style="position: absolute;border-color: transparent transparent #f3f3f3 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: 0;"></div>
             <div style="position: absolute;border-color: transparent transparent #888 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: -1;"></div>
         </div>
         {{render notificationTop}}
         {{/if}}
 
-        <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdown "geoLocation"}} data-step="2" data-intro=" Use the <b>Location Filter</b> to filter search results by region.">
-            <i class="fa fa-angle-down fa-lg">&nbsp;</i>
-            <span style="font-weight: bold;font-size: 15px;">{{HubStar.geoLocation}}</span>
-        </div>
 
-        {{#if controller.isGeoDropdown}}
-        {{view HubStar.DropdownListView}}
-        {{/if}}
-
-        
-        
         <div class="switch-container">
             <div id="Residential" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;">Residential</div>
             <div  id="switchbar" class="insetbox-shadow switch-groove" style="display: inline-block">
@@ -107,8 +97,17 @@
 
 
 
+        <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdown "geoLocation"}} data-step="2" data-intro=" Use the <b>Location Filter</b> to filter search results by region.">
+            <i class="fa fa-angle-down fa-lg">&nbsp;</i>
+            <span style="font-weight: bold;font-size: 13px;">{{HubStar.geoLocation}}</span>
+        </div>
 
-        
+        {{#if controller.isGeoDropdown}}
+        {{view HubStar.DropdownListView}}
+        {{/if}}
+
+
+
 
     </div>
 </div>

@@ -128,10 +128,11 @@ HubStar.ApplicationView = Ember.View.extend({
             var docViewTop = $(window).scrollTop();
             var docViewBottom = docViewTop + $(window).height();
            // console.log($("#show_more_button").offset());
-            if ($("#show_more_button").offset() !== undefined) {
-                var elemTop = $("#show_more_button").offset().top;
+           
+            if ($("#show_more").offset() !== undefined) {
+                var elemTop = $("#show_more").offset().top;
 
-                var elemBottom = elemTop + $("#show_more_button").height();
+                var elemBottom = elemTop + $("#show_more").height();
 
                 return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
             }

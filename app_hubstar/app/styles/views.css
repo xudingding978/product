@@ -1226,8 +1226,7 @@ div.album-description-bg{
     position: relative;
     vertical-align: middle;
     display: inline-block;
-    min-width: 170px;
-    width: 380px;
+    width: 170px;
 }
 
 .poster-name{
@@ -1893,6 +1892,7 @@ cursor: pointer;
 
     text-align: left;
     padding: 0;
+    top:65px;
 }
 
 

@@ -150,7 +150,9 @@ HubStar.ConversationController = Ember.Controller.extend({
                         dataNew["fourPic"] = params[i]["conversationPhoto"][3]["photo_url"];
                     }
                     dataNew["ConversationCollection"] = new Array();
-                    dataNew["msg"] = params[i]["ConversationCollection"][0]["msg"];
+                    if (params[i]["ConversationCollection"][0]["msg"] !== null) {
+                        dataNew["msg"] = params[i]["ConversationCollection"][0]["msg"];
+                    }
                     dataNew["time_stamp"] = params[i]["ConversationCollection"][0]["time_stamp"];
 
                     for (var j = 0; j < params[i]["ConversationCollection"].length; j++)

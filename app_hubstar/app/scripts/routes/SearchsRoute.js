@@ -1,6 +1,6 @@
 HubStar.SearchsRoute = Ember.Route.extend({
     setupController: function() {
-
+console.log("hhhsss");
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
             HubStar.set('isLogin', false);
 
@@ -12,20 +12,19 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('status').set('islogin', true);
         if (localStorage.checkUser === "newUser") {
+            console.log('search');
             setTimeout(function() {
-                window.location.href = '/#';
+                window.location.href ='JavaScript:void(0)';
                 $(".brand").addClass("tour-background");
                 $(".Geo-Filter").addClass("tour-background");
                 $("#login_detail").addClass("tour-background");
-                 console.log("hhh");
                  var that = this;
                 introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
                     console.log("hhhsss");
-//                    if(localStorage.loginStatus!==""&&localStorage.loginStatus!==null && localStorage.loginStatus!=="undefined"){
-//                    window.location.href = '/#/users/' + localStorage.loginStatus;
-//                    }
-//                $(window).scrollTop(0);
-that.transitionTo("User", HubStar.User.find(localStorage.loginStatus));
+                    if(localStorage.loginStatus!==""&&localStorage.loginStatus!==null && localStorage.loginStatus!=="undefined"){
+                    window.location.href = '/#/users/' + localStorage.loginStatus;
+                    }
+                $(window).scrollTop(0);
                 });
             }, 5500);
         }

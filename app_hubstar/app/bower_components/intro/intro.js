@@ -171,7 +171,7 @@
                     $("#login_detail").removeClass("tour-background");
                     $("#profilePanel").addClass("panel");
                     $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
-
+                     localStorage.checkUser = "";
                     //check if any callback is defined
                     if (self._introExitCallback != undefined) {
                         self._introExitCallback.call(self);
@@ -556,16 +556,16 @@
             //next button
             var nextTooltipButton = document.createElement('a');
             nextTooltipButton.onclick = function() {
-                if (self._introItems.length - 1 != self._currentStep) {
+                if (self._introItems.length - 1 !== self._currentStep) {
                     _nextStep.call(self);      
-                }else if (self._introItems.length - 1 == self._currentStep) {
+                }else if (self._introItems.length - 1 === self._currentStep) {
                     _exitIntro.call(self, self._targetElement);
                 $(".brand").removeClass("tour-background");
                 $(".Geo-Filter").removeClass("tour-background");
                 $("#login_detail").removeClass("tour-background");
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
-                     $(window).scrollTop(0);
+                  //   $(window).scrollTop(0);
                 }
             };
 
@@ -607,6 +607,7 @@
                 $("#login_detail").removeClass("tour-background");
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
+                 localStorage.checkUser = "";
             };
 
             buttonsLayer.appendChild(skipTooltipButton);
@@ -784,6 +785,7 @@
                 $("#login_detail").removeClass("tour-background");
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
+                 localStorage.checkUser = "";
 
                 //check if any callback is defined
                 if (self._introExitCallback != undefined) {

@@ -7038,7 +7038,7 @@ div.search-loading-invisible{
     margin: auto;
     top: 0;
     bottom: 80%;
-   
+
 
     z-index: 100;
     background-color: white;
@@ -7052,7 +7052,7 @@ div.search-loading-invisible{
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding-box;
     background-clip: padding-box;
-  
+
 }
 
 .addCollection-container{
@@ -7957,8 +7957,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 
 .switch-container{
-    width: 300px;
-    margin: 20px auto;
+    margin-right: 50px;
+    float: right;
 }
 
 .switch-btn {
@@ -7990,11 +7990,10 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     height: 0;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-    border-top: 5px solid #555;
+    border-top: 5px solid #fff;
     position: absolute;
-
     margin-top: -10px;
-    margin-left: -5px;
+    margin-left: 18px;
 }
 
 .Navigator-box .switch-groove:before{
@@ -8479,8 +8478,8 @@ a:hover , a:focus {color: #aaa;}
 }
 
 .usersobject-hoverarea{
-    width: 164px;
-    height: 170px;
+    width: 100px;
+    height: 120px;
     opacity: 0;
     position: absolute;
     z-index: 1;
@@ -8771,9 +8770,8 @@ div.album-description-bg{
 }
 
 .profilepic-on-masonry{
+    height: 46px;
     max-width: 46px;
-    max-height: 60px;
-
     float: left;
     margin: 15px 15px 12px 0;
     padding: 0;
@@ -9055,17 +9053,18 @@ div.album-description-bg{
 
 .closeview{
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px;
     height: 44px;
     position: absolute;
     right: 0;
     top: 0;
     width: 44px;
-    color: #737373;
+    color: #aaa;
 
     -webkit-transition: all 0.8s ease;
     -moz-transition: all 0.8s ease;
     -o-transition: all 0.8s ease;
+    z-index: 100;
 }
 
 .closeview:hover{
@@ -9619,7 +9618,7 @@ cursor: pointer;
     line-height: 30px;
     margin-bottom: 10px;
     word-break: break-word;
-    
+
 }
 
 .article-text{  
@@ -9763,7 +9762,7 @@ cursor: pointer;
     -o-transition: color .218s;
     -moz-transition: color .218s;
     transition: color .218s;
-    color: #404040;
+    color:#404040 !important;
     font-size: 13px;
     font-weight: bold;
 }
@@ -9784,13 +9783,14 @@ cursor: pointer;
 }
 
 .comment-content{
-    color: #404040;
+    color:#404040 !important;
     font-size: 13px;
     line-height:16px;
     margin: 0 0 0 0;
     overflow: hidden;
     word-wrap: break-word;
 }
+
 
 
 
@@ -10215,6 +10215,19 @@ input{
     -o-transition: all 0.8s ease;
 }
 
+@media all and (max-width: 1300px) and (min-width: 1100px) {
+    .user-stats li a{
+        padding: 1px 10px 0;
+        font-size: 12px;
+    }
+}
+
+@media all and (max-width: 1100px) {
+    .user-stats li a{
+        padding: 2px 10px 0;
+        font-size: 10px;
+    }
+}
 
 .user-stats li a:hover{
     background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #f4f4f4));
@@ -11120,8 +11133,9 @@ textarea.add-interests{
     line-height: 20px;
 }
 
-.each-conversation:hover{
+.each-conversation > .each-conversation:hover{
     background-color: rgba(150,150,150,.1) !important;
+    color:#404040 !important;
 }
 
 
@@ -11154,10 +11168,9 @@ textarea.add-interests{
 .invite-friend:hover > .invite-this-friend{opacity: .8}
 
 
-.selected-conversation{background-color: #555 !important;}
-.selected-conversation > div {color: #fff !important;}
+.selected-conversation{background-color: #555 !important }
 
-.selected-conversation .comment-username, .selected-conversation .comment-content, .selected-conversation .icon-trash{color: #fff !important}
+.selected-conversation .comment-content, .selected-conversation .comment-username, .selected-conversation .fa-trash-o{color: #fff !important}
 
 
 #search_business{vertical-align: top;}
@@ -11352,6 +11365,31 @@ textarea.add-interests{
 #routeModeDropdown > .ite {width: 270px;}
 
 
+
+
+
+/******************    BUSINESS PROFILE CONTROLBAR NETWORK SECTION    ***********************/
+
+.profile-selection-status{
+    margin: 3px 20px 3px 40px; font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;
+}
+
+@media all and (max-width: 1100px) {
+    .profile-selection-status{
+        margin: 3px 20px 3px 20px; font-size: 15px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);float: left;
+    }
+}
+
+.partner-searchbox{
+    width: 200px;float: left;height: 30px;margin: 2px 0 2px 10px;
+}
+
+@media all and (max-width: 1100px) {
+    .partner-searchbox{
+        width: 130px; float: left;height: 30px;margin: 2px 0 2px 10px;font-size: 10px;
+    }
+}
+
 .clear-all{
     width: 15px;
     height: 15px;
@@ -11407,7 +11445,7 @@ textarea.add-interests{
     line-height: 60px;
     overflow: visible;
     color: white;
-    margin-bottom: 0px;
+    padding-top: 7px;
     position: fixed;
     z-index: 9999;
     width: 100%;
@@ -11542,11 +11580,11 @@ textarea.add-interests{
 
 .search-bar-ontop{
     position: absolute;
-    width: 45%;
+    width: 40%;
     max-width: 800px;
-    margin: 12px auto;
+    margin: 6px auto;
     left: 0;
-    right: 0;
+    right: 20%;
     min-width: 550px;
 }
 
@@ -11683,6 +11721,7 @@ textarea.add-interests{
     width: 100%;
     height: 100%;
     position: fixed;
+    z-index: 1;
 }
 
 .Register-Page .ember-text-field, .Register-Page .ember-text-field:focus{
@@ -11691,6 +11730,152 @@ textarea.add-interests{
     border: none;
     margin: 0 0 0 0;
 }
+
+.Register-Page_background{
+    width: 100%; 
+    height: 100%;
+    position: absolute;
+    display: block; 
+    background: url(../../../images/landingpagebg.jpg) no-repeat center center fixed;
+
+    -webkit-background-size: 100%; 
+    -moz-background-size: 100%; 
+    -o-background-size: 100%; 
+    background-size: 100%; 
+    -webkit-background-size: cover; 
+    -moz-background-size: cover; 
+    -o-background-size: cover; 
+    background-size: cover;
+}
+
+
+.register-page-top-bar > .logonew{
+    position: relative; 
+    height: 30px;
+    margin: 8px;
+    float: left;
+}
+
+.register-page-top-bar{
+    width: 87%;
+    margin: 40px auto;
+    display: block;
+    line-height: 45px;
+    text-align: center;
+    min-height: 40px;
+    min-width: 265px;
+}
+
+.promotion-line{
+    color: #fff;
+    font-size: 13px;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+    opacity: .9;
+
+    width: 60%;
+    margin: auto;
+}
+
+.Login-or-Register{
+    position:relative; 
+    float:right;
+    color: #fff; 
+    font-size:15px;
+    font-weight: bold; 
+    letter-spacing: 1px; 
+    margin: 0 0 0 10px;
+    cursor:pointer;
+}
+
+
+#fadein-image{
+    position: relative;
+    margin: 0 auto 3%; 
+    height: 180px;
+    display: block; 
+    top: 5%
+}
+
+.register-info-box{
+    width: 300px;margin: 0 auto ;
+    background-color: #fff;
+    border-radius: 0 0 5px 5px;
+}
+
+
+#register-with-email-step-2{
+    width: 300px;
+    margin: 0 auto ;
+    background-color: #fff;
+    border-radius: 0 0 5px 5px;
+}
+
+#login-with-email-drop-down{
+    width: 300px;
+    margin: 0 auto ;
+    background-color: #fff;
+    border-radius: 0 0 5px 5px;
+}
+
+.interest-selecting-container{
+    z-index: 11;
+    overflow: hidden; 
+    background-color: white;
+    border-radius: 5px;  
+    width: 75%;
+    max-width: 900px; 
+    margin: 0px auto; 
+    position: absolute; 
+    top: 20%; 
+    left: 0px; 
+    right: 0px;
+    box-shadow: 0 0 5px #999;
+}
+
+.interest-image-container{
+    width: 100px; 
+    height: 100px; 
+    overflow: hidden;
+}
+
+.interest-topic-name{
+    position: relative;
+    text-align: center;
+    font-size: 13px;
+}
+
+.tell-us-what-ur-interested-in{
+    text-align: center;
+    line-height: 25px;
+    margin: 5px auto;
+    font-size: 18px;
+    background-color: #f3f3f3;
+    opacity: 0.5;
+}
+
+#register-with-email-step-4{
+    overflow: hidden;
+    z-index: 11;
+    background-color: white;
+    border-radius: 5px;
+    width: 300px;
+    margin: 20px auto 0;
+    position: fixed;
+    left: 0px;
+    right: 0px;
+}
+
+.registraion-suceesful-message{
+     text-align: center; 
+     padding: 10px 20px; 
+     height: 150px; 
+     font-size: 13px; 
+     color: #333;
+}
+
+
+
 
 .error-textfield{
     box-shadow: 0 0 10px rgba(255,0,0,.5);
@@ -11964,6 +12149,14 @@ div#forgot-password-container{
 .learnmore-btn:hover{opacity: 1;}
 
 
+.select-interest{
+    width: auto;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px 15px;
+}
+
 .select-interest > .invite-this-friend {opacity: 0}
 
 .select-interest:hover > .invite-this-friend {opacity: 0.8}
@@ -12081,8 +12274,199 @@ div#login_detail{
 }
 
 
-.profileName{
-    text-shadow: 0 0 10px #555;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*DEVICES FOR REGISTER PAGE*/
+
+
+/*letop & tablet*/
+@media all and (max-width: 1800px){
+
+    .register-page-top-bar{
+        width: 87%;
+        margin: 40px auto 2%;
+
+    }
+
+    .register-page-top-bar > .logonew{
+        height: 28px;    
+    }
+
+    .promotion-line{
+        font-size: 11px;
+    }
+
+    .Login-or-Register{
+        font-size: 11px;
+    }
+
+    #fadein-image{
+        margin: 0 auto 30px;
+        height: 130px;
+        top: 0%;
+    }
+
+    .register-with{
+        width: 250px;
+        font-size: 13px;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .social-links-container {
+        width: 250px;
+    }
+
+    .register-info-box{
+        width: 250px;
+        /*        margin: 0 auto ;
+                background-color: #fff;
+                border-radius: 0 0 5px 5px;*/
+    }
+
+    #register-with-email-step-2{width: 250px;}
+
+    #login-with-email-drop-down{width: 250px;}
+
+    .login-textfield {
+        height: 40px;
+        line-height: 40px;
+    }
+
+
+    .login-textfield > input{
+        font-size: 13px;
+    }
+
+    .login-select {
+        height:40px;
+        line-height: 40px;
+    }
+
+
+    .register-btn {
+        width: 250px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 13px;
+    }
+
+    .back-btn {
+        width: 49%;
+        height: 40px;
+        line-height: 40px;
+        font-size: 13px;
+    }
+
+    div.register-btn-small {width: 49%}
+
+    .interest-image-container{width: 70px; height: 70px;}
+
+    .select-interest{margin: 8px 10px;}
+
+    .interest-selecting-container{max-width: 650px;}
+
+
+}
+
+
+
+
+@media only screen 
+and (max-width : 900px) {
+    .promotion-line{ display: none; }
+
+    .interest-image-container{width: 70px; height: 70px;}
+
+    .select-interest{margin: 8px 10px;}
+
+    .usersobject-hoverarea {width: 70px; height: 90px;}
+
+    .interest-topic-name{font-size: 11px;}
+
+    #register-with-email-step-4{width: 250px}
+    
+    .registraion-suceesful-message{font-size: 11px; line-height: 15px;}
+}
+
+@media only screen 
+and (max-width : 480px) {
+    #fadein-image{ display: none;}
+    .register-page-top-bar {margin: 40px auto 15%;}
+
+    .interest-image-container{width: 50px; height: 50px;}
+
+    .select-interest{margin: 6px 8px;}
+
+    .usersobject-hoverarea {width: 50px; height: 70px;}
+
+    .interest-topic-name{font-size: 9px;}
+
+    .tell-us-what-ur-interested-in{
+        line-height: 20px;
+        margin: 4px auto;
+        font-size: 15px;
+    }
+
+
+}
+
+
+
+
+
+
+/*smart phone*/
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+
+
 }
 
 * {

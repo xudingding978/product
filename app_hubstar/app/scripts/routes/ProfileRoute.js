@@ -21,17 +21,22 @@ HubStar.ProfileRoute = Ember.Route.extend({
         ProfileController.set('videoTag', false);
         
         if (localStorage.checkUser === "newUser") {
+            
             setTimeout(function() {
-                window.location.href = '/#';
+               window.location.href ='JavaScript:void(0)';
                 $(".brand").addClass("tour-background");
                 $(".Geo-Filter").addClass("tour-background");
                 $("#login_detail").addClass("tour-background");
+                 $("#profileDashboard").attr("style", "display:none");
+                 $("#user-dd-menu").attr("style", "display:none");
+                 $("#profilePanel").removeClass("panel");
                 introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
-                   localStorage.checkUser = "";
                     $(window).scrollTop(0);
                     location.href = '/#/search';
+                   localStorage.checkUser = "";
                 });
-            }, 5500);
+            }, 3000);
+            this.get("controller").get('controllers.applicationFeedback').statusObserver(null, "Thanks for taking time on user tour and have a good trip on trendsideas.com", "warnning");
         }
         else {
             localStorage.checkUser = "";
@@ -52,10 +57,6 @@ HubStar.ProfileRoute = Ember.Route.extend({
                 this.sendGAMessage(analytics_array[i], model.get('id').split('-').join('')+i.toString());
             }
         }
-
-        var lastPositionId = HubStar.get('lastPositionId');
-        var lastPosition = HubStar.get("scrollPartenerPosition");
-
 
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');

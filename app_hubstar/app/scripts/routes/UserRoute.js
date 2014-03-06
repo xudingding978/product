@@ -19,15 +19,16 @@ HubStar.UserRoute = Ember.Route.extend({
         
         if (localStorage.checkUser === "newUser") {
             setTimeout(function() {
-                window.location.href = '/#';
+                window.location.href ='JavaScript:void(0)';
                 $(".brand").addClass("tour-background");
                 $(".Geo-Filter").addClass("tour-background");
                 $("#login_detail").addClass("tour-background");
+                 $("#user-dd-menu").attr("style", "display:none");         
                 introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
-                    window.location.href = '/#/profiles/iu';
-                $(window).scrollTop(500);
-                });
-            }, 5500);
+                    window.location.href = '/#/profiles/new-home-trends';
+                    $(window).scrollTop(0);
+                       });
+            }, 500);
         }
         else {
             localStorage.checkUser = "";

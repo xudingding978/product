@@ -14,7 +14,6 @@ HubStar.SearchIndexTom = Ember.Route.extend({
         this.controllerFor('status').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
-        console.log("hhh");
         localStorage.checkUser = "";
         $(".navbar").css("box-shadow", "");
         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");

@@ -18,6 +18,8 @@ HubStar.ContactController = Ember.Controller.extend({
     emailDestination: null,
     emaiCCDestination: null,
     rememberMessage: true,
+    osAndBrowser: true,
+    userEnvironment: "",
     owner_profile_pic: null,
     emaiBCCDestination: null,
     projectCategory: null,
@@ -85,7 +87,7 @@ HubStar.ContactController = Ember.Controller.extend({
         var that = this;
         if (tempMega.get('isLoaded')) {
             if (this.get("selectedMega").get("type") === 'profile')
-            {               
+            {
                 this.set("owner_profile_pic", this.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
             }
             else {
@@ -154,8 +156,6 @@ HubStar.ContactController = Ember.Controller.extend({
         }
         this.set(swtich, !this.get(swtich));
     },
-            
-         
     emailSend: function()
     {
 
@@ -165,6 +165,11 @@ HubStar.ContactController = Ember.Controller.extend({
                 projectSubCategoryItem += $('.checkbox' + i).text() + ",";
             }
         }
+        var userEnvironment = "";
+        if (this.get("osAndBrowser") === true)
+        {
+            userEnvironment = this.get("userEnvironment");
+        }       
         projectSubCategoryItem = projectSubCategoryItem.substring(0, projectSubCategoryItem.length - 1);
         var tempEmail = HubStar.Email.createRecord({
             "displayName": this.get("displayName"),
@@ -180,9 +185,10 @@ HubStar.ContactController = Ember.Controller.extend({
             "projectBudget": this.get('projectBudgetSelection').trim(),
             "projectExperience": this.get('projectExperienceSelection').trim(),
             "objectUrl": document.URL,
+            "userEnvironment":userEnvironment,
             "projectSubCategoryItem": projectSubCategoryItem
         });
-        
+
         tempEmail.store.commit();
         this.get('controllers.applicationFeedback').statusObserver(null, "Your message has been sent.");
         if (!this.get('rememberMessage')) {

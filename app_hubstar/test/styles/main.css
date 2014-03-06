@@ -7113,7 +7113,6 @@ div.search-loading-invisible{
     width: 150px;  
     padding: 0;
     left: 115px;
-    top: 65px;
     position: relative;
     float: right;
 }
@@ -7316,15 +7315,15 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 /*CONTACT ME  BUTTON*/
 .contactmebtn {
-    position: relative;
+    position: absolute;
     z-index: 1;
     text-align: center;
     float: right;
-    bottom: 30px;
-    right: 30px;
+    bottom: auto;
+    right: 2px;
     cursor: pointer;
-
     margin: 0 10px;
+    top: 17px;
 }
 
 .contactmeicon{
@@ -7957,9 +7956,12 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 
 .switch-container{
-    margin-right: 50px;
-    float: right;
+    position:absolute;
+    top:0;
+    line-height:45px;
+    right:15px;
 }
+.switch-container > div {color:#333;}
 
 .switch-btn {
     width: 20px;
@@ -7998,6 +8000,129 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 .Navigator-box .switch-groove:before{
     margin-left: 19px;
+}
+
+
+
+
+
+
+
+
+/*loading spinner*/
+
+
+
+
+.spinner-box:nth-child(2n-1){
+    background-color: rgba(0,0,0,0.05);
+}
+
+.spinner-box{
+    display: inline-block;
+    height: 200px;
+    width: 33.3%;
+    float:left;
+    position: relative;
+    /*margin:0 -4px -5px -2px;*/
+    transition: all .2s ease;
+}
+
+
+
+
+/* MEDIA QUERIES */
+@media (max-width: 700px){
+    .spinner-box{
+        width: 50%;
+    }
+
+    .spinner-box:nth-child(2n-1){
+        background-color: inherit;
+    }
+
+    .spinner-box:nth-child(4n),.spinner-box:nth-child(4n-3) {
+        background-color: rgba(0,0,0,0.05);
+    }
+
+}
+
+@media (max-width: 420px){
+    .spinner-box{
+        width: 100%;
+    }
+
+    .spinner-box:nth-child(4n),.spinner-box:nth-child(4n-3){
+        background-color: inherit;
+    }
+
+    .spinner-box:nth-child(2n-1){
+        background-color:rgba(0,0,0,0.05);
+    }
+
+}
+
+
+
+.loader2{
+    position: relative;
+    width: 5px;
+    height: 5px;
+
+    top: 49%;
+    top: -webkit-calc(50% - 43px);
+    top: calc(50% - 2.5px);
+    left: 49%;
+    left: -webkit-calc(50% - 43px);
+    left: calc(50% - 2.5px);
+
+    background-color: #555;
+    border-radius: 50px;
+}
+
+.loader2:before{
+    content: "";
+    position: absolute;
+    top: -12px;
+    border-top: 3px solid #555;
+    border-right: 3px solid #555;
+    border-radius: 0 50px 0px  0;
+    width: 11px;
+    height: 11px;
+    background-color: rgba(0, 0, 0, .1);
+    -webkit-transform-origin:  0% 100%;
+    transform-origin:  0% 100% ;
+    -webkit-animation: loader2 1.5s linear infinite;
+    animation: loader2 1.5s linear infinite;
+}
+
+.loader2:after{
+    content: "";
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    border-bottom: 3px solid #555;
+    border-left: 3px solid #555;
+    border-radius: 0 0px 0px  50px;
+    width: 11px;
+    height: 11px;
+    background-color: rgba(0, 0, 0, .1);
+    -webkit-transform-origin:  100% 0%;
+    transform-origin:  100% 0% ;
+    -webkit-animation: loader2 1.5s linear infinite;
+    animation: loader2 1.5s linear infinite;
+}
+
+
+
+@-webkit-keyframes loader2{
+    0%{-webkit-transform:rotate(0deg);}
+    100%{-webkit-transform:rotate(360deg);}
+}
+
+@keyframes loader2{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
 }
 
 /*BASIC STYLE*/
@@ -9228,8 +9353,7 @@ div.album-description-bg{
     position: relative;
     vertical-align: middle;
     display: inline-block;
-    min-width: 170px;
-    width: 380px;
+    width: 170px;
 }
 
 .poster-name{
@@ -9895,6 +10019,7 @@ cursor: pointer;
 
     text-align: left;
     padding: 0;
+    top:65px;
 }
 
 
@@ -12199,7 +12324,7 @@ div#forgot-password-container{
     color: #fff;
     opacity: .7;
     cursor: pointer;
-    margin-right: 40px;
+    margin-right: 50px;
 }
 
 .Geo-Filter:hover, .Geo-Filter:active{opacity: 1}
@@ -12415,8 +12540,12 @@ div#login_detail{
 
 
 }
-
-
+@media only screen 
+and (max-width : 1239px) {
+    #top-about-menu{
+        display:none!Important;
+    }
+}
 
 
 @media only screen 
@@ -12436,9 +12565,13 @@ and (max-width : 900px) {
     .registraion-suceesful-message{font-size: 11px; line-height: 15px;}
 }
 
+
+
+
 @media only screen 
 and (max-width : 480px) {
-    #fadein-image{ display: none;}
+    #fadein-image{ display: none!important;}
+    
     .register-page-top-bar {margin: 40px auto 15%;}
 
     .interest-image-container{width: 50px; height: 50px;}

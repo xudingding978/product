@@ -999,7 +999,7 @@ function program22(depth0,data) {
   data.buffer.push(">");
   stack1 = helpers._triageMustache.call(depth0, "controller.megaResouce.owner_title", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</a>\n                </div>\n\n                <div class=\"contactmebtn hint--left hint--rounded easing\" data-hint=\"Contact us!\" style=\"position: absolute; right: 15px; top: 23px; bottom: auto;\">\n                    <a class=\"contactmeicon easing\" ");
+  data.buffer.push("</a>\n                </div>\n\n                <div class=\"contactmebtn hint--left hint--rounded easing\" data-hint=\"Contact us!\" style=\"position: absolute;\">\n                    <a class=\"contactmeicon easing\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "editingContactForm", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("><i class=\"fa fa-envelope easing\" style=\"font-size: 18px;\"></i></a>\n                </div>\n            </div>\n            ");
   stack1 = helpers['if'].call(depth0, "controller.contact", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
@@ -1540,8 +1540,8 @@ function program16(depth0,data) {
 
 function program18(depth0,data) {
   
-  var buffer = '';
-  data.buffer.push("\n\n\n\n        <div style=\"display: block;padding: 5px 0px;\">\n            <div>\n                <span style=\"display: inline-block; margin-bottom: 5px;\">Message:</span>\n                <div style=\"margin-bottom: 10px; width: 100%; height: 200px;resize: none;\">\n                    ");
+  var buffer = '', stack1;
+  data.buffer.push("\n\n\n\n        <div style=\"display: block;padding: 5px 0px;\">\n            <div>\n                <span style=\"display: inline-block; margin-bottom: 5px;\">Message:</span>\n                <div style=\" width: 100%; height: 200px;resize: none;\">\n                    \n                    ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextArea", {hash:{
     'valueBinding': ("controller.emailBody"),
     'rows': ("12"),
@@ -1549,11 +1549,27 @@ function program18(depth0,data) {
     'class': ("no-resize"),
     'placeholder': ("I saw your profile, I'd love to talk to you about my project, Please reply if you are interested..........")
   },hashTypes:{'valueBinding': "STRING",'rows': "STRING",'cols': "STRING",'class': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'rows': depth0,'cols': depth0,'class': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n\n                </div>\n            </div>\n        </div>\n\n\n        ");
+  data.buffer.push("\n                    ");
+  stack1 = helpers.unless.call(depth0, "controller.firstStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(19, program19, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n\n\n                </div>\n                <div style='position: relative; left: 10px;bottom: 1px;'>\n                    ");
+  stack1 = helpers._triageMustache.call(depth0, "controller.userEnvironment", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n                </div>\n            </div>\n\n        </div>\n\n\n        ");
+  return buffer;
+  }
+function program19(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n                    <div style=\"position: relative;float: left;width: 200px;\">\n                        <div>");
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.Checkbox", {hash:{
+    'checkedBinding': ("osAndBrowser")
+  },hashTypes:{'checkedBinding': "STRING"},hashContexts:{'checkedBinding': depth0},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\n                            <span style='position: relative;top:3px;'>\n                                User's Environment\n                            </span>\n                        </div>\n                    </div>\n                    ");
   return buffer;
   }
 
-function program20(depth0,data) {
+function program21(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\n        <span style=\"float: left;margin: 15px;position: relative;left: 15px;\">\n            <div type=\"button\" ");
@@ -1562,18 +1578,18 @@ function program20(depth0,data) {
   return buffer;
   }
 
-function program22(depth0,data) {
+function program23(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\n\n\n        <span style=\"float: left;margin: 10px;position: relative;left: 15px;\">\n            <div>");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.Checkbox", {hash:{
     'checkedBinding': ("rememberMessage")
   },hashTypes:{'checkedBinding': "STRING"},hashContexts:{'checkedBinding': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("Remember My Message</div>\n        </span>\n\n        ");
+  data.buffer.push("<span style='position: relative;top:3px;'>Remember My Message</span></div>\n        </span>\n\n        ");
   return buffer;
   }
 
-function program24(depth0,data) {
+function program25(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\n            <div type=\"button\" ");
@@ -1582,7 +1598,7 @@ function program24(depth0,data) {
   return buffer;
   }
 
-function program26(depth0,data) {
+function program27(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\n\n            <div type=\"button\" ");
@@ -1604,18 +1620,18 @@ function program26(depth0,data) {
   stack1 = helpers.unless.call(depth0, "controller.firstStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(18, program18, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n    </div>\n\n\n    <div class=\"controlbtn-field\">\n\n\n        ");
-  stack1 = helpers['if'].call(depth0, "controller.secondStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(20, program20, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "controller.secondStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(21, program21, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n        ");
-  stack1 = helpers.unless.call(depth0, "controller.firstStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(22, program22, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers.unless.call(depth0, "controller.firstStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(23, program23, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n\n        <span class=\"controlbtn\">\n\n            <div type=\"button\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeContact", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push(" class=\"new-btn\">Cancel</div>\n            ");
-  stack1 = helpers['if'].call(depth0, "controller.secondStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(24, program24, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "controller.secondStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(25, program25, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n            ");
-  stack1 = helpers.unless.call(depth0, "controller.firstStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(26, program26, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers.unless.call(depth0, "controller.firstStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(27, program27, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n        </span>\n    </div>\n</div>\n");
   return buffer;
@@ -2791,7 +2807,7 @@ function program6(depth0,data) {
 function program8(depth0,data) {
   
   var buffer = '', helper, options;
-  data.buffer.push("\n        <div style=\"position: relative; float: right; top: 55px; z-index: 100;\">\n            <div style=\"position: absolute;border-color: transparent transparent #f3f3f3 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: 0;\"></div>\n            <div style=\"position: absolute;border-color: transparent transparent #888 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: -1;\"></div>\n        </div>\n        ");
+  data.buffer.push("\n        <div style=\"position: relative; float: right; top: 48px; z-index: 100;\">\n            <div style=\"position: absolute;border-color: transparent transparent #f3f3f3 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: 0;\"></div>\n            <div style=\"position: absolute;border-color: transparent transparent #888 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: -1;\"></div>\n        </div>\n        ");
   data.buffer.push(escapeExpression((helper = helpers.render || (depth0 && depth0.render),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "notificationTop", options) : helperMissing.call(depth0, "render", "notificationTop", options))));
   data.buffer.push("\n        ");
   return buffer;
@@ -2828,18 +2844,18 @@ function program10(depth0,data) {
   data.buffer.push(">\n                    <i class=\"fa fa-search\"></i>\n                </div>\n            </div>\n        </div>\n\n\n\n\n\n\n        ");
   stack1 = helpers['if'].call(depth0, "HubStar.isLogin", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(6, program6, data),fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n\n\n        <!-- user is logged in -->\n\n\n\n        ");
+  data.buffer.push("\n\n\n        <!-- user is logged in -->\n\n \n\n        ");
   stack1 = helpers['if'].call(depth0, "isNotification", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n        <div id=\"geo-filter\" class=\"Geo-Filter easing \" style=\"\" ");
+  data.buffer.push("\n\n\n\n\n\n       \n\n\n\n\n\n\n\n\n\n\n        <div id=\"geo-filter\" class=\"Geo-Filter easing \" style=\"\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "dropdown", "geoLocation", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["ID","STRING"],data:data})));
-  data.buffer.push(" data-step=\"2\" data-intro=\" Use the <b>Location Filter</b> to filter search results by region.\">\n            <i class=\"fa fa-angle-down fa-lg\">&nbsp;</i>\n            <span style=\"font-weight: bold;font-size: 15px;\">");
+  data.buffer.push(" data-step=\"2\" data-intro=\" Use the <b>Location Filter</b> to filter search results by region.\">\n            <i class=\"fa fa-angle-down fa-lg\">&nbsp;</i>\n            <span style=\"font-weight: bold;font-size: 13px;\">");
   stack1 = helpers._triageMustache.call(depth0, "HubStar.geoLocation", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</span>\n        </div>\n\n        ");
   stack1 = helpers['if'].call(depth0, "controller.isGeoDropdown", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(10, program10, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n        \n        \n        <div class=\"switch-container\">\n            <div id=\"Residential\" style=\"display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;\">Residential</div>\n            <div  id=\"switchbar\" class=\"insetbox-shadow switch-groove\" style=\"display: inline-block\">\n                <div style=\"height: 10px;width: 50%;border-right: 1px solid rgba(0,0,0,.3);float: left;margin: 6px 0;\"></div>\n                <div style=\"height: 10px;width: 50%;border-left: 1px solid rgba(255,255,255,.5); float: right;margin: 6px 0;\"></div>\n\n                <div id=\"switchbarBtn\" class=\"radius-circle gradient1 switch-btn\" style=\"margin-left: 13px\"></div>\n\n            </div>\n            <div id=\"Commercial\" style=\"display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;\">Commercial</div>\n        </div>\n\n\n\n\n        \n\n    </div>\n</div>\n\n\n\n\n<script type=\"text/javascript\">\n\n    $(document).ready(function() {\n        // left hiding menu bar\n\n        // hide #back-top first\n        $(\"#back-top\").hide();\n        $(window).scroll(function() {\n\n            if ($(this).scrollTop() > 150) {\n                $('#back-top').fadeIn();\n            } else {\n                $('#back-top').fadeOut();\n            }\n\n        });\n        $('#back-top a').click(function() {\n            $('body,html').animate({\n                scrollTop: 0\n            }, 800);\n            return false;\n        });\n    });\n\n\n\n\n\n\n    function setDomain() {\n\n        var api_url = document.domain;\n        var api_domain_start_pos = api_url.indexOf('.');\n        var api_url = api_url.slice(api_domain_start_pos);\n\n        return api_url;\n    }\n\n\n\n\n</script>\n");
+  data.buffer.push("\n\n\n\n\n    </div>\n</div>\n\n\n\n\n<script type=\"text/javascript\">\n\n    $(document).ready(function() {\n        // left hiding menu bar\n\n        // hide #back-top first\n        $(\"#back-top\").hide();\n        $(window).scroll(function() {\n\n            if ($(this).scrollTop() > 150) {\n                $('#back-top').fadeIn();\n            } else {\n                $('#back-top').fadeOut();\n            }\n\n        });\n        $('#back-top a').click(function() {\n            $('body,html').animate({\n                scrollTop: 0\n            }, 800);\n            return false;\n        });\n    });\n\n\n\n\n\n\n    function setDomain() {\n\n        var api_url = document.domain;\n        var api_domain_start_pos = api_url.indexOf('.');\n        var api_url = api_url.slice(api_domain_start_pos);\n\n        return api_url;\n    }\n\n\n\n\n</script>\n");
   return buffer;
   
 });
@@ -3797,16 +3813,27 @@ function program1(depth0,data) {
 Ember.TEMPLATES["masonry"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
 
+function program1(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n<div id =\"show_more_button\"style=\"width:100%;float:left;clear:both;display: block;\">\n    <div id=\"more-result-button\" class=\"new-btn\" style=' width: 300px;margin: 60px auto;display: block; height: 35px; box-shadow: 0 0 10px #fff;'>\n        <div class=\"loader2\" style='left:10px'></div>\n        <div style='position: relative;line-height: 21px;padding-left: 35px;font-size:20px'");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "scrollDownAction", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push(">Loading more results...</div>\n     </div>\n</div>\n");
+  return buffer;
+  }
 
   data.buffer.push("<div id=\"masonry_wrapper\" style=\"min-height:300px;\">\n    <div id=\"masonry_container\" class=\" centered clearfix noStyle1\" style=\"top: 100px;\">\n        <div class=\"box col2 noStyle1\">\n            ");
   data.buffer.push(escapeExpression((helper = helpers.render || (depth0 && depth0.render),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "status", options) : helperMissing.call(depth0, "render", "status", options))));
-  data.buffer.push("\n        </div>\n\n     \n\n        \n        \n        ");
+  data.buffer.push("\n        </div>\n        ");
   data.buffer.push(escapeExpression((helper = helpers.collection || (depth0 && depth0.collection),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "HubStar.MasonryTestView", options) : helperMissing.call(depth0, "collection", "HubStar.MasonryTestView", options))));
-  data.buffer.push("\n\n        \n    </div> <!-- #container -->\n</div><!-- #wrapper -->\n\n<div id =\"show_more_button\"style=\"width:100%;float:left;clear:both;display: block;\">\n    <div id=\"more-result-button\" class=\"new-btn\" style=' width: 200px;margin: 60px auto;display: block; box-shadow: 0 0 10px #fff;'");
+  data.buffer.push("\n    </div> <!-- #container -->\n</div><!-- #wrapper -->\n\n<div id =\"show_more\" style=\"width:100%;clear:both;display: block;background-color: white; opacity: 0; height: 10px;position: absolute;bottom: 800px;\">\n\n</div>\n");
+  stack1 = helpers['if'].call(depth0, "controller.nextPageSpinner", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n<div id =\"show_more_button\"style=\"width:10%;float:left;clear:both;display: block;\">\n    <div id=\"more-result-button\" class=\"new-btn\" style=' width: 200px;margin: 60px auto;display: block; box-shadow: 0 0 10px #fff;'");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "scrollDownAction", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("><i class=\"fa fa-long-arrow-down\" style=\"margin-right: 8px\"></i>Show more results!\n    </div>\n</div>\n\n\n\n");
+  data.buffer.push("><i class=\"fa fa-long-arrow-down\" style=\"margin-right: 8px\"></i>Show more results!\n    </div>\n</div>\n\n\n\n\n\n");
   return buffer;
   
 });
@@ -4084,7 +4111,7 @@ function program6(depth0,data) {
 function program7(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\n\n\n                <div style=\"position: relative; margin: 15px auto;height: 520px; width: 690px; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;\"> \n                    <div style=\"top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;\">\n                        <i class=\"fa fa-arrow-circle-o-up\" style=\"font-size: 45px;\"></i>\n                        <span style=\"font-weight: bold;display: block;font-size: 25px;\">\n                            Drag & Drop Your Photos Here\n                        </span>\n                        <span style=\"font-size: 17px;display: block;line-height: 25px;width: 380px;margin: auto;\">Individual images must not exceed 10MB in size. Upload a maximum of 20 images and a total of 20MB at a time.</span> \n                    </div>\n\n                    <div class=\"new-btn blue-btn\" style=\"margin: auto; width: 200px; top: 557px; position: absolute;left: 0;right: 67%;\">\n                        Choose \n                        <div style=\"opacity:0;position: absolute;top: 0px;left: 0;\"> ");
+  data.buffer.push("\n\n\n                <div style=\"position: relative; margin: 15px auto;height: 520px; width: 690px; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;\"> \n                    <div style=\"top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;\">\n                        <i class=\"fa fa-arrow-circle-o-up\" style=\"font-size: 45px;\"></i>\n                        <span style=\"font-weight: bold;display: block;font-size: 25px;\">\n                            Drag & Drop Your Photos Here\n                        </span>\n                        <span style=\"font-size: 17px;display: block;line-height: 25px;width: 420px;margin: auto;\">Individual images must not exceed 10MB in size. Upload a maximum of 20 images and a total of 20MB at a time.</span> \n                    </div>\n\n                    <div class=\"new-btn blue-btn\" style=\"margin: auto; width: 200px; top: 557px; position: absolute;left: 0;right: 67%;\">\n                        Choose \n                        <div style=\"opacity:0;position: absolute;top: 0px;left: 0;\"> ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "HubStar.ImageInputButtonView", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("</div> \n                    </div> \n\n                    <div id=\"dragAndDroppArea\" class=\"dragndropbox\" style=\"display:none\">\n\n                        ");
   stack1 = helpers.each.call(depth0, "uploadImageContent", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
@@ -4569,7 +4596,7 @@ function program5(depth0,data) {
     'on': ("click"),
     'target': ("controller")
   },hashTypes:{'on': "STRING",'target': "STRING"},hashContexts:{'on': depth0,'target': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push(">&nbsp;</div>\n<div class=\"Navigator-box\" style=\"\">\n    <div style=\"background-color: #f3f3f3; height: 45px; line-height: 45px;width: 100%; border-bottom: 1px solid #ddd;padding: 0 15px;border-radius: 3px 3px 0 0;\">\n        <span style=\"font-size: 18px;font-weight: bold;color: #555;\">Navigator</span>\n\n    </div>\n\n    <div class=\"Navigator-content\" style=\"\">\n        <div class=\"\" style=\"width: 33%;height: 100%;float: left;padding: 8px 0;overflow: auto\">\n            <ul style=\"margin:0\">\n                ");
+  data.buffer.push(">&nbsp;</div>\n<div class=\"Navigator-box\" style=\"\">\n    <div style=\"background-color: #f3f3f3; height: 45px; line-height: 45px;width: 100%; border-bottom: 1px solid #ddd;padding: 0 15px;border-radius: 3px 3px 0 0;\">\n        <span style=\"font-size: 18px;font-weight: bold;color: #555;\">Navigator</span>\n\n    </div>\n\n     <div class=\"switch-container\">\n            <div id=\"Residential1\" style=\"display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;\">Residential</div>\n            <div  id=\"switchbar\" class=\"insetbox-shadow switch-groove\" style=\"display: inline-block\">\n                <div style=\"height: 10px;width: 50%;border-right: 1px solid rgba(0,0,0,.3);float: left;margin: 6px 0;\"></div>\n                <div style=\"height: 10px;width: 50%;border-left: 1px solid rgba(255,255,255,.5); float: right;margin: 6px 0;\"></div>\n\n                <div id=\"switchbarBtn1\" class=\"radius-circle gradient1 switch-btn\" style=\"margin-left: 13px\"></div>\n\n            </div>\n            <div id=\"Commercial1\" style=\"display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;\">Commercial</div>\n        </div>\n    \n    <div class=\"Navigator-content\" style=\"\">\n        <div class=\"\" style=\"width: 33%;height: 100%;float: left;padding: 8px 0;overflow: auto\">\n            <ul style=\"margin:0\">\n                ");
   stack1 = helpers.each.call(depth0, "controller.categorys", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n            </ul>\n        </div>\n\n\n\n        <div id =\"category_topic\" style=\"width: 33.5%;height: 100%;border-left: 1px solid #ddd; border-right: 1px solid #ddd;float: left;padding: 8px 0;overflow: auto\">\n\n\n            ");
@@ -4578,7 +4605,7 @@ function program5(depth0,data) {
   data.buffer.push("\n        </div>\n\n        <div id=\"search_topic\" style=\"width: 33.5%;height: 100%;float: left;padding: 8px 0;overflow: auto\">\n            ");
   stack1 = helpers.each.call(depth0, "controller.subcategories", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n        </div>\n\n\n    </div>\n\n    <div class=\"Navigator_links\" style=\"\">\n        <div style=\"float: left\">\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/\">About</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/business/\">Business</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/learning-centre/\">Learning Centre</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/contact-us/\">Contact us</a></span>\n        </div>\n        <div style=\"float: right\">\n             ver.\n            <span id=\"lastidentifie\">0.4-127</span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/terms-of-use-agreement/\">Terms of Use</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/privacy-policy/\">Privacy Policy</a></span>\n        </div>\n    </div>\n</div>\n\n\n\n\n<script>\n    $(function() {\n        $(\"#category_topic\").mCustomScrollbar({\n            scrollButtons: {\n                enable: false,\n                scrollSpeed: \"auto\"\n            },\n            advanced: {\n                updateOnBrowserResize: true,\n                updateOnContentResize: true,\n                autoScrollOnFocus: false,\n                normalizeMouseWheelDelta: false\n            },\n            autoHideScrollbar: true,\n            mouseWheel: true,\n            theme: \"dark-2\",\n            set_height: 388\n        });\n    });\n\n\n</script>");
+  data.buffer.push("\n        </div>\n\n\n    </div>\n\n    <div class=\"Navigator_links\" style=\"\">\n        <div style=\"float: left\">\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/\">About</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/business/\">Business</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/learning-centre/\">Learning Centre</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/contact-us/\">Contact us</a></span>\n        </div>\n        <div style=\"float: right\">\n             ver. \n            <span id=\"lastidentifie\">0.4-128</span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/terms-of-use-agreement/\">Terms of Use</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/privacy-policy/\">Privacy Policy</a></span>\n        </div>\n    </div>\n</div>\n\n\n\n\n<script>\n    $(function() {\n        $(\"#category_topic\").mCustomScrollbar({\n            scrollButtons: {\n                enable: false,\n                scrollSpeed: \"auto\"\n            },\n            advanced: {\n                updateOnBrowserResize: true,\n                updateOnContentResize: true,\n                autoScrollOnFocus: false,\n                normalizeMouseWheelDelta: false\n            },\n            autoHideScrollbar: true,\n            mouseWheel: true,\n            theme: \"dark-2\",\n            set_height: 388\n        });\n    });\n\n\n</script>");
   return buffer;
   
 });
@@ -5163,7 +5190,7 @@ function program26(depth0,data) {
   data.buffer.push(">");
   stack1 = helpers._triageMustache.call(depth0, "controller.megaResouce.owner_title", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</a>\n                </div>        \n                <div class=\"contactmebtn hint--left hint--rounded easing\" data-hint=\"Contact us!\" style=\"position: absolute; right: 15px; top: 23px; bottom: auto;\">\n                    <a class=\"contactmeicon easing\" ");
+  data.buffer.push("</a>\n                </div>        \n                <div class=\"contactmebtn hint--left hint--rounded easing\" data-hint=\"Contact us!\" style=\"position: absolute;\">\n                    <a class=\"contactmeicon easing\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "editingContactForm", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("><i class=\"fa fa-envelope easing\" style=\"font-size: 18px;\"></i></a>\n                </div>\n            </div>\n            ");
   stack1 = helpers['if'].call(depth0, "controller.contact", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
@@ -6017,7 +6044,7 @@ function program73(depth0,data) {
     'valueBinding': ("profile_cover_text"),
     'placeholder': ("Small profile description")
   },hashTypes:{'valueBinding': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n                                </div>\n                            </div>\n                        </td>\n                    </tr>\n                    <tr>\n                        <td>Gooogle Analytics Tracking ID:</td>\n                        <td>\n                            <div style=\"display: block;\">\n                                <div   style=\"margin: 0;width: 100%;\">\n                                    ");
+  data.buffer.push("\n                                </div>\n                            </div>\n                        </td>\n                    </tr>\n                    <tr>\n                        <td>Google Analytics Tracking ID:</td>\n                        <td>\n                            <div style=\"display: block;\">\n                                <div   style=\"margin: 0;width: 100%;\">\n                                    ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("profile_analytics_code"),
     'placeholder': ("UA-44575103-1")
@@ -6043,25 +6070,25 @@ function program73(depth0,data) {
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("contact_email"),
     'class': ("mustFill4"),
-    'placeholder': ("superman@hubstar.com")
+    'placeholder': ("")
   },hashTypes:{'valueBinding': "STRING",'class': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'class': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n                        <tr>\n                            <td>Secondary  Email (cc):</td>\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div   style=\"margin: 0;width: 100%;\">\n                                        ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("secondary_email"),
     'class': (""),
-    'placeholder': ("superman@hubstar.com")
+    'placeholder': ("")
   },hashTypes:{'valueBinding': "STRING",'class': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'class': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>DirectEnquiry Provide Email (bcc):</td>\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div   style=\"margin: 0;width: 100%;\">\n                                        ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("direct_enquiry_provide_email"),
     'class': (""),
-    'placeholder': ("superman@hubstar.com")
+    'placeholder': ("")
   },hashTypes:{'valueBinding': "STRING",'class': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'class': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n                        <tr>\n                            <td>Editor*:</td>\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div   style=\"margin: 0;width: 100%; height: 100px;\">\n                                        ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextArea", {hash:{
     'valueBinding': ("editors"),
     'class': ("mustFill6 no-resize"),
-    'placeholder': ("Ironman@hubstar.com, CaptainAmerica@hubstar.com, hulk@hubstar.com")
+    'placeholder': ("")
   },hashTypes:{'valueBinding': "STRING",'class': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'class': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n\n                    </tbody>\n                </table>\n                <div style=\"right: 0;margin: 30px auto 0;width: 150px;\">\n                    <span class=\"new-btn green-btn\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveUpdate", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
@@ -6875,7 +6902,7 @@ function program7(depth0,data) {
   data.buffer.push(escapeExpression((helper = helpers.form || (depth0 && depth0.form),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "controller.regionSelection", options) : helperMissing.call(depth0, "form", "controller.regionSelection", options))));
   data.buffer.push("-");
   data.buffer.push(escapeExpression((helper = helpers.form || (depth0 && depth0.form),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "controller.countrySelection", options) : helperMissing.call(depth0, "form", "controller.countrySelection", options))));
-  data.buffer.push("\n                        </div>\n\n                    </div> \n                </div>\n\n                    <div style=\"display:table-row\">\n                        <div style=\"display:table-cell;text-align: right;\" >Profile Name*: </div>                     \n                        <div style=\"display:table-cell\"> \n                            <div  id=\"profileNameField\" style=\"margin: 10px 30px 5px 10px;;width: 70%;\">\n                                ");
+  data.buffer.push("\n                        </div>\n                  \n                    </div> \n                </div>\n\n                    <div style=\"display:table-row\">\n                        <div style=\"display:table-cell;text-align: right;\" >Profile Name*: </div>                     \n                        <div style=\"display:table-cell\"> \n                            <div  id=\"profileNameField\" style=\"margin: 10px 30px 5px 10px;;width: 70%;\">\n                                ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("profile_name"),
     'class': ("profileName"),
@@ -7875,7 +7902,7 @@ function program1(depth0,data) {
 function program3(depth0,data) {
   
   var buffer = '', stack1, helper, options;
-  data.buffer.push("\n\n\n        <div id=\"afterLogin\">\n            <div class=\"profilepic-container\" style=\"margin:0 0 10px;\">\n                <a ");
+  data.buffer.push(" \n\n\n        <div id=\"afterLogin\">\n            <div class=\"profilepic-container\" style=\"margin:0 0 10px;\">\n                <a ");
   data.buffer.push(escapeExpression((helper = helpers.bindAttr || (depth0 && depth0.bindAttr),options={hash:{
     'href': ("controller.myUserProfile")
   },hashTypes:{'href': "STRING"},hashContexts:{'href': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bindAttr", options))));
@@ -7889,14 +7916,14 @@ function program3(depth0,data) {
   data.buffer.push("</b> </p>\n            <h4>");
   stack1 = helpers._triageMustache.call(depth0, "controller.response", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</h4>\n\n        </div>\n\n        \n        \n        ");
+  data.buffer.push("</h4>\n\n        </div>\n\n\n\n        ");
   return buffer;
   }
 
-  data.buffer.push("\n\n\n<div class=\"gradient1\" style=\"color:#555;\">\n\n\n\n\n\n\n\n    <div style=\"padding: 20px;text-align: center; background-color: #FFFFFF;\" data-step=\"5\" data-intro=\"Here is your <b>status</b>.\" data-position='right'>\n\n\n        ");
+  data.buffer.push("\n\n\n<div class=\"gradient1\" style=\"color:#555;\">\n\n\n\n\n\n\n\n    <div style=\"padding: 20px;text-align: center;\" data-step=\"5\" data-intro=\"Here is your <b>status</b>.\" data-position='right'>\n\n\n        ");
   stack1 = helpers.unless.call(depth0, "HubStar.isLogin", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n    </div>\n\n\n\n\n\n\n\n</div>\n\n");
+  data.buffer.push("\n    </div>\n\n    \n\n\n\n\n\n</div>\n\n");
   return buffer;
   
 });
@@ -9383,7 +9410,7 @@ function program17(depth0,data) {
   data.buffer.push(">");
   stack1 = helpers._triageMustache.call(depth0, "controller.megaResouce.owner_title", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</a>\n                </div>        \n                <div class=\"contactmebtn hint--left hint--rounded easing\" data-hint=\"Contact us!\" style=\"position: absolute; right: 15px; top: 23px; bottom: auto;\">\n                    <a class=\"contactmeicon easing\" ");
+  data.buffer.push("</a>\n                </div>        \n                <div class=\"contactmebtn hint--left hint--rounded easing\" data-hint=\"Contact us!\" style=\"position: absolute;\">\n                    <a class=\"contactmeicon easing\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "editingContactForm", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("><i class=\"fa fa-envelope easing\" style=\"font-size: 18px;\"></i></a>\n                </div>\n            </div>\n\n            ");
   stack1 = helpers['if'].call(depth0, "controller.contact", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});

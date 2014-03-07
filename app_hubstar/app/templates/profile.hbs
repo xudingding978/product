@@ -449,7 +449,7 @@
                         <td>Profile Name*: </td>
                         <td>
                             <div style="display: block;">
-                                {{view Ember.TextField valueBinding="profile_name"   class="mustFill1" placeholder="Heritage Tiles NZ"}}
+                                {{view Ember.TextField valueBinding="profile_name"   class="mustFill1" placeholder=""}}
                             </div>
                             <div class="mustfull" id="mustFill1" style="display: none">please fill in info... </div>
                         </td>
@@ -520,14 +520,14 @@
                         <td>
                             <div style="display: block;">
                                 <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="profile_contact_number" placeholder="0987364531"}}
+                                    {{view Ember.TextField valueBinding="profile_contact_number" placeholder=""}}
                                 </div>
                             </div>
                         </td>
                     </tr>
 
                     <tr>
-                        <td>Website:</td>
+                        <td>Website Domain:</td>
                         <td>
                             <div style="display: block;">
                                 <div   style="margin: 0;width: 100%;">
@@ -552,7 +552,7 @@
                         <td>
                             <div style="display: block;">
                                 <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="profile_cover_text" placeholder="Small profile description"}}
+                                    {{view Ember.TextField valueBinding="profile_cover_text" placeholder="Brief description (displayed when your profile appears in search results)"}}
                                 </div>
                             </div>
                         </td>
@@ -562,7 +562,7 @@
                         <td>
                             <div style="display: block;">
                                 <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="profile_analytics_code" placeholder="UA-44575103-1"}}
+                                    {{view Ember.TextField valueBinding="profile_analytics_code" placeholder=""}}
                                 </div>
                             </div>
                         </td>
@@ -612,7 +612,7 @@
                         </tr>
 
                         <tr>
-                            <td>Direct Enquiry Email*:</td>
+                            <td>Direct Enquiry Primary Email (To:)*:</td>
 
                             <td>
                                 <div style="display: block;">
@@ -624,7 +624,7 @@
                         </tr>
 
                         <tr>
-                            <td>Secondary  Email (cc):</td>
+                            <td>Direct Enquiry Secondary Email (Cc:):</td>
                             <td>
                                 <div style="display: block;">
                                     <div   style="margin: 0;width: 100%;">
@@ -634,7 +634,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>DirectEnquiry Provide Email (bcc):</td>
+                            <td>Direct Enquiry Tertiary Email (Bcc:):</td>
                             <td>
                                 <div style="display: block;">
                                     <div   style="margin: 0;width: 100%;">
@@ -645,7 +645,7 @@
                         </tr>
 
                         <tr>
-                            <td>Editor*:</td>
+                            <td>Editors*:</td>
                             <td>
                                 <div style="display: block;">
                                     <div   style="margin: 0;width: 100%; height: 100px;">
@@ -675,7 +675,7 @@
                             <td>
                                 <div style="display: block;">
                                     <div  id="facebook" style="margin: 0;width: 100%;">
-                                        {{input type="text" value=facebook placeholder="eg:www.facebook.com"}}
+                                        {{input type="text" value=facebook placeholder="www.facebook.com/username"}}
                                     </div>
                                 </div>
                             </td>
@@ -686,7 +686,7 @@
                             <td>
                                 <div style="display: block;">
                                     <div  id="twitter" style="margin: 0;width: 100%;">
-                                        {{input type="text" value=twitter placeholder="eg:www.twitter.com"}}
+                                        {{input type="text" value=twitter placeholder="www.twitter.co/username"}}
                                     </div>
                                 </div>
                             </td>
@@ -697,7 +697,7 @@
                             <td>
                                 <div style="display: block;">
                                     <div id="googleplus"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=googleplus placeholder="eg:plus.google.com"}}
+                                        {{input type="text" value=googleplus placeholder="plus.google.com/username"}}
                                     </div>
                                 </div>
                             </td>
@@ -708,7 +708,7 @@
                             <td>
                                 <div style="display: block;">
                                     <div  id="pinterest"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=pinterest placeholder="eg:www.pinterest.com"}}
+                                        {{input type="text" value=pinterest placeholder="www.pinterest.com/username"}}
                                     </div>
                                 </div>
                             </td>
@@ -718,7 +718,7 @@
                             <td>
                                 <div style="display: block;">
                                     <div id="linkedin"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=linkedin placeholder="eg:www.linkedin.com"}}
+                                        {{input type="text" value=linkedin placeholder="www.linkedin.com/in/username"}}
                                     </div>
                                 </div>
                             </td>
@@ -730,7 +730,7 @@
                             <td>
                                 <div style="display: block;">
                                     <div  id="youtube" style="margin: 0;width: 100%;">
-                                        {{input type="text" value=youtube placeholder="eg:www.youtube.com"}}
+                                        {{input type="text" value=youtube placeholder="www.youtube.com/user/username"}}
                                     </div>
                                 </div>
                             </td>

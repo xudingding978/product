@@ -24,7 +24,7 @@
         <div style="font-size: 16px;font-weight: bold;color: #555; line-height: 25px;">URL*</div>
         {{/if}}
         {{#if controller.updateOrCreate}}
-        {{view HubStar.SearchRequireTextFieldView valueBinding="controller.newTitle"  id="" class="" style="height:30px;" placeholder="e.g. Bedroom Design" }} 
+        {{view HubStar.SearchRequireTextFieldView valueBinding="controller.newTitle"  id="" class="" style="height:30px;" placeholder="Name this Collection" }} 
 
         {{/if}}
 
@@ -45,7 +45,7 @@
 
         <div style="font-size: 16px;font-weight: bold;color: #555; line-height: 25px;">Description</div>
         <div style="height: 150px;">
-            {{view Ember.TextArea valueBinding="controller.newDesc" rows="12" cols="70" class="no-resize"  placeholder="Add a short description to your Collection"}}
+            {{view Ember.TextArea valueBinding="controller.newDesc" rows="12" cols="70" class="no-resize"  placeholder="Write a brief description for this Collection"}}
         </div>
 
 

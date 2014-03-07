@@ -37,7 +37,9 @@ function createReviewid() {
 
 
 function multiRow(s) {
-    s = s.replace(/\n/g, '<br>');
+    if (s !== null) {
+        s = s.replace(/\n/g, '<br>');
+    }
     return s;
 }
 function createMessageid() {
@@ -46,7 +48,7 @@ function createMessageid() {
     var randomnumber = Math.random().toString().slice(2, 5);
     randomnumber = randomnumber.toString();
     randomnumber = removeZero(randomnumber);
-    
+
     var result = randomnumber +
             dateObject.getTime().toString();
     return  result.toString();
@@ -57,7 +59,7 @@ function createNavigatorId() {
     var randomnumber = Math.random().toString().slice(2, 5);
     randomnumber = randomnumber.toString();
     randomnumber = removeZero(randomnumber);
-    
+
     var result = randomnumber +
             dateObject.getTime().toString();
     return  result.toString();

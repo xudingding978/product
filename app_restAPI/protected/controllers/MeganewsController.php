@@ -126,6 +126,7 @@ class MeganewsController extends Controller {
                 $oldRecord = CJSON::decode($tempRecord, true);
                 $newProfile = array();
                 $newProfile['profile_id'] = $id;
+                $newProfile['type'] = "creator";
                 if (!isset($oldRecord['user'][0]['profiles'])) {
                     $oldRecord['user'][0]['profiles'] = array();
                 }

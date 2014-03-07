@@ -51,7 +51,12 @@ HubStar.Profile = DS.Model.extend({
     profile_average_review: DS.attr('string'),
     profile_average_review_length: DS.attr('string'),
     profile_google_map: DS.attr('string'),
-    owner: DS.attr('string'),    
+    owner: DS.attr('string'),
+    
+    creator: DS.attr('string'),
+    administrator: DS.attr('string'),
+    editor: DS.attr('string'),
+    
     owner_contact_email: DS.attr('string'),
     owner_contact_bcc_emails: DS.attr('string'),
     owner_contact_cc_emails: DS.attr('string'),

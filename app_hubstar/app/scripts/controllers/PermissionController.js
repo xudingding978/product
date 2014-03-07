@@ -13,6 +13,22 @@ HubStar.PermissionController = Ember.Controller.extend({
 
         return is_authentic_user;
     },
+    checkAuthenticEdit: function(creator, administrator, editor) {
+        var authorityLevel = "";
+        if (creator !== null && administrator !== null && editor !== null)
+        {
+            if (creator.indexOf(localStorage.loginStatus) !== -1) {
+                authorityLevel = "creator";
+            }
+            else if (creator.indexOf(localStorage.loginStatus) !== -1) {
+                authorityLevel = "administrator";
+            }
+            else if (creator.indexOf(localStorage.loginStatus) !== -1) {
+                authorityLevel = "editor";
+            }
+        }
+        return authorityLevel;
+    },
     setIsAuthenticUser: function(authenticUsers, email)
     {
         var is_authentic_user = false;

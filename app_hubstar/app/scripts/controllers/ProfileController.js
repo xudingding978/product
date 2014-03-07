@@ -15,6 +15,7 @@ var collection_desc_record;
 
 
 HubStar.ProfileController = Ember.ObjectController.extend({
+    role:"",
     model: null,
     aboutMe: "aboutMe",
     isAboutUs: false,
@@ -153,10 +154,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     categorys: [],
     subcate: [],
     backgroundImage: "",
+    editorAdd: false,
     init: function() {
 
         this.set('is_authentic_user', false);
         this.setTopicModel(HubStar.Cate.find({}));
+    },
+    editingEditor: function() {
+        this.set("editorAdd", true);
     },
     goToProfileRoute: function(id)
     {
@@ -593,7 +598,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 } else if (i === 1) {
                     var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '', "book_description": 'New Home Trends (29/10)',
                         "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=483&w=300&tabid=101&h=0',
-                        "book_read_url": 'http://ebooks.trendsideas.com/Book873', "book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/447/New_Home_Trends_Vol_2910.aspx', 
+                        "book_read_url": 'http://ebooks.trendsideas.com/Book873', "book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/447/New_Home_Trends_Vol_2910.aspx',
                         "optional": this.get('model').get('id'), "display_size": 1, "read_available": true, "buy_available": true});
                 } else {
                     var about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '', "book_description": 'Limited Edition!',
@@ -617,14 +622,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('editingAbout', !this.get('editingAbout'));
         }
         if (this.get('model').get('show_template')) {
-            for (var i =0; i< this.get('about_us').objectAt(0).get('about_book').get('length'); i++) {
+            for (var i = 0; i < this.get('about_us').objectAt(0).get('about_book').get('length'); i++) {
                 var about_book = this.get('about_us').objectAt(0).get('about_book').objectAt(i);
                 if (about_book.get('book_read_url') !== null && about_book.get('book_read_url') !== '' && about_book.get('book_read_url') !== undefined) {
                     this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('read_available', true);
                 } else {
                     this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('read_available', false);
                 }
-                
+
                 if (about_book.get('book_buy_url') !== null && about_book.get('book_buy_url') !== '' && about_book.get('book_buy_url') !== undefined) {
                     this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('buy_available', true);
                 } else {
@@ -647,12 +652,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             var update_profile_record = HubStar.Profile.find(this.get('model.id'));
 
 //            if (title_modify_time > update_profile_record.get('title_modify_time')+600000) {
-                this.set('editing', !this.get('editing'));            
+            this.set('editing', !this.get('editing'));
 
-                update_profile_record.set("profile_name", this.get('profile_name'));
-                update_profile_record.set("title_modify_time", title_modify_time);
-                this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
-                update_profile_record.store.save();
+            update_profile_record.set("profile_name", this.get('profile_name'));
+            update_profile_record.set("title_modify_time", title_modify_time);
+            this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
+            update_profile_record.store.save();
 //            } else {
 //                this.get('controllers.applicationFeedback').statusObserver(null, "Please do not change your profile title so frequently.", "warnning");
 //            }
@@ -775,12 +780,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             });
             this.get("collections").removeObject(this.get("selectedCollection"));
             this.statstics();
-             setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {
-                $('#masonry_user_container').masonry();
-            }, 300);
-        }, 800);
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 300);
+            }, 800);
             this.cancelDelete();
         } else {
             this.set('willDelete', true);
@@ -827,8 +832,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
             contactController.setSelectedMega(this.get('currentUserID'));
 
-                document.getElementById("body_id").style.overflow = "hidden";
-            
+            document.getElementById("body_id").style.overflow = "hidden";
+
             this.set('contactChecking', !this.get('contactChecking'));
         }
     },
@@ -858,10 +863,17 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             var permissionController = this.get('controllers.permission');
             var that = this;
             var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
+            var role = permissionController.checkAuthenticEdit(that.get("model").get("creator"), that.get("model").get("administrator"), that.get("model").get("editor"));
+            that.set("role",role);
+            var is_edit = false;
+            if (role !== "")
+            {
+                is_edit = true;
+            }
             if (current_user_email !== null && current_user_email !== undefined && current_user_email !== "") {
                 var isAdmin = permissionController.setIsAdmin(current_user_email);
-                this.set('isAdmin', isAdmin);
-                that.set("is_authentic_user", is_authentic_user);
+                this.set('isAdmin', isAdmin||is_edit);
+                that.set("is_authentic_user", is_authentic_user||is_edit);
 
             } else {
 
@@ -870,11 +882,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
                     if (currentUser.get('isLoaded')) {
                         var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-                        that.set("is_authentic_user", is_authentic_user);
+                        that.set("is_authentic_user", is_authentic_user||is_edit);
 
                         var isAdmin = permissionController.setIsAdmin(current_user_email);
-                        that.set('isAdmin', isAdmin);
-                        isAdmin = permissionController.setIsAdmin(current_user_email);
+                        that.set('isAdmin', isAdmin||is_edit);
                     }
                 });
             }
@@ -1208,11 +1219,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('isFinished', false);
         this.set('UploadImageMode', mode);
         if (mode === "Profile Picture") {
-            this.set("backgroundImage","http://develop.devbox.s3.amazonaws.com/uploaddemo-profilepicture.png");
+            this.set("backgroundImage", "http://develop.devbox.s3.amazonaws.com/uploaddemo-profilepicture.png");
         } else if (mode === "Profile Hero") {
-            this.set("backgroundImage","http://develop.devbox.s3.amazonaws.com/uploaddemo-profilehero.png");
+            this.set("backgroundImage", "http://develop.devbox.s3.amazonaws.com/uploaddemo-profilehero.png");
         } else {
-            this.set("backgroundImage","http://develop.devbox.s3.amazonaws.com/uploaddemo-profilebackground.png");
+            this.set("backgroundImage", "http://develop.devbox.s3.amazonaws.com/uploaddemo-profilebackground.png");
         }
         var data = {"RequireIamgeType": mode};
         var that = this;
@@ -1263,7 +1274,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     cropButton: function()
     {
-        
+
         this.set('cropsize', $('#panel').text());
         this.set('isPhotoUploadMode', false);
         this.set('isPhotoEditingMode', true);
@@ -1327,11 +1338,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function(params) {
                             that.set('isPhotoEditingMode', false);
                             that.set('isPhotoUploadMode', false);
-                               that.set('isUpload', false);
+                            that.set('isUpload', false);
                             that.set("isCrop", false);
                             that.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
                             that.set('loadingTime', false);
-                             that.set('isFinished', true);
+                            that.set('isFinished', true);
                         });
 
                     }

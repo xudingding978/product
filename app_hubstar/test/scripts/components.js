@@ -5609,7 +5609,9 @@ function createReviewid() {
 
 
 function multiRow(s) {
-    s = s.replace(/\n/g, '<br>');
+    if (s !== null) {
+        s = s.replace(/\n/g, '<br>');
+    }
     return s;
 }
 function createMessageid() {

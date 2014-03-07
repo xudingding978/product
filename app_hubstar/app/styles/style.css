@@ -758,12 +758,9 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 /*/End WindowContainer---------------/*/
 
 
-
-
-
 /*CONTACT ME  BUTTON*/
 .contactmebtn {
-    position: absolute;
+    position: relative;
     z-index: 1;
     text-align: center;
     float: right;
@@ -771,7 +768,6 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     right: 2px;
     cursor: pointer;
     margin: 0 10px;
-    top: 17px;
 }
 
 .contactmeicon{

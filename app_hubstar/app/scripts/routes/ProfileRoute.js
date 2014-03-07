@@ -17,26 +17,26 @@ HubStar.ProfileRoute = Ember.Route.extend({
         ProfileController.set('contactChecking', false);
         ProfileController.set('collectionTag', true);
         ProfileController.set('partnerTag', false);
-        ProfileController.set('reviewTag', false);       
+        ProfileController.set('reviewTag', false);
         ProfileController.set('videoTag', false);
-        
+
         if (localStorage.checkUser === "newUser") {
-            
+
             setTimeout(function() {
-               window.location.href ='JavaScript:void(0)';
+                window.location.href = 'JavaScript:void(0)';
                 $(".brand").addClass("tour-background");
                 $(".Geo-Filter").addClass("tour-background");
                 $("#login_detail").addClass("tour-background");
-                 $("#profileDashboard").attr("style", "display:none");
-                 $("#user-dd-menu").attr("style", "display:none");
-                 $("#profilePanel").removeClass("panel");
+                $("#profileDashboard").attr("style", "display:none");
+                $("#user-dd-menu").attr("style", "display:none");
+                $("#profilePanel").removeClass("panel");
                 introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
                     $(window).scrollTop(0);
                     location.href = '/#/search';
-                   localStorage.checkUser = "";
+                    localStorage.checkUser = "";
                 });
             }, 3000);
-            this.get("controller").get('controllers.applicationFeedback').statusObserver(null, "Thanks for taking time on user tour and have a good trip on trendsideas.com", "warnning");
+
         }
         else {
             localStorage.checkUser = "";
@@ -53,17 +53,17 @@ HubStar.ProfileRoute = Ember.Route.extend({
         $('#defualt').addClass('selected-user-stats');
         if (model.get('profile_analytics_code') !== null && model.get('profile_analytics_code') !== '' && model.get('profile_analytics_code') !== undefined) {
             var analytics_array = model.get('profile_analytics_code').split(',');
-            for (var i = 0; i < analytics_array.length; i ++) {
-                this.sendGAMessage(analytics_array[i], model.get('id').split('-').join('')+i.toString());
+            for (var i = 0; i < analytics_array.length; i++) {
+                this.sendGAMessage(analytics_array[i], model.get('id').split('-').join('') + i.toString());
             }
         }
 
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
-        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)"); 
+        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
         ProfileController.setProfile(model.id);
 
-        
+
 //        var address = document.URL;
 //        var urlArray = address.split("#")[1].split("/");
 //        if (urlArray.length < 4)

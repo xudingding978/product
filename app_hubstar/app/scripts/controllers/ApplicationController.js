@@ -365,11 +365,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     {
         var emailVerify = [verifyAccount, verifyPassword];
         var that = this;
+        console.log("dfafs");
+        
         requiredBackEnd('login', 'verify', emailVerify, 'POST', function(params) {
             localStorage.loginStatus = params;
             localStorage.checkUser = "newUser";
             HubStar.set("isLogin", true);
-
+               
             that.transitionToRoute("searchIndexTom");
             that.init();
 

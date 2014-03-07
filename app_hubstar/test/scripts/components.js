@@ -5609,7 +5609,9 @@ function createReviewid() {
 
 
 function multiRow(s) {
-    s = s.replace(/\n/g, '<br>');
+    if (s !== null) {
+        s = s.replace(/\n/g, '<br>');
+    }
     return s;
 }
 function createMessageid() {
@@ -5618,7 +5620,7 @@ function createMessageid() {
     var randomnumber = Math.random().toString().slice(2, 5);
     randomnumber = randomnumber.toString();
     randomnumber = removeZero(randomnumber);
-    
+
     var result = randomnumber +
             dateObject.getTime().toString();
     return  result.toString();
@@ -5629,7 +5631,7 @@ function createNavigatorId() {
     var randomnumber = Math.random().toString().slice(2, 5);
     randomnumber = randomnumber.toString();
     randomnumber = removeZero(randomnumber);
-    
+
     var result = randomnumber +
             dateObject.getTime().toString();
     return  result.toString();
@@ -18470,7 +18472,7 @@ function print_state()
                     $("#login_detail").removeClass("tour-background");
                     $("#profilePanel").addClass("panel");
                     $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
-                     localStorage.checkUser = "";
+                    localStorage.checkUser = "";
                     //check if any callback is defined
                     if (self._introExitCallback != undefined) {
                         self._introExitCallback.call(self);
@@ -18550,7 +18552,7 @@ function print_state()
             $("#login_detail").removeClass("tour-background");
             $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
             $("#profilePanel").addClass("panel");
-
+  
             return;
         }
 
@@ -18670,15 +18672,15 @@ function print_state()
                 arrowLayer.className = 'introjs-arrow bottom';
                 break;
             case 'right':
-                if(_getOffset(targetElement).left<420){
-                tooltipLayer.style.left = (_getOffset(targetElement).width + 20) + 'px';
-                arrowLayer.className = 'introjs-arrow left';
+                if (_getOffset(targetElement).left < 420) {
+                    tooltipLayer.style.left = (_getOffset(targetElement).width + 20) + 'px';
+                    arrowLayer.className = 'introjs-arrow left';
                 }
                 else {
                     tooltipLayer.style.top = '15px';
                     tooltipLayer.style.right = (_getOffset(targetElement).width + 20) + 'px';
-                     arrowLayer.className = 'introjs-arrow right';
-                }  
+                    arrowLayer.className = 'introjs-arrow right';
+                }
                 break;
             case 'left':
                 tooltipLayer.style.top = '15px';
@@ -18856,15 +18858,14 @@ function print_state()
             var nextTooltipButton = document.createElement('a');
             nextTooltipButton.onclick = function() {
                 if (self._introItems.length - 1 !== self._currentStep) {
-                    _nextStep.call(self);      
-                }else if (self._introItems.length - 1 === self._currentStep) {
+                    _nextStep.call(self);
+                } else if (self._introItems.length - 1 === self._currentStep) {
                     _exitIntro.call(self, self._targetElement);
-                $(".brand").removeClass("tour-background");
-                $(".Geo-Filter").removeClass("tour-background");
-                $("#login_detail").removeClass("tour-background");
-                $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
-                $("#profilePanel").addClass("panel");
-                  //   $(window).scrollTop(0);
+                    $(".brand").removeClass("tour-background");
+                    $(".Geo-Filter").removeClass("tour-background");
+                    $("#login_detail").removeClass("tour-background");
+                    $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
+                    $("#profilePanel").addClass("panel");
                 }
             };
 
@@ -18906,13 +18907,14 @@ function print_state()
                 $("#login_detail").removeClass("tour-background");
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
-                 localStorage.checkUser = "";
+                localStorage.checkUser = "";
+                alert("Thanks for taking time on user tour and have a good trip on trendsideas.com");
             };
 
             buttonsLayer.appendChild(skipTooltipButton);
 
-           
-      
+
+
             //in order to prevent displaying next/previous button always
             if (this._introItems.length > 1) {
                 buttonsLayer.appendChild(prevTooltipButton);
@@ -18934,12 +18936,21 @@ function print_state()
             skipTooltipButton.innerHTML = this._options.doneLabel;
             prevTooltipButton.className = 'introjs-button introjs-prevbutton';
             nextTooltipButton.className = 'introjs-button introjs-nextbutton';
-             nextTooltipButton.innerHTML = this._options.finishLabel;
+            var address = document.URL;
+            var urlName = address.split("#")[1].split("/")[1];
+            if (urlName === "profiles")
+            {
+                nextTooltipButton.innerHTML = this._options.finishLabel;
+                
+            }
+            else {
+                nextTooltipButton.innerHTML = this._options.nextLabel;
+            }
         } else {
             prevTooltipButton.className = 'introjs-button introjs-prevbutton';
             nextTooltipButton.className = 'introjs-button introjs-nextbutton';
             skipTooltipButton.innerHTML = this._options.skipLabel;
-             nextTooltipButton.innerHTML = this._options.nextLabel;
+            nextTooltipButton.innerHTML = this._options.nextLabel;
         }
 
         //Set focus on "next" button, so that hitting Enter always moves you onto the next step
@@ -19084,7 +19095,8 @@ function print_state()
                 $("#login_detail").removeClass("tour-background");
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
-                 localStorage.checkUser = "";
+                localStorage.checkUser = "";
+                alert("Thanks for taking time on user tour and have a good trip on trendsideas.com");
 
                 //check if any callback is defined
                 if (self._introExitCallback != undefined) {

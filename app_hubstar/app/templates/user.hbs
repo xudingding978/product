@@ -64,7 +64,8 @@
                         {{view Ember.TextArea valueBinding="interests"  id="" class="add-interests"  }}
                     </div>
                     <div class="interest-insert-hint" style="">
-                        Do not use plural comma together or left a comma at the end of string, the right example is "Kitchen,Bathroom,Roof,Entrance"
+                        Comma separate interests to add several to your profile.<br>
+                        e.g. Kitchens,Bathrooms,Interior
                     </div>
                     <div style="text-align: center;right: 15px;position: relative;">
                         <div class="new-btn" {{action no controller.interest}}><i style="position:absolute;top:0;left:0;width:33px;height:26px;line-height:26px;text-align:center;" class="fa fa-times" {{action showInterestsUp target="view" on="click"}}></i></div>

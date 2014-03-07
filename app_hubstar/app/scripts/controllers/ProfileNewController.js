@@ -192,11 +192,11 @@ HubStar.ProfileNewController = Ember.Controller.extend({
             $('#errorMessage7').attr('style', 'display:block');
             $('#residential').addClass("error-textfield");
             $('#commercial').addClass("error-textfield");
-           
+
         }
         else {
-             $('#errorMessage7').attr('style', 'display:none'); 
-             $('#residential').removeClass("error-textfield");
+            $('#errorMessage7').attr('style', 'display:none');
+            $('#residential').removeClass("error-textfield");
             $('#commercial').removeClass("error-textfield");
         }
 
@@ -339,7 +339,16 @@ HubStar.ProfileNewController = Ember.Controller.extend({
     save: function() {
         this.fillInChecking();
         var u = HubStar.User.find(localStorage.loginStatus);
-        this.set("creater", u.get("email"));
+        var c = "";
+        if (u.get("email").indexOf('@trendsideas.com') !== -1)
+        {
+            this.set("creater", "");
+        }
+        else
+        {
+            this.set("creater", localStorage.loginStatus);
+        }
+
 
         if (passSubmit) {
 
@@ -355,6 +364,8 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 subcategories: $('#subcategorySelection').text(),
                 created: "",
                 creator: this.get("creater"),
+                administrator: "",
+                editor: "",
                 classification: this.get("classification"),
                 country: $('#countrySelection').text(),
                 region: $('#regionSelection').text(),
@@ -499,8 +510,8 @@ HubStar.ProfileNewController = Ember.Controller.extend({
         }
     },
     classSelection: function(checking) {
-       // console.log("aaa");
-        
+        // console.log("aaa");
+
         if (checking === "Residential") {
             $("#residential").addClass("selected easing");
             $("#commercial").removeClass("selected easing");

@@ -11,6 +11,8 @@ HubStar.Meganew = DS.Model.extend({
     creator_profile_pic: DS.attr('string'),
     created: DS.attr('string'),
     creator: DS.attr('string'),
+    administrator: DS.attr('string'),
+    editor: DS.attr('string'),
     country: DS.attr('string'),
     collection_id: DS.attr('string'),
     collection_count: DS.attr('string'),

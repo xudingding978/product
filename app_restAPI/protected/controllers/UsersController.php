@@ -141,9 +141,24 @@ class UsersController extends Controller {
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $doc_id = $this->getDomain() . "/users/" . $id;
-
+            $domain = $this->getDomain();
             $reponse = $cb->get($doc_id);
             $respone_user = CJSON::decode($reponse, true);
+            error_log(var_export($respone_user, true));
+            if (isset($respone_user['user'][0]['profiles'])) {
+                for ($i = 0; $i < sizeof($respone_user['user'][0]['profiles']); $i++) {
+
+                    $url = $domain . "/profiles/" . $respone_user['user'][0]['profiles'][$i]['profile_id'];
+                    $tempRecord = $cb->get($url);
+                    $oldRecord = CJSON::decode($tempRecord, true);
+                    if (isset($oldRecord['profile'][0]['profile_name']) && isset($oldRecord['profile'][0]['profile_pic_url'])) {
+                        $respone_user['user'][0]['profiles'][$i]['profile_name'] = $oldRecord['profile'][0]['profile_name'];
+                        $respone_user['user'][0]['profiles'][$i]['profile_pic'] = $oldRecord['profile'][0]['profile_pic_url'];
+                    }
+                }
+            }
+
+
             $respone_user_data = CJSON::encode($respone_user['user'][0]);
 
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';

@@ -85,7 +85,6 @@ HubStar.UserController = Ember.Controller.extend({
     isTalk: false,
     init: function()
     {
-
     },
     checkedAction: function(checkedboxselection) {
         $("#" + checkedboxselection).prop('checked', !$("#" + checkedboxselection).prop('checked'));

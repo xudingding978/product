@@ -127,7 +127,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             var u = HubStar.User.find(localStorage.loginStatus);
             var that = this;
             u.then(function() {
-                console.log(u);
                 if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
                         && (u.get("email")).match(/@trendsideas.com/g) !== ""
                         && (u.get("email")).match(/@trendsideas.com/g) !== null)

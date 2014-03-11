@@ -60,7 +60,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     show_keyword_array: [],
     dragTargetIndex: -1,
     last_name: "",
-    needs: ["profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review', 'keywords', 'profileVideos', 'checkingLoginStatus'],
+    needs: ["editEditors","profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review', 'keywords', 'profileVideos', 'checkingLoginStatus'],
     name: "",
     facebook: "",
     twitter: "",
@@ -162,6 +162,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     editingEditor: function() {
         this.set("editorAdd", true);
+        this.get("controllers.editEditors").getClientId(this.get("Id"));
     },
     goToProfileRoute: function(id)
     {

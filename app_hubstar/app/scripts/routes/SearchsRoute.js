@@ -1,6 +1,5 @@
 HubStar.SearchsRoute = Ember.Route.extend({
     setupController: function() {
-console.log("hhhsss");
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
             HubStar.set('isLogin', false);
 

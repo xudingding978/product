@@ -55,10 +55,8 @@ HubStar.User = DS.Model.extend({
     conversations: DS.hasMany('HubStar.UserConversation'),
     notifications: DS.hasMany('HubStar.Notification'),
     profileSave: function() {
-//        console.log(this.get("profiles") );
-        if(this.get("profiles")===undefined||this.get("profiles")===null||this.get("profiles").get("length")===0)
+      if(this.get("profiles")===undefined||this.get("profiles")===null||this.get("profiles").get("length")===0)
             {
-//                console.log("ssss");
                 return false;
             }
             else{

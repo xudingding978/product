@@ -10,32 +10,49 @@
 
     <ul id="user-dd-menu" class="hideClass edit-object-ul" style="padding: inherit;  width: 178px; right: 60px; position: relative; top:30px;display:none;">
         <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myUserProfile"}} {{action userDisplaynone "myUserProfile" on="click"  target="view"}}>
-                <i class="fa fa-user" style="">&nbsp;&nbsp;</i>
+                            <i class="fa fa-user" style="">&nbsp;&nbsp;</i>
                 <span>My Profile</span>
             </a></li>
         <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myMessageBoard"}} {{action userDisplaynone "myMessageBoard" on="click"  target="view"}}>
-                <i class="fa fa-envelope" style="">&nbsp;&nbsp;</i>
+                            <i class="fa fa-envelope" style="">&nbsp;&nbsp;</i>
                 <span>Messages</span>
             </a></li>
-                {{#if controller.is_trends_user}}
-                <li class="ite" ><a tabindex="-1"  href="#/profiles/new" {{action userDisplaynone "new" on="click"  target="view"}}>
-                        <i class="fa fa-briefcase" style="">&nbsp;&nbsp;</i>
-                        <span>New Profile</span>
-                    </a></li>
-                {{/if}}
+        {{#if controller.is_trends_user}}
+        <li class="ite" ><a tabindex="-1"  href="" {{action userDisplaynone "new" on="click"  target="view"}}>
+                            <i class="fa fa-briefcase" style="">&nbsp;&nbsp;</i>
+                <span>My Business Profiles</span>
+            </a></li>
 
-                <li class='ite'><a tabindex="-1" href="http://about.trendsideas.com/" target="blank" {{action userDisplaynone "about" on="click"  target="view"}}>
-                        <i class="fa fa-question-circle" style="">&nbsp;&nbsp;</i>
-                        <span>Help</span>
-                    </a></li>
-                     <li class='ite'><a tabindex="-1" href="javascript:void(0)"  id="startButton" {{action startTour on="click"  target="view"}}>
+            {{#if view.newProfile}} 
+             <div id="profiles_display">
+            {{render newProfileDisplay this}} 
+            </div>
+            {{/if}}
+             {{#each view.profiles}}           
+            <div style="width:100%; padding:5px;position:relative;"> 
+                <span style=" margin: 5px;"><img {{bindAttr src="this.profile_pic"}}  style="width:70px;"></span>
+                <span style=" color: #555; margin: 5px;">{{this.profile_name}}</span>                  
+            </div>
+
+            {{/each}} 
+
+
+
+
+        {{/if}}
+
+        <li class='ite'><a tabindex="-1" href="http://about.trendsideas.com/" target="blank" {{action userDisplaynone "about" on="click"  target="view"}}>
+                           <i class="fa fa-question-circle" style="">&nbsp;&nbsp;</i>
+                <span>Help</span>
+            </a></li>
+        <li class='ite'><a tabindex="-1" href="javascript:void(0)"  id="startButton" {{action startTour on="click"  target="view"}}>
                 <i class="fa fa-info" style="">&nbsp;&nbsp;</i>
                 <span>Take the tour</span>
             </a></li>
-                <li class="ite"><a tabindex="-1" href="" {{action logout on="click"  target="view"}}  >
-                        <i class="fa fa-power-off" style="">&nbsp;&nbsp;</i>
-                        <span>Log out</span> 
-                    </a></li>
+        <li class="ite"><a tabindex="-1" href="" {{action logout on="click"  target="view"}}  >
+                <i class="fa fa-power-off" style="">&nbsp;&nbsp;</i>
+                <span>Log out</span> 
+            </a></li>
 
     </ul>
 

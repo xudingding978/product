@@ -88,12 +88,22 @@
 
                     <div style="display:table-row">  
                     </div>
+                
+                 <div style="display:table-row">
+                    <div style="display:table-cell;text-align: right;" >Profile URL*:</div>
+                    <div style="display:table-cell"> 
+                        <div style="margin: 10px 30px 5px 10px;;width: 70%; text-align: center;">
+                            {{form controller.profile_name}}-{{form controller.regionSelection}}-{{form controller.countrySelection}}
+                        </div>
+                  
+                    </div> 
+                </div>
 
                     <div style="display:table-row">
                         <div style="display:table-cell;text-align: right;" >Profile Name*: </div>                     
                         <div style="display:table-cell"> 
                             <div  id="profileNameField" style="margin: 10px 30px 5px 10px;;width: 70%;">
-                                {{view Ember.TextField valueBinding="profile_name"   class="profileName" placeholder="Your Business Name"}} 
+                                {{view Ember.TextField valueBinding="profile_name" class="profileName" placeholder="Your Business Name"}} 
                             </div>
                            
                         </div>
@@ -286,17 +296,7 @@
                     </div>
                 </div>
 
-                <div style="display:table-row">
-                    <div style="display:table-cell;text-align: right;" >Profile URL*:</div>
-                    <div style="display:table-cell"> 
-                        <div style="margin: 10px 30px 5px 10px;;width: 70%; text-align: center;">
-                            {{form controller.profile_name}}-{{form controller.regionSelection}}-{{form controller.countrySelection}}
-                        </div>
-
-                    </div> 
-                </div>
-
-                <div style="display:table-row" id="addTR">
+                 <div style="display:table-row" id="addTR">
                     <div style="display:table-cell;text-align: right;" >Admins*:</div>
                     <div style="display:table-cell"> 
                         <div style="display: block;">

@@ -481,8 +481,10 @@ class EmailsController extends Controller {
                                                 </td>
                                             </tr> 
                                             <tr>
-                                                <td valign="top">
-                                                    <a style="color: #05B1E5;margin:20px;" href="http://' . $domainWithoutAPI . '/#/verify/' . $encryptname . '?' . $encryptpassword . '">  Click here to activate your account  </a>
+                                                <td valign="top"> 
+                                                    <a style="text-decoration: blink; width: 350px; height: 25px;padding: 10px; text-align: center;border-radius: 5px;color: white;margin:20px; font-size:25px;background-color: #05B1E5;" href="http://' . $domainWithoutAPI . '/#/verify/' . $encryptname . '?' . $encryptpassword . '">   
+                                                        Activate account and start the tour
+                                                         </a>
                                                 </td>
                                             </tr>
 

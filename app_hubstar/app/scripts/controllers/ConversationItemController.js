@@ -263,7 +263,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         var src = target.result;
         this.set('newStyleImageSource', src);
         this.set('newStyleImageName', name);
-        
+
     }
 }
 );

@@ -429,7 +429,7 @@
 .registraion-suceesful-message{
      text-align: center; 
      padding: 10px 20px; 
-     height: 150px; 
+     height: 165px; 
      font-size: 13px; 
      color: #333;
 }
@@ -589,7 +589,7 @@ div > div > i.icon-envelope, div > div > #click-login
     background-clip:border-box;
 }
 div.register-btn-small{
-    width:148px;
+    width:147px;
     -webkit-border-radius: 0 0 5px 0;
     -moz-border-radius: 0 0 5px 0;
     border-radius: 0 0 5px 0;
@@ -597,7 +597,7 @@ div.register-btn-small{
 
 }
 .back-btn{
-    width: 148px;
+    width: 147px;
     height: 45px;
     background:#fff;
     text-align: center;
@@ -975,8 +975,12 @@ div#login_detail{
 
 
 }
-
-
+@media only screen 
+and (max-width : 1239px) {
+    #top-about-menu{
+        display:none!Important;
+    }
+}
 
 
 @media only screen 
@@ -996,9 +1000,13 @@ and (max-width : 900px) {
     .registraion-suceesful-message{font-size: 11px; line-height: 15px;}
 }
 
+
+
+
 @media only screen 
 and (max-width : 480px) {
-    #fadein-image{ display: none;}
+    #fadein-image{ display: none!important;}
+    
     .register-page-top-bar {margin: 40px auto 15%;}
 
     .interest-image-container{width: 50px; height: 50px;}

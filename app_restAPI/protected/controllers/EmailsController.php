@@ -43,14 +43,16 @@ class EmailsController extends Controller {
         $sub_category = explode(",", $request_arr['project_sub_category_item']);
 
         $description = $this->linkCategory($sub_category);
-        
+
         $objectUrl = $request_arr['object_url'];
-        
+
+        $userEnvironment = $request_arr['user_environment'];
+        error_log(var_export($userEnvironment, true));
         $domain = $this->getDomain();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
-        $platformEmail = $platformSettings['direct_enquiries']['email'];        
+        $platformEmail = $platformSettings['direct_enquiries']['email'];
         $subject_prefix = $platformSettings['direct_enquiries']['subject_prefix'];
         $args = array(
             "Source" => $platformEmail,
@@ -65,7 +67,7 @@ class EmailsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->getEmailForm($request_arr['email_subject'], $request_arr['email_body'], $request_arr['display_name'], $email_destination, $request_arr['project_timeframe'], $request_arr['project_category'], $request_arr['project_budget'], $request_arr['project_experience'], $description,$objectUrl
+                        "Data" => $this->getEmailForm($request_arr['email_subject'], $request_arr['email_body'], $request_arr['display_name'], $email_destination, $request_arr['project_timeframe'], $request_arr['project_category'], $request_arr['project_budget'], $request_arr['project_experience'], $description, $objectUrl, $userEnvironment
                         )
                     )
                 ),
@@ -121,8 +123,8 @@ class EmailsController extends Controller {
         $request = CJSON::decode($request_json, true);
 
 
-            $username = $request[0];
-        $encryptusername=$request[1];
+        $username = $request[0];
+        $encryptusername = $request[1];
         $encryptpassword = $request[2];
 
 
@@ -134,7 +136,7 @@ class EmailsController extends Controller {
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
         $platformEmail = $platformSettings['support']['email'];
-        
+
         $subject_prefix = 'Confirmation of registration';
         $args = array(
             "Source" => $platformEmail,
@@ -150,7 +152,7 @@ class EmailsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->confirmationEmailForm($domainWithoutAPI, $username, $encryptusername,$encryptpassword)
+                        "Data" => $this->confirmationEmailForm($domainWithoutAPI, $username, $encryptusername, $encryptpassword)
                     )
                 ),
             ),
@@ -175,7 +177,7 @@ class EmailsController extends Controller {
         }
     }
 
-    public function getEmailForm($subject, $emailBody, $sendPersonName, $recieveProfile, $timeframe, $category, $budget, $experience, $description,$objectUrl) {
+    public function getEmailForm($subject, $emailBody, $sendPersonName, $recieveProfile, $timeframe, $category, $budget, $experience, $description, $objectUrl, $userEnvironment) {
         return '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -312,7 +314,8 @@ class EmailsController extends Controller {
                                         </table>
                                         &nbsp;<br />
                                         <hr style="height: 1px; color: #0088CC; background: #0088CC; width: 90%; border: 0 none;" />
-                                        &nbsp;<br />
+                                        &nbsp;<br />                                        
+                                            '.$userEnvironment.'
                                     </td>
                                 </tr>
                                 <tr>
@@ -422,7 +425,7 @@ class EmailsController extends Controller {
 ';
     }
 
-    public function confirmationEmailForm($domainWithoutAPI, $username,$encryptname, $encryptpassword) {
+    public function confirmationEmailForm($domainWithoutAPI, $username, $encryptname, $encryptpassword) {
         return '
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -478,8 +481,10 @@ class EmailsController extends Controller {
                                                 </td>
                                             </tr> 
                                             <tr>
-                                                <td valign="top">
-                                                    <a style="color: #05B1E5;margin:20px;" href="http://' . $domainWithoutAPI . '/#/verify/' . $encryptname . '?' . $encryptpassword . '">  Click here to activate your account  </a>
+                                                <td valign="top"> 
+                                                    <a style="text-decoration: blink; width: 350px; height: 25px;padding: 10px; text-align: center;border-radius: 5px;color: white;margin:20px; font-size:25px;background-color: #05B1E5;" href="http://' . $domainWithoutAPI . '/#/verify/' . $encryptname . '?' . $encryptpassword . '">   
+                                                        Activate account and start the tour
+                                                         </a>
                                                 </td>
                                             </tr>
 

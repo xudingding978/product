@@ -150,7 +150,9 @@ HubStar.ConversationController = Ember.Controller.extend({
                         dataNew["fourPic"] = params[i]["conversationPhoto"][3]["photo_url"];
                     }
                     dataNew["ConversationCollection"] = new Array();
-                    dataNew["msg"] = params[i]["ConversationCollection"][0]["msg"];
+                    if (params[i]["ConversationCollection"][0]["msg"] !== null) {
+                        dataNew["msg"] = params[i]["ConversationCollection"][0]["msg"];
+                    }
                     dataNew["time_stamp"] = params[i]["ConversationCollection"][0]["time_stamp"];
 
                     for (var j = 0; j < params[i]["ConversationCollection"].length; j++)
@@ -160,7 +162,9 @@ HubStar.ConversationController = Ember.Controller.extend({
                         conversationItem["item_id"] = params[i]["ConversationCollection"][j]["item_id"];
                         conversationItem["sender_id"] = params[i]["ConversationCollection"][j]["sender_id"];
                         conversationItem["time_stamp"] = params[i]["ConversationCollection"][j]["time_stamp"];
-                        conversationItem["msg"] = multiRow(params[i]["ConversationCollection"][j]["msg"]);
+                        if (params[i]["ConversationCollection"][j]["msg"] !== null) {
+                            conversationItem["msg"] = multiRow(params[i]["ConversationCollection"][j]["msg"]);
+                        }
                         conversationItem["name"] = params[i]["ConversationCollection"][j]["name"];
 
                         conversationItem["sender_photo_url_large"] = params[i]["ConversationCollection"][j]["sender_photo_url_large"];
@@ -228,7 +232,7 @@ HubStar.ConversationController = Ember.Controller.extend({
         var src = target.result;
         this.set('newStyleImageSource', src);
         this.set('newStyleImageName', name);
-        
+
     }
 }
 );

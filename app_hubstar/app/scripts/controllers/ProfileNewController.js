@@ -499,7 +499,8 @@ HubStar.ProfileNewController = Ember.Controller.extend({
         }
     },
     classSelection: function(checking) {
-
+       // console.log("aaa");
+        
         if (checking === "Residential") {
             $("#residential").addClass("selected easing");
             $("#commercial").removeClass("selected easing");

@@ -11,7 +11,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     navigator_id: "",
     nextPageSpinner:false,
     navigator_id1: "",
-    contentTopic: [
+    contentTopicResidential: [
         {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
         {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'},
         {id: "3", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/kitchen.png', topic: 'Kitchens'},
@@ -368,13 +368,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     {
         var emailVerify = [verifyAccount, verifyPassword];
         var that = this;
+        console.log("dfafs");
+        
         requiredBackEnd('login', 'verify', emailVerify, 'POST', function(params) {
             localStorage.loginStatus = params;
             localStorage.checkUser = "newUser";
             HubStar.set("isLogin", true);
-
+               
             that.transitionToRoute("searchIndexTom");
-
+            that.init();
 
         });
 
@@ -442,7 +444,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     backRegister: function() {
         $('#register-with-email-step-3').css('display', 'none');
         $('#register-with-email-step-2').css('display', 'block');
-         $('#click-register-social').css('display', 'block');
+        $('#click-register-social').css('display', 'block');
         $('#click-register').css('display', 'block');
         $('.learnmore-btn').css('display', 'block');
     },
@@ -595,30 +597,33 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     dropdownNavigator: function() {
 
-        //console.log("ssssssssssssssssssss");
         this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
 
 
         var that = this;
         this.get("categorys").then(function() {
-            if (that.get("classification") === "commercial")
-            {
-                $('#switchbarBtn1').attr("style", "margin-left:28px;");
-                $("#Commercial1").css("opacity", "1");
-                $("#Residential1").css("opacity", "0.4");
-            }
-            else if (that.get("classification") === "residential")
-            {
-                $('#switchbarBtn1').attr("style", "margin-left:0px;");
-                $("#Commercial1").css("opacity", "0.4");
-                $("#Residential1").css("opacity", "1");
-            }
-            else if (that.get("classification") === "All")
-            {
-                $('#switchbarBtn1').attr("style", "margin-left:13px;");
-                $("#Commercial1").css("opacity", "1");
-                $("#Residential1").css("opacity", "1");
-            }
+            $(document).ready(function() {
+                setTimeout(function() {
+                if (that.get("classification") === "commercial")
+                {
+                    $('#switchbarBtn1').attr("style", "margin-left:28px;");
+                    $("#Commercial1").css("opacity", "1");
+                    $("#Residential1").css("opacity", "0.4");
+                }
+                else if (that.get("classification") === "residential")
+                {
+                    $('#switchbarBtn1').attr("style", "margin-left:0px;");
+                    $("#Commercial1").css("opacity", "0.4");
+                    $("#Residential1").css("opacity", "1");
+                }
+                else if (that.get("classification") === "All")
+                {
+                    $('#switchbarBtn1').attr("style", "margin-left:13px;");
+                    $("#Commercial1").css("opacity", "1");
+                    $("#Residential1").css("opacity", "1");
+                }
+                }, 50);
+            });
         });
         this.set('subcate', []);
         this.set('subcategories', []);
@@ -652,19 +657,23 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
         var that = this;
         this.get("categorys").then(function() {
+            $(document).ready(function() {
+                setTimeout(function() {
 
-            if (that.get("classification") === "commercial")
-            {
-                $('#switchbarBtn1').attr("style", "margin-left:28px;");
-            }
-            else if (that.get("classification") === "residential")
-            {
-                $('#switchbarBtn1').attr("style", "margin-left:0px;");
-            }
-            else if (that.get("classification") === "All")
-            {
-                $('#switchbarBtn1').attr("style", "margin-left:13px;");
-            }
+                if (that.get("classification") === "commercial")
+                {
+                    $('#switchbarBtn1').attr("style", "margin-left:28px;");
+                }
+                else if (that.get("classification") === "residential")
+                {
+                    $('#switchbarBtn1').attr("style", "margin-left:0px;");
+                }
+                else if (that.get("classification") === "All")
+                {
+                    $('#switchbarBtn1').attr("style", "margin-left:13px;");
+                }
+                 }, 50);
+            });
         });
 
         this.set('subcate', []);

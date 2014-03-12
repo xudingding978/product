@@ -65,7 +65,10 @@ class UsersController extends Controller {
 
         $request_arr = CJSON::decode($request_json, true);
     }
-
+    public function actionSendNotification(){
+        $request_array = (CJSON::decode(file_get_contents('php://input')));
+        error_log(var_export($request_array, true));
+    }
     public function actionReadCollection() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $user_id = $request_array[0];

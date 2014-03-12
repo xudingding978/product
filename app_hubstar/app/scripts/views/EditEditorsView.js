@@ -1,7 +1,6 @@
 
 HubStar.EditEditorsView = Ember.View.extend({
     templateName: 'editEditors',
-    didInsertElement: function() {
-       
+    didInsertElement: function() {  
     }
 });

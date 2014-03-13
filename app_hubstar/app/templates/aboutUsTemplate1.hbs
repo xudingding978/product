@@ -7,26 +7,28 @@
     <div>{{view Ember.TextArea valueBinding="about_desc" class="no-resize"  placeholder="*"}}</div> 
 
     <hr> 
-    
+
     <!--Embeded object part-->
+    {{#each about_embeded_object}}
     <div class="aboutus-attr">Embeded Object URL: </div>
-        <div style="border: 1px solid #ddd;border-radius: 2px;float: left;width: 695px;margin-bottom: 10px;margin-right: 2px;">
-            {{view Ember.TextArea valueBinding="embeded_object_code" class="no-effect no-resize"  placeholder="*"}}</div> 
-        <div class="new-btn" style="position: relative;height: 52px;float: left;top: 0;line-height: 48px;" {{action getVideoURL}}>preview</div>
-        <iframe width="860" height="515" {{bindAttr src="controller.embeded_object_code"}} frameborder="0" allowfullscreen=""></iframe> 
-        <div class="aboutus-thisvideo">
-            <div class="aboutus-attr">Embeded Object Title: </div>
-            <div>{{view Ember.TextArea valueBinding="embeded_object_title" class="no-resize"  placeholder="*"}}</div>
-            <div class="aboutus-attr">Embeded Object Desc: </div>
-            <div>{{view Ember.TextArea valueBinding="embeded_object_desc" class="no-resize"  placeholder="*"}}</div>
-            <div class="aboutus-attr">Embeded Object Link: </div>
-            <div>{{view Ember.TextArea valueBinding="embeded_object_url" class="no-resize"  placeholder="*"}}</div>
-        </div>
-    
+    <div style="border: 1px solid #ddd;border-radius: 2px;margin-bottom: 10px;margin-right: 2px;">
+        {{view Ember.TextArea valueBinding="embeded_object_code" class="no-effect no-resize"  placeholder="*"}}
+<!--        <div class="new-btn" style="position: relative;height: 52px;float: left;top: 0;line-height: 48px;" {{action getEmbededCode}}>preview</div>
+        <div style="width:760px; height:515px;"> {{{controller.embeded_code}}} </div> -->
+    </div> 
+    <div class="aboutus-thisvideo">
+        <div class="aboutus-attr">Embeded Object Title: </div>
+        <div>{{view Ember.TextArea valueBinding="embeded_object_title" class="no-resize"  placeholder="*"}}</div>
+        <div class="aboutus-attr">Embeded Object Desc: </div>
+        <div>{{view Ember.TextArea valueBinding="embeded_object_desc" class="no-resize"  placeholder="*"}}</div>
+        <div class="aboutus-attr">Embeded Object Link: </div>
+        <div>{{view Ember.TextArea valueBinding="embeded_object_url" class="no-resize"  placeholder="*"}}</div>
+    </div>
+    {{/each}}
     <!--end----     Embeded object part-->
-    
-    
-    
+
+
+
 
     <div style="margin: 15px 0; width:560px; float: left"> 
         <a rel="nofollow" target="_blank" href="http://www.youtube.com/trendspublishing" style="cursor:pointer;"> 
@@ -103,16 +105,17 @@
     {{#each about_us}}
     <div>{{about_desc}}</div> 
     <hr> 
-    
-    <iframe width="560" height="315" {{bindAttr src="controller.embeded_object_code"}} frameborder="0" allowfullscreen=""></iframe> 
-            <div style="padding: 0 10px 10px 10px;margin-bottom: 15px;">
-                <h4><a rel="nofollow" target="_blank" {{bindAttr href="image_link"}} style="cursor: pointer"> {{embeded_object_title}}</a></h4>
-                <div style="height: 40px; overflow: hidden;margin-bottom: 5px;">{{embeded_object_desc}}</div>
-                <a rel="nofollow" target="_blank" style="color: #0088CC" class="hover-opacity" {{bindAttr href="embeded_object_url"}}>Link</a>
-            </div>
-    
-    
-    
+    {{#each about_embeded_object}}
+    {{{embeded_object_code}}}
+    <div style="padding: 0 10px 10px 10px;margin-bottom: 15px;">
+        <h4><a rel="nofollow" target="_blank" {{bindAttr href="image_link"}} style="cursor: pointer"> {{embeded_object_title}}</a></h4>
+        <div style="height: 40px; overflow: hidden;margin-bottom: 5px;">{{embeded_object_desc}}</div>
+        <span target="_blank" class="green-btn new-btn" {{bindAttr href=""}}>Get the APP</span>
+        <span target="_blank" class="green-btn new-btn" {{bindAttr href="embeded_object_url"}}>Buy the book</span>
+    </div>
+    {{/each}}
+
+
     <div style="float: left;margin: 15px 0; width:560px;"> 
         <a rel="nofollow" target="_blank" href="http://www.youtube.com/trendspublishing" style="cursor:pointer;"> 
             <h4>View the Latest Video from the Trends YouTube channel</h4></a>
@@ -146,10 +149,10 @@
         <div style="font-size: 15px; font-weight: bold"><a>{{book_description}}</a></div> 
         <div class="latestebook" style = "max-width: 180px;"> 
             {{#if this.getSize}}
-             <img alt="" {{bindAttr src="book_image_url"}} style=" width: 100%;"> 
-             {{else}}
-             <img alt="" {{bindAttr src="book_image_url"}} style=" width: 75%;"> 
-             {{/if}}
+            <img alt="" {{bindAttr src="book_image_url"}} style=" width: 100%;"> 
+            {{else}}
+            <img alt="" {{bindAttr src="book_image_url"}} style=" width: 75%;"> 
+            {{/if}}
             <div class="latestebook-control easing">
                 {{#if this.read_available}}
                 <a rel="nofollow" target="_blank" {{bindAttr href="book_read_url"}} class="new-btn">Read</a> 

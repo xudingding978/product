@@ -70,10 +70,67 @@ class UsersController extends Controller {
         $request_array = (CJSON::decode(file_get_contents('php://input')));
         $administrators = $request_array[0];
         $editors = $request_array[1];
-        
-        $this->sendAddNotification($administrators[1]);       
+        $this->sendDeleteNotification($administrators[0]);
+        $this->sendAddNotification($administrators[1]);
+        $this->sendAddNotification($editors[1]);
+        $this->sendDeleteNotification($editors[0]);
     }
+    public function sendDeleteNotification($delData){
+        $cb = $this->couchBaseConnection();
+        for ($i = 0; $i < sizeof($delData); $i++) {
+            $docID = $this->getDomain() . "/users/" . $delData[$i][1];
+            $old = $cb->get($docID);
+            $userInfo = CJSON::decode($old, true);     
+            $notificationObject = array();
+            $timeID = new DateTime();
+            $time = date_timestamp_get($timeID);
+            $notification_id = (string) (rand(10000, 99999)) . $time . $delData[$i][1];
+            $notificationObject["notification_id"] = $notification_id;
+            $notificationObject["user_id"] = $delData[$i][0];
+            $notificationObject["time"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+            $notificationObject["type"] = "authority";
+            $notificationObject["content"] = "del,".$delData[$i][2];
+            $notificationObject["action_id"] = $delData[$i][0];
+            $notificationObject["isRead"] = false;
+            $conversationController = new ConversationsController();
+            
+            
+                if (!isset($userInfo['user'][0]['notifications'])) {
+                    $userInfo['user'][0]['notifications'] = array();
+                }
+                array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
 
+
+                if ($cb->set($docID, CJSON::encode($userInfo))) {
+                    if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
+                        $receiveEmail = $userInfo['user'][0]['email'];
+                        $receiveName = $userInfo['user'][0]['display_name'];
+                        $notificationCountFollow = 0;
+                        $notificationCountMessage = 0;
+                        $notificationCountAuthority = 0;
+                        for ($j = 0; $j < sizeof($userInfo['user'][0]['notifications']); $j++) {
+                            if ($userInfo['user'][0]['notifications'][$j]["isRead"] === false) {
+                                if ($userInfo['user'][0]['notifications'][$j]["type"] === "follow" || $userInfo['user'][0]['notifications'][$j]["type"] === "unFollow") {
+                                    $notificationCountFollow++;
+                                }
+                                else if ($userInfo['user'][0]['notifications'][$j]["type"] ==="authority")
+                                {
+                                    $notificationCountAuthority++;
+                                }                                        
+                                else {
+                                    $notificationCountMessage++;
+                                }
+                            }
+                        }
+
+                        $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $delData[$i][1],$notificationCountAuthority);
+                    }
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
+            
+        }
+    }
     public function sendAddNotification($addData) {
         $cb = $this->couchBaseConnection();
         for ($i = 0; $i < sizeof($addData); $i++) {
@@ -93,7 +150,7 @@ class UsersController extends Controller {
             $notificationObject["isRead"] = false;
             $conversationController = new ConversationsController();
             
-            if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "authority") !== false) {
+            
                 if (!isset($userInfo['user'][0]['notifications'])) {
                     $userInfo['user'][0]['notifications'] = array();
                 }
@@ -126,8 +183,7 @@ class UsersController extends Controller {
                     }
                 } else {
                     echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-                }
-            }
+                }            
         }
     }
 

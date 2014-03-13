@@ -53,7 +53,7 @@ HubStar.NotificationController = Ember.Controller.extend({
             }
             else
             {
-                displayString = " not finish";
+                displayString = " remove you as a " + name.split(',')[1];
             }
         }
         return displayString;
@@ -62,7 +62,7 @@ HubStar.NotificationController = Ember.Controller.extend({
         var b = false;
         if (type === "authority")
         {
-            if (name.split(',')[0] === "add")
+            if (name.split(',')[0] === "add" && name.split(',').length <= 2)
             {
                 b = true;
             }
@@ -117,14 +117,15 @@ HubStar.NotificationController = Ember.Controller.extend({
         tempComment = JSON.stringify(tempComment);
         var that = this;
         requiredBackEnd('notifications', 'Accept', tempComment, 'POST', function(params) {
-            if (params === "success")
+            for (var i = 0; i < that.get("notificationContent").length; i++)
             {
-                that.get('controllers.applicationFeedback').statusObserver(null, "You can manage the profile now");
+                if (that.get("notificationContent").objectAt(i).get("notification_id") === id)
+                {
+                    that.get("notificationContent").objectAt(i).set("isButton", false);
+                }
             }
-            else
-            {
-                that.get('controllers.applicationFeedback').statusObserver(null, "error");
-            }
+            that.get('controllers.applicationFeedback').statusObserver(null, params);
+            that.markRead(id);
         });
     },
     markRead: function(id) {

@@ -258,6 +258,7 @@ class MessagesController extends Controller {
                         $receiveName = $userInfo['user'][0]['display_name'];
                         $notificationCountFollow = 0;
                         $notificationCountMessage = 0;
+                        $notificationCountAuthority =0;
                         for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
 
                             if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
@@ -632,6 +633,7 @@ class MessagesController extends Controller {
                     $receiveName = $userInfo['user'][0]['display_name'];
                     $notificationCountFollow = 0;
                     $notificationCountMessage = 0;
+                    $notificationCountAuthority = 0;
                     for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
                         if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
                             if ($userInfo['user'][0]['notifications'][$i]["type"] === "follow" || $userInfo['user'][0]['notifications'][$i]["type"] === "unFollow") {
@@ -672,11 +674,12 @@ class MessagesController extends Controller {
                         $receiveName = $userMessage['user'][0]['display_name'];
                         $notificationCountFollow = 0;
                         $notificationCountMessage = 0;
+                        $notificationCountAuthority = 0;
                         for ($i = 0; $i < sizeof($userMessage['user'][0]['notifications']); $i++) {
                             if ($userMessage['user'][0]['notifications'][$i]["isRead"] === false) {
                                 if ($userMessage['user'][0]['notifications'][$i]["type"] === "follow" || $userMessage['user'][0]['notifications'][$i]["type"] === "unFollow") {
                                     $notificationCountFollow++;
-                                } else if ($userInfo['user'][0]['notifications'][$i]["type"] === "authority") {
+                                } else if ($userMessage['user'][0]['notifications'][$i]["type"] === "authority") {
                                     $notificationCountAuthority++;
                                 } else {
                                     $notificationCountMessage++;
@@ -705,6 +708,7 @@ class MessagesController extends Controller {
                     $receiveName = $userInfo['user'][0]['display_name'];
                     $notificationCountFollow = 0;
                     $notificationCountMessage = 0;
+                    $notificationCountAuthority = 0;
                     for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
                         if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
                             if ($userInfo['user'][0]['notifications'][$i]["type"] === "follow" || $userInfo['user'][0]['notifications'][$i]["type"] === "unFollow") {
@@ -741,11 +745,12 @@ class MessagesController extends Controller {
                     $receiveName = $userMessage['user'][0]['display_name'];
                     $notificationCountFollow = 0;
                     $notificationCountMessage = 0;
+                    $notificationCountAuthority = 0;
                     for ($i = 0; $i < sizeof($userMessage['user'][0]['notifications']); $i++) {
                         if ($userMessage['user'][0]['notifications'][$i]["isRead"] === false) {
                             if ($userMessage['user'][0]['notifications'][$i]["type"] === "follow" || $userMessage['user'][0]['notifications'][$i]["type"] === "unFollow") {
                                 $notificationCountFollow++;
-                            } else if ($userInfo['user'][0]['notifications'][$i]["type"] === "authority") {
+                            } else if ($userMessage['user'][0]['notifications'][$i]["type"] === "authority") {
                                 $notificationCountAuthority++;
                             } else {
                                 $notificationCountMessage++;
@@ -776,6 +781,7 @@ class MessagesController extends Controller {
                     $receiveName = $userInfo['user'][0]['display_name'];
                     $notificationCountFollow = 0;
                     $notificationCountMessage = 0;
+                    $notificationCountAuthority = 0;
                     for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
                         if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
                             if ($userInfo['user'][0]['notifications'][$i]["type"] === "follow" || $userInfo['user'][0]['notifications'][$i]["type"] === "unFollow") {

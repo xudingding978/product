@@ -42,14 +42,8 @@ class NotificationsController extends Controller {
         $notificationId = $request[1];
         $ownerId = $request[0];
         $is_success = $this->setAccept($ownerId, $notificationId);
-        if($is_success)
-        {
-            $this->sendResponse(200, CJSON::encode("success"));
-        }
-        else
-        {
-            $this->sendResponse(200, CJSON::encode("fail"));
-        }
+
+        $this->sendResponse(200, CJSON::encode($is_success));
     }
 
     public function actionMarkAllRead() {
@@ -100,35 +94,63 @@ class NotificationsController extends Controller {
             for ($i = 0; $i < sizeof($mega_currentUser['user'][0]["notifications"]); $i++) {
                 if ($mega_currentUser['user'][0]["notifications"][$i]["notification_id"] === $notificationId) {
                     $notificationObject = $mega_currentUser['user'][0]["notifications"][$i];
+                    $mega_currentUser['user'][0]["notifications"][$i]["content"] = $mega_currentUser['user'][0]["notifications"][$i]["content"] . ",isProve";
+
                     break;
                 }
             }
         }
         $profile = array();
         $profile["profile_id"] = $notificationObject["user_id"];
-        if (!isset($mega_currentUser['user'][0]["profiles"])) {
-            $mega_currentUser['user'][0]["profiles"] = array();
-        }
-        $flag = false;
-        for ($i = 0; $i < sizeof($mega_currentUser['user'][0]["profiles"]); $i++) {
-            if ($mega_currentUser['user'][0]["profiles"][$i]["profile_id"] === $profile["profile_id"]) {
-                $flag = true;
+        $a = explode(",", $notificationObject["content"]);
+        $profile["type"] = $a[1];
+        $url = $domain . "/profiles/" . $notificationObject["user_id"];
+        $target = $cb->get($url);
+        $targetProfile = CJSON::decode($target, true);
+        $alreadyMove = true;
+        if ($profile["type"] === "editor") {
+            $editors = explode(",", $targetProfile["profile"][0]["editor"]);
+            for ($i = 0; $i < sizeof($editors); $i++) {
+                if ($editors[$i] === $ownerId) {
+                    $alreadyMove = false;
+                }
+            }
+        } else if ($profile["type"] === "administrator") {
+            $editors = explode(",", $targetProfile["profile"][0]["administrator"]);
+            for ($i = 0; $i < sizeof($editors); $i++) {
+                if ($editors[$i] === $ownerId) {
+                    $alreadyMove = false;
+                }
             }
         }
-        if ($flag === false) {
-            array_push($mega_currentUser['user'][0]["profiles"], $profile);
-        }
-        if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
-            if($flag === false)
-            {
-                return true;
+        if ($alreadyMove === false) {
+            if (!isset($mega_currentUser['user'][0]["profiles"])) {
+                $mega_currentUser['user'][0]["profiles"] = array();
             }
-            else
-            {
-                return false;
+            $flag = false;
+            for ($i = 0; $i < sizeof($mega_currentUser['user'][0]["profiles"]); $i++) {
+                if ($mega_currentUser['user'][0]["profiles"][$i]["profile_id"] === $profile["profile_id"]) {
+                    $flag = true;
+                }
+            }
+            if ($flag === false) {
+                array_push($mega_currentUser['user'][0]["profiles"], $profile);
+            }
+            if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
+                if ($flag === false) {
+                    return "You are the " . $profile["type"] . " now.";
+                } else {
+                    return "You are already the " . $profile["type"] . ".";
+                }
+            } else {
+                return "save fail";
             }
         } else {
-            return false;
+            if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
+                return "sorry, you have already been removed from the " . $profile["type"] . " list.";
+            } else {
+                return "save fail";
+            }         
         }
     }
 

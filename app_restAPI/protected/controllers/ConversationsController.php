@@ -363,7 +363,7 @@ class ConversationsController extends Controller {
                         $receiveName = $userInfo['user'][0]['display_name'];
                         $notificationCountFollow = 0;
                         $notificationCountMessage = 0;
-
+                        $notificationCountAuthority = 0;
                         for ($j = 0; $j < sizeof($userInfo['user'][0]['notifications']); $j++) {
                             if ($userInfo['user'][0]['notifications'][$j]["isRead"] === false) {
                                 if ($userInfo['user'][0]['notifications'][$j]["type"] === "follow" || $userInfo['user'][0]['notifications'][$j]["type"] === "unFollow") {

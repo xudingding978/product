@@ -160,7 +160,7 @@ HubStar.EditEditorsController = Ember.Controller.extend({
                 var item = [];
                 item[0] = profile.get("id");
                 item[1] = oldAdministrators[j];
-                item[2] = "administrator";
+                item[2] = type;
                 dataDel.pushObject(item);
             }
         }

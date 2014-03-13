@@ -1682,15 +1682,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         } else {
             this.set('embeded_url', '');
         }
-    },
-            getEmbededCode:function(){
-        var embeded_code = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(0).get('embeded_object_code');
-        console.log(embeded_code);
-        var hehe = '//e.issuu.comembed.js?_=1394671741550';
-        this.set("embeded_code", hehe);
-        
-        
-            }
+    }
 }
 );
 

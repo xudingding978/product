@@ -158,9 +158,9 @@ HubStar.EditEditorsController = Ember.Controller.extend({
             if (flagDel === false && oldAdministrators[j] !== "")
             {
                 var item = [];
-                item["profile_id"] = profile.get("id");
-                item["user_id"] = oldAdministrators[j];
-                item["type"] = "administrator";
+                item[0] = profile.get("id");
+                item[1] = oldAdministrators[j];
+                item[2] = type;
                 dataDel.pushObject(item);
             }
         }
@@ -169,14 +169,14 @@ HubStar.EditEditorsController = Ember.Controller.extend({
             if (administrators.objectAt(i)["isChange"] === false)
             {
                 var item = [];
-                item["profile_id"] = profile.get("id");
-                item["user_id"] = administrators.objectAt(i)["record_id"];
-                item["type"] = type;
+                item[0] = profile.get("id");
+                item[1] = administrators.objectAt(i)["record_id"];
+                item[2] = type;
                 dataAdd.pushObject(item);
             }
         }
-        administrators_change["dataDel"]=dataDel;
-        administrators_change["dataAdd"]=dataAdd;
+        administrators_change[0]=dataDel;
+        administrators_change[1]=dataAdd;
         return administrators_change;
     },
     save: function() {
@@ -189,12 +189,10 @@ HubStar.EditEditorsController = Ember.Controller.extend({
                 var administrators = that.checkAdministratorsOrEditorsChange(that.get("contentAdministratorPhoto"), that.get("administrator"), "administrator");
                 var editors = that.checkAdministratorsOrEditorsChange(that.get("contentEditorPhoto"), that.get("editor"), "editor");
                 var data  = [];
-                data["administrators"] = administrators;
-                data["editors"] = editors;
+                data[0] = administrators;
+                data[1] = editors;
                 var tempComment = "";
-                tempComment = JSON.stringify({data:data});
-                console.log(data);
-                console.log(tempComment);
+                tempComment = JSON.stringify(data);
                 requiredBackEnd('users', 'sendNotification', data, 'POST', function(params) {
 
                 });

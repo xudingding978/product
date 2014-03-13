@@ -600,11 +600,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.get("categorys").then(function() {
             $(document).ready(function() {
                 setTimeout(function() {
-                console.log("ssssssssssssssssssss");
-                console.log(that.get("classification"));
+
                 if (that.get("classification") === "commercial")
                 {
-                    console.log("ssssssssssssssssssss");
+
                     $('#switchbarBtn1').attr("style", "margin-left:28px;");
                     $("#Commercial1").css("opacity", "1");
                     $("#Residential1").css("opacity", "0.4");
@@ -658,11 +657,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.get("categorys").then(function() {
             $(document).ready(function() {
                 setTimeout(function() {
-                console.log("ssssssssssssssssssss");
-                console.log(that.get("classification"));
+
                 if (that.get("classification") === "commercial")
                 {
-                    console.log("ssssssssssssssssssss");
+
                     $('#switchbarBtn1').attr("style", "margin-left:28px;");
                 }
                 else if (that.get("classification") === "residential")
@@ -880,7 +878,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     relayout: function(l)
     {
-        console.log(l);
         this.set('loadingTime', false);
         this.set("nextPageSpinner",false);
         if (l !== 0) {

@@ -363,26 +363,28 @@ class ConversationsController extends Controller {
                         $receiveName = $userInfo['user'][0]['display_name'];
                         $notificationCountFollow = 0;
                         $notificationCountMessage = 0;
-
+                        $notificationCountAuthority = 0;
                         for ($j = 0; $j < sizeof($userInfo['user'][0]['notifications']); $j++) {
                             if ($userInfo['user'][0]['notifications'][$j]["isRead"] === false) {
                                 if ($userInfo['user'][0]['notifications'][$j]["type"] === "follow" || $userInfo['user'][0]['notifications'][$j]["type"] === "unFollow") {
                                     $notificationCountFollow++;
+                                } else if ($userInfo['user'][0]['notifications'][$i]["type"] === "authority") {
+                                    $notificationCountAuthority++;
                                 } else {
                                     $notificationCountMessage++;
                                 }
                             }
                         }
-                        $this->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
+                        $this->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId, $notificationCountAuthority);
                     }
                 }
             }
         }
     }
 
-    public function sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId) {
+    public function sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId, $notificationCountAuthority) {
 
-        //$receiveEmail = "dingding@hubstar.co";
+        $receiveEmail = "dingding@hubstar.co";
         $domain = $this->getDomain();
         $domainWithoutAPI = $this->getDomainWihoutAPI();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
@@ -404,7 +406,7 @@ class ConversationsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->confirmationEmailForm($domainWithoutAPI, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId)
+                        "Data" => $this->confirmationEmailForm($domainWithoutAPI, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId, $notificationCountAuthority)
                     )
                 ),
             ),
@@ -412,7 +414,7 @@ class ConversationsController extends Controller {
         $amazonSes->sendEmail($args);
     }
 
-    public function confirmationEmailForm($domainWithoutAPI, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId) {
+    public function confirmationEmailForm($domainWithoutAPI, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId, $notificationCountAuthority) {
 //        $photo_url_large_follow = null;
 //        $photo_url_large_message = null;
 //        $cb = $this->couchBaseConnection();
@@ -474,6 +476,14 @@ class ConversationsController extends Controller {
                             </div>
                         </div>
                         <div style="float: left;">' . $notificationCountMessage . ' new messages</div>
+                    </div>
+                    <div>
+                        <div style="margin: 0 5px;float: left;">
+                            <div style="width: 30px;height:30px;">         
+                                <img src="http://develop.devbox.s3.amazonaws.com/message-icon-for-email.png"  style="width: 30px;height:30px;float: left"/>
+                            </div>
+                        </div>
+                        <div style="float: left;">' . $notificationCountAuthority . ' new authorities</div>
                     </div>
                 </div>
 

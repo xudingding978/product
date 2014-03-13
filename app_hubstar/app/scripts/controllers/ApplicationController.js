@@ -11,7 +11,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     navigator_id: "",
     nextPageSpinner:false,
     navigator_id1: "",
-    contentTopic: [
+    contentTopicResidential: [
         {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
         {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'},
         {id: "3", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/kitchen.png', topic: 'Kitchens'},
@@ -365,13 +365,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     {
         var emailVerify = [verifyAccount, verifyPassword];
         var that = this;
+        console.log("dfafs");
+        
         requiredBackEnd('login', 'verify', emailVerify, 'POST', function(params) {
             localStorage.loginStatus = params;
             localStorage.checkUser = "newUser";
             HubStar.set("isLogin", true);
-
+               
             that.transitionToRoute("searchIndexTom");
-
+            that.init();
 
         });
 

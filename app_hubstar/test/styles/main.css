@@ -7310,19 +7310,15 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 /*/End WindowContainer---------------/*/
 
 
-
-
-
 /*CONTACT ME  BUTTON*/
 .contactmebtn {
     position: relative;
     z-index: 1;
     text-align: center;
     float: right;
-    bottom: 30px;
-    right: 30px;
+    bottom: auto;
+    right: 2px;
     cursor: pointer;
-
     margin: 0 10px;
 }
 
@@ -7956,9 +7952,12 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 
 .switch-container{
-    margin-right: 50px;
-    float: right;
+    position:absolute;
+    top:0;
+    line-height:45px;
+    right:15px;
 }
+.switch-container > div {color:#333;}
 
 .switch-btn {
     width: 20px;
@@ -8080,12 +8079,12 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .loader2:before{
     content: "";
     position: absolute;
-    top: -38px;
+    top: -12px;
     border-top: 3px solid #555;
     border-right: 3px solid #555;
     border-radius: 0 50px 0px  0;
-    width: 40px;
-    height: 40px;
+    width: 11px;
+    height: 11px;
     background-color: rgba(0, 0, 0, .1);
     -webkit-transform-origin:  0% 100%;
     transform-origin:  0% 100% ;
@@ -8101,8 +8100,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     border-bottom: 3px solid #555;
     border-left: 3px solid #555;
     border-radius: 0 0px 0px  50px;
-    width: 40px;
-    height: 40px;
+    width: 11px;
+    height: 11px;
     background-color: rgba(0, 0, 0, .1);
     -webkit-transform-origin:  100% 0%;
     transform-origin:  100% 0% ;
@@ -9350,8 +9349,7 @@ div.album-description-bg{
     position: relative;
     vertical-align: middle;
     display: inline-block;
-    min-width: 170px;
-    width: 380px;
+    width: 170px;
 }
 
 .poster-name{
@@ -11992,7 +11990,7 @@ textarea.add-interests{
 .registraion-suceesful-message{
      text-align: center; 
      padding: 10px 20px; 
-     height: 150px; 
+     height: 165px; 
      font-size: 13px; 
      color: #333;
 }
@@ -12152,7 +12150,7 @@ div > div > i.icon-envelope, div > div > #click-login
     background-clip:border-box;
 }
 div.register-btn-small{
-    width:148px;
+    width:147px;
     -webkit-border-radius: 0 0 5px 0;
     -moz-border-radius: 0 0 5px 0;
     border-radius: 0 0 5px 0;
@@ -12160,7 +12158,7 @@ div.register-btn-small{
 
 }
 .back-btn{
-    width: 148px;
+    width: 147px;
     height: 45px;
     background:#fff;
     text-align: center;
@@ -12397,6 +12395,55 @@ div#login_detail{
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*DEVICES FOR REGISTER PAGE*/
 
 
@@ -12489,8 +12536,12 @@ div#login_detail{
 
 
 }
-
-
+@media only screen 
+and (max-width : 1239px) {
+    #top-about-menu{
+        display:none!Important;
+    }
+}
 
 
 @media only screen 
@@ -12510,9 +12561,13 @@ and (max-width : 900px) {
     .registraion-suceesful-message{font-size: 11px; line-height: 15px;}
 }
 
+
+
+
 @media only screen 
 and (max-width : 480px) {
-    #fadein-image{ display: none;}
+    #fadein-image{ display: none!important;}
+    
     .register-page-top-bar {margin: 40px auto 15%;}
 
     .interest-image-container{width: 50px; height: 50px;}

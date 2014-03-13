@@ -1079,8 +1079,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set('profile_category', this.get('profileCategorySelection'));
         update_profile_record.set('profile_subcategory', this.get('profileSubcategorySelection'));
 
-        this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
+        
         this.createGooglemap();
+        this.set('toAddress', update_profile_record.get('profile_physical_address') + ", " + update_profile_record.get('profile_suburb') + ", " + update_profile_record.get('profile_regoin') + ", " + update_profile_record.get('profile_country'));
+      this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
         update_profile_record.store.save();
     },
     saveUpdate: function() {

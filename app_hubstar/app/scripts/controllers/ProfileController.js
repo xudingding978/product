@@ -15,7 +15,7 @@ var collection_desc_record;
 
 
 HubStar.ProfileController = Ember.ObjectController.extend({
-    role:"",
+    role: "",
     model: null,
     aboutMe: "aboutMe",
     isAboutUs: false,
@@ -51,6 +51,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     galleryInsert: false,
     hours: [],
     is_authentic_user: false,
+    is_editor: false,
     keywords: "",
     keywords_array: [],
     keyword_num: 0,
@@ -60,7 +61,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     show_keyword_array: [],
     dragTargetIndex: -1,
     last_name: "",
-    needs: ["editEditors","profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review', 'keywords', 'profileVideos', 'checkingLoginStatus'],
+    needs: ["editEditors", "profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review', 'keywords', 'profileVideos', 'checkingLoginStatus'],
     name: "",
     facebook: "",
     twitter: "",
@@ -865,29 +866,36 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             var that = this;
             var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
             var role = permissionController.checkAuthenticEdit(that.get("model").get("creator"), that.get("model").get("administrator"), that.get("model").get("editor"));
-            that.set("role",role);
+            that.set("role", role);
             var is_edit = false;
             if (role !== "")
             {
                 is_edit = true;
+                if (role === "editor") {
+                    this.set("is_editor", false);
+                }
+                else
+                {
+                    this.set("is_editor",is_authentic_user || is_edit);
+                }
             }
             if (current_user_email !== null && current_user_email !== undefined && current_user_email !== "") {
                 var isAdmin = permissionController.setIsAdmin(current_user_email);
-                this.set('isAdmin', isAdmin||is_edit);
-                that.set("is_authentic_user", is_authentic_user||is_edit);
+                this.set('isAdmin', isAdmin || is_edit);
+                that.set("is_authentic_user", is_authentic_user || is_edit);
 
             } else {
 
                 currentUser.then(function() {
                     var current_user_email = currentUser.get('email');
-                    
+
                     if (currentUser.get('isLoaded')) {
                         console.log("sssssssssssssssssssssssssssssssssssssss");
                         var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-                        that.set("is_authentic_user", is_authentic_user||is_edit);
+                        that.set("is_authentic_user", is_authentic_user || is_edit);
 
                         var isAdmin = permissionController.setIsAdmin(current_user_email);
-                        that.set('isAdmin', isAdmin||is_edit);
+                        that.set('isAdmin', isAdmin || is_edit);
                     }
                 });
             }

@@ -63,12 +63,12 @@
                             </div>  
                             
                             <!--contact me-->
-                            
+                            {{#if controller.is_editor}}
                              <div class="contactmebtn hint--bottom hint--rounded easing" data-hint="Profile Editor!" >
                                    <a class="contactmeicon easing" {{action editingEditor }}><i class="fa fa-user easing" style="font-size: 18px;"></i></a>
 
                             </div>
-
+                            {{/if}}
                             <!--contact me-->
                             <div class="contactmebtn hint--bottom hint--rounded easing" data-hint="Contact us!" data-step="3" data-intro="Click here to <b>Contact</b> the profile owner." data-position='left'>
                                    <a class="contactmeicon easing" {{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></a>

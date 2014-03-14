@@ -22,11 +22,42 @@ HubStar.EditEditorsController = Ember.Controller.extend({
     editorSelection: "",
     administrator: "",
     editor: "",
+    isCreator: false,
+    isAdministrator: false,
     init: function()
     {
-
+    },
+    checkAuthority: function() {
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
+        var current_user_email = currentUser.get('email');
+        var profile = this.get("controllers.profile").get("model");
+        var permissionController = this.get('controllers.permission');
+        var role = permissionController.checkAuthenticEdit(profile.get("creator"), profile.get("administrator"), profile.get("editor"));
+        var is_authentic_user = permissionController.checkAuthenticUser(profile.get("owner"), profile.get("profile_editors"), current_user_email);
+        if (is_authentic_user) {
+            this.set("isCreator", true);
+            this.set("isAdministrator", true);
+        }
+        else
+        {
+            if (role === "creator")
+            {
+                this.set("isCreator", true);
+                this.set("isAdministrator", true);
+            }
+            else if (role === "administrator")
+            {
+                this.set("isCreator", false);
+                this.set("isAdministrator", true);
+            }
+            else {
+                this.set("isCreator", false);
+                this.set("isAdministrator", false);
+            }
+        }
     },
     getClientId: function(id) {
+        this.checkAuthority();
         this.set('loadingTime', true);
         this.set('clientID', id);
         var dataNew = new Array();
@@ -175,8 +206,8 @@ HubStar.EditEditorsController = Ember.Controller.extend({
                 dataAdd.pushObject(item);
             }
         }
-        administrators_change[0]=dataDel;
-        administrators_change[1]=dataAdd;
+        administrators_change[0] = dataDel;
+        administrators_change[1] = dataAdd;
         return administrators_change;
     },
     save: function() {
@@ -188,7 +219,7 @@ HubStar.EditEditorsController = Ember.Controller.extend({
             {
                 var administrators = that.checkAdministratorsOrEditorsChange(that.get("contentAdministratorPhoto"), that.get("administrator"), "administrator");
                 var editors = that.checkAdministratorsOrEditorsChange(that.get("contentEditorPhoto"), that.get("editor"), "editor");
-                var data  = [];
+                var data = [];
                 data[0] = administrators;
                 data[1] = editors;
                 var tempComment = "";

@@ -28,6 +28,20 @@ class NotificationsController extends Controller {
         //      $this->sendResponse(204);
     }
 
+    public function actionReadProfiles() {
+        $request_array = (file_get_contents('php://input'));
+        $request = CJSON::decode($request_array);
+        $cb = $this->couchBaseConnection();
+        $domain = $this->getDomain();
+        $url = $domain . "/profiles/" . $request;
+        $tempRecord = $cb->get($url);
+        $oldRecord = CJSON::decode($tempRecord, true);
+        $respone_user = array();
+        $respone_user['profile_name'] = $oldRecord['profile'][0]['profile_name'];
+        $respone_user['profile_pic'] = $oldRecord['profile'][0]['profile_pic_url'];
+        $this->sendResponse(200, CJSON::encode($respone_user));
+    }
+
     public function actionMarkRead() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request = CJSON::decode($request_array);
@@ -150,7 +164,7 @@ class NotificationsController extends Controller {
                 return "sorry, you have already been removed from the " . $profile["type"] . " list.";
             } else {
                 return "save fail";
-            }         
+            }
         }
     }
 

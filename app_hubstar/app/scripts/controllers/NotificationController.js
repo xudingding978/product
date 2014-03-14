@@ -22,6 +22,7 @@ HubStar.NotificationController = Ember.Controller.extend({
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
         }
+
     },
     typeDisplay: function(type, name) {
         var displayString = '';
@@ -116,14 +117,27 @@ HubStar.NotificationController = Ember.Controller.extend({
         var tempComment = [localStorage.loginStatus, id];
         tempComment = JSON.stringify(tempComment);
         var that = this;
+        var profile_id = "";
+        var content=";"
         requiredBackEnd('notifications', 'Accept', tempComment, 'POST', function(params) {
             for (var i = 0; i < that.get("notificationContent").length; i++)
             {
                 if (that.get("notificationContent").objectAt(i).get("notification_id") === id)
                 {
                     that.get("notificationContent").objectAt(i).set("isButton", false);
+                    profile_id = that.get("notificationContent").objectAt(i).get("user_id");
+                    content = that.get("notificationContent").objectAt(i).get("content");
+                    break;
                 }
             }
+            requiredBackEnd('notifications', 'ReadProfiles', profile_id, 'POST', function(params) {
+                var profile_name = params["profile_name"];
+                var profile_pic = params["profile_pic"];
+
+                var tempComment = HubStar.SaveToProfile.createRecord({"profile_id": profile_id, "profile_name": profile_name,
+                    "profile_pic": profile_pic, "type": content.split(",")[1]});
+                that.get("currentUser").get("profiles").pushObject(tempComment);
+            });
             that.get('controllers.applicationFeedback').statusObserver(null, params);
             that.markRead(id);
         });

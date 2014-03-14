@@ -57,7 +57,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
                 this.sendGAMessage(analytics_array[i], model.get('id').split('-').join('') + i.toString());
             }
         }
-
+        $("#user-dd-menu").attr("style", "display:none");
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");

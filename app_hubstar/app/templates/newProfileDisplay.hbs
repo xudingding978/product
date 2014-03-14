@@ -1,33 +1,30 @@
 
-<div class="blur_black" {{action cancel on="click" target="view"}}></div>
+<div class="blur_black" {{action cancel on="click" target="view"}} style="z-index:11;"></div>
 
-<div style="margin:0 auto; padding: 0 0 15px 15px;">
-
-
-    <div class="Add-review" style="">
+<div>
+    <div class="new-profile-display" >
         <div style="width: 100%;height: auto; min-height: 50px;padding: 10px 23px;">
 
             <div style="font-size: 18px;font-weight: bold;color: #555; height: auto; min-height: 50px;vertical-align: middle;display: inline-block;width: 390px;">
-                <a href="#/profiles/new}}"><i class="fa fa-plus">&nbsp; NEw Profile  </I></a>
+             {{#linkTo profileNew}}   <i class="fa fa-plus">&nbsp; New Profile  </I>{{/linkTo}}
             </div>
         </div>
 
 
-        <div style="margin: 5px auto; padding: 0 15px;height: 200px;">
+        <div style="margin: 5px auto; padding: 0 15px;height: 330px;">
             {{#each view.profiles}}  
-            <div data-hint="{{unbound this.profile_name}}" >
+            <div data-hint="{{unbound this.profile_name}}" {{action  on="click" target="view"}}>
                 <a href="#/profiles/{{unbound this.profile_id}}">
                     <div style="height: 100px; width: 100px; position:relative; margin: 5px;float:left; line-height: 100px;border-radius: 5px;border: 1px solid #ddd;" > 
                         <img {{bindAttr src="this.profile_pic"}}  style="width:100%;margin-top: -5px;">
-                        <!--              <div style=" color: #555; margin: 5px;">{{this.profile_name}}</div>                 -->
                     </div>
                 </a>
             </div>
             {{/each}}
         </div>
 
-        <div class="" style="height: 41px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
-            <div class="message-btn easing" style="width: 100%;" {{action cancel on="click" target="view"}}><i class='fa fa-check'>&nbsp;</i>Cancel</div>
+        <div class="" style="height: 50px;position: relative;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
+            <div class="message-btn easing" style="width: 100%; color: #000;" {{action cancel on="click" target="view"}}><i class='fa fa-check'>&nbsp;</i>Cancel</div>
         </div>
 
 

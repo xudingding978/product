@@ -23,20 +23,22 @@
                 <span>My Business Profiles</span>
             </a></li>
 
-            {{#if view.newProfile}} 
-             <div id="profiles_display">
+        {{#if view.newProfile}} 
+        <div id="profiles_display">
             {{render newProfileDisplay this}} 
+        </div>
+        {{/if}}
+        {{#each view.profiles}}           
+        <a href="#/profiles/{{unbound this.profile_id}}">
+            <div style="width:100%;">
+                <div style="float: left; height: 50px; width: 50px; position:relative; margin: 5px; line-height: 50px;border-radius: 5px;border: 1px solid #ddd;" > 
+                    <img {{bindAttr src="this.profile_pic"}}  style="width:100%;margin-top: -5px;">                  
+                </div>
+            <div style=" color: #555;  position: relative;">{{this.profile_name}}</div> 
             </div>
-            {{/if}}
-             {{#each view.profiles}}           
-                 <a href="#/profiles/{{unbound this.profile_id}}">
-                    <div style="height: 75px; width: 75px; position:relative; margin: 5px; line-height: 75px;border-radius: 5px;border: 1px solid #ddd;" > 
-                        <img {{bindAttr src="this.profile_pic"}}  style="width:100%;margin-top: -5px;">
-                                     <div style=" color: #555; margin: 5px;">{{this.profile_name}}</div>          
-                    </div>
-                </a>
+        </a>
 
-            {{/each}} 
+        {{/each}} 
 
 
 

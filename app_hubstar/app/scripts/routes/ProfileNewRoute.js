@@ -12,7 +12,7 @@ HubStar.ProfileNewRoute = Ember.Route.extend({
         }, 10);
 
         HubStar.set('editingMode', 'user');
-        
+         $("#user-dd-menu").attr("style", "display:none");
     },
     model: function() {
         var user = HubStar.User.find(localStorage.loginStatus);

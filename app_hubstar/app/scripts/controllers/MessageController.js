@@ -16,6 +16,8 @@ HubStar.MessageController = Ember.Controller.extend({
         if (localStorage.loginStatus) {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
+
+
         }
         if (this.get("currentOwner").get("id") === localStorage.loginStatus)
         {
@@ -238,6 +240,10 @@ HubStar.MessageController = Ember.Controller.extend({
                             if (replyLength >= 1)
                             {
                                 replyLength = replyLength - 1;
+                                if (replyLength === 0) {
+                                    that.closeMore(that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id"));
+                                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replayCountZero", false);
+                                }
                             }
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
                             break;
@@ -261,6 +267,14 @@ HubStar.MessageController = Ember.Controller.extend({
                                 replyLength = replyLength - 1;
                             }
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
+                            if (replyLength >= 1)
+                            {
+                                replyLength = replyLength - 1;
+                                if (replyLength === 0) {
+                                    that.closeMore(that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id"));
+                                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replayCountZero", false);
+                                }
+                            }
 
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").removeObject(that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j));
                             break;
@@ -270,11 +284,11 @@ HubStar.MessageController = Ember.Controller.extend({
                 }
             }
             setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-            setTimeout(function() {
-                $('#masonry_user_container').masonry();
-            }, 100);
-        }, 200);
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 100);
+            }, 200);
         });
         $('#addcommetBut').attr('style', 'display:block');
         $('#commentBox').attr('style', 'display:none');
@@ -344,8 +358,7 @@ HubStar.MessageController = Ember.Controller.extend({
 
                     var replyLength = that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyCount") + 1;
                     that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
-
-                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
+                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replayCountZero", true);
                     if (params["replyMessageCollection"][0]["user_id"] === localStorage.loginStatus)
                     {
                         dataNew["isUserself"] = true;
@@ -384,11 +397,11 @@ HubStar.MessageController = Ember.Controller.extend({
             }
             dataNew = new Array();
             setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-            setTimeout(function() {
-                $('#masonry_user_container').masonry();
-            }, 100);
-        }, 200);
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 100);
+            }, 200);
             that.set('replyContent', "");
             that.set('newStyleImageSource', null);
             that.set('newStyleImageName', "");
@@ -425,22 +438,22 @@ HubStar.MessageController = Ember.Controller.extend({
         $('#closeComment_' + id).attr('style', 'display:inline-block;cursor: pointer');
         $('#showMoreComment_' + id).attr('style', 'display:none;cursor: pointer');
         $('#messageData_' + id).attr('style', 'display: block');
-       
-            setTimeout(function() {
-                $('#masonry_user_container').masonry();
-            }, 10);
-       
+
+        setTimeout(function() {
+            $('#masonry_user_container').masonry();
+        }, 10);
+
 
     },
     closeMore: function(id) {
         $('#closeComment_' + id).attr('style', 'display:none;cursor: pointer');
         $('#showMoreComment_' + id).attr('style', 'display:inline-block;cursor: pointer');
         $('#messageData_' + id).attr('style', 'display: none');
-        
-            setTimeout(function() {
-                $('#masonry_user_container').masonry();
-            }, 10);
-        
+
+        setTimeout(function() {
+            $('#masonry_user_container').masonry();
+        }, 10);
+
     }
 }
 );

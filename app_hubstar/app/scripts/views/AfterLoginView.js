@@ -33,14 +33,7 @@ HubStar.AfterLoginView = Ember.View.extend({
 
     },
     logout: function() {
-        $.ajax({
-            type: 'POST',
-            url: getRestAPIURL() + '/logout',
-            contentType: 'application/json; charset=uft-8',
-            dataType: 'json',
-            success: function(param) {
-            }
-        });
+ 
         localStorage.removeItem('loginStatus');
         this.get('controller').transitionTo("indexIndex");
         document.cookie = 'Session=; path=/; domain=.trendsideas.com; expires=Thu, 01 Jan 1970 00:00:00 GMT';
@@ -51,6 +44,7 @@ HubStar.AfterLoginView = Ember.View.extend({
 
         }
         else {
+             this.set("newProfile", false);
             $("#user-dd-menu").attr("style", "padding: inherit; width: 178px; right: 60px; position: relative; top:30px;display:block");
 
         }
@@ -76,7 +70,6 @@ HubStar.AfterLoginView = Ember.View.extend({
             this.loadProfile();
 
 
-
             //  location.href = '#/profiles/new';
             // $("#user-dd-menu").attr("style", "display:none");
 
@@ -85,6 +78,7 @@ HubStar.AfterLoginView = Ember.View.extend({
     },
     cancel: function() {
         this.set("newProfile", false);
+         $("#user-dd-menu").attr("style", "display:none");
     },
     loadProfile: function() {
 

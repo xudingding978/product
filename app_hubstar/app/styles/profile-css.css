@@ -1202,7 +1202,6 @@ textarea.add-interests{
 .invite-this-friend{
     background-color: #000;
     opacity: 0;
-
     color: #fff;
     width: 20px;
     height: 20px;
@@ -1231,17 +1230,7 @@ textarea.add-interests{
 
 #search_business{vertical-align: top;}
 
-
-
-
-
-
 /*STAR RATING STYLE*/
-
-
-
-
-
 
 .unread-style{
     background-color: rgba(85, 170, 255,.15) !important;
@@ -1277,7 +1266,6 @@ textarea.add-interests{
 .Add-review .message-btn{
     height: 40px; 
     line-height: 40px;
-
     width: 33%;
 }
 
@@ -1348,7 +1336,7 @@ textarea.add-interests{
 
 /*MAP SECTION*/
 
-.enlarge-map{width: 45px;height: 45px;line-height: 45px; background-color: #fff; color: #555;opacity: 0;position: absolute;right: 9px;text-align: center;font-size: 15px;}
+.enlarge-map{width: 45px;height: 45px;line-height: 45px; background-color: #fff; color: #555;opacity: 0;position: absolute;right: 15px;text-align: center;font-size: 15px;}
 
 #google-map:hover > .enlarge-map{
     opacity: .8;
@@ -1471,3 +1459,17 @@ textarea.add-interests{
     border-radius: 2px;
 }
 
+.new-profile-display{
+    z-index: 11;
+    background-color: white;  
+    border-radius: 5px;
+    box-shadow: 0 0 20px #bbb;  
+    width: 500px;
+    height: 450px;
+    margin: 0 auto; 
+    position: fixed; 
+    top: 25%;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+}

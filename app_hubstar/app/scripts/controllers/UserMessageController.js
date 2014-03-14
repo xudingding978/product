@@ -72,6 +72,13 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 dataNew["enableToEdit"] = false;
                 dataNew["replyEdit"] = true;
                 dataNew["replyCount"] = params[i]["replyMessageCollection"].length - 1;
+                dataNew["replayCountZero"] = true;
+                if (dataNew["replyCount"] === 0)
+                {
+                    
+                    dataNew["replayCountZero"] = false;
+                }
+                
                 if (params[i]["replyMessageCollection"][length]["user_id"] === localStorage.loginStatus)
                 {
                     dataNew["isUserself"] = true; //dataNew["isUserself"] is true , which means it is the login users is the same as the user page owner
@@ -252,7 +259,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
         this.set('newStyleImageName', "");
         this.set("isUploadPhoto", false);
 
-       
+
         setTimeout(function() {
             $('#masonry_user_container').masonry();
         }, 100);
@@ -314,6 +321,8 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 dataNew["enableToEdit"] = false;
                 dataNew["replyEdit"] = true;
                 dataNew["replyCount"] = 0;
+                dataNew["replayCountZero"] = false;
+                
                 if (params["replyMessageCollection"][0]["user_id"] === localStorage.loginStatus)
                 {
                     dataNew["isUserself"] = true;

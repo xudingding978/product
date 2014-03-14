@@ -7310,12 +7310,9 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 /*/End WindowContainer---------------/*/
 
 
-
-
-
 /*CONTACT ME  BUTTON*/
 .contactmebtn {
-    position: absolute;
+    position: relative;
     z-index: 1;
     text-align: center;
     float: right;
@@ -7323,7 +7320,6 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     right: 2px;
     cursor: pointer;
     margin: 0 10px;
-    top: 17px;
 }
 
 .contactmeicon{
@@ -11994,7 +11990,7 @@ textarea.add-interests{
 .registraion-suceesful-message{
      text-align: center; 
      padding: 10px 20px; 
-     height: 150px; 
+     height: 165px; 
      font-size: 13px; 
      color: #333;
 }
@@ -12154,7 +12150,7 @@ div > div > i.icon-envelope, div > div > #click-login
     background-clip:border-box;
 }
 div.register-btn-small{
-    width:148px;
+    width:147px;
     -webkit-border-radius: 0 0 5px 0;
     -moz-border-radius: 0 0 5px 0;
     border-radius: 0 0 5px 0;
@@ -12162,7 +12158,7 @@ div.register-btn-small{
 
 }
 .back-btn{
-    width: 148px;
+    width: 147px;
     height: 45px;
     background:#fff;
     text-align: center;

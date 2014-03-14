@@ -1336,7 +1336,7 @@ textarea.add-interests{
 
 /*MAP SECTION*/
 
-.enlarge-map{width: 45px;height: 45px;line-height: 45px; background-color: #fff; color: #555;opacity: 0;position: absolute;right: 9px;text-align: center;font-size: 15px;}
+.enlarge-map{width: 45px;height: 45px;line-height: 45px; background-color: #fff; color: #555;opacity: 0;position: absolute;right: 15px;text-align: center;font-size: 15px;}
 
 #google-map:hover > .enlarge-map{
     opacity: .8;

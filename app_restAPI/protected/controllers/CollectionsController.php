@@ -55,13 +55,24 @@ class CollectionsController extends Controller {
         if (!isset($oldRecordDeep['profile'][0]['collections'])) {
             $oldRecordDeep['profile'][0]['collections'] = array();
         }
+        $collectionIDs = explode(",",$request_arr["collection_ids"]);
+        $id = $collectionIDs[sizeof($collectionIDs)-1];
         for ($i = 0; $i < sizeof($oldRecordDeep['profile'][0]['collections']); $i++) {
             if ($oldRecordDeep['profile'][0]['collections'][$i]["id"] === $request_arr["id"]) {
-                $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] = $request_arr["collection_ids"];
+                if(!isset($oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"])||$oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"]===null||$oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"]==="")
+                {
+                    $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"]=$id;
+                }
+                else
+                {
+                    $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] = $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"].",".$id;
+                    
+                }     
+                $collectionItems = $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"];
             }
         }
         if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
-            $this->sendResponse(204);
+            $this->sendResponse(200, CJSON::encode($collectionItems));
         } else {
             echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
         }

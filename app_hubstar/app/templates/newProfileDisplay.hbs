@@ -15,10 +15,10 @@
             <div id="profiles_display_scrollbar">
             {{#each model}}  
             {{#if this.getTypeAdmin}}
-            <div data-hint="{{unbound this.profile_name}}">
-                <a href="#/profiles/{{unbound this.profile_id}}">
-                    <div style="height: 100px; width: 100px; position:relative; margin: 5px;float:left; line-height: 100px;border-radius: 5px; background-color: white; border: 2px solid red" > 
-                        <img {{bindAttr src="this.profile_pic"}}  style="width:100%;margin-top: -5px;">
+            <div>
+                <a href="#/profiles/{{unbound this.profile_id}}" data-hint="{{unbound this.profile_name}}">
+                    <div  style="height: 100px; width: 100px; position:relative; margin: 5px;float:left; line-height: 100px;border-radius: 5px; background-color: white; border: 2px solid red" > 
+                        <img {{bindAttr src="this.profile_pic"}}  style="width:100%;margin-top: -5px;" >
                     </div>
                 </a>
             </div>

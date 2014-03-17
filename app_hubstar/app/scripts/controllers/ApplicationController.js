@@ -41,6 +41,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     test: false,
     user: null,
     from: null,
+    profiles: null,
     size: null,
     photo_url: null,
     isUnReadCountZero: false,
@@ -139,6 +140,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
                     that.set("is_trends_user", true);
                 }
+                that.set("profiles",u.get("profiles"));
             });
         }
         this.set("user", u);

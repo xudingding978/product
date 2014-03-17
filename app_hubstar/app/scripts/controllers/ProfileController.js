@@ -585,8 +585,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             var about_video = HubStar.AboutVideo.createRecord({"video_id": '1', "video_title": '', "video_desc": '',
                 "video_url": '', "optional": this.get('model').get('id')});
             about_us.get('about_embeded_object').pushObject(about_embeded_object);
-            console.log(about_embeded_object);
-            console.log("ssssssssssssssssssssssssssssss");
             about_us.get('about_video').pushObject(about_video);
             for (var i = 0; i < 2; i++) {
                 var about_image = HubStar.AboutImage.createRecord({"image_id": i.toString(), "image_title": '', "image_desc": '',
@@ -614,6 +612,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
             this.get('about_us').pushObject(about_us);
              
+        }
+        else {
+           if(this.get("about_us").objectAt(0).get('about_embeded_object').get("length")< 1){   
+            var about_embeded_object = HubStar.AboutEmbededObject.createRecord({"embeded_object_id": "1", "embeded_object_title": "", "embeded_object_desc": "", 
+               "embeded_object_code": "", "embeded_object_url": "", "optional": this.get('model').get('id')});
+           this.get("about_us").objectAt(0).get('about_embeded_object').pushObject(about_embeded_object);
+           }
         }
         this.set('makeSelection', false);
         this.set('isAboutUsObjectExist', true);
@@ -645,9 +650,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.get('model').get('about_us').pushObject(this.get('about_us').objectAt(0));
             }
             this.get('about_us').objectAt(0).save();
-            
             this.get('model').store.save();
-            console.log(this.get('about_us'));
             this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
         } else {
             this.saveUpdateAboutUs();

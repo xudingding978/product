@@ -148,7 +148,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     isAboutUsObjectExist: false,
     about_us: [],
     embeded_url: '',
-    embeded_code:"",
+    embeded_code: "",
     profileCategoryDropdown: false,
     profileSubcategoryDropdown: false,
     profileCategorySelection: "",
@@ -582,13 +582,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     selectNewAbout: function() {
         if (this.get('about_us').get('length') < 1) {
-  
+
             var about_us = HubStar.AboutUs.createRecord({"about_id": this.get('model').get('id'), "about_desc": '', "about_template_id": '1', "about_embeded_object": [],
                 "about_video": [], "about_image": [], 'about_book': []});
-            
-            var about_embeded_object = HubStar.AboutEmbededObject.createRecord({"embeded_object_id": "1", "embeded_object_title": "", "embeded_object_desc": "", 
-               "embeded_object_code": "", "embeded_object_url": "", "optional": this.get('model').get('id')});
-           
+
+            var about_embeded_object = HubStar.AboutEmbededObject.createRecord({"embeded_object_id": "1", "embeded_object_title": "", "embeded_object_desc": "",
+                "embeded_object_code": "", "embeded_object_url": "", "optional": this.get('model').get('id')});
+
             var about_video = HubStar.AboutVideo.createRecord({"video_id": '1', "video_title": '', "video_desc": '',
                 "video_url": '', "optional": this.get('model').get('id')});
             about_us.get('about_embeded_object').pushObject(about_embeded_object);
@@ -618,14 +618,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 about_us.get('about_book').pushObject(about_book);
             }
             this.get('about_us').pushObject(about_us);
-             
+
         }
         else {
-           if(this.get("about_us").objectAt(0).get('about_embeded_object').get("length")< 1){   
-            var about_embeded_object = HubStar.AboutEmbededObject.createRecord({"embeded_object_id": "1", "embeded_object_title": "", "embeded_object_desc": "", 
-               "embeded_object_code": "", "embeded_object_url": "", "optional": this.get('model').get('id')});
-           this.get("about_us").objectAt(0).get('about_embeded_object').pushObject(about_embeded_object);
-           }
+            if (this.get("about_us").objectAt(0).get('about_embeded_object').get("length") < 1) {
+                var about_embeded_object = HubStar.AboutEmbededObject.createRecord({"embeded_object_id": "1", "embeded_object_title": "", "embeded_object_desc": "",
+                    "embeded_object_code": "", "embeded_object_url": "", "optional": this.get('model').get('id')});
+                this.get("about_us").objectAt(0).get('about_embeded_object').pushObject(about_embeded_object);
+            }
         }
         this.set('makeSelection', false);
         this.set('isAboutUsObjectExist', true);
@@ -656,7 +656,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             if (this.get('model').get('about_us') === null || this.get('model').get('about_us') === 'undefined' || this.get('model').get('about_us').get('length') === 0) {
                 this.get('model').get('about_us').pushObject(this.get('about_us').objectAt(0));
             }
-            this.get('about_us').objectAt(0).save();
+            this.get('about_us').objectAt(0).save();         
             this.get('model').store.save();
             this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
         } else {
@@ -1103,10 +1103,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         update_profile_record.set('profile_category', this.get('profileCategorySelection'));
         update_profile_record.set('profile_subcategory', this.get('profileSubcategorySelection'));
 
-        
+
         this.createGooglemap();
         this.set('toAddress', update_profile_record.get('profile_physical_address') + ", " + update_profile_record.get('profile_suburb') + ", " + update_profile_record.get('profile_regoin') + ", " + update_profile_record.get('profile_country'));
-      this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
+        this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
         update_profile_record.store.save();
     },
     saveUpdate: function() {

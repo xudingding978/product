@@ -198,7 +198,7 @@ class CollectionsController extends Controller {
                 $collection_num = $this->getSelectedcollection($records, $collectionDel_id);
                 $delCollection = $owner["profile"][0]["collections"][$collection_num];
 
-                //array_splice($owner["profile"][0]["collections"], $collection_num, 1);
+                array_splice($owner["profile"][0]["collections"], $collection_num, 1);
                 $this->deletePhoto($delCollection);
 //                for ($i = 0; $i < sizeof($owner["profile"][0]["collections"]); $i++) {
 //                    if ($owner["profile"][0]["collections"][$i]["id"] === $collectionDel_id) {

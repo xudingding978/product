@@ -10,6 +10,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     totalItems: 0,
     navigator_id: "",
     nextPageSpinner:false,
+    newProfile:false,
     navigator_id1: "",
     contentTopicResidential: [
         {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},

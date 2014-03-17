@@ -6,31 +6,6 @@ HubStar.AfterLoginView = Ember.View.extend({
     willInsertElement: function() {
     },
     didInsertElement: function() {
-
-
-        $(document).ready(function() {
-            $("#profiles_display").mCustomScrollbar({
-                scrollButtons: {
-                    enable: false,
-                    scrollSpeed: "auto"
-                },
-                advanced: {
-                    updateOnBrowserResize: true,
-                    updateOnContentResize: true,
-                    autoScrollOnFocus: false,
-                    normalizeMouseWheelDelta: false
-                },
-                autoHideScrollbar: true,
-                mouseWheel: true,
-                theme: "dark-2",
-                set_height: 100
-            });
-
-
-
-        });
-
-
     },
     logout: function() {
  
@@ -66,13 +41,8 @@ HubStar.AfterLoginView = Ember.View.extend({
             $("#user-dd-menu").attr("style", "display:none");
 
         } else if (checking === "new") {
-            this.set("newProfile", true);
+            this.get("controller").set("newProfile", true);
             this.loadProfile();
-
-
-            //  location.href = '#/profiles/new';
-            // $("#user-dd-menu").attr("style", "display:none");
-
         }
 
     },
@@ -80,18 +50,9 @@ HubStar.AfterLoginView = Ember.View.extend({
         this.set("newProfile", false);
          $("#user-dd-menu").attr("style", "display:none");
     },
-    loadProfile: function() {
-
-        this.set("profiles", []);
+    loadProfile: function() {   
         var user = HubStar.User.find(localStorage.loginStatus);
-        for (var i = 0; i < user.get("profiles").get("length"); i++) {
-            var id = user.get("profiles").objectAt(i).get("profile_id");
-            var name = user.get("profiles").objectAt(i).get("profile_name");
-            var pic = user.get("profiles").objectAt(i).get("profile_pic");
-            this.get("profiles").pushObject({'profile_id': id, 'profile_name': name, "profile_pic": pic});
-
-        }
-
+        this.set("profiles", user.get("profiles"));
     },
     startTour: function() {
 

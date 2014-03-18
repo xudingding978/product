@@ -137,7 +137,15 @@ HubStar.NotificationController = Ember.Controller.extend({
 
                     var tempComment = HubStar.SaveToProfile.createRecord({"profile_id": profile_id, "profile_name": profile_name,
                         "profile_pic": profile_pic, "type": content.split(",")[1]});
-                    that.get("currentUser").get("profiles").pushObject(tempComment);
+
+                    
+                    console.log(profile_id);
+                    console.log(profile_name);
+                    console.log(tempComment);
+                    console.log(that.get("controllers.application").get("user").get("profiles"));
+                    that.get("controllers.application").get("user").get("profiles").pushObject(tempComment);
+                    console.log(that.get("controllers.application").get("user").get("profiles"));
+                    that.get("currentUser").set("isProfilesScroll",true);
                 });
             }
             that.get('controllers.applicationFeedback').statusObserver(null, params);

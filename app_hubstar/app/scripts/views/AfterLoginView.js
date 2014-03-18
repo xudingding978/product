@@ -24,7 +24,6 @@ HubStar.AfterLoginView = Ember.View.extend({
 
         }
         this.loadProfile();
-
     },
     userDisplaynone: function(checking) {
         if (checking === "myUserProfile") {

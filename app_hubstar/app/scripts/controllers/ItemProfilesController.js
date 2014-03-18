@@ -60,7 +60,6 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
                 is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
             }
         });
-        console.log(is_authentic_user);
         return is_authentic_user||is_edit;
     },
     dropdownPhotoSetting: function(id) {

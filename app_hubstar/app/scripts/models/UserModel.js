@@ -6,7 +6,7 @@ DS.RESTAdapter.map('HubStar.User', {
     messages: {embedded: 'load'},
     conversations: {embedded: 'load'},
     notifications: {embedded: 'load'},
-    profiles: {embedded: 'always'}
+    profiles: {embedded:'always'}
 });
 
 
@@ -54,16 +54,6 @@ HubStar.User = DS.Model.extend({
     messages: DS.hasMany('HubStar.UserMessage'),
     conversations: DS.hasMany('HubStar.UserConversation'),
     notifications: DS.hasMany('HubStar.Notification'),
-    isProfilesScroll: function() {
-        if (this.get("profiles").get("length") >= 2)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }.property('profiles'),
     profileSave: function() {
         if (this.get("profiles") === undefined || this.get("profiles") === null || this.get("profiles").get("length") === 0)
         {

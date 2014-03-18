@@ -118,7 +118,7 @@ HubStar.NotificationController = Ember.Controller.extend({
         tempComment = JSON.stringify(tempComment);
         var that = this;
         var profile_id = "";
-        var content = "";
+        var displayString = "";
         requiredBackEnd('notifications', 'Accept', tempComment, 'POST', function(params) {
             for (var i = 0; i < that.get("notificationContent").length; i++)
             {
@@ -126,7 +126,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                 {
                     that.get("notificationContent").objectAt(i).set("isButton", false);
                     profile_id = that.get("notificationContent").objectAt(i).get("user_id");
-                    content = that.get("notificationContent").objectAt(i).get("content");
+                    displayString = that.get("notificationContent").objectAt(i).get("typeDisplay");
                     break;
                 }
             }
@@ -134,18 +134,24 @@ HubStar.NotificationController = Ember.Controller.extend({
                 requiredBackEnd('notifications', 'ReadProfiles', profile_id, 'POST', function(params) {
                     var profile_name = params["profile_name"];
                     var profile_pic = params["profile_pic"];
-
-                    var tempComment = HubStar.SaveToProfile.createRecord({"profile_id": profile_id, "profile_name": profile_name,
-                        "profile_pic": profile_pic, "type": content.split(",")[1]});
-
-                    
-                    console.log(profile_id);
-                    console.log(profile_name);
-                    console.log(tempComment);
-                    console.log(that.get("controllers.application").get("user").get("profiles"));
-                    that.get("controllers.application").get("user").get("profiles").pushObject(tempComment);
-                    console.log(that.get("controllers.application").get("user").get("profiles"));
-                    that.get("currentUser").set("isProfilesScroll",true);
+                    var type = displayString.split(" ")[displayString.split(" ").length-1];
+                    var isAdministrator = false;
+                    var isEditor = false;
+                    var isCreator = false;
+                    if (type === "administrator")
+                    {
+                        isAdministrator = true;
+                    }
+                    else if (type === "editor")
+                    {
+                        isEditor = true;
+                    }
+                    else if (type === "creator")
+                    {
+                        isCreator = true;
+                    }
+                    HubStar.get("profiles").pushObject({'profile_id': profile_id, 'profile_name': profile_name, "profile_pic": profile_pic, "type": type,
+                        'isAdministrator': isAdministrator, "isEditor": isEditor, "isCreator": isCreator});
                 });
             }
             that.get('controllers.applicationFeedback').statusObserver(null, params);

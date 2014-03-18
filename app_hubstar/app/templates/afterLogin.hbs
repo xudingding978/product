@@ -25,10 +25,10 @@
 
         {{#if controller.newProfile}} 
         <div id="profiles_display">
-            {{render newProfileDisplay controller.profiles}} 
+            {{render newProfileDisplay HubStar.profiles}} 
         </div>
         {{/if}}
-        {{render newProfileTopDisplay controller.user}}
+        {{render newProfileTopDisplay HubStar.profiles}}
         
         {{/if}}
 

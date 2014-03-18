@@ -1,28 +1,28 @@
-<div id="user_profiles_dropdown_scrollbar">   
-    {{#each model.profiles}}  
+<div id="user_profiles_dropdown_scrollbar">  
+    {{#each model}}  
     <a href="#/profiles/{{unbound this.profile_id}}"> 
-        {{#if this.getTypeAdmin}}
-        <div style="background-color: rgba(255, 0, 0, 0.1); border: 2px solid white">
-            <div style="background-color: white;float: left; height: 50px; width: 50px; position:relative; margin: 5px  5px 5px 10px; line-height: 50px;border-radius: 5px;border: 1px solid #ddd;" > 
+        {{#if this.isAdministrator}}
+        <div style="background-color: rgba(255, 0, 0, 0.1); border: 1px solid #ccc; margin-right: 5px;">
+            <div style="background-color: white;display: inline-block; height: 50px; width: 50px; position:relative; margin: 5px  5px 5px 10px; line-height: 50px;border-radius: 5px;border: 1px solid #ddd;vertical-align: top;" > 
                 <img {{bindAttr src="this.profile_pic"}}  style="width:100%;margin-top: -5px;">                  
             </div>
-            <div style=" color: #555;  position: relative;">{{this.profile_name}}</div> 
+            <div style=" color: #555;  position: relative; display: inline-block; width: 100px; line-height: 20px; margin: 3px 0;">{{this.profile_name}}</div> 
         </div>
         {{/if}}
-        {{#if this.getTypeEditor}}
-        <div style="background-color: rgba(255, 255, 0, 0.1); border: 2px solid white">
-            <div style="background-color: white;float: left; height: 50px; width: 50px; position:relative; margin: 5px  5px 5px 10px; line-height: 50px;border-radius: 5px;border: 1px solid #ddd;" > 
+        {{#if this.isEditor}}
+        <div style="background-color: rgba(255, 255, 0, 0.1); border: 1px solid #ccc; margin-right: 5px;">
+            <div style="background-color: white;display: inline-block; height: 50px; width: 50px; position:relative; margin: 5px  5px 5px 10px; line-height: 50px;border-radius: 5px;border: 1px solid #ddd;vertical-align: top;" > 
                 <img {{bindAttr src="this.profile_pic"}}  style="width:100%;margin-top: -5px;">                  
             </div>
-            <div style=" color: #555;  position: relative;">{{this.profile_name}}</div> 
+            <div style=" color: #555;  position: relative; display: inline-block; width: 100px; line-height: 20px; margin: 3px 0;">{{this.profile_name}}</div> 
         </div>
         {{/if}}
-        {{#if this.getTypeCreator}}
-        <div style="background-color: rgba(0, 255, 255, 0.1); border: 2px solid white">
-            <div style="background-color: white;float: left; height: 50px; width: 50px; position:relative; margin: 5px  5px 5px 10px; line-height: 50px;border-radius: 5px;border: 1px solid #ddd;" > 
+        {{#if this.isCreator}}
+        <div style="background-color: rgba(0, 255, 255, 0.1); border: 1px solid #ccc; margin-right: 5px;">
+            <div style="background-color: white;display: inline-block; height: 50px; width: 50px; position:relative; margin: 5px  5px 5px 10px; line-height: 50px;border-radius: 5px;border: 1px solid #ddd;vertical-align: top;" > 
                 <img {{bindAttr src="this.profile_pic"}}  style="width:100%;margin-top: -5px;">                  
             </div>
-            <div style=" color: #555;  position: relative;">{{this.profile_name}}</div> 
+            <div style=" color: #555;  position: relative; display: inline-block; width: 100px; line-height: 20px; margin: 3px 0;">{{this.profile_name}}</div> 
         </div>
         {{/if}}
     </a>

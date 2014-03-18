@@ -6,27 +6,32 @@
 HubStar.NewProfileTopDisplayView = Ember.View.extend({
     templateName: 'newProfileTopDisplay',
     didInsertElement: function() {
-        //if (this.get("controller").get('model').get("isProfilesScroll")) 
-        {
+        console.log(HubStar.get("profiles").length);
+        var u = HubStar.User.find(localStorage.loginStatus);
+        var that = this;
+        u.then(function() {
             $(document).ready(function() {
-                $("#user_profiles_dropdown_scrollbar").mCustomScrollbar({
-                    scrollButtons: {
-                        enable: false,
-                        scrollSpeed: "auto"
-                    },
-                    advanced: {
-                        updateOnBrowserResize: true,
-                        updateOnContentResize: true,
-                        autoScrollOnFocus: false,
-                        normalizeMouseWheelDelta: false
-                    },
-                    autoHideScrollbar: true,
-                    mouseWheel: true,
-                    theme: "dark-2",
-                    set_height: 130
-                });
+                if (HubStar.get("profiles").length >= 2)
+                {
+                    $("#user_profiles_dropdown_scrollbar").mCustomScrollbar({
+                        scrollButtons: {
+                            enable: false,
+                            scrollSpeed: "auto"
+                        },
+                        advanced: {
+                            updateOnBrowserResize: true,
+                            updateOnContentResize: true,
+                            autoScrollOnFocus: false,
+                            normalizeMouseWheelDelta: false
+                        },
+                        autoHideScrollbar: true,
+                        mouseWheel: true,
+                        theme: "dark-2",
+                        set_height: 130
+                    });
+                }
             });
-        }
+        });
     }
 });
 

@@ -137,6 +137,7 @@ HubStar.NotificationController = Ember.Controller.extend({
 
                     var tempComment = HubStar.SaveToProfile.createRecord({"profile_id": profile_id, "profile_name": profile_name,
                         "profile_pic": profile_pic, "type": content.split(",")[1]});
+                    console.log(tempComment);
                     that.get("currentUser").get("profiles").pushObject(tempComment);
                 });
             }

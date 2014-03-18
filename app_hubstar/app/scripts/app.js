@@ -1,6 +1,6 @@
 
 var HubStar = window.HubStar = Ember.Application.create({
-    LOG_TRANSITIONS: true,
+    LOG_TRANSITIONS: false,
     LOG_BINDINGS: false,
     ready: function() {
         HubStar.set("isLogin", false);

@@ -48,7 +48,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
             this.controllerFor('article').set("accessFromSearchBoard", true);
             this.transitionTo("searchDefaultArticle", HubStar.Article.find(id)); //it will got to default search without go to the new search
         }
-    },
+    }, 
     redirect: function() {
        
             if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {

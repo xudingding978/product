@@ -869,7 +869,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 }
 #aside_contact > tbody > tr:nth-child(4) > th {
     position: relative;
-    top: -4px;
+    top: -4px; 
 }
 
 

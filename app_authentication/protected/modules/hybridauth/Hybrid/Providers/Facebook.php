@@ -172,10 +172,10 @@ class Hybrid_Providers_Facebook extends Hybrid_Provider_Model {
 
     function shareFacebookRegist($name) {
         $args = array(
-            'message' => 'I am now a member of myTrends',
+            'message' => 'I just signed up on myTrends - join me today!',
             'picture' => 'http://s3.hubsrv.com/trendsideas.com/profiles/commercial-design-trends/profile_pic.jpg',
             'link' => 'http://my.trendsideas.com',
-            'description' => 'Hi Facebook friends… I’ve just signed up to myTrends, New Zealand’s only social platform dedicated to architecture and design. Now I can easily find, save and share inspirational ideas for building and renovation projects. Join now for free…',
+            'description' => 'myTrends is the content-sharing website dedicated to inspiring design & architecture ideas. Create your profile then start searching, saving and sharing what inspires you!',
             'caption' => 'myTrends'
         );
         try {

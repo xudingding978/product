@@ -113,6 +113,23 @@ HubStar.NotificationController = Ember.Controller.extend({
             that.set('loadingTime', false);
         });
     },
+    decline: function(id){
+         var tempComment = [localStorage.loginStatus, id];
+        tempComment = JSON.stringify(tempComment);
+        var that = this;
+        requiredBackEnd('notifications', 'Decline', tempComment, 'POST', function(params) {
+            for (var i = 0; i < that.get("notificationContent").length; i++)
+            {
+                if (that.get("notificationContent").objectAt(i).get("notification_id") === id)
+                {
+                    that.get("notificationContent").objectAt(i).set("isButton", false);                   
+                    break;
+                }
+            }
+            that.get('controllers.applicationFeedback').statusObserver(null, params);
+            that.markRead(id);
+        });
+    },
     accept: function(id) {
         var tempComment = [localStorage.loginStatus, id];
         tempComment = JSON.stringify(tempComment);
@@ -134,7 +151,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                 requiredBackEnd('notifications', 'ReadProfiles', profile_id, 'POST', function(params) {
                     var profile_name = params["profile_name"];
                     var profile_pic = params["profile_pic"];
-                    var type = displayString.split(" ")[displayString.split(" ").length-1];
+                    var type = displayString.split(" ")[displayString.split(" ").length - 1];
                     var isAdministrator = false;
                     var isEditor = false;
                     var isCreator = false;
@@ -150,8 +167,37 @@ HubStar.NotificationController = Ember.Controller.extend({
                     {
                         isCreator = true;
                     }
+
+                    var url = profile_pic.split("_");
+                    var length = url.length;
+                    var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
+                    var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
+                    var widthTop = Math.ceil(0);
+                    var heightTop = Math.ceil(0);
+                    if (width > height)
+                    {
+                        height = Math.ceil(135 / width * height);
+                        width = 135;
+                        heightTop = Math.ceil(50 / width * height);
+                        widthTop = 50;
+                    }
+                    else
+                    {
+                        width = Math.ceil(135 / height * width);
+                        height = 135;
+                        widthTop = Math.ceil(50 / height * width);
+                        heightTop = 50;
+                    }
+                    width = width + "px";
+                    height = height + "px";
+                    widthTop = widthTop + "px";
+                    heightTop = heightTop + "px";
+
                     HubStar.get("profiles").pushObject({'profile_id': profile_id, 'profile_name': profile_name, "profile_pic": profile_pic, "type": type,
-                        'isAdministrator': isAdministrator, "isEditor": isEditor, "isCreator": isCreator});
+                        'isAdministrator': isAdministrator, "isEditor": isEditor, "isCreator": isCreator,
+                        "height": height, "width": width,
+                        "heightTop": heightTop, "widthTop": widthTop
+                    });
                 });
             }
             that.get('controllers.applicationFeedback').statusObserver(null, params);

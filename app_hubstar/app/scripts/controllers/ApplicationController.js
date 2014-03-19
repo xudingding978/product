@@ -161,9 +161,34 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     {
                         isCreator = true;
                     }
-
+                    var url = pic.split("_");
+                    var length = url.length;
+                    var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
+                    var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
+                    var widthTop = Math.ceil(0);
+                    var heightTop = Math.ceil(0);
+                    if (width > height)
+                    {
+                        height = Math.ceil(135 / width * height);
+                        width = 135;
+                        heightTop = Math.ceil(50 / width * height);
+                        widthTop = 50;
+                    }
+                    else
+                    {
+                        width = Math.ceil(135 / height * width);
+                        height = 135;
+                        widthTop = Math.ceil(50 / height * width);
+                        heightTop = 50;
+                    }
+                    width = width + "px";
+                    height = height + "px";
+                    widthTop = widthTop + "px";
+                    heightTop = heightTop + "px";
+                    
                     HubStar.get("profiles").pushObject({'profile_id': id, 'profile_name': name, "profile_pic": pic, "type": type,
-                        'isAdministrator': isAdministrator, "isEditor": isEditor, "isCreator": isCreator
+                        'isAdministrator': isAdministrator, "isEditor": isEditor, "isCreator": isCreator, "height": height, "width": width,
+                        "heightTop": heightTop, "widthTop": widthTop
                     });
 
                 }

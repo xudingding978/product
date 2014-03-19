@@ -25,23 +25,23 @@ HubStar.KeywordController.cancel = function(event) {
 HubStar.KeywordController.Droppable = Ember.Mixin.create(HubStar.KeywordController, {
     dragEnter: HubStar.KeywordController.cancel,
     dragOver: HubStar.KeywordController.cancel,
-    drop: function(event) {
-//        var viewId = event.originalEvent.dataTransfer.getData('Text');
-//        Ember.View.views[viewId].destroy();
-        this.get('controller').dragIntoFront();
-        event.preventDefault();
-        return false;
-    }
+//    drop: function(event) {
+////        var viewId = event.originalEvent.dataTransfer.getData('Text');
+////        Ember.View.views[viewId].destroy();
+//        this.get('controller').dragIntoFront();
+//        event.preventDefault();
+//        return false;
+//    }
 });
 
 HubStar.KeywordController.Dragable = Ember.Mixin.create(HubStar.KeywordController,{
     attributeBindings: 'draggable',
     draggable: 'true',
-    dragStart: function(event) {
-//        var dataTransfer = event.originalEvent.dataTransfer;
-        event.originalEvent.dataTransfer.setData('text/plain', 'anything');
-        this.get('controller').set('dragTargetIndex', this.get('_parentView').get('contentIndex'));
-//        this.set('dragTargetId', this.get('elementId'));
-//        dataTransfer.setData('Text', this.get('elementId'));
-    }
+//    dragStart: function(event) {
+////        var dataTransfer = event.originalEvent.dataTransfer;
+//        event.originalEvent.dataTransfer.setData('text/plain', 'anything');
+//        this.get('controller').set('dragTargetIndex', this.get('_parentView').get('contentIndex'));
+////        this.set('dragTargetId', this.get('elementId'));
+////        dataTransfer.setData('Text', this.get('elementId'));
+//    }
 });

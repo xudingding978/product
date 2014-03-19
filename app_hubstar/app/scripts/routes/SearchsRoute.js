@@ -11,7 +11,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('status').set('islogin', true);
         if (localStorage.checkUser === "newUser") {
-            console.log('search');
+            
             setTimeout(function() {
                 window.location.href ='JavaScript:void(0)';
                 $(".brand").addClass("tour-background");
@@ -19,7 +19,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
                 $("#login_detail").addClass("tour-background");
                  var that = this;
                 introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
-                    console.log("hhhsss");
+                    
                     if(localStorage.loginStatus!==""&&localStorage.loginStatus!==null && localStorage.loginStatus!=="undefined"){
                     window.location.href = '/#/users/' + localStorage.loginStatus;
                     }
@@ -48,7 +48,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
             this.controllerFor('article').set("accessFromSearchBoard", true);
             this.transitionTo("searchDefaultArticle", HubStar.Article.find(id)); //it will got to default search without go to the new search
         }
-    },
+    }, 
     redirect: function() {
        
             if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {

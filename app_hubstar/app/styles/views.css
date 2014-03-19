@@ -30,6 +30,7 @@ a:hover , a:focus {color: #aaa;}
     height: 16px;
     width: 16px;
     font-size: 16px;
+    overflow:hidden;
 }
 
 .easing {
@@ -585,15 +586,17 @@ a:hover , a:focus {color: #aaa;}
 
 .albumcover-container{
     display: block;
-    width: 340px;
+    width: 338px;
     height: 345px;
     overflow: hidden;
-    padding: 5px;
+    margin: 5px;
 }
 .albumcover-container > div{
     float:left;
-    width:335px;
+    width:1000px;
+    margin-left:-331px;
     height:335px;
+    text-align:center;
 }
 
 div.album-description{
@@ -676,11 +679,15 @@ div.album-description-bg{
 }
 
 .albumcover{
-    min-width: 335px;
+    /*min-width: 335px;
     max-width:335px;
     min-height: 335px;
-    max-height:335px;
-}
+ */
+     min-height:335px;
+     max-height:345px;
+     min-width:338px;
+     
+    } 
 
 .album-info{
     padding: 15px 10px 5px;

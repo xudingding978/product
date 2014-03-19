@@ -548,7 +548,6 @@ HubStar.ArticleController = Ember.Controller.extend({
         var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
 
         var caption = '';
-
         if (this.get('articleResouce').get("article_body") !== null)
         {
             caption = this.get('articleResouce').get("article_body");
@@ -561,7 +560,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         var obj = {
             method: 'feed',
             link: currntUrl,
-            picture: this.get('selectedPhoto').photo_image_original_url,
+            picture: this.get('selectedPhoto').get('photo_image_original_url'),
             name: this.get('articleResouce').get("article_headline"),
             caption: 'Trends Ideas',
             description: caption
@@ -607,7 +606,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         $("meta[property='og\\:title']").attr("content", this.get('articleResouce').get("article_headline"));
         $("meta[property='og\\:description']").attr("content", caption);
-        $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').photo_image_original_url);
+        $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_original_url'));
 
 
         var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
@@ -664,9 +663,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.dropdownPhotoSetting(param);
 
         var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
-
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
-                '&media=' + encodeURIComponent(this.get('selectedPhoto').photo_image_original_url) +
+                '&media=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_original_url')) +
                 '&description=' + encodeURIComponent(this.get('articleResouce').get("article_headline"));
         var mega = HubStar.Mega.find(this.get('articleID'));
         mega.then(function() {

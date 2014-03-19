@@ -22,10 +22,10 @@ HubStar.CollectionController = Ember.Controller.extend({
                 if (desc !== null && desc !== "") {
                     collection.set('desc', desc);
                 } else {
-                    collection.set('desc', "Add a short description to your Collection");
+                    collection.set('desc', "Write a brief description for this Collection");
                 }
             } else {
-                this.get('controllers.applicationFeedback').statusObserver(null, "Please try to type name with upper case and space.", "warnning");
+                this.get('controllers.applicationFeedback').statusObserver(null, "Please try to type name with uppercase and space.", "warnning");
             }
         }
 

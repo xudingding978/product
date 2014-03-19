@@ -292,17 +292,20 @@ class Controller extends CController {
 
     protected function searchProfileCollectionItem($userid, $collection_id, $returnType) {
         $conditions = array();
+        $userid=urldecode($userid);
         $requestStringOne = 'couchbaseDocument.doc.profile.id=' . $userid;
         array_push($conditions, $requestStringOne);
+  
+        $collection_id=urldecode($collection_id);
         $requestStringTwo = 'couchbaseDocument.doc.profile.collections.id=' . $collection_id;
-        error_log(var_export($userid, true));
-        error_log(var_export($collection_id, true));
+//        error_log(var_export($userid, true));
+//        error_log(var_export($collection_id, true));
         array_push($conditions, $requestStringTwo);
         $tempResult = $this->searchWithCondictions($conditions, 'must');
         $tempResult = $this->getReponseResult($tempResult, $returnType);
         
         $mega = CJSON::decode($tempResult, true);
-        error_log(var_export($mega, true));
+//        error_log(var_export($mega, true));
         if (!isset($mega['megas'][0]['profile'][0]['collections'])) {
             $collections = array();
         } else {
@@ -311,10 +314,10 @@ class Controller extends CController {
         //error_log(var_export($collections, true));
 
         for ($i = 0; $i < sizeof($collections); $i++) {
-            error_log(var_export($collections[$i]['id'], true));
-            error_log(var_export($collection_id, true));
+//            error_log(var_export($collections[$i]['id'], true));
+//            error_log(var_export($collection_id, true));
             if ($collections[$i]['id'] === $collection_id) {
-                error_log("sssssssssssss");
+//                error_log("sssssssssssss");
                 $collection = $collections[$i];
                 break;
             }
@@ -380,7 +383,7 @@ class Controller extends CController {
         $request->from($from)
                 ->size($size);
         $location_filter = null;
-        error_log(var_export($classification, true));
+//        error_log(var_export($classification, true));
         $classification_filter = null;
         if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
             $location_filter=1;
@@ -477,9 +480,20 @@ class Controller extends CController {
                       }
                     }   
                     ],
-                    "must_not": {
-                   
+                      "must_not": [
+                    {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "user"
+                      }
+                  },
+                  {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "conversation"
+                      }
                   }
+                  ]
                 }
                 }
               }');
@@ -506,9 +520,43 @@ class Controller extends CController {
                       }
                     }   
                     ],
-                    "must_not": {
-                   
+                    "must_not": [
+                    {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "user"
+                      }
+                  },
+                  {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "conversation"
+                      }
                   }
+                  ]
+                }
+                }
+              }');
+            }else{
+                     $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+                "query": {
+                  "bool": {
+                    "must": [    
+                    ],
+                    "must_not": [
+                    {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "user"
+                      }
+                  },
+                  {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "conversation"
+                      }
+                  }
+                  ]
                 }
                 }
               }');
@@ -558,7 +606,21 @@ class Controller extends CController {
                                                 "couchbaseDocument.doc.object_description^4"]
                                                     }
                         }
-                    ]
+                    ],
+                           "must_not": [
+                    {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "user"
+                      }
+                  },
+                  {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "conversation"
+                      }
+                  }
+                  ]
                 }
             }');
 
@@ -566,7 +628,7 @@ class Controller extends CController {
 //        $request->sort($sort1, $sort2);
 //        error_log($request->query($termQuery)->toJSON());
         $response = $request->query($termQuery)->execute();
-        error_log("\n" . $request->toJSON() . "\n");
+//        error_log("\n" . $request->toJSON() . "\n");
         return $response;
     }
 
@@ -575,7 +637,7 @@ class Controller extends CController {
         $request = $this->getElasticSearch();
         $request->from($from);
         $request->size($size);
-        error_log(var_export($classification,true));
+//        error_log(var_export($classification,true));
         if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
 //            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{"query": {
 //                "queryString": {
@@ -604,14 +666,25 @@ class Controller extends CController {
                       }
                     }   
                     ],
-                    "must_not": {
-                   
+                    "must_not": [
+                    {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "user"
+                      }
+                  },
+                  {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "conversation"
+                      }
                   }
+                  ]
                 }
                 }
               }');
             if ($location != "Global") {
-               error_log("666666666666666");
+//               error_log("666666666666666");
                 $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
                 "query": {
                   "bool": {
@@ -634,9 +707,20 @@ class Controller extends CController {
                       }
                     }       
                     ],
-                    "must_not": {
-                   
+                     "must_not": [
+                    {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "user"
+                      }
+                  },
+                  {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "conversation"
+                      }
                   }
+                  ]
                 }
                 }
               }');
@@ -663,9 +747,44 @@ class Controller extends CController {
                       }
                     }     
                     ],
-                    "must_not": {
-                   
+                     "must_not": [
+                    {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "user"
+                      }
+                  },
+                  {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "conversation"
+                      }
                   }
+                  ]
+                }
+                }
+              }');
+                  $request->filter($filter);
+            }else{
+                  $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+                "query": {
+                  "bool": {
+                    "must": [   
+                    ],
+                     "must_not": [
+                    {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "user"
+                      }
+                  },
+                  {
+                    "queryString": {
+                        "default_field": "couchbaseDocument.doc.type",
+                        "query": "conversation"
+                      }
+                  }
+                  ]
                 }
                 }
               }');
@@ -686,7 +805,7 @@ class Controller extends CController {
         }
        
         $request->query($bool);
-         error_log($request->toJSON());
+//         error_log($request->toJSON());
         $response = $request->execute();
 
         return $response;
@@ -830,7 +949,7 @@ class Controller extends CController {
 
         $request->query($bool);
         $request->sort($sort1, $sort2);
-        error_log($request->toJSON());
+//        error_log($request->toJSON());
         $response = $request->execute();
 
         return $response;
@@ -918,11 +1037,11 @@ class Controller extends CController {
                 }
               }}');
             $request->filter($filter);
-            error_log($request->toJSON());
+//            error_log($request->toJSON());
         }
         $request->query($termQuery);
         $response = $request->execute();
-        error_log(var_export($response, true));
+//        error_log(var_export($response, true));
         return $response;
     }
 
@@ -954,7 +1073,7 @@ class Controller extends CController {
                 ->QueryString()->query('"' . $owner_profile_id . '"')
                 ->default_field('couchbaseDocument.doc.owner_id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
-        error_log($request->query($bool)->toJSON());
+//        error_log($request->query($bool)->toJSON());
         $response = $request->query($bool)->execute();
         return $response;
     }
@@ -1018,7 +1137,7 @@ class Controller extends CController {
     }
 
     protected function getSearchResultsWithAnalysis($region, $requestString, $from = 0, $size = 50, $location, $classification = "All") {
-        error_log(var_export($classification, true));
+//        error_log(var_export($classification, true));
 
 
         $tempResponse = $this->searchWithMultiMatch($requestString, $from, $size, $location, $classification);
@@ -1060,10 +1179,16 @@ class Controller extends CController {
         if ($request_string != null || $request_string != "") {
             $temp = explode('=', $request_string);
             $returnString = $temp[1];
+//            error_log('shuai1');
+//            error_log(var_export($request_string,true));
+//            error_log('shuai2');
+//              error_log(var_export($returnString,true));
         }
 
         if ($isRelaceDash) {
             $returnString = str_replace('-', '\-', $returnString);
+//            error_log('shuai3');
+//              error_log(var_export($returnString,true));
         }
         return $returnString;
     }

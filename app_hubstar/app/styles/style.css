@@ -958,19 +958,15 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 /*/End WindowContainer---------------/*/
 
 
-
-
-
 /*CONTACT ME  BUTTON*/
 .contactmebtn {
     position: relative;
     z-index: 1;
     text-align: center;
     float: right;
-    bottom: 30px;
-    right: 30px;
+    bottom: auto;
+    right: 2px;
     cursor: pointer;
-
     margin: 0 10px;
 }
 
@@ -1058,7 +1054,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 
 
-
+/*Contact Detail Table*/
 #aside_contact  th:first-child{
     color: #aaa;
     text-align: right;
@@ -1067,6 +1063,15 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     font-weight: normal;
     width: 90px;
 }
+#aside_contact > tbody > tr:nth-child(n) > th {
+    position: relative;
+    top: 4px;
+}
+#aside_contact > tbody > tr:nth-child(4) > th {
+    position: relative;
+    top: -4px;  
+}
+
 
 .Contact_1child{
     color: #aaa;

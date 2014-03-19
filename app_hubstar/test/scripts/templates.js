@@ -1145,7 +1145,7 @@ function program22(depth0,data) {
   data.buffer.push(">");
   stack1 = helpers._triageMustache.call(depth0, "controller.megaResouce.owner_title", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</a>\n                </div>\n\n                <div class=\"contactmebtn hint--left hint--rounded easing\" data-hint=\"Contact us!\" style=\"position: absolute; right: 15px; top: 23px; bottom: auto;\">\n                    <a class=\"contactmeicon easing\" ");
+  data.buffer.push("</a>\n                </div>\n\n                <div class=\"contactmebtn hint--left hint--rounded easing\" data-hint=\"Contact us!\" style=\"position: absolute;\">\n                    <a class=\"contactmeicon easing\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "editingContactForm", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("><i class=\"fa fa-envelope easing\" style=\"font-size: 18px;\"></i></a>\n                </div>\n            </div>\n            ");
   stack1 = helpers['if'].call(depth0, "controller.contact", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
@@ -1702,8 +1702,8 @@ function program16(depth0,data) {
 
 function program18(depth0,data) {
   
-  var buffer = '';
-  data.buffer.push("\n\n\n\n        <div style=\"display: block;padding: 5px 0px;\">\n            <div>\n                <span style=\"display: inline-block; margin-bottom: 5px;\">Message:</span>\n                <div style=\"margin-bottom: 10px; width: 100%; height: 200px;resize: none;\">\n                    ");
+  var buffer = '', stack1;
+  data.buffer.push("\n\n\n\n        <div style=\"display: block;padding: 5px 0px;\">\n            <div>\n                <span style=\"display: inline-block; margin-bottom: 5px;\">Message:</span>\n                <div style=\" width: 100%; height: 200px;resize: none;\">\n                    \n                    ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextArea", {hash:{
     'valueBinding': ("controller.emailBody"),
     'rows': ("12"),
@@ -1711,11 +1711,27 @@ function program18(depth0,data) {
     'class': ("no-resize"),
     'placeholder': ("I saw your profile, I'd love to talk to you about my project, Please reply if you are interested..........")
   },hashTypes:{'valueBinding': "STRING",'rows': "STRING",'cols': "STRING",'class': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'rows': depth0,'cols': depth0,'class': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n\n                </div>\n            </div>\n        </div>\n\n\n        ");
+  data.buffer.push("\n                    ");
+  stack1 = helpers.unless.call(depth0, "controller.firstStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(19, program19, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n\n\n                </div>\n                <div style='position: relative; left: 10px;bottom: 1px;'>\n                    ");
+  stack1 = helpers._triageMustache.call(depth0, "controller.userEnvironment", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n                </div>\n            </div>\n\n        </div>\n\n\n        ");
+  return buffer;
+  }
+function program19(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n                    <div style=\"position: relative;float: left;width: 200px;\">\n                        <div>");
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.Checkbox", {hash:{
+    'checkedBinding': ("osAndBrowser")
+  },hashTypes:{'checkedBinding': "STRING"},hashContexts:{'checkedBinding': depth0},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\n                            <span style='position: relative;top:3px;'>\n                                User's Environment\n                            </span>\n                        </div>\n                    </div>\n                    ");
   return buffer;
   }
 
-function program20(depth0,data) {
+function program21(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\n        <span style=\"float: left;margin: 15px;position: relative;left: 15px;\">\n            <div type=\"button\" ");
@@ -1724,18 +1740,18 @@ function program20(depth0,data) {
   return buffer;
   }
 
-function program22(depth0,data) {
+function program23(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\n\n\n        <span style=\"float: left;margin: 10px;position: relative;left: 15px;\">\n            <div>");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.Checkbox", {hash:{
     'checkedBinding': ("rememberMessage")
   },hashTypes:{'checkedBinding': "STRING"},hashContexts:{'checkedBinding': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("Remember My Message</div>\n        </span>\n\n        ");
+  data.buffer.push("<span style='position: relative;top:3px;'>Remember My Message</span></div>\n        </span>\n\n        ");
   return buffer;
   }
 
-function program24(depth0,data) {
+function program25(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\n            <div type=\"button\" ");
@@ -1744,7 +1760,7 @@ function program24(depth0,data) {
   return buffer;
   }
 
-function program26(depth0,data) {
+function program27(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\n\n            <div type=\"button\" ");
@@ -1770,18 +1786,18 @@ function program26(depth0,data) {
   stack1 = helpers.unless.call(depth0, "controller.firstStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(18, program18, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n    </div>\n\n\n    <div class=\"controlbtn-field\">\n\n\n        ");
-  stack1 = helpers['if'].call(depth0, "controller.secondStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(20, program20, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "controller.secondStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(21, program21, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n        ");
-  stack1 = helpers.unless.call(depth0, "controller.firstStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(22, program22, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers.unless.call(depth0, "controller.firstStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(23, program23, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n\n        <span class=\"controlbtn\">\n\n            <div type=\"button\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "closeContact", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push(" class=\"new-btn\">Cancel</div>\n            ");
-  stack1 = helpers['if'].call(depth0, "controller.secondStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(24, program24, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "controller.secondStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(25, program25, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n            ");
-  stack1 = helpers.unless.call(depth0, "controller.firstStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(26, program26, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers.unless.call(depth0, "controller.firstStepOfContactEmail", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(27, program27, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n        </span>\n    </div>\n</div>\n");
   return buffer;
@@ -2477,7 +2493,7 @@ function program9(depth0,data) {
     'id': (""),
     'class': (""),
     'style': ("height:30px;"),
-    'placeholder': ("e.g. Bedroom Design")
+    'placeholder': ("Name this Collection")
   },hashTypes:{'valueBinding': "STRING",'id': "STRING",'class': "STRING",'style': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'id': depth0,'class': depth0,'style': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push(" \n\n        ");
   return buffer;
@@ -2511,7 +2527,7 @@ function program13(depth0,data) {
     'rows': ("12"),
     'cols': ("70"),
     'class': ("no-resize"),
-    'placeholder': ("Add a short description to your Collection")
+    'placeholder': ("Write a brief description for this Collection")
   },hashTypes:{'valueBinding': "STRING",'rows': "STRING",'cols': "STRING",'class': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'rows': depth0,'cols': depth0,'class': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("\n        </div>\n\n\n        ");
   return buffer;
@@ -3054,10 +3070,10 @@ function program10(depth0,data) {
 >>>>>>> b0d8e5dd65176e3d315d77f3e67c600d8f7a2587
   stack1 = helpers['if'].call(depth0, "HubStar.isLogin", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(6, program6, data),fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n\n\n        <!-- user is logged in -->\n\n \n\n        ");
+  data.buffer.push("\n\n\n        <!-- user is logged in -->\n\n \n\n        ");
   stack1 = helpers['if'].call(depth0, "isNotification", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n\n        <div class=\"switch-container\">\n            <div id=\"Residential\" style=\"display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;\">Residential</div>\n            <div  id=\"switchbar\" class=\"insetbox-shadow switch-groove\" style=\"display: inline-block\">\n                <div style=\"height: 10px;width: 50%;border-right: 1px solid rgba(0,0,0,.3);float: left;margin: 6px 0;\"></div>\n                <div style=\"height: 10px;width: 50%;border-left: 1px solid rgba(255,255,255,.5); float: right;margin: 6px 0;\"></div>\n\n                <div id=\"switchbarBtn\" class=\"radius-circle gradient1 switch-btn\" style=\"margin-left: 13px\"></div>\n\n            </div>\n            <div id=\"Commercial\" style=\"display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;\">Commercial</div>\n        </div>\n\n\n\n        <div id=\"geo-filter\" class=\"Geo-Filter easing \" style=\"\" ");
+  data.buffer.push("\n\n\n\n\n\n       \n\n\n\n\n\n\n\n\n\n\n        <div id=\"geo-filter\" class=\"Geo-Filter easing \" style=\"\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "dropdown", "geoLocation", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["ID","STRING"],data:data})));
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -4180,12 +4196,15 @@ function program1(depth0,data) {
 Ember.TEMPLATES["masonry"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
+  var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
 
 function program1(depth0,data) {
   
-  
-  data.buffer.push("\n<div class=\"spinner-box\"style=\"width:100%;float:left;clear:both;display: block;\">\n    <div class=\"loader2\"></div>\n</div>\n");
+  var buffer = '';
+  data.buffer.push("\n<div id =\"show_more_button\"style=\"width:100%;float:left;clear:both;display: block;\">\n    <div id=\"more-result-button\" class=\"new-btn\" style=' width: 300px;margin: 60px auto;display: block; height: 35px; box-shadow: 0 0 10px #fff;'>\n        <div class=\"loader2\" style='left:10px'></div>\n        <div style='position: relative;line-height: 21px;padding-left: 35px;font-size:20px'");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "scrollDownAction", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push(">Loading more results...</div>\n     </div>\n</div>\n");
+  return buffer;
   }
 
   data.buffer.push("<div id=\"masonry_wrapper\" style=\"min-height:300px;\">\n    <div id=\"masonry_container\" class=\" centered clearfix noStyle1\" style=\"top: 100px;\">\n        <div class=\"box col2 noStyle1\">\n            ");
@@ -4195,7 +4214,7 @@ function program1(depth0,data) {
   data.buffer.push("\n    </div> <!-- #container -->\n</div><!-- #wrapper -->\n\n<div id =\"show_more\" style=\"width:100%;clear:both;display: block;background-color: white; opacity: 0; height: 10px;position: absolute;bottom: 800px;\">\n\n</div>\n");
   stack1 = helpers['if'].call(depth0, "controller.nextPageSpinner", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n<div id =\"show_more_button\"style=\"width:100%;float:left;clear:both;display: block;\">\n    <div id=\"more-result-button\" class=\"new-btn\" style=' width: 200px;margin: 60px auto;display: block; box-shadow: 0 0 10px #fff;'");
+  data.buffer.push("\n<div id =\"show_more_button\"style=\"width:10%;float:left;clear:both;display: block;\">\n    <div id=\"more-result-button\" class=\"new-btn\" style=' width: 200px;margin: 60px auto;display: block; box-shadow: 0 0 10px #fff;'");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "scrollDownAction", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("><i class=\"fa fa-long-arrow-down\" style=\"margin-right: 8px\"></i>Show more results!\n    </div>\n</div>\n\n\n\n\n\n");
   return buffer;
@@ -4647,10 +4666,14 @@ function program7(depth0,data) {
   
   var buffer = '', stack1;
 <<<<<<< HEAD
+<<<<<<< HEAD
   data.buffer.push("\n\n\n                <div style=\"position: relative; margin: 15px auto;height: 520px; width: 690px; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;\"> \n                    <div style=\"top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;\">\n                        <i class=\"fa fa-arrow-circle-o-up\" style=\"font-size: 45px;\"></i>\n                        <span style=\"font-weight: bold;display: block;font-size: 25px;\">\n                            Drag & Drop Your Photos Here\n                        </span>\n                        <span style=\"font-size: 17px;display: block;line-height: 25px;width: 380px;margin: auto;\">Please upload no more than 20 photos at a time, and maximum size of 20MB per photo.</span> \n                    </div>\n\n                    <div class=\"new-btn blue-btn\" style=\"margin: auto; width: 200px; top: 557px; position: absolute;left: 0;right: 67%;\">\n                        Choose \n                        <div style=\"opacity:0;position: absolute;top: 0px;left: 0;\"> ");
 =======
   data.buffer.push("\n\n\n                <div style=\"position: relative; margin: 15px auto;height: 520px; width: 690px; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;\"> \n                    <div style=\"top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;\">\n                        <i class=\"fa fa-arrow-circle-o-up\" style=\"font-size: 45px;\"></i>\n                        <span style=\"font-weight: bold;display: block;font-size: 25px;\">\n                            Drag & Drop Your Photos Here\n                        </span>\n                        <span style=\"font-size: 17px;display: block;line-height: 25px;width: 380px;margin: auto;\">Please upload no more than 20 photos at a time, and maximum size of 10MB per photo.</span> \n                    </div>\n\n                    <div class=\"new-btn blue-btn\" style=\"margin: auto; width: 200px; top: 557px; position: absolute;left: 0;right: 67%;\">\n                        Choose \n                        <div style=\"opacity:0;position: absolute;top: 0px;left: 0;\"> ");
 >>>>>>> ff2da6e43adc98815b5c2f32b473108630ca2164
+=======
+  data.buffer.push("\n\n\n                <div style=\"position: relative; margin: 15px auto;height: 520px; width: 690px; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;\"> \n                    <div style=\"top: 200px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;\">\n                        <i class=\"fa fa-arrow-circle-o-up\" style=\"font-size: 45px;\"></i>\n                        <span style=\"font-weight: bold;display: block;font-size: 25px;\">\n                            Drag & Drop Your Photos Here\n                        </span>\n                        <span style=\"font-size: 17px;display: block;line-height: 25px;width: 480px;margin: auto;\">Individual images must not exceed 10MB in size.<br> Upload a maximum of 20 images and a total of 20MB at a time.<br>(Supported file formats: .bmp, .gif, .jpg/.jpeg, .png)</span> \n                    </div>\n\n                    <div class=\"new-btn blue-btn\" style=\"margin: auto; width: 200px; top: 557px; position: absolute;left: 0;right: 67%;\">\n                        Choose \n                        <div style=\"opacity:0;position: absolute;top: 0px;left: 0;\"> ");
+>>>>>>> 58fa26ca03ccc5fa808e59a7b7b28c5b1887714a
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "HubStar.ImageInputButtonView", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("</div> \n                    </div> \n\n                    <div id=\"dragAndDroppArea\" class=\"dragndropbox\" style=\"display:none\">\n\n                        ");
   stack1 = helpers.each.call(depth0, "uploadImageContent", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
@@ -5154,6 +5177,7 @@ function program5(depth0,data) {
   },hashTypes:{'on': "STRING",'target': "STRING"},hashContexts:{'on': depth0,'target': depth0},contexts:[depth0],types:["ID"],data:data})));
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   data.buffer.push(">&nbsp;</div>\n<div class=\"Navigator-box\" style=\"\">\n    <div style=\"background-color: #f3f3f3; height: 35px; line-height: 35px;width: 100%; border-bottom: 1px solid #ddd;padding: 0 15px;border-radius: 3px 3px 0 0;\"><span style=\"font-size: 18px;font-weight: bold;color: #555;\">Navigator</span></div>\n\n    <div class=\"Navigator-content\" style=\"\">\n        <div class=\"\" style=\"width: 33%;height: 100%;float: left;padding: 8px 0;overflow: auto\">\n            <ul style=\"margin:0\">\n                ");
 =======
   data.buffer.push(">&nbsp;</div>\n<div class=\"Navigator-box\" style=\"\">\n    <div style=\"background-color: #f3f3f3; height: 45px; line-height: 45px;width: 100%; border-bottom: 1px solid #ddd;padding: 0 15px;border-radius: 3px 3px 0 0;\">\n        <span style=\"font-size: 18px;font-weight: bold;color: #555;\">Navigator</span>\n\n        <div class=\"switch-container\" style=\"right: 0; margin: -44px 20px; position: absolute; width: auto;\">\n            <div id=\"Residential1\" style=\"display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline; color: #555\">Residential</div>\n            <div id=\"switchbar\" class=\"insetbox-shadow switch-groove\" style=\"display: inline-block\">\n                <div style=\"height: 10px;width: 50%;border-right: 1px solid rgba(0,0,0,.3);float: left;margin: 6px 0;\"></div>\n                <div style=\"height: 10px;width: 50%;border-left: 1px solid rgba(255,255,255,.5); float: right;margin: 6px 0;\"></div>\n                <div id=\"switchbarBtn1\" class=\"radius-circle gradient1 switch-btn\" style=\"margin-left: 13px;\"></div>\n            </div>\n            <div id=\"Commercial1\" style=\"display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline; color: #555\">Commercial</div>\n        </div>\n\n    </div>\n\n    <div class=\"Navigator-content\" style=\"\">\n        <div class=\"\" style=\"width: 33%;height: 100%;float: left;padding: 8px 0;overflow: auto\">\n            <ul style=\"margin:0\">\n                ");
@@ -5161,6 +5185,9 @@ function program5(depth0,data) {
 =======
   data.buffer.push(">&nbsp;</div>\n<div class=\"Navigator-box\" style=\"\">\n    <div style=\"background-color: #f3f3f3; height: 45px; line-height: 45px;width: 100%; border-bottom: 1px solid #ddd;padding: 0 15px;border-radius: 3px 3px 0 0;\">\n        <span style=\"font-size: 18px;font-weight: bold;color: #555;\">Navigator</span>\n\n    </div>\n\n    <div class=\"Navigator-content\" style=\"\">\n        <div class=\"\" style=\"width: 33%;height: 100%;float: left;padding: 8px 0;overflow: auto\">\n            <ul style=\"margin:0\">\n                ");
 >>>>>>> b0d8e5dd65176e3d315d77f3e67c600d8f7a2587
+=======
+  data.buffer.push(">&nbsp;</div>\n<div class=\"Navigator-box\" style=\"\">\n    <div style=\"background-color: #f3f3f3; height: 45px; line-height: 45px;width: 100%; border-bottom: 1px solid #ddd;padding: 0 15px;border-radius: 3px 3px 0 0;\">\n        <span style=\"font-size: 18px;font-weight: bold;color: #555;\">Navigator</span>\n\n    </div>\n\n     <div class=\"switch-container\">\n            <div id=\"Residential1\" style=\"display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;\">Residential</div>\n            <div  id=\"switchbar\" class=\"insetbox-shadow switch-groove\" style=\"display: inline-block\">\n                <div style=\"height: 10px;width: 50%;border-right: 1px solid rgba(0,0,0,.3);float: left;margin: 6px 0;\"></div>\n                <div style=\"height: 10px;width: 50%;border-left: 1px solid rgba(255,255,255,.5); float: right;margin: 6px 0;\"></div>\n\n                <div id=\"switchbarBtn1\" class=\"radius-circle gradient1 switch-btn\" style=\"margin-left: 13px\"></div>\n\n            </div>\n            <div id=\"Commercial1\" style=\"display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;\">Commercial</div>\n        </div>\n    \n    <div class=\"Navigator-content\" style=\"\">\n        <div class=\"\" style=\"width: 33%;height: 100%;float: left;padding: 8px 0;overflow: auto\">\n            <ul style=\"margin:0\">\n                ");
+>>>>>>> 58fa26ca03ccc5fa808e59a7b7b28c5b1887714a
   stack1 = helpers.each.call(depth0, "controller.categorys", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n            </ul>\n        </div>\n\n\n\n        <div id =\"category_topic\" style=\"width: 33.5%;height: 100%;border-left: 1px solid #ddd; border-right: 1px solid #ddd;float: left;padding: 8px 0;overflow: auto\">\n\n\n            ");
@@ -5169,7 +5196,7 @@ function program5(depth0,data) {
   data.buffer.push("\n        </div>\n\n        <div id=\"search_topic\" style=\"width: 33.5%;height: 100%;float: left;padding: 8px 0;overflow: auto\">\n            ");
   stack1 = helpers.each.call(depth0, "controller.subcategories", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n        </div>\n\n\n    </div>\n\n    <div class=\"Navigator_links\" style=\"\">\n        <div style=\"float: left\">\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/\">About</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/business/\">Business</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/learning-centre/\">Learning Centre</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/contact-us/\">Contact us</a></span>\n        </div>\n        <div style=\"float: right\">\n             ver.\n            <span id=\"lastidentifie\">0.4-105</span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/terms-of-use-agreement/\">Terms of Use</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/privacy-policy/\">Privacy Policy</a></span>\n        </div>\n    </div>\n</div>\n\n\n\n\n<script>\n    $(function() {\n        $(\"#category_topic\").mCustomScrollbar({\n            scrollButtons: {\n                enable: false,\n                scrollSpeed: \"auto\"\n            },\n            advanced: {\n                updateOnBrowserResize: true,\n                updateOnContentResize: true,\n                autoScrollOnFocus: false,\n                normalizeMouseWheelDelta: false\n            },\n            autoHideScrollbar: true,\n            mouseWheel: true,\n            theme: \"dark-2\",\n            set_height: 388\n        });\n    });\n\n\n</script>");
+  data.buffer.push("\n        </div>\n\n\n    </div>\n\n    <div class=\"Navigator_links\" style=\"\">\n        <div style=\"float: left\">\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/\">About</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/business/\">Business</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/learning-centre/\">Learning Centre</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/contact-us/\">Contact us</a></span>\n        </div>\n        <div style=\"float: right\">\n\n             ver. \n            <span id=\"lastidentifie\">0.4-140</span>\n\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/terms-of-use-agreement/\">Terms of Use</a></span>\n            <span><a target=\"blank\" href=\"http://about.trendsideas.com/privacy-policy/\">Privacy Policy</a></span>\n        </div>\n    </div>\n</div>\n\n\n\n\n<script>\n    $(function() {\n        $(\"#category_topic\").mCustomScrollbar({\n            scrollButtons: {\n                enable: false,\n                scrollSpeed: \"auto\"\n            },\n            advanced: {\n                updateOnBrowserResize: true,\n                updateOnContentResize: true,\n                autoScrollOnFocus: false,\n                normalizeMouseWheelDelta: false\n            },\n            autoHideScrollbar: true,\n            mouseWheel: true,\n            theme: \"dark-2\",\n            set_height: 388\n        });\n    });\n\n\n</script>");
   return buffer;
   
 });
@@ -5754,7 +5781,7 @@ function program26(depth0,data) {
   data.buffer.push(">");
   stack1 = helpers._triageMustache.call(depth0, "controller.megaResouce.owner_title", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</a>\n                </div>        \n                <div class=\"contactmebtn hint--left hint--rounded easing\" data-hint=\"Contact us!\" style=\"position: absolute; right: 15px; top: 23px; bottom: auto;\">\n                    <a class=\"contactmeicon easing\" ");
+  data.buffer.push("</a>\n                </div>        \n                <div class=\"contactmebtn hint--left hint--rounded easing\" data-hint=\"Contact us!\" style=\"position: absolute;\">\n                    <a class=\"contactmeicon easing\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "editingContactForm", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("><i class=\"fa fa-envelope easing\" style=\"font-size: 18px;\"></i></a>\n                </div>\n            </div>\n            ");
   stack1 = helpers['if'].call(depth0, "controller.contact", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
@@ -8416,7 +8443,7 @@ function program73(depth0,data) {
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("profile_name"),
     'class': ("mustFill1"),
-    'placeholder': ("Heritage Tiles NZ")
+    'placeholder': ("")
   },hashTypes:{'valueBinding': "STRING",'class': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'class': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("\n                            </div>\n                            <div class=\"mustfull\" id=\"mustFill1\" style=\"display: none\">please fill in info... </div>\n                        </td>\n                    </tr>\n\n\n                    <tr>\n                        <td>Profile Contact:</td>\n                        <td>\n                            <div  style=\"display: block; margin-bottom: 5px;\" >\n\n                                <div  style=\"margin: 0;width: 50%;display: inline-block;\">\n                                    ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
@@ -8477,9 +8504,9 @@ function program73(depth0,data) {
   data.buffer.push("\n                                </div>\n\n                            </div>\n                        </td>\n                    </tr>\n\n\n                    <tr>\n                        <td>Contact Number:</td>\n                        <td>\n                            <div style=\"display: block;\">\n                                <div   style=\"margin: 0;width: 100%;\">\n                                    ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("profile_contact_number"),
-    'placeholder': ("0987364531")
+    'placeholder': ("")
   },hashTypes:{'valueBinding': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n                                </div>\n                            </div>\n                        </td>\n                    </tr>\n\n                    <tr>\n                        <td>Website:</td>\n                        <td>\n                            <div style=\"display: block;\">\n                                <div   style=\"margin: 0;width: 100%;\">\n                                    ");
+  data.buffer.push("\n                                </div>\n                            </div>\n                        </td>\n                    </tr>\n\n                    <tr>\n                        <td>Website Domain:</td>\n                        <td>\n                            <div style=\"display: block;\">\n                                <div   style=\"margin: 0;width: 100%;\">\n                                    ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("website"),
     'placeholder': ("yourdomain.com")
@@ -8492,12 +8519,12 @@ function program73(depth0,data) {
   data.buffer.push("\n                                </div>\n                            </div>\n                        </td>\n                    </tr>\n                    <tr>\n                        <td>Profile Cover Text:</td>\n                        <td>\n                            <div style=\"display: block;\">\n                                <div   style=\"margin: 0;width: 100%;\">\n                                    ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("profile_cover_text"),
-    'placeholder': ("Small profile description")
+    'placeholder': ("Brief description (displayed when your profile appears in search results)")
   },hashTypes:{'valueBinding': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n                                </div>\n                            </div>\n                        </td>\n                    </tr>\n                    <tr>\n                        <td>Gooogle Analytics Tracking ID:</td>\n                        <td>\n                            <div style=\"display: block;\">\n                                <div   style=\"margin: 0;width: 100%;\">\n                                    ");
+  data.buffer.push("\n                                </div>\n                            </div>\n                        </td>\n                    </tr>\n                    <tr>\n                        <td>Google Analytics Tracking ID:</td>\n                        <td>\n                            <div style=\"display: block;\">\n                                <div   style=\"margin: 0;width: 100%;\">\n                                    ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("profile_analytics_code"),
-    'placeholder': ("UA-44575103-1")
+    'placeholder': ("")
   },hashTypes:{'valueBinding': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("\n                                </div>\n                            </div>\n                        </td>\n                    </tr>\n\n\n                </table>\n                <div style=\"right: 0;margin: 30px auto 0;width: 150px;\">\n                    <span class=\"new-btn green-btn\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveUpdateGeneral", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
@@ -8516,29 +8543,29 @@ function program73(depth0,data) {
     'class': ("region"),
     'placeholder': ("Auckland")
   },hashTypes:{'valueBinding': "STRING",'class': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'class': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n                        <tr>\n                            <td>Direct Enquiry Email*:</td>\n\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div   style=\"margin: 0;width: 100%;\">\n                                        ");
+  data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n                        <tr>\n                            <td>Direct Enquiry Primary Email (To:)*:</td>\n\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div   style=\"margin: 0;width: 100%;\">\n                                        ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("contact_email"),
     'class': ("mustFill4"),
-    'placeholder': ("superman@hubstar.com")
+    'placeholder': ("")
   },hashTypes:{'valueBinding': "STRING",'class': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'class': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n                        <tr>\n                            <td>Secondary  Email (cc):</td>\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div   style=\"margin: 0;width: 100%;\">\n                                        ");
+  data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n                        <tr>\n                            <td>Direct Enquiry Secondary Email (Cc:):</td>\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div   style=\"margin: 0;width: 100%;\">\n                                        ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("secondary_email"),
     'class': (""),
-    'placeholder': ("superman@hubstar.com")
+    'placeholder': ("")
   },hashTypes:{'valueBinding': "STRING",'class': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'class': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>DirectEnquiry Provide Email (bcc):</td>\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div   style=\"margin: 0;width: 100%;\">\n                                        ");
+  data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>Direct Enquiry Tertiary Email (Bcc:):</td>\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div   style=\"margin: 0;width: 100%;\">\n                                        ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("direct_enquiry_provide_email"),
     'class': (""),
-    'placeholder': ("superman@hubstar.com")
+    'placeholder': ("")
   },hashTypes:{'valueBinding': "STRING",'class': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'class': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n                        <tr>\n                            <td>Editor*:</td>\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div   style=\"margin: 0;width: 100%; height: 100px;\">\n                                        ");
+  data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n                        <tr>\n                            <td>Editors*:</td>\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div   style=\"margin: 0;width: 100%; height: 100px;\">\n                                        ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextArea", {hash:{
     'valueBinding': ("editors"),
     'class': ("mustFill6 no-resize"),
-    'placeholder': ("Ironman@hubstar.com, CaptainAmerica@hubstar.com, hulk@hubstar.com")
+    'placeholder': ("")
   },hashTypes:{'valueBinding': "STRING",'class': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'class': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n\n                    </tbody>\n                </table>\n                <div style=\"right: 0;margin: 30px auto 0;width: 150px;\">\n                    <span class=\"new-btn green-btn\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveUpdate", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
@@ -8548,37 +8575,37 @@ function program73(depth0,data) {
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'type': ("text"),
     'value': ("facebook"),
-    'placeholder': ("eg:www.facebook.com")
+    'placeholder': ("www.facebook.com/username")
   },hashTypes:{'type': "STRING",'value': "ID",'placeholder': "STRING"},hashContexts:{'type': depth0,'value': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
   data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n                        <tr>\n                            <td>Twitter:</td>\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div  id=\"twitter\" style=\"margin: 0;width: 100%;\">\n                                        ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'type': ("text"),
     'value': ("twitter"),
-    'placeholder': ("eg:www.twitter.com")
+    'placeholder': ("www.twitter.co/username")
   },hashTypes:{'type': "STRING",'value': "ID",'placeholder': "STRING"},hashContexts:{'type': depth0,'value': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
   data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n                        <tr>\n                            <td>Google+:</td>\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div id=\"googleplus\"  style=\"margin: 0;width: 100%;\">\n                                        ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'type': ("text"),
     'value': ("googleplus"),
-    'placeholder': ("eg:plus.google.com")
+    'placeholder': ("plus.google.com/username")
   },hashTypes:{'type': "STRING",'value': "ID",'placeholder': "STRING"},hashContexts:{'type': depth0,'value': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
   data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n                        <tr>\n                            <td>Pinterest:</td>\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div  id=\"pinterest\"  style=\"margin: 0;width: 100%;\">\n                                        ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'type': ("text"),
     'value': ("pinterest"),
-    'placeholder': ("eg:www.pinterest.com")
+    'placeholder': ("www.pinterest.com/username")
   },hashTypes:{'type': "STRING",'value': "ID",'placeholder': "STRING"},hashContexts:{'type': depth0,'value': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
   data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n                        <tr>\n                            <td>Linkedin:</td>\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div id=\"linkedin\"  style=\"margin: 0;width: 100%;\">\n                                        ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'type': ("text"),
     'value': ("linkedin"),
-    'placeholder': ("eg:www.linkedin.com")
+    'placeholder': ("www.linkedin.com/in/username")
   },hashTypes:{'type': "STRING",'value': "ID",'placeholder': "STRING"},hashContexts:{'type': depth0,'value': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
   data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n\n                        <tr>\n                            <td>Youtube:</td>\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div  id=\"youtube\" style=\"margin: 0;width: 100%;\">\n                                        ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'type': ("text"),
     'value': ("youtube"),
-    'placeholder': ("eg:www.youtube.com")
+    'placeholder': ("www.youtube.com/user/username")
   },hashTypes:{'type': "STRING",'value': "ID",'placeholder': "STRING"},hashContexts:{'type': depth0,'value': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
   data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n\n                    </tbody>\n                </table>\n                <div style=\"right: 0;margin: 30px auto 0;width: 150px;\">\n                    <span class=\"new-btn green-btn\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "saveUpdate", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
@@ -9450,7 +9477,7 @@ function program1(depth0,data) {
 Ember.TEMPLATES["profileNew"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
+  var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
 
 function program1(depth0,data) {
   
@@ -9522,10 +9549,20 @@ function program7(depth0,data) {
     'placeholder': ("emailaddress@yourdomain.com")
   },hashTypes:{'valueBinding': "STRING",'class': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'class': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
 <<<<<<< HEAD
+<<<<<<< HEAD
   data.buffer.push("\n                                </div>\n                            </div>   \n                            <div class=\"mustfull\" id=\"clientEmailFormat\" style=\"display: none\">not correct email format.....</div>\n                          \n                        </div>\n                    </div>\n\n                </div>\n            </div>\n        </div>\n        <div style=\"padding: 10px; font-weight: bold; background-color: rgb(241, 238, 238);\">Step 3. Business Profile</div>\n\n        <div class=\"mustfull\" id=\"errorMessage3\" style=\"display: none\">please fill in Profile Name. </div>\n        <div class=\"mustfull\" id=\"errorMessage5\" style=\"display: none\">please fill in Contact Email. </div>\n        <div class=\"mustfull\" id=\"errorMessage6\" style=\"display: none\">please fill in Admins Emails. </div>\n         <div class=\"mustfull\" id=\"numberFormat\" style=\"display: none\">please fill in info as number </div>\n        <div class=\"mustfull\" id=\"errorMessage4\" style=\"display: none\">please select one from the dropdown list </div>\n        <div class=\"contactme-table easing\" style=\"width: 87%;margin: auto;padding-bottom: 0px;\">\n\n            <div id=\"step3\" style=\"padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 40px 0 30px 20px;\">\n           \n\n                    <div style=\"display:table-row\">  \n                    </div>\n\n                    <div style=\"display:table-row\">\n                        <div style=\"display:table-cell;text-align: right;\" >Profile Name*: </div>                     \n                        <div style=\"display:table-cell\"> \n                            <div  id=\"profileNameField\" style=\"margin: 10px 30px 5px 10px;;width: 70%;\">\n                                ");
 =======
   data.buffer.push("\n                                </div>\n                            </div>   \n                            <div class=\"mustfull\" id=\"clientEmailFormat\" style=\"display: none\">not correct email format.....</div>\n                          \n                        </div>\n                    </div>\n\n                </div>\n            </div>\n        </div>\n        <div style=\"padding: 10px; font-weight: bold; background-color: rgb(241, 238, 238);\">Step 3. Business Profile</div>\n\n        <div class=\"mustfull\" id=\"errorMessage3\" style=\"display: none\">please fill in Profile Name. </div>\n        <div class=\"mustfull\" id=\"errorMessage5\" style=\"display: none\">please fill in Contact Email. </div>\n        <div class=\"mustfull\" id=\"errorMessage6\" style=\"display: none\">please fill in Admins Emails. </div>\n         <div class=\"mustfull\" id=\"numberFormat\" style=\"display: none\">please fill in info as number </div>\n        <div class=\"mustfull\" id=\"errorMessage4\" style=\"display: none\">please select one from the dropdown list </div>\n        <div class=\"mustfull\" id=\"errorMessage7\" style=\"display: none\">please select one classfication </div>\n        <div class=\"contactme-table easing\" style=\"width: 87%;margin: auto;padding-bottom: 0px;\">\n\n            <div id=\"step3\" style=\"padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 40px 0 30px 20px;\">\n           \n\n                    <div style=\"display:table-row\">  \n                    </div>\n\n                    <div style=\"display:table-row\">\n                        <div style=\"display:table-cell;text-align: right;\" >Profile Name*: </div>                     \n                        <div style=\"display:table-cell\"> \n                            <div  id=\"profileNameField\" style=\"margin: 10px 30px 5px 10px;;width: 70%;\">\n                                ");
 >>>>>>> ff2da6e43adc98815b5c2f32b473108630ca2164
+=======
+  data.buffer.push("\n                                </div>\n                            </div>   \n                            <div class=\"mustfull\" id=\"clientEmailFormat\" style=\"display: none\">not correct email format.....</div>\n                          \n                        </div>\n                    </div>\n\n                </div>\n            </div>\n        </div>\n        <div style=\"padding: 10px; font-weight: bold; background-color: rgb(241, 238, 238);\">Step 3. Business Profile</div>\n\n        <div class=\"mustfull\" id=\"errorMessage3\" style=\"display: none\">please fill in Profile Name. </div>\n        <div class=\"mustfull\" id=\"errorMessage5\" style=\"display: none\">please fill in Contact Email. </div>\n        <div class=\"mustfull\" id=\"errorMessage6\" style=\"display: none\">please fill in Admins Emails. </div>\n         <div class=\"mustfull\" id=\"numberFormat\" style=\"display: none\">please fill in info as number </div>\n        <div class=\"mustfull\" id=\"errorMessage4\" style=\"display: none\">please select one from the dropdown list </div>\n        <div class=\"mustfull\" id=\"errorMessage7\" style=\"display: none\">please select one classfication </div>\n        <div class=\"contactme-table easing\" style=\"width: 87%;margin: auto;padding-bottom: 0px;\">\n\n            <div id=\"step3\" style=\"padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 40px 0 30px 20px;\">\n           \n\n                    <div style=\"display:table-row\">  \n                    </div>\n                \n                 <div style=\"display:table-row\">\n                    <div style=\"display:table-cell;text-align: right;\" >Profile URL*:</div>\n                    <div style=\"display:table-cell\"> \n                        <div style=\"margin: 10px 30px 5px 10px;;width: 70%; text-align: center;\">\n                            ");
+  data.buffer.push(escapeExpression((helper = helpers.form || (depth0 && depth0.form),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "controller.profile_name", options) : helperMissing.call(depth0, "form", "controller.profile_name", options))));
+  data.buffer.push("-");
+  data.buffer.push(escapeExpression((helper = helpers.form || (depth0 && depth0.form),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "controller.regionSelection", options) : helperMissing.call(depth0, "form", "controller.regionSelection", options))));
+  data.buffer.push("-");
+  data.buffer.push(escapeExpression((helper = helpers.form || (depth0 && depth0.form),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "controller.countrySelection", options) : helperMissing.call(depth0, "form", "controller.countrySelection", options))));
+  data.buffer.push("\n                        </div>\n                  \n                    </div> \n                </div>\n\n                    <div style=\"display:table-row\">\n                        <div style=\"display:table-cell;text-align: right;\" >Profile Name*: </div>                     \n                        <div style=\"display:table-cell\"> \n                            <div  id=\"profileNameField\" style=\"margin: 10px 30px 5px 10px;;width: 70%;\">\n                                ");
+>>>>>>> 58fa26ca03ccc5fa808e59a7b7b28c5b1887714a
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.TextField", {hash:{
     'valueBinding': ("profile_name"),
     'class': ("profileName"),
@@ -9641,13 +9678,7 @@ function program7(depth0,data) {
     'valueBinding': ("website_url"),
     'placeholder': ("http://www.yourdomain.com")
   },hashTypes:{'valueBinding': "STRING",'placeholder': "STRING"},hashContexts:{'valueBinding': depth0,'placeholder': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n                            </div>\n                        </div>\n                    </div>\n                </div>\n\n                <div style=\"display:table-row\">\n                    <div style=\"display:table-cell;text-align: right;\" >Profile URL*:</div>\n                    <div style=\"display:table-cell\"> \n                        <div style=\"margin: 10px 30px 5px 10px;;width: 70%; text-align: center;\">\n                            ");
-  data.buffer.push(escapeExpression((helper = helpers.form || (depth0 && depth0.form),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "controller.profile_name", options) : helperMissing.call(depth0, "form", "controller.profile_name", options))));
-  data.buffer.push("-");
-  data.buffer.push(escapeExpression((helper = helpers.form || (depth0 && depth0.form),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "controller.regionSelection", options) : helperMissing.call(depth0, "form", "controller.regionSelection", options))));
-  data.buffer.push("-");
-  data.buffer.push(escapeExpression((helper = helpers.form || (depth0 && depth0.form),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "controller.countrySelection", options) : helperMissing.call(depth0, "form", "controller.countrySelection", options))));
-  data.buffer.push("\n                        </div>\n\n                    </div> \n                </div>\n\n                <div style=\"display:table-row\" id=\"addTR\">\n                    <div style=\"display:table-cell;text-align: right;\" >Admins*:</div>\n                    <div style=\"display:table-cell\"> \n                        <div style=\"display: block;\">\n                            <div   id=\"adminsField_1\" style=\"margin: 10px 10px 5px 10px;;width: 70%; display: inline-block;\">\n                                <input id=\"admins_1\"  type=\"text\" class=\"admins\" placeholder=\"emailaddress@yourdomain.com\"/>                           \n                            </div>\n                            <div style=\"display: inline-block;\"");
+  data.buffer.push("\n                            </div>\n                        </div>\n                    </div>\n                </div>\n\n                 <div style=\"display:table-row\" id=\"addTR\">\n                    <div style=\"display:table-cell;text-align: right;\" >Admins*:</div>\n                    <div style=\"display:table-cell\"> \n                        <div style=\"display: block;\">\n                            <div   id=\"adminsField_1\" style=\"margin: 10px 10px 5px 10px;;width: 70%; display: inline-block;\">\n                                <input id=\"admins_1\"  type=\"text\" class=\"admins\" placeholder=\"emailaddress@yourdomain.com\"/>                           \n                            </div>\n                            <div style=\"display: inline-block;\"");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "addTRmore", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("><i class=\"fa fa-plus\" ></i></div>\n                        </div>                   \n                        <div class=\"mustfill\" id=\"adminsEmailFormat_1\" style=\"display: none\">not correct email format.....</div>\n                    </div>                 \n                </div>\n            </div>\n         </div>\n\n            <div  style=\"display: block; margin: auto;   text-align: center;padding-bottom: 30px;\">\n                <a class=\"new-btn green-btn\" href=\"#\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "save", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
@@ -10866,7 +10897,7 @@ function program21(depth0,data) {
     'id': (""),
     'class': ("add-interests")
   },hashTypes:{'valueBinding': "STRING",'id': "STRING",'class': "STRING"},hashContexts:{'valueBinding': depth0,'id': depth0,'class': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n                    </div>\n                    <div class=\"interest-insert-hint\" style=\"\">\n                        Do not use plural comma together or left a comma at the end of string, the right example is \"Kitchen,Bathroom,Roof,Entrance\"\n                    </div>\n                    <div style=\"text-align: center;right: 15px;position: relative;\">\n                        <div class=\"new-btn\" ");
+  data.buffer.push("\n                    </div>\n                    <div class=\"interest-insert-hint\" style=\"\">\n                        Comma separate interests to add several to your profile.<br>\n                        e.g. Kitchens,Bathrooms,Interior\n                    </div>\n                    <div style=\"text-align: center;right: 15px;position: relative;\">\n                        <div class=\"new-btn\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "no", "controller.interest", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["ID","ID"],data:data})));
   data.buffer.push("><i style=\"position:absolute;top:0;left:0;width:33px;height:26px;line-height:26px;text-align:center;\" class=\"fa fa-times\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "showInterestsUp", {hash:{
@@ -11478,19 +11509,19 @@ function program13(depth0,data) {
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'type': ("password"),
     'value': ("oldpassword"),
-    'placeholder': ("Your current password")
+    'placeholder': ("")
   },hashTypes:{'type': "STRING",'value': "ID",'placeholder': "STRING"},hashContexts:{'type': depth0,'value': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
   data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n                        <tr>\n                            <td>New Password:</td>\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div   style=\"margin: 0;width: 100%;\">\n                                        ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'type': ("password"),
     'value': ("newpassword"),
-    'placeholder': ("Minmum 6 characters ")
+    'placeholder': ("Minimum 6 characters ")
   },hashTypes:{'type': "STRING",'value': "ID",'placeholder': "STRING"},hashContexts:{'type': depth0,'value': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n                        <tr>\n                            <td>Repeat New Password:</td>\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div   style=\"margin: 0;width: 100%;\">\n                                        ");
+  data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n                        <tr>\n                            <td>Confirm New Password:</td>\n                            <td>\n                                <div style=\"display: block;\">\n                                    <div   style=\"margin: 0;width: 100%;\">\n                                        ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'type': ("password"),
     'value': ("repeatnew"),
-    'placeholder': ("Minmum 6 characters")
+    'placeholder': ("Confirm new password")
   },hashTypes:{'type': "STRING",'value': "ID",'placeholder': "STRING"},hashContexts:{'type': depth0,'value': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
   data.buffer.push("\n                                    </div>\n                                </div>\n                            </td>\n                        </tr>\n\n                    </tbody>\n                </table>\n\n                <div style=\"right: 0;margin: 30px auto 0;width: 150px;\">\n                    <span class=\"new-btn green-btn\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "savePassword", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
@@ -12282,7 +12313,7 @@ function program17(depth0,data) {
   data.buffer.push(">");
   stack1 = helpers._triageMustache.call(depth0, "controller.megaResouce.owner_title", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</a>\n                </div>        \n                <div class=\"contactmebtn hint--left hint--rounded easing\" data-hint=\"Contact us!\" style=\"position: absolute; right: 15px; top: 23px; bottom: auto;\">\n                    <a class=\"contactmeicon easing\" ");
+  data.buffer.push("</a>\n                </div>        \n                <div class=\"contactmebtn hint--left hint--rounded easing\" data-hint=\"Contact us!\" style=\"position: absolute;\">\n                    <a class=\"contactmeicon easing\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "editingContactForm", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("><i class=\"fa fa-envelope easing\" style=\"font-size: 18px;\"></i></a>\n                </div>\n            </div>\n\n            ");
   stack1 = helpers['if'].call(depth0, "controller.contact", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});

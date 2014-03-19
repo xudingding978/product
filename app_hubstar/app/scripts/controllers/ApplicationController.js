@@ -11,7 +11,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     navigator_id: "",
     nextPageSpinner:false,
     navigator_id1: "",
-    contentTopic: [
+    contentTopicResidential: [
         {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
         {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'},
         {id: "3", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/kitchen.png', topic: 'Kitchens'},
@@ -288,9 +288,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 HubStar.set('itemNumber', megasResults.get("length"));
                 that.setContent(megasResults, "new");
                 if (megasResults.get("length") < 20) {
-                    HubStar.set("scrollDownSearch", true);
+                    
                     $(document).ready(function() {
-
+                        setTimeout(function() {
+                            HubStar.set("scrollDownSearch", true);
+                        },100);
+                        
                         $("#show_more_button").css({display: "none"});
 
                     });
@@ -365,13 +368,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     {
         var emailVerify = [verifyAccount, verifyPassword];
         var that = this;
+        console.log("dfafs");
+        
         requiredBackEnd('login', 'verify', emailVerify, 'POST', function(params) {
             localStorage.loginStatus = params;
             localStorage.checkUser = "newUser";
             HubStar.set("isLogin", true);
-
+               
             that.transitionToRoute("searchIndexTom");
-
+            that.init();
 
         });
 
@@ -592,7 +597,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     dropdownNavigator: function() {
 
-
         this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
 
 
@@ -600,11 +604,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.get("categorys").then(function() {
             $(document).ready(function() {
                 setTimeout(function() {
-                console.log("ssssssssssssssssssss");
-                console.log(that.get("classification"));
                 if (that.get("classification") === "commercial")
                 {
-                    console.log("ssssssssssssssssssss");
                     $('#switchbarBtn1').attr("style", "margin-left:28px;");
                     $("#Commercial1").css("opacity", "1");
                     $("#Residential1").css("opacity", "0.4");
@@ -658,11 +659,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.get("categorys").then(function() {
             $(document).ready(function() {
                 setTimeout(function() {
-                console.log("ssssssssssssssssssss");
-                console.log(that.get("classification"));
+
                 if (that.get("classification") === "commercial")
                 {
-                    console.log("ssssssssssssssssssss");
                     $('#switchbarBtn1').attr("style", "margin-left:28px;");
                 }
                 else if (that.get("classification") === "residential")
@@ -880,7 +879,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     relayout: function(l)
     {
-        console.log(l);
+        //console.log(l);
         this.set('loadingTime', false);
         this.set("nextPageSpinner",false);
         if (l !== 0) {
@@ -912,7 +911,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     }
                 }
             }
-            this.set("totalItems", this.get("totalItems") + l);
+            if (this.get("pageCount") === 0){
+                this.set("totalItems", this.get("totalItems") + 1);
+            }
+            this.set("totalItems", this.get("totalItems") + items.length);
             $('#masonry_container').append(items).masonry('appended', items);
         }
     },

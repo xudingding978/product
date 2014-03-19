@@ -92,32 +92,45 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             else
             {
                 var content = HubStar.get('selectedCollection').collection_ids;
-                if (content.indexOf(this.get("objectID")) !== -1)
-                {
-                    var message = "this is already in the collection";
-                    this.get('controllers.applicationFeedback').statusObserver(null, message);
+                if (content === null || content === undefined || content === "") {
+                    HubStar.get('selectedCollection').collection_ids = this.get("objectID");
+                    
+                     var data = JSON.stringify(HubStar.get('selectedCollection'));
+                        var that = this;
+                        requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
+                            //console.log(params);
+                            HubStar.get('selectedCollection').collection_ids = params;
+                            that.sendFeedBack();
+                            that.exit();
+                        });
+                        this.set("chosenProfile", "");
+                        this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
+                        this.addComment();
                 }
-                else {                  
-                    if (content === null || content === undefined || content === "") {
-                        HubStar.get('selectedCollection').collection_ids = this.get("objectID");
-                    }
 
+                else {
+                    if (content.indexOf(this.get("objectID")) !== -1)
+                    {
+                        var message = "this is already in the collection";
+                        this.get('controllers.applicationFeedback').statusObserver(null, message);
+                    }
                     else {
                         var ids = content;
                         ids = ids + "," + this.get("objectID");
                         HubStar.get('selectedCollection').collection_ids = ids;
+
+                        var data = JSON.stringify(HubStar.get('selectedCollection'));
+                        var that = this;
+                        requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
+                            //console.log(params);
+                            HubStar.get('selectedCollection').collection_ids = params;
+                            that.sendFeedBack();
+                            that.exit();
+                        });
+                        this.set("chosenProfile", "");
+                        this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
+                        this.addComment();
                     }
-                    var data = JSON.stringify(HubStar.get('selectedCollection'));
-                    var that = this;
-                    requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
-                        //console.log(params);
-                        HubStar.get('selectedCollection').collection_ids = params;
-                        that.sendFeedBack();
-                        that.exit();
-                    });
-                    this.set("chosenProfile", "");
-                    this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
-                    this.addComment();
                 }
             }
         } else {

@@ -1473,3 +1473,31 @@ textarea.add-interests{
     right: 0;
     overflow: hidden;
 }
+
+.profile-image{
+    height: 180px; 
+    width: 135px; 
+    position:relative; 
+    margin: 7px;
+    float:left; 
+    line-height: 135px;
+    border-radius: 5px; 
+    background-color: #ddd; 
+    overflow:hidden;
+}
+
+.profile-image-position{
+   text-align: center;
+   padding: 2px; 
+   height:135px;
+   overflow:hidden;
+}
+
+.profile-name-position{
+    position: relative;
+    text-align: center;
+    line-height: 15px;
+    padding: 5px;
+}
+
+

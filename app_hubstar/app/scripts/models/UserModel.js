@@ -45,7 +45,7 @@ HubStar.User = DS.Model.extend({
     zip: DS.attr('string'),
     address: DS.attr('string'),
     password: DS.attr('string'),
-    notification_setting:DS.attr('string'),
+    notification_setting: DS.attr('string'),
     selected_topics: DS.attr('string'),
     profiles: DS.hasMany('HubStar.SaveToProfile'),
     collections: DS.hasMany('HubStar.Collection'),
@@ -55,13 +55,13 @@ HubStar.User = DS.Model.extend({
     conversations: DS.hasMany('HubStar.UserConversation'),
     notifications: DS.hasMany('HubStar.Notification'),
     profileSave: function() {
-      if(this.get("profiles")===undefined||this.get("profiles")===null||this.get("profiles").get("length")===0)
-            {
-                return false;
-            }
-            else{
-                return true;
-            }
+        if (this.get("profiles") === undefined || this.get("profiles") === null || this.get("profiles").get("length") === 0)
+        {
+            return false;
+        }
+        else {
+            return true;
+        }
     }.property('profiles')
 });
 

@@ -5,28 +5,59 @@
     <div class="new-profile-display" >
         <div style="width: 100%;height: auto; min-height: 50px;padding: 10px 23px;">
 
-            <div style="font-size: 18px;font-weight: bold;color: #555; height: auto; min-height: 50px;vertical-align: middle;display: inline-block;width: 390px;">
-                <a href="#/profiles/new"><i class="fa fa-plus">&nbsp; New Profile  </I></a>
+            <div style="font-size: 18px;font-weight: bold;color: #555; height: auto; min-height: 50px;vertical-align: middle;display: inline-block;">
+                <a href="#/profiles/new"><i class="fa fa-plus">&nbsp; New Profile</I></a>
             </div>
         </div>
 
 
-        <div style="margin: 5px auto; padding: 0 15px;height: 330px;">
-            {{#each view.profiles}}  
-            <div data-hint="{{unbound this.profile_name}}">
+        <div id="profiles_display" style="margin: 5px auto; padding: 0 15px;height: 330px;">
+            <div id="profiles_display_scrollbar">
+            {{#each model}}  
+            {{#if this.isAdministrator}}
+            <div>
                 <a href="#/profiles/{{unbound this.profile_id}}">
-                    <div style="height: 100px; width: 100px; position:relative; margin: 5px;float:left; line-height: 100px;border-radius: 5px;border: 1px solid #ddd;" > 
-                        <img {{bindAttr src="this.profile_pic"}}  style="width:100%;margin-top: -5px;">
+                    <div class="profile-image" > 
+                        <i class="fa fa-bookmark" style="position: absolute; left: 0; top:0; font-size: 30px; color: red;"></i>
+                        <div class="profile-image-position">
+                        <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound width}}; height:{{unbound height}}" >
+                        </div>
+                        <div class="profile-name-position">{{this.profile_name}} </div>
+                        
                     </div>
                 </a>
             </div>
+            {{/if}}
+              {{#if this.isEditor}}
+            <div>
+                <a href="#/profiles/{{unbound this.profile_id}}">
+                    <div class="profile-image" > 
+                        <i class="fa fa-bookmark" style="position: absolute; left: 0; top:0; font-size: 30px; color: blue;"></i>
+                        <div class="profile-image-position">
+                        <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound width}}; height:{{unbound height}}" >
+                        </div>
+                        <div class="profile-name-position">{{this.profile_name}} </div>
+                    </div>
+                </a>
+            </div>
+            {{/if}}
+              {{#if this.isCreator}}
+            <div>
+               <a href="#/profiles/{{unbound this.profile_id}}">
+                    <div  class="profile-image"> 
+                        <i class="fa fa-bookmark" style="position: absolute; left: 0; top:0; font-size: 30px; color: gold;"></i>
+                        <div class="profile-image-position">
+                        <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound width}}; height:{{unbound height}}" >
+                        </div>
+                        <div class="profile-name-position">{{unbound this.profile_name}} </div>
+                    </div>
+                </a>
+            </div>
+            {{/if}}
             {{/each}}
+            </div>
         </div>
-
-        <div class="" style="height: 50px;position: relative;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
-            <div class="message-btn easing" style="width: 100%; color: #000;" {{action cancel on="click" target="view"}}><i class='fa fa-check'>&nbsp;</i>Cancel</div>
-        </div>
-
+      <div style="position: absolute; right:20px; top:0; color:#000; font-size:20px;" {{action cancel on="click" target="view"}}><i class='fa fa-times'></i></div>
 
     </div>
 </div>

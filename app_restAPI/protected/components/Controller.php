@@ -298,14 +298,11 @@ class Controller extends CController {
   
         $collection_id=urldecode($collection_id);
         $requestStringTwo = 'couchbaseDocument.doc.profile.collections.id=' . $collection_id;
-//        error_log(var_export($userid, true));
-//        error_log(var_export($collection_id, true));
         array_push($conditions, $requestStringTwo);
         $tempResult = $this->searchWithCondictions($conditions, 'must');
         $tempResult = $this->getReponseResult($tempResult, $returnType);
         
         $mega = CJSON::decode($tempResult, true);
-//        error_log(var_export($mega, true));
         if (!isset($mega['megas'][0]['profile'][0]['collections'])) {
             $collections = array();
         } else {
@@ -314,10 +311,7 @@ class Controller extends CController {
         //error_log(var_export($collections, true));
 
         for ($i = 0; $i < sizeof($collections); $i++) {
-//            error_log(var_export($collections[$i]['id'], true));
-//            error_log(var_export($collection_id, true));
             if ($collections[$i]['id'] === $collection_id) {
-//                error_log("sssssssssssss");
                 $collection = $collections[$i];
                 break;
             }
@@ -383,7 +377,6 @@ class Controller extends CController {
         $request->from($from)
                 ->size($size);
         $location_filter = null;
-//        error_log(var_export($classification, true));
         $classification_filter = null;
         if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
             $location_filter=1;
@@ -457,7 +450,7 @@ class Controller extends CController {
                 }
               }');
             if ($location_filter != null) {
-               // error_log("22222222222222");
+          
                 $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
                 "query": {
                   "bool": {
@@ -684,7 +677,6 @@ class Controller extends CController {
                 }
               }');
             if ($location != "Global") {
-//               error_log("666666666666666");
                 $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
                 "query": {
                   "bool": {

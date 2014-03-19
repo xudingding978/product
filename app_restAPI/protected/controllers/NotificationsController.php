@@ -60,6 +60,16 @@ class NotificationsController extends Controller {
         $this->sendResponse(200, CJSON::encode($is_success));
     }
 
+    public function actionDecline() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request = CJSON::decode($request_array);
+        $notificationId = $request[1];
+        $ownerId = $request[0];
+        $is_success = $this->setDecline($ownerId, $notificationId);
+
+        $this->sendResponse(200, CJSON::encode($is_success));
+    }
+
     public function actionMarkAllRead() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request = CJSON::decode($request_array);
@@ -94,6 +104,84 @@ class NotificationsController extends Controller {
             
         } else {
             
+        }
+    }
+
+    public function setDecline($ownerId, $notificationId) {
+        $cb = $this->couchBaseConnection();
+        $domain = $this->getDomain();
+        $docID_currentUser = $domain . "/users/" . $ownerId;
+        $tempMega_currentUser = $cb->get($docID_currentUser);
+        $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
+        $notificationObject = array();
+        if (isset($mega_currentUser['user'][0]["notifications"])) {
+            for ($i = 0; $i < sizeof($mega_currentUser['user'][0]["notifications"]); $i++) {
+                if ($mega_currentUser['user'][0]["notifications"][$i]["notification_id"] === $notificationId) {
+                    $notificationObject = $mega_currentUser['user'][0]["notifications"][$i];
+                    $mega_currentUser['user'][0]["notifications"][$i]["content"] = $mega_currentUser['user'][0]["notifications"][$i]["content"] . ",isProve";
+                    break;
+                }
+            }
+        }
+        $profile = array();
+        $profile["profile_id"] = $notificationObject["user_id"];
+        $a = explode(",", $notificationObject["content"]);
+        $profile["type"] = $a[1];
+        $url = $domain . "/profiles/" . $notificationObject["user_id"];
+        $target = $cb->get($url);
+        $targetProfile = CJSON::decode($target, true);
+        $alreadyMove = true;
+
+        if ($profile["type"] === "editor") {
+            $editor = "";
+            $editors = explode(",", $targetProfile["profile"][0]["editor"]);
+            for ($i = 0; $i < sizeof($editors); $i++) {
+                if ($editors[$i] === $ownerId) {
+                    $alreadyMove = false;
+                } else {
+                    if ($editor !== "") {
+                        $editor = $editor . "," . $editors[$i];
+                    } else {
+                        $editor = $editor . $editors[$i];
+                    }
+                }
+            }
+            $targetProfile["profile"][0]["editor"] = $editor;
+        } else if ($profile["type"] === "administrator") {
+            $editors = explode(",", $targetProfile["profile"][0]["administrator"]);
+            $editor = "";
+            for ($i = 0; $i < sizeof($editors); $i++) {
+                if ($editors[$i] === $ownerId) {
+                    $alreadyMove = false;
+                } else {
+                    if ($editor !== "") {
+                        $editor = $editor . "," . $editors[$i];
+                    } else {
+                        $editor = $editor . $editors[$i];
+                    }
+                }
+            }
+            $targetProfile["profile"][0]["administrator"] = $editor;
+        }
+        if ($alreadyMove === false) {
+            if (!isset($mega_currentUser['user'][0]["profiles"])) {
+                $mega_currentUser['user'][0]["profiles"] = array();
+            }
+            if (($key = array_search($profile, $mega_currentUser['user'][0]["profiles"])) !== false) {
+                unset($mega_currentUser['user'][0]["profiles"][$key]);
+            }
+
+            if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser)) && $cb->set($url, CJSON::encode($targetProfile))) {
+                return "You have decline the request";
+            } else {
+                return "save fail";
+            }
+        } else {
+            if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
+                return "sorry, you have already been removed from the " . $profile["type"] . " list.";
+            } else {
+                return "save fail";
+            }
         }
     }
 
@@ -326,5 +414,4 @@ class NotificationsController extends Controller {
     }
 
 }
-
 ?>

@@ -15,24 +15,24 @@ HubStar.PermissionController = Ember.Controller.extend({
     },
     checkAuthenticEdit: function(creator, administrator, editor) {
         var authorityLevel = "";
-        if (creator !== null && administrator !== null && editor !== null)
+        //if (creator !== null && administrator !== null && editor !== null)
         {
-            if ((creator.indexOf(localStorage.loginStatus) !== -1 &&
+            if (creator !== null &&((creator.indexOf(localStorage.loginStatus) !== -1 &&
                     (creator[creator.indexOf(localStorage.loginStatus) - 1] === "," ||
                             creator[creator.indexOf(localStorage.loginStatus) + localStorage.loginStatus.length] === ",")) ||
-                    creator === localStorage.loginStatus) {
+                    creator === localStorage.loginStatus)) {
                 authorityLevel = "creator";
             }
-            else if ((administrator.indexOf(localStorage.loginStatus) !== -1 &&
+            else if (administrator !== null&&((administrator.indexOf(localStorage.loginStatus) !== -1 &&
                     (administrator[administrator.indexOf(localStorage.loginStatus) - 1] === "," ||
                             administrator[administrator.indexOf(localStorage.loginStatus) + localStorage.loginStatus.length] === ",")) ||
-                    administrator === localStorage.loginStatus) {
+                    administrator === localStorage.loginStatus)) {
                 authorityLevel = "administrator";
             }
-            else if ((editor.indexOf(localStorage.loginStatus) !== -1 &&
+            else if (editor !== null&&((editor.indexOf(localStorage.loginStatus) !== -1 &&
                     (editor[editor.indexOf(localStorage.loginStatus) - 1] === "," ||
                             editor[editor.indexOf(localStorage.loginStatus) + localStorage.loginStatus.length] === ",")) ||
-                    editor === localStorage.loginStatus) {
+                    editor === localStorage.loginStatus)) {
                 authorityLevel = "editor";
             }
         }

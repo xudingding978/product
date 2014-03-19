@@ -887,7 +887,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             {
                 is_edit = true;
                 if (role === "editor") {
-                    this.set("is_editor", false);
+                    this.set("is_editor", is_authentic_user ||false);
                 }
                 else
                 {

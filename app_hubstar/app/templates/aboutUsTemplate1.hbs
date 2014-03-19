@@ -10,6 +10,7 @@
 
     <!--Embeded object part-->
     {{#each about_embeded_object}}
+    {{#if embed_object_enabled}}
     <div class="aboutus-attr">Embeded Object URL: </div>
     <div style="border: 1px solid #ddd;border-radius: 2px;margin-bottom: 10px;margin-right: 2px;">
         {{view Ember.TextArea valueBinding="embeded_object_code" class="no-effect no-resize"  placeholder="*"}}
@@ -18,6 +19,7 @@
         <div class="aboutus-attr">Buy the Book Link URL: </div>
         <div>{{view Ember.TextArea valueBinding="embeded_object_url" class="no-resize"  placeholder="*"}}</div>
     </div>
+    {{/if}}
     {{/each}}
     <!--end----     Embeded object part-->
 
@@ -100,6 +102,7 @@
     <div>{{about_desc}}</div> 
     <hr> 
     {{#each about_embeded_object}}
+    {{#if embed_object_enabled}}
     {{{embeded_object_code}}}
     
     {{#if embeded_object_code}}
@@ -110,6 +113,7 @@
       {{/if}}
     </div>
     
+    {{/if}}
     {{/if}}
     {{/each}}
 

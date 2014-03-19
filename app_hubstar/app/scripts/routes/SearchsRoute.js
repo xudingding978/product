@@ -79,7 +79,26 @@ HubStar.SearchsRoute = Ember.Route.extend({
 
     },
     activate: function() {
-        $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
+         $(document).ready(function() {
+        if( localStorage.resOrcom==="residential"){
+           setTimeout(function() {
+                         $('#discovery_search_bar_wrapper').css("background",  "url(../../images/contactbg.png)");
+                        },10);
+        }
+        else if( localStorage.resOrcom==="commercial"){
+            setTimeout(function() {
+                         $('#discovery_search_bar_wrapper').css({"background": " url(../../images/chrome.png)"});
+                        },10);
+            
+        }
+        else{
+            setTimeout(function() {
+                        $('#discovery_search_bar_wrapper').css({"background": " url(../../images/discoverybarbg.jpg)"});
+                        },10);
+            
+        }
+          });
+//        $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
         $('#masonry_container').attr('style', "display:block;position:relative");
 //        if (HubStar.get("setHight") === null || HubStar.get("setHight") === "null") {
 //            HubStar.set("setHight", 0);

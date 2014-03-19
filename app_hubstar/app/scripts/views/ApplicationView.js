@@ -2,6 +2,19 @@ HubStar.ApplicationView = Ember.View.extend({
     templateName: 'application',
     didInsertElement: function() {
         $("#loading").attr('style', 'display:none');
+        $(document).ready(function() {
+        if( localStorage.resOrcom==="residential"){
+            $('#discovery_search_bar_wrapper').css({"background": " url(../../images/contactbg.png)"});
+        }
+        else if( localStorage.resOrcom==="commercial"){
+            $('#discovery_search_bar_wrapper').css({"background": " url(../../images/chrome.png)"});
+        }
+        else{
+            $('#discovery_search_bar_wrapper').css({"background": " url(../../images/discoverybarbg.jpg)"});
+        }
+        });
+        
+        
         var view = this;
         $(window).bind("scroll", function() {
             view.didScroll();

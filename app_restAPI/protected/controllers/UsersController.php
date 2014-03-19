@@ -101,9 +101,9 @@ class UsersController extends Controller {
             }
             array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
 
-            for ($i = 0; $i < sizeof($userInfo['user'][0]["profiles"]); $i++) {
-                if ($userInfo['user'][0]["profiles"][$i]["profile_id"] === $delData[$i][0]) {
-                    array_splice($userInfo['user'][0]["profiles"], $i, 1);
+            for ($j = 0; $j < sizeof($userInfo['user'][0]["profiles"]); $j++) {
+                if ($userInfo['user'][0]["profiles"][$j]["profile_id"] === $delData[$i][0]) {
+                    array_splice($userInfo['user'][0]["profiles"], $j, 1);
                 }
             }
 

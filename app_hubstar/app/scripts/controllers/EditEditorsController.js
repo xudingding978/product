@@ -228,7 +228,7 @@ HubStar.EditEditorsController = Ember.Controller.extend({
                 var tempComment = "";
                 tempComment = JSON.stringify(data);
                 requiredBackEnd('users', 'sendNotification', data, 'POST', function(params) {
-
+                    that.get('controllers.applicationFeedback').statusObserver(null, "the requests have been sent");
                 });
                 that.get("controllers.profile").set("editorAdd", false);
                 that.set("administrator", profile.get("administrator"));

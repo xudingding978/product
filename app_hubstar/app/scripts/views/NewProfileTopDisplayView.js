@@ -6,7 +6,7 @@
 HubStar.NewProfileTopDisplayView = Ember.View.extend({
     templateName: 'newProfileTopDisplay',
     didInsertElement: function() {
-        console.log(HubStar.get("profiles").length);
+   
         var u = HubStar.User.find(localStorage.loginStatus);
         var that = this;
         u.then(function() {

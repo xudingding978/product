@@ -192,7 +192,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     });
 
                 }
-                console.log(HubStar.get("profiles").length);
             });
         }
         this.set("user", u);

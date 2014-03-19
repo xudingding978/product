@@ -2,7 +2,7 @@
     {{#each model}}  
     <a href="#/profiles/{{unbound this.profile_id}}"> 
         {{#if this.isAdministrator}}
-        <div style="background-color: rgba(255, 0, 0, 0.1); border: 1px solid #ccc; margin-right: 5px;">
+        <div style="background-color: rgba(255, 0, 0, 0.1); border: 1px solid #ccc;">
             <div style="background-color: white;display: inline-block; height: 50px; width: 50px; position:relative; margin: 5px  5px 5px 10px; line-height: 50px;border-radius: 5px;border: 1px solid #ddd;vertical-align: top;" > 
                 <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}};margin-top: -5px;">                  
             </div>
@@ -10,7 +10,7 @@
         </div>
         {{/if}}
         {{#if this.isEditor}}
-        <div style="background-color: rgba(0, 255, 255, 0.1); border: 1px solid #ccc; margin-right: 5px;">
+        <div style="background-color: rgba(0, 255, 255, 0.1); border: 1px solid #ccc; ">
             <div style="background-color: white;display: inline-block; height: 50px; width: 50px; position:relative; margin: 5px  5px 5px 10px; line-height: 50px;border-radius: 5px;border: 1px solid #ddd;vertical-align: top;" > 
                 <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}};margin-top: -5px;">                  
             </div>
@@ -18,7 +18,7 @@
         </div>
         {{/if}}
         {{#if this.isCreator}}
-        <div style="background-color: rgba(255, 255, 0, 0.1); border: 1px solid #ccc; margin-right: 5px;">
+        <div style="background-color: rgba(255, 255, 0, 0.1); border: 1px solid #ccc; ">
             <div style="background-color: white;display: inline-block; height: 50px; width: 50px; position:relative; margin: 5px  5px 5px 10px; line-height: 50px;border-radius: 5px;border: 1px solid #ddd;vertical-align: top;" > 
                 <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}};margin-top: -5px;">                  
             </div>

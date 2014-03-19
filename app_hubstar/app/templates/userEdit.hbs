@@ -319,21 +319,47 @@
 
             <div class="tab-pane" id="tab6">
                 <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">YOUR BUSINESS PROFILES</div>
-                
+
                 <div id="user_profiles"> 
-                {{#each model.profiles}}
-                
-                <div style="width:100%; padding:20px"> 
-                    <span style="width:30%; margin: 20px;"><img  {{bindAttr src="this.profile_pic"}} style="width:120px;"></span>
-                    <span style="width:70%;">{{this.profile_name}}</span>
-                    
+                    {{#each HubStar.profiles}}
+                    {{#if this.isAdministrator}}
+                    <div>
+                        <a href="#/profiles/{{unbound this.profile_id}}"> 
+                            <div style="padding:20px"> 
+                                <div style="margin: 10px; display: inline-block"><img {{bindAttr src="this.profile_pic"}} style="width:120px;"></div>
+                                <div style="display: inline-block">{{this.profile_name}}</div>
+                                    <div style="position: relative;"><i class="fa fa-bookmark" style=" font-size: 30px; color: red;"></i></div>    
+                            </div>
+                        </a>
+                    </div>
+                    {{/if}}
+                    {{#if this.isEditor}}
+                    <div>
+                        <a href="#/profiles/{{unbound this.profile_id}}"> 
+                            <div style=" padding:20px"> 
+                                <div style="margin: 10px; display: inline-block"><img {{bindAttr src="this.profile_pic"}} style="width:120px;"></div>
+                                <div style="display: inline-block">{{this.profile_name}}</div>    
+                                <div style="position: relative;"><i class="fa fa-bookmark" style="font-size: 30px; color: blue;"></i></div>    
+                            </div>
+                        </a>
+                    </div>
+                    {{/if}}
+                    {{#if this.isCreator}}
+                    <div>
+                        <a href="#/profiles/{{unbound this.profile_id}}"> 
+                            <div style=" padding:20px"> 
+                                <div style="margin: 10px; display: inline-block"><img {{bindAttr src="this.profile_pic"}} style="width:120px;"></div>
+                                <div style="display: inline-block">{{this.profile_name}}</div>
+                                <div style="position: relative;">  <i class="fa fa-bookmark" style="font-size: 30px; color: gold;"></i></div>    
+                            </div>
+                        </a>
+                    </div>
+                    {{/if}}
+                    {{/each}}
+
                 </div>
-                
-                {{/each}}
-                
-                </div>
-                   <div style="right: 0;margin:10px auto 0;width: 150px;">
-                                   <span class='new-btn flip-back' {{action userDashboardBackButton }}><i class='fa fa-group'> &nbsp;</i>Back</span>
+                <div style="right: 0;margin:10px auto 0;width: 150px;">
+                    <span class='new-btn flip-back' {{action userDashboardBackButton }}><i class='fa fa-group'> &nbsp;</i>Back</span>
                 </div>
 
             </div>

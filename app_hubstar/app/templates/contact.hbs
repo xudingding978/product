@@ -17,10 +17,10 @@
     </div>
 
     <div class="head" style='padding-bottom: 0;'>
-        <div class="poster_user" style="width:232px;">
+        <div class="poster_user" style="width:390px;">
             <div style="display: block; font-size: 16px; font-weight: bold; margin-bottom: 5px;">
                 <span style="display: inline-block;margin-right: 5px;">Send an Email to</span>
-                <a style="max-width: 240px; display: inline-block; overflow: hidden; text-overflow: ellipsis;">{{controller.selectedMega.owner_title}}</a>
+                <div class="poster-user-name" style="max-width: 240px; display: inline-block; overflow: hidden; text-overflow: ellipsis; position:relative; top:5px;" >{{controller.selectedMega.owner_title}}</div>
             </div>
             <div style="display: block;">
                 {{#unless controller.isDisplayNameEditable}}

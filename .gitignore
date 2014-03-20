@@ -1,6 +1,8 @@
 /app_hubstar/dist/*.*
 /app_hubstar/dist/*
 
+/app_restAPI/error_log/*.*
+
 /app_hubstar/test/*.*
 /app_hubstar/test/*
 

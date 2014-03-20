@@ -61,7 +61,7 @@ class TenantConfigurationController extends Controller {
         $request_json = file_get_contents('php://input');
         $request = CJSON::decode($request_json, true);
         $feedback = null;
-            $domain = $this->getDomainWihoutAPI();
+            $domain = $this->getDomain();
             $configuration = $this->getProviderConfigurationByName($domain, "ads");
         if (isset($request['adPageNo'])) {
             $adPageNo = $request['adPageNo'];       

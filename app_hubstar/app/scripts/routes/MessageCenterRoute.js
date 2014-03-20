@@ -23,7 +23,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
         if (this.controllerFor('notificationTop').get("notificationSeeAll") === true)
         {
             model = localStorage.loginStatus;
-            //this.controllerFor('notificationTop').set("notificationSeeAll", false);
+            this.controllerFor('notificationTop').set("notificationSeeAll", false);
         }  
        
         if (this.controllerFor('notificationTop').get("goConversation") === true)

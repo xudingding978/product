@@ -12,6 +12,8 @@ HubStar.Email= DS.Model.extend({
         projectBudget: DS.attr('string'),
         projectExperience: DS.attr('string'),
         projectSubCategoryItem: DS.attr('string'),
+        userEnvironment: DS.attr('string'),
+        objectUrl: DS.attr('string'),
         didLoad: function() {
 
         }

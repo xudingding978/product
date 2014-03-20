@@ -6,9 +6,9 @@ HubStar.MessageController = Ember.Controller.extend({
     isUserself: false,
     isUploadPhoto: false,
     isReply: true,
-    makeSureDelete:false,
-    isMessage:false,
-    willDelete:false,
+    makeSureDelete: false,
+    isMessage: false,
+    willDelete: false,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -16,6 +16,8 @@ HubStar.MessageController = Ember.Controller.extend({
         if (localStorage.loginStatus) {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
             this.set("commenter_photo_url", this.get("currentUser").get("photo_url_large"));
+
+
         }
         if (this.get("currentOwner").get("id") === localStorage.loginStatus)
         {
@@ -33,8 +35,8 @@ HubStar.MessageController = Ember.Controller.extend({
         this.set('newStyleImageName', "");
         this.set("isUploadPhoto", false);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-        }, 200);
+            $('#masonry_user_container').masonry();
+        }, 100);
     },
     editingCommentData: function(id, msg) {
         var enableEditCount = 0;
@@ -100,6 +102,9 @@ HubStar.MessageController = Ember.Controller.extend({
         HubStar.set('message', msg);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
         }, 200);
     },
     editingReplyData: function(id, msg) {
@@ -167,7 +172,10 @@ HubStar.MessageController = Ember.Controller.extend({
 
         HubStar.set('reply', msg);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
         }, 200);
     },
 //    removePic: function(id) {
@@ -181,8 +189,8 @@ HubStar.MessageController = Ember.Controller.extend({
         var message = "Remove this comment?";
         this.set("message", message);
 
-        this.set('makeSureDelete', true); 
-         this.set('isMessage', true);
+        this.set('makeSureDelete', true);
+        this.set('isMessage', true);
         if (this.get('willDelete') === true) {
             this.removeReply(s);
             this.cancelDelete();
@@ -191,7 +199,10 @@ HubStar.MessageController = Ember.Controller.extend({
             this.set('willDelete', true);
         }
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
         }, 200);
     },
     cancelDelete: function() {
@@ -229,6 +240,10 @@ HubStar.MessageController = Ember.Controller.extend({
                             if (replyLength >= 1)
                             {
                                 replyLength = replyLength - 1;
+                                if (replyLength === 0) {
+                                    that.closeMore(that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id"));
+                                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replayCountZero", false);
+                                }
                             }
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
                             break;
@@ -252,6 +267,14 @@ HubStar.MessageController = Ember.Controller.extend({
                                 replyLength = replyLength - 1;
                             }
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
+                            if (replyLength >= 1)
+                            {
+                                replyLength = replyLength - 1;
+                                if (replyLength === 0) {
+                                    that.closeMore(that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id"));
+                                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replayCountZero", false);
+                                }
+                            }
 
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").removeObject(that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j));
                             break;
@@ -261,14 +284,17 @@ HubStar.MessageController = Ember.Controller.extend({
                 }
             }
             setTimeout(function() {
-                $('#masonry_user_container').masonry("reload");
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 100);
             }, 200);
         });
         $('#addcommetBut').attr('style', 'display:block');
         $('#commentBox').attr('style', 'display:none');
-        setTimeout(function() {
-            $('#masonry_container').masonry("reloadItems");
-        }, 200);
+//        setTimeout(function() {
+//            $('#masonry_container').masonry("reloadItems");
+//        }, 200);
     },
     addReply: function(message_id) {
 
@@ -332,8 +358,7 @@ HubStar.MessageController = Ember.Controller.extend({
 
                     var replyLength = that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyCount") + 1;
                     that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
-
-                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyCount", replyLength);
+                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replayCountZero", true);
                     if (params["replyMessageCollection"][0]["user_id"] === localStorage.loginStatus)
                     {
                         dataNew["isUserself"] = true;
@@ -372,7 +397,10 @@ HubStar.MessageController = Ember.Controller.extend({
             }
             dataNew = new Array();
             setTimeout(function() {
-                $('#masonry_user_container').masonry("reload");
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 100);
             }, 200);
             that.set('replyContent', "");
             that.set('newStyleImageSource', null);
@@ -382,10 +410,10 @@ HubStar.MessageController = Ember.Controller.extend({
 
         $('#addcommetBut').attr('style', 'display:block');
         $('#commentBox').attr('style', 'display:none');
-        setTimeout(function() {
-            $('#masonry_container').masonry("reloadItems");
-
-        }, 200);
+//        setTimeout(function() {
+//            $('#masonry_container').masonry("reloadItems");
+//
+//        }, 200);
     },
     close: function() {
         this.set('replyContent', "");
@@ -400,25 +428,32 @@ HubStar.MessageController = Ember.Controller.extend({
         this.set('newStyleImageSource', src);
         this.set('newStyleImageName', name);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
         }, 200);
     },
     seeMore: function(id) {
         $('#closeComment_' + id).attr('style', 'display:inline-block;cursor: pointer');
         $('#showMoreComment_' + id).attr('style', 'display:none;cursor: pointer');
         $('#messageData_' + id).attr('style', 'display: block');
+
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 50);
+            $('#masonry_user_container').masonry();
+        }, 10);
+
 
     },
     closeMore: function(id) {
         $('#closeComment_' + id).attr('style', 'display:none;cursor: pointer');
         $('#showMoreComment_' + id).attr('style', 'display:inline-block;cursor: pointer');
         $('#messageData_' + id).attr('style', 'display: none');
+
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 50);
+            $('#masonry_user_container').masonry();
+        }, 10);
+
     }
 }
 );

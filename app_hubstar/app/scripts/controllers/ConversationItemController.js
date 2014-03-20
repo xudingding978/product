@@ -83,6 +83,9 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         this.set("conversationItemContent", this.get("conversationItem").get("ConversationCollection"));
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
             $("#content_conversationItem_" + id).mCustomScrollbar({
                 scrollButtons: {
                     enable: false,
@@ -181,7 +184,9 @@ HubStar.ConversationItemController = Ember.Controller.extend({
                     {
                         conversationItems["isUrl"] = false;
                     }
-
+                    if (params["msg"] !== null) {
+                        conversationItems["msg"] = multiRow(params["msg"]);
+                    }
                     that.get('controllers.conversation').get("conversationContent").objectAt(i).get("ConversationCollection").insertAt(0, conversationItems);
                     if (that.get("contentFollowerPhoto") !== null) {
                         for (var j = 0; j < that.get("contentFollowerPhoto").length; j++)
@@ -203,6 +208,9 @@ HubStar.ConversationItemController = Ember.Controller.extend({
             that.set('newStyleImageName', "");
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 100);
             }, 200);
         });
 
@@ -255,9 +263,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         var src = target.result;
         this.set('newStyleImageSource', src);
         this.set('newStyleImageName', name);
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-        }, 200);
+
     }
 }
 );

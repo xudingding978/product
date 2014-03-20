@@ -1,16 +1,14 @@
 <div class="Register-Page" style="">
-    <div style="width: 100%; height: 100%;position: absolute;min-height: 728px;min-width: 1100px;display: block;">
-        <img src="../../../images/landingpagebg.jpg" style=""/>
-    </div>
-    <div style="width: 87%;margin: 40px auto;display: block;line-height: 45px;text-align: center;">
-        <img class="logonew" style="position: relative; height: 30px;margin: 8px;float: left;" src="../../../images/landing-trends.png">
-        <div style="position:relative; float:right;color: #fff; font-size:15px;font-weight: bold;">
-            <span style="letter-spacing: 1px; margin: 0 0 0 10px;cursor:pointer;" id="login-btn" class="white-text-hover easing" {{action loginPane on="click"  target="view"}}>LOG IN</span>
+    <div class="Register-Page_background"></div>
+    <div class="register-page-top-bar">
+        <img class="logonew"  src="../../../images/landing-trends.png">
+        <div class="Login-or-Register" style="">
+            <span id="login-btn" class="white-text-hover easing" {{action loginPane on="click"  target="view"}}>LOG IN</span>
             <span>&nbsp | &nbsp</span>
-            <a href="http://about.trendsideas.com" target="blank"><span class="white-text-hover easing" style="letter-spacing: 1px; margin: 0 0 0 10px;">HELP</span></a>
+            <a href="http://about.trendsideas.com" target="blank"><span class="white-text-hover easing">HELP</span></a>
         </div>
 
-        <div style="position: relative;  color: #fff; width: 500px; margin: auto;font-size: 13px; font-family: 'Montserrat', sans-serif; letter-spacing: 2px;opacity: .9;display: inline-block;">
+        <div class="promotion-line" style="">
             <span>83,000 IDEAS</span>
             <span>&nbsp | &nbsp</span>
             <span>210,000 PRODUCTS</span>
@@ -18,12 +16,12 @@
             <span>650 SERVICES</span>
         </div>
 
-    </div>
+    </div> 
 
 
-    <img id="fadein-image" style="position: relative;margin: 0 auto 40px; min-height: 150px;max-height: 256px; height: 20%;display: block; top: 5%;" src="../../../images/landing-page-title(LOGO).png">
+    <img id="fadein-image" src="../../../images/landing-page-title(LOGO).png">
 
-    <div id="profiles-main-container" style="position: relative;width: 300px;text-align: center;top: 40px;margin: auto;display: block;left: 0;right: 0;">   
+    <div id="profiles-main-container" style="position: relative;width: 300px;text-align: center;margin: auto;display: block;left: 0;right: 0;">   
 
         <div id="click-register-social" class="register-with easing social-active" style="border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;">
             <i class="fa fa-facebook">&nbsp</i><a style="color: #888"> Register with social account</a>
@@ -57,10 +55,10 @@
         <!--This is the email register section-->
         <div>
             <div id="click-register" class="register-with easing register-clicker">
-                <i class="fa fa-envelope">&nbsp </i><a style="color: #888"> Register with Email</a>
+                <i class="fa fa-envelope">&nbsp </i><a style="color: #888"> Register with Email</a> 
             </div>
 
-            <div   id="register-with-email-drop-down" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
+            <div   id="register-with-email-drop-down" class="register-info-box" style="display:none;">
                 <div style="padding: 0 8px;position: relative;">
 
                     <div style="border-bottom: 1px solid #e3e3e3; border-top:1px solid #e3e3e3;">
@@ -86,7 +84,7 @@
             </div>
 
 
-            <div id="register-with-email-step-2" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;display:none;">
+            <div id="register-with-email-step-2" style="display:none;">
                 <div style="padding: 0 8px;position: relative;">
 
                     <div  class="login-textfield" style="border-top:1px solid #e3e3e3;">
@@ -110,64 +108,85 @@
         <div class="back-btn easing" style="" >Back</div>
         <div class="register-btn easing register-btn-small"  {{action next}}>Next</div>
 
-        <div id="register-with-email-step-3" style="z-index: 1;overflow: hidden;  background-color: white;border-radius: 5px;  width: 900px; margin: 0px auto; position: fixed; top: 17%; left: 0px; right: 0px; display:none;">
-            <div   style="background-color: #f3f3f3;padding: 5px 5px 10px 35px;border-bottom: 1px solid #ddd;">
-                <div  class="comment-namentime" style="display: block;position: relative;height: 35px;">
-                    <div style="position: absolute;  text-align: center;line-height: 40px;margin: 0 auto;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
-                        Tell us what you're interested in!
+    </div>
 
-                    </div>
+
+
+
+    <div id="register-with-email-step-3" class="popup-container" style="display:none; width: 102%;">
+
+        <div class="popup-bg-fadeout" style="background-color: transparent">&nbsp;</div>
+        <div class="interest-selecting-container" style="">
+            <div   style="background-color: #f3f3f3;padding: 5px; border-bottom: 1px solid #ddd;">
+                <div class="tell-us-what-ur-interested-in">
+                    Tell us what you're interested in!
                 </div>
             </div>
-            <div id ="" style="margin: 80px 30px 5px;height: 450px;" >
-                <div style="position: absolute;top: 100px;font-size: 15px;font-weight: bold;">
-                    <div style="position: relative">Residential</div>
-                    <div style="position: relative;top: 200px;">Commercial</div>
+            <div id ="" style="margin: 5px 30px 5px;" >
+                <div style="position: relative;font-size: 15px;font-weight: bold;margin:20px 0;">
+                    <div style="position: relative">Residential</div> 
                 </div>
 
-                {{#each controller.contentTopic}}
-                <div class="select-interest" style=" height: 150px; width: auto;position: relative; float: left; margin: 10px 20px 60px;"{{action selectTopic id topic}}>
-                     <div id="minus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action selectTopic id topic }}><i class="fa fa-minus" ></i></div>
-                    <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;" ><i class="fa fa-plus" ></i></div>
-                    <div class="" style="height: 100px;width: 100px;position: relative;border-radius: 50%;overflow: hidden;top: -5px;float: left; ">
-                        <div  class="usersobject-hoverarea easing" style="height: 100px; width: 100px;" >
+                <div style="position: relative;"> 
+                    {{#each controller.contentTopicResidential}}
+                    <div class="select-interest" style=""{{action selectTopic id topic}}>
+                         <div id="minus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action selectTopic id topic }}><i class="fa fa-minus" ></i></div>
+                        <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;" ><i class="fa fa-plus" ></i></div>
+                        <div class="" style="position: relative;border-radius: 50%;overflow: hidden;top: -5px;float: left; ">
+                            <div  class="usersobject-hoverarea easing" style="" ></div>
+                            <div class="interest-image-container"><img {{bindAttr src="image"}} /></div>
                         </div>
-                        <div style="position: relative;">
-                            <div style="width: 100px; height: 100px; overflow: hidden;">
-                                <img {{bindAttr src="image"}} style="min-height:100px; width: 100px; max-width: none;"/>
-                            </div>
+                        <div class="interest-topic-name" >
+                            {{topic}}
                         </div>
                     </div>
-                    <div style="position: relative;text-align: center;font-size: 13px;width: 100px;line-height: 15px;">
+                    {{/each}}
+                </div>
+            </div> 
+
+            <div id ="" style="margin: 5px 30px 70px;" >
+                <div style="position: relative;font-size: 15px;font-weight: bold;margin:20px 0; ">
+                    <div style="position: relative">Commercial</div>
+                </div>
+
+                {{#each controller.contentTopicCommercial}}
+                <div class="select-interest" style=""{{action selectTopic id topic}}>
+                     <div id="minus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action selectTopic id topic }}><i class="fa fa-minus" ></i></div>
+                    <div id="plus_{{unbound id}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;" ><i class="fa fa-plus" ></i></div>
+                    <div class="" style="position: relative;border-radius: 50%;overflow: hidden;top: -5px;float: left; ">
+                        <div  class="usersobject-hoverarea easing" style="" ></div>
+                        <div class="interest-image-container"><img {{bindAttr src="image"}} /></div>
+                    </div>
+                    <div class="interest-topic-name">
                         {{topic}}
                     </div>
                 </div>
                 {{/each}}
             </div>
-
-            <div class="" style="height: 45px;position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
-                <div class="register-btn easing" style="width: 50%;border-right: 1px solid #ddd;float: left;"></div>
+            <div class="" style="position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
+                <div class="register-btn easing" style="width: 50%;border-right: 1px solid #ddd;float: left;"{{action backRegister}}>Back&nbsp;</div>
                 <div class="register-btn easing" style="width: 50%;float: left"{{action submitSelection}}>Next&nbsp;<i class="fa fa-long-arrow-right" style="font-size: 13px;"></i></div>
             </div> 
         </div>
+    </div>
 
-        <div id="register-with-email-step-4" style="overflow: hidden; z-index: 11; background-color: white; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; box-shadow: rgb(187, 187, 187) 0px 0px 20px; width: 430px; height: 220px; margin: 0px auto; position: fixed; top: 45%; left: 0px; right: 0px; display: none;">
-            <div  style="background-color: #f3f3f3;padding: 10px;border-bottom: 1px solid #ddd;text-align: center;">
-                <div  class="comment-namentime" style="display: block;position: relative;height: 35px; margin: 0 auto;">
-                    <div style="position: relative;  line-height: 35px;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
-                        Activate your account
-                    </div>
+
+ 
+    <div id="register-with-email-step-4" style="display: none;">
+        <div  style="background-color: #f3f3f3;padding: 10px;border-bottom: 1px solid #ddd;text-align: center;">
+            <div  class="comment-namentime" style="display: block;position: relative;height: 35px; margin: 0 auto;">
+                <div style="position: relative;  line-height: 35px;font-size: 20px;background-color: #f3f3f3; opacity: 0.5;">
+                    Activate your account
                 </div>
             </div>
-            <div style=" text-align: center; padding: 30px;">
-                Registration successful! You'll soon receive an email with your account information and an activation link. Click on the activation link to activate your myTrends account!
-            </div>
-
-            <!--            <div id="skipRegister" class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute; display:none" {{action skip}}>Skip&nbsp</div>-->
-            <div id="finishRegister" class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute;display:block" {{action done}}>Done&nbsp;<i class="fa fa-long-arrow-right" style="font-size: 13px;"></i></div>
         </div>
-
+        <div class="registraion-suceesful-message" style="">
+            Registration successful! You'll soon receive an email with your account information and an activation link. Click on the activation link to activate your myTrends account!
+        </div>
+        <div id="finishRegister" class="register-btn easing" style="height: 45px;line-height: 45px;width: 100%;border-top: 1px solid #ddd;bottom: 0;position: absolute;display:block" {{action done}}>Done&nbsp;<i class="fa fa-long-arrow-right" style="font-size: 13px;"></i></div>
     </div>
+
+
     <div id="missing-fields" class="black-tool-tip" style="display:none;">
         <p>Please fill in all mandatory fields.</p>
     </div>
@@ -221,7 +240,7 @@
         <i class="fa fa-envelope">&nbsp </i><a style="color: #888"> Log in with Email</a>
     </div>
 
-    <div id="login-with-email-drop-down" style="width: 300px;margin: 0 auto ;background-color: #fff;border-radius: 0 0 5px 5px;">
+    <div id="login-with-email-drop-down">
         <div style="padding: 0 8px;position: relative;">
 
 
@@ -261,17 +280,17 @@
     <div id="invalid-account-type-facebook" class="black-tool-tip" style="display:none;">
         <p>You are attempting to log in with a social account. Please use your "Facebook account" option.</p>
     </div>
-     <div id="invalid-account-type-twitter" class="black-tool-tip" style="display:none;">
+    <div id="invalid-account-type-twitter" class="black-tool-tip" style="display:none;">
         <p>You are attempting to log in with a social account. Please use your "Twitter  account" option.</p>
     </div>
-     <div id="invalid-account-type-google" class="black-tool-tip" style="display:none;">
+    <div id="invalid-account-type-google" class="black-tool-tip" style="display:none;">
         <p>You are attempting to log in with a social account. Please use your "Google+  account" option.</p>
     </div>
-     <div id="invalid-account-type-linkedin" class="black-tool-tip" style="display:none;">
+    <div id="invalid-account-type-linkedin" class="black-tool-tip" style="display:none;">
         <p>You are attempting to log in with a social account. Please use your "LinkedIn account" option.</p>
     </div>
-   
-    
+
+
     <div id="incorrect-password" class="black-tool-tip" style="display:none;">
         <p>Incorrect password.</p>
     </div>
@@ -370,129 +389,129 @@
 
 </div>   
 <script>
-                /* NOTE:************
-                 * 
-                 *   IF THIS BEHAVES ODDLY SIMPLY REMOVE/ADD "stop()" before all the animate functions EG
-                 *   $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
-                 *   This javascript will need to be cleaned up via setting some of the elements as preset variables etc, once 100% tested.
-                 */
+    /* NOTE:************
+     * 
+     *   IF THIS BEHAVES ODDLY SIMPLY REMOVE/ADD "stop()" before all the animate functions EG
+     *   $('#register-with-email-drop-down').stop().animate({height: 'toggle'});
+     *   This javascript will need to be cleaned up via setting some of the elements as preset variables etc, once 100% tested.
+     */
 
- if (localStorage.loginState === "login") {
+    if (localStorage.loginState === "login") {
 
-                if (localStorage.userType === "email") {
-                    $('#login-btn').text('REGISTER');
-                    $('.black-tool-tip').css('display', 'none');
-                    $('#click-register-social').css('display', 'none');
-                    $('#click-register').css('display', 'none');
-                    $('#social-link').css('display', 'none');
-                    $('#login-with-email-drop-down').css('display', 'block');
-                    $('#social-login-container').css('display', 'none');
-                    $('#click-login').addClass('active-tab');
-                    $('#social-login').removeClass('social-active');
-                    $('#user-forgot-password-pane').css('display', 'none');
-                    $('#forgot-message-container').css('display', 'none');
-                    $('#invalid-username').css('display', 'none');
+        if (localStorage.userType === "email") {
+            $('#login-btn').text('REGISTER');
+            $('.black-tool-tip').css('display', 'none');
+            $('#click-register-social').css('display', 'none');
+            $('#click-register').css('display', 'none');
+            $('#social-link').css('display', 'none');
+            $('#login-with-email-drop-down').css('display', 'block');
+            $('#social-login-container').css('display', 'none');
+            $('#click-login').addClass('active-tab');
+            $('#social-login').removeClass('social-active');
+            $('#user-forgot-password-pane').css('display', 'none');
+            $('#forgot-message-container').css('display', 'none');
+            $('#invalid-username').css('display', 'none');
 
-                    $('#register-with-email-drop-down').css('display', 'none');
-                    $('#register-with-email-step-2').css('display', 'none');
-                    $('#register-with-email-step-3').css('display', 'none');
-                    $('#user-login-pane').css('display', 'block');
+            $('#register-with-email-drop-down').css('display', 'none');
+            $('#register-with-email-step-2').css('display', 'none');
+            $('#register-with-email-step-3').css('display', 'none');
+            $('#user-login-pane').css('display', 'block');
 
-                } else {
-                    $('#login-btn').text('REGISTER');
-                    $('.black-tool-tip').css('display', 'none');
-                    $('#click-register-social').css('display', 'none');
-                    $('#click-register').css('display', 'none');
-                    $('#social-link').css('display', 'none');
-                    $('#login-with-email-drop-down').css('display', 'none');
-                    $('#social-login-container').css('display', 'block');
-                    $('#click-login').removeClass('active-tab');
-                    $('#social-login').addClass('social-active');
-                    $('#user-forgot-password-pane').css('display', 'none');
-                    $('#forgot-message-container').css('display', 'none');
-                    $('#invalid-username').css('display', 'none');
+        } else {
+            $('#login-btn').text('REGISTER');
+            $('.black-tool-tip').css('display', 'none');
+            $('#click-register-social').css('display', 'none');
+            $('#click-register').css('display', 'none');
+            $('#social-link').css('display', 'none');
+            $('#login-with-email-drop-down').css('display', 'none');
+            $('#social-login-container').css('display', 'block');
+            $('#click-login').removeClass('active-tab');
+            $('#social-login').addClass('social-active');
+            $('#user-forgot-password-pane').css('display', 'none');
+            $('#forgot-message-container').css('display', 'none');
+            $('#invalid-username').css('display', 'none');
 
-                    $('#register-with-email-drop-down').css('display', 'none');
-                    $('#register-with-email-step-2').css('display', 'none');
-                    $('#register-with-email-step-3').css('display', 'none');
-                    $('#user-login-pane').css('display', 'block');
+            $('#register-with-email-drop-down').css('display', 'none');
+            $('#register-with-email-step-2').css('display', 'none');
+            $('#register-with-email-step-3').css('display', 'none');
+            $('#user-login-pane').css('display', 'block');
 
-                }
+        }
 
-            }
-            else {
-                localStorage.loginState = "register";
+    }
+    else {
+        localStorage.loginState = "register";
 
-                if (localStorage.userType === "register_email") {
-                    $('#login-btn').text('LOG IN');
-                    $('.black-tool-tip').css('display', 'none');
-                    $('#click-register-social').css('display', 'block');
-                    $('#social-link').css('display', 'none');
-                    $('#click-register').css('display', 'block');
-                    $('#click-register-social').removeClass('social-active');
-                    $('#click-register').addClass('active-tab');
-                    $('#user-login-pane').css('display', 'none');
-                    checkSocial();
-                }
-            }
- function checkSocial() {
-                if ($('#social-link').css('display') === 'block') {
-                    $('#social-link').animate({height: 'toggle'});
-                }
-                else {
-                }
-            }
-                function DropDown(el) {
-                    this.dd = el;
-                    this.placeholder = this.dd.children('span');
-                    this.opts = this.dd.find('ul.dropdown > li');
-                    this.val = '';
-                    this.index = -1;
-                    this.initEvents();
-                }
-                DropDown.prototype = {
-                    initEvents: function() {
-                        var obj = this;
+        if (localStorage.userType === "register_email") {
+            $('#login-btn').text('LOG IN');
+            $('.black-tool-tip').css('display', 'none');
+            $('#click-register-social').css('display', 'block');
+            $('#social-link').css('display', 'none');
+            $('#click-register').css('display', 'block');
+            $('#click-register-social').removeClass('social-active');
+            $('#click-register').addClass('active-tab');
+            $('#user-login-pane').css('display', 'none');
+            checkSocial();
+        }
+    }
+    function checkSocial() {
+        if ($('#social-link').css('display') === 'block') {
+            $('#social-link').animate({height: 'toggle'});
+        }
+        else {
+        }
+    }
+    function DropDown(el) {
+        this.dd = el;
+        this.placeholder = this.dd.children('span');
+        this.opts = this.dd.find('ul.dropdown > li');
+        this.val = '';
+        this.index = -1;
+        this.initEvents();
+    }
+    DropDown.prototype = {
+        initEvents: function() {
+            var obj = this;
 
-                        obj.dd.on('click', function(event) {
-                            $(this).parents('div .wrapper-dropdown-3').toggleClass('active');
-                            return false;
-                        });
-                        obj.opts.on('click', function() {
-                            var opt = $(this);
-                            obj.val = opt.text();
-                            obj.index = opt.index();
-                            obj.placeholder.text(obj.val);
-                        });
-                    },
-                    getValue: function() {
-                        return this.val;
-                    },
-                    getIndex: function() {
-                        return this.index;
-                    }
-                };
+            obj.dd.on('click', function(event) {
+                $(this).parents('div .wrapper-dropdown-3').toggleClass('active');
+                return false;
+            });
+            obj.opts.on('click', function() {
+                var opt = $(this);
+                obj.val = opt.text();
+                obj.index = opt.index();
+                obj.placeholder.text(obj.val);
+            });
+        },
+        getValue: function() {
+            return this.val;
+        },
+        getIndex: function() {
+            return this.index;
+        }
+    };
 
-                $(function() {
+    $(function() {
 
-                    var dd3 = new DropDown($('.dropdown_test_3'));
-                    $(document).click(function() {
-                        $('.wrapper-dropdown-3').removeClass('active');
-                    });
+        var dd3 = new DropDown($('.dropdown_test_3'));
+        $(document).click(function() {
+            $('.wrapper-dropdown-3').removeClass('active');
+        });
 
-                });
+    });
 
-                function setDomain() {
+    function setDomain() {
 
-                    var api_url = document.domain;
-                    var api_domain_start_pos = api_url.indexOf('.');
-                    var api_url = api_url.slice(api_domain_start_pos);
+        var api_url = document.domain;
+        var api_domain_start_pos = api_url.indexOf('.');
+        var api_url = api_url.slice(api_domain_start_pos);
 
-                    return api_url;
-                }
+        return api_url;
+    }
 
 
-               
+
 
 </script>
 

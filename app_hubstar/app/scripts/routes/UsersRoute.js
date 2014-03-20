@@ -1,7 +1,6 @@
 HubStar.UsersRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         //  controller.set("indexPage",true);
-console.log("@@@@@@@@@@@444444444dddddd44");
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', true);
@@ -21,11 +20,10 @@ console.log("@@@@@@@@@@@444444444dddddd44");
                     redirect: function() {
 
             if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
-console.log("@@@@@@@@@@@44444444444");
                 this.transitionTo('indexIndex');
                 this.controllerFor('application').set('popup', true);
             } else {
-                this.transitionTo('searchIndex');
+                this.transitionTo('searchIndexTom');
             }
         }
 

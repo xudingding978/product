@@ -24,12 +24,12 @@
         <div style="font-size: 16px;font-weight: bold;color: #555; line-height: 25px;">URL*</div>
         {{/if}}
         {{#if controller.updateOrCreate}}
-        {{view HubStar.SearchRequireTextFieldView valueBinding="controller.newTitle"  id="" class="" style="height:30px;" placeholder="e.g. Bedroom Design" }} 
+        {{view HubStar.SearchRequireTextFieldView valueBinding="controller.newTitle"  id="" class="" style="height:30px;" placeholder="Name this Collection" }} 
 
         {{/if}}
 
         {{#if controller.addPartner}}
-        {{view HubStar.SearchRequireTextFieldView valueBinding="currentAddPartnerPic"  id="" class="" style="height:30px;" placeholder="e.g. http://beta.trendsideas.com/#/profiles/leo" }} 
+        {{view HubStar.SearchRequireTextFieldView valueBinding="currentAddPartnerPic"  id="" class="" style="height:30px;" placeholder="http://my.trendsideas.com/#/profiles/new-home-trends-nz" }} 
         <div style="margin: auto; vertical-align: top;width: 80%;left: 0;right: 0;position: relative;">
             <div style="height: 180px; overflow: hidden;width: 100%;line-height: 180px;text-align: center;margin-top: 5px;">
                 <img style="max-height: 100%; padding: 10px; background-color: rgba(0,0,0,0.03);" {{bindAttr src="selectedPartnerPic"}}/>
@@ -45,7 +45,7 @@
 
         <div style="font-size: 16px;font-weight: bold;color: #555; line-height: 25px;">Description</div>
         <div style="height: 150px;">
-            {{view Ember.TextArea valueBinding="controller.newDesc" rows="12" cols="70" class="no-resize"  placeholder="Add a short description to your Collection"}}
+            {{view Ember.TextArea valueBinding="controller.newDesc" rows="12" cols="70" class="no-resize"  placeholder="Write a brief description for this Collection"}}
         </div>
 
 

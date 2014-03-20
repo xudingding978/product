@@ -2,14 +2,29 @@
 
 <div class="blur_black" style="background-color: initial"  {{action closeDropdownNavigator on="click" target="controller"}}>&nbsp;</div>
 <div class="Navigator-box" style="">
-    <div style="background-color: #f3f3f3; height: 35px; line-height: 35px;width: 100%; border-bottom: 1px solid #ddd;padding: 0 15px;border-radius: 3px 3px 0 0;"><span style="font-size: 18px;font-weight: bold;color: #555;">Navigator</span></div>
+    <div style="background-color: #f3f3f3; height: 45px; line-height: 45px;width: 100%; border-bottom: 1px solid #ddd;padding: 0 15px;border-radius: 3px 3px 0 0;">
+        <span style="font-size: 18px;font-weight: bold;color: #555;">Navigator</span>
 
+    </div>
+
+     <div class="switch-container">
+            <div id="Residential1" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;">Residential</div>
+            <div  id="switchbar" class="insetbox-shadow switch-groove" style="display: inline-block">
+                <div style="height: 10px;width: 50%;border-right: 1px solid rgba(0,0,0,.3);float: left;margin: 6px 0;"></div>
+                <div style="height: 10px;width: 50%;border-left: 1px solid rgba(255,255,255,.5); float: right;margin: 6px 0;"></div>
+
+                <div id="switchbarBtn1" class="radius-circle gradient1 switch-btn" style="margin-left: 13px"></div>
+
+            </div>
+            <div id="Commercial1" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;">Commercial</div>
+        </div>
+    
     <div class="Navigator-content" style="">
         <div class="" style="width: 33%;height: 100%;float: left;padding: 8px 0;overflow: auto">
             <ul style="margin:0">
                 {{#each controller.categorys}}
 
-                <li id="id_{{unbound id}}" {{action topicSelection this}}> {{topic}}<i class="fa fa-search" {{action topicSearch topic}} ></i></li>
+                <li id="navigator_id_{{unbound this.id}}" class="" {{action topicSelection this}}> {{topic}}<i class="fa fa-search" {{action topicSearch topic}} ></i></li>
 
                 {{/each}}
             </ul>
@@ -23,7 +38,7 @@
             {{#each  controller.subcate}}
 
             <ul style="margin:0">
-                <li id="{{unbound id}}" {{action searchTopicSelection subcategories}}> {{category_topic}} <i class="fa fa-search" {{action topicSearch category_topic}} ></i></li>
+                <li id="navigator_id1_{{unbound this.ids}}" {{action searchTopicSelection subcategories ids}}> {{category_topic}}<i class="fa fa-search" {{action topicSearch category_topic}} ></i></li>
 
             </ul>
             {{/each}}
@@ -50,6 +65,10 @@
             <span><a target="blank" href="http://about.trendsideas.com/contact-us/">Contact us</a></span>
         </div>
         <div style="float: right">
+
+             ver. 
+            <span id="lastidentifie">0.4-140</span>
+
             <span><a target="blank" href="http://about.trendsideas.com/terms-of-use-agreement/">Terms of Use</a></span>
             <span><a target="blank" href="http://about.trendsideas.com/privacy-policy/">Privacy Policy</a></span>
         </div>

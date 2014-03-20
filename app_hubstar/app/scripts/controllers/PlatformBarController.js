@@ -10,10 +10,10 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
     init: function()
     {
         this.setTopicModel(HubStar.Cate.find({}));
-        //this.set('userLocation', geoip_city());
+
     },
     topicSearch: function(search_topic) {
-        this.transitionToRoute('searchIndex');
+        this.transitionToRoute('searchIndexTom');
         this.get("controllers.application").set('search_string', search_topic);
         this.get("controllers.application").set("pageCount", 0);
         this.get("controllers.application").set("searchFromTopic", true);

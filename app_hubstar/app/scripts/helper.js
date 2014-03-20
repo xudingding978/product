@@ -15,7 +15,6 @@ Handlebars.registerHelper('mailto', function(field) {
     }
 });
 
-
 Handlebars.registerHelper('checkInputFilesSize', function(object) {
 
     return new Handlebars.SafeString(

@@ -5,7 +5,8 @@ DS.RESTAdapter.map('HubStar.User', {
     followings: {embedded: 'load'},
     messages: {embedded: 'load'},
     conversations: {embedded: 'load'},
-    notifications: {embedded: 'load'}
+    notifications: {embedded: 'load'},
+    profiles: {embedded:'always'}
 });
 
 
@@ -46,12 +47,24 @@ HubStar.User = DS.Model.extend({
     password: DS.attr('string'),
     notification_setting:DS.attr('string'),
     selected_topics: DS.attr('string'),
+    profiles: DS.hasMany('HubStar.SaveToProfile'),
     collections: DS.hasMany('HubStar.Collection'),
     followers: DS.hasMany('HubStar.Follower'),
     followings: DS.hasMany('HubStar.Follower'),
     messages: DS.hasMany('HubStar.UserMessage'),
     conversations: DS.hasMany('HubStar.UserConversation'),
-    notifications: DS.hasMany('HubStar.Notification')
+    notifications: DS.hasMany('HubStar.Notification'),
+    profileSave: function() {
+//        console.log(this.get("profiles") );
+        if(this.get("profiles")===undefined||this.get("profiles")===null||this.get("profiles").get("length")===0)
+            {
+//                console.log("ssss");
+                return false;
+            }
+            else{
+                return true;
+            }
+    }.property('profiles')
 });
 
 

@@ -1,6 +1,6 @@
 HubStar.SearchDefaultArticlePhoto = Ember.Route.extend({
     setupController: function(controller, model) {
-        var temp;
+        var temp;     
         var url = window.location.href;
         var urlArray = url.split("/");
         if (model.id === undefined) {                               //reload page model id can not be find
@@ -8,10 +8,13 @@ HubStar.SearchDefaultArticlePhoto = Ember.Route.extend({
         } else {
             temp = model.id;
         }
-       // var type= url []
         var megaModel = HubStar.Mega.find(temp);
 
-        this.controllerFor('mega').getInitData(megaModel);
+        
+        var that = this;
+        megaModel.then(function() {           
+           that.controllerFor('mega').getInitData(megaModel);
+        });  
 
     },
     model: function(params) {

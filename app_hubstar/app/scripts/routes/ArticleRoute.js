@@ -10,19 +10,21 @@ HubStar.ArticleRoute = Ember.Route.extend({
             temp = model.id;
         }
         var address = document.URL;
-        var type = address.split("#")[1].split("/")[1];
-        if (type === "articles")  
+        var type1 = address.split("#")[1].split("/")[1];
+        var type2 = address.split("#")[1].split("/")[3];
+        if (type1 === "articles"||type2==="articles")  
         {
             this.controllerFor('article').set("accessFromSearchBoard", true); //accessFromSearchBoard is true, it will not transition to the articlePhoto route 
         }
-
         var d = HubStar.Mega.find(temp);
-        controller.getInitData(d);
+        var that = this;
+        d.then(function() {
+            that.controllerFor('article').getInitData(d);
+        });    
     },
     model: function(params) {
-        var model = HubStar.Mega.find({"RequireType": "articles", "article_id": params.article_id});
+        var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.article_id});
         model.set("id", params.article_id);
-
         return model;
     },
     activate: function() {

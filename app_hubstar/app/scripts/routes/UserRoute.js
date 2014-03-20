@@ -16,6 +16,23 @@ HubStar.UserRoute = Ember.Route.extend({
         this.controller.set('switchPhoto', true);
         this.controller.set('collectionTag', true);
         //  this.controller.set('partnerTag', false);
+        
+        if (localStorage.checkUser === "newUser") {
+            setTimeout(function() {
+                window.location.href ='JavaScript:void(0)';
+                $(".brand").addClass("tour-background");
+                $(".Geo-Filter").addClass("tour-background");
+                $("#login_detail").addClass("tour-background");
+                 $("#user-dd-menu").attr("style", "display:none");         
+                introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
+                    window.location.href = '/#/profiles/new-home-trends';
+                    $(window).scrollTop(0);
+                       });
+            }, 500);
+        }
+        else {
+            localStorage.checkUser = "";
+        }
         $('#default').toggle('selected-user-stats');
         this.controller.set('followerTag', false);
         this.controller.set('followingTag', false);
@@ -27,7 +44,6 @@ HubStar.UserRoute = Ember.Route.extend({
         this.controllerFor('user').setUser();
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
-       // $(window).scrollTop(0);
     },
     model: function(params) {
         return HubStar.User.find(params.user_id);
@@ -60,8 +76,8 @@ HubStar.UserRoute = Ember.Route.extend({
 
         if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
 
-            this.transitionTo('indexIndex');
-            this.controllerFor('application').set('popup', true);
+//            this.transitionTo('indexIndex');
+//            this.controllerFor('application').set('popup', true);
         }
     },
     deactivate: function() {

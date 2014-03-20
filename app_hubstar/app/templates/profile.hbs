@@ -1,15 +1,15 @@
 
 
-<div class="profile-wallpaper" style="width: 100%; height: 500px; overflow: hidden; position: fixed; top: 70px;">
-    <img  {{bindAttr src= model.profile_bg_url}} style="width: 100%; height:auto;">
+<div class="profile-wallpaper" style="width: 100%; overflow: hidden; position: fixed; top: 70px;">
+    <img  {{bindAttr src= model.profile_bg_url}} style="width: 100%; max-height: 500px">
 </div>
 <div style="width: 100%; height:250px; position: relative; display: block; opacity: 0;"></div>
 
 
 
-<div class="hover panel" style='z-index: 0; float: none;position: relative; width: 87%; height: auto; margin:  auto; background: #fff; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;max-width: 1260px;min-width: 1250px;overflow: hidden;'>
+<div id="profilePanel" class="hover panel" style='z-index: 0;  float: none;position: relative !important; width: 87%; height: auto; margin:  auto; background: #fff; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;max-width: 1260px;min-width: 1250px;overflow: hidden;'>
 
-    <div class="front" style="text-align: inherit; width: auto; height: auto; box-shadow: none; border: none; position: relative;">
+    <div id="profileFront" class="front" style="text-align: inherit; width: auto; height: auto; box-shadow: none; border: none; position: relative !important;">
 
         <div class="profilewrapper premium">
             <!--corpbanner-->
@@ -30,16 +30,17 @@
 
                             <div>
                                 {{#if controller.editing}}
-                                <div style="display: inline-block; width: 350px;">
-
-                                    {{input type="text" class="insert-contactdetails" value=profile_name}}
-                                </div>
-                                <div style="display: inline-block;vertical-align: bottom; margin-left:20px">
+                                <div style="margin-bottom: 10px;">
+                                    <div style="display: inline-block; width: 350px;">
+                                        {{input type="text" class="insert-profile-name" value=profile_name}}
+                                    </div>
+                                    <div style="display: inline-block;vertical-align: bottom; margin-left:20px">
                                     <div class="new-btn blue-btn"{{action yes controller.profileName}}><i class="fa fa-check fa fa-white"></i></div>
                                     <div class="new-btn"{{action no controller.profileName}}><i class="fa fa-times fa fa-white"></i></div>
+                                    </div>
                                 </div>
                                 {{else}}
-                                <div style="display: inline-block; color: white; max-width: 500px; overflow: hidden; font-size: 28px; margin-bottom: 15px; line-height: 32px; vertical-align: middle;">
+                                <div id="profileName"  style="display: inline-block; color: white; max-width: 500px; overflow: hidden; font-size: 28px; margin-bottom: 15px; line-height: 32px; vertical-align: middle;">
                                     {{profile_name}}
                                 </div>
                                 {{#if controller.is_authentic_user}}
@@ -53,7 +54,7 @@
 
 
                             <!--STAR RATING-->
-                            <div style="position: absolute;width: 500px;">
+                            <div style="position: absolute;width: 500px;" data-step="1" data-intro="Click here to <b>Rate and Review</b> a profile." data-position='right'>
                                 <span class="stars" style="float: left;margin: 5px 15px 5px 0;" ><span id="starsize" ></span></span>  
                                 <div class="hint--right hint--rounded" data-hint="Review this profile!"  {{action rateEditing model.id}} >
                                      <div class="contactmeicon easing" style="float: left;  width: 35px; height: 35px;line-height: 31px;text-align: center;font-weight: bold;font-size: 13px;border: 2px solid #aaa;">{{this.profile_average_review}}</div>
@@ -63,15 +64,14 @@
 
 
                             <!--contact me-->
-
-                            <div class="contactmebtn hint--bottom hint--rounded easing" data-hint="Contact us!">
-                                <a class="contactmeicon easing" {{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></a>
+                            <div class="contactmebtn hint--top hint--rounded easing" style="position: relative; right: 30px;" data-hint="Contact us!" data-step="3" data-intro="Click here to <b>Contact</b> the profile owner." data-position='left'>
+                                   <a class="contactmeicon easing" {{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></a>
 
                             </div>
                             <!--contact me-->
 
-                            <div class="contactmebtn hint--left hint--rounded easing" data-hint="Share this profile!" >
-                                <a class="contactmeicon easing" {{action dropdownPhotoSetting}}><i class="fa fa-share easing" style="font-size: 19px;"></i></a>
+                            <div class="contactmebtn hint--left hint--rounded easing" style="position: relative; right: 30px;" data-hint="Share this profile!" data-step="2" data-intro="Click here to <b>Share</b> a link to this profile through social media." data-position='left'>
+                                 <a class="contactmeicon easing" {{action dropdownPhotoSetting}}><i class="fa fa-share easing" style="font-size: 19px;"></i></a>
                             </div>
 
                             <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px;  padding: 0;right: 45px;top: 70px;position: absolute;">
@@ -108,7 +108,7 @@
                 <td class="left_col" width="29%" valign="top">
                     <div class="profileaside">
                         <div class="profileaside_content">
-                            <div class="aside-profilepic">
+                            <div class="aside-profilepic" data-step="4" data-intro="Start following this profile by clicking <b>+ Follow</b>." data-position='right'>
                                 <div style="min-height: 175px; overflow: visible; line-height: 175px;margin-bottom: 20px;" data-hint="{{unbound model.profile_name}}">
                                     <a href="#/profiles/{{unbound model.id}}">
                                         <img {{bindAttr src= model.profile_pic_url}} style="border:5px solid white;box-shadow: 0px 0px 5px #888;min-height: 0;width: 100%">
@@ -123,24 +123,24 @@
 
                             </div>
 
+                            <div>
+                                <div class="LatestFollower" >
 
-                            <div class="LatestFollower">
+                                    {{#each contentFollowerPhoto}}                                             
+                                    <a class='radius-circle' href="#/users/{{unbound this.id}}">
+                                        <div class="hint--bottom hint--rounded" data-hint="{{unbound this.name}}">
+                                            <img {{bindAttr src= this.photo_url}}/>
+                                        </div>
+                                    </a>                                             
+                                    {{/each}}
 
-                                {{#each contentFollowerPhoto}}                                             
-                                <a class='radius-circle' href="#/users/{{unbound this.id}}">
-                                    <div class="hint--bottom hint--rounded" data-hint="{{unbound this.name}}">
-                                        <img {{bindAttr src= this.photo_url}}/>
-                                    </div>
-                                </a>                                             
-                                {{/each}}
-
+                                </div>
+                                <div class="Followed-by easing" {{action selectFollower this }}>Followed by {{controller.profileFollowerStatistics}} people.</div>
                             </div>
-                            <div class="Followed-by easing"{{action selectFollower this }}>Followed by {{controller.profileFollowerStatistics}} people.</div>
-
 
 
                             <!--KEYWORDS SECTION-->
-                            <div class="aside-container"> 
+                            <div class="aside-container" > 
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'>
                                     <i class='fa fa-bookmark' style='margin-right: 10px;'></i>Keywords
                                 </div>
@@ -159,10 +159,8 @@
 
                             <!--PROFILE CONTACT SECTION-->
 
-
-
-                            <div class="aside-container" style="">
-                                <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='fa fa-phone' style='margin-right: 10px;'></i>Contact Detail</div>
+                            <div class="aside-container" style="" data-step="5" data-intro="Find <b>Contact Details</b> for the profile owner here." data-position='right'>
+                                    <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='fa fa-phone' style='margin-right: 10px;'></i>Contact Detail</div>
                                 {{#unless controller.editingContact}}
                                 {{#if controller.is_authentic_user}}
                                 <div class="edit-btn easing hint--rounded hint--bottom" data-hint="Edit content" {{action toggleEditing model.phone_number controller.contact}}>
@@ -262,11 +260,19 @@
                                                 {{input type="text" class="insert-contactdetails" value=website }}
 
                                                 {{else}}
-                                                <div class="Contact_2child"><a href="#"{{action gotoSize}}>{{website}}</a></div>
+                                                <div class="Contact_2child"><a href="{{unbound  website_url}}"{{action gotoSize}}>{{website}}</a></div>
                                                 {{/if}}
                                             </td>
                                         </tr>
-
+                                        <tr>
+                                                         {{#if controller.editingContact}}   
+                                                        <th style="color: #aaa;text-align: right;font-size: 14px;font-weight: normal;width: 90px;">Website URL:</th>   
+                                                        <td>
+                                                        {{input type="text" class="insert-contactdetails" value=website_url }}  
+                                                        </td>
+                                                        {{else}}
+                                                        {{/if}}
+                                          </tr>
                                     </tbody>
                                 </table>
                                 {{#unless controller.editingContact}}
@@ -284,7 +290,7 @@
 
                             <!--PROFILE HOURS SECTION-->
 
-                            <div class="aside-container" style="border-top: 1px solid #fff;">
+                            <div class="aside-container" style="border-top: 1px solid #fff;"  data-step="6" data-intro="Find out <b>Opening Hours</b> for the profile owner here." data-position='right'>
                                 <div style='margin-bottom: 15px;display: inline-block;font-size: 18px; vertical-align: top;'><i class='fa fa-clock-o' style='margin-right: 10px;'></i>Hours</div>
 
                                 {{#unless controller.editingTime}}
@@ -298,23 +304,23 @@
                                 {{#each controller.hours}}
 
                                 <table id="aside_contact">
-                                    
-                                    <tbody>
-                                        
-                                            {{#unless controller.editingTime}}
-                                            
-                                             <th class="Contact_1child">{{day}}</th>
-                                           
-                                            {{else}}
-                                           <td> {{input type="text" class="inserthours-day" value=day}}</td>
-                                            {{/unless}}
 
-                                            {{#unless controller.editingTime}}
-                                            <th class="Contact_2child">{{time}}</th>
-                                            {{else}}
-                                          <td>  {{input type="text" class="inserthours-time" value=time  }}</td>
-                                            {{/unless}}
-                                       
+                                    <tbody>
+
+                                        {{#unless controller.editingTime}}
+
+                                    <th class="Contact_1child">{{day}}</th>
+
+                                    {{else}}
+                                    <td> {{input type="text" class="inserthours-day" value=day}}</td>
+                                    {{/unless}}
+
+                                    {{#unless controller.editingTime}}
+                                    <th class="Contact_2child">{{time}}</th>
+                                    {{else}}
+                                    <td>  {{input type="text" class="inserthours-time" value=time  }}</td>
+                                    {{/unless}}
+
                                     </tbody>
                                 </table>
 
@@ -331,9 +337,9 @@
 
 
                             <!--PROFILE GOOGLEMAP SECTION--> 
-                            <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;">
-                                <div id="google-map"  style="width: 300px;height: 250px; border: 5px solid #fff;cursor: pointer" >
-                                    <div class="enlarge-map easing" style=""{{action popUpGoogleMap}}><i class="fa fa-expand"></i></div>
+                            <div class="aside-container" style="border-bottom:0 none;border-top: 1px solid #fff;" data-step="7" data-intro=" Click the <b>Location Map</b> to find out how to reach the profile owner’s address from your location." data-position='right'>
+                                <div id="google-map"  style="width: 290px;height: 260px; border: 5px solid #fff;cursor: pointer" >
+                                    <div class="enlarge-map easing" style=""{{action popUpGoogleMap}}><k class="fa fa-expand"></k></div>
                                     <img  {{bindAttr src="controller.profile_google_map"}} style="width: 100%; height:auto;" {{action popUpGoogleMap}}>
                                 </div>
                             </div>
@@ -358,8 +364,8 @@
 
 </div>
 
-
-<div class="back t-style-box"  style='width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0;'>
+{{#unless controller.userTour}}
+<div id="profileDashboard" class="back t-style-box"  style='width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;'>
     <div style="position: relative; top: 0; width: 100%;height: 300px;overflow: hidden; border-radius: 3px 3px 0 0;">
         <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
         <div style="background: url('../images/bannershadow.png') repeat-x; position: absolute; width: 100%; height: 200px; bottom: 0;">
@@ -443,7 +449,7 @@
                         <td>Profile Name*: </td>
                         <td>
                             <div style="display: block;">
-                                {{view Ember.TextField valueBinding="profile_name"   class="mustFill1" placeholder="Heritage Tiles NZ"}}
+                                {{view Ember.TextField valueBinding="profile_name"   class="mustFill1" placeholder=""}}
                             </div>
                             <div class="mustfull" id="mustFill1" style="display: none">please fill in info... </div>
                         </td>
@@ -514,14 +520,14 @@
                         <td>
                             <div style="display: block;">
                                 <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="profile_contact_number" placeholder="0987364531"}}
+                                    {{view Ember.TextField valueBinding="profile_contact_number" placeholder=""}}
                                 </div>
                             </div>
                         </td>
                     </tr>
 
                     <tr>
-                        <td>Website:</td>
+                        <td>Website Domain:</td>
                         <td>
                             <div style="display: block;">
                                 <div   style="margin: 0;width: 100%;">
@@ -546,17 +552,17 @@
                         <td>
                             <div style="display: block;">
                                 <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="profile_cover_text" placeholder="Small profile description"}}
+                                    {{view Ember.TextField valueBinding="profile_cover_text" placeholder="Brief description (displayed when your profile appears in search results)"}}
                                 </div>
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <td>Gooogle Analytics Tracking ID:</td>
+                        <td>Google Analytics Tracking ID:</td>
                         <td>
                             <div style="display: block;">
                                 <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="profile_analytics_code" placeholder="UA-44575103-1"}}
+                                    {{view Ember.TextField valueBinding="profile_analytics_code" placeholder=""}}
                                 </div>
                             </div>
                         </td>
@@ -606,44 +612,44 @@
                         </tr>
 
                         <tr>
-                            <td>Direct Enquiry Email*:</td>
+                            <td>Direct Enquiry Primary Email (To:)*:</td>
 
                             <td>
                                 <div style="display: block;">
                                     <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="contact_email"  class="mustFill4"  placeholder="superman@hubstar.com"}}
+                                        {{view Ember.TextField valueBinding="contact_email"  class="mustFill4"  placeholder=""}}
                                     </div>
                                 </div>
                             </td>
                         </tr>
 
                         <tr>
-                            <td>Secondary  Email (cc):</td>
+                            <td>Direct Enquiry Secondary Email (Cc:):</td>
                             <td>
                                 <div style="display: block;">
                                     <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="secondary_email"  class=""  placeholder="superman@hubstar.com"}}
+                                        {{view Ember.TextField valueBinding="secondary_email"  class=""  placeholder=""}}
                                     </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td>DirectEnquiry Provide Email (bcc):</td>
+                            <td>Direct Enquiry Tertiary Email (Bcc:):</td>
                             <td>
                                 <div style="display: block;">
                                     <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="direct_enquiry_provide_email"  class=""  placeholder="superman@hubstar.com"}}
+                                        {{view Ember.TextField valueBinding="direct_enquiry_provide_email"  class=""  placeholder=""}}
                                     </div>
                                 </div>
                             </td>
                         </tr>
 
                         <tr>
-                            <td>Editor*:</td>
+                            <td>Editors*:</td>
                             <td>
                                 <div style="display: block;">
                                     <div   style="margin: 0;width: 100%; height: 100px;">
-                                        {{view Ember.TextArea valueBinding="editors"   class="mustFill6 no-resize" placeholder="Ironman@hubstar.com, CaptainAmerica@hubstar.com, hulk@hubstar.com"}}
+                                        {{view Ember.TextArea valueBinding="editors"   class="mustFill6 no-resize" placeholder=""}}
                                     </div>
                                 </div>
                             </td>
@@ -669,7 +675,7 @@
                             <td>
                                 <div style="display: block;">
                                     <div  id="facebook" style="margin: 0;width: 100%;">
-                                        {{input type="text" value=facebook placeholder="eg:www.facebook.com"}}
+                                        {{input type="text" value=facebook placeholder="www.facebook.com/username"}}
                                     </div>
                                 </div>
                             </td>
@@ -680,7 +686,7 @@
                             <td>
                                 <div style="display: block;">
                                     <div  id="twitter" style="margin: 0;width: 100%;">
-                                        {{input type="text" value=twitter placeholder="eg:www.twitter.com"}}
+                                        {{input type="text" value=twitter placeholder="www.twitter.co/username"}}
                                     </div>
                                 </div>
                             </td>
@@ -691,7 +697,7 @@
                             <td>
                                 <div style="display: block;">
                                     <div id="googleplus"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=googleplus placeholder="eg:plus.google.com"}}
+                                        {{input type="text" value=googleplus placeholder="plus.google.com/username"}}
                                     </div>
                                 </div>
                             </td>
@@ -702,7 +708,7 @@
                             <td>
                                 <div style="display: block;">
                                     <div  id="pinterest"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=pinterest placeholder="eg:www.pinterest.com"}}
+                                        {{input type="text" value=pinterest placeholder="www.pinterest.com/username"}}
                                     </div>
                                 </div>
                             </td>
@@ -712,7 +718,7 @@
                             <td>
                                 <div style="display: block;">
                                     <div id="linkedin"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=linkedin placeholder="eg:www.linkedin.com"}}
+                                        {{input type="text" value=linkedin placeholder="www.linkedin.com/in/username"}}
                                     </div>
                                 </div>
                             </td>
@@ -724,7 +730,7 @@
                             <td>
                                 <div style="display: block;">
                                     <div  id="youtube" style="margin: 0;width: 100%;">
-                                        {{input type="text" value=youtube placeholder="eg:www.youtube.com"}}
+                                        {{input type="text" value=youtube placeholder="www.youtube.com/user/username"}}
                                     </div>
                                 </div>
                             </td>
@@ -882,10 +888,9 @@
                 {{#if controller.isPhotoUploadMode}}
                 {{#view HubStar.SingleFileUploaderView }}
                 <div style="position: relative; margin: 15px auto;height: 520px; width: 87%; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;">
-                    <div style="top: 190px;position: relative;margin: auto;width: 80%;font-size: 26px; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
+                    <div style="top: 120px;position: relative;margin: auto;width: 80%; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
+                        <img  {{bindAttr src= "backgroundImage"}}  style="max-width: 100%; max-height: 35%;">
 
-
-                        <i class="fa fa-arrow-circle-o-up" style="font-size: 45px;"></i>
                         <p style="font-weight: bold; margin: 10px;">
                             {{controller.UploadImageMode}} 
 
@@ -917,11 +922,12 @@
                 <div class="" style="margin-top: 20px;">
                     <div class="controlbtn" style="left: 300px;">
 
-                        {{#if controller.isCrop}}
+                        
+                      {{#if controller.isCrop}}
                         <span id="photoUploadbtn" class="new-btn blue-btn" {{action cropButton}}>Crop</span>
                         {{else}}
                         <span  class="disabled-btn" >Crop</span>
-                        {{/if}} 
+                        {{/if}}
                         {{#if controller.isUpload}}
                         <span id="photoUploadbtn" class="new-btn green-btn" {{action photoUpload}}>Upload</span>
                         {{else}}
@@ -935,11 +941,6 @@
                 {{/view}}
                 {{/if}}
 
-                {{#if controller.loadingTime}}
-
-                {{render loadingSpinner}}
-
-                {{/if}}
 
                 {{#if controller.isPhotoEditingMode}}
 
@@ -968,15 +969,15 @@
                         <div class="" style="margin-top: 5px;">
 
                             <div class="controlbtn" style="left: 34%;">
-                                <span class="new-btn green-btn " {{action photoUpload}} ><i class='fa fa-save'> &nbsp;Save</span>
-                                <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" >Back</span> </a>
+                                <span class="new-btn green-btn " {{action photoUpload}} ><i class='fa fa-save'> &nbsp;</i>Save</span>
+                                <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" ><i class="fa fa-group"> &nbsp;</i>Back</span> </a>
 
                             </div>
                         </div>
                         {{/if}}
                         {{#if controller.isFinished}}
 
-                        <div class='' style='line-height: 45px;position:relative;height: 50px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 5px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
+                        <div class='' style='line-height: 45px;position:relative;height: 55px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 5px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
                             <span style="position: relative;display: inline-block;font-size: 40px;vertical-align: top;"><i class='fa fa-check-circle'></i></span>
                             <span style="position: relative;width: 87%;display: inline-block;margin: 0 15px;">
 
@@ -987,7 +988,7 @@
                         <div style="position: relative; margin: auto;height: 500px; width: 690px; overflow: hidden;line-height: 490px;">
                             <div style="position: relative;margin:3px;text-align: center;overflow: hidden;">
 
-                                <img  {{bindAttr src= "newStyleImageSource"}} >
+                                <img  {{bindAttr src= "newStyleImageSource"}} style="max-height:500px !important">
                             </div>
                         </div>
                         <div class="" style="">
@@ -995,7 +996,7 @@
 
                             <div class="controlbtn" style="left: 34%;">
 
-                                <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" >Finish</span> </a>
+                                <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" ><i class="fa fa-group"> &nbsp;</i>Finish</span> </a>
                             </div>
                         </div>
                         {{/if}}
@@ -1005,6 +1006,10 @@
 
         </div>
     </div>
+
+
+    {{/unless}}
+
 
 
 
@@ -1041,9 +1046,7 @@
     {{/if}}
 
 
-    {{#unless HubStar.isLogin}}
-    {{render "footer"}}
-    {{/unless}}
+
 
 
 

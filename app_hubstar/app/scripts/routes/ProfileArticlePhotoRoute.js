@@ -11,12 +11,13 @@ HubStar.ProfileArticlePhotoRoute = Ember.Route.extend({
         }
         this.controllerFor("masonryCollectionItems").set("type", "profile");
         var megaModel = HubStar.Mega.find(temp);
-        this.controllerFor('mega').getInitData(megaModel);
-        
-
+        var that = this;
+        megaModel.then(function() {           
+           that.controllerFor('mega').getInitData(megaModel);
+        });        
     },
     model: function(params) {
-        var model = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
+        var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});
          this.controllerFor("article").set("searchFromRoute", true); //only use in userarticle route to get the temp id;
         this.controllerFor("mega").set("clickOrRoute", true);
         

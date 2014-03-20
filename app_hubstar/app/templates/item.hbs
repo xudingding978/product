@@ -1,5 +1,5 @@
 {{#if getProfile}}
-<div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}}>
+<div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}} >
     <div class="masonry-object">
 
         {{render itemProfiles this}}
@@ -12,7 +12,7 @@
 
 
 {{#if getPhoto}}
-<div class="box col2 noStyle1" {{action checkingLoginStatus target="view" on="click"}}>
+<div class="box col2 noStyle1" data-step="6" data-intro="This is an <b>image</b> result. Click the image to see a full screen view and to read the caption." data-position='right' {{action checkingLoginStatus target="view" on="click"}} >
 
     {{render itemFunction this}}
 
@@ -52,8 +52,9 @@
     <div class="masonry-object_mainfeature">
         <div class="mainfeature-wrapper">
             <a class="mainfeature-container" href="#/photos/{{unbound id}}" style="cursor: pointer">
-
-                <img class="this-is-the-object" {{bindAttr src="object_image_url" }} {{action transitionToPhoto id}} />
+                <div id="init_photo_{{unbound id}}">
+                    <img  class="this-is-the-object" {{bindAttr src="object_image_url" }} {{action transitionToPhoto id}} />
+                </div>
             </a>
 
             <span class='edit-object easing' style="position: absolute;margin: 10px; top: 11px;left: 115px;">
@@ -86,10 +87,10 @@
 
 
             <div class="profilepic-on-masonry">
-                <a class="poster-name" style="cursor: pointer; width: auto;" href="#/profiles/{{unbound owner_id}}">  <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
+                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer; width: auto;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <a class="poster-name" style="cursor: pointer; word-break: break-all;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <div class="posttime-container">
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
@@ -125,7 +126,7 @@
                         {{/each}}
                     </div>
                 </div>
-                </div>
+            </div>
             {{#if moreDisplay}}
             <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action transitionToPhoto id}} >more &nbsp;</span>
             {{/if}}
@@ -139,13 +140,8 @@
 {{/if}}
 
 
-
-
-
-
-
 {{#if getVideo}}
-<div class="box col2 noStyle1" >
+<div class="box col2 noStyle1" {{action checkingLoginStatus target="view" on="click"}}  >
     <div class="object-tags-box">
         <div class="object-tags">
             <span class="tags-mark" style="background-color: #427fed"></span>
@@ -172,7 +168,7 @@
                 <div class="tags-new">#{{categories}}</div>
             </div>
         </div>
-         {{#each keywordShow}}
+        {{#each keywordShow}}
         <div class="object-tags ">
             <span class="tags-mark" style="background-color: #76a7fa"></span>
             <div class="tags easing tagsappear" {{action searching keyword_name on="click" target="view"}}>
@@ -187,13 +183,13 @@
 
             {{#if controller.isUser}}
             <a class="mainfeature-container" {{action transitionToPhoto id}}>
-                <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 0;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
+               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 0;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
                     <i class="fa fa-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
                 </div>
                 <img class="this-is-the-object"{{bindAttr src="object_image_url"  }}  />      </a>
             {{else}}
             <a class="mainfeature-container" {{action transitionToVideo id}}>
-                <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 0;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
+               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 0;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
                     <i class="fa fa-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
                 </div>
                 <img {{bindAttr src="object_image_url" }} class="this-is-the-object" />
@@ -232,10 +228,10 @@
 
 
             <div class="profilepic-on-masonry">
-                <a class="poster-name" style="cursor: pointer; width: auto;" href="#/profiles/{{unbound owner_id}}">  <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
+                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer; width: auto;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <a class="poster-name" style="cursor: pointer; word-break: break-all;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <div class="posttime-container">
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
@@ -272,7 +268,7 @@
 
 
 {{#if getArticle}}
-<div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}}>
+<div class="box col2 noStyle1"  data-step="7" data-intro="This is an <b>article</b> result. Click the image to read the article and see all the images associated with it." data-position='right' {{action checkingLoginStatus target="view" on="click"}}>
 
     <div class="object-tags-box">
         <div class="object-tags">
@@ -300,7 +296,7 @@
                 <div class="tags-new">#{{categories}}</div>
             </div>
         </div>
-         {{#each keywordShow}}
+        {{#each keywordShow}}
         <div class="object-tags ">
             <span class="tags-mark" style="background-color: #76a7fa"></span>
             <div class="tags easing tagsappear" {{action searching keyword_name on="click" target="view"}}>
@@ -313,11 +309,13 @@
     <div class="masonry-object_mainfeature">
         <div class="mainfeature-wrapper">
             <a class="mainfeature-container" href="#/articles/{{unbound id}}" >
-                {{#if controller.isUser}}
-                <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToPhoto id}} />
-                     {{else}}
-                     <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} /> <!--it is the cover of the article-->
-                     {{/if}}              
+                <div id="init_photo_{{unbound id}}">
+                    {{#if controller.isUser}}             
+                    <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToPhoto id}} />
+                         {{else}}
+                         <img class="this-is-the-object"{{bindAttr src="object_image_url"  }} {{action transitionToArticle id}} /> <!--it is the cover of the article-->
+                         {{/if}}
+                </div>
             </a>   
 
             <span class='edit-object easing' style="position: absolute;margin: 10px; top: 11px;left: 115px;">
@@ -345,7 +343,7 @@
                 <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
             </div>
             <div class="object_username">
-                <a class="poster-name" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{creator}}</a>
+                <a class="poster-name" style="word-break: break-all;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{owner_title}}</a>
                 <div class="posttime-container" style="display:none;">
                     <span class="posttime">{{date created}}</span>
                 </div>
@@ -381,7 +379,7 @@
                 {{{object_description}}}
 
             </div>
-           {{#if moreDisplay}}
+            {{#if moreDisplay}}
             <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action transitionToArticle id}}>more</span>
             {{/if}}
         </div>

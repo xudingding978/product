@@ -27,7 +27,7 @@
         var address = document.URL;
         var domain = address.split("/")[2];
 
- 
+
         window.parent.location.href = 'http://' + domain + '/#/welcome';
 
 

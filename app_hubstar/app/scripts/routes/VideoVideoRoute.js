@@ -31,7 +31,7 @@ HubStar.VideoVideoRoute = Ember.Route.extend({
 //            mega.store.save();
 //        });
          this.controllerFor('video').getinitdata(tempid);
-                console.log("222222222");
+//                console.log("222222222");
 
       
     },

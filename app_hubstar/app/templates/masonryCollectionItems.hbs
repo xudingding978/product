@@ -1,4 +1,9 @@
 
+{{#if controller.loadingTime}}
+
+{{render loadingSpinner}}
+
+{{/if}}
 
 
 
@@ -57,7 +62,7 @@
                         <span style="font-weight: bold;display: block;font-size: 25px;">
                             Drag & Drop Your Photos Here
                         </span>
-                        <span style="font-size: 17px;display: block;line-height: 25px;width: 380px;margin: auto;">Please upload no more than 20 photos at a time, and maximum size of 10MB per photo.</span> 
+                        <span style="font-size: 17px;display: block;line-height: 25px;width: 480px;margin: auto;">Individual images must not exceed 10MB in size.<br> Upload a maximum of 20 images and a total of 20MB at a time.<br>(Supported file formats: .bmp, .gif, .jpg/.jpeg, .png)</span> 
                     </div>
 
                     <div class="new-btn blue-btn" style="margin: auto; width: 200px; top: 557px; position: absolute;left: 0;right: 67%;">
@@ -107,7 +112,7 @@
         {{#each controller.content}}
         {{view HubStar.ItemView}}
 
-        <script>
+<!--        <script>
             $(function() {
                 var $container = $('#masonry_user_container');
                 window.setTimeout(function() {
@@ -115,8 +120,8 @@
                     $container.masonry('reloadItems');
                 }, 10);
             });
-        </script>
-        <script>
+        </script>-->
+<!--        <script>
             $(function() {
                 var $container = $('#masonry_photo_collection_container');
                 window.setTimeout(function() {
@@ -124,14 +129,14 @@
                     $container.masonry('reloadItems');
                 }, 50);
             });
-        </script>
+        </script>-->
         {{/each}}
 
 
 
 
     </div>
-    <script>
+<!--    <script>
         $(function() {
             var $container = $('#masonry_user_container');
             window.setTimeout(function() {
@@ -148,7 +153,7 @@
                 $container.masonry('reloadItems');
             }, 50);
         });
-    </script>
+    </script>-->
 </div>
 
 

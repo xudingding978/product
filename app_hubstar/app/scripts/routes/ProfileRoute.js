@@ -60,7 +60,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
 
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
-        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+//        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
         ProfileController.setProfile(model.id);
 
 
@@ -123,25 +123,25 @@ HubStar.ProfileRoute = Ember.Route.extend({
 
     },
     activate: function() {
-        
-         $(document).ready(function() {
-        if( localStorage.resOrcom==="residential"){
-           setTimeout(function() {
-                         $(".navbar").css("background", " url(../../images/contactbg.png)");
-                        },10);
-        }
-        else if( localStorage.resOrcom==="commercial"){
-            setTimeout(function() {
-                        $(".navbar").css("background", " url(../../images/chrome.png)");
-                          },10);
-        }
-        else{
-            setTimeout(function() {
-                        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-                           
-            },10);
-        }
-    });
+
+        $(document).ready(function() {
+//        if( localStorage.resOrcom==="residential"){
+//           setTimeout(function() {
+//                         $(".navbar").css("background", " url(../../images/contactbg.png)");
+//                        },10);
+//        }
+//        else
+            if (localStorage.resOrcom === "commercial") {
+                setTimeout(function() {
+                    $(".navbar").css("background", " url(../../images/commercialbg.jpg)");
+                }, 10);
+            }
+            else {
+                setTimeout(function() {
+                    $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+                }, 10);
+            }
+        });
         $(window).scrollTop(0);
 
         $('#discovery_search_bar_wrapper').attr('style', "display:none");

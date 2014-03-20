@@ -644,6 +644,17 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $("#search-bar").fadeOut("320");
         $(".Navigator-box").fadeOut("320");
         $(".navbar").css("box-shadow", "");
+         if (localStorage.resOrcom === "commercial") {
+                setTimeout(function() {
+                    $('#discovery_search_bar_wrapper').css({"background": " url(../../images/commercialbg.jpg)"});
+                }, 10);
+            }
+            else {
+                setTimeout(function() {
+                    $('#discovery_search_bar_wrapper').css({"background": " url(../../images/discoverybarbg.jpg)"});
+                }, 10);
+            }
+
         //    $('#masonry_container').attr('style', "top:100px;position:relative");
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
 

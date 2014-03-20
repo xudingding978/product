@@ -3,13 +3,16 @@ HubStar.ApplicationView = Ember.View.extend({
     didInsertElement: function() {
         $("#loading").attr('style', 'display:none');
         $(document).ready(function() {
-        if( localStorage.resOrcom==="residential"){
-            $('#discovery_search_bar_wrapper').css({"background": " url(../../images/contactbg.png)"});
-            $(".navbar").css("background", " url(../../images/contactbg.png)");
-        }
-        else if( localStorage.resOrcom==="commercial"){
-            $('#discovery_search_bar_wrapper').css({"background": " url(../../images/chrome.png)"});
-            $(".navbar").css("background", " url(../../images/chrome.png)");
+//        if( localStorage.resOrcom==="residential"){
+//            $('#discovery_search_bar_wrapper').css({"background": " url(../../images/contactbg.png)"});
+//            $(".navbar").css("background", " url(../../images/contactbg.png)");
+//        }
+//        else 
+        if( localStorage.resOrcom==="commercial"){
+              setTimeout(function() {
+            $('#discovery_search_bar_wrapper').css({"background": " url(../../images/commercialbg.jpg)"});
+            $(".navbar").css("background", "url(../../images/commercialbg.jpg)");
+            },10);
         }
         else{
             $('#discovery_search_bar_wrapper').css({"background": " url(../../images/discoverybarbg.jpg)"});

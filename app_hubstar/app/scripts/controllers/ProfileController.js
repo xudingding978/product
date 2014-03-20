@@ -587,7 +587,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 "about_video": [], "about_image": [], 'about_book': []});
 
             var about_embeded_object = HubStar.AboutEmbededObject.createRecord({"embeded_object_id": "1", "embeded_object_title": "", "embeded_object_desc": "",
-                "embeded_object_code": "", "embeded_object_url": "", "optional": this.get('model').get('id')});
+                "embeded_object_code": "", "embeded_object_url": "", "optional": this.get('model').get('id'), "embed_object_enabled": false});
 
             var about_video = HubStar.AboutVideo.createRecord({"video_id": '1', "video_title": '', "video_desc": '',
                 "video_url": '', "optional": this.get('model').get('id')});
@@ -623,7 +623,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         else {
             if (this.get("about_us").objectAt(0).get('about_embeded_object').get("length") < 1) {
                 var about_embeded_object = HubStar.AboutEmbededObject.createRecord({"embeded_object_id": "1", "embeded_object_title": "", "embeded_object_desc": "",
-                    "embeded_object_code": "", "embeded_object_url": "", "optional": this.get('model').get('id')});
+                    "embeded_object_code": "", "embeded_object_url": "", "optional": this.get('model').get('id'), "embed_object_enabled": false});
                 this.get("about_us").objectAt(0).get('about_embeded_object').pushObject(about_embeded_object);
             }
         }

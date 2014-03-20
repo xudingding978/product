@@ -5,6 +5,7 @@ HubStar.AboutEmbededObject = DS.Model.extend({
     embeded_object_code:DS.attr('string'),
     embeded_object_url: DS.attr('string'),
     optional: DS.attr('string'),
+    embed_object_enabled: DS.attr('boolean'),
     didLoad: function() {
 
     }

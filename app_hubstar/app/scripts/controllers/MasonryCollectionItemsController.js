@@ -286,7 +286,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
-        var role = permissionController.checkAuthenticEdit(that.get("pageModel").get("creator"), that.get("pageModel").get("administrator"), that.get("pageModel").get("editor"));       
+        var role = permissionController.checkAuthenticEdit(that.get("pageModel").get("profile_creator"), that.get("pageModel").get("profile_administrator"), that.get("pageModel").get("profile_editor"));       
         var is_edit = false;
         if (role !== "")
         {

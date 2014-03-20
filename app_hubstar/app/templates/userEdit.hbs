@@ -293,7 +293,7 @@
                     <span style="font-size: 15px; font-weight: bold; color: #555;">How You Get Notifications:</span>
                     {{#each controller.subcateMethod}}
                     <li class="checkbox-container" style="width: 100%;" {{action checkedMethodAction list_id this}}>
-                        <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox"   >
+                        <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox">
                         <label for="{{unbound list_id}}" name="{{unbound list_id}}" class="css-label lite-blue-check {{unbound list_id}}">{{category_topic}}</label>
                     </li>
                     {{/each}}
@@ -303,7 +303,7 @@
                     <span style="font-size: 15px; font-weight: bold; color: #555;">What You Get Notified About:</span>
                     {{#each controller.subcate}}
                     <li class="checkbox-container" style="width: 100%;" {{action checkedAction list_id this}}>
-                        <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox"   >
+                        <input type="checkbox" {{bindAttr id="list_id" checked="isSelection"}} class="css-checkbox">
                         <label for="{{unbound list_id}}" name="{{unbound list_id}}" class="css-label lite-blue-check {{unbound list_id}}">{{category_topic}}</label>
                     </li>
                     {{/each}}
@@ -328,7 +328,7 @@
                             <div style="padding:20px; width:100%"> 
                                 <div class="user-profile-image-position"><img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound width}}; height:{{unbound height}}"></div>
                                 <div class="user-profile-name-position">{{this.profile_name}}</div>
-                                    <div class="user-profile-bookmark"><i class="fa fa-bookmark" style=" font-size: 30px; color: red;"></i></div>    
+                                <div class="user-profile-bookmark"><i class="fa fa-bookmark" style=" font-size: 30px; color: red;"></i></div>    
                             </div>
                         </a>
                     </div>
@@ -339,7 +339,7 @@
                             <div style="padding:20px; width:100%"> 
                                 <div class="user-profile-image-position"><img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound width}}; height:{{unbound height}}"></div>
                                 <div class="user-profile-name-position">{{this.profile_name}}</div>
-                                    <div class="user-profile-bookmark"><i class="fa fa-bookmark" style=" font-size: 30px; color: blue;"></i></div>    
+                                <div class="user-profile-bookmark"><i class="fa fa-bookmark" style=" font-size: 30px; color: blue;"></i></div>    
                             </div>
                         </a>
                     </div>
@@ -350,13 +350,20 @@
                             <div style="padding:20px; width:100%"> 
                                 <div class="user-profile-image-position"><img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound width}}; height:{{unbound height}}"></div>
                                 <div class="user-profile-name-position">{{this.profile_name}}</div>
-                                    <div class="user-profile-bookmark"><i class="fa fa-bookmark" style=" font-size: 30px; color: gold;"></i></div>    
+                                <div class="user-profile-bookmark"><i class="fa fa-bookmark" style=" font-size: 30px; color: gold;"></i></div>    
                             </div>
                         </a>
                     </div>
                     {{/if}}
                     {{/each}}
 
+                </div>
+
+                <div style="width: 100%;height: auto; min-height: 50px;padding-left: 25px;">
+
+                    <div style="font-size: 20px;font-weight: bold;color: #555; height: auto; min-height: 50px;vertical-align: middle;display: inline-block;">
+                        <a href="#/profiles/new"><i class="fa fa-plus">&nbsp;New Profile</I></a>
+                    </div>
                 </div>
                 <div style="right: 0;margin:10px auto 0;width: 150px;">
                     <span class='new-btn flip-back' {{action userDashboardBackButton }}><i class='fa fa-group'> &nbsp;</i>Back</span>

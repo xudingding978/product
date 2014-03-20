@@ -22,7 +22,7 @@ HubStar.UserEditView = Ember.View.extend({
                 autoHideScrollbar: true,
                 mouseWheel: true,
                 theme: "dark-2",
-                set_height: 350
+                set_height: 300
             });
 
         });

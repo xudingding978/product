@@ -32,7 +32,7 @@ HubStar.EditEditorsController = Ember.Controller.extend({
         var current_user_email = currentUser.get('email');
         var profile = this.get("controllers.profile").get("model");
         var permissionController = this.get('controllers.permission');
-        var role = permissionController.checkAuthenticEdit(profile.get("creator"), profile.get("administrator"), profile.get("editor"));
+        var role = permissionController.checkAuthenticEdit(profile.get("profile_creator"), profile.get("profile_administrator"), profile.get("profile_editor"));
         var is_authentic_user = permissionController.checkAuthenticUser(profile.get("owner"), profile.get("profile_editors"), current_user_email);
         if (is_authentic_user) {
             this.set("isCreator", true);

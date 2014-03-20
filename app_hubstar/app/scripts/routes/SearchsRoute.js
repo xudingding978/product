@@ -83,18 +83,21 @@ HubStar.SearchsRoute = Ember.Route.extend({
         if( localStorage.resOrcom==="residential"){
            setTimeout(function() {
                          $('#discovery_search_bar_wrapper').css("background",  "url(../../images/contactbg.png)");
+                         $(".navbar").css("background", " url(../../images/contactbg.png)");
                         },10);
         }
         else if( localStorage.resOrcom==="commercial"){
             setTimeout(function() {
                          $('#discovery_search_bar_wrapper').css({"background": " url(../../images/chrome.png)"});
+                         $(".navbar").css("background", " url(../../images/chrome.png)");
                         },10);
             
         }
         else{
             setTimeout(function() {
                         $('#discovery_search_bar_wrapper').css({"background": " url(../../images/discoverybarbg.jpg)"});
-                        },10);
+                        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+            },10);
             
         }
           });

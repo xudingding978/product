@@ -5,12 +5,15 @@ HubStar.ApplicationView = Ember.View.extend({
         $(document).ready(function() {
         if( localStorage.resOrcom==="residential"){
             $('#discovery_search_bar_wrapper').css({"background": " url(../../images/contactbg.png)"});
+            $(".navbar").css("background", " url(../../images/contactbg.png)");
         }
         else if( localStorage.resOrcom==="commercial"){
             $('#discovery_search_bar_wrapper').css({"background": " url(../../images/chrome.png)"});
+            $(".navbar").css("background", " url(../../images/chrome.png)");
         }
         else{
             $('#discovery_search_bar_wrapper').css({"background": " url(../../images/discoverybarbg.jpg)"});
+            $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
         }
         });
         

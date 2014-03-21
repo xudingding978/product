@@ -18,6 +18,28 @@ HubStar.ApplicationView = Ember.View.extend({
             $('#discovery_search_bar_wrapper').css({"background": " url(../../images/discoverybarbg.jpg)"});
             $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
         }
+        
+            setTimeout(function() {
+                if (localStorage.resOrcom === "commercial")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:28px;");
+                    $("#Commercial").css("opacity", "1");
+                    $("#Residential").css("opacity", "0.4");
+                }
+                else if (localStorage.resOrcom === "residential")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:0px;");
+                    $("#Commercial").css("opacity", "0.4");
+                    $("#Residential").css("opacity", "1");
+                }
+                else if (localStorage.resOrcom === "all")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:13px;");
+                    $("#Commercial").css("opacity", "1");
+                    $("#Residential").css("opacity", "1");
+                }
+                }, 50);
+        
         });
         
         

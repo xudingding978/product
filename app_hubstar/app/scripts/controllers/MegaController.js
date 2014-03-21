@@ -187,7 +187,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     getInitData: function(megaObject) {
         var that = this;
         megaObject.then(function() {
-            //if (megaObject.get("isLoaded")) {
+
             that.set("is_article_video", true);
 
             if (megaObject.get("type") === 'article')
@@ -260,24 +260,23 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     {
 
                         that.addRelatedData(megaObject);  //it is for profile's collection
-                    }
-                    that.checkAuthenticUser();
+                    }                   
                     that.getCommentsById(megaObject.id);
                 }
             }
-            
-            setTimeout(function() {
-                if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
-                {
-                    megaObject.set("view_count", 1);
-                }
-                else
-                {
-                    megaObject.set("view_count", megaObject.get("view_count") + 1);
-                }
-                megaObject.store.save();
-            }, 5000);
-                
+
+//            if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
+//            {
+//                megaObject.set("view_count", 1);
+//            }
+//            else
+//            {
+//                megaObject.set("view_count", megaObject.get("view_count") + 1);
+//            }
+            that.checkAuthenticUser();
+            var tempComment = [megaObject.id];
+            requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function(params) {
+            });
         });
 
     },

@@ -7,8 +7,9 @@ HubStar.PermissionController = Ember.Controller.extend({
 
         var authenticUsers = owner_email + "," + editors_emails;
         var is_authentic_user = false;
+        console.log(current_user_email);
         if (authenticUsers !== null && authenticUsers !== undefined && current_user_email !== null && current_user_email !== undefined) {
-            is_authentic_user = this.setIsAuthenticUser(authenticUsers, current_user_email);
+            is_authentic_user = this.setIsAuthenticUser(authenticUsers, current_user_email);           
         }
 
         return is_authentic_user;

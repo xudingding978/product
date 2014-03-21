@@ -337,7 +337,8 @@ class PhotosController extends Controller {
             $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
             $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $new_photo_name;
         } else {
-            $url = $this->getDomain() . '/users' . "/" . $owner_id . "/" . $photo_type . "/" . $photo_name;
+            $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
+            $url = $this->getDomain() . '/users' . "/" . $owner_id . "/" . $photo_type . "/" . $new_photo_name;
         }
         $this->saveImageToS3($url, $new_photo_data, $bucket, $type);
         $s3url = 'http://' . $bucket . '/' . $url;

@@ -28,7 +28,6 @@ HubStar.ProfileNewController = Ember.Controller.extend({
     direct_enquiry_emails: "",
     direct_enquiry_emails_2: "",
     direct_enquiry_emails_3: "",
-    creater: "",
     editors: "",
     boost: null,
     profile_package: "",
@@ -192,11 +191,11 @@ HubStar.ProfileNewController = Ember.Controller.extend({
             $('#errorMessage7').attr('style', 'display:block');
             $('#residential').addClass("error-textfield");
             $('#commercial').addClass("error-textfield");
-           
+
         }
         else {
-             $('#errorMessage7').attr('style', 'display:none'); 
-             $('#residential').removeClass("error-textfield");
+            $('#errorMessage7').attr('style', 'display:none');
+            $('#residential').removeClass("error-textfield");
             $('#commercial').removeClass("error-textfield");
         }
 
@@ -338,9 +337,6 @@ HubStar.ProfileNewController = Ember.Controller.extend({
     },
     save: function() {
         this.fillInChecking();
-        var u = HubStar.User.find(localStorage.loginStatus);
-        this.set("creater", u.get("email"));
-
         if (passSubmit) {
 
             var newMegaNewModel = HubStar.Meganew.createRecord({
@@ -354,7 +350,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 categories: $('#categorySelection').text(),
                 subcategories: $('#subcategorySelection').text(),
                 created: "",
-                creator: this.get("creater"),
+                creator: localStorage.loginStatus,
                 classification: this.get("classification"),
                 country: $('#countrySelection').text(),
                 region: $('#regionSelection').text(),
@@ -390,7 +386,9 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 profile_pic_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
                 profile_boost: this.get("keywordNumber"),
                 owner: this.get("owner"),
-                profile_creater: this.get("creater"),
+                profile_creator: localStorage.loginStatus,
+                profile_administrator: "",
+                profile_editor: "",
                 profile_editors: this.get("owner") + "," + this.get("editors"),
                 profile_contact_number: this.get("profile_contact_number"),
                 owner_contact_email: this.get("direct_enquiry_emails"),
@@ -499,8 +497,8 @@ HubStar.ProfileNewController = Ember.Controller.extend({
         }
     },
     classSelection: function(checking) {
-       // console.log("aaa");
-        
+        // console.log("aaa");
+
         if (checking === "Residential") {
             $("#residential").addClass("selected easing");
             $("#commercial").removeClass("selected easing");

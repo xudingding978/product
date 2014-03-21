@@ -47,6 +47,7 @@ HubStar.UserRoute = Ember.Route.extend({
     },
     model: function(params) {
         return HubStar.User.find(params.user_id);
+        
     },
     events: {
         transitionToCollectionPhoto: function(collection_id) {

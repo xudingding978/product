@@ -19,15 +19,15 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     selectedProfile: "",
     userName: '',
     chosenProfile: '',
-    isSaveTopProfile:"false",
+    isSaveTopProfile: "false",
     init: function()
     {
         HubStar.set("isProfile", false);
     },
     setUser: function()
     {
-        var user = HubStar.User.find(localStorage.loginStatus);   
-       
+        var user = HubStar.User.find(localStorage.loginStatus);
+
         this.set("collections", user.get("collections"));
         if (this.get("collections").objectAt(0) !== null && this.get("collections").objectAt(0) !== undefined) {
             this.setDesc("");
@@ -35,13 +35,13 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             this.setProfile("your profile");
             this.set('selectionPop', false);
         }
-        
+
         if (user.get("profiles") === undefined || user.get("profiles") === null || user.get("profiles").get("length") === 0)
         {
-            this.set("isSaveTopProfile",false);
+            this.set("isSaveTopProfile", false);
         }
-        else {          
-            this.set("isSaveTopProfile",true);
+        else {
+            this.set("isSaveTopProfile", true);
         }
 
     },
@@ -94,25 +94,44 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                 var content = HubStar.get('selectedCollection').collection_ids;
                 if (content === null || content === undefined || content === "") {
                     HubStar.get('selectedCollection').collection_ids = this.get("objectID");
+                    
+                     var data = JSON.stringify(HubStar.get('selectedCollection'));
+                        var that = this;
+                        requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
+                            //console.log(params);
+                            HubStar.get('selectedCollection').collection_ids = params;
+                            that.sendFeedBack();
+                            that.exit();
+                        });
+                        this.set("chosenProfile", "");
+                        this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
+                        this.addComment();
                 }
-                else if (content.indexOf(this.get("objectID")) !== -1)
-                {
-                }
-                else {
-                    var ids = content;
-                    ids = ids + "," + this.get("objectID");
-                    HubStar.get('selectedCollection').collection_ids = ids;
-                }
-                var data = JSON.stringify(HubStar.get('selectedCollection'));
-                var that = this;
-                requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
-                    that.sendFeedBack();
-                    that.exit();
-                });
-                this.set("chosenProfile", "");
-                this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
-                this.addComment();
 
+                else {
+                    if (content.indexOf(this.get("objectID")) !== -1)
+                    {
+                        var message = "this is already in the collection";
+                        this.get('controllers.applicationFeedback').statusObserver(null, message);
+                    }
+                    else {
+                        var ids = content;
+                        ids = ids + "," + this.get("objectID");
+                        HubStar.get('selectedCollection').collection_ids = ids;
+
+                        var data = JSON.stringify(HubStar.get('selectedCollection'));
+                        var that = this;
+                        requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
+                            //console.log(params);
+                            HubStar.get('selectedCollection').collection_ids = params;
+                            that.sendFeedBack();
+                            that.exit();
+                        });
+                        this.set("chosenProfile", "");
+                        this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
+                        this.addComment();
+                    }
+                }
             }
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please choose a collection.", "warnning");

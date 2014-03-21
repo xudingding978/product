@@ -15,6 +15,7 @@ var collection_desc_record;
 
 
 HubStar.ProfileController = Ember.ObjectController.extend({
+    role: "",
     model: null,
     aboutMe: "aboutMe",
     isAboutUs: false,
@@ -50,6 +51,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     galleryInsert: false,
     hours: [],
     is_authentic_user: false,
+    is_editor: false,
     keywords: "",
     keywords_array: [],
     keyword_num: 0,
@@ -59,7 +61,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     show_keyword_array: [],
     dragTargetIndex: -1,
     last_name: "",
-    needs: ["profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review', 'keywords', 'profileVideos', 'checkingLoginStatus'],
+    needs: ["editEditors", "profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review', 'keywords', 'profileVideos', 'checkingLoginStatus'],
     name: "",
     facebook: "",
     twitter: "",
@@ -154,10 +156,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     categorys: [],
     subcate: [],
     backgroundImage: "",
+    editorAdd: false,
     init: function() {
 
         this.set('is_authentic_user', false);
         this.setTopicModel(HubStar.Cate.find({}));
+    },
+    editingEditor: function() {
+        this.set("editorAdd", true);
+        this.get("controllers.editEditors").getClientId(this.get("Id"));
     },
     goToProfileRoute: function(id)
     {
@@ -873,10 +880,24 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             var permissionController = this.get('controllers.permission');
             var that = this;
             var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
+            var role = permissionController.checkAuthenticEdit(that.get("model").get("profile_creator"), that.get("model").get("profile_administrator"), that.get("model").get("profile_editor"));
+            that.set("role", role);
+            var is_edit = false;
+            if (role !== "")
+            {
+                is_edit = true;
+                if (role === "editor") {
+                    this.set("is_editor", is_authentic_user ||false);
+                }
+                else
+                {
+                    this.set("is_editor",is_authentic_user || is_edit);
+                }
+            }
             if (current_user_email !== null && current_user_email !== undefined && current_user_email !== "") {
                 var isAdmin = permissionController.setIsAdmin(current_user_email);
-                this.set('isAdmin', isAdmin);
-                that.set("is_authentic_user", is_authentic_user);
+                this.set('isAdmin', isAdmin || is_edit);
+                that.set("is_authentic_user", is_authentic_user || is_edit);
 
             } else {
 
@@ -884,12 +905,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     var current_user_email = currentUser.get('email');
 
                     if (currentUser.get('isLoaded')) {
+                        console.log("sssssssssssssssssssssssssssssssssssssss");
                         var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-                        that.set("is_authentic_user", is_authentic_user);
+                        that.set("is_authentic_user", is_authentic_user || is_edit);
 
                         var isAdmin = permissionController.setIsAdmin(current_user_email);
-                        that.set('isAdmin', isAdmin);
-                        isAdmin = permissionController.setIsAdmin(current_user_email);
+                        that.set('isAdmin', isAdmin || is_edit);
                     }
                 });
             }

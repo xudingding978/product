@@ -5,7 +5,7 @@ header('Content-type: *');
 header('Access-Control-Request-Method: *');
 header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET ,DELETE');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-
+require("protected/vendor/tcpdf/tcpdf.php");
 class PdfsController extends Controller {
 
     const JSON_RESPONSE_ROOT_SINGLE = 'pdf';
@@ -22,6 +22,7 @@ class PdfsController extends Controller {
 //        error_log(var_export($request_arr, true));
 //        error_log($request_arr['pdf']['pdf_url']);
         $pdf_resource = base64_decode(str_replace('data:application/pdf;base64,', '', $request_arr['pdf']['pdf_url']));
+//        $pdf_resource = base64_decode($request_arr['pdf']['pdf_url']);
  //$pdf_resource =   $request_arr['pdf']['pdf_url'];
         error_log($pdf_resource);
         $pdf_profile_id = $request_arr['pdf']['pdf_profile_id'];
@@ -36,7 +37,8 @@ class PdfsController extends Controller {
         $client = Aws\S3\S3Client::factory(
                         $arr
         );
-        $pdf = new FPDF( );
+        $pdf = new TCPDF( );
+        error_log('111111111111111111');
         fwrite ($pdf,$pdf_resource);
         $client->putObject(array(
             'Bucket' => $bucket, //"s3.hubsrv.com"

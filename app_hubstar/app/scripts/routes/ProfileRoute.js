@@ -76,6 +76,14 @@ HubStar.ProfileRoute = Ember.Route.extend({
 
         return HubStar.Profile.find(params.profile_id);
     },
+       beforeModel: function(transition) {
+             var model = HubStar.Profile.find(transition.params.profile_id);
+            var that = this;
+            model.then(function() {
+            }, function() {
+                that.transitionTo('fourOhFour');
+            });
+  },
     events: {
         transitionToCollectionPhoto: function(collection_id) {
             HubStar.set("scrollCollectionPosition", $(window).scrollTop());

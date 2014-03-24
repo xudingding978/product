@@ -6,9 +6,17 @@
 
 HubStar.FourOhFourRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-        console.log("ssssssssssssss");
+//        console.log("ssssssssssssss");
     },
     model: function(params) {
         
+    },
+       renderTemplate: function() {
+
+        this.render('errorpage', {
+            outlet: "errorpage",
+            into: "application"
+        });
+
     }
 });

@@ -90,7 +90,7 @@ class MegasController extends Controller {
             $docID = $this->getDomain() . "/profiles/" . $id;
             $reponse = $cb->get($docID);
             $reponse = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
-
+error_log(var_export($reponse,true));
             $this->sendResponse(200, $reponse);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

@@ -1,56 +1,76 @@
 HubStar.UserRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-        HubStar.set('editingMode', 'user');
-        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
+        console.log('5555555555555555');
+        var that = this;
+        //var model = HubStar.User.find(model);
+        //model.then(function() 
+        console.log(model);
+        if(model!==undefined)
         {
-            HubStar.set("isLogin", false);
-        } else {
-            HubStar.set("isLogin", true);
-        }
-   
-        this.controllerFor('application').set('islogin', true);
-        this.controllerFor('application').set('popup', false);
-        this.controllerFor('application').set('isotherpage', true);
-        this.controllerFor('searchs').setLoginImge();
-        this.controllerFor('application').set('isotherpage', true);
-        this.controller.set('switchPhoto', true);
-        this.controller.set('collectionTag', true);
-        //  this.controller.set('partnerTag', false);
-        
-        if (localStorage.checkUser === "newUser") {
-            setTimeout(function() {
-                window.location.href ='JavaScript:void(0)';
-                $(".brand").addClass("tour-background");
-                $(".Geo-Filter").addClass("tour-background");
-                $("#login_detail").addClass("tour-background");
-                 $("#user-dd-menu").attr("style", "display:none");         
-                introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
-                    window.location.href = '/#/profiles/new-home-trends';
-                    $(window).scrollTop(0);
-                       });
-            }, 500);
-        }
-        else {
-            localStorage.checkUser = "";
-        }
-        $('#default').toggle('selected-user-stats');
-        this.controller.set('followerTag', false);
-        this.controller.set('followingTag', false);
-        this.controller.set('messageTag', false);
-        this.controller.set('messageTag', false);
-         this.controller.set('postTag', false);
-        
-        this.controllerFor('user').set("model", model);
-        this.controllerFor('user').setUser();
-        $("#top-about-menu").css('display', 'none');
-        $("#search-bar").css('display', 'block');
+            console.log("aaaaaa");
+            HubStar.set('editingMode', 'user');
+            if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
+            {
+                HubStar.set("isLogin", false);
+            } else {
+                HubStar.set("isLogin", true);
+            }
+
+            that.controllerFor('application').set('islogin', true);
+            that.controllerFor('application').set('popup', false);
+            that.controllerFor('application').set('isotherpage', true);
+            that.controllerFor('searchs').setLoginImge();
+            that.controllerFor('application').set('isotherpage', true);
+            that.controller.set('switchPhoto', true);
+            that.controller.set('collectionTag', true);
+            //  this.controller.set('partnerTag', false);
+
+            if (localStorage.checkUser === "newUser") {
+                setTimeout(function() {
+                    window.location.href = 'JavaScript:void(0)';
+                    $(".brand").addClass("tour-background");
+                    $(".Geo-Filter").addClass("tour-background");
+                    $("#login_detail").addClass("tour-background");
+                    $("#user-dd-menu").attr("style", "display:none");
+                    introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
+                        window.location.href = '/#/profiles/new-home-trends';
+                        $(window).scrollTop(0);
+                    });
+                }, 500);
+            }
+            else {
+                localStorage.checkUser = "";
+            }
+            $('#default').toggle('selected-user-stats');
+            that.controller.set('followerTag', false);
+            that.controller.set('followingTag', false);
+            that.controller.set('messageTag', false);
+            that.controller.set('messageTag', false);
+            that.controller.set('postTag', false);
+
+            that.controllerFor('user').set("model", model);
+            that.controllerFor('user').setUser();
+            $("#top-about-menu").css('display', 'none');
+            $("#search-bar").css('display', 'block');
+      }
+       // , function() {
+      //      that.transitionTo('fourOhFour');
+      //  });
     },
     model: function(params) {
-        return HubStar.User.find(params.user_id);
+        var model = HubStar.User.find(params.user_id);
+        var that = this;
+        model.then(function() {
+            return model;
+        }, function() {
+            that.transitionTo('fourOhFour');
+            return null;
+        });
+
     },
     events: {
         transitionToCollectionPhoto: function(collection_id) {
-            
+
             var address = document.URL;
             var user_id = address.split("#")[1].split("/")[2];
             var user = HubStar.User.find(user_id);

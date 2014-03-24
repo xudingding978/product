@@ -142,9 +142,11 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_domains'] = $newRecord['profile_domains'];
             $oldRecord['profile'][0]['profile_country'] = $newRecord['profile_country'];
             $oldRecord['profile'][0]['profile_editors'] = $newRecord['profile_editors'];
+            
             $oldRecord['profile'][0]['profile_editor'] = $newRecord['profile_editor'];
             $oldRecord['profile'][0]['profile_administrator'] = $newRecord['profile_administrator'];
             $oldRecord['profile'][0]['profile_creator'] = $newRecord['profile_creator'];
+            
             $oldRecord['creator'] = $newRecord['profile_creator'];
             $oldRecord['editors'] = $newRecord['profile_editors'];
             $oldRecord['profile'][0]['profile_hours'] = $newRecord['profile_hours'];

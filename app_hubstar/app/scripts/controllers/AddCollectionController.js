@@ -88,7 +88,9 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                     collection.set('type', 'user');
                     collection.store.save();
                     var tempComment = [this.get("objectID")];
+                    var that =this;
                     requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
+                        that.get("commentObject").set("save_count",params);
                     });
                     this.sendFeedBack();
                 }
@@ -107,17 +109,19 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
 
                     var data = JSON.stringify(HubStar.get('selectedCollection'));
                     var that = this;
+                    this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
                     requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
                         //console.log(params);
                         HubStar.get('selectedCollection').collection_ids = params;
                         var tempComment = [that.get("objectID")];
                         requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
+                            that.get("commentObject").set("save_count",params);
                         });
                         that.sendFeedBack();
                         that.exit();
                     });
                     this.set("chosenProfile", "");
-                    this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
+                    
                     this.addComment();
                 }
 
@@ -134,17 +138,19 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
 
                         var data = JSON.stringify(HubStar.get('selectedCollection'));
                         var that = this;
+                         this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
                         requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
                             //console.log(params);
                             HubStar.get('selectedCollection').collection_ids = params;
                             var tempComment = [that.get("objectID")];
                             requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
+                                that.get("commentObject").set("save_count",params);
                             });
                             that.sendFeedBack();
                             that.exit();
                         });
                         this.set("chosenProfile", "");
-                        this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
+                       
                         this.addComment();
                     }
                 }

@@ -1087,19 +1087,19 @@ class Controller extends CController {
                     $docID_profile = $domain . "/profiles/" . $profile_id;
                     $tempMega_profile = $cb->get($docID_profile);
                     $mega_profile = CJSON::decode($tempMega_profile, true);
-//                    $profile_editors = $mega_profile["profile"][0]["profile_editors"];
-//                    $profile_name = $mega_profile["profile"][0]["profile_name"];
-//                    $profile_pic = $mega_profile["profile"][0]["profile_pic_url"];
                     $profile_editors = (isset($mega_profile["profile"][0]["profile_editors"])) ? $mega_profile["profile"][0]["profile_editors"] : '*@trendsideas.com';
-                    //error_log("this is editor:" . $profile_editors);
-                    //    $profile_editors = $mega_profile["profile"][0]["profile_editors"];
                     $profile_name = (isset($mega_profile["profile"][0]["profile_name"])) ? $mega_profile["profile"][0]["profile_name"] : 'Trends Ideas';
-                    //          $profile_name = $mega_profile["profile"][0]["profile_name"];
                     $profile_pic = (isset($mega_profile["profile"][0]["profile_pic_url"])) ? $mega_profile["profile"][0]["profile_pic_url"] : 'http://s3.hubsrv.com/trendsideas.com/profiles/new-home-trends/profile_picture/profile_picture_192x192.jpg';
-                    //   $profile_pic = $mega_profile["profile"][0]["profile_pic_url"];
                     $tempResult['stats'][0]['megas'][$i]['editors'] = $profile_editors;
                     $tempResult['stats'][0]['megas'][$i]['owner_title'] = $profile_name;
                     $tempResult['stats'][0]['megas'][$i]['owner_profile_pic'] = $profile_pic;
+                    $profile_editor = (isset($mega_profile["profile"][0]["profile_editor"])) ? $mega_profile["profile"][0]["profile_editor"] : '';
+                    $profile_administrator = (isset($mega_profile["profile"][0]["profile_administrator"])) ? $mega_profile["profile"][0]["profile_administrator"] : '';
+                    $profile_creator = (isset($mega_profile["profile"][0]["profile_creator"])) ? $mega_profile["profile"][0]["profile_creator"] : '';
+                    $tempResult['stats'][0]['megas'][$i]['profile_editor'] = $profile_editor;
+                    $tempResult['stats'][0]['megas'][$i]['profile_administrator'] = $profile_administrator;
+                    $tempResult['stats'][0]['megas'][$i]['profile_creator'] = $profile_creator;
+                    
                 }
             }
         } else {
@@ -1113,15 +1113,17 @@ class Controller extends CController {
                     $tempMega_profile = $cb->get($docID_profile);
                     $mega_profile = CJSON::decode($tempMega_profile, true);
                     $profile_editors = (isset($mega_profile["profile"][0]["profile_editors"])) ? $mega_profile["profile"][0]["profile_editors"] : '*@trendsideas.com';
-                    //error_log("this is editor:" . $profile_editors);
-                    //    $profile_editors = $mega_profile["profile"][0]["profile_editors"];
                     $profile_name = (isset($mega_profile["profile"][0]["profile_name"])) ? $mega_profile["profile"][0]["profile_name"] : 'Trends Ideas';
-                    //          $profile_name = $mega_profile["profile"][0]["profile_name"];
                     $profile_pic = (isset($mega_profile["profile"][0]["profile_pic_url"])) ? $mega_profile["profile"][0]["profile_pic_url"] : 'http://s3.hubsrv.com/trendsideas.com/profiles/new-home-trends/profile_picture/profile_picture_192x192.jpg';
-                    //   $profile_pic = $mega_profile["profile"][0]["profile_pic_url"];
                     $tempResult['megas'][$i]['editors'] = $profile_editors;
                     $tempResult['megas'][$i]['owner_title'] = $profile_name;
                     $tempResult['megas'][$i]['owner_profile_pic'] = $profile_pic;
+                    $profile_editor = (isset($mega_profile["profile"][0]["profile_editor"])) ? $mega_profile["profile"][0]["profile_editor"] : '';
+                    $profile_administrator = (isset($mega_profile["profile"][0]["profile_administrator"])) ? $mega_profile["profile"][0]["profile_administrator"] : '';
+                    $profile_creator = (isset($mega_profile["profile"][0]["profile_creator"])) ? $mega_profile["profile"][0]["profile_creator"] : '';
+                    $tempResult['megas'][$i]['profile_editor'] = $profile_editor;
+                    $tempResult['megas'][$i]['profile_administrator'] = $profile_administrator;
+                    $tempResult['megas'][$i]['profile_creator'] = $profile_creator;
                 }
             }
         }

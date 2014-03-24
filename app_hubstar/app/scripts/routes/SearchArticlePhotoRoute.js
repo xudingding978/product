@@ -13,6 +13,9 @@ HubStar.SearchArticlePhotoRoute = Ember.Route.extend({
          var that = this;
         megaModel.then(function() {           
            that.controllerFor('mega').getInitData(megaModel);
+        },function() {
+            
+           that.transitionTo('fourOhFour');
         }); 
         
 

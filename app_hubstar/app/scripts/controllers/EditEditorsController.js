@@ -62,8 +62,8 @@ HubStar.EditEditorsController = Ember.Controller.extend({
         this.set('clientID', id);
         var dataNew = new Array();
         var profile = this.get("controllers.profile").get("model");
-        this.set("administrator", profile.get("administrator"));
-        this.set("editor", profile.get("editor"));
+        this.set("administrator", profile.get("profile_administrator"));
+        this.set("editor", profile.get("profile_editor"));
         var that = this;
         requiredBackEnd('followers', 'ReadProfilePic', id, 'POST', function(params) {
             that.set("contentFollowerPhoto", []);
@@ -77,25 +77,25 @@ HubStar.EditEditorsController = Ember.Controller.extend({
             {
                 for (var i = 0; i < params.get("length"); i++)
                 {
-                    if (profile.get("creator") !== null && ((profile.get("creator").indexOf(params.objectAt(i)["record_id"]) !== -1 &&
-                            (profile.get("creator")[profile.get("creator").indexOf(params.objectAt(i)["record_id"]) - 1] === "," ||
-                                    profile.get("creator")[profile.get("creator").indexOf(params.objectAt(i)["record_id"]) + params.objectAt(i)["record_id"].length] === ",")) ||
-                            profile.get("creator") === params.objectAt(i)["record_id"]))
+                    if (profile.get("profile_creator") !== null && ((profile.get("profile_creator").indexOf(params.objectAt(i)["record_id"]) !== -1 &&
+                            (profile.get("profile_creator")[profile.get("profile_creator").indexOf(params.objectAt(i)["record_id"]) - 1] === "," ||
+                                    profile.get("profile_creator")[profile.get("profile_creator").indexOf(params.objectAt(i)["record_id"]) + params.objectAt(i)["record_id"].length] === ",")) ||
+                            profile.get("profile_creator") === params.objectAt(i)["record_id"]))
                     {
                         that.get("contentCreatorPhoto").pushObject(params.objectAt(i));
                     }
-                    else if (profile.get("administrator") !== null && ((profile.get("administrator").indexOf(params.objectAt(i)["record_id"]) !== -1 &&
-                            (profile.get("administrator")[profile.get("administrator").indexOf(params.objectAt(i)["record_id"]) - 1] === "," ||
-                                    profile.get("administrator")[profile.get("administrator").indexOf(params.objectAt(i)["record_id"]) + params.objectAt(i)["record_id"].length] === ",")) ||
-                            profile.get("administrator") === params.objectAt(i)["record_id"]))
+                    else if (profile.get("profile_administrator") !== null && ((profile.get("profile_administrator").indexOf(params.objectAt(i)["record_id"]) !== -1 &&
+                            (profile.get("profile_administrator")[profile.get("profile_administrator").indexOf(params.objectAt(i)["record_id"]) - 1] === "," ||
+                                    profile.get("profile_administrator")[profile.get("profile_administrator").indexOf(params.objectAt(i)["record_id"]) + params.objectAt(i)["record_id"].length] === ",")) ||
+                            profile.get("profile_administrator") === params.objectAt(i)["record_id"]))
                     {
                         //params.objectAt(i)["isClick"] = true;
                         that.get("contentAdministratorPhoto").pushObject(params.objectAt(i));
                     }
-                    else if (profile.get("editor") !== null && ((profile.get("editor").indexOf(params.objectAt(i)["record_id"]) !== -1 &&
-                            (profile.get("editor")[profile.get("editor").indexOf(params.objectAt(i)["record_id"]) - 1] === "," ||
-                                    profile.get("editor")[profile.get("editor").indexOf(params.objectAt(i)["record_id"]) + params.objectAt(i)["record_id"].length] === ",")) ||
-                            profile.get("editor") === params.objectAt(i)["record_id"]))
+                    else if (profile.get("profile_editor") !== null && ((profile.get("profile_editor").indexOf(params.objectAt(i)["record_id"]) !== -1 &&
+                            (profile.get("profile_editor")[profile.get("profile_editor").indexOf(params.objectAt(i)["record_id"]) - 1] === "," ||
+                                    profile.get("profile_editor")[profile.get("profile_editor").indexOf(params.objectAt(i)["record_id"]) + params.objectAt(i)["record_id"].length] === ",")) ||
+                            profile.get("profile_editor") === params.objectAt(i)["record_id"]))
                     {
                         //params.objectAt(i)["isClick"] = true;
                         that.get("contentEditorPhoto").pushObject(params.objectAt(i));
@@ -117,12 +117,12 @@ HubStar.EditEditorsController = Ember.Controller.extend({
             if (id === this.get("contentFollowerPhoto").objectAt(i)["record_id"])
             {
                 this.get("contentAdministratorPhoto").pushObject(this.get("contentFollowerPhoto").objectAt(i));
-                if (profile.get("administrator") !== ""&&profile.get("administrator") !== null) {
-                    profile.set("administrator", profile.get("administrator") + "," + id);
+                if (profile.get("profile_administrator") !== ""&&profile.get("profile_administrator") !== null) {
+                    profile.set("profile_administrator", profile.get("profile_administrator") + "," + id);
                 }
                 else
                 {
-                    profile.set("administrator", id);
+                    profile.set("profile_administrator", id);
                 }
                 break;
             }
@@ -146,12 +146,12 @@ HubStar.EditEditorsController = Ember.Controller.extend({
             if (id === this.get("contentFollowerPhoto").objectAt(i)["record_id"])
             {
                 this.get("contentEditorPhoto").pushObject(this.get("contentFollowerPhoto").objectAt(i));
-                if (profile.get("editor") !== ""&&profile.get("editor") !== null) {
-                    profile.set("editor", profile.get("editor") + "," + id);
+                if (profile.get("profile_editor") !== ""&&profile.get("profile_editor") !== null) {
+                    profile.set("profile_editor", profile.get("profile_editor") + "," + id);
                 }
                 else
                 {
-                    profile.set("editor",  id);
+                    profile.set("profile_editor",  id);
                 }
                 break;
             }
@@ -231,8 +231,8 @@ HubStar.EditEditorsController = Ember.Controller.extend({
                     that.get('controllers.applicationFeedback').statusObserver(null, "the requests have been sent");
                 });
                 that.get("controllers.profile").set("editorAdd", false);
-                that.set("administrator", profile.get("administrator"));
-                that.set("editor", profile.get("editor"));
+                that.set("administrator", profile.get("profile_administrator"));
+                that.set("editor", profile.get("profile_editor"));
             }
         });
     },
@@ -242,7 +242,7 @@ HubStar.EditEditorsController = Ember.Controller.extend({
             if (id === this.get("contentEditorPhoto").objectAt(i)["record_id"])
             {
                 this.get("contentFollowerPhoto").pushObject(this.get("contentEditorPhoto").objectAt(i));
-                var s = profile.get("editor").replace(id, "");
+                var s = profile.get("profile_editor").replace(id, "");
                 s = s.replace(",,", ",");
                 if (s[0] === ",")
                 {
@@ -252,7 +252,7 @@ HubStar.EditEditorsController = Ember.Controller.extend({
                 {
                     s = s.substr(0, s.length - 1);
                 }
-                profile.set("editor", s);
+                profile.set("profile_editor", s);
                 break;
             }
         }
@@ -276,7 +276,7 @@ HubStar.EditEditorsController = Ember.Controller.extend({
             if (id === this.get("contentAdministratorPhoto").objectAt(i)["record_id"])
             {
                 this.get("contentFollowerPhoto").pushObject(this.get("contentAdministratorPhoto").objectAt(i));
-                var s = profile.get("administrator").replace(id, "");
+                var s = profile.get("profile_administrator").replace(id, "");
                 s = s.replace(",,", ",");
                 if (s[0] === ",") {
                     s = s.substr(1);
@@ -285,7 +285,7 @@ HubStar.EditEditorsController = Ember.Controller.extend({
                 {
                     s = s.substr(0, s.length - 1);
                 }
-                profile.set("administrator", s);
+                profile.set("profile_administrator", s);
                 break;
             }
         }
@@ -308,8 +308,8 @@ HubStar.EditEditorsController = Ember.Controller.extend({
         this.set("contentAdministratorPhoto", null);
         this.set("contentEditorPhoto", null);
         var profile = this.get("controllers.profile").get("model");
-        profile.set("administrator", this.get("administrator"));
-        profile.set("editor", this.get("editor"));
+        profile.set("profile_administrator", this.get("administrator"));
+        profile.set("profile_editor", this.get("editor"));
     }
 }
 );

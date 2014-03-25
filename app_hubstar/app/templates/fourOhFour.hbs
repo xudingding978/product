@@ -4,31 +4,34 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 
-    <div class="objectview-wrapper" >
-        <div style=" width: 100%;background-color: #63A2C8; height: 968px; position: relative; display: block;">
 
-            
-                <div class="search-bar" style="">
-        <div id ="navigator" class="Nav-btn easing" style="float: left;" {{action dropdownNavigator}}><i class="fa fa-list"></i></div>
-        {{#if controller.isNavigatorDropdown}}
-        {{view HubStar.NavigatorView}}
-        {{/if}}
+<div class="objectview-wrapper" >
+    <div style=" width: 100%;background: url(http://develop.devbox.s3.amazonaws.com/404sample.png) center #63A2C8; height: 968px; position: relative; display: block;">
 
-        <div class="Search-box easing" style="">
-            {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="errorpage_search" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
-            <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -50px; right: -5px;border-left: 1px solid #ddd;"  {{action searching }}>
-                <i class="fa fa-search"></i>
+
+        <div style="position: relative;top: 34%;">
+            <div class="inset-text" style="color:#555;position: relative;  text-align: center;" >
+                <div style="font-size: 11em;  font-weight: lighter;line-height: 1em;letter-spacing: 0.1em;">404</div>
+                <div style=" font-size: 2.5em;  letter-spacing: 1px; line-height: 40px;">Page Not Found!</div>
+                <div style=" font-size: 1.5em; line-height: 20px; margin-left: 5px; margin: 30px 0 10px;">We Are Sorry.</div>
+                <div style=" font-size: 1em;  width: 450px; margin: 0 auto;">This could be the result of the page being removed, the name being changed or the page being temporarily unavailable.</div>
+            </div>
+
+            <div class="search-bar" style="width: 505px;min-width: 0;top: 0;position: relative;margin-top: 30px;">
+                <div id ="navigator" class="Nav-btn easing" style="float: left;" {{action dropdownNavigator}}><i class="fa fa-list"></i></div>
+                {{#if controller.isNavigatorDropdown}}
+                {{view HubStar.NavigatorView}}
+                {{/if}}
+
+                <div class="Search-box easing" style="width: 450px;">
+                    {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="errorpage_search" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
+                    <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -50px; right: -5px;border-left: 1px solid #ddd;"  {{action searching }}>
+                         <i class="fa fa-search"></i>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
-            
-            
-            
-            <div style="color:#fff;position: absolute;top: 320px; width: 26%; " >
-                <div style="font-size: 80px;  font-weight: bold;line-height: 75px;letter-spacing: 1px;">Page Not Found</div>
-                <div style=" font-size: 15px;  letter-spacing: 1px;line-height: 20px; margin-left: 5px;">We are busy enhancing your experience right now. This is a great time to make a coffee and enjoy.</div>
-            </div>
-        </div>
 </div>
 
- 

@@ -265,7 +265,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     that.getCommentsById(megaObject.id);
                 }
             }
-            
+
             setTimeout(function() {
                 if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
                 {
@@ -277,7 +277,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
                 megaObject.store.save();
             }, 5000);
-                
+
         });
 
     },
@@ -731,14 +731,23 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 // this.transitionTo("indexIndex"); //search page
                 var address = document.URL;
                 var search_id = address.split("#")[1].split("/")[2];
+                var object_type = address.split("#")[1].split("/")[1];
                 if (search_id === "search") //this go to the search index
                 {
                     this.transitionTo("searchIndexTom");
                 }
                 else
                 {
-                    HubStar.set("escVideo", true);
-                    this.transitionTo("search", {id: search_id});
+                    
+                    if (object_type === "photos" || object_type === "articles" || object_type === "videos")
+                    {
+                        this.transitionTo("searchIndexTom");
+                    }
+                    else
+                    {
+                        HubStar.set("escVideo", true);
+                        this.transitionTo("search", {id: search_id});
+                    }
                 }
 
 //                $('#masonry_wrapper').attr('style', "top:100px;position:relative");

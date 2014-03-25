@@ -37,8 +37,8 @@ class MegasController extends Controller {
 //                    $request_string = "RequireType=video";
 //                }
 
-                $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);               
-                $response = $this->profileSetting($response,$this->getUserInput($requireParams[0]),"mega");
+                $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
+                $response = $this->profileSetting($response, $this->getUserInput($requireParams[0]), "mega");
             }
             $this->sendResponse(200, $response);
         } catch (Exception $exc) {
@@ -123,7 +123,8 @@ class MegasController extends Controller {
             $this->updateMega($newRecord);
         }
     }
-    public function actionSetSaveCount(){
+
+    public function actionSetSaveCount() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $id = $request_array[0];
         //$count = $request_array[2];
@@ -136,12 +137,13 @@ class MegasController extends Controller {
         } else {
             $oldRecord['save_count'] = $oldRecord['save_count'] + 1; //$mega['mega']['view_count'] + 1;  ,but it  will also add one when share 
         }
-         if ($cb->set($docIDDeep, CJSON::encode($oldRecord))) {
-                $this->sendResponse(200, CJSON::encode($oldRecord['save_count']));
-            } else {
-                $this->sendResponse(500, "some thing wrong");
-            }
+        if ($cb->set($docIDDeep, CJSON::encode($oldRecord))) {
+            $this->sendResponse(200, CJSON::encode($oldRecord['save_count']));
+        } else {
+            $this->sendResponse(500, "some thing wrong");
+        }
     }
+
     public function actionSetViewCount() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $id = $request_array[0];
@@ -155,11 +157,16 @@ class MegasController extends Controller {
         } else {
             $oldRecord['view_count'] = $oldRecord['view_count'] + 1; //$mega['mega']['view_count'] + 1;  ,but it  will also add one when share 
         }
-         if ($cb->set($docIDDeep, CJSON::encode($oldRecord))) {
-                $this->sendResponse(200, CJSON::encode($oldRecord['view_count']));
-            } else {
-                $this->sendResponse(500, "some thing wrong");
-            }
+        if (!isset($oldRecord['accessed'])) {
+            $oldRecord["accessed"] = 1;
+        }
+        $oldRecord["accessed"] = date_timestamp_get(new DateTime());
+
+        if ($cb->set($docIDDeep, CJSON::encode($oldRecord))) {
+            $this->sendResponse(200, CJSON::encode($oldRecord['view_count']));
+        } else {
+            $this->sendResponse(500, "some thing wrong");
+        }
     }
 
     public function articleUpdate($mega) {
@@ -178,9 +185,9 @@ class MegasController extends Controller {
 
             if (!isset($oldRecord['accessed'])) {
                 $oldRecord["accessed"] = 1;
-            } else {
-                $oldRecord["accessed"] = date_timestamp_get(new DateTime());
             }
+            $oldRecord["accessed"] = date_timestamp_get(new DateTime());
+
             if (!isset($oldRecord['share_count'])) {
                 $oldRecord["share_count"] = 0;
             } else {

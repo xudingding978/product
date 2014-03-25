@@ -307,10 +307,10 @@ class PhotosController extends Controller {
         $mega['photo'][0]['photo_original_height'] = $orig_size['height'];
         $mega['photo'][0]['photo_original_width'] = $orig_size['width'];
 
-        $mega['view_count']=0;
-        $mega['share_count']=0;
-        $mega['save_count']=0;
-        
+        $mega['view_count'] = 0;
+        $mega['share_count'] = 0;
+        $mega['save_count'] = 0;
+
         $keyword = $this->getProfileKeyword($mega['owner_id']);
         $editors = $this->getProfileEditors($mega['owner_id']);
         $mega['keyword'] = $keyword;
@@ -542,9 +542,9 @@ class PhotosController extends Controller {
 //            }
             if (!isset($oldRecord['accessed'])) {
                 $oldRecord["accessed"] = 1;
-            } else {
-                $oldRecord["accessed"] = date_timestamp_get(new DateTime());
             }
+            $oldRecord["accessed"] = date_timestamp_get(new DateTime());
+
             if (!isset($oldRecord['share_count'])) {
                 $oldRecord["share_count"] = 0;
             } else {

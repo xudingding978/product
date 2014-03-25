@@ -59,7 +59,15 @@ HubStar.VideoController = Ember.Controller.extend({
     closeWindow: function() {
         this.set('collectable', false);
         this.set('contact', false);
-        window.history.back();
+        var address = document.URL;
+        var object_type = address.split("#")[1].split("/")[1];
+        if (object_type === "photos" || object_type === "articles" || object_type === "videos")
+        {
+            this.transitionTo("searchIndexTom");
+        }
+        else {
+            window.history.back();
+        }
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
         setTimeout(function() {
             $('#masonry_container').masonry();  //masonry();

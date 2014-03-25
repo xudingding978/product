@@ -5,6 +5,7 @@
 HubStar.ApplicationController = Ember.ArrayController.extend({
     selected_topics: "",
     isAdd: false,
+    error:false,
     is_authentic_user: false,
     trendsUser: false,
     totalItems: 0,
@@ -368,7 +369,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     {
         var emailVerify = [verifyAccount, verifyPassword];
         var that = this;
-        console.log("dfafs");
         
         requiredBackEnd('login', 'verify', emailVerify, 'POST', function(params) {
             localStorage.loginStatus = params;

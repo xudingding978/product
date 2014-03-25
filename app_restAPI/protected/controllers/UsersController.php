@@ -150,7 +150,7 @@ class UsersController extends Controller {
             } else {
                 $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
             }
-            error_log(var_export($result, true));
+            //error_log(var_export($result, true));
             $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

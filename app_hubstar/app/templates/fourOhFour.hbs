@@ -8,7 +8,19 @@ and open the template in the editor.
         <div style=" width: 100%;background-color: #63A2C8; height: 968px; position: relative; display: block;">
 
             
-            
+                <div class="search-bar" style="">
+        <div id ="navigator" class="Nav-btn easing" style="float: left;" {{action dropdownNavigator}}><i class="fa fa-list"></i></div>
+        {{#if controller.isNavigatorDropdown}}
+        {{view HubStar.NavigatorView}}
+        {{/if}}
+
+        <div class="Search-box easing" style="">
+            {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="errorpage_search" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
+            <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -50px; right: -5px;border-left: 1px solid #ddd;"  {{action searching }}>
+                <i class="fa fa-search"></i>
+            </div>
+        </div>
+    </div>
             
             
             

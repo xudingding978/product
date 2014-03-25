@@ -367,8 +367,9 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 owner_contact_bcc_emails: this.get("direct_enquiry_emails_2"),
                 owner_contact_cc_emails: this.get("direct_enquiry_emails_3"),
                 updated: "",
-                view_count: null,
-                share_count: null,
+                view_count: 0,
+                share_count: 0,
+                save_count: 0,
                 comment_count: null,
                 keyword: [],
                 profile: []

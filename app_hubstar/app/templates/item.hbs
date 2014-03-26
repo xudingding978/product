@@ -14,7 +14,7 @@
 {{#if getPhoto}}
 <div class="box col2 noStyle1" data-step="6" data-intro="This is an <b>image</b> result. Click the image to see a full screen view and to read the caption." data-position='right' {{action checkingLoginStatus target="view" on="click"}} >
 
-    {{render itemFunction this}}
+   
 
     <div class="object-tags-box">
         <div class="object-tags">
@@ -48,6 +48,7 @@
             </div>
         </div>
     </div>
+     {{render itemFunction this}}
 
     <div class="masonry-object_mainfeature">
         <div class="mainfeature-wrapper">
@@ -141,7 +142,7 @@
 
 
 {{#if getVideo}}
-<div class="box col2 noStyle1" {{action checkingLoginStatus target="view" on="click"}}  >
+<div class="box col2 noStyle1" {{action checkingLoginStatus target="view" on="click"}} >
     <div class="object-tags-box">
         <div class="object-tags">
             <span class="tags-mark" style="background-color: #427fed"></span>
@@ -178,6 +179,7 @@
         {{/each}}
     </div>
     {{render itemFunction this}}
+    
     <div class="masonry-object_mainfeature">
         <div class="mainfeature-wrapper">
 

@@ -11,7 +11,8 @@ HubStar.Notification = DS.Model.extend({
     time: DS.attr('string'),
     content:DS.attr('string'),
     action_id:DS.attr('string'),
-    isRead:false
+    isRead:false,
+    isButton:false
 });
 
 

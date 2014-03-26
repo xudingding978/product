@@ -53,9 +53,13 @@ HubStar.Mega = DS.Model.extend({
     uri_url: DS.attr('string'),
     view_count: DS.attr('number'),
     share_count: DS.attr('number'),
+    save_count: DS.attr('number'),
     comment_count: DS.attr('number'),
     optional: DS.attr('string'),
     isFollow: DS.attr('boolean'),
+    profile_editor:DS.attr('string'),
+    profile_administrator:DS.attr('string'),
+    profile_creator:DS.attr('string'),
     //--------------------------
     photo: DS.hasMany('HubStar.Photo'),
     user: DS.hasMany('HubStar.User'),

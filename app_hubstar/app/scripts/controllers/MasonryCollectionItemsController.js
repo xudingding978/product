@@ -286,15 +286,22 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
+        var role = permissionController.checkAuthenticEdit(that.get("pageModel").get("profile_creator"), that.get("pageModel").get("profile_administrator"), that.get("pageModel").get("profile_editor"));       
+        var is_edit = false;
+        if (role !== "")
+        {
+            is_edit = true;
+        }
+        
         if (currentUser.get("isLoaded")) {
             var is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
-            this.set("is_authentic_user", is_authentic_user);
+            this.set("is_authentic_user", is_authentic_user||is_edit);
         } else {
             currentUser.addObserver('isLoaded', function() {
                 var current_user_email = currentUser.get('email');
                 if (currentUser.get('isLoaded')) {
                     is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
-                    that.set("is_authentic_user", is_authentic_user);
+                    that.set("is_authentic_user", is_authentic_user||is_edit);
                 }
             });
         }
@@ -415,7 +422,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                         }
                         setTimeout(function() {
                             $('#masonry_photo_collection_container').masonry("reloadItems");
-                            setTimeout(function() {                                
+                            setTimeout(function() {
                                 $('#masonry_photo_collection_container').masonry();
                                 that.set("loadingTime", false);
                             }, 15);

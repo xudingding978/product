@@ -72,9 +72,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     pageCount: 0,
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
-
+ 
         var that = this;
-        this.set('categorys', HubStar.Cate.find({}));
+        this.set('categorys', HubStar.Cate.find({})); 
 //        this.get("categorys").then(function() {
 //            for (var i = 0; i < that.get("categorys").get("length"); i++)
 //            {

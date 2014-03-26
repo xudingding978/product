@@ -8,10 +8,35 @@ HubStar.PermissionController = Ember.Controller.extend({
         var authenticUsers = owner_email + "," + editors_emails;
         var is_authentic_user = false;
         if (authenticUsers !== null && authenticUsers !== undefined && current_user_email !== null && current_user_email !== undefined) {
-            is_authentic_user = this.setIsAuthenticUser(authenticUsers, current_user_email);
+            is_authentic_user = this.setIsAuthenticUser(authenticUsers, current_user_email);           
         }
 
         return is_authentic_user;
+    },
+    checkAuthenticEdit: function(creator, administrator, editor) {
+        var authorityLevel = "";
+        //if (creator !== null && administrator !== null && editor !== null)
+        {
+            if (creator !== null &&((creator.indexOf(localStorage.loginStatus) !== -1 &&
+                    (creator[creator.indexOf(localStorage.loginStatus) - 1] === "," ||
+                            creator[creator.indexOf(localStorage.loginStatus) + localStorage.loginStatus.length] === ",")) ||
+                    creator === localStorage.loginStatus)) {
+                authorityLevel = "creator";
+            }
+            else if (administrator !== null&&((administrator.indexOf(localStorage.loginStatus) !== -1 &&
+                    (administrator[administrator.indexOf(localStorage.loginStatus) - 1] === "," ||
+                            administrator[administrator.indexOf(localStorage.loginStatus) + localStorage.loginStatus.length] === ",")) ||
+                    administrator === localStorage.loginStatus)) {
+                authorityLevel = "administrator";
+            }
+            else if (editor !== null&&((editor.indexOf(localStorage.loginStatus) !== -1 &&
+                    (editor[editor.indexOf(localStorage.loginStatus) - 1] === "," ||
+                            editor[editor.indexOf(localStorage.loginStatus) + localStorage.loginStatus.length] === ",")) ||
+                    editor === localStorage.loginStatus)) {
+                authorityLevel = "editor";
+            }
+        }
+        return authorityLevel;
     },
     setIsAuthenticUser: function(authenticUsers, email)
     {

@@ -260,6 +260,10 @@ HubStar.ArticleController = Ember.Controller.extend({
             that.getCommentsById(megaObject.id);
             that.checkCreditExist(megaObject.get('article').objectAt(0).get('credits'));
 
+            var tempComment = [megaObject.id];
+            requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function(params) {
+            });
+
 //            setTimeout(function() {
 //                if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
 //                {
@@ -486,7 +490,8 @@ HubStar.ArticleController = Ember.Controller.extend({
             }
             else if (type === "photos" || type === "articles" || type === "videos")
             {
-                this.transitionTo("searchIndexTom");
+                var m = HubStar.Mega.find(user_id);
+                this.transitionTo("search", {id: m.get("owner_title")});
             }
         }
     },

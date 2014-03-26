@@ -22,6 +22,7 @@ HubStar.Meganew = DS.Model.extend({
     likes_count: DS.attr('string'),
     is_active: DS.attr('boolean'),
     is_indexed: DS.attr('boolean'),
+    
     is_deleted:DS.attr('boolean'),
     keywords: DS.attr('string'),
     keyword_num: DS.attr('number'),
@@ -48,6 +49,7 @@ HubStar.Meganew = DS.Model.extend({
     uri_url: DS.attr('string'),
     view_count: DS.attr('number'),
     share_count: DS.attr('number'),
+    save_count: DS.attr('number'),
     comment_count: DS.attr('number'),
     optional: DS.attr('string'),
     isFollow: DS.attr('boolean'),

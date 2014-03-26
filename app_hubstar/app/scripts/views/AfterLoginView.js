@@ -1,7 +1,11 @@
 
 HubStar.AfterLoginView = Ember.View.extend({
     templateName: 'afterLogin',
+    newProfile: false,
+    profiles: null,
     willInsertElement: function() {
+    },
+    didInsertElement: function() {
     },
     logout: function() {
  
@@ -12,10 +16,14 @@ HubStar.AfterLoginView = Ember.View.extend({
     showUserDropDown: function() {
         if ($('#user-dd-menu').css('display') === 'block') {
             $("#user-dd-menu").attr("style", "padding: inherit; width: 178px; right: 60px; position: relative; top:30px;display:none");
+
         }
         else {
+             this.set("newProfile", false);
             $("#user-dd-menu").attr("style", "padding: inherit; width: 178px; right: 60px; position: relative; top:30px;display:block");
+
         }
+        this.loadProfile();
     },
     userDisplaynone: function(checking) {
         if (checking === "myUserProfile") {
@@ -32,11 +40,18 @@ HubStar.AfterLoginView = Ember.View.extend({
             $("#user-dd-menu").attr("style", "display:none");
 
         } else if (checking === "new") {
-            location.href = '#/profiles/new';
-            $("#user-dd-menu").attr("style", "display:none");
-
+            this.get("controller").set("newProfile", true);
+            this.loadProfile();
         }
 
+    },
+    cancel: function() {
+        this.set("newProfile", false);
+         $("#user-dd-menu").attr("style", "display:none");
+    },
+    loadProfile: function() {   
+        var user = HubStar.User.find(localStorage.loginStatus);
+        this.set("profiles", user.get("profiles"));
     },
     startTour: function() {
 
@@ -46,7 +61,7 @@ HubStar.AfterLoginView = Ember.View.extend({
         $(".brand").addClass("tour-background");
         $(".Geo-Filter").addClass("tour-background");
         $("#login_detail").addClass("tour-background");
-   introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
+        introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
             var address = document.URL;
             var urlName = address.split("#")[1].split("/")[1];
             var target = address.split("#")[1].split("/")[2];

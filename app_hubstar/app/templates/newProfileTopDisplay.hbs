@@ -1,0 +1,30 @@
+<div id="user_profiles_dropdown_scrollbar">  
+    {{#each model}}  
+    <a href="#/profiles/{{unbound this.profile_id}}"> 
+        {{#if this.isAdministrator}}
+        <div style="background-color: rgba(255, 0, 0, 0.1); border: 1px solid #ccc;">
+            <div class="profile-top-image-position" > 
+                <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}};margin-top: -5px;">                  
+            </div>
+            <div class="profile-top-name-position">{{this.profile_name}}</div> 
+        </div>
+        {{/if}}
+        {{#if this.isEditor}}
+        <div style="background-color: rgba(0, 255, 255, 0.1); border: 1px solid #ccc; ">
+            <div  class="profile-top-image-position" > 
+                <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}};margin-top: -5px;">                  
+            </div>
+            <div class="profile-top-name-position">{{this.profile_name}}</div> 
+        </div>
+        {{/if}}
+        {{#if this.isCreator}}
+        <div style="background-color: rgba(255, 255, 0, 0.1); border: 1px solid #ccc; ">
+            <div  class="profile-top-image-position" >
+                <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}};margin-top: -5px;">                  
+            </div>
+            <div class="profile-top-name-position">{{this.profile_name}}</div> 
+        </div>
+        {{/if}}
+    </a>
+    {{/each}} 
+</div>

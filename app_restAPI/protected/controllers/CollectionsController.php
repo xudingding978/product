@@ -55,19 +55,24 @@ class CollectionsController extends Controller {
         if (!isset($oldRecordDeep['profile'][0]['collections'])) {
             $oldRecordDeep['profile'][0]['collections'] = array();
         }
+        $collectionIDs = explode(",", $request_arr["collection_ids"]);
+        $id = $collectionIDs[sizeof($collectionIDs) - 1];
         for ($i = 0; $i < sizeof($oldRecordDeep['profile'][0]['collections']); $i++) {
             if ($oldRecordDeep['profile'][0]['collections'][$i]["id"] === $request_arr["id"]) {
-                $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] = $request_arr["collection_ids"];
+                if (!isset($oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"]) || $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] === null || $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] === "") {
+                    $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] = $id;
+                } else {
+                    $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] = $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] . "," . $id;
+                }
+                $collectionItems = $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"];
             }
         }
         if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
-            $this->sendResponse(204);
+            $this->sendResponse(200, CJSON::encode($collectionItems));
         } else {
             echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
         }
     }
-
-    
 
     public function actionCreate() {
         try {
@@ -191,8 +196,10 @@ class CollectionsController extends Controller {
                 $owner = CJSON::decode($profileOwn, true);
                 $records = $owner["profile"][0]["collections"];
                 $collection_num = $this->getSelectedcollection($records, $collectionDel_id);
+                $delCollection = $owner["profile"][0]["collections"][$collection_num];
+
                 array_splice($owner["profile"][0]["collections"], $collection_num, 1);
-                //$this->deletePhoto($collectionDel_id, $collectionDelProfile);
+                $this->deletePhoto($delCollection);
 //                for ($i = 0; $i < sizeof($owner["profile"][0]["collections"]); $i++) {
 //                    if ($owner["profile"][0]["collections"][$i]["id"] === $collectionDel_id) {
 //                        array_splice($owner["profile"][0]["collections"], $i, 1);
@@ -217,22 +224,40 @@ class CollectionsController extends Controller {
         }
     }
 
-    public function deletePhoto($collection_id, $profile_id) {
-        $response = $this->getCollectionReults($collection_id, $profile_id);
-        $responseArray = array();
-        foreach ($response as $hit) {
-            $id = $hit['id'];
-            $collectionId = $hit['source']['doc']['collection_id'];
-            $profileId = $hit['source']['doc']['owner_id'];
-            if ($collectionId === $collection_id && $profileId === $profile_id) {
-                $cb = $this->couchBaseConnection();
-                if ($cb->delete($id)) {
-                    array_unshift($responseArray, $id . ' delete succeed');
-                } else {
-                    array_unshift($responseArray, $id . ' delete failed');
+    public function deletePhoto($delCollection) {
+        $cb = $this->couchBaseConnection();
+        $collecitonids = explode(",", $delCollection["collection_ids"]);
+        for ($i = 0; $i < sizeof($collecitonids); $i++) {
+            if ($collecitonids[$i] !== "") {
+                $id = $collecitonids[$i];
+                $url = $this->getDomain() . "/" . trim($id);
+                $tempRecord = $cb->get($url);
+                $oldRecord = CJSON::decode($tempRecord, true);
+                if ($oldRecord['collection_id'] === $delCollection['id'] && $oldRecord['owner_id'] === $delCollection['optional']) {
+                    $oldRecord['is_deleted'] = true;
+                    if ($cb->set($url, CJSON::encode($oldRecord))) {
+                        
+                    } else {
+                        $this->sendResponse(500, "delete mega object fail");
+                    }
                 }
             }
         }
+//        $response = $this->getCollectionReults($collection_id, $profile_id);
+//        $responseArray = array();
+//        foreach ($response as $hit) {
+//            $id = $hit['id'];
+//            $collectionId = $hit['source']['doc']['collection_id'];
+//            $profileId = $hit['source']['doc']['owner_id'];
+//            if ($collectionId === $collection_id && $profileId === $profile_id) {
+//                $cb = $this->couchBaseConnection();
+//                if ($cb->delete($id)) {
+//                    array_unshift($responseArray, $id . ' delete succeed');
+//                } else {
+//                    array_unshift($responseArray, $id . ' delete failed');
+//                }
+//            }
+//        }
     }
 
     public function actionTest() {

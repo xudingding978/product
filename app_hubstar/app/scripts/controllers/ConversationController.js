@@ -192,28 +192,37 @@ HubStar.ConversationController = Ember.Controller.extend({
             }
             else
             {
-                if (that.get("conversationContent").length > 0) {
-                    if (that.get('controllers.notificationTop').get("notificationSeeAll") === true)
-                    {
-                        that.transitionToRoute("notifications");
-                        that.get('controllers.notificationTop').set("notificationSeeAll", false);
-                    }
-                    else
-                    {
-
-                        that.selectConversation(that.get("conversationContent").objectAt(0).conversationID);
-                    }
-                }
-                else
+                var address = document.URL;
+                var user_id = address.split("#")[1].split("/")[4];
+                if (user_id === "notifications")
                 {
-                    if (that.get('controllers.notificationTop').get("notificationSeeAll") === true)
-                    {
-                        that.transitionToRoute("notifications");
-                        that.get('controllers.notificationTop').set("notificationSeeAll", false);
+                    that.transitionToRoute("notifications");
+                    that.get('controllers.notificationTop').set("notificationSeeAll", false);
+                }
+                else {
+                    if (that.get("conversationContent").length > 0) {
+                        if (that.get('controllers.notificationTop').get("notificationSeeAll") === true)
+                        {
+                            that.transitionToRoute("notifications");
+                            that.get('controllers.notificationTop').set("notificationSeeAll", false);
+                        }
+                        else
+                        {
+
+                            that.selectConversation(that.get("conversationContent").objectAt(0).conversationID);
+                        }
                     }
                     else
                     {
-                        that.transitionToRoute("newConversation");
+                        if (that.get('controllers.notificationTop').get("notificationSeeAll") === true)
+                        {
+                            that.transitionToRoute("notifications");
+                            that.get('controllers.notificationTop').set("notificationSeeAll", false);
+                        }
+                        else
+                        {
+                            that.transitionToRoute("newConversation");
+                        }
                     }
                 }
             }

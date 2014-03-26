@@ -73,17 +73,17 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         var that = this;
         this.set('categorys', HubStar.Cate.find({}));
-        this.get("categorys").then(function() {
-            for (var i = 0; i < that.get("categorys").get("length"); i++)
-            {
-                that.get("categorys").objectAt(i).set("id", createNavigatorId());
-
-                for (var j = 0; j < that.get("categorys").objectAt(i).get("subcate").get("length"); j++)
-                {
-                    that.get("categorys").objectAt(i).get("subcate").objectAt(j).set("ids", createNavigatorId());
-                }
-            }
-        });
+//        this.get("categorys").then(function() {
+//            for (var i = 0; i < that.get("categorys").get("length"); i++)
+//            {
+//                that.get("categorys").objectAt(i).set("id", createNavigatorId());
+//
+//                for (var j = 0; j < that.get("categorys").objectAt(i).get("subcate").get("length"); j++)
+//                {
+//                    that.get("categorys").objectAt(i).get("subcate").objectAt(j).set("ids", createNavigatorId());
+//                }
+//            }
+//        });
 
         requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
             var array = $.map(callbck, function(value, index) {
@@ -692,8 +692,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.get('subcate').pushObject({'ids': data.get('subcate').objectAt(i).get("ids"), 'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')});
         }
         $('#navigator_id_' + this.get("navigator_id")).removeClass('selected-navigation');
-        this.set("navigator_id", data.get("id"));
-        $('#navigator_id_' + data.get("id")).addClass('selected-navigation');
+        this.set("navigator_id", data.get("ids"));
+        $('#navigator_id_' + data.get("ids")).addClass('selected-navigation');
     },
     searchTopicSelection: function(data, ids) {
 

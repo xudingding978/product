@@ -15,13 +15,11 @@ HubStar.ProfilePhotoRoute = Ember.Route.extend({
         this.controllerFor('mega').set("selectType", "profile"); // it is from the search board if is not profile, if it profile it is from profile' data
       //  this.controllerFor('mega').set("loadingTime", true);
         var that = this;
-           megaModel.then(function() {           
-        that.controllerFor('mega').getInitData(megaModel);
+          megaModel.then(function() {           
+           that.controllerFor('mega').getInitData(megaModel);
         },function() {
-            
-           that.transitionTo('fourOhFour');
-        });  
-       
+           that.transitionTo('fourOhFour',"404");
+        }); 
     },
     model: function(params) {
 

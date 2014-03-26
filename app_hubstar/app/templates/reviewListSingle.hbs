@@ -32,7 +32,7 @@
 
             <div style="position: relative; display: block;margin: 15px 0 10px;height: 20px;width: 100%;">
                 <div id="review_like_{{unbound model.review_id}}"  style="float: right; font-size: 13px;" class="new-btn" {{action addLike}}>
-                     <i class="fa fa-thumbs-up-alt" {{action addLike model}}>&nbsp</i>
+                     <i class="fa fa-thumbs-up" {{action addLike model}}>&nbsp</i>
                     {{model.review_like_count}}</div>
                 <div id="review_share_{{unbound model.review_id}}"  style="float: right; font-size: 13px;margin-right: 5px;" class="new-btn" {{action dropdownPhotoSetting model.review_id}}>
                      <i class="fa fa-share" >&nbsp</i></div>          

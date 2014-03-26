@@ -1,6 +1,5 @@
 HubStar.UserRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-        console.log("aaa");
         HubStar.set('editingMode', 'user');
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === ""))
         {
@@ -49,13 +48,14 @@ HubStar.UserRoute = Ember.Route.extend({
     model: function(params) {
         
         return HubStar.User.find(params.user_id);
+        
     },
    beforeModel: function(transition) {
              var model = HubStar.User.find(transition.params.user_id);
             var that = this;
             model.then(function() {
             }, function() {
-                that.transitionTo('fourOhFour');
+                that.transitionTo('fourOhFour',"404");
             });
   },
     events: {
@@ -83,24 +83,14 @@ HubStar.UserRoute = Ember.Route.extend({
 //        }
     },
     redirect: function(params) {
-        console.log(params);
+       
         if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
 
 
 //            this.transitionTo('indexIndex');
 //            this.controllerFor('application').set('popup', true);
         }
-        else
-        {          
-            var that = this;
-            params.then(function() {
-
-              console.log("aaaaa");
-            }, function() {
-
-                that.transitionTo('fourOhFour');
-            });
-        }
+      
     },
     deactivate: function() {
 

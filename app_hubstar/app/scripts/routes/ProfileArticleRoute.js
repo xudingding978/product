@@ -22,7 +22,7 @@ HubStar.ProfileArticleRoute = Ember.Route.extend({
          this.controllerFor("article").getInitData(d);
         },function() {
             
-           that.transitionTo('fourOhFour');
+           that.transitionTo('fourOhFour',"404");
         });
         this.controllerFor("article").getInitData(d);
     },

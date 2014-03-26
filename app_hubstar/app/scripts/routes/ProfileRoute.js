@@ -57,7 +57,8 @@ HubStar.ProfileRoute = Ember.Route.extend({
                 this.sendGAMessage(analytics_array[i], model.get('id').split('-').join('') + i.toString());
             }
         }
-
+        this.controllerFor('application').set("newProfile", false);
+        $("#user-dd-menu").attr("style", "display:none");
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
@@ -81,7 +82,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
             var that = this;
             model.then(function() {
             }, function() {
-                that.transitionTo('fourOhFour');
+                that.transitionTo('fourOhFour',"404");
             });
   },
     events: {

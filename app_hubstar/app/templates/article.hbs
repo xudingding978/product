@@ -135,11 +135,11 @@
 
 
                 <div class="square-button hint--rounded hint--bottom"  data-hint="Add to your own collection." {{action switchCollection on="click" target="controller"}}>
-                    <i class="fa fa-folder" >&nbsp;</i>
+                    <i class="fa fa-folder" >&nbsp;<span style="font-size: 11px;">{{megaResouce.save_count}}</span>&nbsp;</i>
                 </div>
 
                 <div class="square-button hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting "2"}}>
-                     <i class="fa fa-share" >&nbsp;</i>
+                     <i class="fa fa-share" >&nbsp;<span style="font-size: 11px;">{{megaResouce.share_count}}</span>&nbsp;</i>
                 </div>
 
                 <ul class="hideClass edit-object-ul" id="dropdown_id_2" style="width: 170px; right: 635px; position: absolute; top: 120px;">

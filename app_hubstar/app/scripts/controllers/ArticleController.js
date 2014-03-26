@@ -259,7 +259,9 @@ HubStar.ArticleController = Ember.Controller.extend({
             that.addRelatedData(megaObject);
             that.getCommentsById(megaObject.id);
             that.checkCreditExist(megaObject.get('article').objectAt(0).get('credits'));
-            
+            var tempComment = [megaObject.id];
+            requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function(params) {
+            });
 //            setTimeout(function() {
 //                if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
 //                {

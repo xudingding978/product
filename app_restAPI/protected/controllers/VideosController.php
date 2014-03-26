@@ -56,9 +56,7 @@ class VideosController extends Controller {
     public function actionUpdate() {
         
     }
-    
-   
-    
+
     public function videoUpdate($mega) {
         try {
             $cb = $this->couchBaseConnection();
@@ -76,20 +74,20 @@ class VideosController extends Controller {
             $oldRecord['videoes'][0]['video_title'] = $photoTitle;
             $oldRecord['videoes'][0]['video_desc'] = $photoCaption;
 
-             if (!isset($oldRecord['view_count'])) {
+            if (!isset($oldRecord['view_count'])) {
                 $oldRecord["view_count"] = 1;
             } else {
-            $oldRecord['view_count'] = $mega['mega']['view_count'];   // //or using $mega['mega']['view_count'];
+                $oldRecord['view_count'] = $mega['mega']['view_count'];   // //or using $mega['mega']['view_count'];
             }
-             if (!isset($oldRecord['accessed'])) {
+            if (!isset($oldRecord['accessed'])) {
                 $oldRecord["accessed"] = 1;
-            } else {
-            $oldRecord["accessed"] = date_timestamp_get(new DateTime());
             }
-             if (!isset($oldRecord['share_count'])) {
+            $oldRecord["accessed"] = date_timestamp_get(new DateTime());
+
+            if (!isset($oldRecord['share_count'])) {
                 $oldRecord["share_count"] = 0;
             } else {
-            $oldRecord["share_count"] =   $mega['mega']['share_count'];   // //or using   $mega['mega']['share_count']; 
+                $oldRecord["share_count"] = $mega['mega']['share_count'];   // //or using   $mega['mega']['share_count']; 
             }
 
 

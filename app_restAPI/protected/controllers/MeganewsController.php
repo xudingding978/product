@@ -54,22 +54,22 @@ class MeganewsController extends Controller {
             $this->createProfile($mega);
         }
     }
-    
+
     public function actionCreateNewProfile() {
-        
+
         $request_json = file_get_contents('php://input');
-        $request_arr = CJSON::decode($request_json, true); 
-        
-        $id = $request_arr['owner_id'];    
+        $request_arr = CJSON::decode($request_json, true);
+
+        $id = $request_arr['owner_id'];
         $cb = $this->couchBaseConnection();
         $docID = $this->getDomain() . "/profiles/" . $id;
         $prrofileid = CJSON::decode($cb->get($docID));
-        
-        if ($prrofileid!==null) {
+
+        if ($prrofileid !== null) {
             $this->sendResponse(200, CJSON::encode(true, true));
         }
     }
-       
+
     public function actionRead() {
         try {
             $temp = explode("/", $_SERVER['REQUEST_URI']);
@@ -113,20 +113,36 @@ class MeganewsController extends Controller {
     }
 
     public function createProfile($mega) {
-        
+
         $cb = $this->couchBaseConnection();
         $id = $mega['id'];
         $domain = $this->getDomain();
         $docID = $domain . "/profiles/" . $id;
-        
-         if ($cb->add($docID, CJSON::encode($mega))) {
+
+        if ($cb->add($docID, CJSON::encode($mega))) {
+            if ($mega['creator'] !== "") {
+                $url = $domain . "/users/" . $mega['creator'];
+                $tempRecord = $cb->get($url);
+                $oldRecord = CJSON::decode($tempRecord, true);
+                $newProfile = array();
+                $newProfile['profile_id'] = $id;
+                $newProfile['type'] = "creator";
+                if (!isset($oldRecord['user'][0]['profiles'])) {
+                    $oldRecord['user'][0]['profiles'] = array();
+                }
+                array_push($oldRecord['user'][0]['profiles'], $newProfile);
+                if ($cb->set($url, CJSON::encode($oldRecord))) {
+                    
+                } else {
+                    echo $this->sendResponse(409, 'saving error');
+                }
+            }
             $this->sendResponse(204);
         } else {
             $this->sendResponse(409, "some thing wronggggggggggggggggg");
         }
     }
 
-    
 }
 
 ?>

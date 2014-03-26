@@ -48,6 +48,7 @@ HubStar.UserRoute = Ember.Route.extend({
     model: function(params) {
         
         return HubStar.User.find(params.user_id);
+        
     },
    beforeModel: function(transition) {
              var model = HubStar.User.find(transition.params.user_id);

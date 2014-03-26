@@ -648,12 +648,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
             for (var i = 0; i< this.get('about_us').objectAt(0).get('about_embeded_object').get('length'); i++) {
                 var about_embeded_object = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i);
-                if (about_embeded_object.get('embeded_object_code') !== null && about_embeded_object.get('embeded_object_code') !== '' && about_embeded_object.get('embeded_object_code') !== undefined) {
+                if (about_embeded_object.get('embeded_object_url') !== null && about_embeded_object.get('embeded_object_url') !== '' && about_embeded_object.get('embeded_object_url') !== undefined) {
                     this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).set('embed_object_enabled', true);
-                    var embeded_object_code = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).get('embeded_object_code');
-                    embeded_object_code = embeded_object_code.replace('525px', '800px');
-                    embeded_object_code = embeded_object_code.replace('345px', '560px');
-                    this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).set('embeded_object_code', embeded_object_code);
+//                    var embeded_object_code = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).get('embeded_object_code');
+//                    embeded_object_code = embeded_object_code.replace('525px', '800px');
+//                    embeded_object_code = embeded_object_code.replace('345px', '560px');
+//                    this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).set('embeded_object_code', embeded_object_code);
+                    var embeded_object_url = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).get('embeded_object_url');
+                    var embeded_object_title = embeded_object_url.split('?')[1].split('=')[1];
+                    this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).set('embeded_object_title', embeded_object_title);
                 } else {
                     this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).set('embed_object_enabled', false);
                 }

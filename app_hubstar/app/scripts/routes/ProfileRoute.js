@@ -81,7 +81,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
             var that = this;
             model.then(function() {
             }, function() {
-                that.transitionTo('fourOhFour');
+                that.transitionTo('fourOhFour',"404");
             });
   },
     events: {

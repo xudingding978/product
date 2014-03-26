@@ -20,7 +20,7 @@ HubStar.SearchIndexArticleRoute = Ember.Route.extend({
         d.then(function() {
             that.controllerFor('article').getInitData(d);
         },function() {
-           that.transitionTo('fourOhFour');
+           that.transitionTo('fourOhFour',"404");
         });
 
     },

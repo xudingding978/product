@@ -33,12 +33,12 @@ HubStar.NavigatorView = Ember.View.extend({
                         $(this).css("background", " linear-gradient(to bottom, #68789c 22%,#f5f5f5 99%)").fadeIn(500);
                     });
 
-                    if (type === "default")
-                    {}
-                    else
-                    {
-                        that.get('controller').transitionTo("search", {id: type});
-                    }
+//                    if (type === "default")
+//                    {}
+//                    else
+//                    {
+//                        that.get('controller').transitionTo("search", {id: type});
+//                    }
                 } else if (mousedownX >= (middle - d / 2) && mousedownX < (middle + d / 2)) {
                     $('#switchbarBtn').attr("style", "margin-left:13px;");
                     $('#switchbarBtn1').attr("style", "margin-left:13px;");
@@ -56,12 +56,12 @@ HubStar.NavigatorView = Ember.View.extend({
                     $(".gradient1").fadeOut(500, function() {
                         $(this).css("background", " linear-gradient(to bottom, #68789c 22%,#f5f5f5 99%) ").fadeIn(500);
                     });
-                    if (type === "default")
-                    {}
-                    else
-                    {
-                        that.get('controller').transitionTo("search", {id: type});
-                    }
+//                    if (type === "default")
+//                    {}
+//                    else
+//                    {
+//                        that.get('controller').transitionTo("search", {id: type});
+//                    }
                 }
                 else if (mousedownX >= (middle + d / 2)) {
                     $('#switchbarBtn').attr("style", "margin-left:28px;");
@@ -82,12 +82,12 @@ HubStar.NavigatorView = Ember.View.extend({
                     $(".gradient1").fadeOut(500, function() {
                         $(this).css("background", " linear-gradient(to bottom, #191200 22%,#f5f5f5 99%)").fadeIn(500);
                     });
-                    if (type === "default")
-                    {}
-                    else
-                    {
-                        that.get('controller').transitionTo("search", {id: type});
-                    }
+//                    if (type === "default")
+//                    {}
+//                    else
+//                    {
+//                        that.get('controller').transitionTo("search", {id: type});
+//                    }
                 }
             });
 

@@ -6,7 +6,7 @@ HubStar.VideoController = Ember.Controller.extend({
     enableToEdit: false,
     needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus', 'itemFunction'],
     getinitdata: function(videoObject)
-    {
+    { 
 
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var that = this;

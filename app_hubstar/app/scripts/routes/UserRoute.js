@@ -46,18 +46,18 @@ HubStar.UserRoute = Ember.Route.extend({
         $("#search-bar").css('display', 'block');
     },
     model: function(params) {
-        
+
         return HubStar.User.find(params.user_id);
-        
+
     },
-   beforeModel: function(transition) {
-             var model = HubStar.User.find(transition.params.user_id);
-            var that = this;
-            model.then(function() {
-            }, function() {
-                that.transitionTo('fourOhFour',"404");
-            });
-  },
+    beforeModel: function(transition) {
+        var model = HubStar.User.find(transition.params.user_id);
+        var that = this;
+        model.then(function() {
+        }, function() {
+            that.transitionTo('fourOhFour', "404");
+        });
+    },
     events: {
         transitionToCollectionPhoto: function(collection_id) {
 
@@ -83,14 +83,14 @@ HubStar.UserRoute = Ember.Route.extend({
 //        }
     },
     redirect: function(params) {
-       
+
         if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
 
 
 //            this.transitionTo('indexIndex');
 //            this.controllerFor('application').set('popup', true);
         }
-      
+
     },
     deactivate: function() {
 

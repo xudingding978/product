@@ -2,6 +2,47 @@ HubStar.ApplicationView = Ember.View.extend({
     templateName: 'application',
     didInsertElement: function() {
         $("#loading").attr('style', 'display:none');
+        $(document).ready(function() {
+//        if( localStorage.resOrcom==="residential"){
+//            $('#discovery_search_bar_wrapper').css({"background": " url(../../images/contactbg.png)"});
+//            $(".navbar").css("background", " url(../../images/contactbg.png)");
+//        }
+//        else 
+        if( localStorage.resOrcom==="commercial"){
+              setTimeout(function() {
+            $('#discovery_search_bar_wrapper').css({"background": " url(../../images/commercialbg.jpg)"});
+            $(".navbar").css("background", "url(../../images/commercialbg.jpg)");
+            },10);
+        }
+        else{
+            $('#discovery_search_bar_wrapper').css({"background": " url(../../images/discoverybarbg.jpg)"});
+            $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+        }
+        
+            setTimeout(function() {
+                if (localStorage.resOrcom === "commercial")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:28px;");
+                    $("#Commercial").css("opacity", "1");
+                    $("#Residential").css("opacity", "0.4");
+                }
+                else if (localStorage.resOrcom === "residential")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:0px;");
+                    $("#Commercial").css("opacity", "0.4");
+                    $("#Residential").css("opacity", "1");
+                }
+                else if (localStorage.resOrcom === "All")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:13px;");
+                    $("#Commercial").css("opacity", "1");
+                    $("#Residential").css("opacity", "1");
+                }
+                }, 50);
+        
+        });
+        
+        
         var view = this;
         $(window).bind("scroll", function() {
             view.didScroll();

@@ -6,31 +6,36 @@ HubStar.CollectionController = Ember.Controller.extend({
     },
     getCreateCollection: function(title, desc, collections)
     {
-        this.set('collections', collections);
-        var ID = createMessageid();
-        var isExsinting = this.checkingIdisExsinting(ID, "create");
-        var collection = null;
-        if (isExsinting) {
-            var validID = this.checkingValidInput(ID);
-            var checkingCharater = this.specialCharactersChecking(validID);
+        if (title !== null && title !== "" && title !== undefined) {
+            this.set('collections', collections);
+            var ID = createMessageid();
+            var isExsinting = this.checkingIdisExsinting(ID, "create");
+            var collection = null;
+            if (isExsinting) {
+                var validID = this.checkingValidInput(ID);
+                var checkingCharater = this.specialCharactersChecking(validID);
 
-            if (checkingCharater && validID !== null && validID !== '') {
-                collection = HubStar.Collection.createRecord({});
-                collection.set('id', validID.toLowerCase());
-                collection.set('title', title);
-                collection.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
-                if (desc !== null && desc !== "") {
-                    collection.set('desc', desc);
+                if (checkingCharater && validID !== null && validID !== '') {
+
+                    collection = HubStar.Collection.createRecord({});
+                    collection.set('id', validID.toLowerCase());
+                    collection.set('title', title);
+                    collection.set('cover', "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png");
+                    if (desc !== null && desc !== "") {
+                        collection.set('desc', desc);
+                    } else {
+                        collection.set('desc', "Write a brief description for this Collection");
+                    }
+
                 } else {
-                    collection.set('desc', "Write a brief description for this Collection");
+                    this.get('controllers.applicationFeedback').statusObserver(null, "Please try to type name with uppercase and space.", "warnning");
                 }
-            } else {
-                this.get('controllers.applicationFeedback').statusObserver(null, "Please try to type name with uppercase and space.", "warnning");
             }
+            return collection;
+        } else
+        {
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please try to type a name.", "warnning");
         }
-
-        return collection;
-
     },
     checkingValidInput: function(title) {
 

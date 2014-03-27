@@ -101,12 +101,13 @@ class UsersController extends Controller {
             }
             array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
 
-            for ($j = 0; $j < sizeof($userInfo['user'][0]["profiles"]); $j++) {
-                if ($userInfo['user'][0]["profiles"][$j]["profile_id"] === $delData[$i][0]) {
-                    array_splice($userInfo['user'][0]["profiles"], $j, 1);
+            if (isset($userInfo['user'][0]["profiles"])) {
+                for ($j = 0; $j < sizeof($userInfo['user'][0]["profiles"]); $j++) {
+                    if ($userInfo['user'][0]["profiles"][$j]["profile_id"] === $delData[$i][0]) {
+                        array_splice($userInfo['user'][0]["profiles"], $j, 1);
+                    }
                 }
             }
-
             if ($cb->set($docID, CJSON::encode($userInfo))) {
                 if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
                     $receiveEmail = $userInfo['user'][0]['email'];
@@ -281,8 +282,12 @@ class UsersController extends Controller {
 
 
             $respone_user_data = CJSON::encode($respone_user['user'][0]);
-
-            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
+            if ($respone_user === null) {
+                $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . '}';
+            } else {
+                $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
+            }
+            error_log(var_export($result, true));
             $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

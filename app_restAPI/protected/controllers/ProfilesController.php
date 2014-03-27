@@ -102,8 +102,9 @@ class ProfilesController extends Controller {
             $respone_client_data = str_replace("\/", "/", CJSON::encode($request_arr["profile"][0]));
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
 //Iterate over the hits and print out some data
+            if($request_arr!==null){
             $result .=$respone_client_data;
-
+            }
             $result .= '}';
 
             echo $this->sendResponse(200, $result);

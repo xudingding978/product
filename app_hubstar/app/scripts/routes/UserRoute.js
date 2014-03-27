@@ -39,7 +39,7 @@ HubStar.UserRoute = Ember.Route.extend({
         this.controller.set('messageTag', false);
         this.controller.set('messageTag', false);
         this.controller.set('postTag', false);
-
+$(window).scrollTop(0);
         this.controllerFor('user').set("model", model);
         this.controllerFor('user').setUser();
         $("#top-about-menu").css('display', 'none');

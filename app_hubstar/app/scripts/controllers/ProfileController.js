@@ -182,6 +182,46 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setProfile: function(id) {
         var mega = HubStar.Mega.find(id);
         mega.then(function() {
+           
+              if (mega.get('classification') === "commercial"&&localStorage.resOrcom === "residential") {
+                  localStorage.resOrcom = "commercial";
+                setTimeout(function() {
+                    $(".navbar").css("background", " url(../../images/commercialbg.jpg)");
+                }, 10);
+            }
+            else if (mega.get('classification') === "residential"&&localStorage.resOrcom === "commercial") {
+                console.log("setresidential");
+                localStorage.resOrcom = "residential";
+                setTimeout(function() {
+                    $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+                }, 10);
+            }
+                 $(document).ready(function() {
+                setTimeout(function() {
+                if (localStorage.resOrcom=== "commercial")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:28px;");
+                    $("#Commercial").css("opacity", "1");
+                    $("#Residential").css("opacity", "0.4");
+                }
+                else if (localStorage.resOrcom === "residential")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:0px;");
+                    $("#Commercial").css("opacity", "0.4");
+                    $("#Residential").css("opacity", "1");
+                }
+                else if (localStorage.resOrcom === "All")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:13px;");
+                    $("#Commercial").css("opacity", "1");
+                    $("#Residential").css("opacity", "1");
+                }
+                }, 50);
+            });
+            
+            
+            
+            
             if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
             {
                 mega.set("view_count", 1);
@@ -586,7 +626,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             var about_us = HubStar.AboutUs.createRecord({"about_id": this.get('model').get('id'), "about_desc": '', "about_template_id": '1', "about_embeded_object": [],
                 "about_video": [], "about_image": [], 'about_book': []});
 
-            var about_embeded_object = HubStar.AboutEmbededObject.createRecord({"embeded_object_id": "1", "embeded_object_title": "", "embeded_object_desc": "",
+            var about_embeded_object = HubStar.AboutEmbededObject.createRecord({"embeded_object_id": "", "embeded_object_title": "", "embeded_object_desc": "",
                 "embeded_object_code": "", "embeded_object_url": "", "optional": this.get('model').get('id'), "embed_object_enabled": false});
 
             var about_video = HubStar.AboutVideo.createRecord({"video_id": '1', "video_title": '', "video_desc": '',
@@ -622,7 +662,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         else {
             if (this.get("about_us").objectAt(0).get('about_embeded_object').get("length") < 1) {
-                var about_embeded_object = HubStar.AboutEmbededObject.createRecord({"embeded_object_id": "1", "embeded_object_title": "", "embeded_object_desc": "",
+                var about_embeded_object = HubStar.AboutEmbededObject.createRecord({"embeded_object_id": "", "embeded_object_title": "", "embeded_object_desc": "",
                     "embeded_object_code": "", "embeded_object_url": "", "optional": this.get('model').get('id'), "embed_object_enabled": false});
                 this.get("about_us").objectAt(0).get('about_embeded_object').pushObject(about_embeded_object);
             }
@@ -657,10 +697,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 var about_embeded_object = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i);
                 if (about_embeded_object.get('embeded_object_code') !== null && about_embeded_object.get('embeded_object_code') !== '' && about_embeded_object.get('embeded_object_code') !== undefined) {
                     this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).set('embed_object_enabled', true);
+//                    var embeded_object_code = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).get('embeded_object_code');
+//                    embeded_object_code = embeded_object_code.replace('525px', '800px');
+//                    embeded_object_code = embeded_object_code.replace('345px', '560px');
+//                    this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).set('embeded_object_code', embeded_object_code);
                     var embeded_object_code = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).get('embeded_object_code');
-                    embeded_object_code = embeded_object_code.replace('525px', '800px');
-                    embeded_object_code = embeded_object_code.replace('345px', '560px');
-                    this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).set('embeded_object_code', embeded_object_code);
+                    var embeded_object_id = embeded_object_code.split('?')[1].split('=')[1];
+                    this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).set('embeded_object_id', embeded_object_id);
                 } else {
                     this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).set('embed_object_enabled', false);
                 }
@@ -908,7 +951,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
             if (current_user_email !== null && current_user_email !== undefined && current_user_email !== "") {
                 var isAdmin = permissionController.setIsAdmin(current_user_email);
-                this.set('isAdmin', isAdmin || is_edit);
+                this.set('isAdmin', isAdmin);
+//                this.set('isAdmin', isAdmin || is_edit);
                 that.set("is_authentic_user", is_authentic_user || is_edit);
 
             } else {
@@ -922,7 +966,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         that.set("is_authentic_user", is_authentic_user || is_edit);
 
                         var isAdmin = permissionController.setIsAdmin(current_user_email);
-                        that.set('isAdmin', isAdmin || is_edit);
+//                        that.set('isAdmin', isAdmin || is_edit);
+                        that.set('isAdmin', isAdmin);
                     }
                 });
             }

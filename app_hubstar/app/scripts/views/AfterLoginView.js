@@ -8,7 +8,7 @@ HubStar.AfterLoginView = Ember.View.extend({
     didInsertElement: function() {
     },
     logout: function() {
- 
+
         localStorage.removeItem('loginStatus');
         this.get('controller').transitionTo("indexIndex");
         document.cookie = 'Session=; path=/; domain=.trendsideas.com; expires=Thu, 01 Jan 1970 00:00:00 GMT';
@@ -19,7 +19,7 @@ HubStar.AfterLoginView = Ember.View.extend({
 
         }
         else {
-             this.set("newProfile", false);
+            this.set("newProfile", false);
             $("#user-dd-menu").attr("style", "padding: inherit; width: 178px; right: 60px; position: relative; top:30px;display:block");
 
         }
@@ -29,8 +29,8 @@ HubStar.AfterLoginView = Ember.View.extend({
         if (checking === "myUserProfile") {
             location.href = this.get("controller").get("myUserProfile");
             $("#user-dd-menu").attr("style", "display:none");
+            $("#cancel").css("display", "none");
             $(window).scrollTop(0);
-
         } else if (checking === "myMessageBoard") {
             location.href = this.get("controller").get("myMessageBoard");
             $("#user-dd-menu").attr("style", "display:none");
@@ -48,9 +48,9 @@ HubStar.AfterLoginView = Ember.View.extend({
     },
     cancel: function() {
         this.set("newProfile", false);
-         $("#user-dd-menu").attr("style", "display:none");
+        $("#user-dd-menu").attr("style", "display:none");
     },
-    loadProfile: function() {   
+    loadProfile: function() {
         var user = HubStar.User.find(localStorage.loginStatus);
         this.set("profiles", user.get("profiles"));
     },

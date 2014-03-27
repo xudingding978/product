@@ -82,20 +82,6 @@
         {{/if}}
 
 
-
-
-
-       
-
-
-
-
-
-
-
-
-
-
         <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdown "geoLocation"}} data-step="2" data-intro=" Use the <b>Location Filter</b> to filter search results by region.">
             <i class="fa fa-angle-down fa-lg">&nbsp;</i>
             <span style="font-weight: bold;font-size: 13px;">{{HubStar.geoLocation}}</span>
@@ -106,8 +92,17 @@
         {{/if}}
 
 
+<div class="switch-container Geo-Filter" style="top:8px;">
+            <div id="Residential" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline; color: white;">Residential</div>
+            <div  id="switchbar" class="insetbox-shadow switch-groove" style="display: inline-block">
+                <div style="height: 10px;width: 50%;border-right: 1px solid rgba(0,0,0,.3);float: left;margin: 6px 0;"></div>
+                <div style="height: 10px;width: 50%;border-left: 1px solid rgba(255,255,255,.5); float: right;margin: 6px 0;"></div>
 
+                <div id="switchbarBtn" class="radius-circle gradient1 switch-btn" style="margin-left: 13px"></div>
 
+            </div>
+            <div id="Commercial" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline; color: white;">Commercial</div>
+        </div>
     </div>
 </div>
 

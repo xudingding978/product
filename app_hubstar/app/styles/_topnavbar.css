@@ -144,7 +144,7 @@
     max-width: 800px;
     margin: 6px auto;
     left: 0;
-    right: 20%;
+    right: 15%;
     min-width: 550px;
 }
 
@@ -754,7 +754,7 @@ div#forgot-password-container{
 
 
 .Geo-Filter{
-    position: relative !important;
+    position: relative;
     float: right;
     color: #fff;
     opacity: .7;
@@ -979,6 +979,13 @@ div#login_detail{
 and (max-width : 1239px) {
     #top-about-menu{
         display:none!Important;
+    }
+}
+
+@media only screen 
+and (max-width : 1500px) {
+    #switcher{
+        display:none;
     }
 }
 

@@ -17,9 +17,6 @@
 
         </div>
 
-
-
-
         <div id="search-bar" class="search-bar-ontop" style="display:none">
             <div id ="navigator" class="Nav-btn easing" style="float: left;" {{action dropdownHeaderNavigator}}><i class="fa fa-list"></i></div>
             {{#if controller.isHeaderNavigatorDropdown}}
@@ -33,11 +30,6 @@
             </div>
         </div>
 
-
-
-
-
-
         {{#if HubStar.isLogin}}
 
         <div id="login_details" style="position: relative;float: right;cursor: pointer;text-align: right;">
@@ -50,14 +42,8 @@
             {{#if isUnReadCountZero}}
             <div style="cursor: pointer;position: absolute;top: 20px;left: 15px;width: auto;padding: 0 5px 0 4px;height: 15px;background-color: red;line-height: 15px;border-radius: 2px;font-size: 11px;font-weight: bold;">{{unReadCount}}</div>
             {{/if}}
-
-
         </div>
-
-
-
         {{else}}
-
 
         <div id="login_icon" class="Geo-Filter" style="position: absolute; right: 80px;">
 
@@ -70,8 +56,6 @@
 
 
         <!-- user is logged in -->
-
- 
 
         {{#if isNotification}}
         <div style="position: relative; float: right; top: 48px; z-index: 100;">
@@ -86,13 +70,11 @@
             <i class="fa fa-angle-down fa-lg">&nbsp;</i>
             <span style="font-weight: bold;font-size: 13px;">{{HubStar.geoLocation}}</span>
         </div>
-
         {{#if controller.isGeoDropdown}}
         {{view HubStar.DropdownListView}}
         {{/if}}
 
-
-<div class="switch-container Geo-Filter" style="top:8px;">
+        <div id="switcher" class="switch-container Geo-Filter" style="top:15px; position: absolute; right: 21%;">
             <div id="Residential" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline; color: white;">Residential</div>
             <div  id="switchbar" class="insetbox-shadow switch-groove" style="display: inline-block">
                 <div style="height: 10px;width: 50%;border-right: 1px solid rgba(0,0,0,.3);float: left;margin: 6px 0;"></div>
@@ -104,7 +86,11 @@
             <div id="Commercial" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline; color: white;">Commercial</div>
         </div>
     </div>
+
+
 </div>
+
+
 
 
 

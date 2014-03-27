@@ -11,6 +11,10 @@
     <!--Embeded object part-->
     {{#each about_embeded_object}}
     {{#if controller.isAdmin}}
+    <div class="aboutus-attr">Embede link URL: </div>
+    <div style="border: 1px solid #ddd;border-radius: 2px;margin-bottom: 10px;margin-right: 2px;">
+        {{view Ember.TextArea valueBinding="embeded_object_code" class="no-effect no-resize"  placeholder="*"}}
+    </div> 
     <div class="aboutus-thisvideo">
         <div class="aboutus-attr">Buy the Book Link URL: </div>
         <div>{{view Ember.TextArea valueBinding="embeded_object_url" class="no-resize"  placeholder="*"}}</div>
@@ -99,7 +103,7 @@
     <hr> 
     {{#each about_embeded_object}}
     {{#if embed_object_enabled}}
-    <iframe width="800" height="560" src="//e.issuu.com/embed.html#{{unbound embeded_object_title}}" frameborder="0" allowfullscreen></iframe>
+    <iframe width="800" height="560" src="//e.issuu.com/embed.html#{{unbound embeded_object_id}}" frameborder="0" allowfullscreen></iframe>
     
     {{#if embeded_object_code}}
     <div style="margin-top: 15px;">

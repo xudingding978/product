@@ -29,6 +29,7 @@ HubStar.AfterLoginView = Ember.View.extend({
         if (checking === "myUserProfile") {
             location.href = this.get("controller").get("myUserProfile");
             $("#user-dd-menu").attr("style", "display:none");
+            $(window).scrollTop(0);
 
         } else if (checking === "myMessageBoard") {
             location.href = this.get("controller").get("myMessageBoard");

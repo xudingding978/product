@@ -754,7 +754,7 @@ div#forgot-password-container{
 
 
 .Geo-Filter{
-    position: relative;
+    position: relative !important;
     float: right;
     color: #fff;
     opacity: .7;

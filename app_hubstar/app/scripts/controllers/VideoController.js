@@ -54,7 +54,17 @@ HubStar.VideoController = Ember.Controller.extend({
     closeWindow: function() {
         this.set('collectable', false);
         this.set('contact', false);
-        window.history.back();
+        var address = document.URL;
+        var object_type = address.split("#")[1].split("/")[1];
+        var search_id= address.split("#")[1].split("/")[2];
+        if (object_type === "photos" || object_type === "articles" || object_type === "videos")
+        {
+            var m = HubStar.Mega.find(search_id);
+            this.transitionTo("search", {id: m.get("owner_title")});
+        }
+        else {
+            window.history.back();
+        }
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
         setTimeout(function() {
             $('#masonry_container').masonry();  //masonry();
@@ -276,19 +286,19 @@ HubStar.VideoController = Ember.Controller.extend({
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
-        var role = permissionController.checkAuthenticEdit(that.get("megaResouce").get("profile_creator"), that.get("megaResouce").get("profile_administrator"), that.get("megaResouce").get("profile_editor"));       
+        var role = permissionController.checkAuthenticEdit(that.get("megaResouce").get("profile_creator"), that.get("megaResouce").get("profile_administrator"), that.get("megaResouce").get("profile_editor"));
         var is_edit = false;
         if (role !== "")
         {
             is_edit = true;
         }
         var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
-        that.set("is_authentic_user", is_authentic_user||is_edit);
+        that.set("is_authentic_user", is_authentic_user || is_edit);
         currentUser.addObserver('isLoaded', function() {
             var current_user_email = currentUser.get('email');
             if (currentUser.get('isLoaded')) {
                 var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
-                that.set("is_authentic_user", is_authentic_user||is_edit);
+                that.set("is_authentic_user", is_authentic_user || is_edit);
             }
         });
     },

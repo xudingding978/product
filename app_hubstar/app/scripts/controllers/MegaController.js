@@ -264,15 +264,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     that.getCommentsById(megaObject.id);
                 }
             }
-
-//            if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
-//            {
-//                megaObject.set("view_count", 1);
-//            }
-//            else
-//            {
-//                megaObject.set("view_count", megaObject.get("view_count") + 1);
-//            }
             that.checkAuthenticUser();
             var tempComment = [megaObject.id];
             requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function(params) {
@@ -726,18 +717,28 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
             if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
             {
-
-                // this.transitionTo("indexIndex"); //search page
+               // this.transitionTo("indexIndex"); //search page
                 var address = document.URL;
                 var search_id = address.split("#")[1].split("/")[2];
+                var object_type = address.split("#")[1].split("/")[1];
                 if (search_id === "search") //this go to the search index
                 {
                     this.transitionTo("searchIndexTom");
                 }
                 else
                 {
-                    HubStar.set("escVideo", true);
-                    this.transitionTo("search", {id: search_id});
+                    
+                    if (object_type === "photos" || object_type === "articles" || object_type === "videos")
+                    {
+                        console.log("aaaaaa");
+                        var m = HubStar.Mega.find(search_id);
+                        this.transitionTo("search", {id: m.get("owner_title")});
+                    }
+                    else
+                    {
+                        HubStar.set("escVideo", true);
+                        this.transitionTo("search", {id: search_id});
+                    }
                 }
 
 //                $('#masonry_wrapper').attr('style', "top:100px;position:relative");

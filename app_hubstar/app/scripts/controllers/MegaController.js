@@ -718,6 +718,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
             if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
             {
 
+
+
+
                 // this.transitionTo("indexIndex"); //search page
                 var address = document.URL;
                 var search_id = address.split("#")[1].split("/")[2];

@@ -18,7 +18,7 @@ HubStar.AfterLoginView = Ember.View.extend({
             $("#user-dd-menu").attr("style","padding: inherit;  width: 201px; right: 60px; position: relative; top:30px;display:none;");
            $("#cancel").css("display", "none");
         }
-        else {
+        else  if ($('#user-dd-menu').css('display') === 'none'){
             this.set("newProfile", false);
               $("#user-dd-menu").attr("style","padding: inherit;  width: 201px; right: 60px; position: relative; top:30px;display:block;");
              $("#cancel").css("display", "block");

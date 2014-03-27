@@ -139,7 +139,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 else {
 
-                    that.set("is_trends_user", true);
+                    that.set("is_trends_user", false);
                 }
                 for (var i = 0; i < u.get("profiles").get("length"); i++) {
                     var id = u.get("profiles").objectAt(i).get("profile_id");

@@ -16,11 +16,12 @@ HubStar.AfterLoginView = Ember.View.extend({
     showUserDropDown: function() {
         if ($('#user-dd-menu').css('display') === 'block') {
             $("#user-dd-menu").attr("style", "padding: inherit; width: 178px; right: 60px; position: relative; top:30px;display:none");
-
+           $("#cancel").css("display", "none");
         }
         else {
              this.set("newProfile", false);
             $("#user-dd-menu").attr("style", "padding: inherit; width: 178px; right: 60px; position: relative; top:30px;display:block");
+             $("#cancel").css("display", "block");
 
         }
         this.loadProfile();
@@ -29,15 +30,18 @@ HubStar.AfterLoginView = Ember.View.extend({
         if (checking === "myUserProfile") {
             location.href = this.get("controller").get("myUserProfile");
             $("#user-dd-menu").attr("style", "display:none");
+             $("#cancel").css("display", "none");
 
         } else if (checking === "myMessageBoard") {
             location.href = this.get("controller").get("myMessageBoard");
             $("#user-dd-menu").attr("style", "display:none");
+             $("#cancel").css("display", "none");
 
         } else if (checking === "about") {
 
             window.open('http://about.trendsideas.com/');
             $("#user-dd-menu").attr("style", "display:none");
+             $("#cancel").css("display", "none");
 
         } else if (checking === "new") {
             this.get("controller").set("newProfile", true);
@@ -48,6 +52,7 @@ HubStar.AfterLoginView = Ember.View.extend({
     cancel: function() {
         this.set("newProfile", false);
          $("#user-dd-menu").attr("style", "display:none");
+          $("#cancel").css("display", "none");
     },
     loadProfile: function() {   
         var user = HubStar.User.find(localStorage.loginStatus);

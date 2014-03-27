@@ -127,12 +127,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     grapData: function() {
         HubStar.set("profiles", []);
-        console.log('grapdata');
-        console.log(localStorage.resOrcom);
         if(localStorage.resOrcom === ""||localStorage.resOrcom === null||localStorage.resOrcom === undefined){
             localStorage.resOrcom = "All";
         }
-         console.log(localStorage.resOrcom);
+
         if (localStorage.loginStatus) {
             var u = HubStar.User.find(localStorage.loginStatus);
             var that = this;

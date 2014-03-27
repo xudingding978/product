@@ -951,7 +951,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             }
             if (current_user_email !== null && current_user_email !== undefined && current_user_email !== "") {
                 var isAdmin = permissionController.setIsAdmin(current_user_email);
-                this.set('isAdmin', isAdmin || is_edit);
+                this.set('isAdmin', isAdmin);
+//                this.set('isAdmin', isAdmin || is_edit);
                 that.set("is_authentic_user", is_authentic_user || is_edit);
 
             } else {
@@ -965,7 +966,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         that.set("is_authentic_user", is_authentic_user || is_edit);
 
                         var isAdmin = permissionController.setIsAdmin(current_user_email);
-                        that.set('isAdmin', isAdmin || is_edit);
+//                        that.set('isAdmin', isAdmin || is_edit);
+                        that.set('isAdmin', isAdmin);
                     }
                 });
             }

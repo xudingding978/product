@@ -182,6 +182,46 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setProfile: function(id) {
         var mega = HubStar.Mega.find(id);
         mega.then(function() {
+           
+              if (mega.get('classification') === "commercial"&&localStorage.resOrcom === "residential") {
+                  localStorage.resOrcom = "commercial";
+                setTimeout(function() {
+                    $(".navbar").css("background", " url(../../images/commercialbg.jpg)");
+                }, 10);
+            }
+            else if (mega.get('classification') === "residential"&&localStorage.resOrcom === "commercial") {
+                console.log("setresidential");
+                localStorage.resOrcom = "residential";
+                setTimeout(function() {
+                    $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+                }, 10);
+            }
+                 $(document).ready(function() {
+                setTimeout(function() {
+                if (localStorage.resOrcom=== "commercial")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:28px;");
+                    $("#Commercial").css("opacity", "1");
+                    $("#Residential").css("opacity", "0.4");
+                }
+                else if (localStorage.resOrcom === "residential")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:0px;");
+                    $("#Commercial").css("opacity", "0.4");
+                    $("#Residential").css("opacity", "1");
+                }
+                else if (localStorage.resOrcom === "All")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:13px;");
+                    $("#Commercial").css("opacity", "1");
+                    $("#Residential").css("opacity", "1");
+                }
+                }, 50);
+            });
+            
+            
+            
+            
             if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
             {
                 mega.set("view_count", 1);

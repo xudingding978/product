@@ -134,7 +134,7 @@ class NotificationsController extends Controller {
 
         if ($profile["type"] === "editor") {
             $editor = "";
-            $editors = explode(",", $targetProfile["profile"][0]["editor"]);
+            $editors = explode(",", $targetProfile["profile"][0]["profile_editor"]);
             for ($i = 0; $i < sizeof($editors); $i++) {
                 if ($editors[$i] === $ownerId) {
                     $alreadyMove = false;
@@ -146,9 +146,9 @@ class NotificationsController extends Controller {
                     }
                 }
             }
-            $targetProfile["profile"][0]["editor"] = $editor;
+            $targetProfile["profile"][0]["profile_editor"] = $editor;
         } else if ($profile["type"] === "administrator") {
-            $editors = explode(",", $targetProfile["profile"][0]["administrator"]);
+            $editors = explode(",", $targetProfile["profile"][0]["profile_administrator"]);
             $editor = "";
             for ($i = 0; $i < sizeof($editors); $i++) {
                 if ($editors[$i] === $ownerId) {
@@ -161,7 +161,7 @@ class NotificationsController extends Controller {
                     }
                 }
             }
-            $targetProfile["profile"][0]["administrator"] = $editor;
+            $targetProfile["profile"][0]["profile_administrator"] = $editor;
         }
         if ($alreadyMove === false) {
             if (!isset($mega_currentUser['user'][0]["profiles"])) {
@@ -211,14 +211,14 @@ class NotificationsController extends Controller {
         $targetProfile = CJSON::decode($target, true);
         $alreadyMove = true;
         if ($profile["type"] === "editor") {
-            $editors = explode(",", $targetProfile["profile"][0]["editor"]);
+            $editors = explode(",", $targetProfile["profile"][0]["profile_editor"]);
             for ($i = 0; $i < sizeof($editors); $i++) {
                 if ($editors[$i] === $ownerId) {
                     $alreadyMove = false;
                 }
             }
         } else if ($profile["type"] === "administrator") {
-            $editors = explode(",", $targetProfile["profile"][0]["administrator"]);
+            $editors = explode(",", $targetProfile["profile"][0]["profile_administrator"]);
             for ($i = 0; $i < sizeof($editors); $i++) {
                 if ($editors[$i] === $ownerId) {
                     $alreadyMove = false;

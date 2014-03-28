@@ -71,6 +71,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     subcate: [],
     subcategories: [],
     pageCount: 0,
+    residentialKeyword:true,
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
  
@@ -210,18 +211,21 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     $('#switchbarBtn').attr("style", "margin-left:28px;");
                     $("#Commercial").css("opacity", "1");
                     $("#Residential").css("opacity", "0.4");
+                    that.set('residentialKeyword',false);
                 }
                 else if (localStorage.resOrcom === "residential")
                 {
                     $('#switchbarBtn').attr("style", "margin-left:0px;");
                     $("#Commercial").css("opacity", "0.4");
                     $("#Residential").css("opacity", "1");
+                     that.set('residentialKeyword',true);
                 }
                 else if (localStorage.resOrcom === "All")
                 {
                     $('#switchbarBtn').attr("style", "margin-left:13px;");
                     $("#Commercial").css("opacity", "1");
                     $("#Residential").css("opacity", "1");
+                     that.set('residentialKeyword',true);
                 }
                 }, 50);
             });

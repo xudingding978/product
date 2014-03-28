@@ -182,16 +182,17 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     setProfile: function(id) {
         var mega = HubStar.Mega.find(id);
         mega.then(function() {
-           
               if (mega.get('classification') === "commercial"&&localStorage.resOrcom === "residential") {
                   localStorage.resOrcom = "commercial";
+                   this.get('controllers.application').set('residentialKeyword',false);
                 setTimeout(function() {
                     $(".navbar").css("background", " url(../../images/commercialbg.jpg)");
                 }, 10);
             }
             else if (mega.get('classification') === "residential"&&localStorage.resOrcom === "commercial") {
-                console.log("setresidential");
+                
                 localStorage.resOrcom = "residential";
+                 this.get('controllers.application').set('residentialKeyword',true);
                 setTimeout(function() {
                     $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
                 }, 10);

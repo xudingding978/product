@@ -32,7 +32,7 @@ HubStar.NavigatorView = Ember.View.extend({
                     $(".gradient1").fadeOut(500, function() {
                         $(this).css("background", " linear-gradient(to bottom, #68789c 22%,#f5f5f5 99%)").fadeIn(500);
                     });
-
+                    that.get('controller').set('residentialKeyword', true);
 //                    if (type === "default")
 //                    {}
 //                    else
@@ -56,6 +56,7 @@ HubStar.NavigatorView = Ember.View.extend({
                     $(".gradient1").fadeOut(500, function() {
                         $(this).css("background", " linear-gradient(to bottom, #68789c 22%,#f5f5f5 99%) ").fadeIn(500);
                     });
+                    that.get('controller').set('residentialKeyword', true);
 //                    if (type === "default")
 //                    {}
 //                    else
@@ -82,6 +83,7 @@ HubStar.NavigatorView = Ember.View.extend({
                     $(".gradient1").fadeOut(500, function() {
                         $(this).css("background", " linear-gradient(to bottom, #191200 22%,#f5f5f5 99%)").fadeIn(500);
                     });
+                    that.get('controller').set('residentialKeyword', false);
 //                    if (type === "default")
 //                    {}
 //                    else

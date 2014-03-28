@@ -282,8 +282,12 @@ class UsersController extends Controller {
 
 
             $respone_user_data = CJSON::encode($respone_user['user'][0]);
-
-            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
+            if ($respone_user === null) {
+                $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . '}';
+            } else {
+                $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
+            }
+            error_log(var_export($result, true));
             $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

@@ -104,17 +104,23 @@ HubStar.VideoView = Ember.View.extend({
                     }
                     else if (videosOrCollection === "videos")
                     {
-                        
-                         this.get("controller").transitionTo("profile", {id:id});
+
+                        this.get("controller").transitionTo("profile", {id: id});
                         this.get("controller").transitionTo("profileVideos");
                     }
 
                 }
                 else
                 {
-                    this.get("controller").transitionTo("search", {id: id});
-
-
+                    if (type === "photos" || type === "articles" || type === "videos")
+                    {
+                        HubStar.set("escVideo", false);
+                        this.get("controller").closeWindow();
+                    }
+                    else
+                    {
+                        this.get("controller").transitionTo("search", {id: id});
+                    }
                 }
                 //window.history.back();
                 $('#masonry_wrapper').attr('style', "top:100px;position:relative");

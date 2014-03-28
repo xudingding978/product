@@ -28,6 +28,7 @@ HubStar.NewProfileDisplayView = Ember.View.extend({
     cancel: function() {
         this.get("controller").get("controllers.application").set("newProfile", false);
         $("#user-dd-menu").attr("style", "display:none");
+         $("#cancel").css("display", "none");
     }
 });
 

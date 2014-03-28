@@ -39,15 +39,24 @@ HubStar.UserRoute = Ember.Route.extend({
         this.controller.set('messageTag', false);
         this.controller.set('messageTag', false);
         this.controller.set('postTag', false);
-
+$(window).scrollTop(0);
         this.controllerFor('user').set("model", model);
         this.controllerFor('user').setUser();
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
     },
     model: function(params) {
+
         return HubStar.User.find(params.user_id);
-        
+
+    },
+    beforeModel: function(transition) {
+        var model = HubStar.User.find(transition.params.user_id);
+        var that = this;
+        model.then(function() {
+        }, function() {
+            that.transitionTo('fourOhFour', "404");
+        });
     },
     events: {
         transitionToCollectionPhoto: function(collection_id) {
@@ -73,13 +82,15 @@ HubStar.UserRoute = Ember.Route.extend({
 //            this.transitionTo("userVideo", video_id);
 //        }
     },
-    redirect: function() {
+    redirect: function(params) {
 
         if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+
 
 //            this.transitionTo('indexIndex');
 //            this.controllerFor('application').set('popup', true);
         }
+
     },
     deactivate: function() {
 

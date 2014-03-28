@@ -5,6 +5,7 @@
 HubStar.ApplicationController = Ember.ArrayController.extend({
     selected_topics: "",
     isAdd: false,
+    error:false,
     is_authentic_user: false,
     trendsUser: false,
     totalItems: 0,
@@ -126,6 +127,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     grapData: function() {
         HubStar.set("profiles", []);
+        if(localStorage.resOrcom === ""||localStorage.resOrcom === null||localStorage.resOrcom === undefined){
+            localStorage.resOrcom = "All";
+        }
+
         if (localStorage.loginStatus) {
             var u = HubStar.User.find(localStorage.loginStatus);
             var that = this;
@@ -212,7 +217,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     $("#Commercial").css("opacity", "0.4");
                     $("#Residential").css("opacity", "1");
                 }
-                else if (localStorage.resOrcom === "all")
+                else if (localStorage.resOrcom === "All")
                 {
                     $('#switchbarBtn').attr("style", "margin-left:13px;");
                     $("#Commercial").css("opacity", "1");
@@ -445,8 +450,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     {
         var emailVerify = [verifyAccount, verifyPassword];
         var that = this;
-        console.log("dfafs");
-
+        
         requiredBackEnd('login', 'verify', emailVerify, 'POST', function(params) {
             localStorage.loginStatus = params;
             localStorage.checkUser = "newUser";

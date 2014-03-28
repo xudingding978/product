@@ -82,7 +82,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
         $(document).ready(function() {
               setTimeout(function() {
                 if (localStorage.resOrcom === "commercial")
-                {console.log('searchsr');
+                {
                     $('#switchbarBtn').attr("style", "margin-left:28px;");
                     $("#Commercial").css("opacity", "1");
                     $("#Residential").css("opacity", "0.4");
@@ -93,7 +93,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
                     $("#Commercial").css("opacity", "0.4");
                     $("#Residential").css("opacity", "1");
                 }
-                else if (localStorage.resOrcom === "all")
+                else if (localStorage.resOrcom === "All")
                 {
                     $('#switchbarBtn').attr("style", "margin-left:13px;");
                     $("#Commercial").css("opacity", "1");

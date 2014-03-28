@@ -259,9 +259,11 @@ HubStar.ArticleController = Ember.Controller.extend({
             that.addRelatedData(megaObject);
             that.getCommentsById(megaObject.id);
             that.checkCreditExist(megaObject.get('article').objectAt(0).get('credits'));
+
             var tempComment = [megaObject.id];
             requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function(params) {
             });
+
 //            setTimeout(function() {
 //                if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
 //                {
@@ -362,9 +364,9 @@ HubStar.ArticleController = Ember.Controller.extend({
         if (isProfileIDExist && isCollectionIDExist) {
             var data = HubStar.Mega.find({RequireType: "articleRelatedImage", "article_id": collection_id, "owner_id": owner_profile_id});
             data.addObserver('isLoaded', function() {
-                if (data.get('isLoaded')) {                   
+                if (data.get('isLoaded')) {
                     var length = this.get("length");
-                    for (var i = 0; i < length ; i++) {
+                    for (var i = 0; i < length; i++) {
                         var temp = this.objectAt(i);
                         if (temp.get("photo") !== undefined) {
                             that.get("content").pushObject(temp.get("photo").objectAt(0));                                  //find the object which contain photos and push it into model
@@ -467,6 +469,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             }
             else
             {
+
                 HubStar.set("escVideo", true);
                 this.transitionTo("search", {id: user_id}); // go to search page, this can  work, but it is too slowlly.
             }
@@ -484,6 +487,11 @@ HubStar.ArticleController = Ember.Controller.extend({
                 var photoObject = HubStar.Mega.find(collection_id);
 
                 this.transitionTo("profilePhoto", photoObject); // profile photo
+            }
+            else if (type === "photos" || type === "articles" || type === "videos")
+            {
+                var m = HubStar.Mega.find(user_id);
+                this.transitionTo("search", {id: m.get("owner_title")});
             }
         }
     },

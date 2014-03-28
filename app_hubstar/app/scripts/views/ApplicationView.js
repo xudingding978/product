@@ -2,6 +2,7 @@ HubStar.ApplicationView = Ember.View.extend({
     templateName: 'application',
     didInsertElement: function() {
         $("#loading").attr('style', 'display:none');
+        var that=this;
         $(document).ready(function() {
 //        if( localStorage.resOrcom==="residential"){
 //            $('#discovery_search_bar_wrapper').css({"background": " url(../../images/contactbg.png)"});
@@ -12,11 +13,14 @@ HubStar.ApplicationView = Ember.View.extend({
               setTimeout(function() {
             $('#discovery_search_bar_wrapper').css({"background": " url(../../images/commercialbg.jpg)"});
             $(".navbar").css("background", "url(../../images/commercialbg.jpg)");
+            that.get('controller').set('residentialKeyword',false);
             },10);
+            
         }
         else{
             $('#discovery_search_bar_wrapper').css({"background": " url(../../images/discoverybarbg.jpg)"});
             $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+            that.get('controller').set('residentialKeyword',true);
         }
         
             setTimeout(function() {

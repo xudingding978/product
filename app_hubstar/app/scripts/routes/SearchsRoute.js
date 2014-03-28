@@ -79,7 +79,9 @@ HubStar.SearchsRoute = Ember.Route.extend({
 
     },
     activate: function() {
+        var that=this;
         $(document).ready(function() {
+            
               setTimeout(function() {
                 if (localStorage.resOrcom === "commercial")
                 {
@@ -111,6 +113,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
                 setTimeout(function() {
                     $('#discovery_search_bar_wrapper').css({"background": " url(../../images/commercialbg.jpg)"});
                     $(".navbar").css("background", " url(../../images/commercialbg.jpg)");
+                    that.get('controller').set('residentialKeyword',false);
                 }, 10);
 
             }
@@ -118,6 +121,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
                 setTimeout(function() {
                     $('#discovery_search_bar_wrapper').css({"background": " url(../../images/discoverybarbg.jpg)"});
                     $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+                    that.get('controller').set('residentialKeyword',true);
                 }, 10);
 
             }

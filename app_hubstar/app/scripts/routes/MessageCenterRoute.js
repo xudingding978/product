@@ -7,25 +7,24 @@
 HubStar.MessageCenterRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         this.controllerFor('user').set('profileSelectionStatus', 'Messages');
-        this.controllerFor('user').set('collectionTag', false); 
+        this.controllerFor('user').set('collectionTag', false);
         this.controllerFor('user').set('postTag', false);  //it is used to solve the problem of visit conversation from notificationTop,but show the posts
         this.controllerFor('user').set('followerTag', false);
         this.controllerFor('user').set('followingTag', false);
         this.controllerFor('user').set('messageTag', true);
-        
+
         // The following two line is used to change the selection with dark 
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#message').addClass('selected-user-stats');
         var address = document.URL;
-
         var conversation_id = "";
-       
+
         if (this.controllerFor('notificationTop').get("notificationSeeAll") === true)
         {
             model = localStorage.loginStatus;
             this.controllerFor('notificationTop').set("notificationSeeAll", false);
-        }  
-       
+        }
+
         if (this.controllerFor('notificationTop').get("goConversation") === true)
         {
 
@@ -34,7 +33,7 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
             this.controllerFor('messageCenter').getClientId(localStorage.loginStatus);
         }
         else if (address.split("#")[1].split("/").length === 6 && address.split("#")[1].split("/")[4] === "conversations") {
-            
+
             conversation_id = address.split("#")[1].split("/")[5];
             this.controllerFor('messageCenter').getClientId(localStorage.loginStatus, conversation_id);
         }
@@ -46,8 +45,24 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
     model: function(params) {
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[2];
-
         return user_id;
+    },
+    redirect: function() {
+        if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
+
+            this.transitionTo('indexIndex');
+            this.controllerFor('application').set('popup', true);
+        }
+        else
+        {
+            var address = document.URL;
+            var items = address.split("#")[1].split("/");
+
+            if (items[2] !== localStorage.loginStatus)
+            {
+                this.transitionTo('user');
+            }
+        }
     },
     events: {
         transitionToConversation: function(conversation_id) {

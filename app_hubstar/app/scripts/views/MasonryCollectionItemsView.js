@@ -7,7 +7,7 @@ HubStar.MasonryCollectionItemsView = Ember.View.extend({
                     itemSelector: '.box',
                     columnWidth: 185,
                     isFitWidth: true,
-                    transitionDuration: 10      
+                    transitionDuration: 0      
                 });
             });
         $('#uploadObject').click(function() {

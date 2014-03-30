@@ -87,16 +87,21 @@ HubStar.SearchRoute = Ember.Route.extend({
     },
     redirect: function() {
     },
-   activate: function() {
+    activate: function() {
         $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
         $('#masonry_container').attr('style', "display:block;position:relative");
-        
-       $(document).ready(function() {
-            $('#footer').attr("style","display:none");
+
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('#footer').attr("style", "display:none");
+            }, 10);
+
+
         });
     },
     deactivate: function() {
         $('#footer').attr( "style","display:block");
+
     },
     renderTemplate: function() {
     }

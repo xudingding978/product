@@ -15,6 +15,9 @@ HubStar.PhotoRoute = Ember.Route.extend({
         megaModel.then(function() {
             
            that.controllerFor('mega').getInitData(megaModel);
+        },function() {
+            
+           that.transitionTo('fourOhFour',"404");
         });
     },
     model: function(params) {

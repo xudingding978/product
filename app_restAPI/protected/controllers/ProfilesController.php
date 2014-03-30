@@ -7,6 +7,7 @@ header('Access-Control-Request-Method: *');
 header('Access-Control-Allow-Methods: PUT, POST, OPTIONS,GET');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 Yii::import('ext.runactions.components.ERunActions');
+
 class ProfilesController extends Controller {
 
     const JSON_RESPONSE_ROOT_SINGLE = 'profile';
@@ -66,7 +67,7 @@ class ProfilesController extends Controller {
     }
 
     public function actionCreate() {
-        try {            
+        try {
             $request_json = file_get_contents('php://input');
             $request_arr = CJSON::decode($request_json, true);
             $tempProfile = $request_arr['profile'];
@@ -101,8 +102,9 @@ class ProfilesController extends Controller {
             $respone_client_data = str_replace("\/", "/", CJSON::encode($request_arr["profile"][0]));
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
 //Iterate over the hits and print out some data
+            if($request_arr!==null){
             $result .=$respone_client_data;
-
+            }
             $result .= '}';
 
             echo $this->sendResponse(200, $result);
@@ -141,9 +143,13 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_domains'] = $newRecord['profile_domains'];
             $oldRecord['profile'][0]['profile_country'] = $newRecord['profile_country'];
             $oldRecord['profile'][0]['profile_editors'] = $newRecord['profile_editors'];
-             $oldRecord['profile'][0]['profile_editors'] = $newRecord['profile_editors'];
-             $oldRecord['profile'][0]['profile_creater'] = $newRecord['profile_creater'];
-             $oldRecord['creator'] == $newRecord['profile_creater'];
+            
+            $oldRecord['profile'][0]['profile_editor'] = $newRecord['profile_editor'];
+            $oldRecord['profile'][0]['profile_administrator'] = $newRecord['profile_administrator'];
+            $oldRecord['profile'][0]['profile_creator'] = $newRecord['profile_creator'];
+            
+            $oldRecord['creator'] = $newRecord['profile_creator'];
+            $oldRecord['editors'] = $newRecord['profile_editors'];
             $oldRecord['profile'][0]['profile_hours'] = $newRecord['profile_hours'];
             $oldRecord['profile'][0]['profile_is_active'] = $newRecord['profile_is_active'];
             $oldRecord['profile'][0]['profile_is_deleted'] = $newRecord['profile_is_deleted'];
@@ -180,11 +186,11 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_youtube_link'] = $newRecord['profile_youtube_link'];
             $oldRecord['profile'][0]['profile_analytics_code'] = $newRecord['profile_analytics_code'];
             $oldRecord['profile'][0]['profile_google_map'] = $newRecord['profile_google_map'];
-            
+
             $oldRecord['profile'][0]['show_template'] = $newRecord['show_template'];
-            
+
             $oldRecord['profile'][0]['show_keyword_id'] = $newRecord['show_keyword_id'];
-            $cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true));           
+            $cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true));
 //            if ($setProfileName) {
 ////                ERunActions::touchUrlExt('http://api.develop.trendsideas.com/profiles/backgroundProcess',$postData=null,$contentType=null,$httpClientConfig=array());
 //                ERunActions::httpPOST('http://api.develop.trendsideas.com/profiles/backgroundProcess',array('profile_id'=>$oldRecord['profile'][0]['id'],'profile_name'=>$newRecord['profile_name']));
@@ -203,10 +209,10 @@ class ProfilesController extends Controller {
             error_log($exc);
         }
     }
-    
+
     public function actionBackgroundProcess() {
-        $profile_id = filter_input(INPUT_POST,"profile_id",FILTER_SANITIZE_STRING);
-        $profile_name = filter_input(INPUT_POST,"profile_name",FILTER_SANITIZE_STRING);                    
+        $profile_id = filter_input(INPUT_POST, "profile_id", FILTER_SANITIZE_STRING);
+        $profile_name = filter_input(INPUT_POST, "profile_name", FILTER_SANITIZE_STRING);
 //        $response = $this->getProfileReults($profile_id);
         if (ERunActions::runBackground()) {
 //            $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
@@ -217,7 +223,7 @@ class ProfilesController extends Controller {
             while (sizeof($data_arr) > 0) {
                 try {
 //                $this->writeToLog($log_path, 'loop'.  sizeof($data_arr));
-                $data_arr = $this->modifyOwnerID($data_arr, $profile_name, $log_path);
+                    $data_arr = $this->modifyOwnerID($data_arr, $profile_name, $log_path);
                 } catch (Exception $e) {
 //                    $this->writeToLog($log_path, 'error when loop');
                 }
@@ -226,18 +232,18 @@ class ProfilesController extends Controller {
 //        error_log('background');
 //        error_log(filter_input(INPUT_POST,"profile_name",FILTER_SANITIZE_STRING));
     }
-    
+
     public function modifyOwnerID($data_arr, $profile_name, $log_path) {
-        $cb = $this->couchBaseConnection();   
-                     
-         for ($i = 0; $i < sizeof($data_arr); $i ++) {                          
+        $cb = $this->couchBaseConnection();
+
+        for ($i = 0; $i < sizeof($data_arr); $i++) {
             try {
-            $docID = $data_arr[$i];
+                $docID = $data_arr[$i];
 //            $this->writeToLog('/var/log/nginx/backprocess.log', $docID);
-            $profileOwn = $cb->get($docID);
+                $profileOwn = $cb->get($docID);
 
 //            $this->writeToLog('/var/log/nginx/backprocess.log', $docID . ' get');
-            $owner = CJSON::decode($profileOwn, true);
+                $owner = CJSON::decode($profileOwn, true);
 //            $this->writeToLog('/var/log/nginx/backprocess.log', $docID. 'decode');
 
                 $owner['owner_title'] = $profile_name;
@@ -247,15 +253,14 @@ class ProfilesController extends Controller {
                 } else {
 //                    $this->writeToLog($log_path, $docID . 'update fail'.'since');
                 }
-            } catch(Exception $e) {                    
+            } catch (Exception $e) {
 //                $this->writeToLog($log_path, 'error when get data');
             }
-
-         }
-         return $data_arr;
+        }
+        return $data_arr;
     }
 
-     public function findAllAccordingOwner($owner_id) {
+    public function findAllAccordingOwner($owner_id) {
         $request = $this->getElasticSearch();
         $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"$owner_id\"")
                 ->default_field('couchbaseDocument.doc.owner_id');
@@ -276,8 +281,8 @@ class ProfilesController extends Controller {
             }
         }
         return $data_arr;
-     }
-    
+    }
+
     public function setBoost($package_name) {
         $domain = $this->getDomain();
         $configuration = $this->getProviderConfigurationByName($domain, "package_details");
@@ -359,9 +364,9 @@ class ProfilesController extends Controller {
     }
 
     public function actionUpdateStyleImage() {
-        
+
         $payloads_arr = CJSON::decode(file_get_contents('php://input'));
-        
+
         $photo_string = $payloads_arr['newStyleImageSource'];
         $photo_name = $payloads_arr['newStyleImageName'];
 
@@ -373,9 +378,9 @@ class ProfilesController extends Controller {
         $compressed_photo = $photoController->compressPhotoData($data_arr['type'], $photo);
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
-       
+
         $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $owner_id, $mode);
-        
+
         $cb = $this->couchBaseConnection();
         $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/profiles/' . $owner_id));
 
@@ -391,7 +396,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_pic_url'] = null;
             $oldRecord['profile'][0]['profile_pic_url'] = $url;
         }
-        
+
         if ($mode == 'profile_hero') {
             $smallimage = $photoController->savePhotoInTypes($orig_size, 'hero', $photo_name, $compressed_photo, $data_arr, $owner_id, $mode);
             $oldRecord['profile'][0]['profile_hero_cover_url'] = null;
@@ -414,8 +419,8 @@ class ProfilesController extends Controller {
             $this->sendResponse(500, 'something wrong');
         }
     }
-    
-        public function writeToLog($fileName, $content) {
+
+    public function writeToLog($fileName, $content) {
 //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
         $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
         $output = "\n" . $content;

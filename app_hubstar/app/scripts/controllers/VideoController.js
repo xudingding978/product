@@ -6,34 +6,29 @@ HubStar.VideoController = Ember.Controller.extend({
     enableToEdit: false,
     needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus', 'itemFunction'],
     getinitdata: function(videoObject)
-    {
+    { 
 
-        setTimeout(function() {
-            var mega = HubStar.Mega.find(videoObject);
-            if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
-            {
-                mega.set("view_count", 1);
-            }
-            else
-            {
-                mega.set("view_count", mega.get("view_count") + 1);
-            }
-            mega.store.save();
-        }, 1000);
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var that = this;
         var megaResouce = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": videoObject});
-
         this.set('megaResouce', megaResouce.objectAt(0));
-        megaResouce.addObserver('isLoaded', function() {
-            if (megaResouce.get('isLoaded')) {
-                that.set('megaResouce', megaResouce.objectAt(0));
-                var tempVideoObject = megaResouce.objectAt(0).get('videoes').get("content").objectAt(0);
+        megaResouce.then(function() {
+            var megaModel = HubStar.Mega.find(videoObject);
+            megaModel.then(function() {
+                that.set('megaResouce', megaModel);
+                var tempVideoObject = megaModel.get('videoes').objectAt(0);
                 that.set('videoObject', tempVideoObject);
-                that.set('video_iframe_code', tempVideoObject.data.video_iframe_code);
+                that.set('video_iframe_code', tempVideoObject.get("videoIframeCode"));
+                var tempComment = [that.get('megaResouce').id];
+                requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function(params) {
+                });
+
                 that.checkAuthenticUser();
-            }
-        });
+            }, function() {
+                that.transitionTo('fourOhFour', "404");
+            });
+        }
+        );
     }, addComment: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
@@ -59,7 +54,17 @@ HubStar.VideoController = Ember.Controller.extend({
     closeWindow: function() {
         this.set('collectable', false);
         this.set('contact', false);
-        window.history.back();
+        var address = document.URL;
+        var object_type = address.split("#")[1].split("/")[1];
+        var search_id= address.split("#")[1].split("/")[2];
+        if (object_type === "photos" || object_type === "articles" || object_type === "videos")
+        {
+            var m = HubStar.Mega.find(search_id);
+            this.transitionTo("search", {id: m.get("owner_title")});
+        }
+        else {
+            window.history.back();
+        }
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
         setTimeout(function() {
             $('#masonry_container').masonry();  //masonry();
@@ -281,14 +286,19 @@ HubStar.VideoController = Ember.Controller.extend({
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
-
+        var role = permissionController.checkAuthenticEdit(that.get("megaResouce").get("profile_creator"), that.get("megaResouce").get("profile_administrator"), that.get("megaResouce").get("profile_editor"));
+        var is_edit = false;
+        if (role !== "")
+        {
+            is_edit = true;
+        }
         var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
-        that.set("is_authentic_user", is_authentic_user);
+        that.set("is_authentic_user", is_authentic_user || is_edit);
         currentUser.addObserver('isLoaded', function() {
             var current_user_email = currentUser.get('email');
             if (currentUser.get('isLoaded')) {
                 var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
-                that.set("is_authentic_user", is_authentic_user);
+                that.set("is_authentic_user", is_authentic_user || is_edit);
             }
         });
     },

@@ -71,11 +71,22 @@
                     </div>
                 </div>
             </div>
+            {{#if this.isButton}}
+            <div class="reply-comment easing" style="right: 290px;position: relative;top: -30px; float: right;">  
+                <span class="new-btn green-btn "  {{action accept this.notification_id}}><i class='fa fa-check'> &nbsp;</i>Accept</span>
+                <span class='new-btn' {{action decline this.notification_id}}><i class='fa fa-times'> &nbsp;</i>Decline</span>
 
-            <div class="reply-comment easing" style="right:25px;position: relative;float: right;top: -60px;">  
+            </div>
+            <div class="reply-comment easing" style="right: -135px;position: relative;float: right;top: -60px;">  
                 <i class="fa fa-check-circle" ></i>                 
                 <i class="fa fa-times-circle"{{action deleteNotification this.notification_id}}></i>
             </div>
+            {{else}}
+            <div class="reply-comment easing" style="right: 25px;position: relative;float: right;top: -60px;">  
+                <i class="fa fa-check-circle" ></i>                 
+                <i class="fa fa-times-circle"{{action deleteNotification this.notification_id}}></i>
+            </div>
+            {{/if}}
         </div>
         {{/if}}
 
@@ -128,6 +139,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="comment-content" style=" width: 387px; height: 35px; text-overflow: ellipsis;">
                         <span style="text-overflow: ellipsis">
                             {{this.content}}
@@ -135,11 +147,24 @@
                     </div>
                 </div>
             </div>
-
-            <div class="reply-comment easing" style="right:25px;position: relative;float: right;top: -60px;">  
+            {{#if this.isButton}}
+            <div class="reply-comment easing" style="right: 290px;position: relative;top: -30px; float: right;">  
+                <span class="new-btn green-btn "  {{action accept this.notification_id}}><i class='fa fa-check'> &nbsp;</i>Accept</span>
+                <span class='new-btn' {{action decline this.notification_id}}><i class='fa fa-times'> &nbsp;</i>Decline</span>
+            </div>
+            <div class="reply-comment easing" style="right: -135px;position: relative;float: right;top: -60px;">  
                 <i class="fa fa-check-circle" {{action markRead this.notification_id}}></i>                 
                 <i class="fa fa-times-circle"{{action deleteNotification this.notification_id}}></i>
             </div>
+            {{else}}
+            <div class="reply-comment easing" style="right: 25px;position: relative;float: right;top: -60px;">  
+                <i class="fa fa-check-circle" {{action markRead this.notification_id}}></i>                 
+                <i class="fa fa-times-circle"{{action deleteNotification this.notification_id}}></i>
+            </div>
+
+            {{/if}}
+
+
         </div>
         {{/if}}
         {{/if}}

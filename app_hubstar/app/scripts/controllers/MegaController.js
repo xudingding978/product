@@ -452,6 +452,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set('makeSureActivateTag', false);
     },
     getInitData: function(megaObject) {
+
         var address = document.URL;
         //  this.set("contentTags", "");
 
@@ -465,12 +466,16 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
         this.JudgeBusinessProfile(); //it is used to judge whether the user has business profile or it is the trends account
         this.JudgePhotoOwner(megaObject);  //it is used to judge whether the user is the photo owner
-        if (megaObject.get("isLoaded")) {
-            this.set("is_article_video", true);
+
+        var that = this;
+        megaObject.then(function() {
+
+            that.set("is_article_video", true);
+
 
             if (megaObject.get("type") === 'article')
             {
-                this.set("contentTags", "");
+                that.set("contentTags", "");
                 var photoUrl = megaObject.get("article").objectAt(0).get("article_image_url");
                 var photoObj = megaObject.set('photo_image_original_url', photoUrl);
                 photoObj.set("photo_title", megaObject.get("article").objectAt(0).get("article_headline"));
@@ -493,7 +498,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 var photoObj = megaObject.get('photo').objectAt(0);
                 HubStar.set("pic_current_height", photoObj.get("photo_original_height"));
                 HubStar.set("pic_current_width", photoObj.get("photo_original_width"));
-                var that = this;
+
                 photoObj.then(function() {
                     if (HubStar.get("isArticleTag") !== true)
                     {
@@ -522,12 +527,12 @@ HubStar.MegaController = Ember.ArrayController.extend({
             {
                 that.set("content", []);
                 that.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-                this.set("selectedPhoto", photoObj);
-                this.get("content").pushObject(photoObj);
+                that.set("selectedPhoto", photoObj);
+                that.get("content").pushObject(photoObj);
                 var megaResouce = HubStar.Mega.find(megaObject.id);
-                this.set('megaResouce', megaResouce);
-                this.set("photo_album_id", "album_" + megaObject.id);
-                this.set("photo_thumb_id", "thumb_" + megaObject.id);
+                that.set('megaResouce', megaResouce);
+                that.set("photo_album_id", "album_" + megaObject.id);
+                that.set("photo_thumb_id", "thumb_" + megaObject.id);
 
                 if (megaObject.get("type") === 'article' || megaObject.get("type") === 'video')
                 {
@@ -558,27 +563,15 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     else
                     {
                         that.addRelatedData(megaObject);  //it is for profile's collection
-
                     }
-                    that.checkAuthenticUser();
                     that.getCommentsById(megaObject.id);
                 }
             }
-        }
-        setTimeout(function() {
-
-            if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
-            {
-                megaObject.set("view_count", 1);
-            }
-            else
-            {
-                megaObject.set("view_count", megaObject.get("view_count") + 1);
-            }
-            megaObject.store.save();
-
-        }, 5000);
-
+            that.checkAuthenticUser();
+            var tempComment = [megaObject.id];
+            requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function(params) {
+            });
+        });
 
     },
     addRelatedData: function(mega)
@@ -901,7 +894,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
         {
             this.set('selectedPhoto', this.get('megaResouce'));
             if (this.get("controllers.masonryCollectionItems").get("type") === "user")
-            {  console("user photo000000000");
+            {
+                console("user photo000000000");
                 this.transitionTo("userPhoto", this.get("megaResouce"));
             }
             else if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
@@ -987,16 +981,28 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
             if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
             {
+
                 var address = document.URL;
                 var search_id = address.split("#")[1].split("/")[2];
+                var object_type = address.split("#")[1].split("/")[1];
                 if (search_id === "search") //this go to the search index
                 {
                     this.transitionTo("searchIndexTom");
                 }
                 else
                 {
-                    HubStar.set("escVideo", true);
-                    this.transitionTo("search", {id: search_id});
+
+                    if (object_type === "photos" || object_type === "articles" || object_type === "videos")
+                    {
+                        console.log("aaaaaa");
+                        var m = HubStar.Mega.find(search_id);
+                        this.transitionTo("search", {id: m.get("owner_title")});
+                    }
+                    else
+                    {
+                        HubStar.set("escVideo", true);
+                        this.transitionTo("search", {id: search_id});
+                    }
                 }
 
             }
@@ -1178,13 +1184,20 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
+        var role = permissionController.checkAuthenticEdit(that.get("megaResouce").get("profile_creator"), that.get("megaResouce").get("profile_administrator"), that.get("megaResouce").get("profile_editor"));
+        var is_edit = false;
+        if (role !== "")
+        {
+            is_edit = true;
+        }
+
         var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
-        that.set("is_authentic_user", is_authentic_user);
+        that.set("is_authentic_user", is_authentic_user || is_edit);
         currentUser.addObserver('isLoaded', function() {
             var current_user_email = currentUser.get('email');
             if (currentUser.get('isLoaded')) {
                 var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
-                that.set("is_authentic_user", is_authentic_user);
+                that.set("is_authentic_user", is_authentic_user || is_edit);
             }
         });
     },

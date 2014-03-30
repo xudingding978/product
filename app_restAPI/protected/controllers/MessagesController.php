@@ -258,17 +258,20 @@ class MessagesController extends Controller {
                         $receiveName = $userInfo['user'][0]['display_name'];
                         $notificationCountFollow = 0;
                         $notificationCountMessage = 0;
+                        $notificationCountAuthority = 0;
                         for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
 
                             if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
                                 if ($userInfo['user'][0]['notifications'][$i]["type"] === "follow" || $userInfo['user'][0]['notifications'][$i]["type"] === "unFollow") {
                                     $notificationCountFollow++;
+                                } else if ($userInfo['user'][0]['notifications'][$i]["type"] === "authority") {
+                                    $notificationCountAuthority++;
                                 } else {
                                     $notificationCountMessage++;
                                 }
                             }
                         }
-                        $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
+                        $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId, $notificationCountAuthority);
                     }
                 } else {
                     echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
@@ -630,16 +633,19 @@ class MessagesController extends Controller {
                     $receiveName = $userInfo['user'][0]['display_name'];
                     $notificationCountFollow = 0;
                     $notificationCountMessage = 0;
+                    $notificationCountAuthority = 0;
                     for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
                         if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
                             if ($userInfo['user'][0]['notifications'][$i]["type"] === "follow" || $userInfo['user'][0]['notifications'][$i]["type"] === "unFollow") {
                                 $notificationCountFollow++;
+                            } else if ($userInfo['user'][0]['notifications'][$i]["type"] === "authority") {
+                                $notificationCountAuthority++;
                             } else {
                                 $notificationCountMessage++;
                             }
                         }
                     }
-                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
+                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId, $notificationCountAuthority);
                 }
                 if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
                     
@@ -668,21 +674,24 @@ class MessagesController extends Controller {
                         $receiveName = $userMessage['user'][0]['display_name'];
                         $notificationCountFollow = 0;
                         $notificationCountMessage = 0;
+                        $notificationCountAuthority = 0;
                         for ($i = 0; $i < sizeof($userMessage['user'][0]['notifications']); $i++) {
                             if ($userMessage['user'][0]['notifications'][$i]["isRead"] === false) {
                                 if ($userMessage['user'][0]['notifications'][$i]["type"] === "follow" || $userMessage['user'][0]['notifications'][$i]["type"] === "unFollow") {
                                     $notificationCountFollow++;
+                                } else if ($userMessage['user'][0]['notifications'][$i]["type"] === "authority") {
+                                    $notificationCountAuthority++;
                                 } else {
                                     $notificationCountMessage++;
                                 }
                             }
                         }
-                        $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
-                    } 
-                }
-                else {
-                        echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+
+                        $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId, $notificationCountAuthority);
                     }
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
             }
         } elseif ($commenter_id !== $message_owner && $commenter_id !== $id && $message_owner === $id) {
             $notificationInfo = $this->getDomain() . "/users/" . $ownerId;
@@ -700,16 +709,19 @@ class MessagesController extends Controller {
                     $receiveName = $userInfo['user'][0]['display_name'];
                     $notificationCountFollow = 0;
                     $notificationCountMessage = 0;
+                    $notificationCountAuthority = 0;
                     for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
                         if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
                             if ($userInfo['user'][0]['notifications'][$i]["type"] === "follow" || $userInfo['user'][0]['notifications'][$i]["type"] === "unFollow") {
                                 $notificationCountFollow++;
+                            } else if ($userInfo['user'][0]['notifications'][$i]["type"] === "authority") {
+                                $notificationCountAuthority++;
                             } else {
                                 $notificationCountMessage++;
                             }
                         }
                     }
-                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
+                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId, $notificationCountAuthority);
                 }
                 if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
                     
@@ -734,16 +746,19 @@ class MessagesController extends Controller {
                     $receiveName = $userMessage['user'][0]['display_name'];
                     $notificationCountFollow = 0;
                     $notificationCountMessage = 0;
+                    $notificationCountAuthority = 0;
                     for ($i = 0; $i < sizeof($userMessage['user'][0]['notifications']); $i++) {
                         if ($userMessage['user'][0]['notifications'][$i]["isRead"] === false) {
                             if ($userMessage['user'][0]['notifications'][$i]["type"] === "follow" || $userMessage['user'][0]['notifications'][$i]["type"] === "unFollow") {
                                 $notificationCountFollow++;
+                            } else if ($userMessage['user'][0]['notifications'][$i]["type"] === "authority") {
+                                $notificationCountAuthority++;
                             } else {
                                 $notificationCountMessage++;
                             }
                         }
                     }
-                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
+                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId, $notificationCountAuthority);
                 }
                 if ($cbm->set($notification, CJSON::encode($userMessage))) {
                     
@@ -767,16 +782,19 @@ class MessagesController extends Controller {
                     $receiveName = $userInfo['user'][0]['display_name'];
                     $notificationCountFollow = 0;
                     $notificationCountMessage = 0;
+                    $notificationCountAuthority = 0;
                     for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
                         if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
                             if ($userInfo['user'][0]['notifications'][$i]["type"] === "follow" || $userInfo['user'][0]['notifications'][$i]["type"] === "unFollow") {
                                 $notificationCountFollow++;
+                            } else if ($userInfo['user'][0]['notifications'][$i]["type"] === "authority") {
+                                $notificationCountAuthority++;
                             } else {
                                 $notificationCountMessage++;
                             }
                         }
                     }
-                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
+                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId, $notificationCountAuthority);
                 }
                 if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
                     

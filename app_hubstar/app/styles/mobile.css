@@ -183,6 +183,11 @@ and (max-device-width : 568px) {
     .navbar .brand{padding:2.5px 0;}
     .logonew{height:40px;}
     /* header styles end */
+    
+    div.Register-Page{
+        z-index:999;
+    }
+    /* Register page */
 
 
     .plaform_bar > .showsidebar{

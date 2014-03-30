@@ -187,6 +187,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
                     if (params["msg"] !== null) {
                         conversationItems["msg"] = multiRow(params["msg"]);
                     }
+
                     that.get('controllers.conversation').get("conversationContent").objectAt(i).get("ConversationCollection").insertAt(0, conversationItems);
                     if (that.get("contentFollowerPhoto") !== null) {
                         for (var j = 0; j < that.get("contentFollowerPhoto").length; j++)

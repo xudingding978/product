@@ -164,9 +164,8 @@ HubStar.ConversationController = Ember.Controller.extend({
                         conversationItem["time_stamp"] = params[i]["ConversationCollection"][j]["time_stamp"];
                         if (params[i]["ConversationCollection"][j]["msg"] !== null) {
                             conversationItem["msg"] = multiRow(params[i]["ConversationCollection"][j]["msg"]);
-                        }
+                        }                        
                         conversationItem["name"] = params[i]["ConversationCollection"][j]["name"];
-
                         conversationItem["sender_photo_url_large"] = params[i]["ConversationCollection"][j]["sender_photo_url_large"];
                         if (params[i]["ConversationCollection"][j]["url"] === null)
                         {

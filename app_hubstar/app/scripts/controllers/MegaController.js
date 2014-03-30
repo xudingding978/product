@@ -208,7 +208,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
             if (this.get("controllers.masonryCollectionItems").get("type") === "user")
             {
-                console.logs("user photo111");
+//                console.logs("user photo111");
                 this.transitionTo("userPhoto", this.get("megaResouce"));
             }
             else if (this.get("selectType") === "profile")
@@ -895,7 +895,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.set('selectedPhoto', this.get('megaResouce'));
             if (this.get("controllers.masonryCollectionItems").get("type") === "user")
             {
-                console("user photo000000000");
+//                console("user photo000000000");
                 this.transitionTo("userPhoto", this.get("megaResouce"));
             }
             else if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
@@ -994,7 +994,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                     if (object_type === "photos" || object_type === "articles" || object_type === "videos")
                     {
-                        console.log("aaaaaa");
+//                        console.log("aaaaaa");
                         var m = HubStar.Mega.find(search_id);
                         this.transitionTo("search", {id: m.get("owner_title")});
                     }

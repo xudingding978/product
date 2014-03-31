@@ -511,8 +511,14 @@ class Controller extends CController {
                      $filter =' "filter":{
                 "query": {
                   "bool": {
-                    "must": [    
-                    ],
+                                         "must": [
+          {
+            "queryString": {
+              "default_field": "couchbaseDocument.doc.is_deleted",
+              "query": 0
+            }
+          }
+        ],
                     "must_not": [
                     {
                     "queryString": {
@@ -758,6 +764,7 @@ class Controller extends CController {
             $location_filter=1;
         }
              if ($classification != "All") {
+               
             $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
                 "query": {
                   "bool": {
@@ -794,6 +801,7 @@ class Controller extends CController {
                 }
               }');
             if ($location != "Global") {
+           
                 $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
                 "query": {
                   "bool": {
@@ -840,6 +848,7 @@ class Controller extends CController {
         if ($classification == "All") {
 
             if ($location !== "Global") {
+
                 $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
                 "query": {
                   "bool": {
@@ -875,11 +884,18 @@ class Controller extends CController {
               }');
                   $request->filter($filter);
             }else{
+     
                   $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
                 "query": {
                   "bool": {
-                    "must": [   
-                    ],
+                      "must": [
+          {
+            "queryString": {
+              "default_field": "couchbaseDocument.doc.is_deleted",
+              "query": 0
+            }
+          }
+        ],
                      "must_not": [
                     {
                     "queryString": {

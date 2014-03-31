@@ -161,7 +161,7 @@ HubStar.VideoController = Ember.Controller.extend({
             method: 'feed',
             link: currntUrl,
             picture: this.getImageURL(),
-            name: this.get('videoObject').data.video_title,
+            name: this.get('videoObject').get("videoTitle"),
             caption: 'Trends Ideas',
             description: caption
         };
@@ -203,7 +203,7 @@ HubStar.VideoController = Ember.Controller.extend({
             caption = '';
         }
 
-        $("meta[property='og\\:title']").attr("content", this.get('videoObject').data.video_title);
+        $("meta[property='og\\:title']").attr("content", this.get('videoObject').get("videoTitle"));
         $("meta[property='og\\:description']").attr("content", caption);
         $("meta[property='og\\:image']").attr("content", this.getImageURL());
         var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
@@ -233,7 +233,7 @@ HubStar.VideoController = Ember.Controller.extend({
     tShare: function(param) {
         this.dropdownPhotoSetting(param);
         var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
-        var url = 'https://twitter.com/share?text=' + this.get('videoObject').data.video_title + '&url=' + encodeURIComponent(currntUrl);
+        var url = 'https://twitter.com/share?text=' + this.get('videoObject').get("videoTitle")+ '&url=' + encodeURIComponent(currntUrl);
         var mega = HubStar.Mega.find(this.get('megaResouce').get('id'));
         mega.then(function() {
             if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
@@ -258,7 +258,7 @@ HubStar.VideoController = Ember.Controller.extend({
         var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.getImageURL()) +
-                '&description=' + encodeURIComponent(this.get('videoObject').data.video_title);
+                '&description=' + encodeURIComponent(this.get('videoObject').get("videoTitle"));
         var mega = HubStar.Mega.find(this.get('megaResouce').get('id'));
         mega.then(function() {
             if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")

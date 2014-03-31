@@ -38,7 +38,7 @@
 .navbar-inner {
     min-width:600px;
     height:75px;
-    width:87%;
+    width:90%;
     margin:auto;
 }
 
@@ -140,11 +140,11 @@
 
 .search-bar-ontop{
     position: absolute;
-    width: 40%;
+    width: 35%;
     max-width: 800px;
     margin: 6px auto;
-    left: 0;
-    right: 22%;
+    left: 5%;
+    right: 25%;
     min-width: 550px;
 }
 
@@ -759,7 +759,7 @@ div#forgot-password-container{
     color: #fff;
     opacity: .7;
     cursor: pointer;
-    margin-right: 50px;
+    margin-right: 40px;
 }
 
 .Geo-Filter:hover, .Geo-Filter:active{opacity: 1}

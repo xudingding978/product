@@ -511,14 +511,14 @@ class Controller extends CController {
                      $filter =' "filter":{
                 "query": {
                   "bool": {
-                                         "must": [
-          {
-            "queryString": {
-              "default_field": "couchbaseDocument.doc.is_deleted",
-              "query": 0
-            }
-          }
-        ],
+
+                    "must":   {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.is_deleted",
+                        "query": 0
+                      }
+                    } ,
+
                     "must_not": [
                     {
                     "queryString": {
@@ -888,14 +888,14 @@ class Controller extends CController {
                   $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
                 "query": {
                   "bool": {
-                      "must": [
-          {
-            "queryString": {
-              "default_field": "couchbaseDocument.doc.is_deleted",
-              "query": 0
-            }
-          }
-        ],
+
+                    "must":   {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.is_deleted",
+                        "query": 0
+                      }
+                    } ,
+
                      "must_not": [
                     {
                     "queryString": {

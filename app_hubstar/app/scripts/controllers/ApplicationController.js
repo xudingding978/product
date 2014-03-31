@@ -690,7 +690,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $(document).ready(function() {
                 setTimeout(function() {
                 if (localStorage.resOrcom=== "commercial")
-                {console.log('applicationview');
+                {
                     $('#switchbarBtn1').attr("style", "margin-left:28px;");
                     $("#Commercial1").css("opacity", "1");
                     $("#Residential1").css("opacity", "0.4");

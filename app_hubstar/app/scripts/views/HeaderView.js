@@ -11,8 +11,7 @@ HubStar.HeaderView = Ember.View.extend({
                 var mousedownX = event.pageX;
                 var witdhleft = $('#switchbar').offset().left;
                  var d = 23;
-                var middle = witdhleft + d;
-               
+                var middle = witdhleft + d;               
 
                 if (mousedownX < middle - d / 2) {
                    $('#switchbarBtn').attr("style", "margin-left:0px;");
@@ -24,7 +23,7 @@ HubStar.HeaderView = Ember.View.extend({
                     $("#Residential1").css("opacity", "1");
                     $("#Commercial").css("opacity", "0.4");
                     $("#Residential").css("opacity", "1");
-                    localStorage.resOrcom = "residential";
+                    localStorage.resOrcom = "residential";                                                        
 //                     $('#discovery_search_bar_wrapper').css("background"," url(../../images/contactbg.png)");
 //                 $(".navbar").css("background", " url(../../images/contactbg.png)");
 //                   $(".gradient1").css("background", " linear-gradient(to bottom, #01b6e3 22%,#f5f5f5 99%)");
@@ -99,6 +98,10 @@ HubStar.HeaderView = Ember.View.extend({
 //                       that.get('controller').transitionTo("search", {id: type});
 //                    }
                 }
+                for (var i = 0;i<that.get("controller").get("categorys").get("length");i++)
+                    {
+                        that.get("controller").get("categorys").objectAt(i).set("classification", localStorage.resOrcom );
+                    }
             });
         });
     },

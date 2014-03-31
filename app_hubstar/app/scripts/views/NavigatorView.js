@@ -91,6 +91,10 @@ HubStar.NavigatorView = Ember.View.extend({
 //                        that.get('controller').transitionTo("search", {id: type});
 //                    }
                 }
+                    for (var i = 0;i<that.get("controller").get("categorys").get("length");i++)
+                    {
+                        that.get("controller").get("categorys").objectAt(i).set("classification", localStorage.resOrcom );
+                    }
             });
 
         });

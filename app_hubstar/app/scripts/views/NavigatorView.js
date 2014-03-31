@@ -33,6 +33,8 @@ HubStar.NavigatorView = Ember.View.extend({
                         $(this).css("background", " linear-gradient(to bottom, #68789c 22%,#f5f5f5 99%)").fadeIn(500);
                     });
                     that.get('controller').set('residentialKeyword', true);
+                      that.get('controller').set('subcate', []);
+                    that.get('controller').set('subcategories', []);
 //                    if (type === "default")
 //                    {}
 //                    else
@@ -57,12 +59,7 @@ HubStar.NavigatorView = Ember.View.extend({
                         $(this).css("background", " linear-gradient(to bottom, #68789c 22%,#f5f5f5 99%) ").fadeIn(500);
                     });
                     that.get('controller').set('residentialKeyword', true);
-//                    if (type === "default")
-//                    {}
-//                    else
-//                    {
-//                        that.get('controller').transitionTo("search", {id: type});
-//                    }
+
                 }
                 else if (mousedownX >= (middle + d / 2)) {
                     $('#switchbarBtn').attr("style", "margin-left:28px;");
@@ -84,12 +81,9 @@ HubStar.NavigatorView = Ember.View.extend({
                         $(this).css("background", " linear-gradient(to bottom, #191200 22%,#f5f5f5 99%)").fadeIn(500);
                     });
                     that.get('controller').set('residentialKeyword', false);
-//                    if (type === "default")
-//                    {}
-//                    else
-//                    {
-//                        that.get('controller').transitionTo("search", {id: type});
-//                    }
+                      that.get('controller').set('subcate', []);
+                    that.get('controller').set('subcategories', []);
+
                 }
                     for (var i = 0;i<that.get("controller").get("categorys").get("length");i++)
                     {

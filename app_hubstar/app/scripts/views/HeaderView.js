@@ -103,6 +103,8 @@ HubStar.HeaderView = Ember.View.extend({
         });
     },
     searching: function() {
+         if ( this.$("#search_businesses").val()!== null &&  this.$("#search_businesses").val()!== "" &&  this.$("#search_businesses").val() !== undefined)
+            {
         $(".Navigator-box").css('display', 'none');
         $("#top-about-menu").fadeOut("320");
         $("#search-bar").fadeIn("320");
@@ -124,6 +126,11 @@ HubStar.HeaderView = Ember.View.extend({
         HubStar.set("escVideo", false);
         this.get("controller").transitionToRoute('search', {id: search_key});
 //        this.get("controller").send("newSearch", area, search_key);
+ }
+            else {
+                this.get("controller").get('controllers.applicationFeedback').statusObserver(null, "Please insert  keywords to search.", "warnning");
+            }
+
     }
 });
 

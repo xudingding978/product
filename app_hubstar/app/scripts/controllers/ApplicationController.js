@@ -318,12 +318,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             var size = Math.ceil((url[length - 1].split(".")[0].split("x")[1]) * 150 / width);
                             if (size !== undefined && !isNaN(size))
                             {
+                                
                                 if (size > 150) {
-                                    $("#init_photo_" + tempmega.get("id")).css({height: size});
+                                    $("#init_photo_" + tempmega.get("id").replace("&","")).css({height: size});
                                 }
                                 else
                                 {
-                                    $("#init_photo_" + tempmega.get("id")).css({height: 150});
+                                    $("#init_photo_" + tempmega.get("id").replace("&","")).css({height: 150});
                                 }
                             }
                         }

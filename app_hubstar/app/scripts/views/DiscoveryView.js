@@ -1,6 +1,9 @@
 HubStar.DiscoveryView = Ember.View.extend({
     templateName: 'discoveryBar',
     searching: function() {
+          
+          if ( this.$("#search_business").val()!== null &&  this.$("#search_business").val()!== "" &&  this.$("#search_business").val() !== undefined)
+            {
         $(".Navigator-box").css('display', 'none');
         $("#top-about-menu").fadeOut("320");
         $("#search-bar").fadeIn("320");
@@ -21,6 +24,14 @@ HubStar.DiscoveryView = Ember.View.extend({
         }
         this.get("controller").transitionToRoute('search', {id: search_key});
 //        this.get("controller").send("newSearch", area, search_key);
+
+ }
+            else {
+                this.get("controller").get('controllers.applicationFeedback').statusObserver(null, "Please insert  keywords to search.", "warnning");
+            }
+
+
+
     }
 
 

@@ -180,19 +180,26 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         return profile;
     },
     setProfile: function(id) {
+        var that=this;
         var mega = HubStar.Mega.find(id);
         mega.then(function() {
               if (mega.get('classification') === "commercial"&&localStorage.resOrcom === "residential") {
                   localStorage.resOrcom = "commercial";
-                   this.get('controllers.application').set('residentialKeyword',false);
+                   that.get('controllers.application').set('residentialKeyword',false);
                 setTimeout(function() {
                     $(".navbar").css("background", " url(../../images/commercialbg.jpg)");
                 }, 10);
             }
             else if (mega.get('classification') === "residential"&&localStorage.resOrcom === "commercial") {
-                
                 localStorage.resOrcom = "residential";
-                 this.get('controllers.application').set('residentialKeyword',true);
+                 that.get('controllers.application').set('residentialKeyword',true);
+                setTimeout(function() {
+                    $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+                }, 10);
+            } 
+            else if (mega.get('classification') === undefined||mega.get('classification') === ""||mega.get('classification') === null) {
+                localStorage.resOrcom = "All";
+                 that.get('controllers.application').set('residentialKeyword',true);
                 setTimeout(function() {
                     $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
                 }, 10);

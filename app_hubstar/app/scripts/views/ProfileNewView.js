@@ -16,9 +16,9 @@ HubStar.ProfileNewView = Ember.View.extend({
 
                 this.get("controller").get('controllers.application').set("is_trends_user", true);
             } else {
-                
-                this.get("controller").get('controllers.application').set("is_trends_user", true);
-                //this.get("controller").transitionTo("searchIndexTom");               
+               
+                this.get("controller").get('controllers.application').set("is_trends_user", false);
+                this.get("controller").transitionTo("searchIndexTom");               
             }
         }
     },

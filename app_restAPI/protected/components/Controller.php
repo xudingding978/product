@@ -695,8 +695,8 @@ class Controller extends CController {
              
              
            //   error_log($termQuery);
-               $log_path = "/home/devbox/Documents/searchquery.log";
-        $this->writeToLog($log_path, $termQuery);
+     //          $log_path = "/home/devbox/Documents/searchquery.log";
+      //  $this->writeToLog($log_path, $termQuery);
              $index = Yii::app()->params['elasticSearchIndex'];
    //       $ch = curl_init("http://es1.hubsrv.com:9200/develop/_search");
         $ch = curl_init("http://es1.hubsrv.com:9200/" . $index . "/_search");
@@ -721,10 +721,10 @@ class Controller extends CController {
             array_push($new_arr, $temp);
            
         }
-        $content1=  var_export($new_arr,true);
-        $fileName1="/home/devbox/Documents/output.log";
-        $this->writeToLog($fileName1, $content1);
-        error_log("2222222222");
+  //      $content1=  var_export($new_arr,true);
+   //     $fileName1="/home/devbox/Documents/output.log";
+    //    $this->writeToLog($fileName1, $content1);
+   //     error_log("2222222222");
    //     $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
        
         $new_return_arr = array();
@@ -733,10 +733,10 @@ class Controller extends CController {
         $new_return_arr['total'] = $result_arr['hits']['total'];
         $new_return_arr['max_score'] = $result_arr['hits']['max_score'];
         $new_return_arr['hits'] = $new_arr;
-        $content2=  var_export($new_return_arr,true);
-   $fileName2="/home/devbox/Documents/output1.log";
-        $this->writeToLog($fileName2, $content2);
-        error_log("33333333333333333333");
+   //     $content2=  var_export($new_return_arr,true);
+ //  $fileName2="/home/devbox/Documents/output1.log";
+      //  $this->writeToLog($fileName2, $content2);
+     //   error_log("33333333333333333333");
         return $new_arr;
 
              
@@ -1272,8 +1272,8 @@ class Controller extends CController {
 
 
         $tempResponse = $this->searchWithMultiMatch($requestString, $from, $size, $location, $classification);
-        $fileName="/home/devbox/Documents/search_result2.log";
-        $this->writeToLog($fileName, var_export($tempResponse,true));
+    //    $fileName="/home/devbox/Documents/search_result2.log";
+     //   $this->writeToLog($fileName, var_export($tempResponse,true));
         $numberofresults = $tempResponse['total'];
         $tempResponse = CJSON::encode($tempResponse);
         $tempResponse = CJSON::decode($tempResponse);

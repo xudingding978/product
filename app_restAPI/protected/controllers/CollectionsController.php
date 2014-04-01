@@ -44,6 +44,8 @@ class CollectionsController extends Controller {
         }
     }
 
+    // ally
+    
     public function actionSaveCollection() {
         $request_json = CJSON::decode(file_get_contents('php://input'), true);
         $request_arr = CJSON::decode($request_json, true);

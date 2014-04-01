@@ -303,12 +303,13 @@ class Controller extends CController {
         $tempResult = $this->getReponseResult($tempResult, $returnType);
         
         $mega = CJSON::decode($tempResult, true);
+     //   error_log(var_export($mega, true));
         if (!isset($mega['megas'][0]['profile'][0]['collections'])) {
             $collections = array();
         } else {
             $collections = $mega['megas'][0]['profile'][0]['collections'];
         }
-        //error_log(var_export($collections, true));
+ //       error_log(var_export($collections, true));
 
         for ($i = 0; $i < sizeof($collections); $i++) {
             if ($collections[$i]['id'] === $collection_id) {

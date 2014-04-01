@@ -11718,7 +11718,7 @@ text-shadow: 1px 4px 6px #ddd, 0 0 0 #555, 1px 4px 6px #ddd;
 .navbar-inner {
     min-width:600px;
     height:75px;
-    width:87%;
+    width:90%;
     margin:auto;
 }
 
@@ -11820,11 +11820,11 @@ text-shadow: 1px 4px 6px #ddd, 0 0 0 #555, 1px 4px 6px #ddd;
 
 .search-bar-ontop{
     position: absolute;
-    width: 40%;
+    width: 35%;
     max-width: 800px;
     margin: 6px auto;
-    left: 0;
-    right: 15%;
+    left: 5%;
+    right: 25%;
     min-width: 550px;
 }
 
@@ -12439,7 +12439,7 @@ div#forgot-password-container{
     color: #fff;
     opacity: .7;
     cursor: pointer;
-    margin-right: 50px;
+    margin-right: 40px;
 }
 
 .Geo-Filter:hover, .Geo-Filter:active{opacity: 1}
@@ -12512,52 +12512,6 @@ div#login_detail{
     margin: 5px !important;
     padding: 5px !important;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -12663,7 +12617,7 @@ and (max-width : 1239px) {
 }
 
 @media only screen 
-and (max-width : 1500px) {
+and (max-width : 1400px) {
     #switcher{
         display:none;
     }

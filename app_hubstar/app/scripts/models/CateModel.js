@@ -12,6 +12,9 @@ HubStar.Cate = DS.Model.extend({
     display: DS.attr('boolean'),
     type1: function() {
         var id = this.get('type');
+        if ( this.get("classification") === undefined) {
+            this.set("classification","All");
+        }
         if (this.get("classification") === "All")
         {
             this.set("display", true);

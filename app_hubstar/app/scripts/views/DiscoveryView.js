@@ -27,7 +27,7 @@ HubStar.DiscoveryView = Ember.View.extend({
 
  }
             else {
-                this.get("controller").get('controllers.applicationFeedback').statusObserver(null, "Please insert  keywords to search.", "warnning");
+//                this.get("controller").get('controllers.applicationFeedback').statusObserver(null, "Please insert  keywords to search.", "warnning");
             }
 
 

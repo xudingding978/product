@@ -1182,17 +1182,13 @@ class Controller extends CController {
         if ($request_string != null || $request_string != "") {
             $temp = explode('=', $request_string);
             $returnString = $temp[1];
-//            error_log('shuai1');
-//            error_log(var_export($request_string,true));
-//            error_log('shuai2');
-//              error_log(var_export($returnString,true));
+
         }
 
-        if ($isRelaceDash) {
-            $returnString = str_replace('-', '\-', $returnString);
-//            error_log('shuai3');
-//              error_log(var_export($returnString,true));
-        }
+//        if ($isRelaceDash) {
+//           $returnString = str_replace('-', '\-', $returnString);
+
+//        }
         return $returnString;
     }
 

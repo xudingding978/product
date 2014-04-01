@@ -75,15 +75,7 @@ HubStar.CommentController = Ember.Controller.extend({
             if (this.get("currentUser").get('photo_url_large').indexOf('data:image') > -1) {
                 commenter_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
             } else {
-//                var request = new XMLHttpRequest();  
-//                request.open('GET', this.get("currentUser").get('photo_url_large'), true);  
-//                request.send();  
-//
-//                if (request.status === "404") {  
-//                    alert("Oh no, it does not exist!");                    
-//                }  else {
                 commenter_profile_pic_url = this.get("currentUser").get('photo_url_large');
-//                }
             }
 
             var commenter_id = this.get("currentUser").get('id');
@@ -100,7 +92,7 @@ HubStar.CommentController = Ember.Controller.extend({
             this.closeComment(this.get('mega').get('id'));
             $('#addcommetBut').attr('style', 'display:block');
             $('#commentBox').attr('style', 'display:none');
-
+ 
             setTimeout(function() {
 
                 $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
@@ -110,12 +102,6 @@ HubStar.CommentController = Ember.Controller.extend({
                     $('#masonry_container').masonry();
                 }, 10);
             }, 20);
-//            setTimeout(function() {
-//                $('#masonry_user_container').masonry("reloadItems");
-//                setTimeout(function() {
-//                    $('#masonry_user_container').masonry();
-//                }, 100);
-//            }, 200);
         }
     },
     closeComment: function(id) {
@@ -124,7 +110,7 @@ HubStar.CommentController = Ember.Controller.extend({
 
         $('#comment_' + id).attr('style', 'display:block');
         $('#commentBox_' + id).attr('style', 'display:none');
-        //$('#masonry_container').masonry("reload");
+
 
         setTimeout(function() {
             $('#masonry_container').masonry();
@@ -323,8 +309,9 @@ HubStar.CommentController = Ember.Controller.extend({
 
         $('#commentData_' + id).attr('style', 'display:block');
         $('#commentScrollBar_' + id).removeClass('comment-scroll-bar');
-        $('#commentScrollBar_' + id + ' > div').attr('class', '');
-        $('#commentScrollBar_' + id + ' > div').attr('style', 'position: relative; height: 100%; overflow: hidden; max-width: 100%;');
+        $('#commentScrollBar_' + id + '> div').attr('class', 'comment-item comment-frame');
+       // $('#commentScrollBar_' + id + ' > div').attr('class', '');
+        $('#commentScrollBar_' + id + ' > div').attr('style', 'position: relative; height: 100%;  max-width: 100%;');
         $('#commentScrollBar_' + id + ' > div > .mCSB_container').attr('style', 'position: relative; top: 0px;');
         setTimeout(function() {
             $('#masonry_container').masonry();
@@ -342,8 +329,9 @@ HubStar.CommentController = Ember.Controller.extend({
         $('#closeComment_' + id).attr('style', 'display:none');
         $('#showMoreComment_' + id).attr('style', 'display:block');
         $('#commentScrollBar_' + id).addClass('comment-scroll-bar');
-        $('#commentScrollBar_' + id + ' > div').attr('class', 'mCustomScrollBox mCS-dark-2');
-        $('#commentScrollBar_' + id + ' > div').attr('style', 'position: relative; height: 100%; overflow: hidden; max-width: 100%;max-height: 360px;');
+        $('#commentScrollBar_' + id + '> div').attr('class', 'mCustomScrollBox mCS-dark-2');
+        $('#commentScrollBar_' + id + '> div').attr('class', 'comment-item comment-frame');
+        $('#commentScrollBar_' + id + ' > div').attr('style', 'position: relative; height: 100%;  max-width: 100%;max-height: 360px;');
 
         setTimeout(function() {
             $('#masonry_container').masonry();

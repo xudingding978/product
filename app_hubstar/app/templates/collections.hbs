@@ -3,7 +3,7 @@
 <div class="box style-box t-style-box col2" id="addNew" style="z-index: 0">
 
     <div id="uploadObject"  >
-         <div class="add-new-object-hoverarea easing">
+        <div class="add-new-object-hoverarea easing">
             <i class="fa fa-plus-circle"></i>
         </div>
         <div class="masonry-object t-style-box">
@@ -27,46 +27,46 @@
 
 <div class="box col2 style-box t-style-box">
     <div class="masonry-object Targeting_Object_front"  id={{unbound id}}>
-        <a class="album-description-hoverarea easing" href="#/{{unbound controller.type}}/{{unbound controller.Id}}/collections/{{unbound id}}" {{action transitionToCollectionPhoto id}}>
-{{#if desc}}
-               <table class="album-description" cellpadding="0" cellspacing="0">
-                   <tr>
-                       <td valign="middle"><div>{{desc}}</div></td>
-                   </tr>
-               </table> 
+         <a class="album-description-hoverarea easing" href="#/{{unbound controller.type}}/{{unbound controller.Id}}/collections/{{unbound id}}" {{action transitionToCollectionPhoto id}}>
+                                                   {{#if desc}}
+                                                   <table class="album-description" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td valign="middle"><div>{{desc}}</div></td>
+                                                            </tr>
+                                                        </table> 
 
-                <table class="album-description-bg" cellpadding="0" cellspacing="0">
-                   <tr>
-                       <td valign="middle"><div>{{desc}}</div></td>
-                   </tr>
-               </table> 
+                                                        <table class="album-description-bg" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td valign="middle"><div>{{desc}}</div></td>
+                                                            </tr>
+                                                        </table> 
 
-{{/if}}
-        </a>
-        <div class="albumcover-container"  > 
-            <div class="">
-                <img class="albumcover" {{bindAttr src="cover"}} />     
-            </div>
+                                                        {{/if}}
+                                                    </a>
+                                                    <div class="albumcover-container"  > 
+                                                        <div class="">
+                                                            <img class="albumcover" {{bindAttr src="cover"}} />     
+                                                        </div>
 
-        </div>
-        <div class="album-info">
-            <div class="album-info_name"><a href="#/{{unbound controller.type}}/{{unbound controller.Id}}/collections/{{unbound id}}"><i class="fa fa-picture-o" >&nbsp;</i>{{title}}</a></div>
-            <div class="album-info_content">
-                {{#if controller.is_authentic_user}}
-                <div class="edit-btn edit-collection-btn easing hint--left hint--rounded" data-hint="Edit collection info.">
-                    <i class="fa fa-cog" {{action editCollectionButton id title desc target="view" on="click"}} ></i>
+                                                    </div>
+                                                    <div class="album-info">
+                                                        <div class="album-info_name"><a href="#/{{unbound controller.type}}/{{unbound controller.Id}}/collections/{{unbound id}}"><i class="fa fa-picture-o" >&nbsp;</i>{{title}}</a></div>
+                                                        <div class="album-info_content">
+                                                            {{#if controller.is_authentic_user}}
+                                                            <div class="edit-btn edit-collection-btn easing hint--left hint--rounded" data-hint="Edit collection info.">
+                                                                <i class="fa fa-cog" {{action editCollectionButton id title desc target="view" on="click"}} ></i>
 
-         </div>
-                {{/if}}
+                                                            </div>
+                                                            {{/if}}
 
-                <span><a href="" {{action transitionToCollectionPhoto id}}> </a> photos</span>
-                <span><img src="../../images/list-doc.png"/>{{date created_at}}</span>               
-            </div>
-        </div>
+                                                            <span><a href="" {{action transitionToCollectionPhoto id}}> </a> photos</span>
+                                                            <span><img src="../../images/list-doc.png"/>{{date created_at}}</span>               
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="Targeting_Object_back"{{bindAttr class="getCollectionId"}}>
+                                                    {{view HubStar.EditCollectionView}}
+                                                </div>
     </div>
-    <div id="Targeting_Object_back"{{bindAttr class="getCollectionId"}}>
-        {{view HubStar.EditCollectionView}}
-    </div>
-</div>
 
-{{/each}}
+    {{/each}}

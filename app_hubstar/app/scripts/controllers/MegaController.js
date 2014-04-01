@@ -680,7 +680,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     dropdownPhotoSetting: function(param) {
         this.set('sharePhotoUrl', this.get('selectedPhoto').get('photo_image_thumbnail_url'));
         this.set('sharePhotoName', this.get('selectedPhoto').get('photo_title'));
-        $('#dropdown_id_' + param).toggleClass('hideClass');
+        $('#dropdown_id_' + param+this.get('megaResouce').get('id')).toggleClass('hideClass');
     },
     switchCollection: function() {
 

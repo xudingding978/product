@@ -25,7 +25,7 @@
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;width: 60px;" {{action dropdownPhotoSetting "1"}}>
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
-            <ul class="hideClass edit-object-ul" id="dropdown_id_1" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
+            <ul class="hideClass edit-object-ul" id="dropdown_id_1_{{unbound megaResouce.id}}" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
                 <li class="ite" {{action  fbShare "1"}} >
                     <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
                 </li>
@@ -103,7 +103,7 @@
         </div>
 
         <!-- OBJECT CONTROLL SECTION -->
-        <div class="collapes-container"  style="display:block;border-top: 1px solid #f3f3f3;">
+        <div  class="collapes-container"  style="display:block;border-top: 1px solid #f3f3f3;">
             <div class="collapes-container_inner" style="padding: 0; height: 45px;">
 
                 <div  class="square-button hint--rounded hint--bottom"  data-hint="Like this Idea!" {{action addLike}}>
@@ -129,7 +129,7 @@
                     <i class="fa fa-pencil-square-o" {{action editingPhotoMegaData}}></i>
                 </div>
                 {{/if}}
-                <ul class="hideClass edit-object-ul" id="dropdown_id_2" style="width: 170px; right: 80px; position: absolute; top: 120px;">
+                <ul class="hideClass edit-object-ul" id="dropdown_id_2_{{unbound megaResouce.id}}"  style="width: 170px; right: 80px; position: absolute; top: 120px;">
                     <li class="ite" {{action  fbShare "2"}} >
                         <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
                     </li>

@@ -77,6 +77,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
  
         var that = this;
         this.set('categorys', HubStar.Cate.find({})); 
+        console.log(this.get('categorys'));
 //        this.get("categorys").then(function() {
 //            for (var i = 0; i < that.get("categorys").get("length"); i++)
 //            {

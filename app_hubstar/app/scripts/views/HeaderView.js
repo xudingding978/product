@@ -41,8 +41,6 @@ HubStar.HeaderView = Ember.View.extend({
                     that.get('controller').set('subcate', []);
                     that.get('controller').set('subcategories', []);
 
-                    this.set('subcate', []);
-                    this.set('subcate', []);
 //                    if (type === "default")
 //                    {}
 //                    else
@@ -128,7 +126,7 @@ HubStar.HeaderView = Ember.View.extend({
 //        this.get("controller").send("newSearch", area, search_key);
         }
         else {
-            this.get("controller").get('controllers.applicationFeedback').statusObserver(null, "Please insert  keywords to search.", "warnning");
+//            this.get("controller").get('controllers.applicationFeedback').statusObserver(null, "Please insert  keywords to search.", "warnning");
         }
 
     }

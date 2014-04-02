@@ -48,6 +48,7 @@ HubStar.AfterLoginView = Ember.View.extend({
            // this.loadProfile();
              location.href ="#/profiles/new";
             $("#user-dd-menu").attr("style", "display:none");
+             $("#cancel").css("display", "none");
         }
 
     },

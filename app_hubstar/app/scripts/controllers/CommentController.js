@@ -178,7 +178,7 @@ HubStar.CommentController = Ember.Controller.extend({
         this.set('makeSureDelete', true);
         if (this.get('willDelete')) {
             this.removeCommentItem(object);
-            this.cancelDelete();
+          this.cancelDelete();
         } else {
             this.set("obj", object);
             this.set('willDelete', true);

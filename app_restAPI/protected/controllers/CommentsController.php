@@ -31,6 +31,7 @@ class CommentsController extends Controller {
                 $uid = $oldRecordDeep['comments'][$i]["message_id"];
                 if ($uid === $id) {
                     array_splice($oldRecordDeep['comments'], $i, 1);
+                    $oldRecordDeep['comment_count'] = sizeof($oldRecordDeep['comments']);
                     break;
                 }
             }
@@ -58,6 +59,7 @@ class CommentsController extends Controller {
                 $uid = $oldRecordDeep['comments'][$i]["message_id"];
                 if ($uid === $id) {
                     array_splice($oldRecordDeep['comments'], $i, 1);
+                     $oldRecordDeep['comment_count'] = sizeof($oldRecordDeep['comments']);
                     break;
                 }
             }
@@ -85,6 +87,7 @@ class CommentsController extends Controller {
                 $uid = $oldRecordDeep['comments'][$i]["message_id"];
                 if ($uid === $id) {
                     array_splice($oldRecordDeep['comments'], $i, 1);
+                     $oldRecordDeep['comment_count'] =sizeof($oldRecordDeep['comments']);
                     break;
                 }
             }
@@ -112,6 +115,7 @@ class CommentsController extends Controller {
                 $uid = $oldRecordDeep['comments'][$i]["message_id"];
                 if ($uid === $id) {
                     array_splice($oldRecordDeep['comments'], $i, 1);
+                     $oldRecordDeep['comment_count'] = sizeof($oldRecordDeep['comments']);
                     break;
                 }
             }

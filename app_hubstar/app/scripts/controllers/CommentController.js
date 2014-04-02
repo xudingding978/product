@@ -93,29 +93,23 @@ HubStar.CommentController = Ember.Controller.extend({
             var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url, "message_id": message_id,
                 "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), "is_delete": false, optional: this.get('mega').get('type') + '/' + this.get('mega').get('id')});
 
-            comments.insertAt(0, tempComment);
+            comments.insertAt(0, tempComment);           
             comments.store.save();
             this.set('commentContent', "");
             this.seeMore(this.get('mega').get('id'));
             this.closeComment(this.get('mega').get('id'));
             $('#addcommetBut').attr('style', 'display:block');
             $('#commentBox').attr('style', 'display:none');
-
+            var that =this;
             setTimeout(function() {
-
                 $('.user_comment_' + localStorage.loginStatus).attr('style', 'display:block');
+                that.get('mega').set("comment_count",comments.get("length"));
                 setTimeout(function() {
                     $('#masonry_user_container').masonry();
                     $('#masonry_photo_collection_container').masonry();
                     $('#masonry_container').masonry();
                 }, 10);
             }, 20);
-//            setTimeout(function() {
-//                $('#masonry_user_container').masonry("reloadItems");
-//                setTimeout(function() {
-//                    $('#masonry_user_container').masonry();
-//                }, 100);
-//            }, 200);
         }
     },
     closeComment: function(id) {
@@ -161,13 +155,6 @@ HubStar.CommentController = Ember.Controller.extend({
         var mega = HubStar.Mega.find(id);
         var comments = mega.get('comments');
         this.set('mega', mega);
-//        for (var i = 0; i < comments.get("length"); i++)
-//        {
-//            if (comments.objectAt(i).get("commenter_id") === localStorage.loginStatus)
-//            {
-//                comments.objectAt(i).set("isUserSelf", true);
-//            }
-//        }
         this.set('thisComments', comments);
     },
     closeCommentItem: function(obj) {
@@ -342,6 +329,7 @@ HubStar.CommentController = Ember.Controller.extend({
         $('#closeComment_' + id).attr('style', 'display:none');
         $('#showMoreComment_' + id).attr('style', 'display:block');
         $('#commentScrollBar_' + id).addClass('comment-scroll-bar');
+         $('#commentScrollBar_' + id + ' > div').attr('class', '');
         $('#commentScrollBar_' + id + ' > div').attr('class', 'mCustomScrollBox mCS-dark-2');
         $('#commentScrollBar_' + id + ' > div').attr('style', 'position: relative; height: 100%; overflow: hidden; max-width: 100%;max-height: 360px;');
 

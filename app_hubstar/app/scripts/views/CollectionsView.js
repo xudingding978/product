@@ -25,12 +25,12 @@ HubStar.CollectionsView = Ember.View.extend({
         $(createbtn).attr('style', "display:none");
         $(collection_name_insert).val(title);
         $(collection_area).val(desc);
-         var container = document.querySelector('#masonry_user_container');
-        var msnry = new Masonry(container, {
-             itemSelector: '.box',
-            columnWidth: 185,
-            isFitWidth: true
-        });
+//         var container = document.querySelector('#masonry_user_container');
+//        var msnry = new Masonry(container, {
+//             itemSelector: '.box',
+//            columnWidth: 185,
+//            isFitWidth: true
+//        });
 //        $('#masonry_user_container').masonry({
 //            itemSelector: '.box',
 //            columnWidth: 185,

@@ -248,13 +248,13 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         $('#closeComment').attr('style', 'display:inline-block');
         $('#showMoreComment').attr('style', 'display:none');
         $('#messageData').attr('style', 'display: block; padding: 5px 20px;');
-        $('#masonry_user_container').masonry("reload");
+        $('#masonry_user_container').masonry();
     },
     closeMore: function(id) {
         $('#closeComment').attr('style', 'display:none');
         $('#showMoreComment').attr('style', 'display:inline-block');
         $('#messageData').attr('style', 'display: none');
-        $('#masonry_user_container').masonry("reload");
+        $('#masonry_user_container').masonry();
     },
     profileStyleImageDrop: function(e, name)
     {

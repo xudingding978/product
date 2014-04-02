@@ -155,19 +155,19 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             }, 100);
         }, 200);
 
-        $('#masonry_user_container').imagesLoaded(function() {
-//            var container = document.querySelector('#masonry_user_container');
-//            var msnry = new Masonry(container, {
+//        $('#masonry_user_container').imagesLoaded(function() {
+////            var container = document.querySelector('#masonry_user_container');
+////            var msnry = new Masonry(container, {
+////                itemSelector: '.box',
+////                columnWidth: 185,
+////                isFitWidth: true
+////            });
+//            $('#masonry_user_container').masonry({
 //                itemSelector: '.box',
 //                columnWidth: 185,
 //                isFitWidth: true
 //            });
-            $('#masonry_user_container').masonry({
-                itemSelector: '.box',
-                columnWidth: 185,
-                isFitWidth: true
-            });
-        });
+//        });
 
     },
     checkAuthenticUser: function() {

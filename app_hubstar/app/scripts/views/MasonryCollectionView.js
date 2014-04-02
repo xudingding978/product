@@ -8,15 +8,14 @@ HubStar.MasonryCollectionView = Ember.View.extend({
 //            isInitLayout: false,
 //            isFitWidth: true
 //        });
-
-            $(function() {
-                $('#masonry_user_container').masonry({
-                    itemSelector: '.box',
-                    columnWidth: 185,
-                    isInitLayout: false,
-                    isFitWidth: true
-                });
+        $(function() {
+            $('#masonry_user_container').masonry({
+                itemSelector: '.box',
+                columnWidth: 185,
+                isFitWidth: true,
+                transitionDuration: 0
             });
+        });
 
 
 

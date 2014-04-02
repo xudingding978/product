@@ -13,9 +13,7 @@ HubStar.ReviewRoute = Ember.Route.extend({
         this.controllerFor('profile').set('reviewTag', true);
         this.controllerFor('reviewListSingle').set('model', model);
       //  this.controllerFor('reviewListSingle').set('review_content', model.review_content);
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+
 
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#reviewList').addClass('selected-user-stats');

@@ -3,9 +3,12 @@
 HubStar.ReplyRoute = Ember.Route.extend({
     setupController: function(controller, model) {
             this.controllerFor('reviewReplyListSingle').set('model',model);
-                   setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+                  setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 100);
+            }, 200);
     
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#reviewList').addClass('selected-user-stats');

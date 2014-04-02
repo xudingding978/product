@@ -89,6 +89,10 @@ HubStar.Mega = DS.Model.extend({
         {
             this.set("isShowMoreComment", true);
         }
+        else
+        {
+            this.set("isShowMoreComment", false);
+        }
     }.observes('comment_count'),
     showMoreComment: function() {
         if (this.get("comments").get("length") > 5)

@@ -41,12 +41,6 @@ HubStar.HeaderView = Ember.View.extend({
                     that.get('controller').set('subcate', []);
                     that.get('controller').set('subcategories', []);
 
-//                    if (type === "default")
-//                    {}
-//                    else
-//                    {
-//                       that.get('controller').transitionTo("search", {id: type});
-//                    }
                 } else if (mousedownX >= (middle - d / 2) && mousedownX < (middle + d / 2)) {
                     $('#switchbarBtn').attr("style", "margin-left:13px;");
                     $('#switchbarBtn1').attr("style", "margin-left:13px;");
@@ -129,6 +123,56 @@ HubStar.HeaderView = Ember.View.extend({
 //            this.get("controller").get('controllers.applicationFeedback').statusObserver(null, "Please insert  keywords to search.", "warnning");
         }
 
+    },
+    residential: function() {
+        $('#switchbarBtn').attr("style", "margin-left:0px;");
+                    $('#switchbarBtn1').attr("style", "margin-left:0px;");
+
+                    $("#Commercial").css("opacity", "0.4");
+                    $("#Residential").css("opacity", "1");
+                    $("#Commercial1").css("opacity", "0.4");
+                    $("#Residential1").css("opacity", "1");
+                    $("#Commercial").css("opacity", "0.4");
+                    $("#Residential").css("opacity", "1");
+                    localStorage.resOrcom = "residential";
+                    $('#discovery_search_bar_wrapper').fadeOut(500, function() {
+                        $(this).css({"background": " url(../../images/discoverybarbg.jpg)"}).fadeIn(500);
+                    });
+
+                    $('.navbar').fadeOut(500, function() {
+                        $(this).css({"background": " url(../../images/landingpagebg.jpg)"}).fadeIn(500);
+                    });
+                    $(".gradient1").fadeOut(500, function() {
+                        $(this).css("background", " linear-gradient(to bottom, #68789c 22%,#f5f5f5 99%)").fadeIn(500);
+                    });
+                    this.get('controller').set('residentialKeyword', true);
+                    this.get('controller').set('subcate', []);
+                    this.get('controller').set('subcategories', []);
+
+    },
+      commercial: function() {
+        $('#switchbarBtn').attr("style", "margin-left:28px;");
+                    $('#switchbarBtn1').attr("style", "margin-left:28px;");
+                    $("#Commercial1").css("opacity", "1");
+                    $("#Residential1").css("opacity", "0.4");
+                    $("#Commercial").css("opacity", "1");
+                    $("#Residential").css("opacity", "0.4");
+
+                    localStorage.resOrcom = "commercial";
+//                    $('#discovery_search_bar_wrapper').css({"background": " url(../../images/commercialbg.jpg)"});
+                    $('#discovery_search_bar_wrapper').fadeOut(500, function() {
+                        $(this).css({"background": " url(../../images/commercialbg.jpg)"}).fadeIn(500);
+                    });
+
+                    $('.navbar').fadeOut(500, function() {
+                        $(this).css({"background": "url(../../images/commercialbg.jpg)"}).fadeIn(500);
+                    });
+                    $(".gradient1").fadeOut(500, function() {
+                        $(this).css("background", " linear-gradient(to bottom, #191200 22%,#f5f5f5 99%)").fadeIn(500);
+                    });
+                    this.get('controller').set('residentialKeyword', false);
+                    this.get('controller').set('subcate', []);
+                    this.get('controller').set('subcategories', []);
     }
 });
 

@@ -308,11 +308,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             if (size !== undefined && !isNaN(size))
                             {
                                 if (size > 150) {
-                                    $("#init_photo_" + tempmega.get("id")).css({height: size});
+                                    $("#init_photo_" + tempmega.get("profile").objectAt(0).get("getID")).css({height: size});
                                 }
                                 else
                                 {
-                                    $("#init_photo_" + tempmega.get("id")).css({height: 150});
+                                    $("#init_photo_" + tempmega.get("profile").objectAt(0).get("getID")).css({height: 150});
                                 }
                             }
                         }

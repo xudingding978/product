@@ -147,7 +147,7 @@ HubStar.Mega = DS.Model.extend({
     }.property('type'),
     getID: function() {
         return this.get('id').replace(/[^\w\s]/gi, '');
-    }.property('type'),
+    }.property('id'),
     updateMegaWithUrl: function(mega, url)
     {
         var tempurl = getRestAPIURL();

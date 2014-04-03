@@ -118,6 +118,11 @@ HubStar.NavigatorView = Ember.View.extend({
                     this.get('controller').set('residentialKeyword', true);
                     this.get('controller').set('subcate', []);
                     this.get('controller').set('subcategories', []);
+                    
+                      for (var i = 0; i < this.get("controller").get("categorys").get("length"); i++)
+                {
+                    this.get("controller").get("categorys").objectAt(i).set("classification", localStorage.resOrcom);
+                }
 
     },
       commercial: function() {
@@ -143,6 +148,11 @@ HubStar.NavigatorView = Ember.View.extend({
                     this.get('controller').set('residentialKeyword', false);
                     this.get('controller').set('subcate', []);
                     this.get('controller').set('subcategories', []);
+                    
+                      for (var i = 0; i < this.get("controller").get("categorys").get("length"); i++)
+                {
+                    this.get("controller").get("categorys").objectAt(i).set("classification", localStorage.resOrcom);
+                }
     }
 
 });

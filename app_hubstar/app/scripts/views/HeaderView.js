@@ -117,10 +117,8 @@ HubStar.HeaderView = Ember.View.extend({
             }
             HubStar.set("escVideo", false);
             this.get("controller").transitionToRoute('search', {id: search_key});
-//        this.get("controller").send("newSearch", area, search_key);
         }
-        else {
-//            this.get("controller").get('controllers.applicationFeedback').statusObserver(null, "Please insert  keywords to search.", "warnning");
+        else {    
         }
 
     },
@@ -148,7 +146,10 @@ HubStar.HeaderView = Ember.View.extend({
                     this.get('controller').set('residentialKeyword', true);
                     this.get('controller').set('subcate', []);
                     this.get('controller').set('subcategories', []);
-
+  for (var i = 0; i < this.get("controller").get("categorys").get("length"); i++)
+                {
+                    this.get("controller").get("categorys").objectAt(i).set("classification", localStorage.resOrcom);
+                }
     },
       commercial: function() {
         $('#switchbarBtn').attr("style", "margin-left:28px;");
@@ -173,6 +174,11 @@ HubStar.HeaderView = Ember.View.extend({
                     this.get('controller').set('residentialKeyword', false);
                     this.get('controller').set('subcate', []);
                     this.get('controller').set('subcategories', []);
+                    
+                      for (var i = 0; i < this.get("controller").get("categorys").get("length"); i++)
+                {
+                    this.get("controller").get("categorys").objectAt(i).set("classification", localStorage.resOrcom);
+                }
     }
 });
 

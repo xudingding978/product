@@ -44,8 +44,10 @@ class EmailsController extends Controller {
 
         $description = $this->linkCategory($sub_category);
 
+        $objectUrl = $request_arr['object_url'];
 
-
+        $userEnvironment = $request_arr['user_environment'];
+        error_log(var_export($userEnvironment, true));
         $domain = $this->getDomain();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
@@ -65,7 +67,7 @@ class EmailsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->getEmailForm($request_arr['email_subject'], $request_arr['email_body'], $request_arr['display_name'], $request_arr['recieve_profile'], $request_arr['project_timeframe'], $request_arr['project_category'], $request_arr['project_budget'], $request_arr['project_experience'], $description
+                        "Data" => $this->getEmailForm($request_arr['email_subject'], $request_arr['email_body'], $request_arr['display_name'], $email_destination, $request_arr['project_timeframe'], $request_arr['project_category'], $request_arr['project_budget'], $request_arr['project_experience'], $description, $objectUrl, $userEnvironment
                         )
                     )
                 ),
@@ -122,7 +124,8 @@ class EmailsController extends Controller {
 
 
         $username = $request[0];
-        $password = $request[1];
+        $encryptusername = $request[1];
+        $encryptpassword = $request[2];
 
 
         $domain = $this->getDomain();
@@ -133,6 +136,7 @@ class EmailsController extends Controller {
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
         $platformEmail = $platformSettings['support']['email'];
+
         $subject_prefix = 'Confirmation of registration';
         $args = array(
             "Source" => $platformEmail,
@@ -148,7 +152,7 @@ class EmailsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->confirmationEmailForm($domainWithoutAPI, $username, $password)
+                        "Data" => $this->confirmationEmailForm($domainWithoutAPI, $username, $encryptusername, $encryptpassword)
                     )
                 ),
             ),
@@ -173,7 +177,7 @@ class EmailsController extends Controller {
         }
     }
 
-    public function getEmailForm($subject, $emailBody, $sendPersonName, $recieveProfile, $timeframe, $category, $budget, $experience, $description) {
+    public function getEmailForm($subject, $emailBody, $sendPersonName, $recieveProfile, $timeframe, $category, $budget, $experience, $description, $objectUrl, $userEnvironment) {
         return '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -186,7 +190,7 @@ class EmailsController extends Controller {
                 <tr>
                     <td align="center">
                         <br />
-                        &nbsp
+                        &nbsp;
                         <table width="600" cellpadding="0" cellspacing="0" border="0" style="background: #fff;">
                             <tbody>
                                 <tr>
@@ -224,6 +228,14 @@ class EmailsController extends Controller {
                                                     </td>
                                                     <td align="left" width="484">
                                                         ' . $subject . '
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="right" width="56">
+                                                        Link:&nbsp;
+                                                    </td>
+                                                    <td align="left" width="484">
+                                                        ' . $objectUrl . '
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -302,7 +314,8 @@ class EmailsController extends Controller {
                                         </table>
                                         &nbsp;<br />
                                         <hr style="height: 1px; color: #0088CC; background: #0088CC; width: 90%; border: 0 none;" />
-                                        &nbsp;<br />
+                                        &nbsp;<br />                                        
+                                            '.$userEnvironment.'
                                     </td>
                                 </tr>
                                 <tr>
@@ -412,7 +425,7 @@ class EmailsController extends Controller {
 ';
     }
 
-    public function confirmationEmailForm($domainWithoutAPI, $username, $password) {
+    public function confirmationEmailForm($domainWithoutAPI, $username, $encryptname, $encryptpassword) {
         return '
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -468,8 +481,10 @@ class EmailsController extends Controller {
                                                 </td>
                                             </tr> 
                                             <tr>
-                                                <td valign="top">
-                                                    <a style="color: #05B1E5;margin:20px;" href="http://' . $domainWithoutAPI . '/#/verify/' . $username . '?' . $password . '">  Click here to activate your account  </a>
+                                                <td valign="top"> 
+                                                    <a style="text-decoration: blink; width: 350px; height: 25px;padding: 10px; text-align: center;border-radius: 5px;color: white;margin:20px; font-size:25px;background-color: #05B1E5;" href="http://' . $domainWithoutAPI . '/#/verify/' . $encryptname . '?' . $encryptpassword . '">   
+                                                        Activate account and start the tour
+                                                         </a>
                                                 </td>
                                             </tr>
 

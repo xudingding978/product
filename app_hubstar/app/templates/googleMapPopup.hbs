@@ -18,11 +18,13 @@
         </div>
 
         <div style="margin: 15px 0 5px;">
-            <div style="width: 2%;float: left;margin-left: 20px;margin-top: 5px;font-weight: bold;text-align: right;">From:</div><div style="margin: 10px auto;border-bottom: 1px solid #ddd; width: 87%;left: 20px;position: relative;">{{input type="text" value=fromAddress placeholder="Enter your start address here" class="no-effect"}}</div>
-            <div style="width: 2%;float: left;margin-left: 20px;margin-top: 5px;font-weight: bold;text-align: right;">To:</div><div style="margin: 10px auto;border-bottom: 1px solid #ddd; width: 87%;left: 20px;position: relative;">{{input type="text" value=toAddress placeholder="To" class="no-effect"}}</div>
+            <div style="width: 2%;float: left;margin-left: 20px;margin-top: 5px;font-weight: bold;text-align: right;">From:</div>
+            <div style="margin: 10px auto;border-bottom: 1px solid #ddd; width: 87%;left: 20px;position: relative;">{{input type="text" value=fromAddress placeholder="Enter your start address here" class="no-effect"}}</div>
+            <div style="width: 2%;float: left;margin-left: 20px;font-weight: bold;text-align: right;">To:</div>
+            <div style="margin: 10px auto;border-bottom: 1px solid #ddd; width: 87%;left: 20px;position: relative;">{{address}}, {{suburb}}, {{region}}, {{country}}</div>
         </div>
 
-        <div class="" style="height: 45px;position: relative;border-top: 1px solid #ddd;top: -1px;">
+        <div class="" style="height: 45px;position: relative;border-top: 1px solid #ddd;top: 8px;">
             <div class="message-btn easing" style='width: 33%;height: 45px;line-height: 45px;border-radius: 0 0 0 3px;' value="Print map" onclick="printmap('google_map_pop');"><i class='fa fa-print'>&nbsp;</i>Print Map</div>
  
           <div id ="routeMode" class="message-btn easing" style="border: none; border-right: 1px solid #ddd;border-left: 1px solid #ddd; width: 34%;height: 45px;line-height: 45px;border-radius: 0;" {{action dropdownRoute target="view" on="click"}}>

@@ -9,7 +9,10 @@ HubStar.NewConversationRoute = Ember.Route.extend({
         this.controllerFor('conversation').selectConversation();
         this.controllerFor('conversation').set("isInvitePeople", false);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
         }, 200);
         $(window).scrollTop(550);
     },

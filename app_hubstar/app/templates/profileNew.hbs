@@ -11,7 +11,7 @@
 
         <div style="float: left;color: white; text-shadow: 0px 0px 15px #000;font-size: 40px;line-height: 50px;letter-spacing: 1px;margin: 24px 0 0 28px;">
             <p><b>SIGN UP NOW</b></p> 
-            <p><b>TO TRENDS IDEAS SPACE</b></p>        
+            <p><b>TO myTrends</b></p>        
         </div>
     </div>
 
@@ -80,6 +80,7 @@
         <div class="mustfull" id="errorMessage6" style="display: none">please fill in Admins Emails. </div>
          <div class="mustfull" id="numberFormat" style="display: none">please fill in info as number </div>
         <div class="mustfull" id="errorMessage4" style="display: none">please select one from the dropdown list </div>
+        <div class="mustfull" id="errorMessage7" style="display: none">please select one classfication </div>
         <div class="contactme-table easing" style="width: 87%;margin: auto;padding-bottom: 0px;">
 
             <div id="step3" style="padding: 0 20px; width: 100%;font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 40px 0 30px 20px;">
@@ -87,14 +88,42 @@
 
                     <div style="display:table-row">  
                     </div>
+                
+                 <div style="display:table-row">
+                    <div style="display:table-cell;text-align: right;" >Profile URL*:</div>
+                    <div style="display:table-cell"> 
+                        <div style="margin: 10px 30px 5px 10px;;width: 70%; text-align: center;">
+                            {{form controller.profile_name}}-{{form controller.regionSelection}}-{{form controller.countrySelection}}
+                        </div>
+                  
+                    </div> 
+                </div>
 
                     <div style="display:table-row">
                         <div style="display:table-cell;text-align: right;" >Profile Name*: </div>                     
                         <div style="display:table-cell"> 
                             <div  id="profileNameField" style="margin: 10px 30px 5px 10px;;width: 70%;">
-                                {{view Ember.TextField valueBinding="profile_name"   class="profileName" placeholder="Your Business Name"}} 
+                                {{view Ember.TextField valueBinding="profile_name" class="profileName" placeholder="Your Business Name"}} 
                             </div>
                            
+                        </div>
+                    </div>
+                
+                 <div style="display:table-row">
+                        <div style="display:table-cell;text-align: right;" >Classification*:</div> 
+
+                        <div  style="display:table-cell">
+                     
+                                <div id="residential" class="classfication" style="margin: 10px 10px 0;width: 34%;display: inline-block;" {{action classSelection "Residential"}}>
+                                     <span id="">Residential</span>
+                                    
+                                </div>
+                                <div id="commercial" class="classfication" style="margin: 10px -1px 0;width: 34%;display: inline-block;" {{action classSelection "Commercial"}}>
+                                     <span id="">Commercial</span>
+                                   
+                                   
+                                </div>                              
+                         
                         </div>
                     </div>
 
@@ -267,17 +296,7 @@
                     </div>
                 </div>
 
-                <div style="display:table-row">
-                    <div style="display:table-cell;text-align: right;" >Profile URL*:</div>
-                    <div style="display:table-cell"> 
-                        <div style="margin: 10px 30px 5px 10px;;width: 70%; text-align: center;">
-                            {{form controller.profile_name}}-{{form controller.regionSelection}}-{{form controller.countrySelection}}
-                        </div>
-
-                    </div> 
-                </div>
-
-                <div style="display:table-row" id="addTR">
+                 <div style="display:table-row" id="addTR">
                     <div style="display:table-cell;text-align: right;" >Admins*:</div>
                     <div style="display:table-cell"> 
                         <div style="display: block;">

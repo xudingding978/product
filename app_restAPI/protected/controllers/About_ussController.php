@@ -32,9 +32,9 @@ class About_ussController extends Controller {
                 $docID = $domain . "/profiles/" . $profile_id;
                 $tempMega = $cb->get($docID);           
                 $mega = CJSON::decode($tempMega, true);
-//                if (!isset($mega['profile'][0]['about_us'])) {
-//                    $mega['profile'][0]['about_us'] = array();
-//                }
+                if (!isset($mega['profile'][0]['about_us'][0]['about_embeded_object'])) {
+                    $mega['profile'][0]['about_us'][0]['about_embeded_object'] = array();
+                }
 //                array_unshift($mega['profile'][0]['keywords'], $tempCollection);
             $mega['profile'][0]['about_us'][0] = $tempCollection;
                

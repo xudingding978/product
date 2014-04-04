@@ -93,7 +93,7 @@ HubStar.Router.map(function() {
         });
 
         this.resource("searchs", {path: "/search"}, function() {
-            this.resource("searchIndex", {path: '/default'}, function()
+            this.resource("searchIndexTom", {path: '/default'}, function()
             {
                 this.resource("searchDefaultArticle", {path: '/articles/:article_id'}, function() {
                     this.resource("searchDefaultArticlePhoto", {path: '/photos/:photo_id'});
@@ -106,7 +106,6 @@ HubStar.Router.map(function() {
                 this.resource("searchIndexArticle", {path: '/articles/:article_id'}, function() {
                     this.resource("searchIndexArticlePhoto", {path: '/photos/:photo_id'});
                 });
-
                 this.resource("newSearchVideo", {path: '/videos/:video_id'});
                 this.resource("newSearchPhoto", {path: '/photos/:photo_id'});
             });

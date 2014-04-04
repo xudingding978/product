@@ -9,7 +9,7 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
         var results = HubStar.Mega.find({"RquireType": "video", 'ownerid': model.get("id")});
 
         var that = this;
-        this.set("loadingTime",true);
+        this.set("loadingTime", true);
         results.then(function() {
             that.set('videoesContent', []);
             for (var i = 0; i < results.get("length"); i++) {
@@ -17,7 +17,7 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
                 that.get("videoesContent").pushObject(tempmega);
             }
             that.get("controllers.profile").set("profileVideoStatistics", results.get("length"));
-            that.set("loadingTime",false);
+            that.set("loadingTime", false);
             that.relayout();
         });
         this.checkEditingMode();
@@ -62,8 +62,11 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
     relayout: function()
     {
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 1000);
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 100);
+        }, 200);
     },
     checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);

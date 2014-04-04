@@ -6,7 +6,9 @@ HubStar.ApplicationView = Ember.View.extend({
         $(window).bind("scroll", function() {
             view.didScroll();
         });
-
+        $(document).bind("touchmove", function() {
+            view.didScroll();
+        });
 //         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
 
         var scroll_pos_test = 290;
@@ -121,11 +123,37 @@ HubStar.ApplicationView = Ember.View.extend({
         }
     },
     isScrolledToBottom: function() {
-        var distanceToTop = $(document).height() - $(window).height(),
-                top = $(document).scrollTop();
-        return top === distanceToTop;
+        if (!HubStar.get("scrollDownSearch")) {
+
+            var docViewTop = $(window).scrollTop();
+            var docViewBottom = docViewTop + $(window).height();
+           // console.log($("#show_more_button").offset());
+           
+            if ($("#show_more").offset() !== undefined) {
+                var elemTop = $("#show_more").offset().top;
+
+                var elemBottom = elemTop + $("#show_more").height();
+
+                return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else {
+            return false;
+        }
+    },
+    willRemoveElement: function() {
+        this.unbindScrolling();
+    },
+    unbindScrolling: function() {
+        $(window).unbind('scroll');
+        $(document).unbind('touchmove');
     },
     willDestroyElement: function() {
+        this.unbindScrolling();
     },
     reaaarender: function() {
         this.rerender();

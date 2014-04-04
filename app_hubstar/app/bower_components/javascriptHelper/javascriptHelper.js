@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-function getRestAPIURL(){
+function getRestAPIURL() {
 //    var api_url = document.domain;
 //    api_url = "http://api." + api_url;
 //    console.log(api_url);
@@ -35,15 +35,33 @@ function createReviewid() {
     return result.toString();
 }
 
+
+function multiRow(s) {
+    if (s !== null) {
+        s = s.replace(/\n/g, '<br>');
+    }
+    return s;
+}
 function createMessageid() {
 
     var dateObject = new Date();
     var randomnumber = Math.random().toString().slice(2, 5);
     randomnumber = randomnumber.toString();
     randomnumber = removeZero(randomnumber);
+
     var result = randomnumber +
             dateObject.getTime().toString();
+    return  result.toString();
+}
+function createNavigatorId() {
 
+    var dateObject = new Date();
+    var randomnumber = Math.random().toString().slice(2, 5);
+    randomnumber = randomnumber.toString();
+    randomnumber = removeZero(randomnumber);
+
+    var result = randomnumber +
+            dateObject.getTime().toString();
     return  result.toString();
 }
 
@@ -110,8 +128,9 @@ function requiredBackEnd(controller, method, para, ajaxType, callback) {
             url: tempurl + '/' + controller + '/' + method,
             type: ajaxType,
             data: JSON.stringify(para),
+            crossDomain: true,
             success: function(feedback) {
-                
+
                 //HubStar.Store.save();
                 callback(feedback);
             }
@@ -140,7 +159,7 @@ function ReplaceContentInContainer(matchClass, content)
     {
         if ((" " + elems[i].className + " ").indexOf(" " + matchClass + " ") > -1)
         {
-            
+
             elems[i].style.display = 'none';
         }
     }

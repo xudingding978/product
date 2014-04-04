@@ -25,7 +25,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
     },
     goToUserRoute: function()
     {
-      
+
         this.get("controllers.user").selectCollection();
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
@@ -47,7 +47,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
         requiredBackEnd('followers', 'ReadFollowing', data, 'POST', function(params) {
             that.set("contentUser", []);
             that.set("contentProfile", []);
-            //console.log(params.length+"sssssssss");
+
 
             for (var i = 0; i < params.length; i++)
             {
@@ -77,7 +77,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                     dataNew["name"] = params[i]["name"];
                     dataNew["photo_url"] = params[i]["photo_url"];
                     dataNew["photo_url_large"] = params[i]["cover_url_small"];
-                    //console.log(dataNew["photo_url_large"]);
+
                     dataNew["collections_size"] = params[i]["collections_size"];
                     dataNew["follower_size"] = params[i]["follower_size"];
                     dataNew["partner_size"] = params[i]["partner_size"];
@@ -85,13 +85,9 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                     dataNew["following_status"] = params[i]["following_status"];
                     dataNew["profile_about_us"] = params[i]["profile_about_us"];
                     dataNew["profile_cover_text"] = params[i]["profile_cover_text"];
-                    //dataNew["current"] = HubStar.Mega.find(dataNew["id"]);
-                    // console.log(dataNew["current"]);
-                    //dataNew["current"] = params[i]["profile"];
-                    // dataNew["current"]=currentProfile;
-                    // console.log(dataNew["current"] );
+
                     that.get("contentProfile").pushObject(dataNew);
-                    //console.log(dataNew);
+
                 }
                 dataNew = new Array();
             }
@@ -158,7 +154,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
 
             if (type === "user")
             {
-                
+
                 if (localStorage.loginStatus === this.get("controllers.user").get('user').id)
                 {
                     this.get("controllers.user").set("userFollowingStatistics", currentUser.get("followings").get("length"));
@@ -235,7 +231,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
     unFollowProfile: function(profile_id, type) {
         //console.log(profile_id);
         var tempUser = HubStar.Profile.find(profile_id);
-        var ThisController=this;
+        var ThisController = this;
         if (tempUser.get('isLoaded')) {
 
             var commenter_id = localStorage.loginStatus;
@@ -337,8 +333,11 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
     relayout: function()
     {
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 20);
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+            }, 400);
+        }, 300);
     }
 
 

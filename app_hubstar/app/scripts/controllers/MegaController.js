@@ -185,20 +185,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
     },
     getInitData: function(megaObject) {
-//        var mega = HubStar.Mega.find(megaObject.get("id"));;
-//        mega.then(function() {
-//            if (mega.get("view_count") === undefined || mega.get("view_count") === null || mega.get("view_count") === "")
-//            {
-//                mega.set("view_count", 0);
-//            }
-//            else
-//            {
-//                mega.set("view_count", mega.get("view_count") + 1);
-//            }
-//            mega.store.save();
-//        });
-        if (megaObject.get("isLoaded")) {
-            this.set("is_article_video", true);
+        var that = this;
+        megaObject.then(function() {
+            //if (megaObject.get("isLoaded")) {
+            that.set("is_article_video", true);
 
             if (megaObject.get("type") === 'article')
             {
@@ -207,7 +197,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 var photoObj = megaObject.set('photo_image_original_url', photoUrl);
                 photoObj.set("photo_title", megaObject.get("article").objectAt(0).get("article_headline"));
                 photoObj.set("photo_caption", megaObject.get("article").objectAt(0).get("article_body"));
-                this.set("is_article_video", false);
+                that.set("is_article_video", false);
                 photoObj.set("photo_image_thumbnail_url", photoUrl);
             }
             else if (megaObject.get("type") === 'video')
@@ -218,75 +208,77 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                 photoObj.set("photo_title", megaObject.get("videoes").objectAt(0).get("videoTitle"));
                 photoObj.set("photo_caption", megaObject.get("videoes").objectAt(0).get("videoDesc"));
-                this.set("is_article_video", false);
+                that.set("is_article_video", false);
                 photoObj.set("photo_image_thumbnail_url", photoUrl);
             }
             else
             {
 
                 var photoObj = megaObject.get('photo').objectAt(0);
-                this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+                that.set("currentUser", HubStar.User.find(localStorage.loginStatus));
 
             }
-            if (this.get("selectPhoto") === false)   //selectPhoto is user to control left or right operation
+            if (that.get("selectPhoto") === false)   //selectPhoto is user to control left or right operation
             {
-                this.set("content", []);
-                this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+                that.set("content", []);
+                that.set("currentUser", HubStar.User.find(localStorage.loginStatus));
 //                this.set('image_no', 1);
-                this.set("selectedPhoto", photoObj);
-                this.get("content").pushObject(photoObj);
+                that.set("selectedPhoto", photoObj);
+                that.get("content").pushObject(photoObj);
                 var megaResouce = HubStar.Mega.find(megaObject.id);
-                this.set('megaResouce', megaResouce);
-                this.set("photo_album_id", "album_" + megaObject.id);
-                this.set("photo_thumb_id", "thumb_" + megaObject.id);
+                that.set('megaResouce', megaResouce);
+                that.set("photo_album_id", "album_" + megaObject.id);
+                that.set("photo_thumb_id", "thumb_" + megaObject.id);
 
                 if (megaObject.get("type") === 'article' || megaObject.get("type") === 'video')
                 {
-                    if (this.get("controllers.masonryCollectionItems").get("type") === "user")
+                    if (that.get("controllers.masonryCollectionItems").get("type") === "user")
                     {
 
-                        this.addRelatedCollectionItemData(megaObject);
+                        that.addRelatedCollectionItemData(megaObject);
                     }
-                    else if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
+                    else if (that.get("controllers.masonryCollectionItems").get("type") === "profile")
                     {
 
-                        this.addProfileRelatedData(megaObject);
+                        that.addProfileRelatedData(megaObject);
                     }
 
                 }
                 else
                 {
-                    if (this.get("controllers.masonryCollectionItems").get("type") === "user") //it is for user's collection
+                    if (that.get("controllers.masonryCollectionItems").get("type") === "user") //it is for user's collection
                     {
 
-                        this.addRelatedCollectionItemData(megaObject);
+                        that.addRelatedCollectionItemData(megaObject);
                     }
-                    else if (this.get("selectType") === "profile")
+                    else if (that.get("selectType") === "profile")
                     {
 
-                        this.addProfileRelatedData(megaObject);
+                        that.addProfileRelatedData(megaObject);
                     }
                     else
                     {
 
-                        this.addRelatedData(megaObject);  //it is for profile's collection
+                        that.addRelatedData(megaObject);  //it is for profile's collection
                     }
-                    this.checkAuthenticUser();
-                    this.getCommentsById(megaObject.id);
+                    that.checkAuthenticUser();
+                    that.getCommentsById(megaObject.id);
                 }
             }
-       
-            if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
-            {
-                megaObject.set("view_count", 1);
-            }
-            else
-            {
-                megaObject.set("view_count", megaObject.get("view_count") + 1);
-            }
-            megaObject.store.save();
-        
-        }
+            
+            setTimeout(function() {
+                if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
+                {
+                    megaObject.set("view_count", 1);
+                }
+                else
+                {
+                    megaObject.set("view_count", megaObject.get("view_count") + 1);
+                }
+                megaObject.store.save();
+            }, 5000);
+                
+        });
 
     },
     addRelatedData: function(mega)
@@ -299,7 +291,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
         var that = this;
         if (isProfileIDExist && isCollectionIDExist) {
-            var data = HubStar.Mega.find({RequireType: "collection", "collection_id": collection_id, "owner_profile_id": owner_profile_id});
+            var data = HubStar.Mega.find({RequireType: "profileCollection", "collection_id": collection_id, "owner_profile_id": owner_profile_id});
             data.addObserver('isLoaded', function() {
                 if (data.get('isLoaded')) {
                     for (var i = 0; i < this.get("content").length; i++) {
@@ -396,22 +388,22 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
 
 
-            var results = HubStar.Mega.find({RquireType: "collection", "collection_id": collection_id, "owner_profile_id": id});
-            var that = this;
-            results.addObserver('isLoaded', function() {
-                if (results.get('isLoaded')) {
-                    for (var i = 0; i < this.get("length"); i++) {
-                        var tempmega = results.objectAt(i);
-                        if (tempmega.get('profile').get('length') === 0 && tempmega.get('user').get('length') === 0 && (collection_id === tempmega.get('collection_id')))
-                        {
-                            if (that.get("content").objectAt(0).get("id") !== tempmega.get("id")) {
-                                that.get("content").pushObject(tempmega.get('photo').objectAt(0));
-                            }
-                        }
-                    }
-
-                }
-            });
+//            var results = HubStar.Mega.find({RquireType: "profileCollection", user_id: id, collection_id: collection_id});
+//            var that = this;
+//            results.addObserver('isLoaded', function() {
+//                if (results.get('isLoaded')) {
+//                    for (var i = 0; i < this.get("length"); i++) {
+//                        var tempmega = results.objectAt(i);
+//                        if (tempmega.get('profile').get('length') === 0 && tempmega.get('user').get('length') === 0 && (collection_id === tempmega.get('collection_id')))
+//                        {
+//                            if (that.get("content").objectAt(0).get("id") !== tempmega.get("id")) {
+//                                that.get("content").pushObject(tempmega.get('photo').objectAt(0));
+//                            }
+//                        }
+//                    }
+//
+//                }
+//            });
             var pics = HubStar.Mega.find({RquireType: "profileCollection", user_id: id, collection_id: collection_id});
             var that = this;
             pics.addObserver('isLoaded', function() {
@@ -542,14 +534,14 @@ HubStar.MegaController = Ember.ArrayController.extend({
             results.addObserver('isLoaded', function() {
                 if (results.get('isLoaded')) {
 
-                    for (var i = 0; i < this.get("content").length; i++) {
-                        var tempObject = this.get("content").objectAt(i);
+                    for (var i = 0; i < this.get("length"); i++) {
+                        var tempObject = this.objectAt(i);
                         photoContent.pushObject(tempObject);
                     }
-                    for (var i = 0; i < photoContent.length; i++) {
-                        if (photoContent.objectAt(i).record.get("type") === "photo")
+                    for (var i = 0; i < photoContent.get("length"); i++) {
+                        if (photoContent.objectAt(i).get("type") === "photo")
                         {
-                            var id = photoContent.objectAt(i).record.get("id");
+                            var id = photoContent.objectAt(i).get("id");
 
                             if (that.get("content").objectAt(0).get('id') !== id)
                             {
@@ -557,13 +549,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                             }
                         }
-                        else if (photoContent.objectAt(i).record.get("type") === "article")
+                        else if (photoContent.objectAt(i).get("type") === "article")
                         {
 
-                            var id = photoContent.objectAt(i).record.get("id");
+                            var id = photoContent.objectAt(i).get("id");
                             if (that.get("content").objectAt(0).get('id') !== id)
                             {
-                                var photoUrl = photoContent.objectAt(i).record.get("article").objectAt(0).get("article_image_url");
+                                var photoUrl = photoContent.objectAt(i).get("article").objectAt(0).get("article_image_url");
                                 var article = HubStar.Mega.find(id);
                                 if (that.get("content").objectAt(0).get('id') !== id)
                                 {
@@ -573,12 +565,12 @@ HubStar.MegaController = Ember.ArrayController.extend({
                                 }
                             }
                         }
-                        else if (photoContent.objectAt(i).record.get("type") === "video")
+                        else if (photoContent.objectAt(i).get("type") === "video")
                         {
-                            var id = photoContent.objectAt(i).record.get("id");
+                            var id = photoContent.objectAt(i).get("id");
                             if (that.get("content").objectAt(0).get('id') !== id)
                             {
-                                var photoUrl = photoContent.objectAt(i).record.get("videoes").objectAt(0).get("videoImg");
+                                var photoUrl = photoContent.objectAt(i).get("videoes").objectAt(0).get("videoImg");
 
                                 var article = HubStar.Mega.find(id);
                                 article.set("photo_image_original_url", photoUrl);
@@ -735,22 +727,24 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
             if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
             {
+
                 // this.transitionTo("indexIndex"); //search page
                 var address = document.URL;
                 var search_id = address.split("#")[1].split("/")[2];
                 if (search_id === "search") //this go to the search index
                 {
-                    this.transitionTo("searchIndex");
+                    this.transitionTo("searchIndexTom");
                 }
                 else
                 {
                     HubStar.set("escVideo", true);
                     this.transitionTo("search", {id: search_id});
                 }
-                $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-                setTimeout(function() {
-                    $('#masonry_container').masonry();  //masonry();
-                }, 300);
+
+//                $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+//                setTimeout(function() {
+//                    $('#masonry_container').masonry();  //masonry();
+//                }, 300);
 
             }
             else
@@ -853,9 +847,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.set("obj", object);
             this.set('willDelete', true);
         }
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+
     },
     cancelDelete: function() {
         this.set('willDelete', false);

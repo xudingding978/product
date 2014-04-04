@@ -6,7 +6,7 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
     newPdfCover: '',
     newPdfDesc: '',
     getVideo: true,
-    videoesContent: [],
+    pdfContent: [],
     isRenderDeleteItemTemplate: false,
     needs: ['profile', 'permission', 'applicationFeedback', 'pdfUploader'],
 

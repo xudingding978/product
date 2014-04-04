@@ -51,22 +51,50 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
         var target = getTarget(e, "single");
         console.log(target);
         var src = target.result;
+        
+        var testID = createGuid();        
+        var MegaCreateController = this.get('controllers.megaCreate');
+
+        var mega = MegaCreateController.createNewMega(this.get("profileMega"), testID, null, 'pdf');        
         var pdf = HubStar.Pdf.createRecord({
             'pdf_cover_image': "http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0", 'pdf_title': name.split('.')[0],
-            'pdf_desc': "", 'pdf_url': src, 'pdf_profile_id': this.get('controllers.profile').get('model').get('id')
-        });
+            'pdf_desc': "", 'pdf_url': src, 'pdf_profile_id': this.get('controllers.profile').get('model').get('id')});
+        mega.set("object_title", pdf.get('pdf_title'));
+        mega.set("object_description", pdf.get('pdf_desc'));
+        mega.set("object_image_url", pdf.get('pdf_cover_image'));
+        mega.get('pdf').pushObject(pdf);
         this.get("pdfArray").pushObject(pdf);
-//        this.set('newPdfSource',src);
-//        this.set('newPdfName',name);
-        console.log(name);
-        console.log(src);
-
         
+        var profilePdfController = this.get('controllers.profilePdf');
+        profilePdfController.get("pdfContent").insertAt(0, mega);
+//        var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
+
+
+//        this.get("controllers.profile").set("profileVideoStatistics", profileVideosController.get("videoesContent").get("length"));
+        mega.store.save();
+
+//        profile.set("profile_video_num", profileVideosController.get("videoesContent").get("length"));
+
+//        profile.store.save();
+//        profilePdfController.set("loadingTime",true);
+//        mega.then(function() {
+//            profile.then(function() {
+//                setTimeout(function() {
+//                    profilePdfController.getClientId(profile);
+//                }, 2000);
+//            });
+//        });
+//
+//
+//        this.canel();
+        
+         
     },
     reset: function() {
         this.set('pdfArray', []);
     },
     submit: function() {
+        console.log('submit');
        for (var i=0; i < this.get('pdfArray').get('length'); i ++){
            this.get('pdfArray').objectAt(i).store.save();
        }

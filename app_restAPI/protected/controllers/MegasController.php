@@ -50,6 +50,7 @@ class MegasController extends Controller {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $mega = $request_arr['mega'];
+        error_log($mega['type']);
         $mega["id"] = str_replace("test", "", $mega["id"]);
         if ($mega['type'] == 'photo' || $mega['type'] == 'video') {
             $cb = $this->couchBaseConnection();
@@ -77,8 +78,40 @@ class MegasController extends Controller {
             $mega['keyword'] = $keyword;
             
             $this->createUploadedVideo($mega);
+        } elseif ($mega['type'] == 'pdf') {
+            error_log('ddddddddddddddd');
+            $mega['pdf'][0]['id'] = $mega['id'];
+            
+            $keyword = $this->getProfileKeyword($mega['owner_id']);
+            $mega['keyword'] = $keyword;
+            $mega['pdf'][0]['pdf_url']  = $this->savePdfToS3($mega['pdf']);            
+            $this->createUploadedVideo($mega);
         }
-        $this->sendResponse(204, $request_json);
+        $this->sendResponse(204);
+    }
+    
+    public function savePdfToS3($request_arr) {
+        error_log('savetos3');
+        error_log(var_export($request_arr, true));
+        $pdf_resource = base64_decode(str_replace('data:application/pdf;base64,', '', $request_arr[0]['pdf_url']));
+        $pdf_profile_id = $request_arr[0]['pdf_profile_id'];
+        $pdf_title = $request_arr[0]['pdf_title'] . '.pdf';
+        
+        $bucket = "s3.hubsrv.com";
+        $url = $this->getDomain() . '/profiles' . "/" . $pdf_profile_id . "/"  . $pdf_title;
+        $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
+        $client = Aws\S3\S3Client::factory(
+                        $arr
+        );
+
+        $client->putObject(array(
+            'Bucket' => $bucket, //"s3.hubsrv.com"
+            'Key' => $url,
+            'Body' => $pdf_resource,
+            'ContentType' => "application/pdf",
+            'ACL' => 'public-read'
+        ));
+        return $url;
     }
 
     public function actionRead() {
@@ -257,8 +290,7 @@ class MegasController extends Controller {
 
         if (sizeof($mega) > 0) {          
             $cb = $this->couchBaseConnection();
-            
-            
+            error_log($this->getDomain() . '/' . $mega['id']);
             if ($cb->add($this->getDomain() . '/' . $mega['id'], CJSON::encode($mega))) {
                 echo $this->sendResponse(200);
             } else {

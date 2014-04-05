@@ -1,6 +1,5 @@
 
 .navbar {
-    min-width: 1200px;
     height: 75px;
     line-height: 60px;
     overflow: visible;
@@ -36,14 +35,23 @@
 }
 
 .navbar-inner {
-    min-width:600px;
+    min-width:50%;
     height:75px;
-    width:90%;
+    width:97%;
     margin:auto;
 }
 
 .logonew{
     height: 35px;
+}
+
+#user-dd-menu{
+    padding: inherit;  
+    width: 220px; 
+    right: 157px; 
+    position: relative; 
+    top:16px; 
+    display:none;
 }
 
 #user-dd-menu > li {padding:0}
@@ -72,7 +80,7 @@
     border-right: 8px solid transparent;
     border-bottom: 8px solid #fff;
     z-index: 11;
-    left: 70px;
+    left: 170px;
 }
 
 #user-dd-menu:after{
@@ -85,7 +93,7 @@
     border-right: 8px solid transparent;
     border-bottom: 8px solid #888;
     z-index: 10;
-    left: 70px;
+    left: 170px;
 }
 
 
@@ -130,8 +138,8 @@
 
 .Nav-btn:hover{opacity: 1}
 
-.Search-box{
-    width: 90%;
+.search-box{
+    width: 80%;
     height: 50px;
     float: left;
     display: inline-block;
@@ -145,10 +153,9 @@
     margin: 6px auto;
     left: 5%;
     right: 25%;
-    min-width: 550px;
 }
 
-.Search-box > input {
+.search-box > input {
     font-size: 20px;
     font-weight: bold;
     color: #333;

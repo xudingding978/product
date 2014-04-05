@@ -22,7 +22,7 @@
             {{#if controller.isHeaderNavigatorDropdown}}
             {{view HubStar.NavigatorView}}
             {{/if}}
-            <div class="Search-box easing" style="">
+            <div class="search-box easing" style="">
                 {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
                 <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
                     <i class="fa fa-search"></i>

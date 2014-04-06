@@ -259,7 +259,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     {
 
                         that.addRelatedData(megaObject);  //it is for profile's collection
-                    }                   
+                    }
                     that.getCommentsById(megaObject.id);
                 }
             }
@@ -280,19 +280,16 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
         var that = this;
         if (isProfileIDExist && isCollectionIDExist) {
-            var data = HubStar.Mega.find({RequireType: "profileCollection", "collection_id": collection_id, "owner_profile_id": owner_profile_id});
-            data.addObserver('isLoaded', function() {
-                if (data.get('isLoaded')) {
-                    for (var i = 0; i < this.get("content").length; i++) {
-                        var id = this.get("content").objectAt(i).id;
+            var data = HubStar.Mega.find({RequireType: "profileCollection", "owner_profile_id": owner_profile_id, "collection_id": collection_id});
+            data.then(function() {
 
-                        if (HubStar.Mega.find(id).get('photo').get('length') === 1 && mega.get('id') !== id)
-                        {
-                            if (HubStar.Mega.find(id).get('collection_id') === collection_id) {
-                                // that.setPhotoStatus(HubStar.Mega.find(id).get("comments"));
-                                that.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
-                            }
+                for (var i = 0; i < data.get("length"); i++) {
+                    var id = data.objectAt(i).get("id");
 
+                    if (HubStar.Mega.find(id).get('photo').get('length') === 1 && mega.get('id') !== id)
+                    {
+                        if (HubStar.Mega.find(id).get('collection_id') === collection_id) {
+                            that.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
                         }
                     }
                 }
@@ -578,10 +575,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
     selectImage: function(e) {
 
         this.set('megaResouce', HubStar.Mega.find(e));
-
+        this.set("selectPhoto", true);
 
         if (this.get('megaResouce').get("type") === "photo")
         {
+
             this.set('selectedPhoto', this.get('megaResouce').get('photo').objectAt(0));
             if (this.get("controllers.masonryCollectionItems").get("type") === "user")
             {
@@ -667,7 +665,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.selectedImage(e);
     },
     selectedImage: function(id) {
-        var selectedImage_id = "#" + id;
+        var selectedImage_id = "#showalbum_" + id;
         $('.photo_original_style').removeClass('selected_image_style');
         $(selectedImage_id).addClass('selected_image_style');
     },
@@ -679,7 +677,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     dropdownPhotoSetting: function(param) {
         this.set('sharePhotoUrl', this.get('selectedPhoto').get('photo_image_thumbnail_url'));
         this.set('sharePhotoName', this.get('selectedPhoto').get('photo_title'));
-        $('#dropdown_id_' + param+'_'+this.get('megaResouce').get('id')).toggleClass('hideClass');
+        $('#dropdown_id_' + param + '_' + this.get('megaResouce').get('id')).toggleClass('hideClass');
     },
     switchCollection: function() {
 
@@ -716,7 +714,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
             if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
             {
-               // this.transitionTo("indexIndex"); //search page
+                // this.transitionTo("indexIndex"); //search page
                 var address = document.URL;
                 var search_id = address.split("#")[1].split("/")[2];
                 var object_type = address.split("#")[1].split("/")[1];
@@ -726,10 +724,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
                 else
                 {
-                    
+
                     if (object_type === "photos" || object_type === "articles" || object_type === "videos")
                     {
-                       
+
                         var m = HubStar.Mega.find(search_id);
                         this.transitionTo("search", {id: m.get("owner_title")});
                     }
@@ -929,7 +927,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
-        var role = permissionController.checkAuthenticEdit(that.get("megaResouce").get("profile_creator"), that.get("megaResouce").get("profile_administrator"), that.get("megaResouce").get("profile_editor"));       
+        var role = permissionController.checkAuthenticEdit(that.get("megaResouce").get("profile_creator"), that.get("megaResouce").get("profile_administrator"), that.get("megaResouce").get("profile_editor"));
         var is_edit = false;
         if (role !== "")
         {
@@ -937,12 +935,12 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
 
         var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
-        that.set("is_authentic_user", is_authentic_user||is_edit);
+        that.set("is_authentic_user", is_authentic_user || is_edit);
         currentUser.addObserver('isLoaded', function() {
             var current_user_email = currentUser.get('email');
             if (currentUser.get('isLoaded')) {
                 var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
-                that.set("is_authentic_user", is_authentic_user||is_edit);
+                that.set("is_authentic_user", is_authentic_user || is_edit);
             }
         });
     },

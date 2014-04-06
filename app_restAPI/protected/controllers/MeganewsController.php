@@ -118,7 +118,11 @@ class MeganewsController extends Controller {
         $id = $mega['id'];
         $domain = $this->getDomain();
         $docID = $domain . "/profiles/" . $id;
-
+        if (!isset($mega['accessed'])) {
+            $mega["accessed"] = 1;
+        }
+        $mega["accessed"] = date_timestamp_get(new DateTime());
+        $mega["created"] = $mega["accessed"];
         if ($cb->add($docID, CJSON::encode($mega))) {
             if ($mega['creator'] !== "") {
                 $url = $domain . "/users/" . $mega['creator'];

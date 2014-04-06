@@ -46,10 +46,13 @@ HubStar.PhotoCreateInfoSettingController = Ember.Controller.extend({
 
     },
     photoSave: function(photoInfo, data)
-
     {
-        photoInfo.addObserver('isLoaded', function() {
-            if (photoInfo.get('isLoaded')) {               
+        if (data.caption === undefined)
+        {
+            data.caption = null;
+        }
+        photoInfo.then(function() {
+            if (photoInfo.get('isLoaded')) {
                 photoInfo.set('photo_title', data.title);
                 photoInfo.set('photo_caption', data.caption);
                 photoInfo.store.save();
@@ -64,8 +67,8 @@ HubStar.PhotoCreateInfoSettingController = Ember.Controller.extend({
         setTimeout(function() {
             $('#masonry_container').masonry("reloadItems");
             setTimeout(function() {
-                 $('#masonry_container').masonry();                
-            },200);
+                $('#masonry_container').masonry();
+            }, 200);
         }, 250);
 
     },

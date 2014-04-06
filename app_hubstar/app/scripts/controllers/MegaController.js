@@ -469,7 +469,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
         var that = this;
         megaObject.then(function() {
-
             that.set("is_article_video", true);
 
 
@@ -946,7 +945,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     dropdownPhotoSetting: function(param) {
         this.set('sharePhotoUrl', this.get('selectedPhoto').get('photo_image_thumbnail_url'));
         this.set('sharePhotoName', this.get('selectedPhoto').get('photo_title'));
-        $('#dropdown_id_' + param).toggleClass('hideClass');
+        $('#dropdown_id_' + param+'_'+this.get('megaResouce').get('id')).toggleClass('hideClass');
     },
     switchCollection: function() {
 
@@ -994,7 +993,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                     if (object_type === "photos" || object_type === "articles" || object_type === "videos")
                     {
-//                        console.log("aaaaaa");
+
                         var m = HubStar.Mega.find(search_id);
                         this.transitionTo("search", {id: m.get("owner_title")});
                     }

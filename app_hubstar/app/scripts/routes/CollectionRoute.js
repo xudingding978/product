@@ -13,7 +13,6 @@ HubStar.CollectionRoute = Ember.Route.extend({
         this.controllerFor('masonryCollectionItems').selectModelForUser(id);
         this.controllerFor('masonryCollectionItems').set('canEdit', true);
 
-
     },
     events: {
         transitionToPhoto: function(id) {

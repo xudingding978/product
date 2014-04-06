@@ -19,12 +19,11 @@ HubStar.ProfileArticleRoute = Ember.Route.extend({
         var d = HubStar.Mega.find(temp);
         var that = this;
         d.then(function(){           
-         this.controllerFor("article").getInitData(d);
+         that.controllerFor("article").getInitData(d);
         },function() {
             
            that.transitionTo('fourOhFour',"404");
         });
-        this.controllerFor("article").getInitData(d);
     },
     model: function(params) {
         var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.article_id});

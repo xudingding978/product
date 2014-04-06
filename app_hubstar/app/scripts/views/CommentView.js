@@ -5,7 +5,7 @@ HubStar.CommentView = Ember.View.extend({
           var that =this;
         $(document).ready(function() { 
             
-            $("#commentScrollBar_" + that.get("controller").get('model').get('id').replace("&","")).mCustomScrollbar({
+            $("#commentScrollBar_" + that.get("controller").get('model').get('getID')).mCustomScrollbar({
                 scrollButtons: {
                     enable: false,
                     scrollSpeed: "auto"

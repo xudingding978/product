@@ -292,7 +292,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
 
 
 
-        this.set("profile_url", this.spaceChecking(this.get("profile_name").toLowerCase()) + "-" + this.spaceChecking($('#regionSelection').text().toLowerCase()) + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase()));
+        this.set("profile_url", this.spaceChecking(this.get("profile_name").toLowerCase().replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')) + "-" + this.spaceChecking($('#regionSelection').text().toLowerCase()) + "-" + this.spaceChecking($('#countrySelection').text().toLowerCase()));
 
 
     },
@@ -343,13 +343,13 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 "id": this.get("profile_url"),
                 "type": "profile",
                 boost: this.get("keywordNumber"),
-                accessed: null,
+                accessed: new Date(),
                 is_active: true,
                 is_indexed: true,
                 is_deleted: false,
                 categories: $('#categorySelection').text(),
                 subcategories: $('#subcategorySelection').text(),
-                created: "",
+                created: new Date(),
                 creator: localStorage.loginStatus,
                 classification: this.get("classification"),
                 country: $('#countrySelection').text(),
@@ -366,11 +366,12 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 owner_contact_email: this.get("direct_enquiry_emails"),
                 owner_contact_bcc_emails: this.get("direct_enquiry_emails_2"),
                 owner_contact_cc_emails: this.get("direct_enquiry_emails_3"),
-                updated: "",
+                updated: 0,
                 view_count: 0,
                 share_count: 0,
                 save_count: 0,
-                comment_count: null,
+                likes_count: 0,
+                comment_count: 0,
                 keyword: [],
                 profile: []
             });

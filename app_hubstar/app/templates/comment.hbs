@@ -28,7 +28,7 @@
 
 
     <div id="commentData_{{unbound model.id}}" class="" style="/*display: none;*/border-top: 1px solid #ddd;">
-        <div id="commentScrollBar_{{unbound model.id}}" class="comment-scroll-bar" >
+        <div id="commentScrollBar_{{unbound model.getID}}" class="comment-scroll-bar" >
             {{#each model.comments}}
             {{#unless this.isEdit}}
             <div class="comment-item comment-frame" id="commentItem_{{unbound message_id}}" style="display: block">
@@ -104,14 +104,15 @@
 
 </div>
 </div>
-{{#if model.showComment}}
+    {{model.showMoreComment}}
+{{#if model.isShowMoreComment}}
 <div class="hover-opacity easing" style="height: 20px; width: 100%; background-color: #f3f3f3;text-align: center;color: #555; border-top: 1px solid #ddd;cursor: pointer">  
     <div id="showMoreComment_{{unbound model.id}}" style="display: inline-block; cursor: pointer"  {{action seeMore model.id target="controller" on="click"}}>
         <span style="font-size: 11px;font-weight: bold">show all comments &nbsp; {{model.comments.length}}</span>
         <i class="fa fa-caret-down show-comment_inner" ></i>   
     </div>
     <div id="closeComment_{{unbound model.id}}"    style="display: none;cursor: pointer" {{action closeMore model.id  target="controller" on="click"}}>
-        <span style="font-size: 11px;font-weight: bold">hide comments &nbsp; {{model.comments.length}}</span>
+        <span style="font-size: 11px;font-weight: bold">hide comments &nbsp; {{model.comment_count}}</span>
         <i class="fa fa-caret-up show-comment_inner" ></i>
     </div>
 </div>

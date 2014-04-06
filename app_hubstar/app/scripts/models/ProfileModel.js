@@ -66,7 +66,10 @@ HubStar.Profile = DS.Model.extend({
     show_keyword_id: DS.attr('string'),
     about_us: DS.hasMany('HubStar.AboutUs'),
     title_modify_time: DS.attr('number'),
-    show_template: DS.attr('boolean')
+    show_template: DS.attr('boolean'),
+    getID: function() {
+        return this.get('id').replace(/[^\w\s]/gi, '');
+    }.property('id')
 //    getTenKeywords: function() {
 //        var tenKeywords =  this.get('keywords').slice(0,10);
 //        return tenKeywords;

@@ -2,8 +2,12 @@ HubStar.ProfileVideoRoute = Ember.Route.extend({
     //     controller: HubStarlicationController,
     setupController: function(controller, model) {
         var tempid;
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#video').addClass('selected-user-stats');
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $('#video').addClass('selected-user-stats');
+            }, 50);
+        });
         if (model.id === undefined) {          //reload the page model id can not be find...
             var url = window.location.href;
             urlArray = url.split("/");

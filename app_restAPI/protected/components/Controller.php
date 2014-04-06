@@ -303,12 +303,13 @@ class Controller extends CController {
         $tempResult = $this->getReponseResult($tempResult, $returnType);
         
         $mega = CJSON::decode($tempResult, true);
+     //   error_log(var_export($mega, true));
         if (!isset($mega['megas'][0]['profile'][0]['collections'])) {
             $collections = array();
         } else {
             $collections = $mega['megas'][0]['profile'][0]['collections'];
         }
-        //error_log(var_export($collections, true));
+ //       error_log(var_export($collections, true));
 
         for ($i = 0; $i < sizeof($collections); $i++) {
             if ($collections[$i]['id'] === $collection_id) {
@@ -534,8 +535,12 @@ class Controller extends CController {
                      $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
                 "query": {
                   "bool": {
-                    "must": [    
-                    ],
+                    "must":   {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.is_deleted",
+                        "query": 0
+                      }
+                    } ,
                     "must_not": [
                     {
                     "queryString": {
@@ -761,8 +766,12 @@ class Controller extends CController {
                   $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
                 "query": {
                   "bool": {
-                    "must": [   
-                    ],
+                    "must":   {
+                      "queryString": {
+                        "default_field": "couchbaseDocument.doc.is_deleted",
+                        "query": 0
+                      }
+                    } ,
                      "must_not": [
                     {
                     "queryString": {
@@ -1173,17 +1182,13 @@ class Controller extends CController {
         if ($request_string != null || $request_string != "") {
             $temp = explode('=', $request_string);
             $returnString = $temp[1];
-//            error_log('shuai1');
-//            error_log(var_export($request_string,true));
-//            error_log('shuai2');
-//              error_log(var_export($returnString,true));
+
         }
 
-        if ($isRelaceDash) {
-            $returnString = str_replace('-', '\-', $returnString);
-//            error_log('shuai3');
-//              error_log(var_export($returnString,true));
-        }
+//        if ($isRelaceDash) {
+//           $returnString = str_replace('-', '\-', $returnString);
+
+//        }
         return $returnString;
     }
 

@@ -8,7 +8,7 @@
         <a class="user-face-size" style="z-index: 1"><img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user  easing" /></a>              
     </div>
 
-    <ul id="user-dd-menu" class="hideClass edit-object-ul" style="padding: inherit;  width: 201px; right: 60px; position: relative; top:30px;display:none;">
+    <ul id="user-dd-menu" class="user-dd-menu hideClass edit-object-ul">
         <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myUserProfile"}} {{action userDisplaynone "myUserProfile" on="click"  target="view"}}>
                             <i class="fa fa-user" style="">&nbsp;&nbsp;</i>
                 <span>My Profile</span>
@@ -23,13 +23,6 @@
                 <span>Business Profiles</span>
             </a></li>
 
-        {{#if controller.newProfile}} 
-        <div id="profiles_display">
-            {{render newProfileDisplay HubStar.profiles}} 
-        </div>
-        {{/if}}
-        {{render newProfileTopDisplay HubStar.profiles}}
-        
         {{/if}}
 
         <li class='ite' style=" border-top: 1px solid #ddd; "><a tabindex="-1" href="http://about.trendsideas.com/" target="blank" {{action userDisplaynone "about" on="click"  target="view"}}>

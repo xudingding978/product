@@ -91,6 +91,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                     var that =this;
                     requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
                         that.get("commentObject").set("save_count",params);
+                        that.get("commentObject").store.save();
                     });
                     this.sendFeedBack();
                 }
@@ -111,11 +112,11 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                     var that = this;
                     this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
                     requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
-                        //console.log(params);
                         HubStar.get('selectedCollection').collection_ids = params;
                         var tempComment = [that.get("objectID")];
                         requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
                             that.get("commentObject").set("save_count",params);
+                            that.get("commentObject").store.save();
                         });
                         that.sendFeedBack();
                         that.exit();

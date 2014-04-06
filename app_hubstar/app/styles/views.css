@@ -1077,13 +1077,12 @@ div.album-description-bg{
     z-index: 100;
 }
 
-#close_article_wrapper {
+#close_article_wrapper, 
+#close_video_wrapper,
+#close_photo_wrapper {
     right: 44px;
 }
 
-#close_photo_wrapper{
-    right: 44px;
-}
 
 .closeview:hover{
     color: #fff;

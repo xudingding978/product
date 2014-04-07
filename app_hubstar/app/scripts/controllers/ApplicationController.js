@@ -332,7 +332,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     $('#switchbarBtn').attr("style", "margin-left:13px;");
                 }
                 if (flag === "default") {
-                    that.getAds();
+                    var ads = that.getAds();
+                    that.display(ads);
                     that.relayoutDefault();
                 }
                 else {
@@ -930,6 +931,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 for (var i = 0; i < ads.length; i++) {
                     var ad = ads[i];
                     var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                    ads["slot1"] = slot1;
                     googletag.pubads().enableSingleRequest();
                     googletag.enableServices();
                     googletag.display(ad.div);
@@ -946,20 +948,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     googletag.pubads().enableSingleRequest();
                     googletag.enableServices();
                     googletag.display(ad.div);
+                    googletag.pubads().refresh([ads["slot1"]]);
                 }
             });
-        }
-
-
-        for (var i = 0; i < ads.length; i++) {
-            var ad = ads[i];
-            var height = ad.size[1];
-            var div_id = ad.div + "_box";
-            var x = document.getElementById(div_id);
-            x.style.display = "block";
-            x.className += " box";
-
-            x.style.height = height + "px";
         }
     },
     relayout: function(l)
@@ -967,11 +958,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('loadingTime', false);
         this.set("nextPageSpinner", false);
         if (l !== 0) {
-            this.getAds();
+            var ads = this.getAds();
             HubStar.set("scrollDownSearch", false);
             if (this.get("pageCount") === 0)
             {
-                l = l + 3;
+                l = l + 4;
             }
             else if (this.get("pageCount") === 1)
             {
@@ -979,7 +970,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }
             else if (this.get("pageCount") === 2)
             {
-                l = l + 2;
+                l = l + 3;
             }
 
             var that = this;
@@ -1000,6 +991,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }
             this.set("totalItems", this.get("totalItems") + items.length);
             $('#masonry_container').append(items).masonry('appended', items);
+            that.display(ads);
+
         }
     },
     relayoutDefault: function()
@@ -1014,10 +1007,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }, 50);
     },
     getAds: function() {
-
-//        DFP code
-
-
         try
         {
             var adSlots = HubStar.get('ads');
@@ -1047,8 +1036,19 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
             }
             that.set("oldChildren", masonryContainer.children.length);
+            //that.display(adSlots[pageCount]);
+            var ads = adSlots[pageCount];
+            for (var i = 0; i < ads.length; i++) {
+                var ad = ads[i];
+                var height = ad.size[1];
+                var div_id = ad.div + "_box";
+                var x = document.getElementById(div_id);
+                x.style.display = "block";
+                x.className += " box";
 
-            that.display(adSlots[pageCount]);
+                x.style.height = height + "px";
+            }
+            return adSlots[pageCount];
         }
         catch (err) {
 //            console.log("container is empty");

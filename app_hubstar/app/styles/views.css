@@ -682,12 +682,12 @@ div.album-description-bg{
     /*min-width: 335px;
     max-width:335px;
     min-height: 335px;
- */
-     min-height:335px;
-     max-height:345px;
-     min-width:338px;
-     
-    } 
+    */
+    min-height:335px;
+    max-height:345px;
+    min-width:338px;
+
+} 
 
 .album-info{
     padding: 15px 10px 5px;
@@ -1055,6 +1055,11 @@ div.album-description-bg{
     cursor: url(../../../images/previouscursor.png), auto;
 }
 
+.close_text{
+    position: relative;
+    left: 34px;
+    top: 12px;
+}
 
 .closeview{
     cursor: pointer;
@@ -1071,6 +1076,13 @@ div.album-description-bg{
     -o-transition: all 0.8s ease;
     z-index: 100;
 }
+
+#close_article_wrapper, 
+#close_video_wrapper,
+#close_photo_wrapper {
+    right: 44px;
+}
+
 
 .closeview:hover{
     color: #fff;
@@ -1231,9 +1243,9 @@ div.album-description-bg{
 
 .poster_user{
     position: relative;
-    vertical-align: middle;
+    vertical-align: top;
     display: inline-block;
-    width: 170px;
+    width: 60%;
 }
 
 .poster-name{
@@ -1322,7 +1334,7 @@ div.album-description-bg{
 }
 
 .classfication{
-cursor: pointer;
+    cursor: pointer;
     display: inline-block;
     width: auto;
     position: relative;
@@ -1626,8 +1638,8 @@ cursor: pointer;
 }
 
 .article-text{  
-    font-size: 13px;
-    line-height: 16px;
+    font-size: 0.9em;
+    line-height: 1.6em;
 }
 
 .caption-title{
@@ -1648,6 +1660,11 @@ cursor: pointer;
     line-height: 20px;
     margin-bottom: 12px;
 }
+
+.credits_text{
+    font-size: 1em;
+}
+
 
 
 .comment-frame{

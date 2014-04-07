@@ -962,7 +962,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             HubStar.set("scrollDownSearch", false);
             if (this.get("pageCount") === 0)
             {
-                l = l + 3;
+                l = l + 4;
             }
             else if (this.get("pageCount") === 1)
             {
@@ -970,7 +970,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }
             else if (this.get("pageCount") === 2)
             {
-                l = l + 2;
+                l = l + 3;
             }
 
             var that = this;

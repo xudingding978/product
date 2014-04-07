@@ -242,22 +242,22 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
         this.getPageNo();
         this.set("from", this.get("from") + this.get("size"));
-        var results = HubStar.Mega.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'), "classification": localStorage.resOrcom});
+        var results = HubStar.Stat.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'), "classification": localStorage.resOrcom});
         var that = this;
-        results.addObserver('isLoaded', function() {
-            if (results.get('isLoaded')) {
-                that.setContent(results);
-                if (results.get("length") === 0) {
-                    that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
+        results.then(function() {
+            var stat = results.objectAt(0);
+            var megasResults = stat.get("megas");
+            that.setContent(megasResults);
+            if (results.get("length") === 0) {
+                that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
 
-                    HubStar.set("scrollDownSearch", true);
+                HubStar.set("scrollDownSearch", true);
 
-                    $(document).ready(function() {
+                $(document).ready(function() {
 
-                        $("#show_more_button").css("display", "none");
+                    $("#show_more_button").css("display", "none");
 
-                    });
-                }
+                });
             }
         });
 
@@ -298,6 +298,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             }
                         }
                     }
+                    else if (tempmega.get("getVideo") === true)
+                    {
+                        $("#init_photo_" + tempmega.get("id")).css({height: 263});
+                    }
                     else if (tempmega.get("getProfile") === true)
                     {
                         if (tempmega.get("profile").objectAt(0).get("profile_pic_url") !== null) {
@@ -307,6 +311,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             var size = Math.ceil((url[length - 1].split(".")[0].split("x")[1]) * 150 / width);
                             if (size !== undefined && !isNaN(size))
                             {
+
                                 if (size > 150) {
                                     $("#init_photo_" + tempmega.get("profile").objectAt(0).get("getID")).css({height: size});
                                 }

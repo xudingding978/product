@@ -17,7 +17,7 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
                 HubStar.set("showDiscoveryBar", false);
             }
             else {
-                controller.get('controllers.applicationFeedback').statusObserver(null, "Please insert  keywords to search.", "warnning");
+//                controller.get('controllers.applicationFeedback').statusObserver(null, "Please insert  keywords to search.", "warnning");
             }
 
         }
@@ -35,7 +35,7 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
                 HubStar.set("showDiscoveryBar", false);
             }
             else {
-                controller.get('controllers.applicationFeedback').statusObserver(null, "Please insert  keywords to search.", "warnning");
+//                controller.get('controllers.applicationFeedback').statusObserver(null, "Please insert  keywords to search.", "warnning");
             }
         }
         else if (controller._debugContainerKey.indexOf("mega") !== -1) {

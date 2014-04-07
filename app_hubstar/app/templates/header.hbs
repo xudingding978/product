@@ -22,7 +22,7 @@
             {{#if controller.isHeaderNavigatorDropdown}}
             {{view HubStar.NavigatorView}}
             {{/if}}
-            <div class="Search-box easing" style="">
+            <div class="search-box easing" style="">
                 {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
                 <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
                     <i class="fa fa-search"></i>
@@ -75,7 +75,7 @@
         {{/if}}
 
         <div id="switcher" class="switch-container Geo-Filter" style="top:15px; position: absolute; right: 20%;">
-            <div id="Residential" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline; color: white;">Residential</div>
+            <div id="Residential" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline; color: white;"  {{action residential on="click" target="view"}}>Residential</div>
             <div  id="switchbar" class="insetbox-shadow switch-groove" style="display: inline-block">
                 <div style="height: 10px;width: 50%;border-right: 1px solid rgba(0,0,0,.3);float: left;margin: 6px 0;"></div>
                 <div style="height: 10px;width: 50%;border-left: 1px solid rgba(255,255,255,.5); float: right;margin: 6px 0;"></div>
@@ -83,7 +83,7 @@
                 <div id="switchbarBtn" class="radius-circle gradient1 switch-btn" style="margin-left: 13px"></div>
 
             </div>
-            <div id="Commercial" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline; color: white;">Commercial</div>
+            <div id="Commercial" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline; color: white;" {{action commercial on="click" target="view"}}>Commercial</div>
         </div>
     </div>
 
@@ -96,32 +96,6 @@
 
 
 <script type="text/javascript">
-
-    $(document).ready(function() {
-        // left hiding menu bar
-
-        // hide #back-top first
-        $("#back-top").hide();
-        $(window).scroll(function() {
-
-            if ($(this).scrollTop() > 150) {
-                $('#back-top').fadeIn();
-            } else {
-                $('#back-top').fadeOut();
-            }
-
-        });
-        $('#back-top a').click(function() {
-            $('body,html').animate({
-                scrollTop: 0
-            }, 800);
-            return false;
-        });
-    });
-
-
-
-
 
 
     function setDomain() {

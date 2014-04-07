@@ -74,10 +74,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         } else {
             this.set("s", s);
             this.set('willDelete', true);
-        }
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
-        }, 200);
+        }    
     },
     cancelDelete: function() {
         this.set('willDelete', false);

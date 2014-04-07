@@ -310,7 +310,22 @@ class PhotosController extends Controller {
         $mega['view_count'] = 0;
         $mega['share_count'] = 0;
         $mega['save_count'] = 0;
+        $mega['comment_count'] = 0;
+        $mega['likes_count'] = 0;
+        if (!isset($mega['accessed'])) {
+            $mega["accessed"] = 1;
+        }
+        $mega["accessed"] = date_timestamp_get(new DateTime());
+        
+        if (!isset($mega['created'])) {
+            $mega["created"] = 1;
+        }
+        $mega["created"] = date_timestamp_get(new DateTime());
+        
 
+        $mega["updated"] = 0;
+
+        
         $keyword = $this->getProfileKeyword($mega['owner_id']);
         $editors = $this->getProfileEditors($mega['owner_id']);
         $mega['keyword'] = $keyword;

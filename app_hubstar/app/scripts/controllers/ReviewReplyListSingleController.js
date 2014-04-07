@@ -32,7 +32,7 @@ HubStar.ReviewReplyListSingleController = Ember.Controller.extend({
         }
         $(id).attr("style", "display:block");
           setTimeout(function() {
-            $('#masonry_user_container').masonry("reload");
+            $('#masonry_user_container').masonry();
         }, 200);
     },
     cancelReviewReply: function() {

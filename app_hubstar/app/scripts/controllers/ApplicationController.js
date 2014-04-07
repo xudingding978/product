@@ -926,31 +926,33 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     display: function(ads)
     {
         var that = this;
-        if (ads["isNew"] === true) {
-            googletag.cmd.push(function() {
-                for (var i = 0; i < ads.length; i++) {
-                    var ad = ads[i];
-                    var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
-                    ads["slot1"] = slot1;
-                    googletag.pubads().enableSingleRequest();
-                    googletag.enableServices();
-                    googletag.display(ad.div);
-                    googletag.pubads().refresh([slot1]);
-                }
-            });
-            ads["isNew"] = false;
-        }
-        else
-        {
-            googletag.cmd.push(function() {
-                for (var i = 0; i < ads.length; i++) {
-                    var ad = ads[i];
-                    googletag.pubads().enableSingleRequest();
-                    googletag.enableServices();
-                    googletag.display(ad.div);
-                    googletag.pubads().refresh([ads["slot1"]]);
-                }
-            });
+        if (ads !== undefined) {
+            if (ads["isNew"] === true) {
+                googletag.cmd.push(function() {
+                    for (var i = 0; i < ads.length; i++) {
+                        var ad = ads[i];
+                        var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                        ads["slot1"] = slot1;
+                        googletag.pubads().enableSingleRequest();
+                        googletag.enableServices();
+                        googletag.display(ad.div);
+                        googletag.pubads().refresh([slot1]);
+                    }
+                });
+                ads["isNew"] = false;
+            }
+            else
+            {
+                googletag.cmd.push(function() {
+                    for (var i = 0; i < ads.length; i++) {
+                        var ad = ads[i];
+                        googletag.pubads().enableSingleRequest();
+                        googletag.enableServices();
+                        googletag.display(ad.div);
+                        googletag.pubads().refresh([ads["slot1"]]);
+                    }
+                });
+            }
         }
     },
     relayout: function(l)

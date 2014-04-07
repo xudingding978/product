@@ -42,6 +42,7 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
     {
         this.set('is_profile_editing_mode', false);
         this.set('is_user_editing_mode', false);
+        
         if (HubStar.get('editingMode') === 'profile') {
             this.set('is_profile_editing_mode', true);
             var proController = this.get('controllers.profile');

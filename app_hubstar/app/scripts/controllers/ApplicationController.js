@@ -298,6 +298,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             }
                         }
                     }
+                    else if (tempmega.get("getVideo") === true)
+                    {
+                        $("#init_photo_" + tempmega.get("id")).css({height: 263});
+                    }
                     else if (tempmega.get("getProfile") === true)
                     {
                         if (tempmega.get("profile").objectAt(0).get("profile_pic_url") !== null) {

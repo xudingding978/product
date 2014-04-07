@@ -696,8 +696,8 @@ class Controller extends CController {
              
              
            //   error_log($termQuery);
-     //          $log_path = "/home/devbox/Documents/searchquery.log";
-      //  $this->writeToLog($log_path, $termQuery);
+               $log_path = "/home/devbox/Documents/searchquery.log";
+        $this->writeToLog($log_path, $termQuery);
              $index = Yii::app()->params['elasticSearchIndex'];
    //       $ch = curl_init("http://es1.hubsrv.com:9200/develop/_search");
         $ch = curl_init("http://es1.hubsrv.com:9200/" . $index . "/_search");

@@ -189,7 +189,6 @@ class Controller extends CController {
 
             $classification = $this->getUserInput($requireParams[6]);
             //$commercial = $this->getUserInput($requireParams[7]);
-            //error_log("ssssssssssssssssssss");
 
 
             $response = $this->getSearchResultsWithAnalysis($region, $searchString, $from, $size, $location, $classification);
@@ -300,13 +299,11 @@ class Controller extends CController {
         $tempResult = $this->getReponseResult($tempResult, $returnType);
         
         $mega = CJSON::decode($tempResult, true);
-     //   error_log(var_export($mega, true));
         if (!isset($mega['megas'][0]['profile'][0]['collections'])) {
             $collections = array();
         } else {
             $collections = $mega['megas'][0]['profile'][0]['collections'];
         }
- //       error_log(var_export($collections, true));
 
         for ($i = 0; $i < sizeof($collections); $i++) {
             if ($collections[$i]['id'] === $collection_id) {
@@ -391,7 +388,6 @@ class Controller extends CController {
 
 
         if ($classification_filter != null) {
-            //error_log("11111111111");
             $filter = ' "filter":{
                 "query": {
                   "bool": {
@@ -689,13 +685,10 @@ class Controller extends CController {
 
 
 //        $request->sort($sort1, $sort2);
-//        error_log($request->query($termQuery)->toJSON());
       //  $response = $request->query($termQuery)->execute();
-//        error_log("\n" . $request->toJSON() . "\n");
   //      return $response;
              
              
-           //   error_log($termQuery);
               // $log_path = "/home/devbox/Documents/searchquery.log";
         //$this->writeToLog($log_path, $termQuery);
              $index = Yii::app()->params['elasticSearchIndex'];
@@ -708,7 +701,6 @@ class Controller extends CController {
         $result = curl_exec($ch);
         $result_arr = CJSON::decode($result, true);
         $record_arr = $result_arr['hits']['hits'];
-        error_log(var_export($record_arr,true)."0000000000000000000000");
         $new_arr = array();
          $new_arr['total'] = $result_arr['hits']['total'];
         foreach ($record_arr as $return) {
@@ -718,14 +710,12 @@ class Controller extends CController {
             $temp['id'] = $return['_id'];
             $temp['score'] = $return['_score'];
             $temp['source'] = $return['_source'];
-            error_log($temp['id']."1111111111111111111"."\n");
             array_push($new_arr, $temp);
            
         }
   //      $content1=  var_export($new_arr,true);
    //     $fileName1="/home/devbox/Documents/output.log";
     //    $this->writeToLog($fileName1, $content1);
-   //     error_log("2222222222");
    //     $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
        
         $new_return_arr = array();
@@ -737,7 +727,6 @@ class Controller extends CController {
    //     $content2=  var_export($new_return_arr,true);
  //  $fileName2="/home/devbox/Documents/output1.log";
       //  $this->writeToLog($fileName2, $content2);
-     //   error_log("33333333333333333333");
         return $new_arr;
 
              
@@ -754,7 +743,6 @@ class Controller extends CController {
         $request = $this->getElasticSearch();
         $request->from($from);
         $request->size($size);
-//        error_log(var_export($classification,true));
         if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
 //            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{"query": {
 //                "queryString": {
@@ -931,7 +919,6 @@ class Controller extends CController {
         }
        
         $request->query($bool);
-//         error_log($request->toJSON());
         $response = $request->execute();
 
         return $response;
@@ -952,7 +939,6 @@ class Controller extends CController {
 //                }
 //              }');
 //            if ($location != "Global") {
-//               error_log("666666666666666");
 //                $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
 //                "query": {
 //                  "bool": {
@@ -1032,11 +1018,9 @@ class Controller extends CController {
 //
 //        $request->query($bool);
 //        $request->sort($sort1, $sort2);
-//        error_log($request->toJSON());
 //=======
 //       
 //        $request->query($bool);
-//         error_log($request->toJSON());
 //>>>>>>> 62942073ecbbb44a399399722361d2e83f4c41f9
 //        $response = $request->execute();
 //
@@ -1075,7 +1059,6 @@ class Controller extends CController {
 
         $request->query($bool);
         $request->sort($sort1, $sort2);
-//        error_log($request->toJSON());
         $response = $request->execute();
 
         return $response;
@@ -1163,11 +1146,9 @@ class Controller extends CController {
                 }
               }}');
             $request->filter($filter);
-//            error_log($request->toJSON());
         }
         $request->query($termQuery);
         $response = $request->execute();
-//        error_log(var_export($response, true));
         return $response;
     }
 
@@ -1199,25 +1180,19 @@ class Controller extends CController {
                 ->QueryString()->query('"' . $owner_profile_id . '"')
                 ->default_field('couchbaseDocument.doc.owner_id');
         $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
-//        error_log($request->query($bool)->toJSON());
         $response = $request->query($bool)->execute();
         return $response;
     }
 
     protected function profileSetting($tempResult, $returnType, $type) {
-        //sleep(10);
-        error_log(var_export($type, true));
-        error_log(var_export($tempResult, true));
         $profile_id = "";
         if ($type !== 'collection') {
             $tempResult = CJSON::decode($tempResult);
         }
         $cb = $this->couchBaseConnection();
         if ($type === 'firstsearch') {
-            error_log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             
             for ($i = 0; $i < sizeof($tempResult['stats'][0]['megas']); $i++) {
-//                error_log(var_export($hit, TRUE));
                 $hit = $tempResult['stats'][0]['megas'][$i];
                 if (isset($hit['owner_id'])) {
                     $profile_id = $hit['owner_id'];
@@ -1269,7 +1244,6 @@ class Controller extends CController {
     }
 
     protected function getSearchResultsWithAnalysis($region, $requestString, $from = 0, $size = 50, $location, $classification = "All") {
-//        error_log(var_export($classification, true));
 
 
         $tempResponse = $this->searchWithMultiMatch($requestString, $from, $size, $location, $classification);

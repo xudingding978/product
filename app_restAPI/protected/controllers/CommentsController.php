@@ -244,7 +244,6 @@ class CommentsController extends Controller {
         $request_json = file_get_contents('php://input');
         $newRecord = CJSON::decode($request_json, true);
         $typeAndID = $newRecord['comment']['optional'];
-     //   error_log(var_export($newRecord, true));
         $typeAndID = explode("/", $typeAndID);
         $docID = $this->getDocId($typeAndID[0], $typeAndID[1]);
         $cb = $this->couchBaseConnection();

@@ -130,7 +130,6 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             mega.addObserver('isSaving', function() {
 
                 if (mega.get('isSaving')) {
-                    console.log(file.get('photo_source_id'));
                     $('.' + file.get('photo_source_id')).attr("style", "display:block");
                 }
                 else {

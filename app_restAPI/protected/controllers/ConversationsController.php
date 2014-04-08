@@ -172,8 +172,7 @@ class ConversationsController extends Controller {
             $newConversationItem["sender_photo_url_large"] = $oldcommenterInfo['user'][0]["photo_url_large"];
 
             if ($newStyleImage !== null && $photo_name !== "") {
-                $photoController = new PhotosController(); //    this.get("controllers.PhotosController").             
-                //error_log(var_export($newStyleImage, true));
+                $photoController = new PhotosController(); //    this.get("controllers.PhotosController").    
                 $data_arr = $photoController->convertToString64($newStyleImage);
                 //$data_arr = $photoController->convertToString64($photo_string);      
                 $photo = imagecreatefromstring($data_arr['data']);
@@ -505,7 +504,6 @@ class ConversationsController extends Controller {
 
             $docIDDeep = $this->getDomain() . "/conversations/" . $conversationID;
 
-            //  error_log(var_export($id, true));
             $cb = $this->couchBaseConnection();
             $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
             $oldRecordDeep = CJSON::decode($oldDeep, true);
@@ -533,8 +531,7 @@ class ConversationsController extends Controller {
             }
 
             if ($newStyleImage !== null && $photo_name !== "") {
-                $photoController = new PhotosController(); //    this.get("controllers.PhotosController").             
-                //error_log(var_export($newStyleImage, true));
+                $photoController = new PhotosController(); //    this.get("controllers.PhotosController").  
                 $data_arr = $photoController->convertToString64($newStyleImage);
                 //$data_arr = $photoController->convertToString64($photo_string);      
                 $photo = imagecreatefromstring($data_arr['data']);

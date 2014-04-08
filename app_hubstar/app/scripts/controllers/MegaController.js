@@ -259,7 +259,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     {
 
                         that.addRelatedData(megaObject);  //it is for profile's collection
-                    }                   
+                    }
                     that.getCommentsById(megaObject.id);
                 }
             }
@@ -716,7 +716,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
             if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
             {
-               // this.transitionTo("indexIndex"); //search page
+                // this.transitionTo("indexIndex"); //search page
                 var address = document.URL;
                 var search_id = address.split("#")[1].split("/")[2];
                 var object_type = address.split("#")[1].split("/")[1];
@@ -726,7 +726,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
                 else
                 {
-                    
+
                     if (object_type === "photos" || object_type === "articles" || object_type === "videos")
                     {
                        
@@ -929,7 +929,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
-        var role = permissionController.checkAuthenticEdit(that.get("megaResouce").get("profile_creator"), that.get("megaResouce").get("profile_administrator"), that.get("megaResouce").get("profile_editor"));       
+        var role = permissionController.checkAuthenticEdit(that.get("megaResouce").get("profile_creator"), that.get("megaResouce").get("profile_administrator"), that.get("megaResouce").get("profile_editor"));
         var is_edit = false;
         if (role !== "")
         {
@@ -937,13 +937,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
 
         var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
-        that.set("is_authentic_user", is_authentic_user||is_edit);
-        currentUser.addObserver('isLoaded', function() {
+        that.set("is_authentic_user", is_authentic_user || is_edit);
+        currentUser.then(function() {
             var current_user_email = currentUser.get('email');
-            if (currentUser.get('isLoaded')) {
-                var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
-                that.set("is_authentic_user", is_authentic_user||is_edit);
-            }
+            var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
+            that.set("is_authentic_user", is_authentic_user || is_edit);
         });
     },
     // share to social facebook

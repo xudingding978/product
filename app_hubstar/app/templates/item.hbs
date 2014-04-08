@@ -14,7 +14,7 @@
 {{#if getPhoto}}
 <div class="box col2 noStyle1" data-step="6" data-intro="This is an <b>image</b> result. Click the image to see a full screen view and to read the caption." data-position='right' {{action checkingLoginStatus target="view" on="click"}} >
 
-   
+
 
     <div class="object-tags-box">
         <div class="object-tags">
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-     {{render itemFunction this}}
+    {{render itemFunction this}}
 
     <div class="masonry-object_mainfeature">
         <div class="mainfeature-wrapper">
@@ -119,22 +119,27 @@
         </div>
     </div>
     {{render itemFunction this}}
-    
+
     <div class="masonry-object_mainfeature">
         <div class="mainfeature-wrapper">
 
             {{#if controller.isUser}}
             <a class="mainfeature-container" {{action transitionToPhoto id}}>
-               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 0;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
+               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
                     <i class="fa fa-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
                 </div>
-                <img class="this-is-the-object"{{bindAttr src="object_image_url"  }}  />      </a>
+                <div id="init_photo_{{unbound id}}">
+                    <img class="this-is-the-object"{{bindAttr src="object_image_url"  }}  />      
+                </div>
+        </a>
             {{else}}
             <a class="mainfeature-container" {{action transitionToVideo id}}>
-               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 0;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
+               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
                     <i class="fa fa-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
                 </div>
+               <div id="init_photo_{{unbound id}}">
                 <img {{bindAttr src="object_image_url" }} class="this-is-the-object" />
+                 </div>
             </a>
             {{/if}}
 

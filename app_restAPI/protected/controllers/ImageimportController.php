@@ -20,7 +20,6 @@ class ImageimportController extends PhotoDataController {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
     //    echo var_export($request_arr) . "33333333333333333\n\n";
-        error_log("url information posted Into API" . var_export($request_arr, true)."\n");
         $url = $request_arr["url"];
         $isUrlExist = $this->isUrlExist($url);
        //   $this->is_image($url);
@@ -135,21 +134,13 @@ class ImageimportController extends PhotoDataController {
             //get the stamp according to type of the image
           
             $stamp = $this->getStamp($url);
-        //    error_log($url . "url sent in");
             try {
-                error_log("The image need to be watermarked");
                 //get the width,height and type of the image
                 $imageInfo = getimagesize($url);
                
 
-//                error_log($imageInfo[0] . "width" . $imageInfo[1] . "height" . $imageInfo['mime'] . "type");
-//                error_log('ddddddddddddddddddddddddddd');
                 //get the image data from physical image through correct gb libray function
                 $im = $this->getImageIdentifier($imageInfo, $url);
-                                   error_log('\n before im \n');
-        error_log($im, true);
-        error_log('\n after im \n');
-                error_log("type of the image is: ".$imageInfo['mime']."\n");
 
               //  $data = $this->createResizedImage($imageInfo,  $im, $imageInfo['mime'],$version);
                
@@ -162,8 +153,6 @@ class ImageimportController extends PhotoDataController {
                 $marge_bottom = 5;
                 //width of the stamp
                 $sx = imagesx($stamp);
-                error_log($sx . "width");
-                error_log(imagesx($im) . "width 2nd");
                 //height of the stamp
                 $sy = imagesy($stamp);
                 //doing water stamp
@@ -190,9 +179,6 @@ class ImageimportController extends PhotoDataController {
 //                curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
 //                $data = curl_exec($ch);
                 $im = $this->getImageIdentifier($imageInfo, $url);
-                   error_log('\n before im \n');
-        error_log($im);
-        error_log('\n after im \n');
                 
                 $data = $this->createResizedImage($imageInfo,  $im, $imageInfo['mime'],$version);
                 $newImageInfor = getimagesizefromstring($data);
@@ -209,7 +195,6 @@ class ImageimportController extends PhotoDataController {
     protected function getImageIdentifier($imageInfo, $url) {
 
         if (strpos($imageInfo['mime'], 'jpeg')) {
-            error_log('getImageIdentifier = jpeg');
             $im = imagecreatefromjpeg($url);
         } elseif (strpos($imageInfo['mime'], 'png')) {
             $im = imagecreatefrompng($url);
@@ -228,14 +213,10 @@ class ImageimportController extends PhotoDataController {
         //'HTTP_HOST"="api.develop.trendsideas.com"
         $key = explode(".", $_SERVER['HTTP_HOST']);
 
-        error_log("the http_host".$_SERVER['HTTP_HOST']);
         //key=trendsideas.com, find the s3client configration from it
         $key = $key[2] . '.' . $key[3];
-        error_log("the key used for couchbase is " . $key);
         $result = $cb->get($key);
-        //  error_log(var_export($result));
         $result_arr = CJSON::decode($result, true);
-        error_log("S3 configration: \n".var_export($result_arr["providers"]["S3Client"], true));
         $client = Aws\S3\S3Client::factory(
                         $result_arr["providers"]["S3Client"]
         );
@@ -247,7 +228,6 @@ class ImageimportController extends PhotoDataController {
             'Body' => $data,
             'ACL' => 'public-read',
         ));
-        error_log('put into s3');
     }
 
     protected function getStamp($url) {
@@ -258,7 +238,6 @@ class ImageimportController extends PhotoDataController {
             } elseif (strpos($url, 'hero')) {
                 $stamp = imagecreatefrompng('/home/devbox/NetBeansProjects/test/watermark4hero.png');
             }
-            error_log("getStamp" . $stamp);
             return $stamp;
         } catch (Exception $e) {
 
@@ -304,10 +283,8 @@ class ImageimportController extends PhotoDataController {
     
        protected function getNewPhotoSize($photo_size, $version) {
         $new_size = array();
-        error_log("befor get resize information from thumbnail: ".$version);
         switch ($version) {
             case 'thumbnail':
-                error_log("get resize information from thumbnail");
                 $new_size['width'] = 132;
                 $new_size['height'] = 132;
                 break;
@@ -346,18 +323,12 @@ class ImageimportController extends PhotoDataController {
        public function createResizedImage($orig_size, $data, $photo_type,$version) {
            $photo_size['height']=$orig_size[1];
                $photo_size['width']=    $orig_size[0];
-//         error_log('\n before data1 \n');
-//        error_log($data);
-//        error_log('\n after data1 \n');
          $new_size=  $this->getNewPhotoSize($photo_size, $version);
              
         // Create new image to display
         $new_photo = imagecreatetruecolor($new_size['width'], $new_size['height']);
         // Create new image with changed dimensions
         imagecopyresampled($new_photo, $data, 0, 0, 0, 0, $new_size['width'], $new_size['height'], $orig_size[0], $orig_size[1]);
-//        error_log('\n before data \n');
-//        error_log($data);
-//        error_log('\n after data \n');
 //        if($watermark){
 //            $contents=$new_photo;
 //        }  else {
@@ -398,19 +369,16 @@ class ImageimportController extends PhotoDataController {
             $coverName = str_replace('http://', '', $coverName);
             $this->putImagetoS3($coverName, $data);
              $url = "https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/" . $coverName;
-             error_log( " this is url of the saved image: ".$url ."\n");
         }
         //adding size information to the image name
         $name = $tempname[0] . "_" . $imageInfo[0] . "x" . $imageInfo[1] . "$exteonsion"; //  $width  = $get[0]; $height = $get[1]; $type   = $get[2];  $attr   = $get[3];  $bits   = $get['bits']; $mime   = $get['mime'];
         //remove http...
         $name = str_replace('http://', '', $name);
-        error_log("this is the remaining name: " . $name . "\n");
         //save to s3
         $this->putImagetoS3($name, $data);
         //new url for the image in s3 server
         $url = "https://s3-ap-southeast-2.amazonaws.com/hubstar-dev/" . $name;
 
-        error_log( " this is url of the saved image: ".$url ."\n");
     //    echo $url . " \n";
         $width = $imageInfo[0];
         $height = $imageInfo[1];
@@ -421,13 +389,11 @@ class ImageimportController extends PhotoDataController {
             "url" => $url,
         );
         $returnReponse = json_encode($tempArray, true);
-        error_log('imageRenamedAndputtoS3\n');
         return $returnReponse;
     }
 
     function convertData($type, $data) {
         ob_start();
-        error_log("This is " . $type . " over");
         if ($type == "image/png") {
             imagepng($data);
         } elseif ($type == "image/jpeg") {

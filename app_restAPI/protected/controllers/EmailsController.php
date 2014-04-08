@@ -47,7 +47,6 @@ class EmailsController extends Controller {
         $objectUrl = $request_arr['object_url'];
 
         $userEnvironment = $request_arr['user_environment'];
-        error_log(var_export($userEnvironment, true));
         $domain = $this->getDomain();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
         $amazonSes = Aws\Ses\SesClient::factory($configuration);

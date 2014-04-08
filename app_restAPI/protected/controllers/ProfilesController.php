@@ -198,7 +198,6 @@ class ProfilesController extends Controller {
             if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
                 $this->sendResponse(204);
             }
-//            error_log($setProfileName);
 //            if ($setProfileName) {
 //                $this->setProfileName($newRecord['profile_name'], $oldRecord['profile'][0]['id']);
 //            }
@@ -206,7 +205,6 @@ class ProfilesController extends Controller {
 //                $this->setPhotoBoost($oldRecord['profile'][0]['profile_boost'], $oldRecord['profile'][0]['id']);
 //            }
         } catch (Exception $exc) {
-            error_log($exc);
         }
     }
 
@@ -229,8 +227,6 @@ class ProfilesController extends Controller {
                 }
             }
         }
-//        error_log('background');
-//        error_log(filter_input(INPUT_POST,"profile_name",FILTER_SANITIZE_STRING));
     }
 
     public function modifyOwnerID($data_arr, $profile_name, $log_path) {

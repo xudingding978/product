@@ -107,7 +107,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     addPhotoObject: function(e, name, type, size) {
         if (this.setFileSize(size))
         {
-            var photoName = name.replace(/[)\(]/gi, '');
+            var photoName = name.replace(/[`~!@#$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi, '');
             photoName = photoName.replace(/\s/g, '_');
             var testID = createGuid();
             var target = getTarget(e, "pural");
@@ -118,7 +118,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             var file = HubStar.Photo.createRecord({
                 "id": testID,
                 "photo_title": photoName.toLowerCase(),
-                "photo_source_id": photoName.toLowerCase().replace('.', "_"),
+                "photo_source_id": photoName.toLowerCase().replace(/\./g, "_"),
                 "photo_image_original_url": src,
                 "photo_file_name": photoName.toLowerCase(),
                 "photo_type": type,
@@ -130,6 +130,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             mega.addObserver('isSaving', function() {
 
                 if (mega.get('isSaving')) {
+                    console.log(file.get('photo_source_id'));
                     $('.' + file.get('photo_source_id')).attr("style", "display:block");
                 }
                 else {

@@ -70,10 +70,6 @@ HubStar.Profile = DS.Model.extend({
     getID: function() {
         return this.get('id').replace(/[^\w\s]/gi, '');
     }.property('id')
-//    getTenKeywords: function() {
-//        var tenKeywords =  this.get('keywords').slice(0,10);
-//        return tenKeywords;
-//    }.property('keywords')
 });
 
 

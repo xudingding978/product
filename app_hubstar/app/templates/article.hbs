@@ -75,9 +75,11 @@
                 }(document));
             </script>
             <!--    <div class="fa icon-on-black" style="height: 44px;position: absolute;width: 44px;"><i class="fa fa-share"></i></div>     -->
-            <div class="closeview" {{action closeWindow on="click" target="controller"}} >
-                <i class="fa fa-times"></i>
-            </div>
+        </div>
+
+        <div id="close_article_wrapper" class="closeview" {{action closeWindow on="click" target="controller"}} >
+            <i class="fa fa-times"></i>
+            <span id="close_text" class="close_text">close</span>
         </div>
 
         <div class="mainfeature">
@@ -285,7 +287,7 @@
                     {{#each articleResouce.credits}}
                     <div class="article-text">
                         <a style="font-weight: bold">{{credits_name}}:</a>
-                        <span style="font-size: 13px">{{credits_text}}</span></div>
+                        <span class="credits_text">{{credits_text}}</span></div>
 
                     {{/each}}
                 </div>

@@ -41,7 +41,6 @@ class ReplysController extends Controller {
         
         $this->sendResponse(204);
         }catch (exception $exc) {
-            error_log('error~~~~~~~~~~');
         }
     }
 
@@ -93,7 +92,6 @@ class ReplysController extends Controller {
             $docID = $this->getDomain() . "/profiles/" . $owner_id;
             $cbRecord = $cb->get($docID); // get the old profile record from the database according to the docID string
             $oldRecord = CJSON::decode($cbRecord, true);
-          //   error_log(var_export($oldRecord, true));
              $review_num =$this-> getSelectedReview($oldRecord['profile'][0]['reviews'], $review_id);
              $reply_num =$this-> getSelectedReply($oldRecord['profile'][0]['reviews'][$review_num]['reply_reviews'], $reply_id);
              
@@ -129,7 +127,6 @@ class ReplysController extends Controller {
             $docID = $this->getDomain() . "/profiles/" . $owner_id;
             $cbRecord = $cb->get($docID); // get the old profile record from the database according to the docID string
             $oldRecord = CJSON::decode($cbRecord, true);
-          //   error_log(var_export($oldRecord, true));
              $review_num =$this-> getSelectedReview($oldRecord['profile'][0]['reviews'], $review_id);
              $reply_num =$this-> getSelectedReply($oldRecord['profile'][0]['reviews'][$review_num]['reply_reviews'], $reply_id);
              

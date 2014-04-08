@@ -18,7 +18,6 @@ class KeywordsController extends Controller {
     }
 
     public function actionCreate() {
-//        error_log('keywords create here');
 //        try {
 //            $request_json = file_get_contents('php://input');
 //            $request_arr = CJSON::decode($request_json, true);
@@ -52,7 +51,6 @@ class KeywordsController extends Controller {
     public function actionAddKeywords() {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
-        error_log(var_export(CJSON::decode($request_arr[0]),true));
         $keyword = CJSON::decode($request_arr[0]);
         $profile_id = $keyword['profile_id'];
         $cb = $this->couchBaseConnection();
@@ -80,7 +78,6 @@ class KeywordsController extends Controller {
     }
     
     public function actionUpdate() {
-        error_log('keywords upload here!!');
         $this->sendResponse(204);
     }
 

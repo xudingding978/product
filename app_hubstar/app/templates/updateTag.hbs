@@ -14,7 +14,9 @@
                 </div>
                 {{#if controller.selectTagProfile}}
                 <div class="select-profile-save" style="top: 50px;">
-
+                 <div  style="width: auto;line-height: 27px; padding: 0 20px;border-bottom: 1px solid #ddd;border-top: 1px solid #fff;">
+                             Your Profiles
+                        </div>
                     <div class="" style="height: 350px; font-size: 13px; font-weight: bold; overflow: auto; overflow-x:hidden; ">
                         {{#each controller.profiles}}
                         <div class="choose-exist-collection easing" style="width: auto;line-height: 27px; padding: 0 20px;border-bottom: 1px solid #ddd;border-top: 1px solid #fff;" {{action chooseProfile profile_name profile_id}}>

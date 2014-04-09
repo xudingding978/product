@@ -136,10 +136,10 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
         var that = this;
         this.set('selectionPop', false);
         requiredBackEnd('users', 'ReadProfileData', data, 'POST', function(params) {
-            dataNew["profile_id"] = localStorage.loginStatus;
-            dataNew["profile_name"] = "your profile";
-            dataNew["type"] = "user";
-            params.insertAt(0, dataNew);
+//            dataNew["profile_id"] = localStorage.loginStatus;
+//            dataNew["profile_name"] = "your profile";
+//            dataNew["type"] = "user";
+//            params.insertAt(0, dataNew);
             that.set("profiles", params);
             that.set('selectTagProfile', !that.get('selectTagProfile'));
         });

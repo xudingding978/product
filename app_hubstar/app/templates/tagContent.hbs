@@ -9,7 +9,7 @@
 
     <!--        only the tag owner and the tag is not activate can have the activate button-->
     <div id="tagBtn">
-        {{#if controller.isPhotoOwner}}
+        
         {{#unless controller.tag.tag_approved}}
         <div role="button"   data-hint=" Activate this tag" {{action sureToActivate controller.tag.tag_id }} style="margin:0 2px;"><i class="fa fa-check-circle"></i></div>
         {{else}}
@@ -19,7 +19,7 @@
         <div  role="button" data-hint=" Delete this tag" {{action deleteTag controller.tag.tag_id }} style="margin:0 2px;"><i class="fa fa-trash-o"></i></div>
         <!--        only the tag owner can delete the tag button-->
 
-        {{/if}}
+       
     </div>
 
 

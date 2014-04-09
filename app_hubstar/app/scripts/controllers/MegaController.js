@@ -1192,12 +1192,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
         var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
         that.set("is_authentic_user", is_authentic_user || is_edit);
-        currentUser.addObserver('isLoaded', function() {
+
+        currentUser.then(function() {
             var current_user_email = currentUser.get('email');
-            if (currentUser.get('isLoaded')) {
-                var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
-                that.set("is_authentic_user", is_authentic_user || is_edit);
-            }
+            var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
+            that.set("is_authentic_user", is_authentic_user || is_edit);
         });
     },
     // share to social facebook

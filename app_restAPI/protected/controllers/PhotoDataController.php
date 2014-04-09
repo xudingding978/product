@@ -28,8 +28,6 @@ class PhotoDataController extends Controller_data {
     public function actionCreate() {
         $request_str = file_get_contents('php://input'); 
         $request_arr = CJSON::decode($request_str, true);
-        error_log("in actionUPdate, PhotoDataController--------------".gettype($request_arr));
-        error_log(var_export($request_arr, true));
         
        if ($request_arr['function']=='addProfileFolder') {
             echo CJSON::encode($this->addProfileFolder($request_arr));
@@ -41,8 +39,6 @@ class PhotoDataController extends Controller_data {
     public function actionUpdate() {
         $request_str = file_get_contents('php://input'); 
         $request_arr = CJSON::decode($request_str, true);
-        error_log("in actionUPdate, PhotoDataController--------------".gettype($request_arr));
-        error_log(var_export($request_arr, true));
         
         if($request_arr['function']=='addImageToS3') {
             echo CJSON::encode($this->addImageToS3($request_arr));
@@ -52,20 +48,15 @@ class PhotoDataController extends Controller_data {
     }
     
     private function addImageToS3 ($request_arr) {
-//        error_log("--------------------------- in addImageToS3 FUNCTION \r\n");
         $image_string=  $this->getImageString($request_arr['image_url']);
         $image_infor = getimagesizefromstring($image_string);
         $name = $this->renamingImage($image_infor, $request_arr['image_url']);
-//        error_log($name);
         $response = $this->getWatermarkImageSource($request_arr['image_url'], $image_infor, $image_string);
         $bucket = 's3.hubsrv.com';
         $key = 'trendsideas.com/' . $request_arr['obj_ID'] . '/photo/' . $request_arr['obj_ID'] . '/' .  'original/' . $name;
         
         $result=$this->saveImageToS3($key, $response, $bucket);
         
-//        error_log(var_export($image_infor, true));
-//        error_log(gettype($result)."**********************************  \r\n");
-//        error_log($result);
         
         if($result) {
             $return_arr['url'] = 'http://s3.hubsrv.com/'.$key;

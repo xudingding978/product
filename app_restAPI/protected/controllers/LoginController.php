@@ -92,7 +92,6 @@ class LoginController extends Controller {
         $model = new User;
 
         $request_array = CJSON::decode(file_get_contents('php://input'));
-        error_log(var_export( $request_array,true));
         $model->REC_DATETIME = new CDbExpression('NOW()');
         $model->REC_TIMESTAMP = new CDbExpression('NOW()');
         $model->TENANT_REC_ID = "1";

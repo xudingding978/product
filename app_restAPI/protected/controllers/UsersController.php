@@ -335,7 +335,6 @@ class UsersController extends Controller {
             } else {
                 $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
             }
-            error_log(var_export($result, true));
             $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -435,19 +434,15 @@ class UsersController extends Controller {
     protected function getImageIdentifier($imageInfo, $url) {
         $return_arr = array();
         if (strpos($imageInfo['mime'], 'jpeg')) {
-            error_log('getImageIdentifier = jpeg');
             $im = imagecreatefromjpeg($url);
             $return_arr['type'] = 'image/jpeg';
         } elseif (strpos($imageInfo['mime'], 'png')) {
-            error_log('getImageIdentifier = png');
             $im = imagecreatefrompng($url);
             $return_arr['type'] = 'image/jpeg';
         } elseif (strpos($imageInfo['mime'], 'gif')) {
-            error_log('getImageIdentifier = gif');
             $im = imagecreatefromgif($url);
             $return_arr['type'] = 'image/gif';
         } elseif (strpos($imageInfo['mime'], 'bmp')) {
-            error_log('getImageIdentifier = bmp');
             $im = imagecreatefromwbmp($url);
             $return_arr['type'] = 'image/jpeg';
         }
@@ -495,8 +490,6 @@ class UsersController extends Controller {
         if ($cb->delete($url)) {
             if ($cb->set($url, $tempUpdateResult)) {
                 $this->sendResponse(204);
-                error_log($url);
-                error_log(" saved to couchbase successful");
             } else {
                 $this->sendResponse(500, 'something wrong');
             }
@@ -529,7 +522,6 @@ class UsersController extends Controller {
     public function actionUpdateStyleImage() {
         $payloads_arr = CJSON::decode(file_get_contents('php://input'));
         $photo_string = $payloads_arr['newStyleImageSource'];
-        error_log($photo_string);
 
         $photo_name = $payloads_arr['newStyleImageName'];
         $mode = $payloads_arr['mode'];

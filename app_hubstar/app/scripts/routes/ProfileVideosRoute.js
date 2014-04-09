@@ -1,7 +1,19 @@
 HubStar.ProfileVideosRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-
-        this.controllerFor('profile').selectVideo(model);
+        var address = document.URL;
+        var l = address.split("#")[1].split("/").length;
+        if (l > 4) {
+            if (address.split("#")[1].split("/")[4] === "videos")
+            {
+            }
+            else
+            {
+                this.controllerFor('profile').selectVideo(model);
+            }
+        }
+        else {
+            this.controllerFor('profile').selectVideo(model);
+        }
     },
     model: function(params) {
 

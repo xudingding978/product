@@ -6,18 +6,17 @@ HubStar.TagMouseView = Ember.View.extend({
     },
     showTagContent1: function(evt)
     {
-//        console.log(evt);
-        var tag_id = evt.target.id.split("_")[1];
+       
+        var tag_id = evt.target.id.split("_")[1]; 
+         if(tag_id!==undefined){
         var tags = this.get("controller").get("controllers.showTag").get("contentTags");
-        var pic_x = 0;
-        var pic_y = 0;
+     
         for (var i = 0; i < tags.length; i++)
         {
-
             if (tags.objectAt(i)["tag_id"] === tag_id)
             {
-                pic_x = tags.objectAt(i)["pic_x"]*HubStar.get("pic_current_width")+document.getElementById('tag_image_object').offsetLeft; //set the place of the tag content
-                pic_y = tags.objectAt(i)["pic_y"]*HubStar.get("pic_current_height")+document.getElementById('tag_image_object').offsetTop;
+             var   pic_x = tags.objectAt(i)["pic_x"]*HubStar.get("pic_current_width")+document.getElementById('tag_image_object').offsetLeft; //set the place of the tag content
+               var  pic_y = tags.objectAt(i)["pic_y"]*HubStar.get("pic_current_height")+document.getElementById('tag_image_object').offsetTop;
                 this.get("controller").set("tag", tags.objectAt(i));  //set the mouse over tag's detail content
                 if ((tags.objectAt(i)["linkto"] === undefined) || (tags.objectAt(i)["linkto"] === "") || (tags.objectAt(i)["linkto"] === null))
                 {
@@ -38,17 +37,18 @@ HubStar.TagMouseView = Ember.View.extend({
 
             $("#tagitshow").fadeIn();
             $("#tagitshow").css({top: pic_y+36, left: picx_content , opacity: 1});
-        }, 50);
+        }, 5);
         //alert(that.get("controller").get("showEachTagContent"));
-
+        }
 
     },
-    // it is not used
-    showContent: function(evt)
+     showTagContent2: function(evt)
     {
-        this.get("controller").set("showEachTagContent", true);
+        this.get("controller").set("showEachTagContent", false);
 
     },
+   
+
     mouseEnter: Ember.aliasMethod('showTagContent1'),
     mouseLeave: Ember.aliasMethod('showTagContent2')
 

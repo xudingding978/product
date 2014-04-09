@@ -12,8 +12,8 @@
             {{#if controller.selectionProfile}}
             <div id="login_lightbox" class="blur" {{action profileCanel }}>&nbsp;</div>
             <div class="select-profile-save" style="top: 50px;">
-                
-                <div class="" style="height: 350px; font-size: 13px; font-weight: bold; overflow: auto; overflow-x:hidden; ">
+
+                <div class="" style="height: 100%; font-size: 14px; font-weight: bold; overflow: auto; overflow-x:hidden;">
                     {{#each controller.profiles}}
                     <div class="choose-exist-collection easing" style="width: auto;line-height: 27px; padding: 0 20px;border-bottom: 1px solid #ddd;border-top: 1px solid #fff;" {{action chooseProfile profile_name profile_id}}>
                          <a class="exist-name easing"> {{profile_name}}</a>
@@ -21,13 +21,13 @@
                     {{/each}}
                 </div>
             </div>
-             {{/if}}
+            {{/if}}
             {{else}}         
             <div class="" style="display:inline-block;">
-                 {{controller.selectedProfile}}
+                {{controller.selectedProfile}}
             </div>
             {{/if}}
-           
+
         </div>
 
 
@@ -55,11 +55,11 @@
             <div class="add-collection_select-collection" style="">
                 {{view HubStar.SearchRequireTextFieldView valueBinding="newCollectionName"  id="" class="collect_newcollection-name"  placeholder="Create new Collection" }}   
 
-                <div type="button" {{action addNewCollection }} class="new-btn green-btn" style="vertical-align:middle;top:0;">Create</div>
+                <div type="button" class="new-btn green-btn" style="vertical-align:middle;top:0;" {{action addNewCollection }}  >Create</div>
 
+                <div class="new-btn" style="vertical-align:middle;top:0;" {{action collectionSwitch }}>Cancel </div>
 
-
-                <div style="margin:10px; font-size: 16px; font-weight: bold; overflow: auto; overflow-x:hidden; width: 93%;height: 150px;">
+                <div style="margin: 7px; font-size: 16px; font-weight: bold; overflow: auto; overflow-x:hidden; width: 96%;">
 
                     {{#if HubStar.isProfile}}
 
@@ -78,25 +78,23 @@
                     {{/if}}
 
                 </div>
-                <div class="new-btn" style="float: right;" {{action collectionSwitch }}>
-                     Cancel
+
+            </div>
+
+            {{/if}}
+        </div>
+        <div style="display:inline-block;margin-left:15px; vertical-align: top;">
+            <div style="width: 174px; height: 174px; overflow: hidden;padding: 10px;background-color: rgba(0,0,0,0.03);top: -4px;position: relative;">
+                <img style="height: 154px;width: 154px;" {{bindAttr src="controller.selectedPhotoThumbnailUrl" }}>
             </div>
         </div>
 
-        {{/if}}
-    </div>
-    <div style="display:inline-block;margin-left:15px; vertical-align: top;">
-        <div style="width: 174px; height: 174px; overflow: hidden;padding: 10px;background-color: rgba(0,0,0,0.03);top: -4px;position: relative;">
-            <img style="height: 154px;width: 154px;" {{bindAttr src="controller.selectedPhotoThumbnailUrl" }}>
-        </div>
     </div>
 
-</div>
 
-
-<div class="" style="height: 45px;position: relative;border-top: 1px solid #ddd;top: -1px;border-radius: 0 0 3px 3px;overflow: hidden;">
-    <div  class="message-btn easing" style="height:45px;line-height: 45px; border-right: 1px solid #ddd;" {{action exit }}><i class='fa fa-times'>&nbsp;</i>Cancel</div>
-    <div class="message-btn easing" style='height:45px;line-height: 45px;'{{action submit }}><i class='fa fa-check'>&nbsp;</i>Submit</div>
-</div>
+    <div class="" style="height: 45px;position: relative;border-top: 1px solid #ddd;top: -1px;border-radius: 0 0 3px 3px;overflow: hidden;">
+        <div  class="message-btn easing" style="height:45px;line-height: 45px; border-right: 1px solid #ddd;" {{action exit }}><i class='fa fa-times'>&nbsp;</i>Cancel</div>
+        <div class="message-btn easing" style='height:45px;line-height: 45px;'{{action submit }}><i class='fa fa-check'>&nbsp;</i>Submit</div>
+    </div>
 
 </div>

@@ -15,7 +15,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     commenter_photo_url: null,
     makeSureDelete: false,
     willDelete: false,
-    loadingTime:false,
+    loadingTime: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'application', 'notification', 'userMessage', 'application'],
     isUploadPhoto: false,
     init: function()
@@ -28,7 +28,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         var tempComment = [data];
         tempComment = JSON.stringify(tempComment);
         var that = this;
-        this.set("loadingTime",true);
+        this.set("loadingTime", true);
         this.set("notificationTopContent", []);
         requiredBackEnd('notifications', 'ReadNotification', tempComment, 'POST', function(params) {
             if (params !== undefined) {
@@ -58,7 +58,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                 }
             }
             that.get("controllers.notification").set("notificationContent", that.get("notificationTopContent"));
-            that.set("loadingTime",false);
+            that.set("loadingTime", false);
             that.unReadCount();
         });
     },
@@ -74,7 +74,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         } else {
             this.set("s", s);
             this.set('willDelete', true);
-        }    
+        }
     },
     cancelDelete: function() {
         this.set('willDelete', false);
@@ -311,19 +311,21 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         this.set("goReply", false);
         if (localStorage.loginStatus !== reply[2]) {
             var that = this;
-
-            if (user.get('isLoaded')) {
-                this.set("goMessage", '#message_' + reply[1]);
-                this.transitionToRoute('userPost');
-
-            }
-            user.addObserver('isLoaded', function() {
-                if (user.get('isLoaded')) {
-                    that.set("goMessage", '#message_' + reply[1]);
-                    var userID = HubStar.User.find(reply[2]);
-                    that.transitionToRoute('user', userID);
-                    that.transitionToRoute('userPost');
+            user.then(function() {
+                that.set("goMessage", '#message_' + reply[1]);
+                var userID = HubStar.User.find(reply[2]);
+                that.transitionToRoute('user', userID);
+                that.transitionToRoute('userPost');
+                
+                var address = document.URL;
+                var page = address.split("#")[1].split("/")[3];
+                if (page === "post")
+                {
+                    
+                    that.get("controllers.userMessage").goToMessageTop(that.get("goMessage"));
                 }
+                
+                
             });
         }
         else
@@ -333,16 +335,17 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             this.transitionToRoute('user', userID);
             //this.transitionToRoute('messageCenter');
             this.transitionToRoute('userPost');
-        }
-        var address = document.URL;
-        if (address.split("#")[1].split("/").length >= 4) {
-            var page = address.split("#")[1].split("/")[3];
-            if (page === "post")
-            {
-                this.get("controllers.userMessage").goToMessageTop(this.get("goMessage"));
+
+            var address = document.URL;
+            if (address.split("#")[1].split("/").length >= 4) {
+                var page = address.split("#")[1].split("/")[3];
+                if (page === "post")
+                {
+                    this.get("controllers.userMessage").goToMessageTop(this.get("goMessage"));
+                }
             }
+            $(window).scrollTop(550);
         }
-        $(window).scrollTop(550);
     },
     reviewCancel: function() {
         this.get("controllers.application").set("isNotification", false);

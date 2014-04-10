@@ -181,58 +181,58 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     setProfile: function(id) {
         var that = this;
-        var mega = HubStar.Mega.find(id);
-        mega.then(function() {
-            if (mega.get('classification') === "commercial" && localStorage.resOrcom === "residential") {
-                localStorage.resOrcom = "commercial";
-                that.get('controllers.application').set('residentialKeyword', false);
-                setTimeout(function() {
-                    $(".navbar").css("background", " url(../../images/commercialbg.jpg)");
-                }, 10);
-            }
-            else if (mega.get('classification') === "residential" && localStorage.resOrcom === "commercial") {
-                localStorage.resOrcom = "residential";
-                that.get('controllers.application').set('residentialKeyword', true);
-                setTimeout(function() {
-                    $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-                }, 10);
-            }
-            else if (mega.get('classification') === undefined || mega.get('classification') === "" || mega.get('classification') === null) {
-                localStorage.resOrcom = "All";
-                that.get('controllers.application').set('residentialKeyword', true);
-                setTimeout(function() {
-                    $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-                }, 10);
-            }
-            for (var i = 0; i < that.get("controllers.application").get("categorys").get("length"); i++)
-            {
-                that.get('controllers.application').get("categorys").objectAt(i).set("classification", localStorage.resOrcom);
-            }
-            $(document).ready(function() {
-                setTimeout(function() {
-                    if (localStorage.resOrcom === "commercial")
-                    {
-                        $('#switchbarBtn').attr("style", "margin-left:28px;");
-                        $("#Commercial").css("opacity", "1");
-                        $("#Residential").css("opacity", "0.4");
-                    }
-                    else if (localStorage.resOrcom === "residential")
-                    {
-                        $('#switchbarBtn').attr("style", "margin-left:0px;");
-                        $("#Commercial").css("opacity", "0.4");
-                        $("#Residential").css("opacity", "1");
-                    }
-                    else if (localStorage.resOrcom === "All")
-                    {
-                        $('#switchbarBtn').attr("style", "margin-left:13px;");
-                        $("#Commercial").css("opacity", "1");
-                        $("#Residential").css("opacity", "1");
-                    }
-                }, 50);
-            });
+        var tempComment = [id];
+        requiredBackEnd('megas', 'SetProfileViewCount', tempComment, 'POST', function(params) {
 
-            var tempComment = [id];
-            requiredBackEnd('megas', 'SetProfileViewCount', tempComment, 'POST', function(params) {
+            var mega = HubStar.Mega.find(id);
+            mega.then(function() {
+                if (mega.get('classification') === "commercial" && localStorage.resOrcom === "residential") {
+                    localStorage.resOrcom = "commercial";
+                    that.get('controllers.application').set('residentialKeyword', false);
+                    setTimeout(function() {
+                        $(".navbar").css("background", " url(../../images/commercialbg.jpg)");
+                    }, 10);
+                }
+                else if (mega.get('classification') === "residential" && localStorage.resOrcom === "commercial") {
+                    localStorage.resOrcom = "residential";
+                    that.get('controllers.application').set('residentialKeyword', true);
+                    setTimeout(function() {
+                        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+                    }, 10);
+                }
+                else if (mega.get('classification') === undefined || mega.get('classification') === "" || mega.get('classification') === null) {
+                    localStorage.resOrcom = "All";
+                    that.get('controllers.application').set('residentialKeyword', true);
+                    setTimeout(function() {
+                        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+                    }, 10);
+                }
+                for (var i = 0; i < that.get("controllers.application").get("categorys").get("length"); i++)
+                {
+                    that.get('controllers.application').get("categorys").objectAt(i).set("classification", localStorage.resOrcom);
+                }
+                $(document).ready(function() {
+                    setTimeout(function() {
+                        if (localStorage.resOrcom === "commercial")
+                        {
+                            $('#switchbarBtn').attr("style", "margin-left:28px;");
+                            $("#Commercial").css("opacity", "1");
+                            $("#Residential").css("opacity", "0.4");
+                        }
+                        else if (localStorage.resOrcom === "residential")
+                        {
+                            $('#switchbarBtn').attr("style", "margin-left:0px;");
+                            $("#Commercial").css("opacity", "0.4");
+                            $("#Residential").css("opacity", "1");
+                        }
+                        else if (localStorage.resOrcom === "All")
+                        {
+                            $('#switchbarBtn').attr("style", "margin-left:13px;");
+                            $("#Commercial").css("opacity", "1");
+                            $("#Residential").css("opacity", "1");
+                        }
+                    }, 50);
+                });
             });
         });
         var profile = this.getCurrentProfile(id);
@@ -1562,7 +1562,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     sendEventTracking: function(hitType, category, action, label) {
-        if (this.isTracking&&this.get('model').get('profile_analytics_code')!==null) {
+        if (this.isTracking && this.get('model').get('profile_analytics_code') !== null) {
             var analytics_array = this.get('model').get('profile_analytics_code').split(',');
             for (var i = 0; i < analytics_array.length; i++) {
                 ga(this.get('model').get('id').split('-').join('') + i.toString() + '.send', {

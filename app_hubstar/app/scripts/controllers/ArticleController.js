@@ -458,7 +458,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
     },
     selectImage: function(e) { // it is click the photo
-alert("selected image in article");
+//alert("selected image in article");
         this.set("isShowPhotoUrl", true);
         this.set("contentTagsArticle", "");
         var megaModel = HubStar.Mega.find(e);

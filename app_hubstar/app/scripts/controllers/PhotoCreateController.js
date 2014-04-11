@@ -198,37 +198,48 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     },
     addCollection: function(collection, photoId)
     {
-        if (HubStar.get('selectedCollection') !== undefined && HubStar.get('selectedCollection') !== null)
+        if (HubStar.get('selectedCollection') !== undefined && HubStar.get('selectedCollection') !== null&&HubStar.get('selectedCollection').id===collection.get("id"))
         {
             var content = HubStar.get('selectedCollection').collection_ids;
             if (content === null || content === undefined || content === "") {
-                if (collection.get("collection_ids") === null || collection.get("collection_ids") === undefined || collection.get("collection_ids") === "") {
-                    collection.set("collection_ids", photoId);
-                }
-                else {
-                    var ids = collection.get("collection_ids");
-                    ids = ids + "," + photoId;
-                    collection.set("collection_ids", ids);
-                }
+                var data = JSON.stringify([HubStar.get('selectedCollection').id, HubStar.get('selectedCollection').optional, photoId]);
+                requiredBackEnd('collections', 'savePhotoCollection', data, 'POST', function(params) {
+                    if (collection.get("collection_ids") === null || collection.get("collection_ids") === undefined || collection.get("collection_ids") === "") {
+                        collection.set("collection_ids", params);
+                    }
+                    else {
+                        collection.set("collection_ids", params);
+                    }
+                    HubStar.get('selectedCollection').collection_ids = collection.get("collection_ids");
+                     collection.store.save();
+                });
             }
             else {
-                var ids = content;
-                ids = ids + "," + photoId;
-                collection.set("collection_ids", ids);
+                var data = JSON.stringify([collection.get("id"), collection.get("optional"), photoId]);
+                requiredBackEnd('collections', 'savePhotoCollection', data, 'POST', function(params) {
+                    if (collection.get("collection_ids") === null || collection.get("collection_ids") === undefined || collection.get("collection_ids") === "") {
+                        collection.set("collection_ids", params);
+                    }
+                    else {
+                        collection.set("collection_ids", params);
+                    }
+                     HubStar.get('selectedCollection').collection_ids = collection.get("collection_ids");
+                      collection.store.save();
+                });
             }
-            HubStar.get('selectedCollection').collection_ids = collection.get("collection_ids");
         }
         else {
-            if (collection.get("collection_ids") === null || collection.get("collection_ids") === undefined || collection.get("collection_ids") === "") {
-                collection.set("collection_ids", photoId);
-            }
-            else {
-                var ids = collection.get("collection_ids");
-                ids = ids + "," + photoId;
-                collection.set("collection_ids", ids);
-            }            
-        }
-        collection.store.save();
+            var data = JSON.stringify([collection.get("id"), collection.get("optional"), photoId]);
+            requiredBackEnd('collections', 'savePhotoCollection', data, 'POST', function(params) {
+                if (collection.get("collection_ids") === null || collection.get("collection_ids") === undefined || collection.get("collection_ids") === "") {
+                    collection.set("collection_ids", params);
+                }
+                else {
+                    collection.set("collection_ids", params);
+                }
+                 collection.store.save();
+            });
+        }    
     }
 });
 

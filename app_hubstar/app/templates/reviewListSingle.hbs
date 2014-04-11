@@ -35,8 +35,9 @@
                      <i class="fa fa-thumbs-up" {{action addLike model}}>&nbsp</i>
                     {{model.review_like_count}}</div>
                 <div id="review_share_{{unbound model.review_id}}"  style="float: right; font-size: 13px;margin-right: 5px;" class="new-btn" {{action dropdownPhotoSetting model.review_id}}>
-                     <i class="fa fa-share" >&nbsp</i></div>          
-                <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound model.review_id}}" style="width: 150px;  padding: 0;right: 0px;left: 220px;position:absolute;top: 25px;">
+                     <i class="fa fa-share" >&nbsp</i></div> 
+                <div  id="dropdown_id_{{unbound model.review_id}}" style="height:300px;width:300px; background-color: red;">
+                <ul class="hideClass edit-object-ul" style="width: 150px;  padding: 0;right: 0px;left: 220px;position:absolute;top: 25px;">
                     <li class="ite" {{action  fbShare model}} >
                 <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
                 </li>
@@ -47,6 +48,7 @@
         <i class="fa fa-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Google+</span>
         </li>
     </ul>
+                    </div>
     {{#if model.getUser}}
     <div class="new-btn" style="float: left; font-size: 13px;margin-right: 5px;"  {{action removeReview}}><i class="fa fa-trash-o"></i></div>                 
     <div class="new-btn" style="float: left; font-size: 13px;" {{action editReview}}><i class="fa fa-pencil"></i></div>

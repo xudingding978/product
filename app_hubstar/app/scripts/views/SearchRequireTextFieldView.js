@@ -9,12 +9,14 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
         {
             if (controller.get('search_string') !== null && controller.get('search_string') !== "" && controller.get('search_string') !== undefined)
             {
-                HubStar.set("escVideo", false);
-                controller.transitionToRoute('search', {id: controller.get('search_string')});
-                $(".Navigator-box").css('display', 'none');
-                $("#top-about-menu").fadeOut("320");
-                $("#search-bar").fadeIn("320");
-                HubStar.set("showDiscoveryBar", false);
+                if (controller.get('loadingTime') === false) {
+                    HubStar.set("escVideo", false);
+                    controller.transitionToRoute('search', {id: controller.get('search_string')});
+                    $(".Navigator-box").css('display', 'none');
+                    $("#top-about-menu").fadeOut("320");
+                    $("#search-bar").fadeIn("320");
+                    HubStar.set("showDiscoveryBar", false);
+                }
             }
             else {
 //                controller.get('controllers.applicationFeedback').statusObserver(null, "Please insert  keywords to search.", "warnning");

@@ -3,9 +3,10 @@
 <div id ="savePhoto"class="t-style-box" style="z-index: 1002; position: relative;border-radius: 3px;">
 
     <div style="margin: 0 0 20px; position: relative; background-color: #f3f3f3; height: 45px;border-bottom: 1px solid #ddd;border-radius: 3px 3px 0 0;">
-        <div style=' color: #555; font-size: 18px; font-weight: bold; text-align: center; line-height: 45px;'>Save to 
+        <div style=' color: #555; font-size: 18px; font-weight: bold; text-align: center; line-height: 45px;'>
+            <div style="width: 65px; display: inline-block; position: absolute;left: 10px;">Save to</div>
             {{#if controller.isSaveTopProfile}}
-            <div class="" style="display:inline-block;cursor: pointer;"  {{action profileSwitch }}>
+            <div class="" style="display:inline-block;cursor: pointer;width: 350px;overflow: hidden;line-height: 20px;padding-top: 5px;"  {{action profileSwitch }}>
                  {{controller.selectedProfile}}
                  &nbsp;<i class="fa fa-caret-down"></i>
             </div>
@@ -27,16 +28,12 @@
                 {{controller.selectedProfile}}
             </div>
             {{/if}}
-
+            <div class="exit" style="float: right; position: relative; display: inline-block;">
+                <div class="closeview" {{action exit }}>
+                     <i class="fa fa-times"></i>
+                </div> 
+            </div>
         </div>
-
-
-
-        <div class="exit" style="float: right; position: relative; top: -46px;">
-            <div class="closeview" {{action exit }}>
-                 <i class="fa fa-times"></i>
-            </div> 
-        </div>  
     </div> 
 
     <div class="contactmebox-wapper" style="width: 500px;height: 190px;font-size: 13px;margin: 0 20px;">

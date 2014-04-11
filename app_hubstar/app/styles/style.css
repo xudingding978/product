@@ -1356,7 +1356,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .edit-comment > i {cursor: pointer}
 
 .select-profile-save{
-    z-index: 1;
+    z-index: 11;
     position: absolute;
     border: 1px solid #ddd;
     background-color: #fff;

@@ -45,7 +45,34 @@ class CollectionsController extends Controller {
     }
 
     // ally great change!!
-    
+    public function actionSavePhotoCollection() {
+        $request_json = CJSON::decode(file_get_contents('php://input'), true);
+        $request_arr = CJSON::decode($request_json, true);
+
+        $docIDDeep = $this->getDomain() . "/profiles/" . $request_arr[1]; //$id  is the page owner
+        $cb = $this->couchBaseConnection();
+        $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+        $oldRecordDeep = CJSON::decode($oldDeep, true);
+        if (!isset($oldRecordDeep['profile'][0]['collections'])) {
+            $oldRecordDeep['profile'][0]['collections'] = array();
+        }
+        for ($i = 0; $i < sizeof($oldRecordDeep['profile'][0]['collections']); $i++) {
+            if ($oldRecordDeep['profile'][0]['collections'][$i]["id"] === $request_arr[0]) {
+                if (!isset($oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"]) || $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] === null || $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] === "") {
+                    $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] = $request_arr[2];
+                } else {
+                    $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] = $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] . "," . $request_arr[2];
+                }
+                $collectionItems = $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"];
+            }
+        }
+        if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+            $this->sendResponse(200, CJSON::encode($collectionItems));
+        } else {
+            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+        }
+    }
+
     public function actionSaveCollection() {
         $request_json = CJSON::decode(file_get_contents('php://input'), true);
         $request_arr = CJSON::decode($request_json, true);

@@ -1634,6 +1634,7 @@ div.album-description-bg{
     line-height: 30px;
     margin-bottom: 10px;
     word-break: break-word;
+    text-transform: capitalize;
 
 }
 

@@ -8,7 +8,7 @@ HubStar.UserPostRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         if (this.controllerFor('checkingLoginStatus').popupLogin())
         {
-
+                    
             this.controllerFor('user').set('profileSelectionStatus', 'Posts');
             this.controllerFor('user').set('collectionTag', false);
 

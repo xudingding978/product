@@ -301,6 +301,10 @@ HubStar.MessageController = Ember.Controller.extend({
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var replyContent = this.get('replyContent'); //replyContent is just the user input txt, it is not a whole reply object
+        var replyImageSource=this.get("newStyleImageSource");
+        var replyImageName=this.get('newStyleImageName');
+        
+        if( replyContent|| replyImageSource||replyImageName){
         this.set("isReply", false);
         var commenter_id = this.get("currentUser").get('id');
         var date = new Date();
@@ -414,6 +418,9 @@ HubStar.MessageController = Ember.Controller.extend({
 //            $('#masonry_container').masonry("reloadItems");
 //
 //        }, 200);
+
+
+    }
     },
     close: function() {
         this.set('replyContent', "");

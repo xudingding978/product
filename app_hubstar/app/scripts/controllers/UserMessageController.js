@@ -270,7 +270,10 @@ HubStar.UserMessageController = Ember.Controller.extend({
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var commentContent = this.get('messageContent');
-        if (commentContent) {
+        var postImageSource=this.get("newStyleImageSource");
+        var postImageName= this.get('newStyleImageName');
+        
+        if (commentContent||postImageSource||postImageName) {
 
             this.set("isPosting", false);
             var commenter_id = this.get("currentUser").get('id');

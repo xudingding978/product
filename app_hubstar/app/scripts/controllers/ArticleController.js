@@ -845,7 +845,14 @@ HubStar.ArticleController = Ember.Controller.extend({
 
     },
     dropdownPhotoSetting: function(param) {
-        $('#dropdown_id_' + param).toggleClass('hideClass');
+        var id='#dropdown_id_' + param;
+        $(id).toggleClass('hideClass');
+        $(id).click(function() {
+            $(this).removeClass('hideClass');
+        }).mouseleave(function() {
+            $(this).addClass('hideClass');
+        });
+//        $('#dropdown_id_' + param).toggleClass('hideClass');
     },
     fbShare: function(param) {
         this.dropdownPhotoSetting(param);

@@ -88,9 +88,9 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                     collection.set('type', 'user');
                     collection.store.save();
                     var tempComment = [this.get("objectID")];
-                    var that =this;
+                    var that = this;
                     requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
-                        that.get("commentObject").set("save_count",params);
+                        that.get("commentObject").set("save_count", params);
                         that.get("commentObject").store.save();
                     });
                     this.sendFeedBack();
@@ -114,15 +114,16 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                     requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
                         HubStar.get('selectedCollection').collection_ids = params;
                         var tempComment = [that.get("objectID")];
+                        //that.commitCollection();
                         requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
-                            that.get("commentObject").set("save_count",params);
+                            that.get("commentObject").set("save_count", params);
                             that.get("commentObject").store.save();
                         });
                         that.sendFeedBack();
                         that.exit();
                     });
                     this.set("chosenProfile", "");
-                    
+
                     this.addComment();
                 }
 
@@ -139,19 +140,21 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
 
                         var data = JSON.stringify(HubStar.get('selectedCollection'));
                         var that = this;
-                         this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
+                        this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
                         requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
                             //console.log(params);
                             HubStar.get('selectedCollection').collection_ids = params;
                             var tempComment = [that.get("objectID")];
-                            requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
-                                that.get("commentObject").set("save_count",params);
+                            //that.commitCollection();
+                            requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {                                
+                                that.get("commentObject").set("save_count", params);
+                                that.get("commentObject").store.save();
                             });
                             that.sendFeedBack();
                             that.exit();
                         });
                         this.set("chosenProfile", "");
-                       
+
                         this.addComment();
                     }
                 }
@@ -160,6 +163,22 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             this.get('controllers.applicationFeedback').statusObserver(null, "Please choose a collection.", "warnning");
         }
 
+    },
+    commitCollection: function() {
+        var profile = HubStar.Profile.find(HubStar.get('selectedCollection').optional);
+        var collection;
+        profile.then(function() {
+            for (var i = 0; i < profile.get("collections").get("length"); i++)
+            {
+                if (HubStar.get('selectedCollection').id === profile.get("collections").objectAt(i).get("id")) {
+                    collection = profile.get("collections").objectAt(i);
+                    break;
+                }
+            }
+            collection.set("collection_ids",HubStar.get('selectedCollection').collection_ids);
+            console.log(collection.get("collection_ids"));
+            collection.store.save();
+        });
     },
     sendFeedBack: function() {
         var message = "Saved to your " + this.get('selectedTitle') + " collection.";

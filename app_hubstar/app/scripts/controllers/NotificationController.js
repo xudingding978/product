@@ -113,8 +113,8 @@ HubStar.NotificationController = Ember.Controller.extend({
             that.set('loadingTime', false);
         });
     },
-    decline: function(id){
-         var tempComment = [localStorage.loginStatus, id];
+    decline: function(id) {
+        var tempComment = [localStorage.loginStatus, id];
         tempComment = JSON.stringify(tempComment);
         var that = this;
         requiredBackEnd('notifications', 'Decline', tempComment, 'POST', function(params) {
@@ -122,7 +122,7 @@ HubStar.NotificationController = Ember.Controller.extend({
             {
                 if (that.get("notificationContent").objectAt(i).get("notification_id") === id)
                 {
-                    that.get("notificationContent").objectAt(i).set("isButton", false);                   
+                    that.get("notificationContent").objectAt(i).set("isButton", false);
                     break;
                 }
             }
@@ -411,15 +411,10 @@ HubStar.NotificationController = Ember.Controller.extend({
         this.set("reply", reply[1]);
         if (localStorage.loginStatus !== reply[2]) {
             var that = this;
-            if (user.get('isLoaded')) {
-                this.set("goMessage", '#message_' + reply[1]);
-                this.transitionToRoute('userPost');
-            }
-            user.addObserver('isLoaded', function() {
-                if (user.get('isLoaded')) {
-                    that.set("goMessage", '#message_' + reply[1]);
-                    that.transitionToRoute('userPost');
-                }
+            user.then(function() {
+                that.transitionToRoute('user', user);
+                that.set("goMessage", '#message_' + reply[1]);
+                that.transitionToRoute('userPost');
             });
         }
         else

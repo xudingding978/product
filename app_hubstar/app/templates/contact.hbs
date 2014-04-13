@@ -163,7 +163,7 @@
                     
                     {{view Ember.TextArea valueBinding="controller.emailBody" rows="12" cols="70" class="no-resize" placeholder="I saw your profile, I'd love to talk to you about my project, Please reply if you are interested.........."}}
                     {{#unless controller.firstStepOfContactEmail}}
-                    <div style="position: relative;float: left;width: 200px;">
+                    <div style="position: relative;float: left;">
                         <div>{{view Ember.Checkbox checkedBinding="osAndBrowser"}}
                             <span style='position: relative;top:3px;'>
                                 User's Environment
@@ -174,7 +174,7 @@
 
 
                 </div>
-                <div style='position: relative; left: 10px;bottom: 1px;'>
+                <div style='position: relative;bottom: 1px;overflow: hidden;width: 66%;left: 20px;height: 24px;'>
                     {{controller.userEnvironment}}
                 </div>
             </div>

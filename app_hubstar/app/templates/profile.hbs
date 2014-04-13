@@ -171,8 +171,8 @@
                                                         <th>Contact:</th>
                                                         <td>
                                                             {{#if controller.editingContact}}
-                                                            {{input type="text" class="insert-contactdetails" value=first_name}}
-                                                            {{input type="text" class="insert-contactdetails" value=last_name}}
+                                                            {{input type="text" class="insert-contactdetails" value=first_name placeholder="First Name"}}
+                                                            {{input type="text" class="insert-contactdetails" value=last_name placeholder="Last Name"}}
                                                             {{else}}
                                                             <div class="Contact_2child">{{first_name}} {{last_name}}</div>
                                                             {{/if}}
@@ -212,7 +212,7 @@
                                                         </td>
                                                     </tr>   
                                                     <tr>
-                                                        <th>Address:</th>
+                                                        <th style="vertical-align: top;">Address:</th>
                                                         <td>
                                                             {{#if controller.editingContact}}
                                                             {{input type="text" class="insert-contactdetails" value=address placeholder="Street Address" }}

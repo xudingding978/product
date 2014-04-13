@@ -354,12 +354,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //        } else {            
 //            this.setKeywordsArray(this.get('model').get('profile_keywords'));
 //        }
-//        if (profile.get("profile_keywords_num") !== null && profile.get("profile_keywords_num") !== "undefined" && profile.get("profile_keywords_num") !== "") {
-//
-//            this.set("keyword_num", profile.get("profile_keywords_num"));
-//        } else {
-//            this.setKeywordsNum(this.get('model').get('profile_package_name'));
-//        }
+
         this.set('keyword_left', parseInt(this.get("keyword_num")) - profile.get('keywords').get('length'));
         this.setAboutUsObject();
         this.set('editingAbout', false);
@@ -418,6 +413,23 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('boost', 25);
         }
         
+    },
+    checkKeywordNum: function(updatePackageName, originPackageName) {
+        if (this.getKeywordsNum(updatePackageName) < this.getKeywordsNum(originPackageName)) {
+            return true;
+        }
+        return false;
+    },
+    getKeywordsNum: function(profile_package_name) {
+        if (profile_package_name === 'Platinum') {
+            return 200;
+        } else if (profile_package_name === 'Gold') {
+            return 100;
+        } else if (profile_package_name === 'Silver') {
+            return 50;
+        } else if (profile_package_name === 'Bronze') {
+            return 25;
+        }
     },
     setTopicModel: function(model) {
         this.set('categorys', null);
@@ -1198,6 +1210,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.saveLink('profile_linkedin_link', 'linkedin');
         this.saveLink('profile_youtube_link', 'youtube');
 
+        
         if (this.get('controllers.profilePartners').get("partnerNew") !== undefined && this.get('controllers.profilePartners').get("partnerNew") !== null && this.get('controllers.profilePartners').get("partnerNew") !== "")
         {
             if (update_profile_record.get('profile_partner_ids').length !== this.get('controllers.profilePartners').get("partnerNew").length) {
@@ -1205,7 +1218,15 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.get('controllers.profilePartners').set("partnerNew", "");
             }
         }
-
+        if(this.checkKeywordNum(this.get('projectCategoryDropdownContent'),update_profile_record.get('profile_package_name'))){
+            
+            if(this.getKeywordsNum(this.get('projectCategoryDropdownContent')) - update_profile_record.get('keywords').get('length') < 0){
+                this.get('controllers.applicationFeedback').statusObserver(null, "Profile cant updated, keywords no more than " + 
+                        this.getKeywordsNum(this.get('projectCategoryDropdownContent')) + " for " + this.get('projectCategoryDropdownContent')+
+                        ", please delete some keywords");               
+                this.set('projectCategoryDropdownContent',update_profile_record.get('profile_package_name'));               
+            }           
+        }else{
 
         update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
         this.setKeywordsNum(this.get('model').get('profile_package_name'));
@@ -1223,11 +1244,16 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
         }
-        this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
-        update_profile_record.store.save();
         
         this.set('keyword_left', parseInt(this.get("keyword_num")) - update_profile_record.get('keywords').get('length'));
+       
+        
+            this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
+            update_profile_record.store.save();
+        }
+        
     },
+    
 //    saveShowKeywords: function() {
 //        var show_keyword_id = '';
 //        for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {

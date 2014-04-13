@@ -1830,7 +1830,7 @@ div.album-description-bg{
 }
 
 .collect_newcollection-name{
-    width: 240px;
+    width: 180px;
     padding: 4px;
 }
 
@@ -1841,6 +1841,7 @@ div.album-description-bg{
     padding: 5px 8px;
     cursor: pointer;
     text-align: left;
+    overflow: hidden;
 }
 
 .choose-exist-collection:hover{
@@ -1862,7 +1863,7 @@ div.album-description-bg{
 }
 
 .add-collection_select-collection{
-    height: 240px;
+   
     padding: 10px;
     position: absolute;
     left: 4px;
@@ -1872,6 +1873,7 @@ div.album-description-bg{
     -moz-box-shadow: 0 0px 1px #888;
     box-shadow: 0 0px 1px #888;
     z-index: 11;
+    width: 334px;
 }
 
 .edit-btn{

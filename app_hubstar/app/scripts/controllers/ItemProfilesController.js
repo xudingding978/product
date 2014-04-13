@@ -63,7 +63,14 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
         return is_authentic_user||is_edit;
     },
     dropdownPhotoSetting: function(id) {
-        $('#dropdown_id_' + id).toggleClass('hideClass');
+        var id='#dropdown_id_' + id;
+//        $('#dropdown_id_' + id).toggleClass('hideClass');
+        $(id).toggleClass('hideClass');
+        $(id).click(function() {
+            $(this).removeClass('hideClass');
+        }).mouseleave(function() {
+            $(this).addClass('hideClass');
+        });
     },
     checkEditingMode: function()
     {

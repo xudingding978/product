@@ -72,6 +72,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     subcategories: [],
     pageCount: 0,
     residentialKeyword: true,
+    loadingTime: false,
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
 
@@ -349,53 +350,54 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         });
     },
     newSearch: function() {
-        this.set("googletagCmd", []);
-        this.set("content", []);
-        this.set("oldChildren", 0);
-        this.set("totalItems", 0);
-        this.set("from", 0);
-        this.set("size", 20);
-        this.set('loadingTime', true);
-        this.set("pageCount", 0);
-        var d = new Date();
-        var start = d.getTime();
-        var that = this;
-        var statusController = this.get('controllers.status');
-        var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'), "classification": localStorage.resOrcom});
-        stats.addObserver('isLoaded', function() {
-            if (stats.get('isLoaded')) {
-                var stat = stats.objectAt(0);
-                var megasResults = stat.get("megas");
-                HubStar.set('itemNumber', megasResults.get("length"));
-                that.setContent(megasResults, "new");
-                if (megasResults.get("length") < 20) {
+        if (this.get('loadingTime') === false) {
+            this.set("googletagCmd", []);
+            this.set("content", []);
+            this.set("oldChildren", 0);
+            this.set("totalItems", 0);
+            this.set("from", 0);
+            this.set("size", 20);
+            this.set('loadingTime', true);
+            this.set("pageCount", 0);
+            var d = new Date();
+            var start = d.getTime();
+            var that = this;
+            var statusController = this.get('controllers.status');
+            var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'), "classification": localStorage.resOrcom});
+            stats.addObserver('isLoaded', function() {
+                if (stats.get('isLoaded')) {
+                    var stat = stats.objectAt(0);
+                    var megasResults = stat.get("megas");
+                    HubStar.set('itemNumber', megasResults.get("length"));
+                    that.setContent(megasResults, "new");
+                    if (megasResults.get("length") < 20) {
 
-                    $(document).ready(function() {
-                        setTimeout(function() {
-                            HubStar.set("scrollDownSearch", true);
-                        }, 100);
+                        $(document).ready(function() {
+                            setTimeout(function() {
+                                HubStar.set("scrollDownSearch", true);
+                            }, 100);
 
-                        $("#show_more_button").css({display: "none"});
+                            $("#show_more_button").css({display: "none"});
 
-                    });
+                        });
 
+                    }
+
+
+
+                    that.set("from", that.get("size"));
+
+                    var d = new Date();
+                    var end = d.getTime();
+                    var time = that.getResponseTime(start, end);
+                    statusController.set("searchResultNum", stat.get('numberofresults'));
+                    statusController.set("time", time);
+                    statusController.changeDescription();
                 }
 
-
-
-                that.set("from", that.get("size"));
-
-                var d = new Date();
-                var end = d.getTime();
-                var time = that.getResponseTime(start, end);
-                statusController.set("searchResultNum", stat.get('numberofresults'));
-                statusController.set("time", time);
-                statusController.changeDescription();
-            }
-
-        });
-        HubStar.set('searchStart', true);
-
+            });
+            HubStar.set('searchStart', true);
+        }
     },
     defaultSearch: function() {
 

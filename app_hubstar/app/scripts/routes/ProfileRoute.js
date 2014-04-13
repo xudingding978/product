@@ -77,14 +77,14 @@ HubStar.ProfileRoute = Ember.Route.extend({
 
         return HubStar.Profile.find(params.profile_id);
     },
-       beforeModel: function(transition) {
-             var model = HubStar.Profile.find(transition.params.profile_id);
-            var that = this;
-            model.then(function() {
-            }, function() {
-                that.transitionTo('fourOhFour',"404");
-            });
-  },
+    beforeModel: function(transition) {
+        var model = HubStar.Profile.find(transition.params.profile_id);
+        var that = this;
+        model.then(function() {
+        }, function() {
+            that.transitionTo('fourOhFour', "404");
+        });
+    },
     events: {
         transitionToCollectionPhoto: function(collection_id) {
             HubStar.set("scrollCollectionPosition", $(window).scrollTop());
@@ -125,8 +125,12 @@ HubStar.ProfileRoute = Ember.Route.extend({
         }
     },
     redirect: function() {
-
-
+        var address = document.URL;
+        var page = address.split("#")[1].split("/");
+        if(page.length === 3)
+        {
+            this.controllerFor('profile').selectCollection(); 
+        }
     },
     deactivate: function() {
 
@@ -139,11 +143,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
         $('#masonry_container').attr('style', "display:none");
         $(function() {
             $('#masonry_container').masonry('remove', $('.noStyle1'));
-        });
-
-
-
-
+        });        
     },
     renderTemplate: function() {
         this.render('profile', {

@@ -207,7 +207,7 @@ class Controller extends CController {
         } elseif ($requireType == 'defaultSearch') {
 
 
-            $response = $this->searchCollectionItem('21051211514', 'editor-picks', $returnType);
+            $response = $this->defaultSearchItem('21051211514', 'editor-picks', $returnType);
             $response = $this->profileSetting($response, $returnType, 'profilecollection');
         } elseif ($requireType == 'video') {
             $videoOwnerId = $this->getUserInput($requireParams[1]);
@@ -234,6 +234,60 @@ class Controller extends CController {
         $response = $this->getReponseResult($tempResult, $returnType);
 
         return $response;
+    }
+
+    protected function defaultSearchItem($userid, $collection_id, $returnType) {
+
+        $cb = $this->couchBaseConnection();
+
+        $tempResult = $this->getDomain() . "/users/" . $userid;
+        $tempResult = $cb->get($tempResult);
+
+
+
+        $mega = CJSON::decode($tempResult, true);
+        if (!isset($mega['user'][0]['collections'])) {
+            $collections = array();
+        } else {
+            $collections = $mega['user'][0]['collections'];
+        }
+
+        $collection = null;
+        
+
+
+        for ($i = 0; $i < sizeof($collections); $i++) {
+           
+            if ($collections[$i]['id'] === $collection_id) {
+                $collection = $collections[$i];
+
+                break;
+            }
+        }
+        $collectionIds = explode(",", $collection['collection_ids']);
+        $response = Array();
+        $megas = Array();
+
+
+        for ($i = 0; $i<sizeof($collectionIds) ; $i++) {
+            if(sizeof($megas)>20){
+                break;
+            }
+            if ($collectionIds[$i] !== "") {
+                $owner = $this->getDomain() . "/" . trim($collectionIds[$i]);
+                $mega = $cb->get($owner);
+                $megaNew = CJSON::decode($mega, true);
+                if ($megaNew !== null && $megaNew !== "") {
+                    array_push($megas, $megaNew);
+                }
+            }
+            
+        }
+
+        $response["megas"] = $megas;
+        return CJSON::encode($response);
+
+        //$response = $this->getCollections($collections, $collection_id, $returnType);
     }
 
     protected function searchCollectionItem($userid, $collection_id, $returnType) {
@@ -285,7 +339,7 @@ class Controller extends CController {
 
         //$response = $this->getCollections($collections, $collection_id, $returnType);
     }
-
+    
     protected function searchProfileCollectionItem($userid, $collection_id, $returnType) {
         $conditions = array();
         $userid=urldecode($userid);

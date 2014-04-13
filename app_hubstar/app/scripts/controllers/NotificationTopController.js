@@ -17,8 +17,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     willDelete: false,
     isTag: false,
     photo_url: "",
-    loadingTime:false,
-
+    loadingTime: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'application', 'notification', 'userMessage', 'application'],
     isUploadPhoto: false,
     init: function()
@@ -50,7 +49,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                     dataNew["content"] = params.objectAt(i)["content"];
                     if (dataNew["type"] === "addTag")
                     {
-           
+
                         that.set("photo_url", params.objectAt(i)["content"]);
                         that.set("isTag", true);
                     }
@@ -58,7 +57,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                     {
                         that.set("isTag", false);
                     }
-                    
+
                     if (dataNew["type"] !== "authority") {
                         dataNew["content"] = params.objectAt(i)["content"];
                     }
@@ -121,8 +120,11 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         var user = HubStar.User.find(localStorage.loginStatus);
         this.transitionToRoute('user', user);
         this.set("notificationSeeAll", true);
-        this.transitionToRoute('messageCenter');
-        this.transitionToRoute("notifications");
+        var that =this;
+        setTimeout(function() {
+            that.transitionToRoute('messageCenter');
+            that.transitionToRoute("notifications");
+        }, 20);
         this.reviewCancel();
     },
     markAllRead: function() {

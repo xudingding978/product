@@ -45,8 +45,9 @@ HubStar.TalkController = Ember.Controller.extend({
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var commentContent = this.get('messageContent');
-        
-        if (commentContent) {
+        var imageSource= this.get("newStyleImageSource");
+        var imageName=this.get('newStyleImageName');
+        if (commentContent||imageSource||imageName) {
             this.set("isPosting",false);
             var commenter_id = this.get("currentUser").get('id');
             var date = new Date();

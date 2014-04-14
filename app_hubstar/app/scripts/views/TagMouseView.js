@@ -15,7 +15,7 @@ HubStar.TagMouseView = Ember.View.extend({
         {
             if (tags.objectAt(i)["tag_id"] === tag_id)
             {
-             var   pic_x = tags.objectAt(i)["pic_x"]*HubStar.get("pic_current_width")+document.getElementById('tag_image_object').offsetLeft; //set the place of the tag content
+               var   pic_x = tags.objectAt(i)["pic_x"]*HubStar.get("pic_current_width")+document.getElementById('tag_image_object').offsetLeft; //set the place of the tag content
                var  pic_y = tags.objectAt(i)["pic_y"]*HubStar.get("pic_current_height")+document.getElementById('tag_image_object').offsetTop;
                 this.get("controller").set("tag", tags.objectAt(i));  //set the mouse over tag's detail content
                 if ((tags.objectAt(i)["linkto"] === undefined) || (tags.objectAt(i)["linkto"] === "") || (tags.objectAt(i)["linkto"] === null))
@@ -49,7 +49,7 @@ HubStar.TagMouseView = Ember.View.extend({
     },
    
 
-    mouseEnter: Ember.aliasMethod('showTagContent1'),
-    mouseLeave: Ember.aliasMethod('showTagContent2')
+    mouseEnter: Ember.aliasMethod('showTagContent1')
+//    mouseLeave: Ember.aliasMethod('showTagContent2')
 
 });

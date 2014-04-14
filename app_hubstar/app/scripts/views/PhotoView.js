@@ -17,153 +17,79 @@ HubStar.PhotoView = Ember.View.extend({
             {
                 var imgtag = $(this).parent(); // get the div to append the tagging entry
                 HubStar.set("changeHeight", 50);
-//                if ((parseFloat(event.pageX) < parseFloat($("#tag_image_object").offset().left)) || (parseFloat(event.pageX) > parseFloat($("#tag_image_object").offset().left) + parseFloat(HubStar.get("pic_current_width"))) ||
-//                        (parseFloat(event.pageY) < parseFloat($("#tag_image_object").offset().top)) || (parseFloat(event.pageY) > (parseFloat($("#tag_image_object").offset().top) + parseFloat(HubStar.get("pic_current_height")))))
-//                {
-//                    console.log(parseFloat(event.pageX) +"    "+parseFloat($("#tag_image_object").offset().left) + parseFloat(HubStar.get("pic_current_width")));
-//                    console.log(event.pageY + "   " + $("#tag_image_object").offset().top + " pppp" + HubStar.get("pic_current_height"));
-//                    that.get("controller").set("inImage", false);  //may change with other variable
-//                }
-//                else
+
+                mouseX = e.clientX - 265; // x and y axis
+                mouseY = e.clientY - HubStar.get("changeHeight");
+                that.get("controller").get("controllers.showTag").set("pic_x", (e.clientX - document.getElementById('tag_image_object').offsetLeft) / HubStar.get("pic_current_width")); //set 
+                that.get("controller").get("controllers.showTag").set("pic_y", (e.clientY - document.getElementById('tag_image_object').offsetTop) / HubStar.get("pic_current_height"));
+                if (that.get("controller").get("enableTag") === true)
                 {
-                    mouseX = e.clientX - 265; // x and y axis
-                    mouseY = e.clientY - HubStar.get("changeHeight");
-                    that.get("controller").get("controllers.showTag").set("pic_x", (e.clientX - document.getElementById('tag_image_object').offsetLeft) / HubStar.get("pic_current_width")); //set 
-                    that.get("controller").get("controllers.showTag").set("pic_y", (e.clientY - document.getElementById('tag_image_object').offsetTop) / HubStar.get("pic_current_height"));
-                    if (that.get("controller").get("enableTag") === true)
-                    {
-                        that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
-                    }
-                    else
-                    {
-                        // $(".next").css({display: block});
-                        that.get("controller").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
-                    }
-                    if (mouseY > 420)
-                    {
-                        that.get("controller").get("controllers.showTag").set("change_tag_show", true); //chage tag show style
-                        mouseY = mouseY - 420;
-                    }
-                    else
-                    {
-                        that.get("controller").get("controllers.showTag").set("change_tag_show", false);
-                    }
-
-                    that.get("controller").nextImage(e, mouseX, mouseY);
+                    that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
                 }
+                else
+                {
+                    // $(".next").css({display: block});
+                    that.get("controller").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
+                }
+                if (mouseY > 420)
+                {
+                    that.get("controller").get("controllers.showTag").set("change_tag_show", true); //chage tag show style
+                    mouseY = mouseY - 420;
+                }
+                else
+                {
+                    that.get("controller").get("controllers.showTag").set("change_tag_show", false);
+                }
+
+                that.get("controller").nextImage(e, mouseX, mouseY);
             }
-
-
         });
         $('#previousphoto').mousedown(function(event) {
             if (event.which === 1) //2:middle 
             {
                 var imgtag = $(this).parent(); // get the div to append the tagging entry
 
-//                if ((parseInt(event.pageX) < parseInt($("#tag_image_object").offset().left)) || (parseInt(event.pageX) > (parseInt($("#tag_image_object").offset().left) + parseInt(HubStar.get("pic_current_width")))) ||
-//                        (parseInt(event.pageY) < parseInt($("#tag_image_object").offset().top)) || (parseInt(event.pageY) > (parseInt($("#tag_image_object").offset().top) + parseInt(HubStar.get("pic_current_height")))))
-//                {
-//                    console.log(parseInt($("#tag_image_object").offset().left) + parseInt(HubStar.get("pic_current_width")));
-//                    console.log(event.pageY + "   " + $("#tag_image_object").offset().top + " ttttt" + HubStar.get("pic_current_height"));
-//                    that.get("controller").set("inImage", false);  //may change with other variable
-//                }
-//                else
+                mouseX = event.clientX - 265; // x and y axis
+                mouseY = event.clientY - 50;
+                that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - document.getElementById('tag_image_object').offsetLeft) / HubStar.get("pic_current_width"));
+                that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY - document.getElementById('tag_image_object').offsetTop) / HubStar.get("pic_current_height"));
+                if (that.get("controller").get("enableTag") === true)
                 {
-                    mouseX = event.clientX - 265; // x and y axis
-                    mouseY = event.clientY - 50;
-                    that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - document.getElementById('tag_image_object').offsetLeft) / HubStar.get("pic_current_width"));
-                    that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY - document.getElementById('tag_image_object').offsetTop) / HubStar.get("pic_current_height"));
-                    if (that.get("controller").get("enableTag") === true)
-                    {
-                        that.get("controller").set("inImage", true);
-                        console.log(that.get("controller").get("controllers.showTag").get("pic_x"));
-                    }
-                    else
-                    {
-                        //  $(".previous").attr('style', 'display:block');
-                        that.get("controller").set("inImage", false);
-                    }
-                    if (mouseY > 420)
-                    {
-                        mouseY = mouseY - 420;
-                        that.get("controller").get("controllers.showTag").set("change_tag_show", true);
-                    }
-                    else
-                    {
-                        that.get("controller").get("controllers.showTag").set("change_tag_show", false);
-                    }
-
-                    that.get("controller").previesImage(event, mouseX, mouseY);
+                    that.get("controller").set("inImage", true);
+                    console.log(that.get("controller").get("controllers.showTag").get("pic_x"));
                 }
+                else
+                {
+                    //  $(".previous").attr('style', 'display:block');
+                    that.get("controller").set("inImage", false);
+                }
+                if (mouseY > 420)
+                {
+                    mouseY = mouseY - 420;
+                    that.get("controller").get("controllers.showTag").set("change_tag_show", true);
+                }
+                else
+                {
+                    that.get("controller").get("controllers.showTag").set("change_tag_show", false);
+                }
+
+                that.get("controller").previesImage(event, mouseX, mouseY);
+
             }
         });
         var that = this;
         window.onresize = function() {
-            var pic_width = document.getElementById('tag_image_object').offsetWidth;
-            var pic_height = document.getElementById('tag_image_object').offsetHeight;
+//            var pic_width = document.getElementById('tag_image_object').offsetWidth;
+//            var pic_height = document.getElementById('tag_image_object').offsetHeight;
 
             var tags = that.get("controller").get("controllers.showTag").get("contentTags");
             if (tags !== undefined && tags !== "" && tags !== null)
             {
-                that.get("controller").windowResizeTags(tags, pic_width, pic_height);
+
+                that.get("controller").photoSizeJudge(that.get("controller").get('selectedPhoto'));
+                that.get("controller").windowResizeTags(tags);
 
             }
-
-
-//            if (tags !== undefined && tags !== "" && tags !== null)
-//            {
-//
-//                if ((HubStar.get("window_resize_height_times") === 1 || HubStar.get("window_resize_width_times") === 1) === false)
-//                {
-//                    for (var i = 0; i < tags.length; i++)
-//                    {
-//                        //var tagDiv = "#tag_" + tags[i].tag_id;
-//                        console.log(HubStar.get("window_resize_height_times"));
-//                        console.log(tags[i].pic_y + "   " + tags[i].pic_y * HubStar.get("window_resize_height_times"));
-//                        tags[i].pic_y = tags[i].pic_y * HubStar.get("window_resize_height_times");
-//                        tags[i].pic_x = tags[i].pic_x * HubStar.get("window_resize_width_times");
-//                        console.log(tags[i].tag_id);
-//
-//                        //   $(tagDiv).css({top: tags[i].pic_y * HubStar.get("window_resize_height_times"), left: tags[i].pic_x * HubStar.get("window_resize_width_times")});
-//                        //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
-//                    }
-//                    that.get("controller").windowResizeTags(tags);
-//                } else
-//                {
-//                    if (HubStar.get("window_resize_height_times") === 1)
-//                    {
-//                        for (var i = 0; i < tags.length; i++)
-//                        {
-//                            //var tagDiv = "#tag_" + tags[i].tag_id;
-//                            console.log(HubStar.get("window_resize_height_times"));
-//                            console.log(tags[i].pic_y + "   " + tags[i].pic_y * HubStar.get("window_resize_width_times"));
-//                            tags[i].pic_y = tags[i].pic_y * HubStar.get("window_resize_width_times");
-//                            tags[i].pic_x = tags[i].pic_x * HubStar.get("window_resize_width_times");
-//                            console.log(tags[i].tag_id);
-//
-//                            //   $(tagDiv).css({top: tags[i].pic_y * HubStar.get("window_resize_height_times"), left: tags[i].pic_x * HubStar.get("window_resize_width_times")});
-//                            //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
-//                        }
-//                        that.get("controller").windowResizeTags(tags);
-//                    }
-//                    else if (HubStar.get("window_resize_width_times") === 1)
-//                    {
-//                        for (var i = 0; i < tags.length; i++)
-//                        {
-//                            //var tagDiv = "#tag_" + tags[i].tag_id;
-//                            console.log(HubStar.get("window_resize_height_times"));
-//                            console.log(tags[i].pic_y + "   " + tags[i].pic_y * HubStar.get("window_resize_height_times"));
-//                            tags[i].pic_y = tags[i].pic_y * HubStar.get("window_resize_height_times");
-//                            tags[i].pic_x = tags[i].pic_x * HubStar.get("window_resize_height_times");
-//                            console.log(tags[i].tag_id);
-//
-//                            //   $(tagDiv).css({top: tags[i].pic_y * HubStar.get("window_resize_height_times"), left: tags[i].pic_x * HubStar.get("window_resize_width_times")});
-//                            //    $(tagDiv).attr("style", "top:" + tags[i].pic_y + "px" );
-//                        }
-//                        that.get("controller").windowResizeTags(tags);
-//                    }
-//                }
-            //   }
         };
         return this.$().attr({tabindex: 1}), this.$().focus();
     },

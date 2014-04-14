@@ -56,7 +56,8 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
         this.set("product_name", tag["product_name"]);
         this.set("description", tag["desc"]);
         this.set("linkTo", tag["linkto"]);
-        this.set("selectedDesc", tag["profile_id"]);  //selectedDesc is the profile id now
+       // console.log(tag);
+        this.set("selectedDesc","");  //selectedDesc is the profile id now
         this.set("selectedID", tag["profile_id"]);  //selectedDesc is the profile id now
         this.setThumbnailUrl(tag["pic_url"]);
         this.set("tag_id", tag_id);

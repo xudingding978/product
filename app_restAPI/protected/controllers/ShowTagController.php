@@ -33,7 +33,7 @@ class ShowTagController extends Controller {
                     $docID = $domain . "/profiles/" . $profile_id;
                     $tempMega = $cb->get($docID);
                     $mega = CJSON::decode($tempMega, true);
-                    $oldRecordDeep["photo"][0]['tags'][$i]["pic_url"] = $mega['profile'][0]['profile_hero_cover_url'];
+                    $oldRecordDeep["photo"][0]['tags'][$i]["pic_url"] = $mega['profile'][0]['profile_pic_url'];
                 }
             }
 
@@ -62,7 +62,7 @@ class ShowTagController extends Controller {
             //create the new tag
 
             if (isset($oldRecordDeep["photo"][0]['tags'])) {
-                for($i = 0;$i<sizeof($oldRecordDeep["photo"][0]['tags']);$i++) {
+                for ($i = 0; $i < sizeof($oldRecordDeep["photo"][0]['tags']); $i++) {
                     if ($oldRecordDeep["photo"][0]['tags'][$i]["tag_id"] === $tag_id) {
                         $oldRecordDeep["photo"][0]['tags'][$i]["link_to_click_count"] = $oldRecordDeep["photo"][0]['tags'][$i]["link_to_click_count"] + 1;
                         break;
@@ -317,50 +317,52 @@ class ShowTagController extends Controller {
         $linkToCompany = $request_array[6];
 
         $notification_id = (string) (rand(10000, 99999)) . $time_stamp . $currentUser;
-      //  $receiveEmail1 = "linzw07@gmail.com";
+        //  $receiveEmail1 = "linzw07@gmail.com";
         for ($i = 0; $i < sizeof($owner_ids); $i++) {
 
-            $ownerId = $owner_ids[$i];
-            $notificationObject = array();
-            $timeID = date_timestamp_get(new DateTime());
+            $ownerId = trim($owner_ids[$i]);
+            if ($ownerId !== "" && $ownerId !== null) {
+                $notificationObject = array();
+                $timeID = date_timestamp_get(new DateTime());
 
-            $notification_id = (string) (rand(10000, 99999)) . $timeID . $currentUser;
+                $notification_id = (string) (rand(10000, 99999)) . $timeID . $currentUser;
 
-            $notificationObject["notification_id"] = $notification_id;
-            $notificationObject["user_id"] = $currentUser;
-            $notificationObject["time"] = $time_stamp;
-            $notificationObject["type"] = "addTag";
-            $notificationObject["content"] = $photo_url;
-            $notificationObject["action_id"] = $photo_id;
-            $notificationObject["isRead"] = false;
+                $notificationObject["notification_id"] = $notification_id;
+                $notificationObject["user_id"] = $currentUser;
+                $notificationObject["time"] = $time_stamp;
+                $notificationObject["type"] = "addTag";
+                $notificationObject["content"] = $photo_url;
+                $notificationObject["action_id"] = $photo_id;
+                $notificationObject["isRead"] = false;
 
 
-            $notificationInfo = $this->getDomain() . "/users/" . $ownerId;
+                $notificationInfo = $this->getDomain() . "/users/" . $ownerId;
 
-            $cbs = $this->couchBaseConnection();
-            $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
-            $userInfo = CJSON::decode($notificationInfoDeep, true);
-            if (!isset($userInfo['user'][0]['notifications'])) {
-                $userInfo['user'][0]['notifications'] = array();
-            }
-            array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
-            if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
-                if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
-
-                      $receiveEmail = $userInfo['user'][0]['email'];
-                    $receiveName = $userInfo['user'][0]['display_name'];
-
-                    $this->sendEmail($receiveEmail, $receiveName, $photo_url, $currentUserName, $linkToCompany);
+                $cbs = $this->couchBaseConnection();
+                $notificationInfoDeep = $cbs->get($notificationInfo); // get the old user record from the database according to the docID string
+                $userInfo = CJSON::decode($notificationInfoDeep, true);
+                if (!isset($userInfo['user'][0]['notifications'])) {
+                    $userInfo['user'][0]['notifications'] = array();
                 }
-            } else {
-                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+                if ($cbs->set($notificationInfo, CJSON::encode($userInfo))) {
+                    if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
+
+                        $receiveEmail = $userInfo['user'][0]['email'];
+                        $receiveName = $userInfo['user'][0]['display_name'];
+
+                        $this->sendEmail($receiveEmail, $receiveName, $photo_url, $currentUserName, $linkToCompany);
+                    }
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+                }
             }
         }
     }
 
     public function sendEmail($receiveEmail, $receiveName, $photo_url, $currentUserName, $linkToCompany) {
 
-        //$receiveEmail = "dingding@hubstar.co";
+        $receiveEmail = "shuai@hubstar.co";
         $domain = $this->getDomain();
         // $domainWithoutAPI = $this->getDomainWihoutAPI();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");

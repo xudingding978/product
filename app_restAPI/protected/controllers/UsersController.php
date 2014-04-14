@@ -267,8 +267,8 @@ class UsersController extends Controller {
                 $items["collection"] = $collectionItem;
                 $items["profile_id"] = $profiles[$i]["profile_id"];
                 $items["profile_name"] = $profileData['profile'][0]["profile_name"];
-                if (isset($profileData['profile'][0]["profile_hero_cover_url"])) {
-                    $items["profile_hero_cover_url"] = $profileData['profile'][0]["profile_hero_cover_url"];
+                if (isset($profileData['profile'][0]["profile_pic_url"])) {
+                    $items["profile_hero_cover_url"] = $profileData['profile'][0]["profile_pic_url"];
                 }
                 array_unshift($collections, $items);
             }

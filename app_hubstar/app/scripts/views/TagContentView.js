@@ -5,6 +5,6 @@ HubStar.TagContentView = Ember.View.extend({
     },
     hideContent: function() {
         this.get("controller").set("showEachTagContent", false);
-    }
-
+    },
+mouseLeave: Ember.aliasMethod('hideContent')
 });

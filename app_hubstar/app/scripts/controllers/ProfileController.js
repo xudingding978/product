@@ -1218,16 +1218,17 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.get('controllers.profilePartners').set("partnerNew", "");
             }
         }
+        
         if(this.checkKeywordNum(this.get('projectCategoryDropdownContent'),update_profile_record.get('profile_package_name'))){
             
             if(this.getKeywordsNum(this.get('projectCategoryDropdownContent')) - update_profile_record.get('keywords').get('length') < 0){
-                this.get('controllers.applicationFeedback').statusObserver(null, "Profile cant updated, keywords no more than " + 
-                        this.getKeywordsNum(this.get('projectCategoryDropdownContent')) + " for " + this.get('projectCategoryDropdownContent')+
-                        ", please delete some keywords");               
+                this.get('controllers.applicationFeedback').statusObserver(null, "Please delete keywords, it can't exceed " + 
+                        this.getKeywordsNum(this.get('projectCategoryDropdownContent'))); 
+                $('#errorMessage2').attr('style', 'display:block');
                 this.set('projectCategoryDropdownContent',update_profile_record.get('profile_package_name'));               
             }           
         }else{
-
+            $('#errorMessage2').attr('style', 'display:none');
         update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
         this.setKeywordsNum(this.get('model').get('profile_package_name'));
         update_profile_record.set('profile_keywords_num', parseInt(this.get('keyword_num')));

@@ -93,8 +93,6 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         }
         fileSize = this.get("fileSize");
 
-        //   console.log(fileSize+"sdfdsf");
-
         if ((fileSize <= 25000000) && (addPhoto === true))
         {
             return true;

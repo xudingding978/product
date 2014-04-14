@@ -1191,10 +1191,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     saveUpdate: function() {
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
-        
+
         update_profile_record.set('profile_editors', this.get('editors'));
         update_profile_record.set('profile_keywords', this.get('keywords'));
-        
+
         update_profile_record.set('profile_regoin', this.get('region'));
         update_profile_record.set('profile_country', this.get('country'));
         update_profile_record.set('profile_boost', this.get('boost'));
@@ -1210,7 +1210,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.saveLink('profile_linkedin_link', 'linkedin');
         this.saveLink('profile_youtube_link', 'youtube');
 
-        
+
         if (this.get('controllers.profilePartners').get("partnerNew") !== undefined && this.get('controllers.profilePartners').get("partnerNew") !== null && this.get('controllers.profilePartners').get("partnerNew") !== "")
         {
             if (update_profile_record.get('profile_partner_ids').length !== this.get('controllers.profilePartners').get("partnerNew").length) {
@@ -1218,22 +1218,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.get('controllers.profilePartners').set("partnerNew", "");
             }
         }
-        
-        if(this.checkKeywordNum(this.get('projectCategoryDropdownContent'),update_profile_record.get('profile_package_name'))){
-            
-            if(this.getKeywordsNum(this.get('projectCategoryDropdownContent')) - update_profile_record.get('keywords').get('length') < 0){
-                this.get('controllers.applicationFeedback').statusObserver(null, "Please delete keywords, it can't exceed " + 
-                        this.getKeywordsNum(this.get('projectCategoryDropdownContent'))); 
-                $('#errorMessage2').attr('style', 'display:block');
-                this.set('projectCategoryDropdownContent',update_profile_record.get('profile_package_name'));               
-            }           
-        }else{
-            $('#errorMessage2').attr('style', 'display:none');
-        update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
-        this.setKeywordsNum(this.get('model').get('profile_package_name'));
-        update_profile_record.set('profile_keywords_num', parseInt(this.get('keyword_num')));
-        
-        update_profile_record.set('profile_boost', parseInt(this.get('boost')));
         update_profile_record.set('owner_contact_bcc_emails', this.get('direct_enquiry_provide_email'));
 
         update_profile_record.set('owner_contact_cc_emails', this.get('secondary_email'));
@@ -1245,14 +1229,27 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
         }
+        $('#errorMessage2').attr('style', 'display:none');
         
-        this.set('keyword_left', parseInt(this.get("keyword_num")) - update_profile_record.get('keywords').get('length'));
-       
-        
+        if (this.checkKeywordNum(this.get('projectCategoryDropdownContent'), update_profile_record.get('profile_package_name')) && this.getKeywordsNum(this.get('projectCategoryDropdownContent')) - update_profile_record.get('keywords').get('length') < 0) {
+
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please delete keywords, it can't exceed " +
+                    this.getKeywordsNum(this.get('projectCategoryDropdownContent')));
+            $('#errorMessage2').attr('style', 'display:block');
+            this.set('projectCategoryDropdownContent', update_profile_record.get('profile_package_name'));
+
+        } else {
+            
+            update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
+            this.setKeywordsNum(this.get('model').get('profile_package_name'));
+            update_profile_record.set('profile_keywords_num', parseInt(this.get('keyword_num')));
+            update_profile_record.set('profile_boost', parseInt(this.get('boost')));
+            this.set('keyword_left', parseInt(this.get("keyword_num")) - update_profile_record.get('keywords').get('length'));
+
             this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
             update_profile_record.store.save();
         }
-        
+
     },
     
 //    saveShowKeywords: function() {

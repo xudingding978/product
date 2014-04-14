@@ -339,15 +339,15 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
 //    setImageID: function(id) {
 //        this.set("objectID", id);
 //    },
-//    setTitle: function(title) {
-//        if (HubStar.get("chooseCollection") !== null && HubStar.get("chooseCollection") !== "" && HubStar.get("chooseCollection") !== undefined)
-//        {
-//            this.set("selectedTitle", HubStar.get("chooseCollection"));
-//        }
-//        else {
-//            this.set("selectedTitle", title);
-//        }
-//    },
+    setTitle: function(title) {
+        if (HubStar.get("chooseCollection") !== null && HubStar.get("chooseCollection") !== "" && HubStar.get("chooseCollection") !== undefined)
+        {
+            this.set("selectedTitle", HubStar.get("chooseCollection"));
+        }
+        else {
+            this.set("selectedTitle", title);
+        }
+    },
 //    setProfile: function(title) {
 //        if (HubStar.get("selectedID") !== null && HubStar.get("selectedID") !== "" && HubStar.get("selectedID") !== undefined)
 //        {

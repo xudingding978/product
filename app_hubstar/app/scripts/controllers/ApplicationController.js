@@ -458,7 +458,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             HubStar.set("isLogin", true);
 
             that.transitionToRoute("searchIndexTom");
-            that.init();
+            that.defaultSearch();
 
         });
 
@@ -864,7 +864,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             localStorage.userType = "email";
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndexTom');
-                            that.init();
+                            that.defaultSearch();
 
 
 

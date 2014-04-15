@@ -1033,6 +1033,7 @@ div.album-description-bg{
     position: absolute;
     right: 0px;
     top: 0px;
+
 }
 
 
@@ -1050,11 +1051,11 @@ div.album-description-bg{
 }
 
 .next {
-/*    cursor: url(../../../images/nextcursor.png), auto;*/
+    /*    cursor: url(../../../images/nextcursor.png), auto;*/
 }
 
 .previous{
-/*    cursor: url(../../../images/previouscursor.png), auto;*/
+    /*    cursor: url(../../../images/previouscursor.png), auto;*/
 }
 
 .close_text{
@@ -1199,13 +1200,14 @@ div.album-description-bg{
     background-color: white;
     overflow-y: scroll;
     overflow-x: hidden;
+    z-index: -1;
 }
 
 .article-objectview-right{
-    width: 15%;
+    width: 45%;
 }
 .article-objectview-left{
-
+    width: 55%;
 }
 
 .object-poster{
@@ -1841,7 +1843,7 @@ div.album-description-bg{
     width:300px;
     margin: 0px 0px 10px;
     height: 30px;
-        resize: none;
+    resize: none;
 }
 
 .tag_linkto {
@@ -1884,7 +1886,7 @@ div.album-description-bg{
 }
 
 .add-collection_select-collection{
-   
+
     padding: 10px;
     position: absolute;
     left: 4px;

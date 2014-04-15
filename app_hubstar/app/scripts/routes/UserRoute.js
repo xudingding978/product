@@ -74,7 +74,6 @@ $(window).scrollTop(0);
             this.transitionTo("collection", data);
         },
         transitionToArticle: function(article_id) {
-console.log("sdfsdfsdfdsfdsf");
             this.transitionTo("article", article_id);
             this.transitionTo("articlePhoto");
         }

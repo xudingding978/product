@@ -1,6 +1,7 @@
 
 HubStar.ShowTagController = Ember.ObjectController.extend({
     change_tag_show: false,
+    change_tag_show_2:false,
     selectTagProfile: false,
     photo_id: "", //selected photo's id
     profiles: [], // the list of profiles that user own
@@ -188,7 +189,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         tagInfo = JSON.stringify(tagInfo);
         var newTag = new Array();
         var that = this;
-
         requiredBackEnd('showTag', 'readTag', tagInfo, 'POST', function(params) {
 //set the model          
             var thatthat = that;
@@ -222,10 +222,22 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                             for (var i = 0; i < tags.length; i++)
                             {
                                 var tagDiv = "#tag_" + tags[i].tag_id;
-                                var center_y = $(window).height()/2;
-                                var center_x = ($(window).width() - 320)/2;
-                                var top = center_y-HubStar.get("pic_current_height")/2;
-                                var left = center_x-HubStar.get("pic_current_width")/2;
+                                var center_y = $(window).height() / 2;
+                                var isArticle = false;
+                                if (document.URL.search("article") !== -1)
+                                {
+                                    isArticle = true;
+                                }
+                                var center_x=0;
+                                if (isArticle === true) {
+                                     center_x = ($(window).width() * 0.55) / 2;
+                                }
+                                else
+                                {
+                                     center_x = ($(window).width() - 320) / 2;
+                                }
+                                var top = center_y - HubStar.get("pic_current_height") / 2;
+                                var left = center_x - HubStar.get("pic_current_width") / 2;
                                 var height = tags[i].pic_y * HubStar.get("pic_current_height") + top;  //set the tag's place which is the percentage of image and add the picture origin left point place
                                 var width = tags[i].pic_x * HubStar.get("pic_current_width") + left;
                                 $(tagDiv).css({top: height, left: width});

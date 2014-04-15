@@ -18,8 +18,14 @@ HubStar.ArticleView = Ember.View.extend({
                 mouseX = event.clientX - 265; // x and y axis
                 mouseY = event.clientY - 50;
 
-                that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - document.getElementById('tag_image_object').offsetLeft) / HubStar.get("pic_current_width")); //set 
-                that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY - document.getElementById('tag_image_object').offsetTop) / HubStar.get("pic_current_height"));
+                var center_y = $(window).height() / 2;
+                var  center_x = ($(window).width() * 0.55) / 2;
+                var top = center_y - HubStar.get("pic_current_height") / 2;
+                var left = center_x - HubStar.get("pic_current_width") / 2;
+
+                that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - left) / HubStar.get("pic_current_width")); //set 
+                that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY -top) / HubStar.get("pic_current_height"));
+                
                 if (that.get("controller").get("enableTag") === true)
                 {
                     that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
@@ -49,8 +55,14 @@ HubStar.ArticleView = Ember.View.extend({
                 var imgtag = $(this).parent(); // get the div to append the tagging entry
                 mouseX = event.clientX - 265; // x and y axis
                 mouseY = event.clientY - 50;
-                that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - document.getElementById('tag_image_object').offsetLeft) / HubStar.get("pic_current_width")); //set 
-                that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY - document.getElementById('tag_image_object').offsetTop) / HubStar.get("pic_current_height"));
+                 var center_y = $(window).height() / 2;
+                var  center_x = ($(window).width() * 0.55) / 2;
+                var top = center_y - HubStar.get("pic_current_height") / 2;
+                var left = center_x - HubStar.get("pic_current_width") / 2;
+
+                that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - left) / HubStar.get("pic_current_width")); //set 
+                that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY -top) / HubStar.get("pic_current_height"));
+                
                 if (that.get("controller").get("enableTag") === true)
                 {
 
@@ -77,12 +89,11 @@ HubStar.ArticleView = Ember.View.extend({
 
         var that = this;
         window.onresize = function() {
-            var pic_width = document.getElementById('tag_image_object').offsetWidth;
-            var pic_height = document.getElementById('tag_image_object').offsetHeight;
             var tags = that.get("controller").get("controllers.showTag").get("contentTags");
             if (tags !== undefined && tags !== "" && tags !== null)
             {
-                that.get("controller").windowResizeTags(tags, pic_width, pic_height);
+                that.get("controller").get("controllers.mega").photoSizeJudge(that.get("controller").get('selectedPhoto'));
+                that.get("controller").windowResizeTags(tags);
             }
         };
         return this.$().attr({tabindex: 1}), this.$().focus();
@@ -101,15 +112,6 @@ HubStar.ArticleView = Ember.View.extend({
         $("#article_text_action").css({height: height}).animate({"height": "210px"}, "slow");
         this.set('readContent', !this.get("readContent"));
         $('#read_more_cue').attr("style", "display:block;");
-    },
-    showMore: function() {
-        this.set('showContent', !this.get("showContent"));
-        $('.article-objectview-right').css('height', 'auto');
-        $(".article-objectview-right").animate({width: "45%"}, "slow");
-    },
-    showClosed: function() {
-        $(".article-objectview-right").animate({width: "15%"}, "slow");
-        this.set('showContent', !this.get("showContent"));
     },
     setArticleTag: function() {
 
@@ -171,7 +173,7 @@ HubStar.ArticleView = Ember.View.extend({
         { // pressed 'esc'
 
             //this.get("controller").transitionTo("search");
- this.get("controller").get("controllers.article").set("contentTagsArticle","");
+            this.get("controller").get("controllers.article").set("contentTagsArticle", "");
             var address = document.URL;
             var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
             var id = address.split("#")[1].split("/")[2];

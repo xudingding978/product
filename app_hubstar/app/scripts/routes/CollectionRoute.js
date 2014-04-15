@@ -31,10 +31,8 @@ HubStar.CollectionRoute = Ember.Route.extend({
         },
         transitionToArticle: function(id) {
             this.controllerFor("article").set("collectionArticleId", id);
-            var article = HubStar.Article.find(id);
-            this.transitionTo("userArticle", article);
-
-
+            var article = HubStar.Mega.find(id);
+                 this.transitionTo("userArticle", article);        
         },
         transitionToVideo: function(video_id) {
             this.transitionTo("userVideo", video_id);

@@ -20,8 +20,14 @@ HubStar.PhotoView = Ember.View.extend({
 
                 mouseX = e.clientX - 265; // x and y axis
                 mouseY = e.clientY - HubStar.get("changeHeight");
-                that.get("controller").get("controllers.showTag").set("pic_x", (e.clientX - document.getElementById('tag_image_object').offsetLeft) / HubStar.get("pic_current_width")); //set 
-                that.get("controller").get("controllers.showTag").set("pic_y", (e.clientY - document.getElementById('tag_image_object').offsetTop) / HubStar.get("pic_current_height"));
+                
+                var center_y = $(window).height() / 2;
+                var  center_x = ($(window).width() -320) / 2;
+                var top = center_y - HubStar.get("pic_current_height") / 2;
+                var left = center_x - HubStar.get("pic_current_width") / 2;
+                
+                that.get("controller").get("controllers.showTag").set("pic_x", (e.clientX - left) / HubStar.get("pic_current_width")); //set 
+                that.get("controller").get("controllers.showTag").set("pic_y", (e.clientY - top) / HubStar.get("pic_current_height"));
                 if (that.get("controller").get("enableTag") === true)
                 {
                     that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
@@ -31,10 +37,10 @@ HubStar.PhotoView = Ember.View.extend({
                     // $(".next").css({display: block});
                     that.get("controller").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
                 }
-                if (mouseY > 420)
+                if (mouseY > center_y)
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true); //chage tag show style
-                    mouseY = mouseY - 420;
+                    mouseY = mouseY - center_y;
                 }
                 else
                 {
@@ -51,44 +57,52 @@ HubStar.PhotoView = Ember.View.extend({
 
                 mouseX = event.clientX - 265; // x and y axis
                 mouseY = event.clientY - 50;
-                that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - document.getElementById('tag_image_object').offsetLeft) / HubStar.get("pic_current_width"));
-                that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY - document.getElementById('tag_image_object').offsetTop) / HubStar.get("pic_current_height"));
+               var center_y = $(window).height() / 2;
+                var  center_x = ($(window).width() -320) / 2;
+                var top = center_y - HubStar.get("pic_current_height") / 2;
+                var left = center_x - HubStar.get("pic_current_width") / 2;
+                
+                that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - left) / HubStar.get("pic_current_width")); //set 
+                that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY - top) / HubStar.get("pic_current_height"));
                 if (that.get("controller").get("enableTag") === true)
                 {
                     that.get("controller").set("inImage", true);
-                    console.log(that.get("controller").get("controllers.showTag").get("pic_x"));
                 }
                 else
                 {
                     //  $(".previous").attr('style', 'display:block');
                     that.get("controller").set("inImage", false);
                 }
-                if (mouseY > 420)
+                if (mouseY+50 > center_y)
                 {
-                    mouseY = mouseY - 420;
+                    mouseY = mouseY - center_y+70;
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true);
                 }
                 else
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", false);
                 }
-
+                if (mouseX<0)
+                {
+                    console.log("test");
+                    $("#savePhoto").css("left", "265px");
+                    that.get("controller").get("controllers.showTag").set("change_tag_show_2", true);
+                }
+                else
+                {
+                    that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
+                }
                 that.get("controller").previesImage(event, mouseX, mouseY);
 
             }
         });
         var that = this;
         window.onresize = function() {
-//            var pic_width = document.getElementById('tag_image_object').offsetWidth;
-//            var pic_height = document.getElementById('tag_image_object').offsetHeight;
-
             var tags = that.get("controller").get("controllers.showTag").get("contentTags");
             if (tags !== undefined && tags !== "" && tags !== null)
             {
-
                 that.get("controller").photoSizeJudge(that.get("controller").get('selectedPhoto'));
                 that.get("controller").windowResizeTags(tags);
-
             }
         };
         return this.$().attr({tabindex: 1}), this.$().focus();

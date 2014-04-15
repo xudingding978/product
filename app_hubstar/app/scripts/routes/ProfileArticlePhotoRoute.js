@@ -11,6 +11,9 @@ HubStar.ProfileArticlePhotoRoute = Ember.Route.extend({
         }
         this.controllerFor("masonryCollectionItems").set("type", "profile");
         var megaModel = HubStar.Mega.find(temp);
+         this.controllerFor("showTag").readTags(temp);
+
+        HubStar.set("isArticleTag", true);
         var that = this;
         megaModel.then(function() {           
            that.controllerFor('mega').getInitData(megaModel);

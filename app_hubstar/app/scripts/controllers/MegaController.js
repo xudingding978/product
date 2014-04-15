@@ -113,8 +113,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     $('#tagit').fadeIn();
                     $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
 
-                    $('#tagname').focus();
-                    $('#masonry_container').masonry(); //masonry();
+                    $('#tagname').focus();                  
                 }, 15);
             }
         } else
@@ -242,7 +241,20 @@ HubStar.MegaController = Ember.ArrayController.extend({
         {
             var tagDiv = "#tag_" + tags[i].tag_id;
             var center_y = $(window).height() / 2;
-            var center_x = ($(window).width() - 320) / 2;
+            var center_x = 0;
+            var isArticle = false;
+            if (document.URL.search("article") !== -1)
+            {
+                isArticle = true;
+            }
+            if (isArticle === true) {
+                center_x = ($(window).width() * 0.55) / 2;
+            }
+            else
+            {
+                center_x = ($(window).width() - 320) / 2;
+            }
+
             var top = center_y - HubStar.get("pic_current_height") / 2;
             var left = center_x - HubStar.get("pic_current_width") / 2;
             var height = tags[i].pic_y * HubStar.get("pic_current_height") + top;  //set the tag's place which is the percentage of image and add the picture origin left point place
@@ -389,7 +401,19 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var width = photoObj.get("photo_original_width");
 
         var max_height = $(window).height() * 0.95;
-        var max_width = ($(window).width() - 320) * 0.95;
+        var isArticle = false;
+        if (document.URL.search("article") !== -1)
+        {
+            isArticle = true;
+        }
+        var max_width = 0;
+        if (isArticle === true) {
+            max_width = ($(window).width() * 0.55) * 0.95;
+        }
+        else
+        {
+            max_width = ($(window).width() - 320) * 0.95;
+        }
         var widthJudge = false;
         if ((max_width / max_height) < (width / height))
         {
@@ -425,7 +449,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 HubStar.set("pic_current_width", Math.round(width / height * max_height));
             }
         }
-   
+
     },
     getInitData: function(megaObject) {
 

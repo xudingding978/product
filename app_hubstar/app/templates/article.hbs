@@ -178,13 +178,7 @@
             <div class="collapes-container_inner" style="padding: 0; height: 45px;">
 
 
-                <div  class="square-button hint--rounded hint--bottom"    >
-                {{#unless view.showContent}}
-                    <i class="fa fa-angle-double-left"  {{action showMore on="click" target="view"}}>&nbsp;<span style="font-size: 11px;"></span>&nbsp;</i>
-                {{else}}
-                    <i class="fa fa-angle-double-right" {{action showClosed on="click" target="view"}}>&nbsp;<span style="font-size: 11px;"></span>&nbsp;</i>
-                {{/unless}}
-                </div>
+      
 
                 <div  class="square-button hint--rounded hint--bottom"  data-hint="Like this Idea!" {{action addLike}}>
                       <i class="fa fa-thumbs-up">&nbsp;<span style="font-size: 11px;">{{controller.article.likes_count}}</span>&nbsp;</i>
@@ -376,55 +370,8 @@
                     {{/each}}
                 </div>
             </div>
-
         </div>
-
-
-        <!-- add the tag content-->
-
-
-
-
-        <div style=background-color:red;">
-            <div class="object-collapes-title" {{action setArticleTag on="click" target="view"}}  >
-                <div class="collapes-title_inner">
-                    Tags  {{controller.tagCount}}
-                </div>
-                <div class="dropdownicon">
-                    <i class="fa fa-angle-down" style="height: 16px; width: 16px;"></i>
-
-                </div>
-            </div> 
-
-
-            <div class="collapes-container"  id="article_tag_action" style="display:block">
-                {{#each controller.contentTagsArticle}}
-                <div style="width: 40%;padding: 10px 15px; min-height: 90px;border-bottom: 1px solid #eee;">
-                    <div id="tagImg" style="">
-                        <a href="#/profiles/{{unbound this.profile_id}}">     
-                            <img  {{bindAttr src= "this.pic_url"}}  style=""/></a>
-                    </div>
-                    <div style="float: left;  width: 67%;  margin: 5px 0px 5px 10px;">
-                        <div style='font-weight: bold; '>
-                            <a href="#/profiles/{{unbound this.profile_id}}">{{this.product_name}}</a>
-                        </div>
-                        <div style="line-height: 15px;" {{action addClickCount this.tag_id this.linkto}} >
-                             <a>{{this.desc}}</a>
-                        </div>
-                    </div>
-                </div>
-                {{/each}}
-            </div>
-
-
-        </div>
-        <!--end of tag content-->
-
-
-
     </div>
-
-
 </div>
 
 

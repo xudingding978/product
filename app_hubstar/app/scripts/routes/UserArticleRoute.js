@@ -14,13 +14,12 @@ HubStar.UserArticleRoute = Ember.Route.extend({
 
             var address = document.URL;
             var temp = address.split("#")[1].split("/")[6];
-        }
-
+        } 
+        this.controllerFor("article").set("accessFromSearchBoard",false);
         var megaModel = HubStar.Mega.find(temp);
         var that = this;
       
         megaModel.then(function() {       
-        
            that.controllerFor("article").getInitData(megaModel);
         },function() {
             

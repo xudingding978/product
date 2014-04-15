@@ -16,6 +16,7 @@ HubStar.ProfileArticleRoute = Ember.Route.extend({
             var address = document.URL;
             var temp = address.split("#")[1].split("/")[6];
         }
+        this.controllerFor("article").set("accessFromSearchBoard",false);
         var d = HubStar.Mega.find(temp);
         var that = this;
         d.then(function(){           

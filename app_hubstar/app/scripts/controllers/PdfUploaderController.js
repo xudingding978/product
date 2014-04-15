@@ -98,6 +98,7 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
        for (var i=0; i < this.get('pdfArray').get('length'); i ++){
            this.get('pdfArray').objectAt(i).store.save();
        }
+       this.cancel();
     },
     addPdfObject: function(e, name, type, size) {
         if (size <= 25000000)

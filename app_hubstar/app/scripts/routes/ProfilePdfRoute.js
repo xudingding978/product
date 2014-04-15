@@ -7,17 +7,9 @@
 HubStar.ProfilePdfRoute = Ember.Route.extend({
     setupController: function(controller, model) {
 
-// if (this.controllerFor('checkingLoginStatus').popupLogin())
-//        {
-            console.log(this.controllerFor('profile').get('is_authentic_user'));
-         this.controllerFor('profile').set('profileSelectionStatus', 'Pdf');
-         this.controllerFor('profile').set('partnerTag', false);
-         this.controllerFor('profile').set('collectionTag', false);
-         this.controllerFor('profile').set('followerProfileTag', false);         
-         this.controllerFor('profile').set('reviewTag', false);  
-         this.controllerFor('profile').set('videoTag', false);  
-         this.controllerFor('profile').set('pdfTag', true);  
-//        }
+         console.log(this.controllerFor('profile').get('is_authentic_user'));
+         this.controllerFor('profile').selectPdf();
+
     },
     model: function(params) {
 

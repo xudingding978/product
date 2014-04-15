@@ -1071,9 +1071,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('videoTag', false);
             this.set('pdfTag', true);
             this.transitionToRoute('profilePdf');
-            setTimeout(function() {
-                $('#masonry_user_container').masonry("reload");
-            }, 200);
+//            setTimeout(function() {
+//                $('#masonry_user_container').masonry("reload");
+//            }, 200);
         }
     },
     saveUpdateAboutUs: function() {

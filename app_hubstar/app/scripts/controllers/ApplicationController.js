@@ -41,7 +41,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     oldChildren: 0,
     test: false,
     user: null,
-    from: null,
+    from: 0,
     profiles: null,
     size: null,
     photo_url: null,
@@ -385,7 +385,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
 
 
-                    that.set("from", that.get("size"));
+                    //that.set("from", that.get("size"));
 
                     var d = new Date();
                     var end = d.getTime();

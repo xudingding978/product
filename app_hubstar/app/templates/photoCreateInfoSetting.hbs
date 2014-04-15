@@ -22,9 +22,19 @@
     <div style="position: relative; width: 29%;display: inline-block;height: 150px;vertical-align: top;overflow: hidden;margin: 15px;line-height: 150px;text-align: center;">
         <img {{bindAttr src="url"}} style=""/>
     </div>
-    <div style="position: relative; width: 63%;display: inline-block; height: 150px; vertical-align: top; overflow: hidden; margin: 15px;  margin-left: 0;">
-        {{view Ember.TextField valueBinding="title"  id="" class="edit_photo-titile_field"  }} 
-        {{view Ember.TextArea valueBinding="caption"  id="" class="edit_photo-caption_field2"}} 
+    <div style="position: relative; width: 63%;display: inline-block; height: 350px; vertical-align: top; overflow: hidden; margin: 15px;  margin-left: 0;">
+        <div style="width: 100%">
+            <div style="width: 20%; display:inline-block">File name: </div>
+            <div style="width: 58%; display:inline-block"  class="disabled-btn" > {{filename}} </div>
+        </div>
+        <div style="width: 100%">
+            <div style="width: 20%; display:inline-block">Title*: </div>
+            <div style="width: 58%; display:inline-block"> {{view Ember.TextField valueBinding="title"  id="" class="edit_photo-titile_field"  }} </div>
+        </div>
+        <div style="width: 100%">
+            <div style="width: 20%; display:inline-block">Description: </div> 
+            <div style="width: 58%; display:inline-block"> {{view Ember.TextArea valueBinding="caption"  id="" class="edit_photo-caption_field2"}} </div>
+        </div>
     </div>
     {{/each}}
 

@@ -9,7 +9,7 @@ HubStar.HtmlEditorView = Ember.View.extend({
 
         editor.on("load", function() {
             var composer = editor.composer;
-            composer.selection.selectNode(editor.composer.element.querySelector("br"));
+            //composer.selection.selectNode(editor.composer.element.querySelector("br"));
         });
     }
 

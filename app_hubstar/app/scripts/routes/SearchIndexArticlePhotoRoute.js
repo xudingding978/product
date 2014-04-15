@@ -13,11 +13,14 @@ HubStar.SearchIndexArticlePhotoRoute = Ember.Route.extend({
         var that = this;
         megaModel.then(function() {           
            that.controllerFor('mega').getInitData(megaModel);
+        },function() {
+            
+           that.transitionTo('fourOhFour',"404");
         });  
         
     },
     model: function(params) {
-        var model = HubStar.Mega.find(params.photo_id);
+        var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});
         this.controllerFor("mega").set("clickOrRoute", true);
         return model;
     },

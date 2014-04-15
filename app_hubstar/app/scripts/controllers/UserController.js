@@ -85,7 +85,6 @@ HubStar.UserController = Ember.Controller.extend({
     isTalk: false,
     init: function()
     {
-
     },
     checkedAction: function(checkedboxselection) {
         $("#" + checkedboxselection).prop('checked', !$("#" + checkedboxselection).prop('checked'));
@@ -178,6 +177,10 @@ HubStar.UserController = Ember.Controller.extend({
                 {
                     this.get("subcate").objectAt(2)["isSelection"] = true;
                 }
+//                else if (items[i] === "authority")
+//                {
+//                    this.get("subcate").objectAt(3)["isSelection"] = true;
+//                }
             }
         }
         else if (this.get("notification_setting") === null)
@@ -191,7 +194,7 @@ HubStar.UserController = Ember.Controller.extend({
 
             this.get("subcate").objectAt(2)["isSelection"] = true;
 
-
+//            this.get("subcate").objectAt(3)["isSelection"] = true;
         }
     },
     setUser: function()
@@ -934,7 +937,7 @@ HubStar.UserController = Ember.Controller.extend({
 
             this.set('messageTag', false);
 
-            this.transitionToRoute('following', model);
+            this.transitionToRoute('following');
 
 
 

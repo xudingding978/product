@@ -35,9 +35,7 @@ HubStar.Profile = DS.Model.extend({
     profile_website: DS.attr('string'),
     profile_website_url: DS.attr('string'),
     profile_client_name: DS.attr('string'),
-    profile_editors: DS.attr('string'),
-    profile_domains: DS.attr('string'),
-    profile_creater: DS.attr('string'),
+    profile_domains: DS.attr('string'), 
     profile_partner_ids: DS.attr('string'),
     profile_is_active: DS.attr('string'),
     profile_is_deleted: DS.attr('string'),
@@ -51,7 +49,11 @@ HubStar.Profile = DS.Model.extend({
     profile_average_review: DS.attr('string'),
     profile_average_review_length: DS.attr('string'),
     profile_google_map: DS.attr('string'),
-    owner: DS.attr('string'),
+    profile_creator: DS.attr('string'), //user id
+    profile_administrator: DS.attr('string'),//user id
+    profile_editor: DS.attr('string'),//user id
+    owner: DS.attr('string'),// email address for people who buy the profile
+    profile_editors: DS.attr('string'),// email address  
     owner_contact_email: DS.attr('string'),
     owner_contact_bcc_emails: DS.attr('string'),
     owner_contact_cc_emails: DS.attr('string'),
@@ -62,11 +64,10 @@ HubStar.Profile = DS.Model.extend({
     show_keyword_id: DS.attr('string'),
     about_us: DS.hasMany('HubStar.AboutUs'),
     title_modify_time: DS.attr('number'),
-    show_template: DS.attr('boolean')
-//    getTenKeywords: function() {
-//        var tenKeywords =  this.get('keywords').slice(0,10);
-//        return tenKeywords;
-//    }.property('keywords')
+    show_template: DS.attr('boolean'),
+    getID: function() {
+        return this.get('id').replace(/[^\w\s]/gi, '');
+    }.property('id')
 });
 
 

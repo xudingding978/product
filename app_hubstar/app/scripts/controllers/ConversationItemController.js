@@ -108,6 +108,11 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var conversationtContent = this.get('messageContent');
+        var conversationImageSource=this.get("newStyleImageSource");
+        var  conversationImageName = this.get('newStyleImageName');
+
+        if(conversationtContent||conversationImageSource||conversationImageName){
+        
         this.set("isPosting", false);
         var commenter_id = this.get("currentUser").get('id');
         var conversationId = this.get("id");
@@ -187,6 +192,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
                     if (params["msg"] !== null) {
                         conversationItems["msg"] = multiRow(params["msg"]);
                     }
+
                     that.get('controllers.conversation').get("conversationContent").objectAt(i).get("ConversationCollection").insertAt(0, conversationItems);
                     if (that.get("contentFollowerPhoto") !== null) {
                         for (var j = 0; j < that.get("contentFollowerPhoto").length; j++)
@@ -213,6 +219,8 @@ HubStar.ConversationItemController = Ember.Controller.extend({
                 }, 100);
             }, 200);
         });
+
+    }
 
     },
     invitePeople: function(id)
@@ -247,13 +255,13 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         $('#closeComment').attr('style', 'display:inline-block');
         $('#showMoreComment').attr('style', 'display:none');
         $('#messageData').attr('style', 'display: block; padding: 5px 20px;');
-        $('#masonry_user_container').masonry("reload");
+        $('#masonry_user_container').masonry();
     },
     closeMore: function(id) {
         $('#closeComment').attr('style', 'display:none');
         $('#showMoreComment').attr('style', 'display:inline-block');
         $('#messageData').attr('style', 'display: none');
-        $('#masonry_user_container').masonry("reload");
+        $('#masonry_user_container').masonry();
     },
     profileStyleImageDrop: function(e, name)
     {

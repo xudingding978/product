@@ -13,7 +13,6 @@ HubStar.ReviewListView = Ember.View.extend({
         });
 
     }
-
 });
 
 

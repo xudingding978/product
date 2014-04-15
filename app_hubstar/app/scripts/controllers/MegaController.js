@@ -187,7 +187,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
     getInitData: function(megaObject) {
         var that = this;
         megaObject.then(function() {
-            //if (megaObject.get("isLoaded")) {
             that.set("is_article_video", true);
 
             if (megaObject.get("type") === 'article')
@@ -261,23 +260,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                         that.addRelatedData(megaObject);  //it is for profile's collection
                     }
-                    that.checkAuthenticUser();
                     that.getCommentsById(megaObject.id);
                 }
             }
-            
-            setTimeout(function() {
-                if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
-                {
-                    megaObject.set("view_count", 1);
-                }
-                else
-                {
-                    megaObject.set("view_count", megaObject.get("view_count") + 1);
-                }
-                megaObject.store.save();
-            }, 5000);
-                
+            that.checkAuthenticUser();
+            var tempComment = [megaObject.id];
+            requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function(params) {
+            });
         });
 
     },
@@ -690,7 +679,17 @@ HubStar.MegaController = Ember.ArrayController.extend({
     dropdownPhotoSetting: function(param) {
         this.set('sharePhotoUrl', this.get('selectedPhoto').get('photo_image_thumbnail_url'));
         this.set('sharePhotoName', this.get('selectedPhoto').get('photo_title'));
-        $('#dropdown_id_' + param).toggleClass('hideClass');
+        
+           var id='#dropdown_id_' + param+'_'+this.get('megaResouce').get('id');
+        $(id).toggleClass('hideClass');
+        $(id).click(function() {
+            $(this).removeClass('hideClass');
+        }).mouseleave(function() {
+            $(this).addClass('hideClass');
+        });
+        
+        
+//        $('#dropdown_id_' + param+'_'+this.get('megaResouce').get('id')).toggleClass('hideClass');
     },
     switchCollection: function() {
 
@@ -727,18 +726,28 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
             if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
             {
-
                 // this.transitionTo("indexIndex"); //search page
                 var address = document.URL;
                 var search_id = address.split("#")[1].split("/")[2];
+                var object_type = address.split("#")[1].split("/")[1];
                 if (search_id === "search") //this go to the search index
                 {
                     this.transitionTo("searchIndexTom");
                 }
                 else
                 {
-                    HubStar.set("escVideo", true);
-                    this.transitionTo("search", {id: search_id});
+
+                    if (object_type === "photos" || object_type === "articles" || object_type === "videos")
+                    {
+                       
+                        var m = HubStar.Mega.find(search_id);
+                        this.transitionTo("search", {id: m.get("owner_title")});
+                    }
+                    else
+                    {
+                        HubStar.set("escVideo", true);
+                        this.transitionTo("search", {id: search_id});
+                    }
                 }
 
 //                $('#masonry_wrapper').attr('style', "top:100px;position:relative");
@@ -930,14 +939,19 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
+        var role = permissionController.checkAuthenticEdit(that.get("megaResouce").get("profile_creator"), that.get("megaResouce").get("profile_administrator"), that.get("megaResouce").get("profile_editor"));
+        var is_edit = false;
+        if (role !== "")
+        {
+            is_edit = true;
+        }
+
         var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
-        that.set("is_authentic_user", is_authentic_user);
-        currentUser.addObserver('isLoaded', function() {
+        that.set("is_authentic_user", is_authentic_user || is_edit);
+        currentUser.then(function() {
             var current_user_email = currentUser.get('email');
-            if (currentUser.get('isLoaded')) {
-                var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
-                that.set("is_authentic_user", is_authentic_user);
-            }
+            var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
+            that.set("is_authentic_user", is_authentic_user || is_edit);
         });
     },
     // share to social facebook

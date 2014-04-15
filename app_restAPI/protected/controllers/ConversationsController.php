@@ -172,8 +172,7 @@ class ConversationsController extends Controller {
             $newConversationItem["sender_photo_url_large"] = $oldcommenterInfo['user'][0]["photo_url_large"];
 
             if ($newStyleImage !== null && $photo_name !== "") {
-                $photoController = new PhotosController(); //    this.get("controllers.PhotosController").             
-                //error_log(var_export($newStyleImage, true));
+                $photoController = new PhotosController(); //    this.get("controllers.PhotosController").    
                 $data_arr = $photoController->convertToString64($newStyleImage);
                 //$data_arr = $photoController->convertToString64($photo_string);      
                 $photo = imagecreatefromstring($data_arr['data']);
@@ -363,24 +362,26 @@ class ConversationsController extends Controller {
                         $receiveName = $userInfo['user'][0]['display_name'];
                         $notificationCountFollow = 0;
                         $notificationCountMessage = 0;
-
+                        $notificationCountAuthority = 0;
                         for ($j = 0; $j < sizeof($userInfo['user'][0]['notifications']); $j++) {
                             if ($userInfo['user'][0]['notifications'][$j]["isRead"] === false) {
                                 if ($userInfo['user'][0]['notifications'][$j]["type"] === "follow" || $userInfo['user'][0]['notifications'][$j]["type"] === "unFollow") {
                                     $notificationCountFollow++;
+                                } else if ($userInfo['user'][0]['notifications'][$i]["type"] === "authority") {
+                                    $notificationCountAuthority++;
                                 } else {
                                     $notificationCountMessage++;
                                 }
                             }
                         }
-                        $this->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId);
+                        $this->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId, $notificationCountAuthority);
                     }
                 }
             }
         }
     }
 
-    public function sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId) {
+    public function sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId, $notificationCountAuthority) {
 
         //$receiveEmail = "dingding@hubstar.co";
         $domain = $this->getDomain();
@@ -404,7 +405,7 @@ class ConversationsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->confirmationEmailForm($domainWithoutAPI, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId)
+                        "Data" => $this->confirmationEmailForm($domainWithoutAPI, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId, $notificationCountAuthority)
                     )
                 ),
             ),
@@ -412,7 +413,7 @@ class ConversationsController extends Controller {
         $amazonSes->sendEmail($args);
     }
 
-    public function confirmationEmailForm($domainWithoutAPI, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId) {
+    public function confirmationEmailForm($domainWithoutAPI, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId, $notificationCountAuthority) {
 //        $photo_url_large_follow = null;
 //        $photo_url_large_message = null;
 //        $cb = $this->couchBaseConnection();
@@ -475,6 +476,14 @@ class ConversationsController extends Controller {
                         </div>
                         <div style="float: left;">' . $notificationCountMessage . ' new messages</div>
                     </div>
+                    <div>
+                        <div style="margin: 0 5px;float: left;">
+                            <div style="width: 30px;height:30px;">         
+                                <img src="http://develop.devbox.s3.amazonaws.com/message-icon-for-email.png"  style="width: 30px;height:30px;float: left"/>
+                            </div>
+                        </div>
+                        <div style="float: left;">' . $notificationCountAuthority . ' new authorities</div>
+                    </div>
                 </div>
 
                 <div style="font-size: 1.5em;margin: 20px 0;"><a style="cursor: pointer;color: #05B1E5;" href="http://' . $domainWithoutAPI . '/#/users/' . $ownerId . '/messagecenter/notifications">View and manage notifications</a> on myTrends</div>
@@ -495,7 +504,6 @@ class ConversationsController extends Controller {
 
             $docIDDeep = $this->getDomain() . "/conversations/" . $conversationID;
 
-            //  error_log(var_export($id, true));
             $cb = $this->couchBaseConnection();
             $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
             $oldRecordDeep = CJSON::decode($oldDeep, true);
@@ -523,8 +531,7 @@ class ConversationsController extends Controller {
             }
 
             if ($newStyleImage !== null && $photo_name !== "") {
-                $photoController = new PhotosController(); //    this.get("controllers.PhotosController").             
-                //error_log(var_export($newStyleImage, true));
+                $photoController = new PhotosController(); //    this.get("controllers.PhotosController").  
                 $data_arr = $photoController->convertToString64($newStyleImage);
                 //$data_arr = $photoController->convertToString64($photo_string);      
                 $photo = imagecreatefromstring($data_arr['data']);

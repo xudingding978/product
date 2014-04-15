@@ -66,6 +66,128 @@ class UsersController extends Controller {
         $request_arr = CJSON::decode($request_json, true);
     }
 
+    public function actionSendNotification() {
+        $request_array = (CJSON::decode(file_get_contents('php://input')));
+        $administrators = $request_array[0];
+        $editors = $request_array[1];
+        $this->sendDeleteNotification($administrators[0]);
+        $this->sendAddNotification($administrators[1]);
+        $this->sendAddNotification($editors[1]);
+        $this->sendDeleteNotification($editors[0]);
+    }
+
+    public function sendDeleteNotification($delData) {
+        $cb = $this->couchBaseConnection();
+        for ($i = 0; $i < sizeof($delData); $i++) {
+            $docID = $this->getDomain() . "/users/" . $delData[$i][1];
+            $old = $cb->get($docID);
+            $userInfo = CJSON::decode($old, true);
+            $notificationObject = array();
+            $timeID = new DateTime();
+            $time = date_timestamp_get($timeID);
+            $notification_id = (string) (rand(10000, 99999)) . $time . $delData[$i][1];
+            $notificationObject["notification_id"] = $notification_id;
+            $notificationObject["user_id"] = $delData[$i][0];
+            $notificationObject["time"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+            $notificationObject["type"] = "authority";
+            $notificationObject["content"] = "del," . $delData[$i][2];
+            $notificationObject["action_id"] = $delData[$i][0];
+            $notificationObject["isRead"] = false;
+            $conversationController = new ConversationsController();
+
+
+            if (!isset($userInfo['user'][0]['notifications'])) {
+                $userInfo['user'][0]['notifications'] = array();
+            }
+            array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+
+            if (isset($userInfo['user'][0]["profiles"])) {
+                for ($j = 0; $j < sizeof($userInfo['user'][0]["profiles"]); $j++) {
+                    if ($userInfo['user'][0]["profiles"][$j]["profile_id"] === $delData[$i][0]) {
+                        array_splice($userInfo['user'][0]["profiles"], $j, 1);
+                    }
+                }
+            }
+            if ($cb->set($docID, CJSON::encode($userInfo))) {
+                if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
+                    $receiveEmail = $userInfo['user'][0]['email'];
+                    $receiveName = $userInfo['user'][0]['display_name'];
+                    $notificationCountFollow = 0;
+                    $notificationCountMessage = 0;
+                    $notificationCountAuthority = 0;
+                    for ($j = 0; $j < sizeof($userInfo['user'][0]['notifications']); $j++) {
+                        if ($userInfo['user'][0]['notifications'][$j]["isRead"] === false) {
+                            if ($userInfo['user'][0]['notifications'][$j]["type"] === "follow" || $userInfo['user'][0]['notifications'][$j]["type"] === "unFollow") {
+                                $notificationCountFollow++;
+                            } else if ($userInfo['user'][0]['notifications'][$j]["type"] === "authority") {
+                                $notificationCountAuthority++;
+                            } else {
+                                $notificationCountMessage++;
+                            }
+                        }
+                    }
+
+                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $delData[$i][1], $notificationCountAuthority);
+                }
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
+        }
+    }
+
+    public function sendAddNotification($addData) {
+        $cb = $this->couchBaseConnection();
+        for ($i = 0; $i < sizeof($addData); $i++) {
+            $docID = $this->getDomain() . "/users/" . $addData[$i][1];
+            $old = $cb->get($docID);
+            $userInfo = CJSON::decode($old, true);
+            $notificationObject = array();
+            $timeID = new DateTime();
+            $time = date_timestamp_get($timeID);
+            $notification_id = (string) (rand(10000, 99999)) . $time . $addData[$i][1];
+            $notificationObject["notification_id"] = $notification_id;
+            $notificationObject["user_id"] = $addData[$i][0];
+            $notificationObject["time"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+            $notificationObject["type"] = "authority";
+            $notificationObject["content"] = "add," . $addData[$i][2];
+            $notificationObject["action_id"] = $addData[$i][0];
+            $notificationObject["isRead"] = false;
+            $conversationController = new ConversationsController();
+
+
+            if (!isset($userInfo['user'][0]['notifications'])) {
+                $userInfo['user'][0]['notifications'] = array();
+            }
+            array_unshift($userInfo['user'][0]["notifications"], $notificationObject);
+
+
+            if ($cb->set($docID, CJSON::encode($userInfo))) {
+                if (!isset($userInfo['user'][0]['notification_setting']) || strpos($userInfo['user'][0]['notification_setting'], "email") !== false) {
+                    $receiveEmail = $userInfo['user'][0]['email'];
+                    $receiveName = $userInfo['user'][0]['display_name'];
+                    $notificationCountFollow = 0;
+                    $notificationCountMessage = 0;
+                    $notificationCountAuthority = 0;
+                    for ($j = 0; $j < sizeof($userInfo['user'][0]['notifications']); $j++) {
+                        if ($userInfo['user'][0]['notifications'][$j]["isRead"] === false) {
+                            if ($userInfo['user'][0]['notifications'][$j]["type"] === "follow" || $userInfo['user'][0]['notifications'][$j]["type"] === "unFollow") {
+                                $notificationCountFollow++;
+                            } else if ($userInfo['user'][0]['notifications'][$j]["type"] === "authority") {
+                                $notificationCountAuthority++;
+                            } else {
+                                $notificationCountMessage++;
+                            }
+                        }
+                    }
+
+                    $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $addData[$i][1], $notificationCountAuthority);
+                }
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
+        }
+    }
+
     public function actionReadCollection() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $user_id = $request_array[0];
@@ -141,12 +263,30 @@ class UsersController extends Controller {
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $doc_id = $this->getDomain() . "/users/" . $id;
-
+            $domain = $this->getDomain();
             $reponse = $cb->get($doc_id);
             $respone_user = CJSON::decode($reponse, true);
-            $respone_user_data = CJSON::encode($respone_user['user'][0]);
 
-            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
+            if (isset($respone_user['user'][0]['profiles'])) {
+                for ($i = 0; $i < sizeof($respone_user['user'][0]['profiles']); $i++) {
+
+                    $url = $domain . "/profiles/" . $respone_user['user'][0]['profiles'][$i]['profile_id'];
+                    $tempRecord = $cb->get($url);
+                    $oldRecord = CJSON::decode($tempRecord, true);
+                    if (isset($oldRecord['profile'][0]['profile_name']) && isset($oldRecord['profile'][0]['profile_pic_url'])) {
+                        $respone_user['user'][0]['profiles'][$i]['profile_name'] = $oldRecord['profile'][0]['profile_name'];
+                        $respone_user['user'][0]['profiles'][$i]['profile_pic'] = $oldRecord['profile'][0]['profile_pic_url'];
+                    }
+                }
+            }
+
+
+            $respone_user_data = CJSON::encode($respone_user['user'][0]);
+            if ($respone_user === null) {
+                $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . '}';
+            } else {
+                $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $respone_user_data . '}';
+            }
             $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -246,19 +386,15 @@ class UsersController extends Controller {
     protected function getImageIdentifier($imageInfo, $url) {
         $return_arr = array();
         if (strpos($imageInfo['mime'], 'jpeg')) {
-            error_log('getImageIdentifier = jpeg');
             $im = imagecreatefromjpeg($url);
             $return_arr['type'] = 'image/jpeg';
         } elseif (strpos($imageInfo['mime'], 'png')) {
-            error_log('getImageIdentifier = png');
             $im = imagecreatefrompng($url);
             $return_arr['type'] = 'image/jpeg';
         } elseif (strpos($imageInfo['mime'], 'gif')) {
-            error_log('getImageIdentifier = gif');
             $im = imagecreatefromgif($url);
             $return_arr['type'] = 'image/gif';
         } elseif (strpos($imageInfo['mime'], 'bmp')) {
-            error_log('getImageIdentifier = bmp');
             $im = imagecreatefromwbmp($url);
             $return_arr['type'] = 'image/jpeg';
         }
@@ -306,8 +442,6 @@ class UsersController extends Controller {
         if ($cb->delete($url)) {
             if ($cb->set($url, $tempUpdateResult)) {
                 $this->sendResponse(204);
-                error_log($url);
-                error_log(" saved to couchbase successful");
             } else {
                 $this->sendResponse(500, 'something wrong');
             }
@@ -340,7 +474,6 @@ class UsersController extends Controller {
     public function actionUpdateStyleImage() {
         $payloads_arr = CJSON::decode(file_get_contents('php://input'));
         $photo_string = $payloads_arr['newStyleImageSource'];
-        error_log($photo_string);
 
         $photo_name = $payloads_arr['newStyleImageName'];
         $mode = $payloads_arr['mode'];

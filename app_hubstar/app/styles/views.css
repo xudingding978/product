@@ -682,12 +682,12 @@ div.album-description-bg{
     /*min-width: 335px;
     max-width:335px;
     min-height: 335px;
- */
-     min-height:335px;
-     max-height:345px;
-     min-width:338px;
-     
-    } 
+    */
+    min-height:335px;
+    max-height:345px;
+    min-width:338px;
+
+} 
 
 .album-info{
     padding: 15px 10px 5px;
@@ -1055,6 +1055,11 @@ div.album-description-bg{
     cursor: url(../../../images/previouscursor.png), auto;
 }
 
+.close_text{
+    position: relative;
+    left: 34px;
+    top: 12px;
+}
 
 .closeview{
     cursor: pointer;
@@ -1071,6 +1076,13 @@ div.album-description-bg{
     -o-transition: all 0.8s ease;
     z-index: 100;
 }
+
+#close_article_wrapper, 
+#close_video_wrapper,
+#close_photo_wrapper {
+    right: 44px;
+}
+
 
 .closeview:hover{
     color: #fff;
@@ -1231,9 +1243,9 @@ div.album-description-bg{
 
 .poster_user{
     position: relative;
-    vertical-align: middle;
+    vertical-align: top;
     display: inline-block;
-    width: 170px;
+    width: 60%;
 }
 
 .poster-name{
@@ -1322,7 +1334,7 @@ div.album-description-bg{
 }
 
 .classfication{
-cursor: pointer;
+    cursor: pointer;
     display: inline-block;
     width: auto;
     position: relative;
@@ -1622,12 +1634,13 @@ cursor: pointer;
     line-height: 30px;
     margin-bottom: 10px;
     word-break: break-word;
+    text-transform: capitalize;
 
 }
 
 .article-text{  
-    font-size: 13px;
-    line-height: 16px;
+    font-size: 0.9em;
+    line-height: 1.6em;
 }
 
 .caption-title{
@@ -1648,6 +1661,11 @@ cursor: pointer;
     line-height: 20px;
     margin-bottom: 12px;
 }
+
+.credits_text{
+    font-size: 1em;
+}
+
 
 
 .comment-frame{
@@ -1812,7 +1830,7 @@ cursor: pointer;
 }
 
 .collect_newcollection-name{
-    width: 240px;
+    width: 180px;
     padding: 4px;
 }
 
@@ -1823,6 +1841,7 @@ cursor: pointer;
     padding: 5px 8px;
     cursor: pointer;
     text-align: left;
+    overflow: hidden;
 }
 
 .choose-exist-collection:hover{
@@ -1844,7 +1863,7 @@ cursor: pointer;
 }
 
 .add-collection_select-collection{
-    height: 240px;
+   
     padding: 10px;
     position: absolute;
     left: 4px;
@@ -1854,6 +1873,7 @@ cursor: pointer;
     -moz-box-shadow: 0 0px 1px #888;
     box-shadow: 0 0px 1px #888;
     z-index: 11;
+    width: 334px;
 }
 
 .edit-btn{
@@ -1896,10 +1916,35 @@ cursor: pointer;
     -moz-background-clip: padding-box;
     background-clip: padding-box;
     margin: 0;
-
     text-align: left;
     padding: 0;
-    top:65px;
+}
+
+
+.edit-object-ul:before{
+    content: "";
+    position: absolute;
+    top: -7px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #fff;
+    z-index: 11;
+    left: 65px;
+}
+
+.edit-object-ul:after{
+    content: "";
+    position: absolute;
+    top: -8px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #888;
+    z-index: 10;
+    left: 65px;
 }
 
 

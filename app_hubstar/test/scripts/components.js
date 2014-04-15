@@ -5636,6 +5636,17 @@ function createNavigatorId() {
             dateObject.getTime().toString();
     return  result.toString();
 }
+function createCommentid() {
+
+    //var dateObject = new Date();
+    var randomnumber = Math.random().toString().slice(2, 12);
+    randomnumber = randomnumber.toString();
+    randomnumber = removeZero(randomnumber);
+    var result = randomnumber;
+            //dateObject.getTime().toString();
+
+    return  result.toString();
+}
 
 function removeZero(string)
 {
@@ -18113,7 +18124,7 @@ city_states['Fiji'] = 'Suva|Central|Eastern|Northern|Rotuma|Western';
 city_states['Kiribati'] = 'Tarawa|Abaiang|Abemama|Aranuka|Arorae|Banaba|Beru|Butaritari|Gilberts (Central)|Gilberts (Northern)|Gilberts (Southern)|Kanton|Kiritimati|Kuria|Line Islands|Maiana|Makin|Marakei|Nikunau|Nonouti|Onotoa|Phoenix Islands|Tabiteuea|Tabuaeran|Tamana|Teraina';
 city_states['Micronesia'] = 'Palikir|Chuuk (Truk)|Kosrae|Pohnpei|Yap';
 city_states['Nauru'] = 'Yaren|Aiwo|Anabar|Anetan|Anibare|Baiti|Boe|Buada|Denigomodu|Ewa|Ijuw|Meneng|Nibok|Uaboe';
-city_states['New Zealand'] = 'Wellington|Akaroa|Amuri|Ashburton|Auckland|Banks Peninsula|Bay of Islands|Bay of Plenty|Bruce|Buller|Canterbury|Carterton|Chatham Islands|Cheviot|Christchurch|Clifton|Clutha|Cook|Dannevirke|Dunedin|Egmont|Eketahuna|Ellesmere|Eltham|Eyre|Far North|Featherston|Franklin|Gisborne|Golden Bay|Gore|Great Barrier Island|Grey|Hamilton|Hastings|Hauraki Plains|Hawera|Hawke\'s Bay|Heathcote|Hikurangi|Hobson|Hokianga|Horowhenua|Hurunui|Hutt|Inangahua|Inglewood|Invercargill|Kaikoura|Kaipara|Kairanga|Kapiti Coast|Kawerau|Kiwitea|Lake|Mackenzie|Malvern|Manaia|Manawatu|Mangonui|Maniototo|Manukau|Marlborough|Masterton|Matamata|Matamata Piako|Mount Herbert|Napier|Nelson|Nelson|New Plymouth|Northland|North Shore|Ohinemuri|Opotiki|Oroua|Otago|Otamatea|Otorohanga|Oxford|Palmerston North|Pahiatua|Papakura|Paparua|Patea|Piako|Pohangina|Porirua|Queenstown Lakes|Raglan|Rangiora|Rangitikei|Rodney|Rotorua|Ruapehu|Runanga|Saint Kilda|Selwyn|Silverpeaks|Southland|South Taranaki|South Waikato|South Wairarapa|Stewart Island|Stratford|Strathallan|Taranaki|Tararua|Tasman|Taumarunui|Taupo|Tauranga|Thames Coromandel|Timaru|Tuapeka|Upper Hutt|Vincent|Waiapu|Waiheke|Waihemo|Waikato|Waikohu|Waimairi|Waimarino|Waimate|Waimate West|Waimea|Waipa|Waipawa|Waipukurau|Wairarapa South|Wairewa|Wairoa|Waitakere|Waitaki|Waitomo|Waitotara|Wallace|Wanganui|Wanganui-Manawatu|Waverley|West Coast|Western Bay of Plenty|Westland|Whakatane|Whangarei|Whangaroa|Woodville';
+city_states['New Zealand'] = 'Wellington|Akaroa|Alexandra|Amuri|Ashburton|Auckland|Banks Peninsula|Bay of Islands|Bay of Plenty|Blenheim|Bruce|Buller|Cambridge|Canterbury|Carterton|Chatham Islands|Cheviot|Christchurch|Clifton|Clutha|Cook|Coromandel Peninsula|Cromwell|Dannevirke|Dunedin|Egmont|Eketahuna|Ellesmere|Eltham|Eyre|Far North|Featherston|Feilding|Franklin|Gisborne|Golden Bay|Gore|Great Barrier Island|Grey|Hamilton|Hastings|Hauraki Plains|Hawera|Hawke\'s Bay|Heathcote|Hikurangi|Hobson|Hokianga|Horowhenua|Hurunui|Hutt|Inangahua|Inglewood|Invercargill|Kaikoura|Kaipara|Kairanga|Kapiti Coast|Kawerau|Kiwitea|Kumeu|Lake|Lower Hutt|Mackenzie|Malvern|Manaia|Manawatu|Mangonui|Maniototo|Manukau|Marlborough|Masterton|Matamata|Matamata Piako|Morrinsville|Mount Herbert|Napier|Nelson|Nelson|New Plymouth|Northland|North Shore|Ohinemuri|Opotiki|Oroua|Otago|Otamatea|Otorohanga|Oxford|Palmerston North|Pahiatua|Papakura|Paparua|Patea|Piako|Pohangina|Porirua|Putaruru|Queenstown Lakes|Raglan|Rangiora|Rangitikei|Richmond|Rodney|Rotorua|Ruapehu|Runanga|Saint Kilda|Selwyn|Silverdale|Silverpeaks|Southland|South Taranaki|South Waikato|South Wairarapa|Stewart Island|Stratford|Strathallan|Taranaki|Tararua|Tasman|Taumarunui|Taupo|Tauranga|Thames Coromandel|Timaru|Tuapeka|Upper Hutt|Vincent|Waiapu|Waiheke|Waihemo|Waikato|Waikohu|Waimairi|Waimarino|Waimate|Waimate West|Waimea|Wanaka|Waipa|Waipawa|Waipukurau|Wairarapa South|Wairewa|Wairoa|Waitakere|Waitaki|Waitomo|Waitotara|Wallace|Wanganui|Wanganui-Manawatu|Warkworth|Waverley|West Coast|Western Bay of Plenty|Westland|Whakatane|Whangamata|Whangaparaoa|Whangarei|Whangaroa|Woodville';
 city_states['Palau'] = 'Koror|Aimeliik|Airai|Angaur|Hatobohei|Kayangel|Melekeok|Ngaraard|Ngarchelong|Ngardmau|Ngatpang|Ngchesar|Ngeremlengui|Ngiwal|Peleliu|Sonsoral';
 city_states['Papua New Guinea'] = 'Port Moresby|Bougainville|Central|Chimbu|Eastern Highlands|East New Britain|East Sepik|Enga|Gulf|Madang|Manus|Milne Bay|Morobe|National Capital|New Ireland|Northern|Sandaun|Southern Highlands|Western|Western Highlands|West New Britain';
 city_states['Samoa'] = 'Apia|A\'ana|Aiga-i-le-Tai|Atua|Fa\'asaleleaga|Gaga\'emauga|Gagaifomauga|Palauli|Satupa\'itea|Tuamasaga|Va\'a-o-Fonoti|Vaisigano';
@@ -18473,6 +18484,7 @@ function print_state()
                     $("#profilePanel").addClass("panel");
                     $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                     localStorage.checkUser = "";
+                   // alert("Thanks for taking time on user tour and have a good trip on trendsideas.com");
                     //check if any callback is defined
                     if (self._introExitCallback != undefined) {
                         self._introExitCallback.call(self);
@@ -18552,6 +18564,13 @@ function print_state()
             $("#login_detail").removeClass("tour-background");
             $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
             $("#profilePanel").addClass("panel");
+//             var address = document.URL;
+//            var urlName = address.split("#")[1].split("/")[1];
+//            if (urlName === "profiles")
+//            {
+//                alert("Thanks for taking time on user tour and have a good trip on trendsideas.com");
+//                
+//            }
   
             return;
         }
@@ -18908,7 +18927,7 @@ function print_state()
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
                 localStorage.checkUser = "";
-                alert("Thanks for taking time on user tour and have a good trip on trendsideas.com");
+               // alert("Thanks for taking time on user tour and have a good trip on trendsideas.com");
             };
 
             buttonsLayer.appendChild(skipTooltipButton);
@@ -19096,7 +19115,7 @@ function print_state()
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
                 localStorage.checkUser = "";
-                alert("Thanks for taking time on user tour and have a good trip on trendsideas.com");
+                //alert("Thanks for taking time on user tour and have a good trip on trendsideas.com");
 
                 //check if any callback is defined
                 if (self._introExitCallback != undefined) {

@@ -24,7 +24,6 @@ class PhotosController extends Controller {
 
     public function actionCreate() {
         $response;
-        //error_log("dddddddddddddddddddddddddddddd");
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $url = $request_arr["url"];
@@ -310,6 +309,25 @@ class PhotosController extends Controller {
         $mega['photo'][0]['photo_original_height'] = $orig_size['height'];
         $mega['photo'][0]['photo_original_width'] = $orig_size['width'];
 
+        $mega['view_count'] = 0;
+        $mega['share_count'] = 0;
+        $mega['save_count'] = 0;
+        $mega['comment_count'] = 0;
+        $mega['likes_count'] = 0;
+        if (!isset($mega['accessed'])) {
+            $mega["accessed"] = 1;
+        }
+        $mega["accessed"] = date_timestamp_get(new DateTime());
+        
+        if (!isset($mega['created'])) {
+            $mega["created"] = 1;
+        }
+        $mega["created"] = date_timestamp_get(new DateTime());
+        
+
+        $mega["updated"] = 0;
+
+        
         $keyword = $this->getProfileKeyword($mega['owner_id']);
         $editors = $this->getProfileEditors($mega['owner_id']);
         $mega['keyword'] = $keyword;
@@ -340,7 +358,8 @@ class PhotosController extends Controller {
             $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
             $url = $this->getDomain() . '/profiles' . "/" . $owner_id . "/" . $optional . "/" . $new_photo_name;
         } else {
-            $url = $this->getDomain() . '/users' . "/" . $owner_id . "/" . $photo_type . "/" . $photo_name;
+            $new_photo_name = $this->addPhotoSizeToName($photo_name, $new_size);
+            $url = $this->getDomain() . '/users' . "/" . $owner_id . "/" . $photo_type . "/" . $new_photo_name;
         }
         $this->saveImageToS3($url, $new_photo_data, $bucket, $type);
         $s3url = 'http://' . $bucket . '/' . $url;
@@ -533,16 +552,16 @@ class PhotosController extends Controller {
             $tempRecord = $cb->get($url);
             $oldRecord = CJSON::decode($tempRecord, true);
             $oldRecord['object_description'] = $photoCaption;
-            if (!isset($oldRecord['view_count'])) {
-                $oldRecord["view_count"] = 1;
-            } else {
-                $oldRecord['view_count'] = $mega['mega']['view_count']; // ,but it  will also add one when share  //$mega['mega']['view_count']; 
-            }
+//            if (!isset($oldRecord['view_count'])) {
+//                $oldRecord["view_count"] = 1;
+//            } else {
+//                $oldRecord['view_count'] = $mega['mega']['view_count']; // ,but it  will also add one when share  //$mega['mega']['view_count']; 
+//            }
             if (!isset($oldRecord['accessed'])) {
                 $oldRecord["accessed"] = 1;
-            } else {
-                $oldRecord["accessed"] = date_timestamp_get(new DateTime());
             }
+            $oldRecord["accessed"] = date_timestamp_get(new DateTime());
+
             if (!isset($oldRecord['share_count'])) {
                 $oldRecord["share_count"] = 0;
             } else {

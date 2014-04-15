@@ -64,6 +64,17 @@ function createNavigatorId() {
             dateObject.getTime().toString();
     return  result.toString();
 }
+function createCommentid() {
+
+    //var dateObject = new Date();
+    var randomnumber = Math.random().toString().slice(2, 12);
+    randomnumber = randomnumber.toString();
+    randomnumber = removeZero(randomnumber);
+    var result = randomnumber;
+            //dateObject.getTime().toString();
+
+    return  result.toString();
+}
 
 function removeZero(string)
 {

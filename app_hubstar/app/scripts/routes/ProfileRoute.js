@@ -57,10 +57,11 @@ HubStar.ProfileRoute = Ember.Route.extend({
                 this.sendGAMessage(analytics_array[i], model.get('id').split('-').join('') + i.toString());
             }
         }
-
+        this.controllerFor('application').set("newProfile", false);
+        $("#user-dd-menu").attr("style", "display:none");
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
-        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+//        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
         ProfileController.setProfile(model.id);
 
 
@@ -75,6 +76,14 @@ HubStar.ProfileRoute = Ember.Route.extend({
     model: function(params) {
 
         return HubStar.Profile.find(params.profile_id);
+    },
+    beforeModel: function(transition) {
+        var model = HubStar.Profile.find(transition.params.profile_id);
+        var that = this;
+        model.then(function() {
+        }, function() {
+            that.transitionTo('fourOhFour', "404");
+        });
     },
     events: {
         transitionToCollectionPhoto: function(collection_id) {
@@ -116,24 +125,25 @@ HubStar.ProfileRoute = Ember.Route.extend({
         }
     },
     redirect: function() {
-
-
+        var address = document.URL;
+        var page = address.split("#")[1].split("/");
+        if(page.length === 3)
+        {
+            this.controllerFor('profile').selectCollection(); 
+        }
     },
     deactivate: function() {
 
     },
     activate: function() {
+
         $(window).scrollTop(0);
 
         $('#discovery_search_bar_wrapper').attr('style', "display:none");
         $('#masonry_container').attr('style', "display:none");
         $(function() {
             $('#masonry_container').masonry('remove', $('.noStyle1'));
-        });
-
-
-
-
+        });        
     },
     renderTemplate: function() {
         this.render('profile', {

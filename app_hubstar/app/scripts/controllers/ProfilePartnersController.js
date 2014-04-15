@@ -155,33 +155,39 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             }, 100);
         }, 200);
 
-        $('#masonry_user_container').imagesLoaded(function() {
-//            var container = document.querySelector('#masonry_user_container');
-//            var msnry = new Masonry(container, {
+//        $('#masonry_user_container').imagesLoaded(function() {
+////            var container = document.querySelector('#masonry_user_container');
+////            var msnry = new Masonry(container, {
+////                itemSelector: '.box',
+////                columnWidth: 185,
+////                isFitWidth: true
+////            });
+//            $('#masonry_user_container').masonry({
 //                itemSelector: '.box',
 //                columnWidth: 185,
 //                isFitWidth: true
 //            });
-            $('#masonry_user_container').masonry({
-                itemSelector: '.box',
-                columnWidth: 185,
-                isFitWidth: true
-            });
-        });
+//        });
 
     },
     checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
-        var that = this;
+         var that = this;
+        var role = permissionController.checkAuthenticEdit(that.get("model").get("profile_creator"), that.get("model").get("profile_administrator"), that.get("model").get("profile_editor"));       
+        var is_edit = false;
+        if (role !== "")
+        {
+            is_edit = true;
+        }
         var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-        that.set("is_authentic_user", is_authentic_user);
+        that.set("is_authentic_user", is_authentic_user||is_edit);
         currentUser.addObserver('isLoaded', function() {
             var current_user_email = currentUser.get('email');
             if (currentUser.get('isLoaded')) {
                 var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-                that.set("is_authentic_user", is_authentic_user);
+                that.set("is_authentic_user", is_authentic_user||is_edit);
             }
         });
     },

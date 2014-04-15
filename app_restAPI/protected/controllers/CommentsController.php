@@ -31,6 +31,7 @@ class CommentsController extends Controller {
                 $uid = $oldRecordDeep['comments'][$i]["message_id"];
                 if ($uid === $id) {
                     array_splice($oldRecordDeep['comments'], $i, 1);
+                    $oldRecordDeep['comment_count'] = sizeof($oldRecordDeep['comments']);
                     break;
                 }
             }
@@ -58,6 +59,7 @@ class CommentsController extends Controller {
                 $uid = $oldRecordDeep['comments'][$i]["message_id"];
                 if ($uid === $id) {
                     array_splice($oldRecordDeep['comments'], $i, 1);
+                     $oldRecordDeep['comment_count'] = sizeof($oldRecordDeep['comments']);
                     break;
                 }
             }
@@ -85,6 +87,7 @@ class CommentsController extends Controller {
                 $uid = $oldRecordDeep['comments'][$i]["message_id"];
                 if ($uid === $id) {
                     array_splice($oldRecordDeep['comments'], $i, 1);
+                     $oldRecordDeep['comment_count'] =sizeof($oldRecordDeep['comments']);
                     break;
                 }
             }
@@ -112,6 +115,7 @@ class CommentsController extends Controller {
                 $uid = $oldRecordDeep['comments'][$i]["message_id"];
                 if ($uid === $id) {
                     array_splice($oldRecordDeep['comments'], $i, 1);
+                     $oldRecordDeep['comment_count'] = sizeof($oldRecordDeep['comments']);
                     break;
                 }
             }
@@ -240,7 +244,6 @@ class CommentsController extends Controller {
         $request_json = file_get_contents('php://input');
         $newRecord = CJSON::decode($request_json, true);
         $typeAndID = $newRecord['comment']['optional'];
-     //   error_log(var_export($newRecord, true));
         $typeAndID = explode("/", $typeAndID);
         $docID = $this->getDocId($typeAndID[0], $typeAndID[1]);
         $cb = $this->couchBaseConnection();

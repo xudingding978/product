@@ -8,7 +8,7 @@ multiple: true,
         var files = input.files;
         (function(file) {
             if (file !== undefined) {
-                var name = file.name;
+                var name = file.name.replace(/[`~!@#$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi, '');;
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     controller.profileStyleImageDrop(e, name);

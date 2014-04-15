@@ -36,17 +36,27 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
     dropdownPhotoSetting: function(id)
     {
         this.set('delete_id', id);
-        $('#dropdown_id_' + id).toggleClass('hideClass');
+//        $('#dropdown_id_' + id).toggleClass('hideClass');
+            var id='#dropdown_id_' + id;
+        $(id).toggleClass('hideClass');
+        $(id).click(function() {
+            $(this).removeClass('hideClass');
+        }).mouseleave(function() {
+            $(this).addClass('hideClass');
+        });
+        
+        
     },
     checkEditingMode: function()
     {
         this.set('is_profile_editing_mode', false);
         this.set('is_user_editing_mode', false);
+        
         if (HubStar.get('editingMode') === 'profile') {
             this.set('is_profile_editing_mode', true);
             var proController = this.get('controllers.profile');
             this.set('pageModel', proController.get('model'));
-            this.set("is_authentic_user", this.checkAuthenticUser());
+            this.checkAuthenticUser();
         }
         else if (HubStar.get('editingMode') === 'user') {
             this.set('is_user_editing_mode', true);
@@ -73,15 +83,21 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
-        var is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
+        var role = permissionController.checkAuthenticEdit(that.get("pageModel").get("profile_creator"), that.get("pageModel").get("profile_administrator"), that.get("pageModel").get("profile_editor"));
+        var is_edit = false;
+        if (role !== "")
+        {
+            is_edit = true;
+        }
+        //var is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
 
-        currentUser.addObserver('isLoaded', function() {
+        currentUser.then(function() {
             var current_user_email = currentUser.get('email');
-            if (currentUser.get('isLoaded')) {
-                is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
-            }
+            var is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
+            that.set("is_authentic_user", is_authentic_user || is_edit);
+
         });
-        return is_authentic_user;
+        //return is_authentic_user||is_edit;
     },
     removeCollectedItem: function()
     {

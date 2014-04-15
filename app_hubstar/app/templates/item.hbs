@@ -14,7 +14,7 @@
 {{#if getPhoto}}
 <div class="box col2 noStyle1" data-step="6" data-intro="This is an <b>image</b> result. Click the image to see a full screen view and to read the caption." data-position='right' {{action checkingLoginStatus target="view" on="click"}} >
 
-    {{render itemFunction this}}
+
 
     <div class="object-tags-box">
         <div class="object-tags">
@@ -26,28 +26,8 @@
                 </div>
             </div>
         </div>
-
-        <div class="object-tags ">
-            <span class="tags-mark" style="background-color: #76a7fa"></span>
-            <div class="tags easing tagsappear" >
-                <div class="tags-new">#{{country}}</div>
-            </div>
-        </div>
-        {{#each keywordShow}}
-        <div class="object-tags ">
-            <span class="tags-mark" style="background-color: #76a7fa"></span>
-            <div class="tags easing tagsappear" {{action searching keyword_name on="click" target="view"}}>
-                <div class="tags-new">#{{keyword_name}}</div>
-            </div>
-        </div>
-        {{/each}}
-        <div class="object-tags " style="display:none;">
-            <span class="tags-mark" style="background-color: #a0c3ff"></span>
-            <div class="tags easing tagsappear">
-                <div class="tags-new">#{{timezone}} </div>
-            </div>
-        </div>
     </div>
+    {{render itemFunction this}}
 
     <div class="masonry-object_mainfeature">
         <div class="mainfeature-wrapper">
@@ -67,7 +47,7 @@
                      <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
                     <i class='fa fa-caret-down'></i>
                 </div>
-                <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
+                <ul class="hideClass edit-object-ul" style="right: 40px;" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
                     <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Delete</li>
                     <li class='ite'  {{action changeCollectionCover id controller.collection_id HubStar.Profile}}> <i class="fa fa-check-circle" style="font-size: 16px;  margin: 0px 5px;"></i>Set as collection cover</li>
@@ -94,22 +74,6 @@
                 <div class="posttime-container">
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
-
-                <!--                <ul class="itemprofile" style="margin: 5px 0 0;">
-                                    <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
-                                        <div><i class="fa fa-eye"> &nbsp;{{this.collections.length}}</i></div>
-                                    </li>
-                                    <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
-                                        <div><i class="fa fa-group">&nbsp;{{ length this.profile_partner_ids}}</i></div>
-                                    </li>
-                                    <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
-                                        <div><i class="fa fa-film">&nbsp;{{ videolength this.profile_about_us}}</i></div>
-                                    </li>
-                                    <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
-                                        <div><i class="fa fa-book">&nbsp;{{ ebooklength this.profile_about_us}}</i></div>
-                                    </li>
-                                </ul>-->
-
             </div>
         </div>
 
@@ -141,58 +105,41 @@
 
 
 {{#if getVideo}}
-<div class="box col2 noStyle1" {{action checkingLoginStatus target="view" on="click"}}  >
+<div class="box col2 noStyle1" {{action checkingLoginStatus target="view" on="click"}} >
     <div class="object-tags-box">
         <div class="object-tags">
             <span class="tags-mark" style="background-color: #427fed"></span>
             <div class="tags easing">
                 <div class="tags easing">
-                    <div class="tags-new">New</div>
                     <div class="object-type hint--left hint--rounded" data-hint="Video">
                         <i class="fa fa-film"></i>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="object-tags " style="display:none;">
-            <span class="tags-mark" style="background-color: #76a7fa"></span>
-            <div class="tags easing tagsappear">
-                <div class="tags-new">#{{region}}</div>
-            </div>
-        </div>
-
-        <div class="object-tags ">
-            <span class="tags-mark" style="background-color: #a0c3ff"></span>
-            <div class="tags easing tagsappear"  style="overflow: hidden;">
-                <div class="tags-new">#{{categories}}</div>
-            </div>
-        </div>
-        {{#each keywordShow}}
-        <div class="object-tags ">
-            <span class="tags-mark" style="background-color: #76a7fa"></span>
-            <div class="tags easing tagsappear" {{action searching keyword_name on="click" target="view"}}>
-                <div class="tags-new">#{{keyword_name}}</div>
-            </div>
-        </div>
-        {{/each}}
     </div>
     {{render itemFunction this}}
+
     <div class="masonry-object_mainfeature">
         <div class="mainfeature-wrapper">
 
             {{#if controller.isUser}}
             <a class="mainfeature-container" {{action transitionToPhoto id}}>
-               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 0;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
+               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
                     <i class="fa fa-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
                 </div>
-                <img class="this-is-the-object"{{bindAttr src="object_image_url"  }}  />      </a>
+                <div id="init_photo_{{unbound id}}">
+                    <img class="this-is-the-object"{{bindAttr src="object_image_url"  }}  />      
+                </div>
+        </a>
             {{else}}
             <a class="mainfeature-container" {{action transitionToVideo id}}>
-               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 0;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
+               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
                     <i class="fa fa-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
                 </div>
+               <div id="init_photo_{{unbound id}}">
                 <img {{bindAttr src="object_image_url" }} class="this-is-the-object" />
+                 </div>
             </a>
             {{/if}}
 
@@ -206,7 +153,7 @@
                      <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
                     <i class='fa fa-caret-down'></i>
                 </div>
-                <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
+                <ul class="hideClass edit-object-ul" style="right: 40px;" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
                     <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Delete</li>
                     {{/if}}
@@ -235,21 +182,6 @@
                 <div class="posttime-container">
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
-
-                <!--                <ul class="itemprofile" style="margin: 5px 0 0;">
-                                    <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
-                                        <div><i class="fa fa-eye"> &nbsp;{{this.collections.length}}</i></div>
-                                    </li>
-                                    <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
-                                        <div><i class="fa fa-group">&nbsp;{{ length this.profile_partner_ids}}</i></div>
-                                    </li>
-                                    <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
-                                        <div><i class="fa fa-film">&nbsp;{{ videolength this.profile_about_us}}</i></div>
-                                    </li>
-                                    <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
-                                        <div><i class="fa fa-book">&nbsp;{{ ebooklength this.profile_about_us}}</i></div>
-                                    </li>
-                                </ul>-->
 
             </div>
         </div>
@@ -405,30 +337,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="object-tags " style="display:none;">
-            <span class="tags-mark" style="background-color: #76a7fa"></span>
-            <div class="tags easing tagsappear">
-                <div class="tags-new">#{{region}}</div>
-            </div>
-
-        </div>
-
-
-        <div class="object-tags ">
-            <span class="tags-mark" style="background-color: #a0c3ff"></span>
-            <div class="tags easing tagsappear"  style="overflow: hidden;">
-                <div class="tags-new">#{{categories}}</div>
-            </div>
-        </div>
-        {{#each keywordShow}}
-        <div class="object-tags ">
-            <span class="tags-mark" style="background-color: #76a7fa"></span>
-            <div class="tags easing tagsappear" {{action searching keyword_name on="click" target="view"}}>
-                <div class="tags-new">#{{keyword_name}}</div>
-            </div>
-        </div>
-        {{/each}}
     </div>
     {{render itemFunction this}}
     <div class="masonry-object_mainfeature">
@@ -449,7 +357,7 @@
                      <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
                     <i class='fa fa-caret-down'></i>
                 </div>
-                <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
+                <ul class="hideClass edit-object-ul" style="right: 40px;" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
                     <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Delete</li>
                     <li class='ite'  {{action changeCollectionCover id controller.collection_id HubStar.Profile "article"}}> <i class="fa fa-check-circle" style="font-size: 16px;  margin: 0px 5px;"></i>Set as collection cover</li>
@@ -472,22 +380,6 @@
                 <div class="posttime-container" style="display:none;">
                     <span class="posttime">{{date created}}</span>
                 </div>
-
-                <!--                <ul class="itemprofile" style="margin: 5px 0 0;">
-                                    <li class="location_li hint-bottom hint-rounded" data-hint="Collections">
-                                        <div><i class="fa fa-eye"> &nbsp;{{this.collections.length}}</i></div>
-                                    </li>
-                                    <li class="location_li hint-bottom hint-rounded" data-hint="Partners">
-                                        <div><i class="fa fa-group">&nbsp;{{ length this.profile_partner_ids}}</i></div>
-                                    </li>
-                                    <li class="location_li hint-bottom hint-rounded" data-hint="Videos">
-                                        <div><i class="fa fa-film">&nbsp;{{ videolength this.profile_about_us}}</i></div>
-                                    </li>
-                                    <li class="location_li hint-bottom hint-rounded" data-hint="Ebooks">
-                                        <div><i class="fa fa-book">&nbsp;{{ ebooklength this.profile_about_us}}</i></div>
-                                    </li>
-                                </ul>-->
-
             </div>
 
         </div>
@@ -495,7 +387,7 @@
 
         <div class="masonry-object_text">
             <div class="masonry-object_text-container">
-                <a style="font-size: 16px; font-weight: bold;cursor: pointer" {{action transitionToArticle id}}>{{object_title}}</a>
+                <a style="font-size: 16px; font-weight: bold;cursor: pointer;text-transform: capitalize;" {{action transitionToArticle id}}>{{object_title}}</a>
                 <p style="text-overflow: ellipsis"; {{action transitionToArticle id}}>{{{object_description}}}</p>
             </div>
 

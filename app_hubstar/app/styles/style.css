@@ -575,8 +575,8 @@ div.search-loading-invisible{
 }
 
 .edit-object-ul > .ite{
-    padding: 6px 15px 6px 30px;
-    color: #888;
+    padding: 10px 30px 10px 20px;
+    color: #555;
     border-top: 1px solid #fff;
     border-bottom: 1px solid #ddd;
     line-height: normal;
@@ -593,8 +593,8 @@ div.search-loading-invisible{
 .Dropdownstyle2:before{
     content: "";
     position: absolute;
-    left: 65px;
-    top: -20px;
+    left: 65px !important;
+    top: -20px !important;
     border-color: transparent transparent #fff transparent;
     border-style: solid;
     border-width: 10px 10px 10px 10px;
@@ -604,16 +604,16 @@ div.search-loading-invisible{
 .Dropdownstyle2:after{
     content: "";
     position: absolute;
-    left: 65px;
-    top: -21px;
+    left: 65px !important;
+    top: -21px !important;
     border-color: transparent transparent #888 transparent;
     border-style: solid;
     border-width: 10px 10px 10px 10px;
     z-index: -1;	
 }
 
-.edit-object > .edit-object-ul:before{left: 15px;}
-.top-controlbar > .edit-object-ul:before{left: 15px;}
+/*.edit-object > .edit-object-ul:before{left: 15px;}
+.top-controlbar > .edit-object-ul:before{left: 15px;}*/
 
 
 .head {
@@ -864,12 +864,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     width: 90px;
 }
 #aside_contact > tbody > tr:nth-child(n) > th {
-    position: relative;
-    top: 4px;
-}
-#aside_contact > tbody > tr:nth-child(4) > th {
-    position: relative;
-    top: -4px;  
+    position: relative!important;
+    top: 5px!important;
 }
 
 
@@ -1360,19 +1356,20 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .edit-comment > i {cursor: pointer}
 
 .select-profile-save{
-    z-index: 100; 
-    position: absolute; 
-    border: 1px solid #ddd; 
-    background-color: #fff; 
-    right: 140px; 
+    z-index: 11;
+    position: absolute;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    right: 140px;
     width: auto;
+    left: 100px;
 }
 
 .select-profile-save:before{
     content: "";
     position: absolute;
-    left: 117px;
-    top: -19px;
+    left: 145px;
+    top: -18px;
     border-color: transparent transparent #f7f7f7 transparent;
     border-style: solid;
     border-width: 10px 10px 10px 10px;
@@ -1382,7 +1379,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .select-profile-save:after{
     content: "";
     position: absolute;
-    left: 117px;
+    left: 145px;
     top: -20px;
     border-color: transparent transparent #ddd transparent;
     border-style: solid;

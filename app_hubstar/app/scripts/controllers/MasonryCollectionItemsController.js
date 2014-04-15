@@ -117,8 +117,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var user_id = address.split("#")[1].split("/")[1];
         if (user_id === "profiles")
         {
-
-            // this.
             this.get('controllers.profile').goToProfileRoute(address.split("#")[1].split("/")[2]);
 
         }
@@ -126,16 +124,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         {
             this.get('controllers.user').goToUserRoute();
         }
-
-        var lastposition = HubStar.get("scrollCollectionPosition");
-
-        setTimeout(function() {
-
-            $(window).scrollTop(lastposition);
-
-        }, 200);
-    }
-    ,
+    },
     newUpload: function() {
 
         $('#ownerUpload').attr('style', 'display:block');
@@ -286,15 +275,22 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
+        var role = permissionController.checkAuthenticEdit(that.get("pageModel").get("profile_creator"), that.get("pageModel").get("profile_administrator"), that.get("pageModel").get("profile_editor"));       
+        var is_edit = false;
+        if (role !== "")
+        {
+            is_edit = true;
+        }
+        
         if (currentUser.get("isLoaded")) {
             var is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
-            this.set("is_authentic_user", is_authentic_user);
+            this.set("is_authentic_user", is_authentic_user||is_edit);
         } else {
             currentUser.addObserver('isLoaded', function() {
                 var current_user_email = currentUser.get('email');
                 if (currentUser.get('isLoaded')) {
                     is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
-                    that.set("is_authentic_user", is_authentic_user);
+                    that.set("is_authentic_user", is_authentic_user||is_edit);
                 }
             });
         }
@@ -357,7 +353,15 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 //    },
     dropdownPhotoSetting: function(id) {
 
-        $('#dropdown_id_' + id).toggleClass('hideClass');
+//        $('#dropdown_id_' + id).toggleClass('hideClass');
+
+   var id='#dropdown_id_' + id;
+        $(id).toggleClass('hideClass');
+        $(id).click(function() {
+            $(this).removeClass('hideClass');
+        }).mouseleave(function() {
+            $(this).addClass('hideClass');
+        });
 
     },
     resetContent: function()
@@ -369,23 +373,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
         var owner_id = this.get("profileId");
         var title = this.get('collection_id');
-
-//        var results = HubStar.Mega.find({RquireType: "collection", "collection_id": title, "owner_profile_id": owner_id});
-//        var that = this;
-//        results.addObserver('isLoaded', function() {
-//            if (results.get('isLoaded')) {
-//                for (var i = 0; i < this.get("length"); i++) {
-//                    var tempmega = results.objectAt(i);
-//                    if (tempmega.get('profile').get('length') === 0 && tempmega.get('user').get('length') === 0 && (that.get('collection_id') === tempmega.get('collection_id')))
-//                    {
-//                        that.get("content").pushObject(tempmega);
-//                    }
-//                }                
-//                setTimeout(function() {
-//                    $('#masonry_photo_collection_container').masonry("reload");
-//                }, 200);
-//            }
-//        });
 
         var pics = HubStar.Mega.find({RquireType: "profileCollection", user_id: owner_id, collection_id: title});
         var that = this;
@@ -415,7 +402,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                         }
                         setTimeout(function() {
                             $('#masonry_photo_collection_container').masonry("reloadItems");
-                            setTimeout(function() {                                
+                            setTimeout(function() {
                                 $('#masonry_photo_collection_container').masonry();
                                 that.set("loadingTime", false);
                             }, 15);

@@ -93,12 +93,21 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
             var tmpId = videoUrl.split("v=");
             videoid = tmpId[1];
         }
+        else   if (videoUrl.indexOf("https://www.youtube.com/") !== -1)
+        {
+            var tmpId = videoUrl.split("v=");
+            videoid = tmpId[1];
+        }
         else if (videoUrl.indexOf("http://youtu.be/") !== -1)
         {
             var tmpId = videoUrl.split("be/");
             videoid = tmpId[1];
         }
-
+         else if (videoUrl.indexOf("https://youtu.be/") !== -1)
+        {
+            var tmpId = videoUrl.split("be/");
+            videoid = tmpId[1];
+        }
         return videoid;
     },
     getIframeCode: function(width, height, videoid)

@@ -54,9 +54,13 @@ HubStar.Mega = DS.Model.extend({
     uri_url: DS.attr('string'),
     view_count: DS.attr('number'),
     share_count: DS.attr('number'),
+    save_count: DS.attr('number'),
     comment_count: DS.attr('number'),
     optional: DS.attr('string'),
     isFollow: DS.attr('boolean'),
+    profile_editor: DS.attr('string'),
+    profile_administrator: DS.attr('string'),
+    profile_creator: DS.attr('string'),
     //--------------------------
     photo: DS.hasMany('HubStar.Photo'),
     user: DS.hasMany('HubStar.User'),
@@ -66,11 +70,11 @@ HubStar.Mega = DS.Model.extend({
     article: DS.hasMany('HubStar.Article'),
     keyword: DS.hasMany('HubStar.Keyword'),
     videoes: DS.hasMany('HubStar.Video'),
+    isShowMoreComment: false,
     pdf: DS.hasMany('HubStar.Pdf'),
     keywordShow: function() {
-       
         var a = new Array();
-        
+
         for (var i = 0; i < 3 && this.get("keyword").get("length"); i++)
         {
             var b = new Array();
@@ -83,13 +87,21 @@ HubStar.Mega = DS.Model.extend({
         return a;
     }.property('keyword'),
     showComment: function() {
-        var b = false;
         if (this.get("comments").get("length") > 5)
         {
-            b = true;
+            this.set("isShowMoreComment", true);
         }
-        return b;
-    }.property('comments'),
+        else
+        {
+            this.set("isShowMoreComment", false);
+        }
+    }.observes('comment_count'),
+    showMoreComment: function() {
+        if (this.get("comments").get("length") > 5)
+        {
+            this.set("isShowMoreComment", true);
+        }
+    }.property('comment_count'),
     photo_album_id: function() {
         return "#album_" + this.get('id');
     }.property('id'),
@@ -138,6 +150,9 @@ HubStar.Mega = DS.Model.extend({
     getAd: function() {
         return this.get('type') === 'ad';
     }.property('type'),
+    getID: function() {
+        return this.get('id').replace(/[^\w\s]/gi, '');
+    }.property('id'),
     updateMegaWithUrl: function(mega, url)
     {
         var tempurl = getRestAPIURL();

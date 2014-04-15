@@ -5,11 +5,13 @@
 HubStar.ApplicationController = Ember.ArrayController.extend({
     selected_topics: "",
     isAdd: false,
+    error: false,
     is_authentic_user: false,
     trendsUser: false,
     totalItems: 0,
     navigator_id: "",
-    nextPageSpinner:false,
+    nextPageSpinner: false,
+    newProfile: false,
     navigator_id1: "",
     contentTopicResidential: [
         {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
@@ -40,6 +42,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     test: false,
     user: null,
     from: null,
+    profiles: null,
     size: null,
     photo_url: null,
     isUnReadCountZero: false,
@@ -68,22 +71,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     subcate: [],
     subcategories: [],
     pageCount: 0,
+    residentialKeyword: true,
+    loadingTime: false,
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
 
         var that = this;
-        this.set('categorys', HubStar.Cate.find({}));
-        this.get("categorys").then(function() {
-            for (var i = 0; i < that.get("categorys").get("length"); i++)
-            {
-                that.get("categorys").objectAt(i).set("id", createNavigatorId());
 
-                for (var j = 0; j < that.get("categorys").objectAt(i).get("subcate").get("length"); j++)
-                {
-                    that.get("categorys").objectAt(i).get("subcate").objectAt(j).set("ids", createNavigatorId());
-                }
-            }
-        });
 
         requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
             var array = $.map(callbck, function(value, index) {
@@ -123,6 +117,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     loginStatus: function() {
     },
     grapData: function() {
+        HubStar.set("profiles", []);
+        if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
+            localStorage.resOrcom = "All";
+        }
+        this.set('categorys', HubStar.Cate.find({}));
         if (localStorage.loginStatus) {
             var u = HubStar.User.find(localStorage.loginStatus);
             var that = this;
@@ -138,12 +137,89 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
                     that.set("is_trends_user", false);
                 }
+                for (var i = 0; i < u.get("profiles").get("length"); i++) {
+                    var id = u.get("profiles").objectAt(i).get("profile_id");
+                    var name = u.get("profiles").objectAt(i).get("profile_name");
+                    var pic = u.get("profiles").objectAt(i).get("profile_pic");
+                    var type = u.get("profiles").objectAt(i).get("type");
+                    var isAdministrator = false;
+                    var isEditor = false;
+                    var isCreator = false;
+                    if (type === "administrator")
+                    {
+                        isAdministrator = true;
+                    }
+                    else if (type === "editor")
+                    {
+                        isEditor = true;
+                    }
+                    else if (type === "creator")
+                    {
+                        isCreator = true;
+                    }
+                    var url = pic.split("_");
+                    var length = url.length;
+                    var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
+                    var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
+                    var widthTop = Math.ceil(0);
+                    var heightTop = Math.ceil(0);
+                    if (width > height)
+                    {
+                        height = Math.ceil(135 / width * height);
+                        width = 135;
+                        heightTop = Math.ceil(50 / width * height);
+                        widthTop = 50;
+                    }
+                    else
+                    {
+                        width = Math.ceil(135 / height * width);
+                        height = 135;
+                        widthTop = Math.ceil(50 / height * width);
+                        heightTop = 50;
+                    }
+                    width = width + "px";
+                    height = height + "px";
+                    widthTop = widthTop + "px";
+                    heightTop = heightTop + "px";
+
+                    HubStar.get("profiles").pushObject({'profile_id': id, 'profile_name': name, "profile_pic": pic, "type": type,
+                        'isAdministrator': isAdministrator, "isEditor": isEditor, "isCreator": isCreator, "height": height, "width": width,
+                        "heightTop": heightTop, "widthTop": widthTop
+                    });
+
+                }
             });
         }
         this.set("user", u);
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
+        $(document).ready(function() {
+            setTimeout(function() {
+                if (localStorage.resOrcom === "commercial")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:28px;");
+                    $("#Commercial").css("opacity", "1");
+                    $("#Residential").css("opacity", "0.4");
+                    that.set('residentialKeyword', false);
+                }
+                else if (localStorage.resOrcom === "residential")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:0px;");
+                    $("#Commercial").css("opacity", "0.4");
+                    $("#Residential").css("opacity", "1");
+                    that.set('residentialKeyword', true);
+                }
+                else if (localStorage.resOrcom === "All")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:13px;");
+                    $("#Commercial").css("opacity", "1");
+                    $("#Residential").css("opacity", "1");
+                    that.set('residentialKeyword', true);
+                }
+            }, 50);
+        });
+
     },
     articleFromSearch: function()
     {
@@ -154,7 +230,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     scrollDownAction: function() {
         //this.set('loadingTime', true);
-        this.set("nextPageSpinner",true);
+        this.set("nextPageSpinner", true);
         HubStar.set("scrollDownSearch", true);
         this.set("size", 20);
         if (this.get("searchFromTopic") === false)
@@ -167,22 +243,22 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
         this.getPageNo();
         this.set("from", this.get("from") + this.get("size"));
-        var results = HubStar.Mega.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'), "classification": this.get("classification")});
+        var results = HubStar.Stat.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'), "classification": localStorage.resOrcom});
         var that = this;
-        results.addObserver('isLoaded', function() {
-            if (results.get('isLoaded')) {
-                that.setContent(results);
-                if (results.get("length") === 0) {
-                    that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
+        results.then(function() {
+            var stat = results.objectAt(0);
+            var megasResults = stat.get("megas");
+            that.setContent(megasResults);
+            if (results.get("length") === 0) {
+                that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
 
-                    HubStar.set("scrollDownSearch", true);
+                HubStar.set("scrollDownSearch", true);
 
-                    $(document).ready(function() {
+                $(document).ready(function() {
 
-                        $("#show_more_button").css("display", "none");
+                    $("#show_more_button").css("display", "none");
 
-                    });
-                }
+                });
             }
         });
 
@@ -223,6 +299,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             }
                         }
                     }
+                    else if (tempmega.get("getVideo") === true)
+                    {
+                        $("#init_photo_" + tempmega.get("id")).css({height: 263});
+                    }
                     else if (tempmega.get("getProfile") === true)
                     {
                         if (tempmega.get("profile").objectAt(0).get("profile_pic_url") !== null) {
@@ -232,32 +312,34 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             var size = Math.ceil((url[length - 1].split(".")[0].split("x")[1]) * 150 / width);
                             if (size !== undefined && !isNaN(size))
                             {
+
                                 if (size > 150) {
-                                    $("#init_photo_" + tempmega.get("id")).css({height: size});
+                                    $("#init_photo_" + tempmega.get("profile").objectAt(0).get("getID")).css({height: size});
                                 }
                                 else
                                 {
-                                    $("#init_photo_" + tempmega.get("id")).css({height: 150});
+                                    $("#init_photo_" + tempmega.get("profile").objectAt(0).get("getID")).css({height: 150});
                                 }
                             }
                         }
                     }
                 }
                 //that.getAds();
-                if (that.get("classification") === "commercial")
+                if (localStorage.resOrcom === "commercial")
                 {
                     $('#switchbarBtn').attr("style", "margin-left:28px;");
                 }
-                else if (that.get("classification") === "residential")
+                else if (localStorage.resOrcom === "residential")
                 {
                     $('#switchbarBtn').attr("style", "margin-left:0px;");
                 }
-                else if (that.get("classification") === "All")
+                else if (localStorage.resOrcom === "All")
                 {
                     $('#switchbarBtn').attr("style", "margin-left:13px;");
                 }
                 if (flag === "default") {
-                    that.getAds();
+                    var ads = that.getAds();
+                    that.display(ads);
                     that.relayoutDefault();
                 }
                 else {
@@ -268,53 +350,54 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         });
     },
     newSearch: function() {
-        this.set("googletagCmd", []);
-        this.set("content", []);
-        this.set("oldChildren", 0);
-        this.set("totalItems", 0);
-        this.set("from", 0);
-        this.set("size", 20);
-        this.set('loadingTime', true);
-        this.set("pageCount", 0);
-        var d = new Date();
-        var start = d.getTime();
-        var that = this;
-        var statusController = this.get('controllers.status');
-        var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'), "classification": this.get("classification")});
-        stats.addObserver('isLoaded', function() {
-            if (stats.get('isLoaded')) {
-                var stat = stats.objectAt(0);
-                var megasResults = stat.get("megas");
-                HubStar.set('itemNumber', megasResults.get("length"));
-                that.setContent(megasResults, "new");
-                if (megasResults.get("length") < 20) {
-                    
-                    $(document).ready(function() {
-                        setTimeout(function() {
-                            HubStar.set("scrollDownSearch", true);
-                        },100);
-                        
-                        $("#show_more_button").css({display: "none"});
+        if (this.get('loadingTime') === false) {
+            this.set("googletagCmd", []);
+            this.set("content", []);
+            this.set("oldChildren", 0);
+            this.set("totalItems", 0);
+            this.set("from", 0);
+            this.set("size", 20);
+            this.set('loadingTime', true);
+            this.set("pageCount", 0);
+            var d = new Date();
+            var start = d.getTime();
+            var that = this;
+            var statusController = this.get('controllers.status');
+            var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'), "classification": localStorage.resOrcom});
+            stats.addObserver('isLoaded', function() {
+                if (stats.get('isLoaded')) {
+                    var stat = stats.objectAt(0);
+                    var megasResults = stat.get("megas");
+                    HubStar.set('itemNumber', megasResults.get("length"));
+                    that.setContent(megasResults, "new");
+                    if (megasResults.get("length") < 20) {
 
-                    });
+                        $(document).ready(function() {
+                            setTimeout(function() {
+                                HubStar.set("scrollDownSearch", true);
+                            }, 100);
 
+                            $("#show_more_button").css({display: "none"});
+
+                        });
+
+                    }
+
+
+
+                    that.set("from", that.get("size"));
+
+                    var d = new Date();
+                    var end = d.getTime();
+                    var time = that.getResponseTime(start, end);
+                    statusController.set("searchResultNum", stat.get('numberofresults'));
+                    statusController.set("time", time);
+                    statusController.changeDescription();
                 }
 
-
-
-                that.set("from", that.get("size"));
-
-                var d = new Date();
-                var end = d.getTime();
-                var time = that.getResponseTime(start, end);
-                statusController.set("searchResultNum", stat.get('numberofresults'));
-                statusController.set("time", time);
-                statusController.changeDescription();
-            }
-
-        });
-        HubStar.set('searchStart', true);
-
+            });
+            HubStar.set('searchStart', true);
+        }
     },
     defaultSearch: function() {
 
@@ -368,13 +451,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     {
         var emailVerify = [verifyAccount, verifyPassword];
         var that = this;
-        console.log("dfafs");
-        
+
         requiredBackEnd('login', 'verify', emailVerify, 'POST', function(params) {
             localStorage.loginStatus = params;
             localStorage.checkUser = "newUser";
             HubStar.set("isLogin", true);
-               
+
             that.transitionToRoute("searchIndexTom");
             that.init();
 
@@ -604,24 +686,24 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.get("categorys").then(function() {
             $(document).ready(function() {
                 setTimeout(function() {
-                if (that.get("classification") === "commercial")
-                {
-                    $('#switchbarBtn1').attr("style", "margin-left:28px;");
-                    $("#Commercial1").css("opacity", "1");
-                    $("#Residential1").css("opacity", "0.4");
-                }
-                else if (that.get("classification") === "residential")
-                {
-                    $('#switchbarBtn1').attr("style", "margin-left:0px;");
-                    $("#Commercial1").css("opacity", "0.4");
-                    $("#Residential1").css("opacity", "1");
-                }
-                else if (that.get("classification") === "All")
-                {
-                    $('#switchbarBtn1').attr("style", "margin-left:13px;");
-                    $("#Commercial1").css("opacity", "1");
-                    $("#Residential1").css("opacity", "1");
-                }
+                    if (localStorage.resOrcom === "commercial")
+                    {
+                        $('#switchbarBtn1').attr("style", "margin-left:28px;");
+                        $("#Commercial1").css("opacity", "1");
+                        $("#Residential1").css("opacity", "0.4");
+                    }
+                    else if (localStorage.resOrcom === "residential")
+                    {
+                        $('#switchbarBtn1').attr("style", "margin-left:0px;");
+                        $("#Commercial1").css("opacity", "0.4");
+                        $("#Residential1").css("opacity", "1");
+                    }
+                    else if (localStorage.resOrcom === "All")
+                    {
+                        $('#switchbarBtn1').attr("style", "margin-left:13px;");
+                        $("#Commercial1").css("opacity", "1");
+                        $("#Residential1").css("opacity", "1");
+                    }
                 }, 50);
             });
         });
@@ -644,6 +726,17 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $("#search-bar").fadeOut("320");
         $(".Navigator-box").fadeOut("320");
         $(".navbar").css("box-shadow", "");
+        if (localStorage.resOrcom === "commercial") {
+            setTimeout(function() {
+                $('#discovery_search_bar_wrapper').css({"background": " url(../../images/commercialbg.jpg)"});
+            }, 10);
+        }
+        else {
+            setTimeout(function() {
+                $('#discovery_search_bar_wrapper').css({"background": " url(../../images/discoverybarbg.jpg)"});
+            }, 10);
+        }
+
         //    $('#masonry_container').attr('style', "top:100px;position:relative");
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
 
@@ -660,19 +753,19 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $(document).ready(function() {
                 setTimeout(function() {
 
-                if (that.get("classification") === "commercial")
-                {
-                    $('#switchbarBtn1').attr("style", "margin-left:28px;");
-                }
-                else if (that.get("classification") === "residential")
-                {
-                    $('#switchbarBtn1').attr("style", "margin-left:0px;");
-                }
-                else if (that.get("classification") === "All")
-                {
-                    $('#switchbarBtn1').attr("style", "margin-left:13px;");
-                }
-                 }, 50);
+                    if (localStorage.resOrcom === "commercial")
+                    {
+                        $('#switchbarBtn1').attr("style", "margin-left:28px;");
+                    }
+                    else if (localStorage.resOrcom === "residential")
+                    {
+                        $('#switchbarBtn1').attr("style", "margin-left:0px;");
+                    }
+                    else if (localStorage.resOrcom === "All")
+                    {
+                        $('#switchbarBtn1').attr("style", "margin-left:13px;");
+                    }
+                }, 50);
             });
         });
 
@@ -692,8 +785,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.get('subcate').pushObject({'ids': data.get('subcate').objectAt(i).get("ids"), 'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')});
         }
         $('#navigator_id_' + this.get("navigator_id")).removeClass('selected-navigation');
-        this.set("navigator_id", data.get("id"));
-        $('#navigator_id_' + data.get("id")).addClass('selected-navigation');
+        this.set("navigator_id", data.get("ids"));
+        $('#navigator_id_' + data.get("ids")).addClass('selected-navigation');
     },
     searchTopicSelection: function(data, ids) {
 
@@ -840,54 +933,45 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     display: function(ads)
     {
         var that = this;
-        if (ads["isNew"] === true) {
-            googletag.cmd.push(function() {
-                for (var i = 0; i < ads.length; i++) {
-                    var ad = ads[i];
-                    var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
-                    googletag.pubads().enableSingleRequest();
-                    googletag.enableServices();
-                    googletag.display(ad.div);
-                    googletag.pubads().refresh([slot1]);
-                }
-            });
-            ads["isNew"] = false;
-        }
-        else
-        {
-            googletag.cmd.push(function() {
-                for (var i = 0; i < ads.length; i++) {
-                    var ad = ads[i];
-                    googletag.pubads().enableSingleRequest();
-                    googletag.enableServices();
-                    googletag.display(ad.div);
-                }
-            });
-        }
-
-
-        for (var i = 0; i < ads.length; i++) {
-            var ad = ads[i];
-            var height = ad.size[1];
-            var div_id = ad.div + "_box";
-            var x = document.getElementById(div_id);
-            x.style.display = "block";
-            x.className += " box";
-
-            x.style.height = height + "px";
+        if (ads !== undefined) {
+            if (ads["isNew"] === true) {
+                googletag.cmd.push(function() {
+                    for (var i = 0; i < ads.length; i++) {
+                        var ad = ads[i];
+                        var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                        ads["slot1"] = slot1;
+                        googletag.pubads().enableSingleRequest();
+                        googletag.enableServices();
+                        googletag.display(ad.div);
+                        googletag.pubads().refresh([slot1]);
+                    }
+                });
+                ads["isNew"] = false;
+            }
+            else
+            {
+                googletag.cmd.push(function() {
+                    for (var i = 0; i < ads.length; i++) {
+                        var ad = ads[i];
+                        googletag.pubads().enableSingleRequest();
+                        googletag.enableServices();
+                        googletag.display(ad.div);
+                        googletag.pubads().refresh([ads["slot1"]]);
+                    }
+                });
+            }
         }
     },
     relayout: function(l)
     {
-        //console.log(l);
         this.set('loadingTime', false);
-        this.set("nextPageSpinner",false);
+        this.set("nextPageSpinner", false);
         if (l !== 0) {
-            this.getAds();
+            var ads = this.getAds();
             HubStar.set("scrollDownSearch", false);
             if (this.get("pageCount") === 0)
             {
-                l = l + 3;
+                l = l + 4;
             }
             else if (this.get("pageCount") === 1)
             {
@@ -895,7 +979,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }
             else if (this.get("pageCount") === 2)
             {
-                l = l + 2;
+                l = l + 3;
             }
 
             var that = this;
@@ -911,11 +995,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     }
                 }
             }
-            if (this.get("pageCount") === 0){
+            if (this.get("pageCount") === 0) {
                 this.set("totalItems", this.get("totalItems") + 1);
             }
             this.set("totalItems", this.get("totalItems") + items.length);
             $('#masonry_container').append(items).masonry('appended', items);
+            that.display(ads);
+
         }
     },
     relayoutDefault: function()
@@ -930,10 +1016,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }, 50);
     },
     getAds: function() {
-
-//        DFP code
-
-
         try
         {
             var adSlots = HubStar.get('ads');
@@ -963,8 +1045,19 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
             }
             that.set("oldChildren", masonryContainer.children.length);
+            //that.display(adSlots[pageCount]);
+            var ads = adSlots[pageCount];
+            for (var i = 0; i < ads.length; i++) {
+                var ad = ads[i];
+                var height = ad.size[1];
+                var div_id = ad.div + "_box";
+                var x = document.getElementById(div_id);
+                x.style.display = "block";
+                x.className += " box";
 
-            that.display(adSlots[pageCount]);
+                x.style.height = height + "px";
+            }
+            return adSlots[pageCount];
         }
         catch (err) {
 //            console.log("container is empty");

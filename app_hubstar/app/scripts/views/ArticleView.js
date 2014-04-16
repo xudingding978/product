@@ -35,16 +35,28 @@ HubStar.ArticleView = Ember.View.extend({
                     // $(".next").css({display: block});
                     that.get("controller").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
                 }
-                if (mouseY > 420)
+                if (mouseY +50 > center_y)
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true); //chage tag show style
-                    mouseY = mouseY - 420;
+                    mouseY = mouseY - center_y+70;
+                     //$("#showTagSavePhoto").css("position", "relative");
                 }
                 else
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", false);
+                     //$("#showTagSavePhoto").css("position", "absolute");
                 }
+                if (mouseX +530 > $(window).width() *0.55)
+                {
+                    //$("#showTagSavePhoto").css("left", "-265px");
 
+                    that.get("controller").get("controllers.showTag").set("change_tag_show_2", true);
+                }
+                else
+                {
+                    //$("#showTagSavePhoto").css("left", "0px");
+                    that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
+                }
                 that.get("controller").nextImage(event, mouseX, mouseY);
             }
         });
@@ -73,16 +85,27 @@ HubStar.ArticleView = Ember.View.extend({
                     //  $(".previous").attr('style', 'display:block');
                     that.get("controller").set("inImage", false);
                 }
-                if (mouseY > 420)
+                if (mouseY + 50 > center_y)
                 {
-                    mouseY = mouseY - 420;
+                    mouseY = mouseY - center_y + 70;
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true);
+                   // $("#showTagSavePhoto").css("position", "relative");
                 }
                 else
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", false);
+                    //$("#showTagSavePhoto").css("position", "absolute");
                 }
-
+                  if (mouseX < 0)
+                {
+                    //$("#showTagSavePhoto").css("left", "265px");
+                    that.get("controller").get("controllers.showTag").set("change_tag_show_2", true);
+                }
+                else
+                {
+                   // $("#showTagSavePhoto").css("left", "0px");
+                    that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
+                }
                 that.get("controller").previesImage(event, mouseX, mouseY);
             }
         });

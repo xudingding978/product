@@ -29,7 +29,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     enableEditTag: false, //enable  photo owner to edit the tag after activate the tag
     showRequestTag: false, //show the tag after save and sent the request
     showTagAfterSave: false, // show the tag icon afte approve
-    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems', 'showTag', 'mega', 'updateTag','permission'],
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems', 'showTag', 'mega', 'updateTag', 'permission'],
     init: function() {
         HubStar.set("readCaption", true);
     },
@@ -126,7 +126,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             var height = tags[i].pic_y * HubStar.get("pic_current_height") + top;  //set the tag's place which is the percentage of image and add the picture origin left point place
             var width = tags[i].pic_x * HubStar.get("pic_current_width") + left;
 
-            
+
             $(tagDiv).css({top: height, left: width});
         }
     },
@@ -161,7 +161,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         });
 
     },
-     checkAuthenticUser: function() {
+    checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
@@ -241,12 +241,35 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.get("controllers.showTag").set("contentTags", "");
         if (this.get("enableTag") === true)
         {
+            var that = this;
             setTimeout(function() {
                 $('#tagit').fadeIn();
                 $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
-
+                if (that.get("controllers.showTag").get("change_tag_show_2"))
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("left", "265px");
+                    });
+                }
+                else
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("left", "0px");
+                    });
+                }
+                if (that.get("controllers.showTag").get("change_tag_show"))
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("position", "relative");
+                    });
+                }
+                else
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("position", "absolute");
+                    });
+                }
                 $('#tagname').focus();
-                $('#masonry_container').masonry(); //masonry();
             }, 20);
         } else
         {
@@ -320,12 +343,35 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("showEachTagContent", false);
         if (this.get("enableTag") === true)
         {
+            var that =this ;
             setTimeout(function() {
                 $('#tagit').fadeIn();
                 $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                 if (that.get("controllers.showTag").get("change_tag_show_2"))
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("left", "-265px");
+                    });
+                }
+                else
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("left", "0px");
+                    });
+                }
+                if (that.get("controllers.showTag").get("change_tag_show"))
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("position", "relative");
+                    });
+                }
+                else
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("position", "absolute");
+                    });
+                }
                 $('#tagname').focus();
-
-                $('#masonry_container').masonry(); //masonry();
             }, 20);
         } else
         {
@@ -424,7 +470,6 @@ HubStar.ArticleController = Ember.Controller.extend({
             }
         }
     },
-
     selectImage: function(e) { // it is click the photo
 //alert("selected image in article");
         this.set("isShowPhotoUrl", true);
@@ -504,7 +549,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         var that = this;
         megaObject.then(function() {
-            that.set('articleResouce', megaObject.get('article').objectAt(0));           
+            that.set('articleResouce', megaObject.get('article').objectAt(0));
             that.set('article', megaObject);
             that.set('articleID', megaObject.id);
             that.set('megaResouce', megaObject);

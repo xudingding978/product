@@ -20,12 +20,12 @@ HubStar.PhotoView = Ember.View.extend({
 
                 mouseX = e.clientX - 265; // x and y axis
                 mouseY = e.clientY - HubStar.get("changeHeight");
-                
+
                 var center_y = $(window).height() / 2;
-                var  center_x = ($(window).width() -320) / 2;
+                var center_x = ($(window).width() - 320) / 2;
                 var top = center_y - HubStar.get("pic_current_height") / 2;
                 var left = center_x - HubStar.get("pic_current_width") / 2;
-                
+
                 that.get("controller").get("controllers.showTag").set("pic_x", (e.clientX - left) / HubStar.get("pic_current_width")); //set 
                 that.get("controller").get("controllers.showTag").set("pic_y", (e.clientY - top) / HubStar.get("pic_current_height"));
                 if (that.get("controller").get("enableTag") === true)
@@ -37,16 +37,28 @@ HubStar.PhotoView = Ember.View.extend({
                     // $(".next").css({display: block});
                     that.get("controller").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
                 }
-                if (mouseY > center_y)
+                if (mouseY + HubStar.get("changeHeight")> center_y)
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true); //chage tag show style
-                    mouseY = mouseY - center_y;
+                    mouseY = mouseY - center_y+70;
+                     $("#showTagSavePhoto").css("position", "relative");
                 }
                 else
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", false);
+                     $("#showTagSavePhoto").css("position", "absolute");
                 }
+                if (mouseX +530 > $(window).width() - 320)
+                {
+                    //$("#showTagSavePhoto").css("left", "-265px");
 
+                    that.get("controller").get("controllers.showTag").set("change_tag_show_2", true);
+                }
+                else
+                {
+                    //$("#showTagSavePhoto").css("left", "0px");
+                    that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
+                }
                 that.get("controller").nextImage(e, mouseX, mouseY);
             }
         });
@@ -57,11 +69,11 @@ HubStar.PhotoView = Ember.View.extend({
 
                 mouseX = event.clientX - 265; // x and y axis
                 mouseY = event.clientY - 50;
-               var center_y = $(window).height() / 2;
-                var  center_x = ($(window).width() -320) / 2;
+                var center_y = $(window).height() / 2;
+                var center_x = ($(window).width() - 320) / 2;
                 var top = center_y - HubStar.get("pic_current_height") / 2;
                 var left = center_x - HubStar.get("pic_current_width") / 2;
-                
+
                 that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - left) / HubStar.get("pic_current_width")); //set 
                 that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY - top) / HubStar.get("pic_current_height"));
                 if (that.get("controller").get("enableTag") === true)
@@ -73,23 +85,26 @@ HubStar.PhotoView = Ember.View.extend({
                     //  $(".previous").attr('style', 'display:block');
                     that.get("controller").set("inImage", false);
                 }
-                if (mouseY+50 > center_y)
+                if (mouseY + 50 > center_y)
                 {
-                    mouseY = mouseY - center_y+70;
+                    mouseY = mouseY - center_y + 70;
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true);
+                    //$("#showTagSavePhoto").css("position", "relative");
                 }
                 else
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", false);
+                     //$("#showTagSavePhoto").css("position", "absolute");
                 }
-                if (mouseX<0)
+                if (mouseX < 0)
                 {
-                    console.log("test");
-                    $("#savePhoto").css("left", "265px");
+                    //$("#showTagSavePhoto").css("left", "265px");
+
                     that.get("controller").get("controllers.showTag").set("change_tag_show_2", true);
                 }
                 else
                 {
+                    //$("#showTagSavePhoto").css("left", "0px");
                     that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
                 }
                 that.get("controller").previesImage(event, mouseX, mouseY);

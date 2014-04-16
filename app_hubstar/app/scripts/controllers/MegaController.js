@@ -103,19 +103,36 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
         if (this.get("enableTag") === true)
         {
-//            if (this.get("inImage") === false)
-//            {
-//                this.get('controllers.applicationFeedback').statusObserver(null, "Please add the tag within the photo.", "warnning");
-//            }
-//            else
-            {
-                setTimeout(function() {
-                    $('#tagit').fadeIn();
-                    $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
-
-                    $('#tagname').focus();                  
-                }, 15);
-            }
+            var that = this;
+            setTimeout(function() {
+                $('#tagit').fadeIn();
+                $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                if (that.get("controllers.showTag").get("change_tag_show_2"))
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("left", "265px");
+                    });
+                }
+                else
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("left", "0px");
+                    });
+                }
+                 if (that.get("controllers.showTag").get("change_tag_show"))
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("position", "relative");
+                    });
+                }
+                else
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("position", "absolute");
+                    });
+                }
+                $('#tagname').focus();
+            }, 15);
         } else
         {
             this.set("contentTags", "");
@@ -171,21 +188,36 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
         if (this.get("enableTag") === true)
         {
-//            if (this.get("inImage") === false)
-//            {
-//                this.get('controllers.applicationFeedback').statusObserver(null, "Please add the tag within the photo.", "warnning");
-//            }
-//            else
-            {
-                setTimeout(function() {
-                    $('#tagit').fadeIn();
-                    $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
-                    $('#tagname').focus();
-
-                    $('#masonry_container').masonry(); //masonry();
-                }, 15);
-            }
-
+            var that = this;
+            setTimeout(function() {
+                $('#tagit').fadeIn();
+                $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                if (that.get("controllers.showTag").get("change_tag_show_2"))
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("left", "-265px");
+                    });
+                }
+                else
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("left", "0px");
+                    });
+                }
+                if (that.get("controllers.showTag").get("change_tag_show"))
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("position", "relative");
+                    });
+                }
+                else
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("position", "absolute");
+                    });
+                }
+                $('#tagname').focus();
+            }, 15);
         } else
         {
             this.set("contentTags", "");

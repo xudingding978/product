@@ -20,14 +20,14 @@ body > div.ember-view > div
 {
     position:absolute;
     opacity:1;
-    width:530px;
+
 }
 #tagit1
 {
     position:absolute;
     opacity:1;
     margin:200px 600px;
-    width:530px;
+
 }
 
 .tagit{
@@ -61,7 +61,7 @@ body > div.ember-view > div
     border-style:solid;
     border-color:#020202;
     margin: auto 220px;
-
+    position: absolute;
 
 }
 

@@ -16,7 +16,7 @@ HubStar.ArticleView = Ember.View.extend({
             {
                 var imgtag = $(this).parent(); // get the div to append the tagging entry
                 mouseX = event.clientX - 265; // x and y axis
-                mouseY = event.clientY - 50;
+                mouseY = event.clientY+70;
 
                 var center_y = $(window).height() / 2;
                 var  center_x = ($(window).width() * 0.55) / 2;
@@ -35,10 +35,10 @@ HubStar.ArticleView = Ember.View.extend({
                     // $(".next").css({display: block});
                     that.get("controller").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
                 }
-                if (mouseY +50 > center_y)
+                if (mouseY -70 > center_y)
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true); //chage tag show style
-                    mouseY = mouseY - center_y+70;
+                    mouseY = mouseY -500;
                      //$("#showTagSavePhoto").css("position", "relative");
                 }
                 else
@@ -66,7 +66,7 @@ HubStar.ArticleView = Ember.View.extend({
                 var sss = event.clientX - $("#tag_image_object").offset().left;
                 var imgtag = $(this).parent(); // get the div to append the tagging entry
                 mouseX = event.clientX - 265; // x and y axis
-                mouseY = event.clientY - 50;
+                mouseY = event.clientY +70;
                  var center_y = $(window).height() / 2;
                 var  center_x = ($(window).width() * 0.55) / 2;
                 var top = center_y - HubStar.get("pic_current_height") / 2;
@@ -85,9 +85,9 @@ HubStar.ArticleView = Ember.View.extend({
                     //  $(".previous").attr('style', 'display:block');
                     that.get("controller").set("inImage", false);
                 }
-                if (mouseY + 50 > center_y)
+                if (mouseY -70 > center_y)
                 {
-                    mouseY = mouseY - center_y + 70;
+                    mouseY = mouseY -500;
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true);
                    // $("#showTagSavePhoto").css("position", "relative");
                 }

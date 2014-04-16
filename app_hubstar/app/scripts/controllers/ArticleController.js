@@ -257,18 +257,6 @@ HubStar.ArticleController = Ember.Controller.extend({
                         $("#showTagSavePhoto").css("left", "0px");
                     });
                 }
-                if (that.get("controllers.showTag").get("change_tag_show"))
-                {
-                    $(document).ready(function() {
-                        $("#showTagSavePhoto").css("position", "relative");
-                    });
-                }
-                else
-                {
-                    $(document).ready(function() {
-                        $("#showTagSavePhoto").css("position", "absolute");
-                    });
-                }
                 $('#tagname').focus();
             }, 20);
         } else
@@ -357,18 +345,6 @@ HubStar.ArticleController = Ember.Controller.extend({
                 {
                     $(document).ready(function() {
                         $("#showTagSavePhoto").css("left", "0px");
-                    });
-                }
-                if (that.get("controllers.showTag").get("change_tag_show"))
-                {
-                    $(document).ready(function() {
-                        $("#showTagSavePhoto").css("position", "relative");
-                    });
-                }
-                else
-                {
-                    $(document).ready(function() {
-                        $("#showTagSavePhoto").css("position", "absolute");
                     });
                 }
                 $('#tagname').focus();

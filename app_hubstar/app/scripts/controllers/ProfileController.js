@@ -1058,8 +1058,28 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         return isFollow;
     },
-    selectCollection: function() {
+    selectCollectionFake: function() {
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
 
+
+        this.sendEventTracking('event', 'button', 'click', 'Collections');
+        this.set('partnerPage', 'Collections');
+        this.set('profileSelectionStatus', 'Collections');
+        this.set('partnerTag', false);
+        this.set('followerProfileTag', false);
+        this.set('collectionTag', true);
+        this.set('reviewTag', false);
+        this.set('videoTag', false);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+
+            }, 200);
+        }, 250);
+    },
+    selectCollection: function() {
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
 
@@ -1074,7 +1094,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('reviewTag', false);
         this.set('videoTag', false);
         this.transitionToRoute('profileCollections');
-
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {
@@ -1082,7 +1101,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
             }, 200);
         }, 250);
-
     },
     selectVideo: function(model) {
         if (this.get("controllers.checkingLoginStatus").popupLogin())

@@ -250,7 +250,7 @@ module.exports = function(grunt) {
         // not used since Uglify task does concat,
         // but still available if needed
         concat: {
-            dist: {
+            distcomponent: {
                 src: [
                     '<%= yeoman.app %>/bower_components/modernizr/modernizr.js',
                     '<%= yeoman.app %>/bower_components/javascriptHelper/browserdetecter.js',
@@ -274,6 +274,34 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/bower_components/intro/intro.js'
                 ],
                 dest: '<%= yeoman.dist %>/scripts/components.js'
+            },
+                 distmain: {
+                src: [
+                    '.tmp/scripts/combined-scripts.js'
+
+                ],
+                dest: '<%= yeoman.dist %>/scripts/main.js'
+            },
+            disttemplate: {
+                src: [
+                    '.tmp/scripts/compiled-templates.js'
+
+                ],
+                dest: '<%= yeoman.dist %>/scripts/templates.js'
+            },
+            distcss: {
+                src: [
+                    '<%= yeoman.app %>/styles/masonry.css',
+                    '<%= yeoman.app %>/styles/bootstrap.css',
+                    '<%= yeoman.app %>/styles/font-awesome.min.css',
+                    '<%= yeoman.app %>/styles/style.css',
+                    '<%= yeoman.app %>/styles/views.css',
+                    '<%= yeoman.app %>/styles/profile-css.css',
+                    '<%= yeoman.app %>/styles/customstyle.css',
+                    '<%= yeoman.app %>/styles/_topnavbar.css',
+                    '<%= yeoman.app %>/styles/_footer.css'
+                ],
+                dest: '<%= yeoman.dist %>/styles/main.css'
             },
             testcomponent: {
                 src: [
@@ -545,8 +573,10 @@ module.exports = function(grunt) {
         'useminPrepare',
         'concurrent:dist',
         'neuter:app',
-        'concat',
-        'concat:dist',
+        'concat:distcomponent',
+        'concat:distmain',
+        'concat:disttemplate',
+        'concat:distcss',
         'cssmin',
         //'uglify',
         'copy:dist',

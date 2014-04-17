@@ -7,7 +7,7 @@
 #footer{
     background: #1E1D1B url('../images/footerbg.png') repeat-x;
     color: white;
-    
+    margin-top:120px;
     bottom:0;
     left:0;
     float:left;

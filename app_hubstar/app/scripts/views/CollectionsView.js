@@ -25,6 +25,10 @@ HubStar.CollectionsView = Ember.View.extend({
         $(createbtn).attr('style', "display:none");
         $(collection_name_insert).val(title);
         $(collection_area).val(desc);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry();
+
+        }, 200);
 //         var container = document.querySelector('#masonry_user_container');
 //        var msnry = new Masonry(container, {
 //             itemSelector: '.box',

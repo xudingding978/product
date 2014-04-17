@@ -124,12 +124,16 @@ HubStar.ProfileRoute = Ember.Route.extend({
             this.transitionTo("videoVideo", {id: video_id});
         }
     },
-    redirect: function() {
+    redirect: function(params) {
+        var p= HubStar.Profile.find(params.id);
         var address = document.URL;
         var page = address.split("#")[1].split("/");
         if(page.length === 3)
         {
-            this.controllerFor('profile').selectCollection(); 
+            var that =this;
+            p.then(function(){    
+                that.controllerFor('profile').selectCollectionFake(); 
+            });       
         }
     },
     deactivate: function() {

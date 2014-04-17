@@ -41,7 +41,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     oldChildren: 0,
     test: false,
     user: null,
-    from: null,
+    from: 0,
     profiles: null,
     size: null,
     photo_url: null,
@@ -51,6 +51,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     repeat: "",
     email: "",
     loginUsername: "",
+    loginStatus: null,
     loginPassword: "",
     resetPasswordEmail: "",
     gender: "",
@@ -116,111 +117,111 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     loginStatus: function() {
     },
-    grapData: function() {
-        HubStar.set("profiles", []);
-        if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
-            localStorage.resOrcom = "All";
-        }
-        this.set('categorys', HubStar.Cate.find({}));
-        if (localStorage.loginStatus) {
-            var u = HubStar.User.find(localStorage.loginStatus);
-            var that = this;
-            u.then(function() {
-                if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
-                        && (u.get("email")).match(/@trendsideas.com/g) !== ""
-                        && (u.get("email")).match(/@trendsideas.com/g) !== null)
-                {
-
-                    that.set("is_trends_user", true);
+            grapData: function() {
+                HubStar.set("profiles", []);
+                if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
+                    localStorage.resOrcom = "All";
                 }
-                else {
+                this.set('categorys', HubStar.Cate.find({}));
+                if (localStorage.loginStatus) {
+                    var u = HubStar.User.find(localStorage.loginStatus);
+                    var that = this;
+                    u.then(function() {
+                        if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
+                                && (u.get("email")).match(/@trendsideas.com/g) !== ""
+                                && (u.get("email")).match(/@trendsideas.com/g) !== null)
+                        {
 
-                    that.set("is_trends_user", false);
-                }
-                for (var i = 0; i < u.get("profiles").get("length"); i++) {
-                    var id = u.get("profiles").objectAt(i).get("profile_id");
-                    var name = u.get("profiles").objectAt(i).get("profile_name");
-                    var pic = u.get("profiles").objectAt(i).get("profile_pic");
-                    var type = u.get("profiles").objectAt(i).get("type");
-                    var isAdministrator = false;
-                    var isEditor = false;
-                    var isCreator = false;
-                    if (type === "administrator")
-                    {
-                        isAdministrator = true;
-                    }
-                    else if (type === "editor")
-                    {
-                        isEditor = true;
-                    }
-                    else if (type === "creator")
-                    {
-                        isCreator = true;
-                    }
-                    var url = pic.split("_");
-                    var length = url.length;
-                    var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
-                    var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
-                    var widthTop = Math.ceil(0);
-                    var heightTop = Math.ceil(0);
-                    if (width > height)
-                    {
-                        height = Math.ceil(135 / width * height);
-                        width = 135;
-                        heightTop = Math.ceil(50 / width * height);
-                        widthTop = 50;
-                    }
-                    else
-                    {
-                        width = Math.ceil(135 / height * width);
-                        height = 135;
-                        widthTop = Math.ceil(50 / height * width);
-                        heightTop = 50;
-                    }
-                    width = width + "px";
-                    height = height + "px";
-                    widthTop = widthTop + "px";
-                    heightTop = heightTop + "px";
+                            that.set("is_trends_user", true);
+                        }
+                        else {
 
-                    HubStar.get("profiles").pushObject({'profile_id': id, 'profile_name': name, "profile_pic": pic, "type": type,
-                        'isAdministrator': isAdministrator, "isEditor": isEditor, "isCreator": isCreator, "height": height, "width": width,
-                        "heightTop": heightTop, "widthTop": widthTop
+                            that.set("is_trends_user", false);
+                        }
+                        for (var i = 0; i < u.get("profiles").get("length"); i++) {
+                            var id = u.get("profiles").objectAt(i).get("profile_id");
+                            var name = u.get("profiles").objectAt(i).get("profile_name");
+                            var pic = u.get("profiles").objectAt(i).get("profile_pic");
+                            var type = u.get("profiles").objectAt(i).get("type");
+                            var isAdministrator = false;
+                            var isEditor = false;
+                            var isCreator = false;
+                            if (type === "administrator")
+                            {
+                                isAdministrator = true;
+                            }
+                            else if (type === "editor")
+                            {
+                                isEditor = true;
+                            }
+                            else if (type === "creator")
+                            {
+                                isCreator = true;
+                            }
+                            var url = pic.split("_");
+                            var length = url.length;
+                            var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
+                            var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
+                            var widthTop = Math.ceil(0);
+                            var heightTop = Math.ceil(0);
+                            if (width > height)
+                            {
+                                height = Math.ceil(135 / width * height);
+                                width = 135;
+                                heightTop = Math.ceil(50 / width * height);
+                                widthTop = 50;
+                            }
+                            else
+                            {
+                                width = Math.ceil(135 / height * width);
+                                height = 135;
+                                widthTop = Math.ceil(50 / height * width);
+                                heightTop = 50;
+                            }
+                            width = width + "px";
+                            height = height + "px";
+                            widthTop = widthTop + "px";
+                            heightTop = heightTop + "px";
+
+                            HubStar.get("profiles").pushObject({'profile_id': id, 'profile_name': name, "profile_pic": pic, "type": type,
+                                'isAdministrator': isAdministrator, "isEditor": isEditor, "isCreator": isCreator, "height": height, "width": width,
+                                "heightTop": heightTop, "widthTop": widthTop
+                            });
+
+                        }
                     });
+                }
+                this.set("user", u);
+                this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
+                this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
+                this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
+                $(document).ready(function() {
+                    setTimeout(function() {
+                        if (localStorage.resOrcom === "commercial")
+                        {
+                            $('#switchbarBtn').attr("style", "margin-left:28px;");
+                            $("#Commercial").css("opacity", "1");
+                            $("#Residential").css("opacity", "0.4");
+                            that.set('residentialKeyword', false);
+                        }
+                        else if (localStorage.resOrcom === "residential")
+                        {
+                            $('#switchbarBtn').attr("style", "margin-left:0px;");
+                            $("#Commercial").css("opacity", "0.4");
+                            $("#Residential").css("opacity", "1");
+                            that.set('residentialKeyword', true);
+                        }
+                        else if (localStorage.resOrcom === "All")
+                        {
+                            $('#switchbarBtn').attr("style", "margin-left:13px;");
+                            $("#Commercial").css("opacity", "1");
+                            $("#Residential").css("opacity", "1");
+                            that.set('residentialKeyword', true);
+                        }
+                    }, 50);
+                });
 
-                }
-            });
-        }
-        this.set("user", u);
-        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
-        this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
-        this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
-        $(document).ready(function() {
-            setTimeout(function() {
-                if (localStorage.resOrcom === "commercial")
-                {
-                    $('#switchbarBtn').attr("style", "margin-left:28px;");
-                    $("#Commercial").css("opacity", "1");
-                    $("#Residential").css("opacity", "0.4");
-                    that.set('residentialKeyword', false);
-                }
-                else if (localStorage.resOrcom === "residential")
-                {
-                    $('#switchbarBtn').attr("style", "margin-left:0px;");
-                    $("#Commercial").css("opacity", "0.4");
-                    $("#Residential").css("opacity", "1");
-                    that.set('residentialKeyword', true);
-                }
-                else if (localStorage.resOrcom === "All")
-                {
-                    $('#switchbarBtn').attr("style", "margin-left:13px;");
-                    $("#Commercial").css("opacity", "1");
-                    $("#Residential").css("opacity", "1");
-                    that.set('residentialKeyword', true);
-                }
-            }, 50);
-        });
-
-    },
+            },
     articleFromSearch: function()
     {
         this.get("controllers.article").set("accessFromSearchBoard", true);
@@ -385,7 +386,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
 
 
-                    that.set("from", that.get("size"));
+                    //that.set("from", that.get("size"));
 
                     var d = new Date();
                     var end = d.getTime();
@@ -509,18 +510,50 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
     },
     submitSelection: function() {
+        
+        var updateTopic = [this.get("loginStatus"), this.get('selected_topics')];
+        var that = this;
+        requiredBackEnd('login', 'selecttopic', updateTopic, 'POST', function() {
+            setTimeout(function() {
+                $('#register-with-email-step-4').css('display', 'block');
+                $('#register-with-email-step-3').css('display', 'none');
+                $('#user-login-pane').css('display', 'none');
+                that.set('first_name', "");
+                that.set('last_name', "");
+                that.set('email', "");
+                that.set('password', "");
+                that.set('region', "");
+                that.set('gender', "");
+                that.set('age', "");
+            }, 1000);
+        });
 
-        $('#register-with-email-step-4').css('display', 'block');
-        $('#register-with-email-step-3').css('display', 'none');
-        $('#user-login-pane').css('display', 'none');
     },
     next: function() {
 
-        $('#register-with-email-step-3').css('display', 'block');
-        $('#register-with-email-step-2').css('display', 'none');
-        $('#click-register-social').css('display', 'none');
-        $('#click-register').css('display', 'none');
-        $('.learnmore-btn').css('display', 'none');
+       
+        var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
+        var that = this;
+        requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
+            localStorage.userName = params.USER_NAME;
+            that.set('loginUsername', localStorage.userName);
+            that.set('loginStatus', params.COUCHBASE_ID);
+            localStorage.userType = "email";
+            localStorage.loginState = "login";
+
+            var emailInfo = [params.USER_NAME, that.encrypt(params.USER_NAME), that.encrypt(params.PWD_HASH)];
+            requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
+
+            });
+            setTimeout(function() {
+                $('#register-with-email-step-3').css('display', 'block');
+                $('#register-with-email-step-2').css('display', 'none');
+                $('#click-register-social').css('display', 'none');
+                $('#click-register').css('display', 'none');
+                $('.learnmore-btn').css('display', 'none');
+                
+            }, 1000);
+        });
 
     },
     backRegister: function() {
@@ -538,57 +571,25 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         return tempstr;
     },
     done: function() {
-        this.set('loginTime', true);
-        var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age'), this.get('selected_topics')];
-        var that = this;
+
         $('#register-with-email-step-4').css('display', 'none');
-        //     $('#skipRegister').css('display', 'block');
-        requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
-            localStorage.userName = params.USER_NAME;
-            that.set('loginUsername', localStorage.userName);
-            localStorage.userType = "email";
-            localStorage.loginState = "login";
-
-            var emailInfo = [params.USER_NAME, that.encrypt(params.USER_NAME), that.encrypt(params.PWD_HASH)];
-            requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
-
-            });
-            setTimeout(function() {
-                $('#login-btn').text('REGISTER');
-                $('.black-tool-tip').css('display', 'none');
-                $('#click-register-social').css('display', 'none');
-                $('#click-register').css('display', 'none');
-                $('#social-link').css('display', 'none');
-                $('#login-with-email-drop-down').css('display', 'block');
-                $('#social-login-container').css('display', 'none');
-                $('#click-login').addClass('active-tab');
-                $('#social-login').removeClass('social-active');
-                $('#user-forgot-password-pane').css('display', 'none');
-                $('#forgot-message-container').css('display', 'none');
-                $('#invalid-username').css('display', 'none');
-
-                $('#register-with-email-drop-down').css('display', 'none');
-                $('#register-with-email-step-2').css('display', 'none');
-                $('#register-with-email-step-3').css('display', 'none');
-                $('#user-login-pane').css('display', 'block');
-
-
-                that.set('first_name', "");
-                that.set('last_name', "");
-                that.set('email', "");
-                that.set('password', "");
-                that.set('region', "");
-                that.set('gender', "");
-                that.set('age', "");
-                that.set('loginTime', false);
-            }, 2000);
-        });
-
+        $('#login-btn').text('REGISTER');
+        $('.black-tool-tip').css('display', 'none');
+        $('#click-register-social').css('display', 'none');
+        $('#click-register').css('display', 'none');
+        $('#social-link').css('display', 'none');
+        $('#login-with-email-drop-down').css('display', 'block');
+        $('#social-login-container').css('display', 'none');
+        $('#click-login').addClass('active-tab');
+        $('#social-login').removeClass('social-active');
+        $('#user-forgot-password-pane').css('display', 'none');
+        $('#forgot-message-container').css('display', 'none');
+        $('#invalid-username').css('display', 'none');
+        $('#register-with-email-drop-down').css('display', 'none');
+        $('#register-with-email-step-2').css('display', 'none');
+        $('#register-with-email-step-3').css('display', 'none');
+        $('#user-login-pane').css('display', 'block');
     },
-//    skip: function(){
-//       // HubStar.set("isLogin", true);
-//       this.transitionToRoute("searchIndex");
-//    },
     checkSignupInfo: function() {
         function checkObject(id, input, lengthMin, lengthMax, isEmailValid)
         {

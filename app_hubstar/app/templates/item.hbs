@@ -82,9 +82,9 @@
           <div style="font-weight: bold;margin-bottom: 5px;font-size:16px;font-style:italic;">{{#each photo}} {{photo_title}}   {{/each}} </div>
             </div>
 
-            <div class="more_detail" {{bindAttr id="id"}} >
+            <div class="more_detail" style="margin:0;"{{bindAttr id="id"}} >
                 <div class="more_text-container" >
-                    <div style="display:block;">
+                    <div style="display:block;text-">
                         {{#each photo}}
                         {{{photo_caption}}}
                         {{/each}}
@@ -191,6 +191,11 @@
                 <p style="font-weight: bold;margin-bottom: 5px;font-size:16px;font-style:italic;" {{action transitionToVideo id}}>{{object_title}}</p>
                 <p class="masonry-object_text-container" style="font-size: 13px; max-height: 50px;">{{object_description}}</p>
             </div>
+            
+             {{#if moreDisplay}}
+            <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action transitionToVideo id}} >more &nbsp;</span>
+            {{/if}}
+            
         </div>
     </div>
 

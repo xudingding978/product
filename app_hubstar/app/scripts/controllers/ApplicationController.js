@@ -638,7 +638,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }//MISSING FIELDS; the user has not filled in all the mandatory fields
             if (checkList[i].input !== null && checkList[i].isEmailValid === true)
             {
-                if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
+                
+                if(/\s/.test(checkList[i].input)){
+                    result = false;
+                     $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-user-name-register-with-spaces').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    break;
+                }
+               else if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
                     result = true;
                 }
                 else {

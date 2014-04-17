@@ -9,7 +9,7 @@ var phone_record;
 var website_record;
 var website_url_record;
 var workingtime;
-var seletedID = "";
+var seletedID = "";newStyleImageSource
 var collection_title_record;
 var collection_desc_record;
 

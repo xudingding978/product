@@ -5,6 +5,9 @@
 
 /app_hubstar/test/*.*
 /app_hubstar/test/*
+/app_hubstar/test/scripts/*.*
+/app_hubstar/test/scripts/*
+
 
 /app_hubstar/npm-debug.log
 /nbproject/private/

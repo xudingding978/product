@@ -873,7 +873,7 @@
                 {{#view HubStar.SingleFileUploaderView }}
                 <div style="position: relative; margin: 15px auto;height: 520px; width: 87%; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;">
                     <div style="top: 120px;position: relative;margin: auto;width: 80%; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
-                        <img  {{bindAttr src= "backgroundImage"}}  style="max-width: 100%; max-height: 35%;">
+                        <img  {{bindAttr src= "backgroundImage"}}  style="max-width: 60%; max-height: 35%;">
 
                             <p style="font-weight: bold; margin: 10px;">
                                 {{controller.UploadImageMode}} 
@@ -891,9 +891,9 @@
                     </div>
 
                     <div id="dragAndDroppArea" class="dragndropbox" style="display:block">
-                        <div style="position: relative;margin:3px; display: inline-block; vertical-align: top; min-width: 150px;text-align: center;">
+                        <div id="smallUploadImage" style="position: relative;margin:3px; display: none; vertical-align: top; min-width: 150px;text-align: center;">
                             <div>
-<!--                                <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 140px; max-height: 150px;">-->
+                                <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 140px; max-height: 150px;">
                                     <div id='uploadStyleImg' style="display: none;">
                                         <img style="width: 25px; height: 25px;position: absolute;top: 40%;left: 62px;" src="../../../images/uploadphotos_spinner.gif"/>
                                     </div>

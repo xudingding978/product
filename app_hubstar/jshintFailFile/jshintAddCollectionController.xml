@@ -31,5 +31,7 @@
                             ^ ['profile_name'] is better written in dot notation.
     381 |[90m            dataNew["type"] = "user";[39m
                             ^ ['type'] is better written in dot notation.
+    202 |[90m            var message_id = createMessageid() + commenter_id;[39m
+                                      ^ 'createMessageid' is not defined.
 
-[31m>> [39m15 errors in 2 files
+[31m>> [39m16 errors in 2 files

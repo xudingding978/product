@@ -192,29 +192,8 @@ module.exports = function(grunt) {
             },
             all: [
                 'Gruntfile.js',
-                'app/scripts/views/EditCollectionView.js',
+                'app/scripts/views/*.js'
                 //jshint to test one file
-'app/scripts/views/EditCommentView.js' ,
-'app/scripts/views/EditEditorsView.js' ,
-'app/scripts/views/EditMessageView.js' ,
-'app/scripts/views/EditReplyView.js',
-'app/scripts/views/EditingAboutView.js' ,
-'app/scripts/views/EditingView.js' ,
-'app/scripts/views/FooterView.js' ,
-'app/scripts/views/FourOhFourView.js' ,
-'app/scripts/views/GoogleMapPopupView.js' ,
-'app/scripts/views/HeaderView.js' ,
-'app/scripts/views/HtmlEditorView.js' ,
-'app/scripts/views/ImageInputButtonView.js' ,
-'app/scripts/views/InvitePeopleView.js' ,
-'app/scripts/views/IsLoadingView.js' ,
-'app/scripts/views/ItemFunctionView.js' ,
-'app/scripts/views/ItemProfilesView.js' ,
-'app/scripts/views/ItemView.js' 
-
-
-
-
                //'app/scripts/controllers/AddCollectionController.js'
 //                '<%= yeoman.app %>/scripts/{,*/}*.js'
 //                '!<%= yeoman.app %>/scripts/vendor/*',

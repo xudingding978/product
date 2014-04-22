@@ -61,6 +61,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
     },
     addLike: function(id)
     {
+        console.log("in ItemFunctionController.js");
         if (this.get("controllers.checkingLoginStatus").popupLogin()) {
             var mega = HubStar.Mega.find(id);
             var type = mega.get("type");

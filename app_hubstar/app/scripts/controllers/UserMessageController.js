@@ -52,7 +52,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
         this.set('clientID', id);
         this.set('loadingTime', true);
         var data = this.get('clientID');
-        var dataNew = new Array();
+        var dataNew = [];
         var that = this;
         requiredBackEnd('messages', 'Read', data, 'POST', function(params) {
 

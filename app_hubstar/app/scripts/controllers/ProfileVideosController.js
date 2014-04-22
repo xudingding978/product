@@ -80,7 +80,7 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
     },
     checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
-        var current_user_email = currentUser.get('email');
+       // var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
         var role = permissionController.checkAuthenticEdit(that.get("pageModel").get("profile_creator"), that.get("pageModel").get("profile_administrator"), that.get("pageModel").get("profile_editor"));

@@ -186,7 +186,7 @@ module.exports = function(grunt) {
         },
         jshint: {
             options: {
-                jshintrc: '.jshintrc', //dont change this file
+                jshintrc: '.jshintrc'  //dont change this file
                 //reporterOutput: 'jshintFailFile/jshintAddCollectionController.xml'   //create report for one file
                //reporterOutput: 'jshintFailFile/jshint.xml' 
             },

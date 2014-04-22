@@ -7,13 +7,7 @@ HubStar.EditCollectionView = Ember.View.extend({
                 columnWidth: 185,
                 isFitWidth: true
         });
-//        $(function() {
-//            $('#masonry_user_container').masonry({
-//                itemSelector: '.box',
-//                columnWidth: 185,
-//                isFitWidth: true
-//            });
-//        });
+
         $('#uploadObject').click(function() {           
             $('.new-collection-name_insert').val("");
             $('.new-collection-area').val("");

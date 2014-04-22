@@ -25,10 +25,6 @@ HubStar.HeaderView = Ember.View.extend({
     
             
             $("#switchbar").mouseup(function(event) {
-                var address = document.URL;
-                var type = address.split("#")[1].split("/")[2];
-                var mousedownX = event.pageX;
-
                 var mousedownX = event.pageX;
                 var witdhleft = $('#switchbar').offset().left;
                 var d = 23;
@@ -45,9 +41,6 @@ HubStar.HeaderView = Ember.View.extend({
                     $("#Commercial").css("opacity", "0.4");
                     $("#Residential").css("opacity", "1");
                     localStorage.resOrcom = "residential";
-//                     $('#discovery_search_bar_wrapper').css("background"," url(../../images/contactbg.png)");
-//                 $(".navbar").css("background", " url(../../images/contactbg.png)");
-//                   $(".gradient1").css("background", " linear-gradient(to bottom, #01b6e3 22%,#f5f5f5 99%)");
                     $('#discovery_search_bar_wrapper').fadeOut(500, function() {
                         $(this).css({"background": " url(../../images/discoverybarbg.jpg)"}).fadeIn(500);
                     });
@@ -92,7 +85,6 @@ HubStar.HeaderView = Ember.View.extend({
                     $("#Residential").css("opacity", "0.4");
 
                     localStorage.resOrcom = "commercial";
-//                    $('#discovery_search_bar_wrapper').css({"background": " url(../../images/commercialbg.jpg)"});
                     $('#discovery_search_bar_wrapper').fadeOut(500, function() {
                         $(this).css({"background": " url(../../images/commercialbg.jpg)"}).fadeIn(500);
                     });

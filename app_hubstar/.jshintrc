@@ -10,7 +10,7 @@
 	"latedef": true,
 	"newcap": true,
 	"noarg": true,
-	"predef":["HubStar","$","Ember","requiredBackEnd","DS","urlArray"],
+	"predef":["HubStar","$","Ember","requiredBackEnd","DS","urlArray","introJs","swfobject","jscd","Masonry","msnry","geocoder","marker","wysihtml5","wysihtml5ParserRules","composer","print_country","google","ga"],
 	"undef": true,
 	"strict": false,
 	"trailing": true,

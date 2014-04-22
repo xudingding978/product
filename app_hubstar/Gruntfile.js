@@ -9,7 +9,7 @@ var mountFolder = function(connect, dir) {
 // 'test/spec/{,*/}*.js'
 // use this if you want to match all subfolders:
 // 'test/spec/**/*.js'
-//var templ;
+
 module.exports = function(grunt) {
 // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -192,6 +192,7 @@ module.exports = function(grunt) {
             },
             all: [
 
+
                 'Gruntfile.js',
                 'app/scripts/controllers/PermissionController.js'
                 
@@ -201,6 +202,7 @@ module.exports = function(grunt) {
                 
                 
                // 'app/scripts/routes/*.js'     //jshint to test one file
+
 
                //'app/scripts/controllers/AddCollectionController.js'
 //                '<%= yeoman.app %>/scripts/{,*/}*.js'

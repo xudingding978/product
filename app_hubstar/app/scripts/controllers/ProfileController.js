@@ -1401,7 +1401,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var update_profile_record = HubStar.Profile.find(this.get('model.id'));
         if (this.get(link) === null || this.get(link) === "" || this.get(link) === undefined)
         {
-            this.get(link) === "";
+            this.set(link , "");
             update_profile_record.set(link_url, this.get(link));
             this.set(link, this.get(link));
         }

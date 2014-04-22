@@ -18,12 +18,16 @@ HubStar.CommentController = Ember.Controller.extend({
     switchCollection: function(model) {
 
         if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+            var photoObj;
+            var addCollectionController;
+            var selectid;
+            var tempUrl;
             if (model.get("type") === "photo") {
-                var photoObj = model.get("photo").objectAt(0);
-                var addCollectionController = this.get('controllers.addCollection');
-                var selectid = model.id;
+                photoObj = model.get("photo").objectAt(0);
+                addCollectionController = this.get('controllers.addCollection');
+                selectid = model.id;
                 addCollectionController.setImageID(selectid);
-                var tempUrl = photoObj.get('photo_image_thumbnail_url');
+                tempUrl = photoObj.get('photo_image_thumbnail_url');
                 addCollectionController.setThumbnailUrl(tempUrl);
                 addCollectionController.setUser();
                 addCollectionController.setRelatedController('comment');
@@ -31,11 +35,11 @@ HubStar.CommentController = Ember.Controller.extend({
             }
             else if (model.get("type") === "article")
             {
-                var photoObj = model.get("article").objectAt(0);
-                var addCollectionController = this.get('controllers.addCollection');
-                var selectid = model.id;
+                photoObj = model.get("article").objectAt(0);
+                addCollectionController = this.get('controllers.addCollection');
+                selectid = model.id;
                 addCollectionController.setImageID(selectid);
-                var tempUrl = photoObj.get('article_image_url');
+                tempUrl = photoObj.get('article_image_url');
                 addCollectionController.setThumbnailUrl(tempUrl);
                 addCollectionController.setUser();
                 addCollectionController.setRelatedController('comment');
@@ -44,10 +48,10 @@ HubStar.CommentController = Ember.Controller.extend({
 
             else if (model.get("type") === "video")
             {
-                var addCollectionController = this.get('controllers.addCollection');
-                var selectid = model.id;
+                addCollectionController = this.get('controllers.addCollection');
+                selectid = model.id;
                 addCollectionController.setImageID(selectid);
-                var tempUrl = model.get('object_image_url');
+                tempUrl = model.get('object_image_url');
                 addCollectionController.setThumbnailUrl(tempUrl);
                 addCollectionController.setUser();
                 addCollectionController.setRelatedController('comment');
@@ -207,92 +211,56 @@ HubStar.CommentController = Ember.Controller.extend({
         var id = this.get('content').id;
         var type = this.get('content').get('type');
         this.getCommentsById(id);
+        var commentId;
+        var time_stamp;
+        var message_id;
+        var delInfo = [];
+        var that = this;
         if (type === 'photo') {
-            var commentId = object.get("commenter_id");
-            var time_stamp = object.get("time_stamp");
-            var message_id = object.get("message_id");
-            var delInfo = [id, message_id];
+            commentId = object.get("commenter_id");
+            time_stamp = object.get("time_stamp");
+            message_id = object.get("message_id");
+            delInfo = [id, message_id];
             delInfo = JSON.stringify(delInfo);
-            var that = this;
             that.get("thisComments").removeObject(object);
             requiredBackEnd('comments', 'DeletePhotoComment', delInfo, 'POST', function(params) {
-
             });
         }
         else if (type === "profile")
         {
-            var commentId = object.get("commenter_id");
-            var time_stamp = object.get("time_stamp");
-            var message_id = object.get("message_id");
-            var delInfo = [id, message_id];
+            commentId = object.get("commenter_id");
+            time_stamp = object.get("time_stamp");
+            message_id = object.get("message_id");
+            delInfo = [id, message_id];
             delInfo = JSON.stringify(delInfo);
-            var that = this;
             that.get("thisComments").removeObject(object);
             requiredBackEnd('comments', 'DeleteProfileComment', delInfo, 'POST', function(params) {
-
-
             });
         }
         else if (type === "article")
         {
-            var commentId = object.get("commenter_id");
-            var time_stamp = object.get("time_stamp");
-            var message_id = object.get("message_id");
-            var delInfo = [id, message_id];
+            commentId = object.get("commenter_id");
+            time_stamp = object.get("time_stamp");
+            message_id = object.get("message_id");
+            delInfo = [id, message_id];
             delInfo = JSON.stringify(delInfo);
-            var that = this;
             that.get("thisComments").removeObject(object);
             requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function(params) {
-
-
             });
         }
         else if (type === "video")
         {
-            var commentId = object.get("commenter_id");
-            var time_stamp = object.get("time_stamp");
-            var message_id = object.get("message_id");
-            var delInfo = [id, message_id];
+            commentId = object.get("commenter_id");
+            time_stamp = object.get("time_stamp");
+            message_id = object.get("message_id");
+            delInfo = [id, message_id];
             delInfo = JSON.stringify(delInfo);
-            var that = this;
             requiredBackEnd('comments', 'DeleteVideoComment', delInfo, 'POST', function(params) {
                 that.get("thisComments").removeObject(object);
-
             });
         }
         this.get('mega').set("comment_count", this.get("thisComments").get("length"));
     },
-//    addLike: function(id)
-//    {
-//        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
-//            var mega = HubStar.Mega.find(id);
-//            var type = mega.get("type");
-//            var people_like = mega.get("people_like");
-//            if (people_like === null || people_like === undefined) {
-//                people_like = "";
-//            }
-//            if (localStorage.loginStatus !== null && localStorage.loginStatus !== undefined && localStorage.loginStatus !== "")
-//            {
-//                if (people_like.indexOf(localStorage.loginStatus) !== -1)
-//                {
-//                    this.count = mega.get('likes_count');
-//
-//                }
-//                else {
-//                    var likeArray = [localStorage.loginStatus, id, type];
-//                    likeArray = JSON.stringify(likeArray);
-//                    var that = this;
-//                    requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
-//                        params = params + "";
-//                        var like = params.split(",");
-//                        mega.set("likes_count", like.length);
-//                        mega.set("people_like", params);
-//                        that.count = like.length;
-//                    });
-//                }
-//            }
-//        }
-//    },
     pushComment: function(comment)
     {
         var tempurl = getRestAPIURL();
@@ -332,7 +300,7 @@ HubStar.CommentController = Ember.Controller.extend({
         $('#closeComment_' + id).attr('style', 'display:none');
         $('#showMoreComment_' + id).attr('style', 'display:block');
 
-                       
+
         $('#commentScrollBar_' + this.get('model').get('getID')).addClass('comment-scroll-bar');
         $('#commentScrollBar_' + this.get('model').get('getID') + ' > div').attr('class', '');
         $('#commentScrollBar_' + this.get('model').get('getID') + ' > div').attr('class', 'mCustomScrollBox mCS-dark-2');
@@ -354,11 +322,13 @@ HubStar.CommentController = Ember.Controller.extend({
     },
     fbShare: function(model) {
         this.shareHide(model.id);
+        var that = this;
+        var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
+        var caption = '';
         if (model.get("type") === "photo") {
             this.set("selectedPhoto", model.get("photo").objectAt(0));
-            var that = this;
-            var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
-            var caption = '';
+            currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
+            caption = '';
 
             if (this.get('selectedPhoto').get('photo_caption') !== null)
             {
@@ -391,9 +361,8 @@ HubStar.CommentController = Ember.Controller.extend({
         }
         if (model.get("type") === "video") {
             this.set("selectedVideo", model._data.videoes[0]);
-            var that = this;
-            var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo')['id'];
-            var caption = '';
+            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo').id;
+            caption = '';
             if (this.get('selectedVideo').data.video_desc !== null)
             {
                 caption = this.get('selectedVideo').data.video_desc;
@@ -425,9 +394,8 @@ HubStar.CommentController = Ember.Controller.extend({
         }
         if (model.get("type") === "article") {
             this.set("selectedArticle", model.get("article").objectAt(0));
-            var that = this;
-            var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedArticle').get('id');
-            var caption = '';
+            currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedArticle').get('id');
+            caption = '';
             if (this.get('selectedArticle').get('article_body') !== null)
             {
                 caption = this.get('selectedArticle').get('article_body');
@@ -462,9 +430,12 @@ HubStar.CommentController = Ember.Controller.extend({
     //share to social google plus
     gpShare: function(model) {
         this.shareHide(model.id);
+        var caption = '';
+        var currntUrl;
+        var url;
         if (model.get("type") === "photo") {
             this.set("selectedPhoto", model.get("photo").objectAt(0));
-            var caption = '';
+            caption = '';
             if (this.get('selectedPhoto').get('photo_caption') !== null)
             {
                 caption = this.get('selectedPhoto').get('photo_caption');
@@ -480,8 +451,8 @@ HubStar.CommentController = Ember.Controller.extend({
             $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_thumbnail_url'));
 
 
-            var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
-            var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+            currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
+            url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
             window.open(
                     url,
@@ -493,7 +464,7 @@ HubStar.CommentController = Ember.Controller.extend({
         }
         else if (model.get("type") === "article") {
             this.set("selectedArticle", model.get("article").objectAt(0));
-            var caption = '';
+            caption = '';
             if (this.get('selectedArticle').get('article_body') !== null)
             {
                 caption = this.get('selectedArticle').get('article_body');
@@ -509,8 +480,8 @@ HubStar.CommentController = Ember.Controller.extend({
             $("meta[property='og\\:image']").attr("content", this.get('selectedArticle').get('article_image_url'));
 
 
-            var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedArticle').get('id');
-            var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+            currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedArticle').get('id');
+            url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
             window.open(
                     url,
@@ -522,7 +493,7 @@ HubStar.CommentController = Ember.Controller.extend({
         }
         else if (model.get("type") === "video") {
             this.set("selectedVideo", model._data.videoes[0]);
-            var caption = '';
+            caption = '';
             if (this.get('selectedVideo').data.video_desc !== null)
             {
                 caption = this.get('selectedVideo').data.video_desc;
@@ -538,8 +509,8 @@ HubStar.CommentController = Ember.Controller.extend({
             $("meta[property='og\\:image']").attr("content", this.get('selectedVideo').data.video_img);
 
 
-            var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo')['id'];
-            var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo').id;
+            url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
             window.open(
                     url,
@@ -553,10 +524,12 @@ HubStar.CommentController = Ember.Controller.extend({
     //share to social twitter
     tShare: function(model) {
         this.shareHide(model.id);
+        var currntUrl;
+        var url;
         if (model.get("type") === "photo") {
             this.set("selectedPhoto", model.get("photo").objectAt(0));
-            var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
-            var url = 'https://twitter.com/share?text=' + this.get('selectedPhoto').get('photo_title') + '&url=' + encodeURIComponent(currntUrl);
+            currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
+            url = 'https://twitter.com/share?text=' + this.get('selectedPhoto').get('photo_title') + '&url=' + encodeURIComponent(currntUrl);
             window.open(
                     url,
                     'popupwindow',
@@ -566,8 +539,8 @@ HubStar.CommentController = Ember.Controller.extend({
         }
         else if (model.get("type") === "article") {
             this.set("selectedArticle", model.get("article").objectAt(0));
-            var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedArticle').get('id');
-            var url = 'https://twitter.com/share?text=' + this.get('selectedArticle').get('article_headline') + '&url=' + encodeURIComponent(currntUrl);
+            currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedArticle').get('id');
+            url = 'https://twitter.com/share?text=' + this.get('selectedArticle').get('article_headline') + '&url=' + encodeURIComponent(currntUrl);
             window.open(
                     url,
                     'popupwindow',
@@ -577,8 +550,8 @@ HubStar.CommentController = Ember.Controller.extend({
         }
         else if (model.get("type") === "video") {
             this.set("selectedVideo", model._data.videoes[0]);
-            var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo')['id'];
-            var url = 'https://twitter.com/share?text=' + this.get('selectedVideo').data.video_title + '&url=' + encodeURIComponent(currntUrl);
+            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo')['id'];
+            url = 'https://twitter.com/share?text=' + this.get('selectedVideo').data.video_title + '&url=' + encodeURIComponent(currntUrl);
             window.open(
                     url,
                     'popupwindow',
@@ -589,10 +562,12 @@ HubStar.CommentController = Ember.Controller.extend({
     },
     pShare: function(model) {
         this.shareHide(model.id);
+        var currntUrl;
+        var url;
         if (model.get("type") === "photo") {
             this.set("selectedPhoto", model.get("photo").objectAt(0));
-            var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
-            var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+            currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
+            url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                     '&media=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_original_url')) +
                     '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title'));
             window.open(
@@ -605,8 +580,8 @@ HubStar.CommentController = Ember.Controller.extend({
         }
         else if (model.get("type") === "video") {
             this.set("selectedVideo", model._data.videoes[0]);
-            var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo')['id'];
-            var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo')['id'];
+            url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                     '&media=' + encodeURIComponent(this.get('selectedVideo').data.video_img) +
                     '&description=' + encodeURIComponent(this.get('selectedVideo').data.video_title);
             window.open(
@@ -618,8 +593,8 @@ HubStar.CommentController = Ember.Controller.extend({
         }
         else if (model.get("type") === "article") {
             this.set("selectedArticle", model.get("article").objectAt(0));
-            var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedArticle').get('id');
-            var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+            currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedArticle').get('id');
+            url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                     '&media=' + encodeURIComponent(this.get('selectedArticle').get('article_image_url')) +
                     '&description=' + encodeURIComponent(this.get('selectedArticle').get('article_headline'));
             window.open(

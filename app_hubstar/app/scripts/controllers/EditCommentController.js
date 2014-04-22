@@ -33,13 +33,14 @@ HubStar.EditCommentController = Ember.Controller.extend({
         var id = object.get("optional").split('/')[1];
         var mega = HubStar.Mega.find(id);
         var type = mega.get('type');
-
-
+        var message_id;
+        var that = this;
+        var delInfo=[];
         if (type === 'photo') {
-            var message_id = object.get("message_id");
-            var delInfo = [id, message_id, this.get("commentContent")];
+             message_id = object.get("message_id");
+             delInfo = [id, message_id, this.get("commentContent")];
             delInfo = JSON.stringify(delInfo);
-            var that = this;
+
             object.set("content", this.get("commentContent"));
             that.closeCommentItem(object);
             requiredBackEnd('comments', 'UpdatePhotoComment', delInfo, 'POST', function(params) {
@@ -48,10 +49,10 @@ HubStar.EditCommentController = Ember.Controller.extend({
         }
         else if (type === "profile")
         {
-            var message_id = object.get("message_id");
-            var delInfo = [id, message_id, this.get("commentContent")];
+             message_id = object.get("message_id");
+             delInfo = [id, message_id, this.get("commentContent")];
             delInfo = JSON.stringify(delInfo);
-            var that = this;
+
             object.set("content", that.get("commentContent"));
             that.closeCommentItem(object);
             requiredBackEnd('comments', 'UpdateProfileComment', delInfo, 'POST', function(params) {
@@ -60,10 +61,10 @@ HubStar.EditCommentController = Ember.Controller.extend({
         }
         else if (type === "article")
         {
-            var message_id = object.get("message_id");
-            var delInfo = [id, message_id, this.get("commentContent")];
+             message_id = object.get("message_id");
+             delInfo = [id, message_id, this.get("commentContent")];
             delInfo = JSON.stringify(delInfo);
-            var that = this;
+
             object.set("content", that.get("commentContent"));
             that.closeCommentItem(object);
             requiredBackEnd('comments', 'UpdateArticleComment', delInfo, 'POST', function(params) {
@@ -72,14 +73,13 @@ HubStar.EditCommentController = Ember.Controller.extend({
         }
         else if (type === "video")
         {
-            var message_id = object.get("message_id");
-            var delInfo = [id, message_id, this.get("commentContent")];
+             message_id = object.get("message_id");
+             delInfo = [id, message_id, this.get("commentContent")];
             delInfo = JSON.stringify(delInfo);
-            var that = this;
+            
             object.set("content", that.get("commentContent"));
             that.closeCommentItem(object);
             requiredBackEnd('comments', 'UpdateVideoComment', delInfo, 'POST', function(params) {
-
             });
         }
     }

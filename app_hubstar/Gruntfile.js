@@ -206,7 +206,7 @@ module.exports = function(grunt) {
 
 
 
-                'app/scripts/controllers/ConversationController.js'     //jshint to test one file
+                'app/scripts/controllers/MasonryCollectionItemsController.js'     //jshint to test one file
                // 'app/scripts/controllers/ApplicationFeedbackController.js'
 
 

@@ -162,6 +162,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         this.set('makeSureDelete', true);
         this.dropdownPhotoSetting(itemID);
         if (this.get('willDelete')) {
+            var tempItem;
             if (this.get("type") === "user") {
                 var currentUser = HubStar.User.find(localStorage.loginStatus);
                 var currentCollection = null;
@@ -169,7 +170,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
                 for (var j = 0; j < this.get('content').length; j++) {
                     if (this.get('content').objectAt(j).get('id') === this.get('itemID')) {
-                        var tempItem = this.get('content').objectAt(j);
+                        tempItem = this.get('content').objectAt(j);
                         for (var i = 0; i < currentUser.get('collections').get('length'); i++) {
                             if (currentUser.get('collections').objectAt(i).get('id') === this.get('collectionID'))
                             {
@@ -195,7 +196,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                 var profile = HubStar.Profile.find(this.get("profileId"));
                 for (var i = 0; i < this.get('content').length; i++) {
                     if (this.get('content').objectAt(i).get('id') === this.get('itemID')) {
-                        var tempItem = this.get('content').objectAt(i);
+                         tempItem = this.get('content').objectAt(i);
                         if (this.get('type') === 'profile') {
                             var item = HubStar.Mega.find(this.get('itemID'));
 
@@ -275,22 +276,22 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
-        var role = permissionController.checkAuthenticEdit(that.get("pageModel").get("profile_creator"), that.get("pageModel").get("profile_administrator"), that.get("pageModel").get("profile_editor"));       
+        var role = permissionController.checkAuthenticEdit(that.get("pageModel").get("profile_creator"), that.get("pageModel").get("profile_administrator"), that.get("pageModel").get("profile_editor"));
         var is_edit = false;
         if (role !== "")
         {
             is_edit = true;
         }
-        
+
         if (currentUser.get("isLoaded")) {
             var is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
-            this.set("is_authentic_user", is_authentic_user||is_edit);
+            this.set("is_authentic_user", is_authentic_user || is_edit);
         } else {
             currentUser.addObserver('isLoaded', function() {
                 var current_user_email = currentUser.get('email');
                 if (currentUser.get('isLoaded')) {
                     is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
-                    that.set("is_authentic_user", is_authentic_user||is_edit);
+                    that.set("is_authentic_user", is_authentic_user || is_edit);
                 }
             });
         }
@@ -355,7 +356,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
 //        $('#dropdown_id_' + id).toggleClass('hideClass');
 
-   var id='#dropdown_id_' + id;
+        var id = '#dropdown_id_' + id;
         $(id).toggleClass('hideClass');
         $(id).click(function() {
             $(this).removeClass('hideClass');

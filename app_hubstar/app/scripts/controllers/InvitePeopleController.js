@@ -28,11 +28,11 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
     getClientId: function(id, conversationID) {
         this.set('loadingTime', true);
         this.set('clientID', id);
-        var dataNew = new Array();
+        var dataNew = [];
         var conversationContent = this.get('controllers.conversation').get("conversationContent");
         for (var i = 0; i < conversationContent.length; i++)
         {
-            if (conversationContent[i]["conversationID"] === conversationID)
+            if (conversationContent[i].conversationID === conversationID)
             {
                 this.set("conversationItem", conversationContent[i]);
                 break;
@@ -57,11 +57,11 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
                 {
 
                     if (conversationID === undefined) {
-                        dataNew["isAdd"] = false;
-                        dataNew["id"] = params[i]["record_id"];
-                        dataNew["name"] = params[i]["name"];
+                        dataNew.isAdd = false;
+                        dataNew.id = params[i].record_id;
+                        dataNew.name = params[i].name;
                         
-                        dataNew["photo_url"] = params[i]["photo_url"];
+                        dataNew.photo_url = params[i].photo_url;
                         that.get("contentFollowerPhoto").pushObject(dataNew);
                     }
                     else {
@@ -69,7 +69,7 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
                         var flag = false;
                         for (var j = 0; j < participation_id.length; j++)
                         {
-                            if (participation_id[j] === params[i]["record_id"])
+                            if (participation_id[j] === params[i].record_id)
                             {
                                 flag = true;
 
@@ -78,14 +78,14 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
                         }
                         if (flag !== true)
                         {
-                            dataNew["isAdd"] = false;
-                            dataNew["id"] = params[i]["record_id"];
-                            dataNew["name"] = params[i]["name"];
-                            dataNew["photo_url"] = params[i]["photo_url"];
+                            dataNew.isAdd = false;
+                            dataNew.id = params[i].record_id;
+                            dataNew.name = params[i].name;
+                            dataNew.photo_url = params[i].photo_url;
                             that.get("contentFollowerPhoto").pushObject(dataNew);
                         }
                     }
-                    dataNew = new Array();
+                    dataNew = [];
                 }
             }
             that.set('loadingTime', false);

@@ -300,7 +300,7 @@ HubStar.UserController = Ember.Controller.extend({
 
         this.trendsUser();
         $(document).ready(function() {
-            $("#about_us_contentsssssssw").mCustomScrollbar({
+            $("#about_us_contents").mCustomScrollbar({
                 scrollButtons: {
                     enable: false,
                     scrollSpeed: "auto"

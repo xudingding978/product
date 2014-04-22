@@ -19,7 +19,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         HubStar.set("readCaption", true);
     },
     findSelectedItemIndex: function() {
-        content = this.get('content');
+        var content = this.get('content');
         for (var index = 0; index <= content.get('length'); index++) {
             if (this.get('selectedPhoto') === content.objectAt(index)) {
                 return index;
@@ -332,7 +332,6 @@ HubStar.ArticleController = Ember.Controller.extend({
         var delInfo = [id, message_id];
 
         delInfo = JSON.stringify(delInfo);
-        var that = this;
         this.get('article').get('comments').removeObject(object);
         requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function(params) {
         });
@@ -476,15 +475,16 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
         else
         {
+            var photoObject;
             if (type === "users")
             {
-                var photoObject = HubStar.Mega.find(collection_id);
+                photoObject = HubStar.Mega.find(collection_id);
 
                 this.transitionTo("userPhoto", photoObject); //user photo
             }
             else if (type === "profiles")
             {
-                var photoObject = HubStar.Mega.find(collection_id);
+                photoObject = HubStar.Mega.find(collection_id);
 
                 this.transitionTo("profilePhoto", photoObject); // profile photo
             }
@@ -549,7 +549,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
     },
     dropdownPhotoSetting: function(param) {
-        var id='#dropdown_id_' + param;
+        var id = '#dropdown_id_' + param;
         $(id).toggleClass('hideClass');
         $(id).click(function() {
             $(this).removeClass('hideClass');
@@ -706,6 +706,6 @@ HubStar.ArticleController = Ember.Controller.extend({
         console.log("in ArticleController.js");
         var controller = this.get('controllers.itemFunction');
         controller.addLike(this.get('megaResouce').get('id'));
-        
+
     }
 });

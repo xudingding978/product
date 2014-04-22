@@ -34,7 +34,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
             else {
                 review.set('review_people_like', review_people_like + ',' + localStorage.loginStatus);
                 review.set('review_like_count', review.get('review_like_count') + 1);
-                requiredBackEnd('reviews', 'Update', review, 'POST', function(params) {
+                requiredBackEnd('reviews', 'Update', review, 'POST', function() {
 
                 });
             }
@@ -50,7 +50,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
         var reviewDate = new Date();
         this.get("model").set('review_content', this.get('review_content'));
         this.get("model").set('review_time_stamp', reviewDate.toString());
-        requiredBackEnd('reviews', 'Update', this.get("model"), 'POST', function(params) {
+        requiredBackEnd('reviews', 'Update', this.get("model"), 'POST', function() {
         });
         this.set("review_is_edit", !this.get('review_is_edit'));
 
@@ -77,7 +77,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
             {
                 review.deleteRecord();
                 this.get("controllers.profile").get('reviews').removeObject(review);
-                requiredBackEnd('reviews', 'Delete', review, 'POST', function(params) {
+                requiredBackEnd('reviews', 'Delete', review, 'POST', function() {
 
                 });
                 break;

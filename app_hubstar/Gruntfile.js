@@ -191,9 +191,25 @@ module.exports = function(grunt) {
                //reporterOutput: 'jshintFailFile/jshint.xml' 
             },
             all: [
+
+
                 'Gruntfile.js',
-                'app/scripts/routes/*.js'     //jshint to test one file
-               //'app/scripts/controllers/AddCollectionController.js'
+
+                
+                
+          
+           
+                
+                
+               // 'app/scripts/routes/*.js'     //jshint to test one file
+
+
+
+
+                'app/scripts/controllers/ConversationController.js'     //jshint to test one file
+               // 'app/scripts/controllers/ApplicationFeedbackController.js'
+
+
 //                '<%= yeoman.app %>/scripts/{,*/}*.js'
 //                '!<%= yeoman.app %>/scripts/vendor/*',
 //                'test/spec/{,*/}*.js'

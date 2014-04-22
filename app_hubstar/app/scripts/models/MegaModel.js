@@ -71,14 +71,14 @@ HubStar.Mega = DS.Model.extend({
     videoes: DS.hasMany('HubStar.Video'),
     isShowMoreComment: false,
     keywordShow: function() {
-        var a = new Array();
+        var a = [];
 
         for (var i = 0; i < 3 && this.get("keyword").get("length"); i++)
         {
-            var b = new Array();
+            var b = [];
             //console.log(this.get("keyword").get("length"));
             if (this.get("keyword").objectAt(i) !== undefined && this.get("keyword").objectAt(i) !== null) {
-                b["keyword_name"] = this.get("keyword").objectAt(i).get("keyword_name");
+                b.keyword_name = this.get("keyword").objectAt(i).get("keyword_name");
                 a[i] = b;
             }
         }

@@ -192,7 +192,10 @@ module.exports = function(grunt) {
             },
             all: [
                 'Gruntfile.js',
-                'app/scripts/controllers/ProfileController.js'     //jshint to test one file
+                'app/scripts/models/ReviewModel.js',
+                'app/scripts/models/SaveToProfileModel.js'
+                
+                
                //'app/scripts/controllers/AddCollectionController.js'
 //                '<%= yeoman.app %>/scripts/{,*/}*.js'
 //                '!<%= yeoman.app %>/scripts/vendor/*',

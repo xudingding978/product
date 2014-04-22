@@ -52,8 +52,8 @@ HubStar.NewConversationController = Ember.Controller.extend({
             var imageType = "";
             if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
             {
-                var imageName = imageStyleName.split('.');
-                var imageType = imageName[imageName.length - 1];
+                imageName = imageStyleName.split('.');
+                imageType = imageName[imageName.length - 1];
             }
             var conversationID = createMessageid();
             var conversationItemID = createMessageid();
@@ -83,45 +83,45 @@ HubStar.NewConversationController = Ember.Controller.extend({
             tempComment = JSON.stringify(tempComment);
             var that = this;
 
-            var dataNew = new Array();
+            var dataNew = [];
 
             requiredBackEnd('conversations', 'CreateConversation', tempComment, 'POST', function(params) {
-                dataNew["conversationID"] = params["conversationID"];
-                dataNew["participation_ids"] = params["participation_ids"];
+                dataNew.conversationID = params.conversationID;
+                dataNew.participation_ids = params.participation_ids;
 
-                dataNew["names"] = params["names"];
+                dataNew.names = params.names;
 
-                dataNew["ConversationCollection"] = new Array();
-                dataNew["msg"] = params["ConversationCollection"][0]["msg"];
-                dataNew["time_stamp"] = params["ConversationCollection"][0]["time_stamp"];
-                dataNew["conversationPhoto"] = new Array();
-                dataNew["conversationPhoto"] = params["conversationPhoto"];
-                if (dataNew["conversationPhoto"].length === 1)
+                dataNew.ConversationCollection = [];
+                dataNew.msg = params.ConversationCollection[0].msg;
+                dataNew.time_stamp = params.ConversationCollection[0].time_stamp;
+                dataNew.conversationPhoto = [];
+                dataNew.conversationPhoto = params.conversationPhoto;
+                if (dataNew.conversationPhoto.length === 1)
                 {
-                    dataNew["one"] = true;
-                    dataNew["two"] = false;
-                    dataNew["three"] = false;
-                    dataNew["four"] = false;
-                    dataNew["onePic"] = params["conversationPhoto"][0]["photo_url"];
+                    dataNew.one = true;
+                    dataNew.two = false;
+                    dataNew.three = false;
+                    dataNew.four = false;
+                    dataNew.onePic = params.conversationPhoto[0].photo_url;
                 }
-                else if (dataNew["conversationPhoto"].length === 2)
+                else if (dataNew.conversationPhoto.length === 2)
                 {
-                    dataNew["one"] = false;
-                    dataNew["two"] = true;
-                    dataNew["three"] = false;
-                    dataNew["four"] = false;
-                    dataNew["onePic"] = params["conversationPhoto"][0]["photo_url"];
-                    dataNew["twoPic"] = params["conversationPhoto"][1]["photo_url"];
+                    dataNew.one = false;
+                    dataNew.two = true;
+                    dataNew.three = false;
+                    dataNew.four = false;
+                    dataNew.onePic = params.conversationPhoto[0].photo_url;
+                    dataNew.twoPic = params.conversationPhoto[1].photo_url;
                 }
-                else if (dataNew["conversationPhoto"].length === 3)
-                {
-                    dataNew["one"] = false;
-                    dataNew["two"] = false;
-                    dataNew["three"] = true;
-                    dataNew["four"] = false;
-                    dataNew["onePic"] = params["conversationPhoto"][0]["photo_url"];
-                    dataNew["twoPic"] = params["conversationPhoto"][1]["photo_url"];
-                    dataNew["threePic"] = params["conversationPhoto"][2]["photo_url"];
+                else if (dataNew.conversationPhoto.length === 3)
+                
+                    dataNew.one = false;
+                    dataNew.two = false;
+                    dataNew.three = true;
+                    dataNew.four = false;
+                    dataNew.onePic = params["conversationPhoto"][0]["photo_url"];
+                    dataNew.twoPic = params.conversationPhoto[1].photo_url;
+                    dataNew.threePic = params.conversationPhoto[2].photo_url;
                 }
                 else
                 {
@@ -201,7 +201,7 @@ HubStar.NewConversationController = Ember.Controller.extend({
         var src = target.result;
         this.set('newStyleImageSource', src);
         this.set('newStyleImageName', name);
-       
+
     }
 }
 );

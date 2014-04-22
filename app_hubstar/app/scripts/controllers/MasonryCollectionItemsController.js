@@ -81,7 +81,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
     },
     selectModelForProfile: function(collection_id, title, profileId) {
         this.set('collection_id', collection_id);
-        var address = document.URL;
 
         var owner_id = profileId;
         this.set("profileId", profileId);
@@ -91,7 +90,6 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
 
         if (title === undefined)
         {
-            var arrayUrl;
 
             var results = HubStar.Collection.find({RquireType: "personalCollection", profile_id: owner_id, collection_id: collection_id});
             var that = this;
@@ -320,36 +318,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
             }
         }
     },
-//    changeCollectionArticleCover: function(id, collection_id, HubStarModel) {
-//        this.dropdownPhotoSetting(id);
-//        var Mega = HubStar.Mega.find(id);
-//        var coverImge = Mega.get('object_image_url');
-//        var address = document.URL;
-//        var owner_id = address.split("#")[1].split("/")[2];
-//        var userOrprofile = HubStarModel.find(owner_id).get('collections');
-//        // var that = this;
-//
-//        for (var i = 0; i < userOrprofile.get('content').length; i++) {
-//
-//            if (userOrprofile.objectAt(i).id === collection_id) {
-//
-//                var currentCollection = userOrprofile.objectAt(i);
-//                currentCollection.set('cover', coverImge);
-//                currentCollection.set('optional', owner_id);
-//                HubStarModel.find(owner_id).store.save();
-//                this.get('controllers.applicationFeedback').statusObserver(null, "Cover image updated.");
-//                break;
-//            }
-//        }
-//    },
-//    transitionToArticle: function(id) {
-//
-//        this.transitionTo("article", HubStar.Article.find(id));
-//    },
     dropdownPhotoSetting: function(id) {
-
-//        $('#dropdown_id_' + id).toggleClass('hideClass');
-
         var id = '#dropdown_id_' + id;
         $(id).toggleClass('hideClass');
         $(id).click(function() {
@@ -357,14 +326,12 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         }).mouseleave(function() {
             $(this).addClass('hideClass');
         });
-
     },
     resetContent: function()
     {
 
         this.set('content', []);
         this.set('uploadImageContent', []);
-        var address = document.URL;
 
         var owner_id = this.get("profileId");
         var title = this.get('collection_id');

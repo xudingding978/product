@@ -692,7 +692,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     dropdownNavigator: function() {
 
         this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
-
         this.get("categorys").then(function() {
             $(document).ready(function() {
                 setTimeout(function() {
@@ -1031,16 +1030,17 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             var pageCount = this.get("pageCount");
             var masonry_container = document.querySelector('#masonry_container');
             var cusid_ele = masonry_container.getElementsByClassName('box');
-            var ad = [];
-            var i = 0;
+            var masonryContainer = cusid_ele[1].parentNode.parentNode;
+            var ad;
             var position;
             var child;
-            var masonryContainer = cusid_ele[1].parentNode.parentNode;
-            for ( i = 0; i < adSlots.pageCount.length; i++) {
+            var masonrybox;
+            var i = 0;
+            for ( i = 0; i < adSlots[pageCount].length; i++) {
                 ad = adSlots[pageCount][i];
                 position = ad.slot_position;
                 child = masonryContainer.children[that.get("totalItems") + position];
-                var masonrybox = document.createElement('div');
+                masonrybox = document.createElement('div');
                 masonrybox.id = ad.div + '_box';
                 masonrybox.border = 0;
                 masonrybox.backgroundColor = 'transparent';

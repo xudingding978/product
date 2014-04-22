@@ -17,7 +17,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
                 $(".brand").addClass("tour-background");
                 $(".Geo-Filter").addClass("tour-background");
                 $("#login_detail").addClass("tour-background");
-                var that = this;
+//                var that = this;
                 introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
 
                     if (localStorage.loginStatus !== "" && localStorage.loginStatus !== null && localStorage.loginStatus !== "undefined") {
@@ -56,7 +56,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
             var type = address.split("#")[1].split("/")[3];
             var id = address.split("#")[1].split("/")[4];
             var that = this;
-            var model = {id: id};
+//            var model = {id: id};
             if (type === "articles")
             {
                 that.transitionTo("article", id);

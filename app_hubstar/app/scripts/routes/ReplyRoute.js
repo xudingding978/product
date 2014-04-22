@@ -15,8 +15,8 @@ HubStar.ReplyRoute = Ember.Route.extend({
     },
             model: function(params) {
         var address = document.URL;
-          var profile = HubStar.Profile.find(profile_id);
-        var profile_id = address.split("#")[1].split("/")[2];
+//        var profile_id = address.split("#")[1].split("/")[2];
+//        var profile = HubStar.Profile.find(profile_id);
        var review_id = address.split("#")[1].split("/")[4];
         return review_id;
     }

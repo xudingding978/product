@@ -10,7 +10,7 @@
 	"latedef": true,
 	"newcap": true,
 	"noarg": true,
-	"predef":["HubStar","$","Ember","requiredBackEnd"],
+	"predef":["HubStar","$","Ember","requiredBackEnd","DS","urlArray"],
 	"undef": true,
 	"strict": false,
 	"trailing": true,

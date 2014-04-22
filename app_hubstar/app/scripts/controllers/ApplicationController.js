@@ -89,7 +89,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             else
             {
                 for (var i = 0; i < array.length; i++) {
-                    array[i]["isNew"] = true;
+                    array[i].isNew = true;
                 }
             }
             HubStar.set('ads', array);
@@ -115,113 +115,111 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     email_login: function() {
         this.set('mail', !this.get('mail'));
     },
-    loginStatus: function() {
-    },
-            grapData: function() {
-                HubStar.set("profiles", []);
-                if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
-                    localStorage.resOrcom = "All";
+    grapData: function() {
+        HubStar.set("profiles", []);
+        if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
+            localStorage.resOrcom = "All";
+        }
+        this.set('categorys', HubStar.Cate.find({}));
+        if (localStorage.loginStatus) {
+            var u = HubStar.User.find(localStorage.loginStatus);
+            var that = this;
+            u.then(function() {
+                if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
+                        && (u.get("email")).match(/@trendsideas.com/g) !== ""
+                        && (u.get("email")).match(/@trendsideas.com/g) !== null)
+                {
+
+                    that.set("is_trends_user", true);
                 }
-                this.set('categorys', HubStar.Cate.find({}));
-                if (localStorage.loginStatus) {
-                    var u = HubStar.User.find(localStorage.loginStatus);
-                    var that = this;
-                    u.then(function() {
-                        if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
-                                && (u.get("email")).match(/@trendsideas.com/g) !== ""
-                                && (u.get("email")).match(/@trendsideas.com/g) !== null)
-                        {
+                else {
 
-                            that.set("is_trends_user", true);
-                        }
-                        else {
+                    that.set("is_trends_user", false);
+                }
+                for (var i = 0; i < u.get("profiles").get("length"); i++) {
+                    var id = u.get("profiles").objectAt(i).get("profile_id");
+                    var name = u.get("profiles").objectAt(i).get("profile_name");
+                    var pic = u.get("profiles").objectAt(i).get("profile_pic");
+                    var type = u.get("profiles").objectAt(i).get("type");
+                    var isAdministrator = false;
+                    var isEditor = false;
+                    var isCreator = false;
+                    if (type === "administrator")
+                    {
+                        isAdministrator = true;
+                    }
+                    else if (type === "editor")
+                    {
+                        isEditor = true;
+                    }
+                    else if (type === "creator")
+                    {
+                        isCreator = true;
+                    }
+                    var url = pic.split("_");
+                    var length = url.length;
+                    var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
+                    var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
+                    var widthTop = Math.ceil(0);
+                    var heightTop = Math.ceil(0);
+                    if (width > height)
+                    {
+                        height = Math.ceil(135 / width * height);
+                        width = 135;
+                        heightTop = Math.ceil(50 / width * height);
+                        widthTop = 50;
+                    }
+                    else
+                    {
+                        width = Math.ceil(135 / height * width);
+                        height = 135;
+                        widthTop = Math.ceil(50 / height * width);
+                        heightTop = 50;
+                    }
+                    width = width + "px";
+                    height = height + "px";
+                    widthTop = widthTop + "px";
+                    heightTop = heightTop + "px";
 
-                            that.set("is_trends_user", false);
-                        }
-                        for (var i = 0; i < u.get("profiles").get("length"); i++) {
-                            var id = u.get("profiles").objectAt(i).get("profile_id");
-                            var name = u.get("profiles").objectAt(i).get("profile_name");
-                            var pic = u.get("profiles").objectAt(i).get("profile_pic");
-                            var type = u.get("profiles").objectAt(i).get("type");
-                            var isAdministrator = false;
-                            var isEditor = false;
-                            var isCreator = false;
-                            if (type === "administrator")
-                            {
-                                isAdministrator = true;
-                            }
-                            else if (type === "editor")
-                            {
-                                isEditor = true;
-                            }
-                            else if (type === "creator")
-                            {
-                                isCreator = true;
-                            }
-                            var url = pic.split("_");
-                            var length = url.length;
-                            var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
-                            var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
-                            var widthTop = Math.ceil(0);
-                            var heightTop = Math.ceil(0);
-                            if (width > height)
-                            {
-                                height = Math.ceil(135 / width * height);
-                                width = 135;
-                                heightTop = Math.ceil(50 / width * height);
-                                widthTop = 50;
-                            }
-                            else
-                            {
-                                width = Math.ceil(135 / height * width);
-                                height = 135;
-                                widthTop = Math.ceil(50 / height * width);
-                                heightTop = 50;
-                            }
-                            width = width + "px";
-                            height = height + "px";
-                            widthTop = widthTop + "px";
-                            heightTop = heightTop + "px";
-
-                            HubStar.get("profiles").pushObject({'profile_id': id, 'profile_name': name, "profile_pic": pic, "type": type,
-                                'isAdministrator': isAdministrator, "isEditor": isEditor, "isCreator": isCreator, "height": height, "width": width,
-                                "heightTop": heightTop, "widthTop": widthTop
-                            });
-
-                        }
+                    HubStar.get("profiles").pushObject({'profile_id': id, 'profile_name': name, "profile_pic": pic, "type": type,
+                        'isAdministrator': isAdministrator, "isEditor": isEditor, "isCreator": isCreator, "height": height, "width": width,
+                        "heightTop": heightTop, "widthTop": widthTop
                     });
-                }
-                this.set("user", u);
-                this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
-                this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
-                this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
-                $(document).ready(function() {
-                    setTimeout(function() {
-                        if (localStorage.resOrcom === "commercial")
-                        {
-                            $('#switchbarBtn').attr("style", "margin-left:28px;");
-                            $("#Commercial").css("opacity", "1");
-                            $("#Residential").css("opacity", "0.4");
-                            that.set('residentialKeyword', false);
-                        }
-                        else if (localStorage.resOrcom === "residential")
-                        {
-                            $('#switchbarBtn').attr("style", "margin-left:0px;");
-                            $("#Commercial").css("opacity", "0.4");
-                            $("#Residential").css("opacity", "1");
-                            that.set('residentialKeyword', true);
-                        }
-                        else if (localStorage.resOrcom === "All")
-                        {
-                            $('#switchbarBtn').attr("style", "margin-left:13px;");
-                            $("#Commercial").css("opacity", "1");
-                            $("#Residential").css("opacity", "1");
-                            that.set('residentialKeyword', true);
-                        }
-                    }, 50);
-                });
 
-            },
+                }
+            });
+        }
+        this.set("user", u);
+        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
+        this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
+        this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
+        $(document).ready(function() {
+            setTimeout(function() {
+                if (localStorage.resOrcom === "commercial")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:28px;");
+                    $("#Commercial").css("opacity", "1");
+                    $("#Residential").css("opacity", "0.4");
+                    that.set('residentialKeyword', false);
+                }
+                else if (localStorage.resOrcom === "residential")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:0px;");
+                    $("#Commercial").css("opacity", "0.4");
+                    $("#Residential").css("opacity", "1");
+                    that.set('residentialKeyword', true);
+                }
+                else if (localStorage.resOrcom === "All")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:13px;");
+                    $("#Commercial").css("opacity", "1");
+                    $("#Residential").css("opacity", "1");
+                    that.set('residentialKeyword', true);
+                }
+            }, 50);
+        });
+
+    },
     articleFromSearch: function()
     {
         this.get("controllers.article").set("accessFromSearchBoard", true);
@@ -287,13 +285,17 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             setTimeout(function() {
                 for (var i = 0; i < results.get("length"); i++) {
                     var tempmega = results.objectAt(i);
+                    var url;
+                    var length;
+                    var width;
+                    var size;
                     if (tempmega.get("getPhoto") === true || tempmega.get("getArticle") === true)
                     {
                         if (tempmega.get("object_image_url") !== null) {
-                            var url = tempmega.get("object_image_url").split("_");
-                            var length = url.length;
-                            var width = url[length - 1].split(".")[0].split("x")[0];
-                            var size = Math.ceil((url[length - 1].split(".")[0].split("x")[1]) * 350 / width);
+                            url = tempmega.get("object_image_url").split("_");
+                            length = url.length;
+                            width = url[length - 1].split(".")[0].split("x")[0];
+                            size = Math.ceil((url[length - 1].split(".")[0].split("x")[1]) * 350 / width);
                             if (size !== undefined)
                             {
                                 $("#init_photo_" + tempmega.get("id")).css({height: size});
@@ -307,10 +309,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     else if (tempmega.get("getProfile") === true)
                     {
                         if (tempmega.get("profile").objectAt(0).get("profile_pic_url") !== null) {
-                            var url = tempmega.get("profile").objectAt(0).get("profile_pic_url").split("_");
-                            var length = url.length;
-                            var width = url[length - 1].split(".")[0].split("x")[0];
-                            var size = Math.ceil((url[length - 1].split(".")[0].split("x")[1]) * 150 / width);
+                            url = tempmega.get("profile").objectAt(0).get("profile_pic_url").split("_");
+                            length = url.length;
+                            width = url[length - 1].split(".")[0].split("x")[0];
+                            size = Math.ceil((url[length - 1].split(".")[0].split("x")[1]) * 150 / width);
                             if (size !== undefined && !isNaN(size))
                             {
 
@@ -510,7 +512,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
     },
     submitSelection: function() {
-        
+
         var updateTopic = [this.get("loginStatus"), this.get('selected_topics')];
         var that = this;
         requiredBackEnd('login', 'selecttopic', updateTopic, 'POST', function() {
@@ -531,7 +533,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     next: function() {
 
-       
+
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;
         requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
@@ -551,7 +553,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 $('#click-register-social').css('display', 'none');
                 $('#click-register').css('display', 'none');
                 $('.learnmore-btn').css('display', 'none');
-                
+
             }, 1000);
         });
 
@@ -591,7 +593,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $('#user-login-pane').css('display', 'block');
     },
     checkSignupInfo: function() {
-        function checkObject(id, input, lengthMin, lengthMax, isEmailValid)
+        function CheckObject(id, input, lengthMin, lengthMax, isEmailValid)
         {
             this.id = id;
             this.input = input;
@@ -599,15 +601,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.lengthMax = lengthMax;
             this.isEmailValid = isEmailValid;
         }
-        var checkList = new Array();
+        var checkList = [];
         var result;
-        var first_name = new checkObject("first_name", this.get('first_name'), 0, 128, null);
+        var first_name = new CheckObject("first_name", this.get('first_name'), 0, 128, null);
         checkList.push(first_name);
-        var last_name = new checkObject("last_name", this.get('last_name'), 0, 128, null);
+        var last_name = new CheckObject("last_name", this.get('last_name'), 0, 128, null);
         checkList.push(last_name);
-        var email = new checkObject("email", this.get('email'), 0, 45, true);
+        var email = new CheckObject("email", this.get('email'), 0, 45, true);
         checkList.push(email);
-        var password = new checkObject("password", this.get('password'), 6, 40, null);
+        var password = new CheckObject("password", this.get('password'), 6, 40, null);
         checkList.push(password);
         for (var i = 0; i < checkList.length; i++)
         {
@@ -638,16 +640,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }//MISSING FIELDS; the user has not filled in all the mandatory fields
             if (checkList[i].input !== null && checkList[i].isEmailValid === true)
             {
-                
-                if(/\s/.test(checkList[i].input)){
+
+                if (/\s/.test(checkList[i].input)) {
                     result = false;
-                     $('.black-tool-tip').stop();
+                    $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name-register-with-spaces').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                     document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
                 }
-               else if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
+                else if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
                     result = true;
                 }
                 else {
@@ -691,8 +693,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
 
-
-        var that = this;
         this.get("categorys").then(function() {
             $(document).ready(function() {
                 setTimeout(function() {
@@ -758,7 +758,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     dropdownHeaderNavigator: function() {
 
         this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
-        var that = this;
         this.get("categorys").then(function() {
             $(document).ready(function() {
                 setTimeout(function() {
@@ -790,7 +789,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('subcate', []);
         this.set('subcategories', []);
         for (var i = 0; i < data.get('subcate').get('length'); i++) {
-            var str = data.get('subcate').objectAt(i).get('category_topic');
+            //var str = data.get('subcate').objectAt(i).get('category_topic');
 
             this.get('subcate').pushObject({'ids': data.get('subcate').objectAt(i).get("ids"), 'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')});
         }
@@ -862,7 +861,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 else {
 
 
-                    if (that.get('loginPassword') === params[0]["PWD_HASH"] && that.get('loginPassword') !== undefined) {
+                    if (that.get('loginPassword') === params[0].PWD_HASH && that.get('loginPassword') !== undefined) {
 
                         var email_activate = params[1];
 
@@ -942,21 +941,20 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     display: function(ads)
     {
-        var that = this;
         if (ads !== undefined) {
-            if (ads["isNew"] === true) {
+            if (ads.isNew === true) {
                 googletag.cmd.push(function() {
                     for (var i = 0; i < ads.length; i++) {
                         var ad = ads[i];
                         var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
-                        ads["slot1"] = slot1;
+                        ads.slot1 = slot1;
                         googletag.pubads().enableSingleRequest();
                         googletag.enableServices();
                         googletag.display(ad.div);
                         googletag.pubads().refresh([slot1]);
                     }
                 });
-                ads["isNew"] = false;
+                ads.isNew = false;
             }
             else
             {
@@ -966,7 +964,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         googletag.pubads().enableSingleRequest();
                         googletag.enableServices();
                         googletag.display(ad.div);
-                        googletag.pubads().refresh([ads["slot1"]]);
+                        googletag.pubads().refresh([ads.slot1]);
                     }
                 });
             }
@@ -996,7 +994,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
             var x = document.getElementById("masonry_container");
             var cusid_ele = x.getElementsByClassName('box');
-            var items = Array();
+            var items = [];
             for (var i = this.get("totalItems"); i < this.get("totalItems") + l; i++) {
                 if (cusid_ele[i] !== undefined) {
                     var item = cusid_ele[i].parentNode;
@@ -1033,11 +1031,15 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             var pageCount = this.get("pageCount");
             var masonry_container = document.querySelector('#masonry_container');
             var cusid_ele = masonry_container.getElementsByClassName('box');
+            var ad = [];
+            var i = 0;
+            var position;
+            var child;
             var masonryContainer = cusid_ele[1].parentNode.parentNode;
-            for (var i = 0; i < adSlots[pageCount].length; i++) {
-                var ad = adSlots[pageCount][i];
-                var position = ad.slot_position;
-                var child = masonryContainer.children[that.get("totalItems") + position];
+            for ( i = 0; i < adSlots.pageCount.length; i++) {
+                ad = adSlots[pageCount][i];
+                position = ad.slot_position;
+                child = masonryContainer.children[that.get("totalItems") + position];
                 var masonrybox = document.createElement('div');
                 masonrybox.id = ad.div + '_box';
                 masonrybox.border = 0;
@@ -1048,19 +1050,20 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 var adDiv = document.createElement('div');
                 adDiv.id = ad.div;
                 masonrybox.appendChild(adDiv);
-                var ad = document.createElement('div');
-                ad.className = "tomtomtom";
-                ad.appendChild(masonrybox);
-                masonryContainer.insertBefore(ad, child);
+                var ad1 = document.createElement('div');
+                ad1.className = "tomtomtom";
+                ad1.appendChild(masonrybox);
+                masonryContainer.insertBefore(ad1, child);
 
             }
             that.set("oldChildren", masonryContainer.children.length);
             //that.display(adSlots[pageCount]);
             var ads = adSlots[pageCount];
-            for (var i = 0; i < ads.length; i++) {
-                var ad = ads[i];
-                var height = ad.size[1];
-                var div_id = ad.div + "_box";
+            var adNew;
+            for ( i = 0; i < ads.length; i++) {
+                adNew = ads[i];
+                var height = adNew.size[1];
+                var div_id = adNew.div + "_box";
                 var x = document.getElementById(div_id);
                 x.style.display = "block";
                 x.className += " box";

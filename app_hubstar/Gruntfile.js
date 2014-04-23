@@ -187,19 +187,18 @@ module.exports = function(grunt) {
         jshint: {
             options: {
                 jshintrc: '.jshintrc'  //dont change this file
-                //reporterOutput: 'jshintFailFile/jshintAddCollectionController.xml'   //create report for one file
-               //reporterOutput: 'jshintFailFile/jshint.xml' 
+                        //reporterOutput: 'jshintFailFile/jshintAddCollectionController.xml'   //create report for one file
+                        //reporterOutput: 'jshintFailFile/jshint.xml' 
             },
             all: [
                 'Gruntfile.js',
-                'app/scripts/views/*.js'
-                //jshint to test one file
-               //'app/scripts/controllers/AddCollectionController.js'
+                'app/scripts/controllers/UserFollowersController.js',
+                'app/scripts/controllers/UserFollowingsController.js'
 
 //                '<%= yeoman.app %>/scripts/{,*/}*.js'
 //                '!<%= yeoman.app %>/scripts/vendor/*',
 //                'test/spec/{,*/}*.js'
-                  // 'dist/scripts/eaebe59d.main.js'                    //whole platform
+                        // 'dist/scripts/eaebe59d.main.js'                    //whole platform
             ]
         },
         qunit: {
@@ -282,7 +281,7 @@ module.exports = function(grunt) {
                 ],
                 dest: '<%= yeoman.dist %>/scripts/components.js'
             },
-                 distmain: {
+            distmain: {
                 src: [
                     '.tmp/scripts/combined-scripts.js'
 

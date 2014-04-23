@@ -193,20 +193,11 @@ module.exports = function(grunt) {
             all: [
 
 
-                'Gruntfile.js',
-
-                
-                
-          
-           
-                
+                'Gruntfile.js',               
                 
                // 'app/scripts/routes/*.js'     //jshint to test one file
 
-
-
-
-                'app/scripts/controllers/ConversationController.js'     //jshint to test one file
+                'app/scripts/controllers/UserMessageController.js'     //jshint to test one file
                // 'app/scripts/controllers/ApplicationFeedbackController.js'
 
 

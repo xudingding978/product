@@ -150,37 +150,37 @@ HubStar.ConversationController = Ember.Controller.extend({
                         dataNew.fourPic = params[i].conversationPhoto[3].photo_url;
                     }
                     dataNew.ConversationCollection = [];
-                    if (params[i]["ConversationCollection"][0]["msg"] !== null) {
-                        dataNew["msg"] = params[i]["ConversationCollection"][0]["msg"];
+                    if (params[i].ConversationCollection[0].msg !== null) {
+                        dataNew.msg = params[i].ConversationCollection[0].msg;
                     }
-                    dataNew["time_stamp"] = params[i]["ConversationCollection"][0]["time_stamp"];
+                    dataNew.time_stamp = params[i].ConversationCollection[0].time_stamp;
 
-                    for (var j = 0; j < params[i]["ConversationCollection"].length; j++)
+                    for (var j = 0; j < params[i].ConversationCollection.length; j++)
                     {
 
-                        var conversationItem = new Array();
-                        conversationItem["item_id"] = params[i]["ConversationCollection"][j]["item_id"];
-                        conversationItem["sender_id"] = params[i]["ConversationCollection"][j]["sender_id"];
-                        conversationItem["time_stamp"] = params[i]["ConversationCollection"][j]["time_stamp"];
-                        if (params[i]["ConversationCollection"][j]["msg"] !== null) {
-                            conversationItem["msg"] = multiRow(params[i]["ConversationCollection"][j]["msg"]);
+                        var conversationItem = [];
+                        conversationItem.item_id = params[i].ConversationCollection[j].item_id;
+                        conversationItem.sender_id = params[i].ConversationCollection[j].sender_id;
+                        conversationItem.time_stamp = params[i].ConversationCollection[j].time_stamp;
+                        if (params[i].ConversationCollection[j].msg !== null) {
+                            conversationItem.msg = multiRow(params[i].ConversationCollection[j].msg);
                         }                        
-                        conversationItem["name"] = params[i]["ConversationCollection"][j]["name"];
-                        conversationItem["sender_photo_url_large"] = params[i]["ConversationCollection"][j]["sender_photo_url_large"];
-                        if (params[i]["ConversationCollection"][j]["url"] === null)
+                        conversationItem.name = params[i].ConversationCollection[j].name;
+                        conversationItem.sender_photo_url_large = params[i].ConversationCollection[j].sender_photo_url_large;
+                        if (params[i].ConversationCollection[j].url === null)
                         {
-                            conversationItem["isUrl"] = false;
+                            conversationItem.isUrl = false;
                         }
                         else
                         {
-                            conversationItem["isUrl"] = true;
+                            conversationItem.isUrl = true;
                         }
-                        conversationItem["url"] = params[i]["ConversationCollection"][j]["url"];
+                        conversationItem.url = params[i].ConversationCollection[j].url;
 
-                        dataNew["ConversationCollection"].pushObject(conversationItem);
+                        dataNew.ConversationCollection.pushObject(conversationItem);
                     }
                     that.get("conversationContent").pushObject(dataNew);
-                    dataNew = new Array();
+                    dataNew = [];
                 }
             }
 

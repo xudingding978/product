@@ -192,9 +192,7 @@ module.exports = function(grunt) {
             },
             all: [
                 'Gruntfile.js',
-                'app/scripts/controllers/UserFollowersController.js',
-                'app/scripts/controllers/UserFollowingsController.js'
-
+                'app/scripts/controllers/*.js'
 //                '<%= yeoman.app %>/scripts/{,*/}*.js'
 //                '!<%= yeoman.app %>/scripts/vendor/*',
 //                'test/spec/{,*/}*.js'

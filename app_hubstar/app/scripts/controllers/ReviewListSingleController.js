@@ -77,9 +77,7 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
             {
                 review.deleteRecord();
                 this.get("controllers.profile").get('reviews').removeObject(review);
-                requiredBackEnd('reviews', 'Delete', review, 'POST', function() {
-
-                });
+                requiredBackEnd('reviews', 'Delete', review, 'POST', function(){});
                 break;
             }
         }

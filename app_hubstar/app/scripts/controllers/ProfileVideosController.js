@@ -36,10 +36,9 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
     dropdownPhotoSetting: function(id)
     {
         this.set('delete_id', id);
-//        $('#dropdown_id_' + id).toggleClass('hideClass');
-            var id='#dropdown_id_' + id;
-        $(id).toggleClass('hideClass');
-        $(id).click(function() {
+            var ids='#dropdown_id_' + id;
+        $(ids).toggleClass('hideClass');
+        $(ids).click(function() {
             $(this).removeClass('hideClass');
         }).mouseleave(function() {
             $(this).addClass('hideClass');
@@ -80,7 +79,6 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
     },
     checkAuthenticUser: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
-       // var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
         var that = this;
         var role = permissionController.checkAuthenticEdit(that.get("pageModel").get("profile_creator"), that.get("pageModel").get("profile_administrator"), that.get("pageModel").get("profile_editor"));
@@ -89,15 +87,12 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
         {
             is_edit = true;
         }
-        //var is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
-
         currentUser.then(function() {
             var current_user_email = currentUser.get('email');
             var is_authentic_user = permissionController.checkAuthenticUser(that.get("pageModel").get("owner"), that.get("pageModel").get("profile_editors"), current_user_email);
             that.set("is_authentic_user", is_authentic_user || is_edit);
 
         });
-        //return is_authentic_user||is_edit;
     },
     removeCollectedItem: function()
     {

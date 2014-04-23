@@ -43,7 +43,7 @@ HubStar.EditCommentController = Ember.Controller.extend({
 
             object.set("content", this.get("commentContent"));
             that.closeCommentItem(object);
-            requiredBackEnd('comments', 'UpdatePhotoComment', delInfo, 'POST', function(params) {
+            requiredBackEnd('comments', 'UpdatePhotoComment', delInfo, 'POST', function() {
 
             });
         }
@@ -55,7 +55,7 @@ HubStar.EditCommentController = Ember.Controller.extend({
 
             object.set("content", that.get("commentContent"));
             that.closeCommentItem(object);
-            requiredBackEnd('comments', 'UpdateProfileComment', delInfo, 'POST', function(params) {
+            requiredBackEnd('comments', 'UpdateProfileComment', delInfo, 'POST', function() {
 
             });
         }
@@ -67,7 +67,7 @@ HubStar.EditCommentController = Ember.Controller.extend({
 
             object.set("content", that.get("commentContent"));
             that.closeCommentItem(object);
-            requiredBackEnd('comments', 'UpdateArticleComment', delInfo, 'POST', function(params) {
+            requiredBackEnd('comments', 'UpdateArticleComment', delInfo, 'POST', function() {
 
             });
         }
@@ -79,7 +79,7 @@ HubStar.EditCommentController = Ember.Controller.extend({
             
             object.set("content", that.get("commentContent"));
             that.closeCommentItem(object);
-            requiredBackEnd('comments', 'UpdateVideoComment', delInfo, 'POST', function(params) {
+            requiredBackEnd('comments', 'UpdateVideoComment', delInfo, 'POST', function() {
             });
         }
     }

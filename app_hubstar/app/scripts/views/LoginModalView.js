@@ -61,28 +61,7 @@ $(document).ready(function() {
                     checkSocial();
                 }
             }
-//    if (localStorage.userType === "email") {
-//        $('.Login-box #login-btn').text('Sign up for a new account!');
-//        $('.Login-box .black-tool-tip').css('display', 'none');
-//        $('.Login-box #click-register-social').css('display', 'none');
-//        $('.Login-box #click-register').css('display', 'none');
-//        $('.Login-box #social-link').css('display', 'none');
-//        $('.Login-box #login-with-email-drop-down').css('display', 'block');
-//        $('.Login-box #social-login-container').css('display', 'none');
-//        $('.Login-box #click-login').addClass('active-tab');
-//        $('.Login-box #social-login').removeClass('social-active');
-//        $('.Login-box #user-forgot-password-pane').css('display', 'none');
-//        $('.Login-box #forgot-message-container').css('display', 'none');
-//        $('.Login-box #invalid-username').css('display', 'none');
-//
-//        $('.Login-box #register-with-email-drop-down').css('display', 'none');
-//        $('.Login-box #register-with-email-step-2').css('display', 'none');
-//        $('.Login-box #user-login-pane').css('display', 'block');
-//
-//        var loginState = true;
-//    } else {
-//        loginState = false;
-//    }
+
     $(".Login-box #social-login").click(function() {
 
         $('.Login-box #social-login').removeClass('social-active');
@@ -365,39 +344,7 @@ if (localStorage.loginState === "login") {
             }
 
         }
-//        if (loginState === false) {
-//            $('.Login-box #login-btn').text('Sign up for a new account!');
-//            $('.Login-box .black-tool-tip').css('display', 'none');
-//            $('.Login-box #click-register-social').css('display', 'none');
-//            $('.Login-box #click-register').css('display', 'none');
-//            $('.Login-box #social-link').css('display', 'none');
-//            $('.Login-box #login-with-email-drop-down').css('display', 'block');
-//            $('.Login-box #social-login-container').css('display', 'none');
-//            $('.Login-box #click-login').addClass('active-tab');
-//            $('.Login-box #social-login').removeClass('social-active');
-//            $('.Login-box #user-forgot-password-pane').css('display', 'none');
-//            $('.Login-box #forgot-message-container').css('display', 'none');
-//            $('.Login-box #invalid-username').css('display', 'none');
-//
-//            $('.Login-box #register-with-email-drop-down').css('display', 'none');
-//            $('.Login-box #register-with-email-step-2').css('display', 'none');
-//            $('.Login-box #user-login-pane').css('display', 'block');
-//            loginState = true;
-//        }
-//        else {
-//
-//            $('.Login-box #login-btn').text('Already had an acount? Click here to Log in!');
-//            $('.Login-box .black-tool-tip').css('display', 'none');
-//            $('.Login-box #click-register-social').css('display', 'block');
-//            $('.Login-box #social-link').css('display', 'block');
-//            $('.Login-box #click-register').css('display', 'block');
-//            $('.Login-box #click-register-social').addClass('social-active');
-//            $('.Login-box #click-register').removeClass('active-tab');
-//            $('.Login-box #register-with-email-step-2').removeClass('active-step');
-//            $('.Login-box #user-login-pane').css('display', 'none');
-//
-//            loginState = false;
-//        }
+
     },
   
     closePane:function () {
@@ -409,7 +356,7 @@ if (localStorage.loginState === "login") {
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook#_=_";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+      var  newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -419,7 +366,7 @@ if (localStorage.loginState === "login") {
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Yahoo";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+      var  newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -429,7 +376,7 @@ if (localStorage.loginState === "login") {
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=QQ";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+    var    newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -439,7 +386,7 @@ if (localStorage.loginState === "login") {
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Twitter";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+      var  newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -449,7 +396,7 @@ if (localStorage.loginState === "login") {
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Sina";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+      var  newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -459,7 +406,7 @@ if (localStorage.loginState === "login") {
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=LinkedIn";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+      var  newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -469,7 +416,7 @@ if (localStorage.loginState === "login") {
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Google";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 * 1.5 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+     var   newwindow = window.open(api_url, 'name', 'height=' + 400 * 1.5 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }

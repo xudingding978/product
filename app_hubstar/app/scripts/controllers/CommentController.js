@@ -223,7 +223,7 @@ HubStar.CommentController = Ember.Controller.extend({
             delInfo = [id, message_id];
             delInfo = JSON.stringify(delInfo);
             that.get("thisComments").removeObject(object);
-            requiredBackEnd('comments', 'DeletePhotoComment', delInfo, 'POST', function(params) {
+            requiredBackEnd('comments', 'DeletePhotoComment', delInfo, 'POST', function() {
             });
         }
         else if (type === "profile")
@@ -234,7 +234,7 @@ HubStar.CommentController = Ember.Controller.extend({
             delInfo = [id, message_id];
             delInfo = JSON.stringify(delInfo);
             that.get("thisComments").removeObject(object);
-            requiredBackEnd('comments', 'DeleteProfileComment', delInfo, 'POST', function(params) {
+            requiredBackEnd('comments', 'DeleteProfileComment', delInfo, 'POST', function() {
             });
         }
         else if (type === "article")
@@ -245,7 +245,7 @@ HubStar.CommentController = Ember.Controller.extend({
             delInfo = [id, message_id];
             delInfo = JSON.stringify(delInfo);
             that.get("thisComments").removeObject(object);
-            requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function(params) {
+            requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function() {
             });
         }
         else if (type === "video")
@@ -255,7 +255,7 @@ HubStar.CommentController = Ember.Controller.extend({
             message_id = object.get("message_id");
             delInfo = [id, message_id];
             delInfo = JSON.stringify(delInfo);
-            requiredBackEnd('comments', 'DeleteVideoComment', delInfo, 'POST', function(params) {
+            requiredBackEnd('comments', 'DeleteVideoComment', delInfo, 'POST', function() {
                 that.get("thisComments").removeObject(object);
             });
         }
@@ -325,6 +325,7 @@ HubStar.CommentController = Ember.Controller.extend({
         var that = this;
         var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
         var caption = '';
+        var obj;
         if (model.get("type") === "photo") {
             this.set("selectedPhoto", model.get("photo").objectAt(0));
             currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
@@ -338,7 +339,7 @@ HubStar.CommentController = Ember.Controller.extend({
             {
                 caption = '';
             }
-            var obj = {
+             obj = {
                 method: 'feed',
                 link: currntUrl,
                 picture: this.get('selectedPhoto').get('photo_image_thumbnail_url'),
@@ -371,7 +372,7 @@ HubStar.CommentController = Ember.Controller.extend({
             {
                 caption = '';
             }
-            var obj = {
+             obj = {
                 method: 'feed',
                 link: currntUrl,
                 picture: this.get('selectedVideo').data.video_img,
@@ -404,7 +405,7 @@ HubStar.CommentController = Ember.Controller.extend({
             {
                 caption = '';
             }
-            var obj = {
+             obj = {
                 method: 'feed',
                 link: currntUrl,
                 picture: this.get('selectedArticle').get('article_image_url'),
@@ -550,7 +551,7 @@ HubStar.CommentController = Ember.Controller.extend({
         }
         else if (model.get("type") === "video") {
             this.set("selectedVideo", model._data.videoes[0]);
-            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo')['id'];
+            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo').id;
             url = 'https://twitter.com/share?text=' + this.get('selectedVideo').data.video_title + '&url=' + encodeURIComponent(currntUrl);
             window.open(
                     url,
@@ -580,7 +581,7 @@ HubStar.CommentController = Ember.Controller.extend({
         }
         else if (model.get("type") === "video") {
             this.set("selectedVideo", model._data.videoes[0]);
-            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo')['id'];
+            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo').id;
             url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                     '&media=' + encodeURIComponent(this.get('selectedVideo').data.video_img) +
                     '&description=' + encodeURIComponent(this.get('selectedVideo').data.video_title);

@@ -49,7 +49,7 @@ HubStar.InvitePeopleController = Ember.Controller.extend({
             {
 
                 if (conversationID !== undefined) {
-                    var participation_id = new Array();
+                    var participation_id =[];
                     participation_id = that.get("conversationItem").get("participation_ids").split(',');
 
                 }

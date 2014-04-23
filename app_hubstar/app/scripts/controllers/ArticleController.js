@@ -261,21 +261,8 @@ HubStar.ArticleController = Ember.Controller.extend({
             that.checkCreditExist(megaObject.get('article').objectAt(0).get('credits'));
 
             var tempComment = [megaObject.id];
-            requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function(params) {
+            requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function() {
             });
-
-//            setTimeout(function() {
-//                if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
-//                {
-//                    megaObject.set("view_count", 1);
-//                }
-//                else
-//                {
-//                    var megaData = megaObject.get("view_count");
-//                    megaObject.set("view_count", megaData + 1);
-//                }
-//                megaObject.store.save();
-//            }, 6000);
         });
     },
     checkCreditExist: function(credits) {
@@ -333,7 +320,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         delInfo = JSON.stringify(delInfo);
         this.get('article').get('comments').removeObject(object);
-        requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function(params) {
+        requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function() {
         });
     },
     updateComment: function(object) {

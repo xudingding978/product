@@ -1,10 +1,6 @@
 HubStar.PlatformBarView = Ember.View.extend({
           templateName: 'platformBar',
         didInsertElement: function() {
-
-
-
-
         },
         sidebarScroll: function() {
             function scrollTest(that) {
@@ -24,17 +20,17 @@ HubStar.PlatformBarView = Ember.View.extend({
                 }
             }
             $(function() {
-                $('.firstList > li ').mousemove(function(e) {
+                $('.firstList > li ').mousemove(function() {
                     var that = this;
                     scrollTest(that);
 
                 });
-                $('.firstList > li >ul>li').mousemove(function(e) {
+                $('.firstList > li >ul>li').mousemove(function() {
                     var that = this;
                     scrollTest(that);
 
                 });
-                $('.firstList > li > ul >li >ul>li').mousemove(function(e) {
+                $('.firstList > li > ul >li >ul>li').mousemove(function() {
                     var that = this;
                     scrollTest(that);
 

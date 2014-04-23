@@ -11,7 +11,7 @@ HubStar.AboutBook = DS.Model.extend({
     display_size: DS.attr('number'),
     getSize: function() {
         var size = false;        
-        if (this.get('display_size') !== 0) {
+        if (this.get('display_size') !==0) {
 
             size = true;
         }

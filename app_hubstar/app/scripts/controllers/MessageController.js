@@ -382,7 +382,7 @@ HubStar.MessageController = Ember.Controller.extend({
                         {
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyMessageCollection", dataNew);
                         }
-                        dataNew["replyMessageCollection"] = [];
+                        dataNew.replyMessageCollection = [];
 
                     }
                     that.set("isUploadPhoto", false);

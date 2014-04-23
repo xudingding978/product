@@ -1,29 +1,12 @@
 HubStar.UserView = Ember.View.extend({
     templateName: 'user',
-//       interestsActive:false,
     didInsertElement: function() {
         $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
         $(".navbar").css("box-shadow", "0 0 10px #333");
         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-        
-        var container = document.querySelector('#masonry_user_container');
-        var msnry = new Masonry(container, {
-             itemSelector: '.box',
-                columnWidth: 185,
-                //isInitLayout: false,
-                isFitWidth: true
-        });
-        
-//        $(function() {
-//            $('#masonry_user_container').masonry({
-//                itemSelector: '.box',
-//                columnWidth: 185,
-//                isFitWidth: true
-//            });
-//        });
-
-        var address = document.URL;
+          
+   var address = document.URL;
         var user_id = address.split("#")[1].split("/")[3];
 
 
@@ -74,7 +57,7 @@ HubStar.UserView = Ember.View.extend({
 
         $(document).ready(function() {
 
-            $("#about_us_contentsssssssw").mCustomScrollbar({
+            $("#about_us_contents").mCustomScrollbar({
                 scrollButtons: {
                     enable: false, 
                     scrollSpeed: "auto"

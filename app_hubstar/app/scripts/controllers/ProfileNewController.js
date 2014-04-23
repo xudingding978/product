@@ -266,7 +266,7 @@ HubStar.ProfileNewController = Ember.Controller.extend({
                 $('#adminsEmailFormat_' + i).attr('style', 'display:none');
                 $('#errorMessage6').attr('style', 'display:none');
                 document.getElementById('adminsField_' + i).setAttribute("class", "");
-                var value = value + "," + $("#admins_" + i).val();
+                var value1 = value1+ "," + $("#admins_" + i).val();
 
             }
             else {

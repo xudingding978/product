@@ -166,8 +166,6 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         tempComment = JSON.stringify(tempComment);
         var that = this;
 
-        //var dataNew = new Array();
-
         requiredBackEnd('conversations', 'AddConversationItem', tempComment, 'POST', function(params) {
             that.set("isPosting", true);
             var conversationContent = that.get('controllers.conversation').get("conversationContent");
@@ -177,7 +175,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
                 {
 
 
-                    var conversationItems = new Array();
+                    var conversationItems = [];
 
                     conversationItems = params;
 

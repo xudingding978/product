@@ -249,7 +249,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             that.checkAuthenticUser();
             var tempComment = [megaObject.id];
-            requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function(params) {
+            requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function() {
             });
         });
     },
@@ -801,7 +801,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
         delInfo = JSON.stringify(delInfo);
         this.get('megaResouce').get('comments').removeObject(object);
-        requiredBackEnd('comments', 'DeletePhotoComment', delInfo, 'POST', function(params) {
+        requiredBackEnd('comments', 'DeletePhotoComment', delInfo, 'POST', function() {
         });
     },
     updateComment: function(object) {

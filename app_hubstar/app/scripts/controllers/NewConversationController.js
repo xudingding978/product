@@ -28,7 +28,6 @@ HubStar.NewConversationController = Ember.Controller.extend({
             this.set("isPosting", false);
             var commenter_id = this.get("currentUser").get('id');
             var date = new Date();
-            var owner_id = this.get("currentOwner").get("id");
             var newStyleImage = "";
             var imageStyleName = "";
             if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
@@ -52,8 +51,8 @@ HubStar.NewConversationController = Ember.Controller.extend({
             var imageType = "";
             if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
             {
-                var imageName = imageStyleName.split('.');
-                var imageType = imageName[imageName.length - 1];
+                imageName = imageStyleName.split('.');
+                imageType = imageName[imageName.length - 1];
             }
             var conversationID = createMessageid();
             var conversationItemID = createMessageid();
@@ -83,83 +82,83 @@ HubStar.NewConversationController = Ember.Controller.extend({
             tempComment = JSON.stringify(tempComment);
             var that = this;
 
-            var dataNew = new Array();
+            var dataNew = [];
 
             requiredBackEnd('conversations', 'CreateConversation', tempComment, 'POST', function(params) {
-                dataNew["conversationID"] = params["conversationID"];
-                dataNew["participation_ids"] = params["participation_ids"];
+                dataNew.conversationID = params.conversationID;
+                dataNew.participation_ids = params.participation_ids;
 
-                dataNew["names"] = params["names"];
+                dataNew.names = params.names;
 
-                dataNew["ConversationCollection"] = new Array();
-                dataNew["msg"] = params["ConversationCollection"][0]["msg"];
-                dataNew["time_stamp"] = params["ConversationCollection"][0]["time_stamp"];
-                dataNew["conversationPhoto"] = new Array();
-                dataNew["conversationPhoto"] = params["conversationPhoto"];
-                if (dataNew["conversationPhoto"].length === 1)
+                dataNew.ConversationCollection = [];
+                dataNew.msg = params.ConversationCollection[0].msg;
+                dataNew.time_stamp = params.ConversationCollection[0].time_stamp;
+                dataNew.conversationPhoto = [];
+                dataNew.conversationPhoto = params.conversationPhoto;
+                if (dataNew.conversationPhoto.length === 1)
                 {
-                    dataNew["one"] = true;
-                    dataNew["two"] = false;
-                    dataNew["three"] = false;
-                    dataNew["four"] = false;
-                    dataNew["onePic"] = params["conversationPhoto"][0]["photo_url"];
+                    dataNew.one = true;
+                    dataNew.two = false;
+                    dataNew.three = false;
+                    dataNew.four = false;
+                    dataNew.onePic = params.conversationPhoto[0].photo_url;
                 }
-                else if (dataNew["conversationPhoto"].length === 2)
+                else if (dataNew.conversationPhoto.length === 2)
                 {
-                    dataNew["one"] = false;
-                    dataNew["two"] = true;
-                    dataNew["three"] = false;
-                    dataNew["four"] = false;
-                    dataNew["onePic"] = params["conversationPhoto"][0]["photo_url"];
-                    dataNew["twoPic"] = params["conversationPhoto"][1]["photo_url"];
+                    dataNew.one = false;
+                    dataNew.two = true;
+                    dataNew.three = false;
+                    dataNew.four = false;
+                    dataNew.onePic = params.conversationPhoto[0].photo_url;
+                    dataNew.twoPic = params.conversationPhoto[1].photo_url;
                 }
-                else if (dataNew["conversationPhoto"].length === 3)
+                else if (dataNew.conversationPhoto.length === 3)
                 {
-                    dataNew["one"] = false;
-                    dataNew["two"] = false;
-                    dataNew["three"] = true;
-                    dataNew["four"] = false;
-                    dataNew["onePic"] = params["conversationPhoto"][0]["photo_url"];
-                    dataNew["twoPic"] = params["conversationPhoto"][1]["photo_url"];
-                    dataNew["threePic"] = params["conversationPhoto"][2]["photo_url"];
+                    dataNew.one = false;
+                    dataNew.two = false;
+                    dataNew.three = true;
+                    dataNew.four = false;
+                    dataNew.onePic = params.conversationPhoto[0].photo_url;
+                    dataNew.twoPic = params.conversationPhoto[1].photo_url;
+                    dataNew.threePic = params.conversationPhoto[2].photo_url;
                 }
                 else
                 {
-                    dataNew["one"] = false;
-                    dataNew["two"] = false;
-                    dataNew["three"] = false;
-                    dataNew["four"] = true;
-                    dataNew["onePic"] = params["conversationPhoto"][0]["photo_url"];
-                    dataNew["twoPic"] = params["conversationPhoto"][1]["photo_url"];
-                    dataNew["threePic"] = params["conversationPhoto"][2]["photo_url"];
-                    dataNew["fourPic"] = params["conversationPhoto"][3]["photo_url"];
+                    dataNew.one = false;
+                    dataNew.two = false;
+                    dataNew.three = false;
+                    dataNew.four = true;
+                    dataNew.onePic = params.conversationPhoto[0].photo_url;
+                    dataNew.twoPic = params.conversationPhoto[1].photo_url;
+                    dataNew.threePic = params.conversationPhoto[2].photo_url;
+                    dataNew.fourPic = params.conversationPhoto[3].photo_url;
                 }
-                for (var j = 0; j < params["ConversationCollection"].length; j++)
+                for (var j = 0; j < params.ConversationCollection.length; j++)
                 {
 
-                    var conversationItem = new Array();
-                    conversationItem["item_id"] = params["ConversationCollection"][j]["item_id"];
-                    conversationItem["sender_id"] = params["ConversationCollection"][j]["sender_id"];
-                    conversationItem["time_stamp"] = params["ConversationCollection"][j]["time_stamp"];
-                    conversationItem["msg"] = params["ConversationCollection"][j]["msg"];
-                    conversationItem["name"] = params["ConversationCollection"][j]["name"];
+                    var conversationItem = [];
+                    conversationItem.item_id = params.ConversationCollection[j].item_id;
+                    conversationItem.sender_id = params.ConversationCollection[j].sender_id;
+                    conversationItem.time_stamp = params.ConversationCollection[j].time_stamp;
+                    conversationItem.msg = params.ConversationCollection[j].msg;
+                    conversationItem.name = params.ConversationCollection[j].name;
 
-                    conversationItem["sender_photo_url_large"] = params["ConversationCollection"][j]["sender_photo_url_large"];
-                    if (params["ConversationCollection"][j]["url"] === null)
+                    conversationItem.sender_photo_url_large = params.ConversationCollection[j].sender_photo_url_large;
+                    if (params.ConversationCollection[j].url === null)
                     {
-                        conversationItem["isUrl"] = false;
+                        conversationItem.isUrl = false;
                     }
                     else
                     {
-                        conversationItem["isUrl"] = true;
+                        conversationItem.isUrl = true;
                     }
-                    conversationItem["url"] = params["ConversationCollection"][j]["url"];
+                    conversationItem.url = params.ConversationCollection[j].url;
 
-                    dataNew["ConversationCollection"].pushObject(conversationItem);
+                    dataNew.ConversationCollection.pushObject(conversationItem);
                 }
 
                 that.get('controllers.conversation').get("conversationContent").insertAt(0, dataNew);
-                dataNew = new Array();
+                dataNew = [];
 
                 that.set("isUploadPhoto", false);
                 that.set("isAdded", false);
@@ -201,7 +200,7 @@ HubStar.NewConversationController = Ember.Controller.extend({
         var src = target.result;
         this.set('newStyleImageSource', src);
         this.set('newStyleImageName', name);
-       
+
     }
 }
 );

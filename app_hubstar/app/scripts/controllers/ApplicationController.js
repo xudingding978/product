@@ -115,113 +115,112 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     email_login: function() {
         this.set('mail', !this.get('mail'));
     },
-    loginStatus: function() {
-    },
-            grapData: function() {
-                HubStar.set("profiles", []);
-                if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
-                    localStorage.resOrcom = "All";
+    grapData: function() {
+        HubStar.set("profiles", []);
+        if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
+            localStorage.resOrcom = "All";
+        }
+        this.set('categorys', HubStar.Cate.find({}));
+        var that = this;
+        if (localStorage.loginStatus) {
+            var u = HubStar.User.find(localStorage.loginStatus);
+
+            u.then(function() {
+                if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
+                        && (u.get("email")).match(/@trendsideas.com/g) !== ""
+                        && (u.get("email")).match(/@trendsideas.com/g) !== null)
+                {
+
+                    that.set("is_trends_user", true);
                 }
-                this.set('categorys', HubStar.Cate.find({}));
-                if (localStorage.loginStatus) {
-                    var u = HubStar.User.find(localStorage.loginStatus);
-                    var that = this;
-                    u.then(function() {
-                        if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
-                                && (u.get("email")).match(/@trendsideas.com/g) !== ""
-                                && (u.get("email")).match(/@trendsideas.com/g) !== null)
-                        {
+                else {
 
-                            that.set("is_trends_user", true);
-                        }
-                        else {
+                    that.set("is_trends_user", false);
+                }
+                for (var i = 0; i < u.get("profiles").get("length"); i++) {
+                    var id = u.get("profiles").objectAt(i).get("profile_id");
+                    var name = u.get("profiles").objectAt(i).get("profile_name");
+                    var pic = u.get("profiles").objectAt(i).get("profile_pic");
+                    var type = u.get("profiles").objectAt(i).get("type");
+                    var isAdministrator = false;
+                    var isEditor = false;
+                    var isCreator = false;
+                    if (type === "administrator")
+                    {
+                        isAdministrator = true;
+                    }
+                    else if (type === "editor")
+                    {
+                        isEditor = true;
+                    }
+                    else if (type === "creator")
+                    {
+                        isCreator = true;
+                    }
+                    var url = pic.split("_");
+                    var length = url.length;
+                    var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
+                    var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
+                    var widthTop = Math.ceil(0);
+                    var heightTop = Math.ceil(0);
+                    if (width > height)
+                    {
+                        height = Math.ceil(135 / width * height);
+                        width = 135;
+                        heightTop = Math.ceil(50 / width * height);
+                        widthTop = 50;
+                    }
+                    else
+                    {
+                        width = Math.ceil(135 / height * width);
+                        height = 135;
+                        widthTop = Math.ceil(50 / height * width);
+                        heightTop = 50;
+                    }
+                    width = width + "px";
+                    height = height + "px";
+                    widthTop = widthTop + "px";
+                    heightTop = heightTop + "px";
 
-                            that.set("is_trends_user", false);
-                        }
-                        for (var i = 0; i < u.get("profiles").get("length"); i++) {
-                            var id = u.get("profiles").objectAt(i).get("profile_id");
-                            var name = u.get("profiles").objectAt(i).get("profile_name");
-                            var pic = u.get("profiles").objectAt(i).get("profile_pic");
-                            var type = u.get("profiles").objectAt(i).get("type");
-                            var isAdministrator = false;
-                            var isEditor = false;
-                            var isCreator = false;
-                            if (type === "administrator")
-                            {
-                                isAdministrator = true;
-                            }
-                            else if (type === "editor")
-                            {
-                                isEditor = true;
-                            }
-                            else if (type === "creator")
-                            {
-                                isCreator = true;
-                            }
-                            var url = pic.split("_");
-                            var length = url.length;
-                            var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
-                            var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
-                            var widthTop = Math.ceil(0);
-                            var heightTop = Math.ceil(0);
-                            if (width > height)
-                            {
-                                height = Math.ceil(135 / width * height);
-                                width = 135;
-                                heightTop = Math.ceil(50 / width * height);
-                                widthTop = 50;
-                            }
-                            else
-                            {
-                                width = Math.ceil(135 / height * width);
-                                height = 135;
-                                widthTop = Math.ceil(50 / height * width);
-                                heightTop = 50;
-                            }
-                            width = width + "px";
-                            height = height + "px";
-                            widthTop = widthTop + "px";
-                            heightTop = heightTop + "px";
-
-                            HubStar.get("profiles").pushObject({'profile_id': id, 'profile_name': name, "profile_pic": pic, "type": type,
-                                'isAdministrator': isAdministrator, "isEditor": isEditor, "isCreator": isCreator, "height": height, "width": width,
-                                "heightTop": heightTop, "widthTop": widthTop
-                            });
-
-                        }
+                    HubStar.get("profiles").pushObject({'profile_id': id, 'profile_name': name, "profile_pic": pic, "type": type,
+                        'isAdministrator': isAdministrator, "isEditor": isEditor, "isCreator": isCreator, "height": height, "width": width,
+                        "heightTop": heightTop, "widthTop": widthTop
                     });
-                }
-                this.set("user", u);
-                this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
-                this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
-                this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
-                $(document).ready(function() {
-                    setTimeout(function() {
-                        if (localStorage.resOrcom === "commercial")
-                        {
-                            $('#switchbarBtn').attr("style", "margin-left:28px;");
-                            $("#Commercial").css("opacity", "1");
-                            $("#Residential").css("opacity", "0.4");
-                            that.set('residentialKeyword', false);
-                        }
-                        else if (localStorage.resOrcom === "residential")
-                        {
-                            $('#switchbarBtn').attr("style", "margin-left:0px;");
-                            $("#Commercial").css("opacity", "0.4");
-                            $("#Residential").css("opacity", "1");
-                            that.set('residentialKeyword', true);
-                        }
-                        else if (localStorage.resOrcom === "All")
-                        {
-                            $('#switchbarBtn').attr("style", "margin-left:13px;");
-                            $("#Commercial").css("opacity", "1");
-                            $("#Residential").css("opacity", "1");
-                            that.set('residentialKeyword', true);
-                        }
-                    }, 50);
-                });
 
-            },
+                }
+            });
+        }
+        this.set("user", u);
+        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
+        this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
+        this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
+        $(document).ready(function() {
+            setTimeout(function() {
+                if (localStorage.resOrcom === "commercial")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:28px;");
+                    $("#Commercial").css("opacity", "1");
+                    $("#Residential").css("opacity", "0.4");
+                    that.set('residentialKeyword', false);
+                }
+                else if (localStorage.resOrcom === "residential")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:0px;");
+                    $("#Commercial").css("opacity", "0.4");
+                    $("#Residential").css("opacity", "1");
+                    that.set('residentialKeyword', true);
+                }
+                else if (localStorage.resOrcom === "All")
+                {
+                    $('#switchbarBtn').attr("style", "margin-left:13px;");
+                    $("#Commercial").css("opacity", "1");
+                    $("#Residential").css("opacity", "1");
+                    that.set('residentialKeyword', true);
+                }
+            }, 50);
+        });
+
+    },
     articleFromSearch: function()
     {
         this.get("controllers.article").set("accessFromSearchBoard", true);
@@ -510,7 +509,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
     },
     submitSelection: function() {
-        
+
         var updateTopic = [this.get("loginStatus"), this.get('selected_topics')];
         var that = this;
         requiredBackEnd('login', 'selecttopic', updateTopic, 'POST', function() {
@@ -531,7 +530,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     next: function() {
 
-       
+
         var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;
         requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
@@ -551,7 +550,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 $('#click-register-social').css('display', 'none');
                 $('#click-register').css('display', 'none');
                 $('.learnmore-btn').css('display', 'none');
-                
+
             }, 1000);
         });
 
@@ -638,16 +637,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }//MISSING FIELDS; the user has not filled in all the mandatory fields
             if (checkList[i].input !== null && checkList[i].isEmailValid === true)
             {
-                
-                if(/\s/.test(checkList[i].input)){
+
+                if (/\s/.test(checkList[i].input)) {
                     result = false;
-                     $('.black-tool-tip').stop();
+                    $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name-register-with-spaces').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                     document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
                 }
-               else if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
+                else if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
                     result = true;
                 }
                 else {

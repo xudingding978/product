@@ -1,7 +1,22 @@
 <div  id="loginModal" class="blur_black" style="" {{action closePane on="click"  target="view"}}></div>
 
+<div id="cta-popup" style="display:block;">
+    <div class="inner">
+        <div class="left">
+            <img src="../../../images/trends_logo.png" alt="trends logo">
+                <div id="cta_register" class="registerbtn" {{action ctaregister}}>Register</div>
+                <div id="cta_login" class="loginbtn" {{action ctalogin}}>Login</div>
+        </div><!-- end .left -->
+        <div class="right">
+            <img src="../../../images/cta-diagram.png" alt="Connect, Collect and Collaborate">
+        </div><!-- end .right -->
+        <a href="#" class="help">Help</a>
+        <a href="#" class="nothanks">No Thanks...</a>
+    </div><!-- end .inner -->
+</div><!-- end #cta-popup -->
 
-<div id="profiles-main-container" class="Login-box" style="background-color: transparent;position: fixed; top: 30%; z-index: 10; margin: auto; left: 0px; right: 0px; width: 300px;height: 565px;border: 0;text-align: center;">   
+
+<div id="profiles-main-container" class="Login-box" style="background-color: transparent;position: fixed; top: 30%; z-index: 10; margin: auto; left: 0px; right: 0px; width: 300px;height: 565px;border: 0;text-align: center; display:none;">   
 
     <div id="click-register-social" class="register-with easing social-active" style="border-radius: 5px 5px 0 0; border-bottom:1px solid #e3e3e3;">
         <i class="fa fa-facebook">&nbsp</i><a style="color: #888"> Register with social account</a>

@@ -31,6 +31,13 @@ HubStar.LoginModalController = Ember.Controller.extend({
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
     },
+    ctaregister:function(){
+        $("#cta-popup").css("display","none");
+         $("#profiles-main-container").css("display","block");
+    },
+    ctalogin:function(){
+        
+    },
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {

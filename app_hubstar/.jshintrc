@@ -10,7 +10,7 @@
 	"latedef": true,
 	"newcap": true,
 	"noarg": true,
-	"predef":["HubStar","$","Ember","requiredBackEnd","DS","urlArray","introJs","swfobject","jscd","Masonry","msnry","geocoder","marker","wysihtml5","wysihtml5ParserRules","composer","print_country","google","ga","checkSocial","changeImage"],
+	"predef":["HubStar","$","Ember","requiredBackEnd","DS","urlArray","introJs","swfobject","jscd","Masonry","msnry","geocoder","marker","wysihtml5","wysihtml5ParserRules","composer","print_country","google","ga","checkSocial","changeImage","getTarget","getImageWidth","crop","getResults","FB","multiRow","getDomain","createReviewid","createMessageid","i","j","googletag","createGuid","index","getRestAPIURL","Stat","moment"],
 	"undef": true,
 	"strict": false,
 	"trailing": true,

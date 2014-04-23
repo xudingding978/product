@@ -141,7 +141,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
         }
         if (model.get("type") === "video") {
             this.set("selectedVideo", model._data.videoes[0]);
-            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo')['id'];
+            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo').id;
             caption = '';
             if (this.get('selectedVideo').data.video_desc !== null)
             {
@@ -286,7 +286,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
             $("meta[property='og\\:image']").attr("content", this.get('selectedVideo').data.video_img);
 
 
-            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo')['id'];
+            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo').id;
             url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
             window.open(
@@ -327,7 +327,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
         }
         else if (model.get("type") === "video") {
             this.set("selectedVideo", model._data.videoes[0]);
-            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo')['id'];
+            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo').id;
             url = 'https://twitter.com/share?text=' + this.get('selectedVideo').data.video_title + '&url=' + encodeURIComponent(currntUrl);
             window.open(
                     url,
@@ -357,7 +357,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
         }
         else if (model.get("type") === "video") {
             this.set("selectedVideo", model._data.videoes[0]);
-            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo')['id'];
+            currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo').id;
             url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                     '&media=' + encodeURIComponent(this.get('selectedVideo').data.video_img) +
                     '&description=' + encodeURIComponent(this.get('selectedVideo').data.video_title);

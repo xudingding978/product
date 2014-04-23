@@ -93,6 +93,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 }
 
 
+
                 dataNew.replyMessageCollection = []; // replyMessageCollection is used to store all the replyMessage except the last one which is the first Reply.
                 for (var j = 0; j < params[i].replyMessageCollection.length - 1; j++)
                 {

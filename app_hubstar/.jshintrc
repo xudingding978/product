@@ -10,15 +10,16 @@
 	"latedef": true,
 	"newcap": true,
 	"noarg": true,
-	"predef":["HubStar","$","Ember","requiredBackEnd","DS","urlArray","introJs","swfobject","jscd","Masonry","msnry","geocoder","marker","wysihtml5","wysihtml5ParserRules","composer","print_country","google","ga"],
+	"predef":["HubStar","$","Ember","requiredBackEnd","DS","urlArray","introJs","swfobject","jscd","Masonry","msnry","geocoder","marker","wysihtml5","wysihtml5ParserRules","composer","print_country","google","ga","checkSocial","changeImage"],
 	"undef": true,
 	"strict": false,
 	"trailing": true,
 	"smarttabs": true,
-	"unused":true,
+	"unused": true,
 	"forin":true,
 	"funcscope":true,
 	"lastsemic":true,
 	"laxbreak":true,
 	"laxcomma":true
+       
 }

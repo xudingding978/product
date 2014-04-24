@@ -1,7 +1,7 @@
 HubStar.LoginModalController = Ember.Controller.extend({
     selected_topics: "",
     isAdd: false,
-        contentTopicResidential: [
+    contentTopicResidential: [
         {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
         {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'},
         {id: "3", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/kitchen.png', topic: 'Kitchens'},
@@ -31,13 +31,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
     },
-    ctaregister:function(){
-        $("#cta-popup").css("display","none");
-         $("#profiles-main-container").css("display","block");
-    },
-    ctalogin:function(){
-        
-    },
+   
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {
@@ -57,25 +51,25 @@ HubStar.LoginModalController = Ember.Controller.extend({
                 }// INVALID user name when the user attempts to login.
 
 
-                 else if (params === 0) {
+                else if (params === 0) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                     that.set('loginTime', false);
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type-facebook').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Facebook account
-               else  if (params === 3) {
+                else if (params === 3) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                     that.set('loginTime', false);
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type-twitter').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Twitter account
-                 else if (params === 4) {
+                else if (params === 4) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                     that.set('loginTime', false);
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-account-type-google').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Google account
-               else  if (params === 5) {
+                else if (params === 5) {
                     document.getElementById("loginUsername").setAttribute("class", "login-textfield error-textfield");
                     that.set('loginTime', false);
                     $('.black-tool-tip').css('display', 'none');
@@ -182,7 +176,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
         $('#register-with-email-step-3').css('display', 'none');
         $('#user-login-pane').css('display', 'none');
     },
-   next: function() {
+    next: function() {
 
         $('#register-with-email-step-3').css('display', 'block');
         $('#register-with-email-step-2').css('display', 'none');
@@ -195,7 +189,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
     backRegister: function() {
         $('#register-with-email-step-3').css('display', 'none');
         $('#register-with-email-step-2').css('display', 'block');
-         $('#click-register-social').css('display', 'block');
+        $('#click-register-social').css('display', 'block');
         $('#click-register').css('display', 'block');
         $('.learnmore-btn').css('display', 'block');
         $('#login-btn').css('display', 'none');
@@ -312,16 +306,16 @@ HubStar.LoginModalController = Ember.Controller.extend({
 
             if (checkList[i].input !== null && checkList[i].isEmailValid === true)
             {
-                
-                 if(/\s/.test(checkList[i].input)){
+
+                if (/\s/.test(checkList[i].input)) {
                     result = false;
-                     $('.black-tool-tip').stop();
+                    $('.black-tool-tip').stop();
                     $('.black-tool-tip').css('display', 'none');
                     $('#invalid-user-name-register-with-spaces').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
                     document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
                     break;
                 }
-               else if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
+                else if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
                     result = true;
                 }
                 else {

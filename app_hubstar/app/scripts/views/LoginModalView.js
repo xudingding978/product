@@ -101,6 +101,7 @@ HubStar.LoginModalView = Ember.View.extend({
                 } /* LOGIN TAB: clicking login*/
             });
             $('.Login-box #loginPassword > div').click(function() {
+             
                 if ($('.Login-box #login-with-email-drop-down').css('display')) {
                     $('.Login-box #click-login').removeClass('active-tab');
 
@@ -116,6 +117,7 @@ HubStar.LoginModalView = Ember.View.extend({
                     }
                     if ($('.Login-box #click-login').css('display') === 'block') {
                         $('.Login-box #click-login').animate({height: 'toggle'});
+                   //        $('.Login-box #click-login').addClass('active-tab');
 
                     }
                 }
@@ -125,7 +127,8 @@ HubStar.LoginModalView = Ember.View.extend({
             $('.Login-box #user-forgot-password-pane .back-btn').click(function() {
                 $('.Login-box #user-forgot-password-pane').animate({height: 'toggle'});
                 $('.Login-box #login-with-email-drop-down').animate({height: 'toggle'});
-
+                $('.Login-box #click-login').css("display", "block");
+              $('.Login-box #click-login').addClass('active-tab');
                 if ($('.Login-box #social-login-container').css('display') === 'block') {
                     $('.Login-box #social-login-container').animate({height: 'toggle'});
 
@@ -148,10 +151,6 @@ HubStar.LoginModalView = Ember.View.extend({
                 }
             });
             /* hiding thank you message when the user clicks the back btn */
-
-
-
-
 
 
             $(".Login-box #click-register-social").click(function() {
@@ -193,7 +192,6 @@ HubStar.LoginModalView = Ember.View.extend({
             });
             /* going back to step 1 function*/
 
-
             $(".Login-box .register-clicker").click(function() {
 
                 if ($('.Login-box #register-with-email-step-2').hasClass('active-step')) {
@@ -215,7 +213,6 @@ HubStar.LoginModalView = Ember.View.extend({
                 /* closing/opening register section while on step 2 function */
 
                 if ($('.Login-box #register-with-email-drop-down').css('display') === 'block' && $('#click-register').hasClass('active-tab')) {
-                    //alert('closing step1');
                     $('.Login-box #click-register').removeClass('active-tab');
                     $('.Login-box #social-link').animate({height: 'toggle'});
                     $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
@@ -229,7 +226,12 @@ HubStar.LoginModalView = Ember.View.extend({
                     $('.Login-box #click-register-social').removeClass('social-active');
                     $('.Login-box #click-register').addClass('active-tab');
                     $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
-                    this.checkSocial();
+                    if ($('.Login-box #social-link').css('display') === 'block') {
+                        $('.Login-box #social-link').animate({height: 'toggle'});
+                        $('.Login-box #social-link').css('display', 'none');
+                    }
+                    else {
+                    }
                 }
                 /* clicking register step 1 function*/
 

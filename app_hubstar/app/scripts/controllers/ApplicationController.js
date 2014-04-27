@@ -121,10 +121,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             localStorage.resOrcom = "All";
         }
         this.set('categorys', HubStar.Cate.find({}));
-        var that = this;
         if (localStorage.loginStatus) {
             var u = HubStar.User.find(localStorage.loginStatus);
-
+            var that = this;
             u.then(function() {
                 if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
                         && (u.get("email")).match(/@trendsideas.com/g) !== ""
@@ -982,15 +981,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             {
                 l = l + 4;
             }
-            else if (this.get("pageCount") === 1)
+            else if (this.get("pageCount") >= 1&&this.get("pageCount") < 10)
             {
                 l = l + 3;
             }
-            else if (this.get("pageCount") === 2)
-            {
-                l = l + 3;
-            }
-
+            //console.log(this.get("pageCount"));
             var that = this;
 
             var x = document.getElementById("masonry_container");

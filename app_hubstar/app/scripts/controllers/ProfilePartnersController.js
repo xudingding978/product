@@ -113,7 +113,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             var temp = this.get('partnerID');
             if (temp === null || temp === "") {
                 this.set('partnerID', client_id);
-                this.pushUptoBackend(client_id);
+                this.pushUptoBackend(client_id);              
             } else {
                 if (temp.indexOf(client_id) !== -1) {
 
@@ -125,6 +125,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                 else {
                     this.set('partnerID', client_id + "," + temp);
                     this.pushUptoBackend(client_id);
+                    this.set('currentAddPartnerPic','');
                 }
             }
 

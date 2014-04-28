@@ -85,8 +85,9 @@ class MegasController extends Controller {
             $keyword = $this->getProfileKeyword($mega['owner_id']);
             $mega['keyword'] = $keyword;
             $mega['pdf'][0]['pdf_url']  = $this->savePdfToS3($mega['pdf']);            
-            $this->createUploadedVideo($mega);
+            $this->createUploadedPdf($mega);
         }
+        error_log('finish~~~~~~~~~~~~~~~~');
         $this->sendResponse(204);
     }
     
@@ -351,6 +352,37 @@ class MegasController extends Controller {
         return $profile['keyword'];
     }
 
+    public function createUploadedPdf($mega) {
+
+        if (sizeof($mega) > 0) {
+            $cb = $this->couchBaseConnection();
+
+            $mega['view_count'] = 0;
+            $mega['share_count'] = 0;
+            $mega['save_count'] = 0;
+            $mega['comment_count'] = 0;
+            $mega['likes_count'] = 0;
+            if (!isset($mega['accessed'])) {
+                $mega["accessed"] = 1;
+            }
+            $mega["accessed"] = date_timestamp_get(new DateTime());
+
+            if (!isset($mega['created'])) {
+                $mega["created"] = 1;
+            }
+            $mega["created"] = date_timestamp_get(new DateTime());
+
+
+            $mega["updated"] = 0;
+
+            if ($cb->add($this->getDomain() . '/' . $mega['id'], CJSON::encode($mega))) {
+                echo $this->sendResponse(204);
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
+        }
+    }
+    
     public function createUploadedVideo($mega) {
 
         if (sizeof($mega) > 0) {

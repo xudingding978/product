@@ -6,6 +6,8 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
 //    newPdfSource: null,
 //    newPdfCover: 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0',
 //    newPdfDesc: null,
+    pdf_title: "",
+    pdf_desc: "",
     profileMega: null,
     pdfInfromationEdit: false,
     init: function() {
@@ -23,14 +25,22 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
          this.reset();
          this.transitionTo("profilePdf");
     },
-    modifyDetail: function(param) {
+    modifyDetail: function(pdf_title, pdf_desc) {
+       this.set("pdf_title", pdf_title);
+       this.set("pdf_desc", pdf_desc);
        console.log('show');
-       $('#pdf_title_'+param).slideToggle(200);
-       $('#'+param).slideToggle(1000);
+       console.log(this.get('pdfArray').objectAt(0).get('isDirty'));
+       $('#pdf_title_'+pdf_title).slideToggle(200);
+       $('#'+pdf_title).slideToggle(1000);
        
     },
             saveDetail: function(param) {
        console.log('save');
+       console.log( this.get("pdfArray").objectAt(0).get("isDirty"));
+      // this.get("pdfArray").objectAt(0).get("pdf").objectAt(0).set("pdf_title",this.get("pdf_title"));
+       this.get("pdfArray").objectAt(0).set("object_description",this.get("pdf_desc"));
+       
+       this.get("pdfArray").objectAt(0).store.save();
        $('#'+param).slideToggle(1000);
        $('#pdf_title_'+param).slideToggle(200);
       
@@ -63,16 +73,24 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
         mega.set("object_description", pdf.get('pdf_desc'));
         mega.set("object_image_url", pdf.get('pdf_cover_image'));
         mega.get('pdf').pushObject(pdf);
-        this.get("pdfArray").pushObject(pdf);
+        var a = mega.save();
+        mega.get('isSaving');
+        var that = this;
+        a.then(function(){
+            
+            that.get("pdfArray").pushObject(mega);
         
-        var profilePdfController = this.get('controllers.profilePdf');
-        profilePdfController.get("pdfContent").insertAt(0, mega);
+            var profilePdfController = that.get('controllers.profilePdf');
+            profilePdfController.get("pdfContent").insertAt(0, mega);
+            console.log(mega.get('isSaving'));
+            console.log(that.get("pdfArray").objectAt(0).get('isSaving'));
+        });
+        console.log('1111111111111111');
 //        var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
 
 
 //        this.get("controllers.profile").set("profileVideoStatistics", profileVideosController.get("videoesContent").get("length"));
-        mega.store.save();
-
+        
 //        profile.set("profile_video_num", profileVideosController.get("videoesContent").get("length"));
 
 //        profile.store.save();
@@ -98,7 +116,7 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
        for (var i=0; i < this.get('pdfArray').get('length'); i ++){
            this.get('pdfArray').objectAt(i).store.save();
        }
-       this.cancel();
+       this.closeUploader();
     },
     addPdfObject: function(e, name, type, size) {
         if (size <= 25000000)

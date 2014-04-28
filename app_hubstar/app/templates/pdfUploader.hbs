@@ -17,12 +17,13 @@
 
         <div  id="pdfInformation" >
             {{#each pdfArray}}
+            {{#each pdf}}
             <div   style="border: 3px solid #ccc;margin: 15px;padding: 5px; background-color:white;">
                 <div id="pdf_title_{{unbound pdf_title}}" >
                     <span style="font-weight: bold;display: inline-block;font-size: 25px; "{{action modifyDetail pdf_title}}><img alt="Click!" {{bindAttr src="pdf_cover_image"}} style="width: 50px;"></span> 
-                    <span style="font-weight: bold;display: inline-block;font-size: 25px; margin-left: 20px;"{{action modifyDetail pdf_title}}>{{pdf_title}}</span>
+                    <span style="font-weight: bold;display: inline-block;font-size: 25px; margin-left: 20px;"{{action modifyDetail pdf_title pdf_desc}}>{{pdf_title}}</span>
                     <span><i class="fa fa-trash-o" style="font-size: 25px; float: right; padding-top: 20px; margin-left: 10px"></i></span> 
-                    <span><i class="fa fa-edit" style="font-size: 25px; float: right; padding-top: 22px;" {{action modifyDetail pdf_title}}></i></span>             
+                    <span><i class="fa fa-edit" style="font-size: 25px; float: right; padding-top: 22px;" {{action modifyDetail pdf_title pdf_desc}}></i></span>             
                 </div>
 
                 <div {{bindAttr id="pdf_title"}} style="display: none;padding: 10px;margin: 0 10px;">
@@ -34,10 +35,10 @@
                     </div>
                     <div style="display: inline-block; width: 330px;">
                         <div  style="margin: 10px;">
-                            {{view Ember.TextField valueBinding="pdf_title"  placeholder="file name"}}
+                            {{view Ember.TextField valueBinding="controller.pdf_title"  placeholder="file name"}}
                         </div>
                         <div style=" width: 310px;height: 165px;margin: 10px;">
-                            {{view Ember.TextArea valueBinding="pdf_desc"  placeholder="file description" class="no-resize"}}
+                            {{view Ember.TextArea valueBinding="controller.pdf_desc"  placeholder="file description" class="no-resize"}}
                         </div>
 
                     </div>
@@ -49,6 +50,7 @@
             </div>
         </div>
     </div>
+    {{/each}}
     {{/each}}
 </div>
 

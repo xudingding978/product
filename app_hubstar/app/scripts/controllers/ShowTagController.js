@@ -1,7 +1,7 @@
 
 HubStar.ShowTagController = Ember.ObjectController.extend({
     change_tag_show: false,
-    change_tag_show_2:false,
+    change_tag_show_2: false,
     selectTagProfile: false,
     photo_id: "", //selected photo's id
     profiles: [], // the list of profiles that user own
@@ -22,7 +22,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
     chosenProfile: '',
     selectedTitle: "Choose your Collection",
     needs: ["mega", "article", "collection", "applicationFeedback", "comment", "video"],
-    //selectedCollection: "",
+    selectedCollection: [],
     selectionPop: false,
     newCollectionName: null,
     objectID: "",
@@ -31,6 +31,9 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
     isComment: false,
     //isProfile: false,
     userName: '',
+    chooseProfileItem:false,
+    profileCollection: [],
+    isReadProfile:false,
     init: function()
     {
         HubStar.set("isProfile", false);
@@ -45,6 +48,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         this.set('selectTagProfile', false); // show list of profile
         var photo_id = this.get("photo_id");
         var selectedID = this.get("selectedID"); //the selected profile id
+        var collectionID = this.get("selectedCollection").id;
         if (selectedID === "" || selectedID === null || selectedID === undefined)
         {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please select the profile before save.", "warnning");
@@ -60,7 +64,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             var time_stamp = new Date();
             var tag_id = time_stamp.getTime().toString();
             time_stamp = time_stamp.toString();
-            var tagInfo = [selectedID, product_name, desc, pic_x, pic_y, linkAddress, time_stamp, photo_id, tag_id];
+            var tagInfo = [selectedID, product_name, desc, pic_x, pic_y, linkAddress, time_stamp, photo_id, tag_id,collectionID];
             tagInfo = JSON.stringify(tagInfo);
             var newTag = new Array();
             var that = this;
@@ -76,6 +80,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 newTag["link_to_click_count"] = 0;
                 newTag["tag_time"] = time_stamp;
                 newTag["tag_approved"] = false;
+                newTag["collectionID"] = collectionID;
                 if (that.get("contentTags") !== null && that.get("contentTags") !== "" && that.get("contentTags") !== undefined)
                 {
                     that.get("contentTags").pushObject(newTag);
@@ -154,33 +159,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
 
 
     },
-//    sentRequestEmail: function(newTag)
-//    {
-//        var mega = HubStar.Mega.find(this.get("photo_id"));
-//        var requestEmail = mega.get("owner_contact_email");
-//        if (requestEmail !== null && requestEmail !== undefined && requestEmail !== "")
-//        {
-//            var profile_id = newTag["profile_id"];
-//            var product_name = newTag["product_name"];
-//            var time_stamp = newTag["tag_time"];
-//            var linkAddress = newTag["linkto"];
-//            var photo_id = this.get("photo_id");
-//            var tagInfo = [profile_id, product_name, linkAddress, time_stamp, photo_id, requestEmail];
-//            tagInfo = JSON.stringify(tagInfo);
-//            var newTag = new Array();
-//            var that = this;
-//            requiredBackEnd('showTag', 'sent', tagInfo, 'POST', function(params) {
-//            });
-//        }
-//    },
-//    setTagIcon: function(pic_x, pic_y, tag_id)
-//    {
-//        setTimeout(function() {
-//            var tagDiv = "#tag_" + tag_id;
-//            $(tagDiv).fadeIn();
-//            $(tagDiv).css({top: pic_y, left: pic_x});
-//        }, 500);
-//    },
     readTags: function(photo_id)
     {
         var mega = HubStar.Mega.find(this.get("photo_id"));
@@ -228,13 +206,13 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                                 {
                                     isArticle = true;
                                 }
-                                var center_x=0;
+                                var center_x = 0;
                                 if (isArticle === true) {
-                                     center_x = ($(window).width() * 0.55) / 2;
+                                    center_x = ($(window).width() * 0.55) / 2;
                                 }
                                 else
                                 {
-                                     center_x = ($(window).width() - 320) / 2;
+                                    center_x = ($(window).width() - 320) / 2;
                                 }
                                 var top = center_y - HubStar.get("pic_current_height") / 2;
                                 var left = center_x - HubStar.get("pic_current_width") / 2;
@@ -283,13 +261,11 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         var dataNew = new Array();
         var that = this;
         this.set('selectionPop', false);
+        this.set("isReadProfile",true);
         requiredBackEnd('users', 'ReadProfileData', data, 'POST', function(params) {
-//            dataNew["profile_id"] = localStorage.loginStatus;
-//            dataNew["profile_name"] = "your profile";
-//            dataNew["type"] = "user";
-//            params.insertAt(0, dataNew);
             that.set("profiles", params);
-            console.log(that.get('profiles'));
+            //console.log(that.get('profiles'));
+            that.set("isReadProfile",false);
             that.set('selectTagProfile', !that.get('selectTagProfile'));
         });
     },
@@ -306,9 +282,11 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 else
                 {
                     this.set("chosenProfile", id);
+                    this.set("profileCollection", this.get("profiles").objectAt(i).collection);
+                    this.set("chooseProfileItem",true);
                 }
 
-                this.setDesc(title); //set current profile
+                this.setDesc(title);
                 if (this.get("selectedDesc") !== "")
                 {
                     this.setThumbnailUrl(this.get("profiles").objectAt(i).profile_hero_cover_url);
@@ -318,6 +296,23 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             }
         }
         this.set('selectTagProfile', !this.get('selectTagProfile'));
+    },
+    chooseRecord: function(title, id) {
+        this.set('selectedTitle', title);
+        this.setSelectedCollection(id);
+        var link = 'http://' + document.domain + '/#/profiles/' +  this.get("selectedID")+"/collections/"+id;
+        this.setLinkTo(link);
+        this.set('selectionPop', !this.get("selectionPop"));
+    },
+    setSelectedCollection: function(id) {
+        var selectedCollection = null;
+        for (var i = 0; i < this.get("profileCollection").get("length"); i++) {
+            var thisCollection = this.get("profileCollection").objectAt(i);
+            if (id === thisCollection.id) {
+                selectedCollection = thisCollection;
+            }
+        }
+        this.set('selectedCollection', selectedCollection);
     },
     profileCanel: function() {
         this.set('selectTagProfile', false);
@@ -336,21 +331,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
     setThumbnailUrl: function(photo_image_thumbnail_url) {
         this.set("selectedPhotoThumbnailUrl", photo_image_thumbnail_url);
     },
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////            
-//    setUser: function()
-//    {
-//        var user = HubStar.User.find(localStorage.loginStatus);
-//        this.set("collections", user.get("collections"));
-//        if (this.get("collections").objectAt(0) !== null && this.get("collections").objectAt(0) !== undefined) {
-//            this.setDesc("");
-//            this.setTitle("Choose your Collection");
-//            this.setProfile("your profile");
-//            this.set('selectionPop', false);
-//        }
-//    },
-//    setImageID: function(id) {
-//        this.set("objectID", id);
-//    },
     setTitle: function(title) {
         if (HubStar.get("chooseCollection") !== null && HubStar.get("chooseCollection") !== "" && HubStar.get("chooseCollection") !== undefined)
         {
@@ -360,136 +340,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             this.set("selectedTitle", title);
         }
     },
-//    setProfile: function(title) {
-//        if (HubStar.get("selectedID") !== null && HubStar.get("selectedID") !== "" && HubStar.get("selectedID") !== undefined)
-//        {
-//            this.set("selectedDesc", HubStar.get('selectedDesc'));
-//        }
-//        else {
-//            this.set("selectedDesc", title);
-//        }
-//    },
-//    submit: function()
-//    {
-// console.log("aaaaaaaaaaaaaaaa");
-// 
-//        if (this.get("selectionPop") !== true && HubStar.get('selectedCollection') !== undefined && HubStar.get('selectedCollection') !== null) {
-//            if (HubStar.get("isProfile") === false) {
-//                var collectionController = this.get('controllers.collection');
-//                var collection = collectionController.getUpdateCollection(HubStar.get('selectedCollection'));
-//                var content = collection.get("collection_ids");
-//                this.addCollection(collection, content);
-//                this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
-//                this.addComment();
-//                collection.set('optional', localStorage.loginStatus);
-//                collection.set('type', 'user');
-//                collection.store.save();
-//                this.sendFeedBack();
-//                this.exit();
-//            }
-//            else
-//            {
-//                var content = HubStar.get('selectedCollection').collection_ids;
-//                if (content === null || content === undefined || content === "") {
-//                    HubStar.get('selectedCollection').collection_ids = this.get("objectID");
-//                }
-//                else if (content.indexOf(this.get("objectID")) !== -1)
-//                {
-//                }
-//                else {
-//                    var ids = content;
-//                    ids = ids + "," + this.get("objectID");
-//                    HubStar.get('selectedCollection').collection_ids = ids;
-//                }
-//                var data = JSON.stringify(HubStar.get('selectedCollection'));
-//                var that = this;
-//                requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
-//                    that.sendFeedBack();
-//                    that.exit();
-//                });
-//                this.set("chosenProfile", "");
-//                this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
-//                this.addComment();
-//            }
-//        } else {
-//            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose a collection.", "warnning");
-//        }
-//
-//    },
-//    sendFeedBack: function() {
-//        var message = "Saved to your " + this.get('selectedTitle') + " collection.";
-//        if (this.get('parentTController') === 'video') {
-////message = "Saved video successfully.";
-//        } else if (this.get('parentTController') === 'photo') {
-////message = "Saved photo successfully.";
-//        }
-//        this.get('controllers.applicationFeedback').statusObserver(null, message);
-//    },
-//    addComment: function() {
-//
-//        var currentUser = HubStar.User.find(localStorage.loginStatus);
-//        var commentContent = this.get('selectedDesc');
-//        if (commentContent) {
-//            var comments = this.get("commentObject").get('comments');
-//            var commenter_profile_pic_url = currentUser.get('photo_url_large');
-//            var commenter_id = currentUser.get('id');
-//            var name = currentUser.get('display_name');
-//            var date = new Date();
-//            var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
-//                "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
-//                "is_delete": false, optional: this.get("commentObject").get('type') + '/' + this.get("commentObject").get('id')});
-//            comments.insertAt(0, tempComment);
-//            comments.store.save();
-//            commentContent = '';
-//            $('#addcommetBut').attr('style', 'display:block');
-//            $('#commentBox').attr('style', 'display:none');
-//        }
-//    },
-//    setSelectedCollection: function(id) {
-//        if (HubStar.get("isProfile") === false) {
-//            var selectedCollection = null;
-//            for (var i = 0; i < this.get("collections").get("length"); i++) {
-//                var thisCollection = this.get("collections").objectAt(i);
-//                if (id === thisCollection.get("id")) {
-//                    selectedCollection = thisCollection;
-//                }
-//            }
-//            HubStar.set('selectedCollection', selectedCollection);
-//        }
-//        else
-//        {
-//            var selectedCollection = null;
-//            for (var i = 0; i < HubStar.get("profileCollection").get("length"); i++) {
-//                var thisCollection = HubStar.get("profileCollection").objectAt(i);
-//                if (id === thisCollection.id) {
-//                    selectedCollection = thisCollection;
-//                }
-//            }
-//            HubStar.set('selectedCollection', selectedCollection);
-//        }
-//    },
-//    addCollection: function(collection, content)
-//    {
-//        if (content === null || content === undefined || content === "") {
-//            collection.set("collection_ids", this.get("objectID"));
-//        }
-//
-//        else if (content.indexOf(this.get("objectID")) !== -1)
-//        {
-//        }
-//        else {
-//            var ids = collection.get("collection_ids");
-//            if (ids !== undefined || ids !== null)
-//            {
-//                ids = this.get("objectID") + "," + ids;
-//            }
-//            else
-//            {
-//                ids = this.get("objectID");
-//            }
-//            collection.set("collection_ids", ids);
-//        }
-//    },
     exit: function() {
         this.set('selectionPop', false);
         this.set('selectTagProfile', false);
@@ -512,76 +362,10 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             this.get("controllers.mega").switchCollection();
         }
     },
-//    addNewCollection: function()
-//    {
-//
-//        var collectionController = this.get('controllers.collection');
-//        if (HubStar.get("isProfile") === false) {
-//            var collection = collectionController.getCreateCollection(this.get('newCollectionName'), '', this.get("collections"));
-//            if (collection !== null && collection !== "") {
-//                collection.set('type', 'user');
-//                collection.set('optional', localStorage.loginStatus);
-//                this.get("collections").insertAt(0, collection);
-//                this.get("collections").store.save();
-//                HubStar.set('selectedCollection', collection);
-//                this.chooseRecord(collection.get("title"), collection.get("id"));
-//                //$('#recordID').text(this.get('newCollectionName'));
-//            } else {
-//            }
-//        }
-//        else
-//        {
-//            var collection = collectionController.getCreateCollection(this.get('newCollectionName'), '', HubStar.get("profileCollection"));
-//            if (collection !== null && collection !== "") {
-//                collection.set('type', 'profile');
-//                collection.set('optional', this.get("chosenProfile"));
-//                var newCollection = new Object();
-//                newCollection.collection_ids = collection.get("collection_ids");
-//                newCollection.cover = collection.get("cover");
-//                newCollection.desc = collection.get("desc");
-//                newCollection.id = collection.get("id");
-//                newCollection.optional = collection.get("optional");
-//                newCollection.title = collection.get("title");
-//                newCollection.type = collection.get("type");
-//                newCollection.created_at = collection.get("created_at");
-//                newCollection.parent_type = collection.get("parent_type");
-//                collection.store.save();
-//                HubStar.get("profileCollection").insertAt(0, newCollection);
-//                HubStar.set('selectedCollection', collection);
-//                this.chooseRecord(collection.get("title"), collection.get("id"));
-//                //$('#recordID').text(this.get('newCollectionName'));
-//            }
-//
-//        }
-//
-//        this.set('newCollectionName', null);
-//        //this.set('selectionPop', !this.get('selectionPop'));
-//    },
-//    collectionSwitch: function() {
-//        this.set('selectionPop', !this.get("selectionPop"));
-//        this.set('selectTagProfile', false);
-//    },
-//    chooseRecord: function(title, id) {
-//        this.set('selectedTitle', title);
-//        this.setSelectedCollection(id);
-//        this.selectSelectedDesc();
-//        //$('#recordID').text(this.get('selectedTitle'));
-//        HubStar.set('chooseCollection', this.get('selectedTitle'));
-//        this.set('selectionPop', !this.get("selectionPop"));
-//    },
-//    selectSelectedDesc: function()
-//    {
-//        var desc = "";
-//        for (var i = 0; i < this.get("collections").get("length"); i++)
-//        {
-//            var collection = this.get("collections").objectAt(i);
-//            if (collection.get("title") === this.get("selectedTitle"))
-//            {
-////desc = collection.get("desc");
-//            }
-//        }
-//        this.set("selectedDesc", desc);
-//    },
+    collectionSwitch: function() {
+        this.set('selectionPop', !this.get("selectionPop"));
+        this.set('selectTagProfile', false);
+    },
     checkingValidInput: function(title) {
 
         if (title.indexOf(" ") !== -1) {

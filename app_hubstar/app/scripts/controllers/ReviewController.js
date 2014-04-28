@@ -57,9 +57,12 @@ HubStar.ReviewController = Ember.Controller.extend({
             this.get("controllers.profile").set("rateTime", false);
             $('#user-stats > li').removeClass('selected-user-stats');
             $('#reviewList').addClass('selected-user-stats');
+             setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {
-                $('#masonry_user_container').masonry("reload");
-            }, 200);
+                $('#masonry_user_container').masonry();
+            }, 10);
+        }, 50);
             $(window).scrollTop(1500);
             this.get("controllers.profile").set('partnerTag', false);
             this.get("controllers.profile").set('collectionTag', false);

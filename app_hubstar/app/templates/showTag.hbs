@@ -3,25 +3,28 @@
     {{#unless controller.change_tag_show}}
     <div class="box" style="bottom: 20px">
     </div>
-    
+
     {{/unless}}
     <div id ="showTagSavePhoto"class="t-style-box" style="z-index: 1002; position: absolute;border-radius: 3px;">
 
         <div style="margin: 0 0 20px; position: relative; background-color: #f3f3f3; height: 45px;border-bottom: 1px solid #ddd;border-radius: 3px 3px 0 0;">
             <div style=' color: #555; font-size: 18px; font-weight: bold; text-align: center; line-height: 45px;'>Choose profile to click to:
-      
+                {{#unless controller.isReadProfile}}
                 <div class="" style="display:inline-block;cursor: pointer;"   {{action profileSwitch on="click" target="controller"}}>
-                     {{controller.selectedDesc}}
-                     &nbsp;<i class="fa fa-caret-down"></i>
+                    {{controller.selectedDesc}}
+                    &nbsp;<i class="fa fa-caret-down"></i>
                 </div>
+                {{else}}
+                <i class="spinner">&nbsp;</i>
+                {{/unless}}
                 {{#if controller.selectTagProfile}}
                 <div class="select-profile-save" style="top: 50px;">
 
                     <div class="" style="height: 350px; font-size: 13px; font-weight: bold; overflow: auto; overflow-x:hidden; ">
-                          <div  style="width: auto;line-height: 27px; padding: 0 20px;border-bottom: 1px solid #ddd;border-top: 1px solid #fff;">
-                              Your Profiles
+                        <div  style="width: auto;line-height: 27px; padding: 0 20px;border-bottom: 1px solid #ddd;border-top: 1px solid #fff;">
+                            Your Profiles
                         </div>
-                        
+
                         {{#each controller.profiles}}
                         <div class="choose-exist-collection easing" style="width: auto;line-height: 27px; padding: 0 20px;border-bottom: 1px solid #ddd;border-top: 1px solid #fff;" {{action chooseProfile profile_name profile_id}}>
                              <a class="exist-name easing"> {{profile_name}}</a>
@@ -41,6 +44,32 @@
         <div class="contactmebox-wapper" style="width: 530px;height: 250px;font-size: 13px;margin: 0 20px;">
             <div style="display:inline-block; ">
 
+
+                <div style="display:inline-block; ">
+                    {{#if chooseProfileItem}}
+                    <div class="new-btn" style="display:block;"  {{action collectionSwitch }} {{bindAttr text="controller.selectedTitle" }}>
+                         {{controller.selectedTitle}}
+                         &nbsp;<i class="fa fa-caret-down"></i>
+                    </div>                   
+                    {{/if}}
+                    {{#if controller.selectionPop}}
+                    <div id="login_lightbox" class="blur" {{action collectionSwitch }}>&nbsp;</div>
+                    <div class="add-tag_select-tag">
+                       
+                        <div style=" font-size: 16px; font-weight: bold; overflow: auto; overflow-x:hidden;">
+                            {{#each controller.profileCollection}}
+                            <div class="choose-exist-collection easing" {{action chooseRecord title id}}>
+                                 <a class="exist-name easing"> {{title}}</a>
+                            </div>
+                            {{/each}}
+                        </div>
+
+                    </div>
+
+                    {{/if}}
+                </div>
+
+
                 <div style=' font-size: 18px; font-weight: bold;'>    Product Name</div> 
                 <div style="height: 10px;">
                     {{view Ember.TextArea valueBinding="controller.product_name" rows="1" cols="70" class="tag_currenprofile" placeholder="Say something about it!"}}
@@ -54,7 +83,7 @@
 
                 <div style=' font-size: 18px; font-weight: bold;'>       Link to:</div>
                 <div style="height: 10px;">
-                    {{view Ember.TextArea valueBinding="controller.linkTo" rows="2" cols="70" class="tag_linkto" placeholder="Add link to the content"}}
+                    {{controller.linkTo}}
                 </div>
             </div>
             {{#if controller.selectedDesc}}

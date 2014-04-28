@@ -355,9 +355,7 @@ class UsersController extends Controller {
             $oldRecord = $cb->get($url);
             $oldRecord = CJSON::decode($oldRecord, true);
 
-//   this is nothing else
-//            $oldRecord['user'][0] = null;
-//            $oldRecord['user'][0] = $request_arr['user'];
+
             $oldRecord['user'][0]['selected_topics'] = $newRecord['selected_topics'];
 
 //            $oldRecord['user'][0]['collections'] = $request_arr['user']['collections'];

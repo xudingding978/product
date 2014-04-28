@@ -205,6 +205,7 @@ class ShowTagController extends Controller {
         $time_stamp = $request_array[6]; // it is create time
         $photo_id = $request_array[7];  //selected photo's id
         $tag_id = $request_array[8];  //tag id : consists of time and photo id
+        $collectionID = $request_array[9];  //collectionID : the target collection id
         $linkto_click_count = 0;
         $tag_approve = false;
         try {
@@ -225,6 +226,7 @@ class ShowTagController extends Controller {
             $tag["link_to_click_count"] = $linkto_click_count;
             $tag["tag_time"] = $time_stamp;
             $tag["tag_approved"] = $tag_approve;
+            $tag["collectionID"] = $collectionID;
             //put the tag into the end of tags array
             if (!isset($oldRecordDeep["photo"][0]['tags'])) {
                 $oldRecordDeep["photo"][0]['tags'] = array();

@@ -18,12 +18,15 @@
                  <i class="fa fa-film"></i><span class="pretooltip">Watch</span>
             </div>    
             {{/if}}
+             {{#unless controller.enableTag}}
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." style="position:relative;margin: 0 5px;width: 60px;;"  {{action switchCollection on="click" target="controller"}}>
                 <i class="fa fa-folder"></i><span class="pretooltip">Save</span>
             </div>
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;width: 60px;" {{action dropdownPhotoSetting "1"}}>
+             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;width: 60px;" {{action dropdownPhotoSetting "1"}}>
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
+             {{/unless}}
+            
             {{#unless controller.megaResouce.getArticle}}
             {{#unless controller.megaResouce.getVideo}}
             {{#if controller.isBusinessProfile}}
@@ -199,7 +202,7 @@
                     <i class="fa fa-pencil-square-o" {{action editingPhotoMegaData}}></i>
                 </div>
                 {{/if}}
-                <ul class="hideClass edit-object-ul" id="dropdown_id_2_{{unbound megaResouce.id}}"  style="width: 170px; right: 80px; position: absolute; top: 120px;">
+                <ul class="hideClass edit-object-ul" id="dropdown_id_2_{{unbound megaResouce.id}}"  style="width: 170px; right: 80px; position: absolute; top: 130px;">
                     <li class="ite" {{action  fbShare "2"}} >
                         <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
                     </li>

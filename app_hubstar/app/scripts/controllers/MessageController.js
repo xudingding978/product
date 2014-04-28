@@ -55,10 +55,11 @@ HubStar.MessageController = Ember.Controller.extend({
 
 
         }
+        var thatthat = this;
         if (enableEditCount === 1)
         {
             var s;
-            var thatthat = this;
+            
             for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
             {
                 if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)

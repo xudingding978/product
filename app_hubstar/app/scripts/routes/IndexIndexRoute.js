@@ -2,9 +2,9 @@ HubStar.IndexIndexRoute = Ember.Route.extend({
         setupController: function() {
 
             this.controllerFor('application').set('islogin', false);
-
             this.controllerFor('status').set('islogin', false);
             this.controllerFor('application').set('isotherpage', false);
+        
 
             if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
             }
@@ -21,11 +21,8 @@ HubStar.IndexIndexRoute = Ember.Route.extend({
             }
         },
         redirect: function() {
-
-
             if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-              //  this.transitionTo('indexIndex');
-
+                this.transitionTo('searchIndexTom');
             } else {
                 
                 this.transitionTo('searchIndexTom');

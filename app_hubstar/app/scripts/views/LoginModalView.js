@@ -1,6 +1,7 @@
 HubStar.LoginModalView = Ember.View.extend({
     templateName: 'loginModal',
     didInsertElement: function() {
+        var that = this;
         $(document).ready(function() {
             if (localStorage.loginState === "login") {
                 $('.Login-box #login-btn').text('Sign up for a new account!');
@@ -41,7 +42,7 @@ HubStar.LoginModalView = Ember.View.extend({
                     $('.Login-box #click-register').addClass('active-tab');
                     $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
                     $('.Login-box #user-login-pane').css('display', 'none');
-                    this.checkSocial();
+                    that.checkSocial();
                 }
             }
 
@@ -188,7 +189,7 @@ HubStar.LoginModalView = Ember.View.extend({
                 $('.Login-box #register-with-email-step-2').removeClass('active-step');
                 $('.Login-box #register-with-email-step-2').animate({height: 'toggle'});
                 $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
-                this.checkSocial();
+                that.checkSocial();
             });
             /* going back to step 1 function*/
 

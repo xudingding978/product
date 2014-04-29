@@ -19,9 +19,6 @@ HubStar.NavigatorView = Ember.View.extend({
                     $("#Commercial").css("opacity", "0.4");
                     $("#Residential").css("opacity", "1");
                     localStorage.resOrcom = "residential";
-//                     $('#discovery_search_bar_wrapper').css("background"," url(../../images/contactbg.png)");
-//                 $(".navbar").css("background", " url(../../images/contactbg.png)");
-//                   $(".gradient1").css("background", " linear-gradient(to bottom, #01b6e3 22%,#f5f5f5 99%)");
                     $('#discovery_search_bar_wrapper').fadeOut(500, function() {
                         $(this).css({"background": " url(../../images/discoverybarbg.jpg) "}).fadeIn(500);
                     });
@@ -35,12 +32,6 @@ HubStar.NavigatorView = Ember.View.extend({
                     that.get('controller').set('residentialKeyword', true);
                       that.get('controller').set('subcate', []);
                     that.get('controller').set('subcategories', []);
-//                    if (type === "default")
-//                    {}
-//                    else
-//                    {
-//                        that.get('controller').transitionTo("search", {id: type});
-//                    }
                 } else if (mousedownX >= (middle - d / 2) && mousedownX < (middle + d / 2)) {
                     $('#switchbarBtn').attr("style", "margin-left:13px;");
                     $('#switchbarBtn1').attr("style", "margin-left:13px;");
@@ -69,7 +60,6 @@ HubStar.NavigatorView = Ember.View.extend({
                     $("#Commercial").css("opacity", "1");
                     $("#Residential").css("opacity", "0.4");
                     localStorage.resOrcom = "commercial";
-//                    $('#discovery_search_bar_wrapper').css({"background": " url(../../images/commercialbg.jpg)"});
                     $('#discovery_search_bar_wrapper').fadeOut(500, function() {
                         $(this).css({"background": " url(../../images/commercialbg.jpg) "}).fadeIn(500);
                     });
@@ -134,7 +124,6 @@ HubStar.NavigatorView = Ember.View.extend({
                     $("#Residential").css("opacity", "0.4");
 
                     localStorage.resOrcom = "commercial";
-//                    $('#discovery_search_bar_wrapper').css({"background": " url(../../images/commercialbg.jpg)"});
                     $('#discovery_search_bar_wrapper').fadeOut(500, function() {
                         $(this).css({"background": " url(../../images/commercialbg.jpg)"}).fadeIn(500);
                     });

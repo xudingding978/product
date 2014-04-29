@@ -20,7 +20,12 @@
       
 
         <div id="search-bar" class="search-bar-ontop" style="display:none">
-            <div id ="navigator" class="Nav-btn easing" style="float: left;" {{action dropdownHeaderNavigator}}><i class="fa fa-list"></i></div>
+            <div id ="navigator" class="Nav-btn easing" style="float: left;width: 90px;height: 60px;top: -5px;position: relative;font-size: 15px;font-weight: bold;color: white;background-color: black;" {{action dropdownHeaderNavigator}}>
+                   <i class="fa fa-list" style="font-size: 20px;"></i>
+            <div style="line-height: 0;position: relative;bottom: 5px;">Categories</div>
+            </div>
+           
+            
             {{#if controller.isHeaderNavigatorDropdown}}
             {{view HubStar.NavigatorView}}
             {{/if}}
@@ -70,26 +75,15 @@
         {{/if}}
 
 
-        <div id="geo-filter" class="Geo-Filter easing " style="margin-right: 1%;" {{action dropdown "geoLocation"}} data-step="2" data-intro=" Use the <b>Location Filter</b> to filter search results by region.">
-            <div style="float: left; font-size: 15px;">Country</div>
+        <div id="geo-filter" class="Geo-Filter easing " style="margin-right: 2%;" {{action dropdown "geoLocation"}} data-step="2" data-intro=" Use the <b>Location Filter</b> to filter search results by region.">
+            <div style="float: left; font-size: 15px;">Country&nbsp;</div>
             <i class="fa fa-angle-down fa-lg">&nbsp;</i>
-            <div style="position: relative; right:13px;bottom: 26px; font-size: 15px;">{{HubStar.geoLocation}}</div>
+            <div style="position: relative; right:7px;bottom: 26px; font-size: 15px;">{{HubStar.geoLocation}}</div>
         </div>
         {{#if controller.isGeoDropdown}}
         {{view HubStar.DropdownListView}}
         {{/if}}
 
-        <div id="switcher" class="switch-container Geo-Filter" style="top:15px; position: absolute; right: 20%;display:none;">
-            <div id="Residential" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline; color: white;"  {{action residential on="click" target="view"}}>Residential</div>
-            <div  id="switchbar" class="insetbox-shadow switch-groove" style="display: inline-block">
-                <div style="height: 10px;width: 50%;border-right: 1px solid rgba(0,0,0,.3);float: left;margin: 6px 0;"></div>
-                <div style="height: 10px;width: 50%;border-left: 1px solid rgba(255,255,255,.5); float: right;margin: 6px 0;"></div>
-
-                <div id="switchbarBtn" class="radius-circle gradient1 switch-btn" style="margin-left: 13px"></div>
-
-            </div>
-            <div id="Commercial" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline; color: white;" {{action commercial on="click" target="view"}}>Commercial</div>
-        </div>
     </div>
 
 

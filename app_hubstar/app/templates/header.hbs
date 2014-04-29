@@ -7,10 +7,10 @@
             <a href="/#/search" > <img class="logonew" {{action showDiscoveryBar}} style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png"></a>
 
         </div>
+              <div id="top-about-menu" class="top-about-menu" style="display:block; cursor: pointer;font-size: 15px;padding: 10px;"{{action showAboutDropDown on="click" target="view"}}>About</div>
 
-
-        <ui id="top-about-menu" class="top-about-menu" style="display:block">
-           <li class="ite" > <span><a style="color: #fff" class="hover-opacity" target="blank" href="http://about.trendsideas.com/">About</a></span></li>
+        <ui id="top-menu" class="edit-object-ul" style="display:none;width: 160px;position: absolute;top:80px;left: 180px;">
+           <li class="ite" > <span><a  " target="blank" href="http://about.trendsideas.com/">About</a></span></li>
            <li class="ite" > <span><a target="blank" href="http://about.trendsideas.com/business/">Business</a></span></li>
            <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span></li>
            <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/contact-us/">Contact us</a></span></li>
@@ -36,11 +36,13 @@
 
         <div id="login_details" style="position: relative;float: right;cursor: pointer;text-align: right;">
             <div id="login_detail" style="position: relative;float: right;cursor: pointer;text-align: right;" data-step="4" data-intro="Click on your <b>Profile Picture</b> to access your Profile, Message Centre, Help options or to log out.">
-                {{view HubStar.AfterLoginView}}
+              
+               {{view HubStar.AfterLoginView}}
             </div>
         </div>
-        <div id="Geo-Filter" class="Geo-Filter easing"  style="margin-right: 50px;font-size: 15px;" {{action dropdown "notification"}} data-step="3" data-intro="New notifications will appear beside the <b>Notification icon</b>. Click the icon to see your latest notifications.">
+        <div id="Geo-Filter" class="Geo-Filter easing"  {{action dropdown "notification"}} data-step="3" data-intro="New notifications will appear beside the <b>Notification icon</b>. Click the icon to see your latest notifications.">
             <i class="fa fa-bell fa-lg"></i>
+            <div style=" position: relative; right:24px;bottom: 26px; font-size: 15px;">Notification </div>
             {{#if isUnReadCountZero}}
             <div style="cursor: pointer;position: absolute;top: 20px;left: 15px;width: auto;padding: 0 5px 0 4px;height: 15px;background-color: red;line-height: 15px;border-radius: 2px;font-size: 11px;font-weight: bold;">{{unReadCount}}</div>
             {{/if}}
@@ -60,7 +62,7 @@
         <!-- user is logged in -->
 
         {{#if isNotification}}
-        <div style="position: relative; float: right; top: 48px; z-index: 100;">
+        <div style="position: relative; float: right; top: 68px; z-index: 100;">
             <div style="position: absolute;border-color: transparent transparent #f3f3f3 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: 0;"></div>
             <div style="position: absolute;border-color: transparent transparent #888 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: -1;"></div>
         </div>
@@ -68,15 +70,16 @@
         {{/if}}
 
 
-        <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdown "geoLocation"}} data-step="2" data-intro=" Use the <b>Location Filter</b> to filter search results by region.">
+        <div id="geo-filter" class="Geo-Filter easing " style="margin-right: 1%;" {{action dropdown "geoLocation"}} data-step="2" data-intro=" Use the <b>Location Filter</b> to filter search results by region.">
+            <div style="float: left; font-size: 15px;">Country</div>
             <i class="fa fa-angle-down fa-lg">&nbsp;</i>
-            <span style="font-weight: bold;font-size: 13px;">{{HubStar.geoLocation}}</span>
+            <div style="position: relative; right:13px;bottom: 26px; font-size: 15px;">{{HubStar.geoLocation}}</div>
         </div>
         {{#if controller.isGeoDropdown}}
         {{view HubStar.DropdownListView}}
         {{/if}}
 
-        <div id="switcher" class="switch-container Geo-Filter" style="top:15px; position: absolute; right: 20%;">
+        <div id="switcher" class="switch-container Geo-Filter" style="top:15px; position: absolute; right: 20%;display:none;">
             <div id="Residential" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline; color: white;"  {{action residential on="click" target="view"}}>Residential</div>
             <div  id="switchbar" class="insetbox-shadow switch-groove" style="display: inline-block">
                 <div style="height: 10px;width: 50%;border-right: 1px solid rgba(0,0,0,.3);float: left;margin: 6px 0;"></div>

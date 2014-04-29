@@ -1,6 +1,6 @@
 
 .navbar {
-    height: 75px;
+    height: 90px;
     line-height: 60px;
     overflow: visible;
     color: white;
@@ -21,7 +21,7 @@
 .navbar .brand {
     display: block;
     float: left;
-    padding: 0px;
+    padding: 10px;
     margin: 0;
     position: relative;
     font-size: 20px;
@@ -36,7 +36,7 @@
 
 .navbar-inner {
     min-width:50%;
-    height:75px;
+    height:100%;
     width:97%;
     margin:auto;
 }
@@ -50,7 +50,7 @@
     width: 220px; 
     right: 157px; 
     position: relative; 
-    top:16px; 
+    top:-16px; 
     display:none;
 }
 
@@ -96,9 +96,27 @@
     left: 170px;
 }
 
+.residentialCommerical{
+    display: inline-block;
+    font-weight: bold;
+    font-size: 50px;
+    color: white;
+    background-color: black;
+    width: 400px;
+    height: 100px;
+    text-align: center;
+    line-height: 90px;
+    position: relative;
+    top: 40px;
+    border-radius: 10px;
+    margin: 5px;
+    cursor: pointer;
+}
 
-
-
+.residentialCommerical-selected{
+    color: black;
+    background-color: white;
+}
 
 
 #discovery_search_bar_wrapper {
@@ -153,6 +171,7 @@
     margin: 6px auto;
     left: 5%;
     right: 25%;
+    top: 20%
 }
 
 .search-box > input {
@@ -434,11 +453,11 @@
 }
 
 .registraion-suceesful-message{
-     text-align: center; 
-     padding: 10px 20px; 
-     height: 165px; 
-     font-size: 13px; 
-     color: #333;
+    text-align: center; 
+    padding: 10px 20px; 
+    height: 165px; 
+    font-size: 13px; 
+    color: #333;
 }
 
 
@@ -766,7 +785,9 @@ div#forgot-password-container{
     color: #fff;
     opacity: .7;
     cursor: pointer;
-    margin-right: 40px;
+    font-size: 15px;
+    width: 100px;
+    height: 75px;
 }
 
 .Geo-Filter:hover, .Geo-Filter:active{opacity: 1}
@@ -789,7 +810,6 @@ div#login_detail{
 }
 
 
-
 .Notification-top{
     position: absolute;
     width: 410px;
@@ -801,27 +821,6 @@ div#login_detail{
     box-shadow: 0 0 10px #555;
 }
 
-/*.Notification-top:before{
-    content: "";
-    position: absolute;
-    left: 204px;
-    top: -19px;
-    border-color: transparent transparent #f3f3f3 transparent;
-    border-style: solid;
-    border-width: 10px 10px 10px 10px;
-    z-index: 0;
-}
-
-.Notification-top:after{
-    content: "";
-    position: absolute;
-    left: 204px;
-    top: -20px;
-    border-color: transparent transparent #888 transparent;
-    border-style: solid;
-    border-width: 10px 10px 10px 10px;
-    z-index: -1;
-}*/
 
 .Notification-top > div:first-child{border-radius: 3px 3px 0 0}
 .Notification-top > div:last-child{border-radius: 0 0 3px 3px}
@@ -964,7 +963,7 @@ and (max-width : 900px) {
     .interest-topic-name{font-size: 11px;}
 
     #register-with-email-step-4{width: 250px}
-    
+
     .registraion-suceesful-message{font-size: 11px; line-height: 15px;}
 }
 
@@ -974,7 +973,7 @@ and (max-width : 900px) {
 @media only screen 
 and (max-width : 480px) {
     #fadein-image{ display: none!important;}
-    
+
     .register-page-top-bar {margin: 40px auto 15%;}
 
     .interest-image-container{width: 50px; height: 50px;}

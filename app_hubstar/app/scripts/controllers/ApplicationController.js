@@ -115,17 +115,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     email_login: function() {
         this.set('mail', !this.get('mail'));
     },
-    loginStatus: function() {
-    },
-            grapData: function() {
+    grapData: function() {
         HubStar.set("profiles", []);
+        var that = this;
         if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
             localStorage.resOrcom = "All";
         }
         this.set('categorys', HubStar.Cate.find({}));
         if (localStorage.loginStatus) {
             var u = HubStar.User.find(localStorage.loginStatus);
-            var that = this;
+            
             u.then(function() {
                 if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
                         && (u.get("email")).match(/@trendsideas.com/g) !== ""
@@ -413,10 +412,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("oldChildren", 0);
 
 
-        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-        } else {
+        //if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+       // } else {
             this.set('loadingTime', true);
-        }
+        //}
 
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
@@ -542,7 +541,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             localStorage.loginState = "login";
 
             var emailInfo = [params.USER_NAME, that.encrypt(params.USER_NAME), that.encrypt(params.PWD_HASH)];
-            requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
+            requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function() {
 
             });
             setTimeout(function() {
@@ -821,7 +820,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginUsername') !== "" && this.get('loginPassword') !== "")
-        {
+        {         
             this.set('loginTime', true);
             document.getElementById("loginUsername").setAttribute("class", "login-textfield");
             document.getElementById("loginPassword").setAttribute("class", "login-textfield");
@@ -875,7 +874,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndexTom');
                             that.init();
-
 
 
 

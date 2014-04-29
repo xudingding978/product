@@ -200,6 +200,19 @@ HubStar.HeaderView = Ember.View.extend({
                 {
                     this.get("controller").get("categorys").objectAt(i).set("classification", localStorage.resOrcom);
                 }
-    }
+    },
+    showAboutDropDown: function() {
+        if ($('#top-about-menu').attr('display') === 'block') {
+            $("#top-about-menu").hide();
+          // $("#cancel").css("display", "none");
+        }
+        else  if ($('#top-about-menu').css('display') === 'none'){
+          //  this.set("newProfile", false);
+              $("#top-about-menu").show();
+            // $("#cancel").css("display", "block");
+
+        }
+        this.loadProfile();
+    },
 });
 

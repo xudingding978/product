@@ -84,8 +84,8 @@ class MegasController extends Controller {
             
             $keyword = $this->getProfileKeyword($mega['owner_id']);
             $mega['keyword'] = $keyword;
-            $mega['pdf'][0]['pdf_url']  = $this->savePdfToS3($mega['pdf']);            
-            $this->createUploadedPdf($mega);
+            //$mega['pdf'][0]['pdf_url']  = $this->savePdfToS3($mega['pdf']);            
+            //$this->createUploadedPdf($mega);
         }
         error_log('finish~~~~~~~~~~~~~~~~');
         $this->sendResponse(204);

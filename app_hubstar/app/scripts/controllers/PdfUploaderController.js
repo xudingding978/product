@@ -20,77 +20,87 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
     },
     closeUploader: function() {
         console.log('close');
-         this.get('controllers.profilePdf').set('is_pdf_create_mode', false);
-         this.set('pdfInfromationEdit', false);
-         this.reset();
-         this.transitionTo("profilePdf");
+        this.get('controllers.profilePdf').set('is_pdf_create_mode', false);
+        this.set('pdfInfromationEdit', false);
+        this.reset();
+        this.transitionTo("profilePdf");
     },
     modifyDetail: function(pdf_title, pdf_desc) {
-       this.set("pdf_title", pdf_title);
-       this.set("pdf_desc", pdf_desc);
-       console.log('show');
-       console.log(this.get('pdfArray').objectAt(0).get('isDirty'));
-       $('#pdf_title_'+pdf_title).slideToggle(200);
-       $('#'+pdf_title).slideToggle(1000);
-       
-    },
-            saveDetail: function(param) {
-       console.log('save');
-       console.log( this.get("pdfArray").objectAt(0).get("isDirty"));
-      // this.get("pdfArray").objectAt(0).get("pdf").objectAt(0).set("pdf_title",this.get("pdf_title"));
-       this.get("pdfArray").objectAt(0).set("object_description",this.get("pdf_desc"));
-       
-       this.get("pdfArray").objectAt(0).store.save();
-       $('#'+param).slideToggle(1000);
-       $('#pdf_title_'+param).slideToggle(200);
-      
-    },
-            cancelDetail: function(param) {
-       console.log('cancel');
-       $('#'+param).slideToggle(1000);
-       $('#pdf_title_'+param).slideToggle(200);
+        this.set("pdf_title", pdf_title);
+        this.set("pdf_desc", pdf_desc);
+        console.log('show');
+        console.log(this.get("pdfArray").objectAt(0).get("pdf").objectAt(0).get('isDirty'));
+        $('#pdf_title_' + pdf_title).slideToggle(200);
+        $('#' + pdf_title).slideToggle(1000);
 
     },
-            
+    saveDetail: function(param) {
+        console.log('save');
+        console.log(this.get("pdfArray").objectAt(0));
+        console.log(this.get("pdfArray").objectAt(0).get("pdf").objectAt(0).get("isDirty"));
+        // this.get("pdfArray").objectAt(0).get("pdf").objectAt(0).set("pdf_title",this.get("pdf_title"));
+        this.get("pdfArray").objectAt(0).set("object_description", this.get("pdf_desc"));
+        console.log(this.get("pdfArray").objectAt(0).get("isDirty"));
+//       this.get("pdfArray").objectAt(0).store.save();
+        $('#' + param).slideToggle(1000);
+        $('#pdf_title_' + param).slideToggle(200);
+
+    },
+    cancelDetail: function(param) {
+        console.log('cancel');
+        $('#' + param).slideToggle(1000);
+        $('#pdf_title_' + param).slideToggle(200);
+
+    },
     changeCover: function(param) {
         console.log(param);
     },
     profileStyleImageDrop: function(e, name)
     {
-         this.set('pdfInfromationEdit', true);
+        this.set('pdfInfromationEdit', true);
         var target = getTarget(e, "single");
         console.log(target);
         var src = target.result;
-        
-        var testID = createGuid();        
+
+        var testID = createGuid();
         var MegaCreateController = this.get('controllers.megaCreate');
 
-        var mega = MegaCreateController.createNewMega(this.get("profileMega"), testID, null, 'pdf');        
+        var mega = MegaCreateController.createNewMega(this.get("profileMega"), testID, null, 'pdf');
         var pdf = HubStar.Pdf.createRecord({
             'pdf_cover_image': "http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0", 'pdf_title': name.split('.')[0],
             'pdf_desc': "", 'pdf_url': src, 'pdf_profile_id': this.get('controllers.profile').get('model').get('id')});
         mega.set("object_title", pdf.get('pdf_title'));
         mega.set("object_description", pdf.get('pdf_desc'));
         mega.set("object_image_url", pdf.get('pdf_cover_image'));
-        mega.get('pdf').pushObject(pdf);
+        //mega.get('pdf').pushObject(pdf);
+        //var b = pdf.save();
+        //pdf.get("isSaving");
         var a = mega.save();
         mega.get('isSaving');
         var that = this;
-        a.then(function(){
+        a.then(function() {
             
-            that.get("pdfArray").pushObject(mega);
-        
-            var profilePdfController = that.get('controllers.profilePdf');
-            profilePdfController.get("pdfContent").insertAt(0, mega);
-            console.log(mega.get('isSaving'));
-            console.log(that.get("pdfArray").objectAt(0).get('isSaving'));
+            var b =pdf.save();
+            pdf.get("isSaving");
+            var thatthat = that;
+            console.log("22222222222");
+            b.then(function() {
+                console.log("111111");
+                thatthat.get("pdfArray").pushObject(mega);
+                console.log("333333333333333333");
+                var profilePdfController = thatthat.get('controllers.profilePdf');
+                profilePdfController.get("pdfContent").insertAt(0, mega);
+                console.log(mega.get('isSaving'));
+                console.log(thatthat.get("pdfArray").objectAt(0).get("pdf").objectAt(0).get('isSaving'));
+            });
+
         });
         console.log('1111111111111111');
 //        var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
 
 
 //        this.get("controllers.profile").set("profileVideoStatistics", profileVideosController.get("videoesContent").get("length"));
-        
+
 //        profile.set("profile_video_num", profileVideosController.get("videoesContent").get("length"));
 
 //        profile.store.save();
@@ -105,18 +115,18 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
 //
 //
 //        this.canel();
-        
-         
+
+
     },
     reset: function() {
         this.set('pdfArray', []);
     },
     submit: function() {
         console.log('submit');
-       for (var i=0; i < this.get('pdfArray').get('length'); i ++){
-           this.get('pdfArray').objectAt(i).store.save();
-       }
-       this.closeUploader();
+        for (var i = 0; i < this.get('pdfArray').get('length'); i++) {
+            this.get('pdfArray').objectAt(i).store.save();
+        }
+        this.closeUploader();
     },
     addPdfObject: function(e, name, type, size) {
         if (size <= 25000000)

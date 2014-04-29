@@ -172,18 +172,46 @@ HubStar.LoginModalController = Ember.Controller.extend({
     },
     submitSelection: function() {
 
-        $('#register-with-email-step-4').css('display', 'block');
-        $('#register-with-email-step-3').css('display', 'none');
-        $('#user-login-pane').css('display', 'none');
+             var updateTopic = [this.get("loginStatus"), this.get('selected_topics')];
+        var that = this;
+        requiredBackEnd('login', 'selecttopic', updateTopic, 'POST', function() {
+            setTimeout(function() {
+                $('#register-with-email-step-4').css('display', 'block');
+                $('#register-with-email-step-3').css('display', 'none');
+                $('#user-login-pane').css('display', 'none');
+                that.set('first_name', "");
+                that.set('last_name', "");
+                that.set('email', "");
+                that.set('password', "");
+                that.set('region', "");
+                that.set('gender', "");
+                that.set('age', "");
+            }, 1000);
+        });
     },
     next: function() {
+      var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
+        var that = this;
+        requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
+            localStorage.userName = params.USER_NAME;
+            that.set('loginUsername', localStorage.userName);
+            that.set('loginStatus', params.COUCHBASE_ID);
+            localStorage.userType = "email";
+            localStorage.loginState = "login";
 
+            var emailInfo = [params.USER_NAME, that.encrypt(params.USER_NAME), that.encrypt(params.PWD_HASH)];
+            requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function() {
+
+            });
+            setTimeout(function() {
         $('#register-with-email-step-3').css('display', 'block');
         $('#register-with-email-step-2').css('display', 'none');
         $('#click-register-social').css('display', 'none');
         $('#click-register').css('display', 'none');
         $('.learnmore-btn').css('display', 'none');
         $('#login-btn').css('display', 'block');
+             }, 1000);
+        });
 
     },
     backRegister: function() {
@@ -194,22 +222,15 @@ HubStar.LoginModalController = Ember.Controller.extend({
         $('.learnmore-btn').css('display', 'block');
         $('#login-btn').css('display', 'none');
     },
+        encrypt: function(encryptString) {
+        var tempstr = '';
+        for (var a = 0; a < encryptString.length; a++) {
+            tempstr = tempstr + (parseInt(encryptString.charCodeAt(a).toString(16), 16) + 10).toString(16);
+        }
+        return tempstr;
+    },
     done: function() {
-        this.set('loginTime', true);
-        var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age'), this.get('selected_topics')];
-        var that = this;
-
-        //       $('#skipRegister').css('display', 'block');   
-        requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
-            localStorage.userName = params.USER_NAME;
-            that.set('loginUsername', localStorage.userName);
-            localStorage.userType = "email";
-            localStorage.loginState = "login";
-            var emailInfo = [params.USER_NAME, params.PWD_HASH];
-            requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
-
-            });
-            setTimeout(function() {
+  
 
                 $('.Login-box #login-btn').text('Sign up for a new account!');
                 $('.Login-box .black-tool-tip').css('display', 'none');
@@ -223,28 +244,12 @@ HubStar.LoginModalController = Ember.Controller.extend({
                 $('.Login-box #user-forgot-password-pane').css('display', 'none');
                 $('.Login-box #forgot-message-container').css('display', 'none');
                 $('.Login-box #invalid-username').css('display', 'none');
-
                 $('.Login-box #register-with-email-drop-down').css('display', 'none');
                 $('.Login-box #register-with-email-step-2').css('display', 'none');
                 $('.Login-box #user-login-pane').css('display', 'block');
-
-                that.set('first_name', "");
-                that.set('last_name', "");
-                that.set('email', "");
-                that.set('password', "");
-                that.set('region', "");
-                that.set('gender', "");
-                that.set('age', "");
-                that.set('loginTime', false);
-
-            }, 2000);
-        });
         $('#register-with-email-step-4').css('display', 'none');
     },
-//     skip: function(){
-//      //  HubStar.set("isLogin", true);
-//       this.transitionToRoute("searchIndex");//need to change to current state page
-//    },
+
 
     checkSignupInfo: function() {
         function checkObject(id, input, lengthMin, lengthMax, isEmailValid)

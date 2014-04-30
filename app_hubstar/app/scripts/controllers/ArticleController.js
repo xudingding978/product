@@ -277,6 +277,10 @@ HubStar.ArticleController = Ember.Controller.extend({
 //                megaObject.store.save();
 //            }, 6000);
         });
+        
+              if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+        }
     },
     checkCreditExist: function(credits) {
         if (credits !== null && credits !== 'undefined' && credits.get('length') > 0) {

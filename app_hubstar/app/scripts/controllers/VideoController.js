@@ -28,7 +28,11 @@ HubStar.VideoController = Ember.Controller.extend({
                 that.transitionTo('fourOhFour', "404");
             });
         }
+                          
         );
+      if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+        }
     }, addComment: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {

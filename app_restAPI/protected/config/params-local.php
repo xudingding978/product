@@ -28,11 +28,11 @@ return array(
     
     //ElasticSearch Configurations
     'elasticSearch.node' => 'es1.hubsrv.com',
-    'elasticSearch.index' => 'develop',
+    'elasticSearch.index' => 'production',
     
     //CouchBase Configurations
     'couchBase.node'=>'cb1.hubsrv.com:8091',
-    'couchBase.bucket'=>'develop',
+    'couchBase.bucket'=>'production',
     
       //MySQL Database Configurations
     'db_live.name' => 'db_live',

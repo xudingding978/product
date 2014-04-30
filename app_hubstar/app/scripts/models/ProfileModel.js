@@ -65,6 +65,7 @@ HubStar.Profile = DS.Model.extend({
     about_us: DS.hasMany('HubStar.AboutUs'),
     title_modify_time: DS.attr('number'),
     show_template: DS.attr('boolean'),
+    pdf_id: DS.attr('string'),
     getID: function() {
         return this.get('id').replace(/[^\w\s]/gi, '');
     }.property('id')

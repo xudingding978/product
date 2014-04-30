@@ -34,13 +34,6 @@ HubStar.DropdownListView = Ember.View.extend({
 
         $('#geoDropdown > .ite').click(function() {
             HubStar.set('geoLocation', $(this).text());
-//            if (HubStar.get('geoLocation') === "Global")
-//            {
-//                that.get('controller').get('controllers.applicationFeedback').statusObserver(null, "You are now searching all content");
-//            }
-//            else {
-//                that.get('controller').get('controllers.applicationFeedback').statusObserver(null, "You are now searching within " + HubStar.get('geoLocation') + " only.");
-//            }
         });
 
         $('#countryDropdown > .ite').click(function() {

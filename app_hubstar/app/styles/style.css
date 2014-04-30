@@ -1445,18 +1445,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     border-top: 5px solid #fff;
     position: absolute;
     margin-top: -10px;
-    margin-left: 18px;
+    left:46%;
 }
-
-.Navigator-box .switch-groove:before{
-    margin-left: 19px;
-}
-
-
-
-
-
-
 
 
 /*loading spinner*/

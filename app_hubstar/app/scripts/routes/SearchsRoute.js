@@ -50,39 +50,42 @@ HubStar.SearchsRoute = Ember.Route.extend({
         }
     },
     redirect: function() {
-
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
             var address = decodeURIComponent(document.URL);
-            var type = address.split("#")[1].split("/")[3];
-            var id = address.split("#")[1].split("/")[4];
-            var that = this;
-            var model = {id: id};
-            if (type === "articles")
-            {
-                that.transitionTo("article", id);
+            if (address.split("#").length > 1) {
+                var type = address.split("#")[1].split("/")[3];
+                var id = address.split("#")[1].split("/")[4];
+                var that = this;
+                var model = {id: id};
+                if (type === "articles")
+                {
+                    that.transitionTo("article", id);
+                }
+                else if (type === "photos")
+                {
+                    this.transitionTo("photo", id);
+                }
+                else if (type === "videos")
+                {
+                    this.transitionTo("video", id);
+                }
+                else {
+                    if (id === "default")
+                    {
+                        this.transitionTo('searchIndexTom');
+                    }
+                }
             }
-            else if (type === "photos")
-            {
-                this.transitionTo("photo", id);
-            }
-            else if (type === "videos")
-            {
-                this.transitionTo("video", id);
-            }
-            else {
-                this.transitionTo('indexIndex');
-            }
-
         } else {
 
         }
 
     },
     activate: function() {
-        var that=this;
+        var that = this;
         $(document).ready(function() {
-            
-              setTimeout(function() {
+
+            setTimeout(function() {
                 if (localStorage.resOrcom === "commercial")
                 {
                     $('#switchbarBtn').attr("style", "margin-left:28px;");
@@ -101,7 +104,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
                     $("#Commercial").css("opacity", "1");
                     $("#Residential").css("opacity", "1");
                 }
-                }, 50);
+            }, 50);
 //        if( localStorage.resOrcom==="residential"){
 //           setTimeout(function() {
 //                         $('#discovery_search_bar_wrapper').css("background",  "url(../../images/contactbg.png)");
@@ -113,7 +116,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
                 setTimeout(function() {
                     $('#discovery_search_bar_wrapper').css({"background": " url(../../images/commercialbg.jpg)"});
                     $(".navbar").css("background", " url(../../images/commercialbg.jpg)");
-                    that.get('controller').set('residentialKeyword',false);
+                    that.get('controller').set('residentialKeyword', false);
                 }, 10);
 
             }
@@ -121,7 +124,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
                 setTimeout(function() {
                     $('#discovery_search_bar_wrapper').css({"background": " url(../../images/discoverybarbg.jpg)"});
                     $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-                    that.get('controller').set('residentialKeyword',true);
+                    that.get('controller').set('residentialKeyword', true);
                 }, 10);
 
             }

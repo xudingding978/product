@@ -44,29 +44,32 @@
                                                         {{/if}}
                                                     </a>
                                                     <div class="albumcover-container"  > 
-                                                        <div class="">
+                         
+                                                            {{getCoverSize}}
+                                                            <div style ="height:{{unbound cover_height}}; width:{{unbound cover_width}};top:{{unbound cover_top}};left:{{unbound cover_left}}">
                                                             <img class="albumcover" {{bindAttr src="cover"}} />     
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="album-info">
-                                                        <div class="album-info_name"><a href="#/{{unbound controller.type}}/{{unbound controller.Id}}/collections/{{unbound id}}"><i class="fa fa-picture-o" >&nbsp;</i>{{title}}</a></div>
-                                                        <div class="album-info_content">
-                                                            {{#if controller.is_authentic_user}}
-                                                            <div class="edit-btn edit-collection-btn easing hint--left hint--rounded" data-hint="Edit collection info.">
-                                                                <i class="fa fa-cog" {{action editCollectionButton id title desc target="view" on="click"}} ></i>
-
                                                             </div>
-                                                            {{/if}}
 
-                                                            <span><a href="" {{action transitionToCollectionPhoto id}}> </a> photos</span>
-                                                            <span><img src="../../images/list-doc.png"/>{{date created_at}}</span>               
-                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div id="Targeting_Object_back"{{bindAttr class="getCollectionId"}}>
-                                                    {{view HubStar.EditCollectionView}}
+                                                    
+                                                    <div class="album-info">
+                                                    <div class="album-info_name"><a href="#/{{unbound controller.type}}/{{unbound controller.Id}}/collections/{{unbound id}}"><i class="fa fa-picture-o" >&nbsp;</i>{{title}}</a></div>
+                                                    <div class="album-info_content">
+                                                        {{#if controller.is_authentic_user}}
+                                                        <div class="edit-btn edit-collection-btn easing hint--left hint--rounded" data-hint="Edit collection info.">
+                                                            <i class="fa fa-cog" {{action editCollectionButton id title desc target="view" on="click"}} ></i>
+
+                                                        </div>
+                                                        {{/if}}
+
+                                                        <span><a href="" {{action transitionToCollectionPhoto id}}> </a> photos</span>
+                                                        <span><img src="../../images/list-doc.png"/>{{date created_at}}</span>               
+                                                    </div>
                                                 </div>
     </div>
+    <div id="Targeting_Object_back"{{bindAttr class="getCollectionId"}}>
+        {{view HubStar.EditCollectionView}}
+    </div>
+</div>
 
-    {{/each}}
+{{/each}}

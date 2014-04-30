@@ -41,7 +41,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     oldChildren: 0,
     test: false,
     user: null,
-    from: null,
+    from: 0,
     profiles: null,
     size: null,
     photo_url: null,
@@ -51,6 +51,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     repeat: "",
     email: "",
     loginUsername: "",
+    loginStatus: null,
     loginPassword: "",
     resetPasswordEmail: "",
     gender: "",
@@ -114,17 +115,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     email_login: function() {
         this.set('mail', !this.get('mail'));
     },
-    loginStatus: function() {
-    },
     grapData: function() {
         HubStar.set("profiles", []);
+        var that = this;
         if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
             localStorage.resOrcom = "All";
         }
         this.set('categorys', HubStar.Cate.find({}));
         if (localStorage.loginStatus) {
             var u = HubStar.User.find(localStorage.loginStatus);
-            var that = this;
+            
             u.then(function() {
                 if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
                         && (u.get("email")).match(/@trendsideas.com/g) !== ""
@@ -385,7 +385,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
 
 
-                    that.set("from", that.get("size"));
+                    //that.set("from", that.get("size"));
 
                     var d = new Date();
                     var end = d.getTime();
@@ -412,10 +412,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("oldChildren", 0);
 
 
-        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-        } else {
+        //if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+       // } else {
             this.set('loadingTime', true);
-        }
+        //}
 
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
@@ -510,17 +510,49 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     submitSelection: function() {
 
-        $('#register-with-email-step-4').css('display', 'block');
-        $('#register-with-email-step-3').css('display', 'none');
-        $('#user-login-pane').css('display', 'none');
+        var updateTopic = [this.get("loginStatus"), this.get('selected_topics')];
+        var that = this;
+        requiredBackEnd('login', 'selecttopic', updateTopic, 'POST', function() {
+            setTimeout(function() {
+                $('#register-with-email-step-4').css('display', 'block');
+                $('#register-with-email-step-3').css('display', 'none');
+                $('#user-login-pane').css('display', 'none');
+                that.set('first_name', "");
+                that.set('last_name', "");
+                that.set('email', "");
+                that.set('password', "");
+                that.set('region', "");
+                that.set('gender', "");
+                that.set('age', "");
+            }, 1000);
+        });
+
     },
     next: function() {
 
-        $('#register-with-email-step-3').css('display', 'block');
-        $('#register-with-email-step-2').css('display', 'none');
-        $('#click-register-social').css('display', 'none');
-        $('#click-register').css('display', 'none');
-        $('.learnmore-btn').css('display', 'none');
+
+        var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
+        var that = this;
+        requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
+            localStorage.userName = params.USER_NAME;
+            that.set('loginUsername', localStorage.userName);
+            that.set('loginStatus', params.COUCHBASE_ID);
+            localStorage.userType = "email";
+            localStorage.loginState = "login";
+
+            var emailInfo = [params.USER_NAME, that.encrypt(params.USER_NAME), that.encrypt(params.PWD_HASH)];
+            requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function() {
+
+            });
+            setTimeout(function() {
+                $('#register-with-email-step-3').css('display', 'block');
+                $('#register-with-email-step-2').css('display', 'none');
+                $('#click-register-social').css('display', 'none');
+                $('#click-register').css('display', 'none');
+                $('.learnmore-btn').css('display', 'none');
+
+            }, 1000);
+        });
 
     },
     backRegister: function() {
@@ -538,57 +570,25 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         return tempstr;
     },
     done: function() {
-        this.set('loginTime', true);
-        var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age'), this.get('selected_topics')];
-        var that = this;
+
         $('#register-with-email-step-4').css('display', 'none');
-        //     $('#skipRegister').css('display', 'block');
-        requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
-            localStorage.userName = params.USER_NAME;
-            that.set('loginUsername', localStorage.userName);
-            localStorage.userType = "email";
-            localStorage.loginState = "login";
-
-            var emailInfo = [params.USER_NAME, that.encrypt(params.USER_NAME), that.encrypt(params.PWD_HASH)];
-            requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
-
-            });
-            setTimeout(function() {
-                $('#login-btn').text('REGISTER');
-                $('.black-tool-tip').css('display', 'none');
-                $('#click-register-social').css('display', 'none');
-                $('#click-register').css('display', 'none');
-                $('#social-link').css('display', 'none');
-                $('#login-with-email-drop-down').css('display', 'block');
-                $('#social-login-container').css('display', 'none');
-                $('#click-login').addClass('active-tab');
-                $('#social-login').removeClass('social-active');
-                $('#user-forgot-password-pane').css('display', 'none');
-                $('#forgot-message-container').css('display', 'none');
-                $('#invalid-username').css('display', 'none');
-
-                $('#register-with-email-drop-down').css('display', 'none');
-                $('#register-with-email-step-2').css('display', 'none');
-                $('#register-with-email-step-3').css('display', 'none');
-                $('#user-login-pane').css('display', 'block');
-
-
-                that.set('first_name', "");
-                that.set('last_name', "");
-                that.set('email', "");
-                that.set('password', "");
-                that.set('region', "");
-                that.set('gender', "");
-                that.set('age', "");
-                that.set('loginTime', false);
-            }, 2000);
-        });
-
+        $('#login-btn').text('REGISTER');
+        $('.black-tool-tip').css('display', 'none');
+        $('#click-register-social').css('display', 'none');
+        $('#click-register').css('display', 'none');
+        $('#social-link').css('display', 'none');
+        $('#login-with-email-drop-down').css('display', 'block');
+        $('#social-login-container').css('display', 'none');
+        $('#click-login').addClass('active-tab');
+        $('#social-login').removeClass('social-active');
+        $('#user-forgot-password-pane').css('display', 'none');
+        $('#forgot-message-container').css('display', 'none');
+        $('#invalid-username').css('display', 'none');
+        $('#register-with-email-drop-down').css('display', 'none');
+        $('#register-with-email-step-2').css('display', 'none');
+        $('#register-with-email-step-3').css('display', 'none');
+        $('#user-login-pane').css('display', 'block');
     },
-//    skip: function(){
-//       // HubStar.set("isLogin", true);
-//       this.transitionToRoute("searchIndex");
-//    },
     checkSignupInfo: function() {
         function checkObject(id, input, lengthMin, lengthMax, isEmailValid)
         {
@@ -637,7 +637,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }//MISSING FIELDS; the user has not filled in all the mandatory fields
             if (checkList[i].input !== null && checkList[i].isEmailValid === true)
             {
-                if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
+
+                if (/\s/.test(checkList[i].input)) {
+                    result = false;
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-user-name-register-with-spaces').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    break;
+                }
+                else if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
                     result = true;
                 }
                 else {
@@ -811,7 +820,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginUsername') !== "" && this.get('loginPassword') !== "")
-        {
+        {         
             this.set('loginTime', true);
             document.getElementById("loginUsername").setAttribute("class", "login-textfield");
             document.getElementById("loginPassword").setAttribute("class", "login-textfield");
@@ -865,7 +874,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndexTom');
                             that.init();
-
 
 
 
@@ -973,15 +981,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             {
                 l = l + 4;
             }
-            else if (this.get("pageCount") === 1)
+            else if (this.get("pageCount") >= 1&&this.get("pageCount") < 10)
             {
                 l = l + 3;
             }
-            else if (this.get("pageCount") === 2)
-            {
-                l = l + 3;
-            }
-
+            //console.log(this.get("pageCount"));
             var that = this;
 
             var x = document.getElementById("masonry_container");

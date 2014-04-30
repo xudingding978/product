@@ -211,6 +211,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 {
                     that.get('controllers.application').get("categorys").objectAt(i).set("classification", localStorage.resOrcom);
                 }
+                var thatthat= that;
                 $(document).ready(function() {
                     setTimeout(function() {
                         if (localStorage.resOrcom === "commercial")
@@ -218,19 +219,29 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             $('#switchbarBtn').attr("style", "margin-left:28px;");
                             $("#Commercial").css("opacity", "1");
                             $("#Residential").css("opacity", "0.4");
+                             $("#commercial").addClass("residentialCommerical-selected");
+                      $("#residential").removeClass("residentialCommerical-selected");
+                               thatthat.get('controllers.application').set('residentialKeyword', false);
                         }
                         else if (localStorage.resOrcom === "residential")
                         {
                             $('#switchbarBtn').attr("style", "margin-left:0px;");
                             $("#Commercial").css("opacity", "0.4");
                             $("#Residential").css("opacity", "1");
+                            $("#commercial").removeClass("residentialCommerical-selected");
+                      $("#residential").addClass("residentialCommerical-selected");
+                       thatthat.get('controllers.application').set('residentialKeyword', true);
                         }
                         else if (localStorage.resOrcom === "All")
                         {
                             $('#switchbarBtn').attr("style", "margin-left:13px;");
                             $("#Commercial").css("opacity", "1");
                             $("#Residential").css("opacity", "1");
+                            $("#commercial").addClass("residentialCommerical-selected");
+                      $("#residential").addClass("residentialCommerical-selected");
+                          thatthat.get('controllers.application').set('residentialKeyword', true);
                         }
+                        thatthat.get("controllers.application").changeBackground();
                     }, 50);
                 });
             });

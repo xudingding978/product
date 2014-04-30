@@ -2,22 +2,34 @@ HubStar.ApplicationView = Ember.View.extend({
     templateName: 'application',
     didInsertElement: function() {
         $("#loading").attr('style', 'display:none');
-        var that=this;
+         $("#select-text").fadeIn(300).css("display","block");
+          $("#welcome-text").fadeOut(300).css("display","none");
+          setTimeout(function() { 
+              $("#select-text").fadeOut(300).css("display","none");
+        $("#welcome-text").fadeIn(300).css("display","block");
+    },10000);
+    
+
+        var that = this;
         $(document).ready(function() {
-        if( localStorage.resOrcom==="commercial"){
-              setTimeout(function() {
-            $('#discovery_search_bar_wrapper').css({"background": " url(../../images/commercialbg.jpg)"});
-            $(".navbar").css("background", "url(../../images/commercialbg.jpg)");
-            that.get('controller').set('residentialKeyword',false);
-            },10);
-            
-        }
-        else{
-            $('#discovery_search_bar_wrapper').css({"background": " url(../../images/discoverybarbg.jpg)"});
-            $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-            that.get('controller').set('residentialKeyword',true);
-        }
-        
+            if (localStorage.resOrcom === "commercial") {
+                setTimeout(function() {
+                    $('#discovery_search_bar_wrapper').css({"background": " url(../../images/commercialbg.jpg)"});
+                    $(".navbar").css("background", "url(../../images/commercialbg.jpg)");
+                    that.get('controller').set('residentialKeyword', false);
+                }, 10);
+                $("#commercial").addClass("residentialCommerical-selected");
+                $("#residential").removeClass("residentialCommerical-selected");
+
+            }
+            else {
+                $('#discovery_search_bar_wrapper').css({"background": " url(../../images/discoverybarbg.jpg)"});
+                $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+                that.get('controller').set('residentialKeyword', true);
+                $("#commercial").removeClass("residentialCommerical-selected");
+                $("#residential").addClass("residentialCommerical-selected");
+            }
+
             setTimeout(function() {
                 if (localStorage.resOrcom === "commercial")
                 {
@@ -37,11 +49,11 @@ HubStar.ApplicationView = Ember.View.extend({
                     $("#Commercial").css("opacity", "1");
                     $("#Residential").css("opacity", "1");
                 }
-                }, 50);
-        
+            }, 50);
+
         });
-        
-        
+
+
         var view = this;
         $(window).bind("scroll", function() {
             view.didScroll();
@@ -50,10 +62,9 @@ HubStar.ApplicationView = Ember.View.extend({
             view.didScroll();
         });
 
-        var scroll_pos_test = 290;
+       var scroll_pos_test = 290;
 
         $(document).ready(function() {
-
             $(window).scroll(function() {
                 var y_scroll_pos = window.pageYOffset;
 
@@ -67,7 +78,7 @@ HubStar.ApplicationView = Ember.View.extend({
                             $("#top-about-menu").fadeOut("320");
                             $("#search-bar").fadeIn("320");
                             $(".navbar").css("box-shadow", "0 0 10px #333");
-
+                            $("#top-menu").css('display', "none");
                         }
 
                         if (y_scroll_pos < scroll_pos_test && $('#top-about-menu').css('display') === 'none') {
@@ -75,7 +86,7 @@ HubStar.ApplicationView = Ember.View.extend({
                             $("#search-bar").fadeOut("320");
                             $(".Navigator-box").fadeOut("320");
                             $(".navbar").css("box-shadow", "");
-
+                            $("#top-menu").css('display', "none");
                         }
                     }
                 }
@@ -95,8 +106,6 @@ HubStar.ApplicationView = Ember.View.extend({
 
             var docViewTop = $(window).scrollTop();
             var docViewBottom = docViewTop + $(window).height();
-           // console.log($("#show_more_button").offset());
-           
             if ($("#show_more").offset() !== undefined) {
                 var elemTop = $("#show_more").offset().top;
 

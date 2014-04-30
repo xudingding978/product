@@ -26,7 +26,7 @@ HubStar.VideoController = Ember.Controller.extend({
                     var videoIframe = that.get('video_iframe_code');
                     var width = videoIframe.split("width=\"")[1].split("\" height=\"")[0];
                     var height = videoIframe.split("width=\"")[1].split("\" height=\"")[1].split("\"")[0];
-                    
+
                     videoIframe = videoIframe.replace(width, Math.ceil(($(window).width() - 320) * 0.72));
                     videoIframe = videoIframe.replace(height, Math.ceil(($(window).width() - 320) / 480 * 360 * 0.72));
 
@@ -40,10 +40,14 @@ HubStar.VideoController = Ember.Controller.extend({
                 that.transitionTo('fourOhFour', "404");
             });
         }
+
         );
 
-    },
-    addComment: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+        }
+    }, addComment: function() {
+
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
             var commentContent = this.get('commentContent');

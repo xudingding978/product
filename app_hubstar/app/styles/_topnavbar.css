@@ -885,13 +885,9 @@ div#login_detail{
 
     .register-info-box{
         width: 250px;
-        /*        margin: 0 auto ;
-                background-color: #fff;
-                border-radius: 0 0 5px 5px;*/
     }
-
+    #register-with-email-drop-down{width: 250px;}
     #register-with-email-step-2{width: 250px;}
-
     #login-with-email-drop-down{width: 250px;}
 
     .login-textfield {

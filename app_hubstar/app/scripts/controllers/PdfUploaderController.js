@@ -65,13 +65,10 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
         var testID = createGuid();
         var MegaCreateController = this.get('controllers.megaCreate');
 
-        var mega = MegaCreateController.createNewMega(this.get("profileMega"), testID, null, 'pdf');
-        var pdf = HubStar.Pdf.createRecord({
-            'pdf_cover_image': "http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0", 'pdf_title': name.split('.')[0],
-            'pdf_desc': "", 'pdf_url': src, 'pdf_profile_id': this.get('controllers.profile').get('model').get('id')});
-        mega.set("object_title", pdf.get('pdf_title'));
-        mega.set("object_description", pdf.get('pdf_desc'));
-        mega.set("object_image_url", pdf.get('pdf_cover_image'));
+        var mega = MegaCreateController.createNewMega(this.get("profileMega"), testID, null, 'pdf');        
+//        mega.set("object_title", pdf.get('pdf_title'));
+//        mega.set("object_description", pdf.get('pdf_desc'));
+//        mega.set("object_image_url", pdf.get('pdf_cover_image'));
         //mega.get('pdf').pushObject(pdf);
         //var b = pdf.save();
         //pdf.get("isSaving");
@@ -79,23 +76,23 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
         mega.get('isSaving');
         var that = this;
         a.then(function() {
-            
+            var pdf = HubStar.Pdf.createRecord({
+            'pdf_cover_image': "http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0", 'pdf_title': name.split('.')[0],
+            'pdf_desc': "", 'pdf_url': src, 'pdf_profile_id': this.get('controllers.profile').get('model').get('id')});
             var b =pdf.save();
             pdf.get("isSaving");
             var thatthat = that;
             console.log("22222222222");
             b.then(function() {
                 console.log("111111");
-                thatthat.get("pdfArray").pushObject(mega);
-                console.log("333333333333333333");
-                var profilePdfController = thatthat.get('controllers.profilePdf');
-                profilePdfController.get("pdfContent").insertAt(0, mega);
-                console.log(mega.get('isSaving'));
-                console.log(thatthat.get("pdfArray").objectAt(0).get("pdf").objectAt(0).get('isSaving'));
+                thatthat.get("pdfArray").pushObject(pdf);
+//                console.log("333333333333333333");
+//                console.log(mega.get('isSaving'));
+//                console.log(thatthat.get("pdfArray").objectAt(0).get("pdf").objectAt(0).get('isSaving'));
             });
 
         });
-        console.log('1111111111111111');
+//        console.log('1111111111111111');
 //        var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
 
 

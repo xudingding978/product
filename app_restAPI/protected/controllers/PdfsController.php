@@ -23,26 +23,49 @@ class PdfsController extends Controller {
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         error_log(var_export($request_arr['id'], true));
-//        $pdf = $request_arr['megas']['pdf'];
-//        $pdf_url = $this->savePdfToS3($request_arr);
-//        $pdf['pdf_url'] = $pdf_url;
-//        
-//        $cb = $this->couchBaseConnection();
-//        $id = $pdf['id'];
-//        $domain = $this->getDomain();
-//        $docID = $domain . "/profiles/" . $id;
-//        $tempMega = $cb->get($docID);
-//        $mega = CJSON::decode($tempMega, true);
-//        $mega['profile'][0] = $tempProfile;
-//        $mega['profile'][0]['followers'] = array();
-//        $mega['profile'][0]['collections'] = array();
+        $cb = $this->couchBaseConnection();
+        $docID = $this->getDomain() . "/" . $request_arr['id'];
+        $pdf_mega = CJSON::decode($cb->get($docID));
+        if (!isset($pdf_mega['pdf'])) {
+            $pdf_mega['pdf'] = array();
+        }
+        $pdf_mega['pdf'][0]=$request_arr;
+        $pdf_mega['object_title'] = $request_arr['pdf_title'];
+        $pdf_mega['object_description'] = $request_arr['pdf_desc'];
+        $pdf_mega['object_image_url'] = $request_arr['pdf_cover_image'];
+        $pdf_mega['pdf'][0]['pdf_url']  = $this->savePdfToS3($request_arr);  
+        
 //
 //
-//        if ($cb->set($docID, CJSON::encode($mega))) {
+        if ($cb->set($docID, CJSON::encode($pdf_mega))) {
             $this->sendResponse(204);
-//        } else {
-//            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
-//        }
+        } else {
+            echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+        }
+    }
+    
+    public function savePdfToS3($request_arr) {
+        error_log('savetos3');
+        error_log(var_export($request_arr, true));
+        $pdf_resource = base64_decode(str_replace('data:application/pdf;base64,', '', $request_arr[0]['pdf_url']));
+        $pdf_profile_id = $request_arr[0]['pdf_profile_id'];
+        $pdf_title = $request_arr[0]['pdf_title'] . '.pdf';
+        
+        $bucket = "s3.hubsrv.com";
+        $url = $this->getDomain() . '/profiles' . "/" . $pdf_profile_id . "/"  . $pdf_title;
+        $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
+        $client = Aws\S3\S3Client::factory(
+                        $arr
+        );
+
+        $client->putObject(array(
+            'Bucket' => $bucket, //"s3.hubsrv.com"
+            'Key' => $url,
+            'Body' => $pdf_resource,
+            'ContentType' => "application/pdf",
+            'ACL' => 'public-read'
+        ));
+        return $url;
     }
 
     public function actionRead() {

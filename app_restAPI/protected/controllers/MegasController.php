@@ -84,37 +84,13 @@ class MegasController extends Controller {
             
             $keyword = $this->getProfileKeyword($mega['owner_id']);
             $mega['keyword'] = $keyword;
-            //$mega['pdf'][0]['pdf_url']  = $this->savePdfToS3($mega['pdf']);            
-            //$this->createUploadedPdf($mega);
+//            $mega['pdf'][0]['pdf_url']  = $this->savePdfToS3($mega['pdf']);            
+            $this->createUploadedPdf($mega);
         }
         error_log('finish~~~~~~~~~~~~~~~~');
         $this->sendResponse(204);
     }
     
-    public function savePdfToS3($request_arr) {
-        error_log('savetos3');
-        error_log(var_export($request_arr, true));
-        $pdf_resource = base64_decode(str_replace('data:application/pdf;base64,', '', $request_arr[0]['pdf_url']));
-        $pdf_profile_id = $request_arr[0]['pdf_profile_id'];
-        $pdf_title = $request_arr[0]['pdf_title'] . '.pdf';
-        
-        $bucket = "s3.hubsrv.com";
-        $url = $this->getDomain() . '/profiles' . "/" . $pdf_profile_id . "/"  . $pdf_title;
-        $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
-        $client = Aws\S3\S3Client::factory(
-                        $arr
-        );
-
-        $client->putObject(array(
-            'Bucket' => $bucket, //"s3.hubsrv.com"
-            'Key' => $url,
-            'Body' => $pdf_resource,
-            'ContentType' => "application/pdf",
-            'ACL' => 'public-read'
-        ));
-        return $url;
-    }
-
     public function actionRead() {
         try {
 

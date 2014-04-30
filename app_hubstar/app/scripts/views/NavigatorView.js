@@ -36,7 +36,7 @@ HubStar.NavigatorView = Ember.View.extend({
                     $("#Commercial1").css("opacity", "1");
                     $("#Residential1").css("opacity", "1");
                     $("#commercial").addClass("residentialCommerical-selected");
-                    $("#residential").raddClass("residentialCommerical-selected");
+                    $("#residential").addClass("residentialCommerical-selected");
                     localStorage.resOrcom = "All";
                     $('#discovery_search_bar_wrapper').fadeOut(500, function() {
                         $(this).css({"background": " url(../../images/discoverybarbg.jpg) "}).fadeIn(500);

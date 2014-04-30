@@ -1,5 +1,5 @@
 HubStar.Pdf = DS.Model.extend({
-    pdf_id: DS.attr('string'),
+    id: DS.attr('string'),
     pdf_cover_image: DS.attr('string'),
     pdf_title: DS.attr('string'),
     pdf_desc: DS.attr('string'),

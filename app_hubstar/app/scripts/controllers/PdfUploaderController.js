@@ -28,20 +28,14 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
     modifyDetail: function(pdf_title, pdf_desc) {
         this.set("pdf_title", pdf_title);
         this.set("pdf_desc", pdf_desc);
-        console.log('show');
-        console.log(this.get("pdfArray").objectAt(0).get("pdf").objectAt(0).get('isDirty'));
         $('#pdf_title_' + pdf_title).slideToggle(200);
         $('#' + pdf_title).slideToggle(1000);
 
     },
     saveDetail: function(param) {
-        console.log('save');
-        console.log(this.get("pdfArray").objectAt(0));
-        console.log(this.get("pdfArray").objectAt(0).get("pdf").objectAt(0).get("isDirty"));
         // this.get("pdfArray").objectAt(0).get("pdf").objectAt(0).set("pdf_title",this.get("pdf_title"));
         this.get("pdfArray").objectAt(0).set("object_description", this.get("pdf_desc"));
-        console.log(this.get("pdfArray").objectAt(0).get("isDirty"));
-//       this.get("pdfArray").objectAt(0).store.save();
+       this.get("pdfArray").objectAt(0).store.save();
         $('#' + param).slideToggle(1000);
         $('#pdf_title_' + param).slideToggle(200);
 
@@ -63,6 +57,7 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
         var src = target.result;
 
         var testID = createGuid();
+        testID = testID.replace('test','');
         var MegaCreateController = this.get('controllers.megaCreate');
 
         var mega = MegaCreateController.createNewMega(this.get("profileMega"), testID, null, 'pdf');        
@@ -76,9 +71,11 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
         mega.get('isSaving');
         var that = this;
         a.then(function() {
-            var pdf = HubStar.Pdf.createRecord({
+            console.log("45645645654564564646546465465");
+            var pdf = HubStar.Pdf.createRecord({'id':mega.get('id'),
             'pdf_cover_image': "http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0", 'pdf_title': name.split('.')[0],
-            'pdf_desc': "", 'pdf_url': src, 'pdf_profile_id': this.get('controllers.profile').get('model').get('id')});
+            'pdf_desc': "", 'pdf_url': src, 'pdf_profile_id': that.get('controllers.profile').get('model').get('id')});
+        console.log("78978978978978978978978978978978797897897");
             var b =pdf.save();
             pdf.get("isSaving");
             var thatthat = that;

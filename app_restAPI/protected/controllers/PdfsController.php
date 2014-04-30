@@ -25,7 +25,8 @@ class PdfsController extends Controller {
         error_log(var_export($request_arr['id'], true));
         $cb = $this->couchBaseConnection();
         $docID = $this->getDomain() . "/" . $request_arr['id'];
-        $pdf_mega = CJSON::decode($cb->get($docID));
+        $pdf_json = $cb->get($docID);
+        $pdf_mega = CJSON::decode($pdf_json);
         if (!isset($pdf_mega['pdf'])) {
             $pdf_mega['pdf'] = array();
         }
@@ -34,7 +35,7 @@ class PdfsController extends Controller {
         $pdf_mega['object_description'] = $request_arr['pdf_desc'];
         $pdf_mega['object_image_url'] = $request_arr['pdf_cover_image'];
         $pdf_mega['pdf'][0]['pdf_url']  = $this->savePdfToS3($request_arr);  
-        
+//        $this->saveIDToProfile($request_arr['id'], $request_arr['pdf_profile_id']);
 //
 //
         if ($cb->set($docID, CJSON::encode($pdf_mega))) {
@@ -43,6 +44,14 @@ class PdfsController extends Controller {
             echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
         }
     }
+    
+//    public function saveIDToProfile($id, $profile_id) {
+//        $cb = $this->couchBaseConnection();
+//        $docID = $this->getDomain() . "/profiles/" . $profile_id;
+//        $profile_json = $cb->get($docID);
+//        $profile_mega = CJSON::decode($profile_json);
+//        $profile_mega
+//    }
     
     public function savePdfToS3($request_arr) {
         error_log('savetos3');
@@ -74,7 +83,26 @@ class PdfsController extends Controller {
 
     public function actionUpdate() {
         error_log('update here');
-        $this->sendResponse(204);
+        $request_json = file_get_contents('php://input');
+        $newRecord = CJSON::decode($request_json, true);
+        $id = $newRecord['id'];
+        try {
+            $cb = $this->couchBaseConnection();
+
+
+            $docID = $this->getDomain() . "/" . $id;
+            $cbRecord = $cb->get($docID); // get the old profile record from the database according to the docID string
+            $oldRecord = CJSON::decode($cbRecord, true);
+            $oldRecord['pdf']=$newRecord;
+
+            if ($cb->set($docID, CJSON::encode($oldRecord))) {
+          $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
     }
 
     public function actionDelete() {

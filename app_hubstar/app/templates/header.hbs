@@ -20,7 +20,7 @@
       
 
         <div id="search-bar" class="search-bar-ontop" style="display:none">
-            <div id ="navigator" class="Nav-btn easing" style="float: left;width: 90px;height: 60px;top: -5px;position: relative;font-size: 15px;font-weight: bold;color: white;background-color: black;" {{action dropdownHeaderNavigator}}>
+            <div id ="navigator" class="Nav-btn easing" style="float: left;width: 90px;height: 60px;top: -5px;position: relative;font-size: 15px;font-weight: bold;color: white;background-color: rgba(0,0,0,.5);" {{action dropdownHeaderNavigator}}>
                    <i class="fa fa-list" style="font-size: 20px;"></i>
             <div style="line-height: 0;position: relative;bottom: 5px;">Categories</div>
             </div>
@@ -32,10 +32,12 @@
             <div class="search-box easing" style="">
                 {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
                 <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
-                    <i class="fa fa-search"></i>
+                    <i class="fa fa-search" style="font-size: 20px;line-height: 3;"></i>
                 </div>
             </div>
         </div>
+              
+             
 
         {{#if HubStar.isLogin}}
 
@@ -83,8 +85,25 @@
         {{#if controller.isGeoDropdown}}
         {{view HubStar.DropdownListView}}
         {{/if}}
+        
+ <div id="switcher1" class=" switch-container" style="top:25px; position: absolute; right: 25%; float: right;">
+            <div id="Residential1" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;color:white;cursor:pointer;" {{action residential on="click" target="view"}}>Residential</div>
+            <div  id="switchbar1" class="insetbox-shadow switch-groove" style="display: inline-block;cursor:pointer;" >
+                <div style="height: 10px;width: 50%;border-right: 1px solid rgba(0,0,0,.3);float: left;margin: 6px 0;"></div>
+                <div style="height: 10px;width: 50%;border-left: 1px solid rgba(255,255,255,.5); float: right;margin: 6px 0;"></div>
 
+                <div id="switchbarBtn1" class="radius-circle gradient1 switch-btn" style="margin-left: 13px"></div>
+
+            </div>
+            <div id="Commercial1" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline;color:white;cursor:pointer;" {{action commercial on="click" target="view"}}>Commercial</div>
+        </div>
     </div>
+    
+
+
+
+
+
 
 
 </div>

@@ -99,22 +99,23 @@
 .residentialCommerical{
     display: inline-block;
     font-weight: bold;
-    font-size: 50px;
-    color: white;
-    background-color: black;
-    width: 45%;
+    font-size: 40px;
+    color: black;
+    background-color: white;
+    width: 35%;
     text-align: center;
-    line-height: 90px;
+    line-height: 80px;
     position: relative;
     top: 40px;
     border-radius: 10px;
     margin: 10px;
     cursor: pointer;
+    left: 10%;
 }
 
 .residentialCommerical-selected{
-    color: black;
-    background-color: white;
+    color: white;
+    background-color: black;
 }
 
 
@@ -149,8 +150,8 @@
 
 
 .Nav-btn{
-    width: 50px; 
-    height: 50px; 
+    width: 60px; 
+    height: 60px; 
     border-radius: 3px; 
     margin-right: 5px;
     line-height: 50px; 
@@ -166,7 +167,8 @@
 .search-box{
     min-width:50%;
     max-width: 80%;
-    height: 50px;
+   top: -5px;
+position: relative;
     float: left;
     display: inline-block;
 }
@@ -177,7 +179,7 @@
     font-size: 20px;
     font-weight: bold;
     color: #333;
-    height: 50px;
+    height: 60px;
     border-radius: 3px;
     background-color: #fff;
     border: 1px solid #eee;
@@ -931,7 +933,7 @@ div#login_detail{
 
 }
 @media only screen 
-and (max-width : 1000px) {
+and (max-width : 1349px) {
     #top-about-menu{
         display:none!Important;
     }
@@ -940,11 +942,8 @@ and (max-width : 1000px) {
 
 @media only screen 
 and (max-width : 1400px) {
-    #switcher{
-        display:none;
-    }
-}
 
+}
 
 @media only screen 
 and (max-width : 900px) {

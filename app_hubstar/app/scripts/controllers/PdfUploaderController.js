@@ -25,29 +25,43 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
         this.reset();
         this.transitionTo("profilePdf");
     },
-    modifyDetail: function(pdf_title, pdf_desc) {
-        this.set("pdf_title", pdf_title);
-        this.set("pdf_desc", pdf_desc);
-        $('#pdf_title_' + pdf_title).slideToggle(200);
-        $('#' + pdf_title).slideToggle(1000);
-
+    modifyDetail: function(pdf_id) {
+        var pdf = this.seekCurrentPdf(pdf_id);
+        if (pdf !== null) {
+            this.set("pdf_title", pdf.get('pdf_title'));
+            this.set("pdf_desc", pdf.get('pdf_desc'));
+            $('#pdf_id_' + pdf_id).slideToggle(200);
+            $('#' + pdf_id).slideToggle(1000);
+        }
     },
-    saveDetail: function(param) {
-        // this.get("pdfArray").objectAt(0).get("pdf").objectAt(0).set("pdf_title",this.get("pdf_title"));
-        this.get("pdfArray").objectAt(0).set("object_description", this.get("pdf_desc"));
-       this.get("pdfArray").objectAt(0).store.save();
-        $('#' + param).slideToggle(1000);
-        $('#pdf_title_' + param).slideToggle(200);
-
+    saveDetail: function(pdf_id) {
+        var pdf = this.seekCurrentPdf(pdf_id);
+        if (pdf !== null) {
+            pdf.set("pdf_title", this.get('pdf_title'));
+            pdf.set("pdf_desc", this.get('pdf_desc'));
+            pdf.store.save();
+            $('#' + pdf_id).slideToggle(1000);
+            $('#pdf_id_' + pdf_id).slideToggle(200);
+        }
     },
     cancelDetail: function(param) {
         console.log('cancel');
         $('#' + param).slideToggle(1000);
-        $('#pdf_title_' + param).slideToggle(200);
+        $('#pdf_id_' + param).slideToggle(200);
 
     },
     changeCover: function(param) {
         console.log(param);
+    },
+            
+    seekCurrentPdf: function(pdf_id) {
+        var pdf = null;
+        for (var i = 0; i < this.get("pdfArray").get('length'); i ++) {
+            if (this.get("pdfArray").objectAt(i).get('id') === pdf_id) {
+                pdf = this.get("pdfArray").objectAt(i);
+            }
+        }
+        return pdf;
     },
     profileStyleImageDrop: function(e, name)
     {
@@ -90,14 +104,14 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
 
         });
 //        console.log('1111111111111111');
-//        var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
+        var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
 
 
 //        this.get("controllers.profile").set("profileVideoStatistics", profileVideosController.get("videoesContent").get("length"));
 
-//        profile.set("profile_video_num", profileVideosController.get("videoesContent").get("length"));
+        profile.set("pdf_id", profile.get("'pdf_id") + "," + mega.get('id'));
 
-//        profile.store.save();
+        profile.store.save();
 //        profilePdfController.set("loadingTime",true);
 //        mega.then(function() {
 //            profile.then(function() {

@@ -16,13 +16,10 @@ class PdfsController extends Controller {
     }
 
     public function actionCreate() {
-        $this->sendResponse(204);
-    }
-    
-    public function actionPdfCreate() {
         $request_json = file_get_contents('php://input');
-        $request_arr = CJSON::decode($request_json, true);
-        error_log(var_export($request_arr['id'], true));
+        $request_arr = CJSON::decode($request_json, true)['pdf'];
+        error_log("1111111111111111111");
+        error_log(var_export($request_arr, true));
         $cb = $this->couchBaseConnection();
         $docID = $this->getDomain() . "/" . $request_arr['id'];
         $pdf_json = $cb->get($docID);
@@ -45,6 +42,7 @@ class PdfsController extends Controller {
         }
     }
     
+    
 //    public function saveIDToProfile($id, $profile_id) {
 //        $cb = $this->couchBaseConnection();
 //        $docID = $this->getDomain() . "/profiles/" . $profile_id;
@@ -56,9 +54,9 @@ class PdfsController extends Controller {
     public function savePdfToS3($request_arr) {
         error_log('savetos3');
         error_log(var_export($request_arr, true));
-        $pdf_resource = base64_decode(str_replace('data:application/pdf;base64,', '', $request_arr[0]['pdf_url']));
-        $pdf_profile_id = $request_arr[0]['pdf_profile_id'];
-        $pdf_title = $request_arr[0]['pdf_title'] . '.pdf';
+        $pdf_resource = base64_decode(str_replace('data:application/pdf;base64,', '', $request_arr['pdf_url']));
+        $pdf_profile_id = $request_arr['pdf_profile_id'];
+        $pdf_title = $request_arr['pdf_title'] . '.pdf';
         
         $bucket = "s3.hubsrv.com";
         $url = $this->getDomain() . '/profiles' . "/" . $pdf_profile_id . "/"  . $pdf_title;
@@ -85,7 +83,8 @@ class PdfsController extends Controller {
         error_log('update here');
         $request_json = file_get_contents('php://input');
         $newRecord = CJSON::decode($request_json, true);
-        $id = $newRecord['id'];
+        error_log(var_export($newRecord, true));
+        $id = $newRecord['pdf']['id'];
         try {
             $cb = $this->couchBaseConnection();
 

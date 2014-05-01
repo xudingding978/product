@@ -18,16 +18,16 @@
         <div  id="pdfInformation" >
             {{#each pdfArray}}
             <div   style="border: 3px solid #ccc;margin: 15px;padding: 5px; background-color:white;">
-                <div id="pdf_title_{{unbound pdf_title}}" >
-                    <span style="font-weight: bold;display: inline-block;font-size: 25px; "{{action modifyDetail pdf_title}}><img alt="Click!" {{bindAttr src="pdf_cover_image"}} style="width: 50px;"></span> 
-                    <span style="font-weight: bold;display: inline-block;font-size: 25px; margin-left: 20px;"{{action modifyDetail pdf_title pdf_desc}}>{{pdf_title}}</span>
+                <div id="pdf_id_{{unbound id}}" >
+                    <span style="font-weight: bold;display: inline-block;font-size: 25px; "{{action modifyDetail pdf_id}}><img alt="Click!" {{bindAttr src="pdf_cover_image"}} style="width: 50px;"></span> 
+                    <span style="font-weight: bold;display: inline-block;font-size: 25px; margin-left: 20px;"{{action modifyDetail id}}>{{pdf_title}}</span>
                     <span><i class="fa fa-trash-o" style="font-size: 25px; float: right; padding-top: 20px; margin-left: 10px"></i></span> 
-                    <span><i class="fa fa-edit" style="font-size: 25px; float: right; padding-top: 22px;" {{action modifyDetail pdf_title pdf_desc}}></i></span>             
+                    <span><i class="fa fa-edit" style="font-size: 25px; float: right; padding-top: 22px;" {{action modifyDetail id}}></i></span>             
                 </div>
 
-                <div {{bindAttr id="pdf_title"}} style="display: none;padding: 10px;margin: 0 10px;">
+                <div {{bindAttr id="id"}} style="display: none;padding: 10px;margin: 0 10px;">
                     <div style=" width: 35%;display: inline-block;">
-                        <div class="changePDFpic easing hint--right hint--rounded" data-hint="Change Cover" {{action changeCover pdf_title}}>
+                        <div class="changePDFpic easing hint--right hint--rounded" data-hint="Change Cover" {{action changeCover id}}>
                              <i class="fa fa-plus-circle"></i>     
                         </div>  
                         <img alt=""  {{bindAttr src="pdf_cover_image"}}>
@@ -41,10 +41,10 @@
                         </div>
 
                     </div>
-                    <div class="new-btn blue-btn easing" style="left: 380px;"{{action cancelDetail pdf_title}}>Cancel
+                    <div class="new-btn blue-btn easing" style="left: 380px;"{{action cancelDetail id}}>Cancel
 
                 </div>
-                <div class="new-btn green-btn easing" style="left: 395px;"{{action saveDetail pdf_title}}>Save
+                <div class="new-btn green-btn easing" style="left: 395px;"{{action saveDetail id}}>Save
 
             </div>
         </div>

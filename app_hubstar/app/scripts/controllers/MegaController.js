@@ -578,6 +578,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
             });
         });
 
+            if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+        }
     },
     addRelatedData: function(mega)
     {

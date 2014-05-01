@@ -14,7 +14,6 @@ HubStar.NotificationController = Ember.Controller.extend({
     notificationContent: null,
     commenter_photo_url: null,
     photo_url: "",
-    isTag: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'notificationTop', 'conversation', 'application'],
     isUploadPhoto: false,
     init: function()
@@ -48,7 +47,7 @@ HubStar.NotificationController = Ember.Controller.extend({
         {
             displayString = " sent you a message";
         }
-        else if (type === "addTag")
+        else if (type === "Tag")
         {
             displayString = " add a tag on your photo, please activate";
         }
@@ -74,7 +73,26 @@ HubStar.NotificationController = Ember.Controller.extend({
                 b = true;
             }
         }
+        else if (type === "Tag")
+        {
+            console.log(name.split(','));
+            if (name.split(',').length <= 1)
+            {
+                b = true;
+            }
+        }
+
         return b;
+    },
+    typeView: function(type) {
+        if (type === "Tag")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     },
     getClientId: function(id) {
         this.set('clientID', id);
@@ -99,18 +117,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                     dataNew["time"] = params.objectAt(i)["time"];
                     dataNew["notification_id"] = params.objectAt(i)["notification_id"];
                     dataNew["isRead"] = params.objectAt(i)["isRead"];
-
-                    dataNew["content"] = params.objectAt(i)["content"];
-
-                    if (dataNew["type"] === "addTag")
-                    {
-                        that.set("photo_url", params.objectAt(i)["content"]);
-                        that.set("isTag", true);
-                    }
-                    else
-                    {
-                        that.set("isTag", false);
-                    }
+                    dataNew["isTag"] = that.typeView(dataNew["type"]);
                     if (dataNew["type"] !== "authority") {
                         dataNew["content"] = params.objectAt(i)["content"];
                     }
@@ -131,6 +138,9 @@ HubStar.NotificationController = Ember.Controller.extend({
             that.set('loadingTime', false);
         });
     },
+    viewPhoto: function(id) {
+        window.location.href = id;
+    },
     decline: function(id) {
         var tempComment = [localStorage.loginStatus, id];
         tempComment = JSON.stringify(tempComment);
@@ -148,80 +158,97 @@ HubStar.NotificationController = Ember.Controller.extend({
             that.markRead(id);
         });
     },
-    accept: function(id) {
+    accept: function(id, type) {
         var tempComment = [localStorage.loginStatus, id];
         tempComment = JSON.stringify(tempComment);
         var that = this;
         var profile_id = "";
         var displayString = "";
-        requiredBackEnd('notifications', 'Accept', tempComment, 'POST', function(params) {
-            for (var i = 0; i < that.get("notificationContent").length; i++)
-            {
-                if (that.get("notificationContent").objectAt(i).get("notification_id") === id)
+        if (type === "authority") {
+            requiredBackEnd('notifications', 'Accept', tempComment, 'POST', function(params) {
+                for (var i = 0; i < that.get("notificationContent").length; i++)
                 {
-                    that.get("notificationContent").objectAt(i).set("isButton", false);
-                    profile_id = that.get("notificationContent").objectAt(i).get("user_id");
-                    displayString = that.get("notificationContent").objectAt(i).get("typeDisplay");
-                    break;
+                    if (that.get("notificationContent").objectAt(i).get("notification_id") === id)
+                    {
+                        that.get("notificationContent").objectAt(i).set("isButton", false);
+                        profile_id = that.get("notificationContent").objectAt(i).get("user_id");
+                        displayString = that.get("notificationContent").objectAt(i).get("typeDisplay");
+                        break;
+                    }
                 }
-            }
-            if (params.indexOf('now') !== -1) {
-                requiredBackEnd('notifications', 'ReadProfiles', profile_id, 'POST', function(params) {
-                    var profile_name = params["profile_name"];
-                    var profile_pic = params["profile_pic"];
-                    var type = displayString.split(" ")[displayString.split(" ").length - 1];
-                    var isAdministrator = false;
-                    var isEditor = false;
-                    var isCreator = false;
-                    if (type === "administrator")
-                    {
-                        isAdministrator = true;
-                    }
-                    else if (type === "editor")
-                    {
-                        isEditor = true;
-                    }
-                    else if (type === "creator")
-                    {
-                        isCreator = true;
-                    }
+                if (params.indexOf('now') !== -1) {
+                    requiredBackEnd('notifications', 'ReadProfiles', profile_id, 'POST', function(params) {
+                        var profile_name = params["profile_name"];
+                        var profile_pic = params["profile_pic"];
+                        var type = displayString.split(" ")[displayString.split(" ").length - 1];
+                        var isAdministrator = false;
+                        var isEditor = false;
+                        var isCreator = false;
+                        if (type === "administrator")
+                        {
+                            isAdministrator = true;
+                        }
+                        else if (type === "editor")
+                        {
+                            isEditor = true;
+                        }
+                        else if (type === "creator")
+                        {
+                            isCreator = true;
+                        }
 
-                    var url = profile_pic.split("_");
-                    var length = url.length;
-                    var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
-                    var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
-                    var widthTop = Math.ceil(0);
-                    var heightTop = Math.ceil(0);
-                    if (width > height)
-                    {
-                        height = Math.ceil(135 / width * height);
-                        width = 135;
-                        heightTop = Math.ceil(50 / width * height);
-                        widthTop = 50;
-                    }
-                    else
-                    {
-                        width = Math.ceil(135 / height * width);
-                        height = 135;
-                        widthTop = Math.ceil(50 / height * width);
-                        heightTop = 50;
-                    }
-                    width = width + "px";
-                    height = height + "px";
-                    widthTop = widthTop + "px";
-                    heightTop = heightTop + "px";
+                        var url = profile_pic.split("_");
+                        var length = url.length;
+                        var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
+                        var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
+                        var widthTop = Math.ceil(0);
+                        var heightTop = Math.ceil(0);
+                        if (width > height)
+                        {
+                            height = Math.ceil(135 / width * height);
+                            width = 135;
+                            heightTop = Math.ceil(50 / width * height);
+                            widthTop = 50;
+                        }
+                        else
+                        {
+                            width = Math.ceil(135 / height * width);
+                            height = 135;
+                            widthTop = Math.ceil(50 / height * width);
+                            heightTop = 50;
+                        }
+                        width = width + "px";
+                        height = height + "px";
+                        widthTop = widthTop + "px";
+                        heightTop = heightTop + "px";
 
 
-                    HubStar.get("profiles").pushObject({'profile_id': profile_id, 'profile_name': profile_name, "profile_pic": profile_pic, "type": type,
-                        'isAdministrator': isAdministrator, "isEditor": isEditor, "isCreator": isCreator,
-                        "height": height, "width": width,
-                        "heightTop": heightTop, "widthTop": widthTop
+                        HubStar.get("profiles").pushObject({'profile_id': profile_id, 'profile_name': profile_name, "profile_pic": profile_pic, "type": type,
+                            'isAdministrator': isAdministrator, "isEditor": isEditor, "isCreator": isCreator,
+                            "height": height, "width": width,
+                            "heightTop": heightTop, "widthTop": widthTop
+                        });
                     });
-                });
-            }
-            that.get('controllers.applicationFeedback').statusObserver(null, params);
-            that.markRead(id);
-        });
+                }
+                that.get('controllers.applicationFeedback').statusObserver(null, params);
+                that.markRead(id);
+            });
+        }
+        else if (type === "Tag")
+        {
+            requiredBackEnd('notifications', 'AcceptTag', tempComment, 'POST', function(params) {
+                for (var i = 0; i < that.get("notificationContent").length; i++)
+                {
+                    if (that.get("notificationContent").objectAt(i).get("notification_id") === id)
+                    {
+                        that.get("notificationContent").objectAt(i).set("isButton", false);
+                        break;
+                    }
+                }
+                that.get('controllers.applicationFeedback').statusObserver(null, params);
+                that.markRead(id);
+            });
+        }
     },
     markRead: function(id) {
         var dataNew = new Array();
@@ -238,9 +265,6 @@ HubStar.NotificationController = Ember.Controller.extend({
             }
             that.unReadCount();
             that.get("controllers.notificationTop").set("notificationTopContent", that.get("notificationContent"));
-            setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");
-            }, 200);
             that.set('loadingTime', false);
         });
     },
@@ -360,7 +384,6 @@ HubStar.NotificationController = Ember.Controller.extend({
         {
 
             this.set("photo_url", obj.get("content"));
-            this.set("isTag", true);
         }
 
 

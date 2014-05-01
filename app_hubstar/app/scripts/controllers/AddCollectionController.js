@@ -20,6 +20,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     userName: '',
     chosenProfile: '',
     isSaveTopProfile: "false",
+    isReadProfile:false,
     init: function()
     {
         HubStar.set("isProfile", false);
@@ -265,7 +266,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         this.set('selectionProfile', !this.get('selectionProfile'));
     },
     profileCanel: function() {
-        this.set('selectionProfile', false);
+        profileCanelthis.set('selectionProfile', false);
     },
     addCollection: function(collection, content)
     {
@@ -375,12 +376,14 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         var dataNew = new Array();
         var that = this;
         this.set('selectionPop', false);
+        this.set("isReadProfile",true);
         requiredBackEnd('users', 'ReadCollection', data, 'POST', function(params) {
             dataNew["profile_id"] = localStorage.loginStatus;
             dataNew["profile_name"] = "your profile";
             dataNew["type"] = "user";
             params.insertAt(0, dataNew);
             that.set("profiles", params);
+            that.set("isReadProfile",false);
             that.set('selectionProfile', !that.get('selectionProfile'));
         });
     },

@@ -62,7 +62,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             var pic_y = this.get("pic_y");
             var linkAddress = this.get("linkTo");
             var time_stamp = new Date();
-            var tag_id = time_stamp.getTime().toString();
+            var tag_id = createMessageid()+localStorage.loginStatus;
             time_stamp = time_stamp.toString();
             var tagInfo = [selectedID, product_name, desc, pic_x, pic_y, linkAddress, time_stamp, photo_id, tag_id,collectionID];
             tagInfo = JSON.stringify(tagInfo);
@@ -84,7 +84,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 if (that.get("contentTags") !== null && that.get("contentTags") !== "" && that.get("contentTags") !== undefined)
                 {
                     that.get("contentTags").pushObject(newTag);
-                    that.createNotification(newTag, mega);
+                    that.createNotification(newTag, mega,tag_id);
                 }
 //                that.get("controllers.article").set("showRequestTag", true);
 //                that.get("controllers.mega").set("showRequestTag", true);
@@ -125,7 +125,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             that.readTags(photo_id);
         });
     },
-    createNotification: function(newTag, mega)
+    createNotification: function(newTag, mega,tag_id)
     {
 
         var currentUser = HubStar.User.find(localStorage.loginStatus);
@@ -144,13 +144,11 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 var s = photo_owner_proifle.get("profile_creator");
                 s = s + "," + photo_owner_proifle.get("profile_administrator");
                 s = s + "," + photo_owner_proifle.get("profile_editor");
-
                 var linkToCompany = newTag["linkto"];
                 var time_stamp = newTag["tag_time"];
-                var photo_id = that.get("photo_id");
+                var photo_id = tag_id;
                 var tempComment = [s, login_user_id, time_stamp, photo_id, document.URL, login_user_name, linkToCompany];
                 tempComment = JSON.stringify(tempComment);
-//        var dataNew = new Array();
                 requiredBackEnd('showTag', 'createNotification', tempComment, 'POST', function(params) {
                 });
 

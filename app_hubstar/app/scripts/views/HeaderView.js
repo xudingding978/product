@@ -3,27 +3,27 @@ HubStar.HeaderView = Ember.View.extend({
     didInsertElement: function() {
         var that = this;
         $(document).ready(function() {
-            
-           
-       
-        $("#back-top").hide();
-        $(window).scroll(function() {
 
-            if ($(this).scrollTop() > 150) {
-                $('#back-top').fadeIn();
-            } else {
-                $('#back-top').fadeOut();
-            }
 
-        });
-        $('#back-top a').click(function() {
-            $('body,html').animate({
-                scrollTop: 0
-            }, 800);
-            return false;
-        });
-    
-            
+
+            $("#back-top").hide();
+            $(window).scroll(function() {
+
+                if ($(this).scrollTop() > 150) {
+                    $('#back-top').fadeIn();
+                } else {
+                    $('#back-top').fadeOut();
+                }
+
+            });
+            $('#back-top a').click(function() {
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 800);
+                return false;
+            });
+
+
             $("#switchbar").mouseup(function(event) {
                 var address = document.URL;
                 var type = address.split("#")[1].split("/")[2];
@@ -45,9 +45,6 @@ HubStar.HeaderView = Ember.View.extend({
                     $("#Commercial").css("opacity", "0.4");
                     $("#Residential").css("opacity", "1");
                     localStorage.resOrcom = "residential";
-//                     $('#discovery_search_bar_wrapper').css("background"," url(../../images/contactbg.png)");
-//                 $(".navbar").css("background", " url(../../images/contactbg.png)");
-//                   $(".gradient1").css("background", " linear-gradient(to bottom, #01b6e3 22%,#f5f5f5 99%)");
                     $('#discovery_search_bar_wrapper').fadeOut(500, function() {
                         $(this).css({"background": " url(../../images/discoverybarbg.jpg)"}).fadeIn(500);
                     });
@@ -92,7 +89,6 @@ HubStar.HeaderView = Ember.View.extend({
                     $("#Residential").css("opacity", "0.4");
 
                     localStorage.resOrcom = "commercial";
-//                    $('#discovery_search_bar_wrapper').css({"background": " url(../../images/commercialbg.jpg)"});
                     $('#discovery_search_bar_wrapper').fadeOut(500, function() {
                         $(this).css({"background": " url(../../images/commercialbg.jpg)"}).fadeIn(500);
                     });
@@ -139,67 +135,75 @@ HubStar.HeaderView = Ember.View.extend({
             HubStar.set("escVideo", false);
             this.get("controller").transitionToRoute('search', {id: search_key});
         }
-        else {    
+        else {
         }
 
     },
     residential: function() {
         $('#switchbarBtn').attr("style", "margin-left:0px;");
-                    $('#switchbarBtn1').attr("style", "margin-left:0px;");
-
-                    $("#Commercial").css("opacity", "0.4");
-                    $("#Residential").css("opacity", "1");
-                    $("#Commercial1").css("opacity", "0.4");
-                    $("#Residential1").css("opacity", "1");
-                    $("#Commercial").css("opacity", "0.4");
-                    $("#Residential").css("opacity", "1");
-                    localStorage.resOrcom = "residential";
-                    $('#discovery_search_bar_wrapper').fadeOut(500, function() {
-                        $(this).css({"background": " url(../../images/discoverybarbg.jpg)"}).fadeIn(500);
-                    });
-
-                    $('.navbar').fadeOut(500, function() {
-                        $(this).css({"background": " url(../../images/landingpagebg.jpg)"}).fadeIn(500);
-                    });
-                    $(".gradient1").fadeOut(500, function() {
-                        $(this).css("background", " linear-gradient(to bottom, #68789c 22%,#f5f5f5 99%)").fadeIn(500);
-                    });
-                    this.get('controller').set('residentialKeyword', true);
-                    this.get('controller').set('subcate', []);
-                    this.get('controller').set('subcategories', []);
-  for (var i = 0; i < this.get("controller").get("categorys").get("length"); i++)
-                {
-                    this.get("controller").get("categorys").objectAt(i).set("classification", localStorage.resOrcom);
-                }
+        $('#switchbarBtn1').attr("style", "margin-left:0px;");
+        $("#Commercial").css("opacity", "0.4");
+        $("#Residential").css("opacity", "1");
+        $("#Commercial1").css("opacity", "0.4");
+        $("#Residential1").css("opacity", "1");
+        $("#Commercial").css("opacity", "0.4");
+        $("#Residential").css("opacity", "1");
+        localStorage.resOrcom = "residential";
+        $('#discovery_search_bar_wrapper').fadeOut(500, function() {
+            $(this).css({"background": " url(../../images/discoverybarbg.jpg)"}).fadeIn(500);
+        });
+        $('.navbar').fadeOut(500, function() {
+            $(this).css({"background": " url(../../images/landingpagebg.jpg)"}).fadeIn(500);
+        });
+        $(".gradient1").fadeOut(500, function() {
+            $(this).css("background", " linear-gradient(to bottom, #68789c 22%,#f5f5f5 99%)").fadeIn(500);
+        });
+        this.get('controller').set('residentialKeyword', true);
+        this.get('controller').set('subcate', []);
+        this.get('controller').set('subcategories', []);
+        for (var i = 0; i < this.get("controller").get("categorys").get("length"); i++)
+        {
+            this.get("controller").get("categorys").objectAt(i).set("classification", localStorage.resOrcom);
+        }
     },
-      commercial: function() {
+    commercial: function() {
         $('#switchbarBtn').attr("style", "margin-left:28px;");
-                    $('#switchbarBtn1').attr("style", "margin-left:28px;");
-                    $("#Commercial1").css("opacity", "1");
-                    $("#Residential1").css("opacity", "0.4");
-                    $("#Commercial").css("opacity", "1");
-                    $("#Residential").css("opacity", "0.4");
+        $('#switchbarBtn1').attr("style", "margin-left:28px;");
+        $("#Commercial1").css("opacity", "1");
+        $("#Residential1").css("opacity", "0.4");
+        $("#Commercial").css("opacity", "1");
+        $("#Residential").css("opacity", "0.4");
 
-                    localStorage.resOrcom = "commercial";
+        localStorage.resOrcom = "commercial";
 //                    $('#discovery_search_bar_wrapper').css({"background": " url(../../images/commercialbg.jpg)"});
-                    $('#discovery_search_bar_wrapper').fadeOut(500, function() {
-                        $(this).css({"background": " url(../../images/commercialbg.jpg)"}).fadeIn(500);
-                    });
+        $('#discovery_search_bar_wrapper').fadeOut(500, function() {
+            $(this).css({"background": " url(../../images/commercialbg.jpg)"}).fadeIn(500);
+        });
 
-                    $('.navbar').fadeOut(500, function() {
-                        $(this).css({"background": "url(../../images/commercialbg.jpg)"}).fadeIn(500);
-                    });
-                    $(".gradient1").fadeOut(500, function() {
-                        $(this).css("background", " linear-gradient(to bottom, #191200 22%,#f5f5f5 99%)").fadeIn(500);
-                    });
-                    this.get('controller').set('residentialKeyword', false);
-                    this.get('controller').set('subcate', []);
-                    this.get('controller').set('subcategories', []);
-                    
-                      for (var i = 0; i < this.get("controller").get("categorys").get("length"); i++)
-                {
-                    this.get("controller").get("categorys").objectAt(i).set("classification", localStorage.resOrcom);
-                }
+        $('.navbar').fadeOut(500, function() {
+            $(this).css({"background": "url(../../images/commercialbg.jpg)"}).fadeIn(500);
+        });
+        $(".gradient1").fadeOut(500, function() {
+            $(this).css("background", " linear-gradient(to bottom, #191200 22%,#f5f5f5 99%)").fadeIn(500);
+        });
+        this.get('controller').set('residentialKeyword', false);
+        this.get('controller').set('subcate', []);
+        this.get('controller').set('subcategories', []);
+
+        for (var i = 0; i < this.get("controller").get("categorys").get("length"); i++)
+        {
+            this.get("controller").get("categorys").objectAt(i).set("classification", localStorage.resOrcom);
+        }
+    },
+    showAboutDropDown: function() {
+        if ($('#top-menu').css('display') === 'block') {
+            $("#top-menu").css('display', "none");
+        }
+        else if ($('#top-menu').css('display') === 'none') {
+            $("#top-menu").css('display', "block");
+        }
+
     }
+
 });
 

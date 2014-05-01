@@ -1,21 +1,8 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 HubStar.NotificationTopController = Ember.Controller.extend({
     notificationTopContent: null,
     commenter_photo_url: null,
     makeSureDelete: false,
     willDelete: false,
-    isTag: false,
     photo_url: "",
     loadingTime: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'application', 'notification', 'userMessage', 'application'],
@@ -46,18 +33,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                     dataNew["time"] = params.objectAt(i)["time"];
                     dataNew["notification_id"] = params.objectAt(i)["notification_id"];
                     dataNew["isRead"] = params.objectAt(i)["isRead"];
-                    dataNew["content"] = params.objectAt(i)["content"];
-                    if (dataNew["type"] === "addTag")
-                    {
-
-                        that.set("photo_url", params.objectAt(i)["content"]);
-                        that.set("isTag", true);
-                    }
-                    else
-                    {
-                        that.set("isTag", false);
-                    }
-
+                     dataNew["isTag"] = that.get("controllers.notification").typeView(dataNew["type"]);                    
                     if (dataNew["type"] !== "authority") {
                         dataNew["content"] = params.objectAt(i)["content"];
                     }
@@ -219,7 +195,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         {
             if (this.get("notificationTopContent").objectAt(i)["notification_id"] === notification_id)
             {
-                if (this.get("notificationTopContent").objectAt(i)["type"] !== "authority") {
+                if (this.get("notificationTopContent").objectAt(i)["type"] !== "authority"&&this.get("notificationTopContent").objectAt(i)["type"] !== "Tag") {
                     this.goto(this.get("notificationTopContent").objectAt(i));
                 }
                 else
@@ -257,7 +233,6 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         {
 
             this.set("photo_url", obj.get("content"));
-            this.set("isTag", true);
         }
 
     },

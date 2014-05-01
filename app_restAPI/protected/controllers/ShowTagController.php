@@ -332,9 +332,9 @@ class ShowTagController extends Controller {
                 $notificationObject["notification_id"] = $notification_id;
                 $notificationObject["user_id"] = $currentUser;
                 $notificationObject["time"] = $time_stamp;
-                $notificationObject["type"] = "addTag";
-                $notificationObject["content"] = $photo_url;
-                $notificationObject["action_id"] = $photo_id;
+                $notificationObject["type"] = "Tag";
+                $notificationObject["content"] = $photo_id;
+                $notificationObject["action_id"] = $photo_url;
                 $notificationObject["isRead"] = false;
 
 

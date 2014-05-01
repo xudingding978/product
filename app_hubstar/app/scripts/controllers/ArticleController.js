@@ -537,6 +537,10 @@ HubStar.ArticleController = Ember.Controller.extend({
             requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function(params) {
             });
         });
+        
+              if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+        }
     },
     checkCreditExist: function(credits) {
         if (credits !== null && credits !== 'undefined' && credits.get('length') > 0) {

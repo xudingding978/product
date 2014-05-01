@@ -75,7 +75,6 @@ HubStar.NotificationController = Ember.Controller.extend({
         }
         else if (type === "Tag")
         {
-            console.log(name.split(','));
             if (name.split(',').length <= 1)
             {
                 b = true;
@@ -141,22 +140,39 @@ HubStar.NotificationController = Ember.Controller.extend({
     viewPhoto: function(id) {
         window.location.href = id;
     },
-    decline: function(id) {
+    decline: function(id, type) {
         var tempComment = [localStorage.loginStatus, id];
         tempComment = JSON.stringify(tempComment);
         var that = this;
-        requiredBackEnd('notifications', 'Decline', tempComment, 'POST', function(params) {
-            for (var i = 0; i < that.get("notificationContent").length; i++)
-            {
-                if (that.get("notificationContent").objectAt(i).get("notification_id") === id)
+        if (type === "authority") {
+            requiredBackEnd('notifications', 'Decline', tempComment, 'POST', function(params) {
+                for (var i = 0; i < that.get("notificationContent").length; i++)
                 {
-                    that.get("notificationContent").objectAt(i).set("isButton", false);
-                    break;
+                    if (that.get("notificationContent").objectAt(i).get("notification_id") === id)
+                    {
+                        that.get("notificationContent").objectAt(i).set("isButton", false);
+                        break;
+                    }
                 }
-            }
-            that.get('controllers.applicationFeedback').statusObserver(null, params);
-            that.markRead(id);
-        });
+                that.get('controllers.applicationFeedback').statusObserver(null, params);
+                that.markRead(id);
+            });
+        }
+        else if (type === "Tag")
+        {
+            requiredBackEnd('notifications', 'DeclineTag', tempComment, 'POST', function(params) {
+                for (var i = 0; i < that.get("notificationContent").length; i++)
+                {
+                    if (that.get("notificationContent").objectAt(i).get("notification_id") === id)
+                    {
+                        that.get("notificationContent").objectAt(i).set("isButton", false);
+                        break;
+                    }
+                }
+                that.get('controllers.applicationFeedback').statusObserver(null, params);
+                that.markRead(id);
+            });
+        }
     },
     accept: function(id, type) {
         var tempComment = [localStorage.loginStatus, id];

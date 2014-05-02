@@ -3,9 +3,9 @@
 
 
 
-<div id="discovery_search_bar_wrapper" style="z-index: 11;margin-bottom: -55px;">
+<div id="discovery_search_bar_wrapper" style="z-index: 10;margin-bottom: -55px;">
 
-    <div style="position: absolute; top: 140px; width: 880px;left:0; right: 0; margin: auto;">
+    <div style="position: absolute; top: 140px; width: 880px;left:0; right: 0; margin: auto;text-align: center">
 <div>
     <div id="select-text" style="font-size: 50px;color: white;font-weight: bold;display:block;">Select a category to start browsing</div>
      <div id="welcome-text" style="font-size: 50px;color: white;font-weight: bold;display:none;text-align: center;">Welcome to MyTrends</div>
@@ -15,7 +15,7 @@
     </div>
 
     <div class="search-bar" style="">
-        <div id ="navigator" class="Nav-btn easing" style="float: left;width: 90px;height: 60px;top: -5px;position: relative;font-size: 15px;font-weight: bold;color: white;background-color: rgba(0,0,0,.5);" {{action dropdownNavigator}}>
+        <div id ="navigator" class="Nav-btn easing" style="" {{action dropdownNavigator}}>
              <i class="fa fa-list" style="font-size: 20px;"></i>
             <div style="line-height: 0;position: relative;bottom: 5px;">Categories</div>
         </div>
@@ -25,7 +25,7 @@
 
         <div class="search-box easing" style="">
             {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_business" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
-            <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
+            <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;width: 60px"  {{action searching on="click" target="view"}}>
                 <i class="fa fa-search" style="font-size: 20px;line-height: 3;"></i>
             </div>
         </div>

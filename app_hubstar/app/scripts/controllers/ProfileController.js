@@ -188,60 +188,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             mega.then(function() {
                 if (mega.get('classification') === "commercial" && localStorage.resOrcom === "residential") {
                     localStorage.resOrcom = "commercial";
-                    that.get('controllers.application').set('residentialKeyword', false);
-                    setTimeout(function() {
-                        $(".navbar").css("background", " url(../../images/commercialbg.jpg)");
-                    }, 10);
                 }
                 else if (mega.get('classification') === "residential" && localStorage.resOrcom === "commercial") {
                     localStorage.resOrcom = "residential";
-                    that.get('controllers.application').set('residentialKeyword', true);
-                    setTimeout(function() {
-                        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-                    }, 10);
                 }
                 else if (mega.get('classification') === undefined || mega.get('classification') === "" || mega.get('classification') === null) {
                     localStorage.resOrcom = "All";
-                    that.get('controllers.application').set('residentialKeyword', true);
-                    setTimeout(function() {
-                        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-                    }, 10);
-                }
-                for (var i = 0; i < that.get("controllers.application").get("categorys").get("length"); i++)
-                {
-                    that.get('controllers.application').get("categorys").objectAt(i).set("classification", localStorage.resOrcom);
                 }
                 var thatthat= that;
                 $(document).ready(function() {
-                    setTimeout(function() {
-                        if (localStorage.resOrcom === "commercial")
-                        {
-                            $('#switchbarBtn').attr("style", "margin-left:28px;");
-                            $("#Commercial").css("opacity", "1");
-                            $("#Residential").css("opacity", "0.4");
-                             $("#commercial").addClass("residentialCommerical-selected");
-                      $("#residential").removeClass("residentialCommerical-selected");
-                               thatthat.get('controllers.application').set('residentialKeyword', false);
-                        }
-                        else if (localStorage.resOrcom === "residential")
-                        {
-                            $('#switchbarBtn').attr("style", "margin-left:0px;");
-                            $("#Commercial").css("opacity", "0.4");
-                            $("#Residential").css("opacity", "1");
-                            $("#commercial").removeClass("residentialCommerical-selected");
-                      $("#residential").addClass("residentialCommerical-selected");
-                       thatthat.get('controllers.application').set('residentialKeyword', true);
-                        }
-                        else if (localStorage.resOrcom === "All")
-                        {
-                            $('#switchbarBtn').attr("style", "margin-left:13px;");
-                            $("#Commercial").css("opacity", "1");
-                            $("#Residential").css("opacity", "1");
-                            $("#commercial").addClass("residentialCommerical-selected");
-                      $("#residential").addClass("residentialCommerical-selected");
-                          thatthat.get('controllers.application').set('residentialKeyword', true);
-                        }
-                        thatthat.get("controllers.application").changeBackground();
+                    setTimeout(function() {       
+                        thatthat.get("controllers.application").residentialCommercialStatus();
+                         thatthat.get("controllers.application").changeBackground();
                     }, 50);
                 });
             });

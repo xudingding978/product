@@ -771,7 +771,8 @@ HubStar.ArticleController = Ember.Controller.extend({
             var addCollectionController = this.get('controllers.addCollection');
             var selectid = this.get('articleResouce').id;
             addCollectionController.setImageID(selectid);
-            var tempUrl = this.get('selectedPhoto').photo_image_thumbnail_url;
+
+            var tempUrl = this.get('articleResouce').get("article_image_url");
             addCollectionController.setThumbnailUrl(tempUrl);
             addCollectionController.setRelatedController('article');
             addCollectionController.setUser();

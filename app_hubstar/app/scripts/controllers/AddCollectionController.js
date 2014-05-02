@@ -266,7 +266,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         this.set('selectionProfile', !this.get('selectionProfile'));
     },
     profileCanel: function() {
-        profileCanelthis.set('selectionProfile', false);
+        this.set('selectionProfile', false);
     },
     addCollection: function(collection, content)
     {

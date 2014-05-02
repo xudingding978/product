@@ -212,6 +212,9 @@ class Controller extends CController {
         } elseif ($requireType == 'video') {
             $videoOwnerId = $this->getUserInput($requireParams[1]);
             $response = $this->getVideoesByOwner($returnType, $videoOwnerId);
+        } elseif ($requireType == 'pdf') {
+            $videoOwnerId = $this->getUserInput($requireParams[1]);
+            $response = $this->getPdfByOwner($returnType, $videoOwnerId);
         } elseif ($requireType == 'singleVideo') {
 
             $videoid = $this->getUserInput($requireParams[1]);
@@ -219,6 +222,20 @@ class Controller extends CController {
         } else {
             $response = $this->getSearchResults("", "huang");
         }
+        return $response;
+    }
+    
+    protected function getPdfByOwner($returnType, $videoOwnerId) {
+        $conditions = array();
+        $requestStringOne = 'couchbaseDocument.doc.type=pdf';
+        array_push($conditions, $requestStringOne);
+        $requestStringTwo = 'couchbaseDocument.doc.owner_id=' . $videoOwnerId;
+        array_push($conditions, $requestStringTwo);
+
+
+        $tempResult = $this->searchWithCondictions($conditions, 'must');
+        $response = $this->getReponseResult($tempResult, $returnType);
+
         return $response;
     }
 

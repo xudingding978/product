@@ -5,11 +5,33 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
     newPdfName: '',
     newPdfCover: '',
     newPdfDesc: '',
+    loadingTime: false,
     getVideo: true,
     pdfContent: [],
     isRenderDeleteItemTemplate: false,
     needs: ['profile', 'permission', 'applicationFeedback', 'pdfUploader'],
 
+    getClientId: function(model) {
+        console.log('getClientID');
+        var results = HubStar.Mega.find({"RquireType": "pdf", 'ownerid': model.get("id")});
+
+        var that = this;
+        this.set("loadingTime", true);
+        results.then(function() {
+            that.set('pdfContent', []);
+            for (var i = 0; i < results.get("length"); i++) {
+                var tempmega = results.objectAt(i);
+                that.get("pdfContent").pushObject(tempmega);
+            }
+//            that.get("controllers.profile").set("profileVideoStatistics", results.get("length"));
+            that.set("loadingTime", false);
+//            that.relayout();
+            console.log('222222222');
+        });
+        console.log('111111');
+//        this.checkEditingMode();
+    },
+    
     pdfCreateModeSwitch: function()
     {
         console.log('switch');

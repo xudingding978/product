@@ -7,8 +7,8 @@
 HubStar.ProfilePdfRoute = Ember.Route.extend({
     setupController: function(controller, model) {
 
-         console.log(this.controllerFor('profile').get('is_authentic_user'));
-         this.controllerFor('profile').selectPdf();
+         console.log(controller);
+         controller.getClientId(model);
 
     },
     model: function(params) {

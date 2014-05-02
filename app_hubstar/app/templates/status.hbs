@@ -14,10 +14,11 @@
 
         {{#unless HubStar.isLogin}}
 
-        <div id='welcome_message' style='margin-bottom: 25px;'>
-            <h2>Welcome!!</h2>
+        <div id='welcome_message' style='margin-bottom: 25px; '>
+            <h2  style="">Welcome!!</h2>
             <p>Please login to create your ideas space.</p>
-
+            <div id="cta_register" style="margin: 15px 0 0;" class="registerbtn" {{action ctaregister on="click"  target="view"}}>Register</div>
+            <div id="cta_login" class="loginbtn" {{action ctalogin on="click"  target="view"}}>Login</div>
         </div>
         {{else}} 
 
@@ -36,7 +37,7 @@
         {{/unless}}
     </div>
 
-    
+
 
 
 

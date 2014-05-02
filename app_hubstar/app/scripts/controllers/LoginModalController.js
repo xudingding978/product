@@ -209,7 +209,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
         $('#click-register-social').css('display', 'none');
         $('#click-register').css('display', 'none');
         $('.learnmore-btn').css('display', 'none');
-        $('#login-btn').css('display', 'block');
+        $('#login-btn').css('display', 'none');
              }, 1000);
         });
 
@@ -220,7 +220,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
         $('#click-register-social').css('display', 'block');
         $('#click-register').css('display', 'block');
         $('.learnmore-btn').css('display', 'block');
-        $('#login-btn').css('display', 'none');
+        $('#login-btn').css('display', 'block');
     },
         encrypt: function(encryptString) {
         var tempstr = '';

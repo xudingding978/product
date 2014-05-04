@@ -115,7 +115,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     email_login: function() {
         this.set('mail', !this.get('mail'));
     },
-  
     grapData: function() {
         HubStar.set("profiles", []);
         var that = this;
@@ -202,7 +201,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }, 50);
         });
     },
-      changeBackground: function() {
+    changeBackground: function() {
         if (localStorage.resOrcom === "residential" || localStorage.resOrcom === "All") {
             $('#discovery_search_bar_wrapper').fadeOut(500, function() {
                 $(this).css({"background": " url(../../images/discoverybarbg.jpg) "}).fadeIn(500);
@@ -214,13 +213,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             ;
         } else if (localStorage.resOrcom === "commercial") {
             $('#discovery_search_bar_wrapper').fadeOut(500, function() {
-                $(this).css({"background": " url(../../images/commercialbg.jpg)","background-position":"center center"}).fadeIn(500);
+                $(this).css({"background": " url(../../images/commercialbg.jpg)", "background-position": "center center"}).fadeIn(500);
             });
 
             $('.navbar').fadeOut(500, function() {
                 $(this).css({"background": "url(../../images/commercialbg.jpg)"}).fadeIn(500);
             });
-          
+
         }
 
     },
@@ -420,6 +419,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             } else {
                 stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'), "classification": localStorage.resOrcom});
             }
+            $("#search-bar").fadeIn("320");
+            $("#topResidentialCommerical").fadeIn("320");
             stats.addObserver('isLoaded', function() {
                 if (stats.get('isLoaded')) {
                     var stat = stats.objectAt(0);
@@ -475,6 +476,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
+        $("#search-bar").fadeOut("320");
+            $("#topResidentialCommerical").fadeOut("320");
         HubStar.set("scrollDownSearch", true);
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
@@ -606,7 +609,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 $('#click-register-social').css('display', 'none');
                 $('#click-register').css('display', 'none');
                 $('.learnmore-btn').css('display', 'none');
-                 $('#login-btn').css('display', 'none');    
+                $('#login-btn').css('display', 'none');
             }, 1000);
         });
 
@@ -617,7 +620,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $('#click-register-social').css('display', 'block');
         $('#click-register').css('display', 'block');
         $('.learnmore-btn').css('display', 'block');
-         $('#login-btn').css('display', 'block');    
+        $('#login-btn').css('display', 'block');
     },
     encrypt: function(encryptString) {
         var tempstr = '';
@@ -752,7 +755,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.get("categorys").then(function() {
             $(document).ready(function() {
                 setTimeout(function() {
-                     that.residentialCommercialStatus();
+                    that.residentialCommercialStatus();
                 }, 50);
             });
         });
@@ -776,12 +779,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $(".Navigator-box").fadeOut("320");
         $(".navbar").css("box-shadow", "");
         var that = this;
-            $(document).ready(function() {
-                setTimeout(function() {
-                     that.residentialCommercialStatus();
-                  //   that.changeBackground();
-                }, 50);
-            
+        $(document).ready(function() {
+            setTimeout(function() {
+                that.residentialCommercialStatus();
+                //   that.changeBackground();
+            }, 50);
+
         });
 
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
@@ -794,12 +797,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     dropdownHeaderNavigator: function() {
 
         this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
-         var that = this;
+        var that = this;
         this.get("categorys").then(function() {
             $(document).ready(function() {
                 setTimeout(function() {
-                     that.residentialCommercialStatus();
-                 //    that.changeBackground();
+                    that.residentialCommercialStatus();
+                    //    that.changeBackground();
                 }, 50);
             });
         });

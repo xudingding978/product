@@ -558,11 +558,9 @@ div.search-loading-invisible{
 }
 
 .Dropdownstyle2{
-    width: 150px;  
-    padding: 0;
-    left: 115px;
-    position: relative;
-    float: right;
+    width: 150px;
+    right: 210px;
+    top: 90px;
 }
 
 

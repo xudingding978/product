@@ -95,9 +95,9 @@ HubStar.SearchRoute = Ember.Route.extend({
     activate: function() {
         $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
         $('#masonry_container').attr('style', "display:block;position:relative");
-
+         console.log("aaaaaaaaaaaaaaaaaaaa");   
         $(document).ready(function() {
-            setTimeout(function() {
+            setTimeout(function() {             
                 $('#footer').attr("style", "display:none");
             }, 10);
 

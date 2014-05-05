@@ -23,20 +23,28 @@ HubStar.ApplicationView = Ember.View.extend({
         var scroll_pos_test = 290;
 
         $(document).ready(function() {
-            
-            $(window).resize(function() {     
-                 if ($(window).width() > 1200) {
-                                $("#search-bar").fadeIn(320);
-                                $("#topResidentialCommerical").fadeIn(320);
-                                 $(".search-bar-on-small-screen").css('display', "none");
-                            } else  {
-                              $("#search-bar").css('display', "none");
-                                $("#topResidentialCommerical").css('display', "none");
-                                $(".search-bar-on-small-screen").fadeIn(320);
-                            }
-                
-            });      
-            
+
+            $(window).resize(function() {
+                if (window.pageYOffset > scroll_pos_test) {
+                    if ($(window).width() > 1200) {
+                        $("#search-bar").fadeIn(320);
+                        $("#topResidentialCommerical").fadeIn(320);
+                        $(".search-bar-on-small-screen").css('display', "none");
+                    } else {
+                        $("#search-bar").css('display', "none");
+                        $("#topResidentialCommerical").css('display', "none");
+                        $(".search-bar-on-small-screen").fadeIn(320);
+                    }
+                }
+                else {
+                    $("#search-bar").css('display', "none");
+                        $("#topResidentialCommerical").css('display', "none");
+                        $(".search-bar-on-small-screen").css('display', "none");
+
+                }
+
+            });
+
             $(window).scroll(function() {
                 var y_scroll_pos = window.pageYOffset;
 
@@ -48,32 +56,32 @@ HubStar.ApplicationView = Ember.View.extend({
                         if (y_scroll_pos > scroll_pos_test) {
                             $(".navbar").css("box-shadow", "0 0 10px #333");
                             $("#top-menu").css('display', "none");
-                           if ($(window).width() > 1200) {
+                            if ($(window).width() > 1200) {
                                 $("#search-bar").fadeIn(320);
                                 $("#topResidentialCommerical").fadeIn(320);
-                                 $(".search-bar-on-small-screen").css('display', "none");
-                            } else  {
-                              $("#search-bar").css('display', "none");
+                                $(".search-bar-on-small-screen").css('display', "none");
+                            } else {
+                                $("#search-bar").css('display', "none");
                                 $("#topResidentialCommerical").css('display', "none");
                                 $(".search-bar-on-small-screen").fadeIn(320);
                             }
                         }
 
                         if (y_scroll_pos < scroll_pos_test) {
-                            console.log("1");
+
                             $(".Navigator-box").fadeOut("320");
                             $(".navbar").css("box-shadow", "");
                             $("#top-menu").css('display', "none");
-                           if ($(window).width() > 1200) {
-                                console.log("2");
+                            if ($(window).width() > 1200) {
+
                                 $("#search-bar").fadeOut(320);
                                 $("#topResidentialCommerical").fadeOut(320);
-                                 $(".search-bar-on-small-screen").css('display', "none");
-                            } else   {
-                                console.log("3");
-                                 $("#search-bar").css('display', "none");
+                                $(".search-bar-on-small-screen").css('display', "none");
+                            } else {
+
+                                $("#search-bar").css('display', "none");
                                 $("#topResidentialCommerical").css('display', "none");
-                                 $(".search-bar-on-small-screen").fadeOut(320);
+                                $(".search-bar-on-small-screen").fadeOut(320);
                             }
 
                         }

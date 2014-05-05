@@ -41,14 +41,15 @@
 
         {{#if HubStar.isLogin}}
 
-        <div id="login_details" style="position: relative;float: right;cursor: pointer;text-align: right;">
-            <div id="login_detail" style="position: relative;float: right;cursor: pointer;text-align: right;" data-step="4" data-intro="Click on your <b>Profile Picture</b> to access your Profile, Message Centre, Help options or to log out.">
+        <div id="login_details" class="Geo-Filter easing">
+            <div id="login_detail" data-step="4" data-intro="Click on your <b>Profile Picture</b> to access your Profile, Message Centre, Help options or to log out.">
                 {{view HubStar.AfterLoginView}}
             </div>
         </div>
+        
         <div id="Geo-Filter" class="Geo-Filter easing"  {{action dropdown "notification"}} data-step="3" data-intro="New notifications will appear beside the <b>Notification icon</b>. Click the icon to see your latest notifications.">
-            <i class="fa fa-bell fa-lg"></i>
-            <div style=" position: relative; right:24px;bottom: 26px; font-size: 15px;">Notification </div>
+            <div class="circle-btn"><i class="fa fa-bell fa-lg" style="font-size: 23px;"></i></div>
+            <div class="circle-btn-description">Notification</div>
             {{#if isUnReadCountZero}}
             <div style="cursor: pointer;position: absolute;top: 20px;left: 15px;width: auto;padding: 0 5px 0 4px;height: 15px;background-color: red;line-height: 15px;border-radius: 2px;font-size: 11px;font-weight: bold;">{{unReadCount}}</div>
             {{/if}}
@@ -73,10 +74,10 @@
         {{render notificationTop}}
         {{/if}}
 
-        <div id="geo-filter" class="Geo-Filter easing " style="margin-right: 50px;" {{action dropdown "geoLocation"}} data-step="2" data-intro=" Use the <b>Location Filter</b> to filter search results by region.">
-            <div style="float: left; font-size: 15px;">Country&nbsp;</div>
-            <i class="fa fa-angle-down fa-lg">&nbsp;</i>
-            <div style="position: relative; right: 15px;bottom: 35px; font-size: 15px;text-align: center;">{{HubStar.geoLocation}}</div>
+        <div id="geo-filter" class="Geo-Filter easing "  {{action dropdown "geoLocation"}} data-step="2" data-intro=" Use the <b>Location Filter</b> to filter search results by region.">
+            <div class="circle-btn" style="line-height: 48px;"><i class="fa fa-globe fa-lg" style="font-size: 30px"></i></div>
+            <div class="circle-btn-description">Country</div>
+            <div class="Geo-Filter-location">{{HubStar.geoLocation}}</div>
         </div>
 
         {{#if controller.isGeoDropdown}}

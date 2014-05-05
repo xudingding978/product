@@ -477,7 +477,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
         $("#search-bar").fadeOut("320");
-            $("#topResidentialCommerical").fadeOut("320");
+        $("#topResidentialCommerical").fadeOut("320");
         HubStar.set("scrollDownSearch", true);
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {

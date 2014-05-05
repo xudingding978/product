@@ -930,7 +930,7 @@ search-bar-on-small-screen #topResidentialCommerical{
 
 
 .search-bar-on-large-screen{ display: block;}
-
+.search-bar-on-small-screen{ display: none;}
 
 
 /* Clint Lewis's style's 29/10/13 */

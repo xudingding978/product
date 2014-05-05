@@ -2,13 +2,15 @@ HubStar.ApplicationView = Ember.View.extend({
     templateName: 'application',
     didInsertElement: function() {
         $("#loading").attr('style', 'display:none');
-         $("#select-text").fadeIn(300).css("display","block");
-          $("#welcome-text").fadeOut(300).css("display","none");
-          setTimeout(function() { 
-              $("#select-text").fadeOut(300).css("display","none");
-        $("#welcome-text").fadeIn(300).css("display","block");
-    },10000);
-    
+        $("#select-text").fadeIn(300).css("display", "block");
+        $("#welcome-text").fadeOut(300).css("display", "none");
+        setTimeout(function() {
+            $("#select-text").fadeOut(300).css("display", "none");
+            $("#welcome-text").fadeIn(300).css("display", "block");
+        }, 10000);
+
+
+
 
         var view = this;
         $(window).bind("scroll", function() {
@@ -18,9 +20,23 @@ HubStar.ApplicationView = Ember.View.extend({
             view.didScroll();
         });
 
-       var scroll_pos_test = 290;
+        var scroll_pos_test = 290;
 
         $(document).ready(function() {
+            
+            $(window).resize(function() {     
+                 if ($(window).width() > 1200) {
+                                $("#search-bar").fadeIn(320);
+                                $("#topResidentialCommerical").fadeIn(320);
+                                 $(".search-bar-on-small-screen").css('display', "none");
+                            } else  {
+                              $("#search-bar").css('display', "none");
+                                $("#topResidentialCommerical").css('display', "none");
+                                $(".search-bar-on-small-screen").fadeIn(320);
+                            }
+                
+            });      
+            
             $(window).scroll(function() {
                 var y_scroll_pos = window.pageYOffset;
 
@@ -29,26 +45,37 @@ HubStar.ApplicationView = Ember.View.extend({
 
                     if (HubStar.get('showDiscoveryBar') === true) {
 
-                        if (y_scroll_pos > scroll_pos_test 
-//                                && $('#top-about-menu').css('display') === 'block'        
-                                ) {
-                            $(".Navigator-box").css('display', 'none');
-                     //       $("#top-about-menu").fadeOut("320");
-                            $("#search-bar").fadeIn("320");
+                        if (y_scroll_pos > scroll_pos_test) {
                             $(".navbar").css("box-shadow", "0 0 10px #333");
                             $("#top-menu").css('display', "none");
-                            $("#topResidentialCommerical").fadeIn("320");
+                           if ($(window).width() > 1200) {
+                                $("#search-bar").fadeIn(320);
+                                $("#topResidentialCommerical").fadeIn(320);
+                                 $(".search-bar-on-small-screen").css('display', "none");
+                            } else  {
+                              $("#search-bar").css('display', "none");
+                                $("#topResidentialCommerical").css('display', "none");
+                                $(".search-bar-on-small-screen").fadeIn(320);
+                            }
                         }
 
-                        if (y_scroll_pos < scroll_pos_test 
-//                                && $('#top-about-menu').css('display') === 'none'
-                                ) {
-                        //    $("#top-about-menu").fadeIn("320");
-                            $("#search-bar").fadeOut("320");
+                        if (y_scroll_pos < scroll_pos_test) {
+                            console.log("1");
                             $(".Navigator-box").fadeOut("320");
                             $(".navbar").css("box-shadow", "");
                             $("#top-menu").css('display', "none");
-                            $("#topResidentialCommerical").fadeOut("320");
+                           if ($(window).width() > 1200) {
+                                console.log("2");
+                                $("#search-bar").fadeOut(320);
+                                $("#topResidentialCommerical").fadeOut(320);
+                                 $(".search-bar-on-small-screen").css('display', "none");
+                            } else   {
+                                console.log("3");
+                                 $("#search-bar").css('display', "none");
+                                $("#topResidentialCommerical").css('display', "none");
+                                 $(".search-bar-on-small-screen").fadeOut(320);
+                            }
+
                         }
                     }
                 }

@@ -235,9 +235,9 @@ class Controller extends CController {
 
 
         $mega = CJSON::decode($tempResult, true);
-        if ($mega['profile'][0]['pdf_id'] == null || $mega['profile'][0]['pdf_id'] == 'undefined' || $mega['profile'][0]['pdf_id'] == "") {
+        if (!isset($mega['profile'][0]['pdf_id']) ||$mega['profile'][0]['pdf_id'] == null || $mega['profile'][0]['pdf_id'] == 'undefined' || $mega['profile'][0]['pdf_id'] == "") {
             $mega['profile'][0]['pdf_id'] = "";
-        } else {
+        } 
             $pdf_Id = explode(",", $mega['profile'][0]['pdf_id']);
             $response = Array();
             $megas = Array();
@@ -253,7 +253,7 @@ class Controller extends CController {
                     }
                 }
             }
-        }
+        
         
 
         $response["megas"] = $megas;

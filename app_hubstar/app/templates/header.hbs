@@ -7,42 +7,47 @@
             <a href="/#/search" > <img class="logonew" {{action showDiscoveryBar}} style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png"></a>
 
         </div>
-              <div id="top-about-menu" class="top-about-menu" style="display:block; cursor: pointer;font-size: 15px;padding: 10px;"{{action showAboutDropDown on="click" target="view"}}>About</div>
+        <div id="top-about-menu" class="top-about-menu" style="display:block; cursor: pointer;font-size: 15px;padding: 10px;font-weight: bold;"{{action showAboutDropDown on="click" target="view"}}>About&nbsp;<i class="fa fa-angle-down fa-lg">&nbsp;</i></div>
 
         <ui id="top-menu" class="edit-object-ul" style="display:none;width: 160px;position: absolute;top:80px;left: 180px;">
-           <li class="ite" > <span><a  " target="blank" href="http://about.trendsideas.com/">About</a></span></li>
-           <li class="ite" > <span><a target="blank" href="http://about.trendsideas.com/business/">Business</a></span></li>
-           <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span></li>
-           <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/contact-us/">Contact us</a></span></li>
+            <li class="ite" > <span><a  target="blank" href="http://about.trendsideas.com/">About</a></span></li>
+            <li class="ite" > <span><a target="blank" href="http://about.trendsideas.com/business/">Business</a></span></li>
+            <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span></li>
+            <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/contact-us/">Contact us</a></span></li>
 
         </ui>
-        
-      
+
+        <div  id="topResidentialCommerical" style=" display:none;">
+            <div id="residential1" class="residentialCommericalTop residentialCommerical-selected"   {{action residential on="click" target="view"}}>Residential</div>
+            <div id="commercial1" class="residentialCommericalTop residentialCommerical-selected"  {{action commercial on="click" target="view"}}>Commercial</div>
+        </div>
 
         <div id="search-bar" class="search-bar-ontop" style="display:none">
-            <div id ="navigator" class="Nav-btn easing" style="float: left;width: 90px;height: 60px;top: -5px;position: relative;font-size: 15px;font-weight: bold;color: white;background-color: black;" {{action dropdownHeaderNavigator}}>
-                   <i class="fa fa-list" style="font-size: 20px;"></i>
-            <div style="line-height: 0;position: relative;bottom: 5px;">Categories</div>
+            <div id ="navigator" class="Nav-btn easing" style="" {{action dropdownHeaderNavigator}}>
+                 <i class="fa fa-list" style="font-size: 20px;"></i>
+                <div style="line-height: 0;position: relative;bottom: 5px;">Categories</div>
             </div>
-           
-            
+
+
             {{#if controller.isHeaderNavigatorDropdown}}
             {{view HubStar.NavigatorView}}
             {{/if}}
             <div class="search-box easing" style="">
                 {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
-                <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
-                    <i class="fa fa-search"></i>
+                <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;width: 60px"  {{action searching on="click" target="view"}}>
+                    <i class="fa fa-search" style="font-size: 20px;line-height: 3;"></i>
                 </div>
             </div>
         </div>
+
+
 
         {{#if HubStar.isLogin}}
 
         <div id="login_details" style="position: relative;float: right;cursor: pointer;text-align: right;">
             <div id="login_detail" style="position: relative;float: right;cursor: pointer;text-align: right;" data-step="4" data-intro="Click on your <b>Profile Picture</b> to access your Profile, Message Centre, Help options or to log out.">
-              
-               {{view HubStar.AfterLoginView}}
+
+                {{view HubStar.AfterLoginView}}
             </div>
         </div>
         <div id="Geo-Filter" class="Geo-Filter easing"  {{action dropdown "notification"}} data-step="3" data-intro="New notifications will appear beside the <b>Notification icon</b>. Click the icon to see your latest notifications.">
@@ -68,8 +73,8 @@
 
         {{#if isNotification}}
         <div style="position: relative; float: right; top: 68px; z-index: 100;">
-            <div style="position: absolute;border-color: transparent transparent #f3f3f3 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: 0;"></div>
-            <div style="position: absolute;border-color: transparent transparent #888 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: -1;"></div>
+            <div style="position: absolute;border-color: transparent transparent #f3f3f3 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: 0;top: 5px;"></div>
+            <div style="position: absolute;border-color: transparent transparent #888 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: -1;top: 5px;"></div>
         </div>
         {{render notificationTop}}
         {{/if}}
@@ -78,35 +83,34 @@
         <div id="geo-filter" class="Geo-Filter easing " style="margin-right: 2%;" {{action dropdown "geoLocation"}} data-step="2" data-intro=" Use the <b>Location Filter</b> to filter search results by region.">
             <div style="float: left; font-size: 15px;">Country&nbsp;</div>
             <i class="fa fa-angle-down fa-lg">&nbsp;</i>
-            <div style="position: relative; right:7px;bottom: 26px; font-size: 15px;">{{HubStar.geoLocation}}</div>
+            <div style="position: relative; right: 15px;bottom: 35px; font-size: 15px;text-align: center;">{{HubStar.geoLocation}}</div>
         </div>
         {{#if controller.isGeoDropdown}}
         {{view HubStar.DropdownListView}}
         {{/if}}
 
+
+
     </div>
 
 
-</div>
 
 
 
 
+    <script type="text/javascript">
 
 
-<script type="text/javascript">
+        function setDomain() {
 
+            var api_url = document.domain;
+            var api_domain_start_pos = api_url.indexOf('.');
+            var api_url = api_url.slice(api_domain_start_pos);
 
-    function setDomain() {
-
-        var api_url = document.domain;
-        var api_domain_start_pos = api_url.indexOf('.');
-        var api_url = api_url.slice(api_domain_start_pos);
-
-        return api_url;
-    }
+            return api_url;
+        }
 
 
 
 
-</script>
+    </script>

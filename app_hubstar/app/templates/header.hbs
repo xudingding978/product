@@ -4,41 +4,23 @@
     <div class="navbar-inner">
 
         <div class="brand" data-step="1" data-intro="Click on the <b>Trends logo</b> to return to the main Search Wall." data-position='right'>
-            <a href="/#/search" > <img class="logonew" {{action showDiscoveryBar}} style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png"></a>
-
+            <a href="/#/search" > <img class="logonew" {{action showDiscoveryBar}} src="../../../images/landing-trends.png"></a>
+            <a href="/#/search" > <img class="logonew-small" {{action showDiscoveryBar}} src="../../../images/trendsIcon.png"></a>
         </div>
         <div id="top-about-menu" class="top-about-menu" {{action showAboutDropDown on="click" target="view"}}>
             <i class="fa fa-info" style="color: #555;z-index: 10;position: absolute;left: 9px;font-size: 13px;top: 2px;"></i>
             <i class="fa fa-comment fa-lg" style="font-size: 23px;position: absolute;"></i>
         </div>
-        <ui id="top-menu" class="edit-object-ul" style="display:none;width: 160px;position: absolute;top:80px;left: 120px;">
+        <ul id="top-menu" class="edit-object-ul" style="display:none;width: 160px;position: absolute;top:80px;left: 120px;">
             <li class="ite" > <span><a  target="blank" href="http://about.trendsideas.com/">About</a></span></li>
             <li class="ite" > <span><a target="blank" href="http://about.trendsideas.com/business/">Business</a></span></li>
             <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span></li>
             <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/contact-us/">Contact us</a></span></li>
 
-        </ui>
+        </ul>
 
 
-
-        <div id="search-bar" class="search-bar-ontop" style="display:none">
-            <div id ="navigator" class="Nav-btn easing" style="" {{action dropdownHeaderNavigator}}>
-                 <i class="fa fa-list" style="font-size: 20px;"></i>
-                <div style="line-height: 0;position: relative;bottom: 5px;">Categories</div>
-            </div>
-
-
-            {{#if controller.isHeaderNavigatorDropdown}}
-            {{view HubStar.NavigatorView}}
-            {{/if}}
-            <div class="search-box easing" style="">
-                {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
-                <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;width: 60px"  {{action searching on="click" target="view"}}>
-                    <i class="fa fa-search" style="font-size: 20px;line-height: 3;"></i>
-                </div>
-            </div>
-        </div>
-
+   
 
 
         {{#if HubStar.isLogin}}
@@ -48,12 +30,12 @@
                 {{view HubStar.AfterLoginView}}
             </div>
         </div>
-        
+
         <div id="Geo-Filter" class="Geo-Filter easing"  {{action dropdown "notification"}} data-step="3" data-intro="New notifications will appear beside the <b>Notification icon</b>. Click the icon to see your latest notifications.">
-            <div class="circle-btn"><i class="fa fa-bell fa-lg" style="font-size: 23px;"></i></div>
+            <div class="circle-btn"><i class="fa fa-bell fa-lg" ></i></div>
             <div class="circle-btn-description">Notification</div>
             {{#if isUnReadCountZero}}
-            <div style="cursor: pointer;position: absolute;top: 20px;left: 15px;width: auto;padding: 0 5px 0 4px;height: 15px;background-color: red;line-height: 15px;border-radius: 2px;font-size: 11px;font-weight: bold;">{{unReadCount}}</div>
+            <div class="notification-number">{{unReadCount}}</div>
             {{/if}}
         </div>
         {{else}}
@@ -77,7 +59,7 @@
         {{/if}}
 
         <div id="geo-filter" class="Geo-Filter easing "  {{action dropdown "geoLocation"}} data-step="2" data-intro=" Use the <b>Location Filter</b> to filter search results by region.">
-            <div class="circle-btn" style="line-height: 48px;"><i class="fa fa-globe fa-lg" style="font-size: 30px"></i></div>
+            <div class="circle-btn"><i class="fa fa-globe fa-lg"></i></div>
             <div class="circle-btn-description">Country</div>
             <div class="Geo-Filter-location">{{HubStar.geoLocation}}</div>
         </div>
@@ -85,31 +67,74 @@
         {{#if controller.isGeoDropdown}}
         {{view HubStar.DropdownListView}}
         {{/if}}
+<div class="search-bar-on-large-screen" >
+        <div id="search-bar" class="search-bar-ontop" style="display:none">
+            <div id ="navigator" class="Nav-btn easing" style="" {{action dropdownHeaderNavigator}}>
+                 <i class="fa fa-list" style="font-size: 20px;"></i>
+                <div style="line-height: 0;position: relative;bottom: 5px;">Categories</div>
+            </div>
 
-        <div  id="topResidentialCommerical" style=" display:none;">
-            <div id="residential1" class="residentialCommericalTop residentialCommerical-selected"   {{action residential on="click" target="view"}}>Residential</div>
-            <div id="commercial1" class="residentialCommericalTop residentialCommerical-selected"  {{action commercial on="click" target="view"}}>Commercial</div>
+
+            {{#if controller.isHeaderNavigatorDropdown}}
+            {{view HubStar.NavigatorView}}
+            {{/if}}
+            <div class="search-box easing" style="">
+                {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
+                <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;width: 60px"  {{action searching on="click" target="view"}}>
+                    <i class="fa fa-search" style="font-size: 20px;line-height: 3;"></i>
+                </div>
+            </div>
         </div>
+         <div  id="topResidentialCommerical" style=" display:none;">
+            <div id="residential1" class="residentialCommericalTop residentialCommerical-selected easing"   {{action residential on="click" target="view"}}>Residential</div>
+            <div id="commercial1" class="residentialCommericalTop residentialCommerical-selected easing"  {{action commercial on="click" target="view"}}>Commercial</div>
+        </div>
+</div>
+       
     </div>
 
 
 
 
+<div class="search-bar-on-small-screen">
+
+    <div id="search-bar" class="search-bar-ontop">
+        <div id ="navigator" class="Nav-btn easing" style="" {{action dropdownHeaderNavigator}}>
+             <i class="fa fa-list" style="font-size: 20px;"></i>
+        </div>
+        {{#if controller.isHeaderNavigatorDropdown}}
+        {{view HubStar.NavigatorView}}
+        {{/if}}
+        <div class="search-box easing" style="">
+            {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
+            <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
+                <i class="fa fa-search" style="font-size: 20px;"></i>
+            </div>
+        </div>
+    </div>
+
+    <div  id="topResidentialCommerical">
+        <div id="residential1" class="residentialCommericalTop residentialCommerical-selected easing"   {{action residential on="click" target="view"}}>Residential</div>
+        <div id="commercial1" class="residentialCommericalTop residentialCommerical-selected easing"  {{action commercial on="click" target="view"}}>Commercial</div>
+    </div>
+
+</div>
+</div>
 
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
 
-        function setDomain() {
+    function setDomain() {
 
-            var api_url = document.domain;
-            var api_domain_start_pos = api_url.indexOf('.');
-            var api_url = api_url.slice(api_domain_start_pos);
+        var api_url = document.domain;
+        var api_domain_start_pos = api_url.indexOf('.');
+        var api_url = api_url.slice(api_domain_start_pos);
 
-            return api_url;
-        }
-
-
+        return api_url;
+    }
 
 
-    </script>
+
+
+</script>

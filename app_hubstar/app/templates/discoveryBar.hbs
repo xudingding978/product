@@ -6,12 +6,12 @@
 <div id="discovery_search_bar_wrapper" style="z-index: 10;margin-bottom: -55px;">
 
     <div style="position: absolute; top: 140px; width: 880px;left:0; right: 0; margin: auto;text-align: center">
-<div>
-    <div id="select-text" style="font-size: 50px;color: white;font-weight: bold;display:block;">Select a category to start browsing</div>
-     <div id="welcome-text" style="font-size: 50px;color: white;font-weight: bold;display:none;text-align: center;">Welcome to MyTrends</div>
-     <div id="residential" class="residentialCommerical residentialCommerical-selected"   {{action residential on="click" target="view"}}>Residential</div>
-     <div id="commercial" class="residentialCommerical residentialCommerical-selected"  {{action commercial on="click" target="view"}}>Commercial</div>
-</div>
+        <div>
+            <div id="select-text" style="font-size: 50px;color: white;font-weight: bold;display:block;">Select a category to start browsing</div>
+            <div id="welcome-text" style="font-size: 50px;color: white;font-weight: bold;display:none;text-align: center;">Welcome to MyTrends</div>
+            <div id="residential" class="residentialCommerical residentialCommerical-selected easing"   {{action residential on="click" target="view"}}>Residential</div>
+            <div id="commercial" class="residentialCommerical residentialCommerical-selected easing"  {{action commercial on="click" target="view"}}>Commercial</div>
+        </div>
     </div>
 
     <div class="search-bar" style="">
@@ -33,7 +33,7 @@
 
     <div class="popular-topics" style="">
         <span style="float: left;color: white;font-family: Georgia, serif;font-style: italic;margin: 5px 10px;">Most Popular Topics:</span>
-        
+
         {{#if controller.residentialKeyword}}
         <div {{action topicSearch "New Homes"}} >NEW HOMES</div>
         <div {{action topicSearch "Kitchens"}} >KITCHEN</div>
@@ -41,16 +41,16 @@
         <div {{action topicSearch "Renovations"}} >RENOVATIONS</div>
         <div {{action topicSearch "Outdoor Living"}} >OUTDOOR LIVING</div>
         <div {{action topicSearch "Interior"}} >INTERIOR</div>
-{{else}}
+        {{else}}
         <div {{action topicSearch "Office"}} >OFFICE</div>
         <div {{action topicSearch "Civic"}} >CIVIC DESIGN</div>
         <div {{action topicSearch "Education"}} >EDUCATION</div>
         <div {{action topicSearch "Hospitality"}} >HOSPITALITY</div>
         <div {{action topicSearch "Retail"}} >RETAIL</div>
         <div {{action topicSearch "Apartment"}} >APARTMENT</div>
-        
+
         {{/if}}
-        
+
     </div>
 
 </div>

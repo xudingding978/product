@@ -43,6 +43,12 @@
 
 .logonew{
     height: 35px;
+
+}
+.logonew-small{
+    display: none;
+    height: 35px;
+    margin: 15px 0;
 }
 
 #user-dd-menu{
@@ -100,8 +106,7 @@
     display: inline-block;
     font-weight: bold;
     font-size: 30px;
-    color: black;
-    background-color: white;
+    color: #fff;
     text-align: center;
     padding: 20px 45px;
     position: relative;
@@ -109,10 +114,10 @@
     border-radius: 5px;
     margin: 5px;
     cursor: pointer;
-    opacity: .4;
+    border: 1px solid #ddd;
 }
 
-.residentialCommerical:hover{opacity: .9}
+.residentialCommerical:hover{background-color: #fff; color: #333}
 
 #topResidentialCommerical{
     top:5px;
@@ -122,10 +127,9 @@
 }
 
 .residentialCommericalTop{
-    display:block;
+    display: block;
     font-weight: bold;
-    color: black;
-    background-color: white;
+    color: #fff;
     text-align: center;
     position: relative;
     line-height: 20px;
@@ -133,15 +137,13 @@
     margin: 5px;
     cursor: pointer;
     padding: 5px 15px;
-    opacity: .4;
     font-size: 15px;
+    border: 1px solid #aaa;
 }
 
-.residentialCommericalTop:hover{opacity: .8}
+.residentialCommericalTop:hover{background-color: #fff; color: #555}
 
-.residentialCommerical-selected{
-    opacity: 1;
-}
+.residentialCommerical-selected{background-color: #fff; color: #555;}
 
 #discovery_search_bar_wrapper {
     height: 520px;
@@ -860,6 +862,22 @@ div#forgot-password-container{
     line-height: 15px;
 }
 
+.circle-btn > .fa-globe{font-size: 30px;line-height: 35px;}
+.circle-btn > .fa-bell{font-size: 23px;}
+
+.notification-number{
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    width: auto;
+    padding: 0 5px 0 4px;
+    background-color: red;
+    line-height: 15px;
+    border-radius: 2px;
+    font-size: 11px;
+}
+
 .Geo-Filter-location{
     position: relative;
     bottom: 37px;
@@ -879,6 +897,41 @@ div#forgot-password-container{
     right: 0;
     z-index: 1;
 }
+
+.search-bar-on-small-screen{
+    display: none;
+    height: 60px;
+    width: 100%;
+    background-color: rgba(0,0,0,.8);
+    position: absolute;
+    padding: 0 3%;
+}
+.search-bar-on-small-screen .Nav-btn{
+    width: 50px;
+    height: 40px;
+    line-height: 45px;
+}
+.search-bar-on-small-screen .search-bar-ontop{
+    height: 40px;
+    top: 9px;
+
+}
+.search-bar-on-small-screen .search-box > input{
+    height: 40px;
+}
+.search-bar-on-small-screen .residentialCommericalTop{
+    bottom: 5px;
+    display: inline-block;
+}
+search-bar-on-small-screen #topResidentialCommerical{
+    float: none;
+    margin: 2px 15%;
+}
+
+
+.search-bar-on-large-screen{ display: block;}
+
+
 
 /* Clint Lewis's style's 29/10/13 */
 
@@ -1006,28 +1059,24 @@ div#forgot-password-container{
 }
 
 
-@media only screen 
-and (max-width : 1300px) {
-    #top-about-menu{
-        display:none!Important;
+@media only screen and (max-width : 1200px) {
+
+    .search-bar-on-small-screen{
+        display: block;   
     }
-    #topResidentialCommerical{
-        right:1%;
+    .search-bar-on-large-screen{
+        display: none;
     }
 }
 
 
-@media only screen 
-and (max-width : 1150px) {
-    #topResidentialCommerical{
-        display:none!Important;
-    }
+
+@media only screen and (min-width : 768px) and (max-width : 979px) {
 
 }
 
 
-@media only screen 
-and (max-width : 900px) {
+@media only screen and (max-width : 767px) {
     .promotion-line{ display: none; }
 
     .interest-image-container{width: 70px; height: 70px;}
@@ -1042,12 +1091,37 @@ and (max-width : 900px) {
 
     .registraion-suceesful-message{font-size: 11px; line-height: 15px;}
 
+    .circle-btn-description{display:none!Important;}
+    .Geo-Filter-location{bottom:20px;}
+    .Geo-Filter{margin-top: 15px;}
 
+    .logonew-small{
+        display:block;
+    }
+    .logonew{
+        display:none;
+    }
+
+    .search-bar-on-small-screen .search-bar-ontop{
+        max-width: 75%;
+
+    }
+    .search-bar-on-small-screen .search-box{
+        height: 40px;
+        width: 64%;
+    }
+    .search-bar-on-small-screen .residentialCommericalTop{
+        bottom: 5px;
+        display: block;
+        padding: 1px 6px;
+        font-size: 13px;
+    }
+    .search-bar-on-small-screen #topResidentialCommerical{
+        position: absolute;
+        right: 0;
+        margin: 0;
+    }
 }
-
-
-
-
 @media only screen 
 and (max-width : 480px) {
     #fadein-image{ display: none!important;}

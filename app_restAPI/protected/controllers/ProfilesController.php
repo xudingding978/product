@@ -191,7 +191,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['show_template'] = $newRecord['show_template'];
 
             $oldRecord['profile'][0]['show_keyword_id'] = $newRecord['show_keyword_id'];
-            $oldRecord['profile'][0]['pdf_id'] = $newRecord['pdf_id'];
+//            $oldRecord['profile'][0]['pdf_id'] = $newRecord['pdf_id'];
             $cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true));
 //            if ($setProfileName) {
 ////                ERunActions::touchUrlExt('http://api.develop.trendsideas.com/profiles/backgroundProcess',$postData=null,$contentType=null,$httpClientConfig=array());

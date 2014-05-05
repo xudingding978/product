@@ -213,8 +213,9 @@ class Controller extends CController {
             $videoOwnerId = $this->getUserInput($requireParams[1]);
             $response = $this->getVideoesByOwner($returnType, $videoOwnerId);
         } elseif ($requireType == 'pdf') {
-            $videoOwnerId = $this->getUserInput($requireParams[1]);
-            $response = $this->getPdfByOwner($returnType, $videoOwnerId);
+            $owner_id = $this->getUserInput($requireParams[1]);
+            $response = $this->getPdfByOwner($owner_id);
+            $response = $this->profileSetting($response, $returnType, 'pdf');
         } elseif ($requireType == 'singleVideo') {
 
             $videoid = $this->getUserInput($requireParams[1]);
@@ -225,18 +226,38 @@ class Controller extends CController {
         return $response;
     }
     
-    protected function getPdfByOwner($returnType, $videoOwnerId) {
-        $conditions = array();
-        $requestStringOne = 'couchbaseDocument.doc.type=pdf';
-        array_push($conditions, $requestStringOne);
-        $requestStringTwo = 'couchbaseDocument.doc.owner_id=' . $videoOwnerId;
-        array_push($conditions, $requestStringTwo);
+    protected function getPdfByOwner($owner_id) {
+         $cb = $this->couchBaseConnection();
+
+        $tempResult = $this->getDomain() . "/profiles/" . $owner_id;
+        $tempResult = $cb->get($tempResult);
 
 
-        $tempResult = $this->searchWithCondictions($conditions, 'must');
-        $response = $this->getReponseResult($tempResult, $returnType);
 
-        return $response;
+        $mega = CJSON::decode($tempResult, true);
+        if ($mega['profile'][0]['pdf_id'] == null || $mega['profile'][0]['pdf_id'] == 'undefined' || $mega['profile'][0]['pdf_id'] == "") {
+            $mega['profile'][0]['pdf_id'] = "";
+        } else {
+            $pdf_Id = explode(",", $mega['profile'][0]['pdf_id']);
+            $response = Array();
+            $megas = Array();
+
+
+            for ($i = 0; $i < sizeof($pdf_Id); $i++) {
+                if ($pdf_Id[$i] !== "") {
+                    $owner = $this->getDomain() . "/" . trim($pdf_Id[$i]);
+                    $mega = $cb->get($owner);
+                    $megaNew = CJSON::decode($mega, true);
+                    if ($megaNew !== null && $megaNew !== "") {
+                        array_push($megas, $megaNew);
+                    }
+                }
+            }
+        }
+        
+
+        $response["megas"] = $megas;
+        return CJSON::encode($response);
     }
 
     protected function getVideoesByOwner($returnType, $videoOwnerId) {

@@ -32,7 +32,7 @@ class PdfsController extends Controller {
         $pdf_mega['object_description'] = $request_arr['pdf_desc'];
         $pdf_mega['object_image_url'] = $request_arr['pdf_cover_image'];
         $pdf_mega['pdf'][0]['pdf_url']  = $this->savePdfToS3($request_arr);  
-//        $this->saveIDToProfile($request_arr['id'], $request_arr['pdf_profile_id']);
+        $this->saveIDToProfile($request_arr['id'], $request_arr['pdf_profile_id']);
 //
 //
         if ($cb->set($docID, CJSON::encode($pdf_mega))) {
@@ -43,13 +43,18 @@ class PdfsController extends Controller {
     }
     
     
-//    public function saveIDToProfile($id, $profile_id) {
-//        $cb = $this->couchBaseConnection();
-//        $docID = $this->getDomain() . "/profiles/" . $profile_id;
-//        $profile_json = $cb->get($docID);
-//        $profile_mega = CJSON::decode($profile_json);
-//        $profile_mega
-//    }
+    public function saveIDToProfile($id, $profile_id) {
+        $cb = $this->couchBaseConnection();
+        $docID = $this->getDomain() . "/profiles/" . $profile_id;
+        $profile_json = $cb->get($docID);
+        $profile_mega = CJSON::decode($profile_json);
+        if ($profile_mega['profile'][0]['pdf_id'] ==null || $profile_mega['profile'][0]['pdf_id'] =='undefined') {
+            $profile_mega['profile'][0]['pdf_id'] = $id;
+        } else {
+            $profile_mega['profile'][0]['pdf_id'] = $profile_mega['profile'][0]['pdf_id'] . "," . $id;
+        }
+        $cb -> set($docID, CJSON::encode($profile_mega));
+    }
     
     public function savePdfToS3($request_arr) {
         error_log('savetos3');

@@ -582,7 +582,7 @@ HubStar.UserController = Ember.Controller.extend({
         {
             update_user_record.set('collections', this.get('collections'));
             update_user_record.set('description', this.get('description'));
-            update_user_record.set('display_name', this.get('display_name'));
+            update_user_record.set('display_name', this.get('display_name').replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));
             update_user_record.set('first_name', this.get('first_name'));
             update_user_record.set('last_name', this.get('last_name'));
             update_user_record.set('about_me', this.get('about_me'));
@@ -592,6 +592,7 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('about_me', this.get('about_me'));
             this.get('controllers.applicationFeedback').statusObserver(null, "General Settings updated.");
             update_user_record.store.save();
+            this.set("display_name",this.get('display_name').replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));
         }
         else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please check if you have already filled the mandatory field.", "warnning");

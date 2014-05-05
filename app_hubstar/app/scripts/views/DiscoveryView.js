@@ -1,5 +1,11 @@
 HubStar.DiscoveryView = Ember.View.extend({
     templateName: 'discoveryBar',
+     didInsertElement: function() {
+      var that = this;
+        $(document).ready(function() {
+            
+        });
+     },
     searching: function() {
         if (this.get("controller").get('loadingTime') === false) {
             if (this.$("#search_business").val() !== null && this.$("#search_business").val() !== "" && this.$("#search_business").val() !== undefined)
@@ -24,11 +30,47 @@ HubStar.DiscoveryView = Ember.View.extend({
                 }
                 HubStar.set("escVideo", false);
                 this.get("controller").transitionToRoute('search', {id: search_key});
-//        this.get("controller").send("newSearch", area, search_key);
             }
             else {
-//                this.get("controller").get('controllers.applicationFeedback').statusObserver(null, "Please insert  keywords to search.", "warnning");
             }
         }
+    },
+    residential: function() {
+
+        if ($("#commercial").hasClass("residentialCommerical-selected")) {
+            if ($("#residential").hasClass("residentialCommerical-selected")) {
+                $("#residential").removeClass("residentialCommerical-selected");
+                localStorage.resOrcom = "commercial";
+            } else {
+                $("#residential").addClass("residentialCommerical-selected");
+                localStorage.resOrcom = "All";
+            }
+        }
+        else {
+            $("#commercial").addClass("residentialCommerical-selected");
+            $("#residential").removeClass("residentialCommerical-selected");
+            localStorage.resOrcom = "commercial";
+        }
+        this.get("controller").residentialCommercialStatus();
+        this.get("controller").changeBackground();
+    },
+    commercial: function() {
+        if ($("#residential").hasClass("residentialCommerical-selected")) {
+            if ($("#commercial").hasClass("residentialCommerical-selected")) {
+                $("#commercial").removeClass("residentialCommerical-selected");
+                localStorage.resOrcom = "residential";
+            } else {
+                $("#commercial").addClass("residentialCommerical-selected");
+                localStorage.resOrcom = "All";
+            }
+        }
+        else {
+            $("#residential").addClass("residentialCommerical-selected");
+            $("#commercial").removeClass("residentialCommerical-selected");
+            localStorage.resOrcom = "residential";
+        }
+         this.get("controller").residentialCommercialStatus();
+        this.get("controller").changeBackground();
+
     }
 });

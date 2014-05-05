@@ -17,16 +17,11 @@ and open the template in the editor.
                 <div style=" font-size: 1em;  width: 450px; margin: 0 auto;">This could be the result of the page being removed, the name being changed or the page being temporarily unavailable.</div>
             </div>
 
-            <div class="search-bar" style="width: 505px;min-width: 0;top: 0;position: relative;margin-top: 30px;">
-                <div id ="navigator" class="Nav-btn easing" style="float: left;" {{action dropdownNavigator}}><i class="fa fa-list"></i></div>
-                {{#if controller.isNavigatorDropdown}}
-                {{view HubStar.NavigatorView}}
-                {{/if}}
-
+            <div class="search-bar" style="width: 50%;position: absolute;left: 38%;">
                 <div class="search-box easing" style="width: 450px;">
                     {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="errorpage_search" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
-                    <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -50px; right: -5px;border-left: 1px solid #ddd;"  {{action searching }}>
-                         <i class="fa fa-search"></i>
+                    <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;"  {{action searching }}>
+                         <i class="fa fa-search" style="font-size: 20px;line-height: 3;"></i>
                     </div>
                 </div>
             </div>

@@ -174,6 +174,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
     },
     getInitData: function(megaObject) {
+          
         var that = this;
         megaObject.then(function() {
             that.set("is_article_video", true);
@@ -252,6 +253,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
             requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function() {
             });
         });
+
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+        }
     },
     addRelatedData: function(mega)
     {

@@ -7,9 +7,11 @@
             <a href="/#/search" > <img class="logonew" {{action showDiscoveryBar}} style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png"></a>
 
         </div>
-        <div id="top-about-menu" class="top-about-menu" style="display:block; cursor: pointer;font-size: 15px;padding: 10px;font-weight: bold;"{{action showAboutDropDown on="click" target="view"}}>About&nbsp;<i class="fa fa-angle-down fa-lg">&nbsp;</i></div>
-
-        <ui id="top-menu" class="edit-object-ul" style="display:none;width: 160px;position: absolute;top:80px;left: 180px;">
+        <div id="top-about-menu" class="top-about-menu" {{action showAboutDropDown on="click" target="view"}}>
+            <i class="fa fa-info" style="color: #555;z-index: 10;position: absolute;left: 9px;font-size: 13px;top: 2px;"></i>
+            <i class="fa fa-comment fa-lg" style="font-size: 23px;position: absolute;"></i>
+        </div>
+        <ui id="top-menu" class="edit-object-ul" style="display:none;width: 160px;position: absolute;top:80px;left: 120px;">
             <li class="ite" > <span><a  target="blank" href="http://about.trendsideas.com/">About</a></span></li>
             <li class="ite" > <span><a target="blank" href="http://about.trendsideas.com/business/">Business</a></span></li>
             <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span></li>
@@ -88,7 +90,6 @@
             <div id="residential1" class="residentialCommericalTop residentialCommerical-selected"   {{action residential on="click" target="view"}}>Residential</div>
             <div id="commercial1" class="residentialCommericalTop residentialCommerical-selected"  {{action commercial on="click" target="view"}}>Commercial</div>
         </div>
-
     </div>
 
 

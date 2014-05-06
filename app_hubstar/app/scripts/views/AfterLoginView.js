@@ -13,6 +13,7 @@ HubStar.AfterLoginView = Ember.View.extend({
         //this.get('controller').transitionTo("searchIndexTom");
         document.cookie = 'Session=; path=/; domain=.trendsideas.com; expires=Thu, 01 Jan 1970 00:00:00 GMT';
         location.reload();
+       
     },
     showUserDropDown: function() {
         if ($('#user-dd-menu').attr('display') === 'block') {
@@ -45,10 +46,8 @@ HubStar.AfterLoginView = Ember.View.extend({
              $("#cancel").css("display", "none");
 
         } else if (checking === "new") {
-          //  this.get("controller").set("newProfile", true);
-           // this.loadProfile();
-             location.href ="#/profiles/new";
-            $("#user-dd-menu").attr("style", "display:none");
+            this.get("controller").set("newProfile", true);
+            this.loadProfile();
              $("#cancel").css("display", "none");
         }
 

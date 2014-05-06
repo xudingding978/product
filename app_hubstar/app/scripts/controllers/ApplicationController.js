@@ -746,9 +746,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     dropdown: function(checking) {
         if (checking === "geoLocation") {
-            this.set('isGeoDropdown', !this.get('isGeoDropdown'));
+             this.set('isGeoDropdown', !this.get('isGeoDropdown'));
             $('#geo-filter').addClass('Geo-Filter-active');
-
+           
         } else if (checking === "notification") {
 
             this.set("isNotification", !this.get("isNotification"));

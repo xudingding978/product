@@ -4,8 +4,6 @@ HubStar.UserView = Ember.View.extend({
     didInsertElement: function() {
 
         $(".navbar").css("box-shadow", "0 0 10px #333");
-        //    $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-
         var container = document.querySelector('#masonry_user_container');
         var msnry = new Masonry(container, {
             itemSelector: '.box',
@@ -76,6 +74,7 @@ HubStar.UserView = Ember.View.extend({
                     $(".search-bar-on-small-screen").css('display', "block");
                     $(".user-board").css("top", "30px");
                 }
+
             });
 
         });

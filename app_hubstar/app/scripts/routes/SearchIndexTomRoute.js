@@ -19,7 +19,6 @@ HubStar.SearchIndexTom = Ember.Route.extend({
        // $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
        // $('#masonry_wrapper').attr('style', "top:100px;position:relative");
         
-
     },
     events: { 
     },

@@ -57,6 +57,16 @@
         </div>
 
         <div class="mainfeature">
+
+            {{#if controller.megaResouce.getArticle}}
+
+            <div class="click-to-read-hit-area easing" {{action transitionToArticle controller.megaResouce.id}}>
+                <div class="click-to-read-btn easing">
+                         <i class="fa fa-book">&nbsp;</i>click to read
+                </div>
+            </div>
+            {{/if}}
+
             <div class="previous" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="controller"}}></div>
             <div class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="controller"}}></div>
 

@@ -1041,6 +1041,40 @@ div.album-description-bg{
     z-index: -1;
 }
 
+.click-to-read-hit-area{
+    position: absolute;
+    margin: auto;
+    width: 350px;
+    height: 90%;
+    left: 0;
+    right: 0;
+    top: 50px;
+    cursor: pointer;
+}
+
+.click-to-read-hit-area:hover{background-color: rgba(0,0,0,.2);}
+
+.click-to-read-btn{
+    display: none;
+    width: 350px;
+    height: 60px;
+    text-align: center;
+    background: rgba(0,0,0,.7);
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+    margin: auto;
+    line-height: 56px;
+    top: 46%;
+    border-radius: 3px;
+    position: absolute;
+}
+
+.click-to-read-hit-area:hover .click-to-read-btn{
+    display: block;
+}
+
+
 .next {
     cursor: url(../../../images/nextcursor.png), auto;
 }
@@ -2204,21 +2238,24 @@ div.album-description-bg{
         height: 620px;
         width: 400px;
     }
-
 }
 
 @media (max-width:768px){
     #cta-popup{
         right: 10%;
         left:10%;
-        
-
     }
-    .inner{
 
+    .inner{
         margin:0 auto;
     }
 
 }
 
 
+@media only screen and (max-width : 1024px) {
+    .click-to-read-btn{
+        display: block;
+    }
+
+}

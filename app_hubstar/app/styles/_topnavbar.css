@@ -148,7 +148,7 @@
 #discovery_search_bar_wrapper {
     height: 520px;
     width: 100%;
-    background: url(../../images/discoverybarbg.jpg);
+   // background: url(../../images/discoverybarbg.jpg);
     background-size: 100% 100%;
     background-position: left top;
     position: relative;
@@ -880,13 +880,9 @@ div#forgot-password-container{
 
 .Geo-Filter-location{
     position: relative;
-    bottom: 37px;
-    font-size: 11px;
-    text-align: center;
-    line-height: 18px;
-    background-color: rgba(0,0,0,.2);
-    padding: 0 5px;
-    margin: 5px 0;
+    font-size: 15px;
+    line-height: 15px;
+
 }
 
 .user-menu-hit-area{
@@ -1092,8 +1088,26 @@ search-bar-on-small-screen #topResidentialCommerical{
     .registraion-suceesful-message{font-size: 11px; line-height: 15px;}
 
     .circle-btn-description{display:none!Important;}
-    .Geo-Filter-location{bottom:20px;}
+
+    .Geo-Filter-location{
+        bottom: 20px;
+        font-size: 11px;
+        text-align: center;
+        line-height: 18px;
+        background-color: rgba(0,0,0,.2);
+        padding: 0 5px;
+        margin: 5px 0;
+    }
     .Geo-Filter{margin-top: 15px;}
+    
+    .notification-number{right: 0px;}
+    
+    .Dropdownstyle2{
+        right:115px !important;
+    }
+    #top-menu{
+        left:0px !important;
+    }
 
     .logonew-small{
         display:block;

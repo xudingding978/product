@@ -101,7 +101,7 @@ HubStar.SearchRoute = Ember.Route.extend({
 
         $(document).ready(function() {
             setTimeout(function() {
-                $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
+         //       $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
             
                 if ($(window).width() > 1200) {
                     $("#search-bar").css('display', "block");

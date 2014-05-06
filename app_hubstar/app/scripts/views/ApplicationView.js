@@ -33,6 +33,7 @@ HubStar.ApplicationView = Ember.View.extend({
                             $("#search-bar").css('display', "block");
                             $("#topResidentialCommerical").css('display', "block");
                             $(".search-bar-on-small-screen").css('display', "none");
+                            
                         } else {
                             $("#search-bar").css('display', "none");
                             $("#topResidentialCommerical").css('display', "none");

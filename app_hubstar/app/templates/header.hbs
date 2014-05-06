@@ -60,8 +60,7 @@
 
         <div id="geo-filter" class="Geo-Filter easing "  {{action dropdown "geoLocation"}} data-step="2" data-intro=" Use the <b>Location Filter</b> to filter search results by region.">
             <div class="circle-btn"><i class="fa fa-globe fa-lg"></i></div>
-            <div class="circle-btn-description">Country</div>
-            <div class="Geo-Filter-location">{{HubStar.geoLocation}}</div>
+            <div id="countryLocation" class="Geo-Filter-location">{{HubStar.geoLocation}}</div>
         </div>
 
         {{#if controller.isGeoDropdown}}

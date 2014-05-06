@@ -2059,9 +2059,9 @@ div.album-description-bg{
          .left styles
 ================================*/
 
-#cta-popup .left{
+#cta-popup > .inner >.left{
     float:left;
-    width:100%;
+    width:300px;
     margin:0 auto;
     padding:20px;
     position:relative;
@@ -2072,7 +2072,7 @@ div.album-description-bg{
          .right styles
 ================================*/
 
-#cta-popup .right{
+.right{
     float:right;
     padding:20px;
 }
@@ -2081,7 +2081,7 @@ div.album-description-bg{
          .help styles
 ================================*/
 
-#cta-popup .help{
+.help{
     position:absolute;
     top:550px;
     left:15%;
@@ -2097,7 +2097,7 @@ div.album-description-bg{
          .nothanks styles
 ================================*/
 
-#cta-popup .nothanks{
+.nothanks{
     position:absolute;
     top:550px;
     right:15%;
@@ -2112,7 +2112,7 @@ div.album-description-bg{
 /*===============================
          .inner styles
 ================================*/
-#cta-popup .inner{
+.inner{
     width:816px;
     margin:0 auto;
 }
@@ -2121,7 +2121,7 @@ div.album-description-bg{
        .registerbtn styles 
  ===============================*/
 
-#cta-popup .registerbtn {
+.registerbtn {
     -moz-box-shadow:inset 0px 1px 0px 0px #fce2c1;
     -webkit-box-shadow:inset 0px 1px 0px 0px #fce2c1;
     box-shadow:inset 0px 1px 0px 0px #fce2c1;
@@ -2157,13 +2157,12 @@ div.album-description-bg{
     text-shadow:1px 1px 0px #cc9f52;
     margin:10px 5px 0 10px;
 }
-#cta-popup .registerbtn:hover {
+.registerbtn:hover {
     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fb9e25), color-stop(1, #ffc477) );
     background:-moz-linear-gradient( center top, #fb9e25 5%, #ffc477 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fb9e25', endColorstr='#ffc477');
     background-color:#fb9e25;
-}
-#cta-popup .registerbtn:active {
+}.registerbtn:active {
     position:relative;
     top:1px;
 }
@@ -2172,7 +2171,7 @@ div.album-description-bg{
        .loginbtn styles 
  ===============================*/
 
-#cta-popup .loginbtn {
+.loginbtn {
     -moz-box-shadow:inset 0px 1px 0px 0px #5a9abc;
     -webkit-box-shadow:inset 0px 1px 0px 0px #5a9abc;
     box-shadow:inset 0px 1px 0px 0px #5a9abc;
@@ -2207,26 +2206,25 @@ div.album-description-bg{
     text-align:center;
     text-shadow:1px 1px 0px #03192e;
 }
-#cta-popup .loginbtn:hover {
+.loginbtn:hover {
     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #264c6e), color-stop(1, #5a9abd) );
     background:-moz-linear-gradient( center top, #264c6e 5%, #5a9abd 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#264c6e', endColorstr='#5a9abd');
     background-color:#264c6e;
-}
-#cta-popup.loginbtn:active {
+}.loginbtn:active {
     position:relative;
     top:1px;
 }
 
 @media (max-width: 1280px){
-    #cta-popup .left{
+    .left{
         float:none;
         display:block;
         left:-100px;
         top:-10px;
     }
 
-    #cta-popup .right{
+    .right{
         display:block;
         float:none;
         position:relative;
@@ -2248,7 +2246,7 @@ div.album-description-bg{
         left:10%;
     }
 
-    #cta-popup .inner{
+    .inner{
         margin:0 auto;
     }
 
@@ -2256,7 +2254,7 @@ div.album-description-bg{
 
 
 @media only screen and (max-width : 1024px) {
-    #cta-popup .click-to-read-btn{
+    .click-to-read-btn{
         display: block;
     }
 

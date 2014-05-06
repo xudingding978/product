@@ -34,7 +34,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('application').set('isotherpage', false);
         this.controllerFor('mega').set('from', "search");
         $(".navbar").css("box-shadow", "");
-        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+      //  $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
     },
     events: {
         transitionToPhoto: function(id) {
@@ -87,7 +87,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
 
             setTimeout(function() {            
                  that.controllerFor('application').residentialCommercialStatus();
-              //     that.controllerFor('application').changeBackground();
+                 that.controllerFor('application').changeBackground();
             }, 50);
 
         });

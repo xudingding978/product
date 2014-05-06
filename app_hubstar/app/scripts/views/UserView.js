@@ -2,26 +2,17 @@ HubStar.UserView = Ember.View.extend({
     templateName: 'user',
 //       interestsActive:false,
     didInsertElement: function() {
-        $("#top-about-menu").css('display', 'none');
-        $("#search-bar").css('display', 'block');
+
         $(".navbar").css("box-shadow", "0 0 10px #333");
-        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-        
+        //    $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+
         var container = document.querySelector('#masonry_user_container');
         var msnry = new Masonry(container, {
-             itemSelector: '.box',
-                columnWidth: 185,
-                //isInitLayout: false,
-                isFitWidth: true
+            itemSelector: '.box',
+            columnWidth: 185,
+            //isInitLayout: false,
+            isFitWidth: true
         });
-        
-//        $(function() {
-//            $('#masonry_user_container').masonry({
-//                itemSelector: '.box',
-//                columnWidth: 185,
-//                isFitWidth: true
-//            });
-//        });
 
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[3];
@@ -73,29 +64,26 @@ HubStar.UserView = Ember.View.extend({
         }
 
         $(document).ready(function() {
-
-            $("#about_us_contentsssssssw").mCustomScrollbar({
-                scrollButtons: {
-                    enable: false, 
-                    scrollSpeed: "auto"
-                },
-                advanced: {
-                    updateOnBrowserResize: true,
-                    updateOnContentResize: true,
-                    autoScrollOnFocus: false,
-                    normalizeMouseWheelDelta: false
-                },
-                autoHideScrollbar: true,
-                mouseWheel: true,
-                theme: "dark-2",
-                set_height: 30
+            $(window).resize(function() {
+                if ($(window).width() > 1200) {
+                    $("#search-bar").css('display', "block");
+                    $("#topResidentialCommerical").css('display', "block");
+                    $(".search-bar-on-small-screen").css('display', "none");
+                    $(".user-board").css("top", "0");
+                } else {
+                    $("#search-bar").css('display', "none");
+                    $("#topResidentialCommerical").css('display', "none");
+                    $(".search-bar-on-small-screen").css('display', "block");
+                    $(".user-board").css("top", "30px");
+                }
             });
+
         });
 
     },
     showInterestsUp: function() {
 
-        
+
         if ($('#interest_btn').hasClass('fa-angle-double-up') && this.get('controller').get('interestsActive') === false) {
 
             this.get('controller').set('followDisplay', false);

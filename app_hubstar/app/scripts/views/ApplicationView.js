@@ -25,22 +25,38 @@ HubStar.ApplicationView = Ember.View.extend({
         $(document).ready(function() {
 
             $(window).resize(function() {
-                if (window.pageYOffset > scroll_pos_test) {
-                    if ($(window).width() > 1200) {
-                        $("#search-bar").fadeIn(320);
-                        $("#topResidentialCommerical").fadeIn(320);
-                        $(".search-bar-on-small-screen").css('display', "none");
-                    } else {
-                        $("#search-bar").css('display', "none");
-                        $("#topResidentialCommerical").css('display', "none");
-                        $(".search-bar-on-small-screen").fadeIn(320);
+     
+
+                if (HubStar.get('showDiscoveryBar') === true) {
+                    if (window.pageYOffset > scroll_pos_test) {
+                        if ($(window).width() > 1200) {
+                            $("#search-bar").css('display', "block");
+                            $("#topResidentialCommerical").css('display', "block");
+                            $(".search-bar-on-small-screen").css('display', "none");
+                        } else {
+                            $("#search-bar").css('display', "none");
+                            $("#topResidentialCommerical").css('display', "none");
+                            $(".search-bar-on-small-screen").css('display', "block");
+                        }
                     }
-                }
-                else {
-                    $("#search-bar").css('display', "none");
+                    else {
+                        $("#search-bar").css('display', "none");
                         $("#topResidentialCommerical").css('display', "none");
                         $(".search-bar-on-small-screen").css('display', "none");
 
+                    }
+                } else {
+                    if ($(window).width() > 1200) {
+                        $("#search-bar").css('display', "block");
+                        $("#topResidentialCommerical").css('display', "block");
+                        $(".search-bar-on-small-screen").css('display', "none");
+                         $('#masonry_container').css('top', "100px");
+                    } else {
+                        $("#search-bar").css('display', "none");
+                        $("#topResidentialCommerical").css('display', "none");
+                        $(".search-bar-on-small-screen").css('display', "block");
+                         $('#masonry_container').css('top', "150px");
+                    }
                 }
 
             });

@@ -74,10 +74,10 @@
                     <div style="line-height: 0;position: relative;bottom: 5px;">Categories</div>
                 </div>
 
-
                 {{#if controller.isHeaderNavigatorDropdown}}
                 {{view HubStar.NavigatorView}}
                 {{/if}}
+
                 <div class="search-box easing" >
                     {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
                     <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;width: 60px"  {{action searching on="click" target="view"}}>
@@ -106,20 +106,23 @@
             {{view HubStar.NavigatorView}}
             {{/if}}
             <div class="search-box easing" >
-                {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
-                <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
+                {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses-small" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
+                <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;"  {{action searchingSmall on="click" target="view"}}>
                     <i class="fa fa-search" style="font-size: 20px;"></i>
                 </div>
             </div>
         </div>
 
         <div  id="topResidentialCommerical">
-            <div id="residential1" class="residentialCommericalTop residentialCommerical-selected easing"   {{action residential on="click" target="view"}}>Residential</div>
-            <div id="commercial1" class="residentialCommericalTop residentialCommerical-selected easing"  {{action commercial on="click" target="view"}}>Commercial</div>
+            <div id="residential2" class="residentialCommericalTop residentialCommerical-selected easing"   {{action residential on="click" target="view"}}>Residential</div>
+            <div id="commercial2" class="residentialCommericalTop residentialCommerical-selected easing"  {{action commercial on="click" target="view"}}>Commercial</div>
         </div>
 
     </div>
+
+
 </div>
+
 
 
 <script type="text/javascript">

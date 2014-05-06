@@ -11,8 +11,7 @@ HubStar.DiscoveryView = Ember.View.extend({
             if (this.$("#search_business").val() !== null && this.$("#search_business").val() !== "" && this.$("#search_business").val() !== undefined)
             {
                 $(".Navigator-box").css('display', 'none');
-                $("#top-about-menu").fadeOut("320");
-                $("#search-bar").fadeIn("320");
+              //  $("#search-bar").fadeIn("320");
                 HubStar.set("showDiscoveryBar", false);
                 var area = this.$("#search_key").val();
                 var search_key = this.$("#search_business").val();
@@ -53,6 +52,7 @@ HubStar.DiscoveryView = Ember.View.extend({
         }
         this.get("controller").residentialCommercialStatus();
         this.get("controller").changeBackground();
+        
     },
     commercial: function() {
         if ($("#residential").hasClass("residentialCommerical-selected")) {
@@ -71,6 +71,7 @@ HubStar.DiscoveryView = Ember.View.extend({
         }
          this.get("controller").residentialCommercialStatus();
         this.get("controller").changeBackground();
+         
 
     }
 });

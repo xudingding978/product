@@ -683,16 +683,16 @@ HubStar.MegaController = Ember.ArrayController.extend({
     dropdownPhotoSetting: function(param) {
         this.set('sharePhotoUrl', this.get('selectedPhoto').get('photo_image_thumbnail_url'));
         this.set('sharePhotoName', this.get('selectedPhoto').get('photo_title'));
-        
-           var id='#dropdown_id_' + param+'_'+this.get('megaResouce').get('id');
+
+        var id = '#dropdown_id_' + param + '_' + this.get('megaResouce').get('id');
         $(id).toggleClass('hideClass');
         $(id).click(function() {
             $(this).removeClass('hideClass');
         }).mouseleave(function() {
             $(this).addClass('hideClass');
         });
-        
-        
+
+
 //        $('#dropdown_id_' + param+'_'+this.get('megaResouce').get('id')).toggleClass('hideClass');
     },
     switchCollection: function() {
@@ -731,10 +731,12 @@ HubStar.MegaController = Ember.ArrayController.extend({
             if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
             {
                 // this.transitionTo("indexIndex"); //search page
+                
                 var address = document.URL;
                 var search_id = address.split("#")[1].split("/")[2];
                 var object_type = address.split("#")[1].split("/")[1];
-                if (search_id === "search") //this go to the search index
+                
+                if (search_id === "default") //this go to the search index
                 {
                     this.transitionTo("searchIndexTom");
                 }
@@ -743,7 +745,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                     if (object_type === "photos" || object_type === "articles" || object_type === "videos")
                     {
-                       
+
                         var m = HubStar.Mega.find(search_id);
                         this.transitionTo("search", {id: m.get("owner_title")});
                     }

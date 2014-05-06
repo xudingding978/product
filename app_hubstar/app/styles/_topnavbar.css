@@ -791,11 +791,6 @@ div#forgot-password-container{
 
 
 
-
-
-
-
-
 .crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
 
 
@@ -828,8 +823,7 @@ div#forgot-password-container{
     opacity: .7;
     cursor: pointer;
     font-size: 15px;
-    height: 75px;
-
+    height: 90px;
     font-weight: bold;
     text-align: center;
     margin: 0 10px;
@@ -958,12 +952,8 @@ search-bar-on-small-screen #topResidentialCommerical{
 .tour-background{
     background-color: #475476;
     margin: 5px !important;
-    padding: 5px !important;
+    padding: 0 5px !important;
 }
-
-
-
-
 
 /*DEVICES FOR REGISTER PAGE*/
 

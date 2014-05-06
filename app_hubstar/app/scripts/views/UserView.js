@@ -6,15 +6,15 @@ HubStar.UserView = Ember.View.extend({
         $("#search-bar").css('display', 'block');
         $(".navbar").css("box-shadow", "0 0 10px #333");
         $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-        
+
         var container = document.querySelector('#masonry_user_container');
         var msnry = new Masonry(container, {
-             itemSelector: '.box',
-                columnWidth: 185,
-                //isInitLayout: false,
-                isFitWidth: true
+            itemSelector: '.box',
+            columnWidth: 185,
+            //isInitLayout: false,
+            isFitWidth: true
         });
-        
+
 //        $(function() {
 //            $('#masonry_user_container').masonry({
 //                itemSelector: '.box',
@@ -76,7 +76,7 @@ HubStar.UserView = Ember.View.extend({
 
             $("#about_us_contentsssssssw").mCustomScrollbar({
                 scrollButtons: {
-                    enable: false, 
+                    enable: false,
                     scrollSpeed: "auto"
                 },
                 advanced: {
@@ -95,7 +95,7 @@ HubStar.UserView = Ember.View.extend({
     },
     showInterestsUp: function() {
 
-        
+
         if ($('#interest_btn').hasClass('fa-angle-double-up') && this.get('controller').get('interestsActive') === false) {
 
             this.get('controller').set('followDisplay', false);

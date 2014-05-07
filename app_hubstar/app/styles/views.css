@@ -2194,17 +2194,16 @@ div.album-description-bg{
     }
 }
 
-
 @media (max-width: 968px){
     #cta-popup > .inner > .left{
         float: none;
         display: block;
         margin: 30px auto;
         top: 0;
-
     }
 
     #cta-popup > .inner > .right{
+
         display: block;
         float: none;
         margin: 0 auto;

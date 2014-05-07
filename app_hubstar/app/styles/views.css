@@ -2033,7 +2033,7 @@ div.album-description-bg{
 
 #cta-popup{
 
-    min-width:600px;
+    min-width:800px;
     margin:0 auto;
     height:580px;
     position: fixed;
@@ -2059,61 +2059,33 @@ div.album-description-bg{
          .left styles
 ================================*/
 
-#cta-popup .left{
-    float:left;
-    width:100%;
-    margin:0 auto;
-    padding:20px;
-    position:relative;
-    top:180px;
+#cta-popup > .inner > .left{
+    float: left;
+    width: 320px;
+    margin: auto 0;
+    position: relative;
+    top: 180px;
 }
 
 /*===============================
          .right styles
 ================================*/
 
-#cta-popup .right{
-    float:right;
-    padding:20px;
-}
-
-/*===============================
-         .help styles
-================================*/
-
-#cta-popup .help{
-    position:absolute;
-    top:550px;
-    left:15%;
-    color:#68789c;
-    text-decoration:none;
-    font-family:'Arial', Helvetica;
-    font-style:italic;
-    font-weight:bold;
-}
-
-
-/*===============================
-         .nothanks styles
-================================*/
-
-#cta-popup .nothanks{
-    position:absolute;
-    top:550px;
-    right:15%;
-    color:#68789c;
-    text-decoration:none;
-    font-family:'Arial', Helvetica;
-    font-style:italic;
-    font-weight:bold;	
+#cta-popup > .inner > .right{
+    padding: 20px;
+    position: relative;
+    right: 0;
+    width: 60%;
+    float: right;
+    top: 50px;
 }
 
 
 /*===============================
          .inner styles
 ================================*/
-#cta-popup .inner{
-    width:816px;
+.inner{
+    width:100%;
     margin:0 auto;
 }
 
@@ -2121,7 +2093,7 @@ div.album-description-bg{
        .registerbtn styles 
  ===============================*/
 
-#cta-popup .registerbtn {
+.registerbtn {
     -moz-box-shadow:inset 0px 1px 0px 0px #fce2c1;
     -webkit-box-shadow:inset 0px 1px 0px 0px #fce2c1;
     box-shadow:inset 0px 1px 0px 0px #fce2c1;
@@ -2157,13 +2129,12 @@ div.album-description-bg{
     text-shadow:1px 1px 0px #cc9f52;
     margin:10px 5px 0 10px;
 }
-#cta-popup .registerbtn:hover {
+.registerbtn:hover {
     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fb9e25), color-stop(1, #ffc477) );
     background:-moz-linear-gradient( center top, #fb9e25 5%, #ffc477 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fb9e25', endColorstr='#ffc477');
     background-color:#fb9e25;
-}
-#cta-popup .registerbtn:active {
+}.registerbtn:active {
     position:relative;
     top:1px;
 }
@@ -2172,7 +2143,7 @@ div.album-description-bg{
        .loginbtn styles 
  ===============================*/
 
-#cta-popup .loginbtn {
+.loginbtn {
     -moz-box-shadow:inset 0px 1px 0px 0px #5a9abc;
     -webkit-box-shadow:inset 0px 1px 0px 0px #5a9abc;
     box-shadow:inset 0px 1px 0px 0px #5a9abc;
@@ -2207,57 +2178,45 @@ div.album-description-bg{
     text-align:center;
     text-shadow:1px 1px 0px #03192e;
 }
-#cta-popup .loginbtn:hover {
+.loginbtn:hover {
     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #264c6e), color-stop(1, #5a9abd) );
     background:-moz-linear-gradient( center top, #264c6e 5%, #5a9abd 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#264c6e', endColorstr='#5a9abd');
     background-color:#264c6e;
-}
-#cta-popup.loginbtn:active {
+}.loginbtn:active {
     position:relative;
     top:1px;
 }
-
 @media (max-width: 1280px){
-    #cta-popup .left{
-        float:none;
-        display:block;
-        left:-100px;
-        top:-10px;
+    #cta-popup{
+        right: 10%;
+        left:10%;     
+    }
+}
+
+
+@media (max-width: 968px){
+    #cta-popup > .inner > .left{
+        float: none;
+        display: block;
+        margin: 30px auto;
+        top: 0;
+
     }
 
-    #cta-popup .right{
-        display:block;
-        float:none;
-        position:relative;
-        top:-55px;
-        left:-100px;
+    #cta-popup > .inner > .right{
+        display: block;
+        float: none;
+        margin: 0 auto;
+        width: 80%;
+        top: -30px;
+        padding: 0;
     }
 
     #cta-popup{
         right: 10%;
         left:10%;
         height: 620px;
-        width: 400px;
+        min-width: 400px;
     }
-}
-
-@media (max-width:768px){
-    #cta-popup{
-        right: 10%;
-        left:10%;
-    }
-
-    #cta-popup .inner{
-        margin:0 auto;
-    }
-
-}
-
-
-@media only screen and (max-width : 1024px) {
-    #cta-popup .click-to-read-btn{
-        display: block;
-    }
-
 }

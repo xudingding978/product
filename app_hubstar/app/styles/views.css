@@ -1036,7 +1036,7 @@ div.album-description-bg{
     position: absolute;
     right: 0;
     top: 0;
-    max-height: 95%;
+    max-height: 90%;
     max-width: 95%;
     z-index: -1;
 }
@@ -2212,11 +2212,10 @@ div.album-description-bg{
         top: -30px;
         padding: 0;
     }
-
+    
     #cta-popup{
-        right: 10%;
-        left:10%;
         height: 620px;
         min-width: 400px;
     }
+
 }

@@ -59,8 +59,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
         }
         this.controllerFor('application').set("newProfile", false);
         $("#user-dd-menu").attr("style", "display:none");
-        $("#top-about-menu").css('display', 'none');
-        $("#search-bar").css('display', 'block');
+      
         ProfileController.setProfile(model.id); 
     },
     model: function(params) {

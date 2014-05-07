@@ -14,7 +14,7 @@
     <!--
         <p class="note">Fields with <span class="required">*</span> are required.</p>-->
 
- 
+
 
     <div class="row">
 
@@ -25,13 +25,13 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'PWD_HASH', array('class' => '', 'style' => 'display:inline-block;')); ?>
-        <?php echo $form->passwordField($model, 'PWD_HASH', array('class' => 'inputbox', 'style' => 'display:inline-block;','placeholder'=>"Minimum 6 characters")); ?>
-   
+        <?php echo $form->passwordField($model, 'PWD_HASH', array('class' => 'inputbox', 'style' => 'display:inline-block;', 'placeholder' => "Minimum 6 characters")); ?>
+
     </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'repeat_password', array('class' => '', 'style' => 'display:inline-block;')); ?>
-        <?php echo $form->passwordField($model, 'repeat_password', array('class' => 'inputbox', 'style' => 'display:inline-block;','placeholder'=>"Minimum 6 characters")); ?>
+        <?php echo $form->passwordField($model, 'repeat_password', array('class' => 'inputbox', 'style' => 'display:inline-block;', 'placeholder' => "Minimum 6 characters")); ?>
 
     </div>
 
@@ -47,7 +47,21 @@
         By clicking Sign Up you indicate that you have read and agreed to the <a href='#'>Terms of Use</a> and <a href='#'>Privacy Policy </a>.
     </div>
 
-
+    <!-- Facebook Conversion Code for Lead -->
+    <script type="text/javascript">
+        var fb_param = {};
+        fb_param.pixel_id = '6013885366274';
+        fb_param.value = '0.01';
+        fb_param.currency = 'USD';
+        (function() {
+            var fpw = document.createElement('script');
+            fpw.async = true;
+            fpw.src = '//connect.facebook.net/en_US/fp.js';
+            var ref = document.getElementsByTagName('script')[0];
+            ref.parentNode.insertBefore(fpw, ref);
+        })();
+    </script>
+    <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6013885366274&amp;value=0.01&amp;currency=USD" /></noscript>
 
     <div class="row">
         <?php echo CHtml::submitButton($model->isNewRecord ? ' Sign Up' : 'Save', array('class' => 'new-btn green-btn', 'style' => 'text-align: center;margin-right: 75px;')); ?>

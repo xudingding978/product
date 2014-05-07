@@ -1036,7 +1036,7 @@ height: 100%;
     position: absolute;
     right: 0;
     top: 0;
-    max-height: 95%;
+    max-height: 90%;
     max-width: 95%;
     z-index: -1;
 }

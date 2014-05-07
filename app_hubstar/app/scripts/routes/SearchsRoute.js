@@ -10,6 +10,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('index').setLogin();
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('status').set('islogin', true);
+       
         if (localStorage.checkUser === "newUser") {
 
             setTimeout(function() {
@@ -34,7 +35,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('application').set('isotherpage', false);
         this.controllerFor('mega').set('from', "search");
         $(".navbar").css("box-shadow", "");
-        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+      //  $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
     },
     events: {
         transitionToPhoto: function(id) {
@@ -85,9 +86,9 @@ HubStar.SearchsRoute = Ember.Route.extend({
         var that = this;
         $(document).ready(function() {
 
-            setTimeout(function() {
+            setTimeout(function() {            
                  that.controllerFor('application').residentialCommercialStatus();
-              //     that.controllerFor('application').changeBackground();
+                 that.controllerFor('application').changeBackground();
             }, 50);
 
         });

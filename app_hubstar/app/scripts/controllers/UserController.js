@@ -85,6 +85,7 @@ HubStar.UserController = Ember.Controller.extend({
     isTalk: false,
     init: function()
     {
+   
     },
     checkedAction: function(checkedboxselection) {
         $("#" + checkedboxselection).prop('checked', !$("#" + checkedboxselection).prop('checked'));
@@ -204,7 +205,6 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("user", user);
         this.set("left_count_aboutme", 430 - user.get("about_me").length);
         this.set("Id", this.get('model').get('id'));
-        //console.log(this.get("user"));
         this.set("collections", user.get("collections"));
         this.set("description", user.get("description"));
         this.set("display_name", user.get("display_name"));
@@ -299,24 +299,22 @@ HubStar.UserController = Ember.Controller.extend({
         this.labelBarRefresh();
 
         this.trendsUser();
-        $(document).ready(function() {
-            $("#about_us_contentsssssssw").mCustomScrollbar({
-                scrollButtons: {
-                    enable: false,
-                    scrollSpeed: "auto"
-                },
-                advanced: {
-                    updateOnBrowserResize: true,
-                    updateOnContentResize: true,
-                    autoScrollOnFocus: false,
-                    normalizeMouseWheelDelta: false
-                },
-                autoHideScrollbar: true,
-                mouseWheel: true,
-                theme: "dark-2",
-                set_height: 30
-            });
-        });
+                $(document).ready(function() {
+                    setTimeout(function() {
+                        if ($(window).width() > 1200) {
+                            $("#search-bar").css('display', "block");
+                            $("#topResidentialCommerical").css('display', "block");
+                            $(".search-bar-on-small-screen").css('display', "none");
+                            $(".user-board").css("top", "0");
+                        } else {
+                            $("#search-bar").css('display', "none");
+                            $("#topResidentialCommerical").css('display', "none");
+                            $(".search-bar-on-small-screen").css('display', "block");
+                            $(".user-board").css("top", "30px");
+                        }
+
+                    }, 50);
+                });
     },
     trendsUser: function() {
         if (localStorage.loginStatus)

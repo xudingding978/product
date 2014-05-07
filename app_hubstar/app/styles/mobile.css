@@ -46,7 +46,7 @@ and (max-device-width : 1024px)  {
     /* misc */
 
     #login_details{
-        margin-right: 175px;
+        margin-right: 15px;
     }
     #top-about-menu span{
         margin-right:0px;

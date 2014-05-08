@@ -32,14 +32,6 @@ HubStar.SearchIndexTom = Ember.Route.extend({
 
     },
     activate: function() {
-   //     $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
-        $('#masonry_container').attr('style', "display:block;position:relative");
-//        if (HubStar.get("setHight") === null || HubStar.get("setHight") === "null") {
-//            HubStar.set("setHight", 0);
-//        }
-//        $(window).scrollTop(HubStar.get("setHight"));
-//        HubStar.set("setHight", 0);
-
     },
     deactivate: function() {
         //HubStar.set("setHight", $(window).scrollTop());

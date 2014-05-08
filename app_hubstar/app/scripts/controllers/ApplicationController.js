@@ -13,6 +13,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     nextPageSpinner: false,
     newProfile: false,
     navigator_id1: "",
+    headerAbout:false,
+    userProfile:false,
     contentTopicResidential: [
         {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
         {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'},
@@ -205,17 +207,22 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     searchSmallScreen: function() {
 
         if ($(window).width() > 1200) {
-            $("#search-bar").css('display', "block");
-            $("#topResidentialCommerical").css('display', "block");
             $(".search-bar-on-small-screen").css('display', "none");
+            if (HubStar.get('showDiscoveryBar') === true) {
+               
+                $("#search-bar").css('display', "none");
+                $("#topResidentialCommerical").css('display', "none");
+            } else {
+                $('#masonry_container').css('top', "100px");
+                $("#search-bar").css('display', "block");
+                $("#topResidentialCommerical").css('display', "block");
+            }
         } else {
             $("#search-bar").css('display', "none");
             $("#topResidentialCommerical").css('display', "none");
-            $(".search-bar-on-small-screen").css('display', "block");
-
             if (HubStar.get('showDiscoveryBar') === true) {
+               
                 $(".search-bar-on-small-screen").css('display', "none");
-                $('#masonry_container').css('top', "0");
             } else {
                 $(".search-bar-on-small-screen").css('display', "block");
                 $('#masonry_container').css('top', "150px");
@@ -746,23 +753,41 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     dropdown: function(checking) {
         if (checking === "geoLocation") {
-             this.set('isGeoDropdown', !this.get('isGeoDropdown'));
-            $('#geo-filter').addClass('Geo-Filter-active');
-           
+            this.set('isGeoDropdown', !this.get('isGeoDropdown'));
+            $('#geo-filter').toggleClass('Geo-Filter-active');
+            this.set("isNotification", false);
+            this.set('headerAbout',false);
+            this.set('userProfile',false);
         } else if (checking === "notification") {
-
             this.set("isNotification", !this.get("isNotification"));
+            this.set('headerAbout',false);
+            this.set('isGeoDropdown', false);
+            this.set('userProfile',false);
             this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
             $('#Geo-Filter').toggleClass('Geo-Filter-active');
-
+        }
+        else if(checking === "about"){
+            this.set("isNotification", false);
+            this.set('isGeoDropdown', false);
+            this.set('headerAbout',!this.get('headerAbout'));
+            this.set('userProfile',false);
+            $('#top-about-menu').toggleClass('Geo-Filter-active');
+        }
+        else if(checking === "user"){
+            this.set("isNotification", false);
+            this.set('isGeoDropdown', false);
+            this.set('headerAbout',false);
+            this.set('userProfile',!this.get('userProfile'));
+            this.loadProfile();
+            $('#user-header-menu').toggleClass('Geo-Filter-active');
         }
     },
     canelDropDown: function()
     {
         $('#geo-filter').toggleClass('Geo-Filter-active');
-        this.set('isGeoDropdown', !this.get('isGeoDropdown'));
-
+        this.set('isGeoDropdown', false);
     },
+    
     dropdownNavigator: function() {
 
         this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
@@ -801,7 +826,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             setTimeout(function() {
                 that.residentialCommercialStatus();
                 that.changeBackground();
-                
+
             }, 50);
 
         });

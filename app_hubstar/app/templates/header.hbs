@@ -7,18 +7,20 @@
             <a href="/#/search" > <img class="logonew" {{action showDiscoveryBar}} src="../../../images/landing-trends.png"></a>
             <a href="/#/search" > <img class="logonew-small" {{action showDiscoveryBar}} src="../../../images/trendsIcon.png"></a>
         </div>
-        <div id="top-about-menu" class="top-about-menu" {{action showAboutDropDown on="click" target="view"}}>
+        <div id="top-about-menu" class="top-about-menu"  {{action dropdown "about"}}>
             <i class="fa fa-info" style="color: #555;z-index: 10;position: absolute;left: 9px;font-size: 13px;top: 2px;"></i>
             <i class="fa fa-comment fa-lg" style="font-size: 23px;position: absolute;"></i>
         </div>
-        <ul id="top-menu" class="edit-object-ul" style="display:none;width: 160px;position: absolute;top:80px;left: 120px;">
+        {{#if controller.headerAbout}}
+        <div id="header_menu_about" class="blank-top-bar"  {{action dropdown "about"}}>&nbsp;</div>
+             
+        <ul id="top-menu" class="edit-object-ul" style="width: 160px;position: absolute;top:80px;left: 120px;">
             <li class="ite" > <span><a  target="blank" href="http://about.trendsideas.com/">About</a></span></li>
             <li class="ite" > <span><a target="blank" href="http://about.trendsideas.com/business/">Business</a></span></li>
             <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span></li>
             <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/contact-us/">Contact us</a></span></li>
-
         </ul>
-
+        {{/if}}
 
 
 

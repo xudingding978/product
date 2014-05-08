@@ -92,8 +92,6 @@ HubStar.SearchsRoute = Ember.Route.extend({
             }, 50);
 
         });
-        $('#masonry_container').attr('style', "display:block;position:relative");
-
     },
     deactivate: function() {
 

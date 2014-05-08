@@ -1,4 +1,13 @@
-
+.blank-top-bar{
+    background-color: transparent;
+    z-index: 10;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+    height: 90%;
+  
+}
 .navbar {
     height: 90px;
     line-height: 60px;
@@ -110,14 +119,12 @@
     text-align: center;
     padding: 20px 45px;
     position: relative;
-    top: 40px;
+    top: 15px;
     border-radius: 5px;
     margin: 5px;
     cursor: pointer;
     border: 1px solid #ddd;
 }
-
-.residentialCommerical:hover{background-color: #fff; color: #333}
 
 #topResidentialCommerical{
     top:5px;
@@ -141,14 +148,11 @@
     border: 1px solid #aaa;
 }
 
-.residentialCommericalTop:hover{background-color: #fff; color: #555}
-
 .residentialCommerical-selected{background-color: #fff; color: #555;}
 
 #discovery_search_bar_wrapper {
     height: 520px;
     width: 100%;
-   // background: url(../../images/discoverybarbg.jpg);
     background-size: 100% 100%;
     background-position: left top;
     position: relative;
@@ -1128,7 +1132,7 @@ search-bar-on-small-screen #topResidentialCommerical{
 }
 @media only screen 
 and (max-width : 480px) {
-    #fadein-image{ display: none!important;}
+    #fadein-image{ display: none !important;}
 
     .register-page-top-bar {margin: 40px auto 15%;}
 
@@ -1144,6 +1148,10 @@ and (max-width : 480px) {
         line-height: 20px;
         margin: 4px auto;
         font-size: 15px;
+    }
+    
+    #Geo-Filter{
+        display:none !important;
     }
 
 

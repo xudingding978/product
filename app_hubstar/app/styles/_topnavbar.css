@@ -265,15 +265,6 @@
 #top-about-menu i{opacity: .7}
 #top-about-menu:hover i{opacity: 1}
 
-.top-about-menu > span{margin: 0 2em}
-
-.top-about-menu > span > a {font-size: 1em; color: white; opacity: .8;}
-
-.top-about-menu > span > a:hover {opacity: 1;}
-
-
-
-
 .Navigator-box{
     margin-top: 60px;
     width: 665px;
@@ -1150,7 +1141,7 @@ and (max-width : 480px) {
         font-size: 15px;
     }
     
-    #Geo-Filter{
+    #notification-filter{
         display:none !important;
     }
 

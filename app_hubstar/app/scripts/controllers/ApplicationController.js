@@ -13,8 +13,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     nextPageSpinner: false,
     newProfile: false,
     navigator_id1: "",
-    headerAbout:false,
-    userProfile:false,
+    headerAbout: false,
+    userProfile: false,
     contentTopicResidential: [
         {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
         {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'},
@@ -209,7 +209,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         if ($(window).width() > 1200) {
             $(".search-bar-on-small-screen").css('display', "none");
             if (HubStar.get('showDiscoveryBar') === true) {
-               
+
                 $("#search-bar").css('display', "none");
                 $("#topResidentialCommerical").css('display', "none");
             } else {
@@ -221,7 +221,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $("#search-bar").css('display', "none");
             $("#topResidentialCommerical").css('display', "none");
             if (HubStar.get('showDiscoveryBar') === true) {
-               
+
                 $(".search-bar-on-small-screen").css('display', "none");
             } else {
                 $(".search-bar-on-small-screen").css('display', "block");
@@ -753,41 +753,48 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     dropdown: function(checking) {
         if (checking === "geoLocation") {
+            this.set("isNotification", false);
+            this.set('headerAbout', false);
+            this.set('userProfile', false);
             this.set('isGeoDropdown', !this.get('isGeoDropdown'));
             $('#geo-filter').toggleClass('Geo-Filter-active');
-            this.set("isNotification", false);
-            this.set('headerAbout',false);
-            this.set('userProfile',false);
+            $('#notification-filter').removeClass('Geo-Filter-active');
+            $('#top-about-menu').removeClass('Geo-Filter-active');
+            $('#user-header-menu').removeClass('Geo-Filter-active');
+
         } else if (checking === "notification") {
             this.set("isNotification", !this.get("isNotification"));
-            this.set('headerAbout',false);
+            this.set('headerAbout', false);
             this.set('isGeoDropdown', false);
-            this.set('userProfile',false);
+            this.set('userProfile', false);
             this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
-            $('#Geo-Filter').toggleClass('Geo-Filter-active');
+            $('#geo-filter').removeClass('Geo-Filter-active');
+            $('#notification-filter').taggleClass('Geo-Filter-active');
+            $('#top-about-menu i').css('opacity', ".7");
+            $('#user-header-menu').removeClass('Geo-Filter-active');
         }
-        else if(checking === "about"){
+        else if (checking === "about") {
             this.set("isNotification", false);
             this.set('isGeoDropdown', false);
-            this.set('headerAbout',!this.get('headerAbout'));
-            this.set('userProfile',false);
-            $('#top-about-menu').toggleClass('Geo-Filter-active');
+            this.set('headerAbout', !this.get('headerAbout'));
+            this.set('userProfile', false);
+            $('#geo-filter').removeClass('Geo-Filter-active');
+            $('#notification-filter').removeClass('Geo-Filter-active');
+            $('#top-about-menu i').css('opacity', "1");
+            $('#user-header-menu').removeClass('Geo-Filter-active');
         }
-        else if(checking === "user"){
+        else if (checking === "user") {
             this.set("isNotification", false);
             this.set('isGeoDropdown', false);
-            this.set('headerAbout',false);
-            this.set('userProfile',!this.get('userProfile'));
-            this.loadProfile();
+            this.set('headerAbout', false);
+            this.set('userProfile', !this.get('userProfile'));
+            // this.loadProfile();
+            $('#geo-filter').removeClass('Geo-Filter-active');
+            $('#notification-filter').removeClass('Geo-Filter-active');
+            $('#top-about-menu').removeClass('Geo-Filter-active');
             $('#user-header-menu').toggleClass('Geo-Filter-active');
         }
     },
-    canelDropDown: function()
-    {
-        $('#geo-filter').toggleClass('Geo-Filter-active');
-        this.set('isGeoDropdown', false);
-    },
-    
     dropdownNavigator: function() {
 
         this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));

@@ -24,8 +24,8 @@
                 </div>
 
                 {{/if}}
-                <div class="corpbanner_mask" style="background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 100%; height: 200px;">
-                    <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 30%;width: 70%;">
+                <div class="corpbanner_mask">
+                    <div class="corpbanner_content">
                         <div class="main_title" style="height: 120px;">
 
                             <div>
@@ -56,18 +56,24 @@
                             <!--STAR RATING-->
                             <div style="position: absolute;width: 100%;">
                                 <div style=";width: 50%; float: left;" data-step="1" data-intro="Click here to <b>Rate and Review</b> a profile." data-position='right'>
-                                <span class="stars" style="float: left;margin: 5px 15px 5px 0;" ><span id="starsize" ></span></span>  
-                                <div class="hint--right hint--rounded" data-hint="Review this profile!"  {{action rateEditing model.id}} >
-                                     <div class="contactmeicon easing" style="float: left;width: 45px;height: 45px;line-height: 33px;text-align: center;font-weight: bold;font-size: 15px;border: 5px solid rgba(0,0,0,.3);top: -5px;;">{{this.profile_average_review}}</div>
-                                    <div class="hover-opacity" style="font-size: 13px; font-weight: bold; color: #fff; cursor: pointer;  float: left;  margin: 8px 10px;">{{this.reviews.length}} • Reviews</div> 
+                                    <span class="stars" style="float: left;margin: 5px 15px 5px 0;" ><span id="starsize" ></span></span>  
+                                    <div class="hint--right hint--rounded" data-hint="Review this profile!"  {{action rateEditing model.id}} >
+                                         <div class="contactmeicon easing" style="float: left;width: 45px;height: 45px;line-height: 33px;text-align: center;font-weight: bold;font-size: 15px;border: 5px solid rgba(0,0,0,.3);top: -5px;;">{{this.profile_average_review}}</div>
+                                        <div class="hover-opacity" style="font-size: 13px; font-weight: bold; color: #fff; cursor: pointer;  float: left;  margin: 8px 10px;">{{this.reviews.length}} • Reviews</div> 
+                                    </div>
                                 </div>
-                                </div>
-                                <div class="contactmebtn hint--top hint--rounded easing" style="position: relative; right: 30px;" data-hint="Contact us!" data-step="3" data-intro="Click here to <b>Contact</b> the profile owner." data-position='left'>
-                                    <a class="contactmeicon easing" {{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></a>
-                                </div>
+
+
                                 <!--contact me-->
+                                <div class="enquiryBtn-containter" style="float: right;margin: -5px 20px 0 0;" data-hint="Contact us!" data-step="3" data-intro="Click here to <b>Contact</b> the profile owner." data-position='left'>
+                                    <div class="enquiryBtn-ring"></div>
+                                    <div class="enquiryBtn easing"{{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></div>
+                                    <div class="btn-description">MESSAGE</div>
+                                </div>
+                                <!--Share profile-->
                                 <div class="contactmebtn hint--left hint--rounded easing" style="position: relative; right: 30px;" data-hint="Share this profile!" data-step="2" data-intro="Click here to <b>Share</b> a link to this profile through social media." data-position='left'>
                                     <a class="contactmeicon easing" {{action dropdownPhotoSetting}}><i class="fa fa-share easing" style="font-size: 19px;"></i></a>
+                                <div class="btn-description" style="margin: 8px;">SHARE</div>
                                 </div>
                             </div>  
                             <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px;  padding: 0;right: 45px;top: 100px;position: absolute;">
@@ -128,7 +134,6 @@
                                                     </div>
                                                 </a>                                             
                                                 {{/each}}
-
                                             </div>
                                             <div class="Followed-by easing" {{action selectFollower this }}>Followed by {{controller.profileFollowerStatistics}} people.</div>
                                         </div>

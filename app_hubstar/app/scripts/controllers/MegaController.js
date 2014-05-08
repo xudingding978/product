@@ -193,7 +193,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             if (megaObject.get("type") === 'article')
             {
 
-                var photoUrl = megaObject.get("article").objectAt(0).get("article_image_url");
+                var photoUrl = megaObject.get("object_image_url");
                 var photoObj = megaObject.set('photo_image_original_url', photoUrl);
                 photoObj.set("photo_title", megaObject.get("article").objectAt(0).get("article_headline"));
                 photoObj.set("photo_caption", megaObject.get("article").objectAt(0).get("article_body"));
@@ -337,7 +337,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                         if (this.get("content").objectAt(0).get('id') !== id)
                         {
-                            var photoUrl = photoContent.objectAt(i).get("article").objectAt(0).get("article_image_url");
+                            var photoUrl = photoContent.objectAt(i).get("object_image_url");
                             photoContent.objectAt(i).set("photo_title", photoContent.objectAt(i).get("article").objectAt(0).get("article_headline"));
                             photoContent.objectAt(i).set("photo_caption", photoContent.objectAt(i).get("article").objectAt(0).get("article_body"));
                             photoContent.objectAt(i).set("photo_image_original_url", photoUrl);
@@ -418,7 +418,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                             if (that.get("content").objectAt(0).get("id") !== pics.objectAt(i).get("id")) {
                                 var idd = pics.objectAt(i).get("id");
 
-                                var photoUrl = pics.objectAt(i).get("article").objectAt(0).get("article_image_url");
+                                var photoUrl = pics.objectAt(i).get("object_image_url");
                                 var article = pics.objectAt(i);
                                 article.set("photo_image_original_url", photoUrl);
                                 article.set("photo_image_thumbnail_url", photoUrl);
@@ -487,7 +487,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                         if (this.get("content").objectAt(0).get('id') !== id)
                         {
-                            var photoUrl = photoContent.objectAt(i).get("article").objectAt(0).get("article_image_url");
+                            var photoUrl = photoContent.objectAt(i).get("object_image_url");
                             photoContent.objectAt(i).set("photo_title", photoContent.objectAt(i).get("article").objectAt(0).get("article_headline"));
                             photoContent.objectAt(i).set("photo_caption", photoContent.objectAt(i).get("article").objectAt(0).get("article_body"));
                             photoContent.objectAt(i).set("photo_image_original_url", photoUrl);
@@ -548,7 +548,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                             var id = photoContent.objectAt(i).get("id");
                             if (that.get("content").objectAt(0).get('id') !== id)
                             {
-                                var photoUrl = photoContent.objectAt(i).get("article").objectAt(0).get("article_image_url");
+                                var photoUrl = photoContent.objectAt(i).get("object_image_url");
                                 var article = HubStar.Mega.find(id);
                                 if (that.get("content").objectAt(0).get('id') !== id)
                                 {

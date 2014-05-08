@@ -113,8 +113,10 @@
                     <a class="poster-name" href="#/profiles/{{unbound controller.megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
                 </div>
 
-                <div class="contactmebtn hint--left hint--rounded easing" data-hint="Contact us!" style="position: absolute;">
-                    <a class="contactmeicon easing" {{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></a>
+                <div class="enquiryBtn-containter" style="float: right;margin-left: -5px;margin-top: -10px;" data-hint="Contact us!">
+                    <div class="enquiryBtn-ring"></div>
+                    <div class="enquiryBtn easing"{{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></div>
+                    <div class="btn-description" style="color: #333">MESSAGE</div>
                 </div>
             </div>
             {{#if controller.contact}}

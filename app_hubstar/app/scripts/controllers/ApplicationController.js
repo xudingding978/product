@@ -767,10 +767,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.set('headerAbout', false);
             this.set('isGeoDropdown', false);
             this.set('userProfile', false);
+            $('#notification-filter').taggleClass('Geo-Filter-active');
             this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
             $('#geo-filter').removeClass('Geo-Filter-active');
-            $('#notification-filter').taggleClass('Geo-Filter-active');
-            $('#top-about-menu i').css('opacity', ".7");
+            
+            $('#top-about-menu').removeClass('Geo-Filter-active');
             $('#user-header-menu').removeClass('Geo-Filter-active');
         }
         else if (checking === "about") {
@@ -780,7 +781,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.set('userProfile', false);
             $('#geo-filter').removeClass('Geo-Filter-active');
             $('#notification-filter').removeClass('Geo-Filter-active');
-            $('#top-about-menu i').css('opacity', "1");
+            $('#top-about-menu').taggleClass('Geo-Filter-active');
             $('#user-header-menu').removeClass('Geo-Filter-active');
         }
         else if (checking === "user") {
@@ -788,7 +789,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.set('isGeoDropdown', false);
             this.set('headerAbout', false);
             this.set('userProfile', !this.get('userProfile'));
-            // this.loadProfile();
             $('#geo-filter').removeClass('Geo-Filter-active');
             $('#notification-filter').removeClass('Geo-Filter-active');
             $('#top-about-menu').removeClass('Geo-Filter-active');
@@ -796,10 +796,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
     },
     dropdownNavigator: function() {
-
         this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
-
-
         var that = this;
         this.get("categorys").then(function() {
             $(document).ready(function() {

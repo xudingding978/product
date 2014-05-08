@@ -1,5 +1,4 @@
-<div id="cancel" class="blank-top-bar" style=" display: none;"  {{action cancel  on="click" target="view"}}>&nbsp;</div>
-<div class="user-menu-hit-area" {{action showUserDropDown on="click"  target="view"}}>&nbsp;</div>
+<div class="user-menu-hit-area" {{action dropdown "user"}}>&nbsp;</div>
 
 <div id="user-header-menu" >
 
@@ -9,10 +8,10 @@
     </div>
     <div class="circle-btn-description">My Profile</div>
 
-   
-
 </div>
- <ul id="user-dd-menu" class="user-dd-menu hideClass edit-object-ul">
+{{#if controller.userProfile}}
+<div id="cancel" class="blank-top-bar"  {{action dropdown "user"}}>&nbsp;</div>
+ <ul id="user-dd-menu" class="user-dd-menu  edit-object-ul">
         <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myUserProfile"}} {{action userDisplaynone "myUserProfile" on="click"  target="view"}}>
                             <i class="fa fa-user" style="">&nbsp;&nbsp;</i>
                 <span>My Profile</span>
@@ -43,3 +42,4 @@
             </a></li>
 
     </ul>
+{{/if}}

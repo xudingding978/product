@@ -7,9 +7,8 @@
             <a href="/#/search" > <img class="logonew" {{action showDiscoveryBar}} src="../../../images/landing-trends.png"></a>
             <a href="/#/search" > <img class="logonew-small" {{action showDiscoveryBar}} src="../../../images/trendsIcon.png"></a>
         </div>
-        <div id="top-about-menu" class="top-about-menu"  {{action dropdown "about"}}>
-            <i class="fa fa-info" style="color: #555;z-index: 10;position: absolute;left: 9px;font-size: 13px;top: 2px;"></i>
-            <i class="fa fa-comment fa-lg" style="font-size: 23px;position: absolute;"></i>
+        <div id="top-about-menu" class="easing"{{action dropdown "about"}}>
+            <i class="fa fa-info"></i>
         </div>
         {{#if controller.headerAbout}}
         <div id="header_menu_about" class="blank-top-bar"  {{action dropdown "about"}}>&nbsp;</div>

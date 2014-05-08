@@ -64,7 +64,6 @@
     padding: inherit;
     width: 220px;
     position: absolute;
-    display: none;
     right: -7px;
     top: 90px;
 }
@@ -260,7 +259,6 @@
     margin: 26px 50px 26px 0;
     width: 20px;
     height: 20px;
-
     border: 1px solid #fff;
     border-radius: 50%;
     opacity: .8;
@@ -276,8 +274,6 @@
     font-size: 13px;
     top: 2px;
 }
-
-
 .Navigator-box{
     margin-top: 60px;
     width: 665px;
@@ -1174,12 +1170,9 @@ and (max-width : 480px) {
         margin: 4px auto;
         font-size: 15px;
     }
-
-    #Geo-Filter{
+   #notification-filter{
         display:none !important;
-    }
-
-
+   }
 }
 
 

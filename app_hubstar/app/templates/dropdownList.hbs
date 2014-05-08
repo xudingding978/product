@@ -1,4 +1,4 @@
-<!--<div id="login_lightbox" class="blur" {{action canelDropDown}}>&nbsp;</div>-->
+
 
 {{#if controller.projectCategoryDropdown}}
 <div id="dropItem1"  class="Dropdownstyle1" {{action dropdown controller.dropdownCategory}}>
@@ -49,7 +49,7 @@
 
 {{#if controller.regionDropdown}}
 <div id="regionDropdown" class="Dropdownstyle1" style="width: 450px;text-align: center; left: 0;" {{action dropdown "region"}}>
- </div>
+</div>
 {{/if}}
 
 {{#if controller.categoryDropdown}}
@@ -95,49 +95,54 @@
 {{/if}}
 
 {{#if controller.isGeoDropdown}}
-<div id="geoDropdown" class="edit-object-ul Dropdownstyle2" style="top:15px; left:-180px;"{{action dropdown controller.applicationCategoryDropdownType}}>
+<div id="login_lightbox" class="blank-top-bar" {{action dropdown "geoLocation"}}>&nbsp;</div>
+{{#if HubStar.isLogin}}
+<div id="geoDropdown" class="edit-object-ul Dropdownstyle2" style="position: absolute;right:195px;"{{action dropdown controller.applicationCategoryDropdownType}}>
+     {{else}}
+     <div id="geoDropdown" class="edit-object-ul Dropdownstyle2" style="position: absolute;right:105px;"{{action dropdown controller.applicationCategoryDropdownType}}>
+     {{/if}}
      <div class="ite easing" style="">International</div>
-     <div class="ite easing" style="">Australia</div>
-    <div class="ite easing" style="">New Zealand</div>
-    <div class="ite easing" style="">United States</div>
-    <div class="ite easing" style="">India</div>
-    <div class="ite easing" style="">China</div>
-    <div class="ite easing" style="">Asia</div>
-</div>
-{{/if}}
+        <div class="ite easing" style="">Australia</div>
+        <div class="ite easing" style="">New Zealand</div>
+        <div class="ite easing" style="">United States</div>
+        <div class="ite easing" style="">India</div>
+        <div class="ite easing" style="">China</div>
+        <div class="ite easing" style="">Asia</div>
+    </div>
+    {{/if}}
 
-{{#if controller.isActiveDropdown}}
-<div id="is_actvie" class="Dropdownstyle1" style="width: 500px;" {{action dropdown controller.projectActiveDropdownType}}>
-     <div  class="ite ">true</div>
-    <div  class="ite ">false</div>
-</div>
-{{/if}}
+    {{#if controller.isActiveDropdown}}
+    <div id="is_actvie" class="Dropdownstyle1" style="width: 500px;" {{action dropdown controller.projectActiveDropdownType}}>
+         <div  class="ite ">true</div>
+        <div  class="ite ">false</div>
+    </div>
+    {{/if}}
 
-{{#if controller.isDeleteDropdown}}
-<div id="is_delete" class="Dropdownstyle1" style="width: 500px;" {{action dropdown controller.projectDeleteDropdownType}}>
-     <div  class="ite ">true</div>
-    <div  class="ite ">false</div>
-</div>
-{{/if}}
+    {{#if controller.isDeleteDropdown}}
+    <div id="is_delete" class="Dropdownstyle1" style="width: 500px;" {{action dropdown controller.projectDeleteDropdownType}}>
+         <div  class="ite ">true</div>
+        <div  class="ite ">false</div>
+    </div>
+    {{/if}}
 
 
 
-{{#if controller.profileCategoryDropdown}}
-<div id="profileCategoryDropdown"  class="Dropdownstyle1"  style="width: 260px; left: 0;" {{action dropdown "category"}}>
-     {{#each controller.categorys}}
-     <div  class="ite " {{action topicSelection this}}>{{topic}}</div>
-    {{/each}}
+    {{#if controller.profileCategoryDropdown}}
+    <div id="profileCategoryDropdown"  class="Dropdownstyle1"  style="width: 260px; left: 0;" {{action dropdown "category"}}>
+         {{#each controller.categorys}}
+         <div  class="ite " {{action topicSelection this}}>{{topic}}</div>
+        {{/each}}
 
-</div>
-{{/if}}
+    </div>
+    {{/if}}
 
-{{#if controller.profileSubcategoryDropdown}}
-<div id="profileSubcategoryDropdown" class="Dropdownstyle1" style="width: 260px; left: 0;" {{action dropdown "subcategory"}}>
+    {{#if controller.profileSubcategoryDropdown}}
+    <div id="profileSubcategoryDropdown" class="Dropdownstyle1" style="width: 260px; left: 0;" {{action dropdown "subcategory"}}>
 
-     {{#each controller.subcate}}
-     <div  class="ite " >{{category_topic}}</div>
-    {{/each}}
+         {{#each controller.subcate}}
+         <div  class="ite " >{{category_topic}}</div>
+        {{/each}}
 
-</div>
-{{/if}}
+    </div>
+    {{/if}}
 

@@ -1003,7 +1003,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 var address = document.URL;
                 var search_id = address.split("#")[1].split("/")[2];
                 var object_type = address.split("#")[1].split("/")[1];
-                if (search_id === "search") //this go to the search index
+                
+                if (search_id === "default") //this go to the search index
                 {
                     this.transitionTo("searchIndexTom");
                 }
@@ -1022,7 +1023,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         this.transitionTo("search", {id: search_id});
                     }
                 }
-
             }
             else
             {
@@ -1037,7 +1037,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         break;
                     }
                 }
-
                 this.set("selectPhoto", false);
                 this.transitionTo("profile", profile); // transition to profile
                 this.transitionTo("profileCollection", data);

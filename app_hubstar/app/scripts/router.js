@@ -89,6 +89,7 @@ HubStar.Router.map(function() {
         this.resource("searchs", {path: "/search"}, function() {
             this.resource("searchIndexTom", {path: '/default'}, function()
             {
+               this.resource("searchDefaultPhoto", {path: '/photos/:photo_id'});
                 this.resource("searchDefaultArticle", {path: '/articles/:article_id'}, function() {
                     this.resource("searchDefaultArticlePhoto", {path: '/photos/:photo_id'});
                 });

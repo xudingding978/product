@@ -9,6 +9,13 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('searchs').set("loginInfo", localStorage.loginStatus);
         this.controllerFor('searchs').setLoginImge();
         this.controllerFor('application').set('search_string', model.id);
+        var that = this;
+         $(document).ready(function() {
+             setTimeout(function() {
+        that.controllerFor('application').searchSmallScreen();
+             },50);
+         });
+        
         if (HubStar.get("escVideo") !== true)
         {
             this.controllerFor('application').newSearch();
@@ -24,6 +31,8 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
         localStorage.checkUser = "";
+        $('#footer').css("display", "none");
+
     },
     model: function(params) {
         var address = decodeURIComponent(document.URL);
@@ -88,19 +97,36 @@ HubStar.SearchRoute = Ember.Route.extend({
     redirect: function() {
     },
     activate: function() {
-        $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
-        $('#masonry_container').attr('style', "display:block;position:relative");
 
         $(document).ready(function() {
             setTimeout(function() {
+         //       $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
+            
+                if ($(window).width() > 1200) {
+                    $("#search-bar").css('display', "block");
+                    $("#topResidentialCommerical").css('display', "block");
+                    $(".search-bar-on-small-screen").css('display', "none");
+                   
+                } else {
+                    $("#search-bar").css('display', "none");
+                    $("#topResidentialCommerical").css('display', "none");
+                    $(".search-bar-on-small-screen").css('display', "block");
+                   
+                }
+                if(HubStar.get('showDiscoveryBar') === true){
+                     $('#masonry_container').css('top', "50px");
+                }else {
+                     $('#masonry_container').css('top', "100px");
+                }                  
+                             
                 $('#footer').attr("style", "display:none");
             }, 10);
-
-
         });
     },
     deactivate: function() {
-        $('#footer').attr( "style","display:block");
+
+        $('#footer').attr("style", "display:block");
+
 
     },
     renderTemplate: function() {

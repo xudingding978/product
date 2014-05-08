@@ -9,15 +9,25 @@ HubStar.ProfileView = Ember.View.extend({
        else {
            $('#starsize').attr("style", "width:100px");
        }
-      
-         $("#top-about-menu").css('display', 'none');
-        $("#search-bar").css('display', 'block');
+
         $(".navbar").css("box-shadow", "0 0 10px #333");
-                  $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
         $(document).ready(function() {
              setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
             }, 200);
+             $(window).resize(function() {                  
+                         $(window).resize(function() {
+                if ($(window).width() > 1200) {
+                    $("#search-bar").css('display', "block");
+                    $("#topResidentialCommerical").css('display', "block");
+                    $(".search-bar-on-small-screen").css('display', "none");
+                } else {
+                    $("#search-bar").css('display', "none");
+                    $("#topResidentialCommerical").css('display', "none");
+                    $(".search-bar-on-small-screen").css('display', "block");
+                }
+            });
+            });
 
         });
 

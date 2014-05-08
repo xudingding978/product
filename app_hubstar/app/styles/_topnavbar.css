@@ -1,4 +1,13 @@
-
+.blank-top-bar{
+    background-color: transparent;
+    z-index: 10;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+    height: 90%;
+  
+}
 .navbar {
     height: 90px;
     line-height: 60px;
@@ -43,15 +52,20 @@
 
 .logonew{
     height: 35px;
+
+}
+.logonew-small{
+    display: none;
+    height: 35px;
+    margin: 15px 0;
 }
 
 #user-dd-menu{
-    padding: inherit;  
-    width: 220px; 
-    right: 157px; 
-    position: relative; 
-    top:-16px; 
-    display:none;
+    padding: inherit;
+    width: 220px;
+    position: absolute;
+    right: -7px;
+    top: 90px;
 }
 
 #user-dd-menu > li {padding:0}
@@ -97,56 +111,47 @@
 }
 
 .residentialCommerical{
-display: inline-block;
-font-weight: bold;
-font-size: 30px;
-color: black;
-background-color: white;
-text-align: center;
-padding: 20px 45px;
-position: relative;
-top: 40px;
-border-radius: 5px;
-margin: 5px;
-cursor: pointer;
-opacity: .4;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 30px;
+    color: #fff;
+    text-align: center;
+    padding: 20px 45px;
+    position: relative;
+    top: 15px;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+    border: 1px solid #ddd;
 }
-
-.residentialCommerical:hover{opacity: .9}
 
 #topResidentialCommerical{
-top: 10px;
-position: relative;
-float: left;
-margin: 2px 3% 0 10%;
-    }
+    top:5px;
+    position: relative;
+    float: right;
+    margin: 2px 25px 2px 10px; 
+}
 
 .residentialCommericalTop{
-display: inline-block;
-font-weight: bold;
-font-size: 20px;
-color: black;
-background-color: white;
-text-align: center;
-position: relative;
-line-height: 45px;
-border-radius: 5px;
-margin: 5px;
-cursor: pointer;
-padding: 5px 15px;
-opacity: .4;
+    display: block;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    line-height: 20px;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+    padding: 5px 15px;
+    font-size: 15px;
+    border: 1px solid #aaa;
 }
 
-.residentialCommericalTop:hover{opacity: .8}
-
-.residentialCommerical-selected{
-opacity: 1;
-}
+.residentialCommerical-selected{background-color: #fff; color: #555;}
 
 #discovery_search_bar_wrapper {
     height: 520px;
     width: 100%;
-    background: url(../../images/discoverybarbg.jpg);
     background-size: 100% 100%;
     background-position: left top;
     position: relative;
@@ -154,21 +159,20 @@ opacity: 1;
 }
 
 .search-bar{
-    width: 90%;
     position: absolute;
     top: 330px;
     margin: 0 auto;
-    min-width: 800px;
+    width: 65%;
     left: 23%;
 }
 
 .search-bar-ontop{
-position: relative;
-margin: 6px auto;
-top: 13px;
-float: left;
-width: 30%;
-min-width: 445px;
+    position: relative;
+    margin: 6px auto;
+    top: 13px;
+    float: left;
+    min-width: 40%;
+    height: 60px;
 }
 
 
@@ -179,27 +183,27 @@ min-width: 445px;
     text-align: center;
     opacity: .9;
     cursor: pointer;
-    
     float: left;
-width: 100px;
-height: 60px;
-top: -5px;
-position: relative;
-font-size: 15px;
-font-weight: bold;
-color: #333;
-background-color: white;
+    width: 100px;
+    height: 60px;
+    top: -5px;
+    position: relative;
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+    background-color: white;
 }
 
 .Nav-btn:hover{opacity: 1}
 
 .search-box{
-    min-width:50%;
-    max-width: 80%;
     top: -5px;
     position: relative;
     float: left;
     display: inline-block;
+    height: 100%;
+    max-width: 84%;
+    width: 70%;
 }
 
 
@@ -247,7 +251,18 @@ background-color: white;
 }
 
 
-.top-about-menu{position: relative; float: left; margin-left: 50px;}
+.top-about-menu{
+    position: relative;
+    float: left;
+    margin-right: 50px;
+    cursor: pointer;
+    margin: 26px 50px 26px 0;
+    width: 30px;
+    height: 30px;
+}
+
+#top-about-menu i{opacity: .7}
+#top-about-menu:hover i{opacity: 1}
 
 .top-about-menu > span{margin: 0 2em}
 
@@ -779,11 +794,6 @@ div#forgot-password-container{
 
 
 
-
-
-
-
-
 .crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
 
 
@@ -816,10 +826,10 @@ div#forgot-password-container{
     opacity: .7;
     cursor: pointer;
     font-size: 15px;
-    width: 100px;
-    height: 75px;
-    
+    height: 90px;
     font-weight: bold;
+    text-align: center;
+    margin: 0 10px;
 }
 
 .Geo-Filter:hover, .Geo-Filter:active{opacity: 1}
@@ -831,15 +841,92 @@ div#forgot-password-container{
     opacity: 1
 }
 
-/* Clint Lewis's style's 29/10/13 */
-
-div#login_detail{
-    width:55px;
-    float:right;
-    cursor: pointer;
-    vertical-align: top;
-    height:70px;
+.circle-btn{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    line-height: 44px;
+    text-align: center;
+    margin: 8px auto;
 }
+
+.circle-btn:hover{border-color: #fff}
+
+.circle-btn-description{
+    position: relative;
+    font-size: 15px;
+    line-height: 15px;
+}
+
+.circle-btn > .fa-globe{font-size: 30px;line-height: 35px;}
+.circle-btn > .fa-bell{font-size: 23px;}
+
+.notification-number{
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    width: auto;
+    padding: 0 5px 0 4px;
+    background-color: red;
+    line-height: 15px;
+    border-radius: 2px;
+    font-size: 11px;
+}
+
+.Geo-Filter-location{
+    position: relative;
+    font-size: 15px;
+    line-height: 15px;
+
+}
+
+.user-menu-hit-area{
+    height: 87px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.search-bar-on-small-screen{
+    display: none;
+    height: 60px;
+    width: 100%;
+    background-color: rgba(0,0,0,.8);
+    position: absolute;
+    padding: 0 3%;
+}
+.search-bar-on-small-screen .Nav-btn{
+    width: 50px;
+    height: 40px;
+    line-height: 45px;
+}
+.search-bar-on-small-screen .search-bar-ontop{
+    height: 40px;
+    top: 9px;
+
+}
+.search-bar-on-small-screen .search-box > input{
+    height: 40px;
+}
+.search-bar-on-small-screen .residentialCommericalTop{
+    bottom: 5px;
+    display: inline-block;
+}
+search-bar-on-small-screen #topResidentialCommerical{
+    float: none;
+    margin: 2px 15%;
+}
+
+
+.search-bar-on-large-screen{ display: block;}
+.search-bar-on-small-screen{ display: none;}
+
+
+/* Clint Lewis's style's 29/10/13 */
 
 
 .Notification-top{
@@ -859,7 +946,7 @@ div#login_detail{
 
 
 
-.user-face-size{width: 45px; height: 45px;}
+.user-face-size{width: 45px; height: 45px;margin: auto}
 
 
 /*TOUR*/
@@ -868,12 +955,8 @@ div#login_detail{
 .tour-background{
     background-color: #475476;
     margin: 5px !important;
-    padding: 5px !important;
+    padding: 0 5px !important;
 }
-
-
-
-
 
 /*DEVICES FOR REGISTER PAGE*/
 
@@ -965,47 +1048,24 @@ div#login_detail{
 }
 
 
-@media only screen 
-and (max-width : 1400px) {
-    .residentialCommericalTop{
-        font-size: 20px;
-        line-height: 20px;
-        display:block;
+@media only screen and (max-width : 1200px) {
+
+    .search-bar-on-small-screen{
+        display: block;   
     }
-    
-    #topResidentialCommerical{
-        top:5px;
-        margin: 2px 25px 2px 10px; 
+    .search-bar-on-large-screen{
+        display: none;
     }
+}
+
+
+
+@media only screen and (min-width : 768px) and (max-width : 979px) {
 
 }
 
-@media only screen 
-and (max-width : 1249px) {
-    #top-about-menu{
-        display:none!Important;
-    }
-#topResidentialCommerical{
-        right:1%;
-    }
 
-}
-
-@media only screen 
-and (max-width : 1120px) {
-
- #topResidentialCommerical{
-        right:1%;
-        display:none!Important;
-    }
-     #geo-filter{
-        display:none!Important;
-    }
-}
-  
-
-@media only screen 
-and (max-width : 900px) {
+@media only screen and (max-width : 767px) {
     .promotion-line{ display: none; }
 
     .interest-image-container{width: 70px; height: 70px;}
@@ -1019,16 +1079,59 @@ and (max-width : 900px) {
     #register-with-email-step-4{width: 250px}
 
     .registraion-suceesful-message{font-size: 11px; line-height: 15px;}
+
+    .circle-btn-description{display:none!Important;}
+
+    .Geo-Filter-location{
+        bottom: 20px;
+        font-size: 11px;
+        text-align: center;
+        line-height: 18px;
+        background-color: rgba(0,0,0,.2);
+        padding: 0 5px;
+        margin: 5px 0;
+    }
+    .Geo-Filter{margin-top: 15px;}
     
+    .notification-number{right: 0px;}
+    
+    .Dropdownstyle2{
+        right:115px !important;
+    }
+    #top-menu{
+        left:0px !important;
+    }
 
+    .logonew-small{
+        display:block;
+    }
+    .logonew{
+        display:none;
+    }
+
+    .search-bar-on-small-screen .search-bar-ontop{
+        max-width: 75%;
+
+    }
+    .search-bar-on-small-screen .search-box{
+        height: 40px;
+        width: 64%;
+    }
+    .search-bar-on-small-screen .residentialCommericalTop{
+        bottom: 5px;
+        display: block;
+        padding: 1px 6px;
+        font-size: 13px;
+    }
+    .search-bar-on-small-screen #topResidentialCommerical{
+        position: absolute;
+        right: 0;
+        margin: 0;
+    }
 }
-
-
-
-
 @media only screen 
 and (max-width : 480px) {
-    #fadein-image{ display: none!important;}
+    #fadein-image{ display: none !important;}
 
     .register-page-top-bar {margin: 40px auto 15%;}
 
@@ -1044,6 +1147,10 @@ and (max-width : 480px) {
         line-height: 20px;
         margin: 4px auto;
         font-size: 15px;
+    }
+    
+    #Geo-Filter{
+        display:none !important;
     }
 
 

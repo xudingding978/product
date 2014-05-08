@@ -13,9 +13,10 @@ HubStar.AfterLoginView = Ember.View.extend({
         //this.get('controller').transitionTo("searchIndexTom");
         document.cookie = 'Session=; path=/; domain=.trendsideas.com; expires=Thu, 01 Jan 1970 00:00:00 GMT';
         location.reload();
+       
     },
     showUserDropDown: function() {
-        if ($('#user-dd-menu').attr('display') === 'block') {
+        if ($('#user-dd-menu').css('display') === 'block') {
             $("#user-dd-menu").hide();
            $("#cancel").css("display", "none");
         }
@@ -25,7 +26,7 @@ HubStar.AfterLoginView = Ember.View.extend({
              $("#cancel").css("display", "block");
 
         }
-        this.loadProfile();
+        //this.loadProfile();
     },
     userDisplaynone: function(checking) {
         if (checking === "myUserProfile") {
@@ -47,7 +48,7 @@ HubStar.AfterLoginView = Ember.View.extend({
         } else if (checking === "new") {
              $("#cancel").css("display", "none");
               this.get("controller").set("newProfile", true);
-            this.loadProfile();
+           // this.loadProfile();
         }
 
     },
@@ -56,10 +57,10 @@ HubStar.AfterLoginView = Ember.View.extend({
          $("#user-dd-menu").attr("style", "display:none");
           $("#cancel").css("display", "none");
     },
-    loadProfile: function() {
-        var user = HubStar.User.find(localStorage.loginStatus);
-        this.set("profiles", user.get("profiles"));
-    },
+//    loadProfile: function() {
+//        var user = HubStar.User.find(localStorage.loginStatus);
+//        this.set("profiles", user.get("profiles"));
+//    },
     startTour: function() {
 
         $("#user-dd-menu").attr("style", "display:none");

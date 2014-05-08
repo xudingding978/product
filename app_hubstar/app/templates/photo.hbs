@@ -87,6 +87,7 @@
         </div>
 
         <div class="mainfeature">
+
             <div  class="previous" id ="previousphoto" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="view"}}>
                 <i id="p" class="fa fa-arrow-left" style="top:400px; left: 138px; color: white; position: absolute; font-size: 50px;"></i>
             </div>
@@ -102,6 +103,20 @@
                 {{ render showTag }}
                 {{/if}}
                 {{/if}}
+
+
+            {{#if controller.megaResouce.getArticle}}
+
+            <div class="click-to-read-hit-area easing" {{action transitionToArticle controller.megaResouce.id}}>
+                <div class="click-to-read-btn easing">
+                         <i class="fa fa-book">&nbsp;</i>click to read
+                </div>
+            </div>
+            {{/if}}
+
+            <div class="previous" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="controller"}}></div>
+            <div class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="controller"}}></div>
+
 
                 <!--     show   tag's detail content  template-->   
                 <!--              only when is not in the edit tag state and mouse over the tag can show the detail content-->

@@ -22,11 +22,11 @@ HubStar.HeaderView = Ember.View.extend({
         });
     },
     searching: function() {
-        if (this.$("#search_businesses").val() !== null && this.$("#search_businesses").val() !== "" && this.$("#search_businesses").val() !== undefined)
+        if (this.$("#search_businesses").val() !== null && this.$("#search_businesses").val() !== "" && this.$("#search_businesses").val() !== undefined
+               )
         {
             $(".Navigator-box").css('display', 'none');
-            $("#top-about-menu").fadeOut("320");
-            $("#search-bar").fadeIn("320");
+         //   $("#search-bar").fadeIn("320");
             HubStar.set("showDiscoveryBar", false);
             var area = this.$("#search_key").val();
             var search_key = this.$("#search_businesses").val();
@@ -49,6 +49,35 @@ HubStar.HeaderView = Ember.View.extend({
         }
 
     },
+     searchingSmall: function() {
+        if (this.$("#search_businesses-small").val() !== null && this.$("#search_businesses-small").val() !== "" && this.$("#search_businesses-small").val() !== undefined
+               )
+        {
+            $(".Navigator-box").css('display', 'none');
+         //   $("#search-bar").fadeIn("320");
+            HubStar.set("showDiscoveryBar", false);
+            var area = this.$("#search_key").val();
+            var search_key = this.$("#search_businesses").val();
+            var object;
+            if (search_key !== "" || area !== "") {
+                if (area !== "" && search_key !== "") {
+                    object = {"region": area, "search_string": search_key};
+                } else if (area === "" && search_key !== "") {
+                    object = {"region": area, "search_string": search_key};
+                } else if (area !== "" && search_key === "") {
+                    object = {"region": area, "search_string": search_key};
+                }
+            } else {
+                object = {"region": "", "search_string": ""};
+            }
+            HubStar.set("escVideo", false);
+            this.get("controller").transitionToRoute('search', {id: search_key});
+        }
+        else {
+        }
+
+    },
+    
   residential: function() {
 
         if ($("#commercial1").hasClass("residentialCommerical-selected")) {
@@ -68,6 +97,7 @@ HubStar.HeaderView = Ember.View.extend({
         }
         this.get("controller").residentialCommercialStatus();
         this.get("controller").changeBackground();
+     
 
     },
     commercial: function() {
@@ -89,17 +119,8 @@ HubStar.HeaderView = Ember.View.extend({
         }
          this.get("controller").residentialCommercialStatus();
         this.get("controller").changeBackground();
-
-    },
-    showAboutDropDown: function() {
-        if ($('#top-menu').css('display') === 'block') {
-            $("#top-menu").css('display', "none");
-        }
-        else if ($('#top-menu').css('display') === 'none') {
-            $("#top-menu").css('display', "block");
-        }
+       
 
     }
-
 });
 

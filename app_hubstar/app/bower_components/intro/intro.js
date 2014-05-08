@@ -172,6 +172,9 @@
                     $("#profilePanel").addClass("panel");
                     $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                     localStorage.checkUser = "";
+                    if (HubStar.get('showDiscoveryBar') === true) {
+                        $('#masonry_container').css('top', "50px");
+                    }
                    // alert("Thanks for taking time on user tour and have a good trip on trendsideas.com");
                     //check if any callback is defined
                     if (self._introExitCallback != undefined) {
@@ -252,13 +255,10 @@
             $("#login_detail").removeClass("tour-background");
             $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
             $("#profilePanel").addClass("panel");
-//             var address = document.URL;
-//            var urlName = address.split("#")[1].split("/")[1];
-//            if (urlName === "profiles")
-//            {
-//                alert("Thanks for taking time on user tour and have a good trip on trendsideas.com");
-//                
-//            }
+                     if (HubStar.get('showDiscoveryBar') === true) {
+                        $('#masonry_container').css('top', "50px");
+                    }
+
   
             return;
         }
@@ -573,6 +573,9 @@
                     $("#login_detail").removeClass("tour-background");
                     $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                     $("#profilePanel").addClass("panel");
+                             if (HubStar.get('showDiscoveryBar') === true) {
+                        $('#masonry_container').css('top', "50px");
+                    }
                 }
             };
 
@@ -615,7 +618,10 @@
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
                 localStorage.checkUser = "";
-               // alert("Thanks for taking time on user tour and have a good trip on trendsideas.com");
+                         if (HubStar.get('showDiscoveryBar') === true) {
+                        $('#masonry_container').css('top', "50px");
+                    }
+
             };
 
             buttonsLayer.appendChild(skipTooltipButton);
@@ -803,7 +809,10 @@
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
                 localStorage.checkUser = "";
-                //alert("Thanks for taking time on user tour and have a good trip on trendsideas.com");
+                         if (HubStar.get('showDiscoveryBar') === true) {
+                        $('#masonry_container').css('top', "50px");
+                    }
+
 
                 //check if any callback is defined
                 if (self._introExitCallback != undefined) {

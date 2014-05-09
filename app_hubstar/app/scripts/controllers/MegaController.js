@@ -992,7 +992,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
         function callback(response) {
             if (response && response.post_id) {
-                var mega = HubStar.Mega.find(this.get('selectedPhoto').get('id'));
+                var mega = HubStar.Mega.find(that.get('selectedPhoto').get('id'));
                 mega.then(function() {
                     if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
                     {

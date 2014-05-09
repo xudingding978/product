@@ -1,4 +1,4 @@
-<!--<div id="login_lightbox" class="blur" {{action canelDropDown}}>&nbsp;</div>-->
+
 
 {{#if controller.projectCategoryDropdown}}
 <div id="dropItem1"  class="Dropdownstyle1" {{action dropdown controller.dropdownCategory}}>
@@ -95,10 +95,11 @@
 {{/if}}
 
 {{#if controller.isGeoDropdown}}
+<div id="login_lightbox" class="blank-top-bar" {{action dropdown "geoLocation"}}>&nbsp;</div>
 {{#if HubStar.isLogin}}
 <div id="geoDropdown" class="edit-object-ul Dropdownstyle2" style="position: absolute;right:195px;"{{action dropdown controller.applicationCategoryDropdownType}}>
      {{else}}
-     <div id="geoDropdown" class="edit-object-ul Dropdownstyle2" style="position: absolute;right:125px;"{{action dropdown controller.applicationCategoryDropdownType}}>
+     <div id="geoDropdown" class="edit-object-ul Dropdownstyle2" style="position: absolute;right:95px;"{{action dropdown controller.applicationCategoryDropdownType}}>
      {{/if}}
      <div class="ite easing" style="">International</div>
         <div class="ite easing" style="">Australia</div>

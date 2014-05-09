@@ -45,9 +45,9 @@ and (max-device-width : 1024px)  {
     }
     /* misc */
 
-    #login_details{
-        margin-right: 175px;
-    }
+/*    #login_details{
+        margin-right: 15px;
+    }*/
     #top-about-menu span{
         margin-right:0px;
     }
@@ -108,9 +108,9 @@ and (-webkit-min-device-pixel-ratio: 1)  {
     }
     /* Register page */
 
-    #login_details{
+/*    #login_details{
         margin-right: 175px;
-    }
+    }*/
     #top-about-menu span{
         margin-right:0px;
     }

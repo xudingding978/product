@@ -16,11 +16,14 @@ HubStar.AfterLoginView = Ember.View.extend({
        
     },
     showUserDropDown: function() {
-        if ($('#user-dd-menu').attr('display') === 'block') {
+        console.log("1");
+        if ($('#user-dd-menu').css('display') === 'block') {
             $("#user-dd-menu").hide();
            $("#cancel").css("display", "none");
+           console.log("2");
         }
         else  if ($('#user-dd-menu').css('display') === 'none'){
+            console.log("3");
             this.set("newProfile", false);
               $("#user-dd-menu").show();
              $("#cancel").css("display", "block");

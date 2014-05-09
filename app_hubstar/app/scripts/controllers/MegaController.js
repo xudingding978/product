@@ -755,17 +755,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         this.transitionTo("search", {id: search_id});
                     }
                 }
-
-//                $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-//                setTimeout(function() {
-//                    $('#masonry_container').masonry();  //masonry();
-//                }, 300);
-
             }
             else
             {
-
-                //   var collection_id = address.split("#")[1].split("/")[4];
                 var address = document.URL;
                 var collection_id = address.split("#")[1].split("/")[4];
                 var owner_id = address.split("#")[1].split("/")[2];
@@ -777,7 +769,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         break;
                     }
                 }
-
                 this.set("selectPhoto", false);
                 this.transitionTo("profile", profile); // transition to profile
                 this.transitionTo("profileCollection", data);
@@ -1001,7 +992,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
         function callback(response) {
             if (response && response.post_id) {
-                var mega = HubStar.Mega.find(this.get('selectedPhoto').get('id'));
+                var mega = HubStar.Mega.find(that.get('selectedPhoto').get('id'));
                 mega.then(function() {
                     if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
                     {

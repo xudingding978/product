@@ -24,7 +24,7 @@
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;width: 60px;" {{action dropdownPhotoSetting "1"}}>
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
-            <ul class="hideClass edit-object-ul" id="dropdown_id_1_{{unbound megaResouce.id}}" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
+            <ul class="hideClass edit-object-ul" id="dropdown_id_1_{{unbound megaResouce.id}}" style="width: 150px; margin: 0 auto; left: 45px;padding: 0">
                 <li class="ite" {{action  fbShare "1"}} >
                     <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
                 </li>
@@ -51,11 +51,22 @@
 
         </div>
 
-        <div class="closeview" {{action closeWindow on="click" target="controller"}} >
+        <div  id="close_photo_wrapper" class="closeview" {{action closeWindow on="click" target="controller"}} >
             <i class="fa fa-times"></i>
+            <span id="close_text" class="close_text">close</span>
         </div>
 
         <div class="mainfeature">
+
+            {{#if controller.megaResouce.getArticle}}
+
+            <div class="click-to-read-hit-area easing" {{action transitionToArticle controller.megaResouce.id}}>
+                 <div class="click-to-read-btn easing">
+                    <i class="fa fa-book">&nbsp;</i>click to read
+                </div>
+            </div>
+            {{/if}}
+
             <div class="previous" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="controller"}}></div>
             <div class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="controller"}}></div>
 
@@ -72,9 +83,15 @@
             <div class="fa icon-on-black"  {{action previesImage on="click" target="controller"}} style="display:inline-block; vertical-align: top; position:relative; left:44px;">
                 <i class="fa fa-arrow-left"></i>
             </div>
+            {{#unless controller.isRead}}
             <div class="fa icon-on-black hint--rounded hint--top" data-hint="Show other photos in this collection." style="left: 44px; display:inline-block; vertical-align: top; position:relative;" {{action popupAibum on="click" target="view"}}>
                 <i class="fa fa-th"></i>
             </div>
+            {{else}}
+            <div  class="spinner-object" >
+            <i class="spinner"></i> 
+             </div>
+            {{/unless}}
             <div class="fa icon-on-black" style="left: 44px;position: relative;vertical-align: top;display: inline-block;" {{action nextImage on="click" target="controller"}}>
                 <i class="fa fa-arrow-right"></i>
             </div>
@@ -92,8 +109,11 @@
                 <div class="poster_user" >
                     <a class="poster-name" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
                 </div>        
-                <div class="contactmebtn hint--left hint--rounded easing" data-hint="Contact us!" style="position: absolute;">
-                    <a class="contactmeicon easing" {{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></a>
+               
+                <div class="enquiryBtn-containter" style="float: right;margin-left: -5px;margin-top: -10px;" data-hint="Contact us!">
+                    <div class="enquiryBtn-ring"></div>
+                    <div class="enquiryBtn easing"{{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></div>
+                    <div class="btn-description" style="color: #333">MESSAGE</div>
                 </div>
             </div>
             {{#if controller.contact}}
@@ -128,7 +148,7 @@
                     <i class="fa fa-pencil-square-o" {{action editingPhotoMegaData}}></i>
                 </div>
                 {{/if}}
-                <ul class="hideClass edit-object-ul" id="dropdown_id_2_{{unbound megaResouce.id}}"  style="width: 170px; right: 80px; position: absolute; top: 120px;">
+                <ul class="hideClass edit-object-ul" id="dropdown_id_2_{{unbound megaResouce.id}}"  style="width: 170px; right: 80px; position: absolute; top: 130px;">
                     <li class="ite" {{action  fbShare "2"}} >
                         <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
                     </li>

@@ -282,6 +282,10 @@ HubStar.ArticleController = Ember.Controller.extend({
 //                megaObject.store.save();
 //            }, 6000);
         });
+        
+              if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+        }
     },
     checkCreditExist: function(credits) {
         if (credits !== null && credits !== 'undefined' && credits.get('length') > 0) {
@@ -554,7 +558,14 @@ HubStar.ArticleController = Ember.Controller.extend({
 
     },
     dropdownPhotoSetting: function(param) {
-        $('#dropdown_id_' + param).toggleClass('hideClass');
+        var id='#dropdown_id_' + param;
+        $(id).toggleClass('hideClass');
+        $(id).click(function() {
+            $(this).removeClass('hideClass');
+        }).mouseleave(function() {
+            $(this).addClass('hideClass');
+        });
+//        $('#dropdown_id_' + param).toggleClass('hideClass');
     },
     fbShare: function(param) {
         this.dropdownPhotoSetting(param);
@@ -701,7 +712,9 @@ HubStar.ArticleController = Ember.Controller.extend({
         return false;
     },
     addLike: function() {
+        console.log("in ArticleController.js");
         var controller = this.get('controllers.itemFunction');
         controller.addLike(this.get('megaResouce').get('id'));
+        
     }
 });

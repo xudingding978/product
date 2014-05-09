@@ -558,11 +558,9 @@ div.search-loading-invisible{
 }
 
 .Dropdownstyle2{
-    width: 150px;  
-    padding: 0;
-    left: 115px;
-    position: relative;
-    float: right;
+    width: 150px;
+    right: 195px;
+    top: 90px;
 }
 
 
@@ -593,8 +591,8 @@ div.search-loading-invisible{
 .Dropdownstyle2:before{
     content: "";
     position: absolute;
-    left: 65px;
-    top: -20px;
+    left: 65px !important;
+    top: -18px !important;
     border-color: transparent transparent #fff transparent;
     border-style: solid;
     border-width: 10px 10px 10px 10px;
@@ -604,16 +602,16 @@ div.search-loading-invisible{
 .Dropdownstyle2:after{
     content: "";
     position: absolute;
-    left: 65px;
-    top: -21px;
+    left: 65px !important;
+    top: -21px !important;
     border-color: transparent transparent #888 transparent;
     border-style: solid;
     border-width: 10px 10px 10px 10px;
     z-index: -1;	
 }
 
-.edit-object > .edit-object-ul:before{left: 15px;}
-.top-controlbar > .edit-object-ul:before{left: 15px;}
+/*.edit-object > .edit-object-ul:before{left: 15px;}
+.top-controlbar > .edit-object-ul:before{left: 15px;}*/
 
 
 .head {
@@ -850,6 +848,88 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 
 
+.enquiryBtn-containter{
+    width: 50px;
+    height: 50px;
+    z-index: 1;
+    cursor: pointer;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+}
+
+
+.enquiryBtn-ring{
+    border: 5px solid rgba(255,0,0,.6);
+    -webkit-border-radius: 50px;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    -webkit-animation: pulsate 1s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    opacity: 0.0;
+    z-index: -1;
+}
+@-webkit-keyframes pulsate {
+    0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
+    50% {opacity: 1.0;}
+    100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+}
+
+.enquiryBtn{
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 44px;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    margin-top: 5px;
+    margin-left: 5px;
+
+
+    background: #f3f3f3; /* Old browsers */
+    background: -moz-linear-gradient(top,  #f3f3f3 0%, #eaeaea 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f3f3f3), color-stop(100%,#eaeaea)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #f3f3f3 0%,#eaeaea 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #f3f3f3 0%,#eaeaea 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #f3f3f3 0%,#eaeaea 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #f3f3f3 0%,#eaeaea 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3f3f3', endColorstr='#eaeaea',GradientType=0 ); /* IE6-9 */
+
+
+
+
+}
+
+.enquiryBtn:hover{
+    background: #f6c9b7; /* Old browsers */
+    background: -moz-linear-gradient(top,  #f6c9b7 0%, #ff392d 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f6c9b7), color-stop(100%,#ff392d)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #f6c9b7 0%,#ff392d 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #f6c9b7 0%,#ff392d 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #f6c9b7 0%,#ff392d 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #f6c9b7 0%,#ff392d 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6c9b7', endColorstr='#ff392d',GradientType=0 ); /* IE6-9 */
+}
+
+.enquiryBtn > i {color: red;text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;}
+
+.enquiryBtn:hover > i {color: white;text-shadow:none;}
+
+.btn-description{
+    font-size: 13px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    margin: 8px 0 0 -8px;
+}
+
+
+
+
 
 
 
@@ -867,10 +947,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     position: relative!important;
     top: 5px!important;
 }
-#aside_contact > tbody > tr:nth-child(4) > th {
-    position: relative!important;
-    top: -20px!important;  
-}
+
 
 .Contact_1child{
     color: #aaa;
@@ -1359,19 +1436,20 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .edit-comment > i {cursor: pointer}
 
 .select-profile-save{
-    z-index: 100; 
-    position: absolute; 
-    border: 1px solid #ddd; 
-    background-color: #fff; 
-    right: 140px; 
+    z-index: 11;
+    position: absolute;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    right: 140px;
     width: auto;
+    left: 100px;
 }
 
 .select-profile-save:before{
     content: "";
     position: absolute;
-    left: 117px;
-    top: -19px;
+    left: 145px;
+    top: -18px;
     border-color: transparent transparent #f7f7f7 transparent;
     border-style: solid;
     border-width: 10px 10px 10px 10px;
@@ -1381,7 +1459,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .select-profile-save:after{
     content: "";
     position: absolute;
-    left: 117px;
+    left: 145px;
     top: -20px;
     border-color: transparent transparent #ddd transparent;
     border-style: solid;
@@ -1447,18 +1525,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     border-top: 5px solid #fff;
     position: absolute;
     margin-top: -10px;
-    margin-left: 18px;
+    left:46%;
 }
-
-.Navigator-box .switch-groove:before{
-    margin-left: 19px;
-}
-
-
-
-
-
-
 
 
 /*loading spinner*/

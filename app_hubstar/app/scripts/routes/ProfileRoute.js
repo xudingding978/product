@@ -59,32 +59,21 @@ HubStar.ProfileRoute = Ember.Route.extend({
         }
         this.controllerFor('application').set("newProfile", false);
         $("#user-dd-menu").attr("style", "display:none");
-        $("#top-about-menu").css('display', 'none');
-        $("#search-bar").css('display', 'block');
-//        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-        ProfileController.setProfile(model.id);
-
-
-//        var address = document.URL;
-//        var urlArray = address.split("#")[1].split("/");
-//        if (urlArray.length < 4)
-//        {
-//            ProfileController.selectCollection();
-//        }
-//        console.log(urlArray.length);      
+      
+        ProfileController.setProfile(model.id); 
     },
     model: function(params) {
 
         return HubStar.Profile.find(params.profile_id);
     },
-       beforeModel: function(transition) {
-             var model = HubStar.Profile.find(transition.params.profile_id);
-            var that = this;
-            model.then(function() {
-            }, function() {
-                that.transitionTo('fourOhFour',"404");
-            });
-  },
+    beforeModel: function(transition) {
+        var model = HubStar.Profile.find(transition.params.profile_id);
+        var that = this;
+        model.then(function() {
+        }, function() {
+            that.transitionTo('fourOhFour', "404");
+        });
+    },
     events: {
         transitionToCollectionPhoto: function(collection_id) {
             HubStar.set("scrollCollectionPosition", $(window).scrollTop());
@@ -105,28 +94,20 @@ HubStar.ProfileRoute = Ember.Route.extend({
             this.transitionTo("profileArticlePhoto");
         },
         transitionToVideo: function(video_id) {
-
-//            var address = document.URL;
-//            var owner_id = address.split("#")[1].split("/")[2];
-//
-//
-//            var collection_id = address.split("#")[1].split("/")[4];
-//            var profile = HubStar.Profile.find(owner_id);
-//            for (var i = 0; i < profile.get('collections').get("length"); i++) {
-//                var data = profile.get('collections').objectAt(i);
-//                if (data.id === collection_id) {
-//                    break;
-//                }
-//            }
-//            this.transitionTo("profileCollection", data);
-            //           this.controllerFor('masonryCollectionItems').set('isUser', true);
-            //var model = HubStar.Profile.find(video_id);
             this.transitionTo("videoVideo", {id: video_id});
         }
     },
-    redirect: function() {
-
-
+    redirect: function(params) {
+        var p= HubStar.Profile.find(params.id);
+        var address = document.URL;
+        var page = address.split("#")[1].split("/");
+        if(page.length === 3)
+        {
+            var that =this;
+            p.then(function(){    
+                that.controllerFor('profile').selectCollectionFake(); 
+            });       
+        }
     },
     deactivate: function() {
 
@@ -139,11 +120,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
         $('#masonry_container').attr('style', "display:none");
         $(function() {
             $('#masonry_container').masonry('remove', $('.noStyle1'));
-        });
-
-
-
-
+        });        
     },
     renderTemplate: function() {
         this.render('profile', {

@@ -1,10 +1,10 @@
 
 .navbar {
-    height: 75px;
+    height: 90px;
     line-height: 60px;
     overflow: visible;
     color: white;
-    padding-top: 7px;
+    padding: 2px 0;
     position: fixed;
     z-index: 9999;
     width: 100%;
@@ -21,7 +21,7 @@
 .navbar .brand {
     display: block;
     float: left;
-    padding: 0px;
+    padding: 13px 10px;
     margin: 0;
     position: relative;
     font-size: 20px;
@@ -36,22 +36,28 @@
 
 .navbar-inner {
     min-width:50%;
-    height:75px;
+    height:100%;
     width:97%;
     margin:auto;
 }
 
 .logonew{
     height: 35px;
+
+}
+.logonew-small{
+    display: none;
+    height: 35px;
+    margin: 15px 0;
 }
 
 #user-dd-menu{
-    padding: inherit;  
-    width: 220px; 
-    right: 157px; 
-    position: relative; 
-    top:16px; 
-    display:none;
+    padding: inherit;
+    width: 220px;
+    position: absolute;
+    display: none;
+    right: -7px;
+    top: 90px;
 }
 
 #user-dd-menu > li {padding:0}
@@ -96,15 +102,53 @@
     left: 170px;
 }
 
+.residentialCommerical{
+    display: inline-block;
+    font-weight: bold;
+    font-size: 30px;
+    color: #fff;
+    text-align: center;
+    padding: 20px 45px;
+    position: relative;
+    top: 40px;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+}
 
+.residentialCommerical:hover{background-color: #fff; color: #333}
 
+#topResidentialCommerical{
+    top:5px;
+    position: relative;
+    float: right;
+    margin: 2px 25px 2px 10px; 
+}
 
+.residentialCommericalTop{
+    display: block;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    line-height: 20px;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+    padding: 5px 15px;
+    font-size: 15px;
+    border: 1px solid #aaa;
+}
 
+.residentialCommericalTop:hover{background-color: #fff; color: #555}
+
+.residentialCommerical-selected{background-color: #fff; color: #555;}
 
 #discovery_search_bar_wrapper {
     height: 520px;
     width: 100%;
-    background: url(../../images/discoverybarbg.jpg);
+   // background: url(../../images/discoverybarbg.jpg);
     background-size: 100% 100%;
     background-position: left top;
     position: relative;
@@ -112,54 +156,60 @@
 }
 
 .search-bar{
-    width: 45%;
-    max-width: 800px;
     position: absolute;
     top: 330px;
-    margin: auto;
-    left: 0;
-    right: 0;
-    min-width: 700px;
+    margin: 0 auto;
+    width: 65%;
+    left: 23%;
+}
+
+.search-bar-ontop{
+    position: relative;
+    margin: 6px auto;
+    top: 13px;
+    float: left;
+    min-width: 40%;
+    height: 60px;
 }
 
 
 .Nav-btn{
-    width: 50px; 
-    height: 50px; 
     border-radius: 3px; 
     margin-right: 5px;
     line-height: 50px; 
-    color: #555;
     text-align: center;
-    background-color: #fff;
     opacity: .9;
     cursor: pointer;
+    float: left;
+    width: 100px;
+    height: 60px;
+    top: -5px;
+    position: relative;
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+    background-color: white;
 }
 
 .Nav-btn:hover{opacity: 1}
 
 .search-box{
-    width: 80%;
-    height: 50px;
+    top: -5px;
+    position: relative;
     float: left;
     display: inline-block;
-    max-width: 745px;
+    height: 100%;
+    max-width: 84%;
+    width: 70%;
 }
 
-.search-bar-ontop{
-    position: absolute;
-    width: 35%;
-    max-width: 800px;
-    margin: 6px auto;
-    left: 5%;
-    right: 25%;
-}
+
 
 .search-box > input {
     font-size: 20px;
     font-weight: bold;
     color: #333;
-    height: 50px;
+    height: 60px;
     border-radius: 3px;
     background-color: #fff;
     border: 1px solid #eee;
@@ -198,7 +248,18 @@
 }
 
 
-.top-about-menu{position: relative; float: left; margin-left: 50px;}
+.top-about-menu{
+    position: relative;
+    float: left;
+    margin-right: 50px;
+    cursor: pointer;
+    margin: 26px 50px 26px 0;
+    width: 30px;
+    height: 30px;
+}
+
+#top-about-menu i{opacity: .7}
+#top-about-menu:hover i{opacity: 1}
 
 .top-about-menu > span{margin: 0 2em}
 
@@ -224,7 +285,7 @@
 .Navigator-box:before{
     content: "";
     position: absolute;
-    left: 18px;
+    left: 30px;
     top: -19px;
     border-color: transparent transparent #f3f3f3 transparent;
     border-style: solid;
@@ -235,7 +296,7 @@
 .Navigator-box:after{
     content: "";
     position: absolute;
-    left: 18px;
+    left: 30px;
     top: -20px;
     border-color: transparent transparent #888 transparent;
     border-style: solid;
@@ -434,11 +495,11 @@
 }
 
 .registraion-suceesful-message{
-     text-align: center; 
-     padding: 10px 20px; 
-     height: 165px; 
-     font-size: 13px; 
-     color: #333;
+    text-align: center; 
+    padding: 10px 20px; 
+    height: 165px; 
+    font-size: 13px; 
+    color: #333;
 }
 
 
@@ -730,11 +791,6 @@ div#forgot-password-container{
 
 
 
-
-
-
-
-
 .crop-canvas{height: auto;max-height: 500px;width: auto;margin: 0 auto; max-width: 850px;}
 
 
@@ -766,7 +822,11 @@ div#forgot-password-container{
     color: #fff;
     opacity: .7;
     cursor: pointer;
-    margin-right: 40px;
+    font-size: 15px;
+    height: 90px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0 10px;
 }
 
 .Geo-Filter:hover, .Geo-Filter:active{opacity: 1}
@@ -778,16 +838,92 @@ div#forgot-password-container{
     opacity: 1
 }
 
-/* Clint Lewis's style's 29/10/13 */
-
-div#login_detail{
-    width:55px;
-    float:right;
-    cursor: pointer;
-    vertical-align: top;
-    height:70px;
+.circle-btn{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    line-height: 44px;
+    text-align: center;
+    margin: 8px auto;
 }
 
+.circle-btn:hover{border-color: #fff}
+
+.circle-btn-description{
+    position: relative;
+    font-size: 15px;
+    line-height: 15px;
+}
+
+.circle-btn > .fa-globe{font-size: 30px;line-height: 35px;}
+.circle-btn > .fa-bell{font-size: 23px;}
+
+.notification-number{
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    width: auto;
+    padding: 0 5px 0 4px;
+    background-color: red;
+    line-height: 15px;
+    border-radius: 2px;
+    font-size: 11px;
+}
+
+.Geo-Filter-location{
+    position: relative;
+    font-size: 15px;
+    line-height: 15px;
+
+}
+
+.user-menu-hit-area{
+    height: 87px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.search-bar-on-small-screen{
+    display: none;
+    height: 60px;
+    width: 100%;
+    background-color: rgba(0,0,0,.8);
+    position: absolute;
+    padding: 0 3%;
+}
+.search-bar-on-small-screen .Nav-btn{
+    width: 50px;
+    height: 40px;
+    line-height: 45px;
+}
+.search-bar-on-small-screen .search-bar-ontop{
+    height: 40px;
+    top: 9px;
+
+}
+.search-bar-on-small-screen .search-box > input{
+    height: 40px;
+}
+.search-bar-on-small-screen .residentialCommericalTop{
+    bottom: 5px;
+    display: inline-block;
+}
+search-bar-on-small-screen #topResidentialCommerical{
+    float: none;
+    margin: 2px 15%;
+}
+
+
+.search-bar-on-large-screen{ display: block;}
+.search-bar-on-small-screen{ display: none;}
+
+
+/* Clint Lewis's style's 29/10/13 */
 
 
 .Notification-top{
@@ -801,34 +937,13 @@ div#login_detail{
     box-shadow: 0 0 10px #555;
 }
 
-/*.Notification-top:before{
-    content: "";
-    position: absolute;
-    left: 204px;
-    top: -19px;
-    border-color: transparent transparent #f3f3f3 transparent;
-    border-style: solid;
-    border-width: 10px 10px 10px 10px;
-    z-index: 0;
-}
-
-.Notification-top:after{
-    content: "";
-    position: absolute;
-    left: 204px;
-    top: -20px;
-    border-color: transparent transparent #888 transparent;
-    border-style: solid;
-    border-width: 10px 10px 10px 10px;
-    z-index: -1;
-}*/
 
 .Notification-top > div:first-child{border-radius: 3px 3px 0 0}
 .Notification-top > div:last-child{border-radius: 0 0 3px 3px}
 
 
 
-.user-face-size{width: 45px; height: 45px;}
+.user-face-size{width: 45px; height: 45px;margin: auto}
 
 
 /*TOUR*/
@@ -837,12 +952,8 @@ div#login_detail{
 .tour-background{
     background-color: #475476;
     margin: 5px !important;
-    padding: 5px !important;
+    padding: 0 5px !important;
 }
-
-
-
-
 
 /*DEVICES FOR REGISTER PAGE*/
 
@@ -887,13 +998,9 @@ div#login_detail{
 
     .register-info-box{
         width: 250px;
-        /*        margin: 0 auto ;
-                background-color: #fff;
-                border-radius: 0 0 5px 5px;*/
     }
-
+    #register-with-email-drop-down{width: 250px;}
     #register-with-email-step-2{width: 250px;}
-
     #login-with-email-drop-down{width: 250px;}
 
     .login-textfield {
@@ -936,23 +1043,26 @@ div#login_detail{
 
 
 }
-@media only screen 
-and (max-width : 1239px) {
-    #top-about-menu{
-        display:none!Important;
+
+
+@media only screen and (max-width : 1200px) {
+
+    .search-bar-on-small-screen{
+        display: block;   
+    }
+    .search-bar-on-large-screen{
+        display: none;
     }
 }
 
-@media only screen 
-and (max-width : 1400px) {
-    #switcher{
-        display:none;
-    }
+
+
+@media only screen and (min-width : 768px) and (max-width : 979px) {
+
 }
 
 
-@media only screen 
-and (max-width : 900px) {
+@media only screen and (max-width : 767px) {
     .promotion-line{ display: none; }
 
     .interest-image-container{width: 70px; height: 70px;}
@@ -964,17 +1074,62 @@ and (max-width : 900px) {
     .interest-topic-name{font-size: 11px;}
 
     #register-with-email-step-4{width: 250px}
-    
+
     .registraion-suceesful-message{font-size: 11px; line-height: 15px;}
+
+    .circle-btn-description{display:none!Important;}
+
+    .Geo-Filter-location{
+        bottom: 20px;
+        font-size: 11px;
+        text-align: center;
+        line-height: 18px;
+        background-color: rgba(0,0,0,.2);
+        padding: 0 5px;
+        margin: 5px 0;
+    }
+    .Geo-Filter{margin-top: 15px;}
+    
+    .notification-number{right: 0px;}
+    
+    .Dropdownstyle2{
+        right:115px !important;
+    }
+    #top-menu{
+        left:0px !important;
+    }
+
+    .logonew-small{
+        display:block;
+    }
+    .logonew{
+        display:none;
+    }
+
+    .search-bar-on-small-screen .search-bar-ontop{
+        max-width: 75%;
+
+    }
+    .search-bar-on-small-screen .search-box{
+        height: 40px;
+        width: 64%;
+    }
+    .search-bar-on-small-screen .residentialCommericalTop{
+        bottom: 5px;
+        display: block;
+        padding: 1px 6px;
+        font-size: 13px;
+    }
+    .search-bar-on-small-screen #topResidentialCommerical{
+        position: absolute;
+        right: 0;
+        margin: 0;
+    }
 }
-
-
-
-
 @media only screen 
 and (max-width : 480px) {
     #fadein-image{ display: none!important;}
-    
+
     .register-page-top-bar {margin: 40px auto 15%;}
 
     .interest-image-container{width: 50px; height: 50px;}

@@ -10,7 +10,7 @@ HubStar.FourOhFourController = Ember.Controller.extend({
         setTimeout(function() {
             $(".Navigator-box").css('display', 'none');
             $("#top-about-menu").fadeOut("320");
-            $("#search-bar").fadeIn("320");
+           // $("#search-bar").fadeIn("320");
         }, 10);
 
 

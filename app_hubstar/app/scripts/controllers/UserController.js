@@ -85,6 +85,7 @@ HubStar.UserController = Ember.Controller.extend({
     isTalk: false,
     init: function()
     {
+   
     },
     checkedAction: function(checkedboxselection) {
         $("#" + checkedboxselection).prop('checked', !$("#" + checkedboxselection).prop('checked'));
@@ -204,7 +205,6 @@ HubStar.UserController = Ember.Controller.extend({
         this.set("user", user);
         this.set("left_count_aboutme", 430 - user.get("about_me").length);
         this.set("Id", this.get('model').get('id'));
-        //console.log(this.get("user"));
         this.set("collections", user.get("collections"));
         this.set("description", user.get("description"));
         this.set("display_name", user.get("display_name"));
@@ -299,24 +299,22 @@ HubStar.UserController = Ember.Controller.extend({
         this.labelBarRefresh();
 
         this.trendsUser();
-        $(document).ready(function() {
-            $("#about_us_contentsssssssw").mCustomScrollbar({
-                scrollButtons: {
-                    enable: false,
-                    scrollSpeed: "auto"
-                },
-                advanced: {
-                    updateOnBrowserResize: true,
-                    updateOnContentResize: true,
-                    autoScrollOnFocus: false,
-                    normalizeMouseWheelDelta: false
-                },
-                autoHideScrollbar: true,
-                mouseWheel: true,
-                theme: "dark-2",
-                set_height: 30
-            });
-        });
+                $(document).ready(function() {
+                    setTimeout(function() {
+                        if ($(window).width() > 1200) {
+                            $("#search-bar").css('display', "block");
+                            $("#topResidentialCommerical").css('display', "block");
+                            $(".search-bar-on-small-screen").css('display', "none");
+                            $(".user-board").css("top", "0");
+                        } else {
+                            $("#search-bar").css('display', "none");
+                            $("#topResidentialCommerical").css('display', "none");
+                            $(".search-bar-on-small-screen").css('display', "block");
+                            $(".user-board").css("top", "30px");
+                        }
+
+                    }, 50);
+                });
     },
     trendsUser: function() {
         if (localStorage.loginStatus)
@@ -590,7 +588,7 @@ HubStar.UserController = Ember.Controller.extend({
         {
             update_user_record.set('collections', this.get('collections'));
             update_user_record.set('description', this.get('description'));
-            update_user_record.set('display_name', this.get('display_name'));
+            update_user_record.set('display_name', this.get('display_name').replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));
             update_user_record.set('first_name', this.get('first_name'));
             update_user_record.set('last_name', this.get('last_name'));
             update_user_record.set('about_me', this.get('about_me'));
@@ -600,6 +598,7 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('about_me', this.get('about_me'));
             this.get('controllers.applicationFeedback').statusObserver(null, "General Settings updated.");
             update_user_record.store.save();
+            this.set("display_name",this.get('display_name').replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));
         }
         else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please check if you have already filled the mandatory field.", "warnning");
@@ -739,9 +738,16 @@ HubStar.UserController = Ember.Controller.extend({
         }
         return update_user_record;
     },
+    interestTrim: function(param) {
+        var result = param.replace(/[,\s]*,[,\s]*/g, ",");
+        result = result.replace(/^,/, "");
+        result = result.replace(/,$/, "");
+        return result.trim();
+    },
     saveUpdateInterest: function() {
-
-        var checkString = this.get('interests').trim();
+        var checkString = this.interestTrim(this.get('interests'));
+        //console.log(checkString);
+        this.set('interests', checkString);
         if ((checkString.substring(checkString.length - 1, checkString.length) !== ',') && (!/,,/.test(checkString))) {
             var update_interest_record = HubStar.User.find(this.get('user.id'));
             interests = this.get('interests');

@@ -13,7 +13,7 @@
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;width: 60px;margin: 0 5px;" {{action dropdownPhotoSetting "1"}}>
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
-            <ul class="hideClass edit-object-ul" id="dropdown_id_1" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
+            <ul class="hideClass edit-object-ul" id="dropdown_id_1" style="width: 150px; margin: 0 auto;left: 45px;;padding: 0">
                 <li class="ite" {{action  fbShare "1"}} >
                     <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
                 </li>
@@ -40,8 +40,9 @@
 
         </div>
 
-        <div class="closeview" {{action closeWindow on="click" target="controller"}} >
+        <div id="close_video_wrapper" class="closeview" {{action closeWindow on="click" target="controller"}} >
             <i class="fa fa-times"></i>
+            <span id="close_text" class="close_text">close</span>
         </div>
 
         <div class="mainfeature">
@@ -90,8 +91,10 @@
 
                     <a class="poster-name" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
                 </div>        
-                <div class="contactmebtn hint--left hint--rounded easing" data-hint="Contact us!" style="position: absolute;">
-                    <a class="contactmeicon easing" {{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></a>
+                <div class="enquiryBtn-containter" style="float: right;margin-left: -5px;margin-top: -10px;" data-hint="Contact us!">
+                    <div class="enquiryBtn-ring"></div>
+                    <div class="enquiryBtn easing"{{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></div>
+                    <div class="btn-description" style="color: #333">MESSAGE</div>
                 </div>
             </div>
 
@@ -122,7 +125,7 @@
                      <i class="fa fa-share" >&nbsp;<span style="font-size: 11px;">{{megaResouce.share_count}}</span>&nbsp;</i>
                 </div>
 
-                <ul class="hideClass edit-object-ul" id="dropdown_id_2" style="width: 170px; right: 80px; position: absolute; top: 120px;">
+                <ul class="hideClass edit-object-ul" id="dropdown_id_2" style="width: 170px; right: 80px; position: absolute; top: 136px;">
                     <li class="ite" {{action  fbShare "2"}} >
                         <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
                     </li>

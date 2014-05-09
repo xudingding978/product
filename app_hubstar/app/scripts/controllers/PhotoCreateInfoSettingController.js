@@ -21,7 +21,8 @@ HubStar.PhotoCreateInfoSettingController = Ember.Controller.extend({
                 this.get('photoInfo').pushObject({
                     id: raw_id,
                     url: content.objectAt(i).get("photo").objectAt(0).get('photo_image_original_url'),
-                    title: content.objectAt(i).get("photo").objectAt(0).get('photo_title'),
+                     filename: content.objectAt(i).get("photo").objectAt(0).get('photo_file_name'),
+                     title: content.objectAt(i).get("photo").objectAt(0).get('photo_title'),
                     caption: content.objectAt(i).get("photo").objectAt(0).get('photo_caption')
                 });
             }

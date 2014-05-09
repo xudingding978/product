@@ -181,62 +181,41 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     setProfile: function(id) {
         var that = this;
-        var mega = HubStar.Mega.find(id);
-        mega.then(function() {
-            if (mega.get('classification') === "commercial" && localStorage.resOrcom === "residential") {
-                localStorage.resOrcom = "commercial";
-                that.get('controllers.application').set('residentialKeyword', false);
-                setTimeout(function() {
-                    $(".navbar").css("background", " url(../../images/commercialbg.jpg)");
-                }, 10);
-            }
-            else if (mega.get('classification') === "residential" && localStorage.resOrcom === "commercial") {
-                localStorage.resOrcom = "residential";
-                that.get('controllers.application').set('residentialKeyword', true);
-                setTimeout(function() {
-                    $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-                }, 10);
-            }
-            else if (mega.get('classification') === undefined || mega.get('classification') === "" || mega.get('classification') === null) {
-                localStorage.resOrcom = "All";
-                that.get('controllers.application').set('residentialKeyword', true);
-                setTimeout(function() {
-                    $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-                }, 10);
-            }
-            for (var i = 0; i < that.get("controllers.application").get("categorys").get("length"); i++)
-            {
-                that.get('controllers.application').get("categorys").objectAt(i).set("classification", localStorage.resOrcom);
-            }
-            $(document).ready(function() {
-                setTimeout(function() {
-                    if (localStorage.resOrcom === "commercial")
-                    {
-                        $('#switchbarBtn').attr("style", "margin-left:28px;");
-                        $("#Commercial").css("opacity", "1");
-                        $("#Residential").css("opacity", "0.4");
-                    }
-                    else if (localStorage.resOrcom === "residential")
-                    {
-                        $('#switchbarBtn').attr("style", "margin-left:0px;");
-                        $("#Commercial").css("opacity", "0.4");
-                        $("#Residential").css("opacity", "1");
-                    }
-                    else if (localStorage.resOrcom === "All")
-                    {
-                        $('#switchbarBtn').attr("style", "margin-left:13px;");
-                        $("#Commercial").css("opacity", "1");
-                        $("#Residential").css("opacity", "1");
-                    }
-                }, 50);
-            });
+        var tempComment = [id];
+        requiredBackEnd('megas', 'SetProfileViewCount', tempComment, 'POST', function(params) {
 
-            var tempComment = [id];
-            requiredBackEnd('megas', 'SetProfileViewCount', tempComment, 'POST', function(params) {
+            var mega = HubStar.Mega.find(id);
+            mega.then(function() {
+                if (mega.get('classification') === "commercial" && localStorage.resOrcom === "residential") {
+                    localStorage.resOrcom = "commercial";
+                }
+                else if (mega.get('classification') === "residential" && localStorage.resOrcom === "commercial") {
+                    localStorage.resOrcom = "residential";
+                }
+                else if (mega.get('classification') === undefined || mega.get('classification') === "" || mega.get('classification') === null) {
+                    localStorage.resOrcom = "All";
+                }
+                var thatthat = that;
+                $(document).ready(function() {
+                    setTimeout(function() {
+                        thatthat.get("controllers.application").residentialCommercialStatus();
+                        thatthat.get("controllers.application").changeBackground();
+
+                        if ($(window).width() > 1200) {
+                            $("#search-bar").css('display', "block");
+                            $("#topResidentialCommerical").css('display', "block");
+                            $(".search-bar-on-small-screen").css('display', "none");
+                        } else {
+                            $("#search-bar").css('display', "none");
+                            $("#topResidentialCommerical").css('display', "none");
+                            $(".search-bar-on-small-screen").css('display', "block");
+                        }
+
+                    }, 50);
+                });
             });
         });
         var profile = this.getCurrentProfile(id);
-
 
         this.set("model", profile);
         this.set("Id", this.get('model').get('id'));
@@ -267,6 +246,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('profile_analytics_code', profile.get('profile_analytics_code'));
         this.set('profile_contact_number', profile.get('profile_contact_number'));
         this.set('projectCategoryDropdownContent', profile.get('profile_package_name'));
+
+        if (profile.get("profile_keywords_num") !== null && profile.get("profile_keywords_num") !== "undefined" && profile.get("profile_keywords_num") !== "") {
+
+            this.set("keyword_num", profile.get("profile_keywords_num"));
+        } else {
+            this.setKeywordsNum(this.get('model').get('profile_package_name'));
+        }
         this.set('first_name', profile.get('profile_contact_first_name'));
         this.set('address', profile.get('profile_physical_address'));
         if (profile.get('profile_category') === null || profile.get('profile_category') === 'undefined' || profile.get('profile_category') === "") {
@@ -348,12 +334,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //        } else {            
 //            this.setKeywordsArray(this.get('model').get('profile_keywords'));
 //        }
-        if (profile.get("profile_keywords_num") !== null && profile.get("profile_keywords_num") !== "undefined" && profile.get("profile_keywords_num") !== "") {
 
-            this.set("keyword_num", profile.get("profile_keywords_num"));
-        } else {
-            this.setKeywordsNum(this.get('model').get('profile_package_name'));
-        }
         this.set('keyword_left', parseInt(this.get("keyword_num")) - profile.get('keywords').get('length'));
         this.setAboutUsObject();
         this.set('editingAbout', false);
@@ -397,20 +378,38 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 //            }
 //        }
 //    },
-    setKeywordsNum: function(profile_package_name) {
+    setKeywordsNum: function(profile_package_name) { // change "profile.profile_keywords_num", "profile.profile_boost"
         if (profile_package_name === 'Platinum') {
             this.set('keyword_num', 200);
+            this.set('boost', 200);
         } else if (profile_package_name === 'Gold') {
             this.set('keyword_num', 100);
+            this.set('boost', 100);
         } else if (profile_package_name === 'Silver') {
             this.set('keyword_num', 50);
+            this.set('boost', 50);
         } else if (profile_package_name === 'Bronze') {
             this.set('keyword_num', 25);
+            this.set('boost', 25);
         }
 
-
-
-
+    },
+    checkKeywordNum: function(updatePackageName, originPackageName) {
+        if (this.getKeywordsNum(updatePackageName) < this.getKeywordsNum(originPackageName)) {
+            return true;
+        }
+        return false;
+    },
+    getKeywordsNum: function(profile_package_name) {
+        if (profile_package_name === 'Platinum') {
+            return 200;
+        } else if (profile_package_name === 'Gold') {
+            return 100;
+        } else if (profile_package_name === 'Silver') {
+            return 50;
+        } else if (profile_package_name === 'Bronze') {
+            return 25;
+        }
     },
     setTopicModel: function(model) {
         this.set('categorys', null);
@@ -761,6 +760,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('model.profile_hours', data.substring(0, data.length - 1));
             this.set('editingTime', !this.get('editingTime'));
             this.saveUpdate();
+
         }
 //    this.saveUpdate();
     },
@@ -1038,8 +1038,28 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         return isFollow;
     },
-    selectCollection: function() {
+    selectCollectionFake: function() {
+        $('#user-stats > li').removeClass('selected-user-stats');
+        $('#defualt').addClass('selected-user-stats');
 
+
+        this.sendEventTracking('event', 'button', 'click', 'Collections');
+        this.set('partnerPage', 'Collections');
+        this.set('profileSelectionStatus', 'Collections');
+        this.set('partnerTag', false);
+        this.set('followerProfileTag', false);
+        this.set('collectionTag', true);
+        this.set('reviewTag', false);
+        this.set('videoTag', false);
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reloadItems");
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+
+            }, 200);
+        }, 250);
+    },
+    selectCollection: function() {
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
 
@@ -1054,7 +1074,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('reviewTag', false);
         this.set('videoTag', false);
         this.transitionToRoute('profileCollections');
-
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {
@@ -1062,7 +1081,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
             }, 200);
         }, 250);
-
     },
     selectVideo: function(model) {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
@@ -1174,7 +1192,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
         update_profile_record.set('profile_editors', this.get('editors'));
         update_profile_record.set('profile_keywords', this.get('keywords'));
-        update_profile_record.set('profile_keywords_num', parseInt(this.get('keyword_num')));
+
         update_profile_record.set('profile_regoin', this.get('region'));
         update_profile_record.set('profile_country', this.get('country'));
         update_profile_record.set('profile_boost', this.get('boost'));
@@ -1190,6 +1208,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.saveLink('profile_linkedin_link', 'linkedin');
         this.saveLink('profile_youtube_link', 'youtube');
 
+
         if (this.get('controllers.profilePartners').get("partnerNew") !== undefined && this.get('controllers.profilePartners').get("partnerNew") !== null && this.get('controllers.profilePartners').get("partnerNew") !== "")
         {
             if (update_profile_record.get('profile_partner_ids').length !== this.get('controllers.profilePartners').get("partnerNew").length) {
@@ -1197,12 +1216,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.get('controllers.profilePartners').set("partnerNew", "");
             }
         }
-
-
-        update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
         update_profile_record.set('owner_contact_bcc_emails', this.get('direct_enquiry_provide_email'));
-
-
 
         update_profile_record.set('owner_contact_cc_emails', this.get('secondary_email'));
         update_profile_record.set('owner_contact_email', this.get('contact_email'));
@@ -1213,9 +1227,27 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         if (update_profile_record.get('stateManager') !== null && update_profile_record.get('stateManager') !== undefined) {
             update_profile_record.get('stateManager').transitionTo('loaded.saved');
         }
-        this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
+        $('#errorMessage2').attr('style', 'display:none');
 
-        update_profile_record.store.save();
+        if (this.checkKeywordNum(this.get('projectCategoryDropdownContent'), update_profile_record.get('profile_package_name')) && this.getKeywordsNum(this.get('projectCategoryDropdownContent')) - update_profile_record.get('keywords').get('length') < 0) {
+
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please delete keywords, it can't exceed " +
+                    this.getKeywordsNum(this.get('projectCategoryDropdownContent')));
+            $('#errorMessage2').attr('style', 'display:block');
+            this.set('projectCategoryDropdownContent', update_profile_record.get('profile_package_name'));
+
+        } else {
+
+            update_profile_record.set('profile_package_name', this.get('projectCategoryDropdownContent'));
+            this.setKeywordsNum(this.get('model').get('profile_package_name'));
+            update_profile_record.set('profile_keywords_num', parseInt(this.get('keyword_num')));
+            update_profile_record.set('profile_boost', parseInt(this.get('boost')));
+            this.set('keyword_left', parseInt(this.get("keyword_num")) - update_profile_record.get('keywords').get('length'));
+
+            this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
+            update_profile_record.store.save();
+        }
+
     },
 //    saveShowKeywords: function() {
 //        var show_keyword_id = '';
@@ -1324,6 +1356,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         var target = getTarget(e, "single");
         var src = target.result;
         var that = this;
+
         getImageWidth(src, function(width, height) {
             that.set('newStyleImageSource', src);
             that.set('newStyleImageName', name);
@@ -1331,6 +1364,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             that.set('currentHeight', height);
             if (that.get('newStyleImageSource') !== null && that.get('newStyleImageSource') !== "")
             {
+                $("#smallUploadImage").css("display", "inline-block");
                 var size = "Your image size is " + width + "x" + height;
                 that.set('CurrentImageSize', size);
 
@@ -1438,6 +1472,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     else if (width < params.width || height < params.height) {
                         that.set('loadingTime', false);
                         that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height);
+                        $("#smallUploadImage").css("display", "none");
                         that.set('newStyleImageSource', "");
                         that.set('newStyleImageName', "");
                         that.set('CurrentImageSize', "");
@@ -1490,6 +1525,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     resetNewStyleImageSource: function()
     {
         this.set('newStyleImageSource', "");
+        $("#smallUploadImage").css("display", "none");
         this.set('newStyleImageName', "");
         this.set('CurrentImageSize', "");
         this.set('isCrop', false);
@@ -1562,7 +1598,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     sendEventTracking: function(hitType, category, action, label) {
-        if (this.isTracking) {
+        if (this.isTracking && this.get('model').get('profile_analytics_code') !== null) {
             var analytics_array = this.get('model').get('profile_analytics_code').split(',');
             for (var i = 0; i < analytics_array.length; i++) {
                 ga(this.get('model').get('id').split('-').join('') + i.toString() + '.send', {

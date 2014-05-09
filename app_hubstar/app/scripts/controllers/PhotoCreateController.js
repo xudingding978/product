@@ -93,8 +93,6 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
         }
         fileSize = this.get("fileSize");
 
-        //   console.log(fileSize+"sdfdsf");
-
         if ((fileSize <= 25000000) && (addPhoto === true))
         {
             return true;
@@ -107,7 +105,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     addPhotoObject: function(e, name, type, size) {
         if (this.setFileSize(size))
         {
-            var photoName = name.replace(/[)\(]/gi, '');
+            var photoName = name.replace(/[`~!@#$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi, '');
             photoName = photoName.replace(/\s/g, '_');
             var testID = createGuid();
             var target = getTarget(e, "pural");
@@ -118,7 +116,7 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             var file = HubStar.Photo.createRecord({
                 "id": testID,
                 "photo_title": photoName.toLowerCase(),
-                "photo_source_id": photoName.toLowerCase().replace('.', "_"),
+                "photo_source_id": photoName.toLowerCase().replace(/\./g, "_"),
                 "photo_image_original_url": src,
                 "photo_file_name": photoName.toLowerCase(),
                 "photo_type": type,
@@ -198,37 +196,48 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     },
     addCollection: function(collection, photoId)
     {
-        if (HubStar.get('selectedCollection') !== undefined && HubStar.get('selectedCollection') !== null)
+        if (HubStar.get('selectedCollection') !== undefined && HubStar.get('selectedCollection') !== null&&HubStar.get('selectedCollection').id===collection.get("id"))
         {
             var content = HubStar.get('selectedCollection').collection_ids;
             if (content === null || content === undefined || content === "") {
-                if (collection.get("collection_ids") === null || collection.get("collection_ids") === undefined || collection.get("collection_ids") === "") {
-                    collection.set("collection_ids", photoId);
-                }
-                else {
-                    var ids = collection.get("collection_ids");
-                    ids = ids + "," + photoId;
-                    collection.set("collection_ids", ids);
-                }
+                var data = JSON.stringify([HubStar.get('selectedCollection').id, HubStar.get('selectedCollection').optional, photoId]);
+                requiredBackEnd('collections', 'savePhotoCollection', data, 'POST', function(params) {
+                    if (collection.get("collection_ids") === null || collection.get("collection_ids") === undefined || collection.get("collection_ids") === "") {
+                        collection.set("collection_ids", params);
+                    }
+                    else {
+                        collection.set("collection_ids", params);
+                    }
+                    HubStar.get('selectedCollection').collection_ids = collection.get("collection_ids");
+                     collection.store.save();
+                });
             }
             else {
-                var ids = content;
-                ids = ids + "," + photoId;
-                collection.set("collection_ids", ids);
+                var data = JSON.stringify([collection.get("id"), collection.get("optional"), photoId]);
+                requiredBackEnd('collections', 'savePhotoCollection', data, 'POST', function(params) {
+                    if (collection.get("collection_ids") === null || collection.get("collection_ids") === undefined || collection.get("collection_ids") === "") {
+                        collection.set("collection_ids", params);
+                    }
+                    else {
+                        collection.set("collection_ids", params);
+                    }
+                     HubStar.get('selectedCollection').collection_ids = collection.get("collection_ids");
+                      collection.store.save();
+                });
             }
-            HubStar.get('selectedCollection').collection_ids = collection.get("collection_ids");
         }
         else {
-            if (collection.get("collection_ids") === null || collection.get("collection_ids") === undefined || collection.get("collection_ids") === "") {
-                collection.set("collection_ids", photoId);
-            }
-            else {
-                var ids = collection.get("collection_ids");
-                ids = ids + "," + photoId;
-                collection.set("collection_ids", ids);
-            }            
-        }
-        collection.store.save();
+            var data = JSON.stringify([collection.get("id"), collection.get("optional"), photoId]);
+            requiredBackEnd('collections', 'savePhotoCollection', data, 'POST', function(params) {
+                if (collection.get("collection_ids") === null || collection.get("collection_ids") === undefined || collection.get("collection_ids") === "") {
+                    collection.set("collection_ids", params);
+                }
+                else {
+                    collection.set("collection_ids", params);
+                }
+                 collection.store.save();
+            });
+        }    
     }
 });
 

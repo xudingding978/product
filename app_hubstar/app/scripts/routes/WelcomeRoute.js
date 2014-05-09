@@ -15,8 +15,6 @@ HubStar.WelcomeRoute = Ember.Route.extend({
         HubStar.set("isLogin", true);
     },
     setupController: function() {
-        $("#top-about-menu").css('display', 'block');
-        $("#search-bar").css('display', 'none');
         this.controllerFor('searchs').defaultSearch();
         this.controllerFor('index').setLogin();
 

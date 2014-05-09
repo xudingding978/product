@@ -1,7 +1,6 @@
 {{#if getProfile}}
 <div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}} >
     <div class="masonry-object">
-
         {{render itemProfiles this}}
         {{render "comment" this}}
     </div>
@@ -14,7 +13,7 @@
 {{#if getPhoto}}
 <div class="box col2 noStyle1" data-step="6" data-intro="This is an <b>image</b> result. Click the image to see a full screen view and to read the caption." data-position='right' {{action checkingLoginStatus target="view" on="click"}} >
 
-   
+
 
     <div class="object-tags-box">
         <div class="object-tags">
@@ -27,7 +26,7 @@
             </div>
         </div>
     </div>
-     {{render itemFunction this}}
+    {{render itemFunction this}}
 
     <div class="masonry-object_mainfeature">
         <div class="mainfeature-wrapper">
@@ -47,7 +46,7 @@
                      <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
                     <i class='fa fa-caret-down'></i>
                 </div>
-                <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
+                <ul class="hideClass edit-object-ul" style="right: 40px;" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
                     <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Delete</li>
                     <li class='ite'  {{action changeCollectionCover id controller.collection_id HubStar.Profile}}> <i class="fa fa-check-circle" style="font-size: 16px;  margin: 0px 5px;"></i>Set as collection cover</li>
@@ -79,12 +78,12 @@
 
         <div class="masonry-object_text">
             <div class="masonry-object_text-container">
-                <p>    {{photo_title}}  </p>
+                <div style="font-weight: bold;margin-bottom: 5px;font-size:16px;">{{#each photo}}{{photo_title}}{{/each}} </div>
             </div>
 
-            <div class="more_detail" {{bindAttr id="id"}} >
+            <div class="more_detail" style="margin:0;"{{bindAttr id="id"}} >
                 <div class="more_text-container" >
-                    <div style="display:block;">
+                    <div style="display:block;text-">
                         {{#each photo}}
                         {{{photo_caption}}}
                         {{/each}}
@@ -119,22 +118,27 @@
         </div>
     </div>
     {{render itemFunction this}}
-    
+
     <div class="masonry-object_mainfeature">
         <div class="mainfeature-wrapper">
 
             {{#if controller.isUser}}
             <a class="mainfeature-container" {{action transitionToPhoto id}}>
-               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 0;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
+               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
                     <i class="fa fa-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
                 </div>
-                <img class="this-is-the-object"{{bindAttr src="object_image_url"  }}  />      </a>
+                <div id="init_photo_{{unbound id}}">
+                    <img class="this-is-the-object"{{bindAttr src="object_image_url"  }}  />      
+                </div>
+            </a>
             {{else}}
             <a class="mainfeature-container" {{action transitionToVideo id}}>
-               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 0;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
+               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
                     <i class="fa fa-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
                 </div>
-                <img {{bindAttr src="object_image_url" }} class="this-is-the-object" />
+                <div id="init_photo_{{unbound id}}">
+                    <img {{bindAttr src="object_image_url" }} class="this-is-the-object" />
+                </div>
             </a>
             {{/if}}
 
@@ -148,7 +152,7 @@
                      <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
                     <i class='fa fa-caret-down'></i>
                 </div>
-                <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
+                <ul class="hideClass edit-object-ul" style="right: 40px;" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
                     <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Delete</li>
                     {{/if}}
@@ -183,9 +187,14 @@
 
         <div class="masonry-object_text">
             <div style="">
-                <p style="font-weight: bold;margin-bottom: 5px;" {{action transitionToVideo id}}>{{object_title}}</p>
-                <p class="masonry-object_text-container" style="font-size: 11px; max-height: 50px;">{{object_description}}</p>
+                <p style="font-weight: bold;margin-bottom: 5px;font-size:16px;" {{action transitionToVideo id}}>{{object_title}}</p>
+                <p class="masonry-object_text-container" style="font-size: 13px; max-height: 50px;">{{object_description}}</p>
             </div>
+
+            {{#if moreDisplay}}
+            <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action transitionToVideo id}} >more &nbsp;</span>
+            {{/if}}
+
         </div>
     </div>
 
@@ -227,7 +236,7 @@
                      <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
                     <i class='fa fa-caret-down'></i>
                 </div>
-                <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}">
+                <ul class="hideClass edit-object-ul" style="right: 40px;" id="dropdown_id_{{unbound id}}">
                     {{#if controller.is_profile_editing_mode}}
                     <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Delete</li>
                     <li class='ite'  {{action changeCollectionCover id controller.collection_id HubStar.Profile "article"}}> <i class="fa fa-check-circle" style="font-size: 16px;  margin: 0px 5px;"></i>Set as collection cover</li>
@@ -257,7 +266,7 @@
 
         <div class="masonry-object_text">
             <div class="masonry-object_text-container">
-                <a style="font-size: 16px; font-weight: bold;cursor: pointer" {{action transitionToArticle id}}>{{object_title}}</a>
+                <a style="font-size: 16px; font-weight: bold;cursor: pointer;text-transform: capitalize;" {{action transitionToArticle id}}>{{object_title}}</a>
                 <p style="text-overflow: ellipsis"; {{action transitionToArticle id}}>{{{object_description}}}</p>
             </div>
 
@@ -275,9 +284,3 @@
     {{render "comment" this}}
 </div>
 {{/if}}
-
-
-
-
-
-

@@ -3,44 +3,39 @@
 
     <div class="navbar-inner">
 
-        <div class="brand" data-step="1" data-intro="Click on the <b>Trends logo</b> to return to the main Search Wall.">
-            <a href="/#/search" > <img class="logonew" {{action showDiscoveryBar}} style="position: relative; top: 0; margin:0;" src="../../../images/landing-trends.png"></a>
-
+        <div class="brand" data-step="1" data-intro="Click on the <b>Trends logo</b> to return to the main Search Wall." data-position='right'>
+            <a href="/#/search" > <img class="logonew" {{action showDiscoveryBar}} src="../../../images/landing-trends.png"></a>
+            <a href="/#/search" > <img class="logonew-small" {{action showDiscoveryBar}} src="../../../images/trendsIcon.png"></a>
         </div>
-
-
-        <div id="top-about-menu" class="top-about-menu" style="display:block">
-            <span><a style="color: #fff" class="hover-opacity" target="blank" href="http://about.trendsideas.com/">About</a></span>
-            <span><a target="blank" href="http://about.trendsideas.com/business/">Business</a></span>
-            <span><a target="blank" href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span>
-            <span><a target="blank" href="http://about.trendsideas.com/contact-us/">Contact us</a></span>
-
+        <div id="top-about-menu" class="top-about-menu" {{action showAboutDropDown on="click" target="view"}}>
+            <i class="fa fa-info" style="color: #555;z-index: 10;position: absolute;left: 9px;font-size: 13px;top: 2px;"></i>
+            <i class="fa fa-comment fa-lg" style="font-size: 23px;position: absolute;"></i>
         </div>
+        <ul id="top-menu" class="edit-object-ul" style="display:none;width: 160px;position: absolute;top:80px;left: 120px;">
+            <li class="ite" > <span><a  target="blank" href="http://about.trendsideas.com/">About</a></span></li>
+            <li class="ite" > <span><a target="blank" href="http://about.trendsideas.com/business/">Business</a></span></li>
+            <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span></li>
+            <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/contact-us/">Contact us</a></span></li>
 
-        <div id="search-bar" class="search-bar-ontop" style="display:none">
-            <div id ="navigator" class="Nav-btn easing" style="float: left;" {{action dropdownHeaderNavigator}}><i class="fa fa-list"></i></div>
-            {{#if controller.isHeaderNavigatorDropdown}}
-            {{view HubStar.NavigatorView}}
-            {{/if}}
-            <div class="search-box easing" style="">
-                {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
-                <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
-                    <i class="fa fa-search"></i>
-                </div>
-            </div>
-        </div>
+        </ul>
+
+
+
+
 
         {{#if HubStar.isLogin}}
 
-        <div id="login_details" style="position: relative;float: right;cursor: pointer;text-align: right;">
-            <div id="login_detail" style="position: relative;float: right;cursor: pointer;text-align: right;" data-step="4" data-intro="Click on your <b>Profile Picture</b> to access your Profile, Message Centre, Help options or to log out.">
+        <div id="login_details" class="Geo-Filter easing" data-step="4" data-intro="Click on your <b>Profile Picture</b> to access your Profile, Message Centre, Help options or to log out.">
+            <div id="login_detail" >
                 {{view HubStar.AfterLoginView}}
             </div>
         </div>
-        <div id="Geo-Filter" class="Geo-Filter easing"  style="margin-right: 50px;font-size: 15px;" {{action dropdown "notification"}} data-step="3" data-intro="New notifications will appear beside the <b>Notification icon</b>. Click the icon to see your latest notifications.">
-            <i class="fa fa-bell fa-lg"></i>
+
+        <div id="Geo-Filter" class="Geo-Filter easing"  {{action dropdown "notification"}} data-step="3" data-intro="New notifications will appear beside the <b>Notification icon</b>. Click the icon to see your latest notifications.">
+            <div class="circle-btn"><i class="fa fa-bell fa-lg" ></i></div>
+            <div class="circle-btn-description">Notification</div>
             {{#if isUnReadCountZero}}
-            <div style="cursor: pointer;position: absolute;top: 20px;left: 15px;width: auto;padding: 0 5px 0 4px;height: 15px;background-color: red;line-height: 15px;border-radius: 2px;font-size: 11px;font-weight: bold;">{{unReadCount}}</div>
+            <div class="notification-number">{{unReadCount}}</div>
             {{/if}}
         </div>
         {{else}}
@@ -49,49 +44,83 @@
 
             {{view HubStar.BeforeLoginView}}
 
-
         </div>
 
         {{/if}}
-
 
         <!-- user is logged in -->
 
         {{#if isNotification}}
-        <div style="position: relative; float: right; top: 48px; z-index: 100;">
-            <div style="position: absolute;border-color: transparent transparent #f3f3f3 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: 0;"></div>
-            <div style="position: absolute;border-color: transparent transparent #888 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: -1;"></div>
+        <div style="position: relative; float: right; top: 68px; z-index: 100;left: 41px;">
+            <div style="position: absolute;border-color: transparent transparent #f3f3f3 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: 0;top: 5px;"></div>
+            <div style="position: absolute;border-color: transparent transparent #888 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: -1;top: 5px;"></div>
         </div>
         {{render notificationTop}}
         {{/if}}
 
-
-        <div id="geo-filter" class="Geo-Filter easing " style="" {{action dropdown "geoLocation"}} data-step="2" data-intro=" Use the <b>Location Filter</b> to filter search results by region.">
-            <i class="fa fa-angle-down fa-lg">&nbsp;</i>
-            <span style="font-weight: bold;font-size: 13px;">{{HubStar.geoLocation}}</span>
+        <div id="geo-filter" class="Geo-Filter easing "  {{action dropdown "geoLocation"}} data-step="2" data-intro=" Use the <b>Location Filter</b> to filter search results by region.">
+            <div class="circle-btn"><i class="fa fa-globe fa-lg"></i></div>
+            <div id="countryLocation" class="Geo-Filter-location">{{HubStar.geoLocation}}</div>
         </div>
+
         {{#if controller.isGeoDropdown}}
         {{view HubStar.DropdownListView}}
         {{/if}}
+        <div class="search-bar-on-large-screen" >
+            <div id="search-bar" class="search-bar-ontop">
+                <div id ="navigator" class="Nav-btn easing" {{action dropdownHeaderNavigator}}>
+                     <i class="fa fa-list" style="font-size: 20px;"></i>
+                    <div style="line-height: 0;position: relative;bottom: 5px;">Categories</div>
+                </div>
 
-        <div id="switcher" class="switch-container Geo-Filter" style="top:15px; position: absolute; right: 20%;">
-            <div id="Residential" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline; color: white;"  {{action residential on="click" target="view"}}>Residential</div>
-            <div  id="switchbar" class="insetbox-shadow switch-groove" style="display: inline-block">
-                <div style="height: 10px;width: 50%;border-right: 1px solid rgba(0,0,0,.3);float: left;margin: 6px 0;"></div>
-                <div style="height: 10px;width: 50%;border-left: 1px solid rgba(255,255,255,.5); float: right;margin: 6px 0;"></div>
+                {{#if controller.isHeaderNavigatorDropdown}}
+                {{view HubStar.NavigatorView}}
+                {{/if}}
 
-                <div id="switchbarBtn" class="radius-circle gradient1 switch-btn" style="margin-left: 13px"></div>
-
+                <div class="search-box easing" >
+                    {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
+                    <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;width: 60px"  {{action searching on="click" target="view"}}>
+                        <i class="fa fa-search" style="font-size: 20px;line-height: 3;"></i>
+                    </div>
+                </div>
             </div>
-            <div id="Commercial" style="display: inline-block;font-weight: bold;font-size: 13px;vertical-align: baseline; color: white;" {{action commercial on="click" target="view"}}>Commercial</div>
+            <div  id="topResidentialCommerical">
+                <div id="residential1" class="residentialCommericalTop residentialCommerical-selected easing"   {{action residential on="click" target="view"}}>Residential</div>
+                <div id="commercial1" class="residentialCommericalTop residentialCommerical-selected easing"  {{action commercial on="click" target="view"}}>Commercial</div>
+            </div>
         </div>
+
+    </div>
+
+
+
+
+    <div class="search-bar-on-small-screen">
+
+        <div id="search-bar" class="search-bar-ontop">
+            <div id ="navigator" class="Nav-btn easing"  {{action dropdownHeaderNavigator}}>
+                 <i class="fa fa-list" style="font-size: 20px;"></i>
+            </div>
+            {{#if controller.isHeaderNavigatorDropdown}}
+            {{view HubStar.NavigatorView}}
+            {{/if}}
+            <div class="search-box easing" >
+                {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_businesses-small" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
+                <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;"  {{action searchingSmall on="click" target="view"}}>
+                    <i class="fa fa-search" style="font-size: 20px;"></i>
+                </div>
+            </div>
+        </div>
+
+        <div  id="topResidentialCommerical">
+            <div id="residential2" class="residentialCommericalTop residentialCommerical-selected easing"   {{action residential on="click" target="view"}}>Residential</div>
+            <div id="commercial2" class="residentialCommericalTop residentialCommerical-selected easing"  {{action commercial on="click" target="view"}}>Commercial</div>
+        </div>
+
     </div>
 
 
 </div>
-
-
-
 
 
 

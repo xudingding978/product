@@ -3,29 +3,37 @@
 
 
 
-<div id="discovery_search_bar_wrapper" style="z-index: 11;margin-bottom: -55px;">
+<div id="discovery_search_bar_wrapper" style="z-index: 10;margin-bottom: -55px;">
 
-    <div style="position: absolute; top: 140px; width: 300px;left:0; right: 0; margin: auto;">
-        <img src="../../images/Welcometext.png"/>
+    <div style="position: absolute; top: 140px; width: 880px;left:0; right: 0; margin: auto;text-align: center">
+        <div>
+            <div id="select-text" style="font-size: 50px;color: white;font-weight: bold;display:block;">Select a category to start browsing</div>
+            <div id="welcome-text" style="font-size: 50px;color: white;font-weight: bold;display:none;text-align: center;">Welcome to MyTrends</div>
+            <div id="residential" class="residentialCommerical residentialCommerical-selected easing"   {{action residential on="click" target="view"}}>Residential</div>
+            <div id="commercial" class="residentialCommerical residentialCommerical-selected easing"  {{action commercial on="click" target="view"}}>Commercial</div>
+        </div>
     </div>
 
     <div class="search-bar" style="">
-        <div id ="navigator" class="Nav-btn easing" style="float: left;" {{action dropdownNavigator}}><i class="fa fa-list"></i></div>
+        <div id ="navigator" class="Nav-btn easing" style="" {{action dropdownNavigator}}>
+             <i class="fa fa-list" style="font-size: 20px;"></i>
+            <div style="line-height: 0;position: relative;bottom: 5px;">Categories</div>
+        </div>
         {{#if controller.isNavigatorDropdown}}
         {{view HubStar.NavigatorView}}
         {{/if}}
 
         <div class="search-box easing" style="">
             {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_business" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
-            <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -50px; right: -5px;border-left: 1px solid #ddd;"  {{action searching on="click" target="view"}}>
-                <i class="fa fa-search"></i>
+            <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;width: 60px"  {{action searching on="click" target="view"}}>
+                <i class="fa fa-search" style="font-size: 20px;line-height: 3;"></i>
             </div>
         </div>
     </div>
 
     <div class="popular-topics" style="">
         <span style="float: left;color: white;font-family: Georgia, serif;font-style: italic;margin: 5px 10px;">Most Popular Topics:</span>
-        
+
         {{#if controller.residentialKeyword}}
         <div {{action topicSearch "New Homes"}} >NEW HOMES</div>
         <div {{action topicSearch "Kitchens"}} >KITCHEN</div>
@@ -33,16 +41,16 @@
         <div {{action topicSearch "Renovations"}} >RENOVATIONS</div>
         <div {{action topicSearch "Outdoor Living"}} >OUTDOOR LIVING</div>
         <div {{action topicSearch "Interior"}} >INTERIOR</div>
-{{else}}
+        {{else}}
         <div {{action topicSearch "Office"}} >OFFICE</div>
         <div {{action topicSearch "Civic"}} >CIVIC DESIGN</div>
         <div {{action topicSearch "Education"}} >EDUCATION</div>
         <div {{action topicSearch "Hospitality"}} >HOSPITALITY</div>
         <div {{action topicSearch "Retail"}} >RETAIL</div>
         <div {{action topicSearch "Apartment"}} >APARTMENT</div>
-        
+
         {{/if}}
-        
+
     </div>
 
 </div>

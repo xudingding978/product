@@ -6,30 +6,48 @@ HubStar.VideoController = Ember.Controller.extend({
     enableToEdit: false,
     needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus', 'itemFunction'],
     getinitdata: function(videoObject)
-    { 
-
+    {
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var that = this;
         var megaResouce = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": videoObject});
         this.set('megaResouce', megaResouce.objectAt(0));
+
         megaResouce.then(function() {
             var megaModel = HubStar.Mega.find(videoObject);
             megaModel.then(function() {
                 that.set('megaResouce', megaModel);
                 var tempVideoObject = megaModel.get('videoes').objectAt(0);
                 that.set('videoObject', tempVideoObject);
-                that.set('video_iframe_code', tempVideoObject.get("videoIframeCode"));
+                var videoIframe = tempVideoObject.get("videoIframeCode");
+                videoIframe = videoIframe.replace("480", Math.ceil(($(window).width() - 320) * 0.72));
+                videoIframe = videoIframe.replace("360", Math.ceil(($(window).width() - 320) / 480 * 360 * 0.72));
+                that.set('video_iframe_code', videoIframe);
+                $(window).resize(function() {
+                    var videoIframe = that.get('video_iframe_code');
+                    var width = videoIframe.split("width=\"")[1].split("\" height=\"")[0];
+                    var height = videoIframe.split("width=\"")[1].split("\" height=\"")[1].split("\"")[0];
+
+                    videoIframe = videoIframe.replace(width, Math.ceil(($(window).width() - 320) * 0.72));
+                    videoIframe = videoIframe.replace(height, Math.ceil(($(window).width() - 320) / 480 * 360 * 0.72));
+
+                    that.set('video_iframe_code', videoIframe);
+                });
                 var tempComment = [that.get('megaResouce').id];
                 requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function(params) {
                 });
-
                 that.checkAuthenticUser();
             }, function() {
                 that.transitionTo('fourOhFour', "404");
             });
         }
+
         );
+
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+        }
     }, addComment: function() {
+
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
             var commentContent = this.get('commentContent');
@@ -56,7 +74,7 @@ HubStar.VideoController = Ember.Controller.extend({
         this.set('contact', false);
         var address = document.URL;
         var object_type = address.split("#")[1].split("/")[1];
-        var search_id= address.split("#")[1].split("/")[2];
+        var search_id = address.split("#")[1].split("/")[2];
         if (object_type === "photos" || object_type === "articles" || object_type === "videos")
         {
             var m = HubStar.Mega.find(search_id);
@@ -161,7 +179,7 @@ HubStar.VideoController = Ember.Controller.extend({
             method: 'feed',
             link: currntUrl,
             picture: this.getImageURL(),
-            name: this.get('videoObject').data.video_title,
+            name: this.get('videoObject').get("videoTitle"),
             caption: 'Trends Ideas',
             description: caption
         };
@@ -203,7 +221,7 @@ HubStar.VideoController = Ember.Controller.extend({
             caption = '';
         }
 
-        $("meta[property='og\\:title']").attr("content", this.get('videoObject').data.video_title);
+        $("meta[property='og\\:title']").attr("content", this.get('videoObject').get("videoTitle"));
         $("meta[property='og\\:description']").attr("content", caption);
         $("meta[property='og\\:image']").attr("content", this.getImageURL());
         var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
@@ -233,7 +251,7 @@ HubStar.VideoController = Ember.Controller.extend({
     tShare: function(param) {
         this.dropdownPhotoSetting(param);
         var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
-        var url = 'https://twitter.com/share?text=' + this.get('videoObject').data.video_title + '&url=' + encodeURIComponent(currntUrl);
+        var url = 'https://twitter.com/share?text=' + this.get('videoObject').get("videoTitle") + '&url=' + encodeURIComponent(currntUrl);
         var mega = HubStar.Mega.find(this.get('megaResouce').get('id'));
         mega.then(function() {
             if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
@@ -258,7 +276,7 @@ HubStar.VideoController = Ember.Controller.extend({
         var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('megaResouce').get('id');
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.getImageURL()) +
-                '&description=' + encodeURIComponent(this.get('videoObject').data.video_title);
+                '&description=' + encodeURIComponent(this.get('videoObject').get("videoTitle"));
         var mega = HubStar.Mega.find(this.get('megaResouce').get('id'));
         mega.then(function() {
             if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")

@@ -10,8 +10,10 @@ HubStar.AfterLoginView = Ember.View.extend({
     logout: function() {
 
         localStorage.removeItem('loginStatus');
-        this.get('controller').transitionTo("indexIndex");
+        //this.get('controller').transitionTo("searchIndexTom");
         document.cookie = 'Session=; path=/; domain=.trendsideas.com; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+        location.reload();
+       
     },
     showUserDropDown: function() {
         if ($('#user-dd-menu').attr('display') === 'block') {

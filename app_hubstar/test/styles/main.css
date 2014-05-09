@@ -2789,7 +2789,7 @@ table th[class*="span"],
     *margin-right: .3em;
     line-height: 14px;
     vertical-align: text-top;
-/*    background-image: url("../images/glyphicons-halflings.png");*/
+    /*    background-image: url("../images/glyphicons-halflings.png");*/
     background-position: 14px 14px;
     background-repeat: no-repeat;
 }
@@ -2809,7 +2809,7 @@ table th[class*="span"],
 .dropdown-menu > .active > a > [class*=" icon-"],
 .dropdown-submenu:hover > a > [class^="icon-"],
 .dropdown-submenu:hover > a > [class*=" icon-"] {
-/*    background-image: url("../images/glyphicons-halflings-white.png");*/
+    /*    background-image: url("../images/glyphicons-halflings-white.png");*/
 }
 
 .icon-glass {
@@ -6137,47 +6137,47 @@ a.badge:hover {
 
 @-webkit-keyframes progress-bar-stripes {
     from {
-    background-position: 40px 0;
-}
-to {
-    background-position: 0 0;
-}
+        background-position: 40px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
 }
 
 @-moz-keyframes progress-bar-stripes {
     from {
-    background-position: 40px 0;
-}
-to {
-    background-position: 0 0;
-}
+        background-position: 40px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
 }
 
 @-ms-keyframes progress-bar-stripes {
     from {
-    background-position: 40px 0;
-}
-to {
-    background-position: 0 0;
-}
+        background-position: 40px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
 }
 
 @-o-keyframes progress-bar-stripes {
     from {
-    background-position: 0 0;
-}
-to {
-    background-position: 40px 0;
-}
+        background-position: 0 0;
+    }
+    to {
+        background-position: 40px 0;
+    }
 }
 
 @keyframes progress-bar-stripes {
     from {
-    background-position: 40px 0;
-}
-to {
-    background-position: 0 0;
-}
+        background-position: 40px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
 }
 
 .progress {
@@ -7127,8 +7127,8 @@ div.search-loading-invisible{
 }
 
 .edit-object-ul > .ite{
-    padding: 6px 15px 6px 30px;
-    color: #888;
+    padding: 10px 30px 10px 20px;
+    color: #555;
     border-top: 1px solid #fff;
     border-bottom: 1px solid #ddd;
     line-height: normal;
@@ -7145,8 +7145,8 @@ div.search-loading-invisible{
 .Dropdownstyle2:before{
     content: "";
     position: absolute;
-    left: 65px;
-    top: -20px;
+    left: 65px !important;
+    top: -20px !important;
     border-color: transparent transparent #fff transparent;
     border-style: solid;
     border-width: 10px 10px 10px 10px;
@@ -7156,16 +7156,16 @@ div.search-loading-invisible{
 .Dropdownstyle2:after{
     content: "";
     position: absolute;
-    left: 65px;
-    top: -21px;
+    left: 65px !important;
+    top: -21px !important;
     border-color: transparent transparent #888 transparent;
     border-style: solid;
     border-width: 10px 10px 10px 10px;
     z-index: -1;	
 }
 
-.edit-object > .edit-object-ul:before{left: 15px;}
-.top-controlbar > .edit-object-ul:before{left: 15px;}
+/*.edit-object > .edit-object-ul:before{left: 15px;}
+.top-controlbar > .edit-object-ul:before{left: 15px;}*/
 
 
 .head {
@@ -7419,10 +7419,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     position: relative!important;
     top: 5px!important;
 }
-#aside_contact > tbody > tr:nth-child(4) > th {
-    position: relative!important;
-    top: -20px!important;  
-}
+
 
 .Contact_1child{
     color: #aaa;
@@ -7911,19 +7908,20 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .edit-comment > i {cursor: pointer}
 
 .select-profile-save{
-    z-index: 100; 
-    position: absolute; 
-    border: 1px solid #ddd; 
-    background-color: #fff; 
-    right: 140px; 
+    z-index: 11;
+    position: absolute;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    right: 140px;
     width: auto;
+    left: 100px;
 }
 
 .select-profile-save:before{
     content: "";
     position: absolute;
-    left: 117px;
-    top: -19px;
+    left: 145px;
+    top: -18px;
     border-color: transparent transparent #f7f7f7 transparent;
     border-style: solid;
     border-width: 10px 10px 10px 10px;
@@ -7933,7 +7931,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .select-profile-save:after{
     content: "";
     position: absolute;
-    left: 117px;
+    left: 145px;
     top: -20px;
     border-color: transparent transparent #ddd transparent;
     border-style: solid;
@@ -7999,18 +7997,8 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     border-top: 5px solid #fff;
     position: absolute;
     margin-top: -10px;
-    margin-left: 18px;
+    left:46%;
 }
-
-.Navigator-box .switch-groove:before{
-    margin-left: 19px;
-}
-
-
-
-
-
-
 
 
 /*loading spinner*/
@@ -8813,12 +8801,12 @@ div.album-description-bg{
     /*min-width: 335px;
     max-width:335px;
     min-height: 335px;
- */
-     min-height:335px;
-     max-height:345px;
-     min-width:338px;
-     
-    } 
+    */
+    min-height:335px;
+    max-height:345px;
+    min-width:338px;
+
+} 
 
 .album-info{
     padding: 15px 10px 5px;
@@ -9186,6 +9174,11 @@ div.album-description-bg{
     cursor: url(../../../images/previouscursor.png), auto;
 }
 
+.close_text{
+    position: relative;
+    left: 34px;
+    top: 12px;
+}
 
 .closeview{
     cursor: pointer;
@@ -9202,6 +9195,13 @@ div.album-description-bg{
     -o-transition: all 0.8s ease;
     z-index: 100;
 }
+
+#close_article_wrapper, 
+#close_video_wrapper,
+#close_photo_wrapper {
+    right: 44px;
+}
+
 
 .closeview:hover{
     color: #fff;
@@ -9297,13 +9297,6 @@ div.album-description-bg{
 /*OBJECT VIEW LEFT               END*/
 
 
-
-
-
-
-
-
-
 /*OBJECT VIEW RIGHT*/
 
 
@@ -9362,9 +9355,9 @@ div.album-description-bg{
 
 .poster_user{
     position: relative;
-    vertical-align: middle;
+    vertical-align: top;
     display: inline-block;
-    width: 170px;
+    width: 60%;
 }
 
 .poster-name{
@@ -9453,7 +9446,7 @@ div.album-description-bg{
 }
 
 .classfication{
-cursor: pointer;
+    cursor: pointer;
     display: inline-block;
     width: auto;
     position: relative;
@@ -9753,12 +9746,13 @@ cursor: pointer;
     line-height: 30px;
     margin-bottom: 10px;
     word-break: break-word;
+    text-transform: capitalize;
 
 }
 
 .article-text{  
-    font-size: 13px;
-    line-height: 16px;
+    font-size: 0.9em;
+    line-height: 1.6em;
 }
 
 .caption-title{
@@ -9779,6 +9773,11 @@ cursor: pointer;
     line-height: 20px;
     margin-bottom: 12px;
 }
+
+.credits_text{
+    font-size: 1em;
+}
+
 
 
 .comment-frame{
@@ -9943,7 +9942,7 @@ cursor: pointer;
 }
 
 .collect_newcollection-name{
-    width: 240px;
+    width: 180px;
     padding: 4px;
 }
 
@@ -9954,6 +9953,7 @@ cursor: pointer;
     padding: 5px 8px;
     cursor: pointer;
     text-align: left;
+    overflow: hidden;
 }
 
 .choose-exist-collection:hover{
@@ -9975,7 +9975,7 @@ cursor: pointer;
 }
 
 .add-collection_select-collection{
-    height: 240px;
+
     padding: 10px;
     position: absolute;
     left: 4px;
@@ -9985,6 +9985,7 @@ cursor: pointer;
     -moz-box-shadow: 0 0px 1px #888;
     box-shadow: 0 0px 1px #888;
     z-index: 11;
+    width: 334px;
 }
 
 .edit-btn{
@@ -10029,6 +10030,33 @@ cursor: pointer;
     margin: 0;
     text-align: left;
     padding: 0;
+}
+
+
+.edit-object-ul:before{
+    content: "";
+    position: absolute;
+    top: -7px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #fff;
+    z-index: 11;
+    left: 65px;
+}
+
+.edit-object-ul:after{
+    content: "";
+    position: absolute;
+    top: -8px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #888;
+    z-index: 10;
+    left: 65px;
 }
 
 
@@ -11408,7 +11436,7 @@ textarea.add-interests{
 
 
 .selected{
-    background-color: #ccc;
+    background-color: #ccc !important;
 }
 
 
@@ -11644,8 +11672,8 @@ textarea.add-interests{
 
 .inset-text{
     /* Shadows are visible under slightly transparent text color */
-color: rgba(80,80,80,.8);
-text-shadow: 1px 4px 6px #ddd, 0 0 0 #555, 1px 4px 6px #ddd;
+    color: rgba(80,80,80,.8);
+    text-shadow: 1px 4px 6px #ddd, 0 0 0 #555, 1px 4px 6px #ddd;
 }
 /* Don't show shadows when selecting text */
 ::-moz-selection { background: #5af; color: #fff; text-shadow: none; }
@@ -11680,7 +11708,6 @@ text-shadow: 1px 4px 6px #ddd, 0 0 0 #555, 1px 4px 6px #ddd;
 }
 
 .navbar {
-    min-width: 1200px;
     height: 75px;
     line-height: 60px;
     overflow: visible;
@@ -11716,14 +11743,23 @@ text-shadow: 1px 4px 6px #ddd, 0 0 0 #555, 1px 4px 6px #ddd;
 }
 
 .navbar-inner {
-    min-width:600px;
+    min-width:50%;
     height:75px;
-    width:90%;
+    width:97%;
     margin:auto;
 }
 
 .logonew{
     height: 35px;
+}
+
+#user-dd-menu{
+    padding: inherit;  
+    width: 220px; 
+    right: 157px; 
+    position: relative; 
+    top:16px; 
+    display:none;
 }
 
 #user-dd-menu > li {padding:0}
@@ -11752,7 +11788,7 @@ text-shadow: 1px 4px 6px #ddd, 0 0 0 #555, 1px 4px 6px #ddd;
     border-right: 8px solid transparent;
     border-bottom: 8px solid #fff;
     z-index: 11;
-    left: 70px;
+    left: 170px;
 }
 
 #user-dd-menu:after{
@@ -11765,7 +11801,7 @@ text-shadow: 1px 4px 6px #ddd, 0 0 0 #555, 1px 4px 6px #ddd;
     border-right: 8px solid transparent;
     border-bottom: 8px solid #888;
     z-index: 10;
-    left: 70px;
+    left: 170px;
 }
 
 
@@ -11810,8 +11846,8 @@ text-shadow: 1px 4px 6px #ddd, 0 0 0 #555, 1px 4px 6px #ddd;
 
 .Nav-btn:hover{opacity: 1}
 
-.Search-box{
-    width: 90%;
+.search-box{
+    width: 80%;
     height: 50px;
     float: left;
     display: inline-block;
@@ -11825,10 +11861,9 @@ text-shadow: 1px 4px 6px #ddd, 0 0 0 #555, 1px 4px 6px #ddd;
     margin: 6px auto;
     left: 5%;
     right: 25%;
-    min-width: 550px;
 }
 
-.Search-box > input {
+.search-box > input {
     font-size: 20px;
     font-weight: bold;
     color: #333;
@@ -12107,11 +12142,11 @@ text-shadow: 1px 4px 6px #ddd, 0 0 0 #555, 1px 4px 6px #ddd;
 }
 
 .registraion-suceesful-message{
-     text-align: center; 
-     padding: 10px 20px; 
-     height: 165px; 
-     font-size: 13px; 
-     color: #333;
+    text-align: center; 
+    padding: 10px 20px; 
+    height: 165px; 
+    font-size: 13px; 
+    color: #333;
 }
 
 
@@ -12637,7 +12672,7 @@ and (max-width : 900px) {
     .interest-topic-name{font-size: 11px;}
 
     #register-with-email-step-4{width: 250px}
-    
+
     .registraion-suceesful-message{font-size: 11px; line-height: 15px;}
 }
 
@@ -12647,7 +12682,7 @@ and (max-width : 900px) {
 @media only screen 
 and (max-width : 480px) {
     #fadein-image{ display: none!important;}
-    
+
     .register-page-top-bar {margin: 40px auto 15%;}
 
     .interest-image-container{width: 50px; height: 50px;}
@@ -12687,13 +12722,13 @@ and (max-width : 480px) {
 #footer{
     background: #1E1D1B url('../images/footerbg.png') repeat-x;
     color: white;
-    
+    margin-top:120px;
     bottom:0;
     left:0;
     float:left;
     clear:both;
     width:100%;
-    
+
 }
 
 .footer_contentbox {

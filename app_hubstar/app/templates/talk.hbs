@@ -39,7 +39,11 @@
                 {{view HubStar.SingleImageInputButtonView }}
             </div>
         </div>
+        {{#if controller.isPosting}}
         <div class="message-btn easing" style="width: 33%;height: 40px;line-height: 40px;" {{action addComment}}><i class='fa fa-check'>&nbsp;</i>Send</div>
+        {{else}}
+        <div class="message-btn-x easing" style='width: 33%;height: 40px;line-height: 40px;'><i class="spinner" style='top: 12px';>&nbsp;</i>Posting </div>
+        {{/if}}
     </div>
 
 

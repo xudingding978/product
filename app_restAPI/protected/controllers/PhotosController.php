@@ -24,7 +24,6 @@ class PhotosController extends Controller {
 
     public function actionCreate() {
         $response;
-        //error_log("dddddddddddddddddddddddddddddd");
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $url = $request_arr["url"];

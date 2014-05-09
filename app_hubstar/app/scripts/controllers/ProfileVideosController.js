@@ -36,12 +36,22 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
     dropdownPhotoSetting: function(id)
     {
         this.set('delete_id', id);
-        $('#dropdown_id_' + id).toggleClass('hideClass');
+//        $('#dropdown_id_' + id).toggleClass('hideClass');
+            var id='#dropdown_id_' + id;
+        $(id).toggleClass('hideClass');
+        $(id).click(function() {
+            $(this).removeClass('hideClass');
+        }).mouseleave(function() {
+            $(this).addClass('hideClass');
+        });
+        
+        
     },
     checkEditingMode: function()
     {
         this.set('is_profile_editing_mode', false);
         this.set('is_user_editing_mode', false);
+        
         if (HubStar.get('editingMode') === 'profile') {
             this.set('is_profile_editing_mode', true);
             var proController = this.get('controllers.profile');

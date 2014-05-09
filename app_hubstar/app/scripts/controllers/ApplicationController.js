@@ -41,7 +41,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     oldChildren: 0,
     test: false,
     user: null,
-    from: null,
+    from: 0,
     profiles: null,
     size: null,
     photo_url: null,
@@ -51,6 +51,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     repeat: "",
     email: "",
     loginUsername: "",
+    loginStatus: null,
     loginPassword: "",
     resetPasswordEmail: "",
     gender: "",
@@ -72,6 +73,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     subcategories: [],
     pageCount: 0,
     residentialKeyword: true,
+    loadingTime: false,
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
 
@@ -113,17 +115,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     email_login: function() {
         this.set('mail', !this.get('mail'));
     },
-    loginStatus: function() {
-    },
     grapData: function() {
         HubStar.set("profiles", []);
+        var that = this;
         if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
             localStorage.resOrcom = "All";
         }
         this.set('categorys', HubStar.Cate.find({}));
         if (localStorage.loginStatus) {
             var u = HubStar.User.find(localStorage.loginStatus);
-            var that = this;
+
             u.then(function() {
                 if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
                         && (u.get("email")).match(/@trendsideas.com/g) !== ""
@@ -193,32 +194,106 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
+
         $(document).ready(function() {
             setTimeout(function() {
-                if (localStorage.resOrcom === "commercial")
-                {
-                    $('#switchbarBtn').attr("style", "margin-left:28px;");
-                    $("#Commercial").css("opacity", "1");
-                    $("#Residential").css("opacity", "0.4");
-                    that.set('residentialKeyword', false);
-                }
-                else if (localStorage.resOrcom === "residential")
-                {
-                    $('#switchbarBtn').attr("style", "margin-left:0px;");
-                    $("#Commercial").css("opacity", "0.4");
-                    $("#Residential").css("opacity", "1");
-                    that.set('residentialKeyword', true);
-                }
-                else if (localStorage.resOrcom === "All")
-                {
-                    $('#switchbarBtn').attr("style", "margin-left:13px;");
-                    $("#Commercial").css("opacity", "1");
-                    $("#Residential").css("opacity", "1");
-                    that.set('residentialKeyword', true);
-                }
+                that.residentialCommercialStatus();
+                that.changeBackground();
             }, 50);
         });
+    },
+    searchSmallScreen: function() {
 
+        if ($(window).width() > 1200) {
+            $("#search-bar").css('display', "block");
+            $("#topResidentialCommerical").css('display', "block");
+            $(".search-bar-on-small-screen").css('display', "none");
+        } else {
+            $("#search-bar").css('display', "none");
+            $("#topResidentialCommerical").css('display', "none");
+            $(".search-bar-on-small-screen").css('display', "block");
+
+            if (HubStar.get('showDiscoveryBar') === true) {
+                $(".search-bar-on-small-screen").css('display', "none");
+                $('#masonry_container').css('top', "0");
+            } else {
+                $(".search-bar-on-small-screen").css('display', "block");
+                $('#masonry_container').css('top', "150px");
+
+            }
+        }
+
+    },
+    changeBackground: function() {
+        if (localStorage.resOrcom === "residential" || localStorage.resOrcom === "All") {
+            $('#discovery_search_bar_wrapper').fadeOut(500, function() {
+                $(this).css({"background": " url(../../images/discoverybarbg.jpg) "}).fadeIn(500);
+            });
+
+            $('.navbar').fadeOut(500, function() {
+                $(this).css({"background": " url(../../images/landingpagebg.jpg)"}).fadeIn(500);
+            });
+
+        } else if (localStorage.resOrcom === "commercial") {
+            $('#discovery_search_bar_wrapper').fadeOut(500, function() {
+                $(this).css({"background": " url(../../images/commercialbg.jpg)", "background-position": "center center"}).fadeIn(500);
+            });
+
+            $('.navbar').fadeOut(500, function() {
+                $(this).css({"background": "url(../../images/commercialbg.jpg)"}).fadeIn(500);
+
+            });
+
+        }
+
+    },
+    residentialCommercialStatus: function() {
+
+        if (localStorage.resOrcom === "commercial")
+        {
+            $('#switchbarBtn').attr("style", "margin-left:28px;");
+            $("#Commercial").css("opacity", "1");
+            $("#Residential").css("opacity", "0.4");
+            this.set('residentialKeyword', false);
+            $("#commercial").addClass("residentialCommerical-selected");
+            $("#residential").removeClass("residentialCommerical-selected");
+            $("#commercial1").addClass("residentialCommerical-selected");
+            $("#residential1").removeClass("residentialCommerical-selected");
+            $("#commercial2").addClass("residentialCommerical-selected");
+            $("#residential2").removeClass("residentialCommerical-selected");
+        }
+        else if (localStorage.resOrcom === "residential")
+        {
+            $('#switchbarBtn').attr("style", "margin-left:0px;");
+            $("#Commercial").css("opacity", "0.4");
+            $("#Residential").css("opacity", "1");
+            this.set('residentialKeyword', true);
+            $("#commercial").removeClass("residentialCommerical-selected");
+            $("#residential").addClass("residentialCommerical-selected");
+            $("#commercial1").removeClass("residentialCommerical-selected");
+            $("#residential1").addClass("residentialCommerical-selected");
+            $("#commercial2").removeClass("residentialCommerical-selected");
+            $("#residential2").addClass("residentialCommerical-selected");
+        }
+        else if (localStorage.resOrcom === "All")
+        {
+            $('#switchbarBtn').attr("style", "margin-left:13px;");
+            $("#Commercial").css("opacity", "1");
+            $("#Residential").css("opacity", "1");
+            this.set('residentialKeyword', true);
+            $("#commercial").addClass("residentialCommerical-selected");
+            $("#residential").addClass("residentialCommerical-selected");
+            $("#commercial1").addClass("residentialCommerical-selected");
+            $("#residential1").addClass("residentialCommerical-selected");
+            $("#commercial2").addClass("residentialCommerical-selected");
+            $("#residential2").addClass("residentialCommerical-selected");
+        }
+        this.set('subcate', []);
+        this.set('subcategories', []);
+        for (var i = 0; i < this.get("categorys").get("length"); i++)
+        {
+            this.get("categorys").objectAt(i).set("classification", localStorage.resOrcom);
+        }
     },
     articleFromSearch: function()
     {
@@ -242,22 +317,28 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
         this.getPageNo();
         this.set("from", this.get("from") + this.get("size"));
-        var results = HubStar.Mega.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'), "classification": localStorage.resOrcom});
+        var results;
+        if (HubStar.get('geoLocation') === "International") {
+            results = HubStar.Stat.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": "Global", "classification": localStorage.resOrcom});
+        } else {
+            results = HubStar.Stat.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'), "classification": localStorage.resOrcom});
+        }
+
         var that = this;
-        results.addObserver('isLoaded', function() {
-            if (results.get('isLoaded')) {
-                that.setContent(results);
-                if (results.get("length") === 0) {
-                    that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
+        results.then(function() {
+            var stat = results.objectAt(0);
+            var megasResults = stat.get("megas");
+            that.setContent(megasResults);
+            if (results.get("length") === 0) {
+                that.get('controllers.applicationFeedback').statusObserver(null, "You have reached the end of your search results.", "info"); //added user flash message
 
-                    HubStar.set("scrollDownSearch", true);
+                HubStar.set("scrollDownSearch", true);
 
-                    $(document).ready(function() {
+                $(document).ready(function() {
 
-                        $("#show_more_button").css("display", "none");
+                    $("#show_more_button").css("display", "none");
 
-                    });
-                }
+                });
             }
         });
 
@@ -298,6 +379,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             }
                         }
                     }
+                    else if (tempmega.get("getVideo") === true)
+                    {
+                        $("#init_photo_" + tempmega.get("id")).css({height: 263});
+                    }
                     else if (tempmega.get("getProfile") === true)
                     {
                         if (tempmega.get("profile").objectAt(0).get("profile_pic_url") !== null) {
@@ -307,6 +392,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             var size = Math.ceil((url[length - 1].split(".")[0].split("x")[1]) * 150 / width);
                             if (size !== undefined && !isNaN(size))
                             {
+
                                 if (size > 150) {
                                     $("#init_photo_" + tempmega.get("profile").objectAt(0).get("getID")).css({height: size});
                                 }
@@ -319,20 +405,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     }
                 }
                 //that.getAds();
-                if (localStorage.resOrcom === "commercial")
-                {
-                    $('#switchbarBtn').attr("style", "margin-left:28px;");
-                }
-                else if (localStorage.resOrcom === "residential")
-                {
-                    $('#switchbarBtn').attr("style", "margin-left:0px;");
-                }
-                else if (localStorage.resOrcom === "All")
-                {
-                    $('#switchbarBtn').attr("style", "margin-left:13px;");
-                }
+
                 if (flag === "default") {
-                    that.getAds();
+                    var ads = that.getAds();
+                    that.display(ads);
                     that.relayoutDefault();
                 }
                 else {
@@ -343,53 +419,56 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         });
     },
     newSearch: function() {
-        this.set("googletagCmd", []);
-        this.set("content", []);
-        this.set("oldChildren", 0);
-        this.set("totalItems", 0);
-        this.set("from", 0);
-        this.set("size", 20);
-        this.set('loadingTime', true);
-        this.set("pageCount", 0);
-        var d = new Date();
-        var start = d.getTime();
-        var that = this;
-        var statusController = this.get('controllers.status');
-        var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'), "classification": localStorage.resOrcom});
-        stats.addObserver('isLoaded', function() {
-            if (stats.get('isLoaded')) {
-                var stat = stats.objectAt(0);
-                var megasResults = stat.get("megas");
-                HubStar.set('itemNumber', megasResults.get("length"));
-                that.setContent(megasResults, "new");
-                if (megasResults.get("length") < 20) {
-
-                    $(document).ready(function() {
-                        setTimeout(function() {
-                            HubStar.set("scrollDownSearch", true);
-                        }, 100);
-
-                        $("#show_more_button").css({display: "none"});
-
-                    });
-
-                }
-
-
-
-                that.set("from", that.get("size"));
-
-                var d = new Date();
-                var end = d.getTime();
-                var time = that.getResponseTime(start, end);
-                statusController.set("searchResultNum", stat.get('numberofresults'));
-                statusController.set("time", time);
-                statusController.changeDescription();
+        if (this.get('loadingTime') === false) {
+            this.set("googletagCmd", []);
+            this.set("content", []);
+            this.set("oldChildren", 0);
+            this.set("totalItems", 0);
+            this.set("from", 0);
+            this.set("size", 20);
+            this.set('loadingTime', true);
+            this.set("pageCount", 0);
+            var d = new Date();
+            var start = d.getTime();
+            var that = this;
+            var statusController = this.get('controllers.status');
+            var stats;
+            if (HubStar.get('geoLocation') === "International") {
+                stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": "Global", "classification": localStorage.resOrcom});
+            } else {
+                stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'), "classification": localStorage.resOrcom});
             }
 
-        });
-        HubStar.set('searchStart', true);
+            stats.addObserver('isLoaded', function() {
+                if (stats.get('isLoaded')) {
+                    var stat = stats.objectAt(0);
+                    var megasResults = stat.get("megas");
+                    HubStar.set('itemNumber', megasResults.get("length"));
+                    that.setContent(megasResults, "new");
+                    if (megasResults.get("length") < 20) {
 
+                        $(document).ready(function() {
+                            setTimeout(function() {
+                                HubStar.set("scrollDownSearch", true);
+                            }, 100);
+
+                            $("#show_more_button").css({display: "none"});
+
+                        });
+
+                    }
+
+                    var d = new Date();
+                    var end = d.getTime();
+                    var time = that.getResponseTime(start, end);
+                    statusController.set("searchResultNum", stat.get('numberofresults'));
+                    statusController.set("time", time);
+                    statusController.changeDescription();
+                }
+
+            });
+            HubStar.set('searchStart', true);
+        }
     },
     defaultSearch: function() {
 
@@ -404,13 +483,18 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("oldChildren", 0);
 
 
-        if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-        } else {
-            this.set('loadingTime', true);
-        }
+        //if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
+        // } else {
+        this.set('loadingTime', true);
+        //}
 
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
+
+        $(".search-bar-on-small-screen").css('display', "none");
+        $("#search-bar").css('display', "none");
+        $("#topResidentialCommerical").css('display', "none");
+
         HubStar.set("scrollDownSearch", true);
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
@@ -502,17 +586,49 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     submitSelection: function() {
 
-        $('#register-with-email-step-4').css('display', 'block');
-        $('#register-with-email-step-3').css('display', 'none');
-        $('#user-login-pane').css('display', 'none');
+        var updateTopic = [this.get("loginStatus"), this.get('selected_topics')];
+        var that = this;
+        requiredBackEnd('login', 'selecttopic', updateTopic, 'POST', function() {
+            setTimeout(function() {
+                $('#register-with-email-step-4').css('display', 'block');
+                $('#register-with-email-step-3').css('display', 'none');
+                $('#user-login-pane').css('display', 'none');
+                that.set('first_name', "");
+                that.set('last_name', "");
+                that.set('email', "");
+                that.set('password', "");
+                that.set('region', "");
+                that.set('gender', "");
+                that.set('age', "");
+            }, 1000);
+        });
+
     },
     next: function() {
 
-        $('#register-with-email-step-3').css('display', 'block');
-        $('#register-with-email-step-2').css('display', 'none');
-        $('#click-register-social').css('display', 'none');
-        $('#click-register').css('display', 'none');
-        $('.learnmore-btn').css('display', 'none');
+
+        var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
+        var that = this;
+        requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
+            localStorage.userName = params.USER_NAME;
+            that.set('loginUsername', localStorage.userName);
+            that.set('loginStatus', params.COUCHBASE_ID);
+            localStorage.userType = "email";
+            localStorage.loginState = "login";
+
+            var emailInfo = [params.USER_NAME, that.encrypt(params.USER_NAME), that.encrypt(params.PWD_HASH)];
+            requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function() {
+
+            });
+            setTimeout(function() {
+                $('#register-with-email-step-3').css('display', 'block');
+                $('#register-with-email-step-2').css('display', 'none');
+                $('#click-register-social').css('display', 'none');
+                $('#click-register').css('display', 'none');
+                $('.learnmore-btn').css('display', 'none');
+                $('#login-btn').css('display', 'none');
+            }, 1000);
+        });
 
     },
     backRegister: function() {
@@ -521,6 +637,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $('#click-register-social').css('display', 'block');
         $('#click-register').css('display', 'block');
         $('.learnmore-btn').css('display', 'block');
+        $('#login-btn').css('display', 'block');
     },
     encrypt: function(encryptString) {
         var tempstr = '';
@@ -530,57 +647,25 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         return tempstr;
     },
     done: function() {
-        this.set('loginTime', true);
-        var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age'), this.get('selected_topics')];
-        var that = this;
+
         $('#register-with-email-step-4').css('display', 'none');
-        //     $('#skipRegister').css('display', 'block');
-        requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
-            localStorage.userName = params.USER_NAME;
-            that.set('loginUsername', localStorage.userName);
-            localStorage.userType = "email";
-            localStorage.loginState = "login";
-
-            var emailInfo = [params.USER_NAME, that.encrypt(params.USER_NAME), that.encrypt(params.PWD_HASH)];
-            requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function(params) {
-
-            });
-            setTimeout(function() {
-                $('#login-btn').text('REGISTER');
-                $('.black-tool-tip').css('display', 'none');
-                $('#click-register-social').css('display', 'none');
-                $('#click-register').css('display', 'none');
-                $('#social-link').css('display', 'none');
-                $('#login-with-email-drop-down').css('display', 'block');
-                $('#social-login-container').css('display', 'none');
-                $('#click-login').addClass('active-tab');
-                $('#social-login').removeClass('social-active');
-                $('#user-forgot-password-pane').css('display', 'none');
-                $('#forgot-message-container').css('display', 'none');
-                $('#invalid-username').css('display', 'none');
-
-                $('#register-with-email-drop-down').css('display', 'none');
-                $('#register-with-email-step-2').css('display', 'none');
-                $('#register-with-email-step-3').css('display', 'none');
-                $('#user-login-pane').css('display', 'block');
-
-
-                that.set('first_name', "");
-                that.set('last_name', "");
-                that.set('email', "");
-                that.set('password', "");
-                that.set('region', "");
-                that.set('gender', "");
-                that.set('age', "");
-                that.set('loginTime', false);
-            }, 2000);
-        });
-
+        $('#login-btn').text('REGISTER');
+        $('.black-tool-tip').css('display', 'none');
+        $('#click-register-social').css('display', 'none');
+        $('#click-register').css('display', 'none');
+        $('#social-link').css('display', 'none');
+        $('#login-with-email-drop-down').css('display', 'block');
+        $('#social-login-container').css('display', 'none');
+        $('#click-login').addClass('active-tab');
+        $('#social-login').removeClass('social-active');
+        $('#user-forgot-password-pane').css('display', 'none');
+        $('#forgot-message-container').css('display', 'none');
+        $('#invalid-username').css('display', 'none');
+        $('#register-with-email-drop-down').css('display', 'none');
+        $('#register-with-email-step-2').css('display', 'none');
+        $('#register-with-email-step-3').css('display', 'none');
+        $('#user-login-pane').css('display', 'block');
     },
-//    skip: function(){
-//       // HubStar.set("isLogin", true);
-//       this.transitionToRoute("searchIndex");
-//    },
     checkSignupInfo: function() {
         function checkObject(id, input, lengthMin, lengthMax, isEmailValid)
         {
@@ -629,7 +714,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }//MISSING FIELDS; the user has not filled in all the mandatory fields
             if (checkList[i].input !== null && checkList[i].isEmailValid === true)
             {
-                if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
+
+                if (/\s/.test(checkList[i].input)) {
+                    result = false;
+                    $('.black-tool-tip').stop();
+                    $('.black-tool-tip').css('display', 'none');
+                    $('#invalid-user-name-register-with-spaces').animate({opacity: 'toggle'}).delay(8000).animate({opacity: 'toggle'});
+                    document.getElementById(checkList[i].id).setAttribute("class", "login-textfield error-textfield");
+                    break;
+                }
+                else if (patternEmail.test(checkList[i].input || checkList[i].input === "")) {
                     result = true;
                 }
                 else {
@@ -652,9 +746,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     dropdown: function(checking) {
         if (checking === "geoLocation") {
-            this.set('isGeoDropdown', !this.get('isGeoDropdown'));
+             this.set('isGeoDropdown', !this.get('isGeoDropdown'));
             $('#geo-filter').addClass('Geo-Filter-active');
-
+           
         } else if (checking === "notification") {
 
             this.set("isNotification", !this.get("isNotification"));
@@ -678,24 +772,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.get("categorys").then(function() {
             $(document).ready(function() {
                 setTimeout(function() {
-                    if (localStorage.resOrcom === "commercial")
-                    {
-                        $('#switchbarBtn1').attr("style", "margin-left:28px;");
-                        $("#Commercial1").css("opacity", "1");
-                        $("#Residential1").css("opacity", "0.4");
-                    }
-                    else if (localStorage.resOrcom === "residential")
-                    {
-                        $('#switchbarBtn1').attr("style", "margin-left:0px;");
-                        $("#Commercial1").css("opacity", "0.4");
-                        $("#Residential1").css("opacity", "1");
-                    }
-                    else if (localStorage.resOrcom === "All")
-                    {
-                        $('#switchbarBtn1').attr("style", "margin-left:13px;");
-                        $("#Commercial1").css("opacity", "1");
-                        $("#Residential1").css("opacity", "1");
-                    }
+                    that.residentialCommercialStatus();
                 }, 50);
             });
         });
@@ -714,22 +791,21 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         HubStar.set("defaultSearch", true);
         this.transitionToRoute('indexIndex');
         this.defaultSearch();
-        $("#top-about-menu").fadeIn("320");
-        $("#search-bar").fadeOut("320");
+        $(".search-bar-on-small-screen").css('display', "none");
+        $("#search-bar").css('display', "none");
+        $("#topResidentialCommerical").css('display', "none");
         $(".Navigator-box").fadeOut("320");
         $(".navbar").css("box-shadow", "");
-        if (localStorage.resOrcom === "commercial") {
+        var that = this;
+        $(document).ready(function() {
             setTimeout(function() {
-                $('#discovery_search_bar_wrapper').css({"background": " url(../../images/commercialbg.jpg)"});
-            }, 10);
-        }
-        else {
-            setTimeout(function() {
-                $('#discovery_search_bar_wrapper').css({"background": " url(../../images/discoverybarbg.jpg)"});
-            }, 10);
-        }
+                that.residentialCommercialStatus();
+                that.changeBackground();
+                
+            }, 50);
 
-        //    $('#masonry_container').attr('style', "top:100px;position:relative");
+        });
+
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
 
     },
@@ -744,23 +820,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.get("categorys").then(function() {
             $(document).ready(function() {
                 setTimeout(function() {
-
-                    if (localStorage.resOrcom === "commercial")
-                    {
-                        $('#switchbarBtn1').attr("style", "margin-left:28px;");
-                    }
-                    else if (localStorage.resOrcom === "residential")
-                    {
-                        $('#switchbarBtn1').attr("style", "margin-left:0px;");
-                    }
-                    else if (localStorage.resOrcom === "All")
-                    {
-                        $('#switchbarBtn1').attr("style", "margin-left:13px;");
-                    }
+                    that.residentialCommercialStatus();
+                    //    that.changeBackground();
                 }, 50);
             });
         });
-
         this.set('subcate', []);
         this.set('subcategories', []);
 
@@ -793,7 +857,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     topicSearch: function(search_topic) {
         HubStar.set("escVideo", false);
         this.transitionToRoute('search', {id: search_topic});
-        $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
         this.set('search_string', search_topic);
 //        this.newSearch();
@@ -857,7 +920,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndexTom');
                             that.init();
-
 
 
 
@@ -925,41 +987,33 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     display: function(ads)
     {
         var that = this;
-        if (ads["isNew"] === true) {
-            googletag.cmd.push(function() {
-                for (var i = 0; i < ads.length; i++) {
-                    var ad = ads[i];
-                    var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
-                    googletag.pubads().enableSingleRequest();
-                    googletag.enableServices();
-                    googletag.display(ad.div);
-                    googletag.pubads().refresh([slot1]);
-                }
-            });
-            ads["isNew"] = false;
-        }
-        else
-        {
-            googletag.cmd.push(function() {
-                for (var i = 0; i < ads.length; i++) {
-                    var ad = ads[i];
-                    googletag.pubads().enableSingleRequest();
-                    googletag.enableServices();
-                    googletag.display(ad.div);
-                }
-            });
-        }
-
-
-        for (var i = 0; i < ads.length; i++) {
-            var ad = ads[i];
-            var height = ad.size[1];
-            var div_id = ad.div + "_box";
-            var x = document.getElementById(div_id);
-            x.style.display = "block";
-            x.className += " box";
-
-            x.style.height = height + "px";
+        if (ads !== undefined) {
+            if (ads["isNew"] === true) {
+                googletag.cmd.push(function() {
+                    for (var i = 0; i < ads.length; i++) {
+                        var ad = ads[i];
+                        var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                        ads["slot1"] = slot1;
+                        googletag.pubads().enableSingleRequest();
+                        googletag.enableServices();
+                        googletag.display(ad.div);
+                        googletag.pubads().refresh([slot1]);
+                    }
+                });
+                ads["isNew"] = false;
+            }
+            else
+            {
+                googletag.cmd.push(function() {
+                    for (var i = 0; i < ads.length; i++) {
+                        var ad = ads[i];
+                        googletag.pubads().enableSingleRequest();
+                        googletag.enableServices();
+                        googletag.display(ad.div);
+                        googletag.pubads().refresh([ads["slot1"]]);
+                    }
+                });
+            }
         }
     },
     relayout: function(l)
@@ -967,21 +1021,17 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('loadingTime', false);
         this.set("nextPageSpinner", false);
         if (l !== 0) {
-            this.getAds();
+            var ads = this.getAds();
             HubStar.set("scrollDownSearch", false);
             if (this.get("pageCount") === 0)
             {
-                l = l + 3;
+                l = l + 4;
             }
-            else if (this.get("pageCount") === 1)
+            else if (this.get("pageCount") >= 1 && this.get("pageCount") < 10)
             {
                 l = l + 3;
             }
-            else if (this.get("pageCount") === 2)
-            {
-                l = l + 2;
-            }
-
+            //console.log(this.get("pageCount"));
             var that = this;
 
             var x = document.getElementById("masonry_container");
@@ -1000,6 +1050,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }
             this.set("totalItems", this.get("totalItems") + items.length);
             $('#masonry_container').append(items).masonry('appended', items);
+            that.display(ads);
+
         }
     },
     relayoutDefault: function()
@@ -1014,10 +1066,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }, 50);
     },
     getAds: function() {
-
-//        DFP code
-
-
         try
         {
             var adSlots = HubStar.get('ads');
@@ -1047,8 +1095,19 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
             }
             that.set("oldChildren", masonryContainer.children.length);
+            //that.display(adSlots[pageCount]);
+            var ads = adSlots[pageCount];
+            for (var i = 0; i < ads.length; i++) {
+                var ad = ads[i];
+                var height = ad.size[1];
+                var div_id = ad.div + "_box";
+                var x = document.getElementById(div_id);
+                x.style.display = "block";
+                x.className += " box";
 
-            that.display(adSlots[pageCount]);
+                x.style.height = height + "px";
+            }
+            return adSlots[pageCount];
         }
         catch (err) {
 //            console.log("container is empty");

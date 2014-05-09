@@ -74,7 +74,6 @@ class MegasController extends Controller {
             $mega['videoes'][0]['id'] = $mega['id'];
 
             $keyword = $this->getProfileKeyword($mega['owner_id']);
-            //error_log(var_export($keyword, true));
             $mega['keyword'] = $keyword;
 
             $this->createUploadedVideo($mega);
@@ -91,7 +90,6 @@ class MegasController extends Controller {
             $docID = $this->getDomain() . "/profiles/" . $id;
             $reponse = $cb->get($docID);
             $reponse = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
-            error_log(var_export($reponse, true));
             $this->sendResponse(200, $reponse);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -273,7 +271,6 @@ class MegasController extends Controller {
                 $oldRecord["share_count"] = $newRecord['mega']['share_count'];
             }
 
-            // error_log(var_export(     $oldRecord['profile'][0]["view_count"] , true));
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {
@@ -380,7 +377,6 @@ class MegasController extends Controller {
 //            $oldRecord["share_count"] = $newRecord['mega']['share_count'];  
 //
 //            
-//          // error_log(var_export(     $oldRecord['profile'][0]["view_count"] , true));
 //            if ($cb->set($docID, CJSON::encode($oldRecord))) {
 //                $this->sendResponse(204);
 //            } else {

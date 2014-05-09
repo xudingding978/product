@@ -92,7 +92,6 @@ class LoginController extends Controller {
         $model = new User;
 
         $request_array = CJSON::decode(file_get_contents('php://input'));
-        error_log(var_export( $request_array,true));
         $model->REC_DATETIME = new CDbExpression('NOW()');
         $model->REC_TIMESTAMP = new CDbExpression('NOW()');
         $model->TENANT_REC_ID = "1";
@@ -116,7 +115,7 @@ class LoginController extends Controller {
         $temp["user"][0]["last_name"] = $model->LAST_NAME;
         $temp["user"][0]["email"] = $model->EMAIL_ADDRESS;
         $temp["user"][0]["email_activate"] = false;
-        $temp['user'][0]['selected_topics'] = $request_array[7];
+        $temp['user'][0]['selected_topics'] = "";
         $temp['user'][0]['gender'] = $request_array[5];
         $temp['user'][0]['age'] = $request_array[6];
         $temp['user'][0]['description'] = null;
@@ -147,7 +146,7 @@ class LoginController extends Controller {
 
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $currentUser = User::model()
-                ->findByAttributes(array('COUCHBASE_ID' => $request_array));
+                ->findByAttributes(array('COUCHBASE_ID' => $request_array[0]));
         $this->sendResponse(200, CJSON::encode($currentUser));
     }
 
@@ -191,6 +190,27 @@ class LoginController extends Controller {
         } else {
             $this->sendResponse(200, 1);
         }
+    }
+
+    public function actionSelecttopic() {
+
+
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+         $id=$request_array[0];
+           $cb = $this->couchBaseConnection();
+          
+            $url = $this->getDomain() . "/users/" . $id;
+            $oldRecord = $cb->get($url);
+            $oldRecord = CJSON::decode($oldRecord, true);
+
+            $oldRecord['user'][0]['selected_topics'] = $request_array[1];
+
+            if ($cb->set($url, CJSON::encode($oldRecord))) {
+                $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+
     }
 
     public function actionUpdate() {
@@ -260,30 +280,21 @@ class LoginController extends Controller {
 
                 if ($currentUser->PWD_HASH === "blankblankblank") {
                     $userProfile = UserProfile::model()
-                    ->findByAttributes(array('EMAIL' => $request_array[0]));
-                    
-                    if($userProfile->LOGIN_PROVIDER=="Facebook")
-                    {
+                            ->findByAttributes(array('EMAIL' => $request_array[0]));
+
+                    if ($userProfile->LOGIN_PROVIDER == "Facebook") {
                         $this->sendResponse(200, 0);
-                    }
-                    else    if($userProfile->LOGIN_PROVIDER=="Twitter")
-                    {
+                    } else if ($userProfile->LOGIN_PROVIDER == "Twitter") {
                         $this->sendResponse(200, 3);
-                    }
-                    else    if($userProfile->LOGIN_PROVIDER=="Google")
-                    {
+                    } else if ($userProfile->LOGIN_PROVIDER == "Google") {
                         $this->sendResponse(200, 4);
-                    }
-                    else    if($userProfile->LOGIN_PROVIDER=="LinkedIn")
-                    {
+                    } else if ($userProfile->LOGIN_PROVIDER == "LinkedIn") {
                         $this->sendResponse(200, 5);
                     }
 //                    else   if($userProfile->LOGIN_PROVIDER="Sina")
 //                    {
 //                        $this->sendResponse(200, 0);
 //                    }
-                    
-                    
                 } else {
                     //     $_SESSION['couchbase_id'] = $currentUser->COUCHBASE_ID;
                     $data = array();
@@ -320,23 +331,16 @@ class LoginController extends Controller {
                     ->findByAttributes(array('USER_NAME' => $request_array[0]));
             if (isset($currentUser)) {
                 if ($currentUser->PWD_HASH === "blankblankblank") {
-                     $userProfile = UserProfile::model()
-                    ->findByAttributes(array('EMAIL' => $currentUser->EMAIL_ADDRESS));
-                    
-                    if($userProfile->LOGIN_PROVIDER=="Facebook")
-                    {
+                    $userProfile = UserProfile::model()
+                            ->findByAttributes(array('EMAIL' => $currentUser->EMAIL_ADDRESS));
+
+                    if ($userProfile->LOGIN_PROVIDER == "Facebook") {
                         $this->sendResponse(200, 0);
-                    }
-                    else    if($userProfile->LOGIN_PROVIDER=="Twitter")
-                    {
+                    } else if ($userProfile->LOGIN_PROVIDER == "Twitter") {
                         $this->sendResponse(200, 3);
-                    }
-                    else    if($userProfile->LOGIN_PROVIDER=="Google")
-                    {
+                    } else if ($userProfile->LOGIN_PROVIDER == "Google") {
                         $this->sendResponse(200, 4);
-                    }
-                    else    if($userProfile->LOGIN_PROVIDER=="LinkedIn")
-                    {
+                    } else if ($userProfile->LOGIN_PROVIDER == "LinkedIn") {
                         $this->sendResponse(200, 5);
                     }
                 } else {
@@ -365,7 +369,6 @@ class LoginController extends Controller {
 
                     $this->sendResponse(200, CJSON::encode($data));
                 }
-               
             } else {
                 $this->sendResponse(200, 1);
             }
@@ -492,4 +495,3 @@ class ListingCast {
     }
 
 }
-

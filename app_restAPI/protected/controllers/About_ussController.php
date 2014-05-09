@@ -18,11 +18,9 @@ class About_ussController extends Controller {
     }
 
     public function actionCreate() {
-        error_log('create here');
         try {
             $request_json = file_get_contents('php://input');
             $request_arr = CJSON::decode($request_json, true);
-//            error_log(var_export($request_arr, true));
             $tempCollection = $request_arr['about_us'];
             $profile_id = $tempCollection['about_id'];
             
@@ -59,7 +57,6 @@ class About_ussController extends Controller {
     }
 
     public function actionDelete() {
-        error_log('delete here!!');
 //        $info = CJSON::decode(file_get_contents('php://input'));
 //        //$info = file_get_contents('php://input');
 //         $infoDel = CJSON::decode($info, true);

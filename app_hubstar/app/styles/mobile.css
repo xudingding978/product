@@ -52,7 +52,7 @@ and (max-device-width : 1024px)  {
         margin-right:0px;
     }
 
-    #search-bar .Search-box{
+    #search-bar .search-box{
         width:60%;
     }
     #geoDropdown{
@@ -115,7 +115,7 @@ and (-webkit-min-device-pixel-ratio: 1)  {
         margin-right:0px;
     }
 
-    #search-bar .Search-box{
+    #search-bar .search-box{
         width:60%;
     }
     #geoDropdown{
@@ -219,7 +219,7 @@ and (max-device-width : 568px) {
         margin-right:0px;
     }
 
-    #search-bar .Search-box{
+    #search-bar .search-box{
         width:60%;
     }
     #geoDropdown{
@@ -312,7 +312,7 @@ and (max-device-width : 480px) {
         margin-right:0px;
     }
 
-    #search-bar .Search-box{
+    #search-bar .search-box{
         width:60%;
     }
     #geoDropdown{

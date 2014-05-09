@@ -18,6 +18,7 @@ HubStar.TalkController = Ember.Controller.extend({
     isInvitePeople: false,
     isAdded: false,
     contentFollowerPhoto: null,
+    isPosting:true,
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -44,7 +45,10 @@ HubStar.TalkController = Ember.Controller.extend({
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var commentContent = this.get('messageContent');
-        if (commentContent) {
+        var imageSource= this.get("newStyleImageSource");
+        var imageName=this.get('newStyleImageName');
+        if (commentContent||imageSource||imageName) {
+            this.set("isPosting",false);
             var commenter_id = this.get("currentUser").get('id');
             var date = new Date();
             var owner_id = this.get("currentOwner").get("id");
@@ -88,7 +92,8 @@ HubStar.TalkController = Ember.Controller.extend({
 
                 that.get('controllers.applicationFeedback').statusObserver(null, "Message sent.");
                 HubStar.set("talkConversation",true);
-
+                that.set("isPosting",true);
+                that.set("isUploadPhoto",false);
                 that.reviewCancel();
                 that.set('messageContent', "");
                 that.set('newStyleImageSource', null);

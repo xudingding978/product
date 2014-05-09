@@ -88,9 +88,9 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                     collection.set('type', 'user');
                     collection.store.save();
                     var tempComment = [this.get("objectID")];
-                    var that =this;
+                    var that = this;
                     requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
-                        that.get("commentObject").set("save_count",params);
+                        that.get("commentObject").set("save_count", params);
                         that.get("commentObject").store.save();
                     });
                     this.sendFeedBack();
@@ -114,15 +114,16 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                     requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
                         HubStar.get('selectedCollection').collection_ids = params;
                         var tempComment = [that.get("objectID")];
+                        //that.commitCollection();
                         requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
-                            that.get("commentObject").set("save_count",params);
+                            that.get("commentObject").set("save_count", params);
                             that.get("commentObject").store.save();
                         });
                         that.sendFeedBack();
                         that.exit();
                     });
                     this.set("chosenProfile", "");
-                    
+
                     this.addComment();
                 }
 
@@ -139,19 +140,21 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
 
                         var data = JSON.stringify(HubStar.get('selectedCollection'));
                         var that = this;
-                         this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
+                        this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
                         requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
                             //console.log(params);
                             HubStar.get('selectedCollection').collection_ids = params;
                             var tempComment = [that.get("objectID")];
-                            requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
-                                that.get("commentObject").set("save_count",params);
+                            //that.commitCollection();
+                            requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {                                
+                                that.get("commentObject").set("save_count", params);
+                                that.get("commentObject").store.save();
                             });
                             that.sendFeedBack();
                             that.exit();
                         });
                         this.set("chosenProfile", "");
-                       
+
                         this.addComment();
                     }
                 }
@@ -160,6 +163,22 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             this.get('controllers.applicationFeedback').statusObserver(null, "Please choose a collection.", "warnning");
         }
 
+    },
+    commitCollection: function() {
+        var profile = HubStar.Profile.find(HubStar.get('selectedCollection').optional);
+        var collection;
+        profile.then(function() {
+            for (var i = 0; i < profile.get("collections").get("length"); i++)
+            {
+                if (HubStar.get('selectedCollection').id === profile.get("collections").objectAt(i).get("id")) {
+                    collection = profile.get("collections").objectAt(i);
+                    break;
+                }
+            }
+            collection.set("collection_ids",HubStar.get('selectedCollection').collection_ids);
+            console.log(collection.get("collection_ids"));
+            collection.store.save();
+        });
     },
     sendFeedBack: function() {
         var message = "Saved to your " + this.get('selectedTitle') + " collection.";
@@ -174,15 +193,22 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
 
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         var commentContent = this.get('selectedDesc');
-        if (commentContent) {
+        if (commentContent) { 
             var comments = this.get("commentObject").get('comments');
             var commenter_profile_pic_url = currentUser.get('photo_url_large');
             var commenter_id = currentUser.get('id');
             var name = currentUser.get('display_name');
             var date = new Date();
+            var message_id = createMessageid() + commenter_id;
+//             var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url, 
+//                 "message_id": message_id, "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), 
+//                 "is_delete": false, optional: this.get('mega').get('type') + '/' + this.get('mega').get('id')});
+
             var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
-                "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
-                "is_delete": false, optional: this.get("commentObject").get('type') + '/' + this.get("commentObject").get('id')});
+                "message_id": message_id, "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
+                "is_delete": false, optional: this.get("commentObject").get('type') + '/' + this.get("commentObject").get('id')});  
+            console.log(tempComment);
+            console.log(comments);
             comments.insertAt(0, tempComment);
             comments.store.save();
             commentContent = '';

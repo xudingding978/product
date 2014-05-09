@@ -47,18 +47,17 @@ class EmailsController extends Controller {
         $objectUrl = $request_arr['object_url'];
 
         $userEnvironment = $request_arr['user_environment'];
-        error_log(var_export($userEnvironment, true));
         $domain = $this->getDomain();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
         $platformEmail = $platformSettings['direct_enquiries']['email'];
         $subject_prefix = $platformSettings['direct_enquiries']['subject_prefix'];
-        $args = array(
+        $args1 = array(
             "Source" => $platformEmail,
             "Destination" => array(
                 "ToAddresses" => array(
-                    $email_destination, 'enquiries@trendsideas.com', $display_email
+                     'enquiries@trendsideas.com'
                 )
             ),
             "Message" => array(
@@ -67,15 +66,36 @@ class EmailsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->getEmailForm($request_arr['email_subject'], $request_arr['email_body'], $request_arr['display_name'], $email_destination, $request_arr['project_timeframe'], $request_arr['project_category'], $request_arr['project_budget'], $request_arr['project_experience'], $description, $objectUrl, $userEnvironment
+                        "Data" => $this->getEmailForm1($request_arr['email_subject'], $request_arr['email_body'], $request_arr['display_name'], $email_destination, $request_arr['project_timeframe'], $request_arr['project_category'], $request_arr['project_budget'], $request_arr['project_experience'], $description, $objectUrl, $userEnvironment
                         )
                     )
                 ),
             ),
             "ReplyToAddresses" => array($display_email)
         );
-        $response = $amazonSes->sendEmail($args);
-        $this->sendResponse(200, $response);
+        $args2 = array(
+            "Source" => $platformEmail,
+            "Destination" => array(
+                "ToAddresses" => array(
+                    $email_destination,  $display_email
+                )
+            ),
+            "Message" => array(
+                "Subject" => array(
+                    "Data" => $subject_prefix . $request_arr['email_subject']
+                ),
+                "Body" => array(
+                    "Html" => array(
+                        "Data" => $this->getEmailForm2($request_arr['email_subject'], $request_arr['email_body'], $request_arr['display_name'], $email_destination, $request_arr['project_timeframe'], $request_arr['project_category'], $request_arr['project_budget'], $request_arr['project_experience']
+                        )
+                    )
+                ),
+            ),
+            "ReplyToAddresses" => array($display_email)
+        );
+        $response1 = $amazonSes->sendEmail($args1);
+        $response2 = $amazonSes->sendEmail($args2);
+        $this->sendResponse(200, $response1 && $response2);
     }
 
     public function actionForgetpassword() {
@@ -177,7 +197,7 @@ class EmailsController extends Controller {
         }
     }
 
-    public function getEmailForm($subject, $emailBody, $sendPersonName, $recieveProfile, $timeframe, $category, $budget, $experience, $description, $objectUrl, $userEnvironment) {
+    public function getEmailForm1($subject, $emailBody, $sendPersonName, $recieveProfile, $timeframe, $category, $budget, $experience, $description, $objectUrl, $userEnvironment) {
         return '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -299,8 +319,8 @@ class EmailsController extends Controller {
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td valign="top">
-                                                        I want help in:
+                                                    <td valign="top">                                                
+                                                        I would like help with:
                                                     </td>
                                                     <td valign="top">
                                                         <div style="display: block;">
@@ -337,6 +357,148 @@ class EmailsController extends Controller {
 ';
     }
 
+       public function getEmailForm2($subject, $emailBody, $sendPersonName, $recieveProfile, $timeframe, $category, $budget, $experience) {
+        return '
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title></title>
+    </head>
+    <body style="background: #E5E5E5; margin: 0; padding: 0;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+                <tr>
+                    <td align="center">
+                        <br />
+                        &nbsp;
+                        <table width="600" cellpadding="0" cellspacing="0" border="0" style="background: #fff;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/header.jpg" alt="Trends"
+                                             style="float: left;" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        &nbsp;<br />
+                                        <table cellpadding="0" cellspacing="0" border="0" width="90%" style="color: #666666;
+                                               font-family: Helvetica, Arial, San-Serif; font-size: 14px; line-height: 150%;
+                                               text-align: left;">
+                                            <tbody>
+                                                <tr>
+                                                    <td align="right" width="56">
+                                                        From:&nbsp;
+                                                    </td>
+                                                    <td align="left" width="484">
+                                                        ' . $sendPersonName . '
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="right" width="56">
+                                                        To:&nbsp;
+                                                    </td>
+                                                    <td align="left" width="484">
+                                                        ' . $recieveProfile . '
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="right" width="56">
+                                                        Subject:&nbsp;
+                                                    </td>
+                                                    <td align="left" width="484">
+                                                        ' . $subject . '
+                                                    </td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <br />
+                                                        ' . $emailBody . '
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        &nbsp;<br />
+                                        <hr style="height: 1px; color: #0088CC; background: #0088CC; width: 90%; border: 0 none;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        &nbsp;<br />
+                                        <table cellpadding="10" cellspacing="0" width="90%" border="0" style="color: #666;
+                                               font-size: 13px; line-height: 150%; font-family: Helvetica, Arial, San-Serif;
+                                               text-align: left; background: #e5e5e5; -webkit-border-radius: 3px; -moz-border-radius: 3px;
+                                               border-radius: 3px;">
+                                            <tbody>
+                                                <tr>
+                                                    <td valign="top">
+                                                        Project Category:
+                                                    </td>
+                                                    <td valign="top">
+                                                        <div style="display: block;">
+                                                            ' . $category . '
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top">
+                                                        Project Timeframe:
+                                                    </td>
+                                                    <td valign="top">
+                                                        <div style="display: block;">
+                                                            ' . $timeframe . '
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top">
+                                                        Project Budget:
+                                                    </td>
+                                                    <td valign="top">
+                                                        <div style="display: block;">
+                                                            ' . $budget . '
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top">
+                                                        Project Experience:
+                                                    </td>
+                                                    <td valign="top">
+                                                        <div style="display: block;">
+                                                            ' . $experience . '
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                        &nbsp;<br />
+                                        <hr style="height: 1px; color: #0088CC; background: #0088CC; width: 90%; border: 0 none;" />
+                                        &nbsp;<br />                                        
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="http://develop.devbox.s3.amazonaws.com/email-bottom.jpg" style="float: left;" />
+                                        <br />
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        &nbsp;<br />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
+';
+    }
+    
     public function forgetEmailForm($username, $password) {
         return '
          <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

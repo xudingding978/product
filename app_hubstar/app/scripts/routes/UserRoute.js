@@ -99,8 +99,8 @@ HubStar.UserRoute = Ember.Route.extend({
 
 
         $(window).scrollTop(0);
-        $('#discovery_search_bar_wrapper').attr('style', "display:none");
-        $('#masonry_container').attr('style', "display:none");
+        $('#discovery_search_bar_wrapper').css('display', "none");
+        $('#masonry_container').css('display', "none");
         $(function() {
             $('#masonry_container').masonry('remove', $('.noStyle1'));
         });

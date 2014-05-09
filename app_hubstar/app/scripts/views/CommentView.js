@@ -19,18 +19,9 @@ HubStar.CommentView = Ember.View.extend({
                 autoHideScrollbar: true,
                 mouseWheel: true,
                 theme: "dark-2"
-                //set_height: 350
+                
             });
         });
     }
-    
-//    closeComment: function(id) {    
-//        this.get('controller').set("commentContent","");
-//        $('#comment_' + id).attr('style', 'display:block');
-//        $('#commentBox_' + id).attr('style', 'display:none');
-//        $('#masonry_container').masonry("reload");
-//        setTimeout(function() {
-//            $('#masonry_container').masonry("reload");
-//        }, 200);
-//    }                 
+               
 });

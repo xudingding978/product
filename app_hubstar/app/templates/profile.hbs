@@ -65,19 +65,18 @@
 
 
                                 <!--contact me-->
-                                <div class="enquiryBtn-containter" style="float: right;margin: -5px 20px 0 0;" data-hint="Contact us!" data-step="3" data-intro="Click here to <b>Contact</b> the profile owner." data-position='left'>
+                                <div class="enquiryBtn-containter" style="float: right;margin: -5px 20px 0 0;"  data-step="3" data-intro="Click here to <b>Contact</b> the profile owner." data-position='left'>
                                     <div class="enquiryBtn-ring"></div>
                                     <div class="enquiryBtn easing"{{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></div>
                                     <div class="btn-description">MESSAGE</div>
                                 </div>
                                 <!--Share profile-->
-                                <div class="contactmebtn hint--left hint--rounded easing" style="position: relative; right: 30px;" data-hint="Share this profile!" data-step="2" data-intro="Click here to <b>Share</b> a link to this profile through social media." data-position='left'>
+                                <div class="contactmebtn hint--left hint--rounded easing" style="position: relative; right: 30px;"  data-step="2" data-intro="Click here to <b>Share</b> a link to this profile through social media." data-position='left'>
                                     <a class="contactmeicon easing" {{action dropdownPhotoSetting}}><i class="fa fa-share easing" style="font-size: 19px;"></i></a>
                                 <div class="btn-description" style="margin: 8px;">SHARE</div>
                                 </div>
                             </div>  
                             <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px;  padding: 0;right: 45px;top: 100px;position: absolute;">
-                                <!--<li style="position:fixed;z-index:0;height:100%;width:100%;" onClick="document.getElementById('dropdown_id_'+{{unbound id}}).style.display='none' ">&nbsp;<li>-->
                                 <li class="ite" {{action  fbShare}} >
                                     <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
                                 </li>

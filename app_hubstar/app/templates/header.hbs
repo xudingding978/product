@@ -7,18 +7,19 @@
             <a href="/#/search" > <img class="logonew" {{action showDiscoveryBar}} src="../../../images/landing-trends.png"></a>
             <a href="/#/search" > <img class="logonew-small" {{action showDiscoveryBar}} src="../../../images/trendsIcon.png"></a>
         </div>
-        <div id="top-about-menu" class="top-about-menu" {{action showAboutDropDown on="click" target="view"}}>
-            <i class="fa fa-info" style="color: #555;z-index: 10;position: absolute;left: 9px;font-size: 13px;top: 2px;"></i>
-            <i class="fa fa-comment fa-lg" style="font-size: 23px;position: absolute;"></i>
+        <div id="top-about-menu" class="easing"{{action dropdown "about"}}>
+            <i class="fa fa-info"></i>
         </div>
-        <ul id="top-menu" class="edit-object-ul" style="display:none;width: 160px;position: absolute;top:80px;left: 120px;">
+        {{#if controller.headerAbout}}
+        <div id="header_menu_about" class="blank-top-bar"  {{action dropdown "about"}}>&nbsp;</div>
+             
+        <ul id="top-menu" class="edit-object-ul" style="width: 160px;position: absolute;top:80px;left: 120px;">
             <li class="ite" > <span><a  target="blank" href="http://about.trendsideas.com/">About</a></span></li>
             <li class="ite" > <span><a target="blank" href="http://about.trendsideas.com/business/">Business</a></span></li>
             <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span></li>
             <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/contact-us/">Contact us</a></span></li>
-
         </ul>
-
+        {{/if}}
 
 
 
@@ -31,7 +32,7 @@
             </div>
         </div>
 
-        <div id="Geo-Filter" class="Geo-Filter easing"  {{action dropdown "notification"}} data-step="3" data-intro="New notifications will appear beside the <b>Notification icon</b>. Click the icon to see your latest notifications.">
+        <div id="notification-filter" class="Geo-Filter easing"  {{action dropdown "notification"}} data-step="3" data-intro="New notifications will appear beside the <b>Notification icon</b>. Click the icon to see your latest notifications.">
             <div class="circle-btn"><i class="fa fa-bell fa-lg" ></i></div>
             <div class="circle-btn-description">Notification</div>
             {{#if isUnReadCountZero}}
@@ -68,7 +69,7 @@
         {{/if}}
         <div class="search-bar-on-large-screen" >
             <div id="search-bar" class="search-bar-ontop">
-                <div id ="navigator" class="Nav-btn easing" {{action dropdownHeaderNavigator}}>
+                <div id ="navigator" class="Nav-btn easing" {{action dropdownHeaderNavigator}}data-step="6" data-intro="Use the <b>Navigator</b> to browse content by <b>categories.</b>" data-position='left'>
                      <i class="fa fa-list" style="font-size: 20px;"></i>
                     <div style="line-height: 0;position: relative;bottom: 5px;">Categories</div>
                 </div>
@@ -84,7 +85,7 @@
                     </div>
                 </div>
             </div>
-            <div  id="topResidentialCommerical">
+            <div  id="topResidentialCommerical" data-step="5" data-intro="Start your search by choosing what type of projects you’d like to find –<b>Residential</b> or <b>Commercial</b>" data-position='right'>
                 <div id="residential1" class="residentialCommericalTop residentialCommerical-selected easing"   {{action residential on="click" target="view"}}>Residential</div>
                 <div id="commercial1" class="residentialCommericalTop residentialCommerical-selected easing"  {{action commercial on="click" target="view"}}>Commercial</div>
             </div>
@@ -98,7 +99,7 @@
     <div class="search-bar-on-small-screen">
 
         <div id="search-bar" class="search-bar-ontop">
-            <div id ="navigator" class="Nav-btn easing"  {{action dropdownHeaderNavigator}}>
+            <div id ="navigator" class="Nav-btn easing"  {{action dropdownHeaderNavigator}}data-step="6" data-intro="Use the <b>Navigator</b> to browse content by <b>categories.</b>" data-position='left'>
                  <i class="fa fa-list" style="font-size: 20px;"></i>
             </div>
             {{#if controller.isHeaderNavigatorDropdown}}
@@ -112,13 +113,12 @@
             </div>
         </div>
 
-        <div  id="topResidentialCommerical">
+        <div  id="topResidentialCommerical" data-step="5" data-intro="Start your search by choosing what type of projects you’d like to find –<b>Residential</b> or <b>Commercial</b>" data-position='right'>
             <div id="residential2" class="residentialCommericalTop residentialCommerical-selected easing"   {{action residential on="click" target="view"}}>Residential</div>
             <div id="commercial2" class="residentialCommericalTop residentialCommerical-selected easing"  {{action commercial on="click" target="view"}}>Commercial</div>
         </div>
 
     </div>
-
 
 </div>
 

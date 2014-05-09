@@ -609,20 +609,20 @@
 
                 }
 
-                if (self._currentStep === 4 || self._currentStep === 5) {
-                    if (HubStar.get('showDiscoveryBar') === true) {
-                        $('#masonry_container').css('top', "550px");
-                    } else {
-                        $('#masonry_container').css('top', "100px");
-                    }
-
-                } else {
-                    if (HubStar.get('showDiscoveryBar') === true) {
-                        $('#masonry_container').css('top', "50px");
-                    } else {
-                        $('#masonry_container').css('top', "100px");
-                    }
-                }
+//                if (self._currentStep === 4 || self._currentStep === 5) {
+//                    if (HubStar.get('showDiscoveryBar') === true) {
+//                        $('#masonry_container').css('top', "550px");
+//                    } else {
+//                        $('#masonry_container').css('top', "100px");
+//                    }
+//
+//                } else {
+//                    if (HubStar.get('showDiscoveryBar') === true) {
+//                        $('#masonry_container').css('top', "50px");
+//                    } else {
+//                        $('#masonry_container').css('top', "100px");
+//                    }
+//                }
             };
 
             nextTooltipButton.href = 'javascript:void(0);';
@@ -634,20 +634,8 @@
                 if (self._currentStep != 0) {
                     _previousStep.call(self);
                 }
-                if (self._currentStep === 4 || self._currentStep === 5) {
-                    if (HubStar.get('showDiscoveryBar') === true) {
-                        $('#masonry_container').css('top', "550px");
-                    } else {
-                        $('#masonry_container').css('top', "100px");
-                    }
-
-                } else {
-                    if (HubStar.get('showDiscoveryBar') === true) {
-                        $('#masonry_container').css('top', "50px");
-                    } else {
-                        $('#masonry_container').css('top', "100px");
-                    }
-                }
+//            
+//                
             };
 
             prevTooltipButton.href = 'javascript:void(0);';

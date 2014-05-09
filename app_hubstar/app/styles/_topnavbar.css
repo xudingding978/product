@@ -878,6 +878,8 @@ div#forgot-password-container{
     width: 160px;
     height: 50px;
     line-height: 47px;
+    z-index: 1;
+    position: relative;
 }
 
 
@@ -1113,7 +1115,7 @@ search-bar-on-small-screen #topResidentialCommerical{
         padding: 0 5px;
         margin: 5px 0;
     }
-    .Geo-Filter{margin-top: 15px;}
+    .circle-btn{margin: 15px auto;}
 
     .notification-number{right: 0px;}
 
@@ -1170,9 +1172,9 @@ and (max-width : 480px) {
         margin: 4px auto;
         font-size: 15px;
     }
-   #notification-filter{
+    #notification-filter{
         display:none !important;
-   }
+    }
 }
 
 

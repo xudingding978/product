@@ -594,7 +594,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         function callback(response) {
             if (response && response.post_id) {
-                var mega = HubStar.Mega.find(this.get('articleID'));
+                var mega = HubStar.Mega.find(that.get('articleID'));
                 mega.then(function() {
                     if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
                     {

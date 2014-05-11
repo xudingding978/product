@@ -836,19 +836,18 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $('#geo-filter').toggleClass('Geo-Filter-active');
             $('#notification-filter').removeClass('Geo-Filter-active');
             $('#top-about-menu').removeClass('Geo-Filter-active');
-            $('#user-header-menu').removeClass('Geo-Filter-active');
+       //     $('#user-header-menu').removeClass('Geo-Filter-active');
 
         } else if (checking === "notification") {
             this.set("isNotification", !this.get("isNotification"));
             this.set('headerAbout', false);
             this.set('isGeoDropdown', false);
             this.set('userProfile', false);
-            $('#notification-filter').taggleClass('Geo-Filter-active');
+            $('#notification-filter').addClass('Geo-Filter-active');
             this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
-            $('#geo-filter').removeClass('Geo-Filter-active');
-            
+            $('#geo-filter').removeClass('Geo-Filter-active');            
             $('#top-about-menu').removeClass('Geo-Filter-active');
-            $('#user-header-menu').removeClass('Geo-Filter-active');
+      //      $('#user-header-menu').removeClass('Geo-Filter-active');
         }
         else if (checking === "about") {
             this.set("isNotification", false);
@@ -858,7 +857,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $('#geo-filter').removeClass('Geo-Filter-active');
             $('#notification-filter').removeClass('Geo-Filter-active');
             $('#top-about-menu').taggleClass('Geo-Filter-active');
-            $('#user-header-menu').removeClass('Geo-Filter-active');
+        //    $('#user-header-menu').removeClass('Geo-Filter-active');
         }
         else if (checking === "user") {
             this.set("isNotification", false);
@@ -868,7 +867,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $('#geo-filter').removeClass('Geo-Filter-active');
             $('#notification-filter').removeClass('Geo-Filter-active');
             $('#top-about-menu').removeClass('Geo-Filter-active');
-            $('#user-header-menu').toggleClass('Geo-Filter-active');
+      //     $('#user-header-menu').toggleClass('Geo-Filter-active');
         }
     },
     dropdownNavigator: function() {

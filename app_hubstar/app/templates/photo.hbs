@@ -83,9 +83,15 @@
             <div class="fa icon-on-black"  {{action previesImage on="click" target="controller"}} style="display:inline-block; vertical-align: top; position:relative; left:44px;">
                 <i class="fa fa-arrow-left"></i>
             </div>
+            {{#unless controller.isRead}}
             <div class="fa icon-on-black hint--rounded hint--top" data-hint="Show other photos in this collection." style="left: 44px; display:inline-block; vertical-align: top; position:relative;" {{action popupAibum on="click" target="view"}}>
                 <i class="fa fa-th"></i>
             </div>
+            {{else}}
+            <div  class="spinner-object" >
+            <i class="spinner"></i> 
+             </div>
+            {{/unless}}
             <div class="fa icon-on-black" style="left: 44px;position: relative;vertical-align: top;display: inline-block;" {{action nextImage on="click" target="controller"}}>
                 <i class="fa fa-arrow-right"></i>
             </div>

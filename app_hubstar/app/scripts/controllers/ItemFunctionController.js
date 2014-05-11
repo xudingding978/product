@@ -12,10 +12,10 @@
 
 HubStar.ItemFunctionController = Ember.Controller.extend({
     currentUser: null,
-    needs: ['checkingLoginStatus','addCollection','applicationFeedback'],
+    needs: ['checkingLoginStatus', 'addCollection', 'applicationFeedback'],
     init: function()
     {
-       if (localStorage.loginStatus) {
+        if (localStorage.loginStatus) {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         }
     },
@@ -76,11 +76,11 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                     this.count = mega.get('likes_count');
 
                 }
-                else {                  
+                else {
                     var likeArray = [localStorage.loginStatus, id, type];
                     likeArray = JSON.stringify(likeArray);
                     var that = this;
-                    requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {                       
+                    requiredBackEnd('megas', 'addlike', likeArray, 'POST', function(params) {
                         params = params + "";
                         var like = params.split(",");
                         mega.set("likes_count", like.length);
@@ -99,10 +99,22 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
     },
     fbShare: function(model) {
         this.shareHide(model.id);
+        var mega = model;
+        mega.then(function() {
+            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+            {
+                mega.set("share_count", 0);
+            }
+            else
+            {
+                mega.set("share_count", mega.get("share_count") + 1);
+            }
+            mega.store.save();
+        });
         if (model.get("type") === "photo") {
             this.set("selectedPhoto", model.get("photo").objectAt(0));
             var that = this;
-            var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
+            var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
             var caption = '';
 
             if (this.get('selectedPhoto').get('photo_caption') !== null)
@@ -137,7 +149,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
         if (model.get("type") === "video") {
             this.set("selectedVideo", model._data.videoes[0]);
             var that = this;
-            var currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('selectedVideo')['id'];
+            var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo')['id'];
             var caption = '';
             if (this.get('selectedVideo').data.video_desc !== null)
             {
@@ -171,7 +183,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
         if (model.get("type") === "article") {
             this.set("selectedArticle", model.get("article").objectAt(0));
             var that = this;
-            var currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('selectedArticle').get('id');
+            var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedArticle').get('id');
             var caption = '';
 
             if (this.get('selectedArticle').get('article_body') !== null)
@@ -208,6 +220,18 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
     //share to social google plus
     gpShare: function(model) {
         this.shareHide(model.id);
+        var mega = model;
+        mega.then(function() {
+            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+            {
+                mega.set("share_count", 0);
+            }
+            else
+            {
+                mega.set("share_count", mega.get("share_count") + 1);
+            }
+            mega.store.save();
+        });
         if (model.get("type") === "photo") {
             this.set("selectedPhoto", model.get("photo").objectAt(0));
             var caption = '';
@@ -229,7 +253,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
             $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_thumbnail_url'));
 
 
-            var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
+            var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
             var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
             window.open(
@@ -237,6 +261,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                     'popupwindow',
                     'scrollbars=yes,width=800,height=400'
                     ).focus();
+
 
             return false;
         }
@@ -261,7 +286,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
             $("meta[property='og\\:image']").attr("content", this.get('selectedArticle').get('article_image_url'));
 
 
-            var currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('selectedArticle').get('id');
+            var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedArticle').get('id');
             var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
             window.open(
@@ -293,7 +318,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
             $("meta[property='og\\:image']").attr("content", this.get('selectedVideo').data.video_img);
 
 
-            var currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('selectedVideo')['id'];
+            var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo')['id'];
             var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
 
             window.open(
@@ -308,9 +333,21 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
     //share to social twitter
     tShare: function(model) {
         this.shareHide(model.id);
+        var mega = model;
+        mega.then(function() {
+            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+            {
+                mega.set("share_count", 0);
+            }
+            else
+            {
+                mega.set("share_count", mega.get("share_count") + 1);
+            }
+            mega.store.save();
+        });
         if (model.get("type") === "photo") {
             this.set("selectedPhoto", model.get("photo").objectAt(0));
-            var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
+            var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
             var url = 'https://twitter.com/share?text=' + this.get('selectedPhoto').get('photo_title') + '&url=' + encodeURIComponent(currntUrl);
             window.open(
                     url,
@@ -321,7 +358,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
         }
         else if (model.get("type") === "article") {
             this.set("selectedArticle", model.get("article").objectAt(0));
-            var currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('selectedArticle').get('id');
+            var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedArticle').get('id');
             var url = 'https://twitter.com/share?text=' + this.get('selectedArticle').get('article_headline') + '&url=' + encodeURIComponent(currntUrl);
             window.open(
                     url,
@@ -332,7 +369,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
         }
         else if (model.get("type") === "video") {
             this.set("selectedVideo", model._data.videoes[0]);
-            var currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('selectedVideo')['id'];
+            var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo')['id'];
             var url = 'https://twitter.com/share?text=' + this.get('selectedVideo').data.video_title + '&url=' + encodeURIComponent(currntUrl);
             window.open(
                     url,
@@ -344,9 +381,21 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
     },
     pShare: function(model) {
         this.shareHide(model.id);
+        var mega = model;
+        mega.then(function() {
+            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+            {
+                mega.set("share_count", 0);
+            }
+            else
+            {
+                mega.set("share_count", mega.get("share_count") + 1);
+            }
+            mega.store.save();
+        });
         if (model.get("type") === "photo") {
             this.set("selectedPhoto", model.get("photo").objectAt(0));
-            var currntUrl = 'http://'+document.domain+'/#/photos/' + this.get('selectedPhoto').get('id');
+            var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
             var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                     '&media=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_original_url')) +
                     '&description=' + encodeURIComponent(this.get('selectedPhoto').get('photo_title'));
@@ -360,7 +409,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
         }
         else if (model.get("type") === "video") {
             this.set("selectedVideo", model._data.videoes[0]);
-            var currntUrl = 'http://'+document.domain+'/#/videos/' + this.get('selectedVideo')['id'];
+            var currntUrl = 'http://' + document.domain + '/#/videos/' + this.get('selectedVideo')['id'];
             var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                     '&media=' + encodeURIComponent(this.get('selectedVideo').data.video_img) +
                     '&description=' + encodeURIComponent(this.get('selectedVideo').data.video_title);
@@ -373,7 +422,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
         }
         else if (model.get("type") === "article") {
             this.set("selectedArticle", model.get("article").objectAt(0));
-            var currntUrl = 'http://'+document.domain+'/#/articles/' + this.get('selectedArticle').get('id');
+            var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedArticle').get('id');
             var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                     '&media=' + encodeURIComponent(this.get('selectedArticle').get('article_image_url')) +
                     '&description=' + encodeURIComponent(this.get('selectedArticle').get('article_headline'));

@@ -344,6 +344,9 @@ class Controller extends CController {
         $conditions = array();
         $userid=urldecode($userid);
         $requestStringOne = 'couchbaseDocument.doc.profile.id=' . $userid;
+       error_log(var_export($userid, true));
+       error_log(var_export($collection_id, true));
+        
         array_push($conditions, $requestStringOne);
   
         $collection_id=urldecode($collection_id);
@@ -353,6 +356,7 @@ class Controller extends CController {
         $tempResult = $this->getReponseResult($tempResult, $returnType);
         
         $mega = CJSON::decode($tempResult, true);
+
         if (!isset($mega['megas'][0]['profile'][0]['collections'])) {
             $collections = array();
         } else {

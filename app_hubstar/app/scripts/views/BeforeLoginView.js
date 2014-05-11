@@ -6,8 +6,7 @@ HubStar.BeforeLoginView = Ember.View.extend({
         if (HubStar.get('isLogin')) {
 
             $('#login_icon').attr("style", "display:block;position: relative;float: right;");
-            $('#login_detail').attr("style", "display:block;");
-            $('.Dropdownstyle2').css("right", "195px");
+            $('#login_detail').attr("style", "display:block;");  
 
 
         } else {

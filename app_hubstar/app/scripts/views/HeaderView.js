@@ -121,16 +121,6 @@ HubStar.HeaderView = Ember.View.extend({
         this.get("controller").changeBackground();
        
 
-    },
-    showAboutDropDown: function() {
-        if ($('#top-menu').css('display') === 'block') {
-            $("#top-menu").css('display', "none");
-        }
-        else if ($('#top-menu').css('display') === 'none') {
-            $("#top-menu").css('display', "block");
-        }
-
     }
-
 });
 

@@ -5,7 +5,7 @@ var HubStar = window.HubStar = Ember.Application.create({
     ready: function() {
         HubStar.set("isLogin", false);
         HubStar.set("checkLoginStatus", false);
-          HubStar.set("showDiscoveryBar", true);
+        HubStar.set("showDiscoveryBar", true);
         HubStar.set("afterSearch", false);
         HubStar.set("setHight", null);
 //        requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
@@ -19,8 +19,10 @@ var HubStar = window.HubStar = Ember.Application.create({
         HubStar.set('isMansonryPageLoad', false);
         HubStar.set('searchStart', false);
         HubStar.set('photoDomain', "http://s3.hubsrv.com/trendsideas.com");
-        HubStar.set('geoLocation', "International");
-         (function(i, s, o, g, r, a, m) {
+        if (localStorage.geoLocation === "" || localStorage.geoLocation === null || localStorage.geoLocation === undefined) {
+            localStorage.geoLocation = "International";
+        }
+        (function(i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
             i[r] = i[r] || function() {
                 (i[r].q = i[r].q || []).push(arguments);

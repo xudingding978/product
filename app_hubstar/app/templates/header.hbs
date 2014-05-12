@@ -13,7 +13,7 @@
         {{#if controller.headerAbout}}
         <div id="header_menu_about" class="blank-top-bar"  {{action dropdown "about"}}>&nbsp;</div>
              
-        <ul id="top-menu" class="edit-object-ul" style="width: 160px;position: absolute;top:80px;left: 120px;">
+        <ul id="top-menu" class="edit-object-ul" style="width: 160px;position: absolute;top:80px;left: 110px;">
             <li class="ite" > <span><a  target="blank" href="http://about.trendsideas.com/">About</a></span></li>
             <li class="ite" > <span><a target="blank" href="http://about.trendsideas.com/business/">Business</a></span></li>
             <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span></li>
@@ -52,16 +52,16 @@
         <!-- user is logged in -->
 
         {{#if isNotification}}
-        <div style="position: relative; float: right; top: 68px; z-index: 100;left: 41px;">
-            <div style="position: absolute;border-color: transparent transparent #f3f3f3 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: 0;top: 5px;"></div>
-            <div style="position: absolute;border-color: transparent transparent #888 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: -1;top: 5px;"></div>
+        <div class="notification-triangle">
+            <div class="notification-triangle-after" style=""></div>
+            <div class="notification-triangle-before" style=""></div>
         </div>
         {{render notificationTop}}
         {{/if}}
 
         <div id="geo-filter" class="Geo-Filter easing "  {{action dropdown "geoLocation"}} data-step="2" data-intro=" Use the <b>Location Filter</b> to filter search results by region.">
             <div class="circle-btn"><i class="fa fa-globe fa-lg"></i></div>
-            <div id="countryLocation" class="Geo-Filter-location">{{HubStar.geoLocation}}</div>
+            <div id="countryLocation" class="Geo-Filter-location">{{controller.geoLocation}}</div>
         </div>
 
         {{#if controller.isGeoDropdown}}

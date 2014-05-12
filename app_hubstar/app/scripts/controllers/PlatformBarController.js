@@ -31,7 +31,7 @@ HubStar.PlatformBarController = Ember.ArrayController.extend({
         this.set('photo_url', imageSrc);
     },
     changeLocation: function(location) {
-        HubStar.set('geoLocation', location);
+        localStorage.geoLocation= location;
         if (location === 'Global')
         {
             this.get('controllers.applicationFeedback').statusObserver(null, "You are now searching all content.");

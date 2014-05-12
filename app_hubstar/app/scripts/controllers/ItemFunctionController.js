@@ -228,7 +228,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
             var obj = {
                 method: 'feed',
                 link: currntUrl,
-                picture: this.get('selectedArticle').get('article_image_url'),
+                picture: model.get('object_image_url'),
                 name: this.get('selectedArticle').get('article_headline'),
                 caption: 'Trends Ideas',
                 description: caption
@@ -455,7 +455,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
             this.set("selectedArticle", model.get("article").objectAt(0));
             var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('selectedArticle').get('id');
             var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
-                    '&media=' + encodeURIComponent(this.get('selectedArticle').get('article_image_url')) +
+                    '&media=' + encodeURIComponent(model.get('object_image_url')) +
                     '&description=' + encodeURIComponent(this.get('selectedArticle').get('article_headline'));
             window.open(
                     url,

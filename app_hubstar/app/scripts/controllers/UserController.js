@@ -85,7 +85,7 @@ HubStar.UserController = Ember.Controller.extend({
     isTalk: false,
     init: function()
     {
-   
+
     },
     checkedAction: function(checkedboxselection) {
         $("#" + checkedboxselection).prop('checked', !$("#" + checkedboxselection).prop('checked'));
@@ -299,22 +299,27 @@ HubStar.UserController = Ember.Controller.extend({
         this.labelBarRefresh();
 
         this.trendsUser();
-                $(document).ready(function() {
-                    setTimeout(function() {
-                        if ($(window).width() > 1200) {
-                            $("#search-bar").css('display', "block");
-                            $("#topResidentialCommerical").css('display', "block");
-                            $(".search-bar-on-small-screen").css('display', "none");
-                            $(".user-board").css("top", "0");
-                        } else {
-                            $("#search-bar").css('display', "none");
-                            $("#topResidentialCommerical").css('display', "none");
-                            $(".search-bar-on-small-screen").css('display', "block");
-                            $(".user-board").css("top", "30px");
-                        }
+        $(document).ready(function() {
+            setTimeout(function() {
+                if ($(window).width() > 1200) {
+                    $("#search-bar").css('display', "block");
+                    $("#topResidentialCommerical").css('display', "block");
+                    $(".search-bar-on-small-screen").css('display', "none");
+                    $(".user-board").css("top", "0");
+                } else {
+                    $("#search-bar").css('display', "none");
+                    $("#topResidentialCommerical").css('display', "none");
+                    $(".search-bar-on-small-screen").css('display', "block");
+                    $(".user-board").css("top", "30px");
+                }
 
-                    }, 50);
-                });
+            }, 50);
+        });
+
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+
+        }
     },
     trendsUser: function() {
         if (localStorage.loginStatus)
@@ -598,7 +603,7 @@ HubStar.UserController = Ember.Controller.extend({
             update_user_record.set('about_me', this.get('about_me'));
             this.get('controllers.applicationFeedback').statusObserver(null, "General Settings updated.");
             update_user_record.store.save();
-            this.set("display_name",this.get('display_name').replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));
+            this.set("display_name", this.get('display_name').replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''));
         }
         else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please check if you have already filled the mandatory field.", "warnning");

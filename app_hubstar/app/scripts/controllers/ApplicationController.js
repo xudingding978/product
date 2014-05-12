@@ -76,12 +76,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     pageCount: 0,
     residentialKeyword: true,
     loadingTime: false,
+    localStorage:"",
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
 
         var that = this;
 
-
+        this.set('categorys', HubStar.Cate.find({}));
+        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
         requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
             var array = $.map(callbck, function(value, index) {
                 return [value];
@@ -199,7 +201,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
             localStorage.resOrcom = "All";
         }
-        this.set('categorys', HubStar.Cate.find({}));
+        this.set("geoLocation",localStorage.geoLocation);
+        
         if (localStorage.loginStatus) {
             var u = HubStar.User.find(localStorage.loginStatus);
 
@@ -268,8 +271,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
             });
         }
-        this.set("user", u);
-        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
+        this.set("user", u);      
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
 
@@ -401,10 +403,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.getPageNo();
         this.set("from", this.get("from") + this.get("size"));
         var results;
-        if (HubStar.get('geoLocation') === "International") {
+        if (localStorage.geoLocation === "International") {
             results = HubStar.Stat.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": "Global", "classification": localStorage.resOrcom});
         } else {
-            results = HubStar.Stat.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'), "classification": localStorage.resOrcom});
+            results = HubStar.Stat.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": localStorage.geoLocation, "classification": localStorage.resOrcom});
         }
 
         var that = this;
@@ -516,10 +518,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             var that = this;
             var statusController = this.get('controllers.status');
             var stats;
-            if (HubStar.get('geoLocation') === "International") {
+            if (localStorage.geoLocation === "International") {
                 stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": "Global", "classification": localStorage.resOrcom});
             } else {
-                stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'), "classification": localStorage.resOrcom});
+                stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": localStorage.geoLocation, "classification": localStorage.resOrcom});
             }
 
             stats.addObserver('isLoaded', function() {
@@ -836,19 +838,18 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $('#geo-filter').toggleClass('Geo-Filter-active');
             $('#notification-filter').removeClass('Geo-Filter-active');
             $('#top-about-menu').removeClass('Geo-Filter-active');
-            $('#user-header-menu').removeClass('Geo-Filter-active');
+       //     $('#user-header-menu').removeClass('Geo-Filter-active');
 
         } else if (checking === "notification") {
             this.set("isNotification", !this.get("isNotification"));
             this.set('headerAbout', false);
             this.set('isGeoDropdown', false);
             this.set('userProfile', false);
-            $('#notification-filter').taggleClass('Geo-Filter-active');
+            $('#notification-filter').addClass('Geo-Filter-active');
             this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
-            $('#geo-filter').removeClass('Geo-Filter-active');
-            
+            $('#geo-filter').removeClass('Geo-Filter-active');            
             $('#top-about-menu').removeClass('Geo-Filter-active');
-            $('#user-header-menu').removeClass('Geo-Filter-active');
+      //      $('#user-header-menu').removeClass('Geo-Filter-active');
         }
         else if (checking === "about") {
             this.set("isNotification", false);
@@ -858,7 +859,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $('#geo-filter').removeClass('Geo-Filter-active');
             $('#notification-filter').removeClass('Geo-Filter-active');
             $('#top-about-menu').taggleClass('Geo-Filter-active');
-            $('#user-header-menu').removeClass('Geo-Filter-active');
+        //    $('#user-header-menu').removeClass('Geo-Filter-active');
         }
         else if (checking === "user") {
             this.set("isNotification", false);
@@ -868,7 +869,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $('#geo-filter').removeClass('Geo-Filter-active');
             $('#notification-filter').removeClass('Geo-Filter-active');
             $('#top-about-menu').removeClass('Geo-Filter-active');
-            $('#user-header-menu').toggleClass('Geo-Filter-active');
+      //     $('#user-header-menu').toggleClass('Geo-Filter-active');
         }
     },
     dropdownNavigator: function() {

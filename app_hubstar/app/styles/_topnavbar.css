@@ -1186,7 +1186,7 @@ search-bar-on-small-screen #topResidentialCommerical{
     }
     .search-bar-on-small-screen #topResidentialCommerical{
         position: absolute;
-        right: 0;
+        right: 10px;
         margin: 0;
     }
 }

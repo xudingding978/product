@@ -57,6 +57,7 @@ HubStar.Mega = DS.Model.extend({
     comment_count: DS.attr('number'),
     optional: DS.attr('string'),
     isFollow: DS.attr('boolean'),
+    isLike:DS.attr('boolean'),
     profile_editor: DS.attr('string'),
     profile_administrator: DS.attr('string'),
     profile_creator: DS.attr('string'),
@@ -100,6 +101,15 @@ HubStar.Mega = DS.Model.extend({
             this.set("isShowMoreComment", true);
         }
     }.property('comment_count'),
+    photo_isLike: function(){
+        if(this.get("people_like").indexOf(localStorage.loginStatus) !== -1){
+            this.set("isLike",true);
+            console.log("checking is true");
+        }else{
+            this.set("isLike",false);
+            console.log("checking is false");
+        }
+    }.property(localStorage.loginStatus),
     photo_album_id: function() {
         return "#album_" + this.get('id');
     }.property('id'),

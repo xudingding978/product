@@ -1150,5 +1150,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
     addLike: function() {
         var controller = this.get('controllers.itemFunction');
         controller.addLike(this.get('megaResouce').get('id'));
-    }
+    }//,
+//    unLike: function(){
+//        console.log("in MegaController.js");
+//        var controller = this.get('controllers.itemFunction');
+//        controller.unLike(this.get('megaResouce').get('id'));
+//    }
+    
 });

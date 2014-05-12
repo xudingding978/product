@@ -864,11 +864,16 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 .enquiryBtn-ring{
     border: 5px solid rgba(255,0,0,.6);
     -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
     height: 50px;
     width: 50px;
     position: absolute;
     -webkit-animation: pulsate 1s ease-out;
     -webkit-animation-iteration-count: infinite;
+
+    -moz-animation: pulsate 1s ease-out;
+    -moz-animation-iteration-count: infinite;
     opacity: 0.0;
     z-index: 1;
 }
@@ -876,6 +881,12 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
     50% {opacity: 1.0;}
     100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+}
+
+@keyframes pulsate {
+    0% {-moz-transform: scale(0.1, 0.1); opacity: 0.0;}
+    50% {opacity: 1.0;}
+    100% {-moz-transform: scale(1.2, 1.2); opacity: 0.0;}
 }
 
 .enquiryBtn{

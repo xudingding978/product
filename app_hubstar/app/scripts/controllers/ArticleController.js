@@ -238,8 +238,13 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.selectedImage(e);
         this.captionDisplay();
     },
+//    selectedImage: function(id) {
+//        var selectedImage_id = "#" + id;
+//        $('.photo_original_style').removeClass('selected_image_style');
+//        $(selectedImage_id).addClass('selected_image_style');
+//    },
     selectedImage: function(id) {
-        var selectedImage_id = "#" + id;
+        var selectedImage_id = "#showalbum_" + id;
         $('.photo_original_style').removeClass('selected_image_style');
         $(selectedImage_id).addClass('selected_image_style');
     },
@@ -280,6 +285,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         
               if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
+            
         }
     },
     checkCreditExist: function(credits) {

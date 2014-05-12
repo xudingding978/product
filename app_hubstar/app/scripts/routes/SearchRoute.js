@@ -45,6 +45,7 @@ HubStar.SearchRoute = Ember.Route.extend({
     },
     events: {
         transitionToPhoto: function(id) {
+            
             this.controllerFor('masonryCollectionItems').set("type", "profile");
 
             var address = document.URL;
@@ -62,10 +63,12 @@ HubStar.SearchRoute = Ember.Route.extend({
             }
         },
         transitionToProfile: function(id) {
+         
             this.transitionTo("profileCollections", HubStar.Profile.find(id));
         },
         transitionToVideo: function(id)
         {
+            
             var address = document.URL;
             var search_id = address.split("#")[1].split("/")[2];
             this.controllerFor('article').set("accessFromSearchBoard", true);
@@ -80,6 +83,7 @@ HubStar.SearchRoute = Ember.Route.extend({
             }
         },
         transitionToArticle: function(id) {
+           
             var address = document.URL;
             var search_id = address.split("#")[1].split("/")[2];
             this.controllerFor('article').set("accessFromSearchBoard", true);

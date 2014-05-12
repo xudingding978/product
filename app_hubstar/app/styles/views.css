@@ -1010,6 +1010,21 @@ div.album-description-bg{
 
 }
 
+.spinner-object{
+    left: 51px;  
+    display:inline-block; 
+    position:relative;
+    top: 9px;
+}
+
+.spinner-object > .spinner{
+    border: 2px solid #fff;
+    border-top-color: transparent;
+}
+.spinner-object  > .spinner:after{
+    border-bottom-color: #fff;
+} 
+
 
 .objectview-left:hover > .top-controlbar{
     opacity: 1;

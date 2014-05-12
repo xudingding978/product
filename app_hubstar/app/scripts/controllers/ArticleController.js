@@ -280,6 +280,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         
               if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
+            
         }
     },
     checkCreditExist: function(credits) {

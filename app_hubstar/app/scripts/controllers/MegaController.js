@@ -185,7 +185,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
     },
     getInitData: function(megaObject) {
-          
+
         var that = this;
         megaObject.then(function() {
             that.set("is_article_video", true);
@@ -270,8 +270,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
             });
         });
 
-            if (this.get("controllers.checkingLoginStatus").popupLogin())
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
+            
         }
     },
     addRelatedData: function(mega)
@@ -727,15 +728,14 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var address = document.URL;
         if (this.get('controllers.masonryCollectionItems').get("type") === "profile")
         {
-
+            console.log("ssss");
             if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
             {
                 // this.transitionTo("indexIndex"); //search page
-                
-                var address = document.URL;
+
                 var search_id = address.split("#")[1].split("/")[2];
                 var object_type = address.split("#")[1].split("/")[1];
-                
+
                 if (search_id === "default") //this go to the search index
                 {
                     this.transitionTo("searchIndexTom");
@@ -758,7 +758,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             else
             {
-                var address = document.URL;
                 var collection_id = address.split("#")[1].split("/")[4];
                 var owner_id = address.split("#")[1].split("/")[2];
                 var profile = HubStar.Profile.find(owner_id);
@@ -774,8 +773,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 this.transitionTo("profileCollection", data);
             }
         }
-        else
+        else if (this.get('controllers.masonryCollectionItems').get("type"))
         {
+
+
             var collection_id = address.split("#")[1].split("/")[4];
             var id = address.split("#")[1].split("/")[2]; //user id
             var user = HubStar.User.find(id);
@@ -790,8 +791,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             this.set("selectPhoto", false);
             this.transitionTo("collection", data); //user
-        }
 
+        } else {
+            this.transitionTo("searchIndexTom");
+        }
+        $("#body_id").css("overflow", "auto");
 
     },
     editingContactForm: function() {

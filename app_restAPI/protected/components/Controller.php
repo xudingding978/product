@@ -684,8 +684,7 @@ class Controller extends CController {
 
         {
           "script_score": {
-            "script": "3-(8/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.likes_count" . "'" . '].value*8+doc[' . "'" . "couchbaseDocument.doc.view_count" . "'" . '].value*4+
-                doc[' . "'" . "couchbaseDocument.doc.share_count" . "'" . '].value*2+doc[' . "'" . "couchbaseDocument.doc.comment_count" . "'" . '].value*2+256))))"
+            "script": "3-(8/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.likes_count" . "'" . '].value*8+doc[' . "'" . "couchbaseDocument.doc.view_count" . "'" . '].value*4+doc[' . "'" . "couchbaseDocument.doc.share_count" . "'" . '].value*2+doc[' . "'" . "couchbaseDocument.doc.comment_count" . "'" . '].value*2+256))))"
           }
         },
         {
@@ -698,8 +697,7 @@ class Controller extends CController {
           }
         }
       ],
-      "query": {
-        "constantScore": {
+
           "query": {
             "multi_match": {
           "query": "' . $queryString . '",
@@ -710,12 +708,12 @@ class Controller extends CController {
                 "region",
                 "object_title^2",
                 "object_description^4",
+                "couchbaseDocument.doc.article.credits.credits_text^8",
                 "couchbaseDocument.doc.article.article_spark_job_id^5"
               ]
             }
           }
-        }
-      }
+
     }
   },' . $filter . '
 
@@ -774,8 +772,8 @@ class Controller extends CController {
   //      return $response;
              
              
-              // $log_path = "/home/devbox/Documents/searchquery.log";
-        //$this->writeToLog($log_path, $termQuery);
+               $log_path = "/home/devbox/Documents/searchquery.log";
+        $this->writeToLog($log_path, $termQuery);
              $index = Yii::app()->params['elasticSearchIndex'];
    //       $ch = curl_init("http://es1.hubsrv.com:9200/develop/_search");
         $ch = curl_init("http://es1.hubsrv.com:9200/" . $index . "/_search");

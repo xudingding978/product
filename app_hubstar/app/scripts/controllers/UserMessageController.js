@@ -361,10 +361,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
                 that.set('newStyleImageSource', null);
                 that.set('newStyleImageName', "");
             });
-
-//            setTimeout(function() {
-//                $('#masonry_container').masonry("reloadItems");
-//            }, 200);
         }
     },
     profileStyleImageDrop: function(e, name)

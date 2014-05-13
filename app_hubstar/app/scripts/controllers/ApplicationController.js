@@ -13,6 +13,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     nextPageSpinner: false,
     newProfile: false,
     navigator_id1: "",
+    headerAbout: false,
+    userProfile: false,
     contentTopicResidential: [
         {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
         {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'},
@@ -74,12 +76,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     pageCount: 0,
     residentialKeyword: true,
     loadingTime: false,
+    localStorage: "",
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
 
         var that = this;
 
-
+        this.set('categorys', HubStar.Cate.find({}));
+        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
         requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
             var array = $.map(callbck, function(value, index) {
                 return [value];
@@ -112,6 +116,81 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     popupModal: function() {
         HubStar.set('checkLoginStatus', true);
     },
+    ctaregister: function() {
+        HubStar.set('checkLoginStatus', true);
+        $(document).ready(function() {
+            setTimeout(function() {
+                $("#cta-popup").css("display", "none");
+                $("#profiles-main-container").css("display", "block");
+                localStorage.loginState = "register";
+                $('.Login-box #login-btn').text('Already had an acount? Click here to Log in!');
+                $('.Login-box .black-tool-tip').css('display', 'none');
+                $('.Login-box #click-register-social').css('display', 'block');
+                $('.Login-box #social-link').css('display', 'block');
+                $('.Login-box #click-register').css('display', 'block');
+                $('.Login-box #click-register-social').removeClass('social-active');
+                $('.Login-box #click-register').addClass('active-tab');
+                $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
+                $('.Login-box #user-login-pane').css('display', 'none');
+                if ($('.Login-box #social-link').css('display') === 'block') {
+                    $('.Login-box #social-link').animate({height: 'toggle'});
+                    $('.Login-box #social-link').css('display', 'none');
+                }
+                else {
+                }
+            }, 1);
+        });
+    },
+    ctalogin: function() {
+        HubStar.set('checkLoginStatus', true);
+        $(document).ready(function() {
+            setTimeout(function() {
+
+
+                $("#cta-popup").css("display", "none");
+                $("#profiles-main-container").css("display", "block");
+                localStorage.loginState = "login";
+                if (localStorage.userType === "email") {
+                    $('.Login-box #login-btn').text('Sign up for a new account!');
+                    $('.Login-box .black-tool-tip').css('display', 'none');
+                    $('.Login-box #click-register-social').css('display', 'none');
+                    $('.Login-box #click-register').css('display', 'none');
+                    $('.Login-box #social-link').css('display', 'none');
+                    $('.Login-box #login-with-email-drop-down').css('display', 'block');
+                    $('.Login-box #social-login-container').css('display', 'none');
+                    $('.Login-box #click-login').addClass('active-tab');
+                    $('.Login-box #social-login').removeClass('social-active');
+                    $('.Login-box #user-forgot-password-pane').css('display', 'none');
+                    $('.Login-box #forgot-message-container').css('display', 'none');
+                    $('.Login-box #invalid-username').css('display', 'none');
+                    $('.Login-box #register-with-email-drop-down').css('display', 'none');
+                    $('.Login-box #register-with-email-step-2').css('display', 'none');
+                    $('.Login-box #register-with-email-step-3').css('display', 'none');
+                    $('.Login-box #user-login-pane').css('display', 'block');
+
+                } else {
+                    $('.Login-box #login-btn').text('Sign up for a new account!');
+                    $('.Login-box .black-tool-tip').css('display', 'none');
+                    $('.Login-box #click-register-social').css('display', 'none');
+                    $('.Login-box #click-register').css('display', 'none');
+                    $('.Login-box #social-link').css('display', 'none');
+                    $('.Login-box #login-with-email-drop-down').css('display', 'none');
+                    $('.Login-box #social-login-container').css('display', 'block');
+                    $('.Login-box #click-login').removeClass('active-tab');
+                    $('.Login-box #social-login').addClass('social-active');
+                    $('.Login-box #user-forgot-password-pane').css('display', 'none');
+                    $('.Login-box #forgot-message-container').css('display', 'none');
+                    $('.Login-box #invalid-username').css('display', 'none');
+                    $('.Login-box #register-with-email-drop-down').css('display', 'none');
+                    $('.Login-box #register-with-email-step-2').css('display', 'none');
+                    $('.Login-box #register-with-email-step-3').css('display', 'none');
+                    $('.Login-box #user-login-pane').css('display', 'block');
+
+                }
+            }, 1);
+        });
+
+    },
     email_login: function() {
         this.set('mail', !this.get('mail'));
     },
@@ -121,10 +200,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
             localStorage.resOrcom = "All";
         }
-        this.set('categorys', HubStar.Cate.find({}));
+        this.set("geoLocation", localStorage.geoLocation);
+
         if (localStorage.loginStatus) {
             var u = HubStar.User.find(localStorage.loginStatus);
-            
+
             u.then(function() {
                 if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
                         && (u.get("email")).match(/@trendsideas.com/g) !== ""
@@ -191,35 +271,113 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             });
         }
         this.set("user", u);
-        this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
+
         $(document).ready(function() {
             setTimeout(function() {
-                if (localStorage.resOrcom === "commercial")
-                {
-                    $('#switchbarBtn').attr("style", "margin-left:28px;");
-                    $("#Commercial").css("opacity", "1");
-                    $("#Residential").css("opacity", "0.4");
-                    that.set('residentialKeyword', false);
-                }
-                else if (localStorage.resOrcom === "residential")
-                {
-                    $('#switchbarBtn').attr("style", "margin-left:0px;");
-                    $("#Commercial").css("opacity", "0.4");
-                    $("#Residential").css("opacity", "1");
-                    that.set('residentialKeyword', true);
-                }
-                else if (localStorage.resOrcom === "All")
-                {
-                    $('#switchbarBtn').attr("style", "margin-left:13px;");
-                    $("#Commercial").css("opacity", "1");
-                    $("#Residential").css("opacity", "1");
-                    that.set('residentialKeyword', true);
-                }
+                that.residentialCommercialStatus();
+                that.changeBackground();
             }, 50);
         });
+    },
+    searchSmallScreen: function() {
 
+        if ($(window).width() > 1200) {
+            $(".search-bar-on-small-screen").css('display', "none");
+            if (HubStar.get('showDiscoveryBar') === true) {
+
+                $("#search-bar").css('display', "none");
+                $("#topResidentialCommerical").css('display', "none");
+            } else {
+                $('#masonry_container').css('top', "100px");
+                $("#search-bar").css('display', "block");
+                $("#topResidentialCommerical").css('display', "block");
+            }
+        } else {
+            $("#search-bar").css('display', "none");
+            $("#topResidentialCommerical").css('display', "none");
+            if (HubStar.get('showDiscoveryBar') === true) {
+
+                $(".search-bar-on-small-screen").css('display', "none");
+            } else {
+                $(".search-bar-on-small-screen").css('display', "block");
+                $('#masonry_container').css('top', "150px");
+
+            }
+        }
+
+    },
+    changeBackground: function() {
+        if (localStorage.resOrcom === "residential" || localStorage.resOrcom === "All") {
+            $('#discovery_search_bar_wrapper').fadeOut(500, function() {
+                $(this).css({"background": " url(../../images/discoverybarbg.jpg) "}).fadeIn(500);
+            });
+
+            $('.navbar').fadeOut(500, function() {
+                $(this).css({"background": " url(../../images/landingpagebg.jpg)"}).fadeIn(500);
+            });
+
+        } else if (localStorage.resOrcom === "commercial") {
+            $('#discovery_search_bar_wrapper').fadeOut(500, function() {
+                $(this).css({"background": " url(../../images/commercialbg.jpg)", "background-position": "center center"}).fadeIn(500);
+            });
+
+            $('.navbar').fadeOut(500, function() {
+                $(this).css({"background": "url(../../images/commercialbg.jpg)"}).fadeIn(500);
+
+            });
+
+        }
+
+    },
+    residentialCommercialStatus: function() {
+
+        if (localStorage.resOrcom === "commercial")
+        {
+            $('#switchbarBtn').attr("style", "margin-left:28px;");
+            $("#Commercial").css("opacity", "1");
+            $("#Residential").css("opacity", "0.4");
+            this.set('residentialKeyword', false);
+            $("#commercial").addClass("residentialCommerical-selected");
+            $("#residential").removeClass("residentialCommerical-selected");
+            $("#commercial1").addClass("residentialCommerical-selected");
+            $("#residential1").removeClass("residentialCommerical-selected");
+            $("#commercial2").addClass("residentialCommerical-selected");
+            $("#residential2").removeClass("residentialCommerical-selected");
+        }
+        else if (localStorage.resOrcom === "residential")
+        {
+            $('#switchbarBtn').attr("style", "margin-left:0px;");
+            $("#Commercial").css("opacity", "0.4");
+            $("#Residential").css("opacity", "1");
+            this.set('residentialKeyword', true);
+            $("#commercial").removeClass("residentialCommerical-selected");
+            $("#residential").addClass("residentialCommerical-selected");
+            $("#commercial1").removeClass("residentialCommerical-selected");
+            $("#residential1").addClass("residentialCommerical-selected");
+            $("#commercial2").removeClass("residentialCommerical-selected");
+            $("#residential2").addClass("residentialCommerical-selected");
+        }
+        else if (localStorage.resOrcom === "All")
+        {
+            $('#switchbarBtn').attr("style", "margin-left:13px;");
+            $("#Commercial").css("opacity", "1");
+            $("#Residential").css("opacity", "1");
+            this.set('residentialKeyword', true);
+            $("#commercial").addClass("residentialCommerical-selected");
+            $("#residential").addClass("residentialCommerical-selected");
+            $("#commercial1").addClass("residentialCommerical-selected");
+            $("#residential1").addClass("residentialCommerical-selected");
+            $("#commercial2").addClass("residentialCommerical-selected");
+            $("#residential2").addClass("residentialCommerical-selected");
+        }
+        this.set('subcate', []);
+        this.set('subcategories', []);
+        for (var i = 0; i < this.get("categorys").get("length"); i++)
+        {
+            this.get("categorys").objectAt(i).set("classification", localStorage.resOrcom);
+        }
     },
     articleFromSearch: function()
     {
@@ -243,7 +401,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         }
         this.getPageNo();
         this.set("from", this.get("from") + this.get("size"));
-        var results = HubStar.Stat.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'), "classification": localStorage.resOrcom});
+        var results;
+        if (localStorage.geoLocation === "International") {
+            results = HubStar.Stat.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": "Global", "classification": localStorage.resOrcom});
+        } else {
+            results = HubStar.Stat.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": localStorage.geoLocation, "classification": localStorage.resOrcom});
+        }
+
         var that = this;
         results.then(function() {
             var stat = results.objectAt(0);
@@ -325,18 +489,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     }
                 }
                 //that.getAds();
-                if (localStorage.resOrcom === "commercial")
-                {
-                    $('#switchbarBtn').attr("style", "margin-left:28px;");
-                }
-                else if (localStorage.resOrcom === "residential")
-                {
-                    $('#switchbarBtn').attr("style", "margin-left:0px;");
-                }
-                else if (localStorage.resOrcom === "All")
-                {
-                    $('#switchbarBtn').attr("style", "margin-left:13px;");
-                }
+
                 if (flag === "default") {
                     var ads = that.getAds();
                     that.display(ads);
@@ -363,7 +516,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             var start = d.getTime();
             var that = this;
             var statusController = this.get('controllers.status');
-            var stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": HubStar.get('geoLocation'), "classification": localStorage.resOrcom});
+            var stats;
+            if (localStorage.geoLocation === "International") {
+                stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": "Global", "classification": localStorage.resOrcom});
+            } else {
+                stats = HubStar.Stat.find({"RquireType": "firstsearch", "region": this.get("search_area"), "search_string": this.get("search_string"), "from": this.get("from"), "size": this.get("size"), "location": localStorage.geoLocation, "classification": localStorage.resOrcom});
+            }
+
             stats.addObserver('isLoaded', function() {
                 if (stats.get('isLoaded')) {
                     var stat = stats.objectAt(0);
@@ -382,10 +541,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         });
 
                     }
-
-
-
-                    //that.set("from", that.get("size"));
 
                     var d = new Date();
                     var end = d.getTime();
@@ -413,12 +568,17 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
 
         //if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
-       // } else {
-            this.set('loadingTime', true);
+        // } else {
+        this.set('loadingTime', true);
         //}
 
         var results = HubStar.Mega.find({"RquireType": "defaultSearch"});
         var that = this;
+
+        $(".search-bar-on-small-screen").css('display', "none");
+        $("#search-bar").css('display', "none");
+        $("#topResidentialCommerical").css('display', "none");
+
         HubStar.set("scrollDownSearch", true);
         results.addObserver('isLoaded', function() {
             if (results.get('isLoaded')) {
@@ -550,7 +710,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 $('#click-register-social').css('display', 'none');
                 $('#click-register').css('display', 'none');
                 $('.learnmore-btn').css('display', 'none');
-
+                $('#login-btn').css('display', 'none');
             }, 1000);
         });
 
@@ -561,6 +721,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $('#click-register-social').css('display', 'block');
         $('#click-register').css('display', 'block');
         $('.learnmore-btn').css('display', 'block');
+        $('#login-btn').css('display', 'block');
     },
     encrypt: function(encryptString) {
         var tempstr = '';
@@ -669,50 +830,54 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     dropdown: function(checking) {
         if (checking === "geoLocation") {
+            this.set("isNotification", false);
+            this.set('headerAbout', false);
+            this.set('userProfile', false);
             this.set('isGeoDropdown', !this.get('isGeoDropdown'));
-            $('#geo-filter').addClass('Geo-Filter-active');
+            $('#geo-filter').toggleClass('Geo-Filter-active');
+            $('#notification-filter').removeClass('Geo-Filter-active');
+            $('#top-about-menu').removeClass('Geo-Filter-active');
+            //     $('#user-header-menu').removeClass('Geo-Filter-active');
 
         } else if (checking === "notification") {
-
             this.set("isNotification", !this.get("isNotification"));
+            this.set('headerAbout', false);
+            this.set('isGeoDropdown', false);
+            this.set('userProfile', false);
+            $('#notification-filter').addClass('Geo-Filter-active');
             this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
-            $('#Geo-Filter').toggleClass('Geo-Filter-active');
-
+            $('#geo-filter').removeClass('Geo-Filter-active');
+            $('#top-about-menu').removeClass('Geo-Filter-active');
+            //      $('#user-header-menu').removeClass('Geo-Filter-active');
+        }
+        else if (checking === "about") {
+            this.set("isNotification", false);
+            this.set('isGeoDropdown', false);
+            this.set('headerAbout', !this.get('headerAbout'));
+            this.set('userProfile', false);
+            $('#geo-filter').removeClass('Geo-Filter-active');
+            $('#notification-filter').removeClass('Geo-Filter-active');
+            $('#top-about-menu').taggleClass('Geo-Filter-active');
+            //    $('#user-header-menu').removeClass('Geo-Filter-active');
+        }
+        else if (checking === "user") {
+            this.set("isNotification", false);
+            this.set('isGeoDropdown', false);
+            this.set('headerAbout', false);
+            this.set('userProfile', !this.get('userProfile'));
+            $('#geo-filter').removeClass('Geo-Filter-active');
+            $('#notification-filter').removeClass('Geo-Filter-active');
+            $('#top-about-menu').removeClass('Geo-Filter-active');
+            //     $('#user-header-menu').toggleClass('Geo-Filter-active');
         }
     },
-    canelDropDown: function()
-    {
-        $('#geo-filter').toggleClass('Geo-Filter-active');
-        this.set('isGeoDropdown', !this.get('isGeoDropdown'));
-
-    },
     dropdownNavigator: function() {
-
         this.set('isNavigatorDropdown', !this.get('isNavigatorDropdown'));
-
-
         var that = this;
         this.get("categorys").then(function() {
             $(document).ready(function() {
                 setTimeout(function() {
-                    if (localStorage.resOrcom === "commercial")
-                    {
-                        $('#switchbarBtn1').attr("style", "margin-left:28px;");
-                        $("#Commercial1").css("opacity", "1");
-                        $("#Residential1").css("opacity", "0.4");
-                    }
-                    else if (localStorage.resOrcom === "residential")
-                    {
-                        $('#switchbarBtn1').attr("style", "margin-left:0px;");
-                        $("#Commercial1").css("opacity", "0.4");
-                        $("#Residential1").css("opacity", "1");
-                    }
-                    else if (localStorage.resOrcom === "All")
-                    {
-                        $('#switchbarBtn1').attr("style", "margin-left:13px;");
-                        $("#Commercial1").css("opacity", "1");
-                        $("#Residential1").css("opacity", "1");
-                    }
+                    that.residentialCommercialStatus();
                 }, 50);
             });
         });
@@ -731,24 +896,26 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         HubStar.set("defaultSearch", true);
         this.transitionToRoute('indexIndex');
         this.defaultSearch();
-        $("#top-about-menu").fadeIn("320");
-        $("#search-bar").fadeOut("320");
+        $(".search-bar-on-small-screen").css('display', "none");
+        $("#search-bar").css('display', "none");
+        $("#topResidentialCommerical").css('display', "none");
         $(".Navigator-box").fadeOut("320");
         $(".navbar").css("box-shadow", "");
-        if (localStorage.resOrcom === "commercial") {
+        var that = this;
+        $(document).ready(function() {
             setTimeout(function() {
-                $('#discovery_search_bar_wrapper').css({"background": " url(../../images/commercialbg.jpg)"});
-            }, 10);
-        }
-        else {
-            setTimeout(function() {
-                $('#discovery_search_bar_wrapper').css({"background": " url(../../images/discoverybarbg.jpg)"});
-            }, 10);
-        }
+                that.residentialCommercialStatus();
+                that.changeBackground();
 
-        //    $('#masonry_container').attr('style', "top:100px;position:relative");
+            }, 50);
+
+        });
+
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-
+        this.set("isNotification", false);
+        this.set('headerAbout', false);
+        this.set('userProfile', false);
+        this.set('isGeoDropdown', false);
     },
     closeDropdownNavigator: function() {
         this.set('isNavigatorDropdown', false);
@@ -761,23 +928,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.get("categorys").then(function() {
             $(document).ready(function() {
                 setTimeout(function() {
-
-                    if (localStorage.resOrcom === "commercial")
-                    {
-                        $('#switchbarBtn1').attr("style", "margin-left:28px;");
-                    }
-                    else if (localStorage.resOrcom === "residential")
-                    {
-                        $('#switchbarBtn1').attr("style", "margin-left:0px;");
-                    }
-                    else if (localStorage.resOrcom === "All")
-                    {
-                        $('#switchbarBtn1').attr("style", "margin-left:13px;");
-                    }
+                    that.residentialCommercialStatus();
+                    //    that.changeBackground();
                 }, 50);
             });
         });
-
         this.set('subcate', []);
         this.set('subcategories', []);
 
@@ -810,7 +965,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     topicSearch: function(search_topic) {
         HubStar.set("escVideo", false);
         this.transitionToRoute('search', {id: search_topic});
-        $("#top-about-menu").css('display', 'none');
         $("#search-bar").css('display', 'block');
         this.set('search_string', search_topic);
 //        this.newSearch();
@@ -820,7 +974,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginUsername') !== "" && this.get('loginPassword') !== "")
-        {         
+        {
             this.set('loginTime', true);
             document.getElementById("loginUsername").setAttribute("class", "login-textfield");
             document.getElementById("loginPassword").setAttribute("class", "login-textfield");
@@ -981,7 +1135,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             {
                 l = l + 4;
             }
-            else if (this.get("pageCount") >= 1&&this.get("pageCount") < 10)
+            else if (this.get("pageCount") >= 1 && this.get("pageCount") < 10)
             {
                 l = l + 3;
             }

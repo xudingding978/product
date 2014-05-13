@@ -11,6 +11,10 @@
             <img src="../../../images/cta-diagram.png" alt="Connect, Collect and Collaborate">
         </div><!-- end .right -->
     </div><!-- end .inner -->
+    <div class="closeview" style="right: 50px;color: #fff;"{{action closePane on="click"  target="view"}}>
+        <i class="fa fa-times"></i>
+            <span id="close_text" class="close_text">close</span>
+    </div>
 </div><!-- end #cta-popup -->
 
 
@@ -104,10 +108,22 @@
 </div>
 
 
-
-
 <div id="register-with-email-step-3" class="popup-container" style="display:none; width: 101.5%;">
-
+    <!-- Facebook Conversion Code for Lead -->
+    <script type="text/javascript">
+        var fb_param = {};
+        fb_param.pixel_id = '6013885366274';
+        fb_param.value = '0.01';
+        fb_param.currency = 'USD';
+        (function() {
+            var fpw = document.createElement('script');
+            fpw.async = true;
+            fpw.src = '//connect.facebook.net/en_US/fp.js';
+            var ref = document.getElementsByTagName('script')[0];
+            ref.parentNode.insertBefore(fpw, ref);
+        })();
+    </script>
+    <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6013885366274&amp;value=0.01&amp;currency=USD" /></noscript>
     <div class="popup-bg-fadeout" style="background-color: transparent">&nbsp;</div>
     <div style="z-index: 11;overflow: hidden;  background-color: white;border-radius: 5px;  width: 900px; margin: 0px auto; position: absolute; top: 17%; left: 0px; right: 0px;box-shadow: 0 0 5px #555;">
         <div   style="background-color: #f3f3f3;padding: 5px 5px 10px 35px;border-bottom: 1px solid #ddd;">

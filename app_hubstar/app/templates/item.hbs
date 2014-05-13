@@ -1,7 +1,6 @@
 {{#if getProfile}}
 <div class="box col2 noStyle1"  {{action checkingLoginStatus target="view" on="click"}} >
     <div class="masonry-object">
-
         {{render itemProfiles this}}
         {{render "comment" this}}
     </div>
@@ -12,7 +11,7 @@
 
 
 {{#if getPhoto}}
-<div class="box col2 noStyle1" data-step="6" data-intro="This is an <b>image</b> result. Click the image to see a full screen view and to read the caption." data-position='right' {{action checkingLoginStatus target="view" on="click"}} >
+<div class="box col2 noStyle1" data-step="9" data-intro="This is an <b>image</b> result. Click the image to see a full screen view and to read the caption." data-position='right' {{action checkingLoginStatus target="view" on="click"}} >
 
 
 
@@ -79,7 +78,7 @@
 
         <div class="masonry-object_text">
             <div class="masonry-object_text-container">
-          <div style="font-weight: bold;margin-bottom: 5px;font-size:16px;font-style:italic;">{{#each photo}} {{photo_title}}   {{/each}} </div>
+                <div style="font-weight: bold;margin-bottom: 5px;font-size:16px;">{{#each photo}}{{photo_title}}{{/each}} </div>
             </div>
 
             <div class="more_detail" style="margin:0;"{{bindAttr id="id"}} >
@@ -131,15 +130,15 @@
                 <div id="init_photo_{{unbound id}}">
                     <img class="this-is-the-object"{{bindAttr src="object_image_url"  }}  />      
                 </div>
-        </a>
+            </a>
             {{else}}
             <a class="mainfeature-container" {{action transitionToVideo id}}>
                <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
                     <i class="fa fa-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
                 </div>
-               <div id="init_photo_{{unbound id}}">
-                <img {{bindAttr src="object_image_url" }} class="this-is-the-object" />
-                 </div>
+                <div id="init_photo_{{unbound id}}">
+                    <img {{bindAttr src="object_image_url" }} class="this-is-the-object" />
+                </div>
             </a>
             {{/if}}
 
@@ -188,14 +187,14 @@
 
         <div class="masonry-object_text">
             <div style="">
-                <p style="font-weight: bold;margin-bottom: 5px;font-size:16px;font-style:italic;" {{action transitionToVideo id}}>{{object_title}}</p>
+                <p style="font-weight: bold;margin-bottom: 5px;font-size:16px;" {{action transitionToVideo id}}>{{object_title}}</p>
                 <p class="masonry-object_text-container" style="font-size: 13px; max-height: 50px;">{{object_description}}</p>
             </div>
-            
-             {{#if moreDisplay}}
+
+            {{#if moreDisplay}}
             <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action transitionToVideo id}} >more &nbsp;</span>
             {{/if}}
-            
+
         </div>
     </div>
 
@@ -238,7 +237,7 @@
 {{/if}}
 
 {{#if getArticle}}
-<div class="box col2 noStyle1"  data-step="7" data-intro="This is an <b>article</b> result. Click the image to read the article and see all the images associated with it." data-position='right' {{action checkingLoginStatus target="view" on="click"}}>
+<div class="box col2 noStyle1"  data-step="8" data-intro="This is an <b>article</b> result. Click the image to read the article and see all the images associated with it." data-position='right' {{action checkingLoginStatus target="view" on="click"}}>
 
     <div class="object-tags-box">
         <div class="object-tags">
@@ -300,7 +299,7 @@
 
         <div class="masonry-object_text">
             <div class="masonry-object_text-container">
-                <a style="font-size: 16px; font-weight: bold;cursor: pointer;text-transform: capitalize;font-style:italic;" {{action transitionToArticle id}}>{{object_title}}</a>
+                <a style="font-size: 16px; font-weight: bold;cursor: pointer;text-transform: capitalize;" {{action transitionToArticle id}}>{{object_title}}</a>
                 <p style="text-overflow: ellipsis"; {{action transitionToArticle id}}>{{{object_description}}}</p>
             </div>
 
@@ -318,9 +317,3 @@
     {{render "comment" this}}
 </div>
 {{/if}}
-
-
-
-
-
-

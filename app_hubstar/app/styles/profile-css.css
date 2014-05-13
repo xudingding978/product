@@ -1576,3 +1576,20 @@ textarea.add-interests{
     display: inline;
 }
 
+
+
+.corpbanner_mask{
+    background: url('../images/bannershadow.png') repeat-x; 
+    position: absolute;
+    bottom:0; 
+    width: 100%; 
+    height: 200px;
+}
+
+
+.corpbanner_content{
+    position: absolute;
+    bottom: 30px;
+    margin-left: 30%;
+    width: 70%;
+}

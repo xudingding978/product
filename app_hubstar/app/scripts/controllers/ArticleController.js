@@ -238,8 +238,13 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.selectedImage(e);
         this.captionDisplay();
     },
+//    selectedImage: function(id) {
+//        var selectedImage_id = "#" + id;
+//        $('.photo_original_style').removeClass('selected_image_style');
+//        $(selectedImage_id).addClass('selected_image_style');
+//    },
     selectedImage: function(id) {
-        var selectedImage_id = "#" + id;
+        var selectedImage_id = "#showalbum_" + id;
         $('.photo_original_style').removeClass('selected_image_style');
         $(selectedImage_id).addClass('selected_image_style');
     },
@@ -277,6 +282,11 @@ HubStar.ArticleController = Ember.Controller.extend({
 //                megaObject.store.save();
 //            }, 6000);
         });
+        
+              if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            
+        }
     },
     checkCreditExist: function(credits) {
         if (credits !== null && credits !== 'undefined' && credits.get('length') > 0) {
@@ -585,7 +595,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         function callback(response) {
             if (response && response.post_id) {
-                var mega = HubStar.Mega.find(this.get('articleID'));
+                var mega = HubStar.Mega.find(that.get('articleID'));
                 mega.then(function() {
                     if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
                     {

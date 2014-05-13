@@ -1,7 +1,7 @@
 <?php
 
 header('Content-type: *');
-header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
 
 class PhotosController extends Controller {

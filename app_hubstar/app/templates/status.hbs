@@ -9,15 +9,16 @@
 
 
 
-    <div style="padding: 20px;text-align: center;" data-step="5" data-intro="Here is your <b>status</b>. Next will jump to your <b>User Profile</b>" data-position='right'>
+    <div id="user-status" style="padding: 20px;text-align: center;" data-step="7" data-intro="Here is your <b>status</b>. Next will jump to your <b>User Profile</b>" data-position='right'>
 
 
         {{#unless HubStar.isLogin}}
 
-        <div id='welcome_message' style='margin-bottom: 25px;'>
-            <h2>Welcome!!</h2>
+        <div id='welcome_message' style='margin-bottom: 25px; '>
+            <h2  style="">Welcome!!</h2>
             <p>Please login to create your ideas space.</p>
-
+            <div  style="margin: 10px auto;width: 140px;background-color: #000;font-weight: bold;border-radius: 5px;cursor: pointer;font-size: 15px;padding: 5px 15px;border: 1px solid #aaa;color:#fff" {{action registerlogin on="click"  target="view"}}>Login/Register </div>
+         
         </div>
         {{else}} 
 
@@ -36,7 +37,7 @@
         {{/unless}}
     </div>
 
-    
+
 
 
 

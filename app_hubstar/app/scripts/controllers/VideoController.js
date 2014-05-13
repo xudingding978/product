@@ -19,16 +19,29 @@ HubStar.VideoController = Ember.Controller.extend({
                 var tempVideoObject = megaModel.get('videoes').objectAt(0);
                 that.set('videoObject', tempVideoObject);
                 var videoIframe = tempVideoObject.get("videoIframeCode");
-                videoIframe = videoIframe.replace("480", Math.ceil(($(window).width() - 320) * 0.72));
-                videoIframe = videoIframe.replace("360", Math.ceil(($(window).width() - 320) / 480 * 360 * 0.72));
+                var height = $(window).height() - 54;
+                var width = 480 / 360 * height;
+                if (width > $(window).width()-320)
+                {
+                    width = $(window).width()-320;
+                    height = 360 / 480 * width;
+                }
+                videoIframe = videoIframe.replace("480", Math.ceil(width));
+                videoIframe = videoIframe.replace("360", Math.ceil(height));
                 that.set('video_iframe_code', videoIframe);
                 $(window).resize(function() {
                     var videoIframe = that.get('video_iframe_code');
                     var width = videoIframe.split("width=\"")[1].split("\" height=\"")[0];
                     var height = videoIframe.split("width=\"")[1].split("\" height=\"")[1].split("\"")[0];
-                    
-                    videoIframe = videoIframe.replace(width, Math.ceil(($(window).width() - 320) * 0.72));
-                    videoIframe = videoIframe.replace(height, Math.ceil(($(window).width() - 320) / 480 * 360 * 0.72));
+                    var heightNew = $(window).height() - 54;
+                    var widthNew = 480 / 360 * heightNew;
+                    if (widthNew > $(window).width()-320)
+                    {
+                        widthNew = $(window).width()-320;
+                        heightNew = 360 / 480 * widthNew;
+                    }
+                    videoIframe = videoIframe.replace(width, Math.ceil(widthNew));
+                    videoIframe = videoIframe.replace(height, Math.ceil(heightNew));
 
                     that.set('video_iframe_code', videoIframe);
                 });
@@ -40,10 +53,14 @@ HubStar.VideoController = Ember.Controller.extend({
                 that.transitionTo('fourOhFour', "404");
             });
         }
+
         );
 
-    },
-    addComment: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+        }
+    }, addComment: function() {
+
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
             var commentContent = this.get('commentContent');

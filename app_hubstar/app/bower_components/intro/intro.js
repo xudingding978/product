@@ -244,20 +244,6 @@
             ++this._currentStep;
 
         }
-//        if (this._currentStep === 4) {
-//            if (HubStar.get('showDiscoveryBar') === true) {
-//                $('#masonry_container').css('top', "550px");
-//            }else {
-//                    $('#masonry_container').css('top', "100px");
-//                }
-//
-//            } else {
-//                if (HubStar.get('showDiscoveryBar') === true) {
-//                    $('#masonry_container').css('top', "50px");
-//                } else {
-//                    $('#masonry_container').css('top', "100px");
-//                }
-//            }
 
         if ((this._introItems.length) <= this._currentStep) {
             //end of the intro
@@ -302,21 +288,6 @@
         if (typeof (this._introBeforeChangeCallback) !== 'undefined') {
             this._introBeforeChangeCallback.call(this, nextStep.element);
         }
-//        if (this._currentStep === 4) {
-//            if (HubStar.get('showDiscoveryBar') === true) {
-//                $('#masonry_container').css('top', "550px");
-//            }else {
-//                    $('#masonry_container').css('top', "100px");
-//                }
-//
-//            } else {
-//                if (HubStar.get('showDiscoveryBar') === true) {
-//                    $('#masonry_container').css('top', "50px");
-//                } else {
-//                    $('#masonry_container').css('top', "100px");
-//                }
-//            }
-
 
         _showElement.call(this, nextStep);
     }

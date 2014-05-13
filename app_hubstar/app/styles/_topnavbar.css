@@ -21,6 +21,7 @@
     display: block;
     background-size: 100% auto !important;
     background-image: url(../../images/discoverybarbg.jpg);
+    min-width: 420px;
 }
 
 .selected-navigation{
@@ -1106,6 +1107,7 @@ search-bar-on-small-screen #topResidentialCommerical{
 
     .search-bar-on-small-screen{
         display: block;   
+        min-width: 420px;
     }
     .search-bar-on-large-screen{
         display: none;
@@ -1184,7 +1186,7 @@ search-bar-on-small-screen #topResidentialCommerical{
     }
     .search-bar-on-small-screen #topResidentialCommerical{
         position: absolute;
-        right: 0;
+        right: 10px;
         margin: 0;
     }
 }

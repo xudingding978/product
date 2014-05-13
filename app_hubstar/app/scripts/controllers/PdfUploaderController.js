@@ -68,7 +68,7 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
         this.set('pdfInfromationEdit', true);
         var target = getTarget(e, "single");
         console.log(target);
-        var src = target.result;
+        
 
         var testID = createGuid();
         testID = testID.replace('test','');
@@ -86,9 +86,10 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
         var that = this;
         a.then(function() {
             console.log("45645645654564564646546465465");
+            var pdf_url = "http://s3.hubsrv.com.s3.amazonaws.com/trendsideas.com/profiles/"+mega.get('owner_id')+"/"+name;
             var pdf = HubStar.Pdf.createRecord({'id':mega.get('id'),
             'pdf_cover_image': "http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0", 'pdf_title': name.split('.')[0],
-            'pdf_desc': "", 'pdf_url': src, 'pdf_profile_id': that.get('controllers.profile').get('model').get('id')});
+            'pdf_desc': "", 'pdf_url': pdf_url, 'pdf_profile_id': that.get('controllers.profile').get('model').get('id')});
         console.log("78978978978978978978978978978978797897897");
             var b =pdf.save();
             pdf.get("isSaving");

@@ -213,10 +213,10 @@
 
 
             <div class="profilepic-on-masonry">
-                <a class="poster-name" style="cursor: pointer; width: auto;" href="#/profiles/{{unbound owner_id}}">  <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
+                <a class="poster-name" style="cursor: pointer; width: auto;"  {{action transitionToPdf id}}>  <img {{bindAttr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer; width: auto;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <a class="poster-name" style="cursor: pointer; width: auto;" {{action transitionToPdf id}} >{{pdf_url}}{{owner_title}}</a>
                 <div class="posttime-container">
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
@@ -228,7 +228,7 @@
 
         <div class="masonry-object_text">
             <div style="">
-                <p style="font-weight: bold;margin-bottom: 5px;" {{action transitionToVideo id}}>{{object_title}}</p>
+                <p style="font-weight: bold;margin-bottom: 5px;" {{action transitionToPdf id}}>{{object_title}}</p>
                 <p class="masonry-object_text-container" style="font-size: 11px; max-height: 50px;">{{object_description}}</p>
             </div>
         </div>

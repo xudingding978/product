@@ -32,6 +32,20 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
         console.log('111111');
 //        this.checkEditingMode();
     },
+            
+    transitionToPdf: function(id) {
+    console.log(id);
+    var url = "";
+    for (var i = 0; i < this.get('pdfContent').get('length'); i ++) {
+        if (this.get('pdfContent').objectAt(i).get('id') === id) {
+            url = this.get('pdfContent').objectAt(i).get('pdf').objectAt(0).get('pdf_url');
+        }
+    }
+    console.log(url);
+        window.open(
+                url
+                ).focus();
+    },
     
     pdfCreateModeSwitch: function()
     {

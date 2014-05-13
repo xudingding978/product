@@ -734,8 +734,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var address = document.URL;
         if (this.get('controllers.masonryCollectionItems').get("type") === "profile")
         {
-            
-            if (this.get("controllers.checkingLoginStatus").popupLogin()) {
                 if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
                 {
                     // this.transitionTo("indexIndex"); //search page
@@ -745,7 +743,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     if (search_id === "default") //this go to the search index
                     {
                         this.transitionTo("searchIndexTom");
-                        
+
                     }
                     else
                     {
@@ -779,16 +777,12 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     this.transitionTo("profile", profile); // transition to profile
                     this.transitionTo("profileCollection", data);
                 }
-            }
-            else {
-                this.transitionTo("searchIndexTom");
-            }
-            
+           
+
         }
         else if (this.get('controllers.masonryCollectionItems').get("type") === "user")
         {
 
-            if (this.get("controllers.checkingLoginStatus").popupLogin()) {
                 var collection_id = address.split("#")[1].split("/")[4];
                 var id = address.split("#")[1].split("/")[2]; //user id
                 var user = HubStar.User.find(id);
@@ -803,18 +797,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
                 this.set("selectPhoto", false);
                 this.transitionTo("collection", data); //user
-            }
-            else {
-                this.transitionTo("searchIndexTom");
-            }
+            
+            
         } else {
-            this.transitionTo("searchIndexTom");
+             this.transitionTo("searchIndexTom");
         }
-        $("#body_id").css("overflow", "auto");
-         $("#search-bar").css('display', "none");
-                $("#topResidentialCommerical").css('display', "none");
-                 $(".search-bar-on-small-screen").css('display', "none");
-
     },
     editingContactForm: function() {
 

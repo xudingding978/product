@@ -27,6 +27,7 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
             that.set("loadingTime", false);
 //            that.relayout();
             console.log('222222222');
+            console.log(that.get('pdfContent'));
         });
         console.log('111111');
 //        this.checkEditingMode();

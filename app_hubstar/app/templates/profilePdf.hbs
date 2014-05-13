@@ -26,6 +26,22 @@
 </div>
 
 {{/if}}
+{{#each  pdfContent}}
+
+
+
+{{view HubStar.ItemView}}
+
+
+{{/each}}
+
+
+
+{{#if controller.makeSureDelete}}
+
+{{view HubStar.DeleteFunctionView}}
+
+{{/if}}
 
 
 {{#if controller.is_pdf_create_mode}}

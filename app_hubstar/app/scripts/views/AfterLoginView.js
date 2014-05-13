@@ -15,22 +15,21 @@ HubStar.AfterLoginView = Ember.View.extend({
         location.reload();
        
     },
-    showUserDropDown: function() {
-        console.log("1");
-        if ($('#user-dd-menu').css('display') === 'block') {
-            $("#user-dd-menu").hide();
-           $("#cancel").css("display", "none");
-           console.log("2");
-        }
-        else  if ($('#user-dd-menu').css('display') === 'none'){
-            console.log("3");
-            this.set("newProfile", false);
-              $("#user-dd-menu").show();
-             $("#cancel").css("display", "block");
-
-        }
-        this.loadProfile();
-    },
+//    showUserDropDown: function() {
+//        if ($('#user-dd-menu').css('display') === 'block') {
+//            $("#user-dd-menu").hide();
+//           $("#cancel").css("display", "none");
+//         ;
+//        }
+//        else  if ($('#user-dd-menu').css('display') === 'none'){
+//      
+//            this.set("newProfile", false);
+//              $("#user-dd-menu").show();
+//             $("#cancel").css("display", "block");
+//
+//        }
+//        this.loadProfile();
+//    },
     userDisplaynone: function(checking) {
         if (checking === "myUserProfile") {
             location.href = this.get("controller").get("myUserProfile");
@@ -57,11 +56,11 @@ HubStar.AfterLoginView = Ember.View.extend({
         }
 
     },
-    cancel: function() {
-        this.set("newProfile", false);
-         $("#user-dd-menu").attr("style", "display:none");
-          $("#cancel").css("display", "none");
-    },
+//    cancel: function() {
+//        this.set("newProfile", false);
+//         $("#user-dd-menu").attr("style", "display:none");
+//          $("#cancel").css("display", "none");
+//    },
     loadProfile: function() {
         var user = HubStar.User.find(localStorage.loginStatus);
         this.set("profiles", user.get("profiles"));
@@ -74,6 +73,12 @@ HubStar.AfterLoginView = Ember.View.extend({
         $(".brand").addClass("tour-background");
         $(".Geo-Filter").addClass("tour-background");
         $("#login_detail").addClass("tour-background");
+        var address = document.URL;
+            var urlName = address.split("#")[1].split("/")[1];
+            if (urlName === "search"){
+        this.get("controller").set("isNavigatorDropdown", true);
+            }
+            var that =this;
         introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
             var address = document.URL;
             var urlName = address.split("#")[1].split("/")[1];
@@ -89,9 +94,12 @@ HubStar.AfterLoginView = Ember.View.extend({
                 $(window).scrollTop(500);
             }
             else {
-                window.location.href = '/#/search';
+                window.location.href = '/#/search/default';
                 $(window).scrollTop(0);
+                that.get("controller").set("isNavigatorDropdown", false);
             }
+             that.get("controller").set('userProfile', false);
+            
         });
     }
 });

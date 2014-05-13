@@ -244,6 +244,20 @@
             ++this._currentStep;
 
         }
+        
+           var address = document.URL;
+            var urlName = address.split("#")[1].split("/")[1];
+        if(urlName==="search"){
+          
+             if (this._currentStep === 5) {
+                 console.log("hehe1");
+                 $(".Navigator-box").css("display", "block");
+                      
+        }
+        else {
+             $(".Navigator-box").css("display", "none");
+        }
+        }
 
         if ((this._introItems.length) <= this._currentStep) {
             //end of the intro
@@ -282,6 +296,19 @@
     function _previousStep() {
         if (this._currentStep === 0) {
             return false;
+        }
+         var address = document.URL;
+            var urlName = address.split("#")[1].split("/")[1];
+        if(urlName==="search"){
+             
+             if (this._currentStep === 6) {
+                  console.log("hehes");
+                 $(".Navigator-box").css("display", "block");
+                      
+        }
+        else {
+             $(".Navigator-box").css("display", "none");
+        }
         }
 
         var nextStep = this._introItems[--this._currentStep];

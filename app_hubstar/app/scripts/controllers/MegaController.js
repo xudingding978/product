@@ -734,7 +734,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var address = document.URL;
         if (this.get('controllers.masonryCollectionItems').get("type") === "profile")
         {
-            console.log("profiles");
+            
             if (this.get("controllers.checkingLoginStatus").popupLogin()) {
                 if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
                 {
@@ -745,6 +745,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     if (search_id === "default") //this go to the search index
                     {
                         this.transitionTo("searchIndexTom");
+                        
                     }
                     else
                     {
@@ -782,6 +783,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             else {
                 this.transitionTo("searchIndexTom");
             }
+            
         }
         else if (this.get('controllers.masonryCollectionItems').get("type") === "user")
         {
@@ -809,6 +811,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.transitionTo("searchIndexTom");
         }
         $("#body_id").css("overflow", "auto");
+         $("#search-bar").css('display', "none");
+                $("#topResidentialCommerical").css('display', "none");
+                 $(".search-bar-on-small-screen").css('display', "none");
 
     },
     editingContactForm: function() {

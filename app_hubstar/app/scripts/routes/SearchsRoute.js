@@ -10,21 +10,30 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('index').setLogin();
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('status').set('islogin', true);
-       
-        if (localStorage.checkUser === "newUser") {
 
+        if (localStorage.checkUser === "newUser") {
+            var that = this;
             setTimeout(function() {
                 window.location.href = 'JavaScript:void(0)';
                 $(".brand").addClass("tour-background");
                 $(".Geo-Filter").addClass("tour-background");
                 $("#login_detail").addClass("tour-background");
-                var that = this;
+                var address = document.URL;
+                var urlName = address.split("#")[1].split("/")[1];
+                if (urlName === "search") {
+                    that.controllerFor('application').set("isNavigatorDropdown", true);
+                }
+                var thatthat = that;
                 introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
 
+                   
                     if (localStorage.loginStatus !== "" && localStorage.loginStatus !== null && localStorage.loginStatus !== "undefined") {
                         window.location.href = '/#/users/' + localStorage.loginStatus;
+                        $(window).scrollTop(0);
                     }
-                    $(window).scrollTop(0);
+                    
+                    
+                  thatthat.controllerFor('application').set("isNavigatorDropdown", false);
                 });
             }, 5500);
         }
@@ -35,7 +44,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('application').set('isotherpage', false);
         this.controllerFor('mega').set('from', "search");
         $(".navbar").css("box-shadow", "");
-      //  $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+        //  $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
     },
     events: {
         transitionToPhoto: function(id) {
@@ -86,9 +95,9 @@ HubStar.SearchsRoute = Ember.Route.extend({
         var that = this;
         $(document).ready(function() {
 
-            setTimeout(function() {            
-                 that.controllerFor('application').residentialCommercialStatus();
-                 that.controllerFor('application').changeBackground();
+            setTimeout(function() {
+                that.controllerFor('application').residentialCommercialStatus();
+                that.controllerFor('application').changeBackground();
             }, 50);
 
         });

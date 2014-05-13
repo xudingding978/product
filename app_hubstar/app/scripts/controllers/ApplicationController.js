@@ -76,7 +76,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     pageCount: 0,
     residentialKeyword: true,
     loadingTime: false,
-    localStorage:"",
+    localStorage: "",
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
 
@@ -114,82 +114,81 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('loginUsername', localStorage.userName);
     },
     popupModal: function() {
-        HubStar.set('checkLoginStatus', true);      
+        HubStar.set('checkLoginStatus', true);
     },
-    
-       ctaregister: function() {
-            HubStar.set('checkLoginStatus', true);
-             $(document).ready(function() {
-                 setTimeout(function() {
-        $("#cta-popup").css("display", "none");
-        $("#profiles-main-container").css("display", "block");
-        localStorage.loginState = "register";
-        $('.Login-box #login-btn').text('Already had an acount? Click here to Log in!');
-        $('.Login-box .black-tool-tip').css('display', 'none');
-        $('.Login-box #click-register-social').css('display', 'block');
-        $('.Login-box #social-link').css('display', 'block');
-        $('.Login-box #click-register').css('display', 'block');
-        $('.Login-box #click-register-social').removeClass('social-active');
-        $('.Login-box #click-register').addClass('active-tab');
-        $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
-        $('.Login-box #user-login-pane').css('display', 'none');
-        if ($('.Login-box #social-link').css('display') === 'block') {
-            $('.Login-box #social-link').animate({height: 'toggle'});
-            $('.Login-box #social-link').css('display', 'none');
-        }
-        else {
-        }
-        }, 1);
+    ctaregister: function() {
+        HubStar.set('checkLoginStatus', true);
+        $(document).ready(function() {
+            setTimeout(function() {
+                $("#cta-popup").css("display", "none");
+                $("#profiles-main-container").css("display", "block");
+                localStorage.loginState = "register";
+                $('.Login-box #login-btn').text('Already had an acount? Click here to Log in!');
+                $('.Login-box .black-tool-tip').css('display', 'none');
+                $('.Login-box #click-register-social').css('display', 'block');
+                $('.Login-box #social-link').css('display', 'block');
+                $('.Login-box #click-register').css('display', 'block');
+                $('.Login-box #click-register-social').removeClass('social-active');
+                $('.Login-box #click-register').addClass('active-tab');
+                $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
+                $('.Login-box #user-login-pane').css('display', 'none');
+                if ($('.Login-box #social-link').css('display') === 'block') {
+                    $('.Login-box #social-link').animate({height: 'toggle'});
+                    $('.Login-box #social-link').css('display', 'none');
+                }
+                else {
+                }
+            }, 1);
         });
     },
     ctalogin: function() {
-       HubStar.set('checkLoginStatus', true);
-         $(document).ready(function() {
-             setTimeout(function() {
-              
-         
-        $("#cta-popup").css("display", "none");
-        $("#profiles-main-container").css("display", "block");
-        localStorage.loginState = "login";
-        if (localStorage.userType === "email") {
-            $('.Login-box #login-btn').text('Sign up for a new account!');
-            $('.Login-box .black-tool-tip').css('display', 'none');
-            $('.Login-box #click-register-social').css('display', 'none');
-            $('.Login-box #click-register').css('display', 'none');
-            $('.Login-box #social-link').css('display', 'none');
-            $('.Login-box #login-with-email-drop-down').css('display', 'block');
-            $('.Login-box #social-login-container').css('display', 'none');
-            $('.Login-box #click-login').addClass('active-tab');
-            $('.Login-box #social-login').removeClass('social-active');
-            $('.Login-box #user-forgot-password-pane').css('display', 'none');
-            $('.Login-box #forgot-message-container').css('display', 'none');
-            $('.Login-box #invalid-username').css('display', 'none');
-            $('.Login-box #register-with-email-drop-down').css('display', 'none');
-            $('.Login-box #register-with-email-step-2').css('display', 'none');
-            $('.Login-box #register-with-email-step-3').css('display', 'none');
-            $('.Login-box #user-login-pane').css('display', 'block');
+        HubStar.set('checkLoginStatus', true);
+        $(document).ready(function() {
+            setTimeout(function() {
 
-        } else {
-            $('.Login-box #login-btn').text('Sign up for a new account!');
-            $('.Login-box .black-tool-tip').css('display', 'none');
-            $('.Login-box #click-register-social').css('display', 'none');
-            $('.Login-box #click-register').css('display', 'none');
-            $('.Login-box #social-link').css('display', 'none');
-            $('.Login-box #login-with-email-drop-down').css('display', 'none');
-            $('.Login-box #social-login-container').css('display', 'block');
-            $('.Login-box #click-login').removeClass('active-tab');
-            $('.Login-box #social-login').addClass('social-active');
-            $('.Login-box #user-forgot-password-pane').css('display', 'none');
-            $('.Login-box #forgot-message-container').css('display', 'none');
-            $('.Login-box #invalid-username').css('display', 'none');
-            $('.Login-box #register-with-email-drop-down').css('display', 'none');
-            $('.Login-box #register-with-email-step-2').css('display', 'none');
-            $('.Login-box #register-with-email-step-3').css('display', 'none');
-            $('.Login-box #user-login-pane').css('display', 'block');
 
-        }
-        }, 1);
-    });
+                $("#cta-popup").css("display", "none");
+                $("#profiles-main-container").css("display", "block");
+                localStorage.loginState = "login";
+                if (localStorage.userType === "email") {
+                    $('.Login-box #login-btn').text('Sign up for a new account!');
+                    $('.Login-box .black-tool-tip').css('display', 'none');
+                    $('.Login-box #click-register-social').css('display', 'none');
+                    $('.Login-box #click-register').css('display', 'none');
+                    $('.Login-box #social-link').css('display', 'none');
+                    $('.Login-box #login-with-email-drop-down').css('display', 'block');
+                    $('.Login-box #social-login-container').css('display', 'none');
+                    $('.Login-box #click-login').addClass('active-tab');
+                    $('.Login-box #social-login').removeClass('social-active');
+                    $('.Login-box #user-forgot-password-pane').css('display', 'none');
+                    $('.Login-box #forgot-message-container').css('display', 'none');
+                    $('.Login-box #invalid-username').css('display', 'none');
+                    $('.Login-box #register-with-email-drop-down').css('display', 'none');
+                    $('.Login-box #register-with-email-step-2').css('display', 'none');
+                    $('.Login-box #register-with-email-step-3').css('display', 'none');
+                    $('.Login-box #user-login-pane').css('display', 'block');
+
+                } else {
+                    $('.Login-box #login-btn').text('Sign up for a new account!');
+                    $('.Login-box .black-tool-tip').css('display', 'none');
+                    $('.Login-box #click-register-social').css('display', 'none');
+                    $('.Login-box #click-register').css('display', 'none');
+                    $('.Login-box #social-link').css('display', 'none');
+                    $('.Login-box #login-with-email-drop-down').css('display', 'none');
+                    $('.Login-box #social-login-container').css('display', 'block');
+                    $('.Login-box #click-login').removeClass('active-tab');
+                    $('.Login-box #social-login').addClass('social-active');
+                    $('.Login-box #user-forgot-password-pane').css('display', 'none');
+                    $('.Login-box #forgot-message-container').css('display', 'none');
+                    $('.Login-box #invalid-username').css('display', 'none');
+                    $('.Login-box #register-with-email-drop-down').css('display', 'none');
+                    $('.Login-box #register-with-email-step-2').css('display', 'none');
+                    $('.Login-box #register-with-email-step-3').css('display', 'none');
+                    $('.Login-box #user-login-pane').css('display', 'block');
+
+                }
+            }, 1);
+        });
 
     },
     email_login: function() {
@@ -201,8 +200,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
             localStorage.resOrcom = "All";
         }
-        this.set("geoLocation",localStorage.geoLocation);
-        
+        this.set("geoLocation", localStorage.geoLocation);
+
         if (localStorage.loginStatus) {
             var u = HubStar.User.find(localStorage.loginStatus);
 
@@ -271,7 +270,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
             });
         }
-        this.set("user", u);      
+        this.set("user", u);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
 
@@ -838,7 +837,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $('#geo-filter').toggleClass('Geo-Filter-active');
             $('#notification-filter').removeClass('Geo-Filter-active');
             $('#top-about-menu').removeClass('Geo-Filter-active');
-       //     $('#user-header-menu').removeClass('Geo-Filter-active');
+            //     $('#user-header-menu').removeClass('Geo-Filter-active');
 
         } else if (checking === "notification") {
             this.set("isNotification", !this.get("isNotification"));
@@ -847,9 +846,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.set('userProfile', false);
             $('#notification-filter').addClass('Geo-Filter-active');
             this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
-            $('#geo-filter').removeClass('Geo-Filter-active');            
+            $('#geo-filter').removeClass('Geo-Filter-active');
             $('#top-about-menu').removeClass('Geo-Filter-active');
-      //      $('#user-header-menu').removeClass('Geo-Filter-active');
+            //      $('#user-header-menu').removeClass('Geo-Filter-active');
         }
         else if (checking === "about") {
             this.set("isNotification", false);
@@ -859,7 +858,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $('#geo-filter').removeClass('Geo-Filter-active');
             $('#notification-filter').removeClass('Geo-Filter-active');
             $('#top-about-menu').taggleClass('Geo-Filter-active');
-        //    $('#user-header-menu').removeClass('Geo-Filter-active');
+            //    $('#user-header-menu').removeClass('Geo-Filter-active');
         }
         else if (checking === "user") {
             this.set("isNotification", false);
@@ -869,7 +868,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $('#geo-filter').removeClass('Geo-Filter-active');
             $('#notification-filter').removeClass('Geo-Filter-active');
             $('#top-about-menu').removeClass('Geo-Filter-active');
-      //     $('#user-header-menu').toggleClass('Geo-Filter-active');
+            //     $('#user-header-menu').toggleClass('Geo-Filter-active');
         }
     },
     dropdownNavigator: function() {
@@ -913,7 +912,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         });
 
         $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-
+        this.set("isNotification", false);
+        this.set('headerAbout', false);
+        this.set('userProfile', false);
+        this.set('isGeoDropdown', false);
     },
     closeDropdownNavigator: function() {
         this.set('isNavigatorDropdown', false);

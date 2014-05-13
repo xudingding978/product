@@ -9,7 +9,7 @@ HubStar.StatusView = Ember.View.extend({
             $('#login_button').attr("style", "display:none");
             $('#afterLogin').attr("style", "display:block");
             $('#welcome_message').attr("style", "display:none");
-
+         
 
         } else {
 

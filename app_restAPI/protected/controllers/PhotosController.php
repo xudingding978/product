@@ -175,10 +175,9 @@ class PhotosController extends Controller {
             $oldRecord['photo'][0]['photo_title'] = $newRecord['photo']['photo_title'];
             $oldRecord['photo'][0]['photo_caption'] = $newRecord['photo']['photo_caption'];
 
-            $oldRecord['photo'][0]['photo_keywords'] = $newRecord['photo']['photo_keywords'];
-            $keyword = $this->getPictureKeyword($oldRecord);
+            $keyword = $this->getProfileKeyword($oldRecord['owner_id']);
 
-            //$oldRecord['keyword'] = $keyword;
+            $oldRecord['keyword'] = $keyword;
 
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
@@ -188,28 +187,6 @@ class PhotosController extends Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-    }
-
-    public function getPictureKeyword($oldRecord) {
-        $keyword_id = null;
-        $keyword_name = null;
-        $create_date = null;
-        $expire_date = null;
-        $value = null;
-        $profile_id = null;
-        $collection_id = null;
-        $is_delete = null;
-        $keyword = $oldRecord;
-        //if (!isset($oldRecord['photo']['photo_keywords'])) {
-        //    $picture['keyword'] = array();
-        //}       
-        return
-        $keyword_id
-        $keyword_name
-        $keyword;
-
-
-        //$picture['keyword'];
     }
 
     public function getProfileKeyword($owner_id) {
@@ -341,19 +318,19 @@ class PhotosController extends Controller {
             $mega["accessed"] = 1;
         }
         $mega["accessed"] = date_timestamp_get(new DateTime());
-
+        
         if (!isset($mega['created'])) {
             $mega["created"] = 1;
         }
         $mega["created"] = date_timestamp_get(new DateTime());
-
+        
 
         $mega["updated"] = 0;
 
-
-        //$keyword = $this->getProfileKeyword($mega['owner_id']);
+        
+        $keyword = $this->getProfileKeyword($mega['owner_id']);
         $editors = $this->getProfileEditors($mega['owner_id']);
-        //$mega['keyword'] = $keyword;
+        $mega['keyword'] = $keyword;
 
         $mega['editors'] = $editors;
 

@@ -175,9 +175,15 @@ class PhotosController extends Controller {
             $oldRecord['photo'][0]['photo_title'] = $newRecord['photo']['photo_title'];
             $oldRecord['photo'][0]['photo_caption'] = $newRecord['photo']['photo_caption'];
 
-            $oldRecord['photo'][0]['photo_keywords'] = $newRecord['photo']['photo_keywords'];
-            $keyword = $this->getPictureKeyword($oldRecord);
-
+            //$oldRecord['photo'][0]['photo_keywords'] = $newRecord['photo']['photo_keywords'];
+            $keyword = $this->getPictureKeyword($newRecord['photo']['photo_keywords']);
+            //$keyword1 = array("1",$newRecord['photo']['photo_keywords'],"date","null","null","p","null","false");
+            //$keyword2 = array("2","key","date","null","null","p","null","false");
+            //$keyword = array($keyword1,$keyword2);
+            $oldRecord['keyword'] = $keyword;
+            //error_log(var_export($newRecord['photo']['photo_caption'], true));
+            //error_log(var_export($newRecord['photo']['photo_keywords'], true));
+            //$keyword = $this->getProfileKeyword($owner_id);
             //$oldRecord['keyword'] = $keyword;
 
             if ($cb->set($url, CJSON::encode($oldRecord))) {
@@ -190,23 +196,28 @@ class PhotosController extends Controller {
         }
     }
 
-    public function getPictureKeyword($oldRecord) {
-        $keyword_id = null;
+    public function getPictureKeyword($newRecord) {
+        $keyword_id = 0;
         $keyword_name = null;
-        $create_date = null;
+        $create_date = 0;
         $expire_date = null;
         $value = null;
-        $profile_id = null;
+        $profile_id = "p";
         $collection_id = null;
-        $is_delete = null;
-        $keyword = $oldRecord;
-        //if (!isset($oldRecord['photo']['photo_keywords'])) {
-        //    $picture['keyword'] = array();
-        //}       
-        return
-        $keyword_id
-        $keyword_name
-        $keyword;
+        $is_delete = false;
+        $returnedkeyinfo = array();
+        if (!isset($newRecord['keyword'])) {
+        $returnedkeyinfo['keyword'] = array(
+            "keyword_id: " . $keyword_id,
+            "keyword_name: " . $newRecord, 
+            "create_date: " . $create_date, 
+            "expire_date: " . $expire_date, 
+            "value: " . $value, 
+            "profile_id: " . $profile_id, 
+            "collection_id: " . $collection_id, 
+            "is_delete: " . $is_delete);
+        }
+        return $returnedkeyinfo['keyword'];
 
 
         //$picture['keyword'];

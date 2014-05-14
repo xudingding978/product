@@ -376,9 +376,9 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                 for (var i = this.get("content").length - 1; i >= 0; i--) {
                     var tempObject = pics.objectAt(i);
                     that.get("content").pushObject(tempObject);
-                }
+                }                
                 $(document).ready(function() {
-                    setTimeout(function() {
+                    setTimeout(function() {                        
                         for (var i = 0; i < pics.get("length"); i++) {
                             var tempmega = pics.objectAt(i);
                             if (tempmega.get("getPhoto") === true || tempmega.get("getArticle") === true)
@@ -389,7 +389,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                                     var size = url[length - 1].split(".")[0].split("x")[1];
                                     if (size !== undefined)
                                     {
-                                        $("#init_photo_" + tempmega.get("id")).css({height: size});
+                                        $("#init_photo_" + tempmega.get("id")).css({height: size});                                     
                                     }
                                 }
                             }

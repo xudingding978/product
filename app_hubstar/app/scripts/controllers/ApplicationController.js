@@ -857,7 +857,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             this.set('userProfile', false);
             $('#geo-filter').removeClass('Geo-Filter-active');
             $('#notification-filter').removeClass('Geo-Filter-active');
-            $('#top-about-menu').taggleClass('Geo-Filter-active');
+            $('#top-about-menu').toggleClass('Geo-Filter-active');
             //    $('#user-header-menu').removeClass('Geo-Filter-active');
         }
         else if (checking === "user") {

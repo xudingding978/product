@@ -21,7 +21,7 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
             that.set('pdfContent', []);
             for (var i = 0; i < results.get("length"); i++) {
                 var tempmega = results.objectAt(i);
-                that.get("pdfContent").pushObject(tempmega);
+                that.get("pdfContent").insertAt(0,tempmega);
             }
 //            that.get("controllers.profile").set("profileVideoStatistics", results.get("length"));
             that.set("loadingTime", false);

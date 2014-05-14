@@ -207,12 +207,10 @@
     <div class="object-tags-box">
         <div class="object-tags">
             <span class="tags-mark" style="background-color: #427fed"></span>
-            <div class="tags easing">
-                <div class="tags easing">
+            <div class="tags easing">              
                     <div class="object-type hint--left hint--rounded" data-hint="PDF">
                         <i class="fa fa-file-text"></i>
-                    </div>
-                </div>
+                    </div>      
             </div>
         </div>
     </div>
@@ -223,28 +221,25 @@
 
             {{#if controller.isUser}}
             <a class="mainfeature-container" {{action transitionToPdf id}}>
-               
+                <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
+                    <i  style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3; color:#fff; font-size:50px;">PDF</i>
+                </div>
                 <div id="init_photo_{{unbound id}}">
                     <img class="this-is-the-object"{{bindAttr src="object_image_url"  }}  />      
                 </div>
         </a>
             {{else}}
-            <a class="mainfeature-container" {{action transitionToPdf id}}>
+            <a class="mainfeature-container" {{action transitionToPdf id}}> 
                <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
-                    <i class="fa fa-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
+                    <i  style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3; color:#fff; font-size:50px;">PDF</i>
                 </div>
                <div id="init_photo_{{unbound id}}">
                 <img {{bindAttr src="object_image_url" }} class="this-is-the-object" />
                  </div>
             </a>
             {{/if}}
-
             <span class='edit-object easing' style="position: absolute;margin: 10px; top: 11px;left: 150px;">
-
                 {{#if controller.is_authentic_user}}
-
-
-
                 <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
                      <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
                     <i class='fa fa-caret-down'></i>
@@ -260,9 +255,6 @@
 
                 {{/if}}
             </span>
-
-
-
         </div>
 
 

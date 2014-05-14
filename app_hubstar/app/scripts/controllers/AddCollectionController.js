@@ -206,9 +206,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
 
             var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
                 "message_id": message_id, "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
-                "is_delete": false, optional: this.get("commentObject").get('type') + '/' + this.get("commentObject").get('id')});  
-            console.log(tempComment);
-            console.log(comments);
+                "is_delete": false, optional: this.get("commentObject").get('type') + '/' + this.get("commentObject").get('id')});    
             comments.insertAt(0, tempComment);
             comments.store.save();
             commentContent = '';

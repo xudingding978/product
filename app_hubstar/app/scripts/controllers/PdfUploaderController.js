@@ -4,7 +4,7 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
     pdfArray: [],
 //    newPdfName: null,
 //    newPdfSource: null,
-//    newPdfCover: 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0',
+//    newPdfCover: '',
 //    newPdfDesc: null,
     pdf_title: "",
     pdf_desc: "",
@@ -88,7 +88,7 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
             console.log("45645645654564564646546465465");
             var pdf_url = "http://s3.hubsrv.com.s3.amazonaws.com/trendsideas.com/profiles/"+mega.get('owner_id')+"/"+name;
             var pdf = HubStar.Pdf.createRecord({'id':mega.get('id'),
-            'pdf_cover_image': "http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0", 'pdf_title': name.split('.')[0],
+            'pdf_cover_image': "http://www.soompi.com/wp-content/uploads/2013/07/IU-tumblr.jpg", 'pdf_title': name.split('.')[0],
             'pdf_desc': "", 'pdf_url': pdf_url, 'pdf_profile_id': that.get('controllers.profile').get('model').get('id')});
         console.log("78978978978978978978978978978978797897897");
             var b =pdf.save();
@@ -97,7 +97,8 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
             console.log("22222222222");
             b.then(function() {
                 console.log("111111");
-                thatthat.get("pdfArray").pushObject(pdf);
+               // thatthat.get("pdfArray").pushObject(pdf);
+                 thatthat.get("pdfArray").insertAt(0,pdf);
 //                console.log("333333333333333333");
 //                console.log(mega.get('isSaving'));
 //                console.log(thatthat.get("pdfArray").objectAt(0).get("pdf").objectAt(0).get('isSaving'));
@@ -156,7 +157,8 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
                 "photo_file_name": photoName.toLowerCase(),
                 "photo_type": type,
                 "photo_keywords": keywords});
-            mega.get("photo").pushObject(file);
+          //  mega.get("photo").pushObject(file);
+            mega.get("photo").insertAt(0,file);
             var that = this;
             mega.addObserver('isSaving', function() {
                 if (mega.get('isSaving')) {

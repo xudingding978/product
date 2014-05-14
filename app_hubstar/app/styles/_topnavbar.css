@@ -21,6 +21,7 @@
     display: block;
     background-size: 100% auto !important;
     background-image: url(../../images/discoverybarbg.jpg);
+    min-width: 420px;
 }
 
 .selected-navigation{
@@ -66,7 +67,10 @@
     position: absolute;
     right: -7px;
     top: 90px;
+    opacity: 1 !important;
+    z-index: 11;
 }
+
 
 #user-dd-menu > li {padding:0}
 
@@ -816,9 +820,7 @@ div#forgot-password-container{
 .rating > span:hover ~ span:before {
     content: "";
 }
-
-
-
+/* ---------*/
 
 .Geo-Filter{
     position: relative;
@@ -840,6 +842,14 @@ div#forgot-password-container{
 .Geo-Filter-active{
     color: #fff;
     opacity: 1
+}
+
+
+.Geo-Filter-location{
+    position: relative;
+    font-size: 15px;
+    line-height: 15px;
+
 }
 
 .circle-btn{
@@ -883,8 +893,34 @@ div#forgot-password-container{
 }
 
 
+#login_details{
+    opacity: 1;
+}
 
+.notification-triangle{
+    position: relative;
+    float: right; 
+    top: 68px; 
+    z-index: 100;
+    left: 40px;
+}
+.notification-triangle-after{
+    position: absolute;
+    border-color: transparent transparent #f3f3f3 transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: 0;
+    top: 5px;
+}
 
+.notification-triangle-before{
+    position: absolute;
+    border-color: transparent transparent #888 transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 10px;
+    z-index: -1;
+    top: 5px;
+}
 
 .notification-number{
     cursor: pointer;
@@ -899,12 +935,6 @@ div#forgot-password-container{
     font-size: 11px;
 }
 
-.Geo-Filter-location{
-    position: relative;
-    font-size: 15px;
-    line-height: 15px;
-
-}
 
 .user-menu-hit-area{
     height: 87px;
@@ -1069,6 +1099,7 @@ search-bar-on-small-screen #topResidentialCommerical{
     .interest-selecting-container{max-width: 650px;}
 
 
+
 }
 
 
@@ -1076,6 +1107,7 @@ search-bar-on-small-screen #topResidentialCommerical{
 
     .search-bar-on-small-screen{
         display: block;   
+        min-width: 420px;
     }
     .search-bar-on-large-screen{
         display: none;
@@ -1085,11 +1117,14 @@ search-bar-on-small-screen #topResidentialCommerical{
 
 
 @media only screen and (min-width : 768px) and (max-width : 979px) {
-
+    
+    .Dropdownstyle2{
+        right:185px;
+    }
 }
 
 
-@media only screen and (max-width : 767px) {
+@media only screen  and (max-width : 767px) {
     .promotion-line{ display: none; }
 
     .interest-image-container{width: 70px; height: 70px;}
@@ -1107,7 +1142,7 @@ search-bar-on-small-screen #topResidentialCommerical{
     .circle-btn-description{display:none!Important;}
 
     .Geo-Filter-location{
-        bottom: 20px;
+        bottom: 10px;
         font-size: 11px;
         text-align: center;
         line-height: 18px;
@@ -1115,12 +1150,14 @@ search-bar-on-small-screen #topResidentialCommerical{
         padding: 0 5px;
         margin: 5px 0;
     }
-    .circle-btn{margin: 15px auto;}
+    .circle-btn{position: relative; top:10px;}
 
     .notification-number{right: 0px;}
 
+    .notification-triangle{ left: 22px;}
+
     .Dropdownstyle2{
-        right:115px !important;
+        right:115px;
     }
     #top-menu{
         left:0px !important;
@@ -1149,12 +1186,11 @@ search-bar-on-small-screen #topResidentialCommerical{
     }
     .search-bar-on-small-screen #topResidentialCommerical{
         position: absolute;
-        right: 0;
+        right: 10px;
         margin: 0;
     }
 }
-@media only screen 
-and (max-width : 480px) {
+@media only screen and (max-width : 480px) {
     #fadein-image{ display: none !important;}
 
     .register-page-top-bar {margin: 40px auto 15%;}
@@ -1175,15 +1211,7 @@ and (max-width : 480px) {
     #notification-filter{
         display:none !important;
     }
-}
-
-
-
-
-
-
-/*smart phone*/
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 
 
 }
+

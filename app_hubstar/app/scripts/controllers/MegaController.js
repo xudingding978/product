@@ -750,7 +750,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                         if (object_type === "photos" || object_type === "articles" || object_type === "videos")
                         {
-
                             var m = HubStar.Mega.find(search_id);
                             this.transitionTo("search", {id: m.get("owner_title")});
                         }
@@ -926,6 +925,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set('enableToEdit', !this.get('enableToEdit'));
     },
     yes: function(photoObject) {
+
         var photo_title = this.get('selectedPhoto.photo_title');
         var photo_caption = this.get('selectedPhoto.photo_caption');
         var link_text = this.get('selectedPhoto.link_text');
@@ -933,11 +933,14 @@ HubStar.MegaController = Ember.ArrayController.extend({
         photoObject.set('photo_title', photo_title);
         photoObject.set('photo_caption', photo_caption);
         photoObject.set('link_text', link_text);
-        photoObject.set('link_url', link_url);
+        photoObject.set('link_url', link_url); 
         photoObject.store.save();
         this.set('enableToEdit', !this.get('enableToEdit'));
     },
     no: function() {
+        if (this.get('selectedPhoto').get("isDirty")) {
+            this.get('selectedPhoto').rollback();
+        }
         this.set('enableToEdit', !this.get('enableToEdit'));
     },
     checkAuthenticUser: function() {

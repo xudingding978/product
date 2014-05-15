@@ -379,7 +379,7 @@
                 <li class="active" {{action changeSize}}><a href="#tab1" data-toggle="tab">Style up!</a></li>
                 <li class="easing" {{action changeSize}}><a href="#tab2" data-toggle="tab">General Settings</a></li>
                 <li class="easing" {{action changeSize}}><a href="#tab3" data-toggle="tab">Account Settings</a></li>
-                <li class="easing" {{action changeSize}}><a href="#tab7" data-toggle="tab">Social Link</a></li>
+                <li class="easing" {{action changeSize}}><a href="#tab7" data-toggle="tab">Social Links</a></li>
                 {{#if controller.isAdmin}}
                 <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>     
                 {{/if}}
@@ -664,7 +664,7 @@
             </div>
 
             <div class="tab-pane" id="tab7">
-                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Social Link</div>
+                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Social Links</div>
 
                 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
                     <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
@@ -1014,7 +1014,7 @@
     {{else}}
 
 
-    {{render masonryCollectionItems}}
+    {{render "masonryCollectionItems"}}
 
 
     {{/if}}

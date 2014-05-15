@@ -841,7 +841,7 @@ div#forgot-password-container{
 
 .Geo-Filter-active{
     color: #fff;
-    opacity: 1
+    opacity: 1 !important;
 }
 
 
@@ -1152,7 +1152,7 @@ search-bar-on-small-screen #topResidentialCommerical{
     }
     .circle-btn{position: relative; top:10px;}
 
-    .notification-number{right: 0px;}
+    .notification-number{right: 0px;top: 15px;}
 
     .notification-triangle{ left: 22px;}
 

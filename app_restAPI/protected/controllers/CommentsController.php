@@ -282,11 +282,14 @@ class CommentsController extends Controller {
         $url = $this->getDomain() . "/" . $id;
         $tempRecord = $cb->get($url);
         $mega = CJSON::decode($tempRecord, true);
+        error_log(var_export($mega['comments'],true));
+        
         if (isset($mega['comments'])) {
             $comments = $mega['comments'];
         } else {
             $comments = [];
         }
+       
         for ($i = 0; $i < sizeof($comments); $i++) {
             $commentItem = $comments[$i];
             $id = $commentItem['commenter_id'];
@@ -294,16 +297,21 @@ class CommentsController extends Controller {
             $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
             $user = CJSON::decode($oldDeep, true);
             if (isset($user['user'][0]['display_name'])) {
+              
                 $commentItem['name'] = $user['user'][0]['display_name'];
             }
             if (isset($user['user'][0]['photo_url_large'])) {
+                
                 $commentItem['commenter_profile_pic_url'] = $user['user'][0]['photo_url_large'];
             }
             $comments[$i] = $commentItem;
+            
         }
+       
         $mega['comments'] = $comments;
         if ($cb->set($url, CJSON::encode($mega))) {
-            $this->sendResponse(204);
+             error_log("55555");
+            
         } else {
             $this->sendResponse(500, "some thing wrong");
         }

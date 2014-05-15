@@ -32,7 +32,7 @@ class PdfsController extends Controller {
         $pdf_mega['object_description'] = $request_arr['pdf_desc'];
         $pdf_mega['object_image_url'] = $request_arr['pdf_cover_image'];
         $pdf_mega['pdf'][0]['pdf_url'] = $this->savePdfToS3($request_arr);
-        $this -> pdf2png($request_arr);
+        $pdf_mega['pdf'][0]['pdf_cover_image'] = $this -> pdf2png($request_arr);
         $this->saveIDToProfile($request_arr['id'], $request_arr['pdf_profile_id']);
 //
 //
@@ -49,43 +49,30 @@ class PdfsController extends Controller {
         $pdf_resource = base64_decode(str_replace('data:application/pdf;base64,', '', $PDF));
         $pdf_profile_id = $request_arr['pdf_profile_id'];
         $pdf_title = $request_arr['pdf_title'] . '.png';
-//        if (!extension_loaded('imagick')) {
-//            return false;
-//        }
-//        if (!file_exists($PDF)) {
-//            return false;
-//        }
-        error_log("11111111111111111111");
         $IM = new imagick();
-        error_log("2222222222222222");
         $IM->setResolution(120, 120);
-        error_log("3333333333333333");
         $IM->setCompressionQuality(100);
 //        error_log($pdf_resource);
         $IM->readImageBlob($pdf_resource);
-        error_log('4444444444444444444');
-        error_log($IM);
         foreach ($IM as $Key => $Var) {
             $Var->setImageFormat('png');
-            error_log($Var);
-//            $Filename = $Path . '/' . md5($Key . time()) . '.png';
-//            if ($Var->writeImage($Filename) == true) {
-//                $Return[] = $Filename;
-//            }
+            if ($Key ==0) {
+                $bucket = "s3.hubsrv.com";
+                $url = $this->getDomain() . '/profiles' . "/" . $pdf_profile_id . "/" . $pdf_title;
+                $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
+                $client = Aws\S3\S3Client::factory(
+                                $arr
+                );
+                $client->putObject(array(
+                    'Bucket' => $bucket, //"s3.hubsrv.com"
+                    'Key' => $url,
+                    'Body' => $Var,
+                    'ContentType' => "image/png",
+                    'ACL' => 'public-read'
+                ));
+            }
         }
-        $bucket = "s3.hubsrv.com";
-        $url = $this->getDomain() . '/profiles' . "/" . $pdf_profile_id . "/" . $pdf_title;
-        $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
-        $client = Aws\S3\S3Client::factory(
-                        $arr
-        );
-        $client->putObject(array(
-            'Bucket' => $bucket, //"s3.hubsrv.com"
-            'Key' => $url,
-            'Body' => $IM[0],
-            'ContentType' => "application/png",
-            'ACL' => 'public-read'
-        ));
+        
         return $url;
     }
 

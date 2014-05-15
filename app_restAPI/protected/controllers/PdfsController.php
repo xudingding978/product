@@ -27,11 +27,12 @@ class PdfsController extends Controller {
         if (!isset($pdf_mega['pdf'])) {
             $pdf_mega['pdf'] = array();
         }
-        $pdf_mega['pdf'][0]=$request_arr;
+        $pdf_mega['pdf'][0] = $request_arr;
         $pdf_mega['object_title'] = $request_arr['pdf_title'];
         $pdf_mega['object_description'] = $request_arr['pdf_desc'];
         $pdf_mega['object_image_url'] = $request_arr['pdf_cover_image'];
-        $pdf_mega['pdf'][0]['pdf_url']  = $this->savePdfToS3($request_arr);  
+        $pdf_mega['pdf'][0]['pdf_url'] = $this->savePdfToS3($request_arr);
+        $this -> pdf2png($request_arr);
         $this->saveIDToProfile($request_arr['id'], $request_arr['pdf_profile_id']);
 //
 //
@@ -41,30 +42,75 @@ class PdfsController extends Controller {
             echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
         }
     }
-    
-    
+
+    function pdf2png($request_arr) {
+        error_log("immagick");
+        $PDF = $request_arr['pdf_url'];
+        $pdf_resource = base64_decode(str_replace('data:application/pdf;base64,', '', $PDF));
+        $pdf_profile_id = $request_arr['pdf_profile_id'];
+        $pdf_title = $request_arr['pdf_title'] . '.png';
+//        if (!extension_loaded('imagick')) {
+//            return false;
+//        }
+//        if (!file_exists($PDF)) {
+//            return false;
+//        }
+        error_log("11111111111111111111");
+        $IM = new imagick();
+        error_log("2222222222222222");
+        $IM->setResolution(120, 120);
+        error_log("3333333333333333");
+        $IM->setCompressionQuality(100);
+//        error_log($pdf_resource);
+        $IM->readImageBlob($pdf_resource);
+        error_log('4444444444444444444');
+        error_log($IM);
+        foreach ($IM as $Key => $Var) {
+            $Var->setImageFormat('png');
+            error_log($Var);
+//            $Filename = $Path . '/' . md5($Key . time()) . '.png';
+//            if ($Var->writeImage($Filename) == true) {
+//                $Return[] = $Filename;
+//            }
+        }
+        $bucket = "s3.hubsrv.com";
+        $url = $this->getDomain() . '/profiles' . "/" . $pdf_profile_id . "/" . $pdf_title;
+        $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
+        $client = Aws\S3\S3Client::factory(
+                        $arr
+        );
+        $client->putObject(array(
+            'Bucket' => $bucket, //"s3.hubsrv.com"
+            'Key' => $url,
+            'Body' => $IM[0],
+            'ContentType' => "application/png",
+            'ACL' => 'public-read'
+        ));
+        return $url;
+    }
+
     public function saveIDToProfile($id, $profile_id) {
         $cb = $this->couchBaseConnection();
         $docID = $this->getDomain() . "/profiles/" . $profile_id;
         $profile_json = $cb->get($docID);
         $profile_mega = CJSON::decode($profile_json);
-        if (!isset($profile_mega['profile'][0]['pdf_id']) || $profile_mega['profile'][0]['pdf_id'] ==null || $profile_mega['profile'][0]['pdf_id'] =='undefined') {
+        if (!isset($profile_mega['profile'][0]['pdf_id']) || $profile_mega['profile'][0]['pdf_id'] == null || $profile_mega['profile'][0]['pdf_id'] == 'undefined') {
             $profile_mega['profile'][0]['pdf_id'] = $id;
         } else {
             $profile_mega['profile'][0]['pdf_id'] = $profile_mega['profile'][0]['pdf_id'] . "," . $id;
         }
-        $cb -> set($docID, CJSON::encode($profile_mega));
+        $cb->set($docID, CJSON::encode($profile_mega));
     }
-    
+
     public function savePdfToS3($request_arr) {
-        error_log('savetos3');
-        error_log(var_export($request_arr, true));
+//        error_log('savetos3');
+//        error_log(var_export($request_arr, true));
         $pdf_resource = base64_decode(str_replace('data:application/pdf;base64,', '', $request_arr['pdf_url']));
         $pdf_profile_id = $request_arr['pdf_profile_id'];
         $pdf_title = $request_arr['pdf_title'] . '.pdf';
-        
+
         $bucket = "s3.hubsrv.com";
-        $url = $this->getDomain() . '/profiles' . "/" . $pdf_profile_id . "/"  . $pdf_title;
+        $url = $this->getDomain() . '/profiles' . "/" . $pdf_profile_id . "/" . $pdf_title;
         $arr = $this->getProviderConfigurationByName($this->getDomain(), "S3Client");
         $client = Aws\S3\S3Client::factory(
                         $arr
@@ -81,7 +127,7 @@ class PdfsController extends Controller {
     }
 
     public function actionRead() {
-       
+        
     }
 
     public function actionUpdate() {
@@ -97,10 +143,10 @@ class PdfsController extends Controller {
             $docID = $this->getDomain() . "/" . $id;
             $cbRecord = $cb->get($docID); // get the old profile record from the database according to the docID string
             $oldRecord = CJSON::decode($cbRecord, true);
-            $oldRecord['pdf']=$newRecord;
+            $oldRecord['pdf'] = $newRecord;
 
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
-          $this->sendResponse(204);
+                $this->sendResponse(204);
             } else {
                 $this->sendResponse(500, "some thing wrong");
             }

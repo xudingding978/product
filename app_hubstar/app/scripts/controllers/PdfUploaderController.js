@@ -68,8 +68,8 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
         this.set('pdfInfromationEdit', true);
         var target = getTarget(e, "single");
         console.log(target);
+        var src = target.result;
         
-
         var testID = createGuid();
         testID = testID.replace('test','');
         var MegaCreateController = this.get('controllers.megaCreate');
@@ -89,7 +89,7 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
             var pdf_url = "http://s3.hubsrv.com.s3.amazonaws.com/trendsideas.com/profiles/"+mega.get('owner_id')+"/"+name;
             var pdf = HubStar.Pdf.createRecord({'id':mega.get('id'),
             'pdf_cover_image': "http://www.soompi.com/wp-content/uploads/2013/07/IU-tumblr.jpg", 'pdf_title': name.split('.')[0],
-            'pdf_desc': "", 'pdf_url': pdf_url, 'pdf_profile_id': that.get('controllers.profile').get('model').get('id')});
+            'pdf_desc': "", 'pdf_url': src, 'pdf_profile_id': that.get('controllers.profile').get('model').get('id')});
         console.log("78978978978978978978978978978978797897897");
             var b =pdf.save();
             pdf.get("isSaving");

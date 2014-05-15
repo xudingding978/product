@@ -73,10 +73,10 @@
                                 <!--Share profile-->
                                 <div class="contactmebtn hint--left hint--rounded easing" style="position: relative; right: 30px;"  data-step="2" data-intro="Click here to <b>Share</b> a link to this profile through social media." data-position='left'>
                                     <a class="contactmeicon easing" {{action dropdownPhotoSetting}}><i class="fa fa-share easing" style="font-size: 19px;"></i></a>
-                                <div class="btn-description" style="margin: 8px;">SHARE</div>
+                                    <div class="btn-description" style="margin: 8px;">SHARE</div>
                                 </div>
                             </div>  
-                            <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px;  padding: 0;right: 45px;top: 100px;position: absolute;">
+                            <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px;  padding: 0;right: 65px;top: 100px;position: absolute;">
                                 <li class="ite" {{action  fbShare}} >
                                     <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
                                 </li>
@@ -379,7 +379,7 @@
                 <li class="active" {{action changeSize}}><a href="#tab1" data-toggle="tab">Style up!</a></li>
                 <li class="easing" {{action changeSize}}><a href="#tab2" data-toggle="tab">General Settings</a></li>
                 <li class="easing" {{action changeSize}}><a href="#tab3" data-toggle="tab">Account Settings</a></li>
-                <li class="easing" {{action changeSize}}><a href="#tab7" data-toggle="tab">Social Link</a></li>
+                <li class="easing" {{action changeSize}}><a href="#tab7" data-toggle="tab">Social Links</a></li>
                 {{#if controller.isAdmin}}
                 <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>     
                 {{/if}}
@@ -664,7 +664,7 @@
             </div>
 
             <div class="tab-pane" id="tab7">
-                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Social Link</div>
+                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Social Links</div>
 
                 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
                     <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
@@ -1014,7 +1014,7 @@
     {{else}}
 
 
-    {{render masonryCollectionItems}}
+    {{render "masonryCollectionItems"}}
 
 
     {{/if}}

@@ -386,8 +386,8 @@ HubStar.LoginModalView = Ember.View.extend({
 
     },
     closePane: function() {    
-        this.get("controller").get("controllers.mega").closeWindow();
-         $("#body_id").css("overflow","auto");
+     //   this.get("controller").get("controllers.mega").closeWindow();
+     //    $("#body_id").css("overflow","auto");
         HubStar.set('checkLoginStatus', false);
     }
     ,

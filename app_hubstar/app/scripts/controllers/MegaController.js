@@ -274,7 +274,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-            
+
         }
     },
     addRelatedData: function(mega)
@@ -733,74 +733,73 @@ HubStar.MegaController = Ember.ArrayController.extend({
         var address = document.URL;
         if (this.get('controllers.masonryCollectionItems').get("type") === "profile")
         {
-           
-            if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
-            {
-                // this.transitionTo("indexIndex"); //search page
-                var search_id = address.split("#")[1].split("/")[2];
-                var object_type = address.split("#")[1].split("/")[1];
-
-                if (search_id === "default") //this go to the search index
+                if (this.get("from") !== "profile") //from : profile means  close from the profile collection's photo
                 {
-                    this.transitionTo("searchIndexTom");
-                }
-                else
-                {
+                    // this.transitionTo("indexIndex"); //search page
+                    var search_id = address.split("#")[1].split("/")[2];
+                    var object_type = address.split("#")[1].split("/")[1];
 
-                    if (object_type === "photos" || object_type === "articles" || object_type === "videos")
+                    if (search_id === "default") //this go to the search index
                     {
+                        this.transitionTo("searchIndexTom");
 
-                        var m = HubStar.Mega.find(search_id);
-                        this.transitionTo("search", {id: m.get("owner_title")});
                     }
                     else
                     {
-                        HubStar.set("escVideo", true);
-                        this.transitionTo("search", {id: search_id});
+
+                        if (object_type === "photos" || object_type === "articles" || object_type === "videos")
+                        {
+                            var m = HubStar.Mega.find(search_id);
+                            this.transitionTo("search", {id: m.get("owner_title")});
+                        }
+                        else
+                        {
+                            HubStar.set("escVideo", true);
+                            this.transitionTo("search", {id: search_id});
+                        }
                     }
                 }
-            }
-            else
-            {
-                var collection_id = address.split("#")[1].split("/")[4];
-                var owner_id = address.split("#")[1].split("/")[2];
-                var profile = HubStar.Profile.find(owner_id);
-                var data = null;
-                for (var i = 0; i < profile.get('collections').get("length"); i++) {
-                    data = profile.get('collections').objectAt(i);
-                    if (data.id === collection_id) {
-                        break;
+                else
+                {
+                    var collection_id = address.split("#")[1].split("/")[4];
+                    var owner_id = address.split("#")[1].split("/")[2];
+                    var profile = HubStar.Profile.find(owner_id);
+                    var data = null;
+                    for (var i = 0; i < profile.get('collections').get("length"); i++) {
+                        data = profile.get('collections').objectAt(i);
+                        if (data.id === collection_id) {
+                            break;
+                        }
                     }
+                    this.set("selectPhoto", false);
+                    this.transitionTo("profile", profile); // transition to profile
+                    this.transitionTo("profileCollection", data);
                 }
-                this.set("selectPhoto", false);
-                this.transitionTo("profile", profile); // transition to profile
-                this.transitionTo("profileCollection", data);
-            }
+           
+
         }
         else if (this.get('controllers.masonryCollectionItems').get("type") === "user")
         {
 
+                var collection_id = address.split("#")[1].split("/")[4];
+                var id = address.split("#")[1].split("/")[2]; //user id
+                var user = HubStar.User.find(id);
+                var data = null;
 
-            var collection_id = address.split("#")[1].split("/")[4];
-            var id = address.split("#")[1].split("/")[2]; //user id
-            var user = HubStar.User.find(id);
-            var data = null;
+                for (var i = 0; i < user.get('collections').get("length"); i++) {
+                    data = user.get('collections').objectAt(i);
+                    if (data.id === collection_id) {
 
-            for (var i = 0; i < user.get('collections').get("length"); i++) {
-                data = user.get('collections').objectAt(i);
-                if (data.id === collection_id) {
-
-                    break;
+                        break;
+                    }
                 }
-            }
-            this.set("selectPhoto", false);
-            this.transitionTo("collection", data); //user
-
+                this.set("selectPhoto", false);
+                this.transitionTo("collection", data); //user
+            
+            
         } else {
-            this.transitionTo("searchIndexTom");
+             this.transitionTo("searchIndexTom");
         }
-        $("#body_id").css("overflow", "auto");
-
     },
     editingContactForm: function() {
 
@@ -925,6 +924,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set('enableToEdit', !this.get('enableToEdit'));
     },
     yes: function(photoObject) {
+
         var photo_title = this.get('selectedPhoto.photo_title');
         var photo_caption = this.get('selectedPhoto.photo_caption');
         var link_text = this.get('selectedPhoto.link_text');
@@ -932,11 +932,14 @@ HubStar.MegaController = Ember.ArrayController.extend({
         photoObject.set('photo_title', photo_title);
         photoObject.set('photo_caption', photo_caption);
         photoObject.set('link_text', link_text);
-        photoObject.set('link_url', link_url);
+        photoObject.set('link_url', link_url); 
         photoObject.store.save();
         this.set('enableToEdit', !this.get('enableToEdit'));
     },
     no: function() {
+        if (this.get('selectedPhoto').get("isDirty")) {
+            this.get('selectedPhoto').rollback();
+        }
         this.set('enableToEdit', !this.get('enableToEdit'));
     },
     checkAuthenticUser: function() {

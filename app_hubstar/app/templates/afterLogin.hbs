@@ -3,8 +3,7 @@
 <div id="user-header-menu" {{action dropdown "user"}} >
 
     <div class="" data-toggle="dropdown" >
-        <a class="circle-btn" style="position: absolute;z-index: -1;border: none"><img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg" class="profilepic_user " /></a>           
-        <a class="circle-btn" style="z-index: 1;border: none"><img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user  easing" /></a>    
+        <a class="circle-btn" style="border: none"><img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user  easing" /></a>    
     </div>
     <div class="circle-btn-description">My Profile</div>
 

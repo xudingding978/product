@@ -19,12 +19,12 @@
     </div>
      {{/if}}
     <div data-hint="Add to your own collection." id="saveBtn_{{unbound model.id}}"  style="float: left;" class="object-type easing hint--top hint--rounded" {{action switchCollection model}}>
-         <i class="fa fa-folder" >&nbsp</i>
+         <i class="fa fa-folder" >&nbsp;<span style="font-size: 11px;">{{model.save_count}}</span>&nbsp</i>
     </div>
     <div id="share_{{unbound model.id}}" class="object-type easing"  style="">
 
         <div data-hint="Share this photo to other social platform." style="" class="hint--top hint--rounded" {{action shareDisplay model.id on="click"}}>
-            <i style="padding:10px" class="fa fa-share" >&nbsp</i>
+            <i style="padding:10px" class="fa fa-share" >&nbsp;<span style="font-size: 11px;">{{model.share_count}}</span>&nbsp</i>
         </div>
 
         <ul class="hideClass edit-object-ul" style="width: 150px; margin: 0 auto; top: 35px; left:30px; position: absolute; ">

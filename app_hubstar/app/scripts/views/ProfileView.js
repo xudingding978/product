@@ -1,32 +1,39 @@
 HubStar.ProfileView = Ember.View.extend({
-    
     templateName: 'profile',
-    
-    didInsertElement: function() {      
-           if(this.get('controller').get("profile_average_review_length")!=="" && this.get('controller').get("profile_average_review_length") !==null && this.get('controller').get("profile_average_review_length")!== undefined ){
+    didInsertElement: function() {
+        if (this.get('controller').get("profile_average_review_length") !== "" && this.get('controller').get("profile_average_review_length") !== null && this.get('controller').get("profile_average_review_length") !== undefined) {
             $('#starsize').attr("style", "width:" + this.get('controller').get("profile_average_review_length") + "px");
-       }
-       else {
-           $('#starsize').attr("style", "width:100px");
-       }
+        }
+        else {
+            $('#starsize').attr("style", "width:100px");
+        }
 
         $(".navbar").css("box-shadow", "0 0 10px #333");
         $(document).ready(function() {
-             setTimeout(function() {
+            setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 200);
             }, 200);
-             $(window).resize(function() {                  
-                         $(window).resize(function() {
-                if ($(window).width() > 1200) {
-                    $("#search-bar").css('display', "block");
-                    $("#topResidentialCommerical").css('display', "block");
-                    $(".search-bar-on-small-screen").css('display', "none");
-                } else {
-                    $("#search-bar").css('display', "none");
-                    $("#topResidentialCommerical").css('display', "none");
-                    $(".search-bar-on-small-screen").css('display', "block");
-                }
-            });
+            $(window).resize(function() {
+                $(window).resize(function() {
+                     setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 200);
+            }, 200);
+                    if ($(window).width() > 1200) {
+                        $("#search-bar").css('display', "block");
+                        $("#topResidentialCommerical").css('display', "block");
+                        $(".search-bar-on-small-screen").css('display', "none");
+                    } else {
+                        $("#search-bar").css('display', "none");
+                        $("#topResidentialCommerical").css('display', "none");
+                        $(".search-bar-on-small-screen").css('display', "block");
+                    }
+                });
             });
 
         });
@@ -85,6 +92,6 @@ HubStar.ProfileView = Ember.View.extend({
             });
         }
     }
-     
-    
+
+
 });

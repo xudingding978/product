@@ -750,7 +750,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                         if (object_type === "photos" || object_type === "articles" || object_type === "videos")
                         {
-
                             var m = HubStar.Mega.find(search_id);
                             this.transitionTo("search", {id: m.get("owner_title")});
                         }

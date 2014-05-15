@@ -85,8 +85,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                         mega.set("likes_count", like.length);
                         mega.set("people_like", params);
                         that.count = like.length;
-                        mega.set("isLike",true);
-                       
+                        mega.set("isLike",true);                       
                     });
                 }
             }            
@@ -94,7 +93,6 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
     },
     unLike: function(id)
     {
-        console.log("in ItemFunctionController.js unlike()");
         if (this.get("controllers.checkingLoginStatus").popupLogin()) {
             var mega = HubStar.Mega.find(id);
             var type = mega.get("type");
@@ -106,8 +104,6 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
             {
                 if (people_like.indexOf(localStorage.loginStatus) !== -1)
                 {
-                    
-                       console.log("included this current user");
                     var likeArray = [localStorage.loginStatus, id, type];
                     likeArray = JSON.stringify(likeArray);
                     var that = this;
@@ -115,25 +111,19 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                         if(params === ""){
                             mega.set("likes_count",0);
                             that.count = 0;
-                            console.log("that count is 0");
                         }else{
                             params = params + "";                      
                             var like = params.split(",");                      
                             mega.set("likes_count", like.length);
                             that.count = like.length;
-                            console.log("that count is not 0");
                         }
-                        mega.set("people_like", params);                      
-                        console.log("1this is the count " + that.count);
-                        mega.set("isLike",false);
-                        
+                        mega.set("people_like", params); 
+                        mega.set("isLike",false);                       
                     });
                     
                 }
                 else {
-                    console.log("not included this current user");
                     this.count = mega.get('likes_count');
-                    console.log("2this is the count " + this.count);
                 }
             }
         }

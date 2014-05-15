@@ -105,10 +105,8 @@ HubStar.Mega = DS.Model.extend({
         if(this.get("people_like") !== null){ 
             if(this.get("people_like").indexOf(localStorage.loginStatus) !== -1){
                 this.set("isLike",true);
-                console.log("checking is true");
             }else{
                 this.set("isLike",false);
-                console.log("checking is false");
             }
         }else{
             this.set("isLike",false);

@@ -7,9 +7,17 @@
 {{#if model.getProfile}}
 {{else}}
 <div class="item-function-control easing" style="">
+    {{model.photo_isLike}}
+                
+     {{#if model.isLike}}
+     <div  id="thumbUpBtn_{{unbound model.id}}" style="float: left;" class="object-type easing" {{action unLike model.id}}>
+          <i class="fa fa-thumbs-up">&nbsp;<span style="font-size: 11px;">{{model.likes_count}}</span>&nbsp;</i>
+    </div>
+     {{else}}
     <div  id="thumbUpBtn_{{unbound model.id}}" style="float: left;" class="object-type easing" {{action addLike model.id}}>
           <i class="fa fa-thumbs-up">&nbsp;<span style="font-size: 11px;">{{model.likes_count}}</span>&nbsp;</i>
     </div>
+     {{/if}}
     <div data-hint="Add to your own collection." id="saveBtn_{{unbound model.id}}"  style="float: left;" class="object-type easing hint--top hint--rounded" {{action switchCollection model}}>
          <i class="fa fa-folder" >&nbsp</i>
     </div>

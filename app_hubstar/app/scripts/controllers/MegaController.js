@@ -941,7 +941,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
 //    },
         yes: function()
     {
+        
         this.get('selectedPhoto').store.save();
+        
         this.set('enableToEdit', !this.get('enableToEdit'));
     },
     no: function() {

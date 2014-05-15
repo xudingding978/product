@@ -330,7 +330,7 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
         var coverImge = "";
         if (Mega.get('type') === "photo")
         {
-            coverImge = Mega.get('object_image_url');
+            coverImge = Mega.get('photo').objectAt(0).get("photo_image_original_url");
         }
         else if (Mega.get('type') === "article")
         {

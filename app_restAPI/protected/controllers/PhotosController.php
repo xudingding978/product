@@ -197,9 +197,9 @@ class PhotosController extends Controller {
     }
 
     public function getPictureKeyword($newRecord, $owner_id) {
-        $keyword_id = date_timestamp_get(new DateTime()) . rand(0, 99999);
+        $keyword_id = null;
         $keyword_name = null;
-        $create_date = date_timestamp_get(new DateTime());
+        $create_date = null;
         $expire_date = null;
         $value = null;
         $profile_id = $owner_id;
@@ -212,9 +212,9 @@ class PhotosController extends Controller {
             //$keyword_name = trim($newRecord, ",");
             // $returnedkeyinfo[$x] = array(
             $item = array();
-            $item['keyword_id'] = $keyword_id;
+            $item['keyword_id'] = date_timestamp_get(new DateTime()) . rand(0, 99999);
             $item['keyword_name'] = $keyarray[$x];
-            $item['create_date'] = $create_date;
+            $item['create_date'] = date_timestamp_get(new DateTime());
             $item['expire_date'] = $expire_date;
             $item['value'] = $value;
             $item['profile_id'] = $profile_id;

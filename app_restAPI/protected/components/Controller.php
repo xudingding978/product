@@ -1271,6 +1271,8 @@ class Controller extends CController {
                     $tempResult['stats'][0]['megas'][$i]['profile_administrator'] = $profile_administrator;
                     $tempResult['stats'][0]['megas'][$i]['profile_creator'] = $profile_creator;
                     
+                    $photo_keywords = (isset($mega_profile["profile"][0]["photo_keywords"])) ? $mega_profile["profile"][0]["photo_keywords"] : '';
+                    $tempResult['stats'][0]['megas'][$i]['photo_keywords'] = $photo_keywords;
                 }
             }
         } else {
@@ -1295,6 +1297,9 @@ class Controller extends CController {
                     $tempResult['megas'][$i]['profile_editor'] = $profile_editor;
                     $tempResult['megas'][$i]['profile_administrator'] = $profile_administrator;
                     $tempResult['megas'][$i]['profile_creator'] = $profile_creator;
+                    
+                    //$photo_keywords = (isset($mega_profile["profile"][0]["photo_keywords"])) ? $mega_profile["profile"][0]["photo_keywords"] : '';
+                    //$tempResult['stats'][0]['megas'][$i]['photo_keywords'] = $photo_keywords;
                 }
             }
         }

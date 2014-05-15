@@ -18,7 +18,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
         {id: "12", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment'}
 
     ],
-    needs: ['application'],
+    needs: ['application', 'mega'],
     init: function() {
         this.set('loginUsername', localStorage.userName);
     },

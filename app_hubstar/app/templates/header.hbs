@@ -7,18 +7,19 @@
             <a href="/#/search" > <img class="logonew" {{action showDiscoveryBar}} src="../../../images/landing-trends.png"></a>
             <a href="/#/search" > <img class="logonew-small" {{action showDiscoveryBar}} src="../../../images/trendsIcon.png"></a>
         </div>
-        <div id="top-about-menu" class="top-about-menu" {{action showAboutDropDown on="click" target="view"}}>
-            <i class="fa fa-info" style="color: #555;z-index: 10;position: absolute;left: 9px;font-size: 13px;top: 2px;"></i>
-            <i class="fa fa-comment fa-lg" style="font-size: 23px;position: absolute;"></i>
+        <div id="top-about-menu" class="easing"{{action dropdown "about"}}>
+            <i class="fa fa-info"></i>
         </div>
-        <ul id="top-menu" class="edit-object-ul" style="display:none;width: 160px;position: absolute;top:80px;left: 120px;">
+        {{#if controller.headerAbout}}
+        <div id="header_menu_about" class="blank-top-bar"  {{action dropdown "about"}}>&nbsp;</div>
+             
+        <ul id="top-menu" class="edit-object-ul" style="width: 160px;position: absolute;top:80px;left: 110px;">
             <li class="ite" > <span><a  target="blank" href="http://about.trendsideas.com/">About</a></span></li>
             <li class="ite" > <span><a target="blank" href="http://about.trendsideas.com/business/">Business</a></span></li>
             <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/learning-centre/">Learning Centre</a></span></li>
             <li class="ite" >  <span><a target="blank" href="http://about.trendsideas.com/contact-us/">Contact us</a></span></li>
-
         </ul>
-
+        {{/if}}
 
 
 
@@ -31,7 +32,7 @@
             </div>
         </div>
 
-        <div id="Geo-Filter" class="Geo-Filter easing"  {{action dropdown "notification"}} data-step="3" data-intro="New notifications will appear beside the <b>Notification icon</b>. Click the icon to see your latest notifications.">
+        <div id="notification-filter" class="Geo-Filter easing"  {{action dropdown "notification"}} data-step="3" data-intro="New notifications will appear beside the <b>Notification icon</b>. Click the icon to see your latest notifications.">
             <div class="circle-btn"><i class="fa fa-bell fa-lg" ></i></div>
             <div class="circle-btn-description">Notification</div>
             {{#if isUnReadCountZero}}
@@ -51,16 +52,16 @@
         <!-- user is logged in -->
 
         {{#if isNotification}}
-        <div style="position: relative; float: right; top: 68px; z-index: 100;left: 41px;">
-            <div style="position: absolute;border-color: transparent transparent #f3f3f3 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: 0;top: 5px;"></div>
-            <div style="position: absolute;border-color: transparent transparent #888 transparent;border-style: solid;border-width: 10px 10px 10px 10px;z-index: -1;top: 5px;"></div>
+        <div class="notification-triangle">
+            <div class="notification-triangle-after" style=""></div>
+            <div class="notification-triangle-before" style=""></div>
         </div>
         {{render notificationTop}}
         {{/if}}
 
         <div id="geo-filter" class="Geo-Filter easing "  {{action dropdown "geoLocation"}} data-step="2" data-intro=" Use the <b>Location Filter</b> to filter search results by region.">
             <div class="circle-btn"><i class="fa fa-globe fa-lg"></i></div>
-            <div id="countryLocation" class="Geo-Filter-location">{{HubStar.geoLocation}}</div>
+            <div id="countryLocation" class="Geo-Filter-location">{{controller.geoLocation}}</div>
         </div>
 
         {{#if controller.isGeoDropdown}}
@@ -112,13 +113,12 @@
             </div>
         </div>
 
-        <div  id="topResidentialCommerical">
+        <div  id="topResidentialCommerical" >
             <div id="residential2" class="residentialCommericalTop residentialCommerical-selected easing"   {{action residential on="click" target="view"}}>Residential</div>
             <div id="commercial2" class="residentialCommericalTop residentialCommerical-selected easing"  {{action commercial on="click" target="view"}}>Commercial</div>
         </div>
 
     </div>
-
 
 </div>
 

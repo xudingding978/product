@@ -237,8 +237,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('youtube', profile.get('profile_youtube_link'));
         this.set('name', profile.get('profile_name'));
         this.set('profile_creator', profile.get('profile_creater'));
-        this.set('direct_enquiry_provide_email', profile.get('owner_third_contact_email'));
-        this.set('secondary_email', profile.get('owner_second_contact_email'));
+        //this.set('direct_enquiry_provide_email', profile.get('owner_third_contact_email'));
+        this.set('direct_enquiry_provide_email', profile.get('owner_contact_bcc_emails'));
+        //this.set('secondary_email', profile.get('owner_second_contact_email'));
+        this.set('secondary_email', profile.get('owner_contact_cc_emails'));
         this.set('contact_email', profile.get('owner_contact_email'));
         this.set('website', profile.get('profile_website'));
         this.set('website_url', profile.get('profile_website_url'));
@@ -319,9 +321,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         photoCreateController.setMega();
         this.initStastics(profile);
         this.followerPhoto(id);
-
-//        if (profile.get("keywords") !==null && profile.get("keywords") !== "undefined" && profile.get("keywords").get('length') > 0) {
-
         this.set("keywords_array", profile.get('keywords'));
         this.set("show_keyword_id", profile.get('show_keyword_id'));
 
@@ -331,9 +330,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('show_keyword_id', '');
             this.set('show_keyword_array', []);
         }
-//        } else {            
-//            this.setKeywordsArray(this.get('model').get('profile_keywords'));
-//        }
 
         this.set('keyword_left', parseInt(this.get("keyword_num")) - profile.get('keywords').get('length'));
         this.setAboutUsObject();
@@ -346,6 +342,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             } else {
                 this.get('model').set('show_template', false);
             }
+        }
+         if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+           
         }
     },
     setAboutUsObject: function() {

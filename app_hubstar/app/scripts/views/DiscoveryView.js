@@ -38,8 +38,8 @@ HubStar.DiscoveryView = Ember.View.extend({
 
         if ($("#commercial").hasClass("residentialCommerical-selected")) {
             if ($("#residential").hasClass("residentialCommerical-selected")) {
-                $("#residential").removeClass("residentialCommerical-selected");
-                localStorage.resOrcom = "commercial";
+                $("#commercial").removeClass("residentialCommerical-selected");
+                localStorage.resOrcom = "residential";
             } else {
                 $("#residential").addClass("residentialCommerical-selected");
                 localStorage.resOrcom = "All";
@@ -48,7 +48,7 @@ HubStar.DiscoveryView = Ember.View.extend({
         else {
             $("#commercial").addClass("residentialCommerical-selected");
             $("#residential").removeClass("residentialCommerical-selected");
-            localStorage.resOrcom = "commercial";
+            localStorage.resOrcom = "residential";
         }
         this.get("controller").residentialCommercialStatus();
         this.get("controller").changeBackground();
@@ -57,8 +57,8 @@ HubStar.DiscoveryView = Ember.View.extend({
     commercial: function() {
         if ($("#residential").hasClass("residentialCommerical-selected")) {
             if ($("#commercial").hasClass("residentialCommerical-selected")) {
-                $("#commercial").removeClass("residentialCommerical-selected");
-                localStorage.resOrcom = "residential";
+                $("#residential").removeClass("residentialCommerical-selected");
+                localStorage.resOrcom = "commercial";
             } else {
                 $("#commercial").addClass("residentialCommerical-selected");
                 localStorage.resOrcom = "All";
@@ -67,7 +67,7 @@ HubStar.DiscoveryView = Ember.View.extend({
         else {
             $("#residential").addClass("residentialCommerical-selected");
             $("#commercial").removeClass("residentialCommerical-selected");
-            localStorage.resOrcom = "residential";
+            localStorage.resOrcom = "commercial";
         }
          this.get("controller").residentialCommercialStatus();
         this.get("controller").changeBackground();

@@ -848,6 +848,99 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 
 
 
+.enquiryBtn-containter{
+    width: 50px;
+    height: 50px;
+    z-index: 1;
+    cursor: pointer;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+}
+
+
+.enquiryBtn-ring{
+    border: 5px solid rgba(255,0,0,.6);
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    -webkit-animation: pulsate 1s ease-out;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation: pulsate 1s ease-out;
+    -moz-animation-iteration-count: infinite;
+    opacity: 0.0;
+    z-index: 1;
+}
+@-webkit-keyframes pulsate {
+    0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
+    50% {opacity: 1.0;}
+    100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+}
+
+@keyframes pulsate {
+    0% {-moz-transform: scale(0.1, 0.1); opacity: 0.0;}
+    50% {opacity: 1.0;}
+    100% {-moz-transform: scale(1.2, 1.2); opacity: 0.0;}
+}
+
+.enquiryBtn{
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 44px;
+    border-radius: 50%;
+    z-index: 10;
+    position: relative;
+    margin-top: 5px;
+    margin-left: 5px;
+
+
+    background: #f3f3f3; /* Old browsers */
+    background: -moz-linear-gradient(top,  #f3f3f3 0%, #eaeaea 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f3f3f3), color-stop(100%,#eaeaea)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #f3f3f3 0%,#eaeaea 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #f3f3f3 0%,#eaeaea 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #f3f3f3 0%,#eaeaea 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #f3f3f3 0%,#eaeaea 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3f3f3', endColorstr='#eaeaea',GradientType=0 ); /* IE6-9 */
+
+
+
+
+}
+
+.enquiryBtn:hover{
+    background: #f6c9b7; /* Old browsers */
+    background: -moz-linear-gradient(top,  #f6c9b7 0%, #ff392d 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f6c9b7), color-stop(100%,#ff392d)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #f6c9b7 0%,#ff392d 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #f6c9b7 0%,#ff392d 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #f6c9b7 0%,#ff392d 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #f6c9b7 0%,#ff392d 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6c9b7', endColorstr='#ff392d',GradientType=0 ); /* IE6-9 */
+}
+
+.enquiryBtn > i {color: red;text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;}
+
+.enquiryBtn:hover > i {color: white;text-shadow:none;}
+
+.btn-description{
+    font-size: 13px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    margin: 8px 0 0 -8px;
+}
+
+
+
+
 
 
 

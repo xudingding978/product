@@ -10,7 +10,6 @@ HubStar.SearchsRoute = Ember.Route.extend({
         this.controllerFor('index').setLogin();
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('status').set('islogin', true);
-       
         if (localStorage.checkUser === "newUser") {
 
             setTimeout(function() {
@@ -80,7 +79,6 @@ HubStar.SearchsRoute = Ember.Route.extend({
         } else {
 
         }
-
     },
     activate: function() {
         var that = this;

@@ -282,7 +282,6 @@ class CommentsController extends Controller {
         $url = $this->getDomain() . "/" . $id;
         $tempRecord = $cb->get($url);
         $mega = CJSON::decode($tempRecord, true);
-        error_log(var_export($mega['comments'],true));
         
         if (isset($mega['comments'])) {
             $comments = $mega['comments'];
@@ -310,7 +309,6 @@ class CommentsController extends Controller {
        
         $mega['comments'] = $comments;
         if ($cb->set($url, CJSON::encode($mega))) {
-             error_log("55555");
             
         } else {
             $this->sendResponse(500, "some thing wrong");

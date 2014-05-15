@@ -176,7 +176,7 @@ class PhotosController extends Controller {
             $oldRecord['photo'][0]['photo_caption'] = $newRecord['photo']['photo_caption'];
 
             //$oldRecord['photo'][0]['photo_keywords'] = $newRecord['photo']['photo_keywords'];
-            $keyword = $this->getPictureKeyword($newRecord['photo']['photo_keywords']);
+            $keyword = $this->getPictureKeyword($newRecord['photo']['photo_keywords'], $oldRecord['owner_id']);
             //$keyword1 = array("1",$newRecord['photo']['photo_keywords'],"date","null","null","p","null","false");
             //$keyword2 = array("2","key","date","null","null","p","null","false");
             //$keyword = array($keyword1,$keyword2);
@@ -196,31 +196,50 @@ class PhotosController extends Controller {
         }
     }
 
-    public function getPictureKeyword($newRecord) {
-        $keyword_id = 0;
+    public function getPictureKeyword($newRecord, $owner_id) {
+        $keyword_id = date_timestamp_get(new DateTime()) . rand(0, 99999);
         $keyword_name = null;
-        $create_date = 0;
+        $create_date = date_timestamp_get(new DateTime());
         $expire_date = null;
         $value = null;
-        $profile_id = "p";
+        $profile_id = $owner_id;
         $collection_id = null;
         $is_delete = false;
         $returnedkeyinfo = array();
-        if (!isset($newRecord['keyword'])) {
-        $returnedkeyinfo['keyword'] = array(
-            "keyword_id: " . $keyword_id,
-            "keyword_name: " . $newRecord, 
-            "create_date: " . $create_date, 
-            "expire_date: " . $expire_date, 
-            "value: " . $value, 
-            "profile_id: " . $profile_id, 
-            "collection_id: " . $collection_id, 
-            "is_delete: " . $is_delete);
+        $keyarray = explode(",", $newRecord);
+        //if (!isset($newRecord['keyword'])) {
+        for ($x = 0; $x < sizeof($keyarray); $x++) {
+            //$keyword_name = trim($newRecord, ",");
+            // $returnedkeyinfo[$x] = array(
+            $item = array();
+            $item['keyword_id'] = $keyword_id;
+            $item['keyword_name'] = $keyarray[$x];
+            $item['create_date'] = $create_date;
+            $item['expire_date'] = $expire_date;
+            $item['value'] = $value;
+            $item['profile_id'] = $profile_id;
+            $item['collection_id'] = $collection_id;
+            $item['is_delete'] = $is_delete;
+
+
+
+            /*$returnedkeyinfo[$x] = array(
+                "keyword_id: " . $keyword_id,
+                "keyword_name: " . $keyarray[$x],
+                "create_date: " . $create_date,
+                "expire_date: " . $expire_date,
+                "value: " . $value,
+                "profile_id: " . $profile_id,
+                "collection_id: " . $collection_id,
+                "is_delete: " . $is_delete);*/
+
+
+
+            $returnedkeyinfo[$x] = $item;
+            
         }
-        return $returnedkeyinfo['keyword'];
-
-
-        //$picture['keyword'];
+        return $returnedkeyinfo;
+        
     }
 
     public function getProfileKeyword($owner_id) {

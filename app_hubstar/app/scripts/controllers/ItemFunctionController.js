@@ -84,7 +84,8 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                         mega.set("likes_count", like.length);
                         mega.set("people_like", params);
                         that.count = like.length;
-                        mega.set("isLike",true);                       
+                        mega.set("isLike",true);              
+                        mega.store.save();
                     });
                 }
             }            
@@ -92,6 +93,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
     },
     unLike: function(id)
     {
+        console.log("in ItemFunctionController.js unLike()");
         if (this.get("controllers.checkingLoginStatus").popupLogin()) {
             var mega = HubStar.Mega.find(id);
             var type = mega.get("type");
@@ -117,7 +119,8 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                             that.count = like.length;
                         }
                         mega.set("people_like", params); 
-                        mega.set("isLike",false);                       
+                        mega.set("isLike",false);         
+                        mega.store.save();
                     });
                     
                 }

@@ -3,7 +3,6 @@ HubStar.CollectionsView = Ember.View.extend({
     didInsertElement: function() {          
         $(document).ready(function() {
             setTimeout(function() {
-                console.log("aaaaaaaaaaaaaaaaaaaaaaa");
                 $('#masonry_user_container').masonry("reloadItems");
                 setTimeout(function() {
                     $('#masonry_user_container').masonry();

@@ -114,7 +114,24 @@ class PdfsController extends Controller {
     }
 
     public function actionRead() {
-        
+        try {
+            $cb = $this->couchBaseConnection();
+            $fileName = $this->getDomain() . $_SERVER['REQUEST_URI'];
+            
+            $reponse = $cb->get($fileName);
+            $request_arr = CJSON::decode($reponse, true);
+            $respone_client_data = str_replace("\/", "/", CJSON::encode($request_arr["pdf"][0]));
+            $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
+//Iterate over the hits and print out some data
+            if($request_arr!==null){
+            $result .=$respone_client_data;
+            }
+            $result .= '}';
+
+            echo $this->sendResponse(200, $result);
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
     }
 
     public function actionUpdate() {

@@ -49,30 +49,10 @@
 
             <!--<div class="previous" style="width: 50%; height: 100%; float: left;" ></div>-->
             <!--    <div class="next" style="width: 50%; height: 100%; float: right;"  ></div>-->
-            <div class="mainfeature_object" style="z-index: 0;text-align: center;line-height: 70;">{{{controller.video_iframe_code}}}</div>
+            <div class="mainfeature_object" style="z-index: 0;text-align: center;line-height: 70;max-width : 100%; width: 100%">{{{controller.video_iframe_code}}}</div>
 
         </div>
         <!--THIS IS THE ALBUM BOX-->
-
-
-
-        <!--THIS IS THE ALBUM BOX-->
-
-        <div class="bottom-controlbar easing" >
-            <div class="text-on-black" style="right: 132px;"></div>
-            <div class="fa icon-on-black"  style="display:inline-block; vertical-align: top; position:relative; left:44px;">
-                <i class="fa fa-arrow-left"></i>
-            </div>
-            <div class="fa icon-on-black hint--rounded hint--top" data-hint="Show other photos in this collection." style="left: 44px; display:inline-block; vertical-align: top; position:relative;" >
-                <i class="fa fa-th"></i>
-            </div>
-            <div class="fa icon-on-black" style="left: 44px;position: relative;vertical-align: top;display: inline-block;" >
-                <i class="fa fa-arrow-right"></i>
-            </div>
-            <div class="text-on-black" style="left: 88px; top:0;position: relative;display: inline-block;vertical-align: top;">  </div>
-        </div>
-
-
 
 
     </div>
@@ -91,8 +71,10 @@
 
                     <a class="poster-name" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
                 </div>        
-                <div class="contactmebtn hint--left hint--rounded easing" data-hint="Contact us!" style="position: absolute;">
-                    <a class="contactmeicon easing" {{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></a>
+                <div class="enquiryBtn-containter" style="float: right;margin-left: -5px;margin-top: -10px;">
+                    <div class="enquiryBtn-ring"></div>
+                    <div class="enquiryBtn easing"{{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></div>
+                    <div class="btn-description" style="color: #333">MESSAGE</div>
                 </div>
             </div>
 

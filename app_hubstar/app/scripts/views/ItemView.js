@@ -33,9 +33,7 @@ HubStar.ItemView = Ember.View.extend({
         $(collape_button).attr("style", "display:block");
         $(more_button).attr("style", "display:none");
 
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-        }, 200);
+     
     },
     collapeContent: function(event) {
         var id = "#" + event.id;
@@ -47,9 +45,6 @@ HubStar.ItemView = Ember.View.extend({
         $(collape_button).attr("style", "display:none");
         $(more_button).attr("style", "display:block");
 
-        setTimeout(function() {
-            $('#masonry_container').masonry("reload");
-        }, 200);
     },
     searching: function(search_key) {
         this.get("controller").transitionToRoute('search', {id: search_key});

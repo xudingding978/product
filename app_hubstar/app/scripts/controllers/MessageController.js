@@ -284,9 +284,6 @@ HubStar.MessageController = Ember.Controller.extend({
         });
         $('#addcommetBut').attr('style', 'display:block');
         $('#commentBox').attr('style', 'display:none');
-//        setTimeout(function() {
-//            $('#masonry_container').masonry("reloadItems");
-//        }, 200);
     },
     addReply: function(message_id) {
 
@@ -399,17 +396,9 @@ HubStar.MessageController = Ember.Controller.extend({
                 that.set('newStyleImageSource', null);
                 that.set('newStyleImageName', "");
             });
-
-
-            $('#addcommetBut').attr('style', 'display:block');
-            $('#commentBox').attr('style', 'display:none');
-//        setTimeout(function() {
-//            $('#masonry_container').masonry("reloadItems");
-//
-//        }, 200);
-
-
-        }
+        $('#addcommetBut').attr('style', 'display:block');
+        $('#commentBox').attr('style', 'display:none');
+    }
     },
     close: function() {
         this.set('replyContent', "");

@@ -116,13 +116,8 @@ HubStar.VideoView = Ember.View.extend({
                         this.get("controller").transitionTo("search", {id: id});
                     }
                 }
-
                 $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-
             }
-
         }
     }
-
-
 });

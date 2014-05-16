@@ -380,12 +380,11 @@ HubStar.LoginModalView = Ember.View.extend({
                 $('.Login-box #register-with-email-step-3').css('display', 'none');
                 $('.Login-box #user-login-pane').css('display', 'block');
             }
-
         }
-
     },
-    closePane: function() {
-
+    closePane: function() {    
+     //   this.get("controller").get("controllers.mega").closeWindow();
+     //    $("#body_id").css("overflow","auto");
         HubStar.set('checkLoginStatus', false);
     }
     ,
@@ -449,8 +448,5 @@ HubStar.LoginModalView = Ember.View.extend({
         }
         localStorage.userType = "google";
     }
-
-
-
 });
 

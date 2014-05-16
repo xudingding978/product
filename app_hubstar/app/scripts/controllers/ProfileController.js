@@ -193,11 +193,22 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 else if (mega.get('classification') === undefined || mega.get('classification') === "" || mega.get('classification') === null) {
                     localStorage.resOrcom = "All";
                 }
-                var thatthat= that;
+                var thatthat = that;
                 $(document).ready(function() {
-                    setTimeout(function() {       
+                    setTimeout(function() {
                         thatthat.get("controllers.application").residentialCommercialStatus();
-                         thatthat.get("controllers.application").changeBackground();
+                        thatthat.get("controllers.application").changeBackground();
+
+                        if ($(window).width() > 1200) {
+                            $("#search-bar").css('display', "block");
+                            $("#topResidentialCommerical").css('display', "block");
+                            $(".search-bar-on-small-screen").css('display', "none");
+                        } else {
+                            $("#search-bar").css('display', "none");
+                            $("#topResidentialCommerical").css('display', "none");
+                            $(".search-bar-on-small-screen").css('display', "block");
+                        }
+
                     }, 50);
                 });
             });
@@ -224,8 +235,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('youtube', profile.get('profile_youtube_link'));
         this.set('name', profile.get('profile_name'));
         this.set('profile_creator', profile.get('profile_creater'));
-        this.set('direct_enquiry_provide_email', profile.get('owner_third_contact_email'));
-        this.set('secondary_email', profile.get('owner_second_contact_email'));
+        //this.set('direct_enquiry_provide_email', profile.get('owner_third_contact_email'));
+        this.set('direct_enquiry_provide_email', profile.get('owner_contact_bcc_emails'));
+        //this.set('secondary_email', profile.get('owner_second_contact_email'));
+        this.set('secondary_email', profile.get('owner_contact_cc_emails'));
         this.set('contact_email', profile.get('owner_contact_email'));
         this.set('website', profile.get('profile_website'));
         this.set('website_url', profile.get('profile_website_url'));
@@ -301,7 +314,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         photoCreateController.setMega();
         this.initStastics(profile);
         this.followerPhoto(id);
-
         this.set("keywords_array", profile.get('keywords'));
         this.set("show_keyword_id", profile.get('show_keyword_id'));
 
@@ -311,8 +323,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('show_keyword_id', '');
             this.set('show_keyword_array', []);
         }
-
-
         this.set('keyword_left', parseInt(this.get("keyword_num")) - profile.get('keywords').get('length'));
         this.setAboutUsObject();
         this.set('editingAbout', false);
@@ -324,6 +334,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             } else {
                 this.get('model').set('show_template', false);
             }
+        }
+         if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+           
         }
     },
     setAboutUsObject: function() {
@@ -1192,7 +1206,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
 
     },
-
+//    saveShowKeywords: function() {
+//        var show_keyword_id = '';
+//        for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
+//            show_keyword_id = show_keyword_id+','+ this.get('keywords_array').objectAt(i).get('keyword_id');
+//        }
+//        this.set('show_keyword_id',show_keyword_id);
+//        this.saveUpdate();
+//    },
     addKeywords: function() {
         var keywords_JSON = [];
         var add_keywords_array = this.get('add_keywords').split(',');

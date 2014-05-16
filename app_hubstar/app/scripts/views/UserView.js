@@ -1,14 +1,18 @@
 HubStar.UserView = Ember.View.extend({
     templateName: 'user',
     didInsertElement: function() {
-        $("#top-about-menu").css('display', 'none');
-        $("#search-bar").css('display', 'block');
-        $(".navbar").css("box-shadow", "0 0 10px #333");
-        $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-          
-   var address = document.URL;
-        var user_id = address.split("#")[1].split("/")[3];
 
+        $(".navbar").css("box-shadow", "0 0 10px #333");
+        var container = document.querySelector('#masonry_user_container');
+        var msnry = new Masonry(container, {
+            itemSelector: '.box',
+            columnWidth: 185,
+            //isInitLayout: false,
+            isFitWidth: true
+        });
+
+        var address = document.URL;
+        var user_id = address.split("#")[1].split("/")[3];
 
         if (user_id === "following")
         {
@@ -56,29 +60,24 @@ HubStar.UserView = Ember.View.extend({
         }
 
         $(document).ready(function() {
-
-            $("#about_us_contents").mCustomScrollbar({
-                scrollButtons: {
-                    enable: false, 
-                    scrollSpeed: "auto"
-                },
-                advanced: {
-                    updateOnBrowserResize: true,
-                    updateOnContentResize: true,
-                    autoScrollOnFocus: false,
-                    normalizeMouseWheelDelta: false
-                },
-                autoHideScrollbar: true,
-                mouseWheel: true,
-                theme: "dark-2",
-                set_height: 30
+            $(window).resize(function() {
+                if ($(window).width() > 1200) {
+                    $("#search-bar").css('display', "block");
+                    $("#topResidentialCommerical").css('display', "block");
+                    $(".search-bar-on-small-screen").css('display', "none");
+                    $(".user-board").css("top", "0");
+                } else {
+                    $("#search-bar").css('display', "none");
+                    $("#topResidentialCommerical").css('display', "none");
+                    $(".search-bar-on-small-screen").css('display', "block");
+                    $(".user-board").css("top", "30px");
+                }
             });
+
         });
 
     },
     showInterestsUp: function() {
-
-        
         if ($('#interest_btn').hasClass('fa-angle-double-up') && this.get('controller').get('interestsActive') === false) {
 
             this.get('controller').set('followDisplay', false);
@@ -112,9 +111,6 @@ HubStar.UserView = Ember.View.extend({
 
         }// Slide up (open) no prior set parameters/coditions
 
-
-
-
         if ($('#interest_btn').hasClass('fa-angle-double-down') && this.get('controller').get('interestsActive') === false) {
 
             this.get('controller').set('followDisplay', false);
@@ -133,8 +129,6 @@ HubStar.UserView = Ember.View.extend({
             // Changes the active state position of the slide up/down arrow.
 
         }// Displays the full sized edit box, when interest's box is already at full size
-
-
 
         else {
 
@@ -172,7 +166,6 @@ HubStar.UserView = Ember.View.extend({
             $('.interesttags-container').css('height', '375px');
             $('.interest-insert-hint').css('display', 'block');
             $('.interest-textarea').css('height', '250px');
-            //Coin's
 
             setTimeout(function() {
                 $("#profile-picture").addClass('profile-picture-active');
@@ -207,8 +200,5 @@ HubStar.UserView = Ember.View.extend({
             // Removes  required class styles for slide down animation
 
         }// Slide down (close)
-
     }
-
-
 });

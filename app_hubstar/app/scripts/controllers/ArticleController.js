@@ -14,7 +14,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     isShowPhotoUrl: false,
     accessFromSearchBoard: false, //false: access the articlePhoto  true: access the article
     isCreditListExist: false,
-    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems'],
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems', 'mega'],
     init: function() {
         HubStar.set("readCaption", true);
     },
@@ -82,6 +82,10 @@ HubStar.ArticleController = Ember.Controller.extend({
             {
                 this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
             }
+            else if (search_type === "articles")
+            {
+                this.transitionTo("searchsArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+            }
         }
 
         this.set("photo_album_id", "album_" + this.get('selectedPhoto').get("id"));
@@ -146,7 +150,10 @@ HubStar.ArticleController = Ember.Controller.extend({
             {
                 this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
             }
-
+            else if (search_type === "articles")
+            {
+                this.transitionTo("searchsArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+            }
         }
 
         this.set("photo_album_id", "album_" + this.get('selectedPhoto').get("id"));
@@ -224,13 +231,20 @@ HubStar.ArticleController = Ember.Controller.extend({
         {
             var address = document.URL;
             var id = address.split("#")[1].split("/")[2];
-            if (id === "default") //it is the search index
+            var search_type = address.split("#")[1].split("/")[1];
+            if (search_type === "articles")
             {
-                this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                this.transitionTo("searchsArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
             }
-            else
-            {
-                this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+            else {
+                if (id === "default") //it is the search index
+                {
+                    this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                }
+                else
+                {
+                    this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                }
             }
             //this.transitionTo("article", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo
             //                                                               // as it use the fix id to refresh the route so it will have problem when fresh (change the id)
@@ -238,8 +252,13 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.selectedImage(e);
         this.captionDisplay();
     },
+//    selectedImage: function(id) {
+//        var selectedImage_id = "#" + id;
+//        $('.photo_original_style').removeClass('selected_image_style');
+//        $(selectedImage_id).addClass('selected_image_style');
+//    },
     selectedImage: function(id) {
-        var selectedImage_id = "#" + id;
+        var selectedImage_id = "#showalbum_" + id;
         $('.photo_original_style').removeClass('selected_image_style');
         $(selectedImage_id).addClass('selected_image_style');
     },
@@ -264,9 +283,10 @@ HubStar.ArticleController = Ember.Controller.extend({
             requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function() {
             });
         });
-        
-              if (this.get("controllers.checkingLoginStatus").popupLogin())
+
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
+
         }
     },
     checkCreditExist: function(credits) {
@@ -408,6 +428,10 @@ HubStar.ArticleController = Ember.Controller.extend({
                             {
                                 that.transitionTo("articlePhoto", that.get('content').objectAt(0));
                             }
+                            else if (search_type === "articles")
+                            {
+                                that.transitionTo("searchsArticlePhoto", that.get('content').objectAt(0));
+                            }
                             this.set("isShowPhotoUrl", false);
                         }
 
@@ -425,6 +449,14 @@ HubStar.ArticleController = Ember.Controller.extend({
                     if (articlePhoto[articlePhoto.get("length") - 2] === "photos")
                     {
                         that.selectImage(articlePhoto[articlePhoto.get("length") - 1]);
+                    }
+                    if (HubStar.get("photoID") === null || HubStar.get("photoID") === undefined || HubStar.get("photoID") === "")
+                    {
+                    }
+                    else
+                    {
+                        that.selectImage(HubStar.get("photoID"));
+                        HubStar.set("photoID", "");
                     }
                 }
             }
@@ -459,7 +491,6 @@ HubStar.ArticleController = Ember.Controller.extend({
             }
             else
             {
-
                 HubStar.set("escVideo", true);
                 this.transitionTo("search", {id: user_id}); // go to search page, this can  work, but it is too slowlly.
             }
@@ -482,6 +513,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             else if (type === "photos" || type === "articles" || type === "videos")
             {
                 var m = HubStar.Mega.find(user_id);
+                HubStar.set("closeArticlePhoto", true);
                 this.transitionTo("search", {id: m.get("owner_title")});
             }
         }
@@ -576,7 +608,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
         function callback(response) {
             if (response && response.post_id) {
-                var mega = HubStar.Mega.find(this.get('articleID'));
+                var mega = HubStar.Mega.find(that.get('articleID'));
                 mega.then(function() {
                     if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
                     {

@@ -1,4 +1,4 @@
-HubStar.SearchArticlePhotoRoute = Ember.Route.extend({
+HubStar.SearchDefaultPhotoRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         var temp;
         var url = window.location.href;
@@ -8,22 +8,22 @@ HubStar.SearchArticlePhotoRoute = Ember.Route.extend({
         } else {
             temp = model.id;
         }
-       // var type= url []
+        this.controllerFor("masonryCollectionItems").set("type", "profile");
+        //    this.controllerFor("masonryCollectionItems").set("type", "user");
         var megaModel = HubStar.Mega.find(temp);
-         var that = this;
+        //   this.controllerFor('mega').set("selectPhoto", true);
+        var that = this;
         megaModel.then(function() {           
            that.controllerFor('mega').getInitData(megaModel);
         },function() {
-            
            that.transitionTo('fourOhFour',"404");
         }); 
         
 
     },
     model: function(params) {
-        var model = HubStar.Mega.find(params.photo_id);
+        var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});
         this.controllerFor("mega").set("clickOrRoute", true);
-  
         return model;
     },
     activate: function() {

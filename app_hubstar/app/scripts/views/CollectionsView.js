@@ -1,5 +1,16 @@
 HubStar.CollectionsView = Ember.View.extend({
     templateName: 'collections',
+    didInsertElement: function() {          
+        $(document).ready(function() {
+            setTimeout(function() {
+                console.log("aaaaaaaaaaaaaaaaaaaaaaa");
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 200);
+            }, 200);
+        });
+    },
     editCollectionButton: function(id, title, desc) {
         var userController = this.get('controller');
         userController.setSelectedCollection(id);

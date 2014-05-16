@@ -18,12 +18,12 @@ HubStar.ProfileView = Ember.View.extend({
             }, 200);
             $(window).resize(function() {
                 $(window).resize(function() {
-                     setTimeout(function() {
-                $('#masonry_user_container').masonry("reloadItems");
-                setTimeout(function() {
-                    $('#masonry_user_container').masonry();
-                }, 200);
-            }, 200);
+                    setTimeout(function() {
+                        $('#masonry_user_container').masonry("reloadItems");
+                        setTimeout(function() {
+                            $('#masonry_user_container').masonry();
+                        }, 200);
+                    }, 200);
                     if ($(window).width() > 1200) {
                         $("#search-bar").css('display', "block");
                         $("#topResidentialCommerical").css('display', "block");

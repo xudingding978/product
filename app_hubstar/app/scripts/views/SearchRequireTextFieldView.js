@@ -14,7 +14,6 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
                     HubStar.set("escVideo", false);
                     controller.transitionToRoute('search', {id: controller.get('search_string')});
                     $(".Navigator-box").css('display', 'none');
-                    $("#top-about-menu").fadeOut("320");
                     $("#search-bar").fadeIn("320");
                     HubStar.set("showDiscoveryBar", false);
                 }

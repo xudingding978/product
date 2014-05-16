@@ -53,24 +53,7 @@ HubStar.PhotoView = Ember.View.extend({
             var user_photo_id = address.split("#")[1].split("/")[8];
             if (type === "users")
             {
-                var user = HubStar.User.find(id);
-
-                if (user_photo_id !== undefined || colectionType === "articles" || colectionType === "photos") //type:article means it 
-                {
-
-                    var data = null;
-                    for (var i = 0; i < user.get('collections').get("length"); i++) {
-                        data = user.get('collections').objectAt(i);
-                        if (data.id === collection_id) {
-                            break;
-                        }
-                    }
-                    this.get("controller").transitionTo("collection", data); //user
-                }
-                else
-                {
-                    window.history.back();
-                }
+                this.get("controller").closeWindow();
             }
             else if (type !== "search")
             {
@@ -78,28 +61,10 @@ HubStar.PhotoView = Ember.View.extend({
             }
             else
             {
-
-                if (id === "default") //it is the search index
-                {
-                    this.get("controller").transitionTo("searchIndexTom");
-                    this.get("controller").set("selectPhoto", false);
-                    this.get("controller").set('image_no', 1);
-                }
-                else
-                {
-                    HubStar.set("escVideo", true);
-                    this.get("controller").set("selectPhoto", false);
-                    this.get("controller").set('image_no', 1);
-                    this.get("controller").transitionTo("search", {id: id});
-                }
-                this.get("controller").get("controllers.mega").set("selectPhoto", false);
+                this.get("controller").closeWindow();
+                this.get("controller").set("selectPhoto", false);
                 $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-                setTimeout(function() {
-                    $('#masonry_container').masonry();
-                }, 300);
             }
-
-
         }
     }
 

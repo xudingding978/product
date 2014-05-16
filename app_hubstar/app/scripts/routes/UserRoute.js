@@ -39,11 +39,11 @@ HubStar.UserRoute = Ember.Route.extend({
         this.controller.set('messageTag', false);
         this.controller.set('messageTag', false);
         this.controller.set('postTag', false);
-$(window).scrollTop(0);
+        $(window).scrollTop(0);
         this.controllerFor('user').set("model", model);
         this.controllerFor('user').setUser();
-        $("#top-about-menu").css('display', 'none');
-        $("#search-bar").css('display', 'block');
+        
+       
     },
     model: function(params) {
 
@@ -97,27 +97,10 @@ $(window).scrollTop(0);
     },
     activate: function() {
 
-        $(document).ready(function() {
-//        if( localStorage.resOrcom==="residential"){
-//           setTimeout(function() {
-//                         $(".navbar").css("background", " url(../../images/contactbg.png)");
-//                        },10);
-//        }
-//        else
-            if (localStorage.resOrcom === "commercial") {
-                setTimeout(function() {
-                    $(".navbar").css("background", " url(../../images/commercialbg.jpg)");
-                }, 10);
-            }
-            else {
-                setTimeout(function() {
-                    $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-                }, 10);
-            }
-        });
+
         $(window).scrollTop(0);
-        $('#discovery_search_bar_wrapper').attr('style', "display:none");
-        $('#masonry_container').attr('style', "display:none");
+        $('#discovery_search_bar_wrapper').css('display', "none");
+        $('#masonry_container').css('display', "none");
         $(function() {
             $('#masonry_container').masonry('remove', $('.noStyle1'));
         });

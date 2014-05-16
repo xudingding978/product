@@ -1,14 +1,16 @@
-<div id="cancel" class="blur_black" style="background-color: initial; display: none;cursor:auto"  {{action cancel  on="click" target="view"}}>&nbsp;</div>
-<div style="height: 60px;width:50px;position:absolute;top:0;left:0;z-index: 1;" {{action showUserDropDown on="click"  target="view"}}>&nbsp;</div>
+<div class="user-menu-hit-area" {{action dropdown "user"}}>&nbsp;</div>
 
-<div id="user-header-menu" style="" >
+<div id="user-header-menu" {{action dropdown "user"}} >
 
-    <div class="user-face-size" data-toggle="dropdown" style="position: static;">
-        <a class="user-face-size" style="position: absolute;z-index: -1"><img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg" class="profilepic_user " /></a>           
-        <a class="user-face-size" style="z-index: 1"><img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user  easing" /></a>              
+    <div class="" data-toggle="dropdown" >
+        <a class="circle-btn" style="border: none"><img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user  easing" /></a>    
     </div>
+    <div class="circle-btn-description">My Profile</div>
 
-    <ul id="user-dd-menu" class="user-dd-menu hideClass edit-object-ul">
+</div>
+{{#if controller.userProfile}}
+<div id="cancel" class="blank-top-bar"  {{action dropdown "user"}}>&nbsp;</div>
+ <ul id="user-dd-menu" class="user-dd-menu  edit-object-ul">
         <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myUserProfile"}} {{action userDisplaynone "myUserProfile" on="click"  target="view"}}>
                             <i class="fa fa-user" style="">&nbsp;&nbsp;</i>
                 <span>My Profile</span>
@@ -39,5 +41,4 @@
             </a></li>
 
     </ul>
-
-</div>
+{{/if}}

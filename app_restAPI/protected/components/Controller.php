@@ -344,6 +344,9 @@ class Controller extends CController {
         $conditions = array();
         $userid=urldecode($userid);
         $requestStringOne = 'couchbaseDocument.doc.profile.id=' . $userid;
+       error_log(var_export($userid, true));
+       error_log(var_export($collection_id, true));
+        
         array_push($conditions, $requestStringOne);
   
         $collection_id=urldecode($collection_id);
@@ -353,6 +356,7 @@ class Controller extends CController {
         $tempResult = $this->getReponseResult($tempResult, $returnType);
         
         $mega = CJSON::decode($tempResult, true);
+
         if (!isset($mega['megas'][0]['profile'][0]['collections'])) {
             $collections = array();
         } else {
@@ -591,31 +595,80 @@ class Controller extends CController {
         }
 
 
-
-
-
-
-//        else {
-//            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
-//                "query": {
-//                  "bool": {
-//                    "must": {},
-//                    "must_not": {
-//                      "queryString": {
-//                        "default_field": "couchbaseDocument.doc.type",
-//                        "query": "profile"
-//                      }
-//                    }
-//                  }
-//                }
-//              }');
-//
-        //    $request->filter($filter);
+//         $termQuery = '{
+//  "query": {
+//    "function_score": {
+//      "functions": [
+//        {
+//          "script_score": {
+//            "script": "doc[' . "'" . "couchbaseDocument.doc.boost" . "'" . '].value+1"
+//          }
+//        },
+//        {
+//          "script_score": {
+//            "script": "5-(4/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.comment_count" . "'" . '].value+1))))"
+//          }
+//        },
+//                {
+//          "script_score": {
+//            "script": "5-(4/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.share_count" . "'" . '].value+1))))"
+//          }
+//        },
+//        {
+//          "script_score": {
+//            "script": "10-(18/(sqrt(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.view_count" . "'" . '].value*4+256)))))"
+//          }
+//        },
+//        {
+//          "script_score": {
+//            "script": "5-(8/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.likes_count" . "'" . '].value*8+256))))"
+//          }
+//        },
+//        {
+//          "gauss": {
+//            "couchbaseDocument.doc.accessed": {
+//              "origin": "' . $timestamp . '",
+//              "scale": "31536000",
+//              "decay": "0.5"
+//            }
+//          }
+//        },
+//        {
+//          "gauss": {
+//            "couchbaseDocument.doc.created": {
+//              "origin": "' . $timestamp . '",
+//              "scale": "31536000",
+//              "decay": "0.5"
+//            }
+//          }
 //        }
-//        $sort = Sherlock\Sherlock::sortBuilder();
-//        $sort1 = $sort->Field()->name("boost")->order('desc');
-//        $sort2 = $sort->Field()->name("_score");
-            
+//      ],
+//      "query": {
+//        "constantScore": {
+//          "query": {
+//            "multi_match": {
+//          "query": "' . $queryString . '",
+//              "fields": [
+//                "couchbaseDocument.doc.keyword.keyword_name^10",
+//                "country",
+//                "owner_title^2",
+//                "region",
+//                "object_title^2",
+//                "object_description^4",
+//                "couchbaseDocument.doc.article.article_spark_job_id^5"
+//              ]
+//            }
+//          }
+//        }
+//      }
+//    }
+//  },' . $filter . '
+//
+//  "from": "' . $from . '",
+//  "size": "' . $size . '",
+//  "sort": []
+//}';
+
             
             
             
@@ -625,27 +678,13 @@ class Controller extends CController {
       "functions": [
         {
           "script_score": {
-            "script": "doc[' . "'" . "couchbaseDocument.doc.boost" . "'" . '].value+1"
+            "script": "doc[' . "'" . "couchbaseDocument.doc.boost" . "'" . '].value/200+1"
           }
         },
+
         {
           "script_score": {
-            "script": "5-(4/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.comment_count" . "'" . '].value+1))))"
-          }
-        },
-                {
-          "script_score": {
-            "script": "5-(4/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.share_count" . "'" . '].value+1))))"
-          }
-        },
-        {
-          "script_score": {
-            "script": "10-(18/(sqrt(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.view_count" . "'" . '].value*4+256)))))"
-          }
-        },
-        {
-          "script_score": {
-            "script": "5-(8/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.likes_count" . "'" . '].value*8+256))))"
+            "script": "3-(8/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.likes_count" . "'" . '].value*8+doc[' . "'" . "couchbaseDocument.doc.view_count" . "'" . '].value*4+doc[' . "'" . "couchbaseDocument.doc.share_count" . "'" . '].value*2+doc[' . "'" . "couchbaseDocument.doc.comment_count" . "'" . '].value*2+256))))"
           }
         },
         {
@@ -656,19 +695,9 @@ class Controller extends CController {
               "decay": "0.5"
             }
           }
-        },
-        {
-          "gauss": {
-            "couchbaseDocument.doc.created": {
-              "origin": "' . $timestamp . '",
-              "scale": "31536000",
-              "decay": "0.5"
-            }
-          }
         }
       ],
-      "query": {
-        "constantScore": {
+
           "query": {
             "multi_match": {
           "query": "' . $queryString . '",
@@ -679,12 +708,12 @@ class Controller extends CController {
                 "region",
                 "object_title^2",
                 "object_description^4",
+                "couchbaseDocument.doc.article.credits.credits_text^8",
                 "couchbaseDocument.doc.article.article_spark_job_id^5"
               ]
             }
           }
-        }
-      }
+
     }
   },' . $filter . '
 
@@ -743,8 +772,8 @@ class Controller extends CController {
   //      return $response;
              
              
-              // $log_path = "/home/devbox/Documents/searchquery.log";
-        //$this->writeToLog($log_path, $termQuery);
+//               $log_path = "/home/devbox/Documents/searchquery.log";
+//        $this->writeToLog($log_path, $termQuery);
              $index = Yii::app()->params['elasticSearchIndex'];
    //       $ch = curl_init("http://es1.hubsrv.com:9200/develop/_search");
         $ch = curl_init("http://es1.hubsrv.com:9200/" . $index . "/_search");

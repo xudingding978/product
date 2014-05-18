@@ -57,6 +57,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 addCollectionController.setRelatedController('itemFunction');
                 $('#addCollection_' + model.id).attr('style', 'display: block');
             }
+            $("#body_id").css("overflow", "hidden");
         }
     },
     addLike: function(id)

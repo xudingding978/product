@@ -142,7 +142,6 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                         var that = this;
                         this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
                         requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
-                            //console.log(params);
                             HubStar.get('selectedCollection').collection_ids = params;
                             var tempComment = [that.get("objectID")];
                             //that.commitCollection();
@@ -159,9 +158,12 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                     }
                 }
             }
+            $("#body_id").css("overflow", "auto");
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please choose a collection.", "warnning");
         }
+        
+        
 
     },
     commitCollection: function() {
@@ -200,6 +202,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             var name = currentUser.get('display_name');
             var date = new Date();
             var message_id = createMessageid() + commenter_id;
+
             var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
                 "message_id": message_id, "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
                 "is_delete": false, optional: this.get("commentObject").get('type') + '/' + this.get("commentObject").get('id')});
@@ -296,7 +299,6 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     exit: function() {
         this.set('selectionPop', false);
         this.set('selectionProfile', false);
-        //console.log(this.get("parentTController"));
         if (this.get('parentTController') === 'article')
         {
             this.get("controllers.article").switchCollection();
@@ -316,6 +318,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         else {
             this.get("controllers.mega").switchCollection();
         }
+        $("#body_id").css("overflow", "auto");
     },
     addNewCollection: function()
     {

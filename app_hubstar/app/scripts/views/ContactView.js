@@ -186,7 +186,7 @@ HubStar.ContactView = Ember.View.extend({
         };
         
         this.get("controller").set("userEnvironment",  'OS: ' + jscd.os + ' ' + jscd.osVersion+ ' ' +  'Browser: ' + jscd.browser + ' ' + jscd.browserVersion);
-        console.log(this.get("controller").get("userEnvironment"));
+
 
 //        alert(
 //                'OS: ' + jscd.os + ' ' + jscd.osVersion + '\n' +

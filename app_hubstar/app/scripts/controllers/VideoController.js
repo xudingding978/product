@@ -21,9 +21,9 @@ HubStar.VideoController = Ember.Controller.extend({
                 var videoIframe = tempVideoObject.get("videoIframeCode");
                 var height = $(window).height() - 54;
                 var width = 480 / 360 * height;
-                if (width > $(window).width()-320)
+                if (width > $(window).width() - 320)
                 {
-                    width = $(window).width()-320;
+                    width = $(window).width() - 320;
                     height = 360 / 480 * width;
                 }
                 videoIframe = videoIframe.replace("480", Math.ceil(width));
@@ -35,9 +35,9 @@ HubStar.VideoController = Ember.Controller.extend({
                     var height = videoIframe.split("width=\"")[1].split("\" height=\"")[1].split("\"")[0];
                     var heightNew = $(window).height() - 54;
                     var widthNew = 480 / 360 * heightNew;
-                    if (widthNew > $(window).width()-320)
+                    if (widthNew > $(window).width() - 320)
                     {
-                        widthNew = $(window).width()-320;
+                        widthNew = $(window).width() - 320;
                         heightNew = 360 / 480 * widthNew;
                     }
                     videoIframe = videoIframe.replace(width, Math.ceil(widthNew));
@@ -347,6 +347,10 @@ HubStar.VideoController = Ember.Controller.extend({
     addLike: function() {
         var controller = this.get('controllers.itemFunction');
         controller.addLike(this.get('megaResouce').get('id'));
+    },
+    unLike: function() {
+        var controller = this.get('controllers.itemFunction');
+        controller.unLike(this.get('megaResouce').get('id'));
     }
 }
 

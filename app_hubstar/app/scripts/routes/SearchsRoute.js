@@ -99,7 +99,6 @@ HubStar.SearchsRoute = Ember.Route.extend({
         } else {
 
         }
-
     },
     activate: function() {
         var that = this;

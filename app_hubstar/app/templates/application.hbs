@@ -1,14 +1,17 @@
 <div style="width: 100%;height: auto;position:relative;z-index:2;">
     {{#if HubStar.is_404}}
     {{outlet fourOhFour}}
-{{else}}
+    {{else}}
 
     {{view HubStar.HeaderView}}
 
     {{outlet profiles}}
     {{outlet user}}
-    {{outlet "welcome"}}
+   
     {{#unless controller.isotherpage}}
+    {{#if controller.isNewUser}}
+     {{render "welcome"}}
+     {{/if}}
     {{#if HubStar.showDiscoveryBar}}
     {{view HubStar.DiscoveryView}}
     {{/if}}
@@ -20,7 +23,7 @@
     {{outlet photos}}
     {{outlet articles}}
     {{outlet videoes}}
-{{outlet "profileNew"}}
+    {{outlet "profileNew"}}
 
     {{#if controller.islogin}}
     {{render "footer"}}
@@ -38,8 +41,8 @@
     {{#if controller.loginTime}}
     {{render loadingSpinner}}
     {{/if}}
-    
-    
+
+
     {{/if}}
 </div>
 

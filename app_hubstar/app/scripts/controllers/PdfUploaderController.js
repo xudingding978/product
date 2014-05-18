@@ -98,7 +98,8 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
             b.then(function() {
                 console.log("111111");
                // thatthat.get("pdfArray").pushObject(pdf);
-                 thatthat.get("pdfArray").insertAt(0,pdf);
+               var p= HubStar.Pdf.find(mega.get('id'));
+                 thatthat.get("pdfArray").insertAt(0,p);
 //                console.log("333333333333333333");
 //                console.log(mega.get('isSaving'));
 //                console.log(thatthat.get("pdfArray").objectAt(0).get("pdf").objectAt(0).get('isSaving'));

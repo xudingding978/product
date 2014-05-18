@@ -117,7 +117,7 @@ class PdfsController extends Controller {
         try {
             $cb = $this->couchBaseConnection();
             $fileName = $this->getDomain() . $_SERVER['REQUEST_URI'];
-            
+            error_log($fileName);
             $reponse = $cb->get($fileName);
             $request_arr = CJSON::decode($reponse, true);
             $respone_client_data = str_replace("\/", "/", CJSON::encode($request_arr["pdf"][0]));

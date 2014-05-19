@@ -73,10 +73,10 @@ module.exports = function(grunt) {
                 src: '<%= yeoman.app %>/templates/navigator.hbs',
                 dest: '<%= yeoman.app %>/templates/navigator.hbs',
                 replacements: [{
-                        from: /lastidentifie\"\>\d\.\d\-[0-9]{1,500}/g,
+                        from: /lastidentifie\"\>[0-9]{1,500}/g,
                         to: function(matchedWord) {
-                            var temp = matchedWord.substring(0, matchedWord.indexOf("-") + 1);
-                            var num = matchedWord.substring(matchedWord.indexOf("-") + 1);
+                            var temp = matchedWord.substring(0, matchedWord.indexOf(">") + 1);
+                            var num = matchedWord.substring(matchedWord.indexOf(">") + 1);
                             num = parseInt(num) + 1;
                             return temp + num;
                         }
@@ -472,9 +472,6 @@ module.exports = function(grunt) {
         'jshint'
                 //  'test',
                 //  'shell'
-    ]);
-    grunt.registerTask('checkCss', [
-        'uncss'
     ]);
     grunt.registerTask('gitcommit', [
         'shell:listFolders'

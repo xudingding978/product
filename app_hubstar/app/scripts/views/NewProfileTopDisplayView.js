@@ -1,14 +1,10 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 HubStar.NewProfileTopDisplayView = Ember.View.extend({
     templateName: 'newProfileTopDisplay',
     didInsertElement: function() {
    
         var u = HubStar.User.find(localStorage.loginStatus);
-        var that = this;
         u.then(function() {
             $(document).ready(function() {
                 if (HubStar.get("profiles").length >= 2)

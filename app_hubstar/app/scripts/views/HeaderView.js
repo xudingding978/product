@@ -5,13 +5,11 @@ HubStar.HeaderView = Ember.View.extend({
         $(document).ready(function() {
             $("#back-top").hide();
             $(window).scroll(function() {
-
                 if ($(this).scrollTop() > 150) {
                     $('#back-top').fadeIn();
                 } else {
                     $('#back-top').fadeOut();
                 }
-
             });
             $('#back-top a').click(function() {
                 $('body,html').animate({
@@ -119,8 +117,6 @@ HubStar.HeaderView = Ember.View.extend({
         }
          this.get("controller").residentialCommercialStatus();
         this.get("controller").changeBackground();
-       
-
     }
 });
 

@@ -308,11 +308,7 @@ class CommentsController extends Controller {
         }
        
         $mega['comments'] = $comments;
-        if ($cb->set($url, CJSON::encode($mega))) {
-            
-        } else {
-            $this->sendResponse(500, "some thing wrong");
-        }
+      
     }
 
     public function actionRead() {

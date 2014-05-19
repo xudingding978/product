@@ -9,7 +9,7 @@ var mountFolder = function(connect, dir) {
 // 'test/spec/{,*/}*.js'
 // use this if you want to match all subfolders:
 // 'test/spec/**/*.js'
-var templ;
+
 module.exports = function(grunt) {
 // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -181,13 +181,18 @@ module.exports = function(grunt) {
         },
         jshint: {
             options: {
-                jshintrc: '.jshintrc'
+                jshintrc: '.jshintrc'  //dont change this file
+                        //reporterOutput: 'jshintFailFile/jshintAddCollectionController.xml'   //create report for one file
+                        //reporterOutput: 'jshintFailFile/jshint.xml' 
             },
             all: [
+
                 'Gruntfile.js',
-                '<%= yeoman.app %>/scripts/{,*/}*.js',
-                '!<%= yeoman.app %>/scripts/vendor/*',
-                'test/spec/{,*/}*.js'
+                'app/scripts/controllers/*.js'
+//                '<%= yeoman.app %>/scripts/{,*/}*.js'
+//                '!<%= yeoman.app %>/scripts/vendor/*',
+//                'test/spec/{,*/}*.js'
+                        // 'dist/scripts/eaebe59d.main.js'                    //whole platform
             ]
         },
         qunit: {
@@ -467,6 +472,9 @@ module.exports = function(grunt) {
         'jshint'
                 //  'test',
                 //  'shell'
+    ]);
+    grunt.registerTask('checkCss', [
+        'uncss'
     ]);
     grunt.registerTask('gitcommit', [
         'shell:listFolders'

@@ -1,10 +1,12 @@
 HubStar.CollectionRoute = Ember.Route.extend({
     setupController: function(controller, model) {
+        var id;
+        var address;
         if (model.get('id') === undefined || model.get('id') === "") {
-            var address = document.URL;
-            var id = address.split("#")[1].split("/")[3];
+            address = document.URL;
+            id = address.split("#")[1].split("/")[3];
         } else {
-            var id = model.get('id');
+            id = model.get('id');
         }
 
         this.controllerFor('user').set('switchPhoto', false);

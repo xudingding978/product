@@ -13,17 +13,14 @@ HubStar.VideoView = Ember.View.extend({
     },
     setDiscussionTag: function() {
         $('#discuss_action').slideToggle("slow");
-        //     this.set('discussionTag', !this.get('discussionTag'));
 
     },
     setNameTag: function() {
         $('#poster_action').slideToggle("slow");
-        //       this.set('nameTag', !this.get('nameTag'));
 
     },
     setPartnerTag: function() {
         $('#partner_action').slideToggle("slow");
-        //       this.set('partnerTag', !this.get('partnerTag'));
 
     },
     popupAibum: function() {
@@ -45,19 +42,19 @@ HubStar.VideoView = Ember.View.extend({
 
 
     },
-    keyUp: function(event, view) {
+    keyUp: function(event) {
         if (event.which === 27)
         { // pressed 'esc'
 
-            //this.get("controller").transitionTo("search");
 
             var address = document.URL;
             var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
             var id = address.split("#")[1].split("/")[2];
             var videosOrCollection = address.split("#")[1].split("/")[3];
             var collection_id = address.split("#")[1].split("/")[4];
-            var colectionType = address.split("#")[1].split("/")[5]; //it may be article id , photo id and video id
             var user_photo_id = address.split("#")[1].split("/")[8];
+            var data = null;
+            var i;
             if (type === "users")
             {
 
@@ -67,8 +64,8 @@ HubStar.VideoView = Ember.View.extend({
                 if (user_photo_id !== undefined) //type:article means it 
                 {
 
-                    var data = null;
-                    for (var i = 0; i < user.get('collections').get("length"); i++) {
+                    
+                    for ( i = 0; i < user.get('collections').get("length"); i++) {
                         data = user.get('collections').objectAt(i);
                         if (data.id === collection_id) {
                             break;
@@ -87,13 +84,10 @@ HubStar.VideoView = Ember.View.extend({
                 HubStar.set("escVideo", true);
                 if (type === "profiles")
                 {
-
-
-                    var obj = HubStar.Mega.find(id);
-
                     var profile = HubStar.Profile.find(id);
-                    for (var i = 0; i < profile.get('collections').get("length"); i++) {
-                        var data = profile.get('collections').objectAt(i);
+                    
+                    for ( i = 0; i < profile.get('collections').get("length"); i++) {
+                        data = profile.get('collections').objectAt(i);
                         if (data.id === collection_id) {
                             break;
                         }
@@ -123,11 +117,7 @@ HubStar.VideoView = Ember.View.extend({
                     }
                 }
                 $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-
             }
-
         }
     }
-
-
 });

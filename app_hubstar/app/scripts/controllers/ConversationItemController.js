@@ -40,7 +40,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         this.set("id", id);
         for (var i = 0; i < conversationContent.length; i++)
         {
-            if (conversationContent[i]["conversationID"] === id)
+            if (conversationContent[i].conversationID === id)
             {
                 this.set("conversationItem", conversationContent[i]);
                 break;
@@ -64,7 +64,7 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         this.set("id", id);
         for (var i = 0; i < conversationContent.length; i++)
         {
-            if (conversationContent[i]["conversationID"] === id)
+            if (conversationContent[i].conversationID === id)
             {
                 this.set("conversationItem", conversationContent[i]);
                 break;
@@ -166,31 +166,29 @@ HubStar.ConversationItemController = Ember.Controller.extend({
         tempComment = JSON.stringify(tempComment);
         var that = this;
 
-        //var dataNew = new Array();
-
         requiredBackEnd('conversations', 'AddConversationItem', tempComment, 'POST', function(params) {
             that.set("isPosting", true);
             var conversationContent = that.get('controllers.conversation').get("conversationContent");
             for (var i = 0; i < conversationContent.length; i++)
             {
-                if (conversationContent[i]["conversationID"] === conversationId)
+                if (conversationContent[i].conversationID === conversationId)
                 {
 
 
-                    var conversationItems = new Array();
+                    var conversationItems = [];
 
                     conversationItems = params;
 
-                    if (params["url"] !== null)
+                    if (params.url !== null)
                     {
-                        conversationItems["isUrl"] = true;
+                        conversationItems.isUrl = true;
                     }
                     else
                     {
-                        conversationItems["isUrl"] = false;
+                        conversationItems.isUrl = false;
                     }
-                    if (params["msg"] !== null) {
-                        conversationItems["msg"] = multiRow(params["msg"]);
+                    if (params.msg !== null) {
+                        conversationItems.msg = multiRow(params.msg);
                     }
 
                     that.get('controllers.conversation').get("conversationContent").objectAt(i).get("ConversationCollection").insertAt(0, conversationItems);

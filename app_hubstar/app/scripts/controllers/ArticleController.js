@@ -14,12 +14,12 @@ HubStar.ArticleController = Ember.Controller.extend({
     isShowPhotoUrl: false,
     accessFromSearchBoard: false, //false: access the articlePhoto  true: access the article
     isCreditListExist: false,
-    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems'],
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems', 'mega'],
     init: function() {
         HubStar.set("readCaption", true);
     },
     findSelectedItemIndex: function() {
-        content = this.get('content');
+        var content = this.get('content');
         for (var index = 0; index <= content.get('length'); index++) {
             if (this.get('selectedPhoto') === content.objectAt(index)) {
                 return index;
@@ -81,6 +81,10 @@ HubStar.ArticleController = Ember.Controller.extend({
             else if (search_type === "users")
             {
                 this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+            }
+            else if (search_type === "articles")
+            {
+                this.transitionTo("searchsArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
             }
         }
 
@@ -146,7 +150,10 @@ HubStar.ArticleController = Ember.Controller.extend({
             {
                 this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
             }
-
+            else if (search_type === "articles")
+            {
+                this.transitionTo("searchsArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+            }
         }
 
         this.set("photo_album_id", "album_" + this.get('selectedPhoto').get("id"));
@@ -224,13 +231,20 @@ HubStar.ArticleController = Ember.Controller.extend({
         {
             var address = document.URL;
             var id = address.split("#")[1].split("/")[2];
-            if (id === "default") //it is the search index
+            var search_type = address.split("#")[1].split("/")[1];
+            if (search_type === "articles")
             {
-                this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                this.transitionTo("searchsArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
             }
-            else
-            {
-                this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+            else {
+                if (id === "default") //it is the search index
+                {
+                    this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                }
+                else
+                {
+                    this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                }
             }
             //this.transitionTo("article", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo
             //                                                               // as it use the fix id to refresh the route so it will have problem when fresh (change the id)
@@ -266,26 +280,13 @@ HubStar.ArticleController = Ember.Controller.extend({
             that.checkCreditExist(megaObject.get('article').objectAt(0).get('credits'));
 
             var tempComment = [megaObject.id];
-            requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function(params) {
+            requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function() {
             });
-
-//            setTimeout(function() {
-//                if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
-//                {
-//                    megaObject.set("view_count", 1);
-//                }
-//                else
-//                {
-//                    var megaData = megaObject.get("view_count");
-//                    megaObject.set("view_count", megaData + 1);
-//                }
-//                megaObject.store.save();
-//            }, 6000);
         });
-        
-              if (this.get("controllers.checkingLoginStatus").popupLogin())
+
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-            
+
         }
     },
     checkCreditExist: function(credits) {
@@ -342,9 +343,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         var delInfo = [id, message_id];
 
         delInfo = JSON.stringify(delInfo);
-        var that = this;
         this.get('article').get('comments').removeObject(object);
-        requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function(params) {
+        requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function() {
         });
     },
     updateComment: function(object) {
@@ -428,6 +428,10 @@ HubStar.ArticleController = Ember.Controller.extend({
                             {
                                 that.transitionTo("articlePhoto", that.get('content').objectAt(0));
                             }
+                            else if (search_type === "articles")
+                            {
+                                that.transitionTo("searchsArticlePhoto", that.get('content').objectAt(0));
+                            }
                             this.set("isShowPhotoUrl", false);
                         }
 
@@ -445,6 +449,14 @@ HubStar.ArticleController = Ember.Controller.extend({
                     if (articlePhoto[articlePhoto.get("length") - 2] === "photos")
                     {
                         that.selectImage(articlePhoto[articlePhoto.get("length") - 1]);
+                    }
+                    if (HubStar.get("photoID") === null || HubStar.get("photoID") === undefined || HubStar.get("photoID") === "")
+                    {
+                    }
+                    else
+                    {
+                        that.selectImage(HubStar.get("photoID"));
+                        HubStar.set("photoID", "");
                     }
                 }
             }
@@ -479,28 +491,29 @@ HubStar.ArticleController = Ember.Controller.extend({
             }
             else
             {
-
                 HubStar.set("escVideo", true);
                 this.transitionTo("search", {id: user_id}); // go to search page, this can  work, but it is too slowlly.
             }
         }
         else
         {
+            var photoObject;
             if (type === "users")
             {
-                var photoObject = HubStar.Mega.find(collection_id);
+                photoObject = HubStar.Mega.find(collection_id);
 
                 this.transitionTo("userPhoto", photoObject); //user photo
             }
             else if (type === "profiles")
             {
-                var photoObject = HubStar.Mega.find(collection_id);
+                photoObject = HubStar.Mega.find(collection_id);
 
                 this.transitionTo("profilePhoto", photoObject); // profile photo
             }
             else if (type === "photos" || type === "articles" || type === "videos")
             {
                 var m = HubStar.Mega.find(user_id);
+                HubStar.set("closeArticlePhoto", true);
                 this.transitionTo("search", {id: m.get("owner_title")});
             }
         }
@@ -559,7 +572,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 
     },
     dropdownPhotoSetting: function(param) {
-        var id='#dropdown_id_' + param;
+        var id = '#dropdown_id_' + param;
         $(id).toggleClass('hideClass');
         $(id).click(function() {
             $(this).removeClass('hideClass');
@@ -713,9 +726,11 @@ HubStar.ArticleController = Ember.Controller.extend({
         return false;
     },
     addLike: function() {
-        console.log("in ArticleController.js");
         var controller = this.get('controllers.itemFunction');
-        controller.addLike(this.get('megaResouce').get('id'));
-        
+        controller.addLike(this.get('megaResouce').get('id'));       
+    },
+    unLike: function(){
+        var controller = this.get('controllers.itemFunction');
+        controller.unLike(this.get('megaResouce').get('id'));
     }
 });

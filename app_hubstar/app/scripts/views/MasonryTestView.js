@@ -8,13 +8,13 @@ HubStar.MasonryTestView = Ember.CollectionView.extend({
                 columnWidth: 185,
                 isInitLayout: false,
                 isFitWidth: true,
-                transitionDuration: 0               
+                transitionDuration: 0
             });
         });
     },
     willDestroyElement: function() {
         HubStar.set('isMansonryPageLoad', false);
-    },  
+    },
     mega: function() {
         this.rerender();
     }.observes('controller.content')

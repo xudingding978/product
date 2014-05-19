@@ -2,7 +2,7 @@ HubStar.ShowAlbumView = Ember.View.extend({
     templateName: 'showAlbum',
     didInsertElement: function() {
     },
-    hide: function(id) {
+    hide: function() {
         if (HubStar.get("what") === true)
         {
            setTimeout(function() {

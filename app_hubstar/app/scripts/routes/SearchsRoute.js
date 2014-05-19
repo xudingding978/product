@@ -26,14 +26,14 @@ HubStar.SearchsRoute = Ember.Route.extend({
                 var thatthat = that;
                 introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
 
-                   
+
                     if (localStorage.loginStatus !== "" && localStorage.loginStatus !== null && localStorage.loginStatus !== "undefined") {
                         window.location.href = '/#/users/' + localStorage.loginStatus;
                         $(window).scrollTop(0);
                     }
-                    
-                    
-                  thatthat.controllerFor('application').set("isNavigatorDropdown", false);
+
+
+                    thatthat.controllerFor('application').set("isNavigatorDropdown", false);
                 });
             }, 5500);
         }
@@ -69,11 +69,21 @@ HubStar.SearchsRoute = Ember.Route.extend({
                 var model = {id: id};
                 if (type === "articles")
                 {
+                    if (address.split("#")[1].split("/").length >= 7)
+                    {
+                        HubStar.set("photoID", address.split("#")[1].split("/")[6]);
+                    }
                     that.transitionTo("article", id);
                 }
                 else if (type === "photos")
                 {
-                    this.transitionTo("photo", id);
+                    if (HubStar.get("closeArticlePhoto")) {
+                        HubStar.set("closeArticlePhoto", false);
+                    }
+                    else
+                    {
+                        this.transitionTo("photo", id);
+                    }
                 }
                 else if (type === "videos")
                 {
@@ -89,7 +99,6 @@ HubStar.SearchsRoute = Ember.Route.extend({
         } else {
 
         }
-
     },
     activate: function() {
         var that = this;
@@ -106,8 +115,6 @@ HubStar.SearchsRoute = Ember.Route.extend({
 
     },
     renderTemplate: function() {
-
-
     }
 
 });

@@ -57,6 +57,7 @@ HubStar.Mega = DS.Model.extend({
     comment_count: DS.attr('number'),
     optional: DS.attr('string'),
     isFollow: DS.attr('boolean'),
+    isLike:false,
     profile_editor: DS.attr('string'),
     profile_administrator: DS.attr('string'),
     profile_creator: DS.attr('string'),
@@ -71,14 +72,14 @@ HubStar.Mega = DS.Model.extend({
     videoes: DS.hasMany('HubStar.Video'),
     isShowMoreComment: false,
     keywordShow: function() {
-        var a = new Array();
+        var a = [];
 
         for (var i = 0; i < 3 && this.get("keyword").get("length"); i++)
         {
-            var b = new Array();
+            var b = [];
             //console.log(this.get("keyword").get("length"));
             if (this.get("keyword").objectAt(i) !== undefined && this.get("keyword").objectAt(i) !== null) {
-                b["keyword_name"] = this.get("keyword").objectAt(i).get("keyword_name");
+                b.keyword_name = this.get("keyword").objectAt(i).get("keyword_name");
                 a[i] = b;
             }
         }
@@ -100,6 +101,17 @@ HubStar.Mega = DS.Model.extend({
             this.set("isShowMoreComment", true);
         }
     }.property('comment_count'),
+    photo_isLike: function(){
+        if(this.get("people_like") !== null){ 
+            if(this.get("people_like").indexOf(localStorage.loginStatus) !== -1){
+                this.set("isLike",true);
+            }else{
+                this.set("isLike",false);
+            }
+        }else{
+            this.set("isLike",false);
+        }
+    }.property("people_like"),
     photo_album_id: function() {
         return "#album_" + this.get('id');
     }.property('id'),

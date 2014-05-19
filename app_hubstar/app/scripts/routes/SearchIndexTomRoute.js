@@ -1,13 +1,14 @@
 HubStar.SearchIndexTom = Ember.Route.extend({
-    setupController: function() {     
+    setupController: function() {
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
             HubStar.set('isLogin', false);
 
         } else {
             HubStar.set('isLogin', true);
         }
-        HubStar.set("escVideo",false);
+        HubStar.set("escVideo", false);
         this.controllerFor('article').set("accessFromSearchBoard", true);
+        console.log("tomtomtom");
         this.controllerFor('searchs').defaultSearch();
         this.controllerFor('index').setLogin();
         this.controllerFor('application').set('islogin', true);
@@ -17,16 +18,16 @@ HubStar.SearchIndexTom = Ember.Route.extend({
         localStorage.checkUser = "";
         $(".navbar").css("box-shadow", "");
         var that = this;
-         $(document).ready(function() {
-             setTimeout(function() {
-        that.controllerFor('application').searchSmallScreen();
-             },50);
-         });
-       // $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
-       // $('#masonry_wrapper').attr('style', "top:100px;position:relative");
-        
+        $(document).ready(function() {
+            setTimeout(function() {
+                that.controllerFor('application').searchSmallScreen();
+            }, 50);
+        });
+        // $(".navbar").css("background", " url(../../images/landingpagebg.jpg)");
+        // $('#masonry_wrapper').attr('style', "top:100px;position:relative");
+
     },
-    events: { 
+    events: {
     },
     redirect: function() {
 

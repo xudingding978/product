@@ -124,7 +124,6 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             mega.get("photo").pushObject(file);
 
             var that = this;
-            var ids = "";
             mega.addObserver('isSaving', function() {
 
                 if (mega.get('isSaving')) {
@@ -196,11 +195,12 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
     },
     addCollection: function(collection, photoId)
     {
-        if (HubStar.get('selectedCollection') !== undefined && HubStar.get('selectedCollection') !== null&&HubStar.get('selectedCollection').id===collection.get("id"))
+        var data;
+        if (HubStar.get('selectedCollection') !== undefined && HubStar.get('selectedCollection') !== null && HubStar.get('selectedCollection').id === collection.get("id"))
         {
             var content = HubStar.get('selectedCollection').collection_ids;
             if (content === null || content === undefined || content === "") {
-                var data = JSON.stringify([HubStar.get('selectedCollection').id, HubStar.get('selectedCollection').optional, photoId]);
+                data = JSON.stringify([HubStar.get('selectedCollection').id, HubStar.get('selectedCollection').optional, photoId]);
                 requiredBackEnd('collections', 'savePhotoCollection', data, 'POST', function(params) {
                     if (collection.get("collection_ids") === null || collection.get("collection_ids") === undefined || collection.get("collection_ids") === "") {
                         collection.set("collection_ids", params);
@@ -209,11 +209,11 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                         collection.set("collection_ids", params);
                     }
                     HubStar.get('selectedCollection').collection_ids = collection.get("collection_ids");
-                     collection.store.save();
+                    collection.store.save();
                 });
             }
             else {
-                var data = JSON.stringify([collection.get("id"), collection.get("optional"), photoId]);
+                data = JSON.stringify([collection.get("id"), collection.get("optional"), photoId]);
                 requiredBackEnd('collections', 'savePhotoCollection', data, 'POST', function(params) {
                     if (collection.get("collection_ids") === null || collection.get("collection_ids") === undefined || collection.get("collection_ids") === "") {
                         collection.set("collection_ids", params);
@@ -221,13 +221,13 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                     else {
                         collection.set("collection_ids", params);
                     }
-                     HubStar.get('selectedCollection').collection_ids = collection.get("collection_ids");
-                      collection.store.save();
+                    HubStar.get('selectedCollection').collection_ids = collection.get("collection_ids");
+                    collection.store.save();
                 });
             }
         }
         else {
-            var data = JSON.stringify([collection.get("id"), collection.get("optional"), photoId]);
+            data = JSON.stringify([collection.get("id"), collection.get("optional"), photoId]);
             requiredBackEnd('collections', 'savePhotoCollection', data, 'POST', function(params) {
                 if (collection.get("collection_ids") === null || collection.get("collection_ids") === undefined || collection.get("collection_ids") === "") {
                     collection.set("collection_ids", params);
@@ -235,9 +235,9 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                 else {
                     collection.set("collection_ids", params);
                 }
-                 collection.store.save();
+                collection.store.save();
             });
-        }    
+        }
     }
 });
 

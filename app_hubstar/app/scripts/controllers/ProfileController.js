@@ -61,7 +61,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     show_keyword_array: [],
     dragTargetIndex: -1,
     last_name: "",
-    needs: ["editEditors", "profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review', 'keywords', 'profileVideos', 'checkingLoginStatus'],
+    needs: ["editEditors", "profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review', 'keywords', 'profileVideos', 'checkingLoginStatus', 'profilePdf'],
     name: "",
     facebook: "",
     twitter: "",
@@ -1160,19 +1160,18 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     selectPdf: function(model) {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-            console.log('selectPddf');
             this.sendEventTracking('event', 'button', 'click', 'PDF');
             this.set('profileSelectionStatus', 'Pdf');
-            this.set('partnerTag', false);
-            this.set('collectionTag', false);
-            this.set('followerProfileTag', false);
-            this.set('reviewTag', false);
+            this.get('controllers.profilePdf').getClientId(model);
             this.set('videoTag', false);
             this.set('pdfTag', true);
+            this.set('partnerTag', false);
+            this.set('collectionTag', false);
+            this.set('reviewTag', false);
+            this.set('followerProfileTag', false);
             this.transitionToRoute('profilePdf');
-//            setTimeout(function() {
-//                $('#masonry_user_container').masonry("reload");
-//            }, 200);
+            
+           
         }
     },
     saveUpdateAboutUs: function() {

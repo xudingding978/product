@@ -6,9 +6,20 @@
 
 HubStar.ProfilePdfRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-        console.log('translate to pdf');
-         console.log(controller);
-         controller.getClientId(model);
+        var address = document.URL;
+        var l = address.split("#")[1].split("/").length;
+        if (l > 4) {
+            if (address.split("#")[1].split("/")[4] === "pdf")
+            {
+            }
+            else
+            {
+                this.controllerFor('profile').selectPdf(model);
+            }
+        }
+        else {
+            this.controllerFor('profile').selectPdf(model);
+        }
 
     },
     model: function(params) {

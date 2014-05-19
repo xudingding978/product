@@ -19,7 +19,6 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
     },
             
     getClientId: function(model) {
-        console.log('getClientID');
         var results = HubStar.Mega.find({"RquireType": "pdf", 'ownerid': model.get("id")});
 
         var that = this;
@@ -33,10 +32,14 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
 //            that.get("controllers.profile").set("profileVideoStatistics", results.get("length"));
             that.set("loadingTime", false);
 //            that.relayout();
-            console.log('222222222');
-            console.log(that.get('pdfContent'));
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 100);
+            }, 250);
         });
-        console.log('111111');
+
 //        this.checkEditingMode();
     },
             

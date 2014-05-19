@@ -16,7 +16,14 @@
 
 
         <div  id="pdfInformation" >
-            {{#each pdfArray}}
+            {{#if controller.loadingTime}}
+
+            {{render loadingSpinner}}
+
+            {{/if}}
+            {{#each pdfArray}}         
+            
+            
             <div   style="border: 3px solid #ccc;margin: 15px;padding: 5px; background-color:white;">
                 <div id="pdf_id_{{unbound id}}" >
                     <span style="font-weight: bold;display: inline-block;font-size: 25px; "{{action modifyDetail pdf_id}}><img alt="Click!" {{bindAttr src="pdf_cover_image"}} style="width: 50px;"></span> 

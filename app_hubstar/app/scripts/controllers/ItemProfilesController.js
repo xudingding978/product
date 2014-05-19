@@ -15,7 +15,7 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
     needs: ['profile', 'permission', 'profilePartners', 'userFollowings','checkingLoginStatus'],
     init: function() {
         var address = document.URL;
-
+        var isPartner = false;
         if (address.indexOf('profile') !== -1)
         {
             isPartner = true;
@@ -63,10 +63,9 @@ HubStar.ItemProfilesController = Ember.Controller.extend({
         return is_authentic_user||is_edit;
     },
     dropdownPhotoSetting: function(id) {
-        var id='#dropdown_id_' + id;
-//        $('#dropdown_id_' + id).toggleClass('hideClass');
-        $(id).toggleClass('hideClass');
-        $(id).click(function() {
+        var s='#dropdown_id_' + id;
+        $(s).toggleClass('hideClass');
+        $(s).click(function() {
             $(this).removeClass('hideClass');
         }).mouseleave(function() {
             $(this).addClass('hideClass');

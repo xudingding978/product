@@ -24,7 +24,7 @@ HubStar.ReviewReplyListSingleController = Ember.Controller.extend({
         var reviewDate = new Date();
         this.get("model").set('review_msg', this.get('review_msg'));
         this.get("model").set('review_time_stamp', reviewDate.toString());
-        requiredBackEnd('replys', 'Update', this.get("model"), 'POST', function(params) {
+        requiredBackEnd('replys', 'Update', this.get("model"), 'POST', function() {
         });
         this.set("review_enableToEdit", !this.get('review_enableToEdit'));
         if (this.get("controllers.reviewListSingle").get("model").id !== null && this.get("controllers.reviewListSingle").get("model").id !== undefined) {
@@ -58,7 +58,7 @@ HubStar.ReviewReplyListSingleController = Ember.Controller.extend({
                 {
                     reviewreply.deleteRecord();
                     this.get("controllers.profile").get('reviews').objectAt(i).get("reply_reviews").removeObject(reviewreply);
-                    requiredBackEnd('replys', 'Delete', reviewreply, 'POST', function(params) {
+                    requiredBackEnd('replys', 'Delete', reviewreply, 'POST', function() {
 
                     });
                     break;

@@ -75,7 +75,7 @@ HubStar.ConversationController = Ember.Controller.extend({
         tempComment = JSON.stringify(tempComment);
         var that = this;
 
-        requiredBackEnd('conversations', 'DeleteConversation', tempComment, 'POST', function(params) {
+        requiredBackEnd('conversations', 'DeleteConversation', tempComment, 'POST', function() {
             that.get("controllers.messageCenter").selectNewConversation();
             for (var i = 0; i < that.get("conversationContent").length; i++)
             {
@@ -91,7 +91,7 @@ HubStar.ConversationController = Ember.Controller.extend({
         this.set("routerFlag", false);
         this.set('clientID', id);
         var data = this.get('clientID');
-        var dataNew = new Array();
+        var dataNew = [];
         var tempComment = [data];
         this.set('loadingTime', true);
         tempComment = JSON.stringify(tempComment);
@@ -104,83 +104,83 @@ HubStar.ConversationController = Ember.Controller.extend({
                 for (var i = 0; i < params.length; i++)
                 {
                     //First reply message and it is the last one of message and it contail the reply message collection
-                    dataNew["conversationID"] = params[i]["conversationID"];
-                    dataNew["participation_ids"] = params[i]["participation_ids"];
+                    dataNew.conversationID = params[i].conversationID;
+                    dataNew.participation_ids = params[i].participation_ids;
 
-                    dataNew["names"] = params[i]["names"];
-                    dataNew["conversationPhoto"] = new Array();
-                    dataNew["conversationPhoto"] = params[i]["conversationPhoto"];
-                    if (dataNew["conversationPhoto"].length === 1)
+                    dataNew.names = params[i].names;
+                    dataNew.conversationPhoto = [];
+                    dataNew.conversationPhoto = params[i].conversationPhoto;
+                    if (dataNew.conversationPhoto.length === 1)
                     {
-                        dataNew["one"] = true;
-                        dataNew["two"] = false;
-                        dataNew["three"] = false;
-                        dataNew["four"] = false;
-                        dataNew["onePic"] = params[i]["conversationPhoto"][0]["photo_url"];
+                        dataNew.one = true;
+                        dataNew.two = false;
+                        dataNew.three = false;
+                        dataNew.four = false;
+                        dataNew.onePic = params[i].conversationPhoto[0].photo_url;
                     }
-                    else if (dataNew["conversationPhoto"].length === 2)
+                    else if (dataNew.conversationPhoto.length === 2)
                     {
-                        dataNew["one"] = false;
-                        dataNew["two"] = true;
-                        dataNew["three"] = false;
-                        dataNew["four"] = false;
-                        dataNew["onePic"] = params[i]["conversationPhoto"][0]["photo_url"];
-                        dataNew["twoPic"] = params[i]["conversationPhoto"][1]["photo_url"];
+                        dataNew.one = false;
+                        dataNew.two = true;
+                        dataNew.three = false;
+                        dataNew.four = false;
+                        dataNew.onePic = params[i].conversationPhoto[0].photo_url;
+                        dataNew.twoPic = params[i].conversationPhoto[1].photo_url;
                     }
-                    else if (dataNew["conversationPhoto"].length === 3)
+                    else if (dataNew.conversationPhoto.length === 3)
                     {
-                        dataNew["one"] = false;
-                        dataNew["two"] = false;
-                        dataNew["three"] = true;
-                        dataNew["four"] = false;
-                        dataNew["onePic"] = params[i]["conversationPhoto"][0]["photo_url"];
-                        dataNew["twoPic"] = params[i]["conversationPhoto"][1]["photo_url"];
-                        dataNew["threePic"] = params[i]["conversationPhoto"][2]["photo_url"];
+                        dataNew.one = false;
+                        dataNew.two = false;
+                        dataNew.three = true;
+                        dataNew.four = false;
+                        dataNew.onePic = params[i].conversationPhoto[0].photo_url;
+                        dataNew.twoPic = params[i].conversationPhoto[1].photo_url;
+                        dataNew.threePic = params[i].conversationPhoto[2].photo_url;
                     }
                     else
                     {
-                        dataNew["one"] = false;
-                        dataNew["two"] = false;
-                        dataNew["three"] = false;
-                        dataNew["four"] = true;
+                        dataNew.one = false;
+                        dataNew.two = false;
+                        dataNew.three = false;
+                        dataNew.four = true;
 
-                        dataNew["onePic"] = params[i]["conversationPhoto"][0]["photo_url"];
-                        dataNew["twoPic"] = params[i]["conversationPhoto"][1]["photo_url"];
-                        dataNew["threePic"] = params[i]["conversationPhoto"][2]["photo_url"];
-                        dataNew["fourPic"] = params[i]["conversationPhoto"][3]["photo_url"];
+                        dataNew.onePic = params[i].conversationPhoto[0].photo_url;
+                        dataNew.twoPic = params[i].conversationPhoto[1].photo_url;
+                        dataNew.threePic = params[i].conversationPhoto[2].photo_url;
+                        dataNew.fourPic = params[i].conversationPhoto[3].photo_url;
                     }
-                    dataNew["ConversationCollection"] = new Array();
-                    if (params[i]["ConversationCollection"][0]["msg"] !== null) {
-                        dataNew["msg"] = params[i]["ConversationCollection"][0]["msg"];
+                    dataNew.ConversationCollection = [];
+                    if (params[i].ConversationCollection[0].msg !== null) {
+                        dataNew.msg = params[i].ConversationCollection[0].msg;
                     }
-                    dataNew["time_stamp"] = params[i]["ConversationCollection"][0]["time_stamp"];
+                    dataNew.time_stamp = params[i].ConversationCollection[0].time_stamp;
 
-                    for (var j = 0; j < params[i]["ConversationCollection"].length; j++)
+                    for (var j = 0; j < params[i].ConversationCollection.length; j++)
                     {
 
-                        var conversationItem = new Array();
-                        conversationItem["item_id"] = params[i]["ConversationCollection"][j]["item_id"];
-                        conversationItem["sender_id"] = params[i]["ConversationCollection"][j]["sender_id"];
-                        conversationItem["time_stamp"] = params[i]["ConversationCollection"][j]["time_stamp"];
-                        if (params[i]["ConversationCollection"][j]["msg"] !== null) {
-                            conversationItem["msg"] = multiRow(params[i]["ConversationCollection"][j]["msg"]);
+                        var conversationItem = [];
+                        conversationItem.item_id = params[i].ConversationCollection[j].item_id;
+                        conversationItem.sender_id = params[i].ConversationCollection[j].sender_id;
+                        conversationItem.time_stamp = params[i].ConversationCollection[j].time_stamp;
+                        if (params[i].ConversationCollection[j].msg !== null) {
+                            conversationItem.msg = multiRow(params[i].ConversationCollection[j].msg);
                         }                        
-                        conversationItem["name"] = params[i]["ConversationCollection"][j]["name"];
-                        conversationItem["sender_photo_url_large"] = params[i]["ConversationCollection"][j]["sender_photo_url_large"];
-                        if (params[i]["ConversationCollection"][j]["url"] === null)
+                        conversationItem.name = params[i].ConversationCollection[j].name;
+                        conversationItem.sender_photo_url_large = params[i].ConversationCollection[j].sender_photo_url_large;
+                        if (params[i].ConversationCollection[j].url === null)
                         {
-                            conversationItem["isUrl"] = false;
+                            conversationItem.isUrl = false;
                         }
                         else
                         {
-                            conversationItem["isUrl"] = true;
+                            conversationItem.isUrl = true;
                         }
-                        conversationItem["url"] = params[i]["ConversationCollection"][j]["url"];
+                        conversationItem.url = params[i].ConversationCollection[j].url;
 
-                        dataNew["ConversationCollection"].pushObject(conversationItem);
+                        dataNew.ConversationCollection.pushObject(conversationItem);
                     }
                     that.get("conversationContent").pushObject(dataNew);
-                    dataNew = new Array();
+                    dataNew = [];
                 }
             }
 

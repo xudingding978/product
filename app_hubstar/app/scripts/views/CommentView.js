@@ -23,5 +23,4 @@ HubStar.CommentView = Ember.View.extend({
             });
         });
     }
-               
 });

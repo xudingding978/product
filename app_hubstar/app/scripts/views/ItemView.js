@@ -48,7 +48,6 @@ HubStar.ItemView = Ember.View.extend({
     },
     searching: function(search_key) {
         this.get("controller").transitionToRoute('search', {id: search_key});
-//        this.get("controller").send("newSearch", area, search_key);
     },
     mega: function() {
         this.rerender();

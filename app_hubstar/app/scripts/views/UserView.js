@@ -1,6 +1,5 @@
 HubStar.UserView = Ember.View.extend({
     templateName: 'user',
-//       interestsActive:false,
     didInsertElement: function() {
 
         $(".navbar").css("box-shadow", "0 0 10px #333");
@@ -14,7 +13,6 @@ HubStar.UserView = Ember.View.extend({
 
         var address = document.URL;
         var user_id = address.split("#")[1].split("/")[3];
-
 
         if (user_id === "following")
         {
@@ -74,15 +72,12 @@ HubStar.UserView = Ember.View.extend({
                     $(".search-bar-on-small-screen").css('display', "block");
                     $(".user-board").css("top", "30px");
                 }
-
             });
 
         });
 
     },
     showInterestsUp: function() {
-
-
         if ($('#interest_btn').hasClass('fa-angle-double-up') && this.get('controller').get('interestsActive') === false) {
 
             this.get('controller').set('followDisplay', false);
@@ -116,9 +111,6 @@ HubStar.UserView = Ember.View.extend({
 
         }// Slide up (open) no prior set parameters/coditions
 
-
-
-
         if ($('#interest_btn').hasClass('fa-angle-double-down') && this.get('controller').get('interestsActive') === false) {
 
             this.get('controller').set('followDisplay', false);
@@ -137,8 +129,6 @@ HubStar.UserView = Ember.View.extend({
             // Changes the active state position of the slide up/down arrow.
 
         }// Displays the full sized edit box, when interest's box is already at full size
-
-
 
         else {
 
@@ -176,7 +166,6 @@ HubStar.UserView = Ember.View.extend({
             $('.interesttags-container').css('height', '375px');
             $('.interest-insert-hint').css('display', 'block');
             $('.interest-textarea').css('height', '250px');
-            //Coin's
 
             setTimeout(function() {
                 $("#profile-picture").addClass('profile-picture-active');
@@ -211,8 +200,5 @@ HubStar.UserView = Ember.View.extend({
             // Removes  required class styles for slide down animation
 
         }// Slide down (close)
-
     }
-
-
 });

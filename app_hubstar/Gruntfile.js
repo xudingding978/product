@@ -473,9 +473,6 @@ module.exports = function(grunt) {
                 //  'test',
                 //  'shell'
     ]);
-    grunt.registerTask('checkCss', [
-        'uncss'
-    ]);
     grunt.registerTask('gitcommit', [
         'shell:listFolders'
     ]);

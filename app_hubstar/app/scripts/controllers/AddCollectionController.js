@@ -142,11 +142,10 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                         var that = this;
                         this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
                         requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
-                            //console.log(params);
                             HubStar.get('selectedCollection').collection_ids = params;
                             var tempComment = [that.get("objectID")];
                             //that.commitCollection();
-                            requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {                                
+                            requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
                                 that.get("commentObject").set("save_count", params);
                                 that.get("commentObject").store.save();
                             });
@@ -159,9 +158,12 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                     }
                 }
             }
+            $("#body_id").css("overflow", "auto");
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please choose a collection.", "warnning");
         }
+        
+        
 
     },
     commitCollection: function() {
@@ -175,7 +177,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                     break;
                 }
             }
-            collection.set("collection_ids",HubStar.get('selectedCollection').collection_ids);
+            collection.set("collection_ids", HubStar.get('selectedCollection').collection_ids);
             console.log(collection.get("collection_ids"));
             collection.store.save();
         });
@@ -193,20 +195,17 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
 
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         var commentContent = this.get('selectedDesc');
-        if (commentContent) { 
+        if (commentContent) {
             var comments = this.get("commentObject").get('comments');
             var commenter_profile_pic_url = currentUser.get('photo_url_large');
             var commenter_id = currentUser.get('id');
             var name = currentUser.get('display_name');
             var date = new Date();
             var message_id = createMessageid() + commenter_id;
-//             var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url, 
-//                 "message_id": message_id, "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(), 
-//                 "is_delete": false, optional: this.get('mega').get('type') + '/' + this.get('mega').get('id')});
 
             var tempComment = HubStar.Comment.createRecord({"commenter_profile_pic_url": commenter_profile_pic_url,
                 "message_id": message_id, "commenter_id": commenter_id, "name": name, "content": commentContent, "time_stamp": date.toString(),
-                "is_delete": false, optional: this.get("commentObject").get('type') + '/' + this.get("commentObject").get('id')});  
+                "is_delete": false, optional: this.get("commentObject").get('type') + '/' + this.get("commentObject").get('id')});
             console.log(tempComment);
             console.log(comments);
             comments.insertAt(0, tempComment);
@@ -214,6 +213,11 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             commentContent = '';
             $('#addcommetBut').attr('style', 'display:block');
             $('#commentBox').attr('style', 'display:none');
+            setTimeout(function() {
+                $('#masonry_user_container').masonry();
+                $('#masonry_photo_collection_container').masonry();
+                $('#masonry_container').masonry();
+            }, 10);
         }
     },
     setSelectedCollection: function(id) {
@@ -295,7 +299,6 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     exit: function() {
         this.set('selectionPop', false);
         this.set('selectionProfile', false);
-        //console.log(this.get("parentTController"));
         if (this.get('parentTController') === 'article')
         {
             this.get("controllers.article").switchCollection();
@@ -315,6 +318,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         else {
             this.get("controllers.mega").switchCollection();
         }
+        $("#body_id").css("overflow", "auto");
     },
     addNewCollection: function()
     {

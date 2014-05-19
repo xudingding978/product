@@ -286,7 +286,7 @@ class CommentsController extends Controller {
         if (isset($mega['comments'])) {
             $comments = $mega['comments'];
         } else {
-            $comments = [];
+            $comments = array();
         }
        
         for ($i = 0; $i < sizeof($comments); $i++) {

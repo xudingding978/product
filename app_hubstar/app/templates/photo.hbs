@@ -124,11 +124,18 @@
         <!-- OBJECT CONTROLL SECTION -->
         <div  class="collapes-container"  style="display:block;border-top: 1px solid #f3f3f3;">
             <div class="collapes-container_inner" style="padding: 0; height: 45px;">
-
-                <div  class="square-button hint--rounded hint--bottom"  data-hint="Like this Idea!" {{action addLike}}>
+                {{megaResouce.photo_isLike}}
+                
+                {{#if megaResouce.isLike}}
+                
+                 <div  class="square-button hint--rounded hint--bottom"  data-hint="unLike this Idea!" {{action unLike}}>
                       <i class="fa fa-thumbs-up">&nbsp;<span style="font-size: 11px;">{{megaResouce.likes_count}}</span>&nbsp;</i>
                 </div>
-
+                {{else}}
+               <div  class="square-button hint--rounded hint--bottom"  data-hint="Like this Idea!" {{action addLike}}>
+                      <i class="fa fa-thumbs-up">&nbsp;<span style="font-size: 11px;">{{megaResouce.likes_count}}</span>&nbsp;</i>
+                </div>
+                {{/if}}
                 <div class="square-button hint--rounded hint--bottom"  data-hint="Add to your own collection." {{action switchCollection on="click" target="controller"}}>
                     <i class="fa fa-folder" >&nbsp;<span style="font-size: 11px;">{{megaResouce.save_count}}</span>&nbsp;</i>
                 </div>
@@ -257,17 +264,9 @@
 
                     {{/unless}}
 
-
-
                 </div>
 
-
-
-
             </div>
-
-
-
 
         </div>
 

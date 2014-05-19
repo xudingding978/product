@@ -1576,8 +1576,8 @@ textarea.add-interests{
 /*-------------------------Group Part -------------------------------------------*/
 .group-profile-title-image{
     position: relative;
-    height: 250px;
-    top: 270px;
+    height: 210px;
+    top: 230px;
     width: 850px;
     margin: auto;
     z-index: 3;

@@ -5,6 +5,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
     groupStepFour: false,
     categorys: [],
     subcate: [],
+    isResidential:true,
     needs: ['profile', 'applicationFeedback', 'application'],
     init: function()
     {
@@ -42,22 +43,23 @@ HubStar.GroupsNewController = Ember.Controller.extend({
             this.set("groupStepTwo", false);
             this.set("groupStepThree", false);
             this.set("groupStepFour", true);
-        } else if (number === "4") {
-          
+        } else if (number === "0") {
+          this.set("groupStepOne", true);
+            this.set("groupStepTwo", false);
+            this.set("groupStepThree", false);
+            this.set("groupStepFour", false);
         }
     },
     groupSelection: function(checking) {
 
         if (checking === "residental") {
 
-            this.set("group_package", "Residental");
-         //   this.set("keywordNumber", "100");
+            this.set("isResidential", true);
             $("#groupRes").removeClass("hover-opacity easing");
             $("#groupCom").addClass("hover-opacity easing");
         } else if (checking === "commerial") {
 
-            this.set("group_package", "Commerial");
-            //this.set("keywordNumber", "50");
+           this.set("isResidential", false);
             $("#groupRes").addClass("hover-opacity easing");
             $("#groupCom").removeClass("hover-opacity easing");
         } 

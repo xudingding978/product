@@ -37,9 +37,7 @@
             <div class="group-content easing">    
                 {{#if controller.isResidential}}
                 <div id ="" style="margin: 5px 20px 5px;" >
-                    <div style="position: relative;font-size: 15px;font-weight: bold;margin:20px 0;">
-                        <div style="position: relative">Residential</div> 
-                    </div>
+                
 
                     <div style="position: relative;"> 
                         {{#each view.contentTopicResidential}}
@@ -76,6 +74,9 @@
                 </div>
                 {{/if}}
             </div>
+              <div class="group-step-button">
+                <div class="new-btn" {{action groupStep "0"}} >Back</div>
+            </div>
             <div class="group-step-button">
                 <div class="new-btn green-btn" {{action groupStep "2"}} >Next</div>
             </div>
@@ -83,22 +84,28 @@
         {{/if}}
         {{#if controller.groupStepThree}}
         <div id="group-step-3"  class="group-step">
-            <div class="group-step-title"> >Step 3. Budget</div>
+            <div class="group-step-title"> Step 3. Budget</div>
             <div class="group-content easing" >
 
             </div>
+              <div class="group-step-button">
+                <div class="new-btn" {{action groupStep "1"}} >Back</div>
+            </div>
             <div class="group-step-button">
-                <div class="new-btn green-btn" {{action groupStep "2"}} >Next</div>
+                <div class="new-btn green-btn" {{action groupStep "3"}} >Next</div>
             </div>
         </div>
         {{/if}}
         {{#if controller.groupStepFour}}
         <div id="group-step-4"  class="group-step">
-            <div class="group-step-title"> >Step 4. Time Frame</div>
+            <div class="group-step-title"> Step 4. Time Frame</div>
             <div class="group-content easing" >           
             </div> 
+              <div class="group-step-button">
+                <div class="new-btn" {{action groupStep "2"}} >Back</div>
+            </div>
             <div class="group-step-button">
-                <div class="new-btn green-btn" {{action groupStep "2"}} >Next</div>
+                <div class="new-btn green-btn" {{action groupStep "4"}} >Next</div>
             </div>
         </div>
         {{/if}}

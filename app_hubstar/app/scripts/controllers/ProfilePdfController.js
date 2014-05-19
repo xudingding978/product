@@ -11,6 +11,13 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
     isRenderDeleteItemTemplate: false,
     needs: ['profile', 'permission', 'applicationFeedback', 'pdfUploader'],
 
+    init: function() {
+        var address = document.URL;
+        var profile_id = address.split("#")[1].split("/")[2];
+        var model = HubStar.Profile.find(profile_id);
+        this.getClientId(model);
+    },
+            
     getClientId: function(model) {
         console.log('getClientID');
         var results = HubStar.Mega.find({"RquireType": "pdf", 'ownerid': model.get("id")});
@@ -38,6 +45,7 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
     var url = "";
     for (var i = 0; i < this.get('pdfContent').get('length'); i ++) {
         if (this.get('pdfContent').objectAt(i).get('id') === id) {
+            console.log(i);
             url = this.get('pdfContent').objectAt(i).get('pdf').objectAt(0).get('pdf_url');
         }
     }

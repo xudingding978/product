@@ -17,8 +17,8 @@ class PdfsController extends Controller {
 
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
-        $request_arr = CJSON::decode($request_json, true);
-        $request_arr = $request_arr['pdf'];
+        $request_raw = CJSON::decode($request_json, true);
+        $request_arr = $request_raw['pdf'];
         $cb = $this->couchBaseConnection();
         $docID = $this->getDomain() . "/" . $request_arr['id'];
         $pdf_json = $cb->get($docID);
@@ -26,7 +26,8 @@ class PdfsController extends Controller {
         if (!isset($pdf_mega['pdf'])) {
             $pdf_mega['pdf'] = array();
         }
-        $pdf_mega['pdf'][0] = $request_arr;
+        error_log(var_export($request_arr, true));
+        $pdf_mega['pdf'] = $request_arr;
         $pdf_mega['object_title'] = $request_arr['pdf_title'];
         $pdf_mega['object_description'] = $request_arr['pdf_desc'];
         $pdf_mega['object_image_url'] = $request_arr['pdf_cover_image'];
@@ -159,7 +160,7 @@ class PdfsController extends Controller {
             $docID = $this->getDomain() . "/" . $id;
             $cbRecord = $cb->get($docID); // get the old profile record from the database according to the docID string
             $oldRecord = CJSON::decode($cbRecord, true);
-            $oldRecord['pdf'] = $newRecord;
+            $oldRecord['pdf'] = $newRecord['pdf'];
 
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);

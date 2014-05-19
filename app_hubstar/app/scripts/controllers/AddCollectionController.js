@@ -76,10 +76,14 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     {
 
         if (this.get("selectionPop") !== true && HubStar.get('selectedCollection') !== undefined && HubStar.get('selectedCollection') !== null) {
+            var content;
+            var that = this;
+            var message;
+            var data;
             if (HubStar.get("isProfile") === false) {
                 var collectionController = this.get('controllers.collection');
                 var collection = collectionController.getUpdateCollection(HubStar.get('selectedCollection'));
-                var content = collection.get("collection_ids");
+                content = collection.get("collection_ids");
                 var flag = this.addCollection(collection, content);
                 if (flag === true) {
                     this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
@@ -88,7 +92,6 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                     collection.set('type', 'user');
                     collection.store.save();
                     var tempComment = [this.get("objectID")];
-                    var that = this;
                     requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
                         that.get("commentObject").set("save_count", params);
                         that.get("commentObject").store.save();
@@ -97,19 +100,18 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                 }
                 else
                 {
-                    var message = "this is already in the collection";
+                    message = "this is already in the collection";
                     this.get('controllers.applicationFeedback').statusObserver(null, message);
                 }
                 this.exit();
             }
             else
             {
-                var content = HubStar.get('selectedCollection').collection_ids;
+                content = HubStar.get('selectedCollection').collection_ids;
                 if (content === null || content === undefined || content === "") {
                     HubStar.get('selectedCollection').collection_ids = this.get("objectID");
 
-                    var data = JSON.stringify(HubStar.get('selectedCollection'));
-                    var that = this;
+                    data = JSON.stringify(HubStar.get('selectedCollection'));
                     this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
                     requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
                         HubStar.get('selectedCollection').collection_ids = params;
@@ -130,7 +132,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                 else {
                     if (content.indexOf(this.get("objectID")) !== -1)
                     {
-                        var message = "this is already in the collection";
+                        message = "this is already in the collection";
                         this.get('controllers.applicationFeedback').statusObserver(null, message);
                     }
                     else {
@@ -138,8 +140,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                         ids = ids + "," + this.get("objectID");
                         HubStar.get('selectedCollection').collection_ids = ids;
 
-                        var data = JSON.stringify(HubStar.get('selectedCollection'));
-                        var that = this;
+                        data = JSON.stringify(HubStar.get('selectedCollection'));
                         this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
                         requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
                             HubStar.get('selectedCollection').collection_ids = params;
@@ -221,10 +222,12 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         }
     },
     setSelectedCollection: function(id) {
+        var selectedCollection = null;
+        var thisCollection;
+        var i = 0;        
         if (HubStar.get("isProfile") === false) {
-            var selectedCollection = null;
-            for (var i = 0; i < this.get("collections").get("length"); i++) {
-                var thisCollection = this.get("collections").objectAt(i);
+            for ( i = 0; i < this.get("collections").get("length"); i++) {
+                thisCollection = this.get("collections").objectAt(i);
                 if (id === thisCollection.get("id")) {
                     selectedCollection = thisCollection;
                 }
@@ -233,9 +236,8 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         }
         else
         {
-            var selectedCollection = null;
-            for (var i = 0; i < HubStar.get("profileCollection").get("length"); i++) {
-                var thisCollection = HubStar.get("profileCollection").objectAt(i);
+            for ( i = 0; i < HubStar.get("profileCollection").get("length"); i++) {
+                thisCollection = HubStar.get("profileCollection").objectAt(i);
                 if (id === thisCollection.id) {
                     selectedCollection = thisCollection;
                 }
@@ -324,8 +326,9 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     {
 
         var collectionController = this.get('controllers.collection');
+        var collection;
         if (HubStar.get("isProfile") === false) {
-            var collection = collectionController.getCreateCollection(this.get('newCollectionName'), '', this.get("collections"));
+             collection = collectionController.getCreateCollection(this.get('newCollectionName'), '', this.get("collections"));
             if (collection !== null && collection !== "") {
                 collection.set('type', 'user');
                 collection.set('optional', localStorage.loginStatus);
@@ -333,19 +336,18 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                 this.get("collections").store.save();
                 HubStar.set('selectedCollection', collection);
                 this.chooseRecord(collection.get("title"), collection.get("id"));
-                //$('#recordID').text(this.get('newCollectionName'));
             } else {
             }
         }
         else
         {
-            var collection = collectionController.getCreateCollection(this.get('newCollectionName'), '', HubStar.get("profileCollection"));
+             collection = collectionController.getCreateCollection(this.get('newCollectionName'), '', HubStar.get("profileCollection"));
 
             if (collection !== null && collection !== "") {
                 collection.set('type', 'profile');
                 collection.set('optional', this.get("chosenProfile"));
 
-                var newCollection = new Object();
+                var newCollection = {};
                 newCollection.collection_ids = collection.get("collection_ids");
 
                 newCollection.cover = collection.get("cover");
@@ -376,13 +378,13 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
     },
     profileSwitch: function() {
         var data = [localStorage.loginStatus];
-        var dataNew = new Array();
+        var dataNew = [];
         var that = this;
         this.set('selectionPop', false);
         requiredBackEnd('users', 'ReadCollection', data, 'POST', function(params) {
-            dataNew["profile_id"] = localStorage.loginStatus;
-            dataNew["profile_name"] = "your profile";
-            dataNew["type"] = "user";
+            dataNew.profile_id = localStorage.loginStatus;
+            dataNew.profile_name = "your profile";
+            dataNew.type = "user";
             params.insertAt(0, dataNew);
             that.set("profiles", params);
             that.set('selectionProfile', !that.get('selectionProfile'));

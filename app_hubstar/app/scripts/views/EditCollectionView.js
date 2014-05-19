@@ -1,19 +1,9 @@
 HubStar.EditCollectionView = Ember.View.extend({
     templateName: 'editCollection',
     didInsertElement: function() {
-         var container = document.querySelector('#masonry_user_container');
-        var msnry = new Masonry(container, {
-             itemSelector: '.box',
-                columnWidth: 185,
-                isFitWidth: true
-        });
-//        $(function() {
-//            $('#masonry_user_container').masonry({
-//                itemSelector: '.box',
-//                columnWidth: 185,
-//                isFitWidth: true
-//            });
-//        });
+        // var container = document.querySelector('#masonry_user_container');
+ 
+
         $('#uploadObject').click(function() {           
             $('.new-collection-name_insert').val("");
             $('.new-collection-area').val("");

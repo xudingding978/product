@@ -67,8 +67,8 @@ HubStar.MessageCenterRoute = Ember.Route.extend({
     events: {
         transitionToConversation: function(conversation_id) {
             var address = document.URL;
-            var user_id = address.split("#")[1].split("/")[2];
-            var user = HubStar.User.find(user_id);
+//            var user_id = address.split("#")[1].split("/")[2];
+//            var user = HubStar.User.find(user_id);
 
             var data = null;
             var isNewConversation = HubStar.get("newConversation");

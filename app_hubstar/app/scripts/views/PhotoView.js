@@ -15,18 +15,15 @@ HubStar.PhotoView = Ember.View.extend({
     },
     setDiscussionTag: function() {
         $('#discuss_action').slideToggle("slow");
-        //     this.set('discussionTag', !this.get('discussionTag'));
-
+       
     },
     setNameTag: function() {
         $('#poster_action').slideToggle("slow");
-        //       this.set('nameTag', !this.get('nameTag'));
 
     },
     setPartnerTag: function() {
         $('#partner_action').slideToggle("slow");
-        //       this.set('partnerTag', !this.get('partnerTag'));
-
+     
     },
     popupAibum: function() {
         HubStar.set('what', false);
@@ -44,11 +41,9 @@ HubStar.PhotoView = Ember.View.extend({
         $('#addcommetBut').attr('style', 'display:block');
         $('#commentBox').attr('style', 'display:none');
     },
-    keyUp: function(event, view) {
+    keyUp: function(event) {
         if (event.which === 27)
         { // pressed 'esc'
-
-            //this.get("controller").transitionTo("search");
 
             var address = document.URL;
             var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 

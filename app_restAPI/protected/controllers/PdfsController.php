@@ -27,7 +27,7 @@ class PdfsController extends Controller {
             $pdf_mega['pdf'] = array();
         }
         error_log(var_export($request_arr, true));
-        $pdf_mega['pdf'] = $request_arr;
+        $pdf_mega['pdf'][0] = $request_arr;
         $pdf_mega['object_title'] = $request_arr['pdf_title'];
         $pdf_mega['object_description'] = $request_arr['pdf_desc'];
         $pdf_mega['object_image_url'] = $request_arr['pdf_cover_image'];
@@ -160,7 +160,7 @@ class PdfsController extends Controller {
             $docID = $this->getDomain() . "/" . $id;
             $cbRecord = $cb->get($docID); // get the old profile record from the database according to the docID string
             $oldRecord = CJSON::decode($cbRecord, true);
-            $oldRecord['pdf'] = $newRecord['pdf'];
+            $oldRecord['pdf'][0] = $newRecord['pdf'];
 
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);

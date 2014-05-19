@@ -1,6 +1,7 @@
 HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
     insertNewline: function() {
         var controller = this.get('targetObject');
+          var s = this.$().parents()[0].id.split("_")[1];
         if (controller._debugContainerKey.indexOf("addCollection") !== -1)
         {
             controller.addNewCollection();
@@ -18,7 +19,6 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
                 }
             }
             else {
-//                controller.get('controllers.applicationFeedback').statusObserver(null, "Please insert  keywords to search.", "warnning");
             }
 
         }
@@ -36,7 +36,6 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
                 HubStar.set("showDiscoveryBar", false);
             }
             else {
-//                controller.get('controllers.applicationFeedback').statusObserver(null, "Please insert  keywords to search.", "warnning");
             }
         }
         else if (controller._debugContainerKey.indexOf("mega") !== -1) {
@@ -53,32 +52,30 @@ HubStar.SearchRequireTextFieldView = Ember.TextField.extend({
             controller.partnerSearch();
         }
         else if (controller._debugContainerKey.indexOf("message") !== -1) {
-            var s = this.$().parents()[0].id.split("_")[1];
+          
             controller.addReply(s);
         }
         else if (controller._debugContainerKey.indexOf("editReply") !== -1) {
-            var s = this.$().parents()[0].id.split("_")[1];
+          
             controller.updateReply(s);
         }
         else if (controller._debugContainerKey.indexOf("reviewListSingle") !== -1) {
 
-            var s = this.$().parents()[0].id.split("_")[1];
+        
             controller.transitionToRoute('review', {id: s});
             controller.addReviewReply(s);
-            //controller.editReviewReply(s);
+           
         }
         else if (controller._debugContainerKey.indexOf("reviewReplyListSingle") !== -1) {
-            var s = this.$().parents()[0].id.split("_")[1];
+          
             controller.transitionToRoute('reply', {id: s});
             controller.saveReviewReply(s);
         }
         else {
-//            console.log(controller);
+
         }
     },
     didInsertElement: function() {
-
-        //this.$().focus();   //it is used to control the acess from route ,can change url from search 
 
     }
 });

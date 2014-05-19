@@ -48,8 +48,6 @@ HubStar.AfterLoginView = Ember.View.extend({
              $("#cancel").css("display", "none");
 
         } else if (checking === "new") {
-          //  this.get("controller").set("newProfile", true);
-           // this.loadProfile();
              location.href ="#/profiles/new";
             $("#user-dd-menu").attr("style", "display:none");
              $("#cancel").css("display", "none");

@@ -31,12 +31,9 @@ HubStar.ContactController = Ember.Controller.extend({
     projectBudget: null,
     projectExperience: null,
     email_title: "",
-    needs: ["mega", "profile", 'article', 'applicationFeedback', 'video'],
+    needs: ["mega", "profile", 'article', 'applicationFeedback', 'video','application'],
     init: function() {
-
-        this.set('categorys', []);
-
-        this.set('categorys', HubStar.Cate.find());
+        this.set('categorys', this.get("controllers.application").get("categorys"));
         this.set('projectCategorySelection', 'Please Select One ...');
         this.set('timeframeSelection', 'Please Select One ...');
         this.set('projectBudgetSelection', 'Please Select One ...');

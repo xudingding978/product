@@ -403,7 +403,7 @@ HubStar.RegisterView = Ember.View.extend({
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook#_=_";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -413,7 +413,7 @@ HubStar.RegisterView = Ember.View.extend({
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Yahoo";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -423,7 +423,7 @@ HubStar.RegisterView = Ember.View.extend({
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=QQ";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -433,7 +433,7 @@ HubStar.RegisterView = Ember.View.extend({
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Twitter";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -443,7 +443,7 @@ HubStar.RegisterView = Ember.View.extend({
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Sina";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -453,7 +453,7 @@ HubStar.RegisterView = Ember.View.extend({
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=LinkedIn";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -463,7 +463,7 @@ HubStar.RegisterView = Ember.View.extend({
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Google";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 * 1.5 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 * 1.5 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }

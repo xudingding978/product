@@ -170,14 +170,29 @@ class PhotosController extends Controller {
             $url = $this->getDomain() . "/" . $id;
             $tempRecord = $cb->get($url);
             $oldRecord = CJSON::decode($tempRecord, true);
-
             $oldRecord['object_description'] = $newRecord['photo']['photo_caption'];
             $oldRecord['photo'][0]['photo_title'] = $newRecord['photo']['photo_title'];
             $oldRecord['photo'][0]['photo_caption'] = $newRecord['photo']['photo_caption'];
 
-            $keyword = $this->getProfileKeyword($oldRecord['owner_id']);
+
+            //$oldRecord['photo'][0]['photo_keywords'] = $newRecord['photo']['photo_keywords'];
+            $keyword = $this->getPictureKeyword($newRecord['photo']['photo_keywords'], $oldRecord['owner_id']);
 
             $oldRecord['keyword'] = $keyword;
+            
+           
+            $oldRecord['photo'][0]['photo_keywords'] =  $newRecord['photo']['photo_keywords'];
+
+            //error_log(var_export($newRecord['photo']['photo_caption'], true));
+            //error_log(var_export($newRecord['photo']['photo_keywords'], true)); 
+            
+            //$keyword = $this->getProfileKeyword($owner_id);
+            //$oldRecord['keyword'] = $keyword;
+
+            //$keyword = $this->getProfileKeyword($oldRecord['owner_id']);
+
+            //$oldRecord['keyword'] = $keyword;
+
 
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
@@ -187,6 +202,53 @@ class PhotosController extends Controller {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
+    }
+
+
+    public function getPictureKeyword($newRecord, $owner_id) {
+        $keyword_id = null;
+        $keyword_name = null;
+        $create_date = null;
+        $expire_date = null;
+        $value = null;
+        $profile_id = $owner_id;
+        $collection_id = null;
+        $is_delete = false;
+        $returnedkeyinfo = array();
+        $keyarray = explode(",", $newRecord);
+        //if (!isset($newRecord['keyword'])) {
+        for ($x = 0; $x < sizeof($keyarray); $x++) {
+            //$keyword_name = trim($newRecord, ",");
+            // $returnedkeyinfo[$x] = array(
+            $item = array();
+            $item['keyword_id'] = date_timestamp_get(new DateTime()) . rand(0, 99999);
+            $item['keyword_name'] = $keyarray[$x];
+            $item['create_date'] = date_timestamp_get(new DateTime());
+            $item['expire_date'] = $expire_date;
+            $item['value'] = $value;
+            $item['profile_id'] = $profile_id;
+            $item['collection_id'] = $collection_id;
+            $item['is_delete'] = $is_delete;
+
+
+
+            /*$returnedkeyinfo[$x] = array(
+                "keyword_id: " . $keyword_id,
+                "keyword_name: " . $keyarray[$x],
+                "create_date: " . $create_date,
+                "expire_date: " . $expire_date,
+                "value: " . $value,
+                "profile_id: " . $profile_id,
+                "collection_id: " . $collection_id,
+                "is_delete: " . $is_delete);*/
+
+
+
+            $returnedkeyinfo[$x] = $item;
+            
+        }
+        return $returnedkeyinfo;
+        
     }
 
     public function getProfileKeyword($owner_id) {
@@ -318,19 +380,19 @@ class PhotosController extends Controller {
             $mega["accessed"] = 1;
         }
         $mega["accessed"] = date_timestamp_get(new DateTime());
-        
+
         if (!isset($mega['created'])) {
             $mega["created"] = 1;
         }
         $mega["created"] = date_timestamp_get(new DateTime());
-        
+
 
         $mega["updated"] = 0;
 
-        
-        $keyword = $this->getProfileKeyword($mega['owner_id']);
+
+        //$keyword = $this->getProfileKeyword($mega['owner_id']);
         $editors = $this->getProfileEditors($mega['owner_id']);
-        $mega['keyword'] = $keyword;
+        //$mega['keyword'] = $keyword;
 
         $mega['editors'] = $editors;
 
@@ -537,6 +599,7 @@ class PhotosController extends Controller {
     }
 
     public function photoUpdate($mega) {
+        
         try {
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
@@ -545,6 +608,9 @@ class PhotosController extends Controller {
             $photoCaption = $mega['mega']['photo'][0]['photo_caption'];
             $linkText = $mega['mega']['photo'][0]['photo_link_text'];
             $linkUrl = $mega['mega']['photo'][0]['photo_link_url'];
+            $keyword = $mega['mega']['photo'][0]['photo_keywords'];
+            //$keyword = $this->getPictureKeyword($mega['mega']['photo'][0]['photo_keywords'], $oldRecord['owner_id']);
+            
             $deleted = $mega['mega']['is_deleted'];
 
 
@@ -571,6 +637,14 @@ class PhotosController extends Controller {
             $oldRecord['photo'][0]['photo_caption'] = $photoCaption;
             $oldRecord['photo'][0]['photo_link_text'] = $linkText;
             $oldRecord['photo'][0]['photo_link_url'] = $linkUrl;
+           
+            $newkeyword = $this->getPictureKeyword($keyword, $oldRecord['owner_id']);
+            
+           
+
+            $oldRecord['keyword'] = $newkeyword;
+           
+            
             $oldRecord['is_deleted'] = $deleted;
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);

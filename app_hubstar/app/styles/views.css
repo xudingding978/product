@@ -1352,13 +1352,14 @@ div.album-description-bg{
 }
 
 .edit_photo-caption_field{
-    height: 200px;
+    height: 100px;
     resize: none;
     overflow: auto;
 }
 
-.edit_photo-caption_field2{
-    height: 106px;
+.edit_photo-keywords_field{
+    margin: 10px auto;
+    height: 100px;
     resize: none;
     overflow: auto;
 }
@@ -2226,7 +2227,7 @@ div.album-description-bg{
         top: -30px;
         padding: 0;
     }
-    
+
     #cta-popup{
         height: 620px;
         min-width: 400px;

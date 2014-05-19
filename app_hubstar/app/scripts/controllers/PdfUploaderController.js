@@ -86,24 +86,20 @@ HubStar.PdfUploaderController = Ember.ObjectController.extend({
         var that = this;
         a.then(function() {
             console.log("45645645654564564646546465465");
-            var pdf_url = "http://s3.hubsrv.com.s3.amazonaws.com/trendsideas.com/profiles/"+mega.get('owner_id')+"/"+name;
-            var pdf = HubStar.Pdf.createRecord({'id':mega.get('id'),
+            requiredBackEnd('pdfs', 'saveToS3', {'id':mega.get('id'),
             'pdf_cover_image': "http://www.soompi.com/wp-content/uploads/2013/07/IU-tumblr.jpg", 'pdf_title': name.split('.')[0],
-            'pdf_desc': "", 'pdf_url': src, 'pdf_profile_id': that.get('controllers.profile').get('model').get('id')});
-        console.log("78978978978978978978978978978978797897897");
-            var b =pdf.save();
-            pdf.get("isSaving");
-            var thatthat = that;
-            console.log("22222222222");
-            b.then(function() {
-                console.log("111111");
-               // thatthat.get("pdfArray").pushObject(pdf);
-               var p= HubStar.Pdf.find(mega.get('id'));
-                 thatthat.get("pdfArray").insertAt(0,p);
-//                console.log("333333333333333333");
-//                console.log(mega.get('isSaving'));
-//                console.log(thatthat.get("pdfArray").objectAt(0).get("pdf").objectAt(0).get('isSaving'));
+            'pdf_desc': "", 'pdf_url': src, 'pdf_profile_id': that.get('controllers.profile').get('model').get('id')}, 'POST', function(params) {
+                console.log(params.pdf_url);
+                var pdf_url = params.pdf_url;
+                var pdf_cover_image = params.pdf_cover_image;
+                var pdf = HubStar.Pdf.createRecord({'id':mega.get('id'),
+                'pdf_cover_image': pdf_cover_image, 'pdf_title': name.split('.')[0],
+                'pdf_desc': "", 'pdf_url': pdf_url, 'pdf_profile_id': that.get('controllers.profile').get('model').get('id')});
+                pdf.store.save();
+                 that.get("pdfArray").insertAt(0,pdf);
             });
+                        
+//            
 
         });
 //        console.log('1111111111111111');

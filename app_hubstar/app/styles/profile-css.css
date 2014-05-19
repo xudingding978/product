@@ -1158,9 +1158,6 @@ textarea.add-interests{
 .remove-comment-photo:hover{opacity: 1;}
 
 
-
-
-
 /*message menu*/
 
 .create-conversation{
@@ -1574,3 +1571,18 @@ textarea.add-interests{
     margin-left: 30%;
     width: 70%;
 }
+
+
+/*-------------------------Group Part -------------------------------------------*/
+
+.group-package{
+  cursor: pointer;
+    padding: 35px;
+    background-color: gainsboro;
+    margin: 30px 20px 0 20px;
+    position: relative;
+    width: 28%;
+    float: left;
+    text-align: center;
+}
+

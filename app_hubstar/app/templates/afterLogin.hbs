@@ -2,7 +2,7 @@
 
 <div id="user-header-menu" {{action dropdown "user"}} >
 
-    <div class="" data-toggle="dropdown" >
+     <div class="" data-toggle="dropdown" >
         <a class="circle-btn" style="border: none"><img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user  easing" /></a>    
     </div>
     <div class="circle-btn-description">My Profile</div>
@@ -10,35 +10,38 @@
 </div>
 {{#if controller.userProfile}}
 <div id="cancel" class="blank-top-bar"  {{action dropdown "user"}}>&nbsp;</div>
- <ul id="user-dd-menu" class="user-dd-menu  edit-object-ul">
-        <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myUserProfile"}} {{action userDisplaynone "myUserProfile" on="click"  target="view"}}>
-                            <i class="fa fa-user" style="">&nbsp;&nbsp;</i>
-                <span>My Profile</span>
-            </a></li>
-        <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myMessageBoard"}} {{action userDisplaynone "myMessageBoard" on="click"  target="view"}}>
-                            <i class="fa fa-envelope" style="">&nbsp;&nbsp;</i>
-                <span>Messages</span>
-            </a></li>
-        {{#if controller.is_trends_user}}
-        <li class="ite" ><a tabindex="-1"  href="" {{action userDisplaynone "new" on="click"  target="view"}}>
-                            <i class="fa fa-briefcase" style="">&nbsp;&nbsp;</i>
-                <span>Business Profiles</span>
-            </a></li>
+<ul id="user-dd-menu" class="user-dd-menu  edit-object-ul">
+    <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myUserProfile"}} {{action userDisplaynone "myUserProfile" on="click"  target="view"}}>
+                        <i class="fa fa-user" style="">&nbsp;&nbsp;</i>
+            <span>My Profile</span>
+        </a></li>
+    <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myMessageBoard"}} {{action userDisplaynone "myMessageBoard" on="click"  target="view"}}>
+                        <i class="fa fa-envelope" style="">&nbsp;&nbsp;</i>
+            <span>Messages</span>
+        </a></li>
+    {{#if controller.is_trends_user}}
+    <li class="ite" ><a tabindex="-1"  href="" {{action userDisplaynone "new" on="click"  target="view"}}>
+                        <i class="fa fa-briefcase" style="">&nbsp;&nbsp;</i>
+            <span>Business Profiles</span>
+        </a></li>
+    <li class="ite" ><a tabindex="-1"  href="" {{action userDisplaynone "newGroup" on="click"  target="view"}}>
+                        <i class="fa fa-briefcase" style="">&nbsp;&nbsp;</i>
+            <span>Group</span>
+        </a></li>
+    {{/if}}
 
-        {{/if}}
+    <li class='ite' style=" border-top: 1px solid #ddd; "><a tabindex="-1" href="http://about.trendsideas.com/" target="blank" {{action userDisplaynone "about" on="click"  target="view"}}>
+                                                             <i class="fa fa-question-circle" style="">&nbsp;&nbsp;</i>
+            <span>Help</span>
+        </a></li>
+    <li class='ite'><a tabindex="-1" href="javascript:void(0)"  id="startButton" {{action startTour on="click"  target="view"}}>
+            <i class="fa fa-info" style="">&nbsp;&nbsp;</i>
+            <span>Take the tour</span>
+        </a></li>
+    <li class="ite"><a tabindex="-1" href="" {{action logout on="click"  target="view"}}  >
+            <i class="fa fa-power-off" style="">&nbsp;&nbsp;</i>
+            <span>Log out</span> 
+        </a></li>
 
-        <li class='ite' style=" border-top: 1px solid #ddd; "><a tabindex="-1" href="http://about.trendsideas.com/" target="blank" {{action userDisplaynone "about" on="click"  target="view"}}>
-                                                                 <i class="fa fa-question-circle" style="">&nbsp;&nbsp;</i>
-                <span>Help</span>
-            </a></li>
-        <li class='ite'><a tabindex="-1" href="javascript:void(0)"  id="startButton" {{action startTour on="click"  target="view"}}>
-                <i class="fa fa-info" style="">&nbsp;&nbsp;</i>
-                <span>Take the tour</span>
-            </a></li>
-        <li class="ite"><a tabindex="-1" href="" {{action logout on="click"  target="view"}}  >
-                <i class="fa fa-power-off" style="">&nbsp;&nbsp;</i>
-                <span>Log out</span> 
-            </a></li>
-
-    </ul>
+</ul>
 {{/if}}

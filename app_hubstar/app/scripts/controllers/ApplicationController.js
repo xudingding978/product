@@ -81,7 +81,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     init: function() {
 
         var that = this;
-
+        
         this.set('categorys', HubStar.Cate.find({}));
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
         requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {

@@ -236,7 +236,7 @@
                                 <td>
                                     <div style="display: block;height:40px ;">
                                         <div  id="displayName"  style="margin: 0;height:40px ;width: 100%;">
-                                            {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_link_keywords" class="no-resize"}} 
+                                            {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_keywords" class="no-resize"}} 
                                         </div>
                                     </div>
                                 </td>
@@ -249,7 +249,7 @@
 
                     <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
 
-                        <div  type="button" class="new-btn blue-btn" {{action yes selectedPhoto}}> <i class="fa fa-check fa fa-white"></i></div>
+                        <div  type="button" class="new-btn blue-btn" {{action yes}}> <i class="fa fa-check fa fa-white"></i></div>
 
                         <div  type="button" class="new-btn" {{action no }}> <i class="fa fa-times"></i></div>
 

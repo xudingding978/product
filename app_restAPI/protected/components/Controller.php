@@ -158,10 +158,10 @@ class Controller extends CController {
             $size = $this->getUserInput($requireParams[4]);
             $location = $this->getUserInput($requireParams[5]);
 
-           $classification = $this->getUserInput($requireParams[6]);
+            $classification = $this->getUserInput($requireParams[6]);
             $response = $this->getSearchResultsWithAnalysis($region, $searchString, $from, $size, $location, $classification);
-            
-           $response = $this->profileSetting($response, $returnType, 'firstsearch');
+
+            $response = $this->profileSetting($response, $returnType, 'firstsearch');
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
@@ -192,8 +192,7 @@ class Controller extends CController {
 
 
             $response = $this->getSearchResultsWithAnalysis($region, $searchString, $from, $size, $location, $classification);
-        $response = $this->profileSetting($response, $returnType, 'firstsearch');
-
+            $response = $this->profileSetting($response, $returnType, 'firstsearch');
         } elseif ($requireType == 'personalCollection') {
             $userid = $this->getUserInput($requireParams[1]);
             $collection_id = $this->getUserInput($requireParams[2], false);
@@ -253,11 +252,11 @@ class Controller extends CController {
         }
 
         $collection = null;
-        
+
 
 
         for ($i = 0; $i < sizeof($collections); $i++) {
-           
+
             if ($collections[$i]['id'] === $collection_id) {
                 $collection = $collections[$i];
 
@@ -269,8 +268,8 @@ class Controller extends CController {
         $megas = Array();
 
 
-        for ($i = 0; $i<sizeof($collectionIds) ; $i++) {
-            if(sizeof($megas)>20){
+        for ($i = 0; $i < sizeof($collectionIds); $i++) {
+            if (sizeof($megas) > 20) {
                 break;
             }
             if ($collectionIds[$i] !== "") {
@@ -281,7 +280,6 @@ class Controller extends CController {
                     array_push($megas, $megaNew);
                 }
             }
-            
         }
 
         $response["megas"] = $megas;
@@ -307,11 +305,11 @@ class Controller extends CController {
         }
 
         $collection = null;
-        
+
 
 
         for ($i = 0; $i < sizeof($collections); $i++) {
-           
+
             if ($collections[$i]['id'] === $collection_id) {
                 $collection = $collections[$i];
 
@@ -339,22 +337,22 @@ class Controller extends CController {
 
         //$response = $this->getCollections($collections, $collection_id, $returnType);
     }
-    
+
     protected function searchProfileCollectionItem($userid, $collection_id, $returnType) {
         $conditions = array();
-        $userid=urldecode($userid);
+        $userid = urldecode($userid);
         $requestStringOne = 'couchbaseDocument.doc.profile.id=' . $userid;
-       error_log(var_export($userid, true));
-       error_log(var_export($collection_id, true));
-        
+        error_log(var_export($userid, true));
+        error_log(var_export($collection_id, true));
+
         array_push($conditions, $requestStringOne);
-  
-        $collection_id=urldecode($collection_id);
+
+        $collection_id = urldecode($collection_id);
         $requestStringTwo = 'couchbaseDocument.doc.profile.collections.id=' . $collection_id;
         array_push($conditions, $requestStringTwo);
         $tempResult = $this->searchWithCondictions($conditions, 'must');
         $tempResult = $this->getReponseResult($tempResult, $returnType);
-        
+
         $mega = CJSON::decode($tempResult, true);
 
         if (!isset($mega['megas'][0]['profile'][0]['collections'])) {
@@ -409,10 +407,10 @@ class Controller extends CController {
         if ($requestString != null && $requestString != "") {
             $requestStringTwo = '_all=' . $requestString;
             array_push($conditions, $requestStringTwo);
-        }       
+        }
 
 
-        $results = $this->searchWithCondictions($conditions, 'must', $from, $size, $location,$classification);
+        $results = $this->searchWithCondictions($conditions, 'must', $from, $size, $location, $classification);
 
         return $results;
     }
@@ -426,21 +424,18 @@ class Controller extends CController {
     }
 
     protected function searchWithMultiMatch($queryString, $from = 0, $size = 50, $location = 'Global', $classification = "All") {
-      //  $request = $this->getElasticSearch();
-         $date = date("Y-m-d h:m:s");
+        //  $request = $this->getElasticSearch();
+        $date = date("Y-m-d h:m:s");
         $timestamp = strtotime($date);
-      //  $request->from($from)
-     //           ->size($size);
+        //  $request->from($from)
+        //           ->size($size);
         $location_filter = null;
         $classification_filter = null;
         if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
-            $location_filter=1;
-
-                
+            $location_filter = 1;
         }
         if ($classification !== 'All' && $classification !== 'undefined' && $classification !== '' && $classification !== null) {
-            $classification_filter =1;
-
+            $classification_filter = 1;
         }
 
 
@@ -482,7 +477,7 @@ class Controller extends CController {
                 }
               },';
             if ($location_filter != null) {
-          
+
                 $filter = ' "filter":{
                 "query": {
                   "bool": {
@@ -526,8 +521,8 @@ class Controller extends CController {
         }
 
         if ($classification_filter == null) {
-      
-            $filter="";
+
+            $filter = "";
             if ($location_filter != null) {
                 $filter = ' "filter":{
                 "query": {
@@ -562,8 +557,8 @@ class Controller extends CController {
                 }
                 }
               },';
-            }else{
-                     $filter =' "filter":{
+            } else {
+                $filter = ' "filter":{
                 "query": {
                   "bool": {
 
@@ -595,61 +590,96 @@ class Controller extends CController {
         }
 
 
-
-
-
-
-//        else {
-//            $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
-//                "query": {
-//                  "bool": {
-//                    "must": {},
-//                    "must_not": {
-//                      "queryString": {
-//                        "default_field": "couchbaseDocument.doc.type",
-//                        "query": "profile"
-//                      }
-//                    }
-//                  }
-//                }
-//              }');
-//
-        //    $request->filter($filter);
+//         $termQuery = '{
+//  "query": {
+//    "function_score": {
+//      "functions": [
+//        {
+//          "script_score": {
+//            "script": "doc[' . "'" . "couchbaseDocument.doc.boost" . "'" . '].value+1"
+//          }
+//        },
+//        {
+//          "script_score": {
+//            "script": "5-(4/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.comment_count" . "'" . '].value+1))))"
+//          }
+//        },
+//                {
+//          "script_score": {
+//            "script": "5-(4/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.share_count" . "'" . '].value+1))))"
+//          }
+//        },
+//        {
+//          "script_score": {
+//            "script": "10-(18/(sqrt(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.view_count" . "'" . '].value*4+256)))))"
+//          }
+//        },
+//        {
+//          "script_score": {
+//            "script": "5-(8/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.likes_count" . "'" . '].value*8+256))))"
+//          }
+//        },
+//        {
+//          "gauss": {
+//            "couchbaseDocument.doc.accessed": {
+//              "origin": "' . $timestamp . '",
+//              "scale": "31536000",
+//              "decay": "0.5"
+//            }
+//          }
+//        },
+//        {
+//          "gauss": {
+//            "couchbaseDocument.doc.created": {
+//              "origin": "' . $timestamp . '",
+//              "scale": "31536000",
+//              "decay": "0.5"
+//            }
+//          }
 //        }
-//        $sort = Sherlock\Sherlock::sortBuilder();
-//        $sort1 = $sort->Field()->name("boost")->order('desc');
-//        $sort2 = $sort->Field()->name("_score");
-            
-            
-            
-            
-             $termQuery = '{
+//      ],
+//      "query": {
+//        "constantScore": {
+//          "query": {
+//            "multi_match": {
+//          "query": "' . $queryString . '",
+//              "fields": [
+//                "couchbaseDocument.doc.keyword.keyword_name^10",
+//                "country",
+//                "owner_title^2",
+//                "region",
+//                "object_title^2",
+//                "object_description^4",
+//                "couchbaseDocument.doc.article.article_spark_job_id^5"
+//              ]
+//            }
+//          }
+//        }
+//      }
+//    }
+//  },' . $filter . '
+//
+//  "from": "' . $from . '",
+//  "size": "' . $size . '",
+//  "sort": []
+//}';
+
+
+
+
+        $termQuery = '{
   "query": {
     "function_score": {
       "functions": [
         {
           "script_score": {
-            "script": "doc[' . "'" . "couchbaseDocument.doc.boost" . "'" . '].value+1"
+            "script": "doc[' . "'" . "couchbaseDocument.doc.boost" . "'" . '].value/200+1"
           }
         },
+
         {
           "script_score": {
-            "script": "5-(4/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.comment_count" . "'" . '].value+1))))"
-          }
-        },
-                {
-          "script_score": {
-            "script": "5-(4/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.share_count" . "'" . '].value+1))))"
-          }
-        },
-        {
-          "script_score": {
-            "script": "10-(18/(sqrt(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.view_count" . "'" . '].value*4+256)))))"
-          }
-        },
-        {
-          "script_score": {
-            "script": "5-(8/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.likes_count" . "'" . '].value*8+256))))"
+            "script": "3-(8/(sqrt(sqrt(doc[' . "'" . "couchbaseDocument.doc.likes_count" . "'" . '].value*8+doc[' . "'" . "couchbaseDocument.doc.view_count" . "'" . '].value*4+doc[' . "'" . "couchbaseDocument.doc.share_count" . "'" . '].value*2+doc[' . "'" . "couchbaseDocument.doc.comment_count" . "'" . '].value*2+256))))"
           }
         },
         {
@@ -660,19 +690,9 @@ class Controller extends CController {
               "decay": "0.5"
             }
           }
-        },
-        {
-          "gauss": {
-            "couchbaseDocument.doc.created": {
-              "origin": "' . $timestamp . '",
-              "scale": "31536000",
-              "decay": "0.5"
-            }
-          }
         }
       ],
-      "query": {
-        "constantScore": {
+
           "query": {
             "multi_match": {
           "query": "' . $queryString . '",
@@ -683,12 +703,12 @@ class Controller extends CController {
                 "region",
                 "object_title^2",
                 "object_description^4",
+                "couchbaseDocument.doc.article.credits.credits_text^8",
                 "couchbaseDocument.doc.article.article_spark_job_id^5"
               ]
             }
           }
-        }
-      }
+
     }
   },' . $filter . '
 
@@ -696,15 +716,15 @@ class Controller extends CController {
   "size": "' . $size . '",
   "sort": []
 }';
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
+
+
 
 //        $termQuery = Sherlock\Sherlock::queryBuilder()->Raw('{
 //                "bool": {
@@ -740,17 +760,13 @@ class Controller extends CController {
 //                  ]
 //                }
 //            }');
-
-
 //        $request->sort($sort1, $sort2);
-      //  $response = $request->query($termQuery)->execute();
-  //      return $response;
-             
-             
-              // $log_path = "/home/devbox/Documents/searchquery.log";
-        //$this->writeToLog($log_path, $termQuery);
-             $index = Yii::app()->params['elasticSearchIndex'];
-   //       $ch = curl_init("http://es1.hubsrv.com:9200/develop/_search");
+        //  $response = $request->query($termQuery)->execute();
+        //      return $response;
+//               $log_path = "/home/devbox/Documents/searchquery.log";
+//        $this->writeToLog($log_path, $termQuery);
+        $index = Yii::app()->params['elasticSearchIndex'];
+        //       $ch = curl_init("http://es1.hubsrv.com:9200/develop/_search");
         $ch = curl_init("http://es1.hubsrv.com:9200/" . $index . "/_search");
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_POSTFIELDS, $termQuery);
@@ -760,7 +776,7 @@ class Controller extends CController {
         $result_arr = CJSON::decode($result, true);
         $record_arr = $result_arr['hits']['hits'];
         $new_arr = array();
-         $new_arr['total'] = $result_arr['hits']['total'];
+        $new_arr['total'] = $result_arr['hits']['total'];
         foreach ($record_arr as $return) {
             $temp = array();
             $temp['index'] = $return['_index'];
@@ -769,27 +785,25 @@ class Controller extends CController {
             $temp['score'] = $return['_score'];
             $temp['source'] = $return['_source'];
             array_push($new_arr, $temp);
-           
         }
-  //      $content1=  var_export($new_arr,true);
-   //     $fileName1="/home/devbox/Documents/output.log";
-    //    $this->writeToLog($fileName1, $content1);
-   //     $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
-       
+        //      $content1=  var_export($new_arr,true);
+        //     $fileName1="/home/devbox/Documents/output.log";
+        //    $this->writeToLog($fileName1, $content1);
+        //     $start_time = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+
         $new_return_arr = array();
         $new_return_arr['took'] = $result_arr['took'];
         $new_return_arr['timed_out'] = $result_arr['timed_out'];
         $new_return_arr['total'] = $result_arr['hits']['total'];
         $new_return_arr['max_score'] = $result_arr['hits']['max_score'];
         $new_return_arr['hits'] = $new_arr;
-   //     $content2=  var_export($new_return_arr,true);
- //  $fileName2="/home/devbox/Documents/output1.log";
-      //  $this->writeToLog($fileName2, $content2);
+        //     $content2=  var_export($new_return_arr,true);
+        //  $fileName2="/home/devbox/Documents/output1.log";
+        //  $this->writeToLog($fileName2, $content2);
         return $new_arr;
-
-             
     }
- protected function writeToLog($fileName, $content) {
+
+    protected function writeToLog($fileName, $content) {
         //   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
         $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
         $output = "\n" . $content;
@@ -797,7 +811,7 @@ class Controller extends CController {
         fclose($handle);
     }
 
-    protected function searchWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50, $location = 'Global',$classification="All") {
+    protected function searchWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50, $location = 'Global', $classification = "All") {
         $request = $this->getElasticSearch();
         $request->from($from);
         $request->size($size);
@@ -808,10 +822,10 @@ class Controller extends CController {
 //                  "query": "' . $location . '"
 //                }
 //              }}');
-            $location_filter=1;
+            $location_filter = 1;
         }
-             if ($classification != "All") {
-               
+        if ($classification != "All") {
+
             $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
                 "query": {
                   "bool": {
@@ -848,7 +862,7 @@ class Controller extends CController {
                 }
               }');
             if ($location != "Global") {
-           
+
                 $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
                 "query": {
                   "bool": {
@@ -889,7 +903,7 @@ class Controller extends CController {
                 }
               }');
             }
-              $request->filter($filter);
+            $request->filter($filter);
         }
 
         if ($classification == "All") {
@@ -929,10 +943,10 @@ class Controller extends CController {
                 }
                 }
               }');
-                  $request->filter($filter);
-            }else{
-     
-                  $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
+                $request->filter($filter);
+            } else {
+
+                $filter = Sherlock\Sherlock::filterBuilder()->Raw('{
                 "query": {
                   "bool": {
 
@@ -960,7 +974,7 @@ class Controller extends CController {
                 }
                 }
               }');
-                  $request->filter($filter);
+                $request->filter($filter);
             }
         }
         $max = sizeof($conditions);
@@ -975,7 +989,7 @@ class Controller extends CController {
                 echo "no such search type, please input: must or should as a search type.";
             }
         }
-       
+
         $request->query($bool);
         $response = $request->execute();
 
@@ -1084,9 +1098,9 @@ class Controller extends CController {
 //
 //        return $response;
 //    }
-    
-    
-     protected function searchArticleWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50, $location = 'Global') {
+
+
+    protected function searchArticleWithCondictions($conditions, $search_type = "should", $from = 0, $size = 50, $location = 'Global') {
         $request = $this->getElasticSearch();
         $request->from($from);
         $request->size($size);
@@ -1249,7 +1263,7 @@ class Controller extends CController {
         }
         $cb = $this->couchBaseConnection();
         if ($type === 'firstsearch') {
-            
+
             for ($i = 0; $i < sizeof($tempResult['stats'][0]['megas']); $i++) {
                 $hit = $tempResult['stats'][0]['megas'][$i];
                 if (isset($hit['owner_id'])) {
@@ -1270,9 +1284,22 @@ class Controller extends CController {
                     $tempResult['stats'][0]['megas'][$i]['profile_editor'] = $profile_editor;
                     $tempResult['stats'][0]['megas'][$i]['profile_administrator'] = $profile_administrator;
                     $tempResult['stats'][0]['megas'][$i]['profile_creator'] = $profile_creator;
-                    
-                    $photo_keywords = (isset($mega_profile["profile"][0]["photo_keywords"])) ? $mega_profile["profile"][0]["photo_keywords"] : '';
-                    $tempResult['stats'][0]['megas'][$i]['photo_keywords'] = $photo_keywords;
+
+                    $photo_keywords = (isset($mega_profile["megas"][0]["photo"][0]['photo_keywords'])) ? $mega_profile["megas"][0]["photo"][0]['photo_keywords'] : '';
+                    $tempResult['stats'][0]['megas'][$i]['photo'][0]['photo_keywords'] = $photo_keywords;
+                    if (isset($tempResult['stats'][0]['megas'][$i]['keyword'])) {
+                        for ($j = 0; $j < sizeof($tempResult['stats'][0]['megas'][$i]['keyword']); $j++) {
+                            //$photo_keywords = $photo_keywords . $tempResult['stats'][0]['megas'][$i]['keyword'][$j]['keyword_name'] . ',';
+                            if ($j === 0) {
+                                $tempResult['stats'][0]['megas'][$i]['photo'][0]['photo_keywords'] = $tempResult['stats'][0]['megas'][$i]['photo'][0]['photo_keywords'] . $tempResult['stats'][0]['megas'][$i]['keyword'][$j]['keyword_name'];
+                                //$photo_keywords = $tempResult['stats'][0]['megas'][$i]['photo'][0]['photo_keywords'];
+                            } else {
+                                $tempResult['stats'][0]['megas'][$i]['photo'][0]['photo_keywords'] = $tempResult['stats'][0]['megas'][$i]['photo'][0]['photo_keywords'] . ',' . $tempResult['stats'][0]['megas'][$i]['keyword'][$j]['keyword_name'];
+                                //$photo_keywords = $tempResult['stats'][0]['megas'][$i]['photo'][0]['photo_keywords'];
+                            }
+                        }
+                    }
+                    //$photo_keywords = $tempResult;
                 }
             }
         } else {
@@ -1297,9 +1324,24 @@ class Controller extends CController {
                     $tempResult['megas'][$i]['profile_editor'] = $profile_editor;
                     $tempResult['megas'][$i]['profile_administrator'] = $profile_administrator;
                     $tempResult['megas'][$i]['profile_creator'] = $profile_creator;
-                    
-                    //$photo_keywords = (isset($mega_profile["profile"][0]["photo_keywords"])) ? $mega_profile["profile"][0]["photo_keywords"] : '';
-                    //$tempResult['stats'][0]['megas'][$i]['photo_keywords'] = $photo_keywords;
+
+
+                    $photo_keywords = (isset($mega_profile["megas"][0]["photo"][0]['photo_keywords'])) ? $mega_profile["megas"][0]["photo"][0]['photo_keywords'] : '';
+                    $tempResult['megas'][$i]['photo'][0]['photo_keywords'] = $photo_keywords;
+                    if (isset($tempResult['megas'][$i]['keyword'])) {
+                        for ($j = 0; $j < sizeof($tempResult['megas'][$i]['keyword']); $j++) {
+                            //$photo_keywords = $photo_keywords . $tempResult['megas'][$i]['keyword'][$j]['keyword_name'] . ',';
+                            if ($j === 0) {
+                                $tempResult['megas'][$i]['photo'][0]['photo_keywords'] = $tempResult['megas'][$i]['photo'][0]['photo_keywords'] . $tempResult['megas'][$i]['keyword'][$j]['keyword_name'];
+                                //$photo_keywords = $tempResult['megas'][$i]['photo'][0]['photo_keywords'];
+                            } else {
+                                $tempResult['megas'][$i]['photo'][0]['photo_keywords'] = $tempResult['megas'][$i]['photo'][0]['photo_keywords'] . ',' . $tempResult['megas'][$i]['keyword'][$j]['keyword_name'];
+                                //$photo_keywords = $tempResult['megas'][$i]['photo'][0]['photo_keywords'];
+                            }
+                        }
+                        $photo_keywords = $tempResult;
+                    }
+                    //$photo_keywords = $tempResult;
                 }
             }
         }
@@ -1310,13 +1352,13 @@ class Controller extends CController {
 
 
         $tempResponse = $this->searchWithMultiMatch($requestString, $from, $size, $location, $classification);
-    //    $fileName="/home/devbox/Documents/search_result2.log";
-     //   $this->writeToLog($fileName, var_export($tempResponse,true));
+        //    $fileName="/home/devbox/Documents/search_result2.log";
+        //   $this->writeToLog($fileName, var_export($tempResponse,true));
         $numberofresults = $tempResponse['total'];
         $tempResponse = CJSON::encode($tempResponse);
         $tempResponse = CJSON::decode($tempResponse);
         $array = array();
-        for ($int = 0; $int < sizeof($tempResponse)-1; $int++) {
+        for ($int = 0; $int < sizeof($tempResponse) - 1; $int++) {
             $tempObject = $tempResponse[$int]['source']['doc'];
             if (isset($tempResponse[$int]['source']['doc']['comments'])) {
                 
@@ -1350,12 +1392,10 @@ class Controller extends CController {
         if ($request_string != null || $request_string != "") {
             $temp = explode('=', $request_string);
             $returnString = $temp[1];
-
         }
 
 //        if ($isRelaceDash) {
 //           $returnString = str_replace('-', '\-', $returnString);
-
 //        }
         return $returnString;
     }
@@ -1427,10 +1467,10 @@ class Controller extends CController {
         array_push($conditions, $requestStringOne);
         $requestStringTwo = 'couchbaseDocument.doc.owner_id=' . $owner_id;
         array_push($conditions, $requestStringTwo);
-        $requestStringThree = 'couchbaseDocument.doc.type=photo' ;
+        $requestStringThree = 'couchbaseDocument.doc.type=photo';
         array_push($conditions, $requestStringThree);
         $response = $this->searchArticleWithCondictions($conditions, 'must');
-        
+
         return $response;
     }
 

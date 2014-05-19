@@ -2,6 +2,7 @@
 DS.RESTAdapter.map('HubStar.Mega', {
     photo: {embedded: 'always'},
     user: {embedded: 'always'},
+    group:  {embedded: 'always'},
     comments: {embedded: 'load'},
     reviews: {embedded: 'load'},
     profile: {embedded: 'load'},
@@ -64,6 +65,7 @@ HubStar.Mega = DS.Model.extend({
     //--------------------------
     photo: DS.hasMany('HubStar.Photo'),
     user: DS.hasMany('HubStar.User'),
+    group: DS.hasMany('HubStar.Group'),
     profile: DS.hasMany('HubStar.Profile'),
     comments: DS.hasMany('HubStar.Comment'),
     reviews: DS.hasMany('HubStar.Review'),

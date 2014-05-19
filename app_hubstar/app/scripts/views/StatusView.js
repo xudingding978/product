@@ -2,7 +2,6 @@ HubStar.StatusView = Ember.View.extend({
     templateName: 'status',
     didInsertElement: function() {
         $(document).ready(function() {
-
         });
         if (HubStar.get('isLogin')) {
 
@@ -17,14 +16,9 @@ HubStar.StatusView = Ember.View.extend({
             $('#afterLogin').attr("style", "display:none");
             $('#welcome_message').attr("style", "display:block");
         }
-
-
-
     },
     registerlogin: function() {
         HubStar.set('checkLoginStatus', true);
-
     }
-
 });
 

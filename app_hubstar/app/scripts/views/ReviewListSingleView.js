@@ -31,7 +31,6 @@ HubStar.ReviewListSingleView = Ember.View.extend({
         });
     },
     downContent: function(event) {
-        var id = "#" + event;
         var up_button = "#up_button_" + event;
         var down_button = "#down_button_" + event;
         var review_reply = "#reviewReplyData_" + event;
@@ -50,12 +49,9 @@ HubStar.ReviewListSingleView = Ember.View.extend({
 
     },
     upContent: function(event) {
-
-        var id = "#" + event;
         var up_button = "#up_button_" + event;
         var down_button = "#down_button_" + event;
         var content = "#review_content_" + event;
-        var review_reply = "#reviewReplyData_" + event;
         $(up_button).attr("style", "position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:none;");
         $(down_button).attr("style", "position: relative;  font-size: 13px; color: #555;margin: 10px 0; display:inline-block;");
         $(content).animate({width: '390px', maxHeight: '100px', position: 'relative', dispaly: 'none', overflow: 'hidden'}, 500);

@@ -77,7 +77,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
                 } // INVALID ACCOUNT TYPE; User is trying to login with a user name and password when their account type is Linkedin account
                 else {
 
-                    if (that.get('loginPassword') === params[0]["PWD_HASH"] && that.get('loginPassword') !== undefined) {
+                    if (that.get('loginPassword') === params[0].PWD_HASH && that.get('loginPassword') !== undefined) {
 
                         var email_activate = params[1];
 
@@ -252,7 +252,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
 
 
     checkSignupInfo: function() {
-        function checkObject(id, input, lengthMin, lengthMax, isEmailValid)
+        function CheckObject(id, input, lengthMin, lengthMax, isEmailValid)
         {
             this.id = id;
             this.input = input;
@@ -260,15 +260,15 @@ HubStar.LoginModalController = Ember.Controller.extend({
             this.lengthMax = lengthMax;
             this.isEmailValid = isEmailValid;
         }
-        var checkList = new Array();
+        var checkList = [];
         var result;
-        var first_name = new checkObject("first_name", this.get('first_name'), 0, 128, null);
+        var first_name = new CheckObject("first_name", this.get('first_name'), 0, 128, null);
         checkList.push(first_name);
-        var last_name = new checkObject("last_name", this.get('last_name'), 0, 128, null);
+        var last_name = new CheckObject("last_name", this.get('last_name'), 0, 128, null);
         checkList.push(last_name);
-        var email = new checkObject("email", this.get('email'), 0, 45, true);
+        var email = new CheckObject("email", this.get('email'), 0, 45, true);
         checkList.push(email);
-        var password = new checkObject("password", this.get('password'), 6, 40, null);
+        var password = new CheckObject("password", this.get('password'), 6, 40, null);
         checkList.push(password);
 
         for (var i = 0; i < checkList.length; i++)
@@ -342,7 +342,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
     setfemale: function() {
         this.set('gender', "female");
     },
-    dropdown: function(checking) {
+    dropdown: function() {
         this.set('isGeoDropdown', !this.get('isGeoDropdown'));
         $('#geo-filter').toggleClass('Geo-Filter-active');
     },

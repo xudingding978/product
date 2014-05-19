@@ -1,5 +1,15 @@
 HubStar.CollectionsView = Ember.View.extend({
     templateName: 'collections',
+    didInsertElement: function() {          
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 200);
+            }, 200);
+        });
+    },
     editCollectionButton: function(id, title, desc) {
         var userController = this.get('controller');
         userController.setSelectedCollection(id);
@@ -28,16 +38,6 @@ HubStar.CollectionsView = Ember.View.extend({
         setTimeout(function() {
             $('#masonry_user_container').masonry();
         }, 200);
-//         var container = document.querySelector('#masonry_user_container');
-//        var msnry = new Masonry(container, {
-//             itemSelector: '.box',
-//            columnWidth: 185,
-//            isFitWidth: true
-//        });
-//        $('#masonry_user_container').masonry({
-//            itemSelector: '.box',
-//            columnWidth: 185,
-//            isFitWidth: true
-//        });
+
     }
 });

@@ -210,7 +210,10 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             $("#topResidentialCommerical").css('display', "none");
                             $(".search-bar-on-small-screen").css('display', "block");
                         }
-
+                        $('#masonry_user_container').masonry("reloadItems");
+                        setTimeout(function() {
+                            $('#masonry_user_container').masonry();
+                        }, 20);
                     }, 50);
                 });
             });
@@ -343,9 +346,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.get('model').set('show_template', false);
             }
         }
-         if (this.get("controllers.checkingLoginStatus").popupLogin())
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-           
+
         }
     },
     setAboutUsObject: function() {

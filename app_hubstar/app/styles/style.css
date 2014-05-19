@@ -955,8 +955,6 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     width: 90px;
 }
 #aside_contact > tbody > tr:nth-child(n) > th {
-    position: relative!important;
-    top: 5px!important;
 }
 
 

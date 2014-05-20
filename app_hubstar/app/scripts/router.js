@@ -22,8 +22,8 @@ HubStar.Router.map(function() {
         // ### business profile start 
         this.resource("profile", {path: '/profiles/:profile_id'}, function() {
             this.resource("profileFollowers", {path: '/followers'});
-            this.resource("profileVideos", {path: '/videos'},function(){
-                 this.resource("videoVideo", {path: '/videos/:video_id'});
+            this.resource("profileVideos", {path: '/videos'}, function() {
+                this.resource("videoVideo", {path: '/videos/:video_id'});
             });
             this.resource("profileCollections", {path: '/collections'}, function() {
                 //this.resource("photo", {path: '/photoes/:photo_id'});
@@ -89,7 +89,8 @@ HubStar.Router.map(function() {
         this.resource("searchs", {path: "/search"}, function() {
             this.resource("searchIndexTom", {path: '/default'}, function()
             {
-               this.resource("searchDefaultPhoto", {path: '/photos/:photo_id'});
+                this.resource("searchDefaultPhoto", {path: '/photos/:photo_id'});
+                this.resource("searchDefaultVideo", {path: '/videos/:video_id'});
                 this.resource("searchDefaultArticle", {path: '/articles/:article_id'}, function() {
                     this.resource("searchDefaultArticlePhoto", {path: '/photos/:photo_id'});
                 });

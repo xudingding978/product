@@ -16,7 +16,7 @@ HubStar.Group = DS.Model.extend({
     group_name: DS.attr('string'), //
     group_keywords: DS.attr('string'),
     group_keywords_num: DS.attr('number'),
-    group_time: DS.attr('string'),
+    group_timeframe: DS.attr('string'),
     group_partner_ids: DS.attr('string'),
     group_creator: DS.attr('string'), //user id
     group_administrator: DS.attr('string'), //user id

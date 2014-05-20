@@ -17,8 +17,7 @@ HubStar.NavigatorView = Ember.View.extend({
                     localStorage.resOrcom = "commercial";
                 }
                 that.get("controller").residentialCommercialStatus();
-        that.get("controller").changeBackground();
-      
+                that.get("controller").changeBackground();   
             });
         });
 
@@ -61,7 +60,7 @@ HubStar.NavigatorView = Ember.View.extend({
             localStorage.resOrcom = "residential";
         }
         this.get("controller").residentialCommercialStatus();
-         this.get("controller").changeBackground();
-          
+        this.get("controller").changeBackground();
+
     }
 });

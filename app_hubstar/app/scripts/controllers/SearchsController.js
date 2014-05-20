@@ -8,6 +8,8 @@ HubStar.SearchsController = Ember.ArrayController.extend({
     time: "",
     newSearch: function() {
         HubStar.set("uploadMode", null);
+        //var d = new Date();
+//            var start = d.getTime();
         var results = HubStar.Mega.find({"RquireType": "search", "region": this.get("search_area"), "search_string": this.get("search_string")});
         this.set("content", results);
 

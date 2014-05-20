@@ -145,8 +145,8 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                     newGroup.get('isSaving');
                     newGroup.addObserver('isDirty', function() {
                         if (!newGroup.get('isDirty')) {
-//                            location.href = "#/profiles/" + that.get("profile_url");
-//                            location.reload();
+                            location.href = "#/groups/" + id;
+                            location.reload();
                         }
                     });
                 }

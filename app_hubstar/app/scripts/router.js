@@ -57,6 +57,17 @@ HubStar.Router.map(function() {
 
         this.resource("groupsNew", {path: 'groups/new'});
 
+        this.resource("group", {path: '/groups/:group_id'}, function() {
+            this.resource("groupCollections", {path: '/collections'}, function() {
+                this.resource("groupPhoto", {path: '/photos/:photo_id'});
+                this.resource("groupVideo", {path: '/videos/:video_id'});
+                this.resource("groupArticle", {path: '/article/:article_id'}, function() {
+                    this.resource("groupArticlePhoto", {path: '/photos/:photo_id'});
+                });
+            });
+            this.resource("partners", {path: '/network'});
+        }); // ### business profile end 
+
         this.resource("user", {path: '/users/:user_id'}, function() {
             this.resource("following", {path: '/following'});
             this.resource("followers", {path: '/followers'});

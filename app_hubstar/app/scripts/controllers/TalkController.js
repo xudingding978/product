@@ -1,14 +1,3 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 
 HubStar.TalkController = Ember.Controller.extend({
     contentMsg: null,
@@ -47,11 +36,11 @@ HubStar.TalkController = Ember.Controller.extend({
         var commentContent = this.get('messageContent');
         var imageSource= this.get("newStyleImageSource");
         var imageName=this.get('newStyleImageName');
+        var imageType = "";
         if (commentContent||imageSource||imageName) {
             this.set("isPosting",false);
             var commenter_id = this.get("currentUser").get('id');
             var date = new Date();
-            var owner_id = this.get("currentOwner").get("id");
             var newStyleImage = "";
             var imageStyleName = "";
             if (this.get("newStyleImageSource") !== undefined && this.get("newStyleImageSource") !== null && this.get("newStyleImageSource") !== "")
@@ -71,12 +60,11 @@ HubStar.TalkController = Ember.Controller.extend({
             {
                 imageStyleName = "";
             }
-            var imageName = "";
-            var imageType = "";
+            
             if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
             {
-                var imageName = imageStyleName.split('.');
-                var imageType = imageName[imageName.length - 1];
+                 imageName = imageStyleName.split('.');
+                 imageType = imageName[imageName.length - 1];
             }
             var conversationID = createMessageid();
             var conversationItemID = createMessageid();
@@ -88,7 +76,7 @@ HubStar.TalkController = Ember.Controller.extend({
 
             tempComment = JSON.stringify(tempComment);
             var that = this;
-            requiredBackEnd('conversations', 'CreateConversation', tempComment, 'POST', function(params) {
+            requiredBackEnd('conversations', 'CreateConversation', tempComment, 'POST', function() {
 
                 that.get('controllers.applicationFeedback').statusObserver(null, "Message sent.");
                 HubStar.set("talkConversation",true);

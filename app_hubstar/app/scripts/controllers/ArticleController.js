@@ -19,7 +19,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         HubStar.set("readCaption", true);
     },
     findSelectedItemIndex: function() {
-        content = this.get('content');
+        var content = this.get('content');
         for (var index = 0; index <= content.get('length'); index++) {
             if (this.get('selectedPhoto') === content.objectAt(index)) {
                 return index;
@@ -280,21 +280,8 @@ HubStar.ArticleController = Ember.Controller.extend({
             that.checkCreditExist(megaObject.get('article').objectAt(0).get('credits'));
 
             var tempComment = [megaObject.id];
-            requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function(params) {
+            requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function() {
             });
-
-//            setTimeout(function() {
-//                if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
-//                {
-//                    megaObject.set("view_count", 1);
-//                }
-//                else
-//                {
-//                    var megaData = megaObject.get("view_count");
-//                    megaObject.set("view_count", megaData + 1);
-//                }
-//                megaObject.store.save();
-//            }, 6000);
         });
 
         if (this.get("controllers.checkingLoginStatus").popupLogin())
@@ -356,9 +343,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         var delInfo = [id, message_id];
 
         delInfo = JSON.stringify(delInfo);
-        var that = this;
         this.get('article').get('comments').removeObject(object);
-        requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function(params) {
+        requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function() {
         });
     },
     updateComment: function(object) {
@@ -511,15 +497,16 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
         else
         {
+            var photoObject;
             if (type === "users")
             {
-                var photoObject = HubStar.Mega.find(collection_id);
+                photoObject = HubStar.Mega.find(collection_id);
 
                 this.transitionTo("userPhoto", photoObject); //user photo
             }
             else if (type === "profiles")
             {
-                var photoObject = HubStar.Mega.find(collection_id);
+                photoObject = HubStar.Mega.find(collection_id);
 
                 this.transitionTo("profilePhoto", photoObject); // profile photo
             }

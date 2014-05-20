@@ -10,26 +10,10 @@ HubStar.AfterLoginView = Ember.View.extend({
     logout: function() {
 
         localStorage.removeItem('loginStatus');
-        //this.get('controller').transitionTo("searchIndexTom");
         document.cookie = 'Session=; path=/; domain=.trendsideas.com; expires=Thu, 01 Jan 1970 00:00:00 GMT';
         location.reload();
 
     },
-//    showUserDropDown: function() {
-//        if ($('#user-dd-menu').css('display') === 'block') {
-//            $("#user-dd-menu").hide();
-//           $("#cancel").css("display", "none");
-//         ;
-//        }
-//        else  if ($('#user-dd-menu').css('display') === 'none'){
-//      
-//            this.set("newProfile", false);
-//              $("#user-dd-menu").show();
-//             $("#cancel").css("display", "block");
-//
-//        }
-//        this.loadProfile();
-//    },
     userDisplaynone: function(checking) {
         if (checking === "myUserProfile") {
             location.href = this.get("controller").get("myUserProfile");
@@ -48,25 +32,16 @@ HubStar.AfterLoginView = Ember.View.extend({
             $("#cancel").css("display", "none");
 
         } else if (checking === "new") {
-            //  this.get("controller").set("newProfile", true);
-            // this.loadProfile();
-            location.href = "#/profiles/new";
+             location.href ="#/profiles/new";
             $("#user-dd-menu").attr("style", "display:none");
             $("#cancel").css("display", "none");
         }
         else if (checking === "newGroup") {
-            //  this.get("controller").set("newProfile", true);
-            // this.loadProfile();
             location.href = "#/groups/new";
             $("#user-dd-menu").attr("style", "display:none");
             $("#cancel").css("display", "none");
         }
     },
-//    cancel: function() {
-//        this.set("newProfile", false);
-//         $("#user-dd-menu").attr("style", "display:none");
-//          $("#cancel").css("display", "none");
-//    },
     loadProfile: function() {
         var user = HubStar.User.find(localStorage.loginStatus);
         this.set("profiles", user.get("profiles"));

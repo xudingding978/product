@@ -78,9 +78,47 @@ class MegasController extends Controller {
 
             $this->createUploadedVideo($mega);
         }
+        else if ($mega['type'] == "group") {
+            $this->createGroup($mega);
+        }
         $this->sendResponse(204, $request_json);
     }
+    
+      public function createGroup($mega) {
 
+        $cb = $this->couchBaseConnection();
+        $id = $mega['id'];
+        $domain = $this->getDomain();
+        $docID = $domain . "/groups/" . $id;
+        if (!isset($mega['accessed'])) {
+            $mega["accessed"] = 1;
+        }
+        $mega["accessed"] = date_timestamp_get(new DateTime());
+        $mega["created"] = $mega["accessed"];
+        if ($cb->add($docID, CJSON::encode($mega))) {
+            if ($mega['creator'] !== "") {
+                $url = $domain . "/users/" . $mega['creator'];
+                $tempRecord = $cb->get($url);
+                $oldRecord = CJSON::decode($tempRecord, true);
+                $newProfile = array();
+                $newProfile['group_id'] = $id;
+                $newProfile['type'] = "creator";
+                if (!isset($oldRecord['user'][0]['groups'])) {
+                    $oldRecord['user'][0]['groups'] = array();
+                }
+                array_push($oldRecord['user'][0]['groups'], $newProfile);
+                if ($cb->set($url, CJSON::encode($oldRecord))) {
+                    
+                } else {
+                    echo $this->sendResponse(409, 'saving error');
+                }
+            }
+            $this->sendResponse(204);
+        } else {
+            $this->sendResponse(409, "some thing wronggggggggggggggggg");
+        }
+    }
+    
     public function actionRead() {
         try {
 
@@ -103,13 +141,13 @@ class MegasController extends Controller {
         $newRecord = file_get_contents('php://input');
         $newRecord = CJSON::decode($newRecord, true);
         $newRecord['id'] = $id;
-        
-         
-         $commentController = new CommentsController();
+
+
+        $commentController = new CommentsController();
         $commentController->updateUserInfo($id);
-        
-      
-        
+
+
+
         if ($newRecord['mega']['type'] == 'user') {
             $this->updateUserRecord($newRecord);
         } else if ($newRecord['mega']['type'] == 'profile') {
@@ -126,7 +164,6 @@ class MegasController extends Controller {
         } else {
             $this->updateMega($newRecord);
         }
-     
     }
 
     public function actionSetSaveCount() {

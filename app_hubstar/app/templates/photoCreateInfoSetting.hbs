@@ -25,7 +25,7 @@
     <div style="position: relative; width: 63%;display: inline-block; height: 350px; vertical-align: top; overflow: hidden; margin: 15px;  margin-left: 0;">
         <div style="width: 100%">
             <div style="width: 20%; display:inline-block">File name: </div>
-            <div style="width: 58%; display:inline-block"  class="disabled-btn" > {{filename}} </div>
+            <div style="width: 250px; display:inline-block"  class="disabled-btn" > {{filename}} </div>
         </div>
         <div style="width: 100%">
             <div style="width: 20%; display:inline-block">Title*: </div>
@@ -33,7 +33,11 @@
         </div>
         <div style="width: 100%">
             <div style="width: 20%; display:inline-block">Description: </div> 
-            <div style="width: 58%; display:inline-block"> {{view Ember.TextArea valueBinding="caption"  id="" class="edit_photo-caption_field2"}} </div>
+            <div style="width: 58%; display:inline-block"> {{view Ember.TextArea valueBinding="caption"  id="" class="edit_photo-caption_field"}} </div>
+        </div>
+        <div style="width: 100%">
+            <div style="width: 20%; display:inline-block">Keywords: </div> 
+            <div style="width: 58%; display:inline-block"> {{view Ember.TextArea valueBinding="keywords"  id="" class="edit_photo-keywords_field" placeholder="*Please separate multiple keywords with a comma; i.e. Bathroom Vanities, Kitchen Appliances"}} </div>
         </div>
         </div>
     {{/each}}

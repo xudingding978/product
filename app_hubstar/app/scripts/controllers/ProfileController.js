@@ -67,6 +67,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     pinterest: "",
     linkedin: "",
     youtube: "",
+    instagram: "",
     profileName: "profileName",
     profile_cover_text: "",
     profile_analytics_code: "",
@@ -236,6 +237,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('pinterest', profile.get('profile_pinterest_link'));
         this.set('linkedin', profile.get('profile_linkedin_link'));
         this.set('youtube', profile.get('profile_youtube_link'));
+        this.set('instagram', profile.get('profile_instagram_link'));
         this.set('name', profile.get('profile_name'));
         this.set('profile_creator', profile.get('profile_creater'));
         //this.set('direct_enquiry_provide_email', profile.get('owner_third_contact_email'));
@@ -997,6 +999,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         else if (link === 'linkedin') {
             window.open(this.get("linkedin"));
         }
+        else if (link === 'instagram') {
+            window.open(this.get("instagram"));
+        }
 
     },
     checkFollowStatus: function()
@@ -1169,6 +1174,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.saveLink('profile_pinterest_link', 'pinterest');
         this.saveLink('profile_linkedin_link', 'linkedin');
         this.saveLink('profile_youtube_link', 'youtube');
+        this.saveLink('profile_instagram_link', 'instagram');
 
         if (this.get('controllers.profilePartners').get("partnerNew") !== undefined && this.get('controllers.profilePartners').get("partnerNew") !== null && this.get('controllers.profilePartners').get("partnerNew") !== "")
         {

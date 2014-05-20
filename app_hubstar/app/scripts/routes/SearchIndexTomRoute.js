@@ -15,7 +15,14 @@ HubStar.SearchIndexTom = Ember.Route.extend({
         this.controllerFor('status').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
-        localStorage.checkUser = "";
+//        if (localStorage.checkUser === "newUser") {
+//            console.log("ssssssssss");
+//            this.controllerFor('application').set('isNewUser', true);
+//        } else {
+//            localStorage.checkUser = "";
+//            this.controllerFor('application').set('isNewUser', false);
+//        }
+         localStorage.checkUser = "";
         $(".navbar").css("box-shadow", "");
         var that = this;
         $(document).ready(function() {

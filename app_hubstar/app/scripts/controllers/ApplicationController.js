@@ -197,6 +197,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     grapData: function() {
         HubStar.set("profiles", []);
         var that = this;
+        
         if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
             localStorage.resOrcom = "All";
         }
@@ -271,7 +272,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
 
-     
     },
     searchSmallScreen: function() {
 
@@ -911,10 +911,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
         this.get("categorys").then(function() {
+            var that =this;
             $(document).ready(function() {
                 setTimeout(function() {
                     that.residentialCommercialStatus();
-                    //    that.changeBackground();
                 }, 50);
             });
         });

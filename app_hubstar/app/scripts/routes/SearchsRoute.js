@@ -106,7 +106,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
 
             setTimeout(function() {
                 that.controllerFor('application').residentialCommercialStatus();
-                that.controllerFor('application').changeBackground();
+               that.controllerFor('application').changeBackground();
             }, 50);
 
         });

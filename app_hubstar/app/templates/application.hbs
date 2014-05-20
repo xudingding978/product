@@ -7,11 +7,8 @@
 
     {{outlet profiles}}
     {{outlet user}}
-   
+    {{outlet "welcome"}}
     {{#unless controller.isotherpage}}
-    {{#if controller.isNewUser}}
-     {{render "welcome"}}
-     {{/if}}
     {{#if HubStar.showDiscoveryBar}}
     {{view HubStar.DiscoveryView}}
     {{/if}}

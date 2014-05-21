@@ -26,7 +26,7 @@ HubStar.SearchDefaultArticleRoute = Ember.Route.extend({
            that.transitionTo('fourOhFour',"404");
         });  
          
-         
+        
     },
     model: function(params) {
         var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.article_id});

@@ -23,8 +23,8 @@ HubStar.PhotoCreateInfoSettingController = Ember.Controller.extend({
                     url: content.objectAt(i).get("photo").objectAt(0).get('photo_image_original_url'),
                      filename: content.objectAt(i).get("photo").objectAt(0).get('photo_file_name'),
                      title: content.objectAt(i).get("photo").objectAt(0).get('photo_title'),
-                    caption: content.objectAt(i).get("photo").objectAt(0).get('photo_caption'),
-                    keywords: content.objectAt(i).get("photo").objectAt(0).get('photo_keywords')
+                    caption: content.objectAt(i).get("photo").objectAt(0).get('photo_caption')
+                    //keywords: content.objectAt(i).get("photo").objectAt(0).get('photo_keywords')
                 });
             }
         }
@@ -58,7 +58,7 @@ HubStar.PhotoCreateInfoSettingController = Ember.Controller.extend({
                 
                 photoInfo.set('photo_title', data.title);
                 photoInfo.set('photo_caption', data.caption);
-                photoInfo.set('photo_keywords', data.keywords);
+                //photoInfo.set('photo_keywords', data.keywords);
                 photoInfo.store.save();
             }
         });

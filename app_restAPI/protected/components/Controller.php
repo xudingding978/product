@@ -1285,7 +1285,7 @@ class Controller extends CController {
                     $tempResult['stats'][0]['megas'][$i]['profile_administrator'] = $profile_administrator;
                     $tempResult['stats'][0]['megas'][$i]['profile_creator'] = $profile_creator;
 
-                    $photo_keywords = (isset($mega_profile["megas"][0]["photo"][0]['photo_keywords'])) ? $mega_profile["megas"][0]["photo"][0]['photo_keywords'] : '';
+                    /*$photo_keywords = (isset($mega_profile["megas"][0]["photo"][0]['photo_keywords'])) ? $mega_profile["megas"][0]["photo"][0]['photo_keywords'] : '';
                     $tempResult['stats'][0]['megas'][$i]['photo'][0]['photo_keywords'] = $photo_keywords;
                     if (isset($tempResult['stats'][0]['megas'][$i]['keyword'])) {
                         for ($j = 0; $j < sizeof($tempResult['stats'][0]['megas'][$i]['keyword']); $j++) {
@@ -1298,7 +1298,7 @@ class Controller extends CController {
                                 //$photo_keywords = $tempResult['stats'][0]['megas'][$i]['photo'][0]['photo_keywords'];
                             }
                         }
-                    }
+                    }*/
                     //$photo_keywords = $tempResult;
                 }
             }
@@ -1326,7 +1326,7 @@ class Controller extends CController {
                     $tempResult['megas'][$i]['profile_creator'] = $profile_creator;
 
 
-                    $photo_keywords = (isset($mega_profile["megas"][0]["photo"][0]['photo_keywords'])) ? $mega_profile["megas"][0]["photo"][0]['photo_keywords'] : '';
+                    /*$photo_keywords = (isset($mega_profile["megas"][0]["photo"][0]['photo_keywords'])) ? $mega_profile["megas"][0]["photo"][0]['photo_keywords'] : '';
                     $tempResult['megas'][$i]['photo'][0]['photo_keywords'] = $photo_keywords;
                     if (isset($tempResult['megas'][$i]['keyword'])) {
                         for ($j = 0; $j < sizeof($tempResult['megas'][$i]['keyword']); $j++) {
@@ -1339,8 +1339,8 @@ class Controller extends CController {
                                 //$photo_keywords = $tempResult['megas'][$i]['photo'][0]['photo_keywords'];
                             }
                         }
-                        $photo_keywords = $tempResult;
-                    }
+                        $photo_keywords = $tempResult;*/
+                    //}
                     //$photo_keywords = $tempResult;
                 }
             }

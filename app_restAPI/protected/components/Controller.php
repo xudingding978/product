@@ -59,6 +59,7 @@ class Controller extends CController {
         $node = Yii::app()->params['couchBaseDefaultNode'];
         $cb = new Couchbase($node, $account, $password, $bucket, true);
         $result = $cb->get($domain);
+        error_log($domain);
         $result_arr = CJSON::decode($result, true);
         return $result_arr["providers"][$name];
     }

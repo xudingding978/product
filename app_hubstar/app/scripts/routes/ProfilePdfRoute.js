@@ -1,20 +1,26 @@
-HubStar.ProfileVideosRoute = Ember.Route.extend({
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+HubStar.ProfilePdfRoute = Ember.Route.extend({
     setupController: function(controller, model) {
-        console.log(controller);
         var address = document.URL;
         var l = address.split("#")[1].split("/").length;
         if (l > 4) {
-            if (address.split("#")[1].split("/")[4] === "videos")
+            if (address.split("#")[1].split("/")[4] === "pdf")
             {
             }
             else
             {
-                this.controllerFor('profile').selectVideo(model);
+                this.controllerFor('profile').selectPdf(model);
             }
         }
         else {
-            this.controllerFor('profile').selectVideo(model);
+            this.controllerFor('profile').selectPdf(model);
         }
+
     },
     model: function(params) {
 
@@ -24,3 +30,4 @@ HubStar.ProfileVideosRoute = Ember.Route.extend({
         return model;
     }
 });
+

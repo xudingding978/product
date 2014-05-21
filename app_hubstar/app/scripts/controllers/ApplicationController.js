@@ -109,6 +109,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
             }
         });
+        
+        requiredBackEnd('tenantConfiguration', 'pdfDisplay', null, 'POST', function(params) {
+            console.log('pdf_display: ' + params);
+            HubStar.set('pdf_display', params);
+        });
+        
         HubStar.set("escVideo", false);
         this.set('search_string', '');
         this.set('loginUsername', localStorage.userName);

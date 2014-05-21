@@ -78,8 +78,8 @@ class TenantConfigurationController extends Controller {
     public function actionPdfDisplay() {
 
 
-            $domain = $this->getDomain();
-            $configuration = $this->getProviderConfigurationByName($domain, "pdf_display");
+            $domainWithoutAPI = $this->getDomainWihoutAPI();
+            $configuration = $this->getProviderConfigurationByName($domainWithoutAPI, "pdf_display");
        
                $feedback = CJSON::encode($configuration);
      

@@ -19,7 +19,6 @@
         <div class="object-tags">
             <span class="tags-mark" style="background-color: #427fed"></span>
             <div class="tags easing">
-                <!--                        <div class="tags-new">New </div>-->
                 <div class="object-type hint--left hint--rounded" data-hint="Image">
                     <i class="fa fa-picture-o" ></i>
                 </div>
@@ -39,8 +38,6 @@
             <span class='edit-object easing' style="position: absolute;margin: 10px; top: 11px;left: 150px;">
 
                 {{#if controller.is_authentic_user}}
-
-
 
                 <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
                      <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
@@ -66,7 +63,8 @@
 
 
             <div class="profilepic-on-masonry">
-                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
+                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  
+                    <img   style="width:46px; height: 46px;"  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
                 <a class="poster-name" style="cursor: pointer; word-break: break-all;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
@@ -174,7 +172,7 @@
 
 
             <div class="profilepic-on-masonry">
-                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
+                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  style="width:46px; height: 46px;" {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
                 <a class="poster-name" style="cursor: pointer; word-break: break-all;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
@@ -340,7 +338,7 @@
 
         <div class="masonry-object_poster">
             <div class="profilepic-on-masonry">
-                <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
+                <img   style="width:46px; height: 46px;"  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
             </div>
             <div class="object_username">
                 <a class="poster-name" style="word-break: break-all;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{owner_title}}</a>

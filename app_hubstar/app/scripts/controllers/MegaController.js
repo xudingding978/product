@@ -907,6 +907,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     // share to social facebook
     fbShare: function(param) {
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
         this.dropdownPhotoSetting(param);
         var that = this;
         var caption = '';
@@ -966,9 +967,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
         FB.ui(obj, callback);
 
         return false;
+    }
     },
     //share to social google plus
     gpShare: function(param) {
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
         this.dropdownPhotoSetting(param);
         var caption = '';
         if (this.get('selectedPhoto').get('photo_caption') !== null)
@@ -1017,9 +1020,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 ).focus();
 
         return false;
+    }
     },
     //share to social twitter
     tShare: function(param) {
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
         this.dropdownPhotoSetting(param);
         var descript = this.get('selectedPhoto').get('photo_title');
         var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
@@ -1052,8 +1057,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 'height=436,width=626'
                 ).focus();
         return false;
+    }
     },
     pShare: function(param) {
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
         this.dropdownPhotoSetting(param);
 
         var currntUrl = 'http://' + document.domain + '/#/photos/' + this.get('selectedPhoto').get('id');
@@ -1092,6 +1099,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 'height=436,width=626'
                 ).focus();
         return false;
+    }
     },
     addLike: function() {
         var controller = this.get('controllers.itemFunction');

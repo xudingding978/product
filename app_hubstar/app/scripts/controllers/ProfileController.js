@@ -341,10 +341,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.get('model').set('show_template', false);
             }
         }
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-
-        }
+      
     },
     setAboutUsObject: function() {
         if (this.get('model').get('about_us') !== null && this.get('model').get('about_us') !== 'undefined' && this.get('model').get('about_us').get('length') > 0) {

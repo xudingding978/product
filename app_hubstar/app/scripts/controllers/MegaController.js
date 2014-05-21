@@ -82,6 +82,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
     },
     previesImage: function() {
+        
         if (!this.get("isRead")) {
             if (!this.get('selectedPhoto')) {
                 this.set('selectedPhoto', this.get('content').get('lastObject'));
@@ -132,8 +133,15 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             this.selectedImage(this.get('selectedPhoto').id);
         }
+         if (HubStar.get('ctaView') === true) {
+            HubStar.set('checkLoginStatus', true);
+            HubStar.set('ctaView', false);
+        }
+
+    
     },
     nextImage: function() {
+        
         if (!this.get("isRead")) {
             if (!this.get('selectedPhoto')) {
                 this.set('selectedPhoto', this.get('content').get('firstObject'));
@@ -184,6 +192,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
             this.selectedImage(this.get('selectedPhoto').id);
         }
+         if (HubStar.get('ctaView') === true) {
+            HubStar.set('checkLoginStatus', true);
+            HubStar.set('ctaView', false);
+        }
+
     },
     getInitData: function(megaObject) {
 
@@ -264,10 +277,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function() {
             });
         });
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-
-        }
+       
     },
     addRelatedData: function(mega)
     {
@@ -359,6 +369,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
         else if (this.get("clickOrRoute") === true) // it  assesses the collection photo from route
         {
+            
             photoContent = [];
             var address = document.URL;
             var owner_id = address.split("#")[1].split("/")[2];
@@ -707,6 +718,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         {
                             var m = HubStar.Mega.find(search_id);
                             this.transitionTo("search", {id: m.get("owner_title")});
+                             
                         }
                         else
                         {
@@ -756,6 +768,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         } else {
              this.transitionTo("searchIndexTom");
         }
+         HubStar.set('ctaView', true);
     },
     editingContactForm: function() {
 

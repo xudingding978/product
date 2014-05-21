@@ -13,18 +13,19 @@ HubStar.NewSearchPhotoRoute = Ember.Route.extend({
         var megaModel = HubStar.Mega.find(temp);
         //   this.controllerFor('mega').set("selectPhoto", true);
         var that = this;
-        megaModel.then(function() {           
-           that.controllerFor('mega').getInitData(megaModel);
-        },function() {
-           that.transitionTo('fourOhFour',"404");
-        }); 
-        
+        megaModel.then(function() {
+            that.controllerFor('mega').getInitData(megaModel);
+        }, function() {
+            that.transitionTo('fourOhFour', "404");
+        });
 
+      
     },
-    model: function(params) {
-        var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});
-        this.controllerFor("mega").set("clickOrRoute", true);
-        return model;
+    model: function(params) { 
+            var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});
+            this.controllerFor("mega").set("clickOrRoute", true);
+            return model;
+        
     },
     activate: function() {
         setTimeout(function() {

@@ -4,6 +4,8 @@ HubStar.ArticleView = Ember.View.extend({
     readContent: false,
     didInsertElement: function() {
         return this.$().attr({tabindex: 1}), this.$().focus();
+       
+
     },
     checkReading: function() {
         this.set('readContent', !this.get("readContent"));
@@ -32,10 +34,7 @@ HubStar.ArticleView = Ember.View.extend({
 
     },
     popupAibum: function() {
-        HubStar.set('what', true);
-        setTimeout(function() {
-            $('.collection_tab1').attr('style', 'bottom: 0px; right: 0px; height: 300px;background-color: black;overflow:hidden;display:block; position: absolute;z-index: 5; width: 100%; opacity: .9;');
-        }, 200);
+        $(".show-album").slideToggle("slow");
     },
     openComment: function() {
 
@@ -55,7 +54,7 @@ HubStar.ArticleView = Ember.View.extend({
     },
     keyUp: function(event) {
         if (event.which === 27)
-        { 
+        {
             // pressed 'esc'
             var address = document.URL;
             var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 

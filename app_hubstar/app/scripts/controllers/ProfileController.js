@@ -364,7 +364,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.set('show_keyword_array', newArray);
     },
-
     setKeywordsNum: function(profile_package_name) { // change "profile.profile_keywords_num", "profile.profile_boost"
         if (profile_package_name === 'Platinum') {
             this.set('keyword_num', 200);
@@ -869,6 +868,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         {
             this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
         }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry();
+        }, 20);
     },
     toggleUpload: function() {
         $('.corpbanner_mask').toggleClass('hideClass');
@@ -1523,7 +1525,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('profileSubcategoryDropdown', !this.get('profileSubcategoryDropdown'));
         }
     },
-    
     rateEditing: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {

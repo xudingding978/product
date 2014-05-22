@@ -1235,14 +1235,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
 
     },
-//    saveShowKeywords: function() {
-//        var show_keyword_id = '';
-//        for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
-//            show_keyword_id = show_keyword_id+','+ this.get('keywords_array').objectAt(i).get('keyword_id');
-//        }
-//        this.set('show_keyword_id',show_keyword_id);
-//        this.saveUpdate();
-//    },
     addKeywords: function() {
         var keywords_JSON = [];
         var add_keywords_array = this.get('add_keywords').split(',');
@@ -1441,7 +1433,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': that.get('model.id')};
 
-
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function() {
                             that.set('isPhotoEditingMode', false);
                             that.set('isPhotoUploadMode', false);
@@ -1453,8 +1444,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         });
 
                     }
-
-
                     else if (width < params.width || height < params.height) {
                         that.set('loadingTime', false);
                         that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height);
@@ -1603,6 +1592,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     // share to social facebook
     fbShare: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var that = this;
         var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
         var caption = '';
@@ -1649,9 +1640,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         FB.ui(obj, callback);
 
         return false;
+    }
     },
     //share to social google plus
     gpShare: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var caption = '';
         if (this.get('profile_cover_text') !== null)
         {
@@ -1689,9 +1683,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 ).focus();
 
         return false;
+    }
     },
     //share to social twitter
     tShare: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
         var url = 'https://twitter.com/share?text=' + this.get('profile_name') + '&url=' + encodeURIComponent(currntUrl);
         var mega = HubStar.Mega.find(this.get('currentUserID'));
@@ -1712,9 +1709,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 'height=436,width=626'
                 ).focus();
         return false;
+    }
     },
     pShare: function() {
-
+if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.get('profile_pic_url')) +
@@ -1737,6 +1736,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 'height=436,width=626'
                 ).focus();
         return false;
+    }
     },
     keywordSearch: function(keyword) {
         this.transitionToRoute('searchIndexTom');

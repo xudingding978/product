@@ -97,13 +97,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
             var collection_id = address.split("#")[1].split("/")[4];
             var profile = HubStar.Profile.find(owner_id);
             if (selectedIndex < 0) {
-                 if (HubStar.get('ctaView') === true) {
+                 
                 this.get("controllers.checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
-            }
-            else {
-
-            }
                 selectedIndex = this.get('content').get('length') - 1;
                 this.set('image_no', this.get('content').get('length'));
             }
@@ -140,6 +135,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
             }
             this.selectedImage(this.get('selectedPhoto').id);
         }  
+        
+         if (HubStar.get('ctaView') === true) {
+                this.get("controllers.checkingLoginStatus").popupLogin();
+                HubStar.set('ctaView', false);
+            }
     },
     nextImage: function() {
         
@@ -156,13 +156,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
             var selectedIndex = this.findSelectedItemIndex();
             selectedIndex++;
             if (selectedIndex >= (this.get('content').get('length'))) {
-                 if (HubStar.get('ctaView') === true) {
-              this.get("controllers.checkingLoginStatus").popupLogin();
-                HubStar.set('ctaView', false);
-            }
-            else {
-
-            }
+               if(selectedIndex > 3){
+                this.get("controllers.checkingLoginStatus").popupLogin();   
+            }     
                 this.set('image_no', 1);
                 selectedIndex = 0;
             }
@@ -200,6 +196,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
             this.selectedImage(this.get('selectedPhoto').id);
         }
+        
+         if (HubStar.get('ctaView') === true) {
+                this.get("controllers.checkingLoginStatus").popupLogin();
+                HubStar.set('ctaView', false);
+            }
 
 
     },

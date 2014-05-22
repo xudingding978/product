@@ -6,7 +6,7 @@
             <div class="user-profilepic-container" id="profile-picture" data-step="1" data-intro="Click here to upload a <b>Profile Picture</b>." data-position='right'> 
                 {{#if controller.is_authentic_user}}
                 <div id="change_profile" class="changeuserprofilepic easing hint--right hint--rounded"  data-hint="Choose a profile picture" {{action userPhotoEditButton "User Picture"}}>
-                       <i class="fa fa-pencil-square-o"></i>         
+                     <i class="fa fa-pencil-square-o"></i>         
 
                 </div>  
 
@@ -155,7 +155,7 @@
 
                     <div id ="tom" style="display: none;">
                         <div class="more_about_us" style="display: block;" >
-                            <div id="about_us_contentsssssssw">
+                            <div id="about_us_contents">
                                 {{about_me}}
                             </div>
                         </div>
@@ -211,7 +211,11 @@
                         <a href="#" target="_blank" {{action socialLink 'youtube'}}>&nbsp <i class="fa fa-youtube-play"> </i></a>
                     </li>
                     {{/if}}
-
+                    {{#if instagram}}
+                    <li class="location_li">
+                        <a href="#" target="_blank" {{action socialLink 'instagram'}}>&nbsp <i class="fa fa-instagram"> </i></a>
+                    </li>
+                    {{/if}}
 
                 </ul>
             </div>

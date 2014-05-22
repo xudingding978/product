@@ -124,11 +124,18 @@
         <!-- OBJECT CONTROLL SECTION -->
         <div  class="collapes-container"  style="display:block;border-top: 1px solid #f3f3f3;">
             <div class="collapes-container_inner" style="padding: 0; height: 45px;">
-
-                <div  class="square-button hint--rounded hint--bottom"  data-hint="Like this Idea!" {{action addLike}}>
+                {{megaResouce.photo_isLike}}
+                
+                {{#if megaResouce.isLike}}
+                
+                 <div  class="square-button hint--rounded hint--bottom"  data-hint="unLike this Idea!" {{action unLike}}>
                       <i class="fa fa-thumbs-up">&nbsp;<span style="font-size: 11px;">{{megaResouce.likes_count}}</span>&nbsp;</i>
                 </div>
-
+                {{else}}
+               <div  class="square-button hint--rounded hint--bottom"  data-hint="Like this Idea!" {{action addLike}}>
+                      <i class="fa fa-thumbs-up">&nbsp;<span style="font-size: 11px;">{{megaResouce.likes_count}}</span>&nbsp;</i>
+                </div>
+                {{/if}}
                 <div class="square-button hint--rounded hint--bottom"  data-hint="Add to your own collection." {{action switchCollection on="click" target="controller"}}>
                     <i class="fa fa-folder" >&nbsp;<span style="font-size: 11px;">{{megaResouce.save_count}}</span>&nbsp;</i>
                 </div>
@@ -211,8 +218,8 @@
                             <tr>
                                 <td style = "font-weight: bold; font-size: 12px;width: 60px;">Link Text:</td>
                                 <td>
-                                    <div style="display: block;height:40px ;">
-                                        <div  id="displayName"  style="margin: 0;height:40px ;width: 100%;">
+                                    <div style="display: block;height:55px ;">
+                                        <div  id="displayName"  style="margin: 0;height:55px ;width: 100%;">
                                             {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_link_text" class="no-resize" placeholder="Type Your Link Text here"}} 
 
                                         </div>
@@ -224,21 +231,22 @@
 
                                 <th style = "font-size: 12px;font-weight: bold;width: 60px; margin-top: 10px">Link Url:</th>       
                                 <td>
-                                    <div style="display: block; height:40px ; margin-top: 10px">
-                                        <div  id="displayName"  style="margin: 0;height:40px ;width: 100%;">
+                                    <div style="display: block; height:55px ; margin-top: 10px">
+                                        <div  id="displayName"  style="margin: 0;height:55px ;width: 100%;">
                                             {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_link_url" class="no-resize" placeholder="http://example.com"}} 
                                         </div>
                                     </div>
                                 </td>
                             </tr>
+                            
                         </tbody>
                     </table>
 
 
 
-                    <div class="buttons" style="position: relative;display: block;margin: 10px auto 0;text-align: center;">
+                    <div class="buttons" style="position: relative;display: block;margin: 25px auto 0;text-align: center;">
 
-                        <div  type="button" class="new-btn blue-btn" {{action yes selectedPhoto}}> <i class="fa fa-check fa fa-white"></i></div>
+                        <div  type="button" class="new-btn blue-btn" {{action yes}}> <i class="fa fa-check fa fa-white"></i></div>
 
                         <div  type="button" class="new-btn" {{action no }}> <i class="fa fa-times"></i></div>
 
@@ -246,17 +254,9 @@
 
                     {{/unless}}
 
-
-
                 </div>
 
-
-
-
             </div>
-
-
-
 
         </div>
 

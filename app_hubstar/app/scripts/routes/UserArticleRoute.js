@@ -2,6 +2,7 @@ HubStar.UserArticleRoute = Ember.Route.extend({
     //     controller: HubStarlicationController,
     setupController: function(controller, model) {
         var temp;
+        var address;
         if (model.id === undefined) {                        //reload the page model id can not be find...
             var url = window.location.href;
             urlArray = url.split("/");
@@ -12,8 +13,8 @@ HubStar.UserArticleRoute = Ember.Route.extend({
         if (this.controllerFor("article").get("searchFromRoute") === true) 
         {
 
-            var address = document.URL;
-            var temp = address.split("#")[1].split("/")[6];
+            address = document.URL;
+            temp = address.split("#")[1].split("/")[6];
         }
 
         var megaModel = HubStar.Mega.find(temp);

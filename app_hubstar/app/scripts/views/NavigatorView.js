@@ -1,27 +1,6 @@
 HubStar.NavigatorView = Ember.View.extend({
     templateName: 'navigator',
     didInsertElement: function() {
-        var that = this;
-        $(document).ready(function() {
-            $("#switchbar").mouseup(function(event) {
-                var mousedownX = event.pageX;
-                var witdhleft = $('#switchbar').offset().left;
-                var d = 23;
-                var middle = witdhleft + d;
-                if (mousedownX < middle - d / 2) {
-                    localStorage.resOrcom = "residential";
-                } else if (mousedownX >= (middle - d / 2) && mousedownX < (middle + d / 2)) {
-                    localStorage.resOrcom = "All";
-                }
-                else if (mousedownX >= (middle + d / 2)) {
-                    localStorage.resOrcom = "commercial";
-                }
-                that.get("controller").residentialCommercialStatus();
-        that.get("controller").changeBackground();
-      
-            });
-        });
-
     },
     commercial: function() {
 
@@ -61,7 +40,7 @@ HubStar.NavigatorView = Ember.View.extend({
             localStorage.resOrcom = "residential";
         }
         this.get("controller").residentialCommercialStatus();
-         this.get("controller").changeBackground();
-          
+        this.get("controller").changeBackground();
+
     }
 });

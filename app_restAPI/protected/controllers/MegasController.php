@@ -47,10 +47,11 @@ class MegasController extends Controller {
     }
 
     public function actionCreate() {
-
+        error_log('test');
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $mega = $request_arr['mega'];
+        error_log($mega['type']);
         $mega["id"] = str_replace("test", "", $mega["id"]);
         if ($mega['type'] == 'photo' || $mega['type'] == 'video') {
             $cb = $this->couchBaseConnection();
@@ -77,10 +78,19 @@ class MegasController extends Controller {
             $mega['keyword'] = $keyword;
 
             $this->createUploadedVideo($mega);
+        } elseif ($mega['type'] == 'pdf') {
+            error_log('ddddddddddddddd');
+            $mega['pdf'][0]['id'] = $mega['id'];
+            
+            $keyword = $this->getProfileKeyword($mega['owner_id']);
+            $mega['keyword'] = $keyword;
+//            $mega['pdf'][0]['pdf_url']  = $this->savePdfToS3($mega['pdf']);            
+            $this->createUploadedPdf($mega);
         }
-        $this->sendResponse(204, $request_json);
+        error_log('finish~~~~~~~~~~~~~~~~');
+        $this->sendResponse(204);
     }
-
+    
     public function actionRead() {
         try {
 
@@ -103,13 +113,13 @@ class MegasController extends Controller {
         $newRecord = file_get_contents('php://input');
         $newRecord = CJSON::decode($newRecord, true);
         $newRecord['id'] = $id;
-        
-         
-         $commentController = new CommentsController();
+
+
+        $commentController = new CommentsController();
         $commentController->updateUserInfo($id);
-        
-      
-        
+
+
+
         if ($newRecord['mega']['type'] == 'user') {
             $this->updateUserRecord($newRecord);
         } else if ($newRecord['mega']['type'] == 'profile') {
@@ -126,7 +136,6 @@ class MegasController extends Controller {
         } else {
             $this->updateMega($newRecord);
         }
-     
     }
 
     public function actionSetSaveCount() {
@@ -306,7 +315,7 @@ class MegasController extends Controller {
         }
     }
 
-    public function createUploadedPhoto($mega) {
+    public function createUploadedPhoto($mega) {        
         if (sizeof($mega) > 0) {
             $photoController = new PhotosController();
 
@@ -325,6 +334,37 @@ class MegasController extends Controller {
         return $profile['keyword'];
     }
 
+    public function createUploadedPdf($mega) {
+
+        if (sizeof($mega) > 0) {
+            $cb = $this->couchBaseConnection();
+
+            $mega['view_count'] = 0;
+            $mega['share_count'] = 0;
+            $mega['save_count'] = 0;
+            $mega['comment_count'] = 0;
+            $mega['likes_count'] = 0;
+            if (!isset($mega['accessed'])) {
+                $mega["accessed"] = 1;
+            }
+            $mega["accessed"] = date_timestamp_get(new DateTime());
+
+            if (!isset($mega['created'])) {
+                $mega["created"] = 1;
+            }
+            $mega["created"] = date_timestamp_get(new DateTime());
+
+
+            $mega["updated"] = 0;
+
+            if ($cb->add($this->getDomain() . '/' . $mega['id'], CJSON::encode($mega))) {
+                echo $this->sendResponse(204);
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
+        }
+    }
+    
     public function createUploadedVideo($mega) {
 
         if (sizeof($mega) > 0) {
@@ -466,7 +506,64 @@ class MegasController extends Controller {
             }
         }
     }
+    public function actionunlike() {
+        $like = CJSON::decode(file_get_contents('php://input'));
+        $like_arr = CJSON::decode($like, true);
 
+        $like_people = $like_arr[0];
+        $like_profile = $like_arr[1];
+        $like_type = $like_arr[2];
+        if ($like_type === "profile") {
+
+            try {
+                $cb = $this->couchBaseConnection();
+                $docID = $this->getDomain() . "/profiles/" . $like_profile;
+                $old = $cb->get($docID); // get the old profile record from the database according to the docID string
+                $oldRecord = CJSON::decode($old, true);
+                if (!isset($oldRecord["people_like"])) {
+                    $oldRecord["people_like"] = null;
+                }
+
+                $temp = explode(",",$oldRecord["people_like"]);            
+                $temp = array_diff($temp, array($like_people));            
+                $oldRecord["people_like"]=implode(",",$temp);            
+                $oldRecord["likes_count"]=count($temp);
+                
+                if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                    $people_like = CJSON::encode($oldRecord["people_like"], true);
+                    $this->sendResponse(200, $people_like);
+                } else {
+                    $this->sendResponse(500, "some thing wrong");
+                }
+            } catch (Exception $exc) {
+                echo $exc->getTraceAsString();
+            }
+        } else {
+            try {
+                $cb = $this->couchBaseConnection();
+                $docID = $this->getDomain() . "/" . $like_profile;
+                $old = $cb->get($docID); // get the old profile record from the database according to the docID string
+                $oldRecord = CJSON::decode($old, true);
+
+                if (!isset($oldRecord["people_like"]) || is_array($oldRecord["people_like"])) {
+                    $oldRecord["people_like"] = null;
+                }
+                $temp = explode(",",$oldRecord["people_like"]);            
+                $temp = array_diff($temp, array($like_people));            
+                $oldRecord["people_like"]=implode(",",$temp);
+                $oldRecord["likes_count"]=count($temp);
+
+                if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                    $people_like = CJSON::encode($oldRecord["people_like"], true);
+                    $this->sendResponse(200, $people_like);                   
+                } else {
+                    $this->sendResponse(500, "some thing wrong");
+                }
+            } catch (Exception $exc) {
+                echo $exc->getTraceAsString();
+            }
+        }
+    }
     public function actionaddcomment() {
         $newRecord_arr = file_get_contents('php://input');
         $newRecord = CJSON::decode($newRecord_arr, true);

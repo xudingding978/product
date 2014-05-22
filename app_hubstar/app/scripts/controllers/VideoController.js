@@ -21,9 +21,9 @@ HubStar.VideoController = Ember.Controller.extend({
                 var videoIframe = tempVideoObject.get("videoIframeCode");
                 var height = $(window).height() - 54;
                 var width = 480 / 360 * height;
-                if (width > $(window).width()-320)
+                if (width > $(window).width() - 320)
                 {
-                    width = $(window).width()-320;
+                    width = $(window).width() - 320;
                     height = 360 / 480 * width;
                 }
                 videoIframe = videoIframe.replace("480", Math.ceil(width));
@@ -35,9 +35,9 @@ HubStar.VideoController = Ember.Controller.extend({
                     var height = videoIframe.split("width=\"")[1].split("\" height=\"")[1].split("\"")[0];
                     var heightNew = $(window).height() - 54;
                     var widthNew = 480 / 360 * heightNew;
-                    if (widthNew > $(window).width()-320)
+                    if (widthNew > $(window).width() - 320)
                     {
-                        widthNew = $(window).width()-320;
+                        widthNew = $(window).width() - 320;
                         heightNew = 360 / 480 * widthNew;
                     }
                     videoIframe = videoIframe.replace(width, Math.ceil(widthNew));
@@ -46,7 +46,7 @@ HubStar.VideoController = Ember.Controller.extend({
                     that.set('video_iframe_code', videoIframe);
                 });
                 var tempComment = [that.get('megaResouce').id];
-                requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function(params) {
+                requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function() {
                 });
                 that.checkAuthenticUser();
             }, function() {
@@ -108,9 +108,8 @@ HubStar.VideoController = Ember.Controller.extend({
         var delInfo = [id, message_id];
 
         delInfo = JSON.stringify(delInfo);
-        var that = this;
         this.get('megaResouce').get('comments').removeObject(object);
-        requiredBackEnd('comments', 'DeleteVideoComment', delInfo, 'POST', function(params) {
+        requiredBackEnd('comments', 'DeleteVideoComment', delInfo, 'POST', function() {
         });
     },
     updateComment: function(object) {
@@ -347,6 +346,10 @@ HubStar.VideoController = Ember.Controller.extend({
     addLike: function() {
         var controller = this.get('controllers.itemFunction');
         controller.addLike(this.get('megaResouce').get('id'));
+    },
+    unLike: function() {
+        var controller = this.get('controllers.itemFunction');
+        controller.unLike(this.get('megaResouce').get('id'));
     }
 }
 

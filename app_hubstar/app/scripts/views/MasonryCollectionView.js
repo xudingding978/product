@@ -1,13 +1,6 @@
 HubStar.MasonryCollectionView = Ember.View.extend({
     templateName: 'masonryCollection',
     didInsertElement: function() {
-//        var container = document.querySelector('#masonry_user_container');
-//        var msnry = new Masonry(container, {
-//            itemSelector: '.box',
-//            columnWidth: 185,
-//            isInitLayout: false,
-//            isFitWidth: true
-//        });
         $(function() {
             $('#masonry_user_container').masonry({
                 itemSelector: '.box',
@@ -24,16 +17,11 @@ HubStar.MasonryCollectionView = Ember.View.extend({
 
         var userController = this.get('controller');
         userController.setSelectedCollection(id);
-
-
-
         var div_id = "#" + id;
         var div_class = "." + id + "  #uploadArea";
         $(".Targeting_Object_front").attr("style", "display:inline-block");
         $(" #uploadArea").attr('style', "display:none");
         $(" #uploadObject").attr('style', "display:block");
-
-
         $(div_id).attr("style", "display:none");
         $(div_class).attr('style', "display:inline-block");
         var createCollection = "." + id + "  #createCollection";
@@ -55,13 +43,6 @@ HubStar.MasonryCollectionView = Ember.View.extend({
             columnWidth: 185,
             isFitWidth: true
         });
-
-
-
-
-
-
-
 
     }
 });

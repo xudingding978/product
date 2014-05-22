@@ -9,21 +9,19 @@ HubStar.Router.map(function() {
         this.resource("indexIndex", {path: '/'});
         this.resource("verifyId", {path: '/verify/:verify_id'});
 
-//        this.resource("videoes", function() {
-//            this.resource("video", {path: ':video_id'});
-//        });
         this.resource("article", {path: '/articles/:article_id'}, function() {
             this.resource("searchsArticlePhoto", {path: '/photos/:photo_id'});
         });
         this.resource("video", {path: '/videos/:video_id'});
+        this.resource("pdf", {path: '/pdf/:video_id'});
         this.resource("photo", {path: '/photos/:photo_id'});
 
 
         // ### business profile start 
         this.resource("profile", {path: '/profiles/:profile_id'}, function() {
             this.resource("profileFollowers", {path: '/followers'});
-            this.resource("profileVideos", {path: '/videos'},function(){
-                 this.resource("videoVideo", {path: '/videos/:video_id'});
+            this.resource("profileVideos", {path: '/videos'}, function() {
+                this.resource("videoVideo", {path: '/videos/:video_id'});
             });
             this.resource("profileCollections", {path: '/collections'}, function() {
                 //this.resource("photo", {path: '/photoes/:photo_id'});
@@ -37,7 +35,12 @@ HubStar.Router.map(function() {
                     });
                 });
             });
+            this.resource("profilePdf", {path: '/pdf'}, function() {
+                this.resource('pdfUploader', {path: '/upload'});
+            });
+
             // business profile partners start
+
             this.resource("partners", {path: '/network'});
             this.resource("reviews", {path: '/reviews'}, function() {
                 this.resource("review", {path: ':review_id'}, function() {
@@ -89,7 +92,8 @@ HubStar.Router.map(function() {
         this.resource("searchs", {path: "/search"}, function() {
             this.resource("searchIndexTom", {path: '/default'}, function()
             {
-               this.resource("searchDefaultPhoto", {path: '/photos/:photo_id'});
+                this.resource("searchDefaultPhoto", {path: '/photos/:photo_id'});
+                this.resource("searchDefaultVideo", {path: '/videos/:video_id'});
                 this.resource("searchDefaultArticle", {path: '/articles/:article_id'}, function() {
                     this.resource("searchDefaultArticlePhoto", {path: '/photos/:photo_id'});
                 });

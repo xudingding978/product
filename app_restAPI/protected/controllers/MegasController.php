@@ -47,11 +47,9 @@ class MegasController extends Controller {
     }
 
     public function actionCreate() {
-        error_log('test');
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $mega = $request_arr['mega'];
-        error_log($mega['type']);
         $mega["id"] = str_replace("test", "", $mega["id"]);
         if ($mega['type'] == 'photo' || $mega['type'] == 'video') {
             $cb = $this->couchBaseConnection();
@@ -79,7 +77,6 @@ class MegasController extends Controller {
 
             $this->createUploadedVideo($mega);
         } elseif ($mega['type'] == 'pdf') {
-            error_log('ddddddddddddddd');
             $mega['pdf'][0]['id'] = $mega['id'];
             
             $keyword = $this->getProfileKeyword($mega['owner_id']);
@@ -87,7 +84,6 @@ class MegasController extends Controller {
 //            $mega['pdf'][0]['pdf_url']  = $this->savePdfToS3($mega['pdf']);            
             $this->createUploadedPdf($mega);
         }
-        error_log('finish~~~~~~~~~~~~~~~~');
         $this->sendResponse(204);
     }
     

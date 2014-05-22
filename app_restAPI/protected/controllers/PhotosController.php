@@ -183,8 +183,6 @@ class PhotosController extends Controller {
            
             //$oldRecord['photo'][0]['photo_keywords'] =  $newRecord['photo']['photo_keywords'];
 
-            //error_log(var_export($newRecord['photo']['photo_caption'], true));
-            //error_log(var_export($newRecord['photo']['photo_keywords'], true)); 
             
             //$keyword = $this->getProfileKeyword($owner_id);
             //$oldRecord['keyword'] = $keyword;

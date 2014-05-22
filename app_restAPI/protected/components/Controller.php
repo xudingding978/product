@@ -59,7 +59,6 @@ class Controller extends CController {
         $node = Yii::app()->params['couchBaseDefaultNode'];
         $cb = new Couchbase($node, $account, $password, $bucket, true);
         $result = $cb->get($domain);
-        error_log($domain);
         $result_arr = CJSON::decode($result, true);
         return $result_arr["providers"][$name];
     }
@@ -381,8 +380,6 @@ class Controller extends CController {
         $conditions = array();
         $userid = urldecode($userid);
         $requestStringOne = 'couchbaseDocument.doc.profile.id=' . $userid;
-        error_log(var_export($userid, true));
-        error_log(var_export($collection_id, true));
 
         array_push($conditions, $requestStringOne);
 

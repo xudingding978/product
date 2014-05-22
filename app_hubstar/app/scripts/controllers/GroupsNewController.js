@@ -1,11 +1,10 @@
 HubStar.GroupsNewController = Ember.Controller.extend({
     groupStepOne: true,
     groupStepTwo: false,
-    groupStepThree: false,
-    groupStepFour: false,
     categorys: [],
     subcate: [],
     selected_topics: "",
+    editingGroupTitle:false,
     isResidential: true,
     needs: ['profile', 'applicationFeedback', 'application'],
     init: function()
@@ -43,40 +42,25 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         if (number === "1") {
             this.set("groupStepOne", false);
             this.set("groupStepTwo", true);
-            this.set("groupStepThree", false);
-            this.set("groupStepFour", false);
         } else if (number === "2") {
-            this.set("groupStepOne", false);
-            this.set("groupStepTwo", false);
-            this.set("groupStepThree", true);
-            this.set("groupStepFour", false);
-        } else if (number === "3") {
-            this.set("groupStepOne", false);
-            this.set("groupStepTwo", false);
-            this.set("groupStepThree", false);
-            this.set("groupStepFour", true);
-        } else if (number === "0") {
             this.set("groupStepOne", true);
-            this.set("selected_topics", '');
             this.set("groupStepTwo", false);
-            this.set("groupStepThree", false);
-            this.set("groupStepFour", false);
         }
     },
-    groupSelection: function(checking) {
-        if (checking === "residental") {
-            this.set("isResidential", true);
-            $("#groupRes").removeClass("hover-opacity easing");
-            $("#groupCom").addClass("hover-opacity easing");
-        } else if (checking === "commerial") {
-            this.set("isResidential", false);
-            $("#groupRes").addClass("hover-opacity easing");
-            $("#groupCom").removeClass("hover-opacity easing");
-        }
+    
+    changeTitle: function(title){
+        this.set("editingGroupTitle", true);
+        
+    },
+      no: function(title){
+        this.set("editingGroupTitle", false);
+        
+    }, 
+      yes: function(title){
+        this.set("editingGroupTitle", false);
+        
     },
     save: function() {
-        //this.fillInChecking();
-        //if (passSubmit) 
         {
             var that = this;
             var id =createMessageid();

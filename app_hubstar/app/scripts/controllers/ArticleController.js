@@ -35,6 +35,13 @@ HubStar.ArticleController = Ember.Controller.extend({
         var selectedIndex = this.findSelectedItemIndex();
         selectedIndex--;
         if (selectedIndex < 0) {
+            if (HubStar.get('ctaView') === true) {
+                HubStar.set('checkLoginStatus', true);
+                HubStar.set('ctaView', false);
+            }
+            else {
+
+            }
             selectedIndex = this.get('content').get('length') - 1;
             this.set('image_no', this.get('content').get('length'));
         }
@@ -95,17 +102,10 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('captionTitle', this.get('selectedPhoto').get("photo_title"));
         this.set('caption', this.get('selectedPhoto').get("photo_caption"));
         this.captionDisplay();
-        if (HubStar.get('ctaView') === true) {
-            HubStar.set('checkLoginStatus', true);
-            HubStar.set('ctaView', false);
-        }
-        else {
-          //   HubStar.set('ctaView', true);
-        }
     },
     nextImage: function() {
 
-       
+
 
         this.set("isShowPhotoUrl", true);
         if (!this.get('selectedPhoto')) {
@@ -114,6 +114,12 @@ HubStar.ArticleController = Ember.Controller.extend({
         var selectedIndex = this.findSelectedItemIndex();
         selectedIndex++;
         if (selectedIndex >= (this.get('content').get('length'))) {
+            if (HubStar.get('ctaView') === true) {
+                HubStar.set('checkLoginStatus', true);
+                HubStar.set('ctaView', false);
+            } else {
+                //      HubStar.set('ctaView', true);
+            }
             this.set('image_no', 1);
             selectedIndex = 0;
         }
@@ -172,12 +178,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('captionTitle', this.get('selectedPhoto').get("photo_title"));
         this.set('caption', this.get('selectedPhoto').get("photo_caption"));
         this.captionDisplay();
-         if (HubStar.get('ctaView') === true) {
-            HubStar.set('checkLoginStatus', true);
-            HubStar.set('ctaView', false);
-        }else {
-       //      HubStar.set('ctaView', true);
-        }
+
 
     },
     captionDisplay: function()
@@ -526,7 +527,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                 this.transitionTo("search", {id: m.get("owner_title")});
             }
         }
-         HubStar.set('ctaView', true);
+        HubStar.set('ctaView', true);
     },
     switchCollection: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())

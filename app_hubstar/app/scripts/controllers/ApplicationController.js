@@ -111,7 +111,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         });
         
         requiredBackEnd('tenantConfiguration', 'pdfDisplay', null, 'POST', function(params) {
-            console.log('pdf_display: ' + params);
             HubStar.set('pdf_display', params);
         });
         

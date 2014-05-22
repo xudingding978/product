@@ -19,7 +19,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         HubStar.set("readCaption", true);
     },
     findSelectedItemIndex: function() {
-        content = this.get('content');
+        var content = this.get('content');
         for (var index = 0; index <= content.get('length'); index++) {
             if (this.get('selectedPhoto') === content.objectAt(index)) {
                 return index;
@@ -28,6 +28,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         return 0;
     },
     previesImage: function() {
+
         if (!this.get('selectedPhoto')) {
             this.set('selectedPhoto', this.get('content').get('lastObject'));
         }
@@ -93,10 +94,19 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.selectedImage(this.get('selectedPhoto').get("id"));
         this.set('captionTitle', this.get('selectedPhoto').get("photo_title"));
         this.set('caption', this.get('selectedPhoto').get("photo_caption"));
-
         this.captionDisplay();
+        if (HubStar.get('ctaView') === true) {
+            HubStar.set('checkLoginStatus', true);
+            HubStar.set('ctaView', false);
+        }
+        else {
+          //   HubStar.set('ctaView', true);
+        }
     },
     nextImage: function() {
+
+       
+
         this.set("isShowPhotoUrl", true);
         if (!this.get('selectedPhoto')) {
             this.set('selectedPhoto', this.get('content').get('firstObject'));
@@ -162,6 +172,13 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set('captionTitle', this.get('selectedPhoto').get("photo_title"));
         this.set('caption', this.get('selectedPhoto').get("photo_caption"));
         this.captionDisplay();
+         if (HubStar.get('ctaView') === true) {
+            HubStar.set('checkLoginStatus', true);
+            HubStar.set('ctaView', false);
+        }else {
+       //      HubStar.set('ctaView', true);
+        }
+
     },
     captionDisplay: function()
     {
@@ -252,11 +269,6 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.selectedImage(e);
         this.captionDisplay();
     },
-//    selectedImage: function(id) {
-//        var selectedImage_id = "#" + id;
-//        $('.photo_original_style').removeClass('selected_image_style');
-//        $(selectedImage_id).addClass('selected_image_style');
-//    },
     selectedImage: function(id) {
         var selectedImage_id = "#showalbum_" + id;
         $('.photo_original_style').removeClass('selected_image_style');
@@ -280,27 +292,11 @@ HubStar.ArticleController = Ember.Controller.extend({
             that.checkCreditExist(megaObject.get('article').objectAt(0).get('credits'));
 
             var tempComment = [megaObject.id];
-            requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function(params) {
+            requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function() {
             });
-
-//            setTimeout(function() {
-//                if (megaObject.get("view_count") === undefined || megaObject.get("view_count") === null || megaObject.get("view_count") === "")
-//                {
-//                    megaObject.set("view_count", 1);
-//                }
-//                else
-//                {
-//                    var megaData = megaObject.get("view_count");
-//                    megaObject.set("view_count", megaData + 1);
-//                }
-//                megaObject.store.save();
-//            }, 6000);
         });
 
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
 
-        }
     },
     checkCreditExist: function(credits) {
         if (credits !== null && credits !== 'undefined' && credits.get('length') > 0) {
@@ -356,9 +352,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         var delInfo = [id, message_id];
 
         delInfo = JSON.stringify(delInfo);
-        var that = this;
         this.get('article').get('comments').removeObject(object);
-        requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function(params) {
+        requiredBackEnd('comments', 'DeleteArticleComment', delInfo, 'POST', function() {
         });
     },
     updateComment: function(object) {
@@ -511,15 +506,16 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
         else
         {
+            var photoObject;
             if (type === "users")
             {
-                var photoObject = HubStar.Mega.find(collection_id);
+                photoObject = HubStar.Mega.find(collection_id);
 
                 this.transitionTo("userPhoto", photoObject); //user photo
             }
             else if (type === "profiles")
             {
-                var photoObject = HubStar.Mega.find(collection_id);
+                photoObject = HubStar.Mega.find(collection_id);
 
                 this.transitionTo("profilePhoto", photoObject); // profile photo
             }
@@ -530,6 +526,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                 this.transitionTo("search", {id: m.get("owner_title")});
             }
         }
+         HubStar.set('ctaView', true);
     },
     switchCollection: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
@@ -595,154 +592,161 @@ HubStar.ArticleController = Ember.Controller.extend({
 //        $('#dropdown_id_' + param).toggleClass('hideClass');
     },
     fbShare: function(param) {
-        this.dropdownPhotoSetting(param);
-        var that = this;
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+            this.dropdownPhotoSetting(param);
+            var that = this;
 
-        var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
+            var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
 
-        var caption = '';
-        if (this.get('articleResouce').get("article_body") !== null)
-        {
-            caption = this.get('articleResouce').get("article_body");
-        }
-        else
-        {
-            caption = '';
-        }
-
-        var obj = {
-            method: 'feed',
-            link: currntUrl,
-            picture: this.get('selectedPhoto').get('photo_image_original_url'),
-            name: this.get('articleResouce').get("article_headline"),
-            caption: 'Trends Ideas',
-            description: caption
-        };
-
-        function callback(response) {
-            if (response && response.post_id) {
-                var mega = HubStar.Mega.find(that.get('articleID'));
-                mega.then(function() {
-                    if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-                    {
-                        mega.set("share_count", 0);
-                    }
-                    else
-                    {
-                        mega.set("share_count", mega.get("share_count") + 1);
-                    }
-                    mega.store.save();
-                });
-                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
-            } else {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
+            var caption = '';
+            if (this.get('articleResouce').get("article_body") !== null)
+            {
+                caption = this.get('articleResouce').get("article_body");
             }
+            else
+            {
+                caption = '';
+            }
+
+            var obj = {
+                method: 'feed',
+                link: currntUrl,
+                picture: this.get('selectedPhoto').get('photo_image_original_url'),
+                name: this.get('articleResouce').get("article_headline"),
+                caption: 'Trends Ideas',
+                description: caption
+            };
+
+            function callback(response) {
+                if (response && response.post_id) {
+                    var mega = HubStar.Mega.find(that.get('articleID'));
+                    mega.then(function() {
+                        if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                        {
+                            mega.set("share_count", 0);
+                        }
+                        else
+                        {
+                            mega.set("share_count", mega.get("share_count") + 1);
+                        }
+                        mega.store.save();
+                    });
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
+                } else {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
+                }
+            }
+
+            FB.ui(obj, callback);
+
+            return false;
         }
-
-        FB.ui(obj, callback);
-
-        return false;
     },
     //share to social google plus
     gpShare: function(param) {
-        this.dropdownPhotoSetting(param);
-        var caption = '';
-        if (this.get('articleResouce').get("article_body") !== null)
-        {
-            caption = this.get('articleResouce').get("article_body");
-        }
-        else
-        {
-            caption = '';
-        }
-
-
-        $("meta[property='og\\:title']").attr("content", this.get('articleResouce').get("article_headline"));
-        $("meta[property='og\\:description']").attr("content", caption);
-        $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_original_url'));
-
-
-        var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
-        var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
-        var mega = HubStar.Mega.find(this.get('articleID'));
-        mega.then(function() {
-            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+            this.dropdownPhotoSetting(param);
+            var caption = '';
+            if (this.get('articleResouce').get("article_body") !== null)
             {
-                mega.set("share_count", 0);
+                caption = this.get('articleResouce').get("article_body");
             }
             else
             {
-                mega.set("share_count", mega.get("share_count") + 1);
+                caption = '';
             }
-            mega.store.save();
-        });
 
-        window.open(
-                url,
-                'popupwindow',
-                'scrollbars=yes,width=800,height=400'
-                ).focus();
 
-        return false;
+            $("meta[property='og\\:title']").attr("content", this.get('articleResouce').get("article_headline"));
+            $("meta[property='og\\:description']").attr("content", caption);
+            $("meta[property='og\\:image']").attr("content", this.get('selectedPhoto').get('photo_image_original_url'));
+
+
+            var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
+            var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+            var mega = HubStar.Mega.find(this.get('articleID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+
+            window.open(
+                    url,
+                    'popupwindow',
+                    'scrollbars=yes,width=800,height=400'
+                    ).focus();
+
+            return false;
+        }
     },
     //share to social twitter
     tShare: function(param) {
-        this.dropdownPhotoSetting(param);
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+            this.dropdownPhotoSetting(param);
 
-        var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
+            var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
 
-        var url = 'https://twitter.com/share?text=' + this.get('articleResouce').get("article_headline") + '&url=' + encodeURIComponent(currntUrl);
-        var mega = HubStar.Mega.find(this.get('articleID'));
-        mega.then(function() {
-            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-            {
-                mega.set("share_count", 0);
-            }
-            else
-            {
-                mega.set("share_count", mega.get("share_count") + 1);
-            }
-            mega.store.save();
-        });
-        window.open(
-                url,
-                'popupwindow',
-                'height=436,width=626'
-                ).focus();
-        return false;
+            var url = 'https://twitter.com/share?text=' + this.get('articleResouce').get("article_headline") + '&url=' + encodeURIComponent(currntUrl);
+            var mega = HubStar.Mega.find(this.get('articleID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+            window.open(
+                    url,
+                    'popupwindow',
+                    'height=436,width=626'
+                    ).focus();
+            return false;
+        }
     },
     pShare: function(param) {
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+            this.dropdownPhotoSetting(param);
 
-        this.dropdownPhotoSetting(param);
-
-        var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
-        var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
-                '&media=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_original_url')) +
-                '&description=' + encodeURIComponent(this.get('articleResouce').get("article_headline"));
-        var mega = HubStar.Mega.find(this.get('articleID'));
-        mega.then(function() {
-            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-            {
-                mega.set("share_count", 0);
-            }
-            else
-            {
-                mega.set("share_count", mega.get("share_count") + 1);
-            }
-            mega.store.save();
-        });
-        window.open(
-                url,
-                'popupwindow',
-                'height=436,width=626'
-                ).focus();
-        return false;
+            var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
+            var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+                    '&media=' + encodeURIComponent(this.get('selectedPhoto').get('photo_image_original_url')) +
+                    '&description=' + encodeURIComponent(this.get('articleResouce').get("article_headline"));
+            var mega = HubStar.Mega.find(this.get('articleID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+            window.open(
+                    url,
+                    'popupwindow',
+                    'height=436,width=626'
+                    ).focus();
+            return false;
+        }
     },
     addLike: function() {
         var controller = this.get('controllers.itemFunction');
-        controller.addLike(this.get('megaResouce').get('id'));       
+        controller.addLike(this.get('megaResouce').get('id'));
     },
-    unLike: function(){
+    unLike: function() {
         var controller = this.get('controllers.itemFunction');
         controller.unLike(this.get('megaResouce').get('id'));
     }

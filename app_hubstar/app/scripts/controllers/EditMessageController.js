@@ -36,7 +36,7 @@ HubStar.EditMessageController = Ember.Controller.extend({
         }
         this.set("isUploadPhoto", false);
     },
-    removePic: function(id) {
+    removePic: function() {
         this.set('newStyleImageSource', null);
         this.set('newStyleImageName', "");
 
@@ -101,8 +101,8 @@ HubStar.EditMessageController = Ember.Controller.extend({
 
                 if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
                 {
-                    var imageName = imageStyleName.split('.');
-                    var imageType = imageName[imageName.length - 1];
+                     imageName = imageStyleName.split('.');
+                     imageType = imageName[imageName.length - 1];
                 }
                 var messageContent = this.get("messageContent");
                 var url = this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("url");
@@ -118,11 +118,11 @@ HubStar.EditMessageController = Ember.Controller.extend({
                     {
                         if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("message_id") === id)
                         {
-                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("msg", params["msg"]);
-                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("url", params["url"]);
-                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("time_stamp", params["time_stamp"]);
+                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("msg", params.msg);
+                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("url", params.url);
+                            that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("time_stamp", params.time_stamp);
                             that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("enableToEdit", false);
-                            if (params["url"] !== null)
+                            if (params.url !== null)
                             {
                                 that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("isUrl", true);
                             }

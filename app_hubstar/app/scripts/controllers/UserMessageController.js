@@ -52,7 +52,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
         this.set('clientID', id);
         this.set('loadingTime', true);
         var data = this.get('clientID');
-        var dataNew = new Array();
+        var dataNew = [];
         var that = this;
         requiredBackEnd('messages', 'Read', data, 'POST', function(params) {
 
@@ -60,79 +60,79 @@ HubStar.UserMessageController = Ember.Controller.extend({
             for (var i = 0; i < params.length; i++)
             {
 //First reply message and it is the last one of message and it contail the reply message collection
-                dataNew["message_id"] = params[i]["message_id"];
-                var length = params[i]["replyMessageCollection"].length - 1;
-                dataNew["reply_id"] = params[i]["replyMessageCollection"][length]["reply_id"];
-                dataNew["user_id"] = params[i]["replyMessageCollection"][length]["user_id"];
-                dataNew["time_stamp"] = params[i]["replyMessageCollection"][length]["time_stamp"];
-                dataNew["msg"] = multiRow(params[i]["replyMessageCollection"][length]["msg"]);
-                dataNew["user_name"] = params[i]["replyMessageCollection"][length]["user_name"];
-                dataNew["photo_url_large"] = params[i]["replyMessageCollection"][length]["photo_url_large"];
-                dataNew["url"] = params[i]["replyMessageCollection"][length]["url"];
-                dataNew["enableToEdit"] = false;
-                dataNew["replyEdit"] = true;
-                dataNew["replyCount"] = params[i]["replyMessageCollection"].length - 1;
-                dataNew["replayCountZero"] = true;
-                if (dataNew["replyCount"] === 0)
+                dataNew.message_id = params[i].message_id;
+                var length = params[i].replyMessageCollection.length - 1;
+                dataNew.reply_id = params[i].replyMessageCollection[length].reply_id;
+                dataNew.user_id = params[i].replyMessageCollection[length].user_id;
+                dataNew.time_stamp = params[i].replyMessageCollection[length].time_stamp;
+                dataNew.msg = multiRow(params[i].replyMessageCollection[length].msg);
+                dataNew.user_name = params[i].replyMessageCollection[length].user_name;
+                dataNew.photo_url_large = params[i].replyMessageCollection[length].photo_url_large;
+                dataNew.url = params[i].replyMessageCollection[length].url;
+                dataNew.enableToEdit = false;
+                dataNew.replyEdit = true;
+                dataNew.replyCount = params[i].replyMessageCollection.length - 1;
+                dataNew.replayCountZero = true;
+                if (dataNew.replyCount === 0)
                 {
-                    
-                    dataNew["replayCountZero"] = false;
+
+                    dataNew.replayCountZero = false;
                 }
-                
-                if (params[i]["replyMessageCollection"][length]["user_id"] === localStorage.loginStatus)
+
+                if (params[i].replyMessageCollection[length].user_id === localStorage.loginStatus)
                 {
-                    dataNew["isUserself"] = true; //dataNew["isUserself"] is true , which means it is the login users is the same as the user page owner
+                    dataNew.isUserself = true; //dataNew.isUserself is true , which means it is the login users is the same as the user page owner
                 }
-                if (params[i]["replyMessageCollection"][length]["url"] !== null)
+                if (params[i].replyMessageCollection[length].url !== null)
                 {
-                    dataNew["isUrl"] = true;
+                    dataNew.isUrl = true;
                 }
                 else
                 {
-                    dataNew["isUrl"] = false;
+                    dataNew.isUrl = false;
                 }
 
 
-                dataNew["replyMessageCollection"] = new Array(); // replyMessageCollection is used to store all the replyMessage except the last one which is the first Reply.
-                for (var j = 0; j < params[i]["replyMessageCollection"].length - 1; j++)
+
+                dataNew.replyMessageCollection = []; // replyMessageCollection is used to store all the replyMessage except the last one which is the first Reply.
+                for (var j = 0; j < params[i].replyMessageCollection.length - 1; j++)
                 {
-                    var dataReply = new Array();
-                    dataReply["reply_id"] = params[i]["replyMessageCollection"][j]["reply_id"];
-                    dataReply["user_id"] = params[i]["replyMessageCollection"][j]["user_id"];
-                    dataReply["time_stamp"] = params[i]["replyMessageCollection"][j]["time_stamp"];
-                    dataReply["msg"] = params[i]["replyMessageCollection"][j]["msg"];
-                    dataReply["user_name"] = params[i]["replyMessageCollection"][j]["user_name"];
-                    dataReply["photo_url_large"] = params[i]["replyMessageCollection"][j]["photo_url_large"];
-                    dataReply["url"] = params[i]["replyMessageCollection"][j]["url"];
-                    dataReply["enableToEdit"] = false;
-                    if (params[i]["replyMessageCollection"][j]["url"] !== null)
+                    var dataReply = [];
+                    dataReply.reply_id = params[i].replyMessageCollection[j].reply_id;
+                    dataReply.user_id = params[i].replyMessageCollection[j].user_id;
+                    dataReply.time_stamp = params[i].replyMessageCollection[j].time_stamp;
+                    dataReply.msg = params[i].replyMessageCollection[j].msg;
+                    dataReply.user_name = params[i].replyMessageCollection[j].user_name;
+                    dataReply.photo_url_large = params[i].replyMessageCollection[j].photo_url_large;
+                    dataReply.url = params[i].replyMessageCollection[j].url;
+                    dataReply.enableToEdit = false;
+                    if (params[i].replyMessageCollection[j].url !== null)
                     {
-                        dataReply["isUrl"] = true;
+                        dataReply.isUrl = true;
                     }
                     else
                     {
-                        dataReply["isUrl"] = false;
+                        dataReply.isUrl = false;
                     }
-                    if (params[i]["replyMessageCollection"][j]["user_id"] === localStorage.loginStatus)
+                    if (params[i].replyMessageCollection[j].user_id === localStorage.loginStatus)
                     {
-                        dataReply["isUserself"] = true; // isUserself is used to judge whether the reply message is written by the current login user
+                        dataReply.isUserself = true; // isUserself is used to judge whether the reply message is written by the current login user
                     }
-                    dataNew["replyMessageCollection"][j] = dataReply;
+                    dataNew.replyMessageCollection[j] = dataReply;
                 }
                 that.get("contentMsg").pushObject(dataNew);
 
 
-                dataNew = new Array();
+                dataNew = [];
             }
             that.set('loadingTime', false);
-
+            var s;
             if (that.get('controllers.notification').get("goMessage") !== undefined && that.get('controllers.notification').get("goMessage") !== null && that.get('controllers.notification').get("goMessage") !== "") {
-                var s = that.get('controllers.notification').get("goMessage");
+                s = that.get('controllers.notification').get("goMessage");
                 that.goToMessage(s);
             }
             if (that.get('controllers.notificationTop').get("goMessage") !== undefined && that.get('controllers.notificationTop').get("goMessage") !== null && that.get('controllers.notificationTop').get("goMessage") !== "") {
-                var s = that.get('controllers.notificationTop').get("goMessage");
-
+                s = that.get('controllers.notificationTop').get("goMessage");
                 that.goToMessageTop(s);
             }
             setTimeout(function() {
@@ -270,10 +270,10 @@ HubStar.UserMessageController = Ember.Controller.extend({
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         var commentContent = this.get('messageContent');
-        var postImageSource=this.get("newStyleImageSource");
-        var postImageName= this.get('newStyleImageName');
-        
-        if (commentContent||postImageSource||postImageName) {
+        var postImageSource = this.get("newStyleImageSource");
+        var postImageName = this.get('newStyleImageName');
+
+        if (commentContent || postImageSource || postImageName) {
 
             this.set("isPosting", false);
             var commenter_id = this.get("currentUser").get('id');
@@ -301,47 +301,47 @@ HubStar.UserMessageController = Ember.Controller.extend({
             var imageType = "";
             if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
             {
-                var imageName = imageStyleName.split('.');
-                var imageType = imageName[imageName.length - 1];
+                imageName = imageStyleName.split('.');
+                imageType = imageName[imageName.length - 1];
             }
             var messageID = createMessageid();
             var replyID = createMessageid();
             var tempComment = [commenter_id, date.toString(), commentContent, owner_id, newStyleImage, imageType, imageStyleName, messageID, replyID];
             tempComment = JSON.stringify(tempComment);
             var that = this;
-            var dataNew = new Array();
+            var dataNew = [];
             requiredBackEnd('messages', 'CreateComment', tempComment, 'POST', function(params) {
 
                 that.set("isPosting", true);
-                dataNew["message_id"] = params["message_id"];
-                dataNew["reply_id"] = params["replyMessageCollection"][0]["reply_id"];
-                dataNew["user_id"] = params["replyMessageCollection"][0]["user_id"];
-                dataNew["time_stamp"] = params["replyMessageCollection"][0]["time_stamp"];
-                dataNew["msg"] = params["replyMessageCollection"][0]["msg"];
-                dataNew["user_name"] = params["replyMessageCollection"][0]["user_name"];
-                dataNew["photo_url_large"] = params["replyMessageCollection"][0]["photo_url_large"];
-                dataNew["url"] = params["replyMessageCollection"][0]["url"];
-                dataNew["enableToEdit"] = false;
-                dataNew["replyEdit"] = true;
-                dataNew["replyCount"] = 0;
-                dataNew["replayCountZero"] = false;
-                
-                if (params["replyMessageCollection"][0]["user_id"] === localStorage.loginStatus)
+                dataNew.message_id = params.message_id;
+                dataNew.reply_id = params.replyMessageCollection[0].reply_id;
+                dataNew.user_id = params.replyMessageCollection[0].user_id;
+                dataNew.time_stamp = params.replyMessageCollection[0].time_stamp;
+                dataNew.msg = params.replyMessageCollection[0].msg;
+                dataNew.user_name = params.replyMessageCollection[0].user_name;
+                dataNew.photo_url_large = params.replyMessageCollection[0].photo_url_large;
+                dataNew.url = params.replyMessageCollection[0].url;
+                dataNew.enableToEdit = false;
+                dataNew.replyEdit = true;
+                dataNew.replyCount = 0;
+                dataNew.replayCountZero = false;
+
+                if (params.replyMessageCollection[0].user_id === localStorage.loginStatus)
                 {
-                    dataNew["isUserself"] = true;
+                    dataNew.isUserself = true;
                 }
-                if (params["replyMessageCollection"][0]["url"] !== null)
+                if (params.replyMessageCollection[0].url !== null)
                 {
-                    dataNew["isUrl"] = true;
+                    dataNew.isUrl = true;
                 }
                 else
                 {
-                    dataNew["isUrl"] = false;
+                    dataNew.isUrl = false;
                 }
-                dataNew["replyMessageCollection"] = new Array();
+                dataNew.replyMessageCollection = [];
                 that.get("contentMsg").insertAt(0, dataNew);
                 var thatthat = that;
-                var s = '#message_' + dataNew["message_id"];
+                var s = '#message_' + dataNew.message_id;
                 setTimeout(function() {
                     var old = thatthat.get("oldPost");
                     $(old).removeClass("post-focus");
@@ -350,7 +350,7 @@ HubStar.UserMessageController = Ember.Controller.extend({
                     thatthat.set("oldPost", s);
                 }, 200);
                 that.set("isUploadPhoto", false);
-                dataNew = new Array();
+                dataNew = [];
                 setTimeout(function() {
                     $('#masonry_user_container').masonry("reloadItems");
                     setTimeout(function() {

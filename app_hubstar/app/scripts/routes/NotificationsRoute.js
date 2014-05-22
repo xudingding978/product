@@ -7,8 +7,8 @@
 HubStar.NotificationsRoute = Ember.Route.extend({
     setupController: function(controller, model) {
 
-        var model = localStorage.loginStatus;
-        this.controllerFor('messageCenter').selectNotification(model);
+        var newmodel = localStorage.loginStatus;
+        this.controllerFor('messageCenter').selectNotification(newmodel);
         
         $(window).scrollTop(550);
 

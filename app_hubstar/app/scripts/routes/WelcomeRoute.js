@@ -22,7 +22,7 @@ HubStar.WelcomeRoute = Ember.Route.extend({
 
         this.controllerFor('status').set('islogin', true);
         this.controllerFor('application').set('popup', false);
-        this.controllerFor('application').set('isotherpage', true);
+       this.controllerFor('application').set('isotherpage', true);
 
     },
     renderTemplate: function() {

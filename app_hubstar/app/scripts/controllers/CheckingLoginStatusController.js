@@ -12,11 +12,13 @@ HubStar.CheckingLoginStatusController = Ember.Controller.extend({
 
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
             HubStar.set('checkLoginStatus', true);
+           
             return false;
         }
         else {
             return true;
         }
-    }
-
+    
+    
+}
 });

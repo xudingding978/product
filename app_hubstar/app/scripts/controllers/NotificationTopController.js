@@ -13,7 +13,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     getClientId: function(id) {
         this.set('clientID', id);
         var data = this.get('clientID');
-        var dataNew = new Array();
+        var dataNew = [];
         var tempComment = [data];
         tempComment = JSON.stringify(tempComment);
         var that = this;
@@ -39,11 +39,11 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                     }
                     else
                     {
-                        dataNew["content"] = "";
+                        dataNew.content = "";
                     }
-                    dataNew["action_id"] = params.objectAt(i)["action_id"];
+                    dataNew.action_id = params.objectAt(i).action_id;
                     that.get("notificationTopContent").pushObject(dataNew);
-                    dataNew = new Array();
+                    dataNew = [];
                 }
             }
             that.get("controllers.notification").set("notificationContent", that.get("notificationTopContent"));
@@ -112,35 +112,35 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         {
             if (j === 0)
             {
-                ids = this.get("notificationTopContent").objectAt(j)["notification_id"];
+                ids = this.get("notificationTopContent").objectAt(j).notification_id;
             }
             else {
-                ids = ids + "," + this.get("notificationTopContent").objectAt(j)["notification_id"];
+                ids = ids + "," + this.get("notificationTopContent").objectAt(j).notification_id;
             }
         }
         var tempComment = [data, ids];
 
         tempComment = JSON.stringify(tempComment);
         var that = this;
-        var dataNew = new Array();
+        var dataNew = [];
         requiredBackEnd('notifications', 'MarkAllRead', tempComment, 'POST', function(params) {
             if (params !== undefined) {
                 that.set("notificationTopContent", []);
                 for (var i = 0; i < params.get("length"); i++)
                 {
-                    dataNew["name"] = params.objectAt(i)["display_name"];
-                    dataNew["photo_url"] = params.objectAt(i)["photo_url_large"];
-                    dataNew["user_id"] = params.objectAt(i)["user_id"];
-                    dataNew["type"] = params.objectAt(i)["type"];
-                    dataNew["typeDisplay"] = that.get("controllers.notification").typeDisplay(dataNew["type"], params.objectAt(i)["content"]);
-                    dataNew["isButton"] = that.get("controllers.notification").buttonDisplay(dataNew["type"], params.objectAt(i)["content"]);
-                    dataNew["time"] = params.objectAt(i)["time"];
-                    dataNew["notification_id"] = params.objectAt(i)["notification_id"];
-                    dataNew["isRead"] = params.objectAt(i)["isRead"];
-                    dataNew["content"] = params.objectAt(i)["content"];
-                    dataNew["action_id"] = params.objectAt(i)["action_id"];
+                    dataNew.name = params.objectAt(i).display_name;
+                    dataNew.photo_url = params.objectAt(i).photo_url_large;
+                    dataNew.user_id = params.objectAt(i).user_id;
+                    dataNew.type = params.objectAt(i).type;
+                    dataNew.typeDisplay = that.get("controllers.notification").typeDisplay(dataNew.type, params.objectAt(i).content);
+                    dataNew.isButton = that.get("controllers.notification").buttonDisplay(dataNew.type, params.objectAt(i).content);
+                    dataNew.time = params.objectAt(i).time;
+                    dataNew.notification_id = params.objectAt(i).notification_id;
+                    dataNew.isRead = params.objectAt(i).isRead;
+                    dataNew.content = params.objectAt(i).content;
+                    dataNew.action_id = params.objectAt(i).action_id;
                     that.get("notificationTopContent").pushObject(dataNew);
-                    dataNew = new Array();
+                    dataNew = [];
                 }
             }
             that.get("controllers.notification").set("notificationContent", that.get("notificationTopContent"));
@@ -148,7 +148,6 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         });
     },
     markRead: function(id) {
-        var dataNew = new Array();
         var tempComment = [localStorage.loginStatus, id];
         tempComment = JSON.stringify(tempComment);
         var that = this;
@@ -173,7 +172,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         var count = 0;
         for (var i = 0; i < this.get("notificationTopContent").get("length"); i++)
         {
-            if (this.get("notificationTopContent").objectAt(i)["isRead"] === false)
+            if (this.get("notificationTopContent").objectAt(i).isRead === false)
             {
                 count++;
             }
@@ -193,7 +192,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
     go: function(notification_id) {
         for (var i = 0; i < this.get("notificationTopContent").get("length"); i++)
         {
-            if (this.get("notificationTopContent").objectAt(i)["notification_id"] === notification_id)
+            if (this.get("notificationTopContent").objectAt(i).notification_id === notification_id)
             {
                 if (this.get("notificationTopContent").objectAt(i)["type"] !== "authority"&&this.get("notificationTopContent").objectAt(i)["type"] !== "Tag") {
                     this.goto(this.get("notificationTopContent").objectAt(i));
@@ -202,7 +201,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                 {
                     this.seeAll();
                 }
-                this.markRead(this.get("notificationTopContent").objectAt(i)["notification_id"]);
+                this.markRead(this.get("notificationTopContent").objectAt(i).notification_id);
                 break;
             }
         }
@@ -317,8 +316,8 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         this.set("reply", reply[1]);
         this.reviewCancel();
         this.set("goReply", false);
+        var that = this;
         if (localStorage.loginStatus !== reply[2]) {
-            var that = this;
             user.then(function() {
                 that.set("goMessage", '#message_' + reply[1]);
                 var userID = HubStar.User.find(reply[2]);
@@ -341,8 +340,6 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             this.set("goMessage", '#message_' + reply[1]);
             var userID = HubStar.User.find(reply[2]);
             this.transitionToRoute('user', userID);
-            //this.transitionToRoute('messageCenter');
-            var that = this;
             setTimeout(function() {
                 that.transitionToRoute('userPost');
                 var address = document.URL;
@@ -357,7 +354,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             }, 20);
         }
     },
-    reviewCancel: function() {
+    notificationCancel: function() {
         this.get("controllers.application").set("isNotification", false);
         $('#Geo-Filter').toggleClass('Geo-Filter-active');
     }

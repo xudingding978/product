@@ -21,7 +21,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
         ProfileController.set('videoTag', false);
 
         if (localStorage.checkUser === "newUser") {
-
+           var that= this;
             setTimeout(function() {
                 window.location.href = 'JavaScript:void(0)';
                 $(".brand").addClass("tour-background");
@@ -30,10 +30,14 @@ HubStar.ProfileRoute = Ember.Route.extend({
                 $("#profileDashboard").attr("style", "display:none");
                 $("#user-dd-menu").attr("style", "display:none");
                 $("#profilePanel").removeClass("panel");
+                var thats =that;
                 introJs().setOption('doneLabel', 'Skip').start().oncomplete(function() {
                     $(window).scrollTop(0);
-                    location.href = '/#/search';
+                     thats.transitionTo("searchIndexTom");
+                     thats.controllerFor('application').defaultSearch();
                     localStorage.checkUser = "";
+                     $("#search-bar").css('display', "none");
+                $("#topResidentialCommerical").css('display', "none");
                 });
             }, 3000);
 

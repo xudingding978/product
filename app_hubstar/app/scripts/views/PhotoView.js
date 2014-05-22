@@ -134,7 +134,6 @@ HubStar.PhotoView = Ember.View.extend({
     },
     setPartnerTag: function() {
         $('#partner_action').slideToggle("slow");
-
     },
     setTag: function() {
 
@@ -157,9 +156,8 @@ HubStar.PhotoView = Ember.View.extend({
         });
 
     },
-    popupAibum: function() {
-        HubStar.set('what', false);
-        $("#collection_tab").slideToggle("slow");
+    popupAibum: function() {         
+            $(".show-album").slideToggle("slow");  
     },
     openComment: function() {
 
@@ -173,10 +171,9 @@ HubStar.PhotoView = Ember.View.extend({
         $('#addcommetBut').attr('style', 'display:block');
         $('#commentBox').attr('style', 'display:none');
     },
-    keyUp: function(event, view) {
+    keyUp: function(event) {
         if (event.which === 27)
         { // pressed 'esc'
-
             //this.get("controller").transitionTo("search");
             this.get("controller").set("enableTag", false);  //close the showTag template
             var address = document.URL;

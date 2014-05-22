@@ -5,13 +5,11 @@ HubStar.HeaderView = Ember.View.extend({
         $(document).ready(function() {
             $("#back-top").hide();
             $(window).scroll(function() {
-
                 if ($(this).scrollTop() > 150) {
                     $('#back-top').fadeIn();
                 } else {
                     $('#back-top').fadeOut();
                 }
-
             });
             $('#back-top a').click(function() {
                 $('body,html').animate({
@@ -82,8 +80,8 @@ HubStar.HeaderView = Ember.View.extend({
 
         if ($("#commercial1").hasClass("residentialCommerical-selected")) {
             if ($("#residential1").hasClass("residentialCommerical-selected")) {
-                $("#residential1").removeClass("residentialCommerical-selected");
-                localStorage.resOrcom = "commercial";
+                $("#commercial1").removeClass("residentialCommerical-selected");
+                localStorage.resOrcom = "residential";
             } else {
                 $("#residential1").addClass("residentialCommerical-selected");
                 localStorage.resOrcom = "All";
@@ -92,7 +90,7 @@ HubStar.HeaderView = Ember.View.extend({
         else {
             $("#commercial1").addClass("residentialCommerical-selected");
             $("#residential1").removeClass("residentialCommerical-selected");
-            localStorage.resOrcom = "commercial";
+            localStorage.resOrcom = "residential";
        
         }
         this.get("controller").residentialCommercialStatus();
@@ -103,8 +101,8 @@ HubStar.HeaderView = Ember.View.extend({
     commercial: function() {
         if ($("#residential1").hasClass("residentialCommerical-selected")) {
             if ($("#commercial1").hasClass("residentialCommerical-selected")) {
-                $("#commercial1").removeClass("residentialCommerical-selected");
-                localStorage.resOrcom = "residential";
+                $("#residential1").removeClass("residentialCommerical-selected");
+                localStorage.resOrcom = "commercial";
 
 
             } else {
@@ -115,12 +113,10 @@ HubStar.HeaderView = Ember.View.extend({
         else {
             $("#residential1").addClass("residentialCommerical-selected");
             $("#commercial1").removeClass("residentialCommerical-selected");
-            localStorage.resOrcom = "residential";
+            localStorage.resOrcom = "commercial";
         }
          this.get("controller").residentialCommercialStatus();
         this.get("controller").changeBackground();
-       
-
     }
 });
 

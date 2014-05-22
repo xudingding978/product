@@ -3,7 +3,7 @@ HubStar.WelcomeView = Ember.View.extend({
     selected_topics: "",
     isAdd: false,
     contentTopic: [
-           {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
+        {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
         {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'},
         {id: "3", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/kitchen.png', topic: 'Kitchens'},
         {id: "4", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/bathroom.png', topic: 'Bathrooms'},
@@ -16,11 +16,10 @@ HubStar.WelcomeView = Ember.View.extend({
         {id: "11", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/retail.png', topic: 'Retail'},
         {id: "12", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/apartment.png', topic: 'Apartment'}
     ],
-  
     didInsertElement: function() {
 
-   },
-           selectTopic: function(id, topic) {
+    },
+    selectTopic: function(id, topic) {
         if (HubStar.get(id)) {
             $('#minus_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; margin: 10px; display:none;");
             if (this.get('selected_topics').indexOf(topic) !== -1) {
@@ -43,7 +42,14 @@ HubStar.WelcomeView = Ember.View.extend({
         var user = HubStar.User.find(localStorage.loginStatus);
         user.set('selected_topics', data);
         user.store.commit();
+        $("#welcome").css("display", "none");
+         $(".blur_black").css("display", "none");
       
+
+    },
+    closePane:function() {
+        $("#welcome").css("display", "none");
+        $(".blur_black").css("display", "none");
     }
 
 });

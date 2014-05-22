@@ -80,7 +80,7 @@
                 //set the step
                 currentItem.step = i + 1;
                 //use querySelector function only when developer used CSS selector
-                if (typeof(currentItem.element) === 'string') {
+                if (typeof (currentItem.element) === 'string') {
                     //grab the element with given selector from the page
                     currentItem.element = document.querySelector(currentItem.element);
                 }
@@ -175,7 +175,7 @@
                     if (HubStar.get('showDiscoveryBar') === true) {
                         $('#masonry_container').css('top', "50px");
                     }
-                   // alert("Thanks for taking time on user tour and have a good trip on trendsideas.com");
+                    // alert("Thanks for taking time on user tour and have a good trip on trendsideas.com");
                     //check if any callback is defined
                     if (self._introExitCallback != undefined) {
                         self._introExitCallback.call(self);
@@ -183,6 +183,7 @@
                 } else if (e.keyCode === 37) {
                     //left arrow
                     _previousStep.call(self);
+
                 } else if (e.keyCode === 39 || e.keyCode === 13) {
                     //right arrow or enter
                     _nextStep.call(self);
@@ -241,6 +242,21 @@
             this._currentStep = 0;
         } else {
             ++this._currentStep;
+
+        }
+        
+           var address = document.URL;
+            var urlName = address.split("#")[1].split("/")[1];
+        if(urlName==="search"){
+          
+             if (this._currentStep === 5) {
+                 console.log("hehe1");
+                 $(".Navigator-box").css("display", "block");
+                      
+        }
+        else {
+             $(".Navigator-box").css("display", "none");
+        }
         }
 
         if ((this._introItems.length) <= this._currentStep) {
@@ -255,11 +271,11 @@
             $("#login_detail").removeClass("tour-background");
             $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
             $("#profilePanel").addClass("panel");
-                     if (HubStar.get('showDiscoveryBar') === true) {
-                        $('#masonry_container').css('top', "50px");
-                    }
+            if (HubStar.get('showDiscoveryBar') === true) {
+                $('#masonry_container').css('top', "50px");
+            }
 
-  
+
             return;
         }
 
@@ -280,6 +296,19 @@
     function _previousStep() {
         if (this._currentStep === 0) {
             return false;
+        }
+         var address = document.URL;
+            var urlName = address.split("#")[1].split("/")[1];
+        if(urlName==="search"){
+             
+             if (this._currentStep === 6) {
+                  console.log("hehes");
+                 $(".Navigator-box").css("display", "block");
+                      
+        }
+        else {
+             $(".Navigator-box").css("display", "none");
+        }
         }
 
         var nextStep = this._introItems[--this._currentStep];
@@ -566,6 +595,8 @@
             nextTooltipButton.onclick = function() {
                 if (self._introItems.length - 1 !== self._currentStep) {
                     _nextStep.call(self);
+
+
                 } else if (self._introItems.length - 1 === self._currentStep) {
                     _exitIntro.call(self, self._targetElement);
                     $(".brand").removeClass("tour-background");
@@ -573,10 +604,23 @@
                     $("#login_detail").removeClass("tour-background");
                     $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                     $("#profilePanel").addClass("panel");
-                             if (HubStar.get('showDiscoveryBar') === true) {
-                        $('#masonry_container').css('top', "50px");
-                    }
+
                 }
+
+//                if (self._currentStep === 4 || self._currentStep === 5) {
+//                    if (HubStar.get('showDiscoveryBar') === true) {
+//                        $('#masonry_container').css('top', "550px");
+//                    } else {
+//                        $('#masonry_container').css('top', "100px");
+//                    }
+//
+//                } else {
+//                    if (HubStar.get('showDiscoveryBar') === true) {
+//                        $('#masonry_container').css('top', "50px");
+//                    } else {
+//                        $('#masonry_container').css('top', "100px");
+//                    }
+//                }
             };
 
             nextTooltipButton.href = 'javascript:void(0);';
@@ -588,6 +632,8 @@
                 if (self._currentStep != 0) {
                     _previousStep.call(self);
                 }
+//            
+//                
             };
 
             prevTooltipButton.href = 'javascript:void(0);';
@@ -618,9 +664,9 @@
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
                 localStorage.checkUser = "";
-                         if (HubStar.get('showDiscoveryBar') === true) {
-                        $('#masonry_container').css('top', "50px");
-                    }
+                if (HubStar.get('showDiscoveryBar') === true) {
+                    $('#masonry_container').css('top', "50px");
+                }
 
             };
 
@@ -654,7 +700,7 @@
             if (urlName === "profiles")
             {
                 nextTooltipButton.innerHTML = this._options.finishLabel;
-                
+
             }
             else {
                 nextTooltipButton.innerHTML = this._options.nextLabel;
@@ -809,9 +855,9 @@
                 $("#profileDashboard").attr("style", "width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;");
                 $("#profilePanel").addClass("panel");
                 localStorage.checkUser = "";
-                         if (HubStar.get('showDiscoveryBar') === true) {
-                        $('#masonry_container').css('top', "50px");
-                    }
+                if (HubStar.get('showDiscoveryBar') === true) {
+                    $('#masonry_container').css('top', "50px");
+                }
 
 
                 //check if any callback is defined

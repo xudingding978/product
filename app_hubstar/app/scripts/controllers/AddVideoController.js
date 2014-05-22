@@ -31,7 +31,8 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
                     that.set('videoDesc', feedback.data.description);
                 }, error: function() {
                     that.set('videoid', null);
-//                    console.log("some wrong with youtube id");
+//                  console.log("some wrong with youtube id");
+                    that.get('controllers.applicationFeedback').statusObserver(null, "something wrong with youtube link");
                 }
             });
         }
@@ -71,7 +72,7 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
         profile.set("profile_video_num", profileVideosController.get("videoesContent").get("length"));
 
         profile.store.save();
-        profileVideosController.set("loadingTime",true);
+        profileVideosController.set("loadingTime", true);
         mega.then(function() {
             profile.then(function() {
                 setTimeout(function() {
@@ -85,27 +86,28 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
     },
     getVideoId: function() {
         var videoid = null;
+        var tmpId=[];
         var videoUrl = this.get("videoUrl");
         var videoUrlObjects = videoUrl.split("&");
         videoUrl = videoUrlObjects[0];
         if (videoUrl.indexOf("http://www.youtube.com/") !== -1)
         {
-            var tmpId = videoUrl.split("v=");
+            tmpId = videoUrl.split("v=");
             videoid = tmpId[1];
         }
-        else   if (videoUrl.indexOf("https://www.youtube.com/") !== -1)
+        else if (videoUrl.indexOf("https://www.youtube.com/") !== -1)
         {
-            var tmpId = videoUrl.split("v=");
+            tmpId = videoUrl.split("v=");
             videoid = tmpId[1];
         }
         else if (videoUrl.indexOf("http://youtu.be/") !== -1)
         {
-            var tmpId = videoUrl.split("be/");
+            tmpId = videoUrl.split("be/");
             videoid = tmpId[1];
         }
-         else if (videoUrl.indexOf("https://youtu.be/") !== -1)
+        else if (videoUrl.indexOf("https://youtu.be/") !== -1)
         {
-            var tmpId = videoUrl.split("be/");
+            tmpId = videoUrl.split("be/");
             videoid = tmpId[1];
         }
         return videoid;

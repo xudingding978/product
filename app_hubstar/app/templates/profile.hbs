@@ -24,8 +24,8 @@
                 </div>
 
                 {{/if}}
-                <div class="corpbanner_mask" style="background: url('../images/bannershadow.png') repeat-x; position: absolute;bottom:0; width: 100%; height: 200px;">
-                    <div class="corpbanner_content" style="position: absolute;bottom:0;margin-left: 30%;width: 70%;">
+                <div class="corpbanner_mask">
+                    <div class="corpbanner_content">
                         <div class="main_title" style="height: 120px;">
 
                             <div>
@@ -77,14 +77,21 @@
                                     <a class="contactmeicon easing" {{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></a>
 
                                 </div>
+
+
                                 <!--contact me-->
-
-                            <div class="contactmebtn hint--left hint--rounded easing" style="position: relative; right: 30px;top: -20px;" data-hint="Share this profile!" data-step="2" data-intro="Click here to <b>Share</b> a link to this profile through social media." data-position='left'>
-                                    <a class="contactmeicon easing" {{action dropdownPhotoSetting}}><i class="fa fa-share easing" style="font-size: 19px;"></i></a>
+                                <div class="enquiryBtn-containter" style="float: right;margin: -5px 20px 0 0;"  data-step="3" data-intro="Click here to <b>Contact</b> the profile owner." data-position='left'>
+                                    <div class="enquiryBtn-ring"></div>
+                                    <div class="enquiryBtn easing"{{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></div>
+                                    <div class="btn-description">MESSAGE</div>
                                 </div>
-
-                            <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px;  padding: 0;right: 45px;top: 70px;position: absolute;">
-                                <!--<li style="position:fixed;z-index:0;height:100%;width:100%;" onClick="document.getElementById('dropdown_id_'+{{unbound id}}).style.display='none' ">&nbsp;<li>-->
+                                <!--Share profile-->
+                                <div class="contactmebtn hint--left hint--rounded easing" style="position: relative; right: 30px;"  data-step="2" data-intro="Click here to <b>Share</b> a link to this profile through social media." data-position='left'>
+                                    <a class="contactmeicon easing" {{action dropdownPhotoSetting}}><i class="fa fa-share easing" style="font-size: 19px;"></i></a>
+                                    <div class="btn-description" style="margin: 8px;">SHARE</div>
+                                </div>
+                            </div>  
+                            <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px;  padding: 0;right: 65px;top: 100px;position: absolute;">
                                 <li class="ite" {{action  fbShare}} >
                                     <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
                                 </li>
@@ -141,7 +148,6 @@
                                                     </div>
                                                 </a>                                             
                                                 {{/each}}
-
                                             </div>
                                             <div class="Followed-by easing" {{action selectFollower this }}>Followed by {{controller.profileFollowerStatistics}} people.</div>
                                         </div>
@@ -181,8 +187,7 @@
 
                                             <table id="aside_contact" >
                                                 <tbody>
-                                                    <tr>
-
+                                                    <tr valign='top'>
                                                         <th>Contact:</th>
                                                         <td>
                                                             {{#if controller.editingContact}}
@@ -193,8 +198,7 @@
                                                             {{/if}}
                                                         </td>
                                                     </tr>
-                                                    <tr>
-
+                                                    <tr valign='top'>
                                                         <th>Category:</th>
                                                         <td>
                                                             {{#if controller.editingContact}}
@@ -210,7 +214,7 @@
                                                             {{/if}}
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr valign='top'>
                                                         <th>Subcategory:</th>
                                                         <td>
                                                             {{#if controller.editingContact}}
@@ -226,7 +230,7 @@
                                                             {{/if}}
                                                         </td>
                                                     </tr>   
-                                                    <tr>
+                                                    <tr valign='top'>
                                                         <th style="vertical-align: top;">Address:</th>
                                                         <td>
                                                             {{#if controller.editingContact}}
@@ -251,7 +255,7 @@
                                                         </td>
                                                     </tr>
 
-                                                    <tr>
+                                                    <tr valign='top'>
                                                         <th>Phone:</th>
                                                         <td>
                                                             {{#if controller.editingContact}}
@@ -261,7 +265,7 @@
                                                             {{/if}}
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr valign='top'>
                                                         <th>Website:</th>
                                                         <td>
                                                             {{#if controller.editingContact}}
@@ -317,17 +321,17 @@
 
                                                     {{#unless controller.editingTime}}
 
-                                                    <th class="Contact_1child">{{day}}</th>
+                                                <th class="Contact_1child">{{day}}</th>
 
-                                                    {{else}}
-                                                    <td> {{input type="text" class="inserthours-day" value=day}}</td>
-                                                    {{/unless}}
+                                                {{else}}
+                                                <td> {{input type="text" class="inserthours-day" value=day}}</td>
+                                                {{/unless}}
 
-                                                    {{#unless controller.editingTime}}
-                                                    <th class="Contact_2child">{{time}}</th>
-                                                    {{else}}
-                                                    <td>  {{input type="text" class="inserthours-time" value=time  }}</td>
-                                                    {{/unless}}
+                                                {{#unless controller.editingTime}}
+                                                <th class="Contact_2child">{{time}}</th>
+                                                {{else}}
+                                                <td>  {{input type="text" class="inserthours-time" value=time  }}</td>
+                                                {{/unless}}
 
                                                 </tbody>
                                             </table>
@@ -349,546 +353,555 @@
                                             <div id="google-map"  style="width: 290px;height: 260px; border: 5px solid #fff;cursor: pointer" >
                                                 <div class="enlarge-map easing" style=""{{action popUpGoogleMap}}><k class="fa fa-expand"></k></div>
                                                 <img  {{bindAttr src="controller.profile_google_map"}} style="width: 100%; height:auto;" {{action popUpGoogleMap}}>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                        <!--LEFT COL ENDS -->
+                            </td>
+                            <!--LEFT COL ENDS -->
 
-                        <!--RIGHT COL BEGINS -->
-                        <!--PROFILE PAGE MAIN PART-->
-                        <td class="right_col" width="70%" valign="top">
-                            {{view HubStar.ProfileAboutUsEditView}}
-                        </td>
+                            <!--RIGHT COL BEGINS -->
+                            <!--PROFILE PAGE MAIN PART-->
+                            <td class="right_col" width="70%" valign="top">
+                                {{view HubStar.ProfileAboutUsEditView}}
+                            </td>
 
 
-                        <!--RIGHT COL ENDS -->
-                    </tr>
-                </tbody>
-            </table>
+                            <!--RIGHT COL ENDS -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
     </div>
 
-</div>
-
-{{#unless controller.userTour}}
-<div id="profileDashboard" class="back t-style-box"  style='width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;'>
-    <div style="position: relative; top: 0; width: 100%;height: 300px;overflow: hidden; border-radius: 3px 3px 0 0;">
-        <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
-        <div style="background: url('../images/bannershadow.png') repeat-x; position: absolute; width: 100%; height: 200px; bottom: 0;">
-            <div style='font-size: 45px;color: white;font-weight: bold;line-height: 50px;margin: 40px  60px;bottom: 0;position: absolute;'>
-                <i class='fa fa-cogs'>&nbsp;</i>Dashboard</div>
-        </div>
-    </div>
-
-    <div class="tabbable">
-        <div class="tabs-left">
-            <ul class="nav nav-tabs easing">
-                <li class="active" {{action changeSize}}><a href="#tab1" data-toggle="tab">Style up!</a></li>
-                <li class="easing" {{action changeSize}}><a href="#tab2" data-toggle="tab">General Settings</a></li>
-                <li class="easing" {{action changeSize}}><a href="#tab3" data-toggle="tab">Account Settings</a></li>
-                <li class="easing" {{action changeSize}}><a href="#tab7" data-toggle="tab">Social Link</a></li>
-                {{#if controller.isAdmin}}
-                <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>     
-                {{/if}}
-                {{#if controller.is_authentic_user}}
-                <li class="easing" {{action changeSize}}><a href="#tab5" data-toggle="tab">Keyword Settings</a></li>
-                {{/if}}
-            </ul>
+    {{#unless controller.userTour}}
+    <div id="profileDashboard" class="back t-style-box"  style='width: 100%;height:auto;  background-color:white; border-radius: 3px;border:none;position:absolute;top:0;left:0; display: block;'>
+        <div style="position: relative; top: 0; width: 100%;height: 300px;overflow: hidden; border-radius: 3px 3px 0 0;">
+            <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
+            <div style="background: url('../images/bannershadow.png') repeat-x; position: absolute; width: 100%; height: 200px; bottom: 0;">
+                <div style='font-size: 45px;color: white;font-weight: bold;line-height: 50px;margin: 40px  60px;bottom: 0;position: absolute;'>
+                    <i class='fa fa-cogs'>&nbsp;</i>Dashboard</div>
+            </div>
         </div>
 
-        <div class="tab-content easing">
-            <div class="tab-pane active" id="tab1">
-                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Style up your profile!</div>
-
-                <div class='styleup_section'>
-                    <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Profile Picture"}}>
-                       <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload' {{action changeSize}}>
-                         <i class='fa fa-arrow-circle-o-up fa fa-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
-                            <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">Profile Picture</span>
-                        </div>
-                    </a>
-                    <div style='height: 150px;margin: 10px 15px;display: inline-block; width: auto;line-height: 150px;vertical-align: top;'>
-                        <img style="max-height: 100%; width: auto;max-width: 300px;" {{bindAttr src="profile_pic_url"}} />
-                    </div>
-                </div>
-
-                <div class='styleup_section easing'>
-                    <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Profile Hero"}}>
-                       <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload' {{action changeSize}}>
-                         <i class='fa fa-arrow-circle-o-up fa fa-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
-                            <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">Profile Hero</span>
-                        </div>
-                    </a>
-                    <div style='height: 150px;margin: 10px 15px;display: inline-block; width: auto;line-height: 150px;vertical-align: top;'>
-                        <img style="max-height: 100%; width: auto;max-width: 300px;" {{bindAttr src="profile_hero_url"}}/>
-                    </div>
-                </div>
-
-                <div class='styleup_section easing'>
-                    <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Background"}}>
-                       <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload' {{action changeSize}}>
-                         <i class='fa fa-arrow-circle-o-up fa fa-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
-                            <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">Profile Background</span>
-                        </div>
-                    </a>
-                    <div style='height: 150px;margin: 10px 15px;display: inline-block; width: auto;line-height: 150px;vertical-align: top;'>
-                        <img style="max-height: 100%; width: auto;max-width: 300px;" {{bindAttr src="profile_bg_url"}} />
-                    </div>
-                </div>
-
-
-
-
-                <div style="right: 0;margin: 30px auto 0;width: 150px;">
-                    <span class='new-btn blue-btn flip-back'{{action flipFrontBack }}><i class='fa fa-group'> &nbsp;</i>Back</span>
-                </div>
-
+        <div class="tabbable">
+            <div class="tabs-left">
+                <ul class="nav nav-tabs easing">
+                    <li class="active" {{action changeSize}}><a href="#tab1" data-toggle="tab">Style up!</a></li>
+                    <li class="easing" {{action changeSize}}><a href="#tab2" data-toggle="tab">General Settings</a></li>
+                    <li class="easing" {{action changeSize}}><a href="#tab3" data-toggle="tab">Account Settings</a></li>
+                    <li class="easing" {{action changeSize}}><a href="#tab7" data-toggle="tab">Social Links</a></li>
+                    {{#if controller.isAdmin}}
+                    <li class="easing" {{action changeSize}}><a href="#tab4" data-toggle="tab">Authority Settings</a></li>     
+                    {{/if}}
+                    {{#if controller.is_authentic_user}}
+                    <li class="easing" {{action changeSize}}><a href="#tab5" data-toggle="tab">Keyword Settings</a></li>
+                    {{/if}}
+                </ul>
             </div>
 
-            <div class="tab-pane" id="tab2">
+            <div class="tab-content easing">
+                <div class="tab-pane active" id="tab1">
+                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Style up your profile!</div>
 
-                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">General Settings</div>
-
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
-
-                    <tr>
-                        <td>Profile Name*: </td>
-                        <td>
-                            <div style="display: block;">
-                                {{view Ember.TextField valueBinding="profile_name"   class="mustFill1" placeholder=""}}
+                    <div class='styleup_section'>
+                        <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Profile Picture"}}>
+                           <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload' {{action changeSize}}>
+                             <i class='fa fa-arrow-circle-o-up fa fa-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
+                                <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">Profile Picture</span>
                             </div>
-                            <div class="mustfull" id="mustFill1" style="display: none">please fill in info... </div>
-                        </td>
-                    </tr>
+                        </a>
+                        <div style='height: 150px;margin: 10px 15px;display: inline-block; width: auto;line-height: 150px;vertical-align: top;'>
+                            <img style="max-height: 100%; width: auto;max-width: 300px;" {{bindAttr src="profile_pic_url"}} />
+                        </div>
+                    </div>
 
-
-                    <tr>
-                        <td>Profile Contact:</td>
-                        <td>
-                            <div  style="display: block; margin-bottom: 5px;" >
-
-                                <div  style="margin: 0;width: 50%;display: inline-block;">
-                                    {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
-                                </div>
-                                <div style="margin: 0;width: 49%;display: inline-block;">
-                                    {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
-                                </div>
-
+                    <div class='styleup_section easing'>
+                        <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Profile Hero"}}>
+                           <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload' {{action changeSize}}>
+                             <i class='fa fa-arrow-circle-o-up fa fa-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
+                                <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">Profile Hero</span>
                             </div>
-                        </td>
-                    </tr>
+                        </a>
+                        <div style='height: 150px;margin: 10px 15px;display: inline-block; width: auto;line-height: 150px;vertical-align: top;'>
+                            <img style="max-height: 100%; width: auto;max-width: 300px;" {{bindAttr src="profile_hero_url"}}/>
+                        </div>
+                    </div>
+
+                    <div class='styleup_section easing'>
+                        <a href="#fileuploader" data-toggle="tab" {{action setUploadImageMode "Background"}}>
+                           <div class='styleup_uploadbox easing hint--right hint--rounded' data-hint='Upload' {{action changeSize}}>
+                             <i class='fa fa-arrow-circle-o-up fa fa-3x' style="width: 30px;margin: auto;display: block;position: relative;top: 40px;"></i>
+                                <span style="font-size: 13px;font-weight:bold;bottom: 20px;position: relative;">Profile Background</span>
+                            </div>
+                        </a>
+                        <div style='height: 150px;margin: 10px 15px;display: inline-block; width: auto;line-height: 150px;vertical-align: top;'>
+                            <img style="max-height: 100%; width: auto;max-width: 300px;" {{bindAttr src="profile_bg_url"}} />
+                        </div>
+                    </div>
 
 
 
-                    <tr>
-                        <td style="text-align: right;" >Profile Category:</td> 
 
-                        <td>
-                            <div  style="display: block; margin-bottom: 0px;" >
-                                <div class="new-btn" style="margin:0;width: 50%;display: inline-block;" {{action dropdown "category"}}>
-                                     <span id="profileCategorySelection">{{controller.profileCategorySelection}}</span>
-                                    <span class="caret"></span>
-                                    {{#if controller.profileCategoryDropdown}}
+                    <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                        <span class='new-btn blue-btn flip-back'{{action flipFrontBack }}><i class='fa fa-group'> &nbsp;</i>Back</span>
+                    </div>
+
+                </div>
+
+                <div class="tab-pane" id="tab2">
+
+                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">General Settings</div>
+
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
+
+                        <tr>
+                            <td>Profile Name*: </td>
+                            <td>
+                                <div style="display: block;">
+                                    {{view Ember.TextField valueBinding="profile_name"   class="mustFill1" placeholder=""}}
+                                </div>
+                                <div class="mustfull" id="mustFill1" style="display: none">please fill in info... </div>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Profile Contact:</td>
+                            <td>
+                                <div  style="display: block; margin-bottom: 5px;" >
+
+                                    <div  style="margin: 0;width: 50%;display: inline-block;">
+                                        {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
+                                    </div>
+                                    <div style="margin: 0;width: 49%;display: inline-block;">
+                                        {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+
+
+
+                        <tr>
+                            <td style="text-align: right;" >Profile Category:</td> 
+
+                            <td>
+                                <div  style="display: block; margin-bottom: 0px;" >
+                                    <div class="new-btn" style="margin:0;width: 50%;display: inline-block;" {{action dropdown "category"}}>
+                                         <span id="profileCategorySelection">{{controller.profileCategorySelection}}</span>
+                                        <span class="caret"></span>
+                                        {{#if controller.profileCategoryDropdown}}
+                                        {{view HubStar.DropdownListView}}
+                                        {{/if}}
+                                    </div>
+                                    <div  class="new-btn" style="margin: 0;width: 49%;display: inline-block;" {{action dropdown "subcategory"}}>
+                                          <span id="profileSubcategorySelection">{{controller.profileSubcategorySelection}}</span>
+                                        <span class="caret"></span>
+                                        {{#if controller.profileSubcategoryDropdown}}
+                                        {{view HubStar.DropdownListView}}
+                                        {{/if}}
+                                    </div>                              
+                                </div>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Physical Address:</td>
+                            <td>
+                                <div  style="display: block; margin-bottom: 5px;" >
+
+                                    <div  style="margin: 0;width: 50%;display: inline-block;">
+                                        {{view Ember.TextField valueBinding="address"  placeholder="Street Address"}}
+                                    </div>
+                                    <div style="margin: 0;width: 49%;display: inline-block;">
+                                        {{view Ember.TextField valueBinding="suburb"  placeholder="Suburb"}}
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Contact Number:</td>
+                            <td>
+                                <div style="display: block;">
+                                    <div   style="margin: 0;width: 100%;">
+                                        {{view Ember.TextField valueBinding="profile_contact_number" placeholder=""}}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Website Domain:</td>
+                            <td>
+                                <div style="display: block;">
+                                    <div   style="margin: 0;width: 100%;">
+                                        {{view Ember.TextField valueBinding="website" placeholder="yourdomain.com"}}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Website URL:</td>
+                            <td>
+                                <div style="display: block;">
+                                    <div   style="margin: 0;width: 100%;">
+                                        {{view Ember.TextField valueBinding="website_url" placeholder="http://www.yourdomain.com"}}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Profile Cover Text:</td>
+                            <td>
+                                <div style="display: block;">
+                                    <div   style="margin: 0;width: 100%;">
+                                        {{view Ember.TextField valueBinding="profile_cover_text" placeholder="Brief description (displayed when your profile appears in search results)"}}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Google Analytics Tracking ID:</td>
+                            <td>
+                                <div style="display: block;">
+                                    <div   style="margin: 0;width: 100%;">
+                                        {{view Ember.TextField valueBinding="profile_analytics_code" placeholder=""}}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+
+                    </table>
+                    <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                        <span class="new-btn green-btn" {{action saveUpdateGeneral}}>Save</span>
+                        <span class='new-btn blue-btn flip-back' {{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                <div class="tab-pane" id="tab3">
+                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Account Settings</div>
+
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
+                        <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+
+
+                            <tr>
+                                <td>Country*:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div   style="margin: 0;width: 100%;">
+                                            {{view Ember.TextField valueBinding="country" class="country"  placeholder="New Zealand" value="New Zealand"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Region*:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div   style="margin: 0;width: 100%;">
+                                            {{view Ember.TextField valueBinding="region" class="region"  placeholder="Auckland"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Direct Enquiry Primary Email (To:)*:</td>
+
+                                <td>
+                                    <div style="display: block;">
+                                        <div   style="margin: 0;width: 100%;">
+                                            {{view Ember.TextField valueBinding="contact_email"  class="mustFill4"  placeholder=""}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Direct Enquiry Secondary Email (Cc:):</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div   style="margin: 0;width: 100%;">
+                                            {{view Ember.TextField valueBinding="secondary_email"  class=""  placeholder=""}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Direct Enquiry Tertiary Email (Bcc:):</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div   style="margin: 0;width: 100%;">
+                                            {{view Ember.TextField valueBinding="direct_enquiry_provide_email"  class=""  placeholder=""}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Editors*:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div   style="margin: 0;width: 100%; height: 100px;">
+                                            {{view Ember.TextArea valueBinding="editors"   class="mustFill6 no-resize" placeholder=""}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                        <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
+                        <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="tab7">
+                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Social Links</div>
+
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
+                        <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+
+                            <tr>
+                                <td>Facebook:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div  id="facebook" style="margin: 0;width: 100%;">
+                                            {{input type="text" value=facebook placeholder="www.facebook.com/username"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Twitter:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div  id="twitter" style="margin: 0;width: 100%;">
+                                            {{input type="text" value=twitter placeholder="www.twitter.co/username"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Google+:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div id="googleplus"  style="margin: 0;width: 100%;">
+                                            {{input type="text" value=googleplus placeholder="plus.google.com/username"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Pinterest:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div  id="pinterest"  style="margin: 0;width: 100%;">
+                                            {{input type="text" value=pinterest placeholder="www.pinterest.com/username"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Linkedin:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div id="linkedin"  style="margin: 0;width: 100%;">
+                                            {{input type="text" value=linkedin placeholder="www.linkedin.com/in/username"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Youtube:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div  id="youtube" style="margin: 0;width: 100%;">
+                                            {{input type="text" value=youtube placeholder="www.youtube.com/user/username"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Instagram:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div  id="youtube" style="margin: 0;width: 100%;">
+                                            {{input type="text" value=instagram placeholder="www.instagram.com/username"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                        <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
+                        <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
+                    </div>
+                </div>
+
+
+
+                <div class="tab-pane" id="tab4">
+                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 22px;">Authority Settings</div>
+                    <div class="mustfull" id="errorMessage2" style="display: none">You can't change the package, your keyword numbers exceed the limit of<br> the package you want to change, please delete some keywords in your "Keyword Settings".</div>
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" class='profilesnew-table' style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
+                        <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+
+
+                            <tr>
+                                <td>Active*:</td>
+                                <td>
+                                    <div class="new-btn" style="display: block;" {{action dropdown controller.projectActiveDropdownType}}>
+                                         <span> {{controller.projectActiveDropdownContent}}</span>
+                                        <span class="caret"></span>
+                                    </div>
+                                    {{#if controller.isActiveDropdown}}
                                     {{view HubStar.DropdownListView}}
                                     {{/if}}
-                                </div>
-                                <div  class="new-btn" style="margin: 0;width: 49%;display: inline-block;" {{action dropdown "subcategory"}}>
-                                      <span id="profileSubcategorySelection">{{controller.profileSubcategorySelection}}</span>
-                                    <span class="caret"></span>
-                                    {{#if controller.profileSubcategoryDropdown}}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Deleted*:</td>
+
+                                <td>
+                                    <div class="new-btn" style="display: block;" {{action dropdown controller.projectDeleteDropdownType}}>
+                                         <span> {{controller.projectDeleteDropdownContent}}</span>
+                                        <span class="caret"></span>
+                                    </div>
+                                    {{#if controller.isDeleteDropdown}}
                                     {{view HubStar.DropdownListView}}
                                     {{/if}}
-                                </div>                              
-                            </div>
-                        </td>
-                    </tr>
+                                </td>
+                            </tr>
 
+                            <tr>
+                                <td> Package:</td>
+                                <td>
+                                    <div class="new-btn" style="display: block;" {{action dropdown controller.projectCategoryDropdownType}}>
+                                         <span> {{controller.projectCategoryDropdownContent}}</span>
+                                        <span class="caret"></span>
+                                    </div>
+                                    {{#if controller.isPackgetDropdown}}
+                                    {{view HubStar.DropdownListView}}
+                                    {{/if}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Creator:</td>
+                                <td>
+                                    <div class="disabled-btn" style="display: block; font-size: 12px;">
+                                        <span> {{controller.profile_creator}}</span>
+                                    </div>
+                                </td>
+                            </tr>                        
 
-                    <tr>
-                        <td>Physical Address:</td>
-                        <td>
-                            <div  style="display: block; margin-bottom: 5px;" >
+                            <tr>
+                                <td>Domains:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div   style="margin: 0;width: 100%;">
+                                            {{view Ember.TextField valueBinding="domains"  class="mustFill4"  }}
+                                        </div>
+                                    </div>
+                                    <div class="mustfill" id="emailFormat6" style="display: none">not correct email format.....</div>
+                                    <div class="mustfull" id="mustFill6" style="display: none">please fill in info... </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Keywords:</td>
+                                <td>
+                                    <div style="display: block;">
+                                        <div   style="margin: 0;width: 100%; height:80px;">
+                                            {{view Ember.TextArea valueBinding="keywords" class="no-resize"  placeholder="Please use a comma separated list! i.e.: bathroom, kitchen, living room"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
 
-                                <div  style="margin: 0;width: 50%;display: inline-block;">
-                                    {{view Ember.TextField valueBinding="address"  placeholder="Street Address"}}
-                                </div>
-                                <div style="margin: 0;width: 49%;display: inline-block;">
-                                    {{view Ember.TextField valueBinding="suburb"  placeholder="Suburb"}}
-                                </div>
+                        </tbody>
+                    </table>
 
-                            </div>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td>Contact Number:</td>
-                        <td>
-                            <div style="display: block;">
-                                <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="profile_contact_number" placeholder=""}}
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Website Domain:</td>
-                        <td>
-                            <div style="display: block;">
-                                <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="website" placeholder="yourdomain.com"}}
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Website URL:</td>
-                        <td>
-                            <div style="display: block;">
-                                <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="website_url" placeholder="http://www.yourdomain.com"}}
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Profile Cover Text:</td>
-                        <td>
-                            <div style="display: block;">
-                                <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="profile_cover_text" placeholder="Brief description (displayed when your profile appears in search results)"}}
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Google Analytics Tracking ID:</td>
-                        <td>
-                            <div style="display: block;">
-                                <div   style="margin: 0;width: 100%;">
-                                    {{view Ember.TextField valueBinding="profile_analytics_code" placeholder=""}}
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-
-
-                </table>
-                <div style="right: 0;margin: 30px auto 0;width: 150px;">
-                    <span class="new-btn green-btn" {{action saveUpdateGeneral}}>Save</span>
-                    <span class='new-btn blue-btn flip-back' {{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
+                    <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                        <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
+                        <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
+                    </div>
                 </div>
-            </div>
 
 
+                <div class="tab-pane" id="tab5">
 
+                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 5px;">Keywords Settings</div>
+                    <div style="font-size: 15px; font-weight: bold;color: #555; text-align: center;margin: 5px auto 20px;">You have {{keyword_left}} keywords left out of  ({{keyword_num}}).</div>
+                    {{#view HubStar.KeywordDropTargetView}}
+                    <div style="width: 700px; min-height: 100px; background-color: #f3f3f3; margin: 10px auto;padding: 5px 8px;position: relative;">
 
+                        {{#each controller.show_keyword_array}}                    
+                        <div class='hashtags' style="margin: 2px 3px;">{{keyword_name}}{{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteKeywords keyword_id "show"}}>x</i>{{/if}}</div>                    
+                        {{/each}}    
 
+                        <div style="font-size: 13px; color: #aaa;position: relative;margin: 10px 0 5px;text-align: center;width: 684px;">You can display up to 10 keywords at a time on your business profile. <br/>Drag and drop keywords from the area below.</div>
+                    </div>
+                    {{/view}}
+                    <div style="width: 700px; border: 1px solid #ddd;margin: 0 auto;border-radius: 3px;">
 
+                        <div class="keyword-pool" style="">
+                            {{#each controller.keywords_array}}
+                            {{#view HubStar.KeywordView elementIdBinding="keyword_id"}}
+                            <div class='hashtags' style="margin: 2px 3px;">{{keyword_name}}{{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteKeywords keyword_id "all"}}>x</i>{{/if}}</div>
+                            {{/view}}
+                            {{/each}}
+                        </div>
 
-            <div class="tab-pane" id="tab3">
-                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Account Settings</div>
+                        <div  style="margin: 0;width: 657px; height:50px;border-top: 1px dashed #aaa;overflow: hidden;">
+                            {{view Ember.TextArea valueBinding="add_keywords" class="no-resize no-effect"  placeholder="*Please separate multiple keywords with a comma; i.e. Bathroom Vanities, Kitchen Appliances"}}
+                        </div>
 
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
-                    <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-
-
-                        <tr>
-                            <td>Country*:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="country" class="country"  placeholder="New Zealand" value="New Zealand"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Region*:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="region" class="region"  placeholder="Auckland"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Direct Enquiry Primary Email (To:)*:</td>
-
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="contact_email"  class="mustFill4"  placeholder=""}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Direct Enquiry Secondary Email (Cc:):</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="secondary_email"  class=""  placeholder=""}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Direct Enquiry Tertiary Email (Bcc:):</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="direct_enquiry_provide_email"  class=""  placeholder=""}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Editors*:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%; height: 100px;">
-                                        {{view Ember.TextArea valueBinding="editors"   class="mustFill6 no-resize" placeholder=""}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-
-                    </tbody>
-                </table>
-                <div style="right: 0;margin: 30px auto 0;width: 150px;">
-                    <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
-                    <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
-                </div>
-            </div>
-
-            <div class="tab-pane" id="tab7">
-                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Social Link</div>
-
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
-                    <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-
-                        <tr>
-                            <td>Facebook:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div  id="facebook" style="margin: 0;width: 100%;">
-                                        {{input type="text" value=facebook placeholder="www.facebook.com/username"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Twitter:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div  id="twitter" style="margin: 0;width: 100%;">
-                                        {{input type="text" value=twitter placeholder="www.twitter.co/username"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Google+:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div id="googleplus"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=googleplus placeholder="plus.google.com/username"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Pinterest:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div  id="pinterest"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=pinterest placeholder="www.pinterest.com/username"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Linkedin:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div id="linkedin"  style="margin: 0;width: 100%;">
-                                        {{input type="text" value=linkedin placeholder="www.linkedin.com/in/username"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Youtube:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div  id="youtube" style="margin: 0;width: 100%;">
-                                        {{input type="text" value=youtube placeholder="www.youtube.com/user/username"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-
-                    </tbody>
-                </table>
-                <div style="right: 0;margin: 30px auto 0;width: 150px;">
-                    <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
-                    <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
-                </div>
-            </div>
-
-
-
-            <div class="tab-pane" id="tab4">
-                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 22px;">Authority Settings</div>
-                <div class="mustfull" id="errorMessage2" style="display: none">You can't change the package, your keyword numbers exceed the limit of<br> the package you want to change, please delete some keywords in your "Keyword Settings".</div>
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" class='profilesnew-table' style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
-                    <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-
-
-                        <tr>
-                            <td>Active*:</td>
-                            <td>
-                                <div class="new-btn" style="display: block;" {{action dropdown controller.projectActiveDropdownType}}>
-                                     <span> {{controller.projectActiveDropdownContent}}</span>
-                                    <span class="caret"></span>
-                                </div>
-                                {{#if controller.isActiveDropdown}}
-                                {{view HubStar.DropdownListView}}
-                                {{/if}}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Deleted*:</td>
-
-                            <td>
-                                <div class="new-btn" style="display: block;" {{action dropdown controller.projectDeleteDropdownType}}>
-                                     <span> {{controller.projectDeleteDropdownContent}}</span>
-                                    <span class="caret"></span>
-                                </div>
-                                {{#if controller.isDeleteDropdown}}
-                                {{view HubStar.DropdownListView}}
-                                {{/if}}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td> Package:</td>
-                            <td>
-                                <div class="new-btn" style="display: block;" {{action dropdown controller.projectCategoryDropdownType}}>
-                                     <span> {{controller.projectCategoryDropdownContent}}</span>
-                                    <span class="caret"></span>
-                                </div>
-                                {{#if controller.isPackgetDropdown}}
-                                {{view HubStar.DropdownListView}}
-                                {{/if}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td> Creator:</td>
-                            <td>
-                                <div class="disabled-btn" style="display: block; font-size: 12px;">
-                                    <span> {{controller.profile_creator}}</span>
-                                </div>
-                            </td>
-                        </tr>                        
-
-                        <tr>
-                            <td>Domains:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="domains"  class="mustFill4"  }}
-                                    </div>
-                                </div>
-                                <div class="mustfill" id="emailFormat6" style="display: none">not correct email format.....</div>
-                                <div class="mustfull" id="mustFill6" style="display: none">please fill in info... </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Keywords:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%; height:80px;">
-                                        {{view Ember.TextArea valueBinding="keywords" class="no-resize"  placeholder="Please use a comma separated list! i.e.: bathroom, kitchen, living room"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-
-                <div style="right: 0;margin: 30px auto 0;width: 150px;">
-                    <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
-                    <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
-                </div>
-            </div>
-
-
-            <div class="tab-pane" id="tab5">
-
-                <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 5px;">Keywords Settings</div>
-                <div style="font-size: 15px; font-weight: bold;color: #555; text-align: center;margin: 5px auto 20px;">You have {{keyword_left}} keywords left out of  ({{keyword_num}}).</div>
-                {{#view HubStar.KeywordDropTargetView}}
-                <div style="width: 700px; min-height: 100px; background-color: #f3f3f3; margin: 10px auto;padding: 5px 8px;position: relative;">
-
-                    {{#each controller.show_keyword_array}}                    
-                    <div class='hashtags' style="margin: 2px 3px;">{{keyword_name}}{{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteKeywords keyword_id "show"}}>x</i>{{/if}}</div>                    
-                    {{/each}}    
-
-                    <div style="font-size: 13px; color: #aaa;position: relative;margin: 10px 0 5px;text-align: center;width: 684px;">You can display up to 10 keywords at a time on your business profile. <br/>Drag and drop keywords from the area below.</div>
-                </div>
-                {{/view}}
-                <div style="width: 700px; border: 1px solid #ddd;margin: 0 auto;border-radius: 3px;">
-
-                    <div class="keyword-pool" style="">
-                        {{#each controller.keywords_array}}
-                        {{#view HubStar.KeywordView elementIdBinding="keyword_id"}}
-                        <div class='hashtags' style="margin: 2px 3px;">{{keyword_name}}{{#if controller.is_authentic_user}}<i class='remove-hashtages' {{action deleteKeywords keyword_id "all"}}>x</i>{{/if}}</div>
-                        {{/view}}
-                        {{/each}}
+                        <div class="new-btn" style="float: right;top: -50px;height: 51px;line-height: 50px;right: -1px;" {{action addKeywords}}>Add</div>
                     </div>
 
-                    <div  style="margin: 0;width: 657px; height:50px;border-top: 1px dashed #aaa;overflow: hidden;">
-                        {{view Ember.TextArea valueBinding="add_keywords" class="no-resize no-effect"  placeholder="*Please separate multiple keywords with a comma; i.e. Bathroom Vanities, Kitchen Appliances"}}
+
+                    <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                        <span class="new-btn green-btn" {{action saveUpdate}}>Save</span>
+                        <span class='new-btn blue-btn flip-back' {{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
                     </div>
-
-                    <div class="new-btn" style="float: right;top: -50px;height: 51px;line-height: 50px;right: -1px;" {{action addKeywords}}>Add</div>
                 </div>
 
 
-                <div style="right: 0;margin: 30px auto 0;width: 150px;">
-                    <span class="new-btn green-btn" {{action saveUpdate}}>Save</span>
-                    <span class='new-btn blue-btn flip-back' {{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
-                </div>
-            </div>
+                <div class="tab-pane" id="fileuploader">
 
-
-            <div class="tab-pane" id="fileuploader">
-
-                {{#if controller.isPhotoUploadMode}}
-                {{#view HubStar.SingleFileUploaderView }}
-                <div style="position: relative; margin: 15px auto;height: 520px; width: 87%; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;">
-                    <div style="top: 120px;position: relative;margin: auto;width: 80%; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
-                        <img  {{bindAttr src= "backgroundImage"}}  style="max-width: 60%; max-height: 35%;">
+                    {{#if controller.isPhotoUploadMode}}
+                    {{#view HubStar.SingleFileUploaderView }}
+                    <div style="position: relative; margin: 15px auto;height: 520px; width: 87%; background-color: rgba(242,240,240,0.5);border: 3px dashed #aaa;">
+                        <div style="top: 120px;position: relative;margin: auto;width: 80%; text-shadow: 1px 1px 0px #fff, -0.5px -0.5px 0px #555;color: #aaa;text-align: center;font-size: 35px;">
+                            <img  {{bindAttr src= "backgroundImage"}}  style="max-width: 60%; max-height: 35%;">
 
                             <p style="font-weight: bold; margin: 10px;">
                                 {{controller.UploadImageMode}} 
@@ -898,176 +911,176 @@
                             <span style='font-size: 17px;display: block;line-height: 25px;'> {{controller.RequiredImageSize}}</span>
                             <span style='font-size: 17px;display: block;line-height: 25px;'> {{controller.CurrentImageSize}}</span>
 
-                    </div>
-                    <div class="new-btn blue-btn" style="margin: auto; width: 200px; top: 550px; position: absolute;left: 0;">
-                        Choose 
-                        <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view HubStar.SingleImageInputButtonView }}</div>
-                        <div style="opacity:0;position: absolute;top: 0px;left: 0;"> </div>
-                    </div>
+                        </div>
+                        <div class="new-btn blue-btn" style="margin: auto; width: 200px; top: 550px; position: absolute;left: 0;">
+                            Choose 
+                            <div style="opacity:0;position: absolute;top: 0px;left: 0;"> {{view HubStar.SingleImageInputButtonView }}</div>
+                            <div style="opacity:0;position: absolute;top: 0px;left: 0;"> </div>
+                        </div>
 
-                    <div id="dragAndDroppArea" class="dragndropbox" style="display:block">
-                        <div id="smallUploadImage" style="position: relative;margin:3px; display: none; vertical-align: top; min-width: 150px;text-align: center;">
-                            <div>
-                                <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 140px; max-height: 150px;">
+                        <div id="dragAndDroppArea" class="dragndropbox" style="display:block">
+                            <div id="smallUploadImage" style="position: relative;margin:3px; display: none; vertical-align: top; min-width: 150px;text-align: center;">
+                                <div>
+                                    <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 140px; max-height: 150px;">
                                     <div id='uploadStyleImg' style="display: none;">
                                         <img style="width: 25px; height: 25px;position: absolute;top: 40%;left: 62px;" src="../../../images/uploadphotos_spinner.gif"/>
                                     </div>
+                                </div>
+                                <div style="margin: 2px 0 5px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;word-wrap: break-word;line-height: 15px;">{{newStyleImageName}}</div>
                             </div>
-                            <div style="margin: 2px 0 5px; font-size: 13px; text-overflow:ellipsis; text-align: center; width: 150px;overflow: hidden;word-wrap: break-word;line-height: 15px;">{{newStyleImageName}}</div>
+
                         </div>
-
                     </div>
-                </div>
-                <div class="" style="margin-top: 20px;">
-                    <div class="controlbtn" style="left: 300px;">
+                    <div class="" style="margin-top: 20px;">
+                        <div class="controlbtn" style="left: 300px;">
 
 
-                        {{#if controller.isCrop}}
-                        <span id="photoUploadbtn" class="new-btn blue-btn" {{action cropButton}}>Crop</span>
-                        {{else}}
-                        <span  class="disabled-btn" >Crop</span>
-                        {{/if}}
-                        {{#if controller.isUpload}}
-                        <span id="photoUploadbtn" class="new-btn green-btn" {{action photoUpload}}>Upload</span>
-                        {{else}}
-                        <span  class="disabled-btn" >Upload</span>
-                        {{/if}} 
-                        <a href="#tab1" data-toggle="tab" {{action resetNewStyleImageSource}}><span class="new-btn">Close</span></a>
-
-
-                    </div>
-                </div>
-                {{/view}}
-                {{/if}}
-
-
-                {{#if controller.isPhotoEditingMode}}
-
-                <div class='' style='position:relative;height: 65px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
-                    <span style="position: relative;display: inline-block;font-size: 40px; vertical-align: top;"><i class='fa fa-check-circle'></i></span>
-                    <span style="position: relative;width: 87%;display: inline-block;margin: 0 15px;">
-                        <span style='font-size: 20px;display: block;line-height: 25px;font-weight: bold'>Crop your picture now!</span>
-                        <span style='font-size: 15px;display: block;line-height: 15px;'> Image Size: <span id="log"></span> </span>  
-                    </span>
-                </div>
-
-                {{#if controller.isProfilePicture}}
-                <div id="crop-container" style="width: 820px;height: 500px;margin: 10px auto; text-align: center">          
-                    {{/if}}
-                    {{#if controller.isProfileHero}}
-                    <div id="crop-container" style="width: 830px;height: 500px;margin: 10px auto; text-align: center">
-                        {{/if}}
-                        {{#if controller.isProfileBackground}}
-                        <div id="crop-container" style="width: 850px;height: 500px;margin: 10px auto; text-align: center">
+                            {{#if controller.isCrop}}
+                            <span id="photoUploadbtn" class="new-btn blue-btn" {{action cropButton}}>Crop</span>
+                            {{else}}
+                            <span  class="disabled-btn" >Crop</span>
                             {{/if}}
-                            <canvas id="panel" class="crop-canvas" style="height: 100%;width: auto;margin: 0 auto; "><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
+                            {{#if controller.isUpload}}
+                            <span id="photoUploadbtn" class="new-btn green-btn" {{action photoUpload}}>Upload</span>
+                            {{else}}
+                            <span  class="disabled-btn" >Upload</span>
+                            {{/if}} 
+                            <a href="#tab1" data-toggle="tab" {{action resetNewStyleImageSource}}><span class="new-btn">Close</span></a>
+
+
                         </div>
+                    </div>
+                    {{/view}}
+                    {{/if}}
 
 
+                    {{#if controller.isPhotoEditingMode}}
 
-                        <div class="" style="margin-top: 5px;">
+                    <div class='' style='position:relative;height: 65px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 10px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
+                        <span style="position: relative;display: inline-block;font-size: 40px; vertical-align: top;"><i class='fa fa-check-circle'></i></span>
+                        <span style="position: relative;width: 87%;display: inline-block;margin: 0 15px;">
+                            <span style='font-size: 20px;display: block;line-height: 25px;font-weight: bold'>Crop your picture now!</span>
+                            <span style='font-size: 15px;display: block;line-height: 15px;'> Image Size: <span id="log"></span> </span>  
+                        </span>
+                    </div>
 
-                            <div class="controlbtn" style="left: 34%;">
-                                <span class="new-btn green-btn " {{action photoUpload}} ><i class='fa fa-save'> &nbsp;</i>Save</span>
-                                <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" ><i class="fa fa-group"> &nbsp;</i>Back</span> </a>
-
-                            </div>
-                        </div>
+                    {{#if controller.isProfilePicture}}
+                    <div id="crop-container" style="width: 820px;height: 500px;margin: 10px auto; text-align: center">          
                         {{/if}}
-                        {{#if controller.isFinished}}
-
-                        <div class='' style='line-height: 45px;position:relative;height: 55px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 5px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
-                            <span style="position: relative;display: inline-block;font-size: 40px;vertical-align: top;"><i class='fa fa-check-circle'></i></span>
-                            <span style="position: relative;width: 87%;display: inline-block;margin: 0 15px;">
-
-                                <span style='font-size: 20px;display: block;line-height: 15px;'>Congratulations! Your Photos have been uploaded!</span>
-                            </span>
-                        </div>
-
-                        <div style="position: relative; margin: auto;height: 500px; width: 690px; overflow: hidden;line-height: 490px;">
-                            <div style="position: relative;margin:3px;text-align: center;overflow: hidden;">
-
-                                <img  {{bindAttr src= "newStyleImageSource"}} style="max-height:500px !important">
+                        {{#if controller.isProfileHero}}
+                        <div id="crop-container" style="width: 830px;height: 500px;margin: 10px auto; text-align: center">
+                            {{/if}}
+                            {{#if controller.isProfileBackground}}
+                            <div id="crop-container" style="width: 850px;height: 500px;margin: 10px auto; text-align: center">
+                                {{/if}}
+                                <canvas id="panel" class="crop-canvas" style="height: 100%;width: auto;margin: 0 auto; "><img  {{bindAttr src= "newStyleImageSource"}} ></canvas>
                             </div>
-                        </div>
-                        <div class="" style="">
 
 
-                            <div class="controlbtn" style="left: 34%;">
 
-                                <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" ><i class="fa fa-group"> &nbsp;</i>Finish</span> </a>
+                            <div class="" style="margin-top: 5px;">
+
+                                <div class="controlbtn" style="left: 34%;">
+                                    <span class="new-btn green-btn " {{action photoUpload}} ><i class='fa fa-save'> &nbsp;</i>Save</span>
+                                    <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" ><i class="fa fa-group"> &nbsp;</i>Back</span> </a>
+
+                                </div>
                             </div>
+                            {{/if}}
+                            {{#if controller.isFinished}}
+
+                            <div class='' style='line-height: 45px;position:relative;height: 55px; width: 100%;background-color: #fafafa;text-align: left;color: #555;padding: 5px 25px;text-shadow: 0 1px 0 rgba(255,255,255,0.8);'>
+                                <span style="position: relative;display: inline-block;font-size: 40px;vertical-align: top;"><i class='fa fa-check-circle'></i></span>
+                                <span style="position: relative;width: 87%;display: inline-block;margin: 0 15px;">
+
+                                    <span style='font-size: 20px;display: block;line-height: 15px;'>Congratulations! Your Photos have been uploaded!</span>
+                                </span>
+                            </div>
+
+                            <div style="position: relative; margin: auto;height: 500px; width: 690px; overflow: hidden;line-height: 490px;">
+                                <div style="position: relative;margin:3px;text-align: center;overflow: hidden;">
+
+                                    <img  {{bindAttr src= "newStyleImageSource"}} style="max-height:500px !important">
+                                </div>
+                            </div>
+                            <div class="" style="">
+
+
+                                <div class="controlbtn" style="left: 34%;">
+
+                                    <a href="#tab1" data-toggle="tab"{{action resetNewStyleImageSource}}>   <span class="new-btn" ><i class="fa fa-group"> &nbsp;</i>Finish</span> </a>
+                                </div>
+                            </div>
+                            {{/if}}
                         </div>
-                        {{/if}}
                     </div>
                 </div>
+
             </div>
-
         </div>
-    </div>
 
 
-    {{/unless}}
+        {{/unless}}
 
 
-    {{#if editorAdd}}
-    {{render editEditors}}
-    {{/if}}
+        {{#if editorAdd}}
+        {{render editEditors}}
+        {{/if}}
 
 
-    {{#if controller.switchPhoto}}
+        {{#if controller.switchPhoto}}
 
 
-    {{view HubStar.MasonryCollectionView}}
+        {{view HubStar.MasonryCollectionView}}
 
-    {{else}}
-
-
-    {{render masonryCollectionItems}}
+        {{else}}
 
 
-    {{/if}}
+        {{render "masonryCollectionItems"}}
 
 
-    {{#if controller.makeSureDelete}}
-
-    {{view HubStar.DeleteFunctionView}}
+        {{/if}}
 
 
-    {{/if}}
+        {{#if controller.makeSureDelete}}
+
+        {{view HubStar.DeleteFunctionView}}
 
 
-
-
-    {{#if controller.rateTime}}
-
-    {{render review this}}
-
-
-    {{/if}}
+        {{/if}}
 
 
 
 
+        {{#if controller.rateTime}}
+
+        {{render review this}}
 
 
-    {{#if controller.popUpMap}}
-
-    {{view  HubStar.GoogleMapPopupView}}
+        {{/if}}
 
 
-    {{/if}}
 
 
-    {{#if controller.makeSelection}}
-
-    {{view HubStar.SelectFunctionView}}
-
-    {{/if}}
 
 
-    {{#if controller.contactChecking}}
-    {{render contact}}
-    {{/if}}
+        {{#if controller.popUpMap}}
+
+        {{view  HubStar.GoogleMapPopupView}}
+
+
+        {{/if}}
+
+
+        {{#if controller.makeSelection}}
+
+        {{view HubStar.SelectFunctionView}}
+
+        {{/if}}
+
+
+        {{#if controller.contactChecking}}
+        {{render contact}}
+        {{/if}}
 
 

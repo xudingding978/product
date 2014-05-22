@@ -28,12 +28,14 @@ HubStar.DropdownListView = Ember.View.extend({
         });
 
         $('#geoDropdown > .ite').click(function() {
-            HubStar.set('geoLocation', $(this).text());
-            that.get('controller').get('controllers.applicationFeedback').statusObserver(null, "You geographic location has been changed into " + HubStar.get('geoLocation'));
+            localStorage.geoLocation=$(this).text();
+            that.get('controller').set("geoLocation",localStorage.geoLocation);
+            that.get('controller').get('controllers.applicationFeedback').statusObserver(null, "You geographic location has been changed into " + localStorage.geoLocation);
         });
 
         $('#geoDropdown > .ite').click(function() {
-            HubStar.set('geoLocation', $(this).text());
+            localStorage.geoLocation=$(this).text();
+            that.get('controller').set("geoLocation",localStorage.geoLocation);
         });
 
         $('#countryDropdown > .ite').click(function() {

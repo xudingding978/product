@@ -6,11 +6,20 @@
             <img src="../../../images/trends_logo.png" alt="trends logo">
                 <div id="cta_register" class="registerbtn" {{action ctaregister on="click"  target="view"}}>Register</div>
                 <div id="cta_login" class="loginbtn" {{action ctalogin on="click"  target="view"}}>Login</div>
+                <div class="learnmore" >
+                    <a href="http://about.trendsideas.com" target="_blank">Learn more</a>
+                </div>
         </div><!-- end .left -->
         <div class="right">
             <img src="../../../images/cta-diagram.png" alt="Connect, Collect and Collaborate">
         </div><!-- end .right -->
+
     </div><!-- end .inner -->
+    <div class="closeview" style="right: 50px;color: #fff;"{{action closePane on="click"  target="view"}}>
+        <i class="fa fa-times"></i>
+        <span id="close_text" class="close_text">close</span>
+    </div>
+
 </div><!-- end #cta-popup -->
 
 
@@ -171,7 +180,7 @@
 
 
         <div class="" style="position: absolute;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
-            <div class="register-btn easing" style="width: 50%;border-right: 1px solid #ddd;float: left;"{{action backRegister}}>Back&nbsp;</div>
+            <div class="register-btn easing" style="width: 50%;border-right: 1px solid #ddd;float: left;"></div>
             <div class="register-btn easing" style="width: 50%;float: left"{{action submitSelection}}>Next&nbsp;<i class="fa fa-long-arrow-right" style="font-size: 13px;"></i></div>
         </div> 
     </div>

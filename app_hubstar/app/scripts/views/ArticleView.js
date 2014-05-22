@@ -16,16 +16,16 @@ HubStar.ArticleView = Ember.View.extend({
             {
                 var imgtag = $(this).parent(); // get the div to append the tagging entry
                 mouseX = event.clientX - 265; // x and y axis
-                mouseY = event.clientY+70;
+                mouseY = event.clientY + 70;
 
                 var center_y = $(window).height() / 2;
-                var  center_x = ($(window).width() * 0.55) / 2;
+                var center_x = ($(window).width() * 0.55) / 2;
                 var top = center_y - HubStar.get("pic_current_height") / 2;
                 var left = center_x - HubStar.get("pic_current_width") / 2;
 
                 that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - left) / HubStar.get("pic_current_width")); //set 
-                that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY -top) / HubStar.get("pic_current_height"));
-                
+                that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY - top) / HubStar.get("pic_current_height"));
+
                 if (that.get("controller").get("enableTag") === true)
                 {
                     that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
@@ -35,18 +35,18 @@ HubStar.ArticleView = Ember.View.extend({
                     // $(".next").css({display: block});
                     that.get("controller").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
                 }
-                if (mouseY -70 > center_y)
+                if (mouseY - 70 > center_y)
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true); //chage tag show style
-                    mouseY = mouseY -500;
-                     //$("#showTagSavePhoto").css("position", "relative");
+                    mouseY = mouseY - 500;
+                    //$("#showTagSavePhoto").css("position", "relative");
                 }
                 else
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", false);
-                     //$("#showTagSavePhoto").css("position", "absolute");
+                    //$("#showTagSavePhoto").css("position", "absolute");
                 }
-                if (mouseX +530 > $(window).width() *0.55)
+                if (mouseX + 530 > $(window).width() * 0.55)
                 {
                     //$("#showTagSavePhoto").css("left", "-265px");
 
@@ -66,15 +66,15 @@ HubStar.ArticleView = Ember.View.extend({
                 var sss = event.clientX - $("#tag_image_object").offset().left;
                 var imgtag = $(this).parent(); // get the div to append the tagging entry
                 mouseX = event.clientX - 265; // x and y axis
-                mouseY = event.clientY +70;
-                 var center_y = $(window).height() / 2;
-                var  center_x = ($(window).width() * 0.55) / 2;
+                mouseY = event.clientY + 70;
+                var center_y = $(window).height() / 2;
+                var center_x = ($(window).width() * 0.55) / 2;
                 var top = center_y - HubStar.get("pic_current_height") / 2;
                 var left = center_x - HubStar.get("pic_current_width") / 2;
 
                 that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - left) / HubStar.get("pic_current_width")); //set 
-                that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY -top) / HubStar.get("pic_current_height"));
-                
+                that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY - top) / HubStar.get("pic_current_height"));
+
                 if (that.get("controller").get("enableTag") === true)
                 {
 
@@ -85,25 +85,25 @@ HubStar.ArticleView = Ember.View.extend({
                     //  $(".previous").attr('style', 'display:block');
                     that.get("controller").set("inImage", false);
                 }
-                if (mouseY -70 > center_y)
+                if (mouseY - 70 > center_y)
                 {
-                    mouseY = mouseY -500;
+                    mouseY = mouseY - 500;
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true);
-                   // $("#showTagSavePhoto").css("position", "relative");
+                    // $("#showTagSavePhoto").css("position", "relative");
                 }
                 else
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", false);
                     //$("#showTagSavePhoto").css("position", "absolute");
                 }
-                  if (mouseX < 0)
+                if (mouseX < 0)
                 {
                     //$("#showTagSavePhoto").css("left", "265px");
                     that.get("controller").get("controllers.showTag").set("change_tag_show_2", true);
                 }
                 else
                 {
-                   // $("#showTagSavePhoto").css("left", "0px");
+                    // $("#showTagSavePhoto").css("left", "0px");
                     that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
                 }
                 that.get("controller").previesImage(event, mouseX, mouseY);
@@ -120,6 +120,8 @@ HubStar.ArticleView = Ember.View.extend({
             }
         };
         return this.$().attr({tabindex: 1}), this.$().focus();
+
+
     },
     checkReading: function() {
         this.set('readContent', !this.get("readContent"));
@@ -127,14 +129,13 @@ HubStar.ArticleView = Ember.View.extend({
         var height = $('#article_text_action').height();
         $("#article_text_action").height('215px').animate({height: height}, "slow");
         $('#read_more_cue').attr("style", "display:none;");
-//        $('#article_action').slideToggle(1000);
     },
     checkClosed: function() {
-
         var height = $('#article_text_action').offset().height;
         $("#article_text_action").css({height: height}).animate({"height": "210px"}, "slow");
         this.set('readContent', !this.get("readContent"));
         $('#read_more_cue').attr("style", "display:block;");
+
     },
     setArticleTag: function() {
 
@@ -155,7 +156,6 @@ HubStar.ArticleView = Ember.View.extend({
                 $("#tagitshow").css({top: pic_y, left: picx_content});
             }, 500);
         });
-
     },
     setDiscussionTag: function() {
         $('#discuss_action').slideToggle("slow");
@@ -169,11 +169,8 @@ HubStar.ArticleView = Ember.View.extend({
         $('#partner_action').slideToggle("slow");
 
     },
-    popupAibum: function(id) {
-        HubStar.set('what', true);
-        setTimeout(function() {
-            $('.collection_tab1').attr('style', 'bottom: 0px; right: 0px; height: 300px;background-color: black;overflow:hidden;display:block; position: absolute;z-index: 5; width: 100%; opacity: .9;');
-        }, 200);
+    popupAibum: function() {
+        $(".show-album").slideToggle("slow");
     },
     openComment: function() {
 
@@ -191,7 +188,7 @@ HubStar.ArticleView = Ember.View.extend({
 
 
     },
-    keyUp: function(event, view) {
+    keyUp: function(event) {
         if (event.which === 27)
         { // pressed 'esc'
 
@@ -200,14 +197,10 @@ HubStar.ArticleView = Ember.View.extend({
             var address = document.URL;
             var type = address.split("#")[1].split("/")[1]; //user ,profiles, articles , videos , photos 
             var id = address.split("#")[1].split("/")[2];
-            var collection_id = address.split("#")[1].split("/")[4];
-            var colectionType = address.split("#")[1].split("/")[5]; //it may be article id , photo id and video id
             var colectionPhoto = address.split("#")[1].split("/")[6]; //it may be article id , photo id and video id
             var user_photo_id = address.split("#")[1].split("/")[8];
             if (type === "users")
             {
-                var user = HubStar.User.find(id);
-
                 if (user_photo_id !== undefined) //type:article means it 
                 {
 

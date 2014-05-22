@@ -96,7 +96,7 @@ HubStar.NotificationController = Ember.Controller.extend({
     getClientId: function(id) {
         this.set('clientID', id);
         var data = this.get('clientID');
-        var dataNew = new Array();
+        var dataNew = [];
         var tempComment = [data];
         this.set('loadingTime', true);
         tempComment = JSON.stringify(tempComment);
@@ -122,11 +122,11 @@ HubStar.NotificationController = Ember.Controller.extend({
                     }
                     else
                     {
-                        dataNew["content"] = "";
+                        dataNew.content = "";
                     }
-                    dataNew["action_id"] = params.objectAt(i)["action_id"];
+                    dataNew.action_id = params.objectAt(i).action_id;
                     that.get("notificationContent").pushObject(dataNew);
-                    dataNew = new Array();
+                    dataNew = [];
                 }
             }
             //that.unReadCount();
@@ -267,7 +267,6 @@ HubStar.NotificationController = Ember.Controller.extend({
         }
     },
     markRead: function(id) {
-        var dataNew = new Array();
         var tempComment = [localStorage.loginStatus, id];
         tempComment = JSON.stringify(tempComment);
         var that = this;
@@ -313,35 +312,35 @@ HubStar.NotificationController = Ember.Controller.extend({
         {
             if (j === 0)
             {
-                ids = this.get("notificationContent").objectAt(j)["notification_id"];
+                ids = this.get("notificationContent").objectAt(j).notification_id;
             }
             else {
-                ids = ids + "," + this.get("notificationContent").objectAt(j)["notification_id"];
+                ids = ids + "," + this.get("notificationContent").objectAt(j).notification_id;
             }
         }
         var tempComment = [data, ids];
         this.set('loadingTime', true);
         tempComment = JSON.stringify(tempComment);
         var that = this;
-        var dataNew = new Array();
+        var dataNew = [];
         requiredBackEnd('notifications', 'MarkAllRead', tempComment, 'POST', function(params) {
             if (params !== undefined) {
                 that.set("notificationContent", []);
                 for (var i = 0; i < params.get("length"); i++)
                 {
-                    dataNew["name"] = params.objectAt(i)["display_name"];
-                    dataNew["photo_url"] = params.objectAt(i)["photo_url_large"];
-                    dataNew["user_id"] = params.objectAt(i)["user_id"];
-                    dataNew["type"] = params.objectAt(i)["type"];
-                    dataNew["typeDisplay"] = that.typeDisplay(dataNew["type"], params.objectAt(i)["content"]);
-                    dataNew["isButton"] = that.buttonDisplay(dataNew["type"], params.objectAt(i)["content"]);
-                    dataNew["time"] = params.objectAt(i)["time"];
-                    dataNew["notification_id"] = params.objectAt(i)["notification_id"];
-                    dataNew["isRead"] = params.objectAt(i)["isRead"];
-                    dataNew["content"] = params.objectAt(i)["content"];
-                    dataNew["action_id"] = params.objectAt(i)["action_id"];
+                    dataNew.name = params.objectAt(i).display_name;
+                    dataNew.photo_url = params.objectAt(i).photo_url_large;
+                    dataNew.user_id = params.objectAt(i).user_id;
+                    dataNew.type = params.objectAt(i).type;
+                    dataNew.typeDisplay = that.typeDisplay(dataNew.type, params.objectAt(i).content);
+                    dataNew.isButton = that.buttonDisplay(dataNew.type, params.objectAt(i).content);
+                    dataNew.time = params.objectAt(i).time;
+                    dataNew.notification_id = params.objectAt(i).notification_id;
+                    dataNew.isRead = params.objectAt(i).isRead;
+                    dataNew.content = params.objectAt(i).content;
+                    dataNew.action_id = params.objectAt(i).action_id;
                     that.get("notificationContent").pushObject(dataNew);
-                    dataNew = new Array();
+                    dataNew = [];
                 }
             }
             that.unReadCount();
@@ -355,11 +354,10 @@ HubStar.NotificationController = Ember.Controller.extend({
     go: function(notification_id) {
         for (var i = 0; i < this.get("notificationContent").get("length"); i++)
         {
-            if (this.get("notificationContent").objectAt(i)["notification_id"] === notification_id && this.get("notificationContent").objectAt(i)["isButton"] === false)
+            if (this.get("notificationContent").objectAt(i).notification_id === notification_id && this.get("notificationContent").objectAt(i).isButton === false)
             {
-                //console.log(this.get("notificationContent").objectAt(i));
                 this.goto(this.get("notificationContent").objectAt(i));
-                this.markRead(this.get("notificationContent").objectAt(i)["notification_id"]);
+                this.markRead(this.get("notificationContent").objectAt(i).notification_id);
                 break;
             }
         }
@@ -369,7 +367,7 @@ HubStar.NotificationController = Ember.Controller.extend({
         var count = 0;
         for (var i = 0; i < this.get("notificationContent").get("length"); i++)
         {
-            if (this.get("notificationContent").objectAt(i)["isRead"] === false)
+            if (this.get("notificationContent").objectAt(i).isRead === false)
             {
                 count++;
             }
@@ -447,19 +445,6 @@ HubStar.NotificationController = Ember.Controller.extend({
             }
         });
         $(window).scrollTop(550);
-    },
-    gotoNotification: function(id, notificationID)
-    {
-        var user = HubStar.User.find(id);
-
-        var data = null;
-        for (var i = 0; i < user.get('conversations').get("length"); i++) {
-            data = user.get('conversations').objectAt(i);
-            if (data.get("conversation_id") === "conversationID") {
-                data.set("id", data.get("conversation_id"));
-                break;
-            }
-        }
     },
     gotoMessage: function(id)
     {

@@ -1,4 +1,4 @@
-HubStar.SearchArticlePhotoRoute = Ember.Route.extend({
+HubStar.SearchsArticlePhotoRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         var temp;
         var url = window.location.href;
@@ -21,9 +21,8 @@ HubStar.SearchArticlePhotoRoute = Ember.Route.extend({
 
     },
     model: function(params) {
-        var model = HubStar.Mega.find(params.photo_id);
+        var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});
         this.controllerFor("mega").set("clickOrRoute", true);
-  
         return model;
     },
     activate: function() {

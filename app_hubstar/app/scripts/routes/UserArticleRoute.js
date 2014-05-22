@@ -2,6 +2,7 @@ HubStar.UserArticleRoute = Ember.Route.extend({
     //     controller: HubStarlicationController,
     setupController: function(controller, model) {
         var temp;
+        var address;
         if (model.id === undefined) {                        //reload the page model id can not be find...
             var url = window.location.href;
             urlArray = url.split("/");
@@ -9,23 +10,24 @@ HubStar.UserArticleRoute = Ember.Route.extend({
         } else {
             temp = model.id;
         }
-        if (this.controllerFor("article").get("searchFromRoute") === true) 
+        if (this.controllerFor("article").get("searchFromRoute") === true)
         {
 
-            var address = document.URL;
-            var temp = address.split("#")[1].split("/")[6];
-        } 
-        this.controllerFor("article").set("accessFromSearchBoard",false);
+            address = document.URL;
+            temp = address.split("#")[1].split("/")[6];
+        }
+        this.controllerFor("article").set("accessFromSearchBoard", false);
+
         var megaModel = HubStar.Mega.find(temp);
         var that = this;
-      
-        megaModel.then(function() {       
-           that.controllerFor("article").getInitData(megaModel);
-        },function() {
-            
-           that.transitionTo('fourOhFour',"404");
-        }); 
-        
+
+        megaModel.then(function() {
+            that.controllerFor("article").getInitData(megaModel);
+        }, function() {
+
+            that.transitionTo('fourOhFour', "404");
+        });
+
 
     },
     model: function(params) {

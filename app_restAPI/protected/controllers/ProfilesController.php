@@ -185,12 +185,14 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['profile_pinterest_link'] = $newRecord['profile_pinterest_link'];
             $oldRecord['profile'][0]['profile_linkedin_link'] = $newRecord['profile_linkedin_link'];
             $oldRecord['profile'][0]['profile_youtube_link'] = $newRecord['profile_youtube_link'];
+            $oldRecord['profile'][0]['profile_instagram_link'] = $newRecord['profile_instagram_link'];
             $oldRecord['profile'][0]['profile_analytics_code'] = $newRecord['profile_analytics_code'];
             $oldRecord['profile'][0]['profile_google_map'] = $newRecord['profile_google_map'];
 
             $oldRecord['profile'][0]['show_template'] = $newRecord['show_template'];
 
             $oldRecord['profile'][0]['show_keyword_id'] = $newRecord['show_keyword_id'];
+//            $oldRecord['profile'][0]['pdf_id'] = $newRecord['pdf_id'];
             $cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true));
 //            if ($setProfileName) {
 ////                ERunActions::touchUrlExt('http://api.develop.trendsideas.com/profiles/backgroundProcess',$postData=null,$contentType=null,$httpClientConfig=array());

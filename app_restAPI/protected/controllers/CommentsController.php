@@ -1,6 +1,6 @@
 <?php
 
-header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Origin: *');
 header('Content-type: *');
 
 header('Access-Control-Request-Method: *');
@@ -11,6 +11,10 @@ class CommentsController extends Controller {
 
     const JSON_RESPONSE_ROOT_SINGLE = 'comment';
     const JSON_RESPONSE_ROOT_PLURAL = 'comments';
+
+    public function __construct() {
+        
+    }
 
     public function actionIndex() {
         $this->sendResponse(204, "aaaaaaaaaaaaa");
@@ -36,6 +40,7 @@ class CommentsController extends Controller {
                 }
             }
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                $this->updateUserInfo($oldRecordDeep['id']);
                 $this->sendResponse(204);
             }
         } catch (Exception $exc) {
@@ -59,11 +64,12 @@ class CommentsController extends Controller {
                 $uid = $oldRecordDeep['comments'][$i]["message_id"];
                 if ($uid === $id) {
                     array_splice($oldRecordDeep['comments'], $i, 1);
-                     $oldRecordDeep['comment_count'] = sizeof($oldRecordDeep['comments']);
+                    $oldRecordDeep['comment_count'] = sizeof($oldRecordDeep['comments']);
                     break;
                 }
             }
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                $this->updateUserInfo($oldRecordDeep['id']);
                 $this->sendResponse(204);
             }
         } catch (Exception $exc) {
@@ -87,11 +93,12 @@ class CommentsController extends Controller {
                 $uid = $oldRecordDeep['comments'][$i]["message_id"];
                 if ($uid === $id) {
                     array_splice($oldRecordDeep['comments'], $i, 1);
-                     $oldRecordDeep['comment_count'] =sizeof($oldRecordDeep['comments']);
+                    $oldRecordDeep['comment_count'] = sizeof($oldRecordDeep['comments']);
                     break;
                 }
             }
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                $this->updateUserInfo($oldRecordDeep['id']);
                 $this->sendResponse(204);
             }
         } catch (Exception $exc) {
@@ -99,7 +106,7 @@ class CommentsController extends Controller {
             echo json_decode(file_get_contents('php://input'));
         }
     }
-    
+
     public function actionDeleteVideoComment() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request_array = CJSON::decode($request_array);
@@ -115,11 +122,12 @@ class CommentsController extends Controller {
                 $uid = $oldRecordDeep['comments'][$i]["message_id"];
                 if ($uid === $id) {
                     array_splice($oldRecordDeep['comments'], $i, 1);
-                     $oldRecordDeep['comment_count'] = sizeof($oldRecordDeep['comments']);
+                    $oldRecordDeep['comment_count'] = sizeof($oldRecordDeep['comments']);
                     break;
                 }
             }
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                $this->updateUserInfo($oldRecordDeep['id']);
                 $this->sendResponse(204);
             }
         } catch (Exception $exc) {
@@ -127,7 +135,7 @@ class CommentsController extends Controller {
             echo json_decode(file_get_contents('php://input'));
         }
     }
-    
+
     public function actionUpdatePhotoComment() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request_array = CJSON::decode($request_array);
@@ -148,6 +156,7 @@ class CommentsController extends Controller {
                 }
             }
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                $this->updateUserInfo($oldRecordDeep['id']);
                 $this->sendResponse(204);
             }
         } catch (Exception $exc) {
@@ -176,6 +185,7 @@ class CommentsController extends Controller {
                 }
             }
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                $this->updateUserInfo($oldRecordDeep['id']);
                 $this->sendResponse(204);
             }
         } catch (Exception $exc) {
@@ -204,6 +214,7 @@ class CommentsController extends Controller {
                 }
             }
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                $this->updateUserInfo($oldRecordDeep['id']);
                 $this->sendResponse(204);
             }
         } catch (Exception $exc) {
@@ -211,7 +222,7 @@ class CommentsController extends Controller {
             echo json_decode(file_get_contents('php://input'));
         }
     }
-    
+
     public function actionUpdateVideoComment() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request_array = CJSON::decode($request_array);
@@ -232,6 +243,7 @@ class CommentsController extends Controller {
                 }
             }
             if ($cb->set($docIDDeep, CJSON::encode($oldRecordDeep))) {
+                $this->updateUserInfo($oldRecordDeep['id']);
                 $this->sendResponse(204);
             }
         } catch (Exception $exc) {
@@ -239,7 +251,7 @@ class CommentsController extends Controller {
             echo json_decode(file_get_contents('php://input'));
         }
     }
-    
+
     public function actionCreate() {
         $request_json = file_get_contents('php://input');
         $newRecord = CJSON::decode($request_json, true);
@@ -248,22 +260,55 @@ class CommentsController extends Controller {
         $docID = $this->getDocId($typeAndID[0], $typeAndID[1]);
         $cb = $this->couchBaseConnection();
         $oldRecord_arr = $cb->get($docID);
-        $oldRecord = CJSON::decode($oldRecord_arr, true);
+        $oldRecord = CJSON::decode($oldRecord_arr, true);        
         if (!isset($oldRecord['comments'])) {
             $oldRecord['comments'] = array();
             $oldRecord['comment_count'] = 1;
-        }
-        else
-        {
-             $profile_comment_num =  sizeof($oldRecord['comments']);
-             $oldRecord['comment_count'] = $profile_comment_num+1;  //profile, video, article, photo coment_count setting
+        } else {
+            $profile_comment_num = sizeof($oldRecord['comments']);
+            $oldRecord['comment_count'] = $profile_comment_num + 1;  //profile, video, article, photo coment_count setting
         }
         array_unshift($oldRecord['comments'], $newRecord['comment']);
         if ($cb->set($docID, CJSON::encode($oldRecord))) {
+            $this->updateUserInfo($oldRecord['id']);
             $this->sendResponse(204);
         } else {
             $this->sendResponse(500, "some thing wrong");
         }
+    }
+
+    public function updateUserInfo($id) {
+        $cb = $this->couchBaseConnection();
+        $url = $this->getDomain() . "/" . $id;
+        $tempRecord = $cb->get($url);
+        $mega = CJSON::decode($tempRecord, true);
+        
+        if (isset($mega['comments'])) {
+            $comments = $mega['comments'];
+        } else {
+            $comments = array();
+        }
+       
+        for ($i = 0; $i < sizeof($comments); $i++) {
+            $commentItem = $comments[$i];
+            $id = $commentItem['commenter_id'];
+            $docIDDeep = $this->getDomain() . "/users/" . $id; //$id  is the page owner           
+            $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+            $user = CJSON::decode($oldDeep, true);
+            if (isset($user['user'][0]['display_name'])) {
+              
+                $commentItem['name'] = $user['user'][0]['display_name'];
+            }
+            if (isset($user['user'][0]['photo_url_large'])) {
+                
+                $commentItem['commenter_profile_pic_url'] = $user['user'][0]['photo_url_large'];
+            }
+            $comments[$i] = $commentItem;
+            
+        }
+       
+        $mega['comments'] = $comments;
+      
     }
 
     public function actionRead() {

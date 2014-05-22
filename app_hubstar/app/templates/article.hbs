@@ -65,7 +65,6 @@
                     f.parentNode.insertBefore(p, f);
                 }(document));
             </script>
-            <!--    <div class="fa icon-on-black" style="height: 44px;position: absolute;width: 44px;"><i class="fa fa-share"></i></div>     -->
         </div>
 
         <div id="close_article_wrapper" class="closeview" {{action closeWindow on="click" target="controller"}} >
@@ -163,8 +162,10 @@
                     <a class="poster-name" href="#/profiles/{{unbound controller.megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
                 </div>
 
-                <div class="contactmebtn hint--left hint--rounded easing" data-hint="Contact us!" style="position: absolute;">
-                    <a class="contactmeicon easing" {{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></a>
+                <div class="enquiryBtn-containter" style="float: right;margin-left: -5px;margin-top: -10px;">
+                    <div class="enquiryBtn-ring"></div>
+                    <div class="enquiryBtn easing"{{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></div>
+                    <div class="btn-description" style="color: #333">MESSAGE</div>
                 </div>
             </div>
             {{#if controller.contact}}
@@ -177,14 +178,17 @@
         <!-- OBJECT CONTROLL SECTION -->
         <div class="collapes-container"  style="display:block;border-top: 1px solid #f3f3f3;">
             <div class="collapes-container_inner" style="padding: 0; height: 45px;">
-
-
-      
-
+                {{megaResouce.photo_isLike}}
+                
+                {{#if megaResouce.isLike}}
+                <div  class="square-button hint--rounded hint--bottom"  data-hint="unLike this Idea!" {{action unLike}}>
+                      <i class="fa fa-thumbs-up">&nbsp;<span style="font-size: 11px;">{{controller.article.likes_count}}</span>&nbsp;</i>
+                </div>
+                {{else}}
                 <div  class="square-button hint--rounded hint--bottom"  data-hint="Like this Idea!" {{action addLike}}>
                       <i class="fa fa-thumbs-up">&nbsp;<span style="font-size: 11px;">{{controller.article.likes_count}}</span>&nbsp;</i>
                 </div>
-
+                {{/if}}
 
                 <div class="square-button hint--rounded hint--bottom"  data-hint="Add to your own collection." {{action switchCollection on="click" target="controller"}}>
                     <i class="fa fa-folder" >&nbsp;<span style="font-size: 11px;">{{controller.article.save_count}}</span>&nbsp;</i>

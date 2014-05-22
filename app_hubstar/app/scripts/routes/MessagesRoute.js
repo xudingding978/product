@@ -23,7 +23,7 @@ HubStar.MessagesRoute = Ember.Route.extend({
     model: function(params) {
         var user_id = "";
         var address = document.URL;
-        var user_id = address.split("#")[1].split("/")[2];
+        user_id = address.split("#")[1].split("/")[2];
         return user_id;
     }
 });

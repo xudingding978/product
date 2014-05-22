@@ -1,0 +1,49 @@
+
+{{#if controller.loadingTime}}
+
+{{render loadingSpinner}}
+
+{{/if}}
+{{#if controller.is_authentic_user}}
+<div class="box style-box t-style-box col2" {{action pdfCreateModeSwitch}} id="addNewPdf" style="z-index: 0">    
+     <div id="uploadPdfObject" >
+
+        <div class="add-new-object-hoverarea easing">
+
+               <i class="fa fa-plus-circle"></i>
+        </div>
+        <div class="masonry-object t-style-box col2">
+            <div class="add-new-object-content">
+                    <i class="fa fa-group"></i>
+                <i class="fa fa-book"></i>
+                <i class="fa fa-picture-o"></i>
+                <i class="fa fa-film"></i>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{{/if}}
+{{#each  pdfContent}}
+
+
+
+{{view HubStar.ItemView}}
+
+
+{{/each}}
+
+
+
+{{#if controller.makeSureDelete}}
+
+{{view HubStar.DeleteFunctionView}}
+
+{{/if}}
+
+
+{{#if controller.is_pdf_create_mode}}
+{{render pdfUploader}}
+{{/if}}

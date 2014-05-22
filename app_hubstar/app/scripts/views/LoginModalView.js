@@ -45,7 +45,6 @@ HubStar.LoginModalView = Ember.View.extend({
                     that.checkSocial();
                 }
             }
-
             $(".Login-box #social-login").click(function() {
 
                 $('.Login-box #social-login').removeClass('social-active');
@@ -381,12 +380,11 @@ HubStar.LoginModalView = Ember.View.extend({
                 $('.Login-box #register-with-email-step-3').css('display', 'none');
                 $('.Login-box #user-login-pane').css('display', 'block');
             }
-
         }
-
     },
-    closePane: function() {
-
+    closePane: function() {    
+     //   this.get("controller").get("controllers.mega").closeWindow();
+     //    $("#body_id").css("overflow","auto");
         HubStar.set('checkLoginStatus', false);
     }
     ,
@@ -394,7 +392,7 @@ HubStar.LoginModalView = Ember.View.extend({
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook#_=_";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+      var  newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -404,7 +402,7 @@ HubStar.LoginModalView = Ember.View.extend({
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Yahoo";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+      var  newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -414,7 +412,7 @@ HubStar.LoginModalView = Ember.View.extend({
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Twitter";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+      var  newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -424,7 +422,7 @@ HubStar.LoginModalView = Ember.View.extend({
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Sina";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+      var  newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -434,7 +432,7 @@ HubStar.LoginModalView = Ember.View.extend({
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=LinkedIn";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+      var  newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -444,14 +442,11 @@ HubStar.LoginModalView = Ember.View.extend({
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Google";
-        newwindow = window.open(api_url, 'name', 'height=' + 400 * 1.5 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+     var   newwindow = window.open(api_url, 'name', 'height=' + 400 * 1.5 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
         localStorage.userType = "google";
     }
-
-
-
 });
 

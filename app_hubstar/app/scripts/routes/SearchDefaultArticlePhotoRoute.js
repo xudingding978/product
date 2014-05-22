@@ -1,4 +1,4 @@
-HubStar.SearchDefaultArticlePhoto = Ember.Route.extend({
+HubStar.SearchDefaultArticlePhotoRoute = Ember.Route.extend({
     setupController: function(controller, model) {
         var temp;     
         var url = window.location.href;
@@ -18,10 +18,12 @@ HubStar.SearchDefaultArticlePhoto = Ember.Route.extend({
             
            that.transitionTo('fourOhFour',"404");
         });  
+      
 
     },
-    model: function(params) {
-        var model = HubStar.Mega.find({"RequireType": "photos", "photo_id": params.photo_id});
+    model: function(params) { 
+        console.log(params);
+        var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});
         this.controllerFor("mega").set("clickOrRoute", true);
   
         return model;

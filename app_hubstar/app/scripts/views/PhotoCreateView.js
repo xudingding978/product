@@ -18,10 +18,9 @@ HubStar.PhotoCreateView = Ember.View.extend(HubStar.PhotoCreateController.Droppa
                 var name = file.name;
                 var type = file.type;
                 filesize = file.size;
-               // console.log(filesize);
                 if(filesize>=25000000)
                 {
-                  alert("The limit size of uploading is 25MB");
+                   this.get("controller").get('controllers.applicationFeedback').statusObserver(null, "The limit size of uploading is 25MB");
                 }
                 else
                 {
@@ -33,7 +32,6 @@ HubStar.PhotoCreateView = Ember.View.extend(HubStar.PhotoCreateController.Droppa
               }
             })(files[i]);
         }
-   //    console.log(filesize);
         $('#dragAndDroppArea').attr('style', "display:block");
         return false;
     }

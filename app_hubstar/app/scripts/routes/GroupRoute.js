@@ -1,9 +1,8 @@
-HubStar.ProfileRoute = Ember.Route.extend({
-    setupController: function(ProfileController, model) {
-      
+HubStar.GroupRoute = Ember.Route.extend({
+    setupController: function(Controller, model) {
+        console.log(model);
     },
     model: function(params) {
-
         return HubStar.Group.find(params.group_id);
     },
     beforeModel: function(transition) {
@@ -15,16 +14,15 @@ HubStar.ProfileRoute = Ember.Route.extend({
         });
     },
     events: {
-      
     },
     redirect: function(params) {
-        
+
     },
     deactivate: function() {
 
     },
     activate: function() {
-              
+
     },
     renderTemplate: function() {
         this.render('group', {

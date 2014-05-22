@@ -435,7 +435,9 @@ class Controller extends CController {
         $classification_filter = null;
         if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
             $location_filter=1;
-
+            if ($location == 'United+States') {
+                $location = $location .  '+Canada'; 
+            }
                 
         }
         if ($classification !== 'All' && $classification !== 'undefined' && $classification !== '' && $classification !== null) {
@@ -772,8 +774,8 @@ class Controller extends CController {
   //      return $response;
              
              
-               $log_path = "/home/devbox/Documents/searchquery.log";
-        $this->writeToLog($log_path, $termQuery);
+//               $log_path = "/home/devbox/Documents/searchquery.log";
+//        $this->writeToLog($log_path, $termQuery);
              $index = Yii::app()->params['elasticSearchIndex'];
    //       $ch = curl_init("http://es1.hubsrv.com:9200/develop/_search");
         $ch = curl_init("http://es1.hubsrv.com:9200/" . $index . "/_search");

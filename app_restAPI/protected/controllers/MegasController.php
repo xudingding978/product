@@ -47,10 +47,11 @@ class MegasController extends Controller {
     }
 
     public function actionCreate() {
-
+        error_log('test');
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $mega = $request_arr['mega'];
+        error_log($mega['type']);
         $mega["id"] = str_replace("test", "", $mega["id"]);
         if ($mega['type'] == 'photo' || $mega['type'] == 'video') {
             $cb = $this->couchBaseConnection();
@@ -77,6 +78,14 @@ class MegasController extends Controller {
             $mega['keyword'] = $keyword;
 
             $this->createUploadedVideo($mega);
+        } elseif ($mega['type'] == 'pdf') {
+            error_log('ddddddddddddddd');
+            $mega['pdf'][0]['id'] = $mega['id'];
+            
+            $keyword = $this->getProfileKeyword($mega['owner_id']);
+            $mega['keyword'] = $keyword;
+//            $mega['pdf'][0]['pdf_url']  = $this->savePdfToS3($mega['pdf']);            
+            $this->createUploadedPdf($mega);
         }
         else if ($mega['type'] == "group") {
             $this->createGroup($mega);
@@ -343,7 +352,7 @@ class MegasController extends Controller {
         }
     }
 
-    public function createUploadedPhoto($mega) {
+    public function createUploadedPhoto($mega) {        
         if (sizeof($mega) > 0) {
             $photoController = new PhotosController();
 
@@ -362,6 +371,37 @@ class MegasController extends Controller {
         return $profile['keyword'];
     }
 
+    public function createUploadedPdf($mega) {
+
+        if (sizeof($mega) > 0) {
+            $cb = $this->couchBaseConnection();
+
+            $mega['view_count'] = 0;
+            $mega['share_count'] = 0;
+            $mega['save_count'] = 0;
+            $mega['comment_count'] = 0;
+            $mega['likes_count'] = 0;
+            if (!isset($mega['accessed'])) {
+                $mega["accessed"] = 1;
+            }
+            $mega["accessed"] = date_timestamp_get(new DateTime());
+
+            if (!isset($mega['created'])) {
+                $mega["created"] = 1;
+            }
+            $mega["created"] = date_timestamp_get(new DateTime());
+
+
+            $mega["updated"] = 0;
+
+            if ($cb->add($this->getDomain() . '/' . $mega['id'], CJSON::encode($mega))) {
+                echo $this->sendResponse(204);
+            } else {
+                echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
+            }
+        }
+    }
+    
     public function createUploadedVideo($mega) {
 
         if (sizeof($mega) > 0) {

@@ -74,6 +74,17 @@ class TenantConfigurationController extends Controller {
         }
         $this->sendResponse(200, $feedback);
     }
+    
+    public function actionPdfDisplay() {
+
+
+            $domainWithoutAPI = $this->getDomainWihoutAPI();
+            $configuration = $this->getProviderConfigurationByName($domainWithoutAPI, "pdf_display");
+       
+               $feedback = CJSON::encode($configuration);
+     
+        $this->sendResponse(200, $feedback);
+    }
 
 }
 

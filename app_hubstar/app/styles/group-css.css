@@ -72,7 +72,7 @@
     display: inline-block;
     font-weight: bold;
     font-size: 30px;
-    color: #fff;
+    color: #000;
     text-align: center;
     padding: 20px 45px;
     position: relative;
@@ -84,5 +84,40 @@
 }
 .group-button-active{
     background-color: #fff;
-    color:#000;
+    
 }
+
+.subcategory-box{
+    
+}
+
+.subcategory-word{
+    font-weight: bold;
+    font-size: 10px;
+    color: #000;
+    text-align: center;
+    padding: 5px 10px;
+     border-radius: 5px;
+     margin: 5px;
+     cursor: pointer;
+    border: 1px solid #ddd;
+}
+
+.selected-subcategory-word{
+    font-weight: bold;
+    font-size: 10px;
+    color: #000;
+    text-align: center;
+    padding: 5px 10px;
+     border-radius: 5px;
+     margin: 5px;
+     cursor: pointer;
+    border: 1px solid #ddd;
+    background-color: rgba(0, 255, 255,.8);
+}
+
+.group-topic-name{
+    color:#fff;
+    font-weight: bold;
+}
+

@@ -109,6 +109,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
             }
         });
+        
+        requiredBackEnd('tenantConfiguration', 'pdfDisplay', null, 'POST', function(params) {
+            console.log('pdf_display: ' + params);
+            HubStar.set('pdf_display', params);
+        });
+        
         HubStar.set("escVideo", false);
         this.set('search_string', '');
         this.set('loginUsername', localStorage.userName);
@@ -700,14 +706,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }, 1000);
         });
 
-    },
-    backRegister: function() {
-        $('#register-with-email-step-3').css('display', 'none');
-        $('#register-with-email-step-2').css('display', 'block');
-        $('#click-register-social').css('display', 'block');
-        $('#click-register').css('display', 'block');
-        $('.learnmore-btn').css('display', 'block');
-        $('#login-btn').css('display', 'block');
     },
     encrypt: function(encryptString) {
         var tempstr = '';

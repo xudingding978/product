@@ -331,6 +331,25 @@ input{
     -o-border-radius:50%;
 }
 
+.changePDFpic{
+    cursor: pointer;
+    opacity: 0;
+    background-color: #000;
+    position: absolute;
+    width: 180px;
+    height: 240px;
+
+}
+.changePDFpic:hover{
+    opacity: 0.6;
+    overflow:hidden;
+}
+
+
+
+
+
+
 .user-profilepic-container:hover .changeuserprofilepic{
     opacity: 0.6;
 }
@@ -1571,6 +1590,4 @@ textarea.add-interests{
     margin-left: 30%;
     width: 70%;
 }
-
-
 

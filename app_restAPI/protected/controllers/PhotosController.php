@@ -176,12 +176,12 @@ class PhotosController extends Controller {
 
 
             //$oldRecord['photo'][0]['photo_keywords'] = $newRecord['photo']['photo_keywords'];
-            $keyword = $this->getPictureKeyword($newRecord['photo']['photo_keywords'], $oldRecord['owner_id']);
+            //$keyword = $this->getPictureKeyword($newRecord['photo']['photo_keywords'], $oldRecord['owner_id']);
 
-            $oldRecord['keyword'] = $keyword;
+            //$oldRecord['keyword'] = $keyword;
             
            
-            $oldRecord['photo'][0]['photo_keywords'] =  $newRecord['photo']['photo_keywords'];
+            //$oldRecord['photo'][0]['photo_keywords'] =  $newRecord['photo']['photo_keywords'];
 
             //error_log(var_export($newRecord['photo']['photo_caption'], true));
             //error_log(var_export($newRecord['photo']['photo_keywords'], true)); 
@@ -189,9 +189,9 @@ class PhotosController extends Controller {
             //$keyword = $this->getProfileKeyword($owner_id);
             //$oldRecord['keyword'] = $keyword;
 
-            //$keyword = $this->getProfileKeyword($oldRecord['owner_id']);
+            $keyword = $this->getProfileKeyword($oldRecord['owner_id']);
 
-            //$oldRecord['keyword'] = $keyword;
+            $oldRecord['keyword'] = $keyword;
 
 
             if ($cb->set($url, CJSON::encode($oldRecord))) {
@@ -351,8 +351,11 @@ class PhotosController extends Controller {
         $photo_name = $mega['photo'][0]['photo_title'];
         $owner_id = $mega['owner_id'];
         $data_arr = $this->convertToString64($photo_string);
+        error_log(var_export($data_arr,true));
         $photo = imagecreatefromstring($data_arr['data']);
+        error_log($photo);
         $compressed_photo = $this->compressPhotoData($data_arr['type'], $photo);
+        error_log($compressed_photo);
         $orig_size['width'] = intval(imagesx($compressed_photo));
         $orig_size['height'] = intval(imagesy($compressed_photo));
         $thumbnailUrl = $this->savePhotoInTypes($orig_size, "thumbnail", $photo_name, $photo, $data_arr, $owner_id, "photo");
@@ -387,9 +390,9 @@ class PhotosController extends Controller {
         $mega["updated"] = 0;
 
 
-        //$keyword = $this->getProfileKeyword($mega['owner_id']);
+        $keyword = $this->getProfileKeyword($mega['owner_id']);
         $editors = $this->getProfileEditors($mega['owner_id']);
-        //$mega['keyword'] = $keyword;
+        $mega['keyword'] = $keyword;
 
         $mega['editors'] = $editors;
 
@@ -605,8 +608,8 @@ class PhotosController extends Controller {
             $photoCaption = $mega['mega']['photo'][0]['photo_caption'];
             $linkText = $mega['mega']['photo'][0]['photo_link_text'];
             $linkUrl = $mega['mega']['photo'][0]['photo_link_url'];
-            $keyword = $mega['mega']['photo'][0]['photo_keywords'];
-            //$keyword = $this->getPictureKeyword($mega['mega']['photo'][0]['photo_keywords'], $oldRecord['owner_id']);
+            //$keyword = $mega['mega']['photo'][0]['photo_keywords'];
+            
             
             $deleted = $mega['mega']['is_deleted'];
 
@@ -635,11 +638,11 @@ class PhotosController extends Controller {
             $oldRecord['photo'][0]['photo_link_text'] = $linkText;
             $oldRecord['photo'][0]['photo_link_url'] = $linkUrl;
            
-            $newkeyword = $this->getPictureKeyword($keyword, $oldRecord['owner_id']);
+            //$newkeyword = $this->getPictureKeyword($keyword, $oldRecord['owner_id']);
             
            
 
-            $oldRecord['keyword'] = $newkeyword;
+            //$oldRecord['keyword'] = $newkeyword;
            
             
             $oldRecord['is_deleted'] = $deleted;

@@ -8,7 +8,8 @@ DS.RESTAdapter.map('HubStar.Mega', {
     profile: {embedded: 'load'},
     keyword: {embedded: 'always'},
     videoes: {embedded: 'always'},
-    article: {embedded: 'always'}
+    article: {embedded: 'always'},
+    pdf: {embedded: 'always'}
 });
 
 HubStar.Mega = DS.Model.extend({
@@ -73,6 +74,7 @@ HubStar.Mega = DS.Model.extend({
     videoes: DS.hasMany('HubStar.Video'),
     isShowMoreComment: false,
     isLike: false,
+    pdf: DS.hasMany('HubStar.Pdf'),    
     keywordShow: function() {
         var a = [];
 
@@ -143,6 +145,9 @@ HubStar.Mega = DS.Model.extend({
     }.property('type'),
     getVideo: function() {
         return this.get('type') === 'video';
+    }.property('type'),
+    getPdf: function() {
+        return this.get('type') === 'pdf';
     }.property('type'),
     getFile: function() {
         return this.get('type') === 'file';

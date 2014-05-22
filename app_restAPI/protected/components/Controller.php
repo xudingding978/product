@@ -59,6 +59,7 @@ class Controller extends CController {
         $node = Yii::app()->params['couchBaseDefaultNode'];
         $cb = new Couchbase($node, $account, $password, $bucket, true);
         $result = $cb->get($domain);
+        error_log($domain);
         $result_arr = CJSON::decode($result, true);
         return $result_arr["providers"][$name];
     }
@@ -211,6 +212,10 @@ class Controller extends CController {
         } elseif ($requireType == 'video') {
             $videoOwnerId = $this->getUserInput($requireParams[1]);
             $response = $this->getVideoesByOwner($returnType, $videoOwnerId);
+        } elseif ($requireType == 'pdf') {
+            $owner_id = $this->getUserInput($requireParams[1]);
+            $response = $this->getPdfByOwner($owner_id);
+            $response = $this->profileSetting($response, $returnType, 'pdf');
         } elseif ($requireType == 'singleVideo') {
 
             $videoid = $this->getUserInput($requireParams[1]);
@@ -219,6 +224,40 @@ class Controller extends CController {
             $response = $this->getSearchResults("", "huang");
         }
         return $response;
+    }
+    
+    protected function getPdfByOwner($owner_id) {
+         $cb = $this->couchBaseConnection();
+
+        $tempResult = $this->getDomain() . "/profiles/" . $owner_id;
+        $tempResult = $cb->get($tempResult);
+
+
+
+        $mega = CJSON::decode($tempResult, true);
+        if (!isset($mega['profile'][0]['pdf_id']) ||$mega['profile'][0]['pdf_id'] == null || $mega['profile'][0]['pdf_id'] == 'undefined' || $mega['profile'][0]['pdf_id'] == "") {
+            $mega['profile'][0]['pdf_id'] = "";
+        } 
+            $pdf_Id = explode(",", $mega['profile'][0]['pdf_id']);
+            $response = Array();
+            $megas = Array();
+
+
+            for ($i = 0; $i < sizeof($pdf_Id); $i++) {
+                if ($pdf_Id[$i] !== "") {
+                    $owner = $this->getDomain() . "/" . trim($pdf_Id[$i]);
+                    $mega = $cb->get($owner);
+                    $megaNew = CJSON::decode($mega, true);
+                    if ($megaNew !== null && $megaNew !== "") {
+                        array_push($megas, $megaNew);
+                    }
+                }
+            }
+        
+        
+
+        $response["megas"] = $megas;
+        return CJSON::encode($response);
     }
 
     protected function getVideoesByOwner($returnType, $videoOwnerId) {
@@ -1285,7 +1324,7 @@ class Controller extends CController {
                     $tempResult['stats'][0]['megas'][$i]['profile_administrator'] = $profile_administrator;
                     $tempResult['stats'][0]['megas'][$i]['profile_creator'] = $profile_creator;
 
-                    $photo_keywords = (isset($mega_profile["megas"][0]["photo"][0]['photo_keywords'])) ? $mega_profile["megas"][0]["photo"][0]['photo_keywords'] : '';
+                    /*$photo_keywords = (isset($mega_profile["megas"][0]["photo"][0]['photo_keywords'])) ? $mega_profile["megas"][0]["photo"][0]['photo_keywords'] : '';
                     $tempResult['stats'][0]['megas'][$i]['photo'][0]['photo_keywords'] = $photo_keywords;
                     if (isset($tempResult['stats'][0]['megas'][$i]['keyword'])) {
                         for ($j = 0; $j < sizeof($tempResult['stats'][0]['megas'][$i]['keyword']); $j++) {
@@ -1298,7 +1337,7 @@ class Controller extends CController {
                                 //$photo_keywords = $tempResult['stats'][0]['megas'][$i]['photo'][0]['photo_keywords'];
                             }
                         }
-                    }
+                    }*/
                     //$photo_keywords = $tempResult;
                 }
             }
@@ -1326,7 +1365,7 @@ class Controller extends CController {
                     $tempResult['megas'][$i]['profile_creator'] = $profile_creator;
 
 
-                    $photo_keywords = (isset($mega_profile["megas"][0]["photo"][0]['photo_keywords'])) ? $mega_profile["megas"][0]["photo"][0]['photo_keywords'] : '';
+                    /*$photo_keywords = (isset($mega_profile["megas"][0]["photo"][0]['photo_keywords'])) ? $mega_profile["megas"][0]["photo"][0]['photo_keywords'] : '';
                     $tempResult['megas'][$i]['photo'][0]['photo_keywords'] = $photo_keywords;
                     if (isset($tempResult['megas'][$i]['keyword'])) {
                         for ($j = 0; $j < sizeof($tempResult['megas'][$i]['keyword']); $j++) {
@@ -1339,8 +1378,8 @@ class Controller extends CController {
                                 //$photo_keywords = $tempResult['megas'][$i]['photo'][0]['photo_keywords'];
                             }
                         }
-                        $photo_keywords = $tempResult;
-                    }
+                        $photo_keywords = $tempResult;*/
+                    //}
                     //$photo_keywords = $tempResult;
                 }
             }

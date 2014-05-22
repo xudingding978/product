@@ -1,11 +1,16 @@
 HubStar.GroupsNewController = Ember.Controller.extend({
     groupStepOne: true,
     groupStepTwo: false,
-    categorys: [],
-    subcate: [],
+editingGroupTitle:false,
+    groupStepThree: false,
+    groupStepFour: false,
+    categorys: null,
+    subcate: null,
     selected_topics: "",
-    editingGroupTitle:false,
-    isResidential: true,
+    selected_cate: [],
+    isResidential: false,
+    isCommercial: false,
+    topic: [],
     needs: ['profile', 'applicationFeedback', 'application'],
     init: function()
     {
@@ -13,29 +18,34 @@ HubStar.GroupsNewController = Ember.Controller.extend({
     },
     setTopicModel: function() {
         this.set('categorys', this.get("controllers.application").get("categorys"));
+        for (var i = 0; i < this.get('categorys').get('length'); i++)
+        {
+            this.get('categorys').objectAt(i).set("isSelected", false);
+        }
     },
     topicSelection: function(data) {
-        this.set('subcate', []);
-        for (var i = 0; i < data.get('subcate').get('length'); i++)
-        {
-            this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')
-            });
-        }
+        this.set('topic', data);
+        this.set('subcate', data.get('subcate'));
     },
-    selectTopic: function(ids, topic) {
-        if (this.get('selected_topics').indexOf(topic) !== -1) {
-            this.set('selected_topics', this.get('selected_topics').replace(topic, ""));
-            this.set('selected_topics', this.get('selected_topics').replace(",,", ","));
-            $('#minusSelect_' + ids).attr("style", "opacity: .8; z-index: 10; right: 0; margin: 10px; display:none;");
-        }
-        else {
-            $('#minusSelect_' + ids).attr("style", "opacity: .8; z-index: 10; right: 0; display:block;");
-            if (this.get('selected_topics') === "") {
-                this.set('selected_topics', topic);
-            } else {
-                this.set('selected_topics', this.get('selected_topics') + "," + topic);
+    addToSeclection: function(item) {
+        item.set("isSelected", true);
+        var s = [];
+        s.id = item.get("ids");
+        s.parentId = this.get('topic').get('ids');
+        s.category_topic = this.get('topic').get('topic') + '•' + item.get('category_topic');
+        this.get('topic').set("chooseNumber", this.get('topic').get("chooseNumber") + 1);
+        this.get('selected_cate').push(s);
+    },
+    delToSeclection: function(item) {
+        item.set('isSelected', false);
+        for (var i = 0; i < this.get('selected_cate').get('length'); i++)
+        {
+            if (this.get('selected_cate')[i].id === item.get('ids'))
+            {
+                this.get('selected_cate').splice(i, 1);
             }
         }
+        this.get('topic').set("chooseNumber", this.get('topic').get("chooseNumber") - 1);
     },
     groupStep: function(number) {
 
@@ -58,12 +68,26 @@ HubStar.GroupsNewController = Ember.Controller.extend({
     }, 
       yes: function(title){
         this.set("editingGroupTitle", false);
-        
+    },
+    chooseResidential: function() {
+        this.set('isResidential', true);
+        this.set('isCommercial', false);
+        this.set('subcate',null);
+        $("#group-res").addClass("group-button-active");
+        $("#group-com").removeClass("group-button-active");
+    },
+    chooseCommercial: function() {
+        this.set('isResidential', false);
+        this.set('isCommercial', true);
+        this.set('subcate',null);
+         $("#group-com").addClass("group-button-active");
+         $("#group-res").removeClass("group-button-active");
+
     },
     save: function() {
         {
             var that = this;
-            var id =createMessageid();
+            var id = createMessageid();
             var newMegaModel = HubStar.Mega.createRecord({
                 "id": id + "",
                 "type": "group",
@@ -113,6 +137,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                 group_hero_cover_url: "",
                 group_name: "",               
                 group_timeframe: "",//how long does the project need?
+
                 group_partner_ids: "",
                 group_creator: localStorage.loginStatus, //user id
                 group_administrator: "", //user id

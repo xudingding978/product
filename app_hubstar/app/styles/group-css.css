@@ -53,7 +53,7 @@
 }
 
 .group-step-title{
-       padding: 10px;
+    padding: 10px;
     font-weight: bold;
     background-color: rgb(241, 238, 238);
     font-size: 20px;
@@ -68,3 +68,21 @@
     padding:60px;
 }
 
+.group-button{
+    display: inline-block;
+    font-weight: bold;
+    font-size: 30px;
+    color: #fff;
+    text-align: center;
+    padding: 20px 45px;
+    position: relative;
+    top: 15px;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+}
+.group-button-active{
+    background-color: #fff;
+    color:#000;
+}

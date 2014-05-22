@@ -36,7 +36,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         selectedIndex--;
         if (selectedIndex < 0) {
             if (HubStar.get('ctaView') === true) {
-                HubStar.set('checkLoginStatus', true);
+                this.get("controllers.checkingLoginStatus").popupLogin();
                 HubStar.set('ctaView', false);
             }
             else {
@@ -114,11 +114,12 @@ HubStar.ArticleController = Ember.Controller.extend({
         var selectedIndex = this.findSelectedItemIndex();
         selectedIndex++;
         if (selectedIndex >= (this.get('content').get('length'))) {
-            if (HubStar.get('ctaView') === true) {
-                HubStar.set('checkLoginStatus', true);
+             if (HubStar.get('ctaView') === true) {
+                this.get("controllers.checkingLoginStatus").popupLogin();
                 HubStar.set('ctaView', false);
-            } else {
-                //      HubStar.set('ctaView', true);
+            }
+            else {
+
             }
             this.set('image_no', 1);
             selectedIndex = 0;
@@ -264,8 +265,6 @@ HubStar.ArticleController = Ember.Controller.extend({
                     this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                 }
             }
-            //this.transitionTo("article", HubStar.Mega.find(e).get('photo').objectAt(0)); //control the change id when click the photo
-            //                                                               // as it use the fix id to refresh the route so it will have problem when fresh (change the id)
         }
         this.selectedImage(e);
         this.captionDisplay();
@@ -280,8 +279,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         this.set("content", []);
         this.set("selectedPhoto", '');
-        this.set('image_no', 1);
-        //var megaResouce = HubStar.Mega.find(megaObject.id);       
+        this.set('image_no', 1);    
         var that = this;
         megaObject.then(function() {
             that.set('articleResouce', megaObject.get('article').objectAt(0));

@@ -582,6 +582,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 //        $('#dropdown_id_' + param).toggleClass('hideClass');
     },
     fbShare: function(param) {
+          if (this.get("controllers.checkingLoginStatus").popupLogin()) {
         this.dropdownPhotoSetting(param);
         var that = this;
 
@@ -629,9 +630,11 @@ HubStar.ArticleController = Ember.Controller.extend({
         FB.ui(obj, callback);
 
         return false;
+          }
     },
     //share to social google plus
     gpShare: function(param) {
+          if (this.get("controllers.checkingLoginStatus").popupLogin()) {
         this.dropdownPhotoSetting(param);
         var caption = '';
         if (this.get('articleResouce').get("article_body") !== null)
@@ -671,9 +674,11 @@ HubStar.ArticleController = Ember.Controller.extend({
                 ).focus();
 
         return false;
+    }
     },
     //share to social twitter
     tShare: function(param) {
+          if (this.get("controllers.checkingLoginStatus").popupLogin()) {
         this.dropdownPhotoSetting(param);
 
         var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
@@ -697,9 +702,10 @@ HubStar.ArticleController = Ember.Controller.extend({
                 'height=436,width=626'
                 ).focus();
         return false;
+          }
     },
     pShare: function(param) {
-
+  if (this.get("controllers.checkingLoginStatus").popupLogin()) {
         this.dropdownPhotoSetting(param);
 
         var currntUrl = 'http://' + document.domain + '/#/articles/' + this.get('articleID');
@@ -724,6 +730,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                 'height=436,width=626'
                 ).focus();
         return false;
+    }
     },
     addLike: function() {
         var controller = this.get('controllers.itemFunction');

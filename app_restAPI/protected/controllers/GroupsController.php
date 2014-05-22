@@ -49,6 +49,8 @@ class GroupsController extends Controller {
             $fileName = $this->getDomain() . $_SERVER['REQUEST_URI'];
             $reponse = $cb->get($fileName);
             $request_arr = CJSON::decode($reponse, true);
+            
+            error_log(var_export($request_arr, true));
             $respone_client_data = str_replace("\/", "/", CJSON::encode($request_arr["profile"][0]));
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
 //Iterate over the hits and print out some data
@@ -66,95 +68,6 @@ class GroupsController extends Controller {
     public function actionUpdate() {
 
         try {
-            $payloads_arr = CJSON::decode(file_get_contents('php://input'));
-            $payload_json = CJSON::encode($payloads_arr['profile'], true);
-            $newRecord = CJSON::decode($payload_json);
-            $cb = $this->couchBaseConnection();
-            $oldRecord = CJSON::decode($cb->get($this->getDomain() . $_SERVER['REQUEST_URI']));
-            $oldRecord['profile'][0]['owner'] = $newRecord['owner'];
-            $oldRecord['profile'][0]['owner_contact_bcc_emails'] = $newRecord['owner_contact_bcc_emails'];
-            $oldRecord['profile'][0]['owner_contact_cc_emails'] = $newRecord['owner_contact_cc_emails'];
-            $oldRecord['profile'][0]['owner_contact_email'] = $newRecord['owner_contact_email'];
-            $oldRecord['profile'][0]['profile_about_us'] = $newRecord['profile_about_us'];
-            $oldRecord['profile'][0]['profile_areas_serviced'] = $newRecord['profile_areas_serviced'];
-            $oldRecord['profile'][0]['profile_boost'] = $newRecord['profile_boost'];
-            $oldRecord['profile'][0]['profile_contact_first_name'] = $newRecord['profile_contact_first_name'];
-            $oldRecord['profile'][0]['profile_contact_last_name'] = $newRecord['profile_contact_last_name'];
-            $oldRecord['profile'][0]['profile_contact_number'] = $newRecord['profile_contact_number'];
-            if ($oldRecord['profile'][0]['profile_name'] !== $newRecord['profile_name']) {
-                $oldRecord['profile'][0]['profile_name'] = $newRecord['profile_name'];
-                $setProfileName = TRUE;
-            } else {
-                $setProfileName = FALSE;
-            }
-            $oldRecord['profile'][0]['profile_category'] = $newRecord['profile_category'];
-            $oldRecord['profile'][0]['profile_subcategory'] = $newRecord['profile_subcategory'];
-            $oldRecord['profile'][0]['profile_country'] = $newRecord['profile_country'];
-            $oldRecord['profile'][0]['profile_domains'] = $newRecord['profile_domains'];
-            $oldRecord['profile'][0]['profile_country'] = $newRecord['profile_country'];
-            $oldRecord['profile'][0]['profile_editors'] = $newRecord['profile_editors'];
-            
-            $oldRecord['profile'][0]['profile_editor'] = $newRecord['profile_editor'];
-            $oldRecord['profile'][0]['profile_administrator'] = $newRecord['profile_administrator'];
-            $oldRecord['profile'][0]['profile_creator'] = $newRecord['profile_creator'];
-            
-            $oldRecord['creator'] = $newRecord['profile_creator'];
-            $oldRecord['editors'] = $newRecord['profile_editors'];
-            $oldRecord['profile'][0]['profile_hours'] = $newRecord['profile_hours'];
-            $oldRecord['profile'][0]['profile_is_active'] = $newRecord['profile_is_active'];
-            $oldRecord['profile'][0]['profile_is_deleted'] = $newRecord['profile_is_deleted'];
-            $oldRecord['profile'][0]['profile_keywords'] = $newRecord['profile_keywords'];
-            $oldRecord['profile'][0]['profile_video_num'] = $newRecord['profile_video_num'];
-            $oldRecord['keywords'] = $newRecord['profile_keywords'];
-            $oldRecord['profile'][0]['profile_keywords_num'] = $newRecord['profile_keywords_num'];
-            $oldRecord['keyword_num'] = $newRecord['profile_keywords_num'];
-            $oldRecord['profile'][0]['title_modify_time'] = $newRecord['title_modify_time'];
-
-
-//            $oldRecord['profile'][0]['keywords'] = $newRecord['keywords'] ;
-//            $oldRecord['keyword'] = $newRecord['keywords'];
-            if ($oldRecord['profile'][0]['profile_package_name'] !== $newRecord['profile_package_name']) {
-                $oldRecord['profile'][0]['profile_package_name'] = $newRecord['profile_package_name'];
-                $boost = $this->setBoost($newRecord['profile_package_name']);
-                $oldRecord['profile'][0]['profile_boost'] = $boost;
-                $oldRecord['boost']=$boost;
-                $setPhotoBoost = TRUE;
-            } else {
-                $setPhotoBoost = FALSE;
-            }
-            $oldRecord['profile'][0]['profile_partner_ids'] = $newRecord['profile_partner_ids'];
-            $oldRecord['profile'][0]['profile_physical_address'] = $newRecord['profile_physical_address'];
-            $oldRecord['profile'][0]['profile_suburb'] = $newRecord['profile_suburb'];
-            $oldRecord['profile'][0]['profile_regoin'] = $newRecord['profile_regoin'];
-            $oldRecord['profile'][0]['profile_website'] = $newRecord['profile_website'];
-            $oldRecord['profile'][0]['profile_website_url'] = $newRecord['profile_website_url'];
-            $oldRecord['profile'][0]['profile_cover_text'] = $newRecord['profile_cover_text'];
-            $oldRecord['profile'][0]['profile_facebook_link'] = $newRecord['profile_facebook_link'];
-            $oldRecord['profile'][0]['profile_twitter_link'] = $newRecord['profile_twitter_link'];
-            $oldRecord['profile'][0]['profile_googleplus_link'] = $newRecord['profile_googleplus_link'];
-            $oldRecord['profile'][0]['profile_pinterest_link'] = $newRecord['profile_pinterest_link'];
-            $oldRecord['profile'][0]['profile_linkedin_link'] = $newRecord['profile_linkedin_link'];
-            $oldRecord['profile'][0]['profile_youtube_link'] = $newRecord['profile_youtube_link'];
-            $oldRecord['profile'][0]['profile_analytics_code'] = $newRecord['profile_analytics_code'];
-            $oldRecord['profile'][0]['profile_google_map'] = $newRecord['profile_google_map'];
-
-            $oldRecord['profile'][0]['show_template'] = $newRecord['show_template'];
-
-            $oldRecord['profile'][0]['show_keyword_id'] = $newRecord['show_keyword_id'];
-            $cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true));
-//            if ($setProfileName) {
-////                ERunActions::touchUrlExt('http://api.develop.trendsideas.com/profiles/backgroundProcess',$postData=null,$contentType=null,$httpClientConfig=array());
-//                ERunActions::httpPOST('http://api.develop.trendsideas.com/profiles/backgroundProcess',array('profile_id'=>$oldRecord['profile'][0]['id'],'profile_name'=>$newRecord['profile_name']));
-//            }
-            if ($cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true))) {
-                $this->sendResponse(204);
-            }
-//            if ($setProfileName) {
-//                $this->setProfileName($newRecord['profile_name'], $oldRecord['profile'][0]['id']);
-//            }
-//            if ($setPhotoBoost) {
-//                $this->setPhotoBoost($oldRecord['profile'][0]['profile_boost'], $oldRecord['profile'][0]['id']);
-//            }
         } catch (Exception $exc) {
         }
     }

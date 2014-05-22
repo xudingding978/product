@@ -112,8 +112,9 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                 group_pic_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg",
                 group_bg_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
                 group_hero_cover_url: "",
-                group_name: "",
-                group_time: "", //how long does the project need?
+                group_name: "",               
+                group_timeframe: "",//how long does the project need?
+
                 group_partner_ids: "",
                 group_creator: localStorage.loginStatus, //user id
                 group_administrator: "", //user id

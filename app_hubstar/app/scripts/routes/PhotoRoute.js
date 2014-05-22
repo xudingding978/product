@@ -13,10 +13,8 @@ HubStar.PhotoRoute = Ember.Route.extend({
         var megaModel = HubStar.Mega.find(temp);
         var that = this;
         megaModel.then(function() {
-            
            that.controllerFor('mega').getInitData(megaModel);
-        },function() {
-            
+        },function() {          
            that.transitionTo('fourOhFour',"404");
         });
     },

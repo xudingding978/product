@@ -56,31 +56,17 @@
                             <!--STAR RATING-->
                             <div style="position: absolute;width: 100%;">
                                 <div style=";width: 50%; float: left;" data-step="1" data-intro="Click here to <b>Rate and Review</b> a profile." data-position='right'>
-                                <span class="stars" style="float: left;margin: 5px 15px 5px 0;" ><span id="starsize" ></span></span>  
-                                <div class="hint--right hint--rounded" data-hint="Review this profile!"  {{action rateEditing model.id}} >
-                                     <div class="contactmeicon easing" style="float: left;width: 45px;height: 45px;line-height: 33px;text-align: center;font-weight: bold;font-size: 15px;border: 5px solid rgba(0,0,0,.3);top: -5px;;">{{this.profile_average_review}}</div>
-                                    <div class="hover-opacity" style="font-size: 13px; font-weight: bold; color: #fff; cursor: pointer;  float: left;  margin: 8px 10px;">{{this.reviews.length}} • Reviews</div> 
-                                </div>
+                                    <span class="stars" style="float: left;margin: 5px 15px 5px 0;" ><span id="starsize" ></span></span>  
+                                    <div class="hint--right hint--rounded" data-hint="Review this profile!"  {{action rateEditing model.id}} >
+                                         <div class="contactmeicon easing" style="float: left;width: 45px;height: 45px;line-height: 33px;text-align: center;font-weight: bold;font-size: 15px;border: 5px solid rgba(0,0,0,.3);top: -5px;;">{{this.profile_average_review}}</div>
+                                        <div class="hover-opacity" style="font-size: 13px; font-weight: bold; color: #fff; cursor: pointer;  float: left;  margin: 8px 10px;">{{this.reviews.length}} • Reviews</div> 
+                                    </div>
 
-                            </div>  
-                            
-                            <!--contact me-->
-                            {{#if controller.is_editor}}
-                             <div class="contactmebtn hint--bottom hint--rounded easing" style="position: relative; right: 30px;top: -20px;" data-hint="Profile Editor!" >
-                                   <a class="contactmeicon easing" {{action editingEditor }}><i class="fa fa-user easing" style="font-size: 18px;"></i></a>
-
-                            </div>
-                            {{/if}}
-                            <!--contact me-->
-                            <div class="contactmebtn hint--top hint--rounded easing" style="position: relative; right: 30px;top: -20px;" data-hint="Contact us!" data-step="3" data-intro="Click here to <b>Contact</b> the profile owner." data-position='left'>
-
-                                    <a class="contactmeicon easing" {{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></a>
-
-                                </div>
+                                </div>  
 
 
                                 <!--contact me-->
-                                <div class="enquiryBtn-containter" style="float: right;margin: -5px 20px 0 0;"  data-step="3" data-intro="Click here to <b>Contact</b> the profile owner." data-position='left'>
+                                <div class="enquiryBtn-containter" style="float: right;margin: -5px 20px 0 0;position: relative; right: 20px;"  data-step="3" data-intro="Click here to <b>Contact</b> the profile owner." data-position='left'>
                                     <div class="enquiryBtn-ring"></div>
                                     <div class="enquiryBtn easing"{{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></div>
                                     <div class="btn-description">MESSAGE</div>
@@ -90,6 +76,15 @@
                                     <a class="contactmeicon easing" {{action dropdownPhotoSetting}}><i class="fa fa-share easing" style="font-size: 19px;"></i></a>
                                     <div class="btn-description" style="margin: 8px;">SHARE</div>
                                 </div>
+                                <!--is_editor-->
+                                {{#if controller.is_editor}}
+                                <div class="contactmebtn hint--bottom hint--rounded easing" style="position: relative; right: 30px;" data-hint="Profile Editor!" >
+                                    <a class="contactmeicon easing" {{action editingEditor }}><i class="fa fa-user easing" style="font-size: 18px;"></i></a>
+                                    <div class="btn-description">EDITOR</div>
+                                </div>
+                                {{/if}} 
+
+
                             </div>  
                             <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound id}}" style="width: 150px;  padding: 0;right: 65px;top: 100px;position: absolute;">
                                 <li class="ite" {{action  fbShare}} >

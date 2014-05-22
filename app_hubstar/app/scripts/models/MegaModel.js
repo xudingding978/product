@@ -7,7 +7,8 @@ DS.RESTAdapter.map('HubStar.Mega', {
     profile: {embedded: 'load'},
     keyword: {embedded: 'always'},
     videoes: {embedded: 'always'},
-    article: {embedded: 'always'}
+    article: {embedded: 'always'},
+    pdf: {embedded: 'always'}
 });
 
 HubStar.Mega = DS.Model.extend({
@@ -56,8 +57,7 @@ HubStar.Mega = DS.Model.extend({
     save_count: DS.attr('number'),
     comment_count: DS.attr('number'),
     optional: DS.attr('string'),
-    isFollow: DS.attr('boolean'),
-    isLike:false,
+    isFollow: DS.attr('boolean'),  
     profile_editor: DS.attr('string'),
     profile_administrator: DS.attr('string'),
     profile_creator: DS.attr('string'),
@@ -71,6 +71,8 @@ HubStar.Mega = DS.Model.extend({
     keyword: DS.hasMany('HubStar.Keyword'),
     videoes: DS.hasMany('HubStar.Video'),
     isShowMoreComment: false,
+    isLike: false,
+    pdf: DS.hasMany('HubStar.Pdf'),    
     keywordShow: function() {
         var a = [];
 
@@ -101,15 +103,15 @@ HubStar.Mega = DS.Model.extend({
             this.set("isShowMoreComment", true);
         }
     }.property('comment_count'),
-    photo_isLike: function(){
-        if(this.get("people_like") !== null){ 
-            if(this.get("people_like").indexOf(localStorage.loginStatus) !== -1){
-                this.set("isLike",true);
-            }else{
-                this.set("isLike",false);
+    photo_isLike: function() {
+        if (this.get("people_like") !== null) {
+            if (this.get("people_like").indexOf(localStorage.loginStatus) !== -1) {
+                this.set("isLike", true);
+            } else {
+                this.set("isLike", false);
             }
-        }else{
-            this.set("isLike",false);
+        } else {
+            this.set("isLike", false);
         }
     }.property("people_like"),
     photo_album_id: function() {
@@ -141,6 +143,9 @@ HubStar.Mega = DS.Model.extend({
     }.property('type'),
     getVideo: function() {
         return this.get('type') === 'video';
+    }.property('type'),
+    getPdf: function() {
+        return this.get('type') === 'pdf';
     }.property('type'),
     getFile: function() {
         return this.get('type') === 'file';

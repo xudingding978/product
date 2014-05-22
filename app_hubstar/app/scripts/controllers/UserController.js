@@ -304,10 +304,7 @@ HubStar.UserController = Ember.Controller.extend({
 
             }, 50);
         });
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-
-        }
+       
     },
     trendsUser: function() {
         if (localStorage.loginStatus)

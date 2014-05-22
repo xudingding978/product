@@ -51,6 +51,10 @@ HubStar.SearchsRoute = Ember.Route.extend({
             this.controllerFor('article').set("accessFromSearchBoard", true);
             this.transitionTo("searchDefaultPhoto", HubStar.Mega.find(id)); //it will got to default search without go to the new search
         },
+        transitionToVideo: function(id) {
+            this.controllerFor('article').set("accessFromSearchBoard", true);
+            this.transitionTo("searchDefaultVideo", HubStar.Mega.find(id)); //it will got to default search without go to the new search
+        },
         transitionToProfile: function(id) {
             this.transitionTo("profileCollections", HubStar.Profile.find(id));
         },
@@ -106,7 +110,7 @@ HubStar.SearchsRoute = Ember.Route.extend({
 
             setTimeout(function() {
                 that.controllerFor('application').residentialCommercialStatus();
-                that.controllerFor('application').changeBackground();
+               that.controllerFor('application').changeBackground();
             }, 50);
 
         });

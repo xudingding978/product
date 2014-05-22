@@ -59,7 +59,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     show_keyword_array: [],
     dragTargetIndex: -1,
     last_name: "",
-    needs: ["editEditors", "profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review', 'keywords', 'profileVideos', 'checkingLoginStatus'],
+    needs: ["editEditors", "profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review', 'keywords', 'profileVideos', 'checkingLoginStatus', 'profilePdf'],
     name: "",
     facebook: "",
     twitter: "",
@@ -67,6 +67,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     pinterest: "",
     linkedin: "",
     youtube: "",
+    instagram: "",
     profileName: "profileName",
     profile_cover_text: "",
     profile_analytics_code: "",
@@ -80,6 +81,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     partnerTag: false,
     reviewTag: false,
     videoTag: false,
+    pdfTag: false,
     partnerPage: true,
     profile_average_review: '',
     profileSelectionStatus: "Collections",
@@ -236,6 +238,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('pinterest', profile.get('profile_pinterest_link'));
         this.set('linkedin', profile.get('profile_linkedin_link'));
         this.set('youtube', profile.get('profile_youtube_link'));
+        this.set('instagram', profile.get('profile_instagram_link'));
         this.set('name', profile.get('profile_name'));
         this.set('profile_creator', profile.get('profile_creater'));
         //this.set('direct_enquiry_provide_email', profile.get('owner_third_contact_email'));
@@ -338,10 +341,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.get('model').set('show_template', false);
             }
         }
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-
-        }
+      
     },
     setAboutUsObject: function() {
         if (this.get('model').get('about_us') !== null && this.get('model').get('about_us') !== 'undefined' && this.get('model').get('about_us').get('length') > 0) {
@@ -997,6 +997,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         else if (link === 'linkedin') {
             window.open(this.get("linkedin"));
         }
+        else if (link === 'instagram') {
+            window.open(this.get("instagram"));
+        }
 
     },
     checkFollowStatus: function()
@@ -1043,6 +1046,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('collectionTag', true);
         this.set('reviewTag', false);
         this.set('videoTag', false);
+        this.set('pdfTag', false);
         this.transitionToRoute('profileCollections');
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
@@ -1061,6 +1065,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('profileSelectionStatus', 'Videos');
             this.get('controllers.profileVideos').getClientId(model);
             this.set('videoTag', true);
+            this.set('pdfTag', false);
             this.set('partnerTag', false);
             this.set('collectionTag', false);
             this.set('reviewTag', false);
@@ -1082,6 +1087,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('reviewTag', false);
             this.get('controllers.itemProfiles').setPartnerRemove();
             this.set('videoTag', false);
+            this.set('pdfTag', false);
             this.transitionToRoute('partners');
 
             setTimeout(function() {
@@ -1104,6 +1110,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('followerProfileTag', true);
             this.set('reviewTag', false);
             this.set('videoTag', false);
+            this.set('pdfTag', false);
             this.transitionToRoute('profileFollowers');
         }
     },
@@ -1117,7 +1124,25 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('followerProfileTag', false);
             this.set('reviewTag', true);
             this.set('videoTag', false);
+            this.set('pdfTag', false);
             this.transitionToRoute('reviews');
+        }
+    },
+    selectPdf: function(model) {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            this.sendEventTracking('event', 'button', 'click', 'PDF');
+            this.set('profileSelectionStatus', 'Pdf');
+            this.get('controllers.profilePdf').getClientId(model);
+            this.set('videoTag', false);
+            this.set('pdfTag', true);
+            this.set('partnerTag', false);
+            this.set('collectionTag', false);
+            this.set('reviewTag', false);
+            this.set('followerProfileTag', false);
+            this.transitionToRoute('profilePdf');
+            
+           
         }
     },
     saveUpdateAboutUs: function() {
@@ -1169,6 +1194,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.saveLink('profile_pinterest_link', 'pinterest');
         this.saveLink('profile_linkedin_link', 'linkedin');
         this.saveLink('profile_youtube_link', 'youtube');
+        this.saveLink('profile_instagram_link', 'instagram');
 
         if (this.get('controllers.profilePartners').get("partnerNew") !== undefined && this.get('controllers.profilePartners').get("partnerNew") !== null && this.get('controllers.profilePartners').get("partnerNew") !== "")
         {
@@ -1209,14 +1235,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
 
     },
-//    saveShowKeywords: function() {
-//        var show_keyword_id = '';
-//        for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
-//            show_keyword_id = show_keyword_id+','+ this.get('keywords_array').objectAt(i).get('keyword_id');
-//        }
-//        this.set('show_keyword_id',show_keyword_id);
-//        this.saveUpdate();
-//    },
     addKeywords: function() {
         var keywords_JSON = [];
         var add_keywords_array = this.get('add_keywords').split(',');
@@ -1415,7 +1433,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': that.get('model.id')};
 
-
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function() {
                             that.set('isPhotoEditingMode', false);
                             that.set('isPhotoUploadMode', false);
@@ -1427,8 +1444,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         });
 
                     }
-
-
                     else if (width < params.width || height < params.height) {
                         that.set('loadingTime', false);
                         that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height);
@@ -1577,6 +1592,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     // share to social facebook
     fbShare: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var that = this;
         var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
         var caption = '';
@@ -1623,9 +1640,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         FB.ui(obj, callback);
 
         return false;
+    }
     },
     //share to social google plus
     gpShare: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var caption = '';
         if (this.get('profile_cover_text') !== null)
         {
@@ -1663,9 +1683,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 ).focus();
 
         return false;
+    }
     },
     //share to social twitter
     tShare: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
         var url = 'https://twitter.com/share?text=' + this.get('profile_name') + '&url=' + encodeURIComponent(currntUrl);
         var mega = HubStar.Mega.find(this.get('currentUserID'));
@@ -1686,9 +1709,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 'height=436,width=626'
                 ).focus();
         return false;
+    }
     },
     pShare: function() {
-
+if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
         var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
         var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
                 '&media=' + encodeURIComponent(this.get('profile_pic_url')) +
@@ -1711,6 +1736,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 'height=436,width=626'
                 ).focus();
         return false;
+    }
     },
     keywordSearch: function(keyword) {
         this.transitionToRoute('searchIndexTom');

@@ -1352,16 +1352,17 @@ div.album-description-bg{
 }
 
 .edit_photo-caption_field{
-    height: 200px;
+    height: 100px;
     resize: none;
     overflow: auto;
 }
 
-.edit_photo-caption_field2{
-    height: 106px;
+/*.edit_photo-keywords_field{
+    margin: 10px auto;
+    height: 100px;
     resize: none;
     overflow: auto;
-}
+}*/
 
 .sml-partner {
     margin: 7px;
@@ -2202,6 +2203,19 @@ div.album-description-bg{
     position:relative;
     top:1px;
 }
+.learnmore{
+    position: relative;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 20px;
+}
+.learnmore a{
+     color:#052C50;
+}
+.learnmore a:hover{
+    color:#fff;
+}
+
 @media (max-width: 1280px){
     #cta-popup{
         right: 10%;
@@ -2223,13 +2237,14 @@ div.album-description-bg{
         float: none;
         margin: 0 auto;
         width: 80%;
-        top: -30px;
+        top: -40px;
         padding: 0;
     }
-    
+
     #cta-popup{
-        height: 620px;
+        height: 640px;
         min-width: 400px;
     }
+  
 
 }

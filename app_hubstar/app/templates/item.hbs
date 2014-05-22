@@ -19,7 +19,6 @@
         <div class="object-tags">
             <span class="tags-mark" style="background-color: #427fed"></span>
             <div class="tags easing">
-                <!--                        <div class="tags-new">New </div>-->
                 <div class="object-type hint--left hint--rounded" data-hint="Image">
                     <i class="fa fa-picture-o" ></i>
                 </div>
@@ -39,8 +38,6 @@
             <span class='edit-object easing' style="position: absolute;margin: 10px; top: 11px;left: 150px;">
 
                 {{#if controller.is_authentic_user}}
-
-
 
                 <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
                      <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
@@ -66,10 +63,11 @@
 
 
             <div class="profilepic-on-masonry">
-                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
+                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  
+                    <img   style="width:46px; height: 46px;"  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <a class="poster-name" style="cursor: pointer; word-break: break-all;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <div class="posttime-container">
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
@@ -174,10 +172,10 @@
 
 
             <div class="profilepic-on-masonry">
-                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
+                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  style="width:46px; height: 46px;" {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
-                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <a class="poster-name" style="cursor: pointer; word-break: break-all;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
                 <div class="posttime-container">
                     <span class="posttime" style="display:none;">{{date created}}</span>
                 </div>
@@ -202,6 +200,94 @@
 </div>
 {{/if}}
 
+{{#if getPdf}}
+<div class="box col2 noStyle1" {{action checkingLoginStatus target="view" on="click"}} >
+    <div class="object-tags-box">
+        <div class="object-tags">
+            <span class="tags-mark" style="background-color: #427fed"></span>
+            <div class="tags easing">              
+                    <div class="object-type hint--left hint--rounded" data-hint="PDF">
+                        <i class="fa fa-file-text"></i>
+                    </div>      
+            </div>
+        </div>
+    </div>
+
+
+    <div class="masonry-object_mainfeature">
+        <div class="mainfeature-wrapper">
+
+            {{#if controller.isUser}}
+            <a class="mainfeature-container" {{action transitionToPdf id}}>
+                <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
+                    <i  style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3; color:#fff; font-size:50px;">PDF</i>
+                </div>
+                <div id="init_photo_{{unbound id}}">
+                    <img class="this-is-the-object"{{bindAttr src="object_image_url"  }}  />      
+                </div>
+        </a>
+            {{else}}
+            <a class="mainfeature-container" {{action transitionToPdf id}}> 
+               <div class="hover-opacity radius-circle easing" style="cursor: pointer;position: absolute;width: 70px;height: 70px;border: 2px solid #fff;line-height: 66px;text-align: center;color: #fff;font-size: 25px;margin: 90px auto;left: 136px;right: 0;box-shadow: 0 0 10px #f3f3f3;z-index: 10;">
+                    <i  style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3; color:#fff; font-size:50px;">PDF</i>
+                </div>
+               <div id="init_photo_{{unbound id}}">
+                <img {{bindAttr src="object_image_url" }} class="this-is-the-object" />
+                 </div>
+            </a>
+            {{/if}}
+            <span class='edit-object easing' style="position: absolute;margin: 10px; top: 11px;left: 150px;">
+                {{#if controller.is_authentic_user}}
+                <div class="new-btn blue-btn hint--right hint--rounded" data-hint="Edit object" {{action dropdownPhotoSetting id}}>
+                     <i class="fa fa-cog" style="font-size: 16px; margin: 0px 5px"></i>
+                    <i class='fa fa-caret-down'></i>
+                </div>
+                <ul class="hideClass edit-object-ul" style="right: 40px;" id="dropdown_id_{{unbound id}}">
+                    {{#if controller.is_profile_editing_mode}}
+                    <li class="ite" {{action  removeCollectedItem controller.collection_id id "profile"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Delete</li>
+                    {{/if}}
+                    {{#if controller.is_user_editing_mode}}
+                    <li class="ite" {{action  removeCollectedItem  controller.collection_id id "user"}}><i class="fa fa-trash-o" style="font-size: 16px; margin: 0px 5px;"></i>Remove</li>
+                    {{/if}}
+                </ul>
+
+                {{/if}}
+            </span>
+        </div>
+
+
+
+        <div class="masonry-object_poster">  
+
+
+            <div class="profilepic-on-masonry">
+                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
+            </div>
+            <div class="object_username">
+                <a class="poster-name" style="cursor: pointer; word-break: break-all;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
+                <div class="posttime-container">
+                    <span class="posttime" style="display:none;">{{date created}}</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="masonry-object_text">
+            <div style="">
+                <p style="font-weight: bold;margin-bottom: 5px;font-size:16px;font-style:italic;" {{action transitionToPdf id}}>{{object_title}}</p>
+                <p class="masonry-object_text-container" style="font-size: 13px; max-height: 50px;">{{object_description}}</p>
+            </div>
+            
+             {{#if moreDisplay}}
+            <span role="button" class="masonry_more-btn easing"  {{bindAttr id="more_button"}} {{action transitionToPdf id}} >more &nbsp;</span>
+            {{/if}}
+            
+        </div>
+    </div>
+
+    
+</div>
+{{/if}}
 
 {{#if getArticle}}
 <div class="box col2 noStyle1"  data-step="8" data-intro="This is an <b>article</b> result. Click the image to read the article and see all the images associated with it." data-position='right' {{action checkingLoginStatus target="view" on="click"}}>
@@ -252,10 +338,10 @@
 
         <div class="masonry-object_poster">
             <div class="profilepic-on-masonry">
-                <img  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
+                <img   style="width:46px; height: 46px;"  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
             </div>
             <div class="object_username">
-                <a class="poster-name" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{owner_title}}</a>
+                <a class="poster-name" style="word-break: break-all;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{owner_title}}</a>
                 <div class="posttime-container" style="display:none;">
                     <span class="posttime">{{date created}}</span>
                 </div>

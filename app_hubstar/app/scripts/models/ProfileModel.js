@@ -45,6 +45,7 @@ HubStar.Profile = DS.Model.extend({
     profile_pinterest_link: DS.attr('string'),
     profile_linkedin_link: DS.attr('string'),
     profile_youtube_link: DS.attr('string'),
+    profile_instagram_link: DS.attr('string'),
     profile_analytics_code: DS.attr('string'),
     profile_average_review: DS.attr('string'),
     profile_average_review_length: DS.attr('string'),
@@ -65,6 +66,7 @@ HubStar.Profile = DS.Model.extend({
     about_us: DS.hasMany('HubStar.AboutUs'),
     title_modify_time: DS.attr('number'),
     show_template: DS.attr('boolean'),
+    pdf_id: DS.attr('string'),
     getID: function() {
         if (this.get('id') !== null && this.get('id') !== undefined) {
             return this.get('id').replace(/[^\w\s]/gi, '');

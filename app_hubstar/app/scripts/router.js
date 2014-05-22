@@ -9,9 +9,6 @@ HubStar.Router.map(function() {
         this.resource("indexIndex", {path: '/'});
         this.resource("verifyId", {path: '/verify/:verify_id'});
 
-//        this.resource("videoes", function() {
-//            this.resource("video", {path: ':video_id'});
-//        });
         this.resource("article", {path: '/articles/:article_id'}, function() {
             this.resource("searchsArticlePhoto", {path: '/photos/:photo_id'});
         });

@@ -468,7 +468,10 @@ class Controller extends CController {
         $location_filter = null;
         $classification_filter = null;
         if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
-            $location_filter = 1;
+            $location_filter=1;
+            if ($location == 'United+States') {
+                $location = $location .  '+Canada'; 
+            }                
         }
         if ($classification !== 'All' && $classification !== 'undefined' && $classification !== '' && $classification !== null) {
             $classification_filter = 1;
@@ -1041,7 +1044,6 @@ class Controller extends CController {
 //                "queryString": {
 //                  "default_field": "couchbaseDocument.doc.country",
 //                  "query": "' . $location . '"
-//=======
 //>>>>>>> 62942073ecbbb44a399399722361d2e83f4c41f9
 //                }
 //                }
@@ -1126,7 +1128,6 @@ class Controller extends CController {
 //
 //        $request->query($bool);
 //        $request->sort($sort1, $sort2);
-//=======
 //       
 //        $request->query($bool);
 //>>>>>>> 62942073ecbbb44a399399722361d2e83f4c41f9

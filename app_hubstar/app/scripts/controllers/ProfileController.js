@@ -341,7 +341,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.get('model').set('show_template', false);
             }
         }
-      
+
     },
     setAboutUsObject: function() {
         if (this.get('model').get('about_us') !== null && this.get('model').get('about_us') !== 'undefined' && this.get('model').get('about_us').get('length') > 0) {
@@ -362,7 +362,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         this.set('show_keyword_array', newArray);
     },
-
     setKeywordsNum: function(profile_package_name) { // change "profile.profile_keywords_num", "profile.profile_boost"
         if (profile_package_name === 'Platinum') {
             this.set('keyword_num', 200);
@@ -867,6 +866,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         {
             this.get('controllers.applicationFeedback').statusObserver(null, "Your description should be less than 256 characters.", "warnning");
         }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry();
+        }, 20);
     },
     toggleUpload: function() {
         $('.corpbanner_mask').toggleClass('hideClass');
@@ -1141,8 +1143,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('reviewTag', false);
             this.set('followerProfileTag', false);
             this.transitionToRoute('profilePdf');
-            
-           
+
+
         }
     },
     saveUpdateAboutUs: function() {
@@ -1532,7 +1534,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('profileSubcategoryDropdown', !this.get('profileSubcategoryDropdown'));
         }
     },
-    
     rateEditing: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
@@ -1594,149 +1595,149 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     fbShare: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-        var that = this;
-        var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
-        var caption = '';
+            var that = this;
+            var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
+            var caption = '';
 
-        if (this.get('profile_cover_text') !== null)
-        {
-            caption = this.get('profile_cover_text');
+            if (this.get('profile_cover_text') !== null)
+            {
+                caption = this.get('profile_cover_text');
 
-        }
-        else
-        {
-            caption = '';
-        }
-
-        var obj = {
-            method: 'feed',
-            link: currntUrl,
-            picture: this.get('profile_pic_url'),
-            name: this.get('profile_name'),
-            caption: 'Trends Ideas',
-            description: caption
-        };
-
-        function callback(response) {
-            if (response && response.post_id) {
-                var mega = HubStar.Mega.find(that.get('currentUserID'));
-                mega.then(function() {
-                    if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-                    {
-                        mega.set("share_count", 0);
-                    }
-                    else
-                    {
-                        mega.set("share_count", mega.get("share_count") + 1);
-                    }
-                    mega.store.save();
-                });
-                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
-            } else {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
             }
+            else
+            {
+                caption = '';
+            }
+
+            var obj = {
+                method: 'feed',
+                link: currntUrl,
+                picture: this.get('profile_pic_url'),
+                name: this.get('profile_name'),
+                caption: 'Trends Ideas',
+                description: caption
+            };
+
+            function callback(response) {
+                if (response && response.post_id) {
+                    var mega = HubStar.Mega.find(that.get('currentUserID'));
+                    mega.then(function() {
+                        if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                        {
+                            mega.set("share_count", 0);
+                        }
+                        else
+                        {
+                            mega.set("share_count", mega.get("share_count") + 1);
+                        }
+                        mega.store.save();
+                    });
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
+                } else {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
+                }
+            }
+
+            FB.ui(obj, callback);
+
+            return false;
         }
-
-        FB.ui(obj, callback);
-
-        return false;
-    }
     },
     //share to social google plus
     gpShare: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-        var caption = '';
-        if (this.get('profile_cover_text') !== null)
-        {
-            caption = this.get('profile_cover_text');
-
-        }
-        else
-        {
-            caption = '';
-        }
-
-        $("meta[property='og\\:title']").attr("content", this.get('profile_name'));
-        $("meta[property='og\\:description']").attr("content", caption);
-        $("meta[property='og\\:image']").attr("content", this.get('profile_pic_url'));
-
-
-        var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
-        var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
-        var mega = HubStar.Mega.find(this.get('currentUserID'));
-        mega.then(function() {
-            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+            var caption = '';
+            if (this.get('profile_cover_text') !== null)
             {
-                mega.set("share_count", 0);
+                caption = this.get('profile_cover_text');
+
             }
             else
             {
-                mega.set("share_count", mega.get("share_count") + 1);
+                caption = '';
             }
-            mega.store.save();
-        });
-        window.open(
-                url,
-                'popupwindow',
-                'scrollbars=yes,width=800,height=400'
-                ).focus();
 
-        return false;
-    }
+            $("meta[property='og\\:title']").attr("content", this.get('profile_name'));
+            $("meta[property='og\\:description']").attr("content", caption);
+            $("meta[property='og\\:image']").attr("content", this.get('profile_pic_url'));
+
+
+            var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
+            var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+            window.open(
+                    url,
+                    'popupwindow',
+                    'scrollbars=yes,width=800,height=400'
+                    ).focus();
+
+            return false;
+        }
     },
     //share to social twitter
     tShare: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-        var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
-        var url = 'https://twitter.com/share?text=' + this.get('profile_name') + '&url=' + encodeURIComponent(currntUrl);
-        var mega = HubStar.Mega.find(this.get('currentUserID'));
-        mega.then(function() {
-            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-            {
-                mega.set("share_count", 0);
-            }
-            else
-            {
-                mega.set("share_count", mega.get("share_count") + 1);
-            }
-            mega.store.save();
-        });
-        window.open(
-                url,
-                'popupwindow',
-                'height=436,width=626'
-                ).focus();
-        return false;
-    }
+            var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
+            var url = 'https://twitter.com/share?text=' + this.get('profile_name') + '&url=' + encodeURIComponent(currntUrl);
+            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+            window.open(
+                    url,
+                    'popupwindow',
+                    'height=436,width=626'
+                    ).focus();
+            return false;
+        }
     },
     pShare: function() {
-if (this.get("controllers.checkingLoginStatus").popupLogin())
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-        var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
-        var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
-                '&media=' + encodeURIComponent(this.get('profile_pic_url')) +
-                '&description=' + encodeURIComponent(this.get('profile_name'));
-        var mega = HubStar.Mega.find(this.get('currentUserID'));
-        mega.then(function() {
-            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-            {
-                mega.set("share_count", 0);
-            }
-            else
-            {
-                mega.set("share_count", mega.get("share_count") + 1);
-            }
-            mega.store.save();
-        });
-        window.open(
-                url,
-                'popupwindow',
-                'height=436,width=626'
-                ).focus();
-        return false;
-    }
+            var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
+            var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+                    '&media=' + encodeURIComponent(this.get('profile_pic_url')) +
+                    '&description=' + encodeURIComponent(this.get('profile_name'));
+            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+            window.open(
+                    url,
+                    'popupwindow',
+                    'height=436,width=626'
+                    ).focus();
+            return false;
+        }
     },
     keywordSearch: function(keyword) {
         this.transitionToRoute('searchIndexTom');

@@ -16,59 +16,54 @@
 
         <div class="group-profilecorpbanner" >       
             <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg" style="width: 100%; top: -170px; position: absolute;"/>  
-        </div>
+        </div>       
         {{#if controller.groupStepOne}}
-        <div id="group-step-1" class="group-step">
-            <div class="group-step-title"> Step 1. Select Vertical</div>
-            <div class="group-content easing" >
-                <div  id="groupRes" class="group-package hover-opacity easing" {{action groupSelection "residental"}}>Residental</div>
-                <div id="groupCom" class="group-package hover-opacity easing"  {{action groupSelection "commerial"}}>Commerial</div>
-            </div>
-
-            <div class="group-step-button">
-                <div class="new-btn green-btn" {{action groupStep "1"}} >Next</div>
-            </div>
-
-        </div>
-        {{/if}}
-        {{#if controller.groupStepTwo}}
-        <div id="group-step-2"  class="group-step">
+        <div {{action chooseResidential}}>residential </div>
+        <div {{action chooseCommercial}}>commercial </div>
+        <div id="group-step-2"  class="group-step" style="height: 1200px">
             <div class="group-step-title">Step 2. Select Categories</div> 
-            <div class="group-content easing">    
+            {{#each controller.subcate}}
+            {{#if this.isSelected}}
+            <span style="color: red" {{action delToSeclection this}}>{{this.category_topic}}&nbsp; &nbsp;    </span>
+            {{else}}
+            <span {{action addToSeclection this}}>{{this.category_topic}}&nbsp; &nbsp;    </span>
+            {{/if}}
+            {{/each}}
+            <div class="group-content easing">  
                 {{#if controller.isResidential}}
                 <div id ="" style="margin: 5px 20px 5px;" >                
                     <div style="position: relative;"> 
                         {{#each controller.categorys}}
                         {{#if this.isResidential}}
-                        <div class="select-interest" style=""{{action selectTopic ids topic}}>
-                            <div id="minusSelect_{{unbound ids}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action selectTopic ids topic}}><i class="fa fa-minus" ></i></div>
+                        <div class="select-interest" style=""{{action topicSelection this}}>
+                             <div id="minusSelect_{{unbound ids}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action topicSelection this}}><i class="fa fa-minus" ></i></div>
                             <div id="plusSelect_{{unbound ids}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;" ><i class="fa fa-plus" ></i></div>
                             <div class="" style="position: relative;border-radius: 50%;overflow: hidden;top: -5px;float: left; ">
                                 <div  class="usersobject-hoverarea easing" style="" ></div>
                                 <div class="interest-image-container"><img {{bindAttr src="image"}} /></div>
                             </div>
                             <div class="interest-topic-name" >
-                                {{topic}}
+                                {{topic}}  {{chooseNumber}}
                             </div>
                         </div>
                         {{/if}}
                         {{/each}}
                     </div>
-                </div> 
-                {{else}}
+                </div>
+                {{/if}}               
+                {{#if controller.isCommercial}}
                 <div id ="" style="margin: 5px 20px 70px;" >
-
                     {{#each controller.categorys}}
                     {{#if this.isCommercial}}
-                    <div class="select-interest" style=""{{action selectTopic ids topic}}>
-                        <div id="minusSelect_{{unbound ids}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action selectTopic ids topic}}><i class="fa fa-minus" ></i></div>
+                    <div class="select-interest" style=""{{action topicSelection  this}}>
+                         <div id="minusSelect_{{unbound ids}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action topicSelection this}}><i class="fa fa-minus" ></i></div>
                         <div id="plusSelect_{{unbound ids}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;" ><i class="fa fa-plus" ></i></div>
                         <div class="" style="position: relative;border-radius: 50%;overflow: hidden;top: -5px;float: left; ">
                             <div  class="usersobject-hoverarea easing" style="" ></div>
                             <div class="interest-image-container"><img {{bindAttr src="image"}} /></div>
                         </div>
                         <div class="interest-topic-name">
-                            {{topic}}
+                            {{topic}}  {{chooseNumber}}
                         </div>
                     </div>
                     {{/if}}
@@ -76,51 +71,11 @@
                 </div>
                 {{/if}}
             </div>
-              <div class="group-step-button">
-                <div class="new-btn" {{action groupStep "0"}} >Back</div>
-            </div>
-            <div class="group-step-button">
-                <div class="new-btn green-btn" {{action groupStep "2"}} >Next</div>
+            <div {{action next}}>next<div>
+                </div>
+                {{/if}}      
             </div>
         </div>
-        {{/if}}
-        {{#if controller.groupStepThree}}
-        <div id="group-step-3"  class="group-step">
-            <div class="group-step-title"> Step 3. Budget</div>
-            <div class="group-content easing" >
-
-            </div>
-              <div class="group-step-button">
-                <div class="new-btn" {{action groupStep "1"}} >Back</div>
-            </div>
-            <div class="group-step-button">
-                <div class="new-btn green-btn" {{action groupStep "3"}} >Next</div>
-            </div>
-        </div>
-        {{/if}}
-        {{#if controller.groupStepFour}}
-        <div id="group-step-4"  class="group-step">
-            <div class="group-step-title"> Step 4. Time Frame</div>
-            <div class="group-content easing" >           
-            </div> 
-              <div class="group-step-button">
-                <div class="new-btn" {{action groupStep "2"}} >Back</div>
-            </div>
-            <div class="group-step-button">
-                <div class="new-btn green-btn" {{action save}} >Save</div>
-            </div>
-        </div>
-        {{/if}}
-
-
-
-
-    </div>
-
-
-
-
-</div>
 
 
 

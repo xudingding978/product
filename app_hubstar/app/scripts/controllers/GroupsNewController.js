@@ -3,10 +3,13 @@ HubStar.GroupsNewController = Ember.Controller.extend({
     groupStepTwo: false,
     groupStepThree: false,
     groupStepFour: false,
-    categorys: [],
-    subcate: [],
+    categorys: null,
+    subcate: null,
     selected_topics: "",
-    isResidential: true,
+    selected_cate: [],
+    isResidential: false,
+    isCommercial: false,
+    topic: [],
     needs: ['profile', 'applicationFeedback', 'application'],
     init: function()
     {
@@ -14,72 +17,54 @@ HubStar.GroupsNewController = Ember.Controller.extend({
     },
     setTopicModel: function() {
         this.set('categorys', this.get("controllers.application").get("categorys"));
+        for (var i = 0; i < this.get('categorys').get('length'); i++)
+        {
+            this.get('categorys').objectAt(i).set("isSelected", false);
+        }
     },
     topicSelection: function(data) {
-        this.set('subcate', []);
-        for (var i = 0; i < data.get('subcate').get('length'); i++)
-        {
-            this.get('subcate').pushObject({'category_topic': data.get('subcate').objectAt(i).get('category_topic'), 'subcategories': data.get('subcate').objectAt(i).get('subcategories')
-            });
-        }
+        this.set('topic', data);
+        this.set('subcate', data.get('subcate'));
     },
-    selectTopic: function(ids, topic) {
-        if (this.get('selected_topics').indexOf(topic) !== -1) {
-            this.set('selected_topics', this.get('selected_topics').replace(topic, ""));
-            this.set('selected_topics', this.get('selected_topics').replace(",,", ","));
-            $('#minusSelect_' + ids).attr("style", "opacity: .8; z-index: 10; right: 0; margin: 10px; display:none;");
-        }
-        else {
-            $('#minusSelect_' + ids).attr("style", "opacity: .8; z-index: 10; right: 0; display:block;");
-            if (this.get('selected_topics') === "") {
-                this.set('selected_topics', topic);
-            } else {
-                this.set('selected_topics', this.get('selected_topics') + "," + topic);
+    addToSeclection: function(item) {
+        item.set("isSelected", true);
+        var s = [];
+        s.id = item.get("ids");
+        s.parentId = this.get('topic').get('ids');
+        s.category_topic = this.get('topic').get('topic') + '•' + item.get('category_topic');
+        this.get('topic').set("chooseNumber", this.get('topic').get("chooseNumber") + 1);
+        this.get('selected_cate').push(s);
+    },
+    delToSeclection: function(item) {
+        item.set('isSelected', false);
+        for (var i = 0; i < this.get('selected_cate').get('length'); i++)
+        {
+            if (this.get('selected_cate')[i].id === item.get('ids'))
+            {
+                this.get('selected_cate').splice(i, 1);
             }
         }
+        this.get('topic').set("chooseNumber", this.get('topic').get("chooseNumber") - 1);
     },
-    groupStep: function(number) {
-
-        if (number === "1") {
-            this.set("groupStepOne", false);
-            this.set("groupStepTwo", true);
-            this.set("groupStepThree", false);
-            this.set("groupStepFour", false);
-        } else if (number === "2") {
-            this.set("groupStepOne", false);
-            this.set("groupStepTwo", false);
-            this.set("groupStepThree", true);
-            this.set("groupStepFour", false);
-        } else if (number === "3") {
-            this.set("groupStepOne", false);
-            this.set("groupStepTwo", false);
-            this.set("groupStepThree", false);
-            this.set("groupStepFour", true);
-        } else if (number === "0") {
-            this.set("groupStepOne", true);
-            this.set("selected_topics", '');
-            this.set("groupStepTwo", false);
-            this.set("groupStepThree", false);
-            this.set("groupStepFour", false);
-        }
+    next: function() {
+        console.log(this.get('selected_cate'));
     },
-    groupSelection: function(checking) {
-        if (checking === "residental") {
-            this.set("isResidential", true);
-            $("#groupRes").removeClass("hover-opacity easing");
-            $("#groupCom").addClass("hover-opacity easing");
-        } else if (checking === "commerial") {
-            this.set("isResidential", false);
-            $("#groupRes").addClass("hover-opacity easing");
-            $("#groupCom").removeClass("hover-opacity easing");
-        }
+    chooseResidential: function() {
+        this.set('isResidential', true);
+        this.set('isCommercial', false);
+        this.set('subcate',null);
+    },
+    chooseCommercial: function() {
+        this.set('isResidential', false);
+        this.set('isCommercial', true);
+        this.set('subcate',null);
     },
     save: function() {
         //this.fillInChecking();
         //if (passSubmit) 
         {
             var that = this;
-            var id =createMessageid();
+            var id = createMessageid();
             var newMegaModel = HubStar.Mega.createRecord({
                 "id": id + "",
                 "type": "group",
@@ -127,8 +112,8 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                 group_pic_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg",
                 group_bg_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
                 group_hero_cover_url: "",
-                group_name: "",               
-                group_time: "",//how long does the project need?
+                group_name: "",
+                group_time: "", //how long does the project need?
                 group_partner_ids: "",
                 group_creator: localStorage.loginStatus, //user id
                 group_administrator: "", //user id

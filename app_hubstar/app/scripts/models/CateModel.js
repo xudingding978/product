@@ -11,6 +11,7 @@ HubStar.Cate = DS.Model.extend({
     classification: localStorage.resOrcom,
     display: DS.attr('boolean'),
     image: DS.attr('string'),
+    chooseNumber : 0,
     isResidential: function() {
         var id = this.get('type');
         if (id.indexOf("residential") !== -1)

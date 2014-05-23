@@ -18,49 +18,43 @@
         </div>
         <div class="group-content easing">  
             <div class="subcategory-box">
-            {{#each controller.subcate}}
-            {{#if this.isSelected}}
-            <span class="selected-subcategory-word" {{action delToSeclection this}}>{{this.category_topic}}</span>
-            {{else}}
-            <span class="subcategory-word" {{action addToSeclection this}}>{{this.category_topic}}</span>
-            {{/if}}
-            {{/each}}
+                {{#each controller.subcate}}
+                {{#if this.isSelected}}
+                <div class="subcategory-word-selected" {{action delToSeclection this}}>{{this.category_topic}}</div>
+                {{else}}
+                <div class="subcategory-word" {{action addToSeclection this}}>{{this.category_topic}}</div>
+                {{/if}}
+                {{/each}}
             </div>
             {{#if controller.isResidential}}
-            <div id ="" style="margin: 5px 20px 5px;" >                
-                <div style="position: relative;"> 
-                    {{#each controller.categorys}}
-                    {{#if this.isResidential}}
-                    <div class="select-interest" style=""{{action topicSelection this}}>
-                         <div id="minusSelect_{{unbound ids}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action topicSelection this}}><i class="fa fa-minus" ></i></div>
-                        <div id="plusSelect_{{unbound ids}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;" ><i class="fa fa-plus" ></i></div>
-                        <div class="" style="position: relative;border-radius: 50%;overflow: hidden;top: -5px;float: left; ">
-                            <div  class="usersobject-hoverarea easing" style="" ></div>
-                            <div class="interest-image-container"><img {{bindAttr src="image"}} /></div>
-                        </div>
-                        <div class="group-topic-name" >
-                            {{topic}}  {{chooseNumber}}
-                        </div>
+            <div class="group-images">                  
+                {{#each controller.categorys}}
+                {{#if this.isResidential}}
+                <div class="select-group" style=""{{action topicSelection this}}>
+                     <div class="group-image">         
+                        <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing" {{action topicSelection this}}>{{chooseNumber}}</div>
+                        <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
                     </div>
-                    {{/if}}
-                    {{/each}}
+                    <div class="group-topic-name" >
+                        {{topic}}  
+                    </div>
                 </div>
+                {{/if}}
+                {{/each}}
+
             </div>
             {{/if}}               
             {{#if controller.isCommercial}}
-            <div id ="" style="margin: 5px 20px 70px;" >
+            <div class="group-images">
                 {{#each controller.categorys}}
                 {{#if this.isCommercial}}
-                <div class="select-interest" style=""{{action topicSelection  this}}>
-                     <div id="minusSelect_{{unbound ids}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;display:none;" {{action topicSelection this}}><i class="fa fa-minus" ></i></div>
-                    <div id="plusSelect_{{unbound ids}}" class="invite-this-friend radius-circle easing" style="z-index: 10; right: 0;" ><i class="fa fa-plus" ></i></div>
-                    <div class="" style="position: relative;border-radius: 50%;overflow: hidden;top: -5px;float: left; ">
-                        <div  class="usersobject-hoverarea easing" style="" ></div>
-                        <div class="interest-image-container"><img {{bindAttr src="image"}} /></div>
+                <div class="select-group" style=""{{action topicSelection  this}}>
+                     <div class="group-image">    
+                        <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing"  {{action topicSelection this}}>{{chooseNumber}}</div>                
+                        <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
                     </div>
-
-                    <div class="interest-topic-name">
-                        {{topic}}  {{chooseNumber}}
+                    <div class="group-topic-name">
+                        {{topic}}  
                     </div>
                 </div>
                 {{/if}}
@@ -77,21 +71,23 @@
         <div class="group-profile-title-top">
 
             <div  class="group-step-button" style="float:left" {{action groupStep "2"}} >BACK</div>
-            {{#if controller.editingGroupTitle}}
-            <div class="group-step-title" style="width:60%;cursor: pointer;">
 
-                <div style="display: inline-block; width: 150px;">
+            <div class="group-step-title" style=" width:60%; cursor: pointer;">
+                {{#if controller.editingGroupTitle}}
+                <div>
+                <div class="edit-group-left" >
                     {{input type="text" class="insert-profile-name" value=groupTitle}}
                 </div>
-                <div style="display: inline-block;vertical-align: bottom; margin-left:20px">
+                <div class="edit-group-right" >
                     <div class="new-btn blue-btn"{{action yes controller.groupTitle}}><i class="fa fa-check fa fa-white"></i></div>
                     <div class="new-btn"{{action no controller.groupTitle}}><i class="fa fa-times fa fa-white"></i></div>
                 </div>
-
+                </div>
+                {{else}}
+                <div class="group-title" {{action changeTitle controller.groupTitle}}>Project Title</div>
+                {{/if}}
             </div>
-            {{else}}
-            <div class="group-step-title" style="width:60%;cursor: pointer;"{{action changeTitle controller.groupTitle}}>Project Title</div>
-            {{/if}}
+
             <div  class="group-step-button" {{action groupStep "2"}} >DONE</div>
 
 
@@ -99,8 +95,23 @@
 
 
         <div class="group-content easing" >
-            <div>{{view Ember.TextArea valueBinding="about-project"   class="mustFill6 no-resize" placeholder=""}}</div>
-
+            <div class="group-textarea">{{view Ember.TextArea valueBinding="about-project"   class="textarea-style" placeholder="About this project, I would like to......" style=""}}</div>
+            <div class="group-part">
+                <div class="group-text">Budget:</div>
+                <div class="content-group-right"></div>
+            </div>
+            <div class="group-part">
+                <div class="group-text">Time Frame:</div>
+                <div class="content-group-right"></div>
+            </div>
+            <div class="group-part">
+                <div class="group-text">Expertise:</div>
+                <div class="content-group-right">
+                 <div id="1" class="subcategory-word" {{action choose  "1" }}>First Time</div>
+                 <div id="2" class="subcategory-word" {{action choose  "2" }}>I have some experiences</div>
+                 <div id="3" class="subcategory-word" {{action choose  "3" }}>I am professional</div>
+                </div>
+            </div>
         </div>
     </div>
     {{/if}}

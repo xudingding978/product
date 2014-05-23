@@ -1,7 +1,7 @@
 HubStar.GroupsNewController = Ember.Controller.extend({
     groupStepOne: true,
     groupStepTwo: false,
-editingGroupTitle:false,
+    editingGroupTitle: false,
     groupStepThree: false,
     groupStepFour: false,
     categorys: null,
@@ -57,31 +57,48 @@ editingGroupTitle:false,
             this.set("groupStepTwo", false);
         }
     },
-    
-    changeTitle: function(title){
-        this.set("editingGroupTitle", true);
-        
+    choose: function(number) {
+        if (number === "1") {
+            $("#1").addClass("selected");
+            $("#2").removeClass("selected");
+            $("#3").removeClass("selected");
+
+        } else if (number === "2") {
+
+            $("#2").addClass("selected");
+            $("#1").removeClass("selected");
+            $("#3").removeClass("selected");
+
+        } else if (number === "3") {
+            $("#3").addClass("selected");
+            $("#2").removeClass("selected");
+            $("#1").removeClass("selected");
+        }
     },
-      no: function(title){
+    changeTitle: function(title) {
+        this.set("editingGroupTitle", true);
+
+    },
+    no: function(title) {
         this.set("editingGroupTitle", false);
-        
-    }, 
-      yes: function(title){
+
+    },
+    yes: function(title) {
         this.set("editingGroupTitle", false);
     },
     chooseResidential: function() {
         this.set('isResidential', true);
         this.set('isCommercial', false);
-        this.set('subcate',null);
+        this.set('subcate', null);
         $("#group-res").addClass("group-button-active");
         $("#group-com").removeClass("group-button-active");
     },
     chooseCommercial: function() {
         this.set('isResidential', false);
         this.set('isCommercial', true);
-        this.set('subcate',null);
-         $("#group-com").addClass("group-button-active");
-         $("#group-res").removeClass("group-button-active");
+        this.set('subcate', null);
+        $("#group-com").addClass("group-button-active");
+        $("#group-res").removeClass("group-button-active");
 
     },
     save: function() {
@@ -135,8 +152,8 @@ editingGroupTitle:false,
                 group_pic_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg",
                 group_bg_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
                 group_hero_cover_url: "",
-                group_name: "",               
-                group_timeframe: "",//how long does the project need?
+                group_name: "",
+                group_timeframe: "", //how long does the project need?
 
                 group_partner_ids: "",
                 group_creator: localStorage.loginStatus, //user id

@@ -41,7 +41,6 @@
                 </div>
                 {{/if}}
                 {{/each}}
-
             </div>
             {{/if}}               
             {{#if controller.isCommercial}}
@@ -75,20 +74,20 @@
             <div class="group-step-title" style=" width:60%; cursor: pointer;">
                 {{#if controller.editingGroupTitle}}
                 <div>
-                <div class="edit-group-left" >
-                    {{input type="text" class="insert-profile-name" value=groupTitle}}
-                </div>
-                <div class="edit-group-right" >
-                    <div class="new-btn blue-btn"{{action yes controller.groupTitle}}><i class="fa fa-check fa fa-white"></i></div>
-                    <div class="new-btn"{{action no controller.groupTitle}}><i class="fa fa-times fa fa-white"></i></div>
-                </div>
+                    <div class="edit-group-left" >
+                        {{input type="text" class="insert-profile-name" value=groupTitle}}
+                    </div>
+                    <div class="edit-group-right" >
+                        <div class="new-btn blue-btn"{{action yes controller.groupTitle}}><i class="fa fa-check fa fa-white"></i></div>
+                        <div class="new-btn"{{action no controller.groupTitle}}><i class="fa fa-times fa fa-white"></i></div>
+                    </div>
                 </div>
                 {{else}}
                 <div class="group-title" {{action changeTitle controller.groupTitle}}>Project Title</div>
                 {{/if}}
             </div>
 
-            <div  class="group-step-button" {{action groupStep "2"}} >DONE</div>
+            <div  class="group-step-button" {{action save}} >DONE</div>
 
 
         </div>
@@ -107,9 +106,9 @@
             <div class="group-part">
                 <div class="group-text">Expertise:</div>
                 <div class="content-group-right">
-                 <div id="1" class="subcategory-word" {{action choose  "1" }}>First Time</div>
-                 <div id="2" class="subcategory-word" {{action choose  "2" }}>I have some experiences</div>
-                 <div id="3" class="subcategory-word" {{action choose  "3" }}>I am professional</div>
+                    <div id="1" class="subcategory-word" {{action choose  "1" }}>First Time</div>
+                    <div id="2" class="subcategory-word" {{action choose  "2" }}>I have some experiences</div>
+                    <div id="3" class="subcategory-word" {{action choose  "3" }}>I am professional</div>
                 </div>
             </div>
         </div>

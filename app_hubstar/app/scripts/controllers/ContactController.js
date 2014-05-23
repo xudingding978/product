@@ -31,7 +31,7 @@ HubStar.ContactController = Ember.Controller.extend({
     projectBudget: null,
     projectExperience: null,
     email_title: "",
-    needs: ["mega", "profile", 'article', 'applicationFeedback', 'video','application'],
+    needs: ["mega", "profile", 'article', 'applicationFeedback', 'video', 'application'],
     init: function() {
         this.set('categorys', this.get("controllers.application").get("categorys"));
         this.set('projectCategorySelection', 'Please Select One ...');
@@ -69,60 +69,41 @@ HubStar.ContactController = Ember.Controller.extend({
     setSelectedMega: function(id)
     {
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
-
         if (this.get("currentUser").get("first_name") !== null && this.get("currentUser").get("last_name")) {
             this.set("displayName", this.get("currentUser").get("first_name") + " " + this.get("currentUser").get("last_name"));
         }
         else {
             this.set("displayName", this.get("currentUser").get("display_name"));
         }
-
         this.set("displayEmail", this.get("currentUser").get("email"));
         var idProfile;
         var tempMega = HubStar.Mega.find(id);
         this.set("selectedMega", tempMega);
         var that = this;
-        if (tempMega.get('isLoaded')) {
-            if (this.get("selectedMega").get("type") === 'profile')
+        tempMega.then(function() {
+            that.set("selectedMega", tempMega);
+            that.set("emailDestination", that.get("selectedMega").get("owner_contact_email"));
+            that.set("emaiCCDestination", that.get("selectedMega").get("owner_contact_cc_emails"));
+            that.set("emaiBCCDestination",that.get("selectedMega").get("owner_contact_bcc_emails"));
+            that.set("ownerTitle",that.get("selectedMega").get("owner_title"));
+            idProfile = that.get("selectedMega").get("owner_id");
+
+            if (that.get("selectedMega").get("type") === 'profile')
             {
-                this.set("owner_profile_pic", this.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
+                that.set("owner_profile_pic", that.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
             }
             else {
-                this.set("owner_profile_pic", this.get("selectedMega").get("owner_profile_pic"));
+                that.set("owner_profile_pic", that.get("selectedMega").get("owner_profile_pic"));
             }
-            this.set("recieveProfile", this.get("selectedMega").get("id"));
-            this.set("emailDestination", this.get("selectedMega").get("owner_contact_email"));
-            this.set("emaiCCDestination", this.get("selectedMega").get("owner_contact_cc_emails"));
-        }
-        else {
-            tempMega.addObserver('isLoaded', function() {
-
-                if (tempMega.get('isLoaded')) {
-
-                    that.set("selectedMega", tempMega);
-                    that.set("emailDestination", that.get("selectedMega").get("owner_contact_email"));
-                    that.set("emaiCCDestination", that.get("selectedMega").get("owner_contact_cc_emails"));
-                    idProfile = that.get("selectedMega").get("owner_id");
-
-                    if (that.get("selectedMega").get("type") === 'profile')
-                    {
-                        that.set("owner_profile_pic", that.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
-                    }
-                    else {
-                        that.set("owner_profile_pic", that.get("selectedMega").get("owner_profile_pic"));
-                    }
-                    var tempProfile = HubStar.Profile.find(idProfile);
-                    var those = that;
-                    tempProfile.addObserver('isLoaded', function() {
-                        if (tempProfile.get('isLoaded')) {
-                            those.get('selectedMega').set('owner_title', tempProfile.get('profile_name'));
-                            those.set("emailDestination", tempProfile.get("owner_contact_email"));
-                            those.set("emaiCCDestination", tempProfile.get("owner_contact_cc_emails"));
-                        }
-                    });
-                }
-            });
-        }
+//            var tempProfile = HubStar.Profile.find(idProfile);
+//            var those = that;
+//            tempProfile.then(function() {
+//                those.get('selectedMega').set('owner_title', tempProfile.get('profile_name'));
+//                those.set("emailDestination", tempProfile.get("owner_contact_email"));
+//                those.set("emaiCCDestination", tempProfile.get("owner_contact_cc_emails"));
+//                that.set("emaiBCCDestination",tempProfile.get("owner_contact_bcc_emails"));
+//            });
+        });
     },
     closeContact: function() {
         var megaController = this.get("controllers.mega");
@@ -166,9 +147,10 @@ HubStar.ContactController = Ember.Controller.extend({
         if (this.get("osAndBrowser") === true)
         {
             userEnvironment = this.get("userEnvironment");
-        }       
+        }
         projectSubCategoryItem = projectSubCategoryItem.substring(0, projectSubCategoryItem.length - 1);
         var tempEmail = HubStar.Email.createRecord({
+            "ownerTitle":this.get("ownerTitle"),
             "displayName": this.get("displayName"),
             "displayEmail": this.get("displayEmail"),
             'recieveProfile': this.get('recieveProfile'),
@@ -182,7 +164,7 @@ HubStar.ContactController = Ember.Controller.extend({
             "projectBudget": this.get('projectBudgetSelection').trim(),
             "projectExperience": this.get('projectExperienceSelection').trim(),
             "objectUrl": document.URL,
-            "userEnvironment":userEnvironment,
+            "userEnvironment": userEnvironment,
             "projectSubCategoryItem": projectSubCategoryItem
         });
 

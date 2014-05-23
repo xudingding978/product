@@ -777,7 +777,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
          HubStar.set('ctaView', true);
     },
     editingContactForm: function() {
-
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
             var contactController = this.get('controllers.contact');
@@ -786,10 +785,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.get("controllers.contact").set('firstStepOfContactEmail', false);
             contactController.setSelectedMega(selectid);
             contactController.selectionCheckBox();
-
             this.set('contact', !this.get('contact'));
         }
-
     }
     ,
     closeContact: function() {

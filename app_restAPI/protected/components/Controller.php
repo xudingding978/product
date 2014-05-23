@@ -224,9 +224,9 @@ class Controller extends CController {
         }
         return $response;
     }
-    
+
     protected function getPdfByOwner($owner_id) {
-         $cb = $this->couchBaseConnection();
+        $cb = $this->couchBaseConnection();
 
         $tempResult = $this->getDomain() . "/profiles/" . $owner_id;
         $tempResult = $cb->get($tempResult);
@@ -234,26 +234,26 @@ class Controller extends CController {
 
 
         $mega = CJSON::decode($tempResult, true);
-        if (!isset($mega['profile'][0]['pdf_id']) ||$mega['profile'][0]['pdf_id'] == null || $mega['profile'][0]['pdf_id'] == 'undefined' || $mega['profile'][0]['pdf_id'] == "") {
+        if (!isset($mega['profile'][0]['pdf_id']) || $mega['profile'][0]['pdf_id'] == null || $mega['profile'][0]['pdf_id'] == 'undefined' || $mega['profile'][0]['pdf_id'] == "") {
             $mega['profile'][0]['pdf_id'] = "";
-        } 
-            $pdf_Id = explode(",", $mega['profile'][0]['pdf_id']);
-            $response = Array();
-            $megas = Array();
+        }
+        $pdf_Id = explode(",", $mega['profile'][0]['pdf_id']);
+        $response = Array();
+        $megas = Array();
 
 
-            for ($i = 0; $i < sizeof($pdf_Id); $i++) {
-                if ($pdf_Id[$i] !== "") {
-                    $owner = $this->getDomain() . "/" . trim($pdf_Id[$i]);
-                    $mega = $cb->get($owner);
-                    $megaNew = CJSON::decode($mega, true);
-                    if ($megaNew !== null && $megaNew !== "") {
-                        array_push($megas, $megaNew);
-                    }
+        for ($i = 0; $i < sizeof($pdf_Id); $i++) {
+            if ($pdf_Id[$i] !== "") {
+                $owner = $this->getDomain() . "/" . trim($pdf_Id[$i]);
+                $mega = $cb->get($owner);
+                $megaNew = CJSON::decode($mega, true);
+                if ($megaNew !== null && $megaNew !== "") {
+                    array_push($megas, $megaNew);
                 }
             }
-        
-        
+        }
+
+
 
         $response["megas"] = $megas;
         return CJSON::encode($response);
@@ -468,10 +468,10 @@ class Controller extends CController {
         $location_filter = null;
         $classification_filter = null;
         if ($location !== 'Global' && $location !== 'undefined' && $location !== '' && $location !== null) {
-            $location_filter=1;
+            $location_filter = 1;
             if ($location == 'United+States') {
-                $location = $location .  '+Canada'; 
-            }                
+                $location = $location . '+Canada';
+            }
         }
         if ($classification !== 'All' && $classification !== 'undefined' && $classification !== '' && $classification !== null) {
             $classification_filter = 1;
@@ -1321,22 +1321,9 @@ class Controller extends CController {
                     $tempResult['stats'][0]['megas'][$i]['profile_editor'] = $profile_editor;
                     $tempResult['stats'][0]['megas'][$i]['profile_administrator'] = $profile_administrator;
                     $tempResult['stats'][0]['megas'][$i]['profile_creator'] = $profile_creator;
-
-                    /*$photo_keywords = (isset($mega_profile["megas"][0]["photo"][0]['photo_keywords'])) ? $mega_profile["megas"][0]["photo"][0]['photo_keywords'] : '';
-                    $tempResult['stats'][0]['megas'][$i]['photo'][0]['photo_keywords'] = $photo_keywords;
-                    if (isset($tempResult['stats'][0]['megas'][$i]['keyword'])) {
-                        for ($j = 0; $j < sizeof($tempResult['stats'][0]['megas'][$i]['keyword']); $j++) {
-                            //$photo_keywords = $photo_keywords . $tempResult['stats'][0]['megas'][$i]['keyword'][$j]['keyword_name'] . ',';
-                            if ($j === 0) {
-                                $tempResult['stats'][0]['megas'][$i]['photo'][0]['photo_keywords'] = $tempResult['stats'][0]['megas'][$i]['photo'][0]['photo_keywords'] . $tempResult['stats'][0]['megas'][$i]['keyword'][$j]['keyword_name'];
-                                //$photo_keywords = $tempResult['stats'][0]['megas'][$i]['photo'][0]['photo_keywords'];
-                            } else {
-                                $tempResult['stats'][0]['megas'][$i]['photo'][0]['photo_keywords'] = $tempResult['stats'][0]['megas'][$i]['photo'][0]['photo_keywords'] . ',' . $tempResult['stats'][0]['megas'][$i]['keyword'][$j]['keyword_name'];
-                                //$photo_keywords = $tempResult['stats'][0]['megas'][$i]['photo'][0]['photo_keywords'];
-                            }
-                        }
-                    }*/
-                    //$photo_keywords = $tempResult;
+                    $tempResult['stats'][0]['megas'][$i]['owner_contact_email'] = $mega_profile["profile"][0]["owner_contact_email"];
+                    $tempResult['stats'][0]['megas'][$i]['owner_contact_cc_emails'] = $mega_profile["profile"][0]["owner_contact_cc_emails"];
+                    $tempResult['stats'][0]['megas'][$i]['owner_contact_bcc_emails'] = $mega_profile["profile"][0]["owner_contact_bcc_emails"];
                 }
             }
         } else {
@@ -1361,24 +1348,9 @@ class Controller extends CController {
                     $tempResult['megas'][$i]['profile_editor'] = $profile_editor;
                     $tempResult['megas'][$i]['profile_administrator'] = $profile_administrator;
                     $tempResult['megas'][$i]['profile_creator'] = $profile_creator;
-
-
-                    /*$photo_keywords = (isset($mega_profile["megas"][0]["photo"][0]['photo_keywords'])) ? $mega_profile["megas"][0]["photo"][0]['photo_keywords'] : '';
-                    $tempResult['megas'][$i]['photo'][0]['photo_keywords'] = $photo_keywords;
-                    if (isset($tempResult['megas'][$i]['keyword'])) {
-                        for ($j = 0; $j < sizeof($tempResult['megas'][$i]['keyword']); $j++) {
-                            //$photo_keywords = $photo_keywords . $tempResult['megas'][$i]['keyword'][$j]['keyword_name'] . ',';
-                            if ($j === 0) {
-                                $tempResult['megas'][$i]['photo'][0]['photo_keywords'] = $tempResult['megas'][$i]['photo'][0]['photo_keywords'] . $tempResult['megas'][$i]['keyword'][$j]['keyword_name'];
-                                //$photo_keywords = $tempResult['megas'][$i]['photo'][0]['photo_keywords'];
-                            } else {
-                                $tempResult['megas'][$i]['photo'][0]['photo_keywords'] = $tempResult['megas'][$i]['photo'][0]['photo_keywords'] . ',' . $tempResult['megas'][$i]['keyword'][$j]['keyword_name'];
-                                //$photo_keywords = $tempResult['megas'][$i]['photo'][0]['photo_keywords'];
-                            }
-                        }
-                        $photo_keywords = $tempResult;*/
-                    //}
-                    //$photo_keywords = $tempResult;
+                    $tempResult['megas'][$i]['owner_contact_email'] = $mega_profile["profile"][0]["owner_contact_email"];
+                    $tempResult['megas'][$i]['owner_contact_cc_emails'] = $mega_profile["profile"][0]["owner_contact_cc_emails"];
+                    $tempResult['megas'][$i]['owner_contact_bcc_emails'] = $mega_profile["profile"][0]["owner_contact_bcc_emails"];
                 }
             }
         }

@@ -38,14 +38,15 @@ class EmailsController extends Controller {
 
         $display_email = $request_arr['display_email'];
 
-        $email_destination = $request_arr['email_destination'];
-
         $sub_category = explode(",", $request_arr['project_sub_category_item']);
 
         $description = $this->linkCategory($sub_category);
 
         $objectUrl = $request_arr['object_url'];
-
+        $owner_title = $request_arr['owner_title'];
+        $email_destination = $request_arr['email_destination'];
+        $emai_ccdestination = $request_arr['emai_ccdestination'];
+        $emai_bccdestination = $request_arr['emai_bccdestination'];
         $userEnvironment = $request_arr['user_environment'];
         $domain = $this->getDomain();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
@@ -57,7 +58,7 @@ class EmailsController extends Controller {
             "Source" => $platformEmail,
             "Destination" => array(
                 "ToAddresses" => array(
-                     'enquiries@trendsideas.com'
+                    'enquiries@trendsideas.com'
                 )
             ),
             "Message" => array(
@@ -66,7 +67,7 @@ class EmailsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->getEmailForm1($request_arr['email_subject'], $request_arr['email_body'], $request_arr['display_name'], $email_destination, $request_arr['project_timeframe'], $request_arr['project_category'], $request_arr['project_budget'], $request_arr['project_experience'], $description, $objectUrl, $userEnvironment
+                        "Data" => $this->getEmailForm1($request_arr['email_subject'], $request_arr['email_body'], $request_arr['display_name'], $owner_title, $request_arr['project_timeframe'], $request_arr['project_category'], $request_arr['project_budget'], $request_arr['project_experience'], $description, $objectUrl, $userEnvironment
                         )
                     )
                 ),
@@ -77,7 +78,7 @@ class EmailsController extends Controller {
             "Source" => $platformEmail,
             "Destination" => array(
                 "ToAddresses" => array(
-                    $email_destination,  $display_email
+                    $email_destination, $display_email, $emai_ccdestination, $emai_bccdestination
                 )
             ),
             "Message" => array(
@@ -86,7 +87,7 @@ class EmailsController extends Controller {
                 ),
                 "Body" => array(
                     "Html" => array(
-                        "Data" => $this->getEmailForm2($request_arr['email_subject'], $request_arr['email_body'], $request_arr['display_name'], $email_destination, $request_arr['project_timeframe'], $request_arr['project_category'], $request_arr['project_budget'], $request_arr['project_experience']
+                        "Data" => $this->getEmailForm2($request_arr['email_subject'], $request_arr['email_body'], $request_arr['display_name'], $owner_title, $request_arr['project_timeframe'], $request_arr['project_category'], $request_arr['project_budget'], $request_arr['project_experience'], $objectUrl
                         )
                     )
                 ),
@@ -335,7 +336,7 @@ class EmailsController extends Controller {
                                         &nbsp;<br />
                                         <hr style="height: 1px; color: #0088CC; background: #0088CC; width: 90%; border: 0 none;" />
                                         &nbsp;<br />                                        
-                                            '.$userEnvironment.'
+                                            ' . $userEnvironment . '
                                     </td>
                                 </tr>
                                 <tr>
@@ -357,7 +358,7 @@ class EmailsController extends Controller {
 ';
     }
 
-       public function getEmailForm2($subject, $emailBody, $sendPersonName, $recieveProfile, $timeframe, $category, $budget, $experience) {
+    public function getEmailForm2($subject, $emailBody, $sendPersonName, $recieveProfile, $timeframe, $category, $budget, $experience, $objectUrl) {
         return '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -410,7 +411,14 @@ class EmailsController extends Controller {
                                                         ' . $subject . '
                                                     </td>
                                                 </tr>
-                                                
+                                                <tr>
+                                                    <td align="right" width="56">
+                                                        Link:&nbsp;
+                                                    </td>
+                                                    <td align="left" width="484">
+                                                        ' . $objectUrl . '
+                                                    </td>
+                                                </tr>
                                                 <tr>
                                                     <td colspan="2">
                                                         <br />
@@ -498,7 +506,7 @@ class EmailsController extends Controller {
 </html>
 ';
     }
-    
+
     public function forgetEmailForm($username, $password) {
         return '
          <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

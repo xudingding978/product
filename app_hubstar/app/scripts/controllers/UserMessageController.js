@@ -201,12 +201,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
             this.set("s", s);
             this.set('willDelete', true);
         }
-//        setTimeout(function() {
-//            $('#masonry_user_container').masonry("reloadItems");
-//            setTimeout(function() {
-//                $('#masonry_user_container').masonry();
-//            }, 100);
-//        }, 200);
     },
     cancelDelete: function() {
         this.set('willDelete', false);
@@ -246,12 +240,6 @@ HubStar.UserMessageController = Ember.Controller.extend({
         });
         $('#addcommetBut').attr('style', 'display:block');
         $('#commentBox').attr('style', 'display:none');
-        setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-            setTimeout(function() {
-                $('#masonry_user_container').masonry();
-            }, 100);
-        }, 200);
     }
     ,
     removePic: function() {

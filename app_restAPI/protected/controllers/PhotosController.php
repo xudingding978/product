@@ -183,8 +183,6 @@ class PhotosController extends Controller {
            
             //$oldRecord['photo'][0]['photo_keywords'] =  $newRecord['photo']['photo_keywords'];
 
-            //error_log(var_export($newRecord['photo']['photo_caption'], true));
-            //error_log(var_export($newRecord['photo']['photo_keywords'], true)); 
             
             //$keyword = $this->getProfileKeyword($owner_id);
             //$oldRecord['keyword'] = $keyword;
@@ -351,11 +349,8 @@ class PhotosController extends Controller {
         $photo_name = $mega['photo'][0]['photo_title'];
         $owner_id = $mega['owner_id'];
         $data_arr = $this->convertToString64($photo_string);
-        error_log(var_export($data_arr,true));
         $photo = imagecreatefromstring($data_arr['data']);
-        error_log($photo);
         $compressed_photo = $this->compressPhotoData($data_arr['type'], $photo);
-        error_log($compressed_photo);
         $orig_size['width'] = intval(imagesx($compressed_photo));
         $orig_size['height'] = intval(imagesy($compressed_photo));
         $thumbnailUrl = $this->savePhotoInTypes($orig_size, "thumbnail", $photo_name, $photo, $data_arr, $owner_id, "photo");

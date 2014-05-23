@@ -26,7 +26,6 @@ class PdfsController extends Controller {
         if (!isset($pdf_mega['pdf'])) {
             $pdf_mega['pdf'] = array();
         }
-        error_log(var_export($request_arr, true));
         $pdf_mega['pdf'][0] = $request_arr;
         $pdf_mega['object_title'] = $request_arr['pdf_title'];
         $pdf_mega['object_description'] = $request_arr['pdf_desc'];
@@ -41,7 +40,6 @@ class PdfsController extends Controller {
     }
     
     public function actionSaveToS3() {
-        error_log('actionsavetos3');
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $result['pdf_url'] = $this->savePdfToS3($request_arr);
@@ -50,7 +48,6 @@ class PdfsController extends Controller {
     }
 
     function pdf2png($request_arr) {
-        error_log("immagick");
         $PDF = $request_arr['pdf_url'];
         $pdf_resource = base64_decode(str_replace('data:application/pdf;base64,', '', $PDF));
         $pdf_profile_id = $request_arr['pdf_profile_id'];
@@ -58,7 +55,6 @@ class PdfsController extends Controller {
         $IM = new imagick();
         $IM->setResolution(120, 120);
         $IM->setCompressionQuality(100);
-//        error_log($pdf_resource);
         $IM->readImageBlob($pdf_resource);
         foreach ($IM as $Key => $Var) {
             $Var->setImageFormat('png');
@@ -96,8 +92,6 @@ class PdfsController extends Controller {
     }
 
     public function savePdfToS3($request_arr) {
-//        error_log('savetos3');
-//        error_log(var_export($request_arr, true));
         $pdf_resource = base64_decode(str_replace('data:application/pdf;base64,', '', $request_arr['pdf_url']));
         $pdf_profile_id = $request_arr['pdf_profile_id'];
         $pdf_title = $request_arr['pdf_title'] . '.pdf';
@@ -120,16 +114,13 @@ class PdfsController extends Controller {
     }
     
     public function actionTest() {
-        error_log('1111111111111111111111111111');
          $this->sendResponse(204);
     }
 
     public function actionRead() {
 //        try {
-            error_log('read!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 //            $cb = $this->couchBaseConnection();
 //            $fileName = $this->getDomain() . $_SERVER['REQUEST_URI'];
-//            error_log($fileName);
 //            $reponse = $cb->get($fileName);
 //            $request_arr = CJSON::decode($reponse, true);
 //            $respone_client_data = str_replace("\/", "/", CJSON::encode($request_arr["pdf"][0]));
@@ -148,10 +139,8 @@ class PdfsController extends Controller {
     }
 
     public function actionUpdate() {
-        error_log('update here');
         $request_json = file_get_contents('php://input');
         $newRecord = CJSON::decode($request_json, true);
-        error_log(var_export($newRecord, true));
         $id = $newRecord['pdf']['id'];
         try {
             $cb = $this->couchBaseConnection();

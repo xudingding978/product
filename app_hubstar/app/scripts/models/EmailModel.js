@@ -1,4 +1,5 @@
 HubStar.Email= DS.Model.extend({
+        ownerTitle: DS.attr('string'),
         displayName: DS.attr('string'),
         displayEmail: DS.attr('string'),
         recieveProfile: DS.attr('string'),

@@ -26,7 +26,7 @@
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
             {{/unless}}
-
+            {{#if HubStar.tagging_display}}
             {{#unless controller.megaResouce.getArticle}}
             {{#unless controller.megaResouce.getVideo}}
             {{#if controller.isBusinessProfile}}
@@ -52,6 +52,7 @@
             {{/if}}
             {{/unless}}
             {{/unless}}
+            {{/if}}
             <ul class="hideClass edit-object-ul" id="dropdown_id_1_{{unbound megaResouce.id}}" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
 
 
@@ -98,12 +99,13 @@
                 {{view HubStar.PhotoDisplayAreaView}}
 
                 <!--     show add new  tag template-->   
+                {{#if HubStar.tagging_display}}
                 {{#if  controller.enableTag}}      
                 {{#if controller.inImage}} <!--only when it within the image place can add the tag-->
                 {{ render showTag }}
                 {{/if}}
                 {{/if}}
-
+                {{/if}}
 
                 {{#if controller.megaResouce.getArticle}}
 

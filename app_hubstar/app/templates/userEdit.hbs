@@ -11,8 +11,10 @@
                 <li class="easing" ><a style="" href="#tab4" data-toggle="tab">SECURITY</a></li>
                 {{/unless}}
                 <li class="easing" ><a style="" href="#tab5" data-toggle="tab">NOTIFICATION</a></li>
+                {{#if HubStar.tagging_display}}
                 {{#if HubStar.profiles}}
                 <li class="easing" ><a style="" href="#tab6" data-toggle="tab">PROFILES</a></li>
+                {{/if}}
                 {{/if}}
             </ul>
         </div>
@@ -226,7 +228,7 @@
                                 </div>
                             </td>
                         </tr>
-                        
+
                         <tr>
                             <td>Instagram:</td>
                             <td>
@@ -329,15 +331,15 @@
                 </div>
 
             </div>
-
+            {{#if HubStar.tagging_display}}
             <div class="tab-pane" id="tab6">
                 <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">YOUR BUSINESS PROFILES</div>
-                
+
                 <div style="width: 100%;height: auto; max-height: 50px;padding: 10px 10px;line-height: 10px;margin-left: 15px;">
-            <i class="fa fa-bookmark" style="position: relative; font-size: 13px; color: red; display: inline-block; margin-right: 5px;">&nbsp;Administrator</i>
-            <i class="fa fa-bookmark" style="position: relative; font-size: 13px; color: blue;display: inline-block; margin-right: 5px;">&nbsp;Editor</i>
-            <i class="fa fa-bookmark" style="position: relative;  font-size: 13px; color: gold;display: inline-block">&nbsp;Creator</i>
-        </div>
+                    <i class="fa fa-bookmark" style="position: relative; font-size: 13px; color: red; display: inline-block; margin-right: 5px;">&nbsp;Administrator</i>
+                    <i class="fa fa-bookmark" style="position: relative; font-size: 13px; color: blue;display: inline-block; margin-right: 5px;">&nbsp;Editor</i>
+                    <i class="fa fa-bookmark" style="position: relative;  font-size: 13px; color: gold;display: inline-block">&nbsp;Creator</i>
+                </div>
 
                 <div id="user_profiles"> 
                     {{#each HubStar.profiles}}
@@ -389,6 +391,7 @@
                 </div>
 
             </div>
+            {{/if}}
         </div>
 
 

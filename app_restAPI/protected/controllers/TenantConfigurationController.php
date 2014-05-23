@@ -79,8 +79,10 @@ class TenantConfigurationController extends Controller {
 
 
             $domainWithoutAPI = $this->getDomainWihoutAPI();
-            $configuration = $this->getProviderConfigurationByName($domainWithoutAPI, "pdf_display");
-       
+            $configuration1 = $this->getProviderConfigurationByName($domainWithoutAPI, "pdf_display");
+            $configuration2 = $this->getProviderConfigurationByName($domainWithoutAPI, "tagging_display");
+            $configuration[0] = $configuration1;
+            $configuration[1] = $configuration2;
                $feedback = CJSON::encode($configuration);
      
         $this->sendResponse(200, $feedback);

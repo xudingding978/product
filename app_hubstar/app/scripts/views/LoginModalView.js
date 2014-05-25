@@ -33,7 +33,7 @@ HubStar.LoginModalView = Ember.View.extend({
             else {
                 localStorage.loginState = "register";
                 if (localStorage.userType === "register_email") {
-                    $('.Login-box #login-btn').text('Already had an acount? Click here to Log in!');
+                    $('.Login-box #login-btn').text('Already have an account? Click here to Log in!');
                     $('.Login-box .black-tool-tip').css('display', 'none');
                     $('.Login-box #click-register-social').css('display', 'block');
                     $('.Login-box #social-link').css('display', 'block');
@@ -264,7 +264,7 @@ HubStar.LoginModalView = Ember.View.extend({
         $("#cta-popup").css("display", "none");
         $("#profiles-main-container").css("display", "block");
         localStorage.loginState = "register";
-        $('.Login-box #login-btn').text('Already had an acount? Click here to Log in!');
+        $('.Login-box #login-btn').text('Already have an account? Click here to Log in!');
         $('.Login-box .black-tool-tip').css('display', 'none');
         $('.Login-box #click-register-social').css('display', 'block');
         $('.Login-box #social-link').css('display', 'block');
@@ -322,7 +322,7 @@ HubStar.LoginModalView = Ember.View.extend({
     loginPane: function() {
         if (localStorage.loginState === "login") {
 
-            $('.Login-box #login-btn').text('Already had an acount? Click here to Log in!');
+            $('.Login-box #login-btn').text('Already have an account? Click here to Log in!');
             $('.Login-box .black-tool-tip').css('display', 'none');
             $('.Login-box #click-register-social').css('display', 'block');
             $('.Login-box #social-link').css('display', 'block');

@@ -82,6 +82,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
     },
     previesImage: function() {
+        
         if (!this.get("isRead")) {
             if (!this.get('selectedPhoto')) {
                 this.set('selectedPhoto', this.get('content').get('lastObject'));
@@ -96,6 +97,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
             var collection_id = address.split("#")[1].split("/")[4];
             var profile = HubStar.Profile.find(owner_id);
             if (selectedIndex < 0) {
+                 
+                this.get("controllers.checkingLoginStatus").popupLogin();
                 selectedIndex = this.get('content').get('length') - 1;
                 this.set('image_no', this.get('content').get('length'));
             }
@@ -131,9 +134,15 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
             }
             this.selectedImage(this.get('selectedPhoto').id);
-        }
+        }  
+        
+         if (HubStar.get('ctaView') === true) {
+                this.get("controllers.checkingLoginStatus").popupLogin();
+                HubStar.set('ctaView', false);
+            }
     },
     nextImage: function() {
+        
         if (!this.get("isRead")) {
             if (!this.get('selectedPhoto')) {
                 this.set('selectedPhoto', this.get('content').get('firstObject'));
@@ -147,6 +156,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
             var selectedIndex = this.findSelectedItemIndex();
             selectedIndex++;
             if (selectedIndex >= (this.get('content').get('length'))) {
+               if(selectedIndex > 3){
+                this.get("controllers.checkingLoginStatus").popupLogin();   
+            }     
                 this.set('image_no', 1);
                 selectedIndex = 0;
             }
@@ -184,6 +196,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
             this.selectedImage(this.get('selectedPhoto').id);
         }
+        
+         if (HubStar.get('ctaView') === true) {
+                this.get("controllers.checkingLoginStatus").popupLogin();
+                HubStar.set('ctaView', false);
+            }
+
+
     },
     getInitData: function(megaObject) {
 
@@ -264,10 +283,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
             requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function() {
             });
         });
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-
-        }
+       
     },
     addRelatedData: function(mega)
     {
@@ -359,6 +375,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
         else if (this.get("clickOrRoute") === true) // it  assesses the collection photo from route
         {
+            
             photoContent = [];
             var address = document.URL;
             var owner_id = address.split("#")[1].split("/")[2];
@@ -707,6 +724,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         {
                             var m = HubStar.Mega.find(search_id);
                             this.transitionTo("search", {id: m.get("owner_title")});
+                             
                         }
                         else
                         {
@@ -756,9 +774,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
         } else {
              this.transitionTo("searchIndexTom");
         }
+         HubStar.set('ctaView', true);
     },
     editingContactForm: function() {
-
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
             var contactController = this.get('controllers.contact');
@@ -767,10 +785,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
             this.get("controllers.contact").set('firstStepOfContactEmail', false);
             contactController.setSelectedMega(selectid);
             contactController.selectionCheckBox();
-
             this.set('contact', !this.get('contact'));
         }
-
     }
     ,
     closeContact: function() {

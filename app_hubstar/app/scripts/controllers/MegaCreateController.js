@@ -6,7 +6,6 @@
 HubStar.MegaCreateController = Ember.ArrayController.extend({
     createNewMega: function(ProfileMega, testID, collectionId, type)
     {
-        
         var mega = HubStar.Mega.createRecord({
             "id": testID,
             "accessed": ProfileMega.get("accessed"),

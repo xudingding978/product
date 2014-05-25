@@ -9,13 +9,11 @@ HubStar.Router.map(function() {
         this.resource("indexIndex", {path: '/'});
         this.resource("verifyId", {path: '/verify/:verify_id'});
 
-//        this.resource("videoes", function() {
-//            this.resource("video", {path: ':video_id'});
-//        });
         this.resource("article", {path: '/articles/:article_id'}, function() {
             this.resource("searchsArticlePhoto", {path: '/photos/:photo_id'});
         });
         this.resource("video", {path: '/videos/:video_id'});
+        this.resource("pdf", {path: '/pdf/:video_id'});
         this.resource("photo", {path: '/photos/:photo_id'});
 
 
@@ -37,7 +35,12 @@ HubStar.Router.map(function() {
                     });
                 });
             });
+            this.resource("profilePdf", {path: '/pdf'}, function() {
+                this.resource('pdfUploader', {path: '/upload'});
+            });
+
             // business profile partners start
+
             this.resource("partners", {path: '/network'});
             this.resource("reviews", {path: '/reviews'}, function() {
                 this.resource("review", {path: ':review_id'}, function() {

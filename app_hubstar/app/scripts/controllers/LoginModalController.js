@@ -214,14 +214,6 @@ HubStar.LoginModalController = Ember.Controller.extend({
         });
 
     },
-    backRegister: function() {
-        $('#register-with-email-step-3').css('display', 'none');
-        $('#register-with-email-step-2').css('display', 'block');
-        $('#click-register-social').css('display', 'block');
-        $('#click-register').css('display', 'block');
-        $('.learnmore-btn').css('display', 'block');
-        $('#login-btn').css('display', 'block');
-    },
         encrypt: function(encryptString) {
         var tempstr = '';
         for (var a = 0; a < encryptString.length; a++) {

@@ -56,7 +56,8 @@ return CMap::mergeArray(
                 'application.components.HttpRequest',
                 'application.vendor.autoload',
                 'application.controllers.*',
-                'application.components.*'
+                'application.components.*',
+                'application.components.fpdf17.*',
             ),
             // application components
             'components' => array(

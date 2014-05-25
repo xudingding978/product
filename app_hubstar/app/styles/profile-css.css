@@ -331,6 +331,25 @@ input{
     -o-border-radius:50%;
 }
 
+.changePDFpic{
+    cursor: pointer;
+    opacity: 0;
+    background-color: #000;
+    position: absolute;
+    width: 180px;
+    height: 240px;
+
+}
+.changePDFpic:hover{
+    opacity: 0.6;
+    overflow:hidden;
+}
+
+
+
+
+
+
 .user-profilepic-container:hover .changeuserprofilepic{
     opacity: 0.6;
 }
@@ -1573,6 +1592,7 @@ textarea.add-interests{
 }
 
 
+
 /*-------------------------Group Part -------------------------------------------*/
 .group-profile-title-image{
     position: relative;
@@ -1651,4 +1671,3 @@ textarea.add-interests{
    width: 100px;
    float: right;
 }
-

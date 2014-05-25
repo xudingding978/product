@@ -305,10 +305,12 @@ class CommentsController extends Controller {
             }
             $comments[$i] = $commentItem;
             
+        }      
+        $mega['comments'] = $comments;   
+        if ($cb->set($url, CJSON::encode($mega))) {
+        } else {
+            $this->sendResponse(500, "some thing wrong");
         }
-       
-        $mega['comments'] = $comments;
-      
     }
 
     public function actionRead() {

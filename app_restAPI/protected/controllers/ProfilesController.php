@@ -125,6 +125,9 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['owner_contact_bcc_emails'] = $newRecord['owner_contact_bcc_emails'];
             $oldRecord['profile'][0]['owner_contact_cc_emails'] = $newRecord['owner_contact_cc_emails'];
             $oldRecord['profile'][0]['owner_contact_email'] = $newRecord['owner_contact_email'];
+            $oldRecord['owner_contact_bcc_emails'] = $oldRecord['profile'][0]['owner_contact_bcc_emails'];
+            $oldRecord['owner_contact_cc_emails'] = $oldRecord['profile'][0]['owner_contact_cc_emails'];
+            $oldRecord['owner_contact_email'] = $oldRecord['profile'][0]['owner_contact_email'];
             $oldRecord['profile'][0]['profile_about_us'] = $newRecord['profile_about_us'];
             $oldRecord['profile'][0]['profile_areas_serviced'] = $newRecord['profile_areas_serviced'];
             $oldRecord['profile'][0]['profile_boost'] = $newRecord['profile_boost'];
@@ -192,6 +195,7 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['show_template'] = $newRecord['show_template'];
 
             $oldRecord['profile'][0]['show_keyword_id'] = $newRecord['show_keyword_id'];
+//            $oldRecord['profile'][0]['pdf_id'] = $newRecord['pdf_id'];
             $cb->set($this->getDomain() . $_SERVER['REQUEST_URI'], CJSON::encode($oldRecord, true));
 //            if ($setProfileName) {
 ////                ERunActions::touchUrlExt('http://api.develop.trendsideas.com/profiles/backgroundProcess',$postData=null,$contentType=null,$httpClientConfig=array());

@@ -59,7 +59,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     show_keyword_array: [],
     dragTargetIndex: -1,
     last_name: "",
-    needs: ["editEditors", "profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review', 'keywords', 'profileVideos', 'checkingLoginStatus'],
+    needs: ["editEditors", "profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review', 'keywords', 'profileVideos', 'checkingLoginStatus', 'profilePdf'],
     name: "",
     facebook: "",
     twitter: "",
@@ -81,6 +81,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     partnerTag: false,
     reviewTag: false,
     videoTag: false,
+    pdfTag: false,
     partnerPage: true,
     profile_average_review: '',
     profileSelectionStatus: "Collections",
@@ -340,10 +341,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 this.get('model').set('show_template', false);
             }
         }
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
 
-        }
     },
     setAboutUsObject: function() {
         if (this.get('model').get('about_us') !== null && this.get('model').get('about_us') !== 'undefined' && this.get('model').get('about_us').get('length') > 0) {
@@ -1050,6 +1048,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('collectionTag', true);
         this.set('reviewTag', false);
         this.set('videoTag', false);
+        this.set('pdfTag', false);
         this.transitionToRoute('profileCollections');
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
@@ -1068,6 +1067,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('profileSelectionStatus', 'Videos');
             this.get('controllers.profileVideos').getClientId(model);
             this.set('videoTag', true);
+            this.set('pdfTag', false);
             this.set('partnerTag', false);
             this.set('collectionTag', false);
             this.set('reviewTag', false);
@@ -1089,6 +1089,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('reviewTag', false);
             this.get('controllers.itemProfiles').setPartnerRemove();
             this.set('videoTag', false);
+            this.set('pdfTag', false);
             this.transitionToRoute('partners');
 
             setTimeout(function() {
@@ -1111,6 +1112,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('followerProfileTag', true);
             this.set('reviewTag', false);
             this.set('videoTag', false);
+            this.set('pdfTag', false);
             this.transitionToRoute('profileFollowers');
         }
     },
@@ -1124,7 +1126,25 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('followerProfileTag', false);
             this.set('reviewTag', true);
             this.set('videoTag', false);
+            this.set('pdfTag', false);
             this.transitionToRoute('reviews');
+        }
+    },
+    selectPdf: function(model) {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            this.sendEventTracking('event', 'button', 'click', 'PDF');
+            this.set('profileSelectionStatus', 'Pdf');
+            this.get('controllers.profilePdf').getClientId(model);
+            this.set('videoTag', false);
+            this.set('pdfTag', true);
+            this.set('partnerTag', false);
+            this.set('collectionTag', false);
+            this.set('reviewTag', false);
+            this.set('followerProfileTag', false);
+            this.transitionToRoute('profilePdf');
+
+
         }
     },
     saveUpdateAboutUs: function() {
@@ -1217,14 +1237,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
 
     },
-//    saveShowKeywords: function() {
-//        var show_keyword_id = '';
-//        for (var i = 0; i < this.get('show_keyword_array').get('length'); i++) {
-//            show_keyword_id = show_keyword_id+','+ this.get('keywords_array').objectAt(i).get('keyword_id');
-//        }
-//        this.set('show_keyword_id',show_keyword_id);
-//        this.saveUpdate();
-//    },
     addKeywords: function() {
         var keywords_JSON = [];
         var add_keywords_array = this.get('add_keywords').split(',');
@@ -1423,7 +1435,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             'mode': that.get('UploadImageMode').replace(" ", "_").toLowerCase(),
                             'id': that.get('model.id')};
 
-
                         requiredBackEnd('profiles', 'updateStyleImage', data1, 'POST', function() {
                             that.set('isPhotoEditingMode', false);
                             that.set('isPhotoUploadMode', false);
@@ -1435,8 +1446,6 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                         });
 
                     }
-
-
                     else if (width < params.width || height < params.height) {
                         that.set('loadingTime', false);
                         that.get('controllers.applicationFeedback').statusObserver(null, "Please upload image size larger than  " + params.width + "x" + params.height);
@@ -1584,140 +1593,151 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     },
     // share to social facebook
     fbShare: function() {
-        var that = this;
-        var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
-        var caption = '';
-
-        if (this.get('profile_cover_text') !== null)
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-            caption = this.get('profile_cover_text');
+            var that = this;
+            var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
+            var caption = '';
 
-        }
-        else
-        {
-            caption = '';
-        }
+            if (this.get('profile_cover_text') !== null)
+            {
+                caption = this.get('profile_cover_text');
 
-        var obj = {
-            method: 'feed',
-            link: currntUrl,
-            picture: this.get('profile_pic_url'),
-            name: this.get('profile_name'),
-            caption: 'Trends Ideas',
-            description: caption
-        };
-
-        function callback(response) {
-            if (response && response.post_id) {
-                var mega = HubStar.Mega.find(that.get('currentUserID'));
-                mega.then(function() {
-                    if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-                    {
-                        mega.set("share_count", 0);
-                    }
-                    else
-                    {
-                        mega.set("share_count", mega.get("share_count") + 1);
-                    }
-                    mega.store.save();
-                });
-                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
-            } else {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
             }
+            else
+            {
+                caption = '';
+            }
+
+            var obj = {
+                method: 'feed',
+                link: currntUrl,
+                picture: this.get('profile_pic_url'),
+                name: this.get('profile_name'),
+                caption: 'Trends Ideas',
+                description: caption
+            };
+
+            function callback(response) {
+                if (response && response.post_id) {
+                    var mega = HubStar.Mega.find(that.get('currentUserID'));
+                    mega.then(function() {
+                        if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                        {
+                            mega.set("share_count", 0);
+                        }
+                        else
+                        {
+                            mega.set("share_count", mega.get("share_count") + 1);
+                        }
+                        mega.store.save();
+                    });
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
+                } else {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
+                }
+            }
+
+            FB.ui(obj, callback);
+
+            return false;
         }
-
-        FB.ui(obj, callback);
-
-        return false;
     },
     //share to social google plus
     gpShare: function() {
-        var caption = '';
-        if (this.get('profile_cover_text') !== null)
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-            caption = this.get('profile_cover_text');
-
-        }
-        else
-        {
-            caption = '';
-        }
-
-        $("meta[property='og\\:title']").attr("content", this.get('profile_name'));
-        $("meta[property='og\\:description']").attr("content", caption);
-        $("meta[property='og\\:image']").attr("content", this.get('profile_pic_url'));
-
-
-        var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
-        var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
-        var mega = HubStar.Mega.find(this.get('currentUserID'));
-        mega.then(function() {
-            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+            var caption = '';
+            if (this.get('profile_cover_text') !== null)
             {
-                mega.set("share_count", 0);
+                caption = this.get('profile_cover_text');
+
             }
             else
             {
-                mega.set("share_count", mega.get("share_count") + 1);
+                caption = '';
             }
-            mega.store.save();
-        });
-        window.open(
-                url,
-                'popupwindow',
-                'scrollbars=yes,width=800,height=400'
-                ).focus();
 
-        return false;
+            $("meta[property='og\\:title']").attr("content", this.get('profile_name'));
+            $("meta[property='og\\:description']").attr("content", caption);
+            $("meta[property='og\\:image']").attr("content", this.get('profile_pic_url'));
+
+
+            var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
+            var url = 'https://plus.google.com/share?url=' + encodeURIComponent(currntUrl);
+            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+            window.open(
+                    url,
+                    'popupwindow',
+                    'scrollbars=yes,width=800,height=400'
+                    ).focus();
+
+            return false;
+        }
     },
     //share to social twitter
     tShare: function() {
-        var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
-        var url = 'https://twitter.com/share?text=' + this.get('profile_name') + '&url=' + encodeURIComponent(currntUrl);
-        var mega = HubStar.Mega.find(this.get('currentUserID'));
-        mega.then(function() {
-            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-            {
-                mega.set("share_count", 0);
-            }
-            else
-            {
-                mega.set("share_count", mega.get("share_count") + 1);
-            }
-            mega.store.save();
-        });
-        window.open(
-                url,
-                'popupwindow',
-                'height=436,width=626'
-                ).focus();
-        return false;
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
+            var url = 'https://twitter.com/share?text=' + this.get('profile_name') + '&url=' + encodeURIComponent(currntUrl);
+            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+            window.open(
+                    url,
+                    'popupwindow',
+                    'height=436,width=626'
+                    ).focus();
+            return false;
+        }
     },
     pShare: function() {
-
-        var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
-        var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
-                '&media=' + encodeURIComponent(this.get('profile_pic_url')) +
-                '&description=' + encodeURIComponent(this.get('profile_name'));
-        var mega = HubStar.Mega.find(this.get('currentUserID'));
-        mega.then(function() {
-            if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-            {
-                mega.set("share_count", 0);
-            }
-            else
-            {
-                mega.set("share_count", mega.get("share_count") + 1);
-            }
-            mega.store.save();
-        });
-        window.open(
-                url,
-                'popupwindow',
-                'height=436,width=626'
-                ).focus();
-        return false;
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            var currntUrl = 'http://' + document.domain + '/#/profiles/' + this.get('currentUserID');
+            var url = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(currntUrl) +
+                    '&media=' + encodeURIComponent(this.get('profile_pic_url')) +
+                    '&description=' + encodeURIComponent(this.get('profile_name'));
+            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+            window.open(
+                    url,
+                    'popupwindow',
+                    'height=436,width=626'
+                    ).focus();
+            return false;
+        }
     },
     keywordSearch: function(keyword) {
         this.transitionToRoute('searchIndexTom');

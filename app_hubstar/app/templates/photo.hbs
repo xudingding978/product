@@ -122,6 +122,7 @@
 
                 <!--     show   tag's detail content  template-->   
                 <!--              only when is not in the edit tag state and mouse over the tag can show the detail content-->
+                {{#if HubStar.tagging_display}}
                 {{#unless controller.enableTag}}
                 {{#if controller.showEachTagContent }}
                 {{  view HubStar.TagContentView }}
@@ -135,6 +136,7 @@
                 {{/if}}
                 {{#if controller.makeSureActivateTag}}
                 {{view HubStar.ActivateTagFunctionView}}
+                {{/if}}
                 {{/if}}
             </div>
         </div>

@@ -61,30 +61,31 @@ class TenantConfigurationController extends Controller {
         $request_json = file_get_contents('php://input');
         $request = CJSON::decode($request_json, true);
         $feedback = null;
-            $domain = $this->getDomain();
-            $configuration = $this->getProviderConfigurationByName($domain, "ads");
+        $domain = $this->getDomain();
+        $configuration = $this->getProviderConfigurationByName($domain, "ads");
         if (isset($request['adPageNo'])) {
-            $adPageNo = $request['adPageNo'];       
+            $adPageNo = $request['adPageNo'];
             if ($adPageNo < sizeof($configuration)) {
                 $feedback = CJSON::encode($configuration[$adPageNo]);
             }
-        }
-        else{
-               $feedback = CJSON::encode($configuration);
+        } else {
+            $feedback = CJSON::encode($configuration);
         }
         $this->sendResponse(200, $feedback);
     }
-    
+
     public function actionPdfDisplay() {
 
 
-            $domainWithoutAPI = $this->getDomainWihoutAPI();
-            $configuration1 = $this->getProviderConfigurationByName($domainWithoutAPI, "pdf_display");
-            $configuration2 = $this->getProviderConfigurationByName($domainWithoutAPI, "tagging_display");
-            $configuration[0] = $configuration1;
-            $configuration[1] = $configuration2;
-               $feedback = CJSON::encode($configuration);
-     
+        $domainWithoutAPI = $this->getDomainWihoutAPI();
+        $configuration1 = $this->getProviderConfigurationByName($domainWithoutAPI, "pdf_display");
+        $configuration2 = $this->getProviderConfigurationByName($domainWithoutAPI, "tagging_display");
+        $configuration3 = $this->getProviderConfigurationByName($domainWithoutAPI, "profile_manager");
+        $configuration[0] = $configuration1;
+        $configuration[1] = $configuration2;
+        $configuration[2] = $configuration3;
+        $feedback = CJSON::encode($configuration);
+
         $this->sendResponse(200, $feedback);
     }
 

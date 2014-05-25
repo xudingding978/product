@@ -22,7 +22,7 @@
         </a></li>
     {{#if controller.is_trends_user}}
     <li class="ite" >
-        {{#if HubStar.tagging_display}}
+        {{#if HubStar.profile_manager}}
         <a tabindex="-1"  href="" {{action userDisplaynone "new" on="click"  target="view"}}>
            {{else}}
            <a tabindex="-1"  href="#/profiles/new">
@@ -37,7 +37,7 @@
         {{render newProfileDisplay HubStar.profiles}} 
     </div>
     {{/if}}
-    {{#if HubStar.tagging_display}}
+    {{#if HubStar.profile_manager}}
     {{render newProfileTopDisplay HubStar.profiles}}
     {{/if}}
     {{/if}}

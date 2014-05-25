@@ -112,7 +112,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         
         requiredBackEnd('tenantConfiguration', 'pdfDisplay', null, 'POST', function(params) {
             HubStar.set('pdf_display', params[0]);
-            HubStar.set('tagging_display', params[1]);
+            HubStar.set('tagging_display', params[1]&&params[2]);
+            HubStar.set('profile_manager', params[2]);
         });
         
         HubStar.set("escVideo", false);

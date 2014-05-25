@@ -1,0 +1,232 @@
+
+/*-------------------------Group Part -------------------------------------------*/
+.group-profilewrapper{
+    z-index: 2;
+    position: relative;
+    width: 50%;
+    margin: auto;
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 0px 13px;
+    border-radius: 3px;
+    padding: 5px;
+    top: 200px; 
+    margin-bottom: 200px;
+}
+
+.group-profile-title-top{
+    position: relative;
+    height: 210px;
+    margin: auto;
+}
+
+
+.group-step-button{
+    display: inline-block;
+    width: 20%;
+    float: right;
+    height: 210px;
+    line-height: 200px;
+    font-size: 30px;
+    background-color: #ccc;
+    text-align:center;
+    color: #fff;
+    font-weight:bold;
+
+}
+
+
+.group-package{
+    cursor: pointer;
+    padding: 50px;
+    background-color: gainsboro;
+    margin: 30px;
+    position: relative;
+    text-align: center;
+    font-weight: bold;
+    float: left;
+    width: 360px;
+    font-size: 40px;
+    color: #000;
+}
+
+.group-step{
+    height: auto;
+}
+
+.group-step-title{
+    padding: 10px;
+    font-weight: bold;
+    background-color: rgb(241, 238, 238);
+    font-size: 20px;
+    height: 210px;
+    width: 80%;
+    float: left;
+    display: inline-block;
+}
+
+.group-content{
+    height:70%;
+
+}
+
+.group-button{
+    display: inline-block;
+    font-weight: bold;
+    font-size: 30px;
+    color: #000;
+    text-align: center;
+    padding: 20px 45px;
+    position: relative;
+    top: 20px;
+    left: 15%;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+}
+.group-button-active{
+    background-color: #fff;
+
+}
+
+.subcategory-box{
+    height: auto;
+    overflow: auto;
+    padding: 10px;
+}
+
+.subcategory-word{
+    font-weight: bold;
+    font-size: 15px;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 2px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    width: auto;
+    float: left;
+}
+
+.subcategory-word-selected{
+    font-weight: bold;
+    font-size: 15px;
+    color: #000;
+    text-align: center;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 2px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    width: auto;
+    float: left;
+    background-color: white;
+}
+
+.select-group{
+    width: 100px;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin: 12px;
+}
+
+.group-title{
+    width:60%;
+    cursor: pointer;
+    line-height: 170px;
+    text-align: center;
+}
+
+
+.group-topic-name{
+    color:#fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.group-number{
+    z-index: 10;
+    right: 0;
+    color:#fff;
+    background: red;
+    position:absolute;
+    padding: 0 6px;
+    font-weight: bold;
+}
+
+.group-image{
+    position: relative;
+    overflow: hidden;
+    top: -5px;
+    float: left;
+
+}
+
+
+.group-images{
+    margin: 5px;
+}
+
+.group-image-container{
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.group-textarea{
+    
+    margin: 20px;
+    height: 150px;
+    padding: 10px;
+    color:#fff;
+    font-weight:bold;
+    font-size:15px;
+    
+}
+.textarea-style{
+    background-color: rgba(255,255,255,.8);
+    resize: none;
+    overflow:auto;
+}
+
+.group-text{
+     color:#fff;
+    font-weight:bold;
+    font-size:20px;
+    float:left;
+    width:20%;
+        
+}
+
+.group-part{
+    margin: 20px;
+    height: 50px;
+    padding: 10px;
+}
+.selected{
+    background-color: #fff;
+    color:#000;
+}
+
+.content-group-right{
+    position:relative;
+    bottom:10px;
+    margin-left: 20px;
+}
+
+.edit-group-left{
+    display: inline-block;
+    float:left;
+    
+}
+
+.edit-group-right{
+    display: inline-block;
+    margin-left: 20px;
+    position: relative;
+    top: 4px;
+}
+

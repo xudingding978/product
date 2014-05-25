@@ -72,19 +72,8 @@
             <div  class="group-step-button" style="float:left" {{action groupStep "2"}} >BACK</div>
 
             <div class="group-step-title" style=" width:60%; cursor: pointer;">
-                {{#if controller.editingGroupTitle}}
-                <div>
-                    <div class="edit-group-left" >
-                        {{input type="text" class="insert-profile-name" value=groupTitle}}
-                    </div>
-                    <div class="edit-group-right" >
-                        <div class="new-btn blue-btn"{{action yes controller.groupTitle}}><i class="fa fa-check fa fa-white"></i></div>
-                        <div class="new-btn"{{action no controller.groupTitle}}><i class="fa fa-times fa fa-white"></i></div>
-                    </div>
-                </div>
-                {{else}}
-                <div class="group-title" {{action changeTitle controller.groupTitle}}>Project Title</div>
-                {{/if}}
+                <div class="group-textarea">
+                    {{view Ember.TextField valueBinding="about-project" class="textarea-style" placeholder="Profile Title" }}</div>
             </div>
 
             <div  class="group-step-button" {{action save}} >DONE</div>
@@ -94,10 +83,13 @@
 
 
         <div class="group-content easing" >
-            <div class="group-textarea">{{view Ember.TextArea valueBinding="about-project"   class="textarea-style" placeholder="About this project, I would like to......" style=""}}</div>
+            <div class="group-textarea">{{view Ember.TextArea valueBinding="about-project"   class="textarea-style" placeholder="About this project, I would like to......" }}</div>
             <div class="group-part">
                 <div class="group-text">Budget:</div>
-                <div class="content-group-right"></div>
+                <div class="content-group-right">
+                    
+                  <b>€ 10</b> <input id="ex2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5" data-slider-value="[250,450]"/> <b>€ 1000</b>
+                </div>
             </div>
             <div class="group-part">
                 <div class="group-text">Time Frame:</div>
@@ -115,3 +107,5 @@
     </div>
     {{/if}}
 </div>
+
+

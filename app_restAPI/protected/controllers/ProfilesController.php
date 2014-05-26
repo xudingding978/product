@@ -125,6 +125,9 @@ class ProfilesController extends Controller {
             $oldRecord['profile'][0]['owner_contact_bcc_emails'] = $newRecord['owner_contact_bcc_emails'];
             $oldRecord['profile'][0]['owner_contact_cc_emails'] = $newRecord['owner_contact_cc_emails'];
             $oldRecord['profile'][0]['owner_contact_email'] = $newRecord['owner_contact_email'];
+            $oldRecord['owner_contact_bcc_emails'] = $oldRecord['profile'][0]['owner_contact_bcc_emails'];
+            $oldRecord['owner_contact_cc_emails'] = $oldRecord['profile'][0]['owner_contact_cc_emails'];
+            $oldRecord['owner_contact_email'] = $oldRecord['profile'][0]['owner_contact_email'];
             $oldRecord['profile'][0]['profile_about_us'] = $newRecord['profile_about_us'];
             $oldRecord['profile'][0]['profile_areas_serviced'] = $newRecord['profile_areas_serviced'];
             $oldRecord['profile'][0]['profile_boost'] = $newRecord['profile_boost'];

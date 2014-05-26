@@ -278,18 +278,18 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         this.set(variable + 'Source', src);
         this.set(variable + 'Name', name);
 
-        this.savePic(variable + 'Source', variable + 'Name');
+        this.savePic(variable + 'Source', variable + 'Name',variable );
     },
-    savePic: function(src, name) {
+    savePic: function(src, name ,variable) {
         if (this.get(src) !== null && this.get(name) !== null)
         {
             var imageType = "";
             var imageName = this.get(name).split('.');
             imageType = imageName[imageName.length - 1];
-            var data = [this.get(src), this.get(name),imageType];
+            var data = [this.get(src), this.get(name),imageType,variable];
             data = JSON.stringify(data);
             requiredBackEnd('photos', 'savePicGroup', data, 'POST', function(params) {
-
+                console.log(params);
             });
         }
     }

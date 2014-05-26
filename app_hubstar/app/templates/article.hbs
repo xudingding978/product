@@ -19,7 +19,8 @@
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;width: 60px;margin: 0 5px;" {{action dropdownPhotoSetting "1"}}>
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
- {{/unless}}
+            {{/unless}}
+            {{#if HubStar.tagging_display}}
             {{#if controller.isBusinessProfile}}
             {{#if controller.enableTag}}
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="end tagging this photo" style="position:relative;margin: 0 10px;width: 60px;" {{action endTag}}>
@@ -39,6 +40,7 @@
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="show tag this photo" style="position:relative;margin: 0 5px;width: 60px;" {{action showTags}}>
                  <i class="fa fa-tag"></i><span class="pretooltip">ShowTag</span> 
             </div>
+            {{/if}}
             {{/if}}
             <ul class="hideClass edit-object-ul" id="dropdown_id_1" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
 
@@ -82,6 +84,7 @@
             <div id ="tag_article_image">
                 {{view HubStar.PhotoDisplayAreaView}}
                 <!--     show add new  tag template-->   
+                {{#if HubStar.tagging_display}}
                 {{#if  controller.enableTag}}      
                 {{#if controller.inImage}} <!--only when it within the image place can add the tag-->
                 {{  render showTag }}
@@ -102,6 +105,7 @@
                 {{/if}}
                 {{#if controller.makeSureActivateTag}}
                 {{view HubStar.ActivateTagFunctionView}}
+                {{/if}}
                 {{/if}}
             </div>
 
@@ -179,7 +183,7 @@
         <div class="collapes-container"  style="display:block;border-top: 1px solid #f3f3f3;">
             <div class="collapes-container_inner" style="padding: 0; height: 45px;">
                 {{megaResouce.photo_isLike}}
-                
+
                 {{#if megaResouce.isLike}}
                 <div  class="square-button hint--rounded hint--bottom"  data-hint="unLike this Idea!" {{action unLike}}>
                       <i class="fa fa-thumbs-up">&nbsp;<span style="font-size: 11px;">{{controller.article.likes_count}}</span>&nbsp;</i>

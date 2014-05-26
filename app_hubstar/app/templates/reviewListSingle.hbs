@@ -31,9 +31,17 @@
 
 
             <div style="position: relative; display: block;margin: 15px 0 10px;height: 20px;width: 100%;">
-                <div id="review_like_{{unbound model.review_id}}"  style="float: right; font-size: 13px;" class="new-btn" {{action addLike}}>
+                {{model.review_isLike}}              
+                {{#if model.isLike}}
+                <div id="review_like_{{unbound model.review_id}}"  style="float: right; font-size: 13px;" class="new-btn" data-hint="unLike!" {{action unLike}}>
+                     <i class="fa fa-thumbs-up" {{action unLike model}}>&nbsp</i>
+                    {{model.review_like_count}}</div>
+                {{else}}
+                <div id="review_like_{{unbound model.review_id}}"  style="float: right; font-size: 13px;" class="new-btn" data-hint="Like!" {{action addLike}}>
                      <i class="fa fa-thumbs-up" {{action addLike model}}>&nbsp</i>
                     {{model.review_like_count}}</div>
+                {{/if}}
+                
                 <div id="review_share_{{unbound model.review_id}}"  style="float: right; font-size: 13px;margin-right: 5px;" class="new-btn" {{action dropdownPhotoSetting model.review_id}}>
                      <i class="fa fa-share" >&nbsp</i></div>          
                 <ul class="hideClass edit-object-ul" id="dropdown_id_{{unbound model.review_id}}" style="width: 150px;  padding: 0;right: 0px;left: 278px;position:absolute;top: 25px;">

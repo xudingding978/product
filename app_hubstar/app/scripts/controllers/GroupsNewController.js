@@ -14,6 +14,10 @@ HubStar.GroupsNewController = Ember.Controller.extend({
     Category: "",
     groupName: '',
     aboutProject: '',
+    logoSource:null,
+    logoName:null,
+    bgSource:null,
+    bgName:null,
     topic: [],
     needs: ['profile', 'applicationFeedback', 'application'],
     init: function()
@@ -242,6 +246,17 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                 }
             });
         }
+    }, 
+    removePic: function(s){
+        this.set(s+'Source', null);
+        this.set(s+'Name', null);
+    },
+    profileStyleImageDrop: function(e, name,variable ) {
+        this.set("isUploadPhoto", true);
+        var target = getTarget(e, "single");
+        var src = target.result;
+        this.set(variable+'Source', src);
+        this.set(variable+'Name', name);
     }
 });
 

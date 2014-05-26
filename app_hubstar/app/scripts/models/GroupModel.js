@@ -4,6 +4,7 @@ DS.RESTAdapter.map('HubStar.Group', {
     keywords: {embedded: 'load'}
 });
 HubStar.Group = DS.Model.extend({
+    id:DS.attr('string'),
     group_step: DS.attr('string'),
     group_budget: DS.attr('string'),
     group_expertise: DS.attr('string'),
@@ -23,10 +24,7 @@ HubStar.Group = DS.Model.extend({
     group_editor: DS.attr('string'), //user id
     group_description: DS.attr('string'), 
     collections: DS.hasMany('HubStar.Collection'),
-    keywords: DS.hasMany('HubStar.Keyword'),   
-    getID: function() {
-        return this.get('id').replace(/[^\w\s]/gi, '');
-    }.property('id')
+    keywords: DS.hasMany('HubStar.Keyword')   
 });
 
 

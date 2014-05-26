@@ -1,9 +1,7 @@
 HubStar.GroupsNewController = Ember.Controller.extend({
-    groupStepOne: true,
+    groupStepOne: false,
     groupStepTwo: false,
-    editingGroupTitle: false,
-    groupStepThree: false,
-    groupStepFour: false,
+    groupStepThree: true,
     categorys: null,
     subcate: null,
     selected_cate: [],
@@ -14,10 +12,10 @@ HubStar.GroupsNewController = Ember.Controller.extend({
     Category: "",
     groupName: '',
     aboutProject: '',
-    logoSource:null,
-    logoName:null,
-    bgSource:null,
-    bgName:null,
+    logoSource: null,
+    logoName: null,
+    bgSource: null,
+    bgName: null,
     topic: [],
     needs: ['profile', 'applicationFeedback', 'application'],
     init: function()
@@ -61,21 +59,22 @@ HubStar.GroupsNewController = Ember.Controller.extend({
             if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
                 this.set("groupStepOne", false);
                 this.set("groupStepTwo", true);
+                this.set("groupStepThree", false);
 
                 setTimeout(function() {
                     $("#budget").slider();
                     $("#timeframe").slider();
-                    $("#budget").on('slide', function(slideEvt){                    
+                    $("#budget").on('slide', function(slideEvt) {
                         var valueleft = slideEvt.value[0];
                         var valueright = slideEvt.value[1];
                         $("#budget-left").text(valueleft);
-                         $("#budget-right").text(valueright);
+                        $("#budget-right").text(valueright);
                     });
-                    $("#timeframe").on('slide', function(slideEvt){                    
+                    $("#timeframe").on('slide', function(slideEvt) {
                         var valueleft = slideEvt.value[0];
                         var valueright = slideEvt.value[1];
                         $("#timeframe-left").text(valueleft);
-                         $("#timeframe-right").text(valueright);
+                        $("#timeframe-right").text(valueright);
                     });
                 }, 10);
             }
@@ -86,6 +85,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         } else if (number === "2") {
             this.set("groupStepOne", true);
             this.set("groupStepTwo", false);
+            this.set("groupStepThree", false);
             var that = this;
             $(document).ready(function() {
                 setTimeout(function() {
@@ -99,6 +99,10 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                     }
                 }, 1);
             });
+        } else if (number === "3") {
+            this.set("groupStepOne", false);
+            this.set("groupStepTwo", false);
+            this.set("groupStepThree", true);
         }
     },
     choose: function(number) {
@@ -266,17 +270,17 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                 }
             });
         }
-    }, 
-    removePic: function(s){
-        this.set(s+'Source', null);
-        this.set(s+'Name', null);
     },
-    profileStyleImageDrop: function(e, name,variable ) {
+    removePic: function(s) {
+        this.set(s + 'Source', null);
+        this.set(s + 'Name', null);
+    },
+    profileStyleImageDrop: function(e, name, variable) {
         this.set("isUploadPhoto", true);
         var target = getTarget(e, "single");
         var src = target.result;
-        this.set(variable+'Source', src);
-        this.set(variable+'Name', name);
+        this.set(variable + 'Source', src);
+        this.set(variable + 'Name', name);
     }
 });
 

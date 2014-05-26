@@ -281,6 +281,14 @@ HubStar.GroupsNewController = Ember.Controller.extend({
     removePic: function(s) {
         this.set(s + 'Source', null);
         this.set(s + 'Name', null);
+        if (s === "logo") {
+            this.set("group_pic_url", "");
+        }
+        else if (s === "bg")
+        {
+            this.set("group_bg_url", "");
+            this.set("group_hero_url", "");
+        }
     },
     profileStyleImageDrop: function(e, name, variable) {
         this.set("isUploadPhoto", true);
@@ -298,7 +306,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
             imageType = imageName[imageName.length - 1];
             var data = [this.get(src), this.get(name), imageType, variable];
             data = JSON.stringify(data);
-            var that =this;
+            var that = this;
             requiredBackEnd('photos', 'savePicGroup', data, 'POST', function(params) {
                 if (params.length > 1)
                 {

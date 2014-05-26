@@ -204,13 +204,15 @@ class PhotosController extends Controller {
         $src = $request_array[0];
         $name = $request_array[1];
         $type = $request_array[2];
+        $timeID = date_timestamp_get(new DateTime());         
+        $id = (string) (rand(10000, 99999)) . $timeID;
+        
         $data_arr = $this->convertToString64($src);
         $photo = imagecreatefromstring($data_arr['data']);
         $compressed_photo = $this->compressPhotoData($type, $photo);
         $orig_size['width'] = imagesx($compressed_photo);
         $orig_size['height'] = imagesy($compressed_photo);
-        $url = $this->savePhotoInTypes($orig_size, "user_cover_small", $photo_name, $compressed_photo, $data_arr, $id, null, $message_id);
-        savePhotoInTypes($orig_size, $photo_type, $photo_name, $compressed_photo, $data_arr, $owner_id, $optional = null, $type = null) {
+        $url = $this->savePhotoInTypes($orig_size, "user_cover_small", $name, $compressed_photo, $data_arr, $id, null);
     }
 
     public function getPictureKeyword($newRecord, $owner_id) {

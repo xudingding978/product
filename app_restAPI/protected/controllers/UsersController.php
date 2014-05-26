@@ -285,7 +285,6 @@ class UsersController extends Controller {
                     $url = $domain . "/groups/" . $respone_user['user'][0]['groups'][$i]['group_id'];
                     $tempRecord = $cb->get($url);
                     $oldRecord = CJSON::decode($tempRecord, true);
-                    error_log(var_export($oldRecord['groups'][0], true));
                     if (isset($oldRecord['groups'][0]['group_name'])) {
                         $respone_user['user'][0]['groups'][$i]['group_name'] = $oldRecord['groups'][0]['group_name'];
                     }

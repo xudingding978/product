@@ -161,7 +161,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         if (this.get("group_bg_url") === "" || this.get("group_hero_url") === "" || this.get("group_pic_url") === "")
         {
             flag = false;
-        }
+        }      
         return flag;
     },
     getCateandSubCate: function() {
@@ -196,12 +196,10 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         this.set("Category", Category);
     },
     save: function() {
-        console.log("11");
         this.getCateandSubCate();
-         console.log("22");
         if (this.fieldChecking())
         {
-             console,log("33");
+
             var that = this;
             var id = createMessageid();
             var newMegaModel = HubStar.Mega.createRecord({

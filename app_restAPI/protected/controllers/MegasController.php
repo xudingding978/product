@@ -47,11 +47,9 @@ class MegasController extends Controller {
     }
 
     public function actionCreate() {
-        error_log('test');
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         $mega = $request_arr['mega'];
-        error_log($mega['type']);
         $mega["id"] = str_replace("test", "", $mega["id"]);
         if ($mega['type'] == 'photo' || $mega['type'] == 'video') {
             $cb = $this->couchBaseConnection();
@@ -79,21 +77,19 @@ class MegasController extends Controller {
 
             $this->createUploadedVideo($mega);
         } elseif ($mega['type'] == 'pdf') {
-            error_log('ddddddddddddddd');
             $mega['pdf'][0]['id'] = $mega['id'];
-            
+
             $keyword = $this->getProfileKeyword($mega['owner_id']);
             $mega['keyword'] = $keyword;
 //            $mega['pdf'][0]['pdf_url']  = $this->savePdfToS3($mega['pdf']);            
             $this->createUploadedPdf($mega);
-        }
-        else if ($mega['type'] == "group") {
+        } else if ($mega['type'] == "group") {
             $this->createGroup($mega);
         }
         $this->sendResponse(204, $request_json);
     }
-    
-      public function createGroup($mega) {
+
+    public function createGroup($mega) {
 
         $cb = $this->couchBaseConnection();
         $id = $mega['id'];
@@ -127,7 +123,7 @@ class MegasController extends Controller {
             $this->sendResponse(409, "some thing wronggggggggggggggggg");
         }
     }
-    
+
     public function actionRead() {
         try {
 
@@ -352,7 +348,7 @@ class MegasController extends Controller {
         }
     }
 
-    public function createUploadedPhoto($mega) {        
+    public function createUploadedPhoto($mega) {
         if (sizeof($mega) > 0) {
             $photoController = new PhotosController();
 
@@ -401,7 +397,7 @@ class MegasController extends Controller {
             }
         }
     }
-    
+
     public function createUploadedVideo($mega) {
 
         if (sizeof($mega) > 0) {
@@ -543,6 +539,7 @@ class MegasController extends Controller {
             }
         }
     }
+
     public function actionunlike() {
         $like = CJSON::decode(file_get_contents('php://input'));
         $like_arr = CJSON::decode($like, true);
@@ -561,11 +558,11 @@ class MegasController extends Controller {
                     $oldRecord["people_like"] = null;
                 }
 
-                $temp = explode(",",$oldRecord["people_like"]);            
-                $temp = array_diff($temp, array($like_people));            
-                $oldRecord["people_like"]=implode(",",$temp);            
-                $oldRecord["likes_count"]=count($temp);
-                
+                $temp = explode(",", $oldRecord["people_like"]);
+                $temp = array_diff($temp, array($like_people));
+                $oldRecord["people_like"] = implode(",", $temp);
+                $oldRecord["likes_count"] = count($temp);
+
                 if ($cb->set($docID, CJSON::encode($oldRecord))) {
                     $people_like = CJSON::encode($oldRecord["people_like"], true);
                     $this->sendResponse(200, $people_like);
@@ -585,14 +582,14 @@ class MegasController extends Controller {
                 if (!isset($oldRecord["people_like"]) || is_array($oldRecord["people_like"])) {
                     $oldRecord["people_like"] = null;
                 }
-                $temp = explode(",",$oldRecord["people_like"]);            
-                $temp = array_diff($temp, array($like_people));            
-                $oldRecord["people_like"]=implode(",",$temp);
-                $oldRecord["likes_count"]=count($temp);
+                $temp = explode(",", $oldRecord["people_like"]);
+                $temp = array_diff($temp, array($like_people));
+                $oldRecord["people_like"] = implode(",", $temp);
+                $oldRecord["likes_count"] = count($temp);
 
                 if ($cb->set($docID, CJSON::encode($oldRecord))) {
                     $people_like = CJSON::encode($oldRecord["people_like"], true);
-                    $this->sendResponse(200, $people_like);                   
+                    $this->sendResponse(200, $people_like);
                 } else {
                     $this->sendResponse(500, "some thing wrong");
                 }
@@ -601,6 +598,7 @@ class MegasController extends Controller {
             }
         }
     }
+
     public function actionaddcomment() {
         $newRecord_arr = file_get_contents('php://input');
         $newRecord = CJSON::decode($newRecord_arr, true);

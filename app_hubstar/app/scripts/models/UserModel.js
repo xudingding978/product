@@ -6,7 +6,8 @@ DS.RESTAdapter.map('HubStar.User', {
     messages: {embedded: 'load'},
     conversations: {embedded: 'load'},
     notifications: {embedded: 'load'},
-    profiles: {embedded:'always'}
+    profiles: {embedded: 'always'},
+    groups: {embedded: 'always'}
 });
 
 
@@ -48,6 +49,7 @@ HubStar.User = DS.Model.extend({
     notification_setting: DS.attr('string'),
     selected_topics: DS.attr('string'),
     profiles: DS.hasMany('HubStar.SaveToProfile'),
+    groups: DS.hasMany('HubStar.GroupTitle'),
     collections: DS.hasMany('HubStar.Collection'),
     followers: DS.hasMany('HubStar.Follower'),
     followings: DS.hasMany('HubStar.Follower'),

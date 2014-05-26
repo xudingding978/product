@@ -10,8 +10,8 @@ Yii::import('ext.runactions.components.ERunActions');
 
 class GroupsController extends Controller {
 
-    const JSON_RESPONSE_ROOT_SINGLE = 'profile';
-    const JSON_RESPONSE_ROOT_PLURAL = 'profiles';
+    const JSON_RESPONSE_ROOT_SINGLE = 'group';
+    const JSON_RESPONSE_ROOT_PLURAL = 'groups';
 
     public function actionIndex() {
     }
@@ -20,7 +20,6 @@ class GroupsController extends Controller {
         try {
             $request_json = file_get_contents('php://input');
             $request_arr = CJSON::decode($request_json, true);
-            error_log(var_export($request_arr, true));
             $tempProfile = $request_arr['group'];
             $cb = $this->couchBaseConnection();
             $id = $tempProfile['id'];
@@ -49,16 +48,14 @@ class GroupsController extends Controller {
             $fileName = $this->getDomain() . $_SERVER['REQUEST_URI'];
             $reponse = $cb->get($fileName);
             $request_arr = CJSON::decode($reponse, true);
-            
-            error_log(var_export($request_arr, true));
-            $respone_client_data = str_replace("\/", "/", CJSON::encode($request_arr["profile"][0]));
+                       
+            $respone_client_data = str_replace("\/", "/", CJSON::encode($request_arr["groups"][0]));
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
 //Iterate over the hits and print out some data
             if($request_arr!==null){
             $result .=$respone_client_data;
             }
             $result .= '}';
-
             echo $this->sendResponse(200, $result);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();

@@ -21,6 +21,7 @@ HubStar.Group = DS.Model.extend({
     group_creator: DS.attr('string'), //user id
     group_administrator: DS.attr('string'), //user id
     group_editor: DS.attr('string'), //user id
+    group_description: DS.attr('string'), 
     collections: DS.hasMany('HubStar.Collection'),
     keywords: DS.hasMany('HubStar.Keyword'),   
     getID: function() {

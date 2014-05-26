@@ -279,7 +279,17 @@ class UsersController extends Controller {
                     }
                 }
             }
+            if (isset($respone_user['user'][0]['groups'])) {
+                for ($i = 0; $i < sizeof($respone_user['user'][0]['profiles']); $i++) {
 
+                    $url = $domain . "/groups/" . $respone_user['user'][0]['groups'][$i]['group_id'];
+                    $tempRecord = $cb->get($url);
+                    $oldRecord = CJSON::decode($tempRecord, true);
+                    if (isset($oldRecord['groups'][0]['group_name'])) {
+                        $respone_user['user'][0]['groups'][$i]['group_name'] = $oldRecord['groups'][0]['group_name'];
+                    }
+                }
+            }
 
             $respone_user_data = CJSON::encode($respone_user['user'][0]);
             if ($respone_user === null) {

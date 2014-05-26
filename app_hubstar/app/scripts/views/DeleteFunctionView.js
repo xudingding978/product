@@ -5,6 +5,7 @@ HubStar.DeleteFunctionView = Ember.View.extend({
     deleteSelection: function() {
         var controller = this.get('controller');
         var obj = controller.get("obj");
+        console.log(controller);
         if (controller._debugContainerKey.indexOf("addCollection") !== -1)
         {
         }
@@ -33,12 +34,11 @@ HubStar.DeleteFunctionView = Ember.View.extend({
         }
 
         else if (controller._debugContainerKey.indexOf("Message") !== -1 && controller._debugContainerKey.indexOf("user") !== -1) { //userMessage must be before user
-
-            controller.removeMessageItem(obj);
+            controller.removeMessageItem(controller.get("s"));
         }
         else if (controller._debugContainerKey.indexOf("message") !== -1) { //userMessage must be before user
-
-            controller.removeReplyItem(obj);
+            
+            controller.removeReplyItem(controller.get("s"));
         }
         else if (controller._debugContainerKey.indexOf("user") !== -1) {
 
@@ -71,7 +71,7 @@ HubStar.DeleteFunctionView = Ember.View.extend({
 
         }
         else if (controller._debugContainerKey.indexOf("conversation") !== -1) {
-            controller.removeConversationItem(obj);
+            controller.removeConversationItem(controller.get("s"));
 
         }
         else {

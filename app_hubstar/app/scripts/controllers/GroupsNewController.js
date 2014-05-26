@@ -114,8 +114,6 @@ HubStar.GroupsNewController = Ember.Controller.extend({
             $("#some_experiences").removeClass("selected");
             $("#professional").removeClass("selected");
             this.set("group_expertise", "First Time");
-
-
         } else if (number === "2") {
             $("#some_experiences").addClass("selected");
             $("#first_time").removeClass("selected");

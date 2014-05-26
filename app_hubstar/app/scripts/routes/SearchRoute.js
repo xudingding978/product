@@ -7,7 +7,7 @@ HubStar.SearchRoute = Ember.Route.extend({
             HubStar.set('isLogin', true);
         }
         this.controllerFor('searchs').set("loginInfo", localStorage.loginStatus);
-        this.controllerFor('searchs').setLoginImge();
+        //this.controllerFor('searchs').setLoginImge();
         this.controllerFor('application').set('search_string', model.id);
         var that = this;
          $(document).ready(function() {

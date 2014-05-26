@@ -14,6 +14,9 @@ HubStar.AfterLoginView = Ember.View.extend({
         location.reload();
 
     },
+    transitToGroup: function(id) {
+        this.get("controller").transitionToRoute('group', id);
+    },
     userDisplaynone: function(checking) {
         if (checking === "myUserProfile") {
             location.href = this.get("controller").get("myUserProfile");
@@ -32,7 +35,7 @@ HubStar.AfterLoginView = Ember.View.extend({
             $("#cancel").css("display", "none");
 
         } else if (checking === "new") {
-             location.href ="#/profiles/new";
+            location.href = "#/profiles/new";
             $("#user-dd-menu").attr("style", "display:none");
             $("#cancel").css("display", "none");
         }

@@ -177,13 +177,8 @@ class PhotosController extends Controller {
 
             //$oldRecord['photo'][0]['photo_keywords'] = $newRecord['photo']['photo_keywords'];
             //$keyword = $this->getPictureKeyword($newRecord['photo']['photo_keywords'], $oldRecord['owner_id']);
-
             //$oldRecord['keyword'] = $keyword;
-            
-           
             //$oldRecord['photo'][0]['photo_keywords'] =  $newRecord['photo']['photo_keywords'];
-
-            
             //$keyword = $this->getProfileKeyword($owner_id);
             //$oldRecord['keyword'] = $keyword;
 
@@ -202,6 +197,21 @@ class PhotosController extends Controller {
         }
     }
 
+    public function actionSavePicGroup() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request_array = CJSON::decode($request_array);
+
+        $src = $request_array[0];
+        $name = $request_array[1];
+        $type = $request_array[2];
+        $data_arr = $this->convertToString64($src);
+        $photo = imagecreatefromstring($data_arr['data']);
+        $compressed_photo = $this->compressPhotoData($type, $photo);
+        $orig_size['width'] = imagesx($compressed_photo);
+        $orig_size['height'] = imagesy($compressed_photo);
+        $url = $this->savePhotoInTypes($orig_size, "user_cover_small", $photo_name, $compressed_photo, $data_arr, $id, null, $message_id);
+        savePhotoInTypes($orig_size, $photo_type, $photo_name, $compressed_photo, $data_arr, $owner_id, $optional = null, $type = null) {
+    }
 
     public function getPictureKeyword($newRecord, $owner_id) {
         $keyword_id = null;
@@ -230,23 +240,21 @@ class PhotosController extends Controller {
 
 
 
-            /*$returnedkeyinfo[$x] = array(
-                "keyword_id: " . $keyword_id,
-                "keyword_name: " . $keyarray[$x],
-                "create_date: " . $create_date,
-                "expire_date: " . $expire_date,
-                "value: " . $value,
-                "profile_id: " . $profile_id,
-                "collection_id: " . $collection_id,
-                "is_delete: " . $is_delete);*/
+            /* $returnedkeyinfo[$x] = array(
+              "keyword_id: " . $keyword_id,
+              "keyword_name: " . $keyarray[$x],
+              "create_date: " . $create_date,
+              "expire_date: " . $expire_date,
+              "value: " . $value,
+              "profile_id: " . $profile_id,
+              "collection_id: " . $collection_id,
+              "is_delete: " . $is_delete); */
 
 
 
             $returnedkeyinfo[$x] = $item;
-            
         }
         return $returnedkeyinfo;
-        
     }
 
     public function getProfileKeyword($owner_id) {
@@ -594,7 +602,7 @@ class PhotosController extends Controller {
     }
 
     public function photoUpdate($mega) {
-        
+
         try {
             $cb = $this->couchBaseConnection();
             $temp = explode("/", $_SERVER['REQUEST_URI']);
@@ -604,8 +612,8 @@ class PhotosController extends Controller {
             $linkText = $mega['mega']['photo'][0]['photo_link_text'];
             $linkUrl = $mega['mega']['photo'][0]['photo_link_url'];
             //$keyword = $mega['mega']['photo'][0]['photo_keywords'];
-            
-            
+
+
             $deleted = $mega['mega']['is_deleted'];
 
 
@@ -632,14 +640,11 @@ class PhotosController extends Controller {
             $oldRecord['photo'][0]['photo_caption'] = $photoCaption;
             $oldRecord['photo'][0]['photo_link_text'] = $linkText;
             $oldRecord['photo'][0]['photo_link_url'] = $linkUrl;
-           
-            //$newkeyword = $this->getPictureKeyword($keyword, $oldRecord['owner_id']);
-            
-           
 
+            //$newkeyword = $this->getPictureKeyword($keyword, $oldRecord['owner_id']);
             //$oldRecord['keyword'] = $newkeyword;
-           
-            
+
+
             $oldRecord['is_deleted'] = $deleted;
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);

@@ -14,10 +14,10 @@ HubStar.GroupsNewController = Ember.Controller.extend({
     Category: "",
     groupName: '',
     aboutProject: '',
-    logoSource:null,
-    logoName:null,
-    bgSource:null,
-    bgName:null,
+    logoSource: null,
+    logoName: null,
+    bgSource: null,
+    bgName: null,
     topic: [],
     needs: ['profile', 'applicationFeedback', 'application'],
     init: function()
@@ -246,17 +246,32 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                 }
             });
         }
-    }, 
-    removePic: function(s){
-        this.set(s+'Source', null);
-        this.set(s+'Name', null);
     },
-    profileStyleImageDrop: function(e, name,variable ) {
+    removePic: function(s) {
+        this.set(s + 'Source', null);
+        this.set(s + 'Name', null);
+    },
+    profileStyleImageDrop: function(e, name, variable) {
         this.set("isUploadPhoto", true);
         var target = getTarget(e, "single");
         var src = target.result;
-        this.set(variable+'Source', src);
-        this.set(variable+'Name', name);
+        this.set(variable + 'Source', src);
+        this.set(variable + 'Name', name);
+
+        this.savePic(variable + 'Source', variable + 'Name');
+    },
+    savePic: function(src, name) {
+        if (this.get(src) !== null && this.get(name) !== null)
+        {
+            var imageType = "";
+            var imageName = this.get(name).split('.');
+            imageType = imageName[imageName.length - 1];
+            var data = [this.get(src), this.get(name),imageType];
+            data = JSON.stringify(data);
+            requiredBackEnd('photos', 'savePicGroup', data, 'POST', function(params) {
+
+            });
+        }
     }
 });
 

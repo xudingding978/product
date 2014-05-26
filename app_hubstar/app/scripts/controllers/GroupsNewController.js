@@ -1,7 +1,7 @@
 HubStar.GroupsNewController = Ember.Controller.extend({
-    groupStepOne: false,
+    groupStepOne: true,
     groupStepTwo: false,
-    groupStepThree: true,
+    groupStepThree: false,
     categorys: null,
     subcate: null,
     selected_cate: [],
@@ -196,9 +196,12 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         this.set("Category", Category);
     },
     save: function() {
+        console.log("11");
         this.getCateandSubCate();
+         console.log("22");
         if (this.fieldChecking())
         {
+             console,log("33");
             var that = this;
             var id = createMessageid();
             var newMegaModel = HubStar.Mega.createRecord({
@@ -267,8 +270,8 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                     newGroup.get('isSaving');
                     newGroup.addObserver('isDirty', function() {
                         if (!newGroup.get('isDirty')) {
-                            //location.href = "#/groups/" + id;
-                            //location.reload();
+                            location.href = "#/groups/" + id;
+                            location.reload();
                         }
                     });
                 }

@@ -1,7 +1,7 @@
 HubStar.GroupsNewController = Ember.Controller.extend({
-    groupStepOne: false,
+    groupStepOne: true,
     groupStepTwo: false,
-    groupStepThree: true,
+    groupStepThree: false,
     categorys: null,
     subcate: null,
     selected_cate: [],
@@ -161,7 +161,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         if (this.get("group_bg_url") === "" || this.get("group_hero_url") === "" || this.get("group_pic_url") === "")
         {
             flag = false;
-        }
+        }      
         return flag;
     },
     getCateandSubCate: function() {
@@ -199,6 +199,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         this.getCateandSubCate();
         if (this.fieldChecking())
         {
+
             var that = this;
             var id = createMessageid();
             var newMegaModel = HubStar.Mega.createRecord({
@@ -267,8 +268,8 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                     newGroup.get('isSaving');
                     newGroup.addObserver('isDirty', function() {
                         if (!newGroup.get('isDirty')) {
-                            //location.href = "#/groups/" + id;
-                            //location.reload();
+                            location.href = "#/groups/" + id;
+                            location.reload();
                         }
                     });
                 }

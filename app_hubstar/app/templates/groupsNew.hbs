@@ -72,12 +72,12 @@
 
             <div class="group-step-title" style=" width:60%; cursor: pointer;">
                 <div class="group-textarea">
-                    {{view Ember.TextField valueBinding="about-project" class="textarea-style" placeholder="Profile Title" }}</div>
+                    {{view Ember.TextField valueBinding="groupName" class="textarea-style" placeholder="Profile Title" }}</div>
             </div>
             <div  class="group-step-button" {{action groupStep "3" }} >NEXT</div>
         </div>
         <div class="group-content easing" >
-            <div class="group-textarea">{{view Ember.TextArea valueBinding="about-project"   class="textarea-style" placeholder="About this project, I would like to......" }}</div>
+            <div class="group-textarea">{{view Ember.TextArea valueBinding="aboutProject"   class="textarea-style" placeholder="About this project, I would like to......" }}</div>
             <div class="group-part">
                 <div class="group-text">Budget:</div>
                 <div class="content-group-right">

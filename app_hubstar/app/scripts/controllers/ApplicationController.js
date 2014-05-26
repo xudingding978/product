@@ -81,7 +81,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     init: function() {
 
         var that = this;
-        
+
         this.set('categorys', HubStar.Cate.find({}));
         this.get("controllers.notificationTop").getClientId(localStorage.loginStatus);
         requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
@@ -109,11 +109,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
             }
         });
-        
+
         requiredBackEnd('tenantConfiguration', 'pdfDisplay', null, 'POST', function(params) {
             HubStar.set('pdf_display', params);
         });
-        
+
         HubStar.set("escVideo", false);
         this.set('search_string', '');
         this.set('loginUsername', localStorage.userName);
@@ -200,9 +200,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('mail', !this.get('mail'));
     },
     grapData: function() {
-        HubStar.set("profiles", []);
+
         var that = this;
-        
         if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
             localStorage.resOrcom = "All";
         }
@@ -211,6 +210,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         if (localStorage.loginStatus) {
             var u = HubStar.User.find(localStorage.loginStatus);
             u.then(function() {
+                HubStar.set("profiles", []);
+                HubStar.set("groups", []);
+                for (var i = 0; i < u.get("groups").get("length"); i++) {
+                    var id = u.get("groups").objectAt(i).get("group_id");
+                    var name = u.get("groups").objectAt(i).get("group_name");
+
+                    HubStar.get("groups").pushObject({'group_id': id, 'group_name': name});
+                }
                 if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
                         && (u.get("email")).match(/@trendsideas.com/g) !== ""
                         && (u.get("email")).match(/@trendsideas.com/g) !== null)
@@ -269,7 +276,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         'isAdministrator': isAdministrator, "isEditor": isEditor, "isCreator": isCreator, "height": height, "width": width,
                         "heightTop": heightTop, "widthTop": widthTop
                     });
-
                 }
             });
         }
@@ -908,7 +914,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
         this.get("categorys").then(function() {
-            var that =this;
+            var that = this;
             $(document).ready(function() {
                 setTimeout(function() {
                     that.residentialCommercialStatus();
@@ -1153,7 +1159,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             var child;
             var masonrybox;
             var i = 0;
-            for ( i = 0; i < adSlots[pageCount].length; i++) {
+            for (i = 0; i < adSlots[pageCount].length; i++) {
                 ad = adSlots[pageCount][i];
                 position = ad.slot_position;
                 child = masonryContainer.children[that.get("totalItems") + position];
@@ -1177,7 +1183,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             //that.display(adSlots[pageCount]);
             var ads = adSlots[pageCount];
             var adNew;
-            for ( i = 0; i < ads.length; i++) {
+            for (i = 0; i < ads.length; i++) {
                 adNew = ads[i];
                 var height = adNew.size[1];
                 var div_id = adNew.div + "_box";

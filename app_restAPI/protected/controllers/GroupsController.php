@@ -27,10 +27,20 @@ class GroupsController extends Controller {
             $docID = $domain . "/groups/" . $id;
             $tempMega = $cb->get($docID);
             $mega = CJSON::decode($tempMega, true);
+            $timeID = date_timestamp_get(new DateTime());            
             $mega['groups'][0] = $tempProfile;
+            $mega['groups'][0]["id"]=$id."";
             $mega['groups'][0]['collections'] = array();
-
-
+            $mega['groups'][0]['collections'][0]['id'] = (string) (rand(10000, 99999)) . $timeID . $mega['creator'];
+            $mega['groups'][0]['collections'][0]['title'] = '';
+            $mega['groups'][0]['collections'][0]['desc'] = '';
+            $mega['groups'][0]['collections'][0]['collection_ids'] = '';
+            $mega['groups'][0]['collections'][0]['created_at'] = $timeID;
+            $mega['groups'][0]['collections'][0]['cover'] = "";
+            $mega['groups'][0]['collections'][0]['parent_type'] = null;
+            $mega['groups'][0]['collections'][0]['optional'] = $id."";
+            $mega['groups'][0]['collections'][0]['type'] = "group";
+            
             if ($cb->set($docID, CJSON::encode($mega))) {
                 $this->sendResponse(204);
             } else {

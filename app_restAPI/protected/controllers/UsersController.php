@@ -280,7 +280,7 @@ class UsersController extends Controller {
                 }
             }
             if (isset($respone_user['user'][0]['groups'])) {
-                for ($i = 0; $i < sizeof($respone_user['user'][0]['profiles']); $i++) {
+                for ($i = 0; $i < sizeof($respone_user['user'][0]['groups']); $i++) {
 
                     $url = $domain . "/groups/" . $respone_user['user'][0]['groups'][$i]['group_id'];
                     $tempRecord = $cb->get($url);

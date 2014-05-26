@@ -215,6 +215,11 @@
     position:relative;
     bottom:10px;
     margin-left: 20px;
+    color:#fff;
+}
+
+.content-group-right span{
+    color:#fff;
 }
 
 .edit-group-left{

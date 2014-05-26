@@ -57,16 +57,23 @@ HubStar.GroupsNewController = Ember.Controller.extend({
             if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
                 this.set("groupStepOne", false);
                 this.set("groupStepTwo", true);
-              //  $(document).ready(function() {
 
-                    setTimeout(function() {
-                 //       console.log("slider");
-                 $("#ex1").slider({});
-                        $("#ex2").slider({});
-                    }, 10);
-
-             //   });
-
+                setTimeout(function() {
+                    $("#budget").slider();
+                    $("#timeframe").slider();
+                    $("#budget").on('slide', function(slideEvt){                    
+                        var valueleft = slideEvt.value[0];
+                        var valueright = slideEvt.value[1];
+                        $("#budget-left").text(valueleft);
+                         $("#budget-right").text(valueright);
+                    });
+                    $("#timeframe").on('slide', function(slideEvt){                    
+                        var valueleft = slideEvt.value[0];
+                        var valueright = slideEvt.value[1];
+                        $("#timeframe-left").text(valueleft);
+                         $("#timeframe-right").text(valueright);
+                    });
+                }, 10);
             }
             else
             {
@@ -96,6 +103,8 @@ HubStar.GroupsNewController = Ember.Controller.extend({
             $("#some_experiences").removeClass("selected");
             $("#professional").removeClass("selected");
             this.set("group_expertise", "First Time");
+
+
         } else if (number === "2") {
             $("#some_experiences").addClass("selected");
             $("#first_time").removeClass("selected");
@@ -124,6 +133,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
 
     },
     fieldChecking: function() {
+
         var flag = true;
         if (this.get("groupName") === "")
         {
@@ -223,7 +233,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                 group_pic_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg",
                 group_bg_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
                 group_hero_cover_url: "",
-                group_name: "",
+                group_name: that.get("groupName"), //group name
                 group_timeframe: "", //how long does the project need?
                 group_description: that.get("aboutProject"),
                 group_partner_ids: "",

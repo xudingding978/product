@@ -1,5 +1,6 @@
 HubStar.GroupRoute = Ember.Route.extend({
     setupController: function(Controller, model) {
+
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', true);

@@ -61,6 +61,23 @@ HubStar.GroupsNewController = Ember.Controller.extend({
             if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
                 this.set("groupStepOne", false);
                 this.set("groupStepTwo", true);
+
+                setTimeout(function() {
+                    $("#budget").slider();
+                    $("#timeframe").slider();
+                    $("#budget").on('slide', function(slideEvt){                    
+                        var valueleft = slideEvt.value[0];
+                        var valueright = slideEvt.value[1];
+                        $("#budget-left").text(valueleft);
+                         $("#budget-right").text(valueright);
+                    });
+                    $("#timeframe").on('slide', function(slideEvt){                    
+                        var valueleft = slideEvt.value[0];
+                        var valueright = slideEvt.value[1];
+                        $("#timeframe-left").text(valueleft);
+                         $("#timeframe-right").text(valueright);
+                    });
+                }, 10);
             }
             else
             {
@@ -90,6 +107,8 @@ HubStar.GroupsNewController = Ember.Controller.extend({
             $("#some_experiences").removeClass("selected");
             $("#professional").removeClass("selected");
             this.set("group_expertise", "First Time");
+
+
         } else if (number === "2") {
             $("#some_experiences").addClass("selected");
             $("#first_time").removeClass("selected");
@@ -118,6 +137,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
 
     },
     fieldChecking: function() {
+
         var flag = true;
         if (this.get("groupName") === "")
         {
@@ -236,8 +256,8 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                     newGroup.get('isSaving');
                     newGroup.addObserver('isDirty', function() {
                         if (!newGroup.get('isDirty')) {
-                            location.href = "#/groups/" + id;
-                            location.reload();
+                            //location.href = "#/groups/" + id;
+                            //location.reload();
                         }
                     });
                 }

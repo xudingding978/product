@@ -128,7 +128,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 $("#cta-popup").css("display", "none");
                 $("#profiles-main-container").css("display", "block");
                 localStorage.loginState = "register";
-                $('.Login-box #login-btn').text('Already had an acount? Click here to Log in!');
+                $('.Login-box #login-btn').text('Already have an account? Click here to Log in!');
                 $('.Login-box .black-tool-tip').css('display', 'none');
                 $('.Login-box #click-register-social').css('display', 'block');
                 $('.Login-box #social-link').css('display', 'block');

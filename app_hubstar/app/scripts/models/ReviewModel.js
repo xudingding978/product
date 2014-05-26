@@ -31,12 +31,12 @@ HubStar.Review = DS.Model.extend({
         if (this.get("review_people_like") !== null) {
             if (this.get("review_people_like").indexOf(localStorage.loginStatus) !== -1) {
                 this.set("isLike", true);
-                
             } else {
                 this.set("isLike", false);
             }
         } else {
             this.set("isLike", false);
+            console.log("review isLike is false");
         }
     }.property("review_people_like")
  

@@ -33,11 +33,11 @@
             <div style="position: relative; display: block;margin: 15px 0 10px;height: 20px;width: 100%;">
                 {{model.review_isLike}}              
                 {{#if model.isLike}}
-                <div id="review_like_{{unbound model.review_id}}"  style="float: right; font-size: 13px;" class="new-btn" {{action unLike}}>
+                <div id="review_like_{{unbound model.review_id}}"  style="float: right; font-size: 13px;" class="new-btn" data-hint="unLike!" {{action unLike}}>
                      <i class="fa fa-thumbs-up" {{action unLike model}}>&nbsp</i>
                     {{model.review_like_count}}</div>
                 {{else}}
-                <div id="review_like_{{unbound model.review_id}}"  style="float: right; font-size: 13px;" class="new-btn" {{action addLike}}>
+                <div id="review_like_{{unbound model.review_id}}"  style="float: right; font-size: 13px;" class="new-btn" data-hint="Like!" {{action addLike}}>
                      <i class="fa fa-thumbs-up" {{action addLike model}}>&nbsp</i>
                     {{model.review_like_count}}</div>
                 {{/if}}

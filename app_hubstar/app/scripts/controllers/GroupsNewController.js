@@ -1,9 +1,7 @@
 HubStar.GroupsNewController = Ember.Controller.extend({
-    groupStepOne: true,
+    groupStepOne: false,
     groupStepTwo: false,
-    editingGroupTitle: false,
-    groupStepThree: false,
-    groupStepFour: false,
+    groupStepThree: true,
     categorys: null,
     subcate: null,
     selected_cate: [],
@@ -18,6 +16,9 @@ HubStar.GroupsNewController = Ember.Controller.extend({
     logoName: null,
     bgSource: null,
     bgName: null,
+    group_bg_url: "",
+    group_hero_url: "",
+    group_pic_url: "",
     topic: [],
     needs: ['profile', 'applicationFeedback', 'application'],
     init: function()
@@ -61,21 +62,22 @@ HubStar.GroupsNewController = Ember.Controller.extend({
             if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
                 this.set("groupStepOne", false);
                 this.set("groupStepTwo", true);
+                this.set("groupStepThree", false);
 
                 setTimeout(function() {
                     $("#budget").slider();
                     $("#timeframe").slider();
-                    $("#budget").on('slide', function(slideEvt){                    
+                    $("#budget").on('slide', function(slideEvt) {
                         var valueleft = slideEvt.value[0];
                         var valueright = slideEvt.value[1];
                         $("#budget-left").text(valueleft);
-                         $("#budget-right").text(valueright);
+                        $("#budget-right").text(valueright);
                     });
-                    $("#timeframe").on('slide', function(slideEvt){                    
+                    $("#timeframe").on('slide', function(slideEvt) {
                         var valueleft = slideEvt.value[0];
                         var valueright = slideEvt.value[1];
                         $("#timeframe-left").text(valueleft);
-                         $("#timeframe-right").text(valueright);
+                        $("#timeframe-right").text(valueright);
                     });
                 }, 10);
             }
@@ -86,6 +88,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         } else if (number === "2") {
             this.set("groupStepOne", true);
             this.set("groupStepTwo", false);
+            this.set("groupStepThree", false);
             var that = this;
             $(document).ready(function() {
                 setTimeout(function() {
@@ -99,6 +102,10 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                     }
                 }, 1);
             });
+        } else if (number === "3") {
+            this.set("groupStepOne", false);
+            this.set("groupStepTwo", false);
+            this.set("groupStepThree", true);
         }
     },
     choose: function(number) {
@@ -148,6 +155,10 @@ HubStar.GroupsNewController = Ember.Controller.extend({
             flag = false;
         }
         if (this.get("group_expertise") === "")
+        {
+            flag = false;
+        }
+        if (this.get("group_bg_url") === "" || this.get("group_hero_url") === "" || this.get("group_pic_url") === "")
         {
             flag = false;
         }
@@ -211,7 +222,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                 keywords: "",
                 keyword_num: 0,
                 owner_type: "groups", // profiles or user can upload files, this could help to link back to their profile.
-                owner_profile_pic: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
+                owner_profile_pic: that.get("group_pic_url"),
                 owner_title: that.get("groupName"), //group name
                 owner_id: localStorage.loginStatus, //user id
                 owner_contact_email: null,
@@ -233,9 +244,9 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                 group_expertise: that.get("group_expertise"),
                 group_category: that.get("Category"),
                 group_subcategory: that.get("subCategory"),
-                group_hero_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_bg/default/defaultbg6.jpg",
-                group_pic_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_cover/default/defaultcover4.jpg",
-                group_bg_url: "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg",
+                group_hero_url: that.get("group_hero_url"),
+                group_pic_url: that.get("group_pic_url"),
+                group_bg_url: that.get("group_bg_url"),
                 group_hero_cover_url: "",
                 group_name: that.get("groupName"), //group name
                 group_timeframe: "", //how long does the project need?
@@ -277,19 +288,27 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         var src = target.result;
         this.set(variable + 'Source', src);
         this.set(variable + 'Name', name);
-
-        this.savePic(variable + 'Source', variable + 'Name',variable );
+        this.savePic(variable + 'Source', variable + 'Name', variable);
     },
-    savePic: function(src, name ,variable) {
+    savePic: function(src, name, variable) {
         if (this.get(src) !== null && this.get(name) !== null)
         {
             var imageType = "";
             var imageName = this.get(name).split('.');
             imageType = imageName[imageName.length - 1];
-            var data = [this.get(src), this.get(name),imageType,variable];
+            var data = [this.get(src), this.get(name), imageType, variable];
             data = JSON.stringify(data);
+            var that =this;
             requiredBackEnd('photos', 'savePicGroup', data, 'POST', function(params) {
-                console.log(params);
+                if (params.length > 1)
+                {
+                    that.set("group_bg_url", params[0]);
+                    that.set("group_hero_url", params[1]);
+                }
+                else
+                {
+                    that.set("group_pic_url", params[0]);
+                }
             });
         }
     }

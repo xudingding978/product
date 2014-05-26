@@ -177,14 +177,14 @@
 }
 
 .group-textarea{
-    
+
     margin: 20px;
     height: 150px;
     padding: 10px;
     color:#fff;
     font-weight:bold;
     font-size:15px;
-    
+
 }
 .textarea-style{
     background-color: rgba(255,255,255,.8);
@@ -193,12 +193,12 @@
 }
 
 .group-text{
-     color:#fff;
+    color:#fff;
     font-weight:bold;
     font-size:20px;
     float:left;
     width:20%;
-        
+
 }
 
 .group-part{
@@ -225,7 +225,7 @@
 .edit-group-left{
     display: inline-block;
     float:left;
-    
+
 }
 
 .edit-group-right{
@@ -233,6 +233,17 @@
     margin-left: 20px;
     position: relative;
     top: 4px;
+}
+
+.group-upload-image{
+    width: 350px;
+    max-height: 500px;
+    height: 300px;
+    padding: 10px 12px;
+    margin: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+    display: inline-block;
 }
 
 /*------------------------- Group Part -------------------------------------------*/

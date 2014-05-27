@@ -13,13 +13,11 @@
 
 
 <div class="group-wallpaper">
-    <img  {{bindAttr src= model.group_bg_url}} style="width: 100%; max-height: 600px">
+    <img  {{bindAttr src= model.group_bg_url}}>
 </div>
 
 <div class="group-wrapper">
-
-
-    <div class="group-panel">
+<div class="group-panel">
         
 
 
@@ -30,10 +28,10 @@
               {{action flipFrontClick}}>
               <i class="fa fa-cogs"></i>
         </div>
-        <div class="masonry-object_cover-wapper" style="max-height: 300px;">
-            <img {{bindAttr src=model.group_hero_url}} style="width: 100%; z-index:3; position: relative"/>
+        <div class="group-cover-image">
+            <img {{bindAttr src=model.group_hero_url}} style="width: 100%;"/>
         </div>
-        <div class="masonry-object_profilepic" style="cursor:pointer;z-index:3;position: absolute;top: 150px;" {{action toProfilePage this}}>
+        <div class="masonry-object_profilepic" style="cursor:pointer;position: absolute;top: 150px;" {{action toProfilePage this}}>
              <div id="init_photo_{{unbound getID}}">
                 <a  href="#/profiles/{{unbound model.id}}" > <img class="easing" {{bindAttr src="model.group_pic_url"}}  />   </a>
             </div>

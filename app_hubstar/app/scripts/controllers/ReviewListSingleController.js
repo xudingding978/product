@@ -10,18 +10,20 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
     review_is_edit: false,
     isUserself: false,
     isSelf: false,
+    megaResouce: null,
     needs: ['permission', 'applicationFeedback', 'profile', 'applicationFeedback', 'user', 'reviewList', 'review'],
     init: function()
     {
         if (localStorage.loginStatus !== null && localStorage.loginStatus !== 'undefined' && localStorage.loginStatus !== '') {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         }
-
+        var megaResouce = HubStar.Mega.find();
     },
     addLike: function()
     {
-
         var review = this.get('model');
+        var id = review.get("optional");
+        var review_id = review.get("review_id");
         var review_people_like = review.get("review_people_like");
         if (review_people_like === null || review_people_like === 'undefined') {
             review_people_like = "";
@@ -30,12 +32,53 @@ HubStar.ReviewListSingleController = Ember.Controller.extend({
         {
             if (review_people_like.indexOf(localStorage.loginStatus) !== -1)
             {
+                this.count = review.get("review_like_count");
             }
             else {
-                review.set('review_people_like', review_people_like + ',' + localStorage.loginStatus);
-                review.set('review_like_count', review.get('review_like_count') + 1);
-                requiredBackEnd('reviews', 'Update', review, 'POST', function() {
-
+                var likeArray = [localStorage.loginStatus, id, review_id];
+                likeArray = JSON.stringify(likeArray);
+                var that = this;
+                requiredBackEnd('reviews', 'Addlike', likeArray, 'POST', function(params) {
+                    params = params + "";
+                    var like = params.split(",");
+                    review.set("review_like_count", like.length);
+                    review.set("review_people_like", params);
+                    that.count = like.length;
+                    review.set("isLike", true);
+                    review.store.save();
+                });
+            }
+        }
+    },
+    unLike: function()
+    {
+        var review = this.get('model'); 
+        var id = review.get("optional");
+        var review_id = review.get("review_id");
+        var review_people_like = review.get("review_people_like");
+        if (review_people_like === null || review_people_like === 'undefined') {
+            review_people_like = "";
+        }
+        if (localStorage.loginStatus !== null && localStorage.loginStatus !== undefined && localStorage.loginStatus !== "")
+        {
+            if (review_people_like.indexOf(localStorage.loginStatus) !== -1)
+            {
+                var likeArray = [localStorage.loginStatus, id,review_id];
+                likeArray = JSON.stringify(likeArray);
+                var that = this;
+                requiredBackEnd('reviews', 'Unlike', likeArray, 'POST', function(params) {
+                    if (params === "") {
+                        review.set("review_like_count", 0);
+                        that.count = 0;
+                    } else {
+                        params = params + "";
+                        var like = params.split(",");
+                        review.set("review_like_count", like.length);
+                        that.count = like.length;
+                    }
+                    review.set("review_people_like", params);
+                    review.set("isLike", false);
+                    review.store.save();
                 });
             }
         }

@@ -68,7 +68,7 @@ HubStar.Router.map(function() {
                     this.resource("groupArticlePhoto", {path: '/photos/:photo_id'});
                 });
             });
-            this.resource("partners", {path: '/network'});
+            this.resource("groupNetwork", {path: '/network'});
         }); // ### business profile end 
 
         this.resource("user", {path: '/users/:user_id'}, function() {

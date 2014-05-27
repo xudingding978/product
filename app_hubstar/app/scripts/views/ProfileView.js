@@ -35,7 +35,6 @@ HubStar.ProfileView = Ember.View.extend({
                     }
                 });
             });
-
         });
 
         var address = document.URL;

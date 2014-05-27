@@ -20,7 +20,7 @@
 
 
     <div class="group-panel">
-        
+
 
 
     </div>
@@ -33,10 +33,9 @@
         <div class="masonry-object_cover-wapper" style="max-height: 300px;">
             <img {{bindAttr src=model.group_hero_url}} style="width: 100%; z-index:3; position: relative"/>
         </div>
+        {{model.group_pic_size}}
         <div class="masonry-object_profilepic" style="cursor:pointer;z-index:3;position: absolute;top: 150px;" {{action toProfilePage this}}>
-             <div id="init_photo_{{unbound getID}}">
-                <a  href="#/profiles/{{unbound model.id}}" > <img class="easing" {{bindAttr src="model.group_pic_url"}}  />   </a>
-            </div>
+             <img style="width:{{unbound model.width}}; height:{{unbound model.height}}" class="easing" {{bindAttr src="model.group_pic_url"}}  />  
         </div>
 
         <div class="masonry-object_mainfeature" style="z-index:3;position: relative; top: 150px;">

@@ -31,18 +31,20 @@ HubStar.Group = DS.Model.extend({
         var length = url.length;
         var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
         var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
+        var heightNew = 150;
+        var widthNew = 150;
         if (width > height)
         {
-            this.set("width", width);
-            this.set("height", height);
+            heightNew = height;
+            widthNew = width;
         }
         else
         {
-            var heightNew = 150;
-            var widthNew = width/height*heightNew;
-            this.set("width", widthNew);
-            this.set("height", heightNew);
+            heightNew = 150;
+            widthNew = Math.ceil(width / height * heightNew);
         }
+        this.set("width", widthNew+"px");
+        this.set("height", heightNew+"px");
     }.property('group_pic_url')
 });
 

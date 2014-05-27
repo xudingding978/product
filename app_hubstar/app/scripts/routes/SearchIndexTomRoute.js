@@ -22,7 +22,10 @@ HubStar.SearchIndexTom = Ember.Route.extend({
 //            localStorage.checkUser = "";
 //            this.controllerFor('application').set('isNewUser', false);
 //        }
+
+if (localStorage.checkUser === "newUser") {
          localStorage.checkUser = "";
+         }
         $(".navbar").css("box-shadow", "");
         var that = this;
         $(document).ready(function() {

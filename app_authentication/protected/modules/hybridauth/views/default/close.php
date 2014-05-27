@@ -22,7 +22,7 @@
 
         }
 
-
+localStorage.setItem("checkUser", 'newSocialUser');
         var parent = window.opener;
         var address = document.URL;
         var domain = address.split("/")[2];

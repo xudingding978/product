@@ -213,6 +213,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
             setTimeout(function() {
                  HubStar.set('checkLoginStatus', false);
                  localStorage.checkUser = 'newUser';
+                 localStorage.checkSocialUser = '';
                  location.reload();
 //                $('#register-with-social-select-interests').css('display', 'none');
 //                $('#user-login-pane').css('display', 'none');

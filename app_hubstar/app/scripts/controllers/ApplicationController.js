@@ -114,15 +114,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             HubStar.set('pdf_display', params);
         });
 
-        if (localStorage.userType !== 'email'&&localStorage.checkUser === 'newSocialUser') {
+        if (localStorage.userType !== 'email'&&localStorage.checkSocialUser === 'newSocialUser') {
             HubStar.set('checkLoginStatus', true);
-            $(document).ready(function() {
                 setTimeout(function() {
                     $("#cta-popup").css("display", "none");
                     $("#profiles-main-container").css("display", "block");
                     $('#register-with-social-select-interests').css('display', 'block');
+                    $('#user-login-pane').css('display', 'none');
                 }, 1);
-            });
         }
         HubStar.set("escVideo", false);
         this.set('search_string', '');

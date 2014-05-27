@@ -294,9 +294,34 @@
     width: 100%;
 }
 
+.group-panel-left{
+    width: 33%;
+    height: 500px;
+    float: left;
+}
+
+.group-panel-left > div{
+    margin:20px;
+    width:90%;
+    color:#fff;
+    font-weight: bold;
+    font-size:20px;
+}
+
+
+.group-panel-right{
+    width: 33%;
+    height: 500px;
+    float: right;
+}
+
 .group-cover-image{
     max-height: 300px;
     overflow: hidden;
+
+}
+.group-cover-image > img{
+    width: 100%;
 }
 
 .group-edit-button{
@@ -306,5 +331,32 @@
     top: 0;
     right: 0;
     opacity: 1;
+    color:#fff;
 }
 
+.group-pic-image{
+    cursor: pointer;
+    position: absolute;
+    top: 150px;
+}
+
+
+.group-desc-part{
+    position: relative;
+    top: 110px; 
+    color: #000;
+
+}
+
+.group-name{
+    font-weight: bold;
+    font-size: 35px;
+    line-height: 50px;
+
+}
+
+.group-desc{
+    font-size: 20px;
+    line-height: 40px;
+
+}

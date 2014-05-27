@@ -17,8 +17,42 @@
 </div>
 
 <div class="group-wrapper">
-<div class="group-panel">
-        
+
+    <div class="group-panel">
+
+        <div class="group-panel-left">
+
+            <div>Project: </div> 
+
+            <div>Public: </div>
+
+            <div style="position: relative;top:200px;">
+                
+                
+                <div>Categories:</div>
+
+                <div>{{model.group_category}}</div>
+
+
+
+            </div>
+
+
+
+
+        </div>
+        <div class="group-panel-right">
+        </div>
+
+
+
+
+
+
+
+
+
+
 
 
     </div>
@@ -29,30 +63,22 @@
               <i class="fa fa-cogs"></i>
         </div>
         <div class="group-cover-image">
-            <img {{bindAttr src=model.group_hero_url}} style="width: 100%;"/>
+            <img {{bindAttr src=model.group_hero_url}}"/>
         </div>
-        <div class="masonry-object_profilepic" style="cursor:pointer;position: absolute;top: 150px;" {{action toProfilePage this}}>
-             <div id="init_photo_{{unbound getID}}">
-                <a  href="#/profiles/{{unbound model.id}}" > <img class="easing" {{bindAttr src="model.group_pic_url"}}  />   </a>
-            </div>
+        {{model.group_pic_size}}
+        <div class="group-pic-image masonry-object_profilepic"  {{action toProfilePage this}}>
+             <img style="width:{{unbound model.width}}; height:{{unbound model.height}}" class="easing" {{bindAttr src="model.group_pic_url"}}  />  
         </div>
 
-        <div class="masonry-object_mainfeature" style="z-index:3;position: relative; top: 150px;">
-
-            <div class="masonry-object_text">
-
-
-                <div class="more_detail" {{bindAttr id="id"}}>          
-                    {{model.group_name}}
-
-                </div>
-                <div class="more_detail" {{bindAttr id="id"}}>          
-                    {{model.group_description}}
-
-                </div>
+        <div class="group-desc-part">
+            <div class="group-name" >          
+                {{model.group_name}}
 
             </div>
+            <div class="group-desc" }>          
+                {{model.group_description}}
 
+            </div>
         </div>
     </div>
 </div>

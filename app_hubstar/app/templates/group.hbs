@@ -27,8 +27,8 @@
             <div>Public: </div>
 
             <div style="position: relative;top:200px;">
-                
-                
+
+
                 <div>Categories:</div>
 
                 <div>{{model.group_category}}</div>
@@ -42,6 +42,15 @@
 
         </div>
         <div class="group-panel-right">
+            
+            <div  class="group-creator">
+                
+                {{date controller.createTime}}
+            <img class="easing" {{bindAttr src="model.group_hero_cover_url"}}  />  
+            {{model.group_creator_name}}
+            </div>
+
+            
         </div>
 
 
@@ -73,7 +82,6 @@
         <div class="group-desc-part">
             <div class="group-name" >          
                 {{model.group_name}}
-
             </div>
             <div class="group-desc" }>          
                 {{model.group_description}}
@@ -82,9 +90,4 @@
         </div>
     </div>
 </div>
-<br>
-<br>
-<br>
-<br><br><br>
-
-{{view HubStar.MasonryCollectionView}}
+   {{view HubStar.MasonryCollectionView}}

@@ -59,6 +59,12 @@ class GroupsController extends Controller {
             $reponse = $cb->get($fileName);
             $request_arr = CJSON::decode($reponse, true);
                        
+            $docID = $this->getDomain() . "/users/" . $request_arr["groups"][0]['group_creator'];
+            $old = $cb->get($docID);
+            $userInfo = CJSON::decode($old, true);
+            $photo = (isset($userInfo["user"][0]["photo_url_large"]))? $userInfo["user"][0]["photo_url_large"] : $userInfo["user"][0]["photo_url"];
+            $request_arr["groups"][0]["group_hero_cover_url"] =  $photo;
+            $request_arr["groups"][0]["group_creator_name"] = $userInfo["user"][0]["display_name"];
             $respone_client_data = str_replace("\/", "/", CJSON::encode($request_arr["groups"][0]));
             $result = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":';
 //Iterate over the hits and print out some data
@@ -79,112 +85,6 @@ class GroupsController extends Controller {
         }
     }
 
-
-    public function modifyOwnerID($data_arr, $profile_name, $log_path) {
-        $cb = $this->couchBaseConnection();
-
-        for ($i = 0; $i < sizeof($data_arr); $i++) {
-            try {
-                $docID = $data_arr[$i];
-//            $this->writeToLog('/var/log/nginx/backprocess.log', $docID);
-                $profileOwn = $cb->get($docID);
-
-//            $this->writeToLog('/var/log/nginx/backprocess.log', $docID . ' get');
-                $owner = CJSON::decode($profileOwn, true);
-//            $this->writeToLog('/var/log/nginx/backprocess.log', $docID. 'decode');
-
-                $owner['owner_title'] = $profile_name;
-                if ($cb->set($docID, CJSON::encode($owner))) {
-                    array_splice($data_arr, $i, 1);
-//                    $this->writeToLog($log_path, $docID . 'update success');
-                } else {
-//                    $this->writeToLog($log_path, $docID . 'update fail'.'since');
-                }
-            } catch (Exception $e) {
-//                $this->writeToLog($log_path, 'error when get data');
-            }
-        }
-        return $data_arr;
-    }
-
-    public function findAllAccordingOwner($owner_id) {
-        $request = $this->getElasticSearch();
-        $must = Sherlock\Sherlock::queryBuilder()->QueryString()->query("\"$owner_id\"")
-                ->default_field('couchbaseDocument.doc.owner_id');
-        $bool = Sherlock\Sherlock::queryBuilder()->Bool()->must($must);
-        $data_arr = array();
-        for ($i = 0; $i < 2000; $i++) {
-            $request->from($i * 50)
-                    ->size(50);
-            $request->query($bool);
-            $response = $request->execute();
-            foreach ($response as $hit) {
-                //     echo $hit["score"] . ' - ' . $hit['id'] . "\r\n";
-                array_push($data_arr, $hit['id']);
-//                 $this->writeToLog('/var/log/nginx/backprocess.log', $hit['id']);
-            }
-            if (sizeof($response) == 0) {
-                $i = 2000;
-            }
-        }
-        return $data_arr;
-    }
-
-    public function setBoost($package_name) {
-        $domain = $this->getDomain();
-        $configuration = $this->getProviderConfigurationByName($domain, "package_details");
-        $boost = $configuration[$package_name]['boost'];
-        return $boost;
-    }
-
-    public function actionSetPhotoBoost($boost, $profile_id) {
-        $response = $this->getProfileReults($profile_id);
-        $responseArray = array();
-        foreach ($response as $hit) {
-            $id = $hit['source']['doc']['id'];
-            $profileId = $hit['source']['doc']['owner_id'];
-            if ($profileId === $profile_id) {
-                $cb = $this->couchBaseConnection();
-                $docID = $this->getDomain() . '/' . $id;
-                $profileOwn = $cb->get($docID);
-                $owner = CJSON::decode($profileOwn, true);
-                $owner['boost'] = $boost;
-
-                if ($cb->set($docID, CJSON::encode($owner))) {
-                    array_unshift($responseArray, $id . ' update succeed');
-                } else {
-                    array_unshift($responseArray, $id . ' delete failed');
-                }
-            }
-        }
-    }
-
-    public function actionSetProfileName() {
-        $payloads_arr = CJSON::decode(file_get_contents('php://input'));
-        $infoDel = CJSON::decode($payloads_arr, true);
-        $profile_name = $infoDel[0];
-        $profile_id = $infoDel[1];
-        $response = $this->getProfileReults($profile_id);
-        $responseArray = array();
-        foreach ($response as $hit) {
-            $id = $hit['source']['doc']['id'];
-            $profileId = $hit['source']['doc']['owner_id'];
-            if ($profileId === $profile_id) {
-                $cb = $this->couchBaseConnection();
-                $docID = $this->getDomain() . '/' . $id;
-                $profileOwn = $cb->get($docID);
-                $owner = CJSON::decode($profileOwn, true);
-                $owner['owner_title'] = $profile_name;
-
-                if ($cb->set($docID, CJSON::encode($owner))) {
-                    array_unshift($responseArray, $id . ' update succeed');
-                } else {
-                    array_unshift($responseArray, $id . ' delete failed');
-                }
-            }
-        }
-    }
-    
     public function actionDelete() {
         try {
             
@@ -192,74 +92,5 @@ class GroupsController extends Controller {
             echo $exc->getTraceAsString();
         }
     }
-
-    public function actionUpdateStyleImage() {
-
-        $payloads_arr = CJSON::decode(file_get_contents('php://input'));
-
-        $photo_string = $payloads_arr['newStyleImageSource'];
-        $photo_name = $payloads_arr['newStyleImageName'];
-
-        $mode = $payloads_arr['mode'];
-        $owner_id = $payloads_arr['id'];
-        $photoController = new PhotosController();
-        $data_arr = $photoController->convertToString64($photo_string);
-        $photo = imagecreatefromstring($data_arr['data']);
-        $compressed_photo = $photoController->compressPhotoData($data_arr['type'], $photo);
-        $orig_size['width'] = imagesx($compressed_photo);
-        $orig_size['height'] = imagesy($compressed_photo);
-
-        $url = $photoController->savePhotoInTypes($orig_size, $mode, $photo_name, $compressed_photo, $data_arr, $owner_id, $mode);
-
-        $cb = $this->couchBaseConnection();
-        $oldRecord = CJSON::decode($cb->get($this->getDomain() . '/profiles/' . $owner_id));
-
-        if ($mode == 'profile_hero') {
-            $oldRecord['profile'][0]['profile_hero_url'] = null;
-            $oldRecord['profile'][0]['profile_hero_url'] = $url;
-        } elseif
-        ($mode == 'background') {
-            $oldRecord['profile'][0]['profile_bg_url'] = null;
-            $oldRecord['profile'][0]['profile_bg_url'] = $url;
-        } elseif
-        ($mode == 'profile_picture') {
-            $oldRecord['profile'][0]['profile_pic_url'] = null;
-            $oldRecord['profile'][0]['profile_pic_url'] = $url;
-        }
-
-        if ($mode == 'profile_hero') {
-            $smallimage = $photoController->savePhotoInTypes($orig_size, 'hero', $photo_name, $compressed_photo, $data_arr, $owner_id, $mode);
-            $oldRecord['profile'][0]['profile_hero_cover_url'] = null;
-            $oldRecord['profile'][0]['profile_hero_cover_url'] = $smallimage;
-        }
-
-        $url = $this->getDomain() . '/profiles/' . $owner_id;
-
-        $copy_of_oldRecord = unserialize(serialize($oldRecord));
-        $tempUpdateResult = CJSON::encode($copy_of_oldRecord, true);
-
-        if ($cb->delete($url)) {
-            if ($cb->set($url, $tempUpdateResult)) {
-                $this->sendResponse(204, $url);
-            } else {
-                $this->sendResponse(500, 'something wrong');
-            }
-        } else {
-            $cb->set($url, $tempUpdateResult);
-            $this->sendResponse(500, 'something wrong');
-        }
-    }
-
-    public function writeToLog($fileName, $content) {
-//   $my_file = '/home/devbox/NetBeansProjects/test/addingtocouchbase_success.log';
-        $handle = fopen($fileName, 'a') or die('Cannot open file:  ' . $fileName);
-        $output = "\n" . $content;
-        fwrite($handle, $output);
-        fclose($handle);
-
-        unset($fileName, $content, $handle, $output);
-    }
-
 }
-
 ?>

@@ -54,7 +54,6 @@ class ReviewsController extends Controller {
 
     public function actionRead() {
 
-
         $request_json = file_get_contents('php://input');
         $request_arr = CJSON::decode($request_json, true);
         try {
@@ -87,59 +86,97 @@ class ReviewsController extends Controller {
         }
     }
 
-    public function actionUpdate() {
-
-        $request_json = file_get_contents('php://input');
-        $newRecord = CJSON::decode($request_json, true);
-        $owner_id = $newRecord ['optional'];
-        $id = $newRecord['review_id'];
+    public function actionAddlike() {
+        $like = CJSON::decode(file_get_contents('php://input'));
+        $like_arr = CJSON::decode($like, true);              
+        $like_people = $like_arr[0];
+        $like_profile = $like_arr[1];
+        $review_id = $like_arr[2];
+        $recordNum = null;
         try {
             $cb = $this->couchBaseConnection();
-
-
-            $docID = $this->getDomain() . "/profiles/" . $owner_id;
-            $cbRecord = $cb->get($docID); // get the old profile record from the database according to the docID string
-            $oldRecord = CJSON::decode($cbRecord, true);
-            $records = $oldRecord["profile"][0]["reviews"];
-           
-            $review_num = $this->getSelectedreview($records, $id);
-            if ($review_num !== -1) {
-
-                $oldRecord["profile"][0]["reviews"] [$review_num] ["review_id"] = $newRecord["review_id"];
-                $oldRecord["profile"][0]["reviews"] [$review_num] ["review_user_id"] = $newRecord["review_user_id"];
-                $oldRecord["profile"][0]["reviews"] [$review_num] ["review_user_photo_url"] = $newRecord["review_user_photo_url"];
-                $oldRecord["profile"][0]["reviews"] [$review_num] ["review_user_name"] = $newRecord["review_user_name"];
-                $oldRecord["profile"][0]["reviews"] [$review_num] ["review_content"] = $newRecord["review_content"];
-                $oldRecord["profile"][0]["reviews"] [$review_num] ["review_time_stamp"] = $newRecord["review_time_stamp"];
-                $oldRecord["profile"][0]["reviews"] [$review_num] ["review_star_rating_value"] = $newRecord["review_star_rating_value"];
-                $oldRecord["profile"][0]["reviews"] [$review_num] ["review_length"] = $newRecord["review_length"];
-                $oldRecord["profile"][0]["reviews"] [$review_num] ["review_like_count"] = $newRecord["review_like_count"];
-                $oldRecord["profile"][0]["reviews"] [$review_num] ["review_people_like"] = $newRecord["review_people_like"];
+            $docID = $this->getDomain() . "/profiles/" . $like_profile;
+            $old = $cb->get($docID); // get the old profile record from the database according to the docID string
+            $oldRecord = CJSON::decode($old, true);
+            $record = $oldRecord["profile"][0]["reviews"];
+            for ($i = 0; $i < sizeof($record); $i++) {
+                if ($record[$i]["review_id"] === $review_id) {
+                    $recordNum = $i;
+                }                
             }
-
-
+            if (!isset($record[$recordNum]["review_people_like"]) || is_array($record[$recordNum]["review_people_like"])) {
+                $record[$recordNum]["review_people_like"] = null;
+            }
+            $likeExist = strpos($record[$recordNum]["review_people_like"], $like_people);
+            
+            if ($likeExist === false) {
+                if ($record[$recordNum]["review_people_like"] !== null && $record[$recordNum]["review_people_like"] !== "") {
+                    $record[$recordNum]["review_people_like"] = $record[$recordNum]["review_people_like"] . ',' . $like_people;
+                } else {
+                    $record[$recordNum]["review_people_like"] = "" . $like_people;
+                }
+            }
+            $likeLength = sizeof(explode(",", $record[$recordNum]["review_people_like"]));
+            $record[$recordNum]["review_like_count"] = $likeLength;
+            $oldRecord["profile"][0]["reviews"] = $record;
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
-          $this->sendResponse(204);
+                $people_like = CJSON::encode($oldRecord["profile"][0]["reviews"][$recordNum]["review_people_like"], true);
+                $this->sendResponse(200, $people_like);
             } else {
-                $this->sendResponse(500, "some thing wrong");
+                $this->sendResponse(500, "something wrong");
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }      
+    }
+    public function actionUnlike() {
+        $like = CJSON::decode(file_get_contents('php://input'));
+        $like_arr = CJSON::decode($like, true);              
+        $like_people = $like_arr[0];
+        $like_profile = $like_arr[1];
+        $review_id = $like_arr[2];
+        $recordNum = null;
+        try {
+            $cb = $this->couchBaseConnection();
+            $docID = $this->getDomain() . "/profiles/" . $like_profile;
+            $old = $cb->get($docID); // get the old profile record from the database according to the docID string
+            $oldRecord = CJSON::decode($old, true);
+            $record = $oldRecord["profile"][0]["reviews"];
+            for ($i = 0; $i < sizeof($record); $i++) {
+                if ($record[$i]["review_id"] === $review_id) {
+                    $recordNum = $i;
+                }                
+            }
+            if (!isset($record[$recordNum]["review_people_like"]) || is_array($record[$recordNum]["review_people_like"])) {
+                $record[$recordNum]["review_people_like"] = null;
+            }
+            $temp = explode(",", $record[$recordNum]["review_people_like"]);
+            $temp = array_diff($temp, array($like_people));
+            $record[$recordNum]["review_people_like"] = implode(",", $temp);
+            $record[$recordNum]["review_like_count"] = count($temp);
+            $oldRecord["profile"][0]["reviews"] = $record;
+            if ($cb->set($docID, CJSON::encode($oldRecord))) {
+                $people_like = CJSON::encode($oldRecord["profile"][0]["reviews"][$recordNum]["review_people_like"], true);
+                $this->sendResponse(200, $people_like);
+            } else {
+                $this->sendResponse(500, "something wrong");
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
-    }
-
-    public function getSelectedreview($records, $id) {
-        $i = 0;
-        $review_num = -1;
-        foreach ($records as $record_id) {//assign each collection in profile's collections to record_id
-            if ($record_id["review_id"] == $id) {
-                //$records [$collection_num] = $collection; //replace the old collection with the new record's collection
-                $review_num = $i;
-            }
-            $i++;
-        }
-        return $review_num;
-    }
+    }    
+//    public function getSelectedreview($records, $id) {
+//        $i = 0;
+//        $review_num = -1;
+//        foreach ($records as $record_id) {
+//            if ($record_id["review_id"] == $id) {
+//                
+//                $review_num = $i;
+//            }
+//            $i++;
+//        }
+//        return $review_num;
+//    }
 
     public function actionDelete() {
 
@@ -161,8 +198,6 @@ class ReviewsController extends Controller {
                   array_splice($oldRecord["profile"][0]["reviews"], $review_num, 1);
  
             }
-
-
             if ($cb->set($docID, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);
             } else {
@@ -172,13 +207,9 @@ class ReviewsController extends Controller {
             echo $exc->getTraceAsString();
         }
     }
-
     public function actionTest() {
         
     }
-
-    
-
 }
 
 ?>

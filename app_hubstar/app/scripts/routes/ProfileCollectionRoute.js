@@ -71,7 +71,7 @@ HubStar.ProfileCollectionRoute = Ember.Route.extend({
                 }
             }
 
-            this.transitionTo("profileCollection", data);
+//            this.transitionTo("profileCollection", data);
             this.transitionTo("profilePhoto", obj);
         },
         transitionToProfile: function(id) {

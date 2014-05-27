@@ -4,7 +4,7 @@ DS.RESTAdapter.map('HubStar.Group', {
     keywords: {embedded: 'load'}
 });
 HubStar.Group = DS.Model.extend({
-    id:DS.attr('string'),
+    id: DS.attr('string'),
     group_step: DS.attr('string'),
     group_budget: DS.attr('string'),
     group_expertise: DS.attr('string'),
@@ -13,7 +13,6 @@ HubStar.Group = DS.Model.extend({
     group_hero_url: DS.attr('string'),
     group_pic_url: DS.attr('string'),
     group_bg_url: DS.attr('string'),
-    group_hero_cover_url: DS.attr('string'),
     group_name: DS.attr('string'), //
     group_keywords: DS.attr('string'),
     group_keywords_num: DS.attr('number'),
@@ -22,9 +21,29 @@ HubStar.Group = DS.Model.extend({
     group_creator: DS.attr('string'), //user id
     group_administrator: DS.attr('string'), //user id
     group_editor: DS.attr('string'), //user id
-    group_description: DS.attr('string'), 
+    group_description: DS.attr('string'),
     collections: DS.hasMany('HubStar.Collection'),
-    keywords: DS.hasMany('HubStar.Keyword')   
+    keywords: DS.hasMany('HubStar.Keyword'),
+    width: 150,
+    height: 150,
+    group_pic_size: function() {
+        var url = this.get("group_pic_url").split("_");
+        var length = url.length;
+        var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
+        var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
+        if (width > height)
+        {
+            this.set("width", width);
+            this.set("height", height);
+        }
+        else
+        {
+            var heightNew = 150;
+            var widthNew = width/height*heightNew;
+            this.set("width", widthNew);
+            this.set("height", heightNew);
+        }
+    }.property('group_pic_url')
 });
 
 

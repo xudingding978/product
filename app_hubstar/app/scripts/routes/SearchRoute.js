@@ -10,12 +10,12 @@ HubStar.SearchRoute = Ember.Route.extend({
         //this.controllerFor('searchs').setLoginImge();
         this.controllerFor('application').set('search_string', model.id);
         var that = this;
-         $(document).ready(function() {
-             setTimeout(function() {
-        that.controllerFor('application').searchSmallScreen();
-             },50);
-         });
-        
+        $(document).ready(function() {
+            setTimeout(function() {
+                that.controllerFor('application').searchSmallScreen();
+            }, 50);
+        });
+
         if (HubStar.get("escVideo") !== true)
         {
             this.controllerFor('application').newSearch();
@@ -45,7 +45,7 @@ HubStar.SearchRoute = Ember.Route.extend({
     },
     events: {
         transitionToPhoto: function(id) {
-            
+
             this.controllerFor('masonryCollectionItems').set("type", "profile");
 
             var address = document.URL;
@@ -63,12 +63,12 @@ HubStar.SearchRoute = Ember.Route.extend({
             }
         },
         transitionToProfile: function(id) {
-         
+
             this.transitionTo("profileCollections", HubStar.Profile.find(id));
         },
         transitionToVideo: function(id)
         {
-            
+
             var address = document.URL;
             var search_id = address.split("#")[1].split("/")[2];
             this.controllerFor('article').set("accessFromSearchBoard", true);
@@ -83,7 +83,7 @@ HubStar.SearchRoute = Ember.Route.extend({
             }
         },
         transitionToArticle: function(id) {
-           
+
             var address = document.URL;
             var search_id = address.split("#")[1].split("/")[2];
             this.controllerFor('article').set("accessFromSearchBoard", true);
@@ -105,25 +105,25 @@ HubStar.SearchRoute = Ember.Route.extend({
 
         $(document).ready(function() {
             setTimeout(function() {
-         //       $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
-            
+                //       $('#discovery_search_bar_wrapper').attr('style', "display:block;margin: 0 0 100px 0;");
+
                 if ($(window).width() > 1200) {
                     $("#search-bar").css('display', "block");
                     $("#topResidentialCommerical").css('display', "block");
                     $(".search-bar-on-small-screen").css('display', "none");
-                   
+
                 } else {
                     $("#search-bar").css('display', "none");
                     $("#topResidentialCommerical").css('display', "none");
                     $(".search-bar-on-small-screen").css('display', "block");
-                   
+
                 }
-                if(HubStar.get('showDiscoveryBar') === true){
-                     $('#masonry_container').css('top', "50px");
-                }else {
-                     $('#masonry_container').css('top', "100px");
-                }                  
-                             
+                if (HubStar.get('showDiscoveryBar') === true) {
+                    $('#masonry_container').css('top', "50px");
+                } else {
+                    $('#masonry_container').css('top', "100px");
+                }
+
                 $('#footer').attr("style", "display:none");
             }, 10);
         });

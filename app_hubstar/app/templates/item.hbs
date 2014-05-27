@@ -9,7 +9,7 @@
 
 {{/if}}
 
-
+{{business_profile_pic}}
 {{#if getPhoto}}
 <div class="box col2 noStyle1" data-step="9" data-intro="This is an <b>image</b> result. Click the image to see a full screen view and to read the caption." data-position='right' {{action checkingLoginStatus target="view" on="click"}} >
 
@@ -64,7 +64,7 @@
 
             <div class="profilepic-on-masonry">
                 <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  
-                    <img   style="width:46px; height: 46px;"  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
+                    <img style="width:{{unbound profile_width}}; height: {{unbound profile_height}};"  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
                 <a class="poster-name" style="cursor: pointer; word-break: break-word;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
@@ -172,7 +172,7 @@
 
 
             <div class="profilepic-on-masonry">
-                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  style="width:46px; height: 46px;" {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
+                <a class="poster-name" style="cursor: pointer;" href="#/profiles/{{unbound owner_id}}">  <img  style="width:{{unbound profile_width}}; height: {{unbound profile_height}};" {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/></a>
             </div>
             <div class="object_username">
                 <a class="poster-name" style="cursor: pointer; word-break: break-word;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}}>{{owner_title}}</a>
@@ -338,7 +338,7 @@
 
         <div class="masonry-object_poster">
             <div class="profilepic-on-masonry">
-                <img   style="width:46px; height: 46px;"  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
+                <img   style="width:{{unbound profile_width}}; height: {{unbound profile_height}};"  {{action transitionToProfile owner_id}} {{bindAttr src="owner_profile_pic"}}/>
             </div>
             <div class="object_username">
                 <a class="poster-name" style="word-break: break-word;" href="#/profiles/{{unbound owner_id}}" {{action transitionToProfile owner_id}} style="cursor: pointer; width: auto;">   {{owner_title}}</a>

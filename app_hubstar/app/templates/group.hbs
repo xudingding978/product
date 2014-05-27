@@ -1,12 +1,60 @@
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-{{controller}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="group-wallpaper">
+    <img  {{bindAttr src= model.group_bg_url}} style="width: 100%; max-height: 600px">
+</div>
+
+<div class="group-wrapper">
+
+
+    <div class="group-panel">
+        
+
+
+    </div>
+    <div class="group-item-profile">
+
+        <div  id="flip-front" class='group-edit-button'  data-hint="Dashboard"
+              {{action flipFrontClick}}>
+              <i class="fa fa-cogs"></i>
+        </div>
+        <div class="masonry-object_cover-wapper" style="max-height: 300px;">
+            <img {{bindAttr src=model.group_hero_url}} style="width: 100%; z-index:3; position: relative"/>
+        </div>
+        <div class="masonry-object_profilepic" style="cursor:pointer;z-index:3;position: absolute;top: 150px;" {{action toProfilePage this}}>
+             <div id="init_photo_{{unbound getID}}">
+                <a  href="#/profiles/{{unbound model.id}}" > <img class="easing" {{bindAttr src="model.group_pic_url"}}  />   </a>
+            </div>
+        </div>
+
+        <div class="masonry-object_mainfeature" style="z-index:3;position: relative; top: 150px;">
+
+            <div class="masonry-object_text">
+
+
+                <div class="more_detail" {{bindAttr id="id"}}>          
+                    {{model.group_name}}
+
+                </div>
+                <div class="more_detail" {{bindAttr id="id"}}>          
+                    {{model.group_description}}
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

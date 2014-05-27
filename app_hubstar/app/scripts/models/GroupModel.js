@@ -45,8 +45,8 @@ HubStar.Group = DS.Model.extend({
             heightNew = 150;
             widthNew = Math.ceil(width / height * heightNew);
         }
-        this.set("width", widthNew+"px");
-        this.set("height", heightNew+"px");
+        this.set("width", widthNew + "px");
+        this.set("height", heightNew + "px");
     }.property('group_pic_url')
 });
 

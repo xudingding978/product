@@ -18,6 +18,7 @@ HubStar.GroupController = Ember.Controller.extend({
         this.set("createTime",date+"");
         this.selectPartner();
     },
+            
     selectPartner: function()
     {
         this.set("groupNetworkStatistics",0);

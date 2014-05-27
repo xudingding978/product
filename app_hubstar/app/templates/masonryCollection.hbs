@@ -23,7 +23,7 @@
         {{/if}} 
         {{#if controller.partnerPage}}
         <ul class="user-stats" id="user-stats">
-      
+
 
             <li id="defualt"  data-step="8" data-intro="Click here to view the profile’s <b>Collections</b>." data-position='top'><a {{action selectCollection}}> Collections <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileCollectionStatistics}}</a></li>
             <li id="video"   data-step="9" data-intro="Click here to view the profile’s <b>Videos</b>." data-position='top'><a {{action selectVideo this}}> Videos <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.profileVideoStatistics}}</a></li>
@@ -53,6 +53,11 @@
 
         </ul>
         {{/if}}    
+        {{#if controller.groupPage}}
+        <ul class="user-stats" id="user-stats">
+            <li id="networkGroup"  data-step="11" data-intro="Click here to see the group’s <b>Network Partners</b>." data-position='top'><a {{action selectPartner}}>Network <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.groupNetworkStatistics}}</a></li>
+        </ul>
+        {{/if}}
     </div>
 
     <div id="masonry_user_container" class="centered clearfix masonry_push_down" >
@@ -63,9 +68,9 @@
         {{#if videoTag}}
         {{render profileVideos}}
         {{/if}} 
-        
-       {{#if pdfTag}}
-       {{render profilePdf}}
+
+        {{#if pdfTag}}
+        {{render profilePdf}}
         {{/if}} 
 
         {{#if partnerTag}}
@@ -96,6 +101,9 @@
         {{render userMessage}}
         {{/if}}
         
+        {{#if controller.groupNetwork}}
+        {{render groupNetwork}}
+        {{/if}}
     </div>
 
 

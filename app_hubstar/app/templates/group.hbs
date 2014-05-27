@@ -51,7 +51,9 @@
                     {{model.group_description}}
 
                 </div>
-
+                {{date controller.createTime}}
+                <img class="easing" {{bindAttr src="model.group_hero_cover_url"}}  />  
+                {{model.group_creator_name}}
             </div>
 
         </div>

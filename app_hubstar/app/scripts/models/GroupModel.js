@@ -13,12 +13,14 @@ HubStar.Group = DS.Model.extend({
     group_hero_url: DS.attr('string'),
     group_pic_url: DS.attr('string'),
     group_bg_url: DS.attr('string'),
+    group_hero_cover_url: DS.attr('string'),
     group_name: DS.attr('string'), //
     group_keywords: DS.attr('string'),
     group_keywords_num: DS.attr('number'),
     group_timeframe: DS.attr('string'),
     group_partner_ids: DS.attr('string'),
     group_creator: DS.attr('string'), //user id
+    group_creator_name: DS.attr('string'),
     group_administrator: DS.attr('string'), //user id
     group_editor: DS.attr('string'), //user id
     group_description: DS.attr('string'),

@@ -68,18 +68,29 @@
             <div  class="group-step-button" {{action groupStep "3" }} >Style Up</div>
         </div>
         <div class="group-content easing" >
-            <div class="group-textarea">{{view Ember.TextArea valueBinding="controller.description"   class="textarea-style" placeholder="About this project, I would like to......" }}</div>
-            <div class="group-part">
-                <div class="group-text">Budget:</div>
-                <div class="content-group-right">
 
-                
+            <div class="group-textarea">{{view Ember.TextArea valueBinding="controller.description"   class="textarea-style" placeholder="About this project, I would like to......" }}</div>
+             <div class="group-part">
+                <div class="group-text">Budget*:</div>
+                <div class="content-group-right">
+                    <div id="budget1" class="subcategory-word" {{action chooseBudget  "1" "Less than 5k"}}>Less than 5k</div>
+                    <div id="budget2" class="subcategory-word" {{action chooseBudget  "2" "5k-10k"}}>5k-10k</div>
+                    <div id="budget3" class="subcategory-word" {{action chooseBudget  "3" "10k-50k"}}>10k-50k</div>
+                    <div id="budget4" class="subcategory-word" {{action chooseBudget  "4" "50k-100k"}}>50k-100k</div>
+                    <div id="budget5" class="subcategory-word" {{action chooseBudget  "5" "100k-250k"}}>100k-250k</div>
+                    <div id="budget6" class="subcategory-word" {{action chooseBudget  "6" "250k-500k"}}>250k-500k</div>
+                    <div id="budget7" class="subcategory-word" {{action chooseBudget  "7" "500k- 1M"}}>500k- 1M</div>
+                    <div id="budget8" class="subcategory-word" {{action chooseBudget  "8" "1M+"}}>1M+</div>
                 </div>
             </div>
             <div class="group-part">
-                <div class="group-text">Time Frame:</div>
+                <div class="group-text">Time Frame*:</div>
                 <div class="content-group-right">
-                   
+                    <div id="time1" class="subcategory-word" {{action chooseTime  "1" "1-2 months"}}>1-2 months</div>
+                    <div id="time2" class="subcategory-word" {{action chooseTime  "2" "Next 6 months"}}>Next 6 months</div>
+                    <div id="time3" class="subcategory-word" {{action chooseTime  "3" "Within 12 months"}}>Within 12 months</div>
+                    <div id="time4" class="subcategory-word" {{action chooseTime  "4" "1-2 years"}}>1-2 years</div>
+                    <div id="time5" class="subcategory-word" {{action chooseTime  "5" "Within 3 years"}}>Within 3 years</div>
                 </div>
             </div>
             <div class="group-part">

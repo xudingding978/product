@@ -6,6 +6,8 @@ HubStar.GroupsNewController = Ember.Controller.extend({
     subcate: null,
     selected_cate: [],
     group_expertise: '',
+    group_budget: '',
+    group_timeframe: '',
     isResidential: false,
     isCommercial: false,
     subCategory: "",
@@ -65,18 +67,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                 this.set("groupStepThree", false);
                 $(document).ready(function() {
                     setTimeout(function() {
-                        if (that.get('group_expertise') === "First Time")
-                        {
-                            that.choose("1");
-                        }
-                        else if (that.get('group_expertise') === "I have some experiences")
-                        {
-                            that.choose("2");
-                        }
-                        else if (that.get('group_expertise') === "I am professional")
-                        {
-                            that.choose("3");
-                        }
+                        that.refreshPage();
                     }, 1);
                 });
             }
@@ -87,7 +78,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         } else if (number === "2") {
             this.set("groupStepOne", true);
             this.set("groupStepTwo", false);
-            this.set("groupStepThree", false);            
+            this.set("groupStepThree", false);
             $(document).ready(function() {
                 setTimeout(function() {
                     if (that.get('isResidential') === true)
@@ -105,6 +96,90 @@ HubStar.GroupsNewController = Ember.Controller.extend({
             this.set("groupStepTwo", false);
             this.set("groupStepThree", true);
         }
+    },
+    refreshPage: function() {
+        if (this.get('group_expertise') === "First Time")
+        {
+            this.choose("1");
+        }
+        else if (this.get('group_expertise') === "I have some experiences")
+        {
+            this.choose("2");
+        }
+        else if (this.get('group_expertise') === "I am professional")
+        {
+            this.choose("3");
+        }
+
+        if (this.get('group_budget') === "Less than 5k")
+        {
+            this.chooseBudget("1", this.get('group_budget'));
+        }
+        else if (this.get('group_budget') === "5k-10k")
+        {
+            this.chooseBudget("2", this.get('group_budget'));
+        }
+        else if (this.get('group_budget') === "10k-50k")
+        {
+            this.chooseBudget("3", this.get('group_budget'));
+        }
+        else if (this.get('group_budget') === "50k-100k")
+        {
+            this.chooseBudget("4", this.get('group_budget'));
+        }
+        else if (this.get('group_budget') === "100k-250k")
+        {
+            this.chooseBudget("5", this.get('group_budget'));
+        }
+        else if (this.get('group_budget') === "250k-500k")
+        {
+            this.chooseBudget("6", this.get('group_budget'));
+        }
+        else if (this.get('group_budget') === "500k- 1M")
+        {
+            this.chooseBudget("7", this.get('group_budget'));
+        }
+        else if (this.get('group_budget') === "1M+")
+        {
+            this.chooseBudget("8", this.get('group_budget'));
+        }
+        
+        if (this.get('group_timeframe') === "1-2 months")
+        {
+            this.chooseTime("1", this.get('group_timeframe'));
+        }
+        else if (this.get('group_timeframe') === "Next 6 months")
+        {
+            this.chooseTime("2", this.get('group_timeframe'));
+        }
+        else if (this.get('group_timeframe') === "Within 12 months")
+        {
+            this.chooseTime("3", this.get('group_timeframe'));
+        }
+        else if (this.get('group_timeframe') === "1-2 years")
+        {
+            this.chooseTime("4", this.get('group_timeframe'));
+        }
+        else if (this.get('group_timeframe') === "Within 3 years")
+        {
+            this.chooseTime("5", this.get('group_timeframe'));
+        }
+    },
+    chooseBudget: function(n, s) {
+        for (var i = 1; i <= 8; i++)
+        {
+            $("#budget" + i).removeClass("selected");
+        }
+        $("#budget" + n).addClass("selected");
+        this.set("group_budget", s);
+    },
+    chooseTime: function(n, s) {
+        for (var i = 1; i <= 5; i++)
+        {
+            $("#time" + i).removeClass("selected");
+        }
+        $("#time" + n).addClass("selected");
+        this.set("group_timeframe", s);
     },
     choose: function(number) {
         if (number === "1") {
@@ -237,7 +312,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
 
             var newGroup = HubStar.Group.createRecord({
                 group_step: "",
-                group_budget: "",
+                group_budget: that.get("group_budget"),
                 group_expertise: that.get("group_expertise"),
                 group_classification: that.get("isResidential") ? "residential" : "commercial",
                 group_category: that.get("Category"),
@@ -247,7 +322,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                 group_bg_url: that.get("group_bg_url"),
                 group_hero_cover_url: "",
                 group_name: that.get("groupName"), //group name
-                group_timeframe: "", //how long does the project need?
+                group_timeframe: that.get("group_timeframe"), //how long does the project need?
                 group_description: that.get("aboutProject"),
                 group_partner_ids: "",
                 group_creator: localStorage.loginStatus, //user id

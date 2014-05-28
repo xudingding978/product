@@ -31,7 +31,7 @@
                 {{#if this.isResidential}}
                 <div class="select-group" style=""{{action topicSelection this}}>
                      <div class="group-image">         
-                        <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing" {{action topicSelection this}}>{{chooseNumber}}</div>
+                        <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing" {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>
                         <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
                     </div>
                     <div class="group-topic-name" >
@@ -48,7 +48,7 @@
                 {{#if this.isCommercial}}
                 <div class="select-group" style=""{{action topicSelection  this}}>
                      <div class="group-image">    
-                        <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing"  {{action topicSelection this}}>{{chooseNumber}}</div>                
+                        <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing"  {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>                
                         <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
                     </div>
                     <div class="group-topic-name">
@@ -72,25 +72,38 @@
 
             <div class="group-step-title" style=" width:60%; cursor: pointer;">
                 <div class="group-textarea">
-                    {{view Ember.TextField valueBinding="groupName" class="textarea-style" placeholder="Profile Title" }}</div>
+                    {{view Ember.TextField valueBinding="groupName" class="textarea-style" placeholder="*Profile Title" }}</div>
             </div>
             <div  class="group-step-button" {{action groupStep "3" }} >NEXT</div>
         </div>
         <div class="group-content easing" >
             <div class="group-textarea">{{view Ember.TextArea valueBinding="aboutProject"   class="textarea-style" placeholder="About this project, I would like to......" }}</div>
             <div class="group-part">
-                <div class="group-text">Budget:</div>
+                <div class="group-text">Budget*:</div>
                 <div class="content-group-right">
+                    <div id="budget1" class="subcategory-word" {{action chooseBudget  "1" "Less than 5k"}}>Less than 5k</div>
+                    <div id="budget2" class="subcategory-word" {{action chooseBudget  "2" "5k-10k"}}>5k-10k</div>
+                    <div id="budget3" class="subcategory-word" {{action chooseBudget  "3" "10k-50k"}}>10k-50k</div>
+                    <div id="budget4" class="subcategory-word" {{action chooseBudget  "4" "50k-100k"}}>50k-100k</div>
+                    <div id="budget5" class="subcategory-word" {{action chooseBudget  "5" "100k-250k"}}>100k-250k</div>
+                    <div id="budget6" class="subcategory-word" {{action chooseBudget  "6" "250k-500k"}}>250k-500k</div>
+                    <div id="budget7" class="subcategory-word" {{action chooseBudget  "7" "500k- 1M"}}>500k- 1M</div>
+                    <div id="budget8" class="subcategory-word" {{action chooseBudget  "8" "1M+"}}>1M+</div>
                 </div>
             </div>
             <div class="group-part">
-                <div class="group-text">Time Frame:</div>
+                <div class="group-text">Time Frame*:</div>
                 <div class="content-group-right">
-                    
+                    <div id="time1" class="subcategory-word" {{action chooseTime  "1" "1-2 months"}}>1-2 months</div>
+                    <div id="time2" class="subcategory-word" {{action chooseTime  "2" "Next 6 months"}}>Next 6 months</div>
+                    <div id="time3" class="subcategory-word" {{action chooseTime  "3" "Within 12 months"}}>Within 12 months</div>
+                    <div id="time4" class="subcategory-word" {{action chooseTime  "4" "1-2 years"}}>1-2 years</div>
+                    <div id="time5" class="subcategory-word" {{action chooseTime  "5" "Within 3 years"}}>Within 3 years</div>
+
                 </div>
             </div>
             <div class="group-part">
-                <div class="group-text">Expertise:</div>
+                <div class="group-text">Expertise*:</div>
                 <div class="content-group-right">
                     <div id="first_time" class="subcategory-word" {{action choose  "1" }}>First Time</div>
                     <div id="some_experiences" class="subcategory-word" {{action choose  "2" }}>I have some experiences</div>
@@ -102,34 +115,39 @@
     {{/if}}
 
     {{#if controller.groupStepThree}}
-    <div class="group-profile-title-top">
+    <div id="group-step-3" class="group-step"> 
+        <div class="group-profile-title-top">
 
-        <div  class="group-step-button" style="float:left" {{action groupStep "1"}} >BACK</div>
+            <div  class="group-step-button" style="float:left" {{action groupStep "1"}} >BACK</div>
 
-        <div class="group-step-title" style=" width:60%;">
-            {{controller.groupName}}
-        </div>
-        <div  class="group-step-button" {{action save}} >DONE</div>
-    </div>
-    <div class="group-content easing" >
-        <div  class="message-btn easing hint--bottom hint--rounded" style="width:30px; border-right: 1px solid #ddd; border-left: 1px solid #ddd;" data-hint="Add Photo"><i class='fa fa-picture-o'></i>
-            <div style="opacity:0;position: relative;height:30px;top:-30px;overflow: hidden;"> 
-                {{view HubStar.MultiImageInputButtonView name="logo"}}
+            <div class="group-step-title" style=" width:60%;">
+                {{controller.groupName}}
             </div>
+            <div  class="group-step-button" {{action save}} >DONE</div>
         </div>
-        <div class="group-upload-image" >
-            <div class='remove-comment-photo easing' {{action removePic "logo"}}><i class="fa fa-times"></i></div>
-            <img  {{bindAttr src= "logoSource"}}  style="">
-        </div>
-
-        <div  class="group-upload-image">
-            <div class='remove-comment-photo easing' {{action removePic "bg"}}><i class="fa fa-times"></i></div>
-            <img  {{bindAttr src= "bgSource"}}  style="">
-        </div>
-        <div  class="message-btn easing hint--bottom hint--rounded" style="width:30px; border-right: 1px solid #ddd; border-left: 1px solid #ddd;" data-hint="Add Photo"><i class='fa fa-picture-o'></i>
-            <div style="opacity:0;position: relative;height:30px;top:-30px;overflow: hidden;"> 
-                {{view HubStar.MultiImageInputButtonView name="bg"}}
+        <div class="group-content easing" >
+            <div style="padding: 20px;width: 50%;float: left;">
+                <div   class="subcategory-word" style="overflow: hidden;position: relative;left: 30%;top: 20px;" data-hint="Add Photo">Upload A Avatar
+                    <div style="opacity: 0;position: absolute;height: 30px;top: 0;right: 0;  "> 
+                        {{view HubStar.MultiImageInputButtonView name="logo"}}
+                    </div>
+                </div>
+                <div class="group-upload-image" >
+                    <div class='remove-comment-photo easing' {{action removePic "logo"}}><i class="fa fa-times"></i></div>
+                    <img  {{bindAttr src= "logoSource"}}  style="">
+                </div>
             </div>
+            <div style="padding: 20px;">
+                <div   class="subcategory-word" style="overflow: hidden;position: relative;left: 30%;top: 20px;" data-hint="Add Photo">Upload A Avatar
+                    <div style="opacity: 0;position: absolute;height: 30px;top: 0;right: 0; "> 
+                        {{view HubStar.MultiImageInputButtonView name="bg"}}
+                    </div>
+                </div>
+                <div  class="group-upload-image">
+                    <div class='remove-comment-photo easing' {{action removePic "bg"}}><i class="fa fa-times"></i></div>
+                    <img  {{bindAttr src= "bgSource"}}  style="">
+                </div>
+            </div> 
         </div>
     </div>
     {{/if}}

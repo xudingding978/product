@@ -26,7 +26,6 @@ HubStar.DeleteFunctionView = Ember.View.extend({
         }
         else if (controller._debugContainerKey.indexOf("mega") !== -1) {
             controller.removeComment(obj);
-
         }
         else if (controller._debugContainerKey.indexOf("article") !== -1) {
             controller.removeComment(obj);

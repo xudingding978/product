@@ -37,10 +37,8 @@ HubStar.AfterLoginView = Ember.View.extend({
             $("#cancel").css("display", "none");
 
         } else if (checking === "new") {
-            location.href = "#/profiles/new";
-            this.get("controller").set('userProfile', false);
-            //$("#user-dd-menu").attr("style", "display:none");
-            $("#cancel").css("display", "none");
+             $("#cancel").css("display", "none");
+              this.get("controller").set("newProfile", true);
         }
         else if (checking === "newGroup") {
             location.href = "#/groups/new";
@@ -49,9 +47,10 @@ HubStar.AfterLoginView = Ember.View.extend({
             $("#cancel").css("display", "none");
         }
     },
-    loadProfile: function() {
-        var user = HubStar.User.find(localStorage.loginStatus);
-        this.set("profiles", user.get("profiles"));
+    cancel: function() {
+        this.set("newProfile", false);
+         $("#user-dd-menu").attr("style", "display:none");
+          $("#cancel").css("display", "none");
     },
     startTour: function() {
 

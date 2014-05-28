@@ -20,6 +20,11 @@ HubStar.ProfilePhotoRoute = Ember.Route.extend({
         },function() {
            that.transitionTo('fourOhFour',"404");
         }); 
+        
+          if (HubStar.get('ctaView') === true) {
+                this.controllerFor("checkingLoginStatus").popupLogin();
+                HubStar.set('ctaView', false);
+            }
     },
     model: function(params) {
 

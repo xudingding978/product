@@ -246,6 +246,58 @@
     display: inline-block;
 }
 
+/* ------------------------new masonry style by Charis -------------------------*/
+.new-masonry-bar{
+    width: 60%;
+    min-width: 800px;
+    height: 40px;
+    background: transparent;
+    margin: 10px auto;
+    left: 0;
+    right: 0;
+    position: relative;
+    display: block;
+    border-bottom: 3px solid rgba(255,255,255,.5);
+}
+
+.new-masonry-bar > ul{
+    padding:0;
+    margin:0;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;  
+    color:rgba(255,255,255,.5);
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.new-masonry-bar > ul > li{
+    cursor: pointer;
+    display: inline;
+    float: left;
+    line-height: 36px;
+    margin: 0 60px;
+    color: rgba(255,255,255,.5);
+
+}
+.new-masonry-bar > ul > li:hover{
+
+    color: #fff;
+    border-bottom: 5px solid #fff;
+
+}
+
+
+.new-selected {
+      color: #fff !important;
+    border-bottom: 5px solid #fff;
+}
+
+/* ------------------------new masonry style end -------------------------*/
+
+
+
+
 /*------------------------- Group Part -------------------------------------------*/
 .group-wallpaper{
     width: 100%;
@@ -402,5 +454,8 @@ overflow: hidden;
     font-size: 20px;
       line-height: 35px;
 }
+
+
+
 
 

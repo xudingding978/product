@@ -30,13 +30,21 @@ HubStar.GroupController = Ember.Controller.extend({
             }, 2);
         });
     },
+    selectPartner1: function(){
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('.new-masonry-bar > ul > li').removeClass('new-selected');
+                $('#networkGroup1').addClass('new-selected');
+            }, 2);
+        });
+    },
     selectPartner: function()
     {
         this.set("groupNetworkStatistics", 0);
         $(document).ready(function() {
             setTimeout(function() {
-                $('#user-stats > li').removeClass('selected-user-stats');
-                $('#networkGroup').addClass('selected-user-stats');
+                $('.new-masonry-bar > ul > li').removeClass('new-selected');
+                $('#networkGroup').addClass('new-selected');
             }, 2);
         });
         this.set("groupNetwork", true);

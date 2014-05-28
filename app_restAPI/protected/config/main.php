@@ -57,6 +57,7 @@ return CMap::mergeArray(
                 'application.vendor.autoload',
                 'application.controllers.*',
                 'application.components.*',
+            //    'application.components.Drewm.*',
                 'application.components.fpdf17.*',
             ),
             // application components

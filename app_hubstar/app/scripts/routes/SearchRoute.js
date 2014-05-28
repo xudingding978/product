@@ -30,9 +30,7 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('status').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
-        if (localStorage.checkUser === "newUser") {
         localStorage.checkUser = "";
-    }
 
         $('#footer').css("display", "none");
     },

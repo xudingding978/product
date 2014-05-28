@@ -171,6 +171,7 @@ class Controller extends CController {
         } elseif ($requireType == 'partner') {
             $response = $this->getPartnerResults($requireParams[1]);
             $response = $this->getReponseResult($response, $returnType);
+            $response = $this->profileSetting($response, $returnType, 'profilecollection');
         } elseif ($requireType == 'partnerSearch') {
             $response = $this->getPartnerResults($requireParams[1], $requireParams[2]);
             $response = $this->getReponseResult($response, $returnType);

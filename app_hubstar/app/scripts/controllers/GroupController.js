@@ -33,8 +33,12 @@ HubStar.GroupController = Ember.Controller.extend({
     selectPartner: function()
     {
         this.set("groupNetworkStatistics", 0);
-        $('#user-stats > li').removeClass('selected-user-stats');
-        $('#networkGroup').addClass('selected-user-stats');
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('#user-stats > li').removeClass('selected-user-stats');
+                $('#networkGroup').addClass('selected-user-stats');
+            }, 2);
+        });
         this.set("groupNetwork", true);
         this.set('profileSelectionStatus', 'Network');
         this.transitionToRoute('groupNetwork');

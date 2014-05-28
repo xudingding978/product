@@ -18,6 +18,8 @@ HubStar.SearchDefaultArticlePhotoRoute = Ember.Route.extend({
             
            that.transitionTo('fourOhFour',"404");
         });  
+        
+     
       
 
     },

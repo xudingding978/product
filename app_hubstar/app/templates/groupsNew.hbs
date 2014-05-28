@@ -126,26 +126,31 @@
             <div  class="group-step-button" {{action save}} >DONE</div>
         </div>
         <div class="group-content easing" >
-            <div style="padding: 20px;width: 50%;float: left;">
-                <div   class="subcategory-word" style="overflow: hidden;position: relative;left: 30%;top: 20px;" data-hint="Add Photo">Upload A Avatar
-                    <div style="opacity: 0;position: absolute;height: 30px;top: 0;right: 0;  "> 
-                        {{view HubStar.MultiImageInputButtonView name="logo"}}
+
+            <div class="group-upload-content" style="float:left">
+                <div style="width: 100%;">
+                    <div   class="subcategory-word upload-button" data-hint="Add Photo">Upload a Avatar
+                        <div> 
+                            {{view HubStar.MultiImageInputButtonView name="logo"}}
+                        </div>
                     </div>
                 </div>
-                <div class="group-upload-image" >
-                    <div class='remove-comment-photo easing' {{action removePic "logo"}}><i class="fa fa-times"></i></div>
-                    <img  {{bindAttr src= "logoSource"}}  style="">
+                <div class="group-upload-image-logo" >
+                    <div class="remove-comment-photo easing remove-help-logo" {{action removePic "logo"}}><i class="fa fa-times"></i></div>
+                    <img  {{bindAttr src= "logoSource"}} class="img-help-logo">
                 </div>
             </div>
-            <div style="padding: 20px;">
-                <div   class="subcategory-word" style="overflow: hidden;position: relative;left: 30%;top: 20px;" data-hint="Add Photo">Upload A Avatar
-                    <div style="opacity: 0;position: absolute;height: 30px;top: 0;right: 0; "> 
-                        {{view HubStar.MultiImageInputButtonView name="bg"}}
+            <div class="group-upload-content">
+                <div style="width: 100%;">
+                    <div   class="subcategory-word upload-button"  data-hint="Add Photo">Upload a Cover
+                        <div> 
+                            {{view HubStar.MultiImageInputButtonView name="bg"}}
+                        </div>
                     </div>
                 </div>
-                <div  class="group-upload-image">
-                    <div class='remove-comment-photo easing' {{action removePic "bg"}}><i class="fa fa-times"></i></div>
-                    <img  {{bindAttr src= "bgSource"}}  style="">
+                <div  class="group-upload-image-bg">
+                    <div class="remove-comment-photo easing remove-help-bg" {{action removePic "bg"}}><i class="fa fa-times"></i></div>
+                    <img  {{bindAttr src= "bgSource"}} class="img-help-bg">
                 </div>
             </div> 
         </div>

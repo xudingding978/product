@@ -439,52 +439,59 @@ class FollowersController extends Controller {
         $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
         $oldRecordDeep = CJSON::decode($oldDeep, true);
         $newRecord['record_id'] = $id;
-        $newRecord['name'] = $oldRecordDeep['profile'][0]["profile_name"];
-        $newRecord['photo_url'] = $oldRecordDeep['profile'][0]["profile_pic_url"];
-        if (isset($oldRecordDeep['profile'][0]["profile_hero_cover_url"])) {
-            $newRecord['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_hero_cover_url"];
-        } else {
-            $newRecord['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_hero_url"];
-        }
-        $newRecord['following_status'] = false;
-        if (!isset($oldRecordDeep['profile'][0]["profile_partner_ids"])) {
-            $newRecord['partner_size'] = 0;
-        } else {
-            if ($oldRecordDeep['profile'][0]["profile_partner_ids"] === null || $oldRecordDeep['profile'][0]["profile_partner_ids"] === '') {
+        if (isset($oldRecordDeep['profile'])) 
+       {
+            $newRecord['name'] = $oldRecordDeep['profile'][0]["profile_name"];
+            $newRecord['photo_url'] = $oldRecordDeep['profile'][0]["profile_pic_url"];
+            if (isset($oldRecordDeep['profile'][0]["profile_hero_cover_url"])) {
+                $newRecord['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_hero_cover_url"];
+            } else {
+                $newRecord['cover_url_small'] = $oldRecordDeep['profile'][0]["profile_hero_url"];
+            }
+            $newRecord['following_status'] = false;
+            if (!isset($oldRecordDeep['profile'][0]["profile_partner_ids"])) {
                 $newRecord['partner_size'] = 0;
             } else {
-                $partner = explode(",", $oldRecordDeep['profile'][0]["profile_partner_ids"]);
-                $newRecord['partner_size'] = sizeof($partner);
+                if ($oldRecordDeep['profile'][0]["profile_partner_ids"] === null || $oldRecordDeep['profile'][0]["profile_partner_ids"] === '') {
+                    $newRecord['partner_size'] = 0;
+                } else {
+                    $partner = explode(",", $oldRecordDeep['profile'][0]["profile_partner_ids"]);
+                    $newRecord['partner_size'] = sizeof($partner);
+                }
             }
-        }
-        if (!isset($oldRecordDeep['profile'][0]["collections"])) {
-            $newRecord['collections_size'] = 0;
-        } else {
-
-            if (($oldRecordDeep['profile'][0]["collections"] === null) || ($oldRecordDeep['profile'][0]["collections"] === "")) {
-
+            if (!isset($oldRecordDeep['profile'][0]["collections"])) {
                 $newRecord['collections_size'] = 0;
             } else {
-                $newRecord['collections_size'] = sizeof($oldRecordDeep['profile'][0]["collections"]);
+
+                if (($oldRecordDeep['profile'][0]["collections"] === null) || ($oldRecordDeep['profile'][0]["collections"] === "")) {
+
+                    $newRecord['collections_size'] = 0;
+                } else {
+                    $newRecord['collections_size'] = sizeof($oldRecordDeep['profile'][0]["collections"]);
+                }
             }
-        }
-        if (!isset($oldRecordDeep['profile'][0]["followers"])) {
-            $newRecord['follower_size'] = 0;
-            $newRecord['follow_status'] = false;
-        } else {
-            if (($oldRecordDeep['profile'][0]["followers"] === null) || ($oldRecordDeep['profile'][0]["followers"] === "")) {
+            if (!isset($oldRecordDeep['profile'][0]["followers"])) {
                 $newRecord['follower_size'] = 0;
                 $newRecord['follow_status'] = false;
             } else {
-                $newRecord['follow_status'] = false;
-                for ($j = 0; $j < sizeof($oldRecordDeep['profile'][0]["followers"]); $j++) {
-                    if ($oldRecordDeep['profile'][0]["followers"][$j]["follower_id"] === $like_user) {
-                        $newRecord['follow_status'] = true;
-                        break;
+                if (($oldRecordDeep['profile'][0]["followers"] === null) || ($oldRecordDeep['profile'][0]["followers"] === "")) {
+                    $newRecord['follower_size'] = 0;
+                    $newRecord['follow_status'] = false;
+                } else {
+                    $newRecord['follow_status'] = false;
+                    for ($j = 0; $j < sizeof($oldRecordDeep['profile'][0]["followers"]); $j++) {
+                        if ($oldRecordDeep['profile'][0]["followers"][$j]["follower_id"] === $like_user) {
+                            $newRecord['follow_status'] = true;
+                            break;
+                        }
                     }
+                    $newRecord['follower_size'] = sizeof($oldRecordDeep['profile'][0]["followers"]);
                 }
-                $newRecord['follower_size'] = sizeof($oldRecordDeep['profile'][0]["followers"]);
             }
+        }
+        else
+        {
+               //error_log($id);
         }
         return $newRecord;
     }

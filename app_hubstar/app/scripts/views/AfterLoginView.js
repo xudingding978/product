@@ -15,21 +15,20 @@ HubStar.AfterLoginView = Ember.View.extend({
         location.reload();
        
     },
-//    showUserDropDown: function() {
-//        if ($('#user-dd-menu').css('display') === 'block') {
-//            $("#user-dd-menu").hide();
-//           $("#cancel").css("display", "none");
-//         ;
-//        }
-//        else  if ($('#user-dd-menu').css('display') === 'none'){
-//      
-//            this.set("newProfile", false);
-//              $("#user-dd-menu").show();
-//             $("#cancel").css("display", "block");
-//
-//        }
-//        this.loadProfile();
-//    },
+
+    showUserDropDown: function() {
+        if ($('#user-dd-menu').css('display') === 'block') {
+            $("#user-dd-menu").hide();
+           $("#cancel").css("display", "none");
+        }
+        else  if ($('#user-dd-menu').css('display') === 'none'){
+            this.set("newProfile", false);
+              $("#user-dd-menu").show();
+             $("#cancel").css("display", "block");
+
+        }
+        //this.loadProfile();
+    },
     userDisplaynone: function(checking) {
         if (checking === "myUserProfile") {
             location.href = this.get("controller").get("myUserProfile");
@@ -48,20 +47,16 @@ HubStar.AfterLoginView = Ember.View.extend({
              $("#cancel").css("display", "none");
 
         } else if (checking === "new") {
-             location.href ="#/profiles/new";
-            $("#user-dd-menu").attr("style", "display:none");
              $("#cancel").css("display", "none");
+              this.get("controller").set("newProfile", true);
+           // this.loadProfile();
         }
 
     },
-//    cancel: function() {
-//        this.set("newProfile", false);
-//         $("#user-dd-menu").attr("style", "display:none");
-//          $("#cancel").css("display", "none");
-//    },
-    loadProfile: function() {
-        var user = HubStar.User.find(localStorage.loginStatus);
-        this.set("profiles", user.get("profiles"));
+    cancel: function() {
+        this.set("newProfile", false);
+         $("#user-dd-menu").attr("style", "display:none");
+          $("#cancel").css("display", "none");
     },
     startTour: function() {
 

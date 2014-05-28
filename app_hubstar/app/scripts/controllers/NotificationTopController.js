@@ -1,20 +1,9 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 HubStar.NotificationTopController = Ember.Controller.extend({
     notificationTopContent: null,
     commenter_photo_url: null,
     makeSureDelete: false,
     willDelete: false,
+    photo_url: "",
     loadingTime: false,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'messageCenter', 'conversationItem', 'application', 'notification', 'userMessage', 'application'],
     isUploadPhoto: false,
@@ -35,18 +24,18 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                 that.set("notificationTopContent", []);
                 for (var i = 0; i < params.get("length"); i++)
                 {
-                    dataNew.name = params.objectAt(i).display_name;
-                    dataNew.photo_url = params.objectAt(i).photo_url_large;
-                    dataNew.user_id = params.objectAt(i).user_id;
-                    dataNew.type = params.objectAt(i).type;
-                    dataNew.typeDisplay = that.get("controllers.notification").typeDisplay(dataNew.type, params.objectAt(i).content);
-                    dataNew.isButton = that.get("controllers.notification").buttonDisplay(dataNew.type, params.objectAt(i).content);
-                    dataNew.time = params.objectAt(i).time;
-                    dataNew.notification_id = params.objectAt(i).notification_id;
-                    dataNew.isRead = params.objectAt(i).isRead;
-                    dataNew.content = params.objectAt(i).content;
-                    if (dataNew.type !== "authority") {
-                        dataNew.content = params.objectAt(i).content;
+                    dataNew["name"] = params.objectAt(i)["display_name"];
+                    dataNew["photo_url"] = params.objectAt(i)["photo_url_large"];
+                    dataNew["user_id"] = params.objectAt(i)["user_id"];
+                    dataNew["type"] = params.objectAt(i)["type"];
+                    dataNew["typeDisplay"] = that.get("controllers.notification").typeDisplay(dataNew["type"], params.objectAt(i)["content"]);
+                    dataNew["isButton"] = that.get("controllers.notification").buttonDisplay(dataNew["type"], params.objectAt(i)["content"]);
+                    dataNew["time"] = params.objectAt(i)["time"];
+                    dataNew["notification_id"] = params.objectAt(i)["notification_id"];
+                    dataNew["isRead"] = params.objectAt(i)["isRead"];
+                     dataNew["isTag"] = that.get("controllers.notification").typeView(dataNew["type"]);                    
+                    if (dataNew["type"] !== "authority") {
+                        dataNew["content"] = params.objectAt(i)["content"];
                     }
                     else
                     {
@@ -107,8 +96,11 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         var user = HubStar.User.find(localStorage.loginStatus);
         this.transitionToRoute('user', user);
         this.set("notificationSeeAll", true);
-        this.transitionToRoute('messageCenter');
-        this.transitionToRoute("notifications");
+        var that =this;
+        setTimeout(function() {
+            that.transitionToRoute('messageCenter');
+            that.transitionToRoute("notifications");
+        }, 20);
         this.reviewCancel();
     },
     markAllRead: function() {
@@ -202,7 +194,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         {
             if (this.get("notificationTopContent").objectAt(i).notification_id === notification_id)
             {
-                if (this.get("notificationTopContent").objectAt(i).type !== "authority") {
+                if (this.get("notificationTopContent").objectAt(i)["type"] !== "authority"&&this.get("notificationTopContent").objectAt(i)["type"] !== "Tag") {
                     this.goto(this.get("notificationTopContent").objectAt(i));
                 }
                 else
@@ -231,6 +223,15 @@ HubStar.NotificationTopController = Ember.Controller.extend({
         else if (obj.get("type") === "addReply")
         {
             this.gotoReply(obj.get("action_id"));
+        }
+        else if (obj.get("type") === "addReply")
+        {
+            this.gotoTagPhoto(obj.get("action_id"));
+        }
+        else if (obj.get("type") === "addTag")
+        {
+
+            this.set("photo_url", obj.get("content"));
         }
 
     },

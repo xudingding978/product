@@ -6,10 +6,15 @@
         <div style=' color: #555; font-size: 18px; font-weight: bold; text-align: center; line-height: 45px;'>
             <div style="width: 65px; display: inline-block; position: absolute;left: 10px;">Save to</div>
             {{#if controller.isSaveTopProfile}}
+            {{#unless controller.isReadProfile}}
             <div class="" style="display:inline-block;cursor: pointer;width: 350px;overflow: hidden;line-height: 20px;padding-top: 5px;"  {{action profileSwitch }}>
                  {{controller.selectedProfile}}
                  &nbsp;<i class="fa fa-caret-down"></i>
             </div>
+             {{else}}
+             <div style="position: absolute; font-size: 12px; left: 245px;"> Loading <i class="spinner" style="position: relative;top: 15px;left: 10px;">&nbsp;</i></div>
+                 
+                {{/unless}}
             {{#if controller.selectionProfile}}
             <div id="login_lightbox" class="blur" {{action profileCanel }}>&nbsp;</div>
             <div class="select-profile-save" style="top: 50px;">

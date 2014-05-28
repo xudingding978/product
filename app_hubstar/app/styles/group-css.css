@@ -458,9 +458,8 @@
 .group-dashboard-buttons{
     position: relative;
     z-index: 3;
-    width: 100px;
     float: right;
-    right: 18%;
+    right: 15%;
     bottom: 200px;
 }
 

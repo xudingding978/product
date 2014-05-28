@@ -10,12 +10,11 @@
  */
 
 
-HubStar.EditReplyController = Ember.Controller.extend({
+HubStar.EditTagContentController = Ember.Controller.extend({
     commenter_photo_url: null,
     replyContent: null,
     isUploadPhoto: false,
-    isReply: true,
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'message', 'userMessage'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'mega', 'showTag'],
     init: function()
     {
         this.set("currentOwner", this.get('controllers.user').getCurrentUser());
@@ -39,7 +38,8 @@ HubStar.EditReplyController = Ember.Controller.extend({
         for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
         {
             for (var j = 0; j < this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
-                if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id){
+                if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
+                {
                     this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("enableToEdit", false);
                     this.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyEdit", true);
                     break;
@@ -47,39 +47,33 @@ HubStar.EditReplyController = Ember.Controller.extend({
         }
         this.set("isUploadPhoto", false);
         setTimeout(function() {
-            $('#masonry_user_container').masonry("reloadItems");
-            setTimeout(function() {
-                $('#masonry_user_container').masonry();
-            }, 100);
+            $('#masonry_user_container').masonry("reload");
         }, 200);
     },
-    removePic: function() {
+    removePic: function(id) {
 
         this.set('newStyleImageSource', null);
         this.set('newStyleImageName', "");
         this.set("isUploadPhoto", false);
-
         setTimeout(function() {
-            $('#masonry_user_container').masonry();
-        }, 100);
-
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
     },
     removeOriginPic: function(id) {
 
-        for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
+    for (var i = 0; i < this.get('controllers.userMessage').get("contentMsg").length; i++)
         {
             for (var j = 0; j < this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++)
-                if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id){
-                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("url", null);
-                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("isUrl", false);
+                if (this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
+                {
+                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("url",null);
+                    this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("isUrl",false);
                     break;
                 }
         }
-
         setTimeout(function() {
-            $('#masonry_user_container').masonry();
-        }, 100);
-
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
     },
     updateReply: function(id) {
 
@@ -120,30 +114,29 @@ HubStar.EditReplyController = Ember.Controller.extend({
 
                     if (imageStyleName !== undefined && imageStyleName !== null && imageStyleName !== "")
                     {
-                         imageName = imageStyleName.split('.');
-                         imageType = imageName[imageName.length - 1];
+                        var imageName = imageStyleName.split('.');
+                        var imageType = imageName[imageName.length - 1];
                     }
                     var replyContent = this.get("replyContent");
-                    var url = this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("url");
-                    var tempComment = [owner_id, date.toString(), replyContent, newStyleImage, imageType, imageStyleName, id, replyID, url];
+                    var url =  this.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("url");
+                    var tempComment = [owner_id, date.toString(), replyContent, newStyleImage, imageType, imageStyleName, id, replyID,url];
 
                     tempComment = JSON.stringify(tempComment);
                     var that = this;
-                    this.set("isReply",false);
                     requiredBackEnd('messages', 'UpdateReply', tempComment, 'POST', function(params) {
-                        that.set("isReply",true);
+
 
                         for (var i = 0; i < that.get('controllers.userMessage').get("contentMsg").length; i++)
                         {
                             for (var j = 0; j < that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").length; j++) {
                                 if (that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).get("reply_id") === id)
                                 {
-                                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("msg", params.msg);
-                                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("url", params.url);
-                                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("time_stamp", params.time_stamp);
+                                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("msg", params["msg"]);
+                                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("url", params["url"]);
+                                    that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("time_stamp", params["time_stamp"]);
                                     that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("enableToEdit", false);
                                     that.get('controllers.userMessage').get("contentMsg").objectAt(i).set("replyEdit", true);
-                                    if (params.url !== null)
+                                    if (params["url"] !== null)
                                     {
                                         that.get('controllers.userMessage').get("contentMsg").objectAt(i).get("replyMessageCollection").objectAt(j).set("isUrl", true);
                                     }
@@ -161,10 +154,7 @@ HubStar.EditReplyController = Ember.Controller.extend({
                         that.set('newStyleImageName', "");
                         that.set("isUploadPhoto", true);
                         setTimeout(function() {
-                            $('#masonry_user_container').masonry("reloadItems");
-                            setTimeout(function() {
-                                $('#masonry_user_container').masonry();
-                            }, 100);
+                            $('#masonry_user_container').masonry("reload");
                         }, 200);
                     });
                 }
@@ -178,11 +168,9 @@ HubStar.EditReplyController = Ember.Controller.extend({
         var src = target.result;
         this.set('newStyleImageSource', src);
         this.set('newStyleImageName', name);
-
         setTimeout(function() {
-            $('#masonry_user_container').masonry();
+            $('#masonry_user_container').masonry("reload");
         }, 100);
-
     }
 }
 );

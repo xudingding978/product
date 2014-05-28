@@ -1,3 +1,6 @@
+DS.RESTAdapter.map('HubStar.Photo', {
+    tags: {embedded: 'load'},
+});
 HubStar.Photo = DS.Model.extend({
         // mega: DS.belongsTo('HubStar.Mega', {embedded: 'always'}),
         photo_source_id: DS.attr('string'),
@@ -25,8 +28,8 @@ HubStar.Photo = DS.Model.extend({
         photo_products: DS.attr('string'), // [ ] 
         photo_articleId: DS.attr('string'),
         photo_heliumId: DS.attr('string'),
-
-
+        enableTag:false,
+        tags: DS.hasMany('HubStar.Tag'),
         didLoad: function() {
 
         }

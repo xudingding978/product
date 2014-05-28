@@ -21,11 +21,12 @@ HubStar.NewSearchPhotoRoute = Ember.Route.extend({
 
       
     },
-    model: function(params) { 
-            var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});
-            this.controllerFor("mega").set("clickOrRoute", true);
-            return model;
-        
+    model: function(params) {
+
+        var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});
+
+        this.controllerFor("mega").set("clickOrRoute", true);
+        return model;
     },
     activate: function() {
         setTimeout(function() {

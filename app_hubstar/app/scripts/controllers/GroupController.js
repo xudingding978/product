@@ -15,7 +15,7 @@ HubStar.GroupController = Ember.Controller.extend({
     setGroup: function(model)
     {
         this.set("model", model);
-        console.log(model);
+        this.set("groupNetworkStatistics", 0);
         var createTime = model.get("collections").objectAt(0).get("created_at");
         var date = new Date(createTime * 1000);
         this.set("createTime", date + "");
@@ -26,8 +26,6 @@ HubStar.GroupController = Ember.Controller.extend({
         var that = this;
         $(document).ready(function() {
             setTimeout(function() {
-                console.log(that.get("model").get("width"));
-                console.log(that.get("model").get("height"));
                 $("#group_pic").css("height", that.get("model").get("height"));
                 $("#group_pic").css("width", that.get("model").get("width"));
             }, 2);
@@ -62,7 +60,6 @@ HubStar.GroupController = Ember.Controller.extend({
     },
     selectPartner: function()
     {
-        this.set("groupNetworkStatistics", 0);
         $(document).ready(function() {
             setTimeout(function() {
                 $('.new-masonry-bar > ul > li').removeClass('new-selected');

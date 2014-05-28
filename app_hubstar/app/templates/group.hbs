@@ -59,16 +59,16 @@
     <div id="group-step-2" class="group-step"> 
         <div class="group-profile-title-top">
 
-            <div  class="group-step-button" style="float:left" {{action groupStep "1"}} >Select Categories</div>
+            <div  class="group-step-button" style="float:left" {{action groupStep "1"}} >Categories</div>
 
             <div class="group-step-title" style=" width:60%; cursor: pointer;">
                 <div class="group-textarea">
-                    {{view Ember.TextField valueBinding="groupName" class="textarea-style" placeholder="Profile Title" }}</div>
+                    {{view Ember.TextField valueBinding="controller.name" class="textarea-style" placeholder="Profile Title" }}</div>
             </div>
             <div  class="group-step-button" {{action groupStep "3" }} >Style Up</div>
         </div>
         <div class="group-content easing" >
-            <div class="group-textarea">{{view Ember.TextArea valueBinding="aboutProject"   class="textarea-style" placeholder="About this project, I would like to......" }}</div>
+            <div class="group-textarea">{{view Ember.TextArea valueBinding="controller.description"   class="textarea-style" placeholder="About this project, I would like to......" }}</div>
             <div class="group-part">
                 <div class="group-text">Budget:</div>
                 <div class="content-group-right">
@@ -100,7 +100,7 @@
         <div  class="group-step-button" style="float:left" {{action groupStep "2"}} >Project Info</div>
 
         <div class="group-step-title" style=" width:60%;">
-            {{controller.groupName}}
+            {{controller.name}}
         </div>
         <div  class="group-step-button" {{action save}} >DONE</div>
     </div>

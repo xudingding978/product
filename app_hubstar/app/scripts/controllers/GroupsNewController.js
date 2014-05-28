@@ -57,13 +57,28 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         this.get('topic').set("chooseNumber", this.get('topic').get("chooseNumber") - 1);
     },
     groupStep: function(number) {
-
+        var that = this;
         if (number === "1") {
             if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
                 this.set("groupStepOne", false);
                 this.set("groupStepTwo", true);
                 this.set("groupStepThree", false);
-       
+                $(document).ready(function() {
+                    setTimeout(function() {
+                        if (that.get('group_expertise') === "First Time")
+                        {
+                            that.choose("1");
+                        }
+                        else if (that.get('group_expertise') === "I have some experiences")
+                        {
+                            that.choose("2");
+                        }
+                        else if (that.get('group_expertise') === "I am professional")
+                        {
+                            that.choose("3");
+                        }
+                    }, 1);
+                });
             }
             else
             {
@@ -72,8 +87,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         } else if (number === "2") {
             this.set("groupStepOne", true);
             this.set("groupStepTwo", false);
-            this.set("groupStepThree", false);
-            var that = this;
+            this.set("groupStepThree", false);            
             $(document).ready(function() {
                 setTimeout(function() {
                     if (that.get('isResidential') === true)
@@ -143,7 +157,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         if (this.get("group_bg_url") === "" || this.get("group_hero_url") === "" || this.get("group_pic_url") === "")
         {
             flag = false;
-        }      
+        }
         return flag;
     },
     getCateandSubCate: function() {
@@ -225,6 +239,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                 group_step: "",
                 group_budget: "",
                 group_expertise: that.get("group_expertise"),
+                group_classification: that.get("isResidential") ? "residential" : "commercial",
                 group_category: that.get("Category"),
                 group_subcategory: that.get("subCategory"),
                 group_hero_url: that.get("group_hero_url"),

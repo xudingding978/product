@@ -6,6 +6,7 @@ DS.RESTAdapter.map('HubStar.Group', {
 HubStar.Group = DS.Model.extend({
     id: DS.attr('string'),
     group_step: DS.attr('string'),
+    group_classification: DS.attr('string'),
     group_budget: DS.attr('string'),
     group_expertise: DS.attr('string'),
     group_category: DS.attr('string'),

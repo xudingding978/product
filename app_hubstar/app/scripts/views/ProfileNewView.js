@@ -1,7 +1,6 @@
 HubStar.ProfileNewView = Ember.View.extend({
     templateName: 'profileNew',
     added: true,
- 
     didInsertElement: function() {
         if (localStorage.loginStatus === null || (localStorage.loginStatus === ""))
         {
@@ -16,9 +15,8 @@ HubStar.ProfileNewView = Ember.View.extend({
 
                 this.get("controller").get('controllers.application').set("is_trends_user", true);
             } else {
-               
                 this.get("controller").get('controllers.application').set("is_trends_user", false);
-                this.get("controller").transitionTo("searchIndexTom");               
+                this.get("controller").transitionTo("searchIndexTom");
             }
         }
     },
@@ -42,9 +40,9 @@ HubStar.ProfileNewView = Ember.View.extend({
         this.set("added", true);
 
     }
- 
-    
-    
+
+
+
 
 });
 

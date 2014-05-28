@@ -12,8 +12,10 @@ HubStar.ProfileNewRoute = Ember.Route.extend({
         }, 10);
 
         HubStar.set('editingMode', 'user');
+        
          $("#user-dd-menu").attr("style", "display:none");
          this.controllerFor('application').set("newProfile", false);
+   
     },
     model: function() {
         var user = HubStar.User.find(localStorage.loginStatus);
@@ -26,8 +28,7 @@ HubStar.ProfileNewRoute = Ember.Route.extend({
 //            $("body").css("overflow", "auto");
 //            $('#footer').attr("style", "display:block");
     },
-    redirect: function() {
-
+    redirect: function() {        
         if ((localStorage.getItem("loginStatus") === null) || (localStorage.loginStatus === "")) {
 
             this.transitionTo('indexIndex');

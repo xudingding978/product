@@ -145,7 +145,6 @@ class LoginController extends Controller {
                     'replace_interests' => false,
                     'send_welcome' => false,
                 ));
-                error_log(var_export($result, true));
 
                 $this->sendResponse(200, CJSON::encode($model));
             }

@@ -188,7 +188,16 @@ class DefaultController extends Controller {
         $domain = $urlController->getDomain($link);
 
         $cb->add($domain . "/users/" . $rand_id, CJSON::encode($temp));
-
+                $MailChimp = new MailChimp('f3bbbca4f404085c4ff6381dd50edd07-us7');
+                $result = $MailChimp->call('lists/subscribe', array(
+                    'id' => '0d260236d7',
+                    'email' => array('email' => $temp["user"][0]["email"]),
+                    'merge_vars' => array('FNAME' => $temp["user"][0]["first_name"], 'LNAME' => $temp["user"][0]["last_name"], 'USERCBID' => $model->COUCHBASE_ID),
+                    'double_optin' => false,
+                    'update_existing' => true,
+                    'replace_interests' => false,
+                    'send_welcome' => false,
+                ));
         
     }
 

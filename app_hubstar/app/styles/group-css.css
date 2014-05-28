@@ -356,11 +356,51 @@
     font-weight: bold;
     font-size: 35px;
     line-height: 50px;
+     word-wrap: break-word;
+    overflow: hidden;
 
 }
 
 .group-desc{
     font-size: 20px;
-    line-height: 40px;
+    line-height: 20px;
+    word-wrap: break-word;
+overflow: hidden;
 
 }
+
+.group-creator{
+    padding: 25px;
+    width:100%;
+}
+
+.group-creator-image{
+    display: inline-block;
+    float: left;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+    margin-right: 25px;
+
+}
+
+.group-creator-text{
+    display: inline-block;
+}
+
+.group-creator-name{
+    font-weight: bold;
+    font-size: 35px;
+    line-height: 35px;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-width: 200px;
+}
+
+.group-creator-time{
+    font-size: 20px;
+      line-height: 35px;
+}
+
+

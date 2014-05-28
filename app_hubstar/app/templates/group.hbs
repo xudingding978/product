@@ -42,24 +42,20 @@
 
         </div>
         <div class="group-panel-right">
-            
+
             <div  class="group-creator">
-                
-                {{date controller.createTime}}
-            <img class="easing" {{bindAttr src="model.group_hero_cover_url"}}  />  
-            {{model.group_creator_name}}
+
+                <div class="group-creator-image" >
+                    <img class="easing" {{bindAttr src="model.group_hero_cover_url"}}  /> 
+                </div>
+                <div class="group-creator-text">
+                     <div class="group-creator-name">   {{model.group_creator_name}} </div>
+                    <div class="group-creator-time">  {{date controller.createTime}} </div>                 
+                </div>
             </div>
 
-            
+
         </div>
-
-
-
-
-
-
-
-
 
 
 
@@ -76,9 +72,9 @@
         </div>
         {{model.group_pic_size}}
         <div class="group-pic-image masonry-object_profilepic"  >
-             <div style="width:{{unbound controller.width}}; height:{{unbound controller.height}}">
-             <img  class="easing" {{bindAttr src="model.group_pic_url"}}  />  
-             </div> 
+            <div style="width:{{unbound controller.width}}; height:{{unbound controller.height}}">
+                <img  class="easing" {{bindAttr src="model.group_pic_url"}}  />  
+            </div> 
         </div>
 
         <div class="group-desc-part">
@@ -92,4 +88,4 @@
         </div>
     </div>
 </div>
-   {{view HubStar.MasonryCollectionView}}
+{{view HubStar.MasonryCollectionView}}

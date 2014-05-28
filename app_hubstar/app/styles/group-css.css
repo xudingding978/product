@@ -197,7 +197,7 @@
     font-weight:bold;
     font-size:20px;
     float:left;
-    width:20%;
+    width: 110px;
 
 }
 
@@ -236,11 +236,11 @@
 }
 
 .group-upload-image{
-    width: 350px;
+    width: 300px;
     max-height: 500px;
-    height: 300px;
+    height: 200px;
     padding: 10px 12px;
-    margin: 20px;
+    margin: 50px;
     text-align: center;
     border: 1px solid #ddd;
     display: inline-block;

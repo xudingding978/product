@@ -1,7 +1,7 @@
 HubStar.GroupsNewController = Ember.Controller.extend({
-    groupStepOne: true,
+    groupStepOne: false,
     groupStepTwo: false,
-    groupStepThree: false,
+    groupStepThree: true,
     categorys: null,
     subcate: null,
     selected_cate: [],

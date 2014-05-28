@@ -20,12 +20,14 @@ HubStar.AfterLoginView = Ember.View.extend({
     userDisplaynone: function(checking) {
         if (checking === "myUserProfile") {
             location.href = this.get("controller").get("myUserProfile");
-            $("#user-dd-menu").attr("style", "display:none");
+           // $("#user-dd-menu").attr("style", "display:none");
+            this.get("controller").set('userProfile', false);
             $("#cancel").css("display", "none");
             $(window).scrollTop(0);
         } else if (checking === "myMessageBoard") {
             location.href = this.get("controller").get("myMessageBoard");
-            $("#user-dd-menu").attr("style", "display:none");
+            //$("#user-dd-menu").attr("style", "display:none");
+            this.get("controller").set('userProfile', false);
             $("#cancel").css("display", "none");
 
         } else if (checking === "about") {
@@ -36,12 +38,14 @@ HubStar.AfterLoginView = Ember.View.extend({
 
         } else if (checking === "new") {
             location.href = "#/profiles/new";
-            $("#user-dd-menu").attr("style", "display:none");
+            this.get("controller").set('userProfile', false);
+            //$("#user-dd-menu").attr("style", "display:none");
             $("#cancel").css("display", "none");
         }
         else if (checking === "newGroup") {
             location.href = "#/groups/new";
-            $("#user-dd-menu").attr("style", "display:none");
+            this.get("controller").set('userProfile', false);
+            //$("#user-dd-menu").attr("style", "display:none");
             $("#cancel").css("display", "none");
         }
     },

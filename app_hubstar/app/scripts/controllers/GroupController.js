@@ -19,6 +19,8 @@ HubStar.GroupController = Ember.Controller.extend({
     group_pic_url: "",
     name: "",
     description: "",
+    logoSaving:false,
+    bgSaving:false,
     init: function()
     {
     },
@@ -31,8 +33,6 @@ HubStar.GroupController = Ember.Controller.extend({
         this.set("createTime", date + "");
         this.selectPartner();
         this.setPic();
-        this.set("name", this.get("model").get("group_name"));
-        this.set("description", this.get("model").get("group_description"));
     },
     setPic: function() {
         var that = this;
@@ -45,6 +45,13 @@ HubStar.GroupController = Ember.Controller.extend({
     },
     goToGroupDashboard: function() {
         this.set("editGroup", true);
+        this.set("name", this.get("model").get("group_name"));
+        this.set("description", this.get("model").get("group_description"));
+        this.set("group_pic_url", this.get("model").get("group_pic_url"));
+        this.set("group_bg_url", this.get("model").get("group_bg_url"));
+        this.set("group_hero_url", this.get("model").get("group_hero_url"));
+        this.set("group_expertise", this.get("model").get("group_expertise"));
+        this.refreshExpertise();
     },
     backToFront: function() {
         this.set("group_pic_url", "");
@@ -109,51 +116,57 @@ HubStar.GroupController = Ember.Controller.extend({
         this.transitionToRoute('groupNetwork');
     },
     choose: function(number) {
-        if (number === "1") {
-            $("#first_time").addClass("selected");
-            $("#some_experiences").removeClass("selected");
-            $("#professional").removeClass("selected");
-            this.set("group_expertise", "First Time");
-        } else if (number === "2") {
-            $("#some_experiences").addClass("selected");
-            $("#first_time").removeClass("selected");
-            $("#professional").removeClass("selected");
-            this.set("group_expertise", "I have some experiences");
-        } else if (number === "3") {
-            $("#professional").addClass("selected");
-            $("#some_experiences").removeClass("selected");
-            $("#first_time").removeClass("selected");
-            this.set("group_expertise", "I am professional");
-        }
+        var that =this;
+        $(document).ready(function() {
+            setTimeout(function() {
+                if (number === "1") {
+                    $("#first_time").addClass("selected");
+                    $("#some_experiences").removeClass("selected");
+                    $("#professional").removeClass("selected");
+                    that.set("group_expertise", "First Time");
+                } else if (number === "2") {
+                    $("#some_experiences").addClass("selected");
+                    $("#first_time").removeClass("selected");
+                    $("#professional").removeClass("selected");
+                    that.set("group_expertise", "I have some experiences");
+                } else if (number === "3") {
+                    $("#professional").addClass("selected");
+                    $("#some_experiences").removeClass("selected");
+                    $("#first_time").removeClass("selected");
+                    that.set("group_expertise", "I am professional");
+                }
+            }, 2);
+        });
     },
     save: function() {
-        if (this.get("name") !== "")
+        if (this.get("name") !== this.get("model").get("group_name"))
         {
             this.get("model").set("group_name", this.get("name"));
         }
-        if (this.get("description") !== "")
+        if (this.get("description") !== this.get("model").get("group_description"))
         {
             this.get("model").set("group_description", this.get("description"));
         }
-        if (this.get("group_pic_url") !== "")
+        if (this.get("group_pic_url") !== this.get("model").get("group_pic_url"))
         {
             this.get("model").set("group_pic_url", this.get("group_pic_url"));
         }
-        if (this.get("group_bg_url") !== "")
+        if (this.get("group_bg_url") !== this.get("model").get("group_bg_url"))
         {
             this.get("model").set("group_bg_url", this.get("group_bg_url"));
             this.get("model").set("group_hero_url", this.get("group_hero_url"));
         }
-        if (this.get("group_expertise") !== "")
+        if (this.get("group_expertise") !== this.get("model").get("group_expertise"))
         {
             this.get("model").set("group_expertise", this.get("group_expertise"));
         }
-        var that =this;
+        var that = this;
         this.get("model").save();
         this.get("model").get('isSaving');
         this.get("model").addObserver('isDirty', function() {
             if (!that.get("model").get('isDirty')) {
-                console.log("Aaaaa");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
+                that.backToFront();
             }
         });
     },
@@ -161,12 +174,12 @@ HubStar.GroupController = Ember.Controller.extend({
         this.set(s + 'Source', null);
         this.set(s + 'Name', null);
         if (s === "logo") {
-            this.set("group_pic_url", "");
+            this.set("group_pic_url", this.get("model").get("group_pic_url"));
         }
         else if (s === "bg")
         {
-            this.set("group_bg_url", "");
-            this.set("group_hero_url", "");
+            this.set("group_bg_url", this.get("model").get("group_bg_url"));
+            this.set("group_hero_url", this.get("model").get("group_hero_url"));
         }
     },
     profileStyleImageDrop: function(e, name, variable) {
@@ -175,6 +188,7 @@ HubStar.GroupController = Ember.Controller.extend({
         var src = target.result;
         this.set(variable + 'Source', src);
         this.set(variable + 'Name', name);
+        this.set(variable + 'Saving',true);
         this.savePic(variable + 'Source', variable + 'Name', variable);
     },
     savePic: function(src, name, variable) {
@@ -187,6 +201,7 @@ HubStar.GroupController = Ember.Controller.extend({
             data = JSON.stringify(data);
             var that = this;
             requiredBackEnd('photos', 'savePicGroup', data, 'POST', function(params) {
+                that.set(variable + 'Saving',false);
                 if (params.length > 1)
                 {
                     that.set("group_bg_url", params[0]);

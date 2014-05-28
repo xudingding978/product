@@ -112,12 +112,24 @@
         </div>
         <div class="group-upload-image" >
             <div class='remove-comment-photo easing' {{action removePic "logo"}}><i class="fa fa-times"></i></div>
-            <img  {{bindAttr src= "logoSource"}}  style="">
+            {{#if logoSaving}}
+            <div class="message-btn easing" style='width: 30px;'>
+                        <i class="spinner spinner-sml"></i>
+                    </div>
+            {{else}}
+            <img  {{bindAttr src= "group_pic_url"}}  style="">
+            {{/if}}
         </div>
 
         <div  class="group-upload-image">
             <div class='remove-comment-photo easing' {{action removePic "bg"}}><i class="fa fa-times"></i></div>
-            <img  {{bindAttr src= "bgSource"}}  style="">
+            {{#if bgSaving}}
+            <div class="message-btn easing" style='width: 30px;'>
+                        <i class="spinner spinner-sml"></i>
+                    </div>
+            {{else}}
+            <img  {{bindAttr src= "group_bg_url"}}  style="">
+            {{/if}}
         </div>
         <div  class="message-btn easing hint--bottom hint--rounded" style="width:30px; border-right: 1px solid #ddd; border-left: 1px solid #ddd;" data-hint="Add Photo"><i class='fa fa-picture-o'></i>
             <div style="opacity:0;position: relative;height:30px;top:-30px;overflow: hidden;"> 

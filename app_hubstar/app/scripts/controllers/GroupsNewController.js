@@ -63,23 +63,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                 this.set("groupStepOne", false);
                 this.set("groupStepTwo", true);
                 this.set("groupStepThree", false);
-
-                setTimeout(function() {
-                    $("#budget").slider();
-                    $("#timeframe").slider();
-                    $("#budget").on('slide', function(slideEvt) {
-                        var valueleft = slideEvt.value[0];
-                        var valueright = slideEvt.value[1];
-                        $("#budget-left").text(valueleft);
-                        $("#budget-right").text(valueright);
-                    });
-                    $("#timeframe").on('slide', function(slideEvt) {
-                        var valueleft = slideEvt.value[0];
-                        var valueright = slideEvt.value[1];
-                        $("#timeframe-left").text(valueleft);
-                        $("#timeframe-right").text(valueright);
-                    });
-                }, 10);
+       
             }
             else
             {

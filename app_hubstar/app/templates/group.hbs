@@ -3,48 +3,22 @@
 
 
 
-
-
-
-
-
-
-
-
-
 <div class="group-wallpaper">
     <img  {{bindAttr src= model.group_bg_url}}>
 </div>
-
+{{#unless controller.editGroup}}
 <div class="group-wrapper">
-
     <div class="group-panel">
-
         <div class="group-panel-left">
-
             <div>Project: </div> 
-
             <div>Public: </div>
-
             <div style="position: relative;top:200px;">
-
-
                 <div>Categories:</div>
-
                 <div>{{model.group_category}}</div>
-
-
-
             </div>
-
-
-
-
         </div>
         <div class="group-panel-right">
-
-            <div  class="group-creator">
-
+           <div  class="group-creator">
                 <div class="group-creator-image" >
                     <img class="easing" {{bindAttr src="model.group_hero_cover_url"}}  /> 
                 </div>
@@ -53,18 +27,11 @@
                     <div class="group-creator-time">  {{date controller.createTime}} </div>                 
                 </div>
             </div>
-
-
         </div>
-
-
-
-
     </div>
     <div class="group-item-profile">
-
         <div  id="flip-front" class='group-edit-button'  data-hint="Dashboard"
-              {{action flipFrontClick}}>
+              {{action goToGroupDashboard}}>
               <i class="fa fa-cogs"></i>
         </div>
         <div class="group-cover-image">
@@ -74,16 +41,100 @@
         <div class="group-pic-image masonry-object_profilepic"  >
              <img id ="group_pic" class="easing" {{bindAttr src="model.group_pic_url"}}  />  
         </div>
-
         <div class="group-desc-part">
             <div class="group-name" >          
                 {{model.group_name}}
             </div>
             <div class="group-desc" }>          
                 {{model.group_description}}
-
             </div>
         </div>
     </div>
 </div>
+{{else}}
+<div class="group-wrapper-dashboard">
+<div class="group-profilewrapper">
+    {{#if controller.groupStepTwo}}
+
+    <div id="group-step-2" class="group-step"> 
+        <div class="group-profile-title-top">
+
+            <div  class="group-step-button" style="float:left" {{action groupStep "1"}} >Select Categories</div>
+
+            <div class="group-step-title" style=" width:60%; cursor: pointer;">
+                <div class="group-textarea">
+                    {{view Ember.TextField valueBinding="groupName" class="textarea-style" placeholder="Profile Title" }}</div>
+            </div>
+            <div  class="group-step-button" {{action groupStep "3" }} >Style Up</div>
+        </div>
+        <div class="group-content easing" >
+            <div class="group-textarea">{{view Ember.TextArea valueBinding="aboutProject"   class="textarea-style" placeholder="About this project, I would like to......" }}</div>
+            <div class="group-part">
+                <div class="group-text">Budget:</div>
+                <div class="content-group-right">
+
+                
+                </div>
+            </div>
+            <div class="group-part">
+                <div class="group-text">Time Frame:</div>
+                <div class="content-group-right">
+                   
+                </div>
+            </div>
+            <div class="group-part">
+                <div class="group-text">Expertise:</div>
+                <div class="content-group-right">
+                    <div id="first_time" class="subcategory-word" {{action choose  "1" }}>First Time</div>
+                    <div id="some_experiences" class="subcategory-word" {{action choose  "2" }}>I have some experiences</div>
+                    <div id="professional" class="subcategory-word" {{action choose  "3" }}>I am professional</div>
+                </div>
+            </div>          
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if controller.groupStepThree}}
+    <div class="group-profile-title-top">
+
+        <div  class="group-step-button" style="float:left" {{action groupStep "2"}} >Project Info</div>
+
+        <div class="group-step-title" style=" width:60%;">
+            {{controller.groupName}}
+        </div>
+        <div  class="group-step-button" {{action save}} >DONE</div>
+    </div>
+    <div class="group-content easing" >
+        <div  class="message-btn easing hint--bottom hint--rounded" style="width:30px; border-right: 1px solid #ddd; border-left: 1px solid #ddd;" data-hint="Add Photo"><i class='fa fa-picture-o'></i>
+            <div style="opacity:0;position: relative;height:30px;top:-30px;overflow: hidden;"> 
+                {{view HubStar.MultiImageInputButtonView name="logo"}}
+            </div>
+        </div>
+        <div class="group-upload-image" >
+            <div class='remove-comment-photo easing' {{action removePic "logo"}}><i class="fa fa-times"></i></div>
+            <img  {{bindAttr src= "logoSource"}}  style="">
+        </div>
+
+        <div  class="group-upload-image">
+            <div class='remove-comment-photo easing' {{action removePic "bg"}}><i class="fa fa-times"></i></div>
+            <img  {{bindAttr src= "bgSource"}}  style="">
+        </div>
+        <div  class="message-btn easing hint--bottom hint--rounded" style="width:30px; border-right: 1px solid #ddd; border-left: 1px solid #ddd;" data-hint="Add Photo"><i class='fa fa-picture-o'></i>
+            <div style="opacity:0;position: relative;height:30px;top:-30px;overflow: hidden;"> 
+                {{view HubStar.MultiImageInputButtonView name="bg"}}
+            </div>
+        </div>
+    </div>
+    {{/if}}
+</div>
+<div class="group-dashboard-buttons">
+    <div {{action groupStep "1"}}>Select Categories</div>
+    <div {{action groupStep "2"}}>Profile Info</div>
+    <div {{action groupStep "3"}}>Style Up</div>
+    <div {{action backToFront}}>Back</div>
+</div>
+</div>
+
+{{/unless}}
+
 {{view HubStar.MasonryCollectionView}}

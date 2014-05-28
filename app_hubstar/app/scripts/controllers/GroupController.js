@@ -6,6 +6,9 @@ HubStar.GroupController = Ember.Controller.extend({
     groupNetworkStatistics: 0,
     groupNetwork: false,
     createTime: "",
+    editGroup: false,
+    groupStepTwo: true,
+    groupStepThree: false,
     init: function()
     {
     },
@@ -30,7 +33,26 @@ HubStar.GroupController = Ember.Controller.extend({
             }, 2);
         });
     },
-    selectPartner1: function(){
+    goToGroupDashboard: function() {
+        this.set("editGroup", true);
+    },
+    backToFront: function() {
+        this.set("editGroup", false);
+    },
+    groupStep: function(number) {
+
+        if (number === "2") {
+
+            this.set("groupStepTwo", true);
+            this.set("groupStepThree", false);
+
+        } else if (number === "3") {
+
+            this.set("groupStepTwo", false);
+            this.set("groupStepThree", true);
+        }
+    },
+    selectPartner1: function() {
         $(document).ready(function() {
             setTimeout(function() {
                 $('.new-masonry-bar > ul > li').removeClass('new-selected');

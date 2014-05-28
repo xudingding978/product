@@ -6,7 +6,18 @@
 {{/if}}
 <div style="width: 100%; margin: 100px auto; left: 0;right: 0;position: relative;display: block;">
 
-
+    {{#if controller.groupPage}}
+      <div class="new-masonry-bar"  >
+        <ul  id="new-user-stats">
+          <li id="networkGroup"  data-step="11" data-intro="Click here to see the group’s <b>Network Partners</b>." data-position='top' {{action selectPartner}}>Network <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.groupNetworkStatistics}}</li>
+          <li id="networkGroup2"  data-step="11" data-intro="Click here to see the group’s <b>Network Partners</b>." data-position='top' {{action selectPartner}}>Post <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.groupNetworkStatistics}}</li>
+          <li id="networkGroup3"  data-step="11" data-intro="Click here to see the group’s <b>Network Partners</b>." data-position='top' {{action selectPartner}}>Collections <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.groupNetworkStatistics}}</li>
+          <li id="networkGroup4"  data-step="11" data-intro="Click here to see the group’s <b>Network Partners</b>." data-position='top' {{action selectPartner}}>haha <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.groupNetworkStatistics}}</li>
+            <li id="networkGroup5"  data-step="11" data-intro="Click here to see the group’s <b>Network Partners</b>." data-position='top' {{action selectPartner}}>hehe <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.groupNetworkStatistics}}</li>
+        </ul>
+      </div>
+    
+    {{else}}
     <div class="style-box t-style-box" style="width: 87%; min-width: 796px; height: 50px; background: white;margin: -70px auto;left: 0;right: 0;position: relative;display: block;">
 
         <div class="profile-selection-status"  >{{controller.profileSelectionStatus}}</div>
@@ -53,12 +64,12 @@
 
         </ul>
         {{/if}}    
-        {{#if controller.groupPage}}
-        <ul class="user-stats" id="user-stats">
-            <li id="networkGroup"  data-step="11" data-intro="Click here to see the group’s <b>Network Partners</b>." data-position='top'><a {{action selectPartner}}>Network <span style="font-size: 12px;display: inline-block;vertical-align: top;">&nbsp; • &nbsp;</span> {{controller.groupNetworkStatistics}}</a></li>
-        </ul>
-        {{/if}}
+       
     </div>
+    
+    
+    
+        {{/if}}
 
     <div id="masonry_user_container" class="centered clearfix masonry_push_down" >
         <!-- masonry from here -->

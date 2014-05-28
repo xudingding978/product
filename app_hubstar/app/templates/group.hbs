@@ -72,9 +72,7 @@
         </div>
         {{model.group_pic_size}}
         <div class="group-pic-image masonry-object_profilepic"  >
-            <div style="width:{{unbound controller.width}}; height:{{unbound controller.height}}">
-                <img  class="easing" {{bindAttr src="model.group_pic_url"}}  />  
-            </div> 
+             <img id ="group_pic" class="easing" {{bindAttr src="model.group_pic_url"}}  />  
         </div>
 
         <div class="group-desc-part">

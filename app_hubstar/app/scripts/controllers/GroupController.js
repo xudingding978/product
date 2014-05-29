@@ -291,28 +291,39 @@ HubStar.GroupController = Ember.Controller.extend({
                 }, 1);
             });
         } else if (number === "2") {
-            $(document).ready(function() {
-                setTimeout(function() {
-                    that.refreshPage();
-                    $("#Categories").removeClass("group-selected");
-                    $("#Info").addClass("group-selected");
-                    $("#Style").removeClass("group-selected");
-                }, 1);
-            });
-            this.set("groupStepOne", false);
-            this.set("groupStepTwo", true);
-            this.set("groupStepThree", false);
+            if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
+                $(document).ready(function() {
+                    setTimeout(function() {
+                        that.refreshPage();
+                        $("#Categories").removeClass("group-selected");
+                        $("#Info").addClass("group-selected");
+                        $("#Style").removeClass("group-selected");
+                    }, 1);
+                });
+                this.set("groupStepOne", false);
+                this.set("groupStepTwo", true);
+                this.set("groupStepThree", false);
+            }
+            else
+            {
+                this.get('controllers.applicationFeedback').statusObserver(null, "Please select a cateory");
+            }
         } else if (number === "3") {
-            this.set("groupStepOne", false);
-            this.set("groupStepTwo", false);
-            this.set("groupStepThree", true);
-            $(document).ready(function() {
-                setTimeout(function() {
-                    $("#Categories").removeClass("group-selected");
-                    $("#Info").removeClass("group-selected");
-                    $("#Style").addClass("group-selected");
-                }, 1);
-            });
+            if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
+                this.set("groupStepOne", false);
+                this.set("groupStepTwo", false);
+                this.set("groupStepThree", true);
+                $(document).ready(function() {
+                    setTimeout(function() {
+                        $("#Categories").removeClass("group-selected");
+                        $("#Info").removeClass("group-selected");
+                        $("#Style").addClass("group-selected");
+                    }, 1);
+                });
+            } else
+            {
+                this.get('controllers.applicationFeedback').statusObserver(null, "Please select a cateory");
+            }
         }
     },
     selectPartner1: function() {
@@ -452,22 +463,28 @@ HubStar.GroupController = Ember.Controller.extend({
     save: function() {
         this.getCateandSubCate();
         this.fieldChecking();
-        var that = this;
-        this.get("model").save();
-        this.get("model").get('isSaving');
-        this.get("model").addObserver('isDirty', function() {
-            if (!that.get("model").get('isDirty')) {
-                that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
-                for (var i = 0; i < HubStar.get("groups").get("length"); i++)
-                {
-                    if (that.get("model").get("id") === HubStar.get("groups")[i].group_id)
+        if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
+            var that = this;
+            this.get("model").save();
+            this.get("model").get('isSaving');
+            this.get("model").addObserver('isDirty', function() {
+                if (!that.get("model").get('isDirty')) {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
+                    for (var i = 0; i < HubStar.get("groups").get("length"); i++)
                     {
-                        HubStar.get("groups")[i].group_name= that.get("model").get("group_name");
+                        if (that.get("model").get("id") === HubStar.get("groups")[i].group_id)
+                        {
+                            HubStar.get("groups")[i].group_name = that.get("model").get("group_name");
+                        }
                     }
+                    that.backToFront();
                 }
-                that.backToFront();
-            }
-        });
+            });
+        }
+        else
+        {
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please select a cateory");
+        }
     },
     removePic: function(s) {
         this.set(s + 'Source', null);

@@ -152,7 +152,7 @@
     z-index: 10;
     right: 0;
     color:#fff;
-    background: red;
+    background: green;
     position:absolute;
     padding: 0 6px;
     font-weight: bold;
@@ -361,11 +361,11 @@
     overflow: hidden;
     position: absolute;
     top: 90px;
+    max-height: 700px;
 }
 
 .group-wallpaper > img{
     width: 100%; 
-    max-height: 650px;
 }
 
 .group-panel{

@@ -30,7 +30,18 @@
             <div class="group-images">                  
                 {{#each controller.categorys}}
                 {{#if this.isResidential}}
-                <div class="select-group" style=""{{action topicSelection this }}>
+                {{#if this.isSelected}}
+                <div class="select-group" style="opacity:1" {{action topicSelection this }}>
+                     <div  class="group-image">         
+                        <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing" {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>
+                        <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
+                    </div>
+                    <div class="group-topic-name" >
+                        {{topic}}  
+                    </div>
+                </div>
+                {{else}}
+                <div class="select-group" style="" {{action topicSelection this }}>
                      <div  class="group-image">         
                         <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing" {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>
                         <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
@@ -40,6 +51,7 @@
                     </div>
                 </div>
                 {{/if}}
+                {{/if}}
                 {{/each}}
             </div>
             {{/if}}               
@@ -47,7 +59,8 @@
             <div class="group-images">
                 {{#each controller.categorys}}
                 {{#if this.isCommercial}}
-                <div class="select-group" style=""{{action topicSelection this}}>
+                {{#if this.isSelected}}
+                <div class="select-group" style="opacity:1" {{action topicSelection this }}>
                      <div class="group-image">    
                         <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing"  {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>                
                         <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
@@ -56,6 +69,17 @@
                         {{topic}}  
                     </div>
                 </div>
+                {{else}}
+                <div class="select-group" style="" {{action topicSelection this }}>
+                     <div class="group-image">    
+                        <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing"  {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>                
+                        <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
+                    </div>
+                    <div class="group-topic-name">
+                        {{topic}}  
+                    </div>
+                </div>
+                {{/if}}
                 {{/if}}
                 {{/each}}
             </div>

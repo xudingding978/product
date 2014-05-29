@@ -356,7 +356,7 @@
 .group-wallpaper{
     width: 100%;
     overflow: hidden;
-    position: fixed;
+    position: absolute;
     top: 90px;
 }
 

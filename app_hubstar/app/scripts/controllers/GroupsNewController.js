@@ -37,8 +37,11 @@ HubStar.GroupsNewController = Ember.Controller.extend({
     topicSelection: function(data) {
         this.set('topic', data);
         this.set('subcate', data.get('subcate'));
+        $("#minusSelect_"+ data.get("ids")).parent().parent().css("opacity", "1");
+        
     },
     addToSeclection: function(item) {
+       
         item.set("isSelected", true);
         var s = [];
         s.id = item.get("ids");
@@ -168,34 +171,34 @@ HubStar.GroupsNewController = Ember.Controller.extend({
     chooseBudget: function(n, s) {
         for (var i = 1; i <= 8; i++)
         {
-            $("#budget" + i).removeClass("selected");
+            $("#budget" + i).removeClass("group-selected");
         }
-        $("#budget" + n).addClass("selected");
+        $("#budget" + n).addClass("group-selected");
         this.set("group_budget", s);
     },
     chooseTime: function(n, s) {
         for (var i = 1; i <= 5; i++)
         {
-            $("#time" + i).removeClass("selected");
+            $("#time" + i).removeClass("group-selected");
         }
-        $("#time" + n).addClass("selected");
+        $("#time" + n).addClass("group-selected");
         this.set("group_timeframe", s);
     },
     choose: function(number) {
         if (number === "1") {
-            $("#first_time").addClass("selected");
-            $("#some_experiences").removeClass("selected");
-            $("#professional").removeClass("selected");
+            $("#first_time").addClass("group-selected");
+            $("#some_experiences").removeClass("group-selected");
+            $("#professional").removeClass("group-selected");
             this.set("group_expertise", "First Time");
         } else if (number === "2") {
-            $("#some_experiences").addClass("selected");
-            $("#first_time").removeClass("selected");
-            $("#professional").removeClass("selected");
+            $("#some_experiences").addClass("group-selected");
+            $("#first_time").removeClass("group-selected");
+            $("#professional").removeClass("group-selected");
             this.set("group_expertise", "I have some experiences");
         } else if (number === "3") {
-            $("#professional").addClass("selected");
-            $("#some_experiences").removeClass("selected");
-            $("#first_time").removeClass("selected");
+            $("#professional").addClass("group-selected");
+            $("#some_experiences").removeClass("group-selected");
+            $("#first_time").removeClass("group-selected");
             this.set("group_expertise", "I am professional");
         }
     },
@@ -205,6 +208,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         this.set('subcate', null);
         $("#group-res").addClass("group-button-active");
         $("#group-com").removeClass("group-button-active");
+        $(".subcategory-box").css("padding", "10px");
     },
     chooseCommercial: function() {
         this.set('isResidential', false);
@@ -212,6 +216,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         this.set('subcate', null);
         $("#group-com").addClass("group-button-active");
         $("#group-res").removeClass("group-button-active");
+        $(".subcategory-box").css("padding", "10px");
 
     },
     fieldChecking: function() {

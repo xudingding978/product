@@ -18,12 +18,12 @@
             </div>
         </div>
         <div class="group-panel-right">
-           <div  class="group-creator">
+            <div  class="group-creator">
                 <div class="group-creator-image" >
                     <img class="easing" {{bindAttr src="model.group_hero_cover_url"}}  /> 
                 </div>
                 <div class="group-creator-text">
-                     <div class="group-creator-name">   {{model.group_creator_name}} </div>
+                    <div class="group-creator-name">   {{model.group_creator_name}} </div>
                     <div class="group-creator-time">  {{date controller.createTime}} </div>                 
                 </div>
             </div>
@@ -39,7 +39,7 @@
         </div>
         {{model.group_pic_size}}
         <div class="group-pic-image masonry-object_profilepic"  >
-             <img id ="group_pic" class="easing" {{bindAttr src="model.group_pic_url"}}  />  
+            <img id ="group_pic" class="easing" {{bindAttr src="model.group_pic_url"}}  />  
         </div>
         <div class="group-desc-part">
             <div class="group-name" >          
@@ -54,7 +54,7 @@
 {{else}}
 
 <div class="group-profilewrapper">
-    
+
     {{#if controller.groupStepOne}}
     <div id="group-step-1"  class="group-step">
         <div class="group-profile-title-top">
@@ -112,7 +112,7 @@
         </div> 
     </div>
     {{/if}}
-    
+
     {{#if controller.groupStepTwo}}
 
     <div id="group-step-2" class="group-step"> 
@@ -129,7 +129,7 @@
         <div class="group-content easing" >
 
             <div class="group-textarea">{{view Ember.TextArea valueBinding="controller.description"   class="textarea-style" placeholder="About this project, I would like to......" }}</div>
-             <div class="group-part">
+            <div class="group-part">
                 <div class="group-text">Budget*:</div>
                 <div class="content-group-right">
                     <div id="budget1" class="subcategory-word" {{action chooseBudget  "1" "Less than 5k"}}>Less than 5k</div>
@@ -165,49 +165,61 @@
     {{/if}}
 
     {{#if controller.groupStepThree}}
-    <div class="group-profile-title-top">
+    <div id="group-step-3" class="group-step"> 
+        <div class="group-profile-title-top">
 
-        <div  class="group-step-button" style="float:left" {{action groupStep "2"}} >Project Info</div>
+            <div  class="group-step-button" style="float:left" {{action groupStep "2"}} >Project Info</div>
 
-        <div class="group-step-title" style=" width:60%;">
-            {{controller.name}}
-        </div>
-        <div  class="group-step-button" {{action save}} >DONE</div>
-    </div>
-    <div class="group-content easing" >
-        <div  class="message-btn easing hint--bottom hint--rounded" style="width:30px; border-right: 1px solid #ddd; border-left: 1px solid #ddd;" data-hint="Add Photo"><i class='fa fa-picture-o'></i>
-            <div style="opacity:0;position: relative;height:30px;top:-30px;overflow: hidden;"> 
-                {{view HubStar.MultiImageInputButtonView name="logo"}}
+            <div class="group-step-title" style=" width:60%;">
+                <div class="group-name group-desc-part" >
+                {{controller.name}}
+                </div>
             </div>
+            <div  class="group-step-button" {{action save}} >DONE</div>
         </div>
-        <div class="group-upload-image" >
-            <div class='remove-comment-photo easing' {{action removePic "logo"}}><i class="fa fa-times"></i></div>
-            {{#if logoSaving}}
-            <div class="message-btn easing" style='width: 30px;'>
+        <div class="group-content easing" >
+            <div class="group-upload-content" style="float:left">
+                <div style="width: 100%;">
+                    <div   class="subcategory-word upload-button" data-hint="Add Photo">Upload a Avatar
+                        <div> 
+                            {{view HubStar.MultiImageInputButtonView name="logo"}}
+                        </div>
+                    </div>
+                </div>
+                <div class="group-upload-image-logo" >
+                    <div class="remove-comment-photo easing remove-help-logo" {{action removePic "logo"}}><i class="fa fa-times"></i></div>   
+
+                    {{#if logoSaving}}
+                    <div class="message-btn easing" style='width: 30px;'>
                         <i class="spinner spinner-sml"></i>
                     </div>
-            {{else}}
-            <img  {{bindAttr src= "group_pic_url"}}  style="">
-            {{/if}}
-        </div>
-
-        <div  class="group-upload-image">
-            <div class='remove-comment-photo easing' {{action removePic "bg"}}><i class="fa fa-times"></i></div>
-            {{#if bgSaving}}
-            <div class="message-btn easing" style='width: 30px;'>
+                    {{else}}
+                    <img  {{bindAttr src= "group_pic_url"}} class="img-help-logo">
+                        {{/if}}
+                </div>
+            </div>
+            <div class="group-upload-content">
+                <div style="width: 100%;">
+                    <div   class="subcategory-word upload-button"  data-hint="Add Photo">Upload a Cover
+                        <div> 
+                            {{view HubStar.MultiImageInputButtonView name="bg"}}
+                        </div>
+                    </div>
+                </div>
+                <div  class="group-upload-image-bg">
+                    <div class="remove-comment-photo easing remove-help-bg" {{action removePic "bg"}}><i class="fa fa-times"></i></div>
+                    {{#if bgSaving}}
+                    <div class="message-btn easing" style='width: 30px;'>
                         <i class="spinner spinner-sml"></i>
                     </div>
-            {{else}}
-            <img  {{bindAttr src= "group_bg_url"}}  style="">
-            {{/if}}
-        </div>
-        <div  class="message-btn easing hint--bottom hint--rounded" style="width:30px; border-right: 1px solid #ddd; border-left: 1px solid #ddd;" data-hint="Add Photo"><i class='fa fa-picture-o'></i>
-            <div style="opacity:0;position: relative;height:30px;top:-30px;overflow: hidden;"> 
-                {{view HubStar.MultiImageInputButtonView name="bg"}}
+                    {{else}}
+                    <img  {{bindAttr src= "group_bg_url"}} class="img-help-bg">
+                        {{/if}}
+                </div>
             </div>
         </div>
     </div>
-    {{/if}}
+    {{/if}}   
 </div>
 <div class="group-dashboard-buttons">
     <div id ="Categories" {{action groupStep "1"}}>Select Categories</div>

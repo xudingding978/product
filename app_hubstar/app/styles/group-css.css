@@ -15,8 +15,8 @@
 
 .group-profile-title-top{
     position: relative;
-    height: 210px;
     margin: auto;
+    height: 180px;
 }
 
 
@@ -24,8 +24,8 @@
     display: inline-block;
     width: 20%;
     float: right;
-    height: 210px;
-    line-height: 200px;
+    height: 100%;
+    line-height: 180px;
     font-size: 30px;
     background-color: #ccc;
     text-align:center;
@@ -59,7 +59,7 @@
     font-weight: bold;
     background-color: rgb(241, 238, 238);
     font-size: 20px;
-    height: 210px;
+    height: 100%;
     width: 80%;
     float: left;
     display: inline-block;
@@ -93,7 +93,7 @@
 .subcategory-box{
     height: auto;
     overflow: auto;
-    padding: 10px;
+   
 }
 
 .subcategory-word{
@@ -131,6 +131,7 @@
     display: inline-block;
     vertical-align: top;
     margin: 12px;
+     opacity: .5;
 }
 
 .group-title{
@@ -162,6 +163,7 @@
     overflow: hidden;
     top: -5px;
     float: left;
+    
 
 }
 
@@ -175,6 +177,7 @@
     height: 100px;
     overflow: hidden;
     border-radius: 50%;
+   
 }
 
 .group-textarea{
@@ -207,9 +210,9 @@
     height: 50px;
     padding: 10px;
 }
-.selected{
-    background-color: #fff;
-    color:#000;
+.group-selected{
+    background-color: #fff;    
+    color:#000 !important;
 }
 
 .content-group-right{
@@ -453,8 +456,9 @@
 
 .group-desc-part{
     position: relative;
-    top: 110px; 
+    top: 70px; 
     color: #000;
+    text-align: center;
 
 }
 

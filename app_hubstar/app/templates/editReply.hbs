@@ -17,9 +17,16 @@
                         {{view HubStar.SingleImageInputButtonView }}
                     </div>
                 </div>
+                {{#if controller.isReply}}
                 <div class="message-btn easing" style='width: 30px;'{{action updateReply model.reply_id}}>
                      <i class='fa fa-check'></i>
                 </div>
+                {{else}}
+
+                <div class="message-btn easing" style='width: 30px;'>
+                    <i class="spinner spinner-sml"></i>
+                </div>
+                {{/if}}
             </div>
         </div>
 

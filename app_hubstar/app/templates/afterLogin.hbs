@@ -41,6 +41,7 @@
     {{render newProfileTopDisplay HubStar.profiles}}
     {{/if}}    
     {{/if}}
+    {{#if HubStar.group_switch}}
     <li class="ite" ><a tabindex="-1"  href="" {{action userDisplaynone "newGroup" on="click"  target="view"}}>
                         <i class="fa fa-briefcase" style="">&nbsp;&nbsp;</i>
             <span>Group</span>
@@ -51,6 +52,7 @@
             <span>{{this.group_name}}</span>
         </a></li>
     {{/each}}
+    {{/if}}
     <li class='ite'><a tabindex="-1" href="http://about.trendsideas.com/" target="blank" {{action userDisplaynone "about" on="click"  target="view"}}>
                        <i class="fa fa-question-circle" style="">&nbsp;&nbsp;</i>
             <span>Help</span>

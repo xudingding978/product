@@ -114,6 +114,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             HubStar.set('pdf_display', params[0]);
             HubStar.set('tagging_display', params[1] && params[2]);
             HubStar.set('profile_manager', params[2]);
+            HubStar.set('group_switch', params[3]);
         });
 
         HubStar.set("escVideo", false);

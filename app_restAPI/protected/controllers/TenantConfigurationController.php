@@ -81,9 +81,11 @@ class TenantConfigurationController extends Controller {
         $configuration1 = $this->getProviderConfigurationByName($domainWithoutAPI, "pdf_display");
         $configuration2 = $this->getProviderConfigurationByName($domainWithoutAPI, "tagging_display");
         $configuration3 = $this->getProviderConfigurationByName($domainWithoutAPI, "profile_manager");
+        $configuration4 = $this->getProviderConfigurationByName($domainWithoutAPI, "group");
         $configuration[0] = $configuration1;
         $configuration[1] = $configuration2;
         $configuration[2] = $configuration3;
+        $configuration[3] = $configuration4;
         $feedback = CJSON::encode($configuration);
 
         $this->sendResponse(200, $feedback);

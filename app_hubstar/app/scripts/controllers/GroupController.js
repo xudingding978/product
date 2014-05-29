@@ -118,7 +118,7 @@ HubStar.GroupController = Ember.Controller.extend({
                     var sub = subcates[j].split('•')[1];
                     if (main === this.get("topic").get("topic"))
                     {
-                        
+
                         if (sub === this.get('subcate').objectAt(i).get("category_topic"))
                         {
                             this.addToSeclection(this.get('subcate').objectAt(i));
@@ -457,6 +457,13 @@ HubStar.GroupController = Ember.Controller.extend({
         this.get("model").addObserver('isDirty', function() {
             if (!that.get("model").get('isDirty')) {
                 that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
+                for (var i = 0; i < HubStar.get("groups").get("length"); i++)
+                {
+                    if (that.get("model").get("id") === HubStar.get("groups")[i].group_id)
+                    {
+                        HubStar.get("groups")[i].group_name= that.get("model").get("group_name");
+                    }
+                }
                 that.backToFront();
             }
         });

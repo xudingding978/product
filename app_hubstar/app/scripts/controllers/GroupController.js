@@ -143,18 +143,18 @@ HubStar.GroupController = Ember.Controller.extend({
     topicSelection: function(data) {
         if (data !== this.get("topic")) {
             this.set('selected_cate', []);
-        }
-        data.set("isSelected", true);
-        this.set('topic', data);
-        this.set('subcate', data.get('subcate'));
-        for (var i = 0; i < this.get('categorys').get('length'); i++)
-        {
-            if (data.get("ids") !== this.get('categorys').objectAt(i).get("ids")) {
-                this.get('categorys').objectAt(i).set("isSelected", false);
-                this.get('categorys').objectAt(i).set("chooseNumber", 0);
-                for (var j = 0; j < this.get('categorys').objectAt(i).get("subcate").get("length"); j++)
-                {
-                    this.get('categorys').objectAt(i).get("subcate").objectAt(j).set("isSelected", false);
+            data.set("isSelected", true);
+            this.set('topic', data);
+            this.set('subcate', data.get('subcate'));
+            for (var i = 0; i < this.get('categorys').get('length'); i++)
+            {
+                if (data.get("ids") !== this.get('categorys').objectAt(i).get("ids")) {
+                    this.get('categorys').objectAt(i).set("isSelected", false);
+                    this.get('categorys').objectAt(i).set("chooseNumber", 0);
+                    for (var j = 0; j < this.get('categorys').objectAt(i).get("subcate").get("length"); j++)
+                    {
+                        this.get('categorys').objectAt(i).get("subcate").objectAt(j).set("isSelected", false);
+                    }
                 }
             }
         }

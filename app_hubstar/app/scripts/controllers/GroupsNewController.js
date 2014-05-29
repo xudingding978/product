@@ -37,18 +37,18 @@ HubStar.GroupsNewController = Ember.Controller.extend({
     topicSelection: function(data) {
         if (data !== this.get("topic")) {
             this.set('selected_cate', []);
-        }
-        data.set("isSelected", true);
-        this.set('topic', data);
-        this.set('subcate', data.get('subcate'));
-        for (var i = 0; i < this.get('categorys').get('length'); i++)
-        {
-            if (data.get("ids") !== this.get('categorys').objectAt(i).get("ids")) {
-                this.get('categorys').objectAt(i).set("isSelected", false);
-                this.get('categorys').objectAt(i).set("chooseNumber", 0);
-                for (var j = 0; j < this.get('categorys').objectAt(i).get("subcate").get("length"); j++)
-                {
-                    this.get('categorys').objectAt(i).get("subcate").objectAt(j).set("isSelected", false);
+            data.set("isSelected", true);
+            this.set('topic', data);
+            this.set('subcate', data.get('subcate'));
+            for (var i = 0; i < this.get('categorys').get('length'); i++)
+            {
+                if (data.get("ids") !== this.get('categorys').objectAt(i).get("ids")) {
+                    this.get('categorys').objectAt(i).set("isSelected", false);
+                    this.get('categorys').objectAt(i).set("chooseNumber", 0);
+                    for (var j = 0; j < this.get('categorys').objectAt(i).get("subcate").get("length"); j++)
+                    {
+                        this.get('categorys').objectAt(i).get("subcate").objectAt(j).set("isSelected", false);
+                    }
                 }
             }
         }
@@ -99,18 +99,23 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                 setTimeout(function() {
                     if (that.get('isResidential') === true)
                     {
-                        that.chooseResidential();
+                        $("#group-res").addClass("group-button-active");
+                        $("#group-com").removeClass("group-button-active");
                     }
                     else
                     {
-                        that.chooseCommercial();
+                        $("#group-res").removeClass("group-button-active");
+                        $("#group-com").addClass("group-button-active");
                     }
+                    that.topicSelection(that.get("topic"));
                 }, 1);
             });
         } else if (number === "3") {
-            this.set("groupStepOne", false);
-            this.set("groupStepTwo", false);
-            this.set("groupStepThree", true);
+            if (this.fieldChecking() === true) {
+                this.set("groupStepOne", false);
+                this.set("groupStepTwo", false);
+                this.set("groupStepThree", true);
+            }
         }
     },
     refreshPage: function() {
@@ -233,23 +238,40 @@ HubStar.GroupsNewController = Ember.Controller.extend({
 
     },
     fieldChecking: function() {
-
         var flag = true;
         if (this.get("groupName") === "")
         {
             flag = false;
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please type in a group name");
         }
-        if (this.get("aboutProject") === "")
+        if (this.get("group_budget") === "")
         {
             flag = false;
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose group budget");
+        }
+        if (this.get("group_timeframe") === "")
+        {
+            flag = false;
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose group timeframe");
         }
         if (this.get("group_expertise") === "")
         {
             flag = false;
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose expertise");
         }
-        if (this.get("group_bg_url") === "" || this.get("group_hero_url") === "" || this.get("group_pic_url") === "")
+        return flag;
+    },
+    picChecking: function() {
+        var flag = true;
+        if (this.get("group_pic_url") === "")
         {
             flag = false;
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose group timeframe");
+        }
+        if (this.get("group_bg_url") === "" || this.get("group_hero_url") === "")
+        {
+            flag = false;
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose group timeframe");
         }
         return flag;
     },
@@ -286,7 +308,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
     },
     save: function() {
         this.getCateandSubCate();
-        if (this.fieldChecking())
+        if (this.picChecking())
         {
 
             var that = this;

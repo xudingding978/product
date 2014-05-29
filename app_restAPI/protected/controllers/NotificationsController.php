@@ -60,6 +60,16 @@ class NotificationsController extends Controller {
         $this->sendResponse(200, CJSON::encode($is_success));
     }
 
+    public function actionAcceptTag() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request = CJSON::decode($request_array);
+        $notificationId = $request[1];
+        $ownerId = $request[0];
+        $is_success = $this->setAcceptTag($ownerId, $notificationId);
+
+        $this->sendResponse(200, CJSON::encode($is_success));
+    }
+
     public function actionDecline() {
         $request_array = CJSON::decode(file_get_contents('php://input'));
         $request = CJSON::decode($request_array);
@@ -68,6 +78,59 @@ class NotificationsController extends Controller {
         $is_success = $this->setDecline($ownerId, $notificationId);
 
         $this->sendResponse(200, CJSON::encode($is_success));
+    }
+
+    public function actionDeclineTag() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $request = CJSON::decode($request_array);
+        $notificationId = $request[1];
+        $ownerId = $request[0];
+        $is_success = $this->setDeclineTag($ownerId, $notificationId);
+
+        $this->sendResponse(200, CJSON::encode($is_success));
+    }
+
+    public function setDeclineTag($ownerId, $notificationId) {
+        $cb = $this->couchBaseConnection();
+        $domain = $this->getDomain();
+        $docID_currentUser = $domain . "/users/" . $ownerId;
+        $tempMega_currentUser = $cb->get($docID_currentUser);
+        $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
+        $notificationObject = array();
+        if (isset($mega_currentUser['user'][0]["notifications"])) {
+            for ($i = 0; $i < sizeof($mega_currentUser['user'][0]["notifications"]); $i++) {
+                if ($mega_currentUser['user'][0]["notifications"][$i]["notification_id"] === $notificationId) {
+                    $notificationObject = $mega_currentUser['user'][0]["notifications"][$i];
+                    $mega_currentUser['user'][0]["notifications"][$i]["content"] = $mega_currentUser['user'][0]["notifications"][$i]["content"] . ",isProve";
+
+                    break;
+                }
+            }
+        }
+        if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
+            $urls = explode("/", $notificationObject["action_id"]);
+            $megaId = $urls[sizeof($urls) - 1];
+            $url = $domain . "/" . $megaId;
+            $target = $cb->get($url);
+            $targetMega = CJSON::decode($target, true);
+            if (isset($targetMega['photo'][0]["tags"])) {
+                for ($i = 0; $i < sizeof($targetMega['photo'][0]["tags"]); $i++) {
+                    if ($targetMega['photo'][0]["tags"][$i]["tag_id"] === $notificationObject["content"]) {
+
+                        $targetMega['photo'][0]["tags"][$i]["tag_approved"] = true;
+                        array_splice($targetMega['photo'][0]["tags"], $i, 1);
+                        break;
+                    }
+                }
+            }
+            if ($cb->set($url, CJSON::encode($targetMega))) {
+                return "You have deleted the tag in your picture";
+            } else {
+                return "save fail";
+            }
+        } else {
+            return "save fail";
+        }
     }
 
     public function actionMarkAllRead() {
@@ -256,6 +319,49 @@ class NotificationsController extends Controller {
         }
     }
 
+    public function setAcceptTag($ownerId, $notificationId) {
+        $cb = $this->couchBaseConnection();
+        $domain = $this->getDomain();
+        $docID_currentUser = $domain . "/users/" . $ownerId;
+        $tempMega_currentUser = $cb->get($docID_currentUser);
+        $mega_currentUser = CJSON::decode($tempMega_currentUser, true);
+        $notificationObject = array();
+        if (isset($mega_currentUser['user'][0]["notifications"])) {
+            for ($i = 0; $i < sizeof($mega_currentUser['user'][0]["notifications"]); $i++) {
+                if ($mega_currentUser['user'][0]["notifications"][$i]["notification_id"] === $notificationId) {
+                    $notificationObject = $mega_currentUser['user'][0]["notifications"][$i];
+                    $mega_currentUser['user'][0]["notifications"][$i]["content"] = $mega_currentUser['user'][0]["notifications"][$i]["content"] . ",isProve";
+
+                    break;
+                }
+            }
+        }
+        if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
+            $urls = explode("/", $notificationObject["action_id"]);
+            $megaId = $urls[sizeof($urls) - 1];
+            $url = $domain . "/" . $megaId;
+            $target = $cb->get($url);
+            $targetMega = CJSON::decode($target, true);
+            if (isset($targetMega['photo'][0]["tags"])) {
+                for ($i = 0; $i < sizeof($targetMega['photo'][0]["tags"]); $i++) {
+                    if ($targetMega['photo'][0]["tags"][$i]["tag_id"] === $notificationObject["content"]) {
+
+                        $targetMega['photo'][0]["tags"][$i]["tag_approved"] = true;
+
+                        break;
+                    }
+                }
+            }
+            if ($cb->set($url, CJSON::encode($targetMega))) {
+                return "You have activated the tag in your picture";
+            } else {
+                return "save fail";
+            }
+        } else {
+            return "save fail";
+        }
+    }
+
     public function setRead($ownerId, $notificationId) {
         $cb = $this->couchBaseConnection();
         $domain = $this->getDomain();
@@ -414,4 +520,5 @@ class NotificationsController extends Controller {
     }
 
 }
+
 ?>

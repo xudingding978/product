@@ -31,8 +31,8 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', false);
         localStorage.checkUser = "";
-
         $('#footer').css("display", "none");
+
     },
     model: function(params) {
         var address = decodeURIComponent(document.URL);
@@ -47,7 +47,6 @@ HubStar.SearchRoute = Ember.Route.extend({
         transitionToPhoto: function(id) {
 
             this.controllerFor('masonryCollectionItems').set("type", "profile");
-
             var address = document.URL;
             var search_id = address.split("#")[1].split("/")[2];
             this.controllerFor('article').set("accessFromSearchBoard", true);
@@ -129,11 +128,11 @@ HubStar.SearchRoute = Ember.Route.extend({
         });
     },
     deactivate: function() {
+
         $('#footer').attr("style", "display:block");
+
 
     },
     renderTemplate: function() {
-
-
     }
 });

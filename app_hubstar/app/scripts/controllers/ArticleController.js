@@ -14,7 +14,22 @@ HubStar.ArticleController = Ember.Controller.extend({
     isShowPhotoUrl: false,
     accessFromSearchBoard: false, //false: access the articlePhoto  true: access the article
     isCreditListExist: false,
-    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems', 'mega'],
+    isBusinessProfile: false,
+    enableTag: false,
+    tagCount: 0,
+    fromsearchtag: false,
+    hasTag: false,
+    makeSureActivateTag: false,
+    willActivate: false,
+    contentTagsArticle: "", //all the tags
+    showEachTagContent: false,
+    showAllTagsArticle: true, // users show the tag
+    inImage: false,
+    tag: [], //every tag content when click
+    enableEditTag: false, //enable  photo owner to edit the tag after activate the tag
+    showRequestTag: false, //show the tag after save and sent the request
+    showTagAfterSave: false, // show the tag icon afte approve
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems', 'showTag', 'mega', 'updateTag', 'permission'],
     init: function() {
         HubStar.set("readCaption", true);
     },
@@ -27,161 +42,390 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
         return 0;
     },
-    previesImage: function() {
-
-        if (!this.get('selectedPhoto')) {
-            this.set('selectedPhoto', this.get('content').get('lastObject'));
-        }
-        var selectedIndex = this.findSelectedItemIndex();
-        selectedIndex--;
-        if (selectedIndex < 0) {
-
-                this.get("controllers.checkingLoginStatus").popupLogin();
-            
-            selectedIndex = this.get('content').get('length') - 1;
-            this.set('image_no', this.get('content').get('length'));
-        }
-        this.set("isShowPhotoUrl", true);
-        this.set('image_no', selectedIndex + 1);
-        this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
-        this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
-        if (this.get("accessFromSearchBoard") === false)
-        {
-            if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
-            {
-
-                this.transitionTo("profileArticlePhoto", this.get("megaResouce").get('photo').objectAt(0));
-
-            }
-            else
-            {
-                this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
-            }
-        }
-        else
-        {
-
-            var address = document.URL;
-            var id = address.split("#")[1].split("/")[2];
-            var search_type = address.split("#")[1].split("/")[1];
-
-            if (search_type === "search" || search_type === "searchs") //it is the search index
-            {
-                if (id === "default")
-                {
-                    this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
-
-                }
-                else
-                {
-                    this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
-                }
-
-            }
-            else if (search_type === "profiles")
-            {
-                this.transitionTo("profileArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
-            }
-            else if (search_type === "users")
-            {
-                this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
-            }
-            else if (search_type === "articles")
-            {
-                this.transitionTo("searchsArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
-            }
-        }
-
-        this.set("photo_album_id", "album_" + this.get('selectedPhoto').get("id"));
-        this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').get("id"));
-        this.selectedImage(this.get('selectedPhoto').get("id"));
-        this.set('captionTitle', this.get('selectedPhoto').get("photo_title"));
-        this.set('caption', this.get('selectedPhoto').get("photo_caption"));
-        this.captionDisplay();
-        
-        // if (HubStar.get('ctaView') === true) {
-//                this.get("controllers.checkingLoginStatus").popupLogin();
-//                HubStar.set('ctaView', false);
-//            }
-       
+    /******* function name: enableTag
+     * parameter:
+     *  aim: it is to enable user to tag in the photo and can edit the photo
+     ***********************/
+    activateTag: function()
+    {
+        $("#pa").addClass("hideClass");
+        $("#na").addClass("hideClass");
+        this.get("controllers.showTag").set("photo_id", this.get('selectedPhoto').id); //set the selected photo's id, it also contain the first photo
+        this.set("showRequestTag", false);
+        this.set("showTagAfterSave", false);
+        this.set("showEachTagContent", false);
+        this.set("enableTag", true);
     },
-    nextImage: function() {
+    /******* function name: enableTag
+     * parameter:
+     *  aim: it is to enable user to tag in the photo
+     ***********************/
+    endTag: function()
+    {
+        $("#pa").removeClass("hideClass"); //remove the left and right icon
+        $("#na").removeClass("hideClass");
+        this.set("enableTag", false);
+        this.set("showTagAfterSave", false);
+        this.set("inImage", false);  //click the end tag recove the value
 
-
-
-        this.set("isShowPhotoUrl", true);
-        if (!this.get('selectedPhoto')) {
-            this.set('selectedPhoto', this.get('content').get('firstObject'));
-        }
-        var selectedIndex = this.findSelectedItemIndex();
-        selectedIndex++;
-        if (selectedIndex >= (this.get('content').get('length'))) {
-            if(selectedIndex > 3){
-                this.get("controllers.checkingLoginStatus").popupLogin();   
-            }
-            this.set('image_no', 1);
-            selectedIndex = 0;
-        }
-        this.set('image_no', selectedIndex + 1);
-        this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
-        this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
-        if (this.get("accessFromSearchBoard") === false)
-        {
-            if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
+    },
+    addClickCount: function(tag_id, photo_url)
+    {
+        var photo_id = this.get('selectedPhoto').id;
+        var delInfo = [tag_id, photo_id];
+        delInfo = JSON.stringify(delInfo);
+        window.open(
+                photo_url,
+                'popupwindow',
+                'height=436,width=626'
+                ).focus();
+        var that = this;
+        setTimeout(function() {
+            if (that.get("contentTagsArticle") !== undefined && that.get("contentTagsArticle") !== "" && that.get("contentTagsArticle") !== null)
             {
+                for (var i = 0; i < that.get("contentTagsArticle").length; i++)
+                {
+                    if (that.get("contentTagsArticle").objectAt(i).get("tag_id") === tag_id)
+                    {
+                        that.get("contentTagsArticle").objectAt(i).set("link_to_click_count", that.get("contentTagsArticle").objectAt(i).get("link_to_click_count") + 1);
+                    }
+                }
+            }
+        }
+        , 10);
+        requiredBackEnd('showTag', 'ViewCount', delInfo, 'POST', function(params) {
+        });
+    },
+    showTags: function()
+    {
+        this.set("showAllTagsArticle", true);
+        this.set("showEachTagContent", true);
+        this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
+    },
+    hideTags: function()
+    {
+        this.set("showAllTagsArticle", false);
+        this.set("showEachTagContent", false);
+    },
+    EditTag: function(tag_id)
+    {
+        this.set("enableEditTag", true);
+        this.get("controllers.updateTag").updateTag(tag_id, this.get('selectedPhoto').id);
 
-                this.transitionTo("profileArticlePhoto", this.get("megaResouce").get('photo').objectAt(0));
+    },
+    windowResizeTags: function(tags)
+    {
+        for (var i = 0; i < tags.length; i++)
+        {
+            var tagDiv = "#tag_" + tags[i].tag_id;
+            var center_y = $(window).height() / 2;
+            var center_x = ($(window).width() * 0.55) / 2;
+            var top = center_y - HubStar.get("pic_current_height") / 2;
+            var left = center_x - HubStar.get("pic_current_width") / 2;
+            var height = tags[i].pic_y * HubStar.get("pic_current_height") + top;  //set the tag's place which is the percentage of image and add the picture origin left point place
+            var width = tags[i].pic_x * HubStar.get("pic_current_width") + left;
 
+
+            $(tagDiv).css({top: height, left: width});
+        }
+    },
+    JudgeBusinessProfile: function()
+    {
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
+        var that = this;
+        currentUser.then(function() {
+            var photo_owner_email = currentUser.get("email"); //photo owner contact email address
+            var endOfEmail = "";
+            if (photo_owner_email.search("@") !== -1)
+            {
+                endOfEmail = photo_owner_email.split("@")[1];
+
+                var trendsAccountEmail = "trendsideas.com"; //all trends account can have the edit right;
+                if ((currentUser.get("profiles") !== null && currentUser.get("profiles") !== undefined && currentUser.get("profiles") !== "") || trendsAccountEmail === endOfEmail)
+                {
+                    if (currentUser.get("profiles").get("length") > 0 || trendsAccountEmail === endOfEmail)
+                    {
+                        that.set("isBusinessProfile", true);
+                    }
+                    else
+                    {
+                        that.set("isBusinessProfile", false);
+                    }
+                }
             }
             else
             {
-                this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                that.set("isBusinessProfile", false);
             }
-        }
-        else
+        });
+
+    },
+    checkAuthenticUser: function() {
+        var currentUser = HubStar.User.find(localStorage.loginStatus);
+        var current_user_email = currentUser.get('email');
+        var permissionController = this.get('controllers.permission');
+        var that = this;
+        var role = permissionController.checkAuthenticEdit(that.get("megaResouce").get("profile_creator"), that.get("megaResouce").get("profile_administrator"), that.get("megaResouce").get("profile_editor"));
+        var is_edit = false;
+        if (role !== "")
         {
-            var address = document.URL;
-            var id = address.split("#")[1].split("/")[2];
-            var search_type = address.split("#")[1].split("/")[1];
-            if (search_type === "search" || search_type === "searchs") //it is the search index
+            is_edit = true;
+        }
+
+        var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
+        that.set("is_authentic_user", is_authentic_user || is_edit);
+
+        currentUser.then(function() {
+            var current_user_email = currentUser.get('email');
+            var is_authentic_user = permissionController.checkAuthenticUser(that.get("megaResouce").get("owner_contact_email"), that.get("megaResouce").get("editors"), current_user_email);
+            that.set("is_authentic_user", is_authentic_user || is_edit);
+        });
+    },
+    /****it is allow the user to active the tag******/
+    activateUserTag: function(tag_id)
+    {
+        this.get("controllers.showTag").activateUserTag(tag_id, this.get('selectedPhoto').id);
+    },
+    sureToActivate: function(tag_id)
+    {
+        var message = "Are you sure to activate this tag?";
+        this.set("message", message);
+        this.set('makeSureActivateTag', true);
+        this.set("tag_id", tag_id);
+        this.set("type", true);
+        if (this.get('willActivate') === true) {
+            this.activateUserTag(tag_id);
+            this.cancelActivate();
+        } else {
+            this.set("s", tag_id);
+            this.set('willActivate', true);
+        }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelActivate: function() {
+        this.set('willActivate', false);
+        this.set('makeSureActivateTag', false);
+    },
+    sureDelTag: function(tag_id)
+    {
+        this.get("controllers.showTag").deleteTag(tag_id, this.get('selectedPhoto').id);
+    },
+    deleteTag: function(tag_id) {
+        var message = "Are you sure to delete  this tag?";
+        this.set("message", message);
+        this.set("tag_id", tag_id);
+        this.set("type", false); //type is false mean delete other it mean activate
+        this.set('makeSureActivateTag', true);
+        if (this.get('willDelTag') === true) {
+            this.sureDelTag(tag_id);
+            this.cancelDelTag();
+        } else {
+            this.set("s", tag_id);
+            this.set('willDelTag', true);
+        }
+        setTimeout(function() {
+            $('#masonry_user_container').masonry("reload");
+        }, 200);
+    },
+    cancelDelTag: function()
+    {
+        this.set('willDelTag', false);
+        this.set('makeSureActivateTag', false);
+    },
+    previesImage: function(event, pic_x, pic_y) {
+        this.set("showEachTagContent", false);
+//        this.set("contentTagsArticle", "");
+        this.get("controllers.showTag").set("contentTags", "");
+        if (this.get("enableTag") === true)
+        {
+            var that = this;
+            setTimeout(function() {
+                $('#tagit').fadeIn();
+                $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                if (that.get("controllers.showTag").get("change_tag_show_2"))
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("left", "265px");
+                    });
+                }
+                else
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("left", "0px");
+                    });
+                }
+                $('#tagname').focus();
+            }, 20);
+        } else
+        {
+            this.set("contentTagsArticle", "");
+            if (!this.get('selectedPhoto')) {
+                this.set('selectedPhoto', this.get('content').get('lastObject'));
+            }
+            var selectedIndex = this.findSelectedItemIndex();
+            selectedIndex--;
+            if (selectedIndex < 0) {
+                this.get("controllers.checkingLoginStatus").popupLogin();
+                selectedIndex = this.get('content').get('length') - 1;
+                this.set('image_no', this.get('content').get('length'));
+            }
+            this.set("isShowPhotoUrl", true);
+            this.set('image_no', selectedIndex + 1);
+            this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
+            this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
+            this.get("controllers.showTag").readTags(this.get('selectedPhoto').get("id"), "article");
+            if (this.get("accessFromSearchBoard") === false)
             {
-                if (id === "default")
+                if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
                 {
 
-                    this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                    this.transitionTo("profileArticlePhoto", this.get("megaResouce").get('photo').objectAt(0));
 
                 }
                 else
                 {
-                    this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                    this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
                 }
+            }
+            else
+            {
+                var address = document.URL;
+                var id = address.split("#")[1].split("/")[2];
+                var search_type = address.split("#")[1].split("/")[1];
+                if (search_type === "search" || search_type === "searchs") //it is the search index
+                {
+                    if (id === "default")
+                    {
+                        this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
 
-            }
-            else if (search_type === "profiles")
-            {
-                this.transitionTo("profileArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
-            }
-            else if (search_type === "users")
-            {
-                this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
-            }
-            else if (search_type === "articles")
-            {
-                this.transitionTo("searchsArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
-            }
-        }
+                    }
+                    else
+                    {
+                        this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                    }
 
-        this.set("photo_album_id", "album_" + this.get('selectedPhoto').get("id"));
-        this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').get("id"));
-        this.selectedImage(this.get('selectedPhoto').get("id"));
-        this.set('captionTitle', this.get('selectedPhoto').get("photo_title"));
-        this.set('caption', this.get('selectedPhoto').get("photo_caption"));
-        this.captionDisplay();
-// if (HubStar.get('ctaView') === true) {
+                }
+                else if (search_type === "profiles")
+                {
+                    this.transitionTo("profileArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                }
+                else if (search_type === "users")
+                {
+                    this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                }
+            }
+            this.set("photo_album_id", "album_" + this.get('selectedPhoto').get("id"));
+            this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').get("id"));
+            this.selectedImage(this.get('selectedPhoto').get("id"));
+            this.set('captionTitle', this.get('selectedPhoto').get("photo_title"));
+            this.set('caption', this.get('selectedPhoto').get("photo_caption"));
+
+            this.captionDisplay();
+//            if (HubStar.get('ctaView') === true) {
 //                this.get("controllers.checkingLoginStatus").popupLogin();
 //                HubStar.set('ctaView', false);
 //            }
+        }
+    },
+    nextImage: function(event, pic_x, pic_y) {
+        this.set("showEachTagContent", false);
+        if (this.get("enableTag") === true)
+        {
+            var that = this;
+            setTimeout(function() {
+                $('#tagit').fadeIn();
+                $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                if (that.get("controllers.showTag").get("change_tag_show_2"))
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("left", "-265px");
+                    });
+                }
+                else
+                {
+                    $(document).ready(function() {
+                        $("#showTagSavePhoto").css("left", "0px");
+                    });
+                }
+                $('#tagname').focus();
+            }, 20);
+        } else
+        {
+            this.set("contentTagsArticle", "");
+            this.get("controllers.showTag").set("contentTags", "");
+            this.set("isShowPhotoUrl", true);
+            if (!this.get('selectedPhoto')) {
+                this.set('selectedPhoto', this.get('content').get('firstObject'));
+            }
+            var selectedIndex = this.findSelectedItemIndex();
+            selectedIndex++;
+            if (selectedIndex >= (this.get('content').get('length'))) {
+                this.get("controllers.checkingLoginStatus").popupLogin();
+                this.set('image_no', 1);
+                selectedIndex = 0;
+            }
+            this.set('image_no', selectedIndex + 1);
+            this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
+            this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
+            this.get("controllers.showTag").readTags(this.get('selectedPhoto').get("id"), "article");
+            if (this.get("accessFromSearchBoard") === false)
+            {
+                if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
+                {
 
+                    this.transitionTo("profileArticlePhoto", this.get("megaResouce").get('photo').objectAt(0));
+
+                }
+                else
+                {
+                    this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                }
+            }
+            else
+            {
+                var address = document.URL;
+                var id = address.split("#")[1].split("/")[2];
+                var search_type = address.split("#")[1].split("/")[1];
+                if (search_type === "search" || search_type === "searchs") //it is the search index
+                {
+                    if (id === "default")
+                    {
+
+                        this.transitionTo("searchDefaultArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+
+
+                    }
+                    else
+                    {
+                        this.transitionTo("searchIndexArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                    }
+
+                }
+                else if (search_type === "profiles")
+                {
+                    this.transitionTo("profileArticlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                }
+                else if (search_type === "users")
+                {
+
+                    this.transitionTo("articlePhoto", this.get('megaResouce').get("photo").objectAt(0));
+                }
+
+
+            }
+            this.set("photo_album_id", "album_" + this.get('selectedPhoto').get("id"));
+            this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').get("id"));
+            this.selectedImage(this.get('selectedPhoto').get("id"));
+            this.set('captionTitle', this.get('selectedPhoto').get("photo_title"));
+            this.set('caption', this.get('selectedPhoto').get("photo_caption"));
+            this.captionDisplay();
+//            if (HubStar.get('ctaView') === true) {
+//                this.get("controllers.checkingLoginStatus").popupLogin();
+//                HubStar.set('ctaView', false);
+//            }
+        }
     },
     captionDisplay: function()
     {
@@ -210,10 +454,18 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
     },
     selectImage: function(e) { // it is click the photo
+//alert("selected image in article");
         this.set("isShowPhotoUrl", true);
-        this.set('megaResouce', HubStar.Mega.find(e));
+        this.set("contentTagsArticle", "");
+        var megaModel = HubStar.Mega.find(e);
+        this.set('megaResouce', megaModel);
+        var photoObject = HubStar.Mega.find(e).get('photo').objectAt(0);
+        if (this.get("fromsearchtag") === true)
+        {
+            this.get("controllers.showTag").readTags(e, "article");
+            HubStar.set("isArticleTag", true);  //isArticleTag is true mean is the  photo tag,so it will set different tagcontent in showTagController
+        }
         this.set('selectedPhoto', HubStar.Mega.find(e).get('photo').objectAt(0));
-
         this.set('captionTitle', this.get('selectedPhoto').get("photo_title"));
         this.set('caption', this.get('selectedPhoto').get("photo_caption"));
 
@@ -237,9 +489,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         {
             if (this.get("controllers.masonryCollectionItems").get("type") === "profile")
             {
-
                 this.transitionTo("profileArticlePhoto", this.get("megaResouce").get('photo').objectAt(0));
-
             }
             else
             {
@@ -269,6 +519,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         }
         this.selectedImage(e);
         this.captionDisplay();
+
     },
     selectedImage: function(id) {
         var selectedImage_id = "#showalbum_" + id;
@@ -278,9 +529,13 @@ HubStar.ArticleController = Ember.Controller.extend({
     getInitData: function(megaObject) {
 
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+        this.set("contentTagsArticle", "");
+        this.set("enableTag", false);
+        this.set("showTagAfterSave", false);
+        this.JudgeBusinessProfile(); //it is used to judge whether the user has business profile or it is the trends account
         this.set("content", []);
         this.set("selectedPhoto", '');
-        this.set('image_no', 1);    
+        this.set('image_no', 1);
         var that = this;
         megaObject.then(function() {
             that.set('articleResouce', megaObject.get('article').objectAt(0));
@@ -290,7 +545,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             that.addRelatedData(megaObject);
             that.getCommentsById(megaObject.id);
             that.checkCreditExist(megaObject.get('article').objectAt(0).get('credits'));
-
+            that.checkAuthenticUser();
             var tempComment = [megaObject.id];
             requiredBackEnd('megas', 'SetViewCount', tempComment, 'POST', function() {
             });
@@ -388,18 +643,16 @@ HubStar.ArticleController = Ember.Controller.extend({
                     for (var i = 0; i < length; i++) {
                         var temp = this.objectAt(i);
                         if (temp.get("photo") !== undefined) {
-                            that.get("content").pushObject(temp.get("photo").objectAt(0));                                  //find the object which contain photos and push it into model
+                            that.get("content").pushObject(temp.get("photo").objectAt(0)); //find the object which contain photos and push it into model
                         }
                     }
                     if (that.get("accessFromSearchBoard") === false)
                     {
-
                         if (this.get("isShowPhotoUrl") === true) //to controll show the photo url or not
                         {
                             if (that.get("controllers.masonryCollectionItems").get("type") === "profile")
                             {
                                 that.transitionTo("profileArticlePhoto", that.get('content').objectAt(0));
-
                             }
                             else
                             {
@@ -409,9 +662,11 @@ HubStar.ArticleController = Ember.Controller.extend({
                             this.set("isShowPhotoUrl", false);
                         }
 
+
                     }
                     else
                     {
+
                         var address = document.URL;
                         var search_id = address.split("#")[1].split("/")[2];
                         var search_type = address.split("#")[1].split("/")[1];
@@ -419,19 +674,18 @@ HubStar.ArticleController = Ember.Controller.extend({
                         {
                             if (search_type === "search" || search_type === "searchs")
                             {
+
                                 if (search_id === "default")
                                 {
-
                                     that.transitionTo("searchDefaultArticlePhoto", that.get("content").objectAt(0));
-
                                 } else
                                 {
                                     that.transitionTo("searchIndexArticlePhoto", that.get("content").objectAt(0));
                                 }
+
                             } else if (search_type === "profiles")
                             {
                                 that.transitionTo("profileArticlePhoto", that.get('content').objectAt(0));
-
                             }
                             else if (search_type === "users")
                             {
@@ -445,31 +699,38 @@ HubStar.ArticleController = Ember.Controller.extend({
                         }
 
                     }
-
-                    that.set('selectedPhoto', that.get('content').objectAt(0));                                                  //set selectedPhoto to the first photo
+                    that.set('selectedPhoto', that.get('content').objectAt(0)); //set selectedPhoto to the first photo
                     that.set('captionTitle', that.get('selectedPhoto').get("photo_title"));
-
                     that.set('caption', that.get('selectedPhoto').get("photo_caption"));
-
-
                     that.captionDisplay();
                     var address1 = document.URL;
                     var articlePhoto = address1.split("#")[1].split("/");
+                    if (document.URL.search("search") !== -1)
+                    {
+                        that.set("fromsearchtag", true);
+                        that.get("controllers.mega").photoSizeJudge(that.get('selectedPhoto'));
+                    }
                     if (articlePhoto[articlePhoto.get("length") - 2] === "photos")
                     {
                         that.selectImage(articlePhoto[articlePhoto.get("length") - 1]);
                     }
-                    if (HubStar.get("photoID") === null || HubStar.get("photoID") === undefined || HubStar.get("photoID") === "")
-                    {
-                    }
+
                     else
                     {
-                        that.selectImage(HubStar.get("photoID"));
-                        HubStar.set("photoID", "");
+                        that.selectImage(that.get("content").objectAt(0).get("id"));
+
+                        if (HubStar.get("photoID") === null || HubStar.get("photoID") === undefined || HubStar.get("photoID") === "")
+                        {
+                        }
+                        else
+                        {
+                            that.selectImage(HubStar.get("photoID"));
+                            HubStar.set("photoID", "");
+
+                        }
                     }
                 }
-            }
-            );
+            });
         }
     },
     getCommentsById: function(id)
@@ -534,7 +795,8 @@ HubStar.ArticleController = Ember.Controller.extend({
             var addCollectionController = this.get('controllers.addCollection');
             var selectid = this.get('articleResouce').id;
             addCollectionController.setImageID(selectid);
-            var tempUrl = this.get('selectedPhoto').photo_image_thumbnail_url;
+
+            var tempUrl = this.get('articleResouce').get("article_image_url");
             addCollectionController.setThumbnailUrl(tempUrl);
             addCollectionController.setRelatedController('article');
             addCollectionController.setUser();

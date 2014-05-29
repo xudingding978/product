@@ -7,6 +7,7 @@ HubStar.GroupRoute = Ember.Route.extend({
         this.controllerFor('searchs').setLoginImge();
         this.controllerFor('application').set('isotherpage', true);
         this.controller.setGroup(model);
+        $(window).scrollTop(0);
         this.controllerFor('application').set('userProfile', false);
         if (localStorage.getItem("loginStatus") === null || (localStorage.loginStatus === "")) {
             HubStar.set('isLogin', false);

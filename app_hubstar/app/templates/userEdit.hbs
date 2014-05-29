@@ -11,9 +11,11 @@
                 <li class="easing" ><a style="" href="#tab4" data-toggle="tab">SECURITY</a></li>
                 {{/unless}}
                 <li class="easing" ><a style="" href="#tab5" data-toggle="tab">NOTIFICATION</a></li>
-<!--                {{#if HubStar.profiles}}
+                {{#if HubStar.profile_manager}}
+                {{#if HubStar.profiles}}
                 <li class="easing" ><a style="" href="#tab6" data-toggle="tab">PROFILES</a></li>
-                {{/if}}-->
+                {{/if}}
+                {{/if}}
             </ul>
         </div>
         <div class="tab-content easing">
@@ -226,7 +228,7 @@
                                 </div>
                             </td>
                         </tr>
-                        
+
                         <tr>
                             <td>Instagram:</td>
                             <td>
@@ -259,7 +261,7 @@
                             <td>
                                 <div style="display: block;">
                                     <div id="password"  style="margin: 0;width: 100%;">
-                                        {{input type="password" value=oldpassword placeholder=""}}
+                                        {{input type="password" value=oldpassword placeholder="" style="padding: 1px 6px;"}}
                                     </div>
                                 </div>
                             </td>
@@ -270,7 +272,7 @@
                             <td>
                                 <div style="display: block;">
                                     <div   style="margin: 0;width: 100%;">
-                                        {{input type="password" value=newpassword placeholder="Minimum 6 characters "}}
+                                        {{input type="password" value=newpassword placeholder="Minimum 6 characters" style="padding: 1px 6px;"}}
                                     </div>
                                 </div>
                             </td>
@@ -281,7 +283,7 @@
                             <td>
                                 <div style="display: block;">
                                     <div   style="margin: 0;width: 100%;">
-                                        {{input type="password" value=repeatnew placeholder="Confirm new password"}}
+                                        {{input type="password" value=repeatnew placeholder="Confirm new password" style="padding: 1px 6px;"}}
                                     </div>
                                 </div>
                             </td>
@@ -329,15 +331,15 @@
                 </div>
 
             </div>
-
+            {{#if HubStar.profile_manager}}
             <div class="tab-pane" id="tab6">
                 <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">YOUR BUSINESS PROFILES</div>
-                
+
                 <div style="width: 100%;height: auto; max-height: 50px;padding: 10px 10px;line-height: 10px;margin-left: 15px;">
-            <i class="fa fa-bookmark" style="position: relative; font-size: 13px; color: red; display: inline-block; margin-right: 5px;">&nbsp;Administrator</i>
-            <i class="fa fa-bookmark" style="position: relative; font-size: 13px; color: blue;display: inline-block; margin-right: 5px;">&nbsp;Editor</i>
-            <i class="fa fa-bookmark" style="position: relative;  font-size: 13px; color: gold;display: inline-block">&nbsp;Creator</i>
-        </div>
+                    <i class="fa fa-bookmark" style="position: relative; font-size: 13px; color: red; display: inline-block; margin-right: 5px;">&nbsp;Administrator</i>
+                    <i class="fa fa-bookmark" style="position: relative; font-size: 13px; color: blue;display: inline-block; margin-right: 5px;">&nbsp;Editor</i>
+                    <i class="fa fa-bookmark" style="position: relative;  font-size: 13px; color: gold;display: inline-block">&nbsp;Creator</i>
+                </div>
 
                 <div id="user_profiles"> 
                     {{#each HubStar.profiles}}
@@ -384,11 +386,12 @@
                         <a href="#/profiles/new"><i class="fa fa-plus">&nbsp;New Profile</I></a>
                     </div>
                 </div>
-                <div style="right: 0;margin:10px auto 0;width: 150px;">
+                <div style="margin: 0 auto;width: 150px;">
                     <span class='new-btn flip-back' {{action userDashboardBackButton }}><i class='fa fa-group'> &nbsp;</i>Back</span>
                 </div>
 
             </div>
+            {{/if}}
         </div>
 
 

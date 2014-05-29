@@ -1,13 +1,14 @@
 
 HubStar.GroupController = Ember.Controller.extend({
-    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'conversation', 'messageCenter', 'invitePeople', 'conversationItem'],
+    needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'conversation', 'messageCenter', 'invitePeople', 'conversationItem', 'application'],
     groupPage: true,
     profileSelectionStatus: "",
     groupNetworkStatistics: 0,
     groupNetwork: false,
     createTime: "",
     editGroup: false,
-    groupStepTwo: true,
+    groupStepOne: false,
+    groupStepTwo: false,
     groupStepThree: false,
     group_expertise: "",
     logoSource: null,
@@ -21,6 +22,14 @@ HubStar.GroupController = Ember.Controller.extend({
     description: "",
     logoSaving: false,
     bgSaving: false,
+    isResidential: false,
+    isCommercial: false,
+    categorys: null,
+    subcate: null,
+    selected_cate: [],
+    topic: [],
+    subCategory: "",
+    Category: "",
     init: function()
     {
     },
@@ -45,6 +54,7 @@ HubStar.GroupController = Ember.Controller.extend({
     },
     goToGroupDashboard: function() {
         this.set("editGroup", true);
+        this.groupStep("1");
         this.set("name", this.get("model").get("group_name"));
         this.set("description", this.get("model").get("group_description"));
         this.set("group_pic_url", this.get("model").get("group_pic_url"));
@@ -53,7 +63,93 @@ HubStar.GroupController = Ember.Controller.extend({
         this.set("group_expertise", this.get("model").get("group_expertise"));
         this.set("group_budget", this.get("model").get("group_budget"));
         this.set("group_timeframe", this.get("model").get("group_timeframe"));
-        this.refreshPage();
+        var that = this;
+        $(document).ready(function() {
+            setTimeout(function() {
+                that.refreshCate();
+            }, 2);
+        });
+        this.setTopicModel();
+    },
+    chooseResidential: function() {
+        this.set('isResidential', true);
+        this.set('isCommercial', false);
+        this.set('subcate', null);
+        $("#group-res").addClass("group-button-active");
+        $("#group-com").removeClass("group-button-active");
+    },
+    chooseCommercial: function() {
+        this.set('isResidential', false);
+        this.set('isCommercial', true);
+        this.set('subcate', null);
+        $("#group-com").addClass("group-button-active");
+        $("#group-res").removeClass("group-button-active");
+    },
+    refreshCate: function() {
+        if (this.get("model").get("group_classification") === "residential")
+        {
+            this.chooseResidential();
+        }
+        else if (this.get("model").get("group_classification") === "commercial") {
+            this.chooseCommercial();
+        }
+        var cate = this.get("model").get("group_category").split(",")[0];
+        for (var i = 0; i < this.get('categorys').get('length'); i++)
+        {
+            if (cate === this.get('categorys').objectAt(i).get("topic"))
+            {
+                this.topicSelection(this.get('categorys').objectAt(i));
+                break;
+            }
+        }
+        var subcates = this.get("model").get("group_subcategory").split(",");
+
+        for (var i = 0; i < this.get('subcate').get('length'); i++)
+        {
+            for (var j = 0; j < subcates.get("length"); j++)
+            {
+                var main = subcates[j].split('•')[0];
+                var sub = subcates[j].split('•')[1];
+                if (main === this.get("topic").get("topic"))
+                {
+                    if (sub === this.get('subcate').objectAt(i).get("category_topic"))
+                    {
+                        this.addToSeclection(this.get('subcate').objectAt(i));
+                    }
+                }
+            }
+        }
+    },
+    setTopicModel: function() {
+        this.set('categorys', this.get("controllers.application").get("categorys"));
+        for (var i = 0; i < this.get('categorys').get('length'); i++)
+        {
+            this.get('categorys').objectAt(i).set("isSelected", false);
+        }
+    },
+    topicSelection: function(data) {
+        this.set('topic', data);
+        this.set('subcate', data.get('subcate'));
+    },
+    addToSeclection: function(item) {
+        item.set("isSelected", true);
+        var s = [];
+        s.id = item.get("ids");
+        s.parentId = this.get('topic').get('ids');
+        s.category_topic = this.get('topic').get('topic') + '•' + item.get('category_topic');
+        this.get('topic').set("chooseNumber", this.get('topic').get("chooseNumber") + 1);
+        this.get('selected_cate').push(s);
+    },
+    delToSeclection: function(item) {
+        item.set('isSelected', false);
+        for (var i = 0; i < this.get('selected_cate').get('length'); i++)
+        {
+            if (this.get('selected_cate')[i].id === item.get('ids'))
+            {
+                this.get('selected_cate').splice(i, 1);
+            }
+        }
+        this.get('topic').set("chooseNumber", this.get('topic').get("chooseNumber") - 1);
     },
     backToFront: function() {
         this.set("group_budget", "");
@@ -67,6 +163,12 @@ HubStar.GroupController = Ember.Controller.extend({
         this.removePic("logo");
         this.removePic("bg");
         this.set("editGroup", false);
+        this.set("isResidential", false);
+        this.set("isCommercial", false);
+        this.set("categorys", null);
+        this.set("subcate", null);
+        this.set("selected_cate", []);
+        this.set("topic", []);
     },
     refreshPage: function() {
         if (this.get('group_expertise') === "First Time")
@@ -138,19 +240,49 @@ HubStar.GroupController = Ember.Controller.extend({
     },
     groupStep: function(number) {
         var that = this;
-        if (number === "2") {
+        if (number === "1") {
+            this.set("groupStepOne", true);
+            this.set("groupStepTwo", false);
+            this.set("groupStepThree", false);
+            $(document).ready(function() {
+                setTimeout(function() {
+                    if (that.get("model").get("group_classification") === "residential")
+                    {
+                        $("#group-res").addClass("group-button-active");
+                        $("#group-com").removeClass("group-button-active");
+                    }
+                    else if (that.get("model").get("group_classification") === "commercial") {
+                        $("#group-res").removeClass("group-button-active");
+                        $("#group-com").addClass("group-button-active");
+                    }
+                    $("#Categories").addClass("selected");
+                    $("#Info").removeClass("selected");
+                    $("#Style").removeClass("selected");
+                }, 1);
+            });
+        } else if (number === "2") {
             $(document).ready(function() {
                 setTimeout(function() {
                     that.refreshPage();
+                    $("#Categories").removeClass("selected");
+                    $("#Info").addClass("selected");
+                    $("#Style").removeClass("selected");
                 }, 1);
             });
+            this.set("groupStepOne", false);
             this.set("groupStepTwo", true);
             this.set("groupStepThree", false);
-
         } else if (number === "3") {
-
+            this.set("groupStepOne", false);
             this.set("groupStepTwo", false);
             this.set("groupStepThree", true);
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $("#Categories").removeClass("selected");
+                    $("#Info").removeClass("selected");
+                    $("#Style").addClass("selected");
+                }, 1);
+            });
         }
     },
     selectPartner1: function() {
@@ -222,7 +354,40 @@ HubStar.GroupController = Ember.Controller.extend({
             }, 2);
         });
     },
-    save: function() {
+    getCateandSubCate: function() {
+        var subCategory = "";
+        var cateIds = "";
+        var Category = "";
+        for (var i = 0; i < this.get('selected_cate').get("length"); i++)
+        {
+            if (subCategory === "")
+            {
+                subCategory = subCategory + this.get('selected_cate')[i].category_topic;
+            }
+            else
+            {
+                subCategory = subCategory + "," + this.get('selected_cate')[i].category_topic;
+            }
+            if (cateIds.indexOf(this.get('selected_cate')[i].parentId) === -1)
+            {
+                if (Category === "")
+                {
+                    Category = Category + this.get('selected_cate')[i].category_topic.split('•')[0];
+                    cateIds = cateIds + this.get('selected_cate')[i].parentId;
+                }
+                else
+                {
+                    Category = Category + "," + this.get('selected_cate')[i].category_topic.split('•')[0];
+                    cateIds = cateIds + "," + this.get('selected_cate')[i].parentId;
+                }
+            }
+        }
+        this.set("subCategory", subCategory);
+        this.set("Category", Category);
+        console.log(subCategory);
+        console.log(Category);
+    },
+    fieldChecking: function() {
         if (this.get("name") !== this.get("model").get("group_name"))
         {
             this.get("model").set("group_name", this.get("name"));
@@ -252,6 +417,10 @@ HubStar.GroupController = Ember.Controller.extend({
         {
             this.get("model").set("group_timeframe", this.get("group_timeframe"));
         }
+    },
+    save: function() {
+        this.getCateandSubCate();
+        this.fieldChecking();
         var that = this;
         this.get("model").save();
         this.get("model").get('isSaving');

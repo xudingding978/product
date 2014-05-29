@@ -54,6 +54,65 @@
 {{else}}
 
 <div class="group-profilewrapper">
+    
+    {{#if controller.groupStepOne}}
+    <div id="group-step-1"  class="group-step">
+        <div class="group-profile-title-top">
+            <div class="group-step-title">
+                <div>Select Categories </div>   
+                <div id="group-res" class="group-button" {{action chooseResidential}}>residential </div>
+                <div id="group-com" class="group-button" {{action chooseCommercial}}>commercial </div>
+            </div> 
+            <div  class="group-step-button" {{action groupStep  "2"}} >NEXT</div>
+        </div>
+        <div class="group-content easing">  
+            <div class="subcategory-box">
+                {{#each controller.subcate}}
+                {{#if this.isSelected}}
+                <div class="subcategory-word-selected" {{action delToSeclection this}}>{{this.category_topic}}</div>
+                {{else}}
+                <div class="subcategory-word" {{action addToSeclection this}}>{{this.category_topic}}</div>
+                {{/if}}
+                {{/each}}
+            </div>
+            {{#if controller.isResidential}}
+            <div class="group-images">                  
+                {{#each controller.categorys}}
+                {{#if this.isResidential}}
+                <div class="select-group" style=""{{action topicSelection this}}>
+                     <div class="group-image">         
+                        <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing" {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>
+                        <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
+                    </div>
+                    <div class="group-topic-name" >
+                        {{topic}}  
+                    </div>
+                </div>
+                {{/if}}
+                {{/each}}
+            </div>
+            {{/if}}               
+            {{#if controller.isCommercial}}
+            <div class="group-images">
+                {{#each controller.categorys}}
+                {{#if this.isCommercial}}
+                <div class="select-group" style=""{{action topicSelection  this}}>
+                     <div class="group-image">    
+                        <div id="minusSelect_{{unbound ids}}" class="group-number radius-circle easing"  {{action topicSelection this}}>{{chooseNumber}}/{{this.subcate.length}}</div>                
+                        <div class="group-image-container"><img {{bindAttr src="image"}} /></div>
+                    </div>
+                    <div class="group-topic-name">
+                        {{topic}}  
+                    </div>
+                </div>
+                {{/if}}
+                {{/each}}
+            </div>
+            {{/if}}  
+        </div> 
+    </div>
+    {{/if}}
+    
     {{#if controller.groupStepTwo}}
 
     <div id="group-step-2" class="group-step"> 
@@ -151,9 +210,9 @@
     {{/if}}
 </div>
 <div class="group-dashboard-buttons">
-    <div {{action groupStep "1"}}>Select Categories</div>
-    <div {{action groupStep "2"}}>Profile Info</div>
-    <div {{action groupStep "3"}}>Style Up</div>
+    <div id ="Categories" {{action groupStep "1"}}>Select Categories</div>
+    <div id ="Info" {{action groupStep "2"}}>Profile Info</div>
+    <div id ="Style" {{action groupStep "3"}}>Style Up</div>
     <div {{action backToFront}}>Back</div>
 </div>
 

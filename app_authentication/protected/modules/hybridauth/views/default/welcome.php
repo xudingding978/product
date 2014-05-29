@@ -22,14 +22,14 @@
 
 
         var parent = window.opener;
-
-        localStorage.setItem("checkUser", "newUser");
+        
+        localStorage.setItem("checkSocialUser", 'newSocialUser');
 
         var address = document.URL;
         var domain = address.split("/")[2];
 
 
-        parent.location = 'http://' + domain + '/#/welcome';
+        parent.location.reload();
 
 
 

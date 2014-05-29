@@ -44,9 +44,20 @@ class EmailsController extends Controller {
 
         $objectUrl = $request_arr['object_url'];
         $owner_title = $request_arr['owner_title'];
-        $email_destination = $request_arr['email_destination'];
-        $emai_ccdestination = $request_arr['emai_ccdestination'];
-        $emai_bccdestination = $request_arr['emai_bccdestination'];
+        $email_destination = explode(",", $request_arr['email_destination']);
+        if ($request_arr['emai_ccdestination'] !== "") {
+            $emai_ccdestination = explode(",", $request_arr['emai_ccdestination']);
+        } else {
+            $emai_ccdestination = array();
+        }
+        if ($request_arr['emai_bccdestination'] !== "") {
+            $emai_bccdestination = explode(",", $request_arr['emai_bccdestination']);
+        } else {
+            $emai_bccdestination = array();
+        }
+        $emails = array_merge($email_destination, $emai_ccdestination, $emai_bccdestination);
+        array_push($emails, $display_email);
+        //error_log(var_export($emails, true));
         $userEnvironment = $request_arr['user_environment'];
         $domain = $this->getDomain();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
@@ -77,9 +88,7 @@ class EmailsController extends Controller {
         $args2 = array(
             "Source" => $platformEmail,
             "Destination" => array(
-                "ToAddresses" => array(
-                    $email_destination, $display_email, $emai_ccdestination, $emai_bccdestination
-                )
+                "ToAddresses" => $emails
             ),
             "Message" => array(
                 "Subject" => array(

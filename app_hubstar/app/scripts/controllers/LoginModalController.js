@@ -189,6 +189,44 @@ HubStar.LoginModalController = Ember.Controller.extend({
             }, 1000);
         });
     },
+     selectSocialTopic: function(id, topic) {
+        if (HubStar.get(id)) {
+            $('#minuss_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; margin: 10px; display:none;");
+            if (this.get('selected_topics').indexOf(topic) !== -1) {
+                this.set('selected_topics', this.get('selected_topics').replace(topic + ",", ""));
+            }
+            HubStar.set(id, false);
+        } else {
+            $('#minuss_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; display:block;");
+            if (this.get('selected_topics').length === 0) {
+                this.set('selected_topics', topic);
+            } else {
+                this.set('selected_topics', this.get('selected_topics') + "," + topic);
+            }
+            HubStar.set(id, true);
+        }
+    },
+    submitSocialSelection: function() {
+             var updateTopic = [localStorage.loginStatus, this.get('selected_topics')];
+        var that = this;
+        requiredBackEnd('login', 'selecttopic', updateTopic, 'POST', function() {
+            setTimeout(function() {
+                 HubStar.set('checkLoginStatus', false);
+                 localStorage.checkUser = 'newUser';
+                 localStorage.checkSocialUser = '';
+                 location.reload();
+//                $('#register-with-social-select-interests').css('display', 'none');
+//                $('#user-login-pane').css('display', 'none');
+//                that.set('first_name', "");
+//                that.set('last_name', "");
+//                that.set('email', "");
+//                that.set('password', "");
+//                that.set('region', "");
+//                that.set('gender', "");
+//                that.set('age', "");
+            }, 1000);
+        });
+    },
     next: function() {
       var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;

@@ -109,11 +109,23 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
             }
         });
-        
+
         requiredBackEnd('tenantConfiguration', 'pdfDisplay', null, 'POST', function(params) {
-            HubStar.set('pdf_display', params);
+            HubStar.set('pdf_display', params[0]);
+            HubStar.set('tagging_display', params[1] && params[2]);
+            HubStar.set('profile_manager', params[2]);
         });
-        
+
+
+        if (localStorage.userType !== 'email'&&localStorage.checkSocialUser === 'newSocialUser') {
+            HubStar.set('checkLoginStatus', true);
+                setTimeout(function() {
+                    $("#cta-popup").css("display", "none");
+                    $("#profiles-main-container").css("display", "block");
+                    $('#register-with-social-select-interests').css('display', 'block');
+                    $('#user-login-pane').css('display', 'none');
+                }, 1);
+        }
         HubStar.set("escVideo", false);
         this.set('search_string', '');
         this.set('loginUsername', localStorage.userName);
@@ -202,7 +214,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     grapData: function() {
         HubStar.set("profiles", []);
         var that = this;
-        
+
         if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
             localStorage.resOrcom = "All";
         }
@@ -218,7 +230,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     that.set("is_trends_user", true);
                 }
                 else {
-
                     that.set("is_trends_user", false);
                 }
                 for (var i = 0; i < u.get("profiles").get("length"); i++) {
@@ -276,7 +287,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("user", u);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
-       
+
     },
     searchSmallScreen: function() {
 
@@ -609,7 +620,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             HubStar.set("isLogin", true);
 
             that.transitionToRoute("searchIndexTom");
-            that.init();
+            that.defaultSearch();
 
         });
 
@@ -851,7 +862,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $('#geo-filter').removeClass('Geo-Filter-active');
             $('#notification-filter').removeClass('Geo-Filter-active');
             $('#top-about-menu').removeClass('Geo-Filter-active');
-            //     $('#user-header-menu').toggleClass('Geo-Filter-active');
         }
     },
     dropdownNavigator: function() {
@@ -908,7 +918,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         this.set('isHeaderNavigatorDropdown', !this.get('isHeaderNavigatorDropdown'));
         this.get("categorys").then(function() {
-            var that =this;
+            var that = this;
             $(document).ready(function() {
                 setTimeout(function() {
                     that.residentialCommercialStatus();
@@ -1005,7 +1015,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             localStorage.userType = "email";
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndexTom');
-                            that.init();
+                            that.defaultSearch();
                             HubStar.set("showDiscoveryBar", true);
                             that.set('loginPassword', "");
                             that.set('loginTime', false);
@@ -1153,7 +1163,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             var child;
             var masonrybox;
             var i = 0;
-            for ( i = 0; i < adSlots[pageCount].length; i++) {
+            for (i = 0; i < adSlots[pageCount].length; i++) {
                 ad = adSlots[pageCount][i];
                 position = ad.slot_position;
                 child = masonryContainer.children[that.get("totalItems") + position];
@@ -1177,7 +1187,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             //that.display(adSlots[pageCount]);
             var ads = adSlots[pageCount];
             var adNew;
-            for ( i = 0; i < ads.length; i++) {
+            for (i = 0; i < ads.length; i++) {
                 adNew = ads[i];
                 var height = adNew.size[1];
                 var div_id = adNew.div + "_box";

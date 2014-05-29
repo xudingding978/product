@@ -1348,6 +1348,7 @@ class Controller extends CController {
                     $tempResult['megas'][$i]['profile_editor'] = $profile_editor;
                     $tempResult['megas'][$i]['profile_administrator'] = $profile_administrator;
                     $tempResult['megas'][$i]['profile_creator'] = $profile_creator;
+                    error_log(var_export($mega_profile, true));
                     $tempResult['megas'][$i]['owner_contact_email'] = $mega_profile["profile"][0]["owner_contact_email"];
                     $tempResult['megas'][$i]['owner_contact_cc_emails'] = $mega_profile["profile"][0]["owner_contact_cc_emails"];
                     $tempResult['megas'][$i]['owner_contact_bcc_emails'] = $mega_profile["profile"][0]["owner_contact_bcc_emails"];

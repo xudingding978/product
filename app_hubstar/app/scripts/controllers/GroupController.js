@@ -197,6 +197,7 @@ HubStar.GroupController = Ember.Controller.extend({
         this.set("subcate", null);
         this.set("selected_cate", []);
         this.set("topic", []);
+        this.setPic();
     },
     refreshPage: function() {
         if (this.get('group_expertise') === "First Time")

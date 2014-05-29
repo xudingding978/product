@@ -178,13 +178,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
                 this.selectedImage(this.get('selectedPhoto').id);
             }
-            //this.selectedImage(this.get('selectedPhoto').id);
-        }  
-        
-//         if (HubStar.get('ctaView') === true) {
-//                this.get("controllers.checkingLoginStatus").popupLogin();
-//                HubStar.set('ctaView', false);
-//            }
+        }
+//        if (HubStar.get('ctaView') === true) {
+//            this.get("controllers.checkingLoginStatus").popupLogin();
+//            HubStar.set('ctaView', false);
+//        }
     },
     nextImage: function(event, pic_x, pic_y) {
         if (!this.get("isRead")) {

@@ -426,6 +426,7 @@ HubStar.ArticleController = Ember.Controller.extend({
 //                HubStar.set('ctaView', false);
 //            }
         }
+
     },
     captionDisplay: function()
     {

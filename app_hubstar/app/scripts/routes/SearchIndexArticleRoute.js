@@ -26,7 +26,6 @@ HubStar.SearchIndexArticleRoute = Ember.Route.extend({
                 this.controllerFor("checkingLoginStatus").popupLogin();
                 HubStar.set('ctaView', false);
             }
-        
          
 
     },

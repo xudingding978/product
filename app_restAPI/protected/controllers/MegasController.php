@@ -89,6 +89,7 @@ class MegasController extends Controller {
         $this->sendResponse(204, $request_json);
     }
 
+
     public function createGroup($mega) {
 
         $cb = $this->couchBaseConnection();
@@ -132,6 +133,24 @@ class MegasController extends Controller {
             $cb = $this->couchBaseConnection();
             $docID = $this->getDomain() . "/profiles/" . $id;
             $reponse = $cb->get($docID);
+            $mega_profile = CJSON::decode($reponse, true);
+
+            $profile_editors = (isset($mega_profile["profile"][0]["profile_editors"])) ? $mega_profile["profile"][0]["profile_editors"] : '*@trendsideas.com';
+            $profile_name = (isset($mega_profile["profile"][0]["profile_name"])) ? $mega_profile["profile"][0]["profile_name"] : 'Trends Ideas';
+            $profile_pic = (isset($mega_profile["profile"][0]["profile_pic_url"])) ? $mega_profile["profile"][0]["profile_pic_url"] : 'http://s3.hubsrv.com/trendsideas.com/profiles/new-home-trends/profile_picture/profile_picture_192x192.jpg';
+            $mega_profile['editors'] = $profile_editors;
+            $mega_profile['owner_title'] = $profile_name;
+            $mega_profile['owner_profile_pic'] = $profile_pic;
+            $profile_editor = (isset($mega_profile["profile"][0]["profile_editor"])) ? $mega_profile["profile"][0]["profile_editor"] : '';
+            $profile_administrator = (isset($mega_profile["profile"][0]["profile_administrator"])) ? $mega_profile["profile"][0]["profile_administrator"] : '';
+            $profile_creator = (isset($mega_profile["profile"][0]["profile_creator"])) ? $mega_profile["profile"][0]["profile_creator"] : '';
+            $mega_profile['profile_editor'] = $profile_editor;
+            $mega_profile['profile_administrator'] = $profile_administrator;
+            $mega_profile['profile_creator'] = $profile_creator;
+            $mega_profile['owner_contact_email'] = $mega_profile["profile"][0]["owner_contact_email"];
+            $mega_profile['owner_contact_cc_emails'] = $mega_profile["profile"][0]["owner_contact_cc_emails"];
+            $mega_profile['owner_contact_bcc_emails'] = $mega_profile["profile"][0]["owner_contact_bcc_emails"];
+            $reponse = CJSON::encode($mega_profile);
             $reponse = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
             $this->sendResponse(200, $reponse);
         } catch (Exception $exc) {

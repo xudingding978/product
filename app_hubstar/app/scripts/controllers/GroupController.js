@@ -42,7 +42,7 @@ HubStar.GroupController = Ember.Controller.extend({
         this.set("createTime", date + "");
         this.selectPartner();
         this.setPic();
-       
+        this.set("editGroup", false);
     },
     setPic: function() {
         var that = this;
@@ -90,6 +90,7 @@ HubStar.GroupController = Ember.Controller.extend({
         $(".subcategory-box").css("padding", "10px");
     },
     refreshCate: function() {
+        this.set("selected_cate", []);
         if (this.get("model").get("group_classification") === "residential")
         {
             this.chooseResidential();
@@ -97,28 +98,30 @@ HubStar.GroupController = Ember.Controller.extend({
         else if (this.get("model").get("group_classification") === "commercial") {
             this.chooseCommercial();
         }
-        var cate = this.get("model").get("group_category").split(",")[0];
-        for (var i = 0; i < this.get('categorys').get('length'); i++)
-        {
-            if (cate === this.get('categorys').objectAt(i).get("topic"))
+        var cates = this.get("model").get("group_category").split(",");
+        for (var m = 0; m < cates.get("length"); m++) {
+            var cate = cates[m];
+            for (var i = 0; i < this.get('categorys').get('length'); i++)
             {
-                this.topicSelection(this.get('categorys').objectAt(i));
-                break;
-            }
-        }
-        var subcates = this.get("model").get("group_subcategory").split(",");
-
-        for (var i = 0; i < this.get('subcate').get('length'); i++)
-        {
-            for (var j = 0; j < subcates.get("length"); j++)
-            {
-                var main = subcates[j].split('•')[0];
-                var sub = subcates[j].split('•')[1];
-                if (main === this.get("topic").get("topic"))
+                if (cate === this.get('categorys').objectAt(i).get("topic"))
                 {
-                    if (sub === this.get('subcate').objectAt(i).get("category_topic"))
+                    this.topicSelection(this.get('categorys').objectAt(i));
+                    break;
+                }
+            }
+            var subcates = this.get("model").get("group_subcategory").split(",");
+            for (var i = 0; i < this.get('subcate').get('length'); i++)
+            {
+                for (var j = 0; j < subcates.get("length"); j++)
+                {
+                    var main = subcates[j].split('•')[0];
+                    var sub = subcates[j].split('•')[1];
+                    if (main === this.get("topic").get("topic"))
                     {
-                        this.addToSeclection(this.get('subcate').objectAt(i));
+                        if (sub === this.get('subcate').objectAt(i).get("category_topic"))
+                        {
+                            this.addToSeclection(this.get('subcate').objectAt(i));
+                        }
                     }
                 }
             }
@@ -129,6 +132,11 @@ HubStar.GroupController = Ember.Controller.extend({
         for (var i = 0; i < this.get('categorys').get('length'); i++)
         {
             this.get('categorys').objectAt(i).set("isSelected", false);
+            this.get('categorys').objectAt(i).set("chooseNumber", 0);
+            for (var j = 0; j < this.get('categorys').objectAt(i).get("subcate").get("length"); j++)
+            {
+                this.get('categorys').objectAt(i).get("subcate").objectAt(j).set("isSelected", false);
+            }
         }
     },
     topicSelection: function(data) {

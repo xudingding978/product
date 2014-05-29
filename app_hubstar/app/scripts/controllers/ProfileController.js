@@ -241,11 +241,11 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         this.set('instagram', profile.get('profile_instagram_link'));
         this.set('name', profile.get('profile_name'));
         this.set('profile_creator', profile.get('profile_creater'));
-        //this.set('direct_enquiry_provide_email', profile.get('owner_third_contact_email'));
         this.set('direct_enquiry_provide_email', profile.get('owner_contact_bcc_emails'));
-        //this.set('secondary_email', profile.get('owner_second_contact_email'));
         this.set('secondary_email', profile.get('owner_contact_cc_emails'));
-        this.set('contact_email', profile.get('owner_contact_email'));
+        if (profile.get("owner_contact_email") !== null && profile.get("owner_contact_email") !== "undefined" && profile.get("owner_contact_email") !== "") {
+            this.set('contact_email', profile.get('owner_contact_email'));
+        }
         this.set('website', profile.get('profile_website'));
         this.set('website_url', profile.get('profile_website_url'));
         this.set('profile_cover_text', profile.get('profile_cover_text'));
@@ -1207,7 +1207,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
         update_profile_record.set('owner_contact_bcc_emails', this.get('direct_enquiry_provide_email'));
         update_profile_record.set('owner_contact_cc_emails', this.get('secondary_email'));
-        update_profile_record.set('owner_contact_email', this.get('contact_email'));
+        if (this.get('contact_email') !== null || this.get('contact_email') !== undefined || this.get('contact_email') !== "") {
+            update_profile_record.set('owner_contact_email', this.get('contact_email'));
+        }
         update_profile_record.set("profile_is_active", this.get("projectActiveDropdownContent"));
         update_profile_record.set("profile_is_deleted", this.get("projectDeleteDropdownContent"));
         this.createGooglemap();
@@ -1231,9 +1233,14 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             update_profile_record.set('profile_keywords_num', parseInt(this.get('keyword_num')));
             update_profile_record.set('profile_boost', parseInt(this.get('boost')));
             this.set('keyword_left', parseInt(this.get("keyword_num")) - update_profile_record.get('keywords').get('length'));
+            if (this.get('contact_email') === null || this.get('contact_email') === undefined || this.get('contact_email') === "")
+            {
+                this.get('controllers.applicationFeedback').statusObserver(null, "Please type in Direct Enquiry Primary Email.");
+            } else {
+                this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
+                update_profile_record.store.save();
+            }
 
-            this.get('controllers.applicationFeedback').statusObserver(null, "Profile updated.");
-            update_profile_record.store.save();
         }
 
     },

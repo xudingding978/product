@@ -78,7 +78,7 @@ class MegasController extends Controller {
             $this->createUploadedVideo($mega);
         } elseif ($mega['type'] == 'pdf') {
             $mega['pdf'][0]['id'] = $mega['id'];
-            
+
             $keyword = $this->getProfileKeyword($mega['owner_id']);
             $mega['keyword'] = $keyword;
 //            $mega['pdf'][0]['pdf_url']  = $this->savePdfToS3($mega['pdf']);            
@@ -86,7 +86,7 @@ class MegasController extends Controller {
         }
         $this->sendResponse(204);
     }
-    
+
     public function actionRead() {
         try {
 
@@ -95,6 +95,24 @@ class MegasController extends Controller {
             $cb = $this->couchBaseConnection();
             $docID = $this->getDomain() . "/profiles/" . $id;
             $reponse = $cb->get($docID);
+            $mega_profile = CJSON::decode($reponse, true);
+
+            $profile_editors = (isset($mega_profile["profile"][0]["profile_editors"])) ? $mega_profile["profile"][0]["profile_editors"] : '*@trendsideas.com';
+            $profile_name = (isset($mega_profile["profile"][0]["profile_name"])) ? $mega_profile["profile"][0]["profile_name"] : 'Trends Ideas';
+            $profile_pic = (isset($mega_profile["profile"][0]["profile_pic_url"])) ? $mega_profile["profile"][0]["profile_pic_url"] : 'http://s3.hubsrv.com/trendsideas.com/profiles/new-home-trends/profile_picture/profile_picture_192x192.jpg';
+            $mega_profile['editors'] = $profile_editors;
+            $mega_profile['owner_title'] = $profile_name;
+            $mega_profile['owner_profile_pic'] = $profile_pic;
+            $profile_editor = (isset($mega_profile["profile"][0]["profile_editor"])) ? $mega_profile["profile"][0]["profile_editor"] : '';
+            $profile_administrator = (isset($mega_profile["profile"][0]["profile_administrator"])) ? $mega_profile["profile"][0]["profile_administrator"] : '';
+            $profile_creator = (isset($mega_profile["profile"][0]["profile_creator"])) ? $mega_profile["profile"][0]["profile_creator"] : '';
+            $mega_profile['profile_editor'] = $profile_editor;
+            $mega_profile['profile_administrator'] = $profile_administrator;
+            $mega_profile['profile_creator'] = $profile_creator;
+            $mega_profile['owner_contact_email'] = $mega_profile["profile"][0]["owner_contact_email"];
+            $mega_profile['owner_contact_cc_emails'] = $mega_profile["profile"][0]["owner_contact_cc_emails"];
+            $mega_profile['owner_contact_bcc_emails'] = $mega_profile["profile"][0]["owner_contact_bcc_emails"];
+            $reponse = CJSON::encode($mega_profile);
             $reponse = '{"' . self::JSON_RESPONSE_ROOT_SINGLE . '":' . $reponse . '}';
             $this->sendResponse(200, $reponse);
         } catch (Exception $exc) {
@@ -311,7 +329,7 @@ class MegasController extends Controller {
         }
     }
 
-    public function createUploadedPhoto($mega) {        
+    public function createUploadedPhoto($mega) {
         if (sizeof($mega) > 0) {
             $photoController = new PhotosController();
 
@@ -360,7 +378,7 @@ class MegasController extends Controller {
             }
         }
     }
-    
+
     public function createUploadedVideo($mega) {
 
         if (sizeof($mega) > 0) {
@@ -502,6 +520,7 @@ class MegasController extends Controller {
             }
         }
     }
+
     public function actionunlike() {
         $like = CJSON::decode(file_get_contents('php://input'));
         $like_arr = CJSON::decode($like, true);
@@ -520,11 +539,11 @@ class MegasController extends Controller {
                     $oldRecord["people_like"] = null;
                 }
 
-                $temp = explode(",",$oldRecord["people_like"]);            
-                $temp = array_diff($temp, array($like_people));            
-                $oldRecord["people_like"]=implode(",",$temp);            
-                $oldRecord["likes_count"]=count($temp);
-                
+                $temp = explode(",", $oldRecord["people_like"]);
+                $temp = array_diff($temp, array($like_people));
+                $oldRecord["people_like"] = implode(",", $temp);
+                $oldRecord["likes_count"] = count($temp);
+
                 if ($cb->set($docID, CJSON::encode($oldRecord))) {
                     $people_like = CJSON::encode($oldRecord["people_like"], true);
                     $this->sendResponse(200, $people_like);
@@ -544,14 +563,14 @@ class MegasController extends Controller {
                 if (!isset($oldRecord["people_like"]) || is_array($oldRecord["people_like"])) {
                     $oldRecord["people_like"] = null;
                 }
-                $temp = explode(",",$oldRecord["people_like"]);            
-                $temp = array_diff($temp, array($like_people));            
-                $oldRecord["people_like"]=implode(",",$temp);
-                $oldRecord["likes_count"]=count($temp);
+                $temp = explode(",", $oldRecord["people_like"]);
+                $temp = array_diff($temp, array($like_people));
+                $oldRecord["people_like"] = implode(",", $temp);
+                $oldRecord["likes_count"] = count($temp);
 
                 if ($cb->set($docID, CJSON::encode($oldRecord))) {
                     $people_like = CJSON::encode($oldRecord["people_like"], true);
-                    $this->sendResponse(200, $people_like);                   
+                    $this->sendResponse(200, $people_like);
                 } else {
                     $this->sendResponse(500, "some thing wrong");
                 }
@@ -560,6 +579,7 @@ class MegasController extends Controller {
             }
         }
     }
+
     public function actionaddcomment() {
         $newRecord_arr = file_get_contents('php://input');
         $newRecord = CJSON::decode($newRecord_arr, true);

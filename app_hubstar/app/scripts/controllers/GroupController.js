@@ -95,27 +95,30 @@ HubStar.GroupController = Ember.Controller.extend({
         else if (this.get("model").get("group_classification") === "commercial") {
             this.chooseCommercial();
         }
-        var cate = this.get("model").get("group_category").split(",")[0];
-        for (var i = 0; i < this.get('categorys').get('length'); i++)
-        {
-            if (cate === this.get('categorys').objectAt(i).get("topic"))
+        var cates = this.get("model").get("group_category").split(",");
+        for (var m = 0; m < cates.get("length"); m++) {
+            var cate = cates[m];
+            for (var i = 0; i < this.get('categorys').get('length'); i++)
             {
-                this.topicSelection(this.get('categorys').objectAt(i));
-                break;
-            }
-        }
-        var subcates = this.get("model").get("group_subcategory").split(",");
-        for (var i = 0; i < this.get('subcate').get('length'); i++)
-        {
-            for (var j = 0; j < subcates.get("length"); j++)
-            {
-                var main = subcates[j].split('•')[0];
-                var sub = subcates[j].split('•')[1];
-                if (main === this.get("topic").get("topic"))
+                if (cate === this.get('categorys').objectAt(i).get("topic"))
                 {
-                    if (sub === this.get('subcate').objectAt(i).get("category_topic"))
+                    this.topicSelection(this.get('categorys').objectAt(i));
+                    break;
+                }
+            }
+            var subcates = this.get("model").get("group_subcategory").split(",");
+            for (var i = 0; i < this.get('subcate').get('length'); i++)
+            {
+                for (var j = 0; j < subcates.get("length"); j++)
+                {
+                    var main = subcates[j].split('•')[0];
+                    var sub = subcates[j].split('•')[1];
+                    if (main === this.get("topic").get("topic"))
                     {
-                        this.addToSeclection(this.get('subcate').objectAt(i));
+                        if (sub === this.get('subcate').objectAt(i).get("category_topic"))
+                        {
+                            this.addToSeclection(this.get('subcate').objectAt(i));
+                        }
                     }
                 }
             }

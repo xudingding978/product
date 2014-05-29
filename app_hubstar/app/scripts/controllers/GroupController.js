@@ -42,6 +42,7 @@ HubStar.GroupController = Ember.Controller.extend({
         this.set("createTime", date + "");
         this.selectPartner();
         this.setPic();
+        this.set("editGroup", false);
     },
     setPic: function() {
         var that = this;
@@ -86,6 +87,7 @@ HubStar.GroupController = Ember.Controller.extend({
         $("#group-res").removeClass("group-button-active");
     },
     refreshCate: function() {
+        this.set("selected_cate", []);
         if (this.get("model").get("group_classification") === "residential")
         {
             this.chooseResidential();
@@ -103,7 +105,6 @@ HubStar.GroupController = Ember.Controller.extend({
             }
         }
         var subcates = this.get("model").get("group_subcategory").split(",");
-
         for (var i = 0; i < this.get('subcate').get('length'); i++)
         {
             for (var j = 0; j < subcates.get("length"); j++)
@@ -125,6 +126,11 @@ HubStar.GroupController = Ember.Controller.extend({
         for (var i = 0; i < this.get('categorys').get('length'); i++)
         {
             this.get('categorys').objectAt(i).set("isSelected", false);
+            this.get('categorys').objectAt(i).set("chooseNumber", 0);
+            for (var j = 0; j < this.get('categorys').objectAt(i).get("subcate").get("length"); j++)
+            {
+                this.get('categorys').objectAt(i).get("subcate").objectAt(j).set("isSelected", false);
+            }
         }
     },
     topicSelection: function(data) {
@@ -384,8 +390,6 @@ HubStar.GroupController = Ember.Controller.extend({
         }
         this.set("subCategory", subCategory);
         this.set("Category", Category);
-        console.log(subCategory);
-        console.log(Category);
     },
     fieldChecking: function() {
         if (this.get("name") !== this.get("model").get("group_name"))

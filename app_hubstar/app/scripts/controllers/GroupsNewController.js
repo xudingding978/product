@@ -35,13 +35,26 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         }
     },
     topicSelection: function(data) {
+        if (data !== this.get("topic")) {
+            this.set('selected_cate', []);
+        }
+        data.set("isSelected", true);
         this.set('topic', data);
         this.set('subcate', data.get('subcate'));
-        $("#minusSelect_"+ data.get("ids")).parent().parent().css("opacity", "1");
-        
+        for (var i = 0; i < this.get('categorys').get('length'); i++)
+        {
+            if (data.get("ids") !== this.get('categorys').objectAt(i).get("ids")) {
+                this.get('categorys').objectAt(i).set("isSelected", false);
+                this.get('categorys').objectAt(i).set("chooseNumber", 0);
+                for (var j = 0; j < this.get('categorys').objectAt(i).get("subcate").get("length"); j++)
+                {
+                    this.get('categorys').objectAt(i).get("subcate").objectAt(j).set("isSelected", false);
+                }
+            }
+        }
     },
     addToSeclection: function(item) {
-       
+
         item.set("isSelected", true);
         var s = [];
         s.id = item.get("ids");
@@ -146,7 +159,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         {
             this.chooseBudget("8", this.get('group_budget'));
         }
-        
+
         if (this.get('group_timeframe') === "1-2 months")
         {
             this.chooseTime("1", this.get('group_timeframe'));

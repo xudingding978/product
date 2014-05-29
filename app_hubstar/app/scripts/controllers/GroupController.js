@@ -68,7 +68,7 @@ HubStar.GroupController = Ember.Controller.extend({
         $(document).ready(function() {
             setTimeout(function() {
                 that.refreshCate();
-                  $(".subcategory-box").css("padding", "10px");
+                $(".subcategory-box").css("padding", "10px");
             }, 2);
         });
         this.setTopicModel();
@@ -118,6 +118,7 @@ HubStar.GroupController = Ember.Controller.extend({
                     var sub = subcates[j].split('•')[1];
                     if (main === this.get("topic").get("topic"))
                     {
+                        
                         if (sub === this.get('subcate').objectAt(i).get("category_topic"))
                         {
                             this.addToSeclection(this.get('subcate').objectAt(i));
@@ -140,8 +141,23 @@ HubStar.GroupController = Ember.Controller.extend({
         }
     },
     topicSelection: function(data) {
+        if (data !== this.get("topic")) {
+            this.set('selected_cate', []);
+        }
+        data.set("isSelected", true);
         this.set('topic', data);
         this.set('subcate', data.get('subcate'));
+        for (var i = 0; i < this.get('categorys').get('length'); i++)
+        {
+            if (data.get("ids") !== this.get('categorys').objectAt(i).get("ids")) {
+                this.get('categorys').objectAt(i).set("isSelected", false);
+                this.get('categorys').objectAt(i).set("chooseNumber", 0);
+                for (var j = 0; j < this.get('categorys').objectAt(i).get("subcate").get("length"); j++)
+                {
+                    this.get('categorys').objectAt(i).get("subcate").objectAt(j).set("isSelected", false);
+                }
+            }
+        }
     },
     addToSeclection: function(item) {
         item.set("isSelected", true);
@@ -270,7 +286,7 @@ HubStar.GroupController = Ember.Controller.extend({
                     $("#Categories").addClass("group-selected");
                     $("#Info").removeClass("group-selected");
                     $("#Style").removeClass("group-selected");
-                      $(".subcategory-box").css("padding", "10px");
+                    $(".subcategory-box").css("padding", "10px");
                 }, 1);
             });
         } else if (number === "2") {
@@ -428,6 +444,9 @@ HubStar.GroupController = Ember.Controller.extend({
         {
             this.get("model").set("group_timeframe", this.get("group_timeframe"));
         }
+        this.get("model").set("group_category", this.get("Category"));
+        this.get("model").set("group_subcategory", this.get("subCategory"));
+        this.get("model").set("group_classification", this.get("isResidential") ? "residential" : "commercial");
     },
     save: function() {
         this.getCateandSubCate();

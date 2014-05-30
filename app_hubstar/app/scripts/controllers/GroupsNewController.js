@@ -18,6 +18,8 @@ HubStar.GroupsNewController = Ember.Controller.extend({
     logoName: null,
     bgSource: null,
     bgName: null,
+    logoSaving: false,
+    bgSaving: false,
     group_bg_url: "",
     group_hero_url: "",
     group_pic_url: "",
@@ -37,21 +39,22 @@ HubStar.GroupsNewController = Ember.Controller.extend({
     topicSelection: function(data) {
         if (data !== this.get("topic")) {
             this.set('selected_cate', []);
-            data.set("isSelected", true);
-            this.set('topic', data);
-            this.set('subcate', data.get('subcate'));
-            for (var i = 0; i < this.get('categorys').get('length'); i++)
-            {
-                if (data.get("ids") !== this.get('categorys').objectAt(i).get("ids")) {
-                    this.get('categorys').objectAt(i).set("isSelected", false);
-                    this.get('categorys').objectAt(i).set("chooseNumber", 0);
-                    for (var j = 0; j < this.get('categorys').objectAt(i).get("subcate").get("length"); j++)
-                    {
-                        this.get('categorys').objectAt(i).get("subcate").objectAt(j).set("isSelected", false);
-                    }
+        }
+        data.set("isSelected", true);
+        this.set('topic', data);
+        this.set('subcate', data.get('subcate'));
+        for (var i = 0; i < this.get('categorys').get('length'); i++)
+        {
+            if (data.get("ids") !== this.get('categorys').objectAt(i).get("ids")) {
+                this.get('categorys').objectAt(i).set("isSelected", false);
+                this.get('categorys').objectAt(i).set("chooseNumber", 0);
+                for (var j = 0; j < this.get('categorys').objectAt(i).get("subcate").get("length"); j++)
+                {
+                    this.get('categorys').objectAt(i).get("subcate").objectAt(j).set("isSelected", false);
                 }
             }
         }
+
     },
     addToSeclection: function(item) {
 
@@ -99,15 +102,12 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                 setTimeout(function() {
                     if (that.get('isResidential') === true)
                     {
-                        $("#group-res").addClass("group-button-active");
-                        $("#group-com").removeClass("group-button-active");
+                        that.chooseResidential();
                     }
                     else
                     {
-                        $("#group-res").removeClass("group-button-active");
-                        $("#group-com").addClass("group-button-active");
-                    }
-                    that.topicSelection(that.get("topic"));
+                        that.chooseCommercial();
+                    }                    
                 }, 1);
             });
         } else if (number === "3") {
@@ -224,6 +224,12 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         this.set('isResidential', true);
         this.set('isCommercial', false);
         this.set('subcate', null);
+        if (this.get("topic").get("length") !== 0)
+        {
+            if (this.get("topic").get("type").indexOf("residential") !== -1) {
+                this.topicSelection(this.get("topic"));
+            }
+        }
         $("#group-res").addClass("group-button-active");
         $("#group-com").removeClass("group-button-active");
         $(".subcategory-box").css("padding", "10px");
@@ -232,6 +238,12 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         this.set('isResidential', false);
         this.set('isCommercial', true);
         this.set('subcate', null);
+        if (this.get("topic").get("length") !== 0)
+        {
+            if (this.get("topic").get("type").indexOf("commercial") !== -1) {
+                this.topicSelection(this.get("topic"));
+            }
+        }
         $("#group-com").addClass("group-button-active");
         $("#group-res").removeClass("group-button-active");
         $(".subcategory-box").css("padding", "10px");
@@ -266,12 +278,12 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         if (this.get("group_pic_url") === "")
         {
             flag = false;
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose group timeframe");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose group PPPPPPPPPPPPPPPPPP");
         }
         if (this.get("group_bg_url") === "" || this.get("group_hero_url") === "")
         {
             flag = false;
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose group timeframe");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose group SSSSSSSSSSSSSSSSSSSSSSSSSS");
         }
         return flag;
     },
@@ -325,7 +337,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                 subcategories: that.get("subCategory"),
                 created: new Date(),
                 creator: localStorage.loginStatus,
-                classification: that.get("isResidential") ? "residential" : "commercial",
+                classification: that.get("topic").get("type"),
                 country: null,
                 region: null,
                 suburb: null,
@@ -354,7 +366,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                 group_step: "",
                 group_budget: that.get("group_budget"),
                 group_expertise: that.get("group_expertise"),
-                group_classification: that.get("isResidential") ? "residential" : "commercial",
+                group_classification: that.get("topic").get("type"),
                 group_category: that.get("Category"),
                 group_subcategory: that.get("subCategory"),
                 group_hero_url: that.get("group_hero_url"),
@@ -372,22 +384,17 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                 keywords: []
             });
 
-            newMegaModel.save();
+            var a = newMegaModel.save();
             newMegaModel.get('isSaving');
-            newMegaModel.addObserver('isDirty', function() {
-                if (!newMegaModel.get('isDirty')) {
-                    newGroup.save();
-                    newGroup.get('isSaving');
-                    newGroup.addObserver('isDirty', function() {
-                        if (!newGroup.get('isDirty')) {
-                            location.href = "#/groups/" + id;
-                            location.reload();
-                        }
-                    });
-                }
-                else
-                {
-                }
+            a.then(function() {
+                newGroup.save();
+                newGroup.get('isSaving');
+                newGroup.addObserver('isDirty', function() {
+                    if (!newGroup.get('isDirty')) {
+                        location.href = "#/groups/" + id;
+                        location.reload();
+                    }
+                });
             });
         }
     },
@@ -409,6 +416,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         var src = target.result;
         this.set(variable + 'Source', src);
         this.set(variable + 'Name', name);
+        this.set(variable + 'Saving', true);
         this.savePic(variable + 'Source', variable + 'Name', variable);
     },
     savePic: function(src, name, variable) {
@@ -421,6 +429,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
             data = JSON.stringify(data);
             var that = this;
             requiredBackEnd('photos', 'savePicGroup', data, 'POST', function(params) {
+                that.set(variable + 'Saving', false);
                 if (params.length > 1)
                 {
                     that.set("group_bg_url", params[0]);

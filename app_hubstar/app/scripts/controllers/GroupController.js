@@ -65,18 +65,24 @@ HubStar.GroupController = Ember.Controller.extend({
         this.set("group_timeframe", this.get("model").get("group_timeframe"));
         this.groupStep("1");
         var that = this;
+        this.setTopicModel();
         $(document).ready(function() {
             setTimeout(function() {
                 that.refreshCate();
                 $(".subcategory-box").css("padding", "10px");
             }, 2);
         });
-        this.setTopicModel();
     },
     chooseResidential: function() {
         this.set('isResidential', true);
         this.set('isCommercial', false);
         this.set('subcate', null);
+        if (this.get("topic").get("length") !== 0)
+        {
+            if (this.get("topic").get("type").indexOf("residential") !== -1) {
+                this.topicSelection(this.get("topic"));
+            }
+        }
         $("#group-res").addClass("group-button-active");
         $("#group-com").removeClass("group-button-active");
         $(".subcategory-box").css("padding", "10px");
@@ -85,6 +91,12 @@ HubStar.GroupController = Ember.Controller.extend({
         this.set('isResidential', false);
         this.set('isCommercial', true);
         this.set('subcate', null);
+        if (this.get("topic").get("length") !== 0)
+        {
+            if (this.get("topic").get("type").indexOf("commercial") !== -1) {
+                this.topicSelection(this.get("topic"));
+            }
+        }
         $("#group-com").addClass("group-button-active");
         $("#group-res").removeClass("group-button-active");
         $(".subcategory-box").css("padding", "10px");
@@ -143,18 +155,18 @@ HubStar.GroupController = Ember.Controller.extend({
     topicSelection: function(data) {
         if (data !== this.get("topic")) {
             this.set('selected_cate', []);
-            data.set("isSelected", true);
-            this.set('topic', data);
-            this.set('subcate', data.get('subcate'));
-            for (var i = 0; i < this.get('categorys').get('length'); i++)
-            {
-                if (data.get("ids") !== this.get('categorys').objectAt(i).get("ids")) {
-                    this.get('categorys').objectAt(i).set("isSelected", false);
-                    this.get('categorys').objectAt(i).set("chooseNumber", 0);
-                    for (var j = 0; j < this.get('categorys').objectAt(i).get("subcate").get("length"); j++)
-                    {
-                        this.get('categorys').objectAt(i).get("subcate").objectAt(j).set("isSelected", false);
-                    }
+        }
+        data.set("isSelected", true);
+        this.set('topic', data);
+        this.set('subcate', data.get('subcate'));
+        for (var i = 0; i < this.get('categorys').get('length'); i++)
+        {
+            if (data.get("ids") !== this.get('categorys').objectAt(i).get("ids")) {
+                this.get('categorys').objectAt(i).set("isSelected", false);
+                this.get('categorys').objectAt(i).set("chooseNumber", 0);
+                for (var j = 0; j < this.get('categorys').objectAt(i).get("subcate").get("length"); j++)
+                {
+                    this.get('categorys').objectAt(i).get("subcate").objectAt(j).set("isSelected", false);
                 }
             }
         }
@@ -278,12 +290,10 @@ HubStar.GroupController = Ember.Controller.extend({
                     setTimeout(function() {
                         if (that.get("model").get("group_classification") === "residential")
                         {
-                            $("#group-res").addClass("group-button-active");
-                            $("#group-com").removeClass("group-button-active");
+                            that.chooseResidential();
                         }
                         else if (that.get("model").get("group_classification") === "commercial") {
-                            $("#group-res").removeClass("group-button-active");
-                            $("#group-com").addClass("group-button-active");
+                            that.chooseCommercial();
                         }
                         $("#Categories").addClass("group-selected");
                         $("#Info").removeClass("group-selected");
@@ -464,7 +474,12 @@ HubStar.GroupController = Ember.Controller.extend({
         }
         this.get("model").set("group_category", this.get("Category"));
         this.get("model").set("group_subcategory", this.get("subCategory"));
-        this.get("model").set("group_classification", this.get("isResidential") ? "residential" : "commercial");
+        var type = this.get("topic").get("type");
+        if (type.indexOf("commercial") !== -1 && this.get("topic").get("type").indexOf("residential") !== -1)
+        {
+            
+        }
+        this.get("model").set("group_classification", this.get("topic").get("type"));
     },
     save: function() {
         if (this.get("name")) {
@@ -472,20 +487,18 @@ HubStar.GroupController = Ember.Controller.extend({
             this.fieldChecking();
             if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
                 var that = this;
-                this.get("model").save();
+                var a = this.get("model").save();
                 this.get("model").get('isSaving');
-                this.get("model").addObserver('isDirty', function() {
-                    if (!that.get("model").get('isDirty')) {
-                        that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
-                        for (var i = 0; i < HubStar.get("groups").get("length"); i++)
+                a.then(function() {
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
+                    for (var i = 0; i < HubStar.get("groups").get("length"); i++)
+                    {
+                        if (that.get("model").get("id") === HubStar.get("groups")[i].group_id)
                         {
-                            if (that.get("model").get("id") === HubStar.get("groups")[i].group_id)
-                            {
-                                HubStar.get("groups")[i].group_name = that.get("model").get("group_name");
-                            }
+                            HubStar.get("groups")[i].group_name = that.get("model").get("group_name");
                         }
-                        that.backToFront();
                     }
+                    that.backToFront();
                 });
             }
             else

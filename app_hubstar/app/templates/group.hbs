@@ -11,7 +11,6 @@
     <div class="group-panel">
         <div class="group-panel-left">
             <div>Project: </div> 
-            <div>Public: </div>
             <div style="position: relative;top:200px;">
                 <div>Categories:</div>
                 <div>{{model.group_category}}</div>
@@ -23,8 +22,7 @@
                     <img class="easing" {{bindAttr src="model.group_hero_cover_url"}}  /> 
                 </div>
                 <div class="group-creator-text">
-                    <div class="group-creator-name">   {{model.group_creator_name}} </div>
-                    <div class="group-button" style="border: 0; font-size: 20px; padding: 20px 10px;">&nbsp;OR&nbsp;</div>
+                    <div class="group-creator-name">   {{model.group_creator_name}} </div>  
                     <div class="group-creator-time">  {{date controller.createTime}} </div>                 
                 </div>
             </div>
@@ -42,11 +40,11 @@
         <div class="group-pic-image masonry-object_profilepic"  >
             <img id ="group_pic" class="easing" {{bindAttr src="model.group_pic_url"}}  />  
         </div>
-        <div class="group-desc-part">
+        <div class="group-title-part">
             <div class="group-name" >          
                 {{model.group_name}}
             </div>
-            <div class="group-desc" }>          
+            <div class="group-desc" >          
                 {{model.group_description}}
             </div>
         </div>
@@ -62,6 +60,7 @@
             <div class="group-step-title">
                 <div>Select Categories </div>   
                 <div id="group-res" class="group-button" {{action chooseResidential}}>residential </div>
+                <div class="group-button or-help">OR</div>
                 <div id="group-com" class="group-button" {{action chooseCommercial}}>commercial </div>
             </div> 
             <div  class="group-step-button" {{action groupStep  "2"}} >NEXT</div>
@@ -220,7 +219,7 @@
                     </div>
                     {{else}}
                     <img  {{bindAttr src= "group_pic_url"}} class="img-help-logo">
-                    {{/if}}
+                        {{/if}}
                 </div>
             </div>
             <div class="group-upload-content">
@@ -239,20 +238,21 @@
                     </div>
                     {{else}}
                     <img  {{bindAttr src= "group_bg_url"}} class="img-help-bg">
-                    {{/if}}
+                        {{/if}}
                 </div>
             </div>
         </div>
     </div>
-    {{/if}}   
+    {{/if}}
+    <div class="group-dashboard-buttons">
+        <div style="background: green;" {{action save}}>Done</div>
+        <div id ="Categories" {{action groupStep "1"}}>Select Categories</div>
+        <div id ="Info" {{action groupStep "2"}}>Profile Info</div>
+        <div id ="Style" {{action groupStep "3"}}>Style Up</div>    
+        <div {{action backToFront}}>Back</div>
+    </div>
 </div>
-<div class="group-dashboard-buttons">
-    <div style="background: green;" {{action save}}>Done</div>
-    <div id ="Categories" {{action groupStep "1"}}>Select Categories</div>
-    <div id ="Info" {{action groupStep "2"}}>Profile Info</div>
-    <div id ="Style" {{action groupStep "3"}}>Style Up</div>    
-    <div {{action backToFront}}>Back</div>
-</div>
+
 
 
 {{/unless}}

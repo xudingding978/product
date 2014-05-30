@@ -66,7 +66,7 @@
 }
 
 .group-content{
-    max-height:500px;
+    height: auto;
 
 }
 
@@ -76,7 +76,7 @@
     font-size: 30px;
     color: #000;
     text-align: center;
-    padding: 20px 45px;
+    padding: 20px 5%;
     position: relative;
     top: 20px;
     left: 10%;
@@ -93,8 +93,10 @@
 .subcategory-box{
     height: auto;
     overflow: auto;
-   
+    max-height: 200px;
 }
+
+
 
 .subcategory-word{
     font-weight: bold;
@@ -131,7 +133,7 @@
     display: inline-block;
     vertical-align: top;
     margin: 12px;
-     opacity: .5;
+    opacity: .5;
 }
 
 .group-title{
@@ -163,7 +165,7 @@
     overflow: hidden;
     top: -5px;
     float: left;
-    
+
 
 }
 
@@ -177,7 +179,7 @@
     height: 100px;
     overflow: hidden;
     border-radius: 50%;
-   
+
 }
 
 .group-textarea{
@@ -188,6 +190,7 @@
     color:#fff;
     font-weight:bold;
     font-size:15px;
+    line-height: 100px;
 
 }
 .textarea-style{
@@ -206,9 +209,9 @@
 }
 
 .group-part{
-    margin: 20px;
-    height: 50px;
+    height: 100%;
     padding: 10px;
+    margin: 10px 0;
 }
 .group-selected{
     background-color: #fff;    
@@ -218,8 +221,9 @@
 .content-group-right{
     position:relative;
     bottom:10px;
-    margin-left: 20px;
+    margin-left: 110px;
     color:#fff;
+    height:70px;
 }
 
 .content-group-right span{
@@ -290,7 +294,7 @@
 .upload-button > div{
     opacity: 0;
     position: absolute;
-    height: 30px;
+    height: 100%;
     top: 0;
     right: 0;
 }
@@ -346,6 +350,12 @@
     color: #fff;
     border-bottom: 5px solid #fff;
 
+}
+
+.or-help{
+    border: 0 !important; 
+    font-size: 20px; 
+    padding: 20px 10px;
 }
 
 
@@ -453,23 +463,28 @@
 
 .group-pic-image{
     cursor: pointer;
-    position: absolute;
-    top: 150px;
+    position: relative;
+    top: -80px;
 }
-
 
 .group-desc-part{
     position: relative;
-    top: 70px; 
+    top: 50px; 
     color: #000;
     text-align: center;
+}
 
+.group-title-part{
+    position: relative;
+    bottom: 50px;
+    color: #000;
+    text-align: center;
 }
 
 .group-name{
     font-weight: bold;
     font-size: 35px;
-    line-height: 50px;
+    line-height: 30px;
     word-wrap: break-word;
     overflow: hidden;
 
@@ -480,6 +495,7 @@
     line-height: 20px;
     word-wrap: break-word;
     overflow: hidden;
+    padding:10px;
 
 }
 
@@ -501,6 +517,7 @@
 
 .group-creator-text{
     display: inline-block;
+    color: #fff;
 }
 
 .group-creator-name{
@@ -521,7 +538,7 @@
     position: relative;
     z-index: 3;
     float: right;
-    right: 15%;
+    left: 20%;
     bottom: 200px;
 }
 
@@ -543,8 +560,72 @@
     background-color: #fff;
 }
 
+@media only screen and (max-width : 1600px) {
+    .group-button{
+        font-size: 25px;
+        padding: 20px 5%;
+        top: 20px;
+        left: 8%;
+    }
+
+    .or-help{
+        font-size: 15px; 
+        padding: 20px 5px;
+    }
+
+    .group-dashboard-buttons{
+        left:25%;
+    }
+}
+
+@media only screen and (max-width : 1280px) {
+
+    .group-profilewrapper{
+        width: 53%;
+    }
+
+    .group-button{
+        font-size: 20px;
+        padding: 15px 5%;
+        top: 20px;
+        left: 7%;
+    }
+    .or-help{
+        font-size: 15px; 
+        padding: 20px 0px;
+    }
+
+    .group-profile-title-top{
+        height:150px;
+    }
+
+    .group-step-button{
+        line-height: 150px;
+    }
+
+    .group-textarea{
+        line-height: 70px;
+
+    }
+
+    .group-title-part{
+        top: 40px;
+    }
+
+    .group-dashboard-buttons{
+        left:30%;
+    }
+    .group-pic-image{
+        top:0;
+    }
+}
+
+@media only screen  and (max-width : 968px) {
+    .group-dashboard-buttons{
+        left:35%;
+    }
+}
 
 
-
-
-
+@media only screen and (max-width : 480px) {
+}

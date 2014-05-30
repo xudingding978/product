@@ -264,6 +264,10 @@
     display: inline-block; 
 }
 
+.group-error{
+    border: 2px solid #f00 !important;
+}
+
 .remove-help-logo{
     top: 10px;
     right: -5px;

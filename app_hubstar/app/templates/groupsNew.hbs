@@ -96,15 +96,15 @@
             <div  class="group-step-button" style="float:left" {{action groupStep "2"}} >BACK</div>
 
             <div class="group-step-title" style=" width:60%; cursor: pointer;">
-                <div class="group-textarea">
-                    {{view Ember.TextField valueBinding="groupName" class="textarea-style" placeholder="*Profile Title" }}</div>
+                <div id="groupName" class="group-textarea">
+                    {{view Ember.TextField valueBinding="groupName" class="textarea-style" placeholder="*Group Name" }}</div>
             </div>
             <div  class="group-step-button" {{action groupStep "3" }} >NEXT</div>
         </div>
         <div class="group-content easing" >
             <div class="group-textarea">{{view Ember.TextArea valueBinding="aboutProject"   class="textarea-style" placeholder="About this project, I would like to......" }}</div>
             <div class="group-part">
-                <div class="group-text">Budget*:</div>
+                <div id="budget" class="group-text">Budget*:</div>
                 <div class="content-group-right">
                     <div id="budget1" class="subcategory-word" {{action chooseBudget  "1" "Less than 5k"}}>Less than 5k</div>
                     <div id="budget2" class="subcategory-word" {{action chooseBudget  "2" "5k-10k"}}>5k-10k</div>
@@ -117,7 +117,7 @@
                 </div>
             </div>
             <div class="group-part">
-                <div class="group-text">Time Frame*:</div>
+                <div id="time" class="group-text">Time Frame*:</div>
                 <div class="content-group-right">
                     <div id="time1" class="subcategory-word" {{action chooseTime  "1" "1-2 months"}}>1-2 months</div>
                     <div id="time2" class="subcategory-word" {{action chooseTime  "2" "Next 6 months"}}>Next 6 months</div>
@@ -128,7 +128,7 @@
                 </div>
             </div>
             <div class="group-part">
-                <div class="group-text">Expertise*:</div>
+                <div id="expertise" class="group-text">Expertise*:</div>
                 <div class="content-group-right">
                     <div id="first_time" class="subcategory-word" {{action choose  "1" }}>First Time</div>
                     <div id="some_experiences" class="subcategory-word" {{action choose  "2" }}>I have some experiences</div>
@@ -146,7 +146,9 @@
             <div  class="group-step-button" style="float:left" {{action groupStep "1"}} >BACK</div>
 
             <div class="group-step-title" style=" width:60%;">
-                {{controller.groupName}}
+                <div class="group-name group-desc-part" >
+                    {{controller.name}}
+                </div>
             </div>
             <div  class="group-step-button" {{action save}} >DONE</div>
         </div>

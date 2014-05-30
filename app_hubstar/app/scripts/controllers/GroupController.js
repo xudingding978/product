@@ -55,7 +55,6 @@ HubStar.GroupController = Ember.Controller.extend({
     },
     goToGroupDashboard: function() {
         this.set("editGroup", true);
-        this.groupStep("1");
         this.set("name", this.get("model").get("group_name"));
         this.set("description", this.get("model").get("group_description"));
         this.set("group_pic_url", this.get("model").get("group_pic_url"));
@@ -64,19 +63,26 @@ HubStar.GroupController = Ember.Controller.extend({
         this.set("group_expertise", this.get("model").get("group_expertise"));
         this.set("group_budget", this.get("model").get("group_budget"));
         this.set("group_timeframe", this.get("model").get("group_timeframe"));
+        this.groupStep("1");
         var that = this;
+        this.setTopicModel();
         $(document).ready(function() {
             setTimeout(function() {
                 that.refreshCate();
                 $(".subcategory-box").css("padding", "10px");
             }, 2);
         });
-        this.setTopicModel();
     },
     chooseResidential: function() {
         this.set('isResidential', true);
         this.set('isCommercial', false);
         this.set('subcate', null);
+        if (this.get("topic").get("length") !== 0)
+        {
+            if (this.get("topic").get("type").indexOf("residential") !== -1) {
+                this.topicSelection(this.get("topic"));
+            }
+        }
         $("#group-res").addClass("group-button-active");
         $("#group-com").removeClass("group-button-active");
         $(".subcategory-box").css("padding", "10px");
@@ -85,6 +91,12 @@ HubStar.GroupController = Ember.Controller.extend({
         this.set('isResidential', false);
         this.set('isCommercial', true);
         this.set('subcate', null);
+        if (this.get("topic").get("length") !== 0)
+        {
+            if (this.get("topic").get("type").indexOf("commercial") !== -1) {
+                this.topicSelection(this.get("topic"));
+            }
+        }
         $("#group-com").addClass("group-button-active");
         $("#group-res").removeClass("group-button-active");
         $(".subcategory-box").css("padding", "10px");
@@ -143,18 +155,18 @@ HubStar.GroupController = Ember.Controller.extend({
     topicSelection: function(data) {
         if (data !== this.get("topic")) {
             this.set('selected_cate', []);
-            data.set("isSelected", true);
-            this.set('topic', data);
-            this.set('subcate', data.get('subcate'));
-            for (var i = 0; i < this.get('categorys').get('length'); i++)
-            {
-                if (data.get("ids") !== this.get('categorys').objectAt(i).get("ids")) {
-                    this.get('categorys').objectAt(i).set("isSelected", false);
-                    this.get('categorys').objectAt(i).set("chooseNumber", 0);
-                    for (var j = 0; j < this.get('categorys').objectAt(i).get("subcate").get("length"); j++)
-                    {
-                        this.get('categorys').objectAt(i).get("subcate").objectAt(j).set("isSelected", false);
-                    }
+        }
+        data.set("isSelected", true);
+        this.set('topic', data);
+        this.set('subcate', data.get('subcate'));
+        for (var i = 0; i < this.get('categorys').get('length'); i++)
+        {
+            if (data.get("ids") !== this.get('categorys').objectAt(i).get("ids")) {
+                this.get('categorys').objectAt(i).set("isSelected", false);
+                this.get('categorys').objectAt(i).set("chooseNumber", 0);
+                for (var j = 0; j < this.get('categorys').objectAt(i).get("subcate").get("length"); j++)
+                {
+                    this.get('categorys').objectAt(i).get("subcate").objectAt(j).set("isSelected", false);
                 }
             }
         }
@@ -269,61 +281,65 @@ HubStar.GroupController = Ember.Controller.extend({
     },
     groupStep: function(number) {
         var that = this;
-        if (number === "1") {
-            this.set("groupStepOne", true);
-            this.set("groupStepTwo", false);
-            this.set("groupStepThree", false);
-            $(document).ready(function() {
-                setTimeout(function() {
-                    if (that.get("model").get("group_classification") === "residential")
-                    {
-                        $("#group-res").addClass("group-button-active");
-                        $("#group-com").removeClass("group-button-active");
-                    }
-                    else if (that.get("model").get("group_classification") === "commercial") {
-                        $("#group-res").removeClass("group-button-active");
-                        $("#group-com").addClass("group-button-active");
-                    }
-                    $("#Categories").addClass("group-selected");
-                    $("#Info").removeClass("group-selected");
-                    $("#Style").removeClass("group-selected");
-                    $(".subcategory-box").css("padding", "10px");
-                }, 1);
-            });
-        } else if (number === "2") {
-            if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
-                $(document).ready(function() {
-                    setTimeout(function() {
-                        that.refreshPage();
-                        $("#Categories").removeClass("group-selected");
-                        $("#Info").addClass("group-selected");
-                        $("#Style").removeClass("group-selected");
-                    }, 1);
-                });
-                this.set("groupStepOne", false);
-                this.set("groupStepTwo", true);
-                this.set("groupStepThree", false);
-            }
-            else
-            {
-                this.get('controllers.applicationFeedback').statusObserver(null, "Please select a cateory");
-            }
-        } else if (number === "3") {
-            if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
-                this.set("groupStepOne", false);
+        if (this.get("name")) {
+            if (number === "1") {
+                this.set("groupStepOne", true);
                 this.set("groupStepTwo", false);
-                this.set("groupStepThree", true);
+                this.set("groupStepThree", false);
                 $(document).ready(function() {
                     setTimeout(function() {
-                        $("#Categories").removeClass("group-selected");
+                        if (that.get("model").get("group_classification") === "residential")
+                        {
+                            that.chooseResidential();
+                        }
+                        else if (that.get("model").get("group_classification") === "commercial") {
+                            that.chooseCommercial();
+                        }
+                        $("#Categories").addClass("group-selected");
                         $("#Info").removeClass("group-selected");
-                        $("#Style").addClass("group-selected");
+                        $("#Style").removeClass("group-selected");
+                        $(".subcategory-box").css("padding", "10px");
                     }, 1);
                 });
-            } else
-            {
-                this.get('controllers.applicationFeedback').statusObserver(null, "Please select a cateory");
+            } else if (number === "2") {
+                if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
+                    $(document).ready(function() {
+                        setTimeout(function() {
+                            that.refreshPage();
+                            $("#Categories").removeClass("group-selected");
+                            $("#Info").addClass("group-selected");
+                            $("#Style").removeClass("group-selected");
+                        }, 1);
+                    });
+                    this.set("groupStepOne", false);
+                    this.set("groupStepTwo", true);
+                    this.set("groupStepThree", false);
+                }
+                else
+                {
+                    this.get('controllers.applicationFeedback').statusObserver(null, "Please select a cateory");
+                }
+            } else if (number === "3") {
+                if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
+                    this.set("groupStepOne", false);
+                    this.set("groupStepTwo", false);
+                    this.set("groupStepThree", true);
+                    $(document).ready(function() {
+                        setTimeout(function() {
+                            $("#Categories").removeClass("group-selected");
+                            $("#Info").removeClass("group-selected");
+                            $("#Style").addClass("group-selected");
+                        }, 1);
+                    });
+                } else
+                {
+                    this.get('controllers.applicationFeedback').statusObserver(null, "Please select a cateory");
+                }
             }
+        }
+        else
+        {
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please type in group name");
         }
     },
     selectPartner1: function() {
@@ -458,17 +474,22 @@ HubStar.GroupController = Ember.Controller.extend({
         }
         this.get("model").set("group_category", this.get("Category"));
         this.get("model").set("group_subcategory", this.get("subCategory"));
-        this.get("model").set("group_classification", this.get("isResidential") ? "residential" : "commercial");
+        var type = this.get("topic").get("type");
+        if (type.indexOf("commercial") !== -1 && this.get("topic").get("type").indexOf("residential") !== -1)
+        {
+            
+        }
+        this.get("model").set("group_classification", this.get("topic").get("type"));
     },
     save: function() {
-        this.getCateandSubCate();
-        this.fieldChecking();
-        if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
-            var that = this;
-            this.get("model").save();
-            this.get("model").get('isSaving');
-            this.get("model").addObserver('isDirty', function() {
-                if (!that.get("model").get('isDirty')) {
+        if (this.get("name")) {
+            this.getCateandSubCate();
+            this.fieldChecking();
+            if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
+                var that = this;
+                var a = this.get("model").save();
+                this.get("model").get('isSaving');
+                a.then(function() {
                     that.get('controllers.applicationFeedback').statusObserver(null, "Update successfully");
                     for (var i = 0; i < HubStar.get("groups").get("length"); i++)
                     {
@@ -478,12 +499,16 @@ HubStar.GroupController = Ember.Controller.extend({
                         }
                     }
                     that.backToFront();
-                }
-            });
+                });
+            }
+            else
+            {
+                this.get('controllers.applicationFeedback').statusObserver(null, "Please select a cateory");
+            }
         }
         else
         {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please select a cateory");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please type in group name");
         }
     },
     removePic: function(s) {

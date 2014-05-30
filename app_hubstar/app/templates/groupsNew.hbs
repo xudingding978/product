@@ -164,7 +164,13 @@
                 </div>
                 <div class="group-upload-image-logo" >
                     <div class="remove-comment-photo easing remove-help-logo" {{action removePic "logo"}}><i class="fa fa-times"></i></div>
-                    <img  {{bindAttr src= "logoSource"}} class="img-help-logo">
+                    {{#if logoSaving}}
+                    <div class="message-btn easing" style='width: 30px;'>
+                        <i class="spinner spinner-sml"></i>
+                    </div>
+                    {{else}}
+                    <img  {{bindAttr src= "group_pic_url"}} class="img-help-logo">
+                    {{/if}}
                 </div>
             </div>
             <div class="group-upload-content">
@@ -177,7 +183,13 @@
                 </div>
                 <div  class="group-upload-image-bg">
                     <div class="remove-comment-photo easing remove-help-bg" {{action removePic "bg"}}><i class="fa fa-times"></i></div>
-                    <img  {{bindAttr src= "bgSource"}} class="img-help-bg">
+                    {{#if bgSaving}}
+                    <div class="message-btn easing" style='width: 30px;'>
+                        <i class="spinner spinner-sml"></i>
+                    </div>
+                    {{else}}
+                    <img  {{bindAttr src= "group_bg_url"}} class="img-help-bg">
+                    {{/if}}
                 </div>
             </div> 
         </div>

@@ -36,14 +36,11 @@ class MegasController extends Controller {
 //                elseif ($this->getUserInput($requireParams[0]) == "video") {
 //                    $request_string = "RequireType=video";
 //                }
-
                 $response = $this->getRequestResult($request_string, self::JSON_RESPONSE_ROOT_PLURAL);
                 $response = $this->profileSetting($response, $this->getUserInput($requireParams[0]), "mega");
             }
             $this->sendResponse(200, $response);
         } catch (Exception $exc) {
-            error_log("lllllllllllllllllllllll");
-            error_log($exc);
             $result = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":';
             $result .= '}';
             $this->sendResponse(200, $result );

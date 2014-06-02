@@ -161,7 +161,7 @@ class Controller extends CController {
             $classification = $this->getUserInput($requireParams[6]);
             $response = $this->getSearchResultsWithAnalysis($region, $searchString, $from, $size, $location, $classification);
 
-            $response = $this->profileSetting($response, $returnType, 'firstsearch');
+           $response = $this->profileSetting($response, $returnType, 'firstsearch');
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
@@ -178,7 +178,7 @@ class Controller extends CController {
             $owner_id = $this->getUserInput($requireParams[2]);
             $response = $this->getArticleRelatedImages($article_id, $owner_id);
             $response = $this->getReponseResult($response, $returnType);
-            $response = $this->profileSetting($response, $returnType, 'profilecollection');
+            //$response = $this->profileSetting($response, $returnType, 'profilecollection');
         } elseif ($requireType == 'firstsearch') {
             $region = $this->getUserInput($requireParams[1]);
             $searchString = $this->getUserInput($requireParams[2]);
@@ -197,25 +197,22 @@ class Controller extends CController {
             $userid = $this->getUserInput($requireParams[1]);
             $collection_id = $this->getUserInput($requireParams[2], false);
             $response = $this->searchCollectionItem($userid, $collection_id, $returnType);
-            $response = $this->profileSetting($response, $returnType, 'profilecollection');
+            //$response = $this->profileSetting($response, $returnType, 'profilecollection');
         } elseif ($requireType == 'profileCollection') {
             $userid = $this->getUserInput($requireParams[1]);
             $collection_id = $this->getUserInput($requireParams[2], false);
             $response = $this->searchProfileCollectionItem($userid, $collection_id, $returnType);
-            $response = $this->profileSetting($response, $returnType, 'profilecollection');
-        } elseif ($requireType == 'defaultSearch') {
-            error_log("ssssssssss");
-            $response = $this->defaultSearchItem('21051211514', 'editor-picks', $returnType);
-                        error_log("ddddddddddddddddd");
             //$response = $this->profileSetting($response, $returnType, 'profilecollection');
-            error_log("aaaaaaaaaaaaaaaaaaaaaaaaa");
+        } elseif ($requireType == 'defaultSearch') {
+            $response = $this->defaultSearchItem('21051211514', 'editor-picks', $returnType);
+            //$response = $this->profileSetting($response, $returnType, 'profilecollection');
         } elseif ($requireType == 'video') {
             $videoOwnerId = $this->getUserInput($requireParams[1]);
             $response = $this->getVideoesByOwner($returnType, $videoOwnerId);
         } elseif ($requireType == 'pdf') {
             $owner_id = $this->getUserInput($requireParams[1]);
             $response = $this->getPdfByOwner($owner_id);
-            $response = $this->profileSetting($response, $returnType, 'pdf');
+           $response = $this->profileSetting($response, $returnType, 'pdf');
         } elseif ($requireType == 'singleVideo') {
 
             $videoid = $this->getUserInput($requireParams[1]);
@@ -322,7 +319,6 @@ class Controller extends CController {
         }
 
         $response["megas"] = $megas;
-        error_log("bbbbbbbbbbbbbbbbbbbbbbb");
         return CJSON::encode($response);
 
         //$response = $this->getCollections($collections, $collection_id, $returnType);

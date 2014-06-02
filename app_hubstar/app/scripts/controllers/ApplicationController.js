@@ -584,8 +584,8 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         HubStar.set("scrollDownSearch", true);
         results.then(function() {
             that.setContent(results, "default");
-        } , function() {          
-           //that.setContent(results, "default");
+        }, function() {
+            that.setContent(results, "default");
         });
     },
     getResponseTime: function(start, end) {

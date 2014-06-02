@@ -190,15 +190,13 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             }
         }
         this.addCollection(collection, testID);
+        var photoCreateInfoSettingController = this.get('controllers.photoCreateInfoSetting');
+        photoCreateInfoSettingController.set("collection",collection);
         HubStar.set("photoIds", "");
     },
     addCollection: function(collection, photoId)
     {
         var data;
-//        var content = HubStar.get('UploadImageInfoData');
-//        var objectLength = content.get('length');
-//        var url=content.objectAt(objectLength-1).get("photo").objectAt(0).get('photo_image_original_url');
-//        collection.set("cover", url);
         if (HubStar.get('selectedCollection') !== undefined && HubStar.get('selectedCollection') !== null && HubStar.get('selectedCollection').id === collection.get("id"))
         {
             var content = HubStar.get('selectedCollection').collection_ids;

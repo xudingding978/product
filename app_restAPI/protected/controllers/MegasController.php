@@ -42,7 +42,11 @@ class MegasController extends Controller {
             }
             $this->sendResponse(200, $response);
         } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
+            error_log("lllllllllllllllllllllll");
+            error_log($exc);
+            $result = '{"' . self::JSON_RESPONSE_ROOT_PLURAL . '":';
+            $result .= '}';
+            $this->sendResponse(200, $result );
         }
     }
 

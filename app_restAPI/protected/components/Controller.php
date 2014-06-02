@@ -204,10 +204,11 @@ class Controller extends CController {
             $response = $this->searchProfileCollectionItem($userid, $collection_id, $returnType);
             $response = $this->profileSetting($response, $returnType, 'profilecollection');
         } elseif ($requireType == 'defaultSearch') {
-
-
+            error_log("ssssssssss");
             $response = $this->defaultSearchItem('21051211514', 'editor-picks', $returnType);
-            $response = $this->profileSetting($response, $returnType, 'profilecollection');
+                        error_log("ddddddddddddddddd");
+            //$response = $this->profileSetting($response, $returnType, 'profilecollection');
+            error_log("aaaaaaaaaaaaaaaaaaaaaaaaa");
         } elseif ($requireType == 'video') {
             $videoOwnerId = $this->getUserInput($requireParams[1]);
             $response = $this->getVideoesByOwner($returnType, $videoOwnerId);
@@ -321,6 +322,7 @@ class Controller extends CController {
         }
 
         $response["megas"] = $megas;
+        error_log("bbbbbbbbbbbbbbbbbbbbbbb");
         return CJSON::encode($response);
 
         //$response = $this->getCollections($collections, $collection_id, $returnType);

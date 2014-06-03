@@ -89,8 +89,6 @@ a:hover , a:focus {color: #aaa;}
     background: #fff;
     text-align: center;
 
-
-
     -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.9);
     -webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.9);
     box-shadow: 0 1px 5px rgba(0,0,0,0.9);
@@ -111,7 +109,14 @@ a:hover , a:focus {color: #aaa;}
     transition: all .4s ease-in-out;
 }
 
-
+.front-ard{
+    text-align: inherit; 
+    width: auto; 
+    height: auto; 
+    box-shadow: none; 
+    border: none; 
+    position: relative !important;
+}
 
 
 .panel.flip .front {
@@ -1543,6 +1548,13 @@ div.album-description-bg{
     text-shadow: none;
 }
 
+.blue-btn-ard{
+    display: block;
+    margin: 10px;
+    position: absolute !important;
+    top: 0;
+    right: 0;
+}
 .blue-btn:hover{
     -webkit-box-shadow: inset 0 -1px 0 #2f69c2;
     -o-box-shadow: inset 0 -1px 0 #2f69c2;

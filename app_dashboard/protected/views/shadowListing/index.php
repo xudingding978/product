@@ -13,8 +13,8 @@ $this->menu=array(
 ?>
 
 <h1>Shadow Listings</h1>
-
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>
+<?php
+    echo "<div name='mydata'>\n";
+    echo $dataProvider['id']."\n";
+    echo "</div>";
+?>

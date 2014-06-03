@@ -376,10 +376,38 @@
     position: absolute;
     top: 90px;
     max-height: 700px;
+
+
 }
 
 .group-wallpaper > img{
     width: 100%; 
+}
+
+.group-wrapper{
+    height: 620px;
+    margin: 0 auto;
+    top: 150px;
+    position: relative;
+    width: 100%;
+}
+
+#blur-bg{
+    z-index: -1;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    /* Pull the background 70px higher to the same place as #bg's */
+    background-position: center -70px;
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+    background-repeat: no-repeat;
+    background-size: 142% auto;
+    position: absolute;
 }
 
 .group-panel{
@@ -388,13 +416,12 @@
     position: relative;
     height: 500px;
     margin: 0 auto;
-    background: rgba(255,255,255,0.2);
     box-shadow: 0px 0px 8px #555;
     border-radius: 3px 3px 0 0;
     overflow: hidden;
     width: 70%;
     top: 20px;
-    filter:blur(11px);
+
 }
 
 .group-item-profile{
@@ -409,18 +436,15 @@
     top: -80%;
 }
 
-.group-wrapper{
-    height: 620px;
-    margin: 0 auto;
-    top: 110px;
-    position: relative;
-    width: 100%;
-}
+
 
 .group-panel-left{
     width: 33%;
     height: 500px;
     float: left;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .group-panel-left > div{
@@ -440,6 +464,9 @@
     width: 33%;
     height: 500px;
     float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .group-cover-image{

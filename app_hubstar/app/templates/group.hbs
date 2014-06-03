@@ -9,6 +9,7 @@
 {{#unless controller.editGroup}}
 <div class="group-wrapper">
     <div class="group-panel">
+        <div id="blur-bg"></div>
         <div class="group-panel-left">
             <div>Project: </div> 
             <div style="position: relative;top:200px;">
@@ -18,9 +19,7 @@
         </div>
         <div class="group-panel-right">
             <div  class="group-creator">
-                <div class="group-creator-image" >
-                    <img class="easing" {{bindAttr src="model.group_hero_cover_url"}}  /> 
-                </div>
+                    <img class="group-creator-image" class="easing" {{bindAttr src="model.group_hero_cover_url"}}  /> 
                 <div class="group-creator-text">
                     <div class="group-creator-name">   {{model.group_creator_name}} </div>  
                     <div class="group-creator-time">  {{date controller.createTime}} </div>                 

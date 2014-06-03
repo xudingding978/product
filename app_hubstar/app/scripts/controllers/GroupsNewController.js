@@ -107,7 +107,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
                     else
                     {
                         that.chooseCommercial();
-                    }                    
+                    }
                 }, 1);
             });
         } else if (number === "3") {
@@ -254,23 +254,37 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         if (this.get("groupName") === "")
         {
             flag = false;
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please type in a group name");
+            $("#groupName").children().addClass("group-error");
+        } else {
+            $("#groupName").children().removeClass("group-error");
+
         }
         if (this.get("group_budget") === "")
         {
             flag = false;
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose group budget");
+            $("#budget").addClass("group-error");
+        } else {
+            $("#budget").removeClass("group-error");
         }
         if (this.get("group_timeframe") === "")
         {
             flag = false;
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose group timeframe");
+            $("#time").addClass("group-error");
+        } else {
+            $("#time").removeClass("group-error");
         }
         if (this.get("group_expertise") === "")
         {
             flag = false;
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose expertise");
+            $("#expertise").addClass("group-error");
+        } else {
+            $("#expertise").removeClass("group-error");
         }
+        if (flag === false)
+        {
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please fill up all the fields width Red Border");
+        }
+
         return flag;
     },
     picChecking: function() {
@@ -278,12 +292,20 @@ HubStar.GroupsNewController = Ember.Controller.extend({
         if (this.get("group_pic_url") === "")
         {
             flag = false;
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose group PPPPPPPPPPPPPPPPPP");
+            $(".img-help-logo").addClass("group-error");
+        } else {
+            $(".img-help-logo").removeClass("group-error");
         }
         if (this.get("group_bg_url") === "" || this.get("group_hero_url") === "")
         {
             flag = false;
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please choose group SSSSSSSSSSSSSSSSSSSSSSSSSS");
+            $(".img-help-bg").addClass("group-error");
+        } else {
+            $(".img-help-bg").removeClass("group-error");
+        }
+        if (flag === false)
+        {
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please fill up all the fields width Red Border");
         }
         return flag;
     },

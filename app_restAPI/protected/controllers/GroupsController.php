@@ -42,6 +42,8 @@ class GroupsController extends Controller {
             $mega['groups'][0]['collections'][0]['optional'] = $id . "";
             $mega['groups'][0]['collections'][0]['type'] = "group";
 
+            $mega['groups'][0]["group_partner_ids"] = $this->getTopic($mega['groups'][0]['group_category']);
+            $this->autoFollow($mega['creator'], $mega['groups'][0]["group_partner_ids"]);
             if ($cb->set($docID, CJSON::encode($mega))) {
                 $this->sendResponse(204);
             } else {
@@ -51,6 +53,44 @@ class GroupsController extends Controller {
             echo $exc->getTraceAsString();
             echo json_decode(file_get_contents('php://input'));
         }
+    }
+
+    public function autoFollow($user_id, $group_partner_ids) {
+        $followersController = new FollowersController();
+        $partners = explode(",", $group_partner_ids);
+        for ($i = 0; $i < sizeof($partners); $i++) {
+            $profile_id = $partners[$i];
+            $request_arr = array();
+            $request_arr["follower_profile_pic_url"] = "";
+            $request_arr["follower_id"] = $user_id;
+            $request_arr["name"] = "";
+            $request_arr["type"] = "profile";
+            $request_arr["time_stamp"] = date('D M d Y H:i:s') . ' GMT' . date('O') . ' (' . date('T') . ')';
+            $request_arr["is_delete"] = false;
+            $following = $followersController->followingProfile($profile_id, $request_arr);
+            $follower = $followersController->followerProfile($profile_id, $request_arr);
+        }
+    }
+
+    public function getTopic($c) {
+        $categories = explode(",", $c);
+        $domain = $this->getDomain();
+        $partners = "";
+        $configuration = $this->getProviderConfigurationByName($domain, "categories");
+        $topicSelection = $configuration[0]['global'][0]['topics'];
+        for ($j = 0; $j < sizeof($topicSelection); $j++) {
+            $topic = $topicSelection[$j]['topic'];
+            for ($i = 0; $i < sizeof($categories); $i++) {
+                if ($topic === trim($categories[$i])) {
+                    if ($partners === "") {
+                        $partners = $topicSelection[$j]["profiles"];
+                    } else {
+                        $partners = $partners . "," . $topicSelection[$j]["profiles"];
+                    }
+                }
+            }
+        }
+        return $partners;
     }
 
     public function actionRead() {

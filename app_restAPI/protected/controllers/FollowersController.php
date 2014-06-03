@@ -13,6 +13,10 @@ class FollowersController extends Controller {
     const JSON_RESPONSE_ROOT_SINGLE = 'follower';
     const JSON_RESPONSE_ROOT_PLURAL = 'followers';
 
+    public function __construct() {
+        
+    }
+    
     public function actionIndex() {
         
     }

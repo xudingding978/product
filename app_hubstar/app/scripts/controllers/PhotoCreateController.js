@@ -150,11 +150,10 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
                         HubStar.set('UploadImageInfoData', masonryCollectionItems.get("uploadImageContent"));
                         that.set("filesNumber", 0);
                         //console.log(that.get('controllers.masonryCollectionItems').get('collection_id'));
-                        that.saveToCollection(that.get('controllers.masonryCollectionItems').get('collection_id'), HubStar.get("photoIds"));
-
+                        
                         photoCreateInfoSettingController.setData();
                         photoCreateInfoSettingController.set('isEditingMode', true);
-
+                        that.saveToCollection(that.get('controllers.masonryCollectionItems').get('collection_id'), HubStar.get("photoIds"));
 
                         masonryCollectionItems.set('uploadOrsubmit', !masonryCollectionItems.get('uploadOrsubmit'));
 
@@ -191,6 +190,8 @@ HubStar.PhotoCreateController = Ember.ArrayController.extend({
             }
         }
         this.addCollection(collection, testID);
+        var photoCreateInfoSettingController = this.get('controllers.photoCreateInfoSetting');
+        photoCreateInfoSettingController.set("collection",collection);
         HubStar.set("photoIds", "");
     },
     addCollection: function(collection, photoId)

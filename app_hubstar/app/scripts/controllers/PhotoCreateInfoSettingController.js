@@ -18,13 +18,14 @@ HubStar.PhotoCreateInfoSettingController = Ember.Controller.extend({
             for (var i = 0; i < objectLength; i++) {
                 var raw_id = content.objectAt(i).get('id');
                 raw_id = raw_id.replace("test", "");
+
                 this.get('photoInfo').pushObject({
                     id: raw_id,
                     url: content.objectAt(i).get("photo").objectAt(0).get('photo_image_original_url'),
-                     filename: content.objectAt(i).get("photo").objectAt(0).get('photo_file_name'),
-                     title: content.objectAt(i).get("photo").objectAt(0).get('photo_title'),
+                    filename: content.objectAt(i).get("photo").objectAt(0).get('photo_file_name'),
+                    title: content.objectAt(i).get("photo").objectAt(0).get('photo_title'),
                     caption: content.objectAt(i).get("photo").objectAt(0).get('photo_caption')
-                    //keywords: content.objectAt(i).get("photo").objectAt(0).get('photo_keywords')
+                            //keywords: content.objectAt(i).get("photo").objectAt(0).get('photo_keywords')
                 });
             }
         }
@@ -32,34 +33,40 @@ HubStar.PhotoCreateInfoSettingController = Ember.Controller.extend({
         this.set('isEditingMode', false);
     },
     submitPhotoInfo: function() {
-
+        var that = this;
         var objectLength = this.get("photoInfo").get('length');
-
+        this.set("photoLength", 0);
         for (var i = 0; i < objectLength; i++) {
             var data = this.get('photoInfo').objectAt(i);
             var photoInfo = HubStar.Photo.find(data.id);
-            this.photoSave(photoInfo, data);
+            that.photoSave(photoInfo, data);
         }
 
-        var that = this;
-        setTimeout(function() {
-            that.finishUploadingAndInfo();
-        }, objectLength * 500);
+
+//        setTimeout(function() {
+//            
+//        }, objectLength * 500);
 
     },
     photoSave: function(photoInfo, data)
     {
+        var objectLength = this.get("photoInfo").get('length');
         if (data.caption === undefined)
         {
             data.caption = null;
         }
+        var that = this;
         photoInfo.then(function() {
-            if (photoInfo.get('isLoaded')) {
-                
-                photoInfo.set('photo_title', data.title);
-                photoInfo.set('photo_caption', data.caption);
-                //photoInfo.set('photo_keywords', data.keywords);
-                photoInfo.store.save();
+            photoInfo.set('photo_title', data.title);
+            photoInfo.set('photo_caption', data.caption);
+            //photoInfo.set('photo_keywords', data.keywords);
+            photoInfo.save();
+            that.set("photoLength", that.get("photoLength") + 1);
+            if (that.get("photoLength") === objectLength)
+            {
+                var url = photoInfo.get('photo_image_original_url');
+                that.get("collection").set("cover", url);
+                that.finishUploadingAndInfo();
             }
         });
     },

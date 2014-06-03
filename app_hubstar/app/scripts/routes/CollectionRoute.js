@@ -14,25 +14,27 @@ HubStar.CollectionRoute = Ember.Route.extend({
         $('#defualt').addClass('selected-user-stats');
         this.controllerFor('masonryCollectionItems').selectModelForUser(id);
         this.controllerFor('masonryCollectionItems').set('canEdit', true);
+
     },
     events: {
         transitionToPhoto: function(id) {
-            
+
             this.controllerFor('mega').set("selectPhoto", false);
-             
+
             var obj = HubStar.Mega.find(id);
             this.transitionTo("userPhoto", obj);//photo          
         },
-        transitionToProfile: function(id) {          
+        transitionToProfile: function(id) {
             this.controllerFor('user').set('switchPhoto', false);
 //            var address = document.URL;
 //            var user_id = address.split("#")[1].split("/")[2];
-           
-             this.transitionTo("profile", HubStar.Profile.find(id));
+
+            this.transitionTo("profile", HubStar.Profile.find(id));
         },
         transitionToArticle: function(id) {
             this.controllerFor("article").set("collectionArticleId", id);
-            this.transitionTo("userArticle", HubStar.Article.find(id));
+            var article = HubStar.Mega.find(id);
+                 this.transitionTo("userArticle", article);        
         },
         transitionToVideo: function(video_id) {
             this.transitionTo("userVideo", video_id);

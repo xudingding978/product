@@ -548,11 +548,10 @@ a:hover , a:focus {color: #aaa;}
 }
 
 .add-new-object-content{
-    width: 337px;
+    width: 340px;
     height: 337px;
     background-color: rgb(242,240,240);
-    padding: 60px;
-    margin: 5px;
+
 }
 
 .add-new-object-content > i{
@@ -1944,7 +1943,7 @@ div.album-description-bg{
 }
 
 .add-tag_select-tag{
-       padding: 5px;
+    padding: 5px;
     position: absolute;
     left: 4px;
     top: 100px;
@@ -2268,7 +2267,7 @@ div.album-description-bg{
     margin: 20px;
 }
 .learnmore a{
-     color:#052C50;
+    color:#052C50;
 }
 .learnmore a:hover{
     color:#fff;
@@ -2303,6 +2302,6 @@ div.album-description-bg{
         height: 640px;
         min-width: 400px;
     }
-  
+
 
 }

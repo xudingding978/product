@@ -25,7 +25,7 @@ HubStar.GroupNetworkController = Ember.Controller.extend({
             });
         }
     },
-        setContent: function(data)
+    setContent: function(data)
     {
         var that = this;
         for (var i = 0; i < data.get("length"); i++) {

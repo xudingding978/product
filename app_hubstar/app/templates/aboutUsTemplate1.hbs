@@ -99,15 +99,15 @@
     {{#each about_embeded_object}}
     {{#if embed_object_enabled}}
     <iframe width="800" height="560" src="//e.issuu.com/embed.html#{{unbound embeded_object_id}}" frameborder="0" allowfullscreen></iframe>
-    
+
     {{#if embeded_object_code}}
     <div class="getapp-btn">
         <a href="http://trendsideas.com/apps/home-trends.html" target="_blank"><span class="green-btn new-btn" >Get the App</span></a>
         {{#if embeded_object_url}}
-        <a {{bindAttr href="embeded_object_url"}} target="_blank"> <span  class="green-btn new-btn" >Buy the Book</span></a>
-      {{/if}}
+        <a {{bindAttr href="embeded_object_url"}} target="_blank"> <span class="green-btn new-btn" >Buy the Book</span></a>
+        {{/if}}
     </div>
-    
+
     {{/if}}
     {{/if}}
     {{/each}}

@@ -723,15 +723,6 @@ div.search-loading-invisible{
     background-clip: padding-box;
 }
 
-
-
-
-
-
-
-
-
-
 .dropdownViewStyle {
 
 }
@@ -1677,6 +1668,10 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     left: 100px;
     max-height: 300px;
     overflow:auto;
+}
+
+.save-top{
+    top: 50px;
 }
 
 .select-profile-save:before{

@@ -1552,6 +1552,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 if (this.get('model').get('reviews').objectAt(0).get("review_user_id").indexOf(localStorage.loginStatus) !== -1)
                 {
                     this.set("rateTime", false);
+                    this.transitionToRoute('reviews');
+                    $(window).scrollTop(2500);
                     this.get('controllers.applicationFeedback').statusObserver(null, "You have already reviewed this profile, thank you!", "warnning");
                 } else {
                     this.set("rateTime", true);

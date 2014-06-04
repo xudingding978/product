@@ -25,24 +25,6 @@
             <div id="header">
                 <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
             </div><!-- header -->
-            <?php
-            $this->widget('bootstrap.widgets.TbNavbar', array(
-                'brand' => CHtml::encode(Yii::app()->name),
-                'brandOptions' => array('style' => 'width:auto;margin-left: 0px;'),
-                'fixed' => 'top',
-                'htmlOptions' => array('style' => 'position:absolute'),
-                'items' => array(
-                    array(
-                        'class' => 'bootstrap.widgets.TbMenu',
-                        'items' => array(
-                            array('label' => 'Home', 'url' => '#', 'active' => true),
-                            array('label' => 'Link', 'url' => '#'),
-                            array('label' => 'Link', 'url' => '#'),
-                        )
-                    )
-                )
-            ));
-            ?>	
             <div id="mainmenu">
                 <?php
                 $this->widget('zii.widgets.CMenu', array(
@@ -56,18 +38,6 @@
                 ));
                 ?>
             </div><!-- mainmenu -->
-            <?php if (isset($this->breadcrumbs)): ?>
-                <?php
-                $this->widget('zii.widgets.CBreadcrumbs', array(
-                    'links' => $this->breadcrumbs,
-                ));
-                ?><!-- breadcrumbs -->
-            <?php endif ?>
-            <?php
-            $q = CHttpRequest::getUrl('http://es1.hubsrv.com/test/_search/q?=a*');
-
-            echo var_dump($q);
-            ?>
 
             <?php echo $content; ?>
 

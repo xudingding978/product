@@ -40,6 +40,29 @@ input{
     border-radius: 50%;
 }
 
+.upload-v-play-box{
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border: 2px solid #eee;
+    line-height: 66px;
+    text-align: center;
+    color: #eee;
+    font-size: 25px;
+    margin: 120px auto;
+    left: 0;
+    right: 0;
+    box-shadow: 0 0 10px #f3f3f3;
+}
+
+.upload-v-play-box img{
+    width: 470px;
+}
+
+.upload-v-play{
+    margin-left: 5px;
+    text-shadow: 0 0 10px #f3f3f3;
+}
 .radius-rounded-corner{
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -1011,16 +1034,14 @@ textarea.add-interests{
     opacity: .8;
 }
 
-.message-btn-cancel{
-    height:45px;
-    line-height: 45px; 
-    border-right: 1px solid #ddd;
-}
-
-.message-btn-submit{
+.message-btn-box{
     height:45px;
     line-height: 45px;
 }
+.message-btn-cancel{    
+    border-right: 1px solid #ddd;
+}
+
 .message-btn-x{
     width: 50%; 
     float: left; 
@@ -1033,6 +1054,11 @@ textarea.add-interests{
     opacity: .8;
     background-color: #e3e3e3;
     color: #999;
+}
+
+.message-btn-box2{
+    height: 40px;
+    line-height: 40px;
 }
 
 .message-btn:hover{
@@ -1058,7 +1084,16 @@ textarea.add-interests{
     box-shadow: inset 0 2px 0 #ddd;
 }
 
-
+.message-btn-preview{
+    right: 0;
+    position: absolute;
+    top: 69px;
+    margin-right: 20px;
+    width: 65px;
+    height: 35px;
+    line-height: 35px;
+    border-left: 1px solid #ddd;
+}
 .Message-Board_comment-item{
     position: relative;
     width: auto;
@@ -1898,4 +1933,91 @@ textarea.add-interests{
     top: -1px;
     border-radius: 0 0 3px 3px;
     overflow: hidden;
+}
+/* addVideo */
+.add-action-box{
+    height: 41px;
+    position: relative;
+    border-top: 1px solid #ddd;
+    bottom: 0;
+    width: 100%;
+}
+
+.upload-v-container{
+    width: 510px;
+    margin: 0 auto;
+    margin-left: -255px;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid #eee; 
+    background-color: #fff;
+    z-index: 11;
+    position: absolute;
+    top: 15%;
+    left: 50%;
+}
+
+.upload-v-title{
+    height: 50px;
+    width: 100%;
+    background-color: #f3f3f3;
+    text-align: center;
+    line-height: 50px;
+    color: #555;
+    border-bottom: 1px solid #ddd;
+}
+
+.uploaded-filmLogo{
+    font-size: 18px;
+}
+
+.upload-v-txt{
+    font-size: 20px; 
+    font-weight: bold
+}
+
+.upload-v-box{
+    margin: 20px;
+    min-height: 400px;
+}
+
+.upload-v-url-box{
+    height: 35px; 
+    width: inherit;
+    border-bottom: 1px solid #ddd;
+}
+
+.upload-v-url{
+    width: 400px;
+    height:35px;
+}
+
+.upload-v-preview-box{
+    width: 470px; 
+    min-height: 300px; 
+    margin: 15px 0; 
+    border: 2px dashed #eee;
+}
+
+.upload-v-preview-ctn{
+    width: 470px; 
+    background-color: #f3f3f3;
+    padding: 10px; 
+    min-height: 50px;
+}
+
+.upload-v-preview-title{
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.upload-v-preview-des{
+    line-height: 15px; 
+    font-size: 11px;
+}
+
+/* afterLogin */
+.circle-btn-border{
+    border: 0 !important;
 }

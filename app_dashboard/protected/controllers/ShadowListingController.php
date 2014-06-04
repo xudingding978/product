@@ -260,7 +260,10 @@ class ShadowListingController extends Controller {
         $node = Yii::app()->params['couchBaseNode'];
         return new Couchbase($node, $account, $password, $bucket, true);
     }
-
+    
+    public function submit(){
+        error_log("aaaaaaaaaaaaaaaaaaaaaaa");
+    }
     /**
      * Manages all models.
      */

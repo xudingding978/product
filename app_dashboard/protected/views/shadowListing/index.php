@@ -13,6 +13,25 @@ $this->menu = array(
 ?>
 
 <h1>Shadow Listings</h1>
+
+
+From: <input type="text" id="from" value="Hello World!"><br>
+To: <input type="text" id="to">
+<br><br>
+<button onclick="copyText()">Copy Text</button>
+
+<script>
+    function submit()
+    {
+        var from = document.getElementById("from").value;
+        var to = document.getElementById("to").value;
+        from = Math.round(new Date(from).getTime()/1000);
+        to = Math.round(new Date(to).getTime()/1000);
+        console.log(from);
+        console.log(to)
+    }
+</script>
+
 <?php
 echo "<div name='mydata'>\n";
 

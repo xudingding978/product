@@ -333,9 +333,11 @@ class UsersController extends Controller {
                     $url = $domain . "/groups/" . $respone_user['user'][0]['groups'][$i]['group_id'];
                     $tempRecord = $cb->get($url);
                     $oldRecord = CJSON::decode($tempRecord, true);
-                    if (isset($oldRecord['groups'][0]['group_name'])) {
+                    if (isset($oldRecord['groups'][0]['group_name']) && isset($oldRecord['groups'][0]['group_pic_url'])) {
                         $respone_user['user'][0]['groups'][$i]['group_name'] = $oldRecord['groups'][0]['group_name'];
+                         $respone_user['user'][0]['groups'][$i]['group_pic_url'] = $oldRecord['groups'][0]['group_pic_url'];
                     }
+                   
                 }
             }
 

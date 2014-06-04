@@ -50,6 +50,7 @@ HubStar.GroupController = Ember.Controller.extend({
             setTimeout(function() {
                 $("#group_pic").css("height", that.get("model").get("height"));
                 $("#group_pic").css("width", that.get("model").get("width"));
+                $("#blur-bg").css("background-image", "url(" + that.get("model").get("group_hero_url")+ ")"); 
             }, 2);
         });
     },

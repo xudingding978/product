@@ -7,7 +7,7 @@
     <img  {{bindAttr src= model.group_bg_url}}>
 </div>
 {{#unless controller.editGroup}}
-<div class="group-wrapper">
+<div class="group-wrapper"  >
     <div class="group-panel">
         <div id="blur-bg"></div>
         <div class="group-panel-left">
@@ -51,7 +51,7 @@
 </div>
 {{else}}
 
-<div class="group-profilewrapper">
+<div class="group-profilewrapper-back" >
 
     {{#if controller.groupStepOne}}
     <div id="group-step-1"  class="group-step">
@@ -141,7 +141,7 @@
     <div id="group-step-2" class="group-step"> 
         <div class="group-profile-title-top">
 
-            <div  class="group-step-button" style="float:left" {{action groupStep "1"}} >Categories</div>
+            <div  class="group-step-button" style="float:left" {{action groupStep "1"}} >Category</div>
 
             <div class="group-step-title" style=" width:60%; cursor: pointer;">
                 <div class="group-textarea">
@@ -191,7 +191,7 @@
     <div id="group-step-3" class="group-step"> 
         <div class="group-profile-title-top">
 
-            <div  class="group-step-button" style="float:left" {{action groupStep "2"}} >Project Info</div>
+            <div  class="group-step-button" style="float:left" {{action groupStep "2"}} >Info</div>
 
             <div class="group-step-title" style=" width:60%;">
                 <div class="group-name group-desc-part" >
@@ -211,7 +211,7 @@
                 </div>
                 <div class="group-upload-image-logo" >                   
                     {{#if logoSaving}}
-                    <div class="message-btn easing" style='width: 30px; position: relative;left: 36%;top: 50%;'>
+                    <div class="group-upload-loading-logo easing">
                         <i class="spinner spinner-sml"></i>
                     </div>
                     {{else}}
@@ -230,7 +230,7 @@
                 </div>
                 <div  class="group-upload-image-bg">                   
                     {{#if bgSaving}}
-                    <div class="message-btn easing" style='width: 30px; position: relative;left: 50%; top: 35%;'>
+                    <div class="group-upload-loading-bg easing">
                         <i class="spinner spinner-sml"></i>
                     </div>
                     {{else}}

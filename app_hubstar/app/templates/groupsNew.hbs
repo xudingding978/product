@@ -1,8 +1,8 @@
 
 
 
-<div style="width: 100%; height: 100%; overflow: hidden; position: fixed;"> 
-    <img src="../../../images/landingpagebg.jpg" style="width: 100%; height:100%; ">
+<div class="landing-page"> 
+    <img src="../../../images/landingpagebg.jpg">
 </div>
 <div class="group-profilewrapper">
     {{#if controller.groupStepOne}}
@@ -146,7 +146,7 @@
             <div  class="group-step-button" style="float:left" {{action groupStep "1"}} >BACK</div>
 
             <div class="group-step-title" style=" width:60%;">
-                <div class="group-name group-desc-part" >
+                 <div class="group-name group-desc-part" >
                     {{controller.name}}
                 </div>
             </div>
@@ -165,10 +165,10 @@
                 <div class="group-upload-image-logo" >
                     
                     {{#if logoSaving}}
-                    <div class="message-btn easing" style='width: 30px;'>
+                    <div class="group-upload-loading-logo easing">
                         <i class="spinner spinner-sml"></i>
                     </div>
-                    {{else}}
+                    {{else}}        
                     <div class="remove-comment-photo easing remove-help-logo" {{action removePic "logo"}}><i class="fa fa-times"></i></div>
                     <img  {{bindAttr src= "group_pic_url"}} class="img-help-logo">
                         {{/if}}
@@ -184,7 +184,7 @@
                 </div>
                 <div  class="group-upload-image-bg">                  
                     {{#if bgSaving}}
-                    <div class="message-btn easing" style='width: 30px;'>
+                    <div class="group-upload-loading-bg easing">
                         <i class="spinner spinner-sml"></i>
                     </div>
                     {{else}}

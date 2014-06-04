@@ -42,16 +42,14 @@
     {{/if}}    
     {{/if}}
     {{#if HubStar.group_switch}}
-    <li class="ite" ><a tabindex="-1"  href="" {{action userDisplaynone "newGroup" on="click"  target="view"}}>
-                        <i class="fa fa-briefcase" style="">&nbsp;&nbsp;</i>
+    <li class="ite" >
+        <a tabindex="-1"  href="" {{action userDisplaynone "newGroup" on="click"  target="view"}}>
+           <i class="fa fa-briefcase" style="">&nbsp;&nbsp;</i>
             <span>Group</span>
-        </a></li>
-    {{#each HubStar.groups}}
-    <li class="ite" ><a tabindex="-1"  {{action transitToGroup this.group_id on="click"  target="view"}} >
-            <i class="fa fa-briefcase" style="">&nbsp;&nbsp;</i>
-            <span>{{this.group_name}}</span>
-        </a></li>
-    {{/each}}
+        </a>
+    </li>
+     {{render newGroupTopDisplay HubStar.groups}}
+   
     {{/if}}
     <li class='ite'><a tabindex="-1" href="http://about.trendsideas.com/" target="blank" {{action userDisplaynone "about" on="click"  target="view"}}>
                        <i class="fa fa-question-circle" style="">&nbsp;&nbsp;</i>

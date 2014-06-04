@@ -119,14 +119,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         });
 
 
-        if (localStorage.userType !== 'email'&&localStorage.checkSocialUser === 'newSocialUser') {
+        if (localStorage.userType !== 'email' && localStorage.checkSocialUser === 'newSocialUser') {
             HubStar.set('checkLoginStatus', true);
-                setTimeout(function() {
-                    $("#cta-popup").css("display", "none");
-                    $("#profiles-main-container").css("display", "block");
-                    $('#register-with-social-select-interests').css('display', 'block');
-                    $('#user-login-pane').css('display', 'none');
-                }, 1);
+            setTimeout(function() {
+                $("#cta-popup").css("display", "none");
+                $("#profiles-main-container").css("display", "block");
+                $('#register-with-social-select-interests').css('display', 'block');
+                $('#user-login-pane').css('display', 'none');
+            }, 1);
         }
         HubStar.set("escVideo", false);
         this.set('search_string', '');
@@ -229,8 +229,29 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 for (var i = 0; i < u.get("groups").get("length"); i++) {
                     var id = u.get("groups").objectAt(i).get("group_id");
                     var name = u.get("groups").objectAt(i).get("group_name");
-
-                    HubStar.get("groups").pushObject({'group_id': id, 'group_name': name});
+                    var pic = u.get("groups").objectAt(i).get("group_pic_url");
+                    var url = pic.split("_");
+                    var length = url.length;
+                    var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
+                    var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
+                    var heightNew = 50;
+                    var widthNew = 50;
+                    if (width > height)
+                    {
+                        heightNew = Math.ceil(height / width * 50);
+                        widthNew = 50;
+                    }
+                    else
+                    {
+                        heightNew = 50;
+                        widthNew = Math.ceil(width / height * heightNew);
+                    }
+                    width = widthNew + "px";
+                    height = heightNew + "px";
+                    HubStar.get("groups").pushObject({'group_id': id, 'group_name': name, 'group_pic_url': pic,
+                        'width': width,
+                        'height': height
+                    });
                 }
                 if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
                         && (u.get("email")).match(/@trendsideas.com/g) !== ""

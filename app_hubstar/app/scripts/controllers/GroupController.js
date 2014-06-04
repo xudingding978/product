@@ -50,7 +50,7 @@ HubStar.GroupController = Ember.Controller.extend({
             setTimeout(function() {
                 $("#group_pic").css("height", that.get("model").get("height"));
                 $("#group_pic").css("width", that.get("model").get("width"));
-                $("#blur-bg").css("background-image", "url(" + that.get("model").get("group_hero_url")+ ")"); 
+                $("#blur-bg").css("background-image", "url(" + that.get("model").get("group_hero_url") + ")");
             }, 2);
         });
     },
@@ -478,7 +478,7 @@ HubStar.GroupController = Ember.Controller.extend({
         var type = this.get("topic").get("type");
         if (type.indexOf("commercial") !== -1 && this.get("topic").get("type").indexOf("residential") !== -1)
         {
-            
+
         }
         this.get("model").set("group_classification", this.get("topic").get("type"));
     },
@@ -497,6 +497,28 @@ HubStar.GroupController = Ember.Controller.extend({
                         if (that.get("model").get("id") === HubStar.get("groups")[i].group_id)
                         {
                             HubStar.get("groups")[i].group_name = that.get("model").get("group_name");
+                            HubStar.get("groups")[i].group_pic_url = that.get("model").get("group_pic_url");
+                            var pic = that.get("model").get("group_pic_url");
+                            var url = pic.split("_");
+                            var length = url.length;
+                            var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
+                            var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
+                            var heightNew = 50;
+                            var widthNew = 50;
+                            if (width > height)
+                            {
+                                heightNew = Math.ceil(height / width * 50);
+                                widthNew = 50;
+                            }
+                            else
+                            {
+                                heightNew = 50;
+                                widthNew = Math.ceil(width / height * heightNew);
+                            }
+                            width = widthNew + "px";
+                            height = heightNew + "px";
+                            HubStar.get("groups")[i].width = width;
+                            HubStar.get("groups")[i].height = height;
                         }
                     }
                     that.backToFront();

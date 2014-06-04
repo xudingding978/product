@@ -14,9 +14,6 @@ HubStar.AfterLoginView = Ember.View.extend({
         location.reload();
 
     },
-    transitToGroup: function(id) {
-        this.get("controller").transitionToRoute('group', id);
-    },
     userDisplaynone: function(checking) {
         if (checking === "myUserProfile") {
             location.href = this.get("controller").get("myUserProfile");

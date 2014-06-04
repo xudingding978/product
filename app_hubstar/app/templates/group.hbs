@@ -19,7 +19,7 @@
         </div>
         <div class="group-panel-right">
             <div  class="group-creator">
-                    <img class="group-creator-image" class="easing" {{bindAttr src="model.group_hero_cover_url"}}  /> 
+                <img class="group-creator-image" class="easing" {{bindAttr src="model.group_hero_cover_url"}}  /> 
                 <div class="group-creator-text">
                     <div class="group-creator-name">   {{model.group_creator_name}} </div>  
                     <div class="group-creator-time">  {{date controller.createTime}} </div>                 
@@ -209,14 +209,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="group-upload-image-logo" >
-                    <div class="remove-comment-photo easing remove-help-logo" {{action removePic "logo"}}><i class="fa fa-times"></i></div>   
-
+                <div class="group-upload-image-logo" >                   
                     {{#if logoSaving}}
-                    <div class="message-btn easing" style='width: 30px;'>
+                    <div class="message-btn easing" style='width: 30px; position: relative;left: 36%;top: 50%;'>
                         <i class="spinner spinner-sml"></i>
                     </div>
                     {{else}}
+                    <div class="remove-comment-photo easing remove-help-logo" {{action removePic "logo"}}><i class="fa fa-times"></i></div>   
                     <img  {{bindAttr src= "group_pic_url"}} class="img-help-logo">
                         {{/if}}
                 </div>
@@ -229,13 +228,13 @@
                         </div>
                     </div>
                 </div>
-                <div  class="group-upload-image-bg">
-                    <div class="remove-comment-photo easing remove-help-bg" {{action removePic "bg"}}><i class="fa fa-times"></i></div>
+                <div  class="group-upload-image-bg">                   
                     {{#if bgSaving}}
-                    <div class="message-btn easing" style='width: 30px;'>
+                    <div class="message-btn easing" style='width: 30px; position: relative;left: 50%; top: 35%;'>
                         <i class="spinner spinner-sml"></i>
                     </div>
                     {{else}}
+                    <div class="remove-comment-photo easing remove-help-bg" {{action removePic "bg"}}><i class="fa fa-times"></i></div>
                     <img  {{bindAttr src= "group_bg_url"}} class="img-help-bg">
                         {{/if}}
                 </div>

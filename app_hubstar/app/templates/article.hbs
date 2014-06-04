@@ -9,6 +9,7 @@
         {{/if}}
         <div class="top-controlbar easing" >
             <!--            <div class="fa icon-on-black" style="left: 8px;"><i class="fa fa-thumbs-up"></i></div>-->
+            {{#unless controller.enableTag}}
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." style="position:relative;width: 60px;margin: 0 5px;" {{action switchCollection on="click" target="controller"}}>
                 <i class="fa fa-folder" {{action switchCollection on="click" target="controller"}}></i>
                 <span class="pretooltip">
@@ -18,7 +19,31 @@
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;width: 60px;margin: 0 5px;" {{action dropdownPhotoSetting "1"}}>
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
-            <ul class="hideClass edit-object-ul" id="dropdown_id_1" style="width: 150px; margin: 0 auto; left: 50px;padding: 0">
+            {{/unless}}
+            {{#if HubStar.tagging_display}}
+            {{#if controller.isBusinessProfile}}
+            {{#if controller.enableTag}}
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="end tagging this photo" style="position:relative;margin: 0 10px;width: 60px;" {{action endTag}}>
+                 <i class="fa fa-tag"></i><span class="pretooltip">EndTag</span> 
+            </div>
+            {{else}}
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="activate this tag " style="position:relative;margin: 0 5px;width: 60px;" {{action activateTag}}>
+                 <i class="fa fa-tag"></i><span class="pretooltip">Tag</span> 
+            </div>
+            {{/if}}
+            {{/if}}
+            {{#if controller.showAllTagsArticle}}
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="hide tags this photo" style="position:relative;margin: 0 5px;width: 60px;" {{action hideTags}}>
+                 <i class="fa fa-tag"></i><span class="pretooltip">HideTag</span> 
+            </div>
+            {{else}}
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="show tag this photo" style="position:relative;margin: 0 5px;width: 60px;" {{action showTags}}>
+                 <i class="fa fa-tag"></i><span class="pretooltip">ShowTag</span> 
+            </div>
+            {{/if}}
+            {{/if}}
+            <ul class="hideClass edit-object-ul" id="dropdown_id_1" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
+
                 <li class="ite" {{action  fbShare "1"}} >
                     <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: relative"></i><span style="margin-left: 1.3em">Facebook</span>
                 </li>
@@ -50,12 +75,41 @@
         </div>
 
         <div class="mainfeature">
-            <div class="previous" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="controller"}}></div>
-            <div class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="controller"}}></div>
-            {{view HubStar.PhotoDisplayAreaView}}
+            <div  class="previous" id ="previousarticlephoto"style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="view"}}>
+                <i id="pa" class="fa fa-arrow-left" style="top:400px; left: 138px; color: white; position: absolute; font-size: 50px;"></i>
+            </div>
+            <div  class="next" id ="nextarticlephoto" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="view"}}>
+                <i id="na" class="fa fa-arrow-right" style="top:400px; right: 138px; color: white; position: absolute; font-size: 50px;"></i>
+            </div>
+            <div id ="tag_article_image">
+                {{view HubStar.PhotoDisplayAreaView}}
+                <!--     show add new  tag template-->   
+                {{#if HubStar.tagging_display}}
+                {{#if  controller.enableTag}}      
+                {{#if controller.inImage}} <!--only when it within the image place can add the tag-->
+                {{  render showTag }}
+                {{/if}}
+                {{/if}}
+                <!--     show   tag's detail content  template-->   
+                <!--              only when is not in the edit tag state and mouse over the tag can show the detail content-->
+                {{#unless controller.enableTag}}
+                {{#if controller.showEachTagContent }}
+                {{  view HubStar.TagContentView }}
+                {{/if}}
+                {{/unless}}
+                <!--     show all the tags--> 
+                {{#if controller.showAllTagsArticle}} <!--      showOrNot tag-->
+                {{#each controller.contentTagsArticle}}
+                {{view HubStar.TagMouseView}} 
+                {{/each}}
+                {{/if}}
+                {{#if controller.makeSureActivateTag}}
+                {{view HubStar.ActivateTagFunctionView}}
+                {{/if}}
+                {{/if}}
+            </div>
+
         </div>
-
-
         <div class="caption-container" id="caption_action">
             {{#if HubStar.readCaption}}
             <div style="margin-bottom: 5px;">
@@ -123,14 +177,13 @@
             {{/if}}
 
 
-
         </div>
 
         <!-- OBJECT CONTROLL SECTION -->
         <div class="collapes-container"  style="display:block;border-top: 1px solid #f3f3f3;">
             <div class="collapes-container_inner" style="padding: 0; height: 45px;">
                 {{megaResouce.photo_isLike}}
-                
+
                 {{#if megaResouce.isLike}}
                 <div  class="square-button hint--rounded hint--bottom"  data-hint="unLike this Idea!" {{action unLike}}>
                       <i class="fa fa-thumbs-up">&nbsp;<span style="font-size: 11px;">{{controller.article.likes_count}}</span>&nbsp;</i>
@@ -326,15 +379,8 @@
                     {{/each}}
                 </div>
             </div>
-
         </div>
-
-
-
-
     </div>
-
-
 </div>
 
 

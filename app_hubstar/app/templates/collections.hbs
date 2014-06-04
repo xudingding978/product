@@ -8,10 +8,7 @@
         </div>
         <div class="masonry-object t-style-box">
             <div class="add-new-object-content">
-                <i class="fa fa-group"></i>
-                <i class="fa fa-book"></i>
-                <i class="fa fa-picture-o"></i>
-                <i class="fa fa-film"></i>
+                <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png" />
             </div>
 
         </div>
@@ -44,15 +41,15 @@
                                                         {{/if}}
                                                     </a>
                                                     <div class="albumcover-container"  > 
-                         
-                                                            {{getCoverSize}}
-                                                            <div style ="height:{{unbound cover_height}}; width:{{unbound cover_width}};top:{{unbound cover_top}};left:{{unbound cover_left}}">
-                                                            <img class="albumcover" {{bindAttr src="cover"}} />     
-                                                            </div>
 
+                                                        {{getCoverSize}}
+                                                        <div style ="height:{{unbound cover_height}}; width:{{unbound cover_width}};top:{{unbound cover_top}};left:{{unbound cover_left}}">
+                                                        <img class="albumcover" {{bindAttr src="cover"}} />     
                                                     </div>
-                                                    
-                                                    <div class="album-info">
+
+                                                </div>
+
+                                                <div class="album-info">
                                                     <div class="album-info_name"><a href="#/{{unbound controller.type}}/{{unbound controller.Id}}/collections/{{unbound id}}"><i class="fa fa-picture-o" >&nbsp;</i>{{title}}</a></div>
                                                     <div class="album-info_content">
                                                         {{#if controller.is_authentic_user}}

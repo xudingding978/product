@@ -258,7 +258,7 @@ class MessagesController extends Controller {
                         $receiveName = $userInfo['user'][0]['display_name'];
                         $notificationCountFollow = 0;
                         $notificationCountMessage = 0;
-                        $notificationCountAuthority =0;
+                        $notificationCountAuthority = 0;
                         for ($i = 0; $i < sizeof($userInfo['user'][0]['notifications']); $i++) {
 
                             if ($userInfo['user'][0]['notifications'][$i]["isRead"] === false) {
@@ -686,10 +686,11 @@ class MessagesController extends Controller {
                                 }
                             }
                         }
+
                         $conversationController->sendEmail($receiveEmail, $receiveName, $notificationCountFollow, $notificationCountMessage, $ownerId, $notificationCountAuthority);
-                    } else {
-                        echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
                     }
+                } else {
+                    echo $this->sendResponse(409, 'A record with id: "' . substr($_SERVER['HTTP_HOST'], 4) . $_SERVER['REQUEST_URI'] . '/' . '" already exists');
                 }
             }
         } elseif ($commenter_id !== $message_owner && $commenter_id !== $id && $message_owner === $id) {

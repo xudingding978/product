@@ -14,6 +14,7 @@ HubStar.EditReplyController = Ember.Controller.extend({
     commenter_photo_url: null,
     replyContent: null,
     isUploadPhoto: false,
+    isReply: true,
     needs: ['permission', 'applicationFeedback', 'user', 'userFollowings', 'message', 'userMessage'],
     init: function()
     {
@@ -128,8 +129,9 @@ HubStar.EditReplyController = Ember.Controller.extend({
 
                     tempComment = JSON.stringify(tempComment);
                     var that = this;
+                    this.set("isReply",false);
                     requiredBackEnd('messages', 'UpdateReply', tempComment, 'POST', function(params) {
-
+                        that.set("isReply",true);
 
                         for (var i = 0; i < that.get('controllers.userMessage').get("contentMsg").length; i++)
                         {

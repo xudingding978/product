@@ -3,7 +3,6 @@ HubStar.ShowAlbumView = Ember.View.extend({
     didInsertElement: function() {
     },
     hide: function() {
-           $(".show-album").slideToggle("fast");      
+        $(".show-album").slideToggle("fast");
     }
-
 });

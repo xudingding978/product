@@ -114,15 +114,136 @@ class ShadowListingController extends Controller {
      */
     public function actionIndex() {
 
-
-        $docIDDeep = $this->getDomain() . "/users/25180585742"; //$id  is the page owner
-        $cb = $this->couchBaseConnection();
-        $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
-        $dataProvider = CJSON::decode($oldDeep, true);
-        
+        $dataProvider = $this->groupSearch();
+        $ids = array();
+        $i = 0;
+        foreach ($dataProvider as $return) {
+            if ($i > 0) {
+                $ids[$i] = $return['id'];
+            }
+            $i++;
+        }
+        $groups = $this->getGroup($ids);
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $groups,
         ));
+    }
+
+    protected function getGroup($ids) {
+        $cb = $this->couchBaseConnection();
+        $groups = array();
+        foreach ($ids as $id) {
+            $oldDeep = $cb->get($id); // get the old user record from the database according to the docID string
+            $dataProvider = CJSON::decode($oldDeep, true);
+            if (isset($dataProvider['groups'][0])) {
+                $group = array();
+                $group['id'] = $dataProvider['id'];
+                $group['user_id'] = $dataProvider['creator'];
+                $group['category'] = $dataProvider['groups'][0]['group_category'];
+                $group['subcategory'] = $dataProvider['groups'][0]['group_subcategory'];
+                $user_url = $this->getDomain() . "/users/" . $group['user_id'];
+                $user = CJSON::decode($cb->get($user_url), true);
+                if ($user !== null) {
+                    $group['user_name'] = $user['user'][0]['display_name'];
+                    $group['user_photo'] = (isset($user['user'][0]['photo_url_large'])) ? $user['user'][0]['photo_url_large'] : $user['user'][0]['photo_url'];
+                } else {
+                    $group['user_name'] = "";
+                    $group['user_photo'] = "";
+                }
+
+                $partner = $this->getPartner($dataProvider['groups'][0]['group_partner_ids']);
+                $group['$partner'] = $partner;
+                 array_push($groups, $group);
+            }
+        }
+        return $groups;
+    }
+
+    protected function getPartner($ids) {
+        $cb = $this->couchBaseConnection();
+        $id_array = explode(",", $ids);
+        $profiles = array();
+        foreach ($id_array as $id) {
+            if ($id !== "") {
+                $profile_url = $this->getDomain() . "/profiles/" . $id;
+                $profile = CJSON::decode($cb->get($profile_url), true);
+                if ($profile !== null) {
+                    $item = array();
+                    $item['id'] = $id;
+                    $item['profile_photo'] = $profile['profile'][0]['profile_pic_url'];
+                    $item['name'] = $profile['profile'][0]['profile_name'];
+                    array_push($profiles, $item);
+                }
+            }
+        }
+        return $profiles;
+    }
+
+    protected function groupSearch() {
+        $termQuery = '{
+            "query": {
+                "bool": {
+                    "must": [
+                        {
+                            "query_string": {
+                            "default_field": "couchbaseDocument.doc.type",
+                            "query": "group"
+                            }
+                        }
+                    ],
+                "must_not": [],
+                "should": []
+                }
+            },
+            "from": 0,
+            "size": 10,
+            "sort": [
+                {
+                    "created": {
+                        "order": "asc"
+                    }
+                }
+            ],
+            "filter": {
+                "range": {
+                    "created": {
+                        "gte": 1401756005,
+                        "lte": 1403058920
+                    }
+                }
+            },
+            "facets": {}
+        }';
+
+        $index = Yii::app()->params['elasticSearchIndex'];
+        //       $ch = curl_init("http://es1.hubsrv.com:9200/develop/_search");
+        $ch = curl_init("http://es1.hubsrv.com:9200/" . $index . "/_search");
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $termQuery);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        $result = curl_exec($ch);
+        $result_arr = CJSON::decode($result, true);
+        $record_arr = $result_arr['hits']['hits'];
+        $new_arr = array();
+        $new_arr['total'] = $result_arr['hits']['total'];
+        foreach ($record_arr as $return) {
+            $temp = array();
+            $temp['index'] = $return['_index'];
+            $temp['type'] = $return['_type'];
+            $temp['id'] = $return['_id'];
+            $temp['score'] = $return['_score'];
+            $temp['source'] = $return['_source'];
+            array_push($new_arr, $temp);
+        }
+
+        $new_return_arr = array();
+        $new_return_arr['took'] = $result_arr['took'];
+        $new_return_arr['timed_out'] = $result_arr['timed_out'];
+        $new_return_arr['total'] = $result_arr['hits']['total'];
+        $new_return_arr['max_score'] = $result_arr['hits']['max_score'];
+        $new_return_arr['hits'] = $new_arr;
+        return $new_arr;
     }
 
     protected function getDomain() {

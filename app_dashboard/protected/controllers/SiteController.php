@@ -70,6 +70,7 @@ class SiteController extends Controller {
      * Displays the login page
      */
     public function actionLogin() {
+        error_log("aaaaaaaaaaaaaaa");
         $domainSetting = new DomainSetting();
         Yii::app()->user->setReturnUrl($_SERVER['HTTP_REFERER']);
         $this->redirect('http://account' . $domainSetting->getDomain() . '/site/login/');

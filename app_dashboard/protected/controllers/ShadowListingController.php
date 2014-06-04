@@ -14,7 +14,7 @@ class ShadowListingController extends Controller {
     public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
-            'postOnly + delete', // we only allow deletion via POST request
+            'postOnly + read', // we only allow deletion via POST request
         );
     }
 
@@ -30,11 +30,11 @@ class ShadowListingController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update'),
-                'users' => array('@'),
+                'actions' => array('create', 'update', 'GetFromToTime'),
+                'users' => array('*'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete'),
+                'actions' => array('admin', 'delete', ''),
                 'users' => array('admin'),
             ),
             array('deny', // deny all users
@@ -261,7 +261,7 @@ class ShadowListingController extends Controller {
         return new Couchbase($node, $account, $password, $bucket, true);
     }
     
-    public function submit(){
+    public function actionGetFromToTime(){
         error_log("aaaaaaaaaaaaaaaaaaaaaaa");
     }
     /**
@@ -299,6 +299,7 @@ class ShadowListingController extends Controller {
      * @param ShadowListing $model the model to be validated
      */
     protected function performAjaxValidation($model) {
+        error_log("aaaaaaaaaaaaaaa");
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'shadow-listing-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();

@@ -41,7 +41,7 @@ $this->menu = array(
 From: <input type="text" id="from" value="Hello World!"><br>
 To: <input type="text" id="to">
 <br><br>
-<button onclick="copyText()">Copy Text</button>
+<button onclick="submit()">Copy Text</button>
 
 <script>
     function submit()

@@ -317,12 +317,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     JudgeBusinessProfile: function()
     {
-        var currentUser = HubStar.User.find(localStorage.loginStatus);
-        var that = this;
-        currentUser.then(function() {
-            that.set("isBusinessProfile", currentUser.get("profileSave"));
-        });
-
+        if (localStorage.loginStatus) {
+            var currentUser = HubStar.User.find(localStorage.loginStatus);
+            var that = this;
+            currentUser.then(function() {
+                that.set("isBusinessProfile", currentUser.get("profileSave"));
+            });
+        }
     },
     addClickCount: function(tag_id, photo_url)
     {

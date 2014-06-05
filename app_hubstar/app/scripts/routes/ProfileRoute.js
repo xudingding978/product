@@ -65,6 +65,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
         $("#user-dd-menu").attr("style", "display:none");
       
         ProfileController.setProfile(model.id); 
+        
          if (HubStar.get('ctaView') === true) {
             this.controllerFor("checkingLoginStatus").popupLogin();
             HubStar.set('ctaView', false);

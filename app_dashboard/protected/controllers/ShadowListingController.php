@@ -1,5 +1,7 @@
 <?php
 
+//session_start();
+
 class ShadowListingController extends Controller {
 
     /**
@@ -114,18 +116,10 @@ class ShadowListingController extends Controller {
      */
     public function actionIndex() {
 
-        $dataProvider = $this->groupSearch();
-        $ids = array();
-        $i = 0;
-        foreach ($dataProvider as $return) {
-            if ($i > 0) {
-                $ids[$i] = $return['id'];
-            }
-            $i++;
-        }
-        $groups = $this->getGroup($ids);
+        $dataProvider = array();
+
         $this->render('index', array(
-            'dataProvider' => $groups,
+            'dataProvider' => $dataProvider,
         ));
     }
 
@@ -134,7 +128,7 @@ class ShadowListingController extends Controller {
         $groups = array();
         foreach ($ids as $id) {
             $oldDeep = $cb->get($id); // get the old user record from the database according to the docID string
-            $dataProvider = CJSON::decode($oldDeep, true);
+            $dataProvider = CJSON::decode($oldDeep, true);                    
             if (isset($dataProvider['groups'][0])) {
                 $group = array();
                 $group['id'] = $dataProvider['id'];
@@ -150,10 +144,10 @@ class ShadowListingController extends Controller {
                     $group['user_name'] = "";
                     $group['user_photo'] = "";
                 }
-
+                error_log(var_export($group, true));
                 $partner = $this->getPartner($dataProvider['groups'][0]['group_partner_ids']);
                 $group['$partner'] = $partner;
-                 array_push($groups, $group);
+                array_push($groups, $group);
             }
         }
         return $groups;
@@ -179,7 +173,8 @@ class ShadowListingController extends Controller {
         return $profiles;
     }
 
-    protected function groupSearch() {
+    protected function groupSearch($from, $to, $page) {
+        $page = ($page - 1) * 2;
         $termQuery = '{
             "query": {
                 "bool": {
@@ -195,8 +190,8 @@ class ShadowListingController extends Controller {
                 "should": []
                 }
             },
-            "from": 0,
-            "size": 10,
+            "from": ' . $page . ',
+            "size": 2,
             "sort": [
                 {
                     "created": {
@@ -207,8 +202,8 @@ class ShadowListingController extends Controller {
             "filter": {
                 "range": {
                     "created": {
-                        "gte": 1401756005,
-                        "lte": 1403058920
+                        "gte": ' . $from . ',
+                        "lte": ' . $to . '
                     }
                 }
             },
@@ -260,10 +255,53 @@ class ShadowListingController extends Controller {
         $node = Yii::app()->params['couchBaseNode'];
         return new Couchbase($node, $account, $password, $bucket, true);
     }
-    
-    public function actionGetFromToTime(){
-        error_log("aaaaaaaaaaaaaaaaaaaaaaa");
+
+    public function actionGetFromToTime() {
+        $groups = array();
+        $pages = array();
+        if (sizeof($_POST) !== 0) {
+            if (strtotime($_POST['from']) !== false && strtotime($_POST['to']) !== false) {
+                Yii::app()->session['time'] = $_POST;
+                $dataProvider = $this->groupSearch(strtotime(Yii::app()->session['time']['from']), strtotime(Yii::app()->session['time']['to']), 1);
+                $ids = array();
+                $i = 0;
+                foreach ($dataProvider as $return) {
+                    if ($i > 0) {
+                        $ids[$i] = $return['id'];
+                    }
+                    $i++;
+                }               
+                $groups = $this->getGroup($ids);
+                $pages = new CPagination($dataProvider['total']);
+
+                $pages->pageSize = 2;
+            }
+        } else {
+            if (isset(Yii::app()->session['time'])) {
+                error_log(var_export(Yii::app()->session['time'], true));
+                $page_no = $_GET['page'];
+                $dataProvider = $this->groupSearch(strtotime(Yii::app()->session['time']['from']), strtotime(Yii::app()->session['time']['to']), $page_no);
+                $ids = array();
+                $i = 0;
+                foreach ($dataProvider as $return) {
+                    if ($i > 0) {
+                        $ids[$i] = $return['id'];
+                    }
+                    $i++;
+                }
+                $groups = $this->getGroup($ids);
+
+                $pages = new CPagination($dataProvider['total']);
+
+                $pages->pageSize = 2;
+            }
+        }
+        $this->render('getFromToTime', array(
+            'dataProvider' => $groups,
+            'pages' => $pages
+        ));
     }
+
     /**
      * Manages all models.
      */

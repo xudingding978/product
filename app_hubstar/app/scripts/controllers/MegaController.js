@@ -179,10 +179,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 this.selectedImage(this.get('selectedPhoto').id);
             }
         }
-//        if (HubStar.get('ctaView') === true) {
-//            this.get("controllers.checkingLoginStatus").popupLogin();
-//            HubStar.set('ctaView', false);
-//        }
     },
     nextImage: function(event, pic_x, pic_y) {
         if (!this.get("isRead")) {
@@ -252,12 +248,18 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 else
                 {
                     var type = address.split("#")[1].split("/")[1];
+                    var search = address.split("#")[1].split("/")[2];
                     if (type === "photos")
                     {
                         this.transitionTo("photo", this.get("megaResouce").get('photo').objectAt(0));
                     }
                     else {
-                        this.transitionTo("newSearchPhoto", this.get("megaResouce"));
+                        if (search === "default")
+                        {
+                            this.transitionTo("searchDefaultPhoto", this.get("megaResouce"));
+                        } else {
+                            this.transitionTo("newSearchPhoto", this.get("megaResouce"));
+                        }
                     }
                 }
                 this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
@@ -265,10 +267,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 this.selectedImage(this.get('selectedPhoto').id);
             }
         }
-//        if (HubStar.get('ctaView') === true) {
-//            this.get("controllers.checkingLoginStatus").popupLogin();
-//            HubStar.set('ctaView', false);
-//        }
     },
     windowResizeTags: function(tags, width, height)
     {
@@ -574,6 +572,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     }
                     else
                     {
+                        console.log("ssssssssss");
                         that.addRelatedData(megaObject);  //it is for profile's collection
                     }
                     that.getCommentsById(megaObject.id);
@@ -605,7 +604,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                             that.get("content").pushObject(HubStar.Mega.find(id).get("photo").objectAt(0));
                         }
-
                     }
                 }
                 that.set("isRead", false);

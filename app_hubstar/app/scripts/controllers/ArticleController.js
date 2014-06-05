@@ -325,11 +325,6 @@ HubStar.ArticleController = Ember.Controller.extend({
             this.set('caption', this.get('selectedPhoto').get("photo_caption"));
 
             this.captionDisplay();
-//            if (HubStar.get('ctaView') === true) {
-//                this.get("controllers.checkingLoginStatus").popupLogin();
-//                HubStar.set('ctaView', false);
-//            }
-
         }
     },
     nextImage: function(event, pic_x, pic_y) {
@@ -423,10 +418,6 @@ HubStar.ArticleController = Ember.Controller.extend({
             this.set('captionTitle', this.get('selectedPhoto').get("photo_title"));
             this.set('caption', this.get('selectedPhoto').get("photo_caption"));
             this.captionDisplay();
-//            if (HubStar.get('ctaView') === true) {
-//                this.get("controllers.checkingLoginStatus").popupLogin();
-//                HubStar.set('ctaView', false);
-//            }
         }
 
     },

@@ -38,6 +38,7 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
         }
     },
     reset: function() {
+        console.log("3");
         this.set('videoImg', null);
         this.set('videoUrl', null);
         this.set('videoTitle', null);

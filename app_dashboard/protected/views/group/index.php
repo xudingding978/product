@@ -12,7 +12,7 @@ $this->menu = array(
 );
 ?>
 
-<h1>Shadow Listings</h1>
+<h1>Groups</h1>
 
 <form  action="getFromToTime" method="post">
   <span>  From: </span><input type="text" id="from" name ="from" value="2010-01-01"><br>

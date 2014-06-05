@@ -2,7 +2,7 @@
 
 //session_start();
 
-class ShadowListingController extends Controller {
+class GroupController extends Controller {
 
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -60,13 +60,13 @@ class ShadowListingController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        $model = new ShadowListing;
+        $model = new Group;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['ShadowListing'])) {
-            $model->attributes = $_POST['ShadowListing'];
+        if (isset($_POST['Group'])) {
+            $model->attributes = $_POST['Group'];
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->REC_ID));
         }
@@ -87,8 +87,8 @@ class ShadowListingController extends Controller {
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['ShadowListing'])) {
-            $model->attributes = $_POST['ShadowListing'];
+        if (isset($_POST['Group'])) {
+            $model->attributes = $_POST['Group'];
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->REC_ID));
         }
@@ -128,7 +128,7 @@ class ShadowListingController extends Controller {
         $groups = array();
         foreach ($ids as $id) {
             $oldDeep = $cb->get($id); // get the old user record from the database according to the docID string
-            $dataProvider = CJSON::decode($oldDeep, true);                    
+            $dataProvider = CJSON::decode($oldDeep, true);
             if (isset($dataProvider['groups'][0])) {
                 $group = array();
                 $group['id'] = $dataProvider['id'];
@@ -144,7 +144,6 @@ class ShadowListingController extends Controller {
                     $group['user_name'] = "";
                     $group['user_photo'] = "";
                 }
-                error_log(var_export($group, true));
                 $partner = $this->getPartner($dataProvider['groups'][0]['group_partner_ids']);
                 $group['$partner'] = $partner;
                 array_push($groups, $group);
@@ -270,7 +269,7 @@ class ShadowListingController extends Controller {
                         $ids[$i] = $return['id'];
                     }
                     $i++;
-                }               
+                }
                 $groups = $this->getGroup($ids);
                 $pages = new CPagination($dataProvider['total']);
 
@@ -279,7 +278,12 @@ class ShadowListingController extends Controller {
         } else {
             if (isset(Yii::app()->session['time'])) {
                 error_log(var_export(Yii::app()->session['time'], true));
-                $page_no = $_GET['page'];
+                error_log(var_export($_GET, true));
+                if (sizeof($_GET) !== 0) {
+                    $page_no = $_GET['page'];
+                } else {
+                    $page_no = 1;
+                }
                 $dataProvider = $this->groupSearch(strtotime(Yii::app()->session['time']['from']), strtotime(Yii::app()->session['time']['to']), $page_no);
                 $ids = array();
                 $i = 0;
@@ -315,7 +319,7 @@ class ShadowListingController extends Controller {
 //			'model'=>$model,
 //		));
         error_log("aaaa");
-        $model = ShadowListing::model()->findByPk(112);
+        $model = Group::model()->findByPk(112);
     }
 
     /**
@@ -326,7 +330,7 @@ class ShadowListingController extends Controller {
      * @throws CHttpException
      */
     public function loadModel($id) {
-        $model = ShadowListing::model()->findByPk($id);
+        $model = Group::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;

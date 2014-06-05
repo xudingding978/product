@@ -65,3 +65,6 @@ echo "</div>";
 </DIV>
 
 
+<div style="position: relative;left: 75%;">
+    <a href="/">Back</a>
+    </div>

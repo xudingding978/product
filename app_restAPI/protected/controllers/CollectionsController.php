@@ -44,7 +44,6 @@ class CollectionsController extends Controller {
         }
     }
 
-    // ally great change!!
     public function actionSavePhotoCollection() {
         $request_json = CJSON::decode(file_get_contents('php://input'), true);
         $request_arr = CJSON::decode($request_json, true);
@@ -76,7 +75,7 @@ class CollectionsController extends Controller {
     public function actionSaveCollection() {
         $request_json = CJSON::decode(file_get_contents('php://input'), true);
         $request_arr = CJSON::decode($request_json, true);
-
+        error_log(var_export($request_arr,true));
         $docIDDeep = $this->getDomain() . "/profiles/" . $request_arr["optional"]; //$id  is the page owner
         $cb = $this->couchBaseConnection();
         $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
@@ -90,8 +89,10 @@ class CollectionsController extends Controller {
             if ($oldRecordDeep['profile'][0]['collections'][$i]["id"] === $request_arr["id"]) {
                 if (!isset($oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"]) || $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] === null || $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] === "") {
                     $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] = $id;
+                    $oldRecordDeep['profile'][0]['collections'][$i]["cover"]=$request_arr["cover"];
                 } else {
                     $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] = $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"] . "," . $id;
+                     $oldRecordDeep['profile'][0]['collections'][$i]["cover"]=$request_arr["cover"];
                 }
                 $collectionItems = $oldRecordDeep['profile'][0]['collections'][$i]["collection_ids"];
             }

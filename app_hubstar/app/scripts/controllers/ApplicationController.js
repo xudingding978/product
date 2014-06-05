@@ -111,17 +111,20 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         });
 
         requiredBackEnd('tenantConfiguration', 'pdfDisplay', null, 'POST', function(params) {
-            HubStar.set('pdf_display', params);
+            HubStar.set('pdf_display', params[0]);
+            HubStar.set('tagging_display', params[1] && params[2]);
+            HubStar.set('profile_manager', params[2]);
         });
 
-        if (localStorage.userType !== 'email'&&localStorage.checkSocialUser === 'newSocialUser') {
+
+        if (localStorage.userType !== 'email' && localStorage.checkSocialUser === 'newSocialUser') {
             HubStar.set('checkLoginStatus', true);
-                setTimeout(function() {
-                    $("#cta-popup").css("display", "none");
-                    $("#profiles-main-container").css("display", "block");
-                    $('#register-with-social-select-interests').css('display', 'block');
-                    $('#user-login-pane').css('display', 'none');
-                }, 1);
+            setTimeout(function() {
+                $("#cta-popup").css("display", "none");
+                $("#profiles-main-container").css("display", "block");
+                $('#register-with-social-select-interests').css('display', 'block');
+                $('#user-login-pane').css('display', 'none');
+            }, 1);
         }
         HubStar.set("escVideo", false);
         this.set('search_string', '');
@@ -227,7 +230,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     that.set("is_trends_user", true);
                 }
                 else {
-
                     that.set("is_trends_user", false);
                 }
                 for (var i = 0; i < u.get("profiles").get("length"); i++) {
@@ -580,10 +582,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $("#topResidentialCommerical").css('display', "none");
 
         HubStar.set("scrollDownSearch", true);
-        results.addObserver('isLoaded', function() {
-            if (results.get('isLoaded')) {
-                that.setContent(results, "default");
-            }
+        results.then(function() {
+            that.setContent(results, "default");
+        }, function() {
+            that.setContent(results, "default");
         });
     },
     getResponseTime: function(start, end) {
@@ -618,7 +620,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             HubStar.set("isLogin", true);
 
             that.transitionToRoute("searchIndexTom");
-            that.init();
+            that.defaultSearch();
 
         });
 
@@ -860,7 +862,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $('#geo-filter').removeClass('Geo-Filter-active');
             $('#notification-filter').removeClass('Geo-Filter-active');
             $('#top-about-menu').removeClass('Geo-Filter-active');
-            //     $('#user-header-menu').toggleClass('Geo-Filter-active');
         }
     },
     dropdownNavigator: function() {
@@ -1014,7 +1015,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                             localStorage.userType = "email";
                             HubStar.set("isLogin", true);
                             that.transitionToRoute('searchIndexTom');
-                            that.init();
+                            that.defaultSearch();
                             HubStar.set("showDiscoveryBar", true);
                             that.set('loginPassword', "");
                             that.set('loginTime', false);

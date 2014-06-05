@@ -5,7 +5,6 @@ HubStar.DeleteFunctionView = Ember.View.extend({
     deleteSelection: function() {
         var controller = this.get('controller');
         var obj = controller.get("obj");
-        console.log(controller);
         if (controller._debugContainerKey.indexOf("addCollection") !== -1)
         {
         }
@@ -26,7 +25,6 @@ HubStar.DeleteFunctionView = Ember.View.extend({
         }
         else if (controller._debugContainerKey.indexOf("mega") !== -1) {
             controller.removeComment(obj);
-
         }
         else if (controller._debugContainerKey.indexOf("article") !== -1) {
             controller.removeComment(obj);

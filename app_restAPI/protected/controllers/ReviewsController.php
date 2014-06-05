@@ -85,6 +85,45 @@ class ReviewsController extends Controller {
             echo $exc->getTraceAsString();
         }
     }
+    
+     public function actionUpdate() {
+
+        $request_json = file_get_contents('php://input');
+        $newRecord = CJSON::decode($request_json, true);
+        $owner_id = $newRecord ['optional'];
+        $id = $newRecord['review_id'];
+        try {
+            $cb = $this->couchBaseConnection();
+
+
+            $docID = $this->getDomain() . "/profiles/" . $owner_id;
+            $cbRecord = $cb->get($docID); // get the old profile record from the database according to the docID string
+            $oldRecord = CJSON::decode($cbRecord, true);
+            $records = $oldRecord["profile"][0]["reviews"];
+           
+            $review_num = $this->getSelectedreview($records, $id);
+            if ($review_num !== -1) {
+
+                $oldRecord["profile"][0]["reviews"] [$review_num] ["review_id"] = $newRecord["review_id"];
+                $oldRecord["profile"][0]["reviews"] [$review_num] ["review_user_id"] = $newRecord["review_user_id"];
+                $oldRecord["profile"][0]["reviews"] [$review_num] ["review_user_photo_url"] = $newRecord["review_user_photo_url"];
+                $oldRecord["profile"][0]["reviews"] [$review_num] ["review_user_name"] = $newRecord["review_user_name"];
+                $oldRecord["profile"][0]["reviews"] [$review_num] ["review_content"] = $newRecord["review_content"];
+                $oldRecord["profile"][0]["reviews"] [$review_num] ["review_time_stamp"] = $newRecord["review_time_stamp"];
+                $oldRecord["profile"][0]["reviews"] [$review_num] ["review_star_rating_value"] = $newRecord["review_star_rating_value"];
+                $oldRecord["profile"][0]["reviews"] [$review_num] ["review_length"] = $newRecord["review_length"];
+            }
+
+
+            if ($cb->set($docID, CJSON::encode($oldRecord))) {
+          $this->sendResponse(204);
+            } else {
+                $this->sendResponse(500, "some thing wrong");
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
 
     public function actionAddlike() {
         $like = CJSON::decode(file_get_contents('php://input'));
@@ -165,18 +204,18 @@ class ReviewsController extends Controller {
             echo $exc->getTraceAsString();
         }
     }    
-//    public function getSelectedreview($records, $id) {
-//        $i = 0;
-//        $review_num = -1;
-//        foreach ($records as $record_id) {
-//            if ($record_id["review_id"] == $id) {
-//                
-//                $review_num = $i;
-//            }
-//            $i++;
-//        }
-//        return $review_num;
-//    }
+    public function getSelectedreview($records, $id) {
+        $i = 0;
+        $review_num = -1;
+        foreach ($records as $record_id) {
+            if ($record_id["review_id"] == $id) {
+                
+                $review_num = $i;
+            }
+            $i++;
+        }
+        return $review_num;
+    }
 
     public function actionDelete() {
 

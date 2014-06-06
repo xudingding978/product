@@ -16,10 +16,7 @@ $root = $app_dashboardConfigDir . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARAT
 //// Setup some default path aliases. These alias may vary from projects.
 Yii::setPathOfAlias('root', $root);
 Yii::setPathOfAlias('common', $root . DIRECTORY_SEPARATOR . 'common' . DIRECTORY_SEPARATOR . 'protected');
-Yii::setPathOfAlias('app_administrator', $root . DIRECTORY_SEPARATOR . 'app_administrator');
 Yii::setPathOfAlias('app_dashboard', $root . DIRECTORY_SEPARATOR . 'app_dashboard');
-Yii::setPathOfAlias('app_authentication', $root . DIRECTORY_SEPARATOR . 'app_authentication');
-Yii::setPathOfAlias('app_account', $root . DIRECTORY_SEPARATOR . 'app_account');
 
 // The configuation tree overides in the following way...
 // local settings below > environment specific > main configuration
@@ -60,7 +57,7 @@ return CMap::mergeArray(
                 'application.components.*',
             ),
             'modules' => array(
-                 'gii' => array(
+                'gii' => array(
                     'class' => 'system.gii.GiiModule',
                     'password' => 'Pa55word',
                     // If removed, Gii defaults to localhost only. Edit carefully to taste.
@@ -89,23 +86,15 @@ return CMap::mergeArray(
                         ),
                     ),
                 ),
-                'session' => array(
-                    'sessionName' => 'Session',
-                    'class' => 'CDbHttpSession',
-                    //  'autoCreateSessionTable' => true,
-                    'connectionID' => 'db',
-                    'sessionTableName' => 'usersession',
-                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
-                    'useTransparentSessionID' => true,
-                    'autoStart' => 'true',
-                    'cookieMode' => 'only',
-                    'cookieParams' => array(
-                        'path' => '/',
-                        'domain' => $domain,
-                        'httpOnly' => true,
-                    ),
-                //   'timeout' => 1800,
-                ),
+//                'session' => array(
+//                    'sessionName' => 'Site Session',
+//                    'class' => 'CHttpSession',
+//                    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+//                    'autoStart' => 'false',
+//                    'cookieMode' => 'only',
+//                    'savePath' => '/home/devbox/NetBeansProjects/hubstar/common/protected/models',
+//                    'timeout' => 1800
+//                ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',
                     'responsiveCss' => true,
@@ -124,8 +113,7 @@ return CMap::mergeArray(
                     'password' => $params['db_live.password'],
                     'schemaCachingDuration' => YII_DEBUG ? 0 : 86400000, // 1000 days
                     'enableParamLogging' => YII_DEBUG,
-                    'charset' => 'utf8',
-                    'tablePrefix' => $params['tablePrefix']
+                    'charset' => 'utf8'
                 ),
                 'errorHandler' => array(
                     // use 'site/error' action to display errors
@@ -145,6 +133,22 @@ return CMap::mergeArray(
                         ),
                     ),
                 ),
+            ),
+            'params' => array(
+// this is used in contact page
+                'adminEmail' => 'webmaster@example.com',
+                // this the primary elastic search server and index
+                'elasticSearchNode' => $params['elasticSearch.node'], //'es1.hubsrv.com'
+                'elasticSearchIndex' => $params['elasticSearch.index'], //test
+                'couchBaseNode' => $params['couchBase.node'],
+                'couchBaseBucket' => $params['couchBase.bucket'],
+                'couchBaseAccount' => $params['couchBase.account'],
+                'couchBasePasswrd' => $params['couchBase.password'],
+                //---------------------------
+                'couchBaseDefaultNode' => $params['couchBase.defaultNode'],
+                'couchBaseDefaultBucket' => $params['couchBase.defaultBucket'],
+                'couchBaseDefaultAccount' => $params['couchBase.defaultAccount'],
+                'couchBaseDefaultPasswrd' => $params['couchBase.defaultPassword'],
             ),
                 ), CMap::mergeArray($mainEnvConfiguration, $mainLocalConfiguration)
 );

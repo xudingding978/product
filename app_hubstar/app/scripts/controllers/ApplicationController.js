@@ -611,10 +611,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $("#topResidentialCommerical").css('display', "none");
 
         HubStar.set("scrollDownSearch", true);
-        results.addObserver('isLoaded', function() {
-            if (results.get('isLoaded')) {
-                that.setContent(results, "default");
-            }
+        results.then(function() {
+            that.setContent(results, "default");
+        }, function() {
+            that.setContent(results, "default");
         });
     },
     getResponseTime: function(start, end) {

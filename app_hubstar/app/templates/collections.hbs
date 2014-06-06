@@ -8,10 +8,7 @@
         </div>
         <div class="masonry-object t-style-box">
             <div class="add-new-object-content">
-                <i class="fa fa-group"></i>
-                <i class="fa fa-book"></i>
-                <i class="fa fa-picture-o"></i>
-                <i class="fa fa-film"></i>
+                <img src="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png" />
             </div>
 
         </div>
@@ -28,44 +25,44 @@
 <div class="box col2 style-box t-style-box">
     <div class="masonry-object Targeting_Object_front"  id={{unbound id}}>
          <a class="album-description-hoverarea easing" href="#/{{unbound controller.type}}/{{unbound controller.Id}}/collections/{{unbound id}}" {{action transitionToCollectionPhoto id}}>
-                                                   {{#if desc}}
-                                                   <table class="album-description" cellpadding="0" cellspacing="0">
-                                                            <tr>
-                                                                <td valign="middle"><div>{{desc}}</div></td>
-                                                            </tr>
-                                                        </table> 
+              {{#if desc}}
+              <table class="album-description" cellpadding="0" cellspacing="0">
+                 <tr>
+                     <td valign="middle"><div>{{desc}}</div></td>
+                 </tr>
+             </table> 
 
-                                                        <table class="album-description-bg" cellpadding="0" cellspacing="0">
-                                                            <tr>
-                                                                <td valign="middle"><div>{{desc}}</div></td>
-                                                            </tr>
-                                                        </table> 
+              <table class="album-description-bg" cellpadding="0" cellspacing="0">
+                 <tr>
+                     <td valign="middle"><div>{{desc}}</div></td>
+                 </tr>
+             </table> 
 
-                                                        {{/if}}
-                                                    </a>
-                                                    <div class="albumcover-container"  > 
-                         
-                                                            {{getCoverSize}}
-                                                            <div style ="height:{{unbound cover_height}}; width:{{unbound cover_width}};top:{{unbound cover_top}};left:{{unbound cover_left}}">
-                                                            <img class="albumcover" {{bindAttr src="cover"}} />     
-                                                            </div>
+             {{/if}}
+         </a>
+         <div class="albumcover-container"  > 
 
-                                                    </div>
-                                                    
-                                                    <div class="album-info">
-                                                    <div class="album-info_name"><a href="#/{{unbound controller.type}}/{{unbound controller.Id}}/collections/{{unbound id}}"><i class="fa fa-picture-o" >&nbsp;</i>{{title}}</a></div>
-                                                    <div class="album-info_content">
-                                                        {{#if controller.is_authentic_user}}
-                                                        <div class="edit-btn edit-collection-btn easing hint--left hint--rounded" data-hint="Edit collection info.">
-                                                            <i class="fa fa-cog" {{action editCollectionButton id title desc target="view" on="click"}} ></i>
+            {{getCoverSize}}
+            <div style ="height:{{unbound cover_height}}; width:{{unbound cover_width}};top:{{unbound cover_top}};left:{{unbound cover_left}}">
+                <img class="albumcover" {{bindAttr src="cover"}} />     
+            </div>
 
-                                                        </div>
-                                                        {{/if}}
+        </div>
 
-                                                        <span><a href="" {{action transitionToCollectionPhoto id}}> </a> photos</span>
-                                                        <span><img src="../../images/list-doc.png"/>{{date created_at}}</span>               
-                                                    </div>
-                                                </div>
+         <div class="album-info">
+            <div class="album-info_name"><a href="#/{{unbound controller.type}}/{{unbound controller.Id}}/collections/{{unbound id}}"><i class="fa fa-picture-o" >&nbsp;</i>{{title}}</a></div>
+            <div class="album-info_content">
+                {{#if controller.is_authentic_user}}
+                <div class="edit-btn edit-collection-btn easing hint--left hint--rounded" data-hint="Edit collection info.">
+                    <i class="fa fa-cog" {{action editCollectionButton id title desc target="view" on="click"}} ></i>
+
+                </div>
+                {{/if}}
+
+                <span><a href="" {{action transitionToCollectionPhoto id}}> </a> photos</span>
+                <span><img src="../../images/list-doc.png"/>{{date created_at}}</span>               
+            </div>
+        </div>
     </div>
     <div id="Targeting_Object_back"{{bindAttr class="getCollectionId"}}>
         {{view HubStar.EditCollectionView}}

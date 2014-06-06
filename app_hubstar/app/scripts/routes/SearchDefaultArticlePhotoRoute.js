@@ -24,7 +24,6 @@ HubStar.SearchDefaultArticlePhotoRoute = Ember.Route.extend({
 
     },
     model: function(params) { 
-        console.log(params);
         var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});
         this.controllerFor("mega").set("clickOrRoute", true);
   

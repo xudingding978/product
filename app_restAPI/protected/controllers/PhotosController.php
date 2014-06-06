@@ -174,18 +174,17 @@ class PhotosController extends Controller {
             $oldRecord['photo'][0]['photo_title'] = $newRecord['photo']['photo_title'];
             $oldRecord['photo'][0]['photo_caption'] = $newRecord['photo']['photo_caption'];
 
-
             //$oldRecord['photo'][0]['photo_keywords'] = $newRecord['photo']['photo_keywords'];
             //$keyword = $this->getPictureKeyword($newRecord['photo']['photo_keywords'], $oldRecord['owner_id']);
+
             //$oldRecord['keyword'] = $keyword;
             //$oldRecord['photo'][0]['photo_keywords'] =  $newRecord['photo']['photo_keywords'];
+
             //$keyword = $this->getProfileKeyword($owner_id);
             //$oldRecord['keyword'] = $keyword;
 
             $keyword = $this->getProfileKeyword($oldRecord['owner_id']);
-
             $oldRecord['keyword'] = $keyword;
-
 
             if ($cb->set($url, CJSON::encode($oldRecord))) {
                 $this->sendResponse(204);

@@ -81,6 +81,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             var that = this;
             var message;
             var data;
+            var defaulturl="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png";
             if (HubStar.get("isProfile") === false) {
                 var collectionController = this.get('controllers.collection');
                 var collection = collectionController.getUpdateCollection(HubStar.get('selectedCollection'));
@@ -91,6 +92,9 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                     this.addComment();
                     collection.set('optional', localStorage.loginStatus);
                     collection.set('type', 'user');
+                    if(collection.get("cover") === defaulturl){
+                        collection.set('cover',this.get("commentObject").get("object_image_url"));
+                    }
                     collection.store.save();
                     var tempComment = [this.get("objectID")];
                     requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
@@ -108,14 +112,20 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             }
             else
             {
+                console.log("in profile");
                 content = HubStar.get('selectedCollection').collection_ids;
                 if (content === null || content === undefined || content === "") {
                     HubStar.get('selectedCollection').collection_ids = this.get("objectID");
-
-                    data = JSON.stringify(HubStar.get('selectedCollection'));
                     this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
+                    if(HubStar.get('selectedCollection').cover === defaulturl){
+                        HubStar.get('selectedCollection').cover = this.get("commentObject").get("object_image_url");
+                    }
+                    data = JSON.stringify(HubStar.get('selectedCollection'));
+                    //console.log(data);
                     requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
+                       // console.log(params);
                         HubStar.get('selectedCollection').collection_ids = params;
+                         
                         var tempComment = [that.get("objectID")];
                         //that.commitCollection();
                         requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {

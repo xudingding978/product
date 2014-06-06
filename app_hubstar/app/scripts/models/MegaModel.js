@@ -103,16 +103,16 @@ HubStar.Mega = DS.Model.extend({
             this.set("isShowMoreComment", true);
         }
     }.property('comment_count'),
-    photo_isLike: function() {
-        if (this.get("people_like") !== null) {
+    photo_isLike: function() {       
+        if (this.get("people_like") === null || this.get("people_like") === undefined) {
+            this.set("isLike", false);
+        } else {
             if (this.get("people_like").indexOf(localStorage.loginStatus) !== -1) {
                 this.set("isLike", true);
             } else {
                 this.set("isLike", false);
             }
-        } else {
-            this.set("isLike", false);
-        }
+        }       
     }.property("people_like"),
     photo_album_id: function() {
         return "#album_" + this.get('id');

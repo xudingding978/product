@@ -348,11 +348,12 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         }
         else
         {
+            console.log(HubStar.get("profileCollection"));
              collection = collectionController.getCreateCollection(this.get('newCollectionName'), '', HubStar.get("profileCollection"));
-
+             console.log(collection);
             if (collection !== null && collection !== "") {
                 collection.set('type', 'profile');
-                collection.set('optional', this.get("chosenProfile"));
+                collection.set('optional', HubStar.get("selectedID"));
 
                 var newCollection = {};
                 newCollection.collection_ids = collection.get("collection_ids");

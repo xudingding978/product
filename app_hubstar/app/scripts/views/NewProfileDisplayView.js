@@ -4,7 +4,7 @@ HubStar.NewProfileDisplayView = Ember.View.extend({
     templateName: 'newProfileDisplay',
     didInsertElement: function() {
         $(document).ready(function() {
-            $("#profiles_display_scrollbar").mCustomScrollbar({
+            $("#profile-creater").mCustomScrollbar({
                 scrollButtons: {
                     enable: false,
                     scrollSpeed: "auto"
@@ -18,8 +18,9 @@ HubStar.NewProfileDisplayView = Ember.View.extend({
                 autoHideScrollbar: true,
                 mouseWheel: true,
                 theme: "dark-2",
-                set_height: 330
+                set_height: 200
             });
+            
         });
     },
     cancel: function() {

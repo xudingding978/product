@@ -33,16 +33,11 @@
     </li>
 
     {{#if controller.newProfile}} 
-    <div id="profiles_display">
-        {{render newProfileDisplay HubStar.profiles}} 
-    </div>
-    {{/if}}
-    {{#if HubStar.profile_manager}}
-    {{render newProfileTopDisplay HubStar.profiles}}
+    {{render newProfileDisplay HubStar.profiles}} 
     {{/if}}
     {{/if}}
 
-    <li class='ite' style=" border-top: 1px solid #ddd; "><a tabindex="-1" href="http://about.trendsideas.com/" target="blank" {{action userDisplaynone "about" on="click"  target="view"}}>
+    <li class='ite'><a tabindex="-1" href="http://about.trendsideas.com/" target="blank" {{action userDisplaynone "about" on="click"  target="view"}}>
                                                              <i class="fa fa-question-circle" style="">&nbsp;&nbsp;</i>
             <span>Help</span>
         </a></li>

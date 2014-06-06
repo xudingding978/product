@@ -1477,52 +1477,71 @@ textarea.add-interests{
     border-width: 8px 5px 7px 0;
     border-radius: 2px;
 }
-/* user business profile */
+
+
+
+
+/*-------------------------- user business profile fixed by Charis--------------------------------- */
+
 .new-profile-display{
     z-index: 11;
     background-color: white;  
     border-radius: 5px;
     box-shadow: 0 0 20px #bbb;  
-    width: 500px;
-    height: 450px;
+    width: 650px;
+    height: auto;
     margin: 0 auto; 
     position: fixed; 
     top: 25%;
     left: 0;
     right: 0;
     overflow: hidden;
+
 }
+
+.new-profile-display-top{
+    width: 100%;
+    height: auto; 
+    min-height: 50px;
+    padding-left: 25px; 
+    background-color: #ccc;
+}
+
+.new-profile-display-top > div{
+    font-size: 20px;
+    font-weight: bold;
+    color: #555; 
+    height: auto; 
+    min-height: 50px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.new-profile-display-title{
+    text-align:center;
+}
+
+.title-list{
+    background-color: #ccc;
+}
+
+#profiles_display{
+    margin: 5px auto; 
+    padding: 0 15px;
+}
+
 
 .profile-image{
-    height: 200px; 
-    width: 135px; 
-    position:relative; 
-    margin: 7px;
-    float:left; 
-    border-radius: 5px; 
-    background-color: #ddd; 
-    overflow:hidden;
-}
-
-.profile-image-position{
-    text-align: center;
-    padding: 2px; 
-    height:135px;
-    overflow:hidden;
-    line-height: 135px;
-}
-
-.profile-name-position{
+    height: 60px;
+    width: 48%;
     position: relative;
-    text-align: center;
-    padding: 5px;
-    height: 100px;
-    word-break: break-word;
-    vertical-align: middle;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 20px;
+    margin: 5px;
+    float: left;
+    border-radius: 5px;
+    background-color: #ddd;
+    overflow: hidden;
 }
+
 .profile-bookmark{
     position: absolute; 
     left: 0; 
@@ -1532,24 +1551,21 @@ textarea.add-interests{
 
 .profile-top-image-position{
     text-align: center;
-    background-color: white;
-    display: inline-block; 
-    height: 50px; 
-    width: 50px; 
-    position:relative; 
-    margin: 5px  5px 5px 10px; 
-    line-height: 50px;
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    position: relative;
+    margin: 5px;
     border-radius: 5px;
-    border: 1px solid #ddd;
-    vertical-align: top;
 }
 .profile-top-name-position{
-    color: #555;  
-    position: relative; 
-    display: inline-block; 
-    width: 100px; 
-    line-height: 20px; 
-    margin: 3px 0;
+    color: #555;
+    position: relative;
+    width: 100px;
+    margin: 5px;
+    display: inline-block;
+    line-height: 20px;
+    vertical-align: top;
     word-wrap: break-word;
 }
 
@@ -1593,3 +1609,4 @@ textarea.add-interests{
     margin-left: 30%;
     width: 70%;
 }
+/*-------------------------- user business profile fixed by Charis  END--------------------------------- */

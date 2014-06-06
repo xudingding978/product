@@ -1,12 +1,12 @@
 
 
-
-<div class="objectview-wrapper this-is-an-article" >
-
-    <div class="objectview-left article-objectview-left">
         {{#if controller.collectable}}
         {{render addCollection}}
         {{/if}}
+<div class="objectview-wrapper this-is-an-article" >
+
+    <div class="objectview-left article-objectview-left" >
+
         <div class="top-controlbar easing" >
             <!--            <div class="fa icon-on-black" style="left: 8px;"><i class="fa fa-thumbs-up"></i></div>-->
             {{#unless controller.enableTag}}
@@ -172,9 +172,7 @@
                     <div class="btn-description" style="color: #333">MESSAGE</div>
                 </div>
             </div>
-            {{#if controller.contact}}
-            {{render contact}}
-            {{/if}}
+
 
 
         </div>
@@ -389,3 +387,6 @@
 {{view HubStar.DeleteFunctionView}}
 
 {{/if}}
+            {{#if controller.contact}}
+            {{render contact}}
+            {{/if}}

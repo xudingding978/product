@@ -891,6 +891,31 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('contactChecking', !this.get('contactChecking'));
         }
     },
+    eShare: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+
+            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+            this.sendEventTracking('event', 'button', 'click', 'Contact us');
+            var contactController = this.get('controllers.emailShare');
+            contactController.setSelectedMega(this.get('currentUserID'));
+
+            document.getElementById("body_id").style.overflow = "hidden";
+
+            this.set('contactChecking', !this.get('contactChecking'));
+        }
+    },
     closeContact: function() {
         this.set('contactChecking', false);
         document.getElementById("body_id").style.overflow = "auto";

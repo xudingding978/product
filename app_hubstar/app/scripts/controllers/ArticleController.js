@@ -819,6 +819,20 @@ HubStar.ArticleController = Ember.Controller.extend({
             this.set('contact', !this.get('contact'));
         }
     },
+    eShare: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            var contactController = this.get('controllers.contact');
+
+            this.get("controllers.emailShare").set("firstStepOfContactEmail", false);
+            this.get("controllers.emailShare").set('secondStepOfContactEmail', false);
+
+            var selectid = this.get('selectedPhoto').id;
+            contactController.setSelectedMega(selectid);
+
+            this.set('emailShare', !this.get('emailShare'));
+        }
+    },
     closeContact: function() {
         this.set('contact', false);
     },

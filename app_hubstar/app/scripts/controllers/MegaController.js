@@ -1074,8 +1074,18 @@ HubStar.MegaController = Ember.ArrayController.extend({
             contactController.selectionCheckBox();
             this.set('contact', !this.get('contact'));
         }
-    }
-    ,
+    },
+    eShare: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+            var contactController = this.get('controllers.contact');
+            var selectid = this.get('selectedPhoto').id;
+            
+            contactController.setSelectedMega(selectid);
+            contactController.selectionCheckBox();
+            
+        }
+    },
     closeContact: function() {
         this.set('contact', false);
     },

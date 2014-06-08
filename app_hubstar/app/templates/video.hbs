@@ -26,6 +26,10 @@
                 <li class="ite" {{action gpShare "1"}}>
                     <i class="fa fa-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Google+</span>
                 </li>
+                <li class="ite" {{action eShare "1"}}>
+                    <img src="../../../images/sent.png" style="width: 16px;height: 16px">
+                    <i class="send_email" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 1.5em">E-mail</span>
+                </li>
             </ul>
 
             <script type="text/javascript">
@@ -91,7 +95,7 @@
         <div class="collapes-container"  style="display:block;border-top: 1px solid #f3f3f3;">
             <div class="collapes-container_inner" style="padding: 0; height: 45px;">
                 {{megaResouce.photo_isLike}}
-                
+
                 {{#if megaResouce.isLike}}
                 <div  class="square-button hint--rounded hint--bottom"  data-hint="unLike this Idea!" {{action unLike}}>
                       <i class="fa fa-thumbs-up">&nbsp;<span style="font-size: 11px;">{{megaResouce.likes_count}}</span>&nbsp;</i>
@@ -122,6 +126,10 @@
                     </li>
                     <li class="ite" {{action gpShare "2"}}>
                         <i class="fa fa-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Google+</span>
+                    </li>
+                    <li class="ite" {{action eShare "2"}}>
+                        <img src="../../../images/sent.png" style="width: 16px;height: 16px">
+                        <i class="send_email" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 1.5em">E-mail</span>
                     </li>
                 </ul>
 

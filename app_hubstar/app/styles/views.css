@@ -109,16 +109,6 @@ a:hover , a:focus {color: #aaa;}
     transition: all .4s ease-in-out;
 }
 
-.front-ard{
-    text-align: inherit; 
-    width: auto; 
-    height: auto; 
-    box-shadow: none; 
-    border: none; 
-    position: relative !important;
-}
-
-
 .panel.flip .front {
     z-index: 900;
     height: 0;
@@ -928,18 +918,6 @@ div.album-description-bg{
     float:left;
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*MANSONRY OBJECT STYLE             END*/

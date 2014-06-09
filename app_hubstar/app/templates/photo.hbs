@@ -4,12 +4,13 @@
 {{render loadingSpinner}}
 
 {{/if}}-->
+{{#if controller.collectable}}
+{{render addCollection}}
+{{/if}}
 <div  id ="ssss" class="objectview-wrapper" >
 
     <div class="objectview-left">
-        {{#if controller.collectable}}
-        {{render addCollection}}
-        {{/if}}
+
         <div class="top-controlbar easing" >
 
 
@@ -184,9 +185,7 @@
                 </div>
             </div>
         </div>
-        {{#if controller.contact}}
-        {{render contact}}
-        {{/if}}
+        
 
 
         <!-- OBJECT CONTROLL SECTION -->
@@ -450,3 +449,6 @@
 {{view HubStar.DeleteFunctionView}}
 
 {{/if}}
+{{#if controller.contact}}
+        {{render contact}}
+        {{/if}}

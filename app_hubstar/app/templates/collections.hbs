@@ -39,7 +39,7 @@
 
             {{/if}}
         </a>
-         <div class="albumcover-container"  >
+        <div class="albumcover-container"  >
 
             {{getCoverSize}}
             <div style ="height:{{unbound cover_height}}; width:{{unbound cover_width}};top:{{unbound cover_top}};left:{{unbound cover_left}}">
@@ -48,7 +48,7 @@
 
         </div>
 
-         <div class="album-info">
+        <div class="album-info">
             <div class="album-info_name"><a href="#/{{unbound controller.type}}/{{unbound controller.Id}}/collections/{{unbound id}}"><i class="fa fa-picture-o" >&nbsp;</i>{{title}}</a></div>
             <div class="album-info_content">
                 {{#if controller.is_authentic_user}}

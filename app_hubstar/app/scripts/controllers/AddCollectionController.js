@@ -81,18 +81,23 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             var that = this;
             var message;
             var data;
+            var defaulturl="https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png";
+            var ob_id = this.get("objectID");
             if (HubStar.get("isProfile") === false) {
                 var collectionController = this.get('controllers.collection');
                 var collection = collectionController.getUpdateCollection(HubStar.get('selectedCollection'));
                 content = collection.get("collection_ids");
                 var flag = this.addCollection(collection, content);
                 if (flag === true) {
-                    this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
+                    this.set("commentObject", HubStar.Mega.find(ob_id));
                     this.addComment();
                     collection.set('optional', localStorage.loginStatus);
                     collection.set('type', 'user');
+                    if(collection.get("cover") === defaulturl){
+                        collection.set('cover',this.get("commentObject").get("object_image_url"));
+                    }
                     collection.store.save();
-                    var tempComment = [this.get("objectID")];
+                    var tempComment = [ob_id];
                     requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
                         that.get("commentObject").set("save_count", params);
                         that.get("commentObject").store.save();
@@ -109,14 +114,17 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
             else
             {
                 content = HubStar.get('selectedCollection').collection_ids;
-                if (content === null || content === undefined || content === "") {
-                    HubStar.get('selectedCollection').collection_ids = this.get("objectID");
-
+                if (content === null || content === undefined || content === "") {                 
+                    HubStar.get('selectedCollection').collection_ids = ob_id;
+                    
+                    this.set("commentObject", HubStar.Mega.find(ob_id));
+                    if(HubStar.get('selectedCollection').cover === defaulturl){
+                        HubStar.get('selectedCollection').cover = this.get("commentObject").get("object_image_url");
+                    }
                     data = JSON.stringify(HubStar.get('selectedCollection'));
-                    this.set("commentObject", HubStar.Mega.find(this.get("objectID")));
                     requiredBackEnd('collections', 'saveCollection', data, 'POST', function(params) {
-                        HubStar.get('selectedCollection').collection_ids = params;
-                        var tempComment = [that.get("objectID")];
+                        //HubStar.get('selectedCollection').collection_ids = params;                       
+                        var tempComment = [ob_id];
                         //that.commitCollection();
                         requiredBackEnd('megas', 'SetSaveCount', tempComment, 'POST', function(params) {
                             that.get("commentObject").set("save_count", params);
@@ -341,10 +349,10 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
         else
         {
              collection = collectionController.getCreateCollection(this.get('newCollectionName'), '', HubStar.get("profileCollection"));
-
+             
             if (collection !== null && collection !== "") {
                 collection.set('type', 'profile');
-                collection.set('optional', this.get("chosenProfile"));
+                collection.set('optional', HubStar.get("selectedID"));
 
                 var newCollection = {};
                 newCollection.collection_ids = collection.get("collection_ids");

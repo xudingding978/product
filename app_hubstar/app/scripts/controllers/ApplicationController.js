@@ -213,6 +213,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     grapData: function() {
         HubStar.set("profiles", []);
+        HubStar.set("userAdministrator", 0);
+        HubStar.set("userEditor", 0);
+        HubStar.set("userCreator", 0);
         var that = this;
 
         if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
@@ -243,14 +246,17 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     if (type === "administrator")
                     {
                         isAdministrator = true;
+                        HubStar.set("userAdministrator", HubStar.get("userAdministrator")+1);
                     }
                     else if (type === "editor")
                     {
                         isEditor = true;
+                        HubStar.set("userEditor", HubStar.get("userEditor")+1);
                     }
                     else if (type === "creator")
                     {
                         isCreator = true;
+                        HubStar.set("userCreator", HubStar.get("userCreator")+1);
                     }
                     var url = pic.split("_");
                     var length = url.length;

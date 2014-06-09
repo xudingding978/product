@@ -8,17 +8,26 @@ var HubStar = window.HubStar = Ember.Application.create({
         HubStar.set("showDiscoveryBar", true);
         HubStar.set("afterSearch", false);
         HubStar.set("setHight", null);
-//        requiredBackEnd('tenantConfiguration', 'doesAdDisplay', null, 'post', function(callbck) {
-//            var array = $.map(callbck, function(value, index) {
-//                return [value];
-//            });
-//            HubStar.set('ads', array);
-//            //console.log(HubStar.get('ads'));
-//        });
+        requiredBackEnd('tenantConfiguration', 'objectAdDisplay', null, 'post', function(callbck) {
+            var array = $.map(callbck, function(value, index) {
+                return [value];
+            });
+            if (HubStar.get("ads") !== null && HubStar.get("ads") !== undefined) {
+            }
+            else
+            {
+                for (var i = 0; i < array.length; i++) {
+                    for (var j = 0; j < array[i].length; j++) {
+                        array[i][j].isNew = true;
+                    }
+                }
+            }
+            HubStar.set('objectAds', array);
+        });
         HubStar.set('chooseCollection', null);
         HubStar.set('isMansonryPageLoad', false);
         HubStar.set('searchStart', false);
-         HubStar.set('ctaView', true);
+        HubStar.set('ctaView', true);
         HubStar.set('photoDomain', "http://s3.hubsrv.com/trendsideas.com");
         HubStar.set("pdf_display", false);
         if (localStorage.geoLocation === "" || localStorage.geoLocation === null || localStorage.geoLocation === undefined) {

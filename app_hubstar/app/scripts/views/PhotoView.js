@@ -8,6 +8,7 @@ HubStar.PhotoView = Ember.View.extend({
     DiscussionTag: false,
     NameTag: false,
     didInsertElement: function() {
+        this.ads();
         var that = this;
         var counter = 0;
         var mouseX = 0;
@@ -37,18 +38,18 @@ HubStar.PhotoView = Ember.View.extend({
                     // $(".next").css({display: block});
                     that.get("controller").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
                 }
-                if (mouseY - HubStar.get("changeHeight")> center_y)
+                if (mouseY - HubStar.get("changeHeight") > center_y)
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true); //chage tag show style
-                    mouseY = mouseY -500;
-                     //$("#showTagSavePhoto").css("position", "relative");
+                    mouseY = mouseY - 500;
+                    //$("#showTagSavePhoto").css("position", "relative");
                 }
                 else
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", false);
-                     //$("#showTagSavePhoto").css("position", "absolute");
+                    //$("#showTagSavePhoto").css("position", "absolute");
                 }
-                if (mouseX +530 > $(window).width() - 320)
+                if (mouseX + 530 > $(window).width() - 320)
                 {
                     //$("#showTagSavePhoto").css("left", "-265px");
 
@@ -87,14 +88,14 @@ HubStar.PhotoView = Ember.View.extend({
                 }
                 if (mouseY - 70 > center_y)
                 {
-                    mouseY = mouseY   -500;
+                    mouseY = mouseY - 500;
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true);
                     //$("#showTagSavePhoto").css("position", "relative");
                 }
                 else
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", false);
-                     //$("#showTagSavePhoto").css("position", "absolute");
+                    //$("#showTagSavePhoto").css("position", "absolute");
                 }
                 if (mouseX < 0)
                 {
@@ -156,8 +157,8 @@ HubStar.PhotoView = Ember.View.extend({
         });
 
     },
-    popupAibum: function() {         
-            $(".show-album").slideToggle("slow");  
+    popupAibum: function() {
+        $(".show-album").slideToggle("slow");
     },
     openComment: function() {
 
@@ -197,6 +198,48 @@ HubStar.PhotoView = Ember.View.extend({
                 $('#masonry_wrapper').attr('style', "top:100px;position:relative");
             }
         }
+    },
+    ads: function() {
+        var type = this.get("controller").get("megaResouce").get("classification");
+        console.log(type);
+        $(document).ready(function() {
+            setTimeout(function() {
+                var photo = document.getElementById("photo_view_ads");
+                for (var i = 0; i < HubStar.get('objectAds')[0].length; i++)
+                {
+                    var ad = HubStar.get('objectAds')[0][i];
+                    if (ad.type === type)
+                    {
+                        var adDiv = document.createElement('div');
+                        adDiv.id = ad.div;
+                        var height = ad.size[1];
+                        var width = ad.size[0];
+                        adDiv.style.display = "block";
+                        adDiv.style.height = height + "px";
+                        adDiv.style.width = width + "px";
+                        photo.appendChild(adDiv);
+                        if (ad.isNew === true) {
+                            googletag.cmd.push(function() {
+                                var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                                googletag.pubads().enableSingleRequest();
+                                googletag.enableServices();
+                                googletag.display(ad.div);
+                                googletag.pubads().refresh([slot1]);
+                            });
+                            ad.isNew = false;
+                        }
+                        else
+                        {
+                            googletag.cmd.push(function() {
+                                googletag.pubads().enableSingleRequest();
+                                googletag.enableServices();
+                                googletag.display(ad.div);
+                                googletag.pubads().refresh([ads.slot1]);
+                            });
+                        }
+                    }
+                }
+            }, 10);
+        });
     }
-
 });

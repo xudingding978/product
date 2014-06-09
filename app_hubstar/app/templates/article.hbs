@@ -1,8 +1,8 @@
 
 
-        {{#if controller.collectable}}
-        {{render addCollection}}
-        {{/if}}
+{{#if controller.collectable}}
+{{render addCollection}}
+{{/if}}
 <div class="objectview-wrapper this-is-an-article" >
 
     <div class="objectview-left article-objectview-left" >
@@ -257,7 +257,8 @@
 
 
 
-
+        <div id="article_view_ads">
+        </div>
         <!-- OBJECT CREDIT LIST SECTION -->
         {{#if controller.isCreditListExist}}
         <div>
@@ -387,6 +388,6 @@
 {{view HubStar.DeleteFunctionView}}
 
 {{/if}}
-            {{#if controller.contact}}
-            {{render contact}}
-            {{/if}}
+{{#if controller.contact}}
+{{render contact}}
+{{/if}}

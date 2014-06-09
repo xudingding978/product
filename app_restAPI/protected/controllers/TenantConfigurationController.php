@@ -61,7 +61,7 @@ class TenantConfigurationController extends Controller {
         $request_json = file_get_contents('php://input');
         $request = CJSON::decode($request_json, true);
         $feedback = null;
-        $domain = $this->getDomain();
+        $domain = $this->getDomainWihoutAPI();
         $configuration = $this->getProviderConfigurationByName($domain, "ads");
         if (isset($request['adPageNo'])) {
             $adPageNo = $request['adPageNo'];
@@ -73,7 +73,23 @@ class TenantConfigurationController extends Controller {
         }
         $this->sendResponse(200, $feedback);
     }
+    public function actionobjectAdDisplay() {
 
+        $request_json = file_get_contents('php://input');
+        $request = CJSON::decode($request_json, true);
+        $feedback = null;
+        $domain = $this->getDomainWihoutAPI();
+        $configuration = $this->getProviderConfigurationByName($domain, "object_view_ads");
+        if (isset($request['adPageNo'])) {
+            $adPageNo = $request['adPageNo'];
+            if ($adPageNo < sizeof($configuration)) {
+                $feedback = CJSON::encode($configuration[$adPageNo]);
+            }
+        } else {
+            $feedback = CJSON::encode($configuration);
+        }
+        $this->sendResponse(200, $feedback);
+    }
     public function actionPdfDisplay() {
 
 

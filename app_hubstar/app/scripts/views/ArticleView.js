@@ -7,6 +7,7 @@ HubStar.ArticleView = Ember.View.extend({
         return "test";
     }).property(),
     didInsertElement: function() {
+        this.ads();
         var that = this;
         var counter = 0;
         var mouseX = 0;
@@ -245,5 +246,46 @@ HubStar.ArticleView = Ember.View.extend({
             }
 
         }
+    }, ads: function() {
+        var type = this.get("controller").get("megaResouce").get("classification");
+        $(document).ready(function() {
+            setTimeout(function() {
+                var photo = document.getElementById("article_view_ads");
+                for (var i = 0; i < HubStar.get('objectAds')[1].length; i++)
+                {
+                    var ad = HubStar.get('objectAds')[1][i];
+                    if (ad.type === type)
+                    {
+                        var adDiv = document.createElement('div');
+                        adDiv.id = ad.div;
+                        var height = ad.size[1];
+                        var width = ad.size[0];
+                        adDiv.style.display = "block";
+                        adDiv.style.height = height + "px";
+                        adDiv.style.width = width + "px";
+                        photo.appendChild(adDiv);
+                        if (ad.isNew === true) {
+                            googletag.cmd.push(function() {
+                                var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                                googletag.pubads().enableSingleRequest();
+                                googletag.enableServices();
+                                googletag.display(ad.div);
+                                googletag.pubads().refresh([slot1]);
+                            });
+                            ad.isNew = false;
+                        }
+                        else
+                        {
+                            googletag.cmd.push(function() {
+                                googletag.pubads().enableSingleRequest();
+                                googletag.enableServices();
+                                googletag.display(ad.div);
+                                googletag.pubads().refresh([ads.slot1]);
+                            });
+                        }
+                    }
+                }
+            }, 100);
+        });
     }
 });

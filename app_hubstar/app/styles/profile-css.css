@@ -1541,11 +1541,13 @@ textarea.add-interests{
 }
 
 .title-list:hover{
-    background-color:rgba(173, 164, 164,.3);
+    background-color: #000;
+    color: #fff;
 }
 
 .title-list-selected{
-    background-color:rgba(173, 164, 164,.3);
+    background-color: #000;
+    color: #fff;
 }
 
 .title-list > div{
@@ -1555,6 +1557,10 @@ textarea.add-interests{
     color:#ccc; 
     font-size:15px;
     text-align:right;
+}
+
+.title-list-selected > div i {
+     color:#fff !important; 
 }
 
 .title-list > div i{  

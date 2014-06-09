@@ -59,7 +59,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     show_keyword_array: [],
     dragTargetIndex: -1,
     last_name: "",
-    needs: ["editEditors", "profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review', 'keywords', 'profileVideos', 'checkingLoginStatus', 'profilePdf'],
+    needs: ["editEditors", "profilePartners", "itemProfiles", "userFollowers", 'permission', 'contact', 'photoCreate', 'application', 'applicationFeedback', 'userFollowings', 'collection', 'htmlEditor', 'review', 'keywords', 'profileVideos', 'checkingLoginStatus', 'profilePdf', 'shareEmail'],
     name: "",
     facebook: "",
     twitter: "",
@@ -157,6 +157,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     subcate: [],
     backgroundImage: "",
     editorAdd: false,
+    isShareEmail: false,
     init: function() {
 
         this.set('is_authentic_user', false);
@@ -892,29 +893,33 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     eShare: function() {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
+//        if (this.get("controllers.checkingLoginStatus").popupLogin())
+//        {
 
-            var mega = HubStar.Mega.find(this.get('currentUserID'));
-            mega.then(function() {
-                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-                {
-                    mega.set("share_count", 0);
-                }
-                else
-                {
-                    mega.set("share_count", mega.get("share_count") + 1);
-                }
-                mega.store.save();
-            });
-            this.sendEventTracking('event', 'button', 'click', 'Contact us');
-            var contactController = this.get('controllers.emailShare');
-            contactController.setSelectedMega(this.get('currentUserID'));
+//            var mega = HubStar.Mega.find(this.get('currentUserID'));
+//            mega.then(function() {
+//                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+//                {
+//                    mega.set("share_count", 0);
+//                }
+//                else
+//                {
+//                    mega.set("share_count", mega.get("share_count") + 1);
+//                }
+//                mega.store.save();
+//            });
+//            this.sendEventTracking('event', 'button', 'click', 'Contact us');
+//            var shareEmailController = this.get('controllers.shareEmail');
+//            shareEmailController.setSelectedMega(this.get('currentUserID'));
+//            document.getElementById('light').style.display = 'block';
+//            document.getElementById('fade').style.display = 'block';
+        this.set("isShareEmail", true);
+        this.get("controllers.shareEmail").getClientId(this.get("Id"));
+        console.log("1111");
 
-            document.getElementById("body_id").style.overflow = "hidden";
-
-            this.set('contactChecking', !this.get('contactChecking'));
-        }
+//            this.set('contactChecking', !this.get('contactChecking'));
+        //return false;
+//        }
     },
     closeContact: function() {
         this.set('contactChecking', false);

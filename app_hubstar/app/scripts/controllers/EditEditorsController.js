@@ -115,7 +115,7 @@ HubStar.EditEditorsController = Ember.Controller.extend({
             if (id === this.get("contentFollowerPhoto").objectAt(i).record_id)
             {
                 this.get("contentAdministratorPhoto").pushObject(this.get("contentFollowerPhoto").objectAt(i));
-                if (profile.get("profile_administrator") !== ""&&profile.get("profile_administrator") !== null) {
+                if (profile.get("profile_administrator") !== "" && profile.get("profile_administrator") !== null) {
                     profile.set("profile_administrator", profile.get("profile_administrator") + "," + id);
                 }
                 else
@@ -143,12 +143,12 @@ HubStar.EditEditorsController = Ember.Controller.extend({
             if (id === this.get("contentFollowerPhoto").objectAt(i).record_id)
             {
                 this.get("contentEditorPhoto").pushObject(this.get("contentFollowerPhoto").objectAt(i));
-                if (profile.get("profile_editor") !== ""&&profile.get("profile_editor") !== null) {
+                if (profile.get("profile_editor") !== "" && profile.get("profile_editor") !== null) {
                     profile.set("profile_editor", profile.get("profile_editor") + "," + id);
                 }
                 else
                 {
-                    profile.set("profile_editor",  id);
+                    profile.set("profile_editor", id);
                 }
                 break;
             }
@@ -177,11 +177,11 @@ HubStar.EditEditorsController = Ember.Controller.extend({
         }
         var item = [];
         var j = 0;
-        var i=0;
-        for ( j = 0; j < oldAdministrators.length; j++)
+        var i = 0;
+        for (j = 0; j < oldAdministrators.length; j++)
         {
             var flagDel = false;
-            for ( i = 0; i < administrators.get("length"); i++)
+            for (i = 0; i < administrators.get("length"); i++)
             {
                 if (oldAdministrators[j] === administrators.objectAt(i).record_id)
                 {
@@ -198,7 +198,7 @@ HubStar.EditEditorsController = Ember.Controller.extend({
                 dataDel.pushObject(item);
             }
         }
-        for ( i = 0; i < administrators.get("length"); i++)
+        for (i = 0; i < administrators.get("length"); i++)
         {
             if (administrators.objectAt(i).isChange === false)
             {

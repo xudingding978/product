@@ -212,13 +212,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set('mail', !this.get('mail'));
     },
     closeTopAd: function() {
-        HubStar.set("isTopAdDisplay", false);
 
         $(".user-top").css("height", "40px");
         $(".profile-top").css("height", "150px");
         this.searchSmallScreen();
         var tempComment = [this.get("user").get("id")];
         requiredBackEnd('users', 'SetTopAds', tempComment, 'POST', function() {
+            HubStar.set("isTopAdDisplay", false);
         });
     },
     displayTopAds: function() {
@@ -265,7 +265,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     grapData: function() {
         HubStar.set("profiles", []);
-        //HubStar.set("isTopAdDisplay", true);
         var that = this;
         if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
             localStorage.resOrcom = "All";
@@ -275,6 +274,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         if (localStorage.loginStatus) {
             var u = HubStar.User.find(localStorage.loginStatus);
             u.then(function() {
+                HubStar.set("isTopAdDisplay", u.get("is_top_ad_display"));
                 if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
                         && (u.get("email")).match(/@trendsideas.com/g) !== ""
                         && (u.get("email")).match(/@trendsideas.com/g) !== null)
@@ -284,7 +284,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 else {
                     that.set("is_trends_user", false);
                 }
-                that.displayTopAds();
+                if (u.get("is_top_ad_display")) {
+                    that.displayTopAds();
+                }
                 for (var i = 0; i < u.get("profiles").get("length"); i++) {
                     var id = u.get("profiles").objectAt(i).get("profile_id");
                     var name = u.get("profiles").objectAt(i).get("profile_name");

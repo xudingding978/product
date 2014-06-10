@@ -1542,7 +1542,7 @@ textarea.add-interests{
 
 .title-list:hover{
     background-color: #000;
-    color: #fff;
+     color:#fff !important; 
 }
 
 .title-list-selected{

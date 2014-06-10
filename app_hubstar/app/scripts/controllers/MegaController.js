@@ -47,6 +47,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     showRequestTag: false, //show the tag after save and sent the request
     showTagAfterSave: false, // show the tag icon afte approve
     isRead: false,
+    onlyOne: false,
     init: function()
     {
 
@@ -607,8 +608,18 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
                     }
                 }
+                that.checkSinglePhoto(that.get("content").length);
                 that.set("isRead", false);
             });
+        }
+    },
+    checkSinglePhoto: function(length) {
+        if (length !== 1)
+        {
+            this.set("onlyOne", false);
+        }
+        else {
+            this.set("onlyOne", true);
         }
     },
     addProfileRelatedData: function(mega)
@@ -727,6 +738,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
             });
         }
+        this.checkSinglePhoto(this.get("content").length);
         this.set("clickOrRoute", false);
     },
     addRelatedCollectionItemData: function(mega)
@@ -842,6 +854,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
             });
         }
+        this.checkSinglePhoto(this.get("content").length);
         this.set("clickOrRoute", false);
     },
     selectImage: function(e) {

@@ -2,7 +2,7 @@
 
 HubStar.ItemFunctionController = Ember.Controller.extend({
     currentUser: null,
-    needs: ['checkingLoginStatus', 'addCollection', 'applicationFeedback'],
+    needs: ['checkingLoginStatus', 'addCollection', 'applicationFeedback', 'shareEmail'],
     init: function()
     {
         if (localStorage.loginStatus) {
@@ -133,15 +133,15 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
         $('#share_' + id).children('ul').addClass("hideClass");
     },
     fbShare: function(model) {
-        
-          this.shareHide(model.id);
-           var that = this;
-            var currntUrl = '';
-            var caption = '';
-            var mega = model;
+
+        this.shareHide(model.id);
+        var that = this;
+        var currntUrl = '';
+        var caption = '';
+        var mega = model;
         if (this.get("controllers.checkingLoginStatus").popupLogin()) {
-            
-           
+
+
             mega.then(function() {
                 if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
                 {
@@ -254,16 +254,16 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 return false;
             }
         }
-     
+
     },
     //share to social google plus
     gpShare: function(model) {
         this.shareHide(model.id);
-      var caption = '';
-            var currntUrl = '';
-            var url = '';
-            var mega = model;
-            if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+        var caption = '';
+        var currntUrl = '';
+        var url = '';
+        var mega = model;
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
             mega.then(function() {
                 if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
                 {
@@ -357,16 +357,16 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 return false;
             }
         }
-       
+
     },
     //share to social twitter
     tShare: function(model) {
-        
-            this.shareHide(model.id);
-            var currntUrl = '';
-            var url = '';
-            var mega = model;
-            if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+
+        this.shareHide(model.id);
+        var currntUrl = '';
+        var url = '';
+        var mega = model;
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
             mega.then(function() {
                 if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
                 {
@@ -412,15 +412,15 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 return false;
             }
         }
-        
+
     },
     pShare: function(model) {
-        
-            this.shareHide(model.id);
-            var currntUrl = '';
-            var url = '';
-            var mega = model;
-            if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+
+        this.shareHide(model.id);
+        var currntUrl = '';
+        var url = '';
+        var mega = model;
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
             mega.then(function() {
                 if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
                 {
@@ -473,7 +473,36 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 return false;
             }
         }
-        
+
+    },
+    eShare: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+
+            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+//            this.sendEventTracking('event', 'button', 'click', 'Contact us');
+//            var shareEmailController = this.get('controllers.shareEmail');
+//            shareEmailController.setSelectedMega(this.get('currentUserID'));
+//            document.getElementById('light').style.display = 'block';
+//            document.getElementById('fade').style.display = 'block';
+            this.set("isShareEmail", true);
+//        this.get("controllers.shareEmail").getClientId(this.get("Id"));
+
+
+//            this.set('contactChecking', !this.get('contactChecking'));
+            //return false;
+        }
     }
 }
 );

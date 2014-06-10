@@ -12,7 +12,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     from: null,
     selectedPhoto: null,
     isSelected: false,
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'updateTag', 'showTag', 'checkingLoginStatus', 'masonryCollectionItems', 'editComment', 'itemFunction', 'collection', 'article'],
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'updateTag', 'showTag', 'checkingLoginStatus', 'masonryCollectionItems', 'editComment', 'itemFunction', 'collection', 'article', 'shareEmail'],
     currentUser: null,
     currentUserProfile: null,
     photo_album_id: null,
@@ -1078,12 +1078,30 @@ HubStar.MegaController = Ember.ArrayController.extend({
     eShare: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-            var contactController = this.get('controllers.contact');
-            var selectid = this.get('selectedPhoto').id;
-            
-            contactController.setSelectedMega(selectid);
-            contactController.selectionCheckBox();
-            
+
+            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+//            this.sendEventTracking('event', 'button', 'click', 'Contact us');
+//            var shareEmailController = this.get('controllers.shareEmail');
+//            shareEmailController.setSelectedMega(this.get('currentUserID'));
+//            document.getElementById('light').style.display = 'block';
+//            document.getElementById('fade').style.display = 'block';
+            this.set("isShareEmail", true);
+//        this.get("controllers.shareEmail").getClientId(this.get("Id"));
+
+
+//            this.set('contactChecking', !this.get('contactChecking'));
+            //return false;
         }
     },
     closeContact: function() {

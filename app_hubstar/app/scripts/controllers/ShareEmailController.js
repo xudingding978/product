@@ -1,7 +1,37 @@
 HubStar.ShareEmailController = Ember.Controller.extend({
+    selectedMega: null,
+    recieveProfile: null,
+    displayName: null,
+    displayEmail: null,
+    currentUser: null,
+    isDisplayNameEditable: false,
+    isDisplayEmailEditable: false,
+    editNameStatus: "edit",
+    editEmailStatus: "edit",
+    emailBody: null,
+    emailSubject: null,
+    emailDestination: null,
+    emaiCCDestination: null,
+    rememberMessage: true,
+    osAndBrowser: true,
+    userEnvironment: "",
+    owner_profile_pic: null,
+    emaiBCCDestination: null,
+    projectCategory: null,
+    projectTimeframe: null,
+    categorys: [],
+    showCate: false,
+    temp: [],
+    subcate: [],
+    projectBudget: null,
+    projectExperience: null,
+    email_title: "",
     needs: ['permission', 'applicationFeedback', 'user', 'profile', "mega", 'article', 'video', 'application'],
     init: function()
     {
+        if (localStorage.loginStatus) {
+            this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+        }
     },
     checkAuthority: function() {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
@@ -84,5 +114,130 @@ HubStar.ShareEmailController = Ember.Controller.extend({
             }
             that.set('loadingTime', false);
         });
+    },
+    closeContact: function() {
+//        var megaController = this.get("controllers.mega");
+//        var profileController = this.get("controllers.profile");
+//        var articleController = this.get("controllers.article");
+//        var videoController = this.get("controllers.video");
+//
+//        this.set('projectCategoryDropdown', false);
+//        this.set('projectTimeframeDropdown', false);
+//        this.set('projectBudgetDropdown', false);
+//        this.set('projectExperienceDropdown', false);
+//        this.set('showCate', false);
+        this.get("controllers.profile").set("isShareEmail", false);
+//        videoController.closeContact();
+//        megaController.closeContact();
+//        profileController.closeContact();
+//        articleController.closeContact();
+    },
+    emailSend: function()
+    {
+
+        var projectSubCategoryItem = "";
+        for (var i = 0; i < this.get('subcate').get('length'); i++) {
+            if (this.get("checkbox" + i) === true) {
+                projectSubCategoryItem += $('.checkbox' + i).text() + ",";
+            }
+        }
+//        var userEnvironment = "";
+//        if (this.get("osAndBrowser") === true)
+//        {
+//            userEnvironment = this.get("userEnvironment");
+//        }
+        projectSubCategoryItem = projectSubCategoryItem.substring(0, projectSubCategoryItem.length - 1);
+        var tempEmail = HubStar.Email.createRecord({
+            "ownerTitle": this.get("ownerTitle"),
+            "displayName": this.get("displayName"),
+            "displayEmail": this.get("displayEmail"),
+            'recieveProfile': this.get('recieveProfile'),
+            "emailBody": this.get("emailBody"),
+            "emailSubject": this.get("emailSubject"),
+            "emailDestination": this.get("emailDestination"),
+            "emaiCCDestination": this.get("emaiCCDestination"),
+            "emaiBCCDestination": this.get("emaiBCCDestination"),
+//            "projectCategory": this.get('projectCategorySelection').trim(),
+//            "projectTimeframe": this.get('timeframeSelection').trim(),
+//            "projectBudget": this.get('projectBudgetSelection').trim(),
+//            "projectExperience": this.get('projectExperienceSelection').trim(),
+            "objectUrl": document.URL,
+//            "userEnvironment": userEnvironment,
+            "projectSubCategoryItem": projectSubCategoryItem
+        });
+
+        tempEmail.store.commit();
+        this.get('controllers.applicationFeedback').statusObserver(null, "Your message has been sent.");
+        if (!this.get('rememberMessage')) {
+            this.set("emailBody", "");
+            this.set("emailSubject", "");
+
+        }
+
+        this.set('projectCategorySelection', 'Please Select One ...');
+        this.set('timeframeSelection', 'Please Select One ...');
+        this.set('projectBudgetSelection', 'Please Select One ...');
+        this.set('projectExperienceSelection', 'Please Select One ...');
+        this.set('showCate', false);
+        this.closeContact();
+
+    },
+    setSelectedMega: function(id)
+    {
+        console.log("11");
+        this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+        if (this.get("currentUser").get("first_name") !== null && this.get("currentUser").get("last_name")) {
+            this.set("displayName", this.get("currentUser").get("first_name") + " " + this.get("currentUser").get("last_name"));
+        }
+        else {
+            this.set("displayName", this.get("currentUser").get("display_name"));
+        }
+        this.set("displayEmail", this.get("currentUser").get("email"));
+        var idProfile;
+        var tempMega = HubStar.Mega.find(id);
+        this.set("selectedMega", tempMega);
+        var that = this;
+        var email_profile_pic_url = 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg';
+        if (this.get("currentUser").get('photo_url_large').indexOf('data:image') > -1) {
+            email_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
+        } else {
+            email_profile_pic_url = this.get("currentUser").get('photo_url_large');
+        }
+
+
+        tempMega.then(function() {
+            that.set("selectedMega", tempMega);
+            that.set("emailDestination", that.get("selectedMega").get("owner_contact_email"));
+            that.set("emaiCCDestination", that.get("selectedMega").get("owner_contact_cc_emails"));
+            that.set("emaiBCCDestination", that.get("selectedMega").get("owner_contact_bcc_emails"));
+            that.set("ownerTitle", that.get("selectedMega").get("owner_title"));
+            idProfile = that.get("selectedMega").get("owner_id");
+
+//            if (that.get("selectedMega").get("type") === 'profile')
+//            {
+//                that.set("owner_profile_pic", that.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
+//            }
+//            else {
+//                that.set("owner_profile_pic", that.get("selectedMega").get("owner_profile_pic"));
+//            }
+//            var tempProfile = HubStar.Profile.find(idProfile);
+//            var those = that;
+//            tempProfile.then(function() {
+//                those.get('selectedMega').set('owner_title', tempProfile.get('profile_name'));
+//                those.set("emailDestination", tempProfile.get("owner_contact_email"));
+//                those.set("emaiCCDestination", tempProfile.get("owner_contact_cc_emails"));
+//                that.set("emaiBCCDestination",tempProfile.get("owner_contact_bcc_emails"));
+//            });
+        });
+    },
+    reviewCancel: function() {
+        this.get("controllers.profile").set("isShareEmail", false);
+//        this.set("contentFollowerPhoto", null);
+//        this.set("contentCreatorPhoto", null);
+//        this.set("contentAdministratorPhoto", null);
+//        this.set("contentEditorPhoto", null);
+//        var profile = this.get("controllers.profile").get("model");
+//        profile.set("profile_administrator", this.get("administrator"));
+//        profile.set("profile_shareEmail", this.get("shareEmail"));
     }
 });

@@ -29,7 +29,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     enableEditTag: false, //enable  photo owner to edit the tag after activate the tag
     showRequestTag: false, //show the tag after save and sent the request
     showTagAfterSave: false, // show the tag icon afte approve
-    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems', 'showTag', 'mega', 'updateTag', 'permission'],
+    needs: ['application', 'addCollection', 'contact', 'applicationFeedback', 'checkingLoginStatus', 'editComment', 'itemFunction', 'masonryCollectionItems', 'showTag', 'mega', 'updateTag', 'permission', 'shareEmail'],
     init: function() {
         HubStar.set("readCaption", true);
     },
@@ -822,15 +822,30 @@ HubStar.ArticleController = Ember.Controller.extend({
     eShare: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-            var contactController = this.get('controllers.contact');
 
-            this.get("controllers.emailShare").set("firstStepOfContactEmail", false);
-            this.get("controllers.emailShare").set('secondStepOfContactEmail', false);
+            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+//            this.sendEventTracking('event', 'button', 'click', 'Contact us');
+//            var shareEmailController = this.get('controllers.shareEmail');
+//            shareEmailController.setSelectedMega(this.get('currentUserID'));
+//            document.getElementById('light').style.display = 'block';
+//            document.getElementById('fade').style.display = 'block';
+            this.set("isShareEmail", true);
+//        this.get("controllers.shareEmail").getClientId(this.get("Id"));
 
-            var selectid = this.get('selectedPhoto').id;
-            contactController.setSelectedMega(selectid);
 
-            this.set('emailShare', !this.get('emailShare'));
+//            this.set('contactChecking', !this.get('contactChecking'));
+            //return false;
         }
     },
     closeContact: function() {

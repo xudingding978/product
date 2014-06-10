@@ -893,33 +893,33 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     eShare: function() {
-//        if (this.get("controllers.checkingLoginStatus").popupLogin())
-//        {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
 
-//            var mega = HubStar.Mega.find(this.get('currentUserID'));
-//            mega.then(function() {
-//                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-//                {
-//                    mega.set("share_count", 0);
-//                }
-//                else
-//                {
-//                    mega.set("share_count", mega.get("share_count") + 1);
-//                }
-//                mega.store.save();
-//            });
+            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
 //            this.sendEventTracking('event', 'button', 'click', 'Contact us');
-//            var shareEmailController = this.get('controllers.shareEmail');
-//            shareEmailController.setSelectedMega(this.get('currentUserID'));
+            var shareEmailController = this.get('controllers.shareEmail');
+            shareEmailController.setSelectedMega(this.get('currentUserID'));
 //            document.getElementById('light').style.display = 'block';
 //            document.getElementById('fade').style.display = 'block';
-        this.set("isShareEmail", true);
-        this.get("controllers.shareEmail").getClientId(this.get("Id"));
-        console.log("1111");
+            this.set("isShareEmail", true);
+//        this.get("controllers.shareEmail").getClientId(this.get("Id"));
+
 
 //            this.set('contactChecking', !this.get('contactChecking'));
-        //return false;
-//        }
+            //return false;
+        }
     },
     closeContact: function() {
         this.set('contactChecking', false);

@@ -4,7 +4,7 @@ HubStar.VideoController = Ember.Controller.extend({
     video_iframe_code: null,
     currentUser: null,
     enableToEdit: false,
-    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus', 'itemFunction'],
+    needs: ['application', 'applicationFeedback', 'addCollection', 'contact', 'permission', 'editComment', 'checkingLoginStatus', 'itemFunction', 'shareEmail'],
     getinitdata: function(videoObject)
     {
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
@@ -307,6 +307,35 @@ HubStar.VideoController = Ember.Controller.extend({
                 'height=436,width=626'
                 ).focus();
         return false;
+    },
+    eShare: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+
+            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+//            this.sendEventTracking('event', 'button', 'click', 'Contact us');
+//            var shareEmailController = this.get('controllers.shareEmail');
+//            shareEmailController.setSelectedMega(this.get('currentUserID'));
+//            document.getElementById('light').style.display = 'block';
+//            document.getElementById('fade').style.display = 'block';
+            this.set("isShareEmail", true);
+//        this.get("controllers.shareEmail").getClientId(this.get("Id"));
+
+
+//            this.set('contactChecking', !this.get('contactChecking'));
+            //return false;
+        }
     },
     editingPhotoMegaData: function() {
         this.set('enableToEdit', !this.get('enableToEdit'));

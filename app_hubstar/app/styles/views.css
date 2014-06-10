@@ -580,6 +580,16 @@ a:hover , a:focus {color: #aaa;}
     left: 25%;
 }
 
+.controlbtn-share-email{
+    text-align: left;
+    padding: 15px 0;
+    width: 200px;
+    display: block;
+    position: relative;
+    /* margin: auto; */
+    left: 32%;
+    bottom: -8%;
+}
 
 /*MANSONRY album OBJECT STYLE*/
 
@@ -1622,7 +1632,7 @@ div.album-description-bg{
     padding: 0 6px;
     height: 28px;
     line-height: 28px;
-/*    margin: 0 2px;*/
+    /*    margin: 0 2px;*/
     cursor: default;
 
     font-size: 12px;

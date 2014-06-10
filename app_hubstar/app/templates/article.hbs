@@ -1,8 +1,8 @@
 
 
-        {{#if controller.collectable}}
-        {{render addCollection}}
-        {{/if}}
+{{#if controller.collectable}}
+{{render addCollection}}
+{{/if}}
 <div class="objectview-wrapper this-is-an-article" >
 
     <div class="objectview-left article-objectview-left" >
@@ -79,12 +79,15 @@
         </div>
 
         <div class="mainfeature">
+            {{#unless controller.onlyOne}}
             <div  class="previous" id ="previousarticlephoto"style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="view"}}>
-                <i id="pa" class="fa fa-arrow-left" style="top:400px; left: 138px; color: white; position: absolute; font-size: 50px;"></i>
+                <i id="pa" class="" style="background: url(../../images/previouscursor.png) no-repeat;top:400px; left: 138px; color: white; position: absolute; font-size: 50px;width:50px;height:50px;"></i>
             </div>
             <div  class="next" id ="nextarticlephoto" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="view"}}>
-                <i id="na" class="fa fa-arrow-right" style="top:400px; right: 138px; color: white; position: absolute; font-size: 50px;"></i>
+                <i id="na" class="" style="background: url(../../images/nextcursor.png) no-repeat;top:400px; right: 138px; color: white; position: absolute; font-size: 50px;width:50px;height:50px;"></i>
             </div>
+
+            {{/unless}}
             <div id ="tag_article_image">
                 {{view HubStar.PhotoDisplayAreaView}}
                 <!--     show add new  tag template-->   
@@ -395,6 +398,6 @@
 {{view HubStar.DeleteFunctionView}}
 
 {{/if}}
-            {{#if controller.contact}}
-            {{render contact}}
-            {{/if}}
+{{#if controller.contact}}
+{{render contact}}
+{{/if}}

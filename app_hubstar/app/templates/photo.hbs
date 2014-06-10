@@ -89,12 +89,14 @@
         </div>
 
         <div class="mainfeature">
-
+            {{#unless controller.onlyOne}}
             <div  class="previous" id ="previousphoto" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="view"}}>
-                <i id="p" class="fa fa-arrow-left" style="top:400px; left: 138px; color: white; position: absolute; font-size: 50px;"></i>
+                <i id="p" class="" style="background: url(../../images/previouscursor.png) no-repeat;top:400px; left: 138px; color: white; position: absolute; font-size: 50px;width:50px;height:50px;"></i>
             </div>
             <div  class="next" id ="nextphoto" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="view"}}>
-                <i id="n" class="fa fa-arrow-right" style="top:400px; right: 138px; color: white; position: absolute; font-size: 50px;"></i></div>
+                <i id="n" class="" style="background: url(../../images/nextcursor.png) no-repeat;top:400px; right: 138px; color: white; position: absolute; font-size: 50px;width:50px;height:50px;"></i>
+            </div>
+            {{/unless}}
             <!--     image show here-->   
             <div id ="tag_image">
                 {{view HubStar.PhotoDisplayAreaView}}
@@ -185,7 +187,7 @@
                 </div>
             </div>
         </div>
-        
+
 
 
         <!-- OBJECT CONTROLL SECTION -->
@@ -450,5 +452,5 @@
 
 {{/if}}
 {{#if controller.contact}}
-        {{render contact}}
-        {{/if}}
+{{render contact}}
+{{/if}}

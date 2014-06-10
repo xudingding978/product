@@ -21,6 +21,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     hasTag: false,
     makeSureActivateTag: false,
     willActivate: false,
+    onlyOne: false,
     contentTagsArticle: "", //all the tags
     showEachTagContent: false,
     showAllTagsArticle: true, // users show the tag
@@ -700,6 +701,12 @@ HubStar.ArticleController = Ember.Controller.extend({
                             this.set("isShowPhotoUrl", false);
                         }
 
+                    }
+                    if (that.get('content').length !== 1) {
+                        that.set('onlyOne', false);
+                    }
+                    else {
+                        that.set('onlyOne', true);
                     }
                     that.set('selectedPhoto', that.get('content').objectAt(0)); //set selectedPhoto to the first photo
                     that.set('captionTitle', that.get('selectedPhoto').get("photo_title"));

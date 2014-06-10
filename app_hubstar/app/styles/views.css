@@ -960,9 +960,10 @@ div.album-description-bg{
     top: 0;
     left: 0;
     margin: 0;
-    position: fixed;
+    position: absolute;
     right: 320px;
     overflow: hidden;
+    z-index: -1;
 }
 
 
@@ -1618,13 +1619,15 @@ div.album-description-bg{
     box-shadow: none;
     top: -4px;
     position: relative;
-    padding: 0 8px;
+    padding: 0 6px;
     height: 28px;
     line-height: 28px;
-    margin: 0 2px;
+/*    margin: 0 2px;*/
     cursor: default;
 
     font-size: 12px;
+    overflow: hidden;
+    margin-top: 1%;
 }
 
 .disabled-green{

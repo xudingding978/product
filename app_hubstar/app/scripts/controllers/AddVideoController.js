@@ -17,7 +17,6 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
     },
     getVideoFromYoutube: function()
     {
-
         this.set('videoid', this.getVideoId());
         var that = this;
 
@@ -38,7 +37,6 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
         }
     },
     reset: function() {
-        console.log("3");
         this.set('videoImg', null);
         this.set('videoUrl', null);
         this.set('videoTitle', null);
@@ -65,7 +63,6 @@ HubStar.AddVideoController = Ember.ObjectController.extend({
         var profileVideosController = this.get('controllers.profileVideos');
         profileVideosController.get("videoesContent").insertAt(0, mega);
         var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
-
 
         this.get("controllers.profile").set("profileVideoStatistics", profileVideosController.get("videoesContent").get("length"));
         mega.store.save();

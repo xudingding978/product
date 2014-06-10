@@ -1503,7 +1503,6 @@ textarea.add-interests{
     width: 100%;
     height: auto; 
     min-height: 50px;
-    padding-left: 25px; 
     background-color: #ccc;
 }
 
@@ -1515,10 +1514,12 @@ textarea.add-interests{
     min-height: 50px;
     vertical-align: middle;
     display: inline-block;
+    position: absolute;
+    left:22px;
 }
 
 .new-profile-display-title{
-    left: 15%;
+
     position: relative;
     font-size: 20px;
     font-weight: bold;

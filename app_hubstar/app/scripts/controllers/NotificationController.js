@@ -203,14 +203,17 @@ HubStar.NotificationController = Ember.Controller.extend({
                         if (type === "administrator")
                         {
                             isAdministrator = true;
+                            HubStar.set("userAdministrator", HubStar.get("userAdministrator") + 1);
                         }
                         else if (type === "editor")
                         {
                             isEditor = true;
+                            HubStar.set("userEditor", HubStar.get("userEditor") + 1);
                         }
                         else if (type === "creator")
                         {
                             isCreator = true;
+                            HubStar.set("userCreator", HubStar.get("userCreator") + 1);
                         }
 
                         var url = profile_pic.split("_");

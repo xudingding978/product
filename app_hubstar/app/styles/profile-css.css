@@ -1207,6 +1207,10 @@ textarea.add-interests{
     z-index: 2;
 }
 
+.user-says-angle-before1{
+    left: 51px;
+}
+
 .user-says-angle-after{
     width: 0px;
     height: 0px;
@@ -1216,11 +1220,13 @@ textarea.add-interests{
     border-bottom: 0px solid transparent;
     border-left: 0px solid transparent;
     border-right: 15px solid #ddd;	
-
     position: absolute;
     z-index: 1;
 }
 
+.user-says-angle-after1{
+    left: 49px;
+}
 .user-reply-angle-before{
     width: 0px;
     height: 0px;

@@ -26,6 +26,10 @@ a:hover , a:focus {color: #aaa;}
     top: 15px;
 }
 
+.dropdownicon-dis{
+    height: 16px; 
+    width: 16px;
+}
 .dropdownicon > i{
     height: 16px;
     width: 16px;
@@ -72,6 +76,10 @@ a:hover , a:focus {color: #aaa;}
     cursor: pointer;
 }
 
+.share-box2{
+    position:relative;
+    margin: 0 5px;
+}
 .square-button:hover{opacity: 1}
 
 
@@ -1088,6 +1096,33 @@ div.album-description-bg{
     /*    cursor: url(../../../images/previouscursor.png), auto;*/
 }
 
+.previous-arrow-box{
+    width: 50%; 
+    height: 100%; 
+    float: left;
+}
+
+.arrow-pos{
+    top:400px;  
+    color: white; 
+    position: absolute; 
+    font-size: 50px;
+}
+
+.arrow-left{
+       left: 138px;
+}
+
+.arrow-right{
+       right: 138px;
+}
+.next-arrow-box{
+    width: 50%; 
+    height: 100%; 
+    float: right;
+}
+
+
 .close_text{
     position: relative;
     left: 34px;
@@ -1145,7 +1180,34 @@ div.album-description-bg{
     -o-transition: all 0.8s ease;
 }
 
+.left-arrow{
+    display:inline-block; 
+    vertical-align: top; 
+    position:relative; 
+    left:44px;
+}
 
+.right-arrow{
+    left: 44px;
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.middle-icon{
+    left: 44px; 
+    display:inline-block; 
+    vertical-align: top; 
+    position:relative;
+}
+
+.photo-no{
+    left: 88px; 
+    top:0;
+    position: relative !important;
+    display: inline-block;
+    vertical-align: top;
+}
 .icon-on-black:hover{
     color: #fff;
 }
@@ -1175,13 +1237,43 @@ div.album-description-bg{
     font-family: FontAwesome, "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 }
+.top-article{
+    position:relative;
+    width: 60px;
+    margin: 0 5px;
+}
+
+.top-tag{
+    position:relative;
+    margin: 0 10px;
+    width: 60px;
+}
+
+.top-tag-acts{
+    position:relative;
+    margin: 0 5px;
+    width: 60px;
+}
 
 
 /* top navigation specific styling ends */
 .icon-on-black > .pretooltip{
     float:left;
 }
+.view-des{
+    margin-bottom: 5px;
+}
+.view-txt{
+    width: 300px;
+    font-size: 13px;
+    line-height: 16px;
+}
 
+
+.view-arrow{
+    float: right; 
+    cursor:pointer;
+}
 .text-on-black{
     color: #737373;
     font: normal 14px Roboto,arial,sans-serif;
@@ -1331,6 +1423,15 @@ div.album-description-bg{
     background-color: #f8f8f8;
 }
 
+.article-display{
+    display:block;
+}
+
+.view-stats-box{
+    display:block;
+    border-top: 1px solid #f3f3f3;
+}
+
 .collapes-container_inner{
     padding: 30px 0;
     width: 87%;
@@ -1338,6 +1439,52 @@ div.album-description-bg{
     border-bottom: 1px solid rgba(0,0,0,.03)
 }
 
+.discuss-box{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.discuss-input-box{
+    width: 98%;
+    padding: 15px 10px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-bottom: 1px solid #ddd;
+}
+
+.discuss-input-innerbox{
+    margin:0 auto; 
+    padding: 0 0 0 50px;
+}
+.view-stats-innerbox{
+    padding: 0; 
+    height: 45px;
+}
+
+.view-stats-font{
+    font-size: 11px;
+}
+
+.discuss-input{
+    width: 100%; 
+    border-radius: 2px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.discuss-input-txt{
+    margin: 0;
+    width: 100%; 
+    height:100px;
+}
+
+.discuss-submit{
+    height: 30px;
+    position: relative;
+    border-top: 1px solid #ddd;
+    top: -1px;
+}
 .edit_photo-titile_field{
     margin-bottom: 7px;
 }
@@ -1697,6 +1844,14 @@ div.album-description-bg{
     line-height: 1.6em;
 }
 
+.article-text2{
+    height: 210px;
+    overflow: hidden;
+}
+
+.article-creditList{
+    font-weight: bold;
+}
 .caption-title{
     font-size: 22px;
     font-weight: bold;
@@ -1789,6 +1944,21 @@ div.album-description-bg{
     padding: 5px 6.5%;
 }
 
+.comment-item-img{
+    width: 45px; 
+    height: 45px;
+    float: left; 
+    margin: 4px 0 0 -50px; 
+    margin-top: 0;
+}
+
+.comment-item-img-z1{
+    z-index: 1;
+}
+
+.comment-item-img-z2{
+    z-index: 2;
+}
 .comment-position{
     padding: 4.5px 0 4.5px 35px;
     vertical-align: top;
@@ -2040,7 +2210,51 @@ div.album-description-bg{
     padding: 0;
 }
 
+.share-box{
+    width: 150px; 
+    margin: 0 auto; 
+    left: 70px;
+    padding: 0;
+}
+.share-box2a{
+    width: 170px; 
+    right: -36px; 
+    position: relative; 
+    top: 50px;
+}
 
+.share-type-fb{
+    max-height:34px;
+}
+
+.share-type-fb1{
+    top:-31px;
+}
+
+.share-type-fb2{
+    top:-32px;
+}
+
+.share-type{
+    font-size: 16px; 
+    margin: 0px 5px;
+}
+
+.share-type-pos1{
+    position: relative;
+}
+
+.share-type-pos2{
+    position: absolute;
+}
+
+.share-type-txt1{
+    margin-left: 1.3em;
+}
+
+.share-type-txt2{
+    margin-left: 2.5em;
+}
 .edit-object-ul:before{
     content: "";
     position: absolute;

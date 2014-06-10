@@ -217,8 +217,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $(".profile-top").css("height", "150px");
         this.searchSmallScreen();
         var tempComment = [this.get("user").get("id")];
+        var that =this;
         requiredBackEnd('users', 'SetTopAds', tempComment, 'POST', function() {
             HubStar.set("isTopAdDisplay", false);
+            that.get("user").set("is_top_ad_display",false);
         });
     },
     displayTopAds: function() {

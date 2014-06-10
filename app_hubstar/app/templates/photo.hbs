@@ -89,14 +89,17 @@
         </div>
 
         <div class="mainfeature">
-            {{#unless controller.onlyOne}}
+            
             <div  class="previous" id ="previousphoto" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="view"}}>
+               {{#unless controller.onlyOne}}
                 <i id="p" class="" style="background: url(../../images/previouscursor.png) no-repeat;top:400px; left: 138px; color: white; position: absolute; font-size: 50px;width:50px;height:50px;"></i>
+             {{/unless}}
             </div>
             <div  class="next" id ="nextphoto" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="view"}}>
+                {{#unless controller.onlyOne}}
                 <i id="n" class="" style="background: url(../../images/nextcursor.png) no-repeat;top:400px; right: 138px; color: white; position: absolute; font-size: 50px;width:50px;height:50px;"></i>
-            </div>
             {{/unless}}
+            </div>
             <!--     image show here-->   
             <div id ="tag_image">
                 {{view HubStar.PhotoDisplayAreaView}}
@@ -119,9 +122,7 @@
                 </div>
                 {{/if}}
 
-                <div class="previous" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="controller"}}></div>
-                <div class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="controller"}}></div>
-
+               
 
                 <!--     show   tag's detail content  template-->   
                 <!--              only when is not in the edit tag state and mouse over the tag can show the detail content-->

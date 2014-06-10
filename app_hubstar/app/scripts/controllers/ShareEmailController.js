@@ -154,9 +154,9 @@ HubStar.ShareEmailController = Ember.Controller.extend({
             'recieveProfile': this.get('recieveProfile'),
             "emailBody": this.get("emailBody"),
             "emailSubject": this.get("emailSubject"),
-            "emailDestination": this.get("emailDestination"),
-            "emaiCCDestination": this.get("emaiCCDestination"),
-            "emaiBCCDestination": this.get("emaiBCCDestination"),
+//            "emailDestination": this.get("emailDestination"),
+//            "emaiCCDestination": this.get("emaiCCDestination"),
+//            "emaiBCCDestination": this.get("emaiBCCDestination"),
 //            "projectCategory": this.get('projectCategorySelection').trim(),
 //            "projectTimeframe": this.get('timeframeSelection').trim(),
 //            "projectBudget": this.get('projectBudgetSelection').trim(),
@@ -174,10 +174,10 @@ HubStar.ShareEmailController = Ember.Controller.extend({
 
         }
 
-        this.set('projectCategorySelection', 'Please Select One ...');
-        this.set('timeframeSelection', 'Please Select One ...');
-        this.set('projectBudgetSelection', 'Please Select One ...');
-        this.set('projectExperienceSelection', 'Please Select One ...');
+//        this.set('projectCategorySelection', 'Please Select One ...');
+//        this.set('timeframeSelection', 'Please Select One ...');
+//        this.set('projectBudgetSelection', 'Please Select One ...');
+//        this.set('projectExperienceSelection', 'Please Select One ...');
         this.set('showCate', false);
         this.closeContact();
 
@@ -192,7 +192,7 @@ HubStar.ShareEmailController = Ember.Controller.extend({
         else {
             this.set("displayName", this.get("currentUser").get("display_name"));
         }
-        this.set("displayEmail", this.get("currentUser").get("email"));
+//        this.set("displayEmail", this.get("currentUser").get("email"));
         var idProfile;
         var tempMega = HubStar.Mega.find(id);
         this.set("selectedMega", tempMega);
@@ -207,9 +207,9 @@ HubStar.ShareEmailController = Ember.Controller.extend({
 
         tempMega.then(function() {
             that.set("selectedMega", tempMega);
-            that.set("emailDestination", that.get("selectedMega").get("owner_contact_email"));
-            that.set("emaiCCDestination", that.get("selectedMega").get("owner_contact_cc_emails"));
-            that.set("emaiBCCDestination", that.get("selectedMega").get("owner_contact_bcc_emails"));
+//            that.set("emailDestination", that.get("selectedMega").get("owner_contact_email"));
+//            that.set("emaiCCDestination", that.get("selectedMega").get("owner_contact_cc_emails"));
+//            that.set("emaiBCCDestination", that.get("selectedMega").get("owner_contact_bcc_emails"));
             that.set("ownerTitle", that.get("selectedMega").get("owner_title"));
             idProfile = that.get("selectedMega").get("owner_id");
 

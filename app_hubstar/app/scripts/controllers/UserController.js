@@ -243,7 +243,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.set("cover_url", user.get("cover_url"));
         }
         this.set("photo_url", user.get("photo_url"));
-        
+
         if (user.get("photo_url_large") === null || user.get('photo_url_large') === "" || user.get('photo_url_large') === undefined) {
             this.set('photo_url_large', 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg');
         } else {
@@ -294,17 +294,27 @@ HubStar.UserController = Ember.Controller.extend({
                     $("#search-bar").css('display', "block");
                     $("#topResidentialCommerical").css('display', "block");
                     $(".search-bar-on-small-screen").css('display', "none");
-                    $(".user-board").css("top", "0");
+                    if (HubStar.get("isTopAdDisplay")) {
+                       
+                    }else{
+                        $(".user-top").css("height", "40px");
+                    }
+
                 } else {
                     $("#search-bar").css('display', "none");
                     $("#topResidentialCommerical").css('display', "none");
                     $(".search-bar-on-small-screen").css('display', "block");
-                    $(".user-board").css("top", "30px");
+                    if (HubStar.get("isTopAdDisplay")) {
+                        $("#top_bar_ads").css({"position": "fixed", "top": "140px"});
+                    }else{
+                        $(".user-top").css("height", "40px");
+                    }
                 }
+                 
 
             }, 50);
         });
-       
+
     },
     trendsUser: function() {
         if (localStorage.loginStatus)
@@ -598,7 +608,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.length = length;
             this.isEmailValid = isEmailValid;
         }
-        var checkList =[];
+        var checkList = [];
         var result = true;
         var displayName = new CheckObject("displayName", this.get('display_name'), 128, null);
         checkList.push(displayName);
@@ -666,7 +676,7 @@ HubStar.UserController = Ember.Controller.extend({
             this.shouldInclude = shouldInclude;
         }
         var result;
-        var checkList =[];
+        var checkList = [];
         var facebook = new CheckObject("facebook", this.get('facebook'), 128, true, "facebook");
         checkList.push(facebook);
         var twitter = new CheckObject("twitter", this.get('twitter'), 128, true, "twitter");

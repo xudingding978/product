@@ -79,7 +79,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     localStorage: "",
     applicationCategoryDropdownType: 'geoLocation',
     init: function() {
-
+        HubStar.set("isTopAdDisplay", true);
         var that = this;
 
         this.set('categorys', HubStar.Cate.find({}));
@@ -211,8 +211,17 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     email_login: function() {
         this.set('mail', !this.get('mail'));
     },
+    closeTopAd: function() {
+        HubStar.set("isTopAdDisplay", false);
+        
+        $(".user-top").css("height", "40px");
+         $(".profile-top").css("height", "150px");
+       this.searchSmallScreen();
+        
+    },
     grapData: function() {
         HubStar.set("profiles", []);
+        //HubStar.set("isTopAdDisplay", true);
         var that = this;
 
         if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
@@ -296,9 +305,23 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             if (HubStar.get('showDiscoveryBar') === true) {
 
                 $("#search-bar").css('display', "none");
+                if (HubStar.get("isTopAdDisplay")) {
+                    $("#top_bar_ads").css({"position": "relative", "top": "10px"});
+
+                }
                 $("#topResidentialCommerical").css('display', "none");
             } else {
-                $('#masonry_container').css('top', "100px");
+                if (HubStar.get("isTopAdDisplay")) {
+                    $('#masonry_wrapper').css('top', "240px");
+                    if (HubStar.get("isTopAdDisplay")) {
+                        $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
+
+                    }
+                }
+                else
+                {
+                    $('#masonry_wrapper').css('top', "100px");
+                }
                 $("#search-bar").css('display', "block");
                 $("#topResidentialCommerical").css('display', "block");
             }
@@ -306,12 +329,21 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $("#search-bar").css('display', "none");
             $("#topResidentialCommerical").css('display', "none");
             if (HubStar.get('showDiscoveryBar') === true) {
+                if (HubStar.get("isTopAdDisplay")) {
+                    $("#top_bar_ads").css({"position": "relative", "top": "10px"});
 
+                }
                 $(".search-bar-on-small-screen").css('display', "none");
             } else {
                 $(".search-bar-on-small-screen").css('display', "block");
-                $('#masonry_container').css('top', "150px");
-
+                if (HubStar.get("isTopAdDisplay")) {
+                    $("#top_bar_ads").css({"position": "fixed", "top": "140px"});
+                    $('#masonry_wrapper').css('top', "290px");
+                }
+                else
+                {
+                    $('#masonry_wrapper').css('top', "150px");
+                }
             }
         }
 
@@ -884,7 +916,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     showDiscoveryBar: function() {
 
         HubStar.set("showDiscoveryBar", true);
-
+        if (HubStar.get("isTopAdDisplay")) {
+            $("#top_bar_ads").css({"position": "relative", "top": "10px"});
+        }
         HubStar.set("escVideo", true);
         HubStar.set("defaultSearch", true);
         this.transitionToRoute('indexIndex');

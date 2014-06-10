@@ -16,7 +16,7 @@ HubStar.UserRoute = Ember.Route.extend({
         this.controller.set('switchPhoto', true);
         this.controller.set('collectionTag', true);
         //  this.controller.set('partnerTag', false);
-
+        HubStar.set("showDiscoveryBar",false);
         if (localStorage.checkUser === "newUser") {
             setTimeout(function() {
                 window.location.href = 'JavaScript:void(0)';
@@ -96,7 +96,7 @@ HubStar.UserRoute = Ember.Route.extend({
 
         $(window).scrollTop(0);
         $('#discovery_search_bar_wrapper').css('display', "none");
-        $('#masonry_container').css('display', "none");
+        $('#masonry_wrapper').css('display', "none");
         $(function() {
             $('#masonry_container').masonry('remove', $('.noStyle1'));
         });

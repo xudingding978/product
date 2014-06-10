@@ -285,7 +285,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     that.set("is_trends_user", false);
                 }
                 if (u.get("is_top_ad_display")) {
-                    that.displayTopAds();
+                    setTimeout(function() {
+                        that.displayTopAds();
+                    }, 200);
                 }
                 for (var i = 0; i < u.get("profiles").get("length"); i++) {
                     var id = u.get("profiles").objectAt(i).get("profile_id");

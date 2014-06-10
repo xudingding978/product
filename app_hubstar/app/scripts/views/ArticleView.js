@@ -267,6 +267,7 @@ HubStar.ArticleView = Ember.View.extend({
                         if (ad.isNew === true) {
                             googletag.cmd.push(function() {
                                 var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                                ad.slot1 = slot1;
                                 googletag.pubads().enableSingleRequest();
                                 googletag.enableServices();
                                 googletag.display(ad.div);
@@ -280,12 +281,12 @@ HubStar.ArticleView = Ember.View.extend({
                                 googletag.pubads().enableSingleRequest();
                                 googletag.enableServices();
                                 googletag.display(ad.div);
-                                googletag.pubads().refresh([ads.slot1]);
+                                googletag.pubads().refresh([ad.slot1]);
                             });
                         }
                     }
                 }
-            }, 100);
+            }, 300);
         });
     }
 });

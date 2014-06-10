@@ -201,7 +201,6 @@ HubStar.PhotoView = Ember.View.extend({
     },
     ads: function() {
         var type = this.get("controller").get("megaResouce").get("classification");
-        console.log(type);
         $(document).ready(function() {
             setTimeout(function() {
                 var photo = document.getElementById("photo_view_ads");
@@ -221,6 +220,7 @@ HubStar.PhotoView = Ember.View.extend({
                         if (ad.isNew === true) {
                             googletag.cmd.push(function() {
                                 var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                                ad.slot1 = slot1;
                                 googletag.pubads().enableSingleRequest();
                                 googletag.enableServices();
                                 googletag.display(ad.div);
@@ -234,7 +234,7 @@ HubStar.PhotoView = Ember.View.extend({
                                 googletag.pubads().enableSingleRequest();
                                 googletag.enableServices();
                                 googletag.display(ad.div);
-                                googletag.pubads().refresh([ads.slot1]);
+                                googletag.pubads().refresh([ad.slot1]);
                             });
                         }
                     }

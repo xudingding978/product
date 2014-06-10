@@ -213,17 +213,60 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     },
     closeTopAd: function() {
         HubStar.set("isTopAdDisplay", false);
-        
+
         $(".user-top").css("height", "40px");
-         $(".profile-top").css("height", "150px");
-       this.searchSmallScreen();
-        
+        $(".profile-top").css("height", "150px");
+        this.searchSmallScreen();
+        var tempComment = [this.get("user").get("id")];
+        requiredBackEnd('users', 'SetTopAds', tempComment, 'POST', function() {
+        });
+    },
+    displayTopAds: function() {
+        $(document).ready(function() {
+            setTimeout(function() {
+                var photo = document.getElementById("search_wall_top");
+                for (var i = 0; i < HubStar.get('objectAds')[3].length; i++)
+                {
+                    var ad = HubStar.get('objectAds')[3][i];
+                    //if (ad.type === type)
+                    {
+                        var adDiv = document.createElement('div');
+                        adDiv.id = ad.div;
+                        var height = ad.size[1];
+                        var width = ad.size[0];
+                        adDiv.style.display = "block";
+                        adDiv.style.height = height + "px";
+                        adDiv.style.width = width + "px";
+                        photo.appendChild(adDiv);
+                        if (ad.isNew === true) {
+                            googletag.cmd.push(function() {
+                                var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                                ad.slot1 = slot1;
+                                googletag.pubads().enableSingleRequest();
+                                googletag.enableServices();
+                                googletag.display(ad.div);
+                                googletag.pubads().refresh([slot1]);
+                            });
+                            ad.isNew = false;
+                        }
+                        else
+                        {
+                            googletag.cmd.push(function() {
+                                googletag.pubads().enableSingleRequest();
+                                googletag.enableServices();
+                                googletag.display(ad.div);
+                                googletag.pubads().refresh([ad.slot1]);
+                            });
+                        }
+                    }
+                }
+            }, 100);
+        });
     },
     grapData: function() {
         HubStar.set("profiles", []);
         //HubStar.set("isTopAdDisplay", true);
         var that = this;
-
         if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
             localStorage.resOrcom = "All";
         }
@@ -241,6 +284,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 else {
                     that.set("is_trends_user", false);
                 }
+                that.displayTopAds();
                 for (var i = 0; i < u.get("profiles").get("length"); i++) {
                     var id = u.get("profiles").objectAt(i).get("profile_id");
                     var name = u.get("profiles").objectAt(i).get("profile_name");
@@ -292,6 +336,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
                 }
             });
+        }
+        else
+        {
+            that.displayTopAds();
         }
         this.set("user", u);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);

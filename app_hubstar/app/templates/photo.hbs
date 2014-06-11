@@ -123,11 +123,11 @@
                 <!--     show   tag's detail content  template-->   
                 <!--              only when is not in the edit tag state and mouse over the tag can show the detail content-->
                 {{#if HubStar.tagging_display}}
-                {{#unless controller.enableTag}}
-                {{#if controller.showEachTagContent }}
-                {{  view HubStar.TagContentView }}
-                {{/if}}
-                {{/unless}}
+                    {{#unless controller.enableTag}}
+                        {{#if controller.showEachTagContent }}
+                        {{ view HubStar.TagContentView }}
+                        {{/if}}
+                    {{/unless}}
                 <!--     show all the tags--> 
                 {{#if controller.showAllTags}} <!--      showOrNot tag-->
                 {{#each controller.contentTags}}

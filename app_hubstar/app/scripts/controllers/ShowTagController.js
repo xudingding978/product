@@ -97,10 +97,12 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 if (HubStar.get("isArticleTag") === true)
                 {
                     that.get("controllers.article").set("showRequestTag", true);
+                    that.get("controllers.article").set("enableTag", false);
                 }
                 else
                 {
                     that.get("controllers.mega").set("showRequestTag", true);
+                    that.get("controllers.mega").set("enableTag", false);
                 }
 
                 that.setDescription("");

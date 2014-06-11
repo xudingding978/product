@@ -1,11 +1,8 @@
 <div id ="tagitshow" class="" style="display:block;" {{action hideContent on="mouseLeave" target="view"}}>
     <!--              enable to edit the tag controller-->
-
-
     <div id="tagImg" style=" ">
         <a href="{{unbound controller.tag.linkto}}" > <img  {{bindAttr src= "controller.tag.pic_url"}}  style=""></a>
     </div>
-
     <!--        only the tag owner and the tag is not activate can have the activate button-->
     <div id="tagBtn">
         {{#if controller.is_authentic_user}}
@@ -24,13 +21,9 @@
         {{/if}}
         {{/if}}       
     </div>
-
-
-
     <div id="tagName" class="name" style="">
         {{controller.tag.product_name}}
     </div>
-
     <div id="tagContent" style="">
         <div style=' overflow: hidden;'>
             {{#if controller.isNullLink}}
@@ -45,11 +38,7 @@
             </a>
             {{/if}}
         </div>        
-
     </div>
-
-
-
 </div>
 
 

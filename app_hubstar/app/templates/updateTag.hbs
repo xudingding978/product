@@ -1,32 +1,13 @@
 
 
-{{#if controller.isUpdateTag}}
+
+<div id="login_lightbox" class="blur_black" {{action cancelUpdateTag }}>&nbsp;</div>
 <div  id ="tagit1">
 
     <div id ="savePhoto"class="t-style-box" style="z-index: 1002; position: relative;border-radius: 3px;">
 
-        <div style="margin: 0 0 20px; position: relative; background-color: #f3f3f3; height: 45px;border-bottom: 1px solid #ddd;border-radius: 3px 3px 0 0;">
-            <div style=' color: #555; font-size: 18px; font-weight: bold; text-align: center; line-height: 45px;'>Choose profile:
-      
-                <div class="" style="display:inline-block;cursor: pointer;"   {{action profileSwitch on="click" target="controller"}}>
-                     {{controller.selectedDesc}}
-                     &nbsp;<i class="fa fa-caret-down"></i>
-                </div>
-                {{#if controller.selectTagProfile}}
-                <div class="select-profile-save" style="top: 50px;">
-                 <div  style="width: auto;line-height: 27px; padding: 0 20px;border-bottom: 1px solid #ddd;border-top: 1px solid #fff;">
-                             Your Profiles
-                        </div>
-                    <div class="" style="height: 350px; font-size: 13px; font-weight: bold; overflow: auto; overflow-x:hidden; ">
-                        {{#each controller.profiles}}
-                        <div class="choose-exist-collection easing" style="width: auto;line-height: 27px; padding: 0 20px;border-bottom: 1px solid #ddd;border-top: 1px solid #fff;" {{action chooseProfile profile_name profile_id}}>
-                             <a class="exist-name easing"> {{profile_name}}</a>
-                        </div>
-                        {{/each}}
-                    </div>
-                </div>
-
-                {{/if}}
+        <div style="margin: 0 0 10px; position: relative; background-color: #f3f3f3; height: 45px;border-bottom: 1px solid #ddd;border-radius: 3px 3px 0 0;">
+            <div style=' color: #555; font-size: 18px; font-weight: bold; text-align: center; line-height: 45px;'>{{controller.profile_name}}               
             </div>
             <div class="exit" style="float: right; position: relative; top: -46px;">
                 <div class="closeview" {{action cancelUpdateTag }}>
@@ -34,11 +15,19 @@
                 </div> 
             </div>  
         </div> 
-        <div class="contactmebox-wapper" style="width: 530px;height: 250px;font-size: 13px;margin: 0 20px;">
-            <div style="display:inline-block; ">
+
+        <div class="contactmebox-wapper" style="width: 530px;height: 200px;font-size: 13px;margin: 0 20px;">
+            <div style="display:inline-block; width:60%;">
+
+
+                <div style="display:inline-block; ">
+                    <div style=' color: #555; font-size: 18px; font-weight: bold; text-align: center; line-height: 45px;'>{{controller.selectedCollectionName}}               
+            </div>                 
+                </div>
+
 
                 <div style=' font-size: 18px; font-weight: bold;'>    Product Name</div> 
-                <div style="height: 10px;">
+                <div style="height: 15px;">
                     {{view Ember.TextArea valueBinding="controller.product_name" rows="1" cols="70" class="tag_currenprofile" placeholder="Say something about it!"}}
                 </div>
                 <br> 
@@ -48,22 +37,19 @@
                     {{view Ember.TextArea valueBinding="controller.description" rows="10" cols="70" class="tag_descriptionbox" placeholder="Write something to introduce the product!"}}
                 </div>
 
-                <div style=' font-size: 18px; font-weight: bold;'>       Link to:</div>
-                <div style="height: 10px;">
-                    {{view Ember.TextArea valueBinding="controller.linkTo" rows="2" cols="70" class="tag_linkto" placeholder="Add link to the content"}}
-                </div>
+
             </div>
-            {{#if controller.selectedDesc}}
+
             <div style="display:inline-block;margin:30px 15px ; vertical-align: top;">
                 <div style="width: 174px; height: 174px; overflow: hidden;padding: 10px;background-color: rgba(0,0,0,0.03);top: -4px;position: relative;">
                     <img style="height: 154px;width: 154px;" {{bindAttr src="controller.selectedPhotoThumbnailUrl" }}>
                 </div>
             </div>
-            {{/if}}
+
 
         </div>
 
-
+        
         <div class="" style="height: 45px;position: relative;border-top: 1px solid #ddd;top: -1px;border-radius: 0 0 3px 3px;overflow: hidden;">
             <div  class="message-btn easing" style="height:45px;line-height: 45px; border-right: 1px solid #ddd;" {{action cancelUpdateTag }}><i class='fa fa-times'>&nbsp;</i>Cancel</div>
             <div class="message-btn easing" style='height:45px;line-height: 45px;'{{action saveUpdateTag controller.selectedPhotoThumbnailUrl}}><i class='fa fa-check'>&nbsp;</i>Update</div>
@@ -72,4 +58,3 @@
     </div>
 
 </div>
-{{/if}}

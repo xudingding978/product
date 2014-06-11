@@ -675,6 +675,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     }
                 }
             }
+            this.checkSinglePhoto(this.get("content").length);
         }
         else if (this.get("clickOrRoute") === true) // it  assesses the collection photo from route
         {
@@ -688,6 +689,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 if (profile.get('collections').objectAt(j).get('id') === collection_id)
                 {
                     id = profile.get('collections').objectAt(j).get('optional');
+                    this.checkSinglePhoto(profile.get('collections').objectAt(j).get('collection_ids').split(',').length);
+                         
                 }
             }
             var pics = HubStar.Mega.find({RquireType: "profileCollection", user_id: id, collection_id: collection_id});
@@ -736,9 +739,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         }
                     }
                 }
-            });
+            });   
         }
-        this.checkSinglePhoto(this.get("content").length);
+      
         this.set("clickOrRoute", false);
     },
     addRelatedCollectionItemData: function(mega)

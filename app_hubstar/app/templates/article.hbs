@@ -103,9 +103,6 @@
                 {{view HubStar.TagMouseView}} 
                 {{/each}}
                 {{/if}}
-                {{#if controller.makeSureActivateTag}}
-                {{view HubStar.ActivateTagFunctionView}}
-                {{/if}}
                 {{/if}}
             </div>
 
@@ -391,4 +388,7 @@
 {{/if}}
 {{#if controller.enableEditTag}}
 {{render updateTag}}
+{{/if}}
+{{#if controller.makeSureActivateTag}}
+{{view HubStar.ActivateTagFunctionView}}
 {{/if}}

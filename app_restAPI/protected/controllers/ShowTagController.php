@@ -377,7 +377,7 @@ class ShowTagController extends Controller {
 
     public function sendEmail($receiveEmail, $receiveName, $photo_url, $currentUserName, $linkToCompany) {
 
-        $receiveEmail = "shuai@hubstar.co";
+        //$receiveEmail = "shuai@hubstar.co";
         $domain = $this->getDomain();
         // $domainWithoutAPI = $this->getDomainWihoutAPI();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");

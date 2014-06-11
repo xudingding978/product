@@ -253,12 +253,18 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 else
                 {
                     var type = address.split("#")[1].split("/")[1];
+                     var search = address.split("#")[1].split("/")[2];
                     if (type === "photos")
                     {
                         this.transitionTo("photo", this.get("megaResouce").get('photo').objectAt(0));
                     }
                     else {
-                        this.transitionTo("newSearchPhoto", this.get("megaResouce"));
+                           if (search === "default")
+                        {
+                            this.transitionTo("searchDefaultPhoto", this.get("megaResouce"));
+                        } else {
+                            this.transitionTo("newSearchPhoto", this.get("megaResouce"))
+                        }
                     }
                 }
                 this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
@@ -266,10 +272,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 this.selectedImage(this.get('selectedPhoto').id);
             }
         }
-//        if (HubStar.get('ctaView') === true) {
-//            this.get("controllers.checkingLoginStatus").popupLogin();
-//            HubStar.set('ctaView', false);
-//        }
+
     },
     windowResizeTags: function(tags, width, height)
     {
@@ -318,12 +321,13 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     JudgeBusinessProfile: function()
     {
+        if (localStorage.loginStatus) {
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         var that = this;
         currentUser.then(function() {
             that.set("isBusinessProfile", currentUser.get("profileSave"));
         });
-
+        }
     },
     addClickCount: function(tag_id, photo_url)
     {

@@ -609,8 +609,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     }
                 }
                 that.checkSinglePhoto(that.get("content").length);
-                console.log('1');
-                console.log(that.get('onlyOne'));
                 that.set("isRead", false);
             });
         }
@@ -860,8 +858,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
             });
         }
         this.checkSinglePhoto(this.get("content").length);
-        console.log('3');
-                console.log(this.get('onlyOne'));
         this.set("clickOrRoute", false);
     },
     selectImage: function(e) {

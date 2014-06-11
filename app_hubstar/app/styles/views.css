@@ -45,8 +45,6 @@ a:hover , a:focus {color: #aaa;}
 
 
 /* flip item                     **************************************************/
-/* flip item                     **************************************************/
-/* flip item                     **************************************************/
 .panel {
     float: left;
     width: 200px;
@@ -290,150 +288,11 @@ a:hover , a:focus {color: #aaa;}
 .circle div h2 {padding-top: 3em; text-align: center; }
 
 /* flip item                     **************************************************/
-/* flip item                     **************************************************/
-/* flip item                     **************************************************/
 
 
 
 
 
-.object-tags-box{
-    -webkit-transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
-    transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
-    margin: 15px 0 0 0;
-    max-width: 5%;
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: 10;
-    opacity: 0;
-}
-
-.object-tags-box:hover{opacity: 1 !important;}
-
-.object-tags-box div{position:relative;z-index:100;}
-.object-tags{
-    clear: both;
-    height: 26px;
-    line-height: 26px;
-    word-wrap: normal;
-    position:relative;
-    z-index:2;
-    margin:1px;
-}
-
-.tags-mark{
-    float: right;
-    height: 26px;
-    margin-right: -4px;
-    padding-right: 4px;
-    width: 0;
-}
-
-.tags{
-    margin: 0 -2px 1px 0;
-    color: #fff;
-    display: block;
-    float: right;
-    max-width: 180px;
-    /*overflow: hidden; this was removed for the tool tips 3/10/13 */
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    background-color: #427fed;
-    opacity: .6;
-    cursor: pointer;
-}
-
-.tags:hover{
-    color: white;
-    background-color: #427fed;
-    box-shadow: 0px 0px 8px #555;
-    opacity: 1;
-}
-
-.tags-new{
-    display: inline-block;
-    font-weight: bold;
-    padding: 0 10px;
-    font-size: 12px;
-    vertical-align: top;
-    margin-right: -4px;
-}
-.object-tags-box .hint--top:after, .object-tags-box .hint--left:after
-{
-    background:#fff;
-    border-color:#fff;
-    color:#666;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    -moz-box-shadow: 0 0 5px #888;
-    -webkit-box-shadow: 0 0 5px#888;
-    box-shadow: 0 0 5px #888;
-    text-shadow:0 0 0;
-}
-.object-tags-box .hint--left:before
-{
-    border-left-color:#ccc!important;
-}
-.object-tags-box .hint--top:before
-{
-    border-top-color:#ccc!important;
-}
-
-.hashtags{
-    border: 1px solid #d9d9d9;
-    border-radius: 2px;
-    -webkit-border-radius: 2px;
-    background-color: #FFF;
-    color: #333;
-    font-size: 11px;
-    font-weight: bold;
-    padding: 1px 7px;
-    display: inline-block;
-    line-height: 18px;
-    white-space: nowrap;
-}
-
-.remove-hashtages{
-    display: inline-block;
-    opacity: .6;
-    vertical-align: top;
-    cursor: pointer;
-    font-family: 'Helvetica', sans-serif;
-    padding: 0px 0 0 8px;
-    font-style: normal;
-}
-
-.remove-hashtages:hover{
-    opacity: 1;
-}
-
-
-.object-type{
-    display: inline-block;
-    text-align: center;
-    background-color: #427fed;
-    color: white;
-    border-bottom: 2px solid #427fed;
-}
-
-.object-type:hover{
-    border-bottom: 2px solid #fff;
-    opacity: 1;
-}
-
-.tagsappear{
-    overflow: hidden;
-}
-
-.tagsappear:hover{
-    opacity: 1;
-}
-
-.object-type > i {
-    padding: 10px;
-}
 
 
 
@@ -927,21 +786,7 @@ div.album-description-bg{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 /*MANSONRY OBJECT STYLE             END*/
-
-
-
 
 
 .objectview-wrapper{
@@ -949,11 +794,7 @@ div.album-description-bg{
 }
 
 
-
-
 /*OBJECT VIEW LEFT*/
-
-
 
 .objectview-left{
     bottom: 0;
@@ -1220,15 +1061,7 @@ div.album-description-bg{
 
 
 
-
-
-
 /*OBJECT VIEW LEFT               END*/
-
-
-
-
-
 
 
 
@@ -1865,17 +1698,188 @@ div.album-description-bg{
     word-wrap: break-word;
 }
 
+.collect_descriptionbox {
+    width:300px;
+    margin: 0px 0px 10px;
+    height: 143px;
+    resize: none;
+}
+
+
 
 /*----------OBJECT VIEW RIGHT    ---------- END*/
 
 
 /* ----------tag function updated by Charis -------------*/
 
-.collect_descriptionbox {
-    width:300px;
-    margin: 0px 0px 10px;
-    height: 143px;
-    resize: none;
+.object-tags-box{
+    -webkit-transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
+    transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
+    margin: 15px 0 0 0;
+    max-width: 5%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 10;
+    opacity: 0;
+}
+
+.object-tags-box:hover{opacity: 1 !important;}
+
+.object-tags-box div{position:relative;z-index:100;}
+.object-tags{
+    clear: both;
+    height: 26px;
+    line-height: 26px;
+    word-wrap: normal;
+    position:relative;
+    z-index:2;
+    margin:1px;
+}
+
+.tags-mark{
+    float: right;
+    height: 26px;
+    margin-right: -4px;
+    padding-right: 4px;
+    width: 0;
+}
+
+.tags{
+    margin: 0 -2px 1px 0;
+    color: #fff;
+    display: block;
+    float: right;
+    max-width: 180px;
+    /*overflow: hidden; this was removed for the tool tips 3/10/13 */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color: #427fed;
+    opacity: .6;
+    cursor: pointer;
+}
+
+.tags:hover{
+    color: white;
+    background-color: #427fed;
+    box-shadow: 0px 0px 8px #555;
+    opacity: 1;
+}
+
+.tags-new{
+    display: inline-block;
+    font-weight: bold;
+    padding: 0 10px;
+    font-size: 12px;
+    vertical-align: top;
+    margin-right: -4px;
+}
+.object-tags-box .hint--top:after, .object-tags-box .hint--left:after
+{
+    background:#fff;
+    border-color:#fff;
+    color:#666;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    text-shadow:0 0 0;
+}
+.object-tags-box .hint--left:before
+{
+    border-left-color:#ccc!important;
+}
+.object-tags-box .hint--top:before
+{
+    border-top-color:#ccc!important;
+}
+
+.hashtags{
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    background-color: #FFF;
+    color: #333;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 1px 7px;
+    display: inline-block;
+    line-height: 18px;
+    white-space: nowrap;
+}
+
+.remove-hashtages{
+    display: inline-block;
+    opacity: .6;
+    vertical-align: top;
+    cursor: pointer;
+    font-family: 'Helvetica', sans-serif;
+    padding: 0px 0 0 8px;
+    font-style: normal;
+}
+
+.remove-hashtages:hover{
+    opacity: 1;
+}
+
+
+.object-type{
+    display: inline-block;
+    text-align: center;
+    background-color: #427fed;
+    color: white;
+    border-bottom: 2px solid #427fed;
+}
+
+.object-type:hover{
+    border-bottom: 2px solid #fff;
+    opacity: 1;
+}
+
+.tagsappear{
+    overflow: hidden;
+}
+
+.tagsappear:hover{
+    opacity: 1;
+}
+
+.object-type > i {
+    padding: 10px;
+}
+
+/*-----show tag -----*/
+
+#showTagSavePhoto{
+    z-index: 11;
+    position: absolute; 
+    border-radius: 3px;
+}
+
+.show-tag-title{
+    margin-bottom: 10px; 
+    position: relative; 
+    background-color: #f3f3f3; 
+    height: 45px;
+    border-bottom: 1px solid #ddd;
+    border-radius: 3px 3px 0 0;
+}
+
+.show-tag-title-font{
+    font-size: 20px; 
+    font-weight: bold;
+}
+
+.show-tag-contactmebox-wapper{
+    width: 530px;
+    font-size: 13px;
+}
+
+.show-tag-top-part{
+    width:100%;
+    margin: 0 10px;
 }
 
 .tag_descriptionbox {
@@ -1918,11 +1922,6 @@ div.album-description-bg{
 
 .exist-name{
     text-decoration: none;
-    color: #ddd;
-}
-
-.exist-name{
-    text-decoration: none;
     color: #555;
 }
 
@@ -1931,7 +1930,6 @@ div.album-description-bg{
 }
 
 .add-collection_select-collection{
-
     padding: 10px;
     position: absolute;
     left: 4px;

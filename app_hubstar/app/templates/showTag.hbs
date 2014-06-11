@@ -1,25 +1,23 @@
-
+ 
 <div  id ="tagit">
 
     {{#unless controller.change_tag_show}}
     <div class="box" style="bottom: 20px">
-    </div
+    </div>
     {{/unless}}
-    <div id ="showTagSavePhoto"class="t-style-box" style="z-index: 11; position: absolute; border-radius: 3px;">
+    <div id ="showTagSavePhoto"class="t-style-box">
 
-        <div style="margin-bottom: 10px; position: relative; background-color: #f3f3f3; height: 45px;border-bottom: 1px solid #ddd;border-radius: 3px 3px 0 0;">
-
-            <div class="exit" style="float: right; position: relative; ">
+        <div class="show-tag-title">          
+            <div class="show-tag-title-font">  Request a new Tag </div>
                 <div class="closeview" {{action cancelTag }}>
                      <i class="fa fa-times"></i>
                 </div> 
-            </div>  
         </div> 
 
 
 
-        <div class="contactmebox-wapper" style="width: 530px;font-size: 13px;">
-            <div style="display:inline-block; width:100%;margin: 0 10px;">
+        <div class="show-tag-contactmebox-wapper">
+            <div class="show-tag-top-part">
                 <div>
                     <div style=' display:inline-block;font-size: 18px; font-weight: bold; width: 130px; float: left;'>Product Name</div> 
                     <div style="display:inline-block;">
@@ -34,7 +32,7 @@
                 </div>
             </div>
             <div style="display:inline-block; width:100%; background-color: #ccc;">
-                <div style='  font-size: 18px; font-weight: bold; margin-left: 20px;'>       Link to:</div>
+                <div style='  font-size: 18px; font-weight: bold; margin-left: 20px;'>  Link to:</div>
                 <div style="height: 20px;margin: 0 20px;">
                     {{controller.linkTo}}
                 </div>

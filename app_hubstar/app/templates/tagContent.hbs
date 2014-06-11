@@ -1,9 +1,9 @@
- <div id ="tagitshow" class="" style="display:block;" {{action hideContent on="mouseLeave" target="view"}}>
+<div id ="tagitshow" class="" style="display:block;" {{action hideContent on="mouseLeave" target="view"}}>
     <!--              enable to edit the tag controller-->
 
 
     <div id="tagImg" style=" ">
-       <a href="{{unbound controller.tag.linkto}}" > <img  {{bindAttr src= "controller.tag.pic_url"}}  style=""></a>
+        <a href="{{unbound controller.tag.linkto}}" > <img  {{bindAttr src= "controller.tag.pic_url"}}  style=""></a>
     </div>
 
     <!--        only the tag owner and the tag is not activate can have the activate button-->
@@ -17,8 +17,12 @@
         <!--        only the tag owner can delete the tag button-->
         <div  role="button" data-hint=" Delete this tag" {{action deleteTag controller.tag.tag_id }} style="margin:0 2px;"><i class="fa fa-trash-o"></i></div>
         <!--        only the tag owner can delete the tag button-->
-
+        {{else}}
+        {{#if controller.tag.is_tag_owner}}
+        <div role="button"   data-hint=" Edit this tag" {{action EditTag controller.tag.tag_id }} style="margin:0 2px;"><i class="fa fa-pencil-square-o"></i></div>
+        <div  role="button" data-hint=" Delete this tag" {{action deleteTag controller.tag.tag_id }} style="margin:0 2px;"><i class="fa fa-trash-o"></i></div>
         {{/if}}
+        {{/if}}       
     </div>
 
 

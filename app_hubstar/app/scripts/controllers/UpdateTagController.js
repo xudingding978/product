@@ -26,6 +26,7 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
     photo_owner_user: [],
     //isUpdateTag: false,
     selectedPhotoThumbnailUrl: "",
+    selectedCollectionName:"",
     isReadProfile: false,
     selectedTitle: "Choose your Collection",
     //selectedCollection: "",
@@ -65,9 +66,11 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
         this.set("selectedDesc", "");
         this.set("selectedID", tag.profile_id);
         this.set("selectedCollectionID", tag.collectionID);
+        this.set("selectedCollectionName", tag.collection_name);
         this.setThumbnailUrl(tag.pic_url);
         this.set("tag_id", tag_id);
         this.set("photo_id", photo_id);
+        console.log(tag);
     },
     saveUpdateTag: function(profile_id)
     {
@@ -80,12 +83,9 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
         {
             if (this.get("controllers.showTag").get("contentTags").objectAt(i)["tag_id"] === tag_id)
             {
-                this.get("controllers.showTag").get("contentTags").objectAt(i)["linkto"] = this.get("linkTo");
                 this.get("controllers.showTag").get("contentTags").objectAt(i)["desc"] = this.get("description");
                 this.get("controllers.showTag").get("contentTags").objectAt(i)["product_name"] = this.get("product_name");
                 this.get("controllers.showTag").get("contentTags").objectAt(i)["tag_time"] = time_stamp;
-                this.get("controllers.showTag").get("contentTags").objectAt(i)["profile_id"] = this.get("selectedID");
-                this.get("controllers.showTag").get("contentTags").objectAt(i)["collectionID"] = this.get("selectedCollectionID");
                 break;
             }
         }
@@ -97,7 +97,7 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
         {
             this.get("controllers.mega").set("contentTags", this.get("controllers.showTag").get("contentTags"));
         }
-        var tagInfo = [tag_id, this.get("product_name"), this.get("description"), this.get("linkTo"), time_stamp, this.get("selectedID"), photo_id,this.get("selectedCollectionID")];
+        var tagInfo = [tag_id, this.get("product_name"), this.get("description"), this.get("linkTo"), time_stamp, photo_id];
         tagInfo = JSON.stringify(tagInfo);
         var that = this;
         requiredBackEnd('showTag', 'updateTag', tagInfo, 'POST', function(params) {

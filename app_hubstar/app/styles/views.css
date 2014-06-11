@@ -1149,9 +1149,10 @@ div.album-description-bg{
 .icon-on-black{
     color: #aaa;
     cursor: pointer;
-    height: 44px;
-    position: absolute;
     min-width: 44px;
+    position:relative;
+    width: auto;
+    margin: 0 5px;
 
     -webkit-transition: all 0.8s ease;
     -moz-transition: all 0.8s ease;
@@ -1169,19 +1170,20 @@ div.album-description-bg{
     height: 20px;
     left: 0;
     margin: auto;
-    position: absolute;
+    position: relative;
     right: 0;
     top: 0;
     width: 20px;
     font-size: 21px;
     float:left;
 }
+
 /* top naviagtion specific styling */
 .top-controlbar div.icon-on-black{height:auto;}
 .top-controlbar .icon-on-black > i, .top-controlbar .icon-on-black > span{margin:10px 0;}
 .top-controlbar .icon-on-black > span
 {
-    text-indent: 25px;
+
     line-height: 23px;
     font-size: 14px;
     font-weight: bold;
@@ -1426,7 +1428,7 @@ div.album-description-bg{
 }
 
 
-
+/* --------------------Button Style ----------------------*/
 .new-btn {
     /*BASIC POSITION*/
     cursor: pointer;
@@ -1622,7 +1624,7 @@ div.album-description-bg{
     padding: 0 6px;
     height: 28px;
     line-height: 28px;
-/*    margin: 0 2px;*/
+    /*    margin: 0 2px;*/
     cursor: default;
 
     font-size: 12px;
@@ -1660,7 +1662,7 @@ div.album-description-bg{
 }
 
 
-
+/* --------------------Button Style END----------------------*/
 
 
 
@@ -1864,13 +1866,10 @@ div.album-description-bg{
 }
 
 
+/*----------OBJECT VIEW RIGHT    ---------- END*/
 
 
-/*OBJECT VIEW RIGHT             END*/
-
-
-
-
+/* ----------tag function updated by Charis -------------*/
 
 .collect_descriptionbox {
     width:300px;
@@ -1880,14 +1879,14 @@ div.album-description-bg{
 }
 
 .tag_descriptionbox {
-    width:300px;
-    margin: 0px 0px 10px;
+    width:370px;
+    margin: 0px 0px 10px 0;
     height: 95px;
     resize: none;
 }
 .tag_currenprofile {
-    width:300px;
-    margin: 0px 0px 10px;
+    width: 370px;
+    margin: 0px 0px 10px 0;
     height: 30px;
     resize: none;
 }
@@ -1979,6 +1978,10 @@ div.album-description-bg{
     border-width: 10px 10px 10px 10px;
     z-index: -1;
 }
+
+
+
+/* ----------tag function end -------------*/
 
 .edit-btn{
     cursor: pointer;
@@ -2105,7 +2108,7 @@ div.album-description-bg{
 /*call to action style */
 
 
-/* Author: Stephanie Derrick-Hardie */
+/* Author: Stephanie Derrick-Hardie --------Updated by Charis*/
 
 #cta-popup{
 

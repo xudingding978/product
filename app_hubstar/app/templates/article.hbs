@@ -8,37 +8,36 @@
     <div class="objectview-left article-objectview-left" >
 
         <div class="top-controlbar easing" >
-            <!--            <div class="fa icon-on-black" style="left: 8px;"><i class="fa fa-thumbs-up"></i></div>-->
             {{#unless controller.enableTag}}
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." style="position:relative;width: 60px;margin: 0 5px;" {{action switchCollection on="click" target="controller"}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." {{action switchCollection on="click" target="controller"}}>
                 <i class="fa fa-folder" {{action switchCollection on="click" target="controller"}}></i>
                 <span class="pretooltip">
                     Save
                 </span>          
             </div>
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;width: 60px;margin: 0 5px;" {{action dropdownPhotoSetting "1"}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform."  {{action dropdownPhotoSetting "1"}}>
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
             {{/unless}}
             {{#if HubStar.tagging_display}}
             {{#if controller.isBusinessProfile}}
             {{#if controller.enableTag}}
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="end tagging this photo" style="position:relative;margin: 0 10px;width: 60px;" {{action endTag}}>
-                 <i class="fa fa-tag"></i><span class="pretooltip">EndTag</span> 
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Exit image tagging"  {{action endTag}}>
+                 <i class="fa fa-tag"></i><span class="pretooltip">Done Tagging</span> 
             </div>
             {{else}}
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="activate this tag " style="position:relative;margin: 0 5px;width: 60px;" {{action activateTag}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Add a new tag "  {{action activateTag}}>
                  <i class="fa fa-tag"></i><span class="pretooltip">Tag Image</span> 
             </div>
             {{/if}}
             {{/if}}
             {{#if controller.showAllTagsArticle}}
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="hide tags this photo" style="position:relative;margin: 0 5px;width: 60px;" {{action hideTags}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Hide all tags on this image"  {{action hideTags}}>
                  <i class="fa fa-tag"></i><span class="pretooltip">Hide Tags</span> 
             </div>
             {{else}}
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="show tag this photo" style="position:relative;margin: 0 5px;width: 60px;" {{action showTags}}>
-                 <i class="fa fa-tag"></i><span class="pretooltip">ShowTag</span> 
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Show all tags on the image"  {{action showTags}}>
+                 <i class="fa fa-tag"></i><span class="pretooltip">Show Tags</span> 
             </div>
             {{/if}}
             {{/if}}

@@ -754,6 +754,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         else if (checkingInfo === "aboutMe") {
             var author = this.get('model');
             author.get('transaction').rollback();
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 300);
+            }, 800);
             this.setAboutUsObject();
             this.set('editingAbout', !this.get('editingAbout'));
         }

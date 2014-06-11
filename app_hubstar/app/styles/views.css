@@ -1474,6 +1474,12 @@ div.album-description-bg{
     float: right;
 }
 
+.view-edit-box2{
+    position: absolute;
+    font-size: 15px;
+    right: 10px;
+    argin: 1px;
+}
 .discuss-input{
     width: 100%; 
     border-radius: 2px;
@@ -1915,6 +1921,13 @@ div.album-description-bg{
     text-align: center;
 }
 
+.content-edit2{
+    position: relative;
+    display: block;
+    margin: 10px auto 0;
+    text-align: center;
+}
+
 .article-creditList{
     font-weight: bold;
 }
@@ -2295,6 +2308,13 @@ div.album-description-bg{
     position: absolute; 
     top: 130px;
 }
+
+.share-box4{
+    width: 150px; 
+    margin: 0 auto;
+    left: 45px;
+    padding: 0;
+}
 .share-type-fb{
     max-height:34px;
 }
@@ -2327,6 +2347,15 @@ div.album-description-bg{
 .share-type-txt2{
     margin-left: 2.5em;
 }
+
+.mainfeature_object2{
+    z-index: 0;
+    text-align: center;
+    line-height: 70;
+    max-width : 100%; 
+    width: 100%;
+}
+
 .edit-object-ul:before{
     content: "";
     position: absolute;

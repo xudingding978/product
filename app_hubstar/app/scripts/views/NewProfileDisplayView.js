@@ -68,7 +68,6 @@ HubStar.NewProfileDisplayView = Ember.View.extend({
     clickToDisplay: function(checking) {
 
         if (checking === "Creator") {
-            console.log("crteaterir");
             $('#profile-admin').css({"display": 'none'}, 500);
             $('#profile-editor').css({"display": 'none'}, 500);
             $('#profile-creator').css({"display": 'block'}, 500);
@@ -80,7 +79,6 @@ HubStar.NewProfileDisplayView = Ember.View.extend({
             $('#profile-editor-title').removeClass("title-list-selected");
         }
         else if (checking === "Admin") {
-            console.log("Admin");
             $('#profile-creator').css({"display": 'none'}, 500);
             $('#profile-admin').css({"display": 'block'}, 10);
             $('#profile-editor').css({"display": 'none'}, 500);
@@ -93,7 +91,6 @@ HubStar.NewProfileDisplayView = Ember.View.extend({
 
         }
         else if (checking === "Editor") {
-            console.log("Editor");
             $('#profile-creator').css({"display": 'none'}, 500);
             $('#profile-admin').css({'display': 'none'}, 500);
             $('#profile-editor').css({"display": 'block'}, 10);

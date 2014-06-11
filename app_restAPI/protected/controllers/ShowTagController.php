@@ -34,6 +34,7 @@ class ShowTagController extends Controller {
                     $tempMega = $cb->get($docID);
                     $mega = CJSON::decode($tempMega, true);
                     $oldRecordDeep["photo"][0]['tags'][$i]["pic_url"] = $mega['profile'][0]['profile_pic_url'];
+                    $oldRecordDeep["photo"][0]['tags'][$i]["profile_name"] = $mega['profile'][0]['profile_name'];
                 }
             }
 
@@ -166,7 +167,7 @@ class ShowTagController extends Controller {
         $time_stamp = $request_array[4]; // it is create time      
         $profile_id = $request_array[5];
         $photo_id = $request_array[6];  //selected photo's id
-
+        $collection_id = $request_array[7];
         try {
             $docIDDeep = $this->getDomain() . "/" . $photo_id; //$id  is the page owner
             $cb = $this->couchBaseConnection();
@@ -179,6 +180,7 @@ class ShowTagController extends Controller {
                     $oldRecordDeep["photo"][0]['tags'][$i]["desc"] = $desc;
                     $oldRecordDeep["photo"][0]['tags'][$i]["linkto"] = $linkAddress;
                     $oldRecordDeep["photo"][0]['tags'][$i]["tag_time"] = $time_stamp;
+                    $oldRecordDeep["photo"][0]['tags'][$i]["collectionID"] = $collection_id;
                 }
             }
 

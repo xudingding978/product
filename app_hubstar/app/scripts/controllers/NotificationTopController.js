@@ -101,7 +101,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
             that.transitionToRoute('messageCenter');
             that.transitionToRoute("notifications");
         }, 20);
-        this.reviewCancel();
+        //this.reviewCancel();
     },
     markAllRead: function() {
         //mark all read tom       

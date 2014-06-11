@@ -134,7 +134,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         var photo_owner = mega.get("owner_id"); //photo owner's profile id 
         var photo_type = mega.get("owner_type");
 //        this.getCurrentOwner(photo_owner, login_user_id);
-
+        console.log(photo_owner);
 
         if (photo_owner !== null && photo_owner !== undefined && photo_owner !== "")
         {
@@ -165,13 +165,13 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         tagInfo = JSON.stringify(tagInfo);
         var newTag = new Array();
         var that = this;
+        that.set("contentTags", []);
         requiredBackEnd('showTag', 'readTag', tagInfo, 'POST', function(params) {
 //set the model          
             var thatthat = that;
             if (params !== "" && params !== undefined && params !== null)
             {
                 that.set("contentTags", params);
-                //    that.get("controllers.article").set("contentTagsArticle", params);
                 if (HubStar.get("isArticleTag") === true)
                 {
                     that.get("controllers.article").set("contentTagsArticle", params);

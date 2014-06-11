@@ -220,7 +220,6 @@ HubStar.EditEditorsController = Ember.Controller.extend({
         var that = this;
         a.then(function() {
             {
-                console.log(profile.get('isSaving'));
                 var administrators = that.checkAdministratorsOrEditorsChange(that.get("contentAdministratorPhoto"), that.get("administrator"), "administrator");
                 var editors = that.checkAdministratorsOrEditorsChange(that.get("contentEditorPhoto"), that.get("editor"), "editor");
                 var data = [];

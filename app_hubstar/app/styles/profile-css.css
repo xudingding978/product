@@ -1208,6 +1208,7 @@ textarea.add-interests{
 }
 
 .user-says-angle-before1{
+    margin-left: 4px;
     left: 51px;
 }
 
@@ -1225,6 +1226,7 @@ textarea.add-interests{
 }
 
 .user-says-angle-after1{
+    margin-left: 4px;
     left: 49px;
 }
 .user-reply-angle-before{

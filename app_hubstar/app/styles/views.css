@@ -1102,19 +1102,23 @@ div.album-description-bg{
     float: left;
 }
 
-.arrow-pos{
+.arrow-pos{    
     top:400px;  
     color: white; 
     position: absolute; 
     font-size: 50px;
+    width:50px;
+    height:50px;
 }
 
 .arrow-left{
-       left: 138px;
+    background: url(../../images/previouscursor.png) no-repeat;
+    left: 138px;
 }
 
 .arrow-right{
-       right: 138px;
+    background: url(../../images/nextcursor.png) no-repeat;
+    right: 138px;
 }
 .next-arrow-box{
     width: 50%; 
@@ -1464,6 +1468,10 @@ div.album-description-bg{
 
 .view-stats-font{
     font-size: 11px;
+}
+
+.view-edit-box{
+    float: right;
 }
 
 .discuss-input{
@@ -1844,9 +1852,67 @@ div.album-description-bg{
     line-height: 1.6em;
 }
 
+.article-text-table{
+    padding:0; 
+    border-spacing:0; 
+    border:0; 
+    width:100%;
+    padding-right: 0px; 
+    font-size: 12px;  
+    display: table;
+    border-collapse: separate;
+    border-spacing: 4px;
+    margin:10px auto;
+}
+
+.article-text-table-tbody{
+    display: table-row-group; 
+    vertical-align: middle; 
+    border-color: inherit;
+}
+
+.article-table-td1{
+    font-size: 14px;
+    font-weight: bold;
+    width: 90px;
+}
+
+.article-text-table-td2{
+    font-weight: bold; 
+    font-size: 12px;
+    width: 60px;
+}
+
+.article-text-url{
+    font-size: 14px;
+    font-weight: normal;
+    width: 90px;
+}
+
+.article-text-url2{
+    display: block;
+    height:55px ;
+}
+
+.article-text-url3{
+    margin: 0;
+    height:55px ;
+    width: 100%;
+}
+
+.article-text-margin{
+    margin-top: 10px;
+}
 .article-text2{
     height: 210px;
     overflow: hidden;
+}
+
+.content-edit{
+    position: relative;
+    display: block;
+    margin: 25px auto 0;
+    text-align: center;
 }
 
 .article-creditList{
@@ -1944,14 +2010,6 @@ div.album-description-bg{
     padding: 5px 6.5%;
 }
 
-.comment-item-img{
-    width: 45px; 
-    height: 45px;
-    float: left; 
-    margin: 4px 0 0 -50px; 
-    margin-top: 0;
-}
-
 .comment-item-img-z1{
     z-index: 1;
 }
@@ -1980,6 +2038,14 @@ div.album-description-bg{
     width: 33px;
     height: 33px;
     border: 1px solid #f3f3f3;
+}
+
+.comment-item-img{
+    width: 45px; 
+    height: 45px;
+    float: left; 
+    margin: 4px 0 0 -50px; 
+    margin-top: 0;
 }
 
 .comment-insert-field{
@@ -2223,6 +2289,12 @@ div.album-description-bg{
     top: 50px;
 }
 
+.share-box3a{
+    width: 170px; 
+    right: 80px; 
+    position: absolute; 
+    top: 130px;
+}
 .share-type-fb{
     max-height:34px;
 }

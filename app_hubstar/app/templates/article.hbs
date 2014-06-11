@@ -1,8 +1,8 @@
 
 
-        {{#if controller.collectable}}
-        {{render addCollection}}
-        {{/if}}
+{{#if controller.collectable}}
+{{render addCollection}}
+{{/if}}
 <div class="objectview-wrapper this-is-an-article" >
 
     <div class="objectview-left article-objectview-left" >
@@ -74,12 +74,16 @@
         </div>
 
         <div class="mainfeature">
+            {{#unless controller.onlyOne}}
             <div  class="previous previous-arrow-box" id ="previousarticlephoto" {{action previesImage on="click" target="view"}}>
-                <i id="pa" class="fa fa-arrow-left arrow-pos arrow-left"></i>
+                <i id="pa" class="arrow-pos arrow-left"></i>
             </div>
-            <div  class="next next-arrow-box" id ="nextarticlephoto"  {{action nextImage on="click" target="view"}}>
-                <i id="na" class="fa fa-arrow-right arrow-pos arrow-right"></i>
+            <div  class="next next-arrow-box" id ="nextarticlephoto" {{action nextImage on="click" target="view"}}>
+                <i id="na" class="arrow-pos arrow-right"></i>
+
             </div>
+
+            {{/unless}}
             <div id ="tag_article_image">
                 {{view HubStar.PhotoDisplayAreaView}}
                 <!--     show add new  tag template-->   
@@ -294,7 +298,7 @@
 
             <div class="collapes-container article-display"  id="discuss_action">
                 <div class="collapes-container_inner discuss-box">
-                    <div  class="discuss-input-box">
+                    <div class="discuss-input-box">
                         <div class="discuss-input-innerbox">
                             <a>
                                 <img class="profilepic_comment comment-item-img comment-item-img-z1" src="http://develop.devbox.s3.amazonaws.com/profile_pic/default/defaultpic1.jpg" /> 
@@ -302,19 +306,14 @@
                                 <div class="user-says-angle-before user-says-angle-before1"></div>
                                 <div class="user-says-angle-after user-says-angle-after1"></div>
                             </a>
-
                             <div class="discuss-input">
                                 <div class="discuss-input-txt">
                                     {{view Ember.TextArea valueBinding="commentContent"  class="no-resize no-effect" placeholder="Write a comment..." }}                                          
                                 </div>
-
                                 <div class="discuss-submit">
-
                                     <div class="message-btn easing width-100" {{action addComment}}><i class='fa fa-check'>&nbsp;</i>Post </div>
-
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -373,6 +372,6 @@
 {{view HubStar.DeleteFunctionView}}
 
 {{/if}}
-            {{#if controller.contact}}
-            {{render contact}}
-            {{/if}}
+{{#if controller.contact}}
+{{render contact}}
+{{/if}}

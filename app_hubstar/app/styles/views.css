@@ -1870,6 +1870,8 @@ div.album-description-bg{
 .show-tag-title-font{
     font-size: 20px; 
     font-weight: bold;
+    text-align: center;
+    padding: 10px;
 }
 
 .show-tag-contactmebox-wapper{
@@ -1881,6 +1883,15 @@ div.album-description-bg{
     width:100%;
     margin: 0 10px;
 }
+
+.show-tag-top-part div{
+    display:inline-block;
+}
+
+.show-tag-top-part-font{
+    
+}
+
 
 .tag_descriptionbox {
     width:370px;

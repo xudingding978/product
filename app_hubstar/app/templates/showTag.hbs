@@ -8,18 +8,15 @@
     <div id ="showTagSavePhoto"class="t-style-box">
 
         <div class="show-tag-title">          
-            <div class="show-tag-title-font">  Request a new Tag </div>
+            <div class="show-tag-title-font">  Request a new tag </div>
                 <div class="closeview" {{action cancelTag }}>
                      <i class="fa fa-times"></i>
                 </div> 
         </div> 
-
-
-
         <div class="show-tag-contactmebox-wapper">
             <div class="show-tag-top-part">
                 <div>
-                    <div style=' display:inline-block;font-size: 18px; font-weight: bold; width: 130px; float: left;'>Product Name</div> 
+                    <div style=' display:inline-block;'>Product Name</div> 
                     <div style="display:inline-block;">
                         {{view Ember.TextArea valueBinding="controller.product_name" rows="1" cols="70" class="tag_currenprofile" placeholder="Say something about it!"}}
                     </div>

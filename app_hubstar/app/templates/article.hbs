@@ -6,17 +6,13 @@
 <div class="objectview-wrapper this-is-an-article" >
 
     <div class="objectview-left article-objectview-left" >
-
-
         <div class="top-controlbar easing" >
             {{#unless controller.enableTag}}
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." {{action switchCollection on="click" target="controller"}}>
                 <i class="fa fa-folder" {{action switchCollection on="click" target="controller"}}></i>
                 <span class="pretooltip">  Save </span>          
             </div>
-
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform."  {{action dropdownPhotoSetting "1"}}>
-
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
             {{/unless}}
@@ -30,7 +26,6 @@
             {{else}}
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Add a new tag "  {{action activateTag}}>
                  <i class="fa fa-tag"></i><span class="pretooltip">Tag Image</span> 
-
             </div>
             {{/if}}
             {{/if}}
@@ -86,6 +81,7 @@
                 {{#unless controller.onlyOne}}
                 <i id="na" class="arrow-pos arrow-right"></i>
                 {{/unless}}
+
 
             </div>
 

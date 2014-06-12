@@ -939,9 +939,6 @@ div.album-description-bg{
     display: block;
 }
 
-
-
-
 .previous-arrow-box{
     width: 50%; 
     height: 100%; 
@@ -971,7 +968,6 @@ div.album-description-bg{
     height: 100%; 
     float: right;
 }
-
 
 .close_text{
     position: relative;
@@ -1037,7 +1033,6 @@ div.album-description-bg{
     position:relative; 
     left:44px;
 }
-
 .right-arrow{
     left: 44px;
     position: relative;
@@ -1089,7 +1084,6 @@ div.album-description-bg{
     font-family: FontAwesome, "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 }
-
 /* top navigation specific styling ends */
 .icon-on-black > .pretooltip{
     float:left;
@@ -1330,13 +1324,6 @@ div.album-description-bg{
     resize: none;
     overflow: auto;
 }
-
-/*.edit_photo-keywords_field{
-    margin: 10px auto;
-    height: 100px;
-    resize: none;
-    overflow: auto;
-}*/
 
 .sml-partner {
     margin: 7px;
@@ -2097,7 +2084,7 @@ div.album-description-bg{
 }
 
 #show-tag-box-bottom{
-    bottom:-480px;
+    bottom:-560px;
 }
 
 
@@ -2105,6 +2092,8 @@ div.album-description-bg{
     z-index: 11;
     position: absolute; 
     border-radius: 3px;
+    width: 530px;
+height: 430px;
 }
 
 .show-tag-title{
@@ -2136,7 +2125,7 @@ div.album-description-bg{
 .show-tag-part-below{
     width: 96%;
     margin: 0 10px;
-    min-height: 100px;
+    min-height: 105px;
 }
 
 .show-tag-part div{
@@ -2166,15 +2155,16 @@ div.album-description-bg{
 .show-tag-link-to{
     width: 100%;
     background-color: #ccc;
-    padding:10px;
-    height: auto;
+    padding: 10px;
+    height: 60px;
+    overflow: hidden;
 
 }
 
 .show-tag-link-to-content{
     min-height: 20px;
     word-break: break-word;
-    width: 50%;
+    width: 73%;
     display: inline-block;
 }
 
@@ -2240,10 +2230,8 @@ div.album-description-bg{
 }
 
 .show-tag-button-right{
-   border-right: 1px solid #ddd; 
+    border-right: 1px solid #ddd; 
 }
-
-
 
 .show-tag-image{
     width: 80px;
@@ -2284,6 +2272,14 @@ div.album-description-bg{
     padding: 0 20px;
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #fff;
+}
+
+.selected-none{
+    display:inline-block;
+}
+
+.choose-exist-collection:hover{
+    background-color: rgba(0,0,0,0.1);
 }
 
 .selected-none{

@@ -2315,6 +2315,13 @@ div.album-description-bg{
     left: 45px;
     padding: 0;
 }
+
+.share-box4a{
+    width: 170px; 
+    right: 80px; 
+    position: absolute; 
+    top: 136px;
+}
 .share-type-fb{
     max-height:34px;
 }

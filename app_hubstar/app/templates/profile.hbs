@@ -1,32 +1,29 @@
 
 
-<div class="profile-wallpaper" style="width: 100%; overflow: hidden; position: fixed; top: 70px;">
-    <img  {{bindAttr src= model.profile_bg_url}} style="width: 100%; max-height: 500px">
+<div class="profile-wallpaper profile-box">
+    <img  {{bindAttr src= model.profile_bg_url}} class="profile-bg-url">
 </div>
-<div style="width: 100%; height:250px; position: relative; display: block; opacity: 0;"></div>
+<div class="front-top"></div>
 
+<div id="profilePanel" class="panel profilePanel">
 
-
-<div id="profilePanel" class="hover panel" style='z-index: 0;  float: none;position: relative !important; width: 87%; height: auto; margin:  auto; background: #fff; box-shadow: 0px 0px 8px #555; border-radius: 3px 3px 0 0;max-width: 1260px;min-width: 1250px;overflow: hidden;'>
-
-    <div id="profileFront" class="front" style="text-align: inherit; width: auto; height: auto; box-shadow: none; border: none; position: relative !important;">
+    <div id="profileFront" class="front" style="    text-align: inherit; width: auto;height: auto; box-shadow: none; border: none; position: relative !important;">
 
         <div class="profilewrapper premium">
             <!--corpbanner-->
 
-            <div class="profilecorpbanner"    style="">
-                <img {{bindAttr src= model.profile_hero_url}} style="width:100%;"/>
+            <div class="profilecorpbanner">
+                <img {{bindAttr src= model.profile_hero_url}} class="profile-wid"/>
                 {{#if controller.is_authentic_user}}
 
-                <div  id="flip-front" class='blue-btn new-btn hint--left hint--rounded edit-dashboard-btn' style="display: block; margin: 10px;position: absolute;top: 0;right: 0;" data-hint="Dashboard"
-                      {{action flipFrontClick}}>
+                <div id="flip-front" data-hint="Dashboard" class='blue-btn new-btn hint--left hint--rounded edit-dashboard-btn blue-btn-ard' {{action flipFrontClick}}>
                       <i class="fa fa-cogs"></i>
                 </div>
 
                 {{/if}}
                 <div class="corpbanner_mask">
                     <div class="corpbanner_content">
-                        <div class="main_title" style="height: 120px;">
+                        <div class="main_title main-title">
 
                             <div>
                                 {{#if controller.editing}}

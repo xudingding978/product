@@ -2,7 +2,7 @@
 <div  id ="tagit">
 
     {{#unless controller.change_tag_show}}
-    <div class="box" style="bottom: 20px">
+    <div class="box" id="show-tag-box-up">
     </div>
     {{/unless}}
     <div id ="showTagSavePhoto"class="t-style-box">
@@ -36,25 +36,33 @@
                 <div class="show-tag-part-below-left">
                     <div class="show-tag-left">
                       <div class='show-tag-font'>Profile:</div>
+                      {{#if controller.selectedDesc}}
                         {{#unless controller.isReadProfile}}
-                        <div class="show-tag-select-profile" {{action profileSwitch on="click" target="controller"}}>
-                            {{controller.selectedDesc}}
+                        <div class="new-btn show-tag-select" {{action profileSwitch on="click" target="controller"}}>
+                            {{controller.selectedDesc}} 
                             &nbsp;<i class="fa fa-caret-down"></i>
                         </div>                      
                         {{else}}
-                        <div class="show-tag-loading"> Loading <i class="spinner" style="">&nbsp;</i></div>
+                        <div class="new-btn show-tag-select"> 
+                            <div class="show-tag-loading"> Loading <i class="spinner" style="">&nbsp;</i></div>
+                           
+                        </div>
                         {{/unless}}
+                        {{else}}
+                        <div class="new-btn show-tag-select" {{action profileSwitch on="click" target="controller"}}>
+                            Choose your Profile
+                            &nbsp;<i class="fa fa-caret-down"></i>
+                        </div> 
+                        {{/if}}
                         {{#if controller.selectTagProfile}}
                         <div id="login_lightbox" class="blur" {{action profileCanel }}>&nbsp;</div>
-                        <div class="select-profile-save" style="top: 280px;">
+                        <div class="select-profile-save">
 
-                            <div class="" style="height:100%; font-size: 13px; font-weight: bold; overflow: auto; overflow-x:hidden; ">
-                                <div  style="width: auto;line-height: 27px; padding: 0 20px;border-bottom: 1px solid #ddd;border-top: 1px solid #fff;">
-                                    Your Profiles
-                                </div>
+                            <div class="show-tag-profile-content" >
+                                
 
                                 {{#each controller.profiles}}
-                                <div class="choose-exist-collection easing" style="width: auto;line-height: 27px; padding: 0 20px;border-bottom: 1px solid #ddd;border-top: 1px solid #fff;" {{action chooseProfile profile_name profile_id}}>
+                                <div class="choose-exist-collection easing" style="" {{action chooseProfile profile_name profile_id}}>
                                      <a class="exist-name easing"> {{profile_name}}</a>
                                 </div>
                                 {{/each}}
@@ -67,7 +75,7 @@
                     <div class="show-tag-left">
                          <div class='show-tag-font'>Collection:</div>
                         {{#if chooseProfileItem}}
-                        <div class="new-btn" style="display: inline-block;line-height: 24px;"  {{action collectionSwitch }} {{bindAttr text="controller.selectedTitle" }}>
+                        <div class="new-btn show-tag-select"  {{action collectionSwitch }} {{bindAttr text="controller.selectedTitle" }}>
                              {{controller.selectedTitle}}
                              &nbsp;<i class="fa fa-caret-down"></i>
                         </div>                   
@@ -90,10 +98,10 @@
                     </div>
                 </div>
 
-                <div style="display:inline-block;margin:10px 20px;float:right;">
+                <div class="show-tag-part-below-right" >
                     {{#if controller.selectedDesc}}
-                    <div style="width: 74px; height: 74px; overflow: hidden;padding: 10px;background-color: rgba(0,0,0,0.03);position: relative;">
-                        <img style="height: 54px;width: 54px;" {{bindAttr src="controller.selectedPhotoThumbnailUrl" }}>
+                    <div class="show-tag-image" >
+                        <img  {{bindAttr src="controller.selectedPhotoThumbnailUrl" }}>
                     </div>
                     {{/if}}
                 </div>
@@ -102,9 +110,9 @@
 
         </div> 
 
-        <div class="" style="height: 45px;position: relative;border-top: 1px solid #ddd;top: -1px;border-radius: 0 0 3px 3px;overflow: hidden;">
-            <div  class="message-btn easing" style="height:45px;line-height: 45px; border-right: 1px solid #ddd;" {{action cancelTag }}><i class='fa fa-times'>&nbsp;</i>Cancel</div>
-            <div class="message-btn easing" style='height:45px;line-height: 45px;'{{action saveTag}}><i class='fa fa-check'>&nbsp;</i>Save</div>
+        <div class="" style="">
+            <div  class="message-btn easing show-tag-button-right"  {{action cancelTag }}><i class='fa fa-times'>&nbsp;</i>Cancel</div>
+            <div class="message-btn easing" {{action saveTag}}><i class='fa fa-check'>&nbsp;</i>Save</div>
         </div>
 
     </div>
@@ -112,7 +120,7 @@
 
     {{#if controller.change_tag_show}}
 
-    <div class="box" style="bottom: -480px;">
+    <div class="box" id="show-tag-box-bottom">
     </div>
     {{/if}}
 </div>

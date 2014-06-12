@@ -9,44 +9,40 @@
 
         <div class="show-tag-title">          
             <div class="show-tag-title-font">  Request a new tag </div>
-                <div class="closeview" {{action cancelTag }}>
-                     <i class="fa fa-times"></i>
-                </div> 
+            <div class="closeview" {{action cancelTag }}>
+                 <i class="fa fa-times"></i>
+            </div> 
         </div> 
         <div class="show-tag-contactmebox-wapper">
-            <div class="show-tag-top-part">
+            <div class="show-tag-part">
                 <div>
-                    <div style=' display:inline-block;'>Product Name</div> 
-                    <div style="display:inline-block;">
+                    <div class='show-tag-font'>Product Name</div> 
+                    <div>
                         {{view Ember.TextArea valueBinding="controller.product_name" rows="1" cols="70" class="tag_currenprofile" placeholder="Say something about it!"}}
                     </div>
                 </div>
                 <div>
-                    <div style='display:inline-block; font-size: 18px; font-weight: bold;width: 130px; float: left;'>Write description:</div>
-                    <div style="display:inline-block;">
+                    <div class='show-tag-font'>Write description:</div>
+                    <div>
                         {{view Ember.TextArea valueBinding="controller.description" rows="10" cols="70" class="tag_descriptionbox" placeholder="Write something to introduce the product!"}}
                     </div>
                 </div>
             </div>
-            <div style="display:inline-block; width:100%; background-color: #ccc;">
-                <div style='  font-size: 18px; font-weight: bold; margin-left: 20px;'>  Link to:</div>
-                <div style="height: 20px;margin: 0 20px;">
-                    {{controller.linkTo}}
-                </div>
+            <div class="show-tag-link-to">
+                <div class='show-tag-font'> Link to:</div>
+                <div class="show-tag-link-to-content"> {{controller.linkTo}} </div>
             </div>
-            <div style="display:inline-block; width:100%;margin: 0 10px;">
-                <div style="display:inline-block; width:70%;float:left">
-                    <div style=' color: #555; font-size: 18px; font-weight: bold; text-align: left; line-height: 45px;'>Profile:
+            <div class="show-tag-part-below">
+                <div class="show-tag-part-below-left">
+                    <div class="show-tag-left">
+                      <div class='show-tag-font'>Profile:</div>
                         {{#unless controller.isReadProfile}}
-                        <div class="" style="display:inline-block;cursor: pointer;"   {{action profileSwitch on="click" target="controller"}}>
+                        <div class="show-tag-select-profile" {{action profileSwitch on="click" target="controller"}}>
                             {{controller.selectedDesc}}
                             &nbsp;<i class="fa fa-caret-down"></i>
-
-                        </div>
-                       
+                        </div>                      
                         {{else}}
-
-                        <div style="position: absolute; font-size: 12px; bottom: 95px;left: 110px;"> Loading <i class="spinner" style="position: relative;top: 15px;left: 10px;">&nbsp;</i></div>
+                        <div class="show-tag-loading"> Loading <i class="spinner" style="">&nbsp;</i></div>
                         {{/unless}}
                         {{#if controller.selectTagProfile}}
                         <div id="login_lightbox" class="blur" {{action profileCanel }}>&nbsp;</div>
@@ -68,7 +64,8 @@
                         {{/if}}
                     </div>
 
-                    <div style=' color: #555; font-size: 18px; font-weight: bold; text-align: left; line-height: 45px;'>Collection:
+                    <div class="show-tag-left">
+                         <div class='show-tag-font'>Collection:</div>
                         {{#if chooseProfileItem}}
                         <div class="new-btn" style="display: inline-block;line-height: 24px;"  {{action collectionSwitch }} {{bindAttr text="controller.selectedTitle" }}>
                              {{controller.selectedTitle}}
@@ -100,9 +97,6 @@
                     </div>
                     {{/if}}
                 </div>
-
-
-
             </div>
 
 
@@ -114,6 +108,8 @@
         </div>
 
     </div>
+
+
     {{#if controller.change_tag_show}}
 
     <div class="box" style="bottom: -480px;">

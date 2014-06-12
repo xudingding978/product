@@ -1879,36 +1879,87 @@ div.album-description-bg{
     font-size: 13px;
 }
 
-.show-tag-top-part{
-    width:100%;
+.show-tag-part{
+    width:96%;
     margin: 0 10px;
 }
 
-.show-tag-top-part div{
+.show-tag-part-below{
+   width: 96%;
+margin: 0 10px;
+min-height: 100px;
+}
+
+.show-tag-part div{
     display:inline-block;
 }
 
-.show-tag-top-part-font{
-    
+
+.show-tag-part-below-left{
+   width: 70%;
+float: left;
+padding: 10px 0;
+}
+
+.show-tag-font{
+    font-size: 18px; 
+    font-weight: bold; 
+    width: 130px; 
+    float: left;
+    display: inline-block;
+}
+
+.show-tag-link-to{
+    width: 100%;
+    background-color: #ccc;
+    padding:10px;
+    height: auto;
+
+}
+
+.show-tag-link-to-content{
+    min-height: 20px;
+word-break: break-word;
+width: 50%;
+display: inline-block;
+}
+
+.show-tag-left{
+    margin: 10px 0;
+}
+
+.show-tag-select-profile{
+    display:inline-block;
+    cursor: pointer;
+}
+
+.show-tag-loading{
+    position: absolute; 
+    font-size: 12px; 
+    bottom: 95px;
+    left: 110px;
+}
+
+.show-tag-loading i{
+    position: relative;
+    top: 15px;
+    left: 10px;
 }
 
 
 .tag_descriptionbox {
     width:370px;
-    margin: 0px 0px 10px 0;
     height: 95px;
     resize: none;
 }
 .tag_currenprofile {
     width: 370px;
-    margin: 0px 0px 10px 0;
     height: 30px;
     resize: none;
 }
 
 .tag_linkto {
     width:300px;
-    margin: 0px 0px 10px;
     height: 30px;
     resize: none;
 }

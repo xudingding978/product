@@ -754,6 +754,12 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         else if (checkingInfo === "aboutMe") {
             var author = this.get('model');
             author.get('transaction').rollback();
+            setTimeout(function() {
+                $('#masonry_user_container').masonry("reloadItems");
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry();
+                }, 300);
+            }, 800);
             this.setAboutUsObject();
             this.set('editingAbout', !this.get('editingAbout'));
         }
@@ -1300,7 +1306,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }
     },
     flipFrontClick: function() {
-        $(".hover").addClass('flip');
+        $("#profilePanel").addClass('flip');
         this.selectionForDashborad();
 
 
@@ -1316,7 +1322,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
         }, 1);
     },
     flipFrontBack: function() {
-        $(".hover").removeClass('flip');
+        $("#profilePanel").removeClass('flip');
         $('.front').attr("style", "text-align: inherit; width: auto; height: auto; box-shadow: none; border: none; position: relative;");
     }, setUploadImageMode: function(mode)
     {

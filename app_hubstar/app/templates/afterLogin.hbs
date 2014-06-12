@@ -3,8 +3,8 @@
 
 <div id="user-header-menu" {{action dropdown "user"}} >
 
-     <div class="" data-toggle="dropdown" >
-        <a class="circle-btn" style="border: none"><img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user  easing" /></a>    
+     <div data-toggle="dropdown" >
+        <div class="circle-btn circle-btn-border"><img {{bindAttr src="controller.user.photo_url_large"}} class="profilepic_user  easing" /></div>    
     </div>
     <div class="circle-btn-description">My Profile</div>
 
@@ -13,11 +13,11 @@
 <div id="cancel" class="blank-top-bar"  {{action dropdown "user"}}>&nbsp;</div>
 <ul id="user-dd-menu" class="user-dd-menu  edit-object-ul">
     <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myUserProfile"}} {{action userDisplaynone "myUserProfile" on="click"  target="view"}}>
-                        <i class="fa fa-user" style="">&nbsp;&nbsp;</i>
+                        <i class="fa fa-user">&nbsp;&nbsp;</i>
             <span>My Profile</span>
         </a></li>
     <li class="ite" ><a tabindex="-1" {{bindAttr href="controller.myMessageBoard"}} {{action userDisplaynone "myMessageBoard" on="click"  target="view"}}>
-                        <i class="fa fa-envelope" style="">&nbsp;&nbsp;</i>
+                        <i class="fa fa-envelope" >&nbsp;&nbsp;</i>
             <span>Messages</span>
         </a></li>
     {{#if controller.is_trends_user}}
@@ -27,7 +27,7 @@
            {{else}}
            <a tabindex="-1"  href="#/profiles/new">
                 {{/if}}
-                <i class="fa fa-briefcase" style="">&nbsp;&nbsp;</i>
+                <i class="fa fa-briefcase">&nbsp;&nbsp;</i>
                 <span>Business Profiles</span>
             </a>
     </li>
@@ -48,15 +48,15 @@
     {{/if}}
 
     <li class='ite'><a tabindex="-1" href="http://about.trendsideas.com/" target="blank" {{action userDisplaynone "about" on="click"  target="view"}}>
-                       <i class="fa fa-question-circle" style="">&nbsp;&nbsp;</i>
+                       <i class="fa fa-question-circle">&nbsp;&nbsp;</i>
             <span>Help</span>
         </a></li>
     <li class='ite'><a tabindex="-1" href="javascript:void(0)"  id="startButton" {{action startTour on="click"  target="view"}}>
-            <i class="fa fa-info" style="">&nbsp;&nbsp;</i>
+            <i class="fa fa-info">&nbsp;&nbsp;</i>
             <span>Take the tour</span>
         </a></li>
     <li class="ite"><a tabindex="-1" href="" {{action logout on="click"  target="view"}}  >
-            <i class="fa fa-power-off" style="">&nbsp;&nbsp;</i>
+            <i class="fa fa-power-off">&nbsp;&nbsp;</i>
             <span>Log out</span> 
         </a></li>
 

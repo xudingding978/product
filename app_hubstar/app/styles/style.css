@@ -723,15 +723,6 @@ div.search-loading-invisible{
     background-clip: padding-box;
 }
 
-
-
-
-
-
-
-
-
-
 .dropdownViewStyle {
 
 }
@@ -1060,6 +1051,15 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     border-radius: 50%;
 }
 
+.message-img{
+    float: right;
+    margin-left: -5px;
+    margin-top: -10px;
+}
+
+.message-img-box{
+    font-size: 18px;
+}
 
 .enquiryBtn-ring{
     border: 5px solid rgba(255,0,0,.6);
@@ -1100,7 +1100,6 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     margin-top: 5px;
     margin-left: 5px;
 
-
     background: #f3f3f3; /* Old browsers */
     background: -moz-linear-gradient(top,  #f3f3f3 0%, #eaeaea 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f3f3f3), color-stop(100%,#eaeaea)); /* Chrome,Safari4+ */
@@ -1109,9 +1108,6 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     background: -ms-linear-gradient(top,  #f3f3f3 0%,#eaeaea 100%); /* IE10+ */
     background: linear-gradient(to bottom,  #f3f3f3 0%,#eaeaea 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3f3f3', endColorstr='#eaeaea',GradientType=0 ); /* IE6-9 */
-
-
-
 
 }
 
@@ -1138,12 +1134,9 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     margin: 8px 0 0 -8px;
 }
 
-
-
-
-
-
-
+.message-img-txt{
+    color: #333;
+}
 
 /*Contact Detail Table*/
 #aside_contact  th:first-child{
@@ -1679,6 +1672,10 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     overflow:auto;
 }
 
+.save-top{
+    top: 50px;
+}
+
 .select-profile-save:before{
     content: "";
     position: absolute;
@@ -1701,71 +1698,7 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     z-index: -1;
 }
 
-
-
-
-
-.gradient1{
-    background: #f9f9f9; /* Old browsers */
-    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIyMiUiIHN0b3AtY29sb3I9IiNmOWY5ZjkiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI5OSUiIHN0b3AtY29sb3I9IiNmNWY1ZjUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-    background: -moz-linear-gradient(top,  #f9f9f9 22%, #f5f5f5 99%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(22%,#f9f9f9), color-stop(99%,#f5f5f5)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #f9f9f9 22%,#f5f5f5 99%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #f9f9f9 22%,#f5f5f5 99%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #f9f9f9 22%,#f5f5f5 99%); /* IE10+ */
-    background: linear-gradient(to bottom,  #f9f9f9 22%,#f5f5f5 99%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f9f9', endColorstr='#f5f5f5',GradientType=0 ); /* IE6-8 */
-}
-
-
-.switch-container{
-    position:absolute;
-    top:0;
-    line-height:45px;
-    right:15px;
-}
-.switch-container > div {color:#333;}
-
-.switch-btn {
-    width: 20px;
-    height: 20px;
-    border: 1px solid #aaa;
-    box-shadow: 0 5px 6px -3px #555;
-    position: absolute;
-    cursor: move;
-    opacity: .8;
-}
-
-.switch-btn:hover{opacity: 1}
-
-.switch-groove{
-    width: 50px;
-    height: 23px;
-    border: 1px solid #aaa;
-    border-radius: 20px;
-    margin: 0 5px;
-    vertical-align: middle;
-
-    background: #E7E7E7;
-}
-
-.switch-groove:before{
-    content: "";
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid #fff;
-    position: absolute;
-    margin-top: -10px;
-    left:46%;
-}
-
-
 /*loading spinner*/
-
-
 
 
 .spinner-box:nth-child(2n-1){
@@ -1877,4 +1810,21 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
 @keyframes loader2{
     0%{transform:rotate(0deg);}
     100%{transform:rotate(360deg);}
+}
+
+.app_box{
+    width: 100%;
+    height: auto;
+    position:relative;
+    z-index:2;
+}
+
+.fixed-bg{
+    background-color: #E7E7E7;
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:-1;
+    top:0;
+    left:0;
 }

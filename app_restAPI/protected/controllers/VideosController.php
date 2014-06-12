@@ -63,7 +63,7 @@ class VideosController extends Controller {
             $temp = explode("/", $_SERVER['REQUEST_URI']);
             $id = $temp [sizeof($temp) - 1];
             $photoTitle = $mega['mega']['object_title'];
-
+            $deleted = $mega['mega']['is_deleted'];
             $photoCaption = $mega['mega']['object_description'];
             $url = $this->getDomain() . "/" . $id;
             $tempRecord = $cb->get($url);
@@ -73,7 +73,7 @@ class VideosController extends Controller {
             $oldRecord['object_description'] = $photoCaption;
             $oldRecord['videoes'][0]['video_title'] = $photoTitle;
             $oldRecord['videoes'][0]['video_desc'] = $photoCaption;
-
+            $oldRecord['is_deleted'] = $deleted;
             if (!isset($oldRecord['view_count'])) {
                 $oldRecord["view_count"] = 1;
             } else {

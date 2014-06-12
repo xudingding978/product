@@ -5,35 +5,38 @@
 
 <div class="new-profile-display" >
     <div class="new-profile-display-top">
+     {{#if view.is_trends_user}}
         <div class='new-profile-display-button'><a href="#/profiles/new"><i class="fa fa-plus">&nbsp;New Profile</i></a> </div>
+        {{/if}}
         <div class="new-profile-display-title">Profile List</div>
+        
     </div>
 
     <div id="profiles_display">
         <div id="profile-creator-title" class="title-list title-list-selected" {{action clickToDisplay 'Creator' on="click" target="view"}}> 
-            <i class="fa fa-bookmark" style="color: yellow;">&nbsp;</i>Creator &nbsp;(&nbsp;{{HubStar.userCreator}}&nbsp;)
+             <i class="fa fa-bookmark" style="color: yellow;">&nbsp;</i>Creator &nbsp;(&nbsp;{{HubStar.userCreator}}&nbsp;)
             <div>Creates profiles<i class="fa fa-caret-down fa-caret-up">&nbsp;</i></div>
         </div>
         <div id="profile-creator">
-                {{#each model}} 
-                {{#if this.isCreator}}
-                <div>
-                    <a href="#/profiles/{{unbound this.profile_id}}">
-                        <div  class="profile-image"> 
-                            <div class="profile-top-image-position">
-                                <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
-                            </div>
-                            <div class="profile-top-name-position">{{unbound this.profile_name}} </div>
+            {{#each model}} 
+            {{#if this.isCreator}}
+            <div>
+                <a href="#/profiles/{{unbound this.profile_id}}">
+                    <div  class="profile-image"> 
+                        <div class="profile-top-image-position">
+                            <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
                         </div>
-                    </a>
-                </div>
-                {{/if}}
-                {{/each}}
+                        <div class="profile-top-name-position">{{unbound this.profile_name}} </div>
+                    </div>
+                </a>
+            </div>
+            {{/if}}
+            {{/each}}
 
         </div>      
         <div id="profile-admin-title" class="title-list " {{action clickToDisplay "Admin" on="click" target="view"}}>
-            <i class="fa fa-bookmark" style="color: red;"></i>&nbsp;Administrator &nbsp;(&nbsp;{{HubStar.userAdministrator}}&nbsp;)
-        <div>Profile owner / manage editors, contents and tags <i class="fa fa-caret-down">&nbsp;</i></div>
+             <i class="fa fa-bookmark" style="color: red;"></i>&nbsp;Administrator &nbsp;(&nbsp;{{HubStar.userAdministrator}}&nbsp;)
+            <div>Profile owner / manage editors, contents and tags <i class="fa fa-caret-down">&nbsp;</i></div>
         </div>
         <div id="profile-admin">
 
@@ -42,7 +45,7 @@
             <div>
                 <a href="#/profiles/{{unbound this.profile_id}}">
                     <div class="profile-image" > 
-                         <div class="profile-top-image-position">
+                        <div class="profile-top-image-position">
                             <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
                         </div>
 
@@ -54,10 +57,10 @@
             {{/if}}
             {{/each}}
         </div>
-      
+
         <div id="profile-editor-title" class="title-list" {{action clickToDisplay "Editor" on="click" target="view"}}>
              <i class="fa fa-bookmark " style="color: blue;">&nbsp;</i>Editor  &nbsp;(&nbsp;{{HubStar.userEditor}}&nbsp;)
-        <div>Manage contents and tags<i class="fa fa-caret-down">&nbsp;</i></div>
+            <div>Manage contents and tags<i class="fa fa-caret-down">&nbsp;</i></div>
         </div>
         <div id="profile-editor">
 
@@ -66,7 +69,7 @@
             <div>
                 <a href="#/profiles/{{unbound this.profile_id}}">
                     <div class="profile-image" > 
-                       
+
                         <div class="profile-top-image-position">
                             <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
                         </div>
@@ -77,7 +80,7 @@
             {{/if}}
             {{/each}}
         </div>
-       
+
 
 
         <div style="position: absolute; right:20px; top:0; color:#000; font-size:20px;" {{action cancel on="click" target="view"}}><i class='fa fa-times'></i></div>

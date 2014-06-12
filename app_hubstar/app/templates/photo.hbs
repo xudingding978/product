@@ -4,25 +4,26 @@
 {{render loadingSpinner}}
 
 {{/if}}-->
+{{#if controller.collectable}}
+{{render addCollection}}
+{{/if}}
 <div  id ="ssss" class="objectview-wrapper" >
 
     <div class="objectview-left">
-        {{#if controller.collectable}}
-        {{render addCollection}}
-        {{/if}}
+
         <div class="top-controlbar easing" >
 
 
             {{#if controller.megaResouce.getVideo}}
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Watch this Video" style="position:relative;margin: 0 5px;width: 60px;"  {{action transitionToVideo controller.megaResouce}}>
                  <i class="fa fa-film"></i><span class="pretooltip">Watch</span>
-            </div>    
+            </div>   
             {{/if}}
             {{#unless controller.enableTag}}
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." style="position:relative;margin: 0 5px;width: 60px;;"  {{action switchCollection on="click" target="controller"}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection."   {{action switchCollection on="click" target="controller"}}>
                 <i class="fa fa-folder"></i><span class="pretooltip">Save</span>
             </div>
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;width: 60px;" {{action dropdownPhotoSetting "1"}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform."  {{action dropdownPhotoSetting "1"}}>
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
             {{/unless}}
@@ -31,23 +32,23 @@
             {{#unless controller.megaResouce.getVideo}}
             {{#if controller.isBusinessProfile}}
             {{#if controller.enableTag}}
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="end tagging this photo" style="position:relative;margin: 0 10px;width: 60px;" {{action endTag}}>
-                 <i class="fa fa-tag"></i><span class="pretooltip">EndTag</span> 
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Exit image tagging"  {{action endTag}}>
+                 <i class="fa fa-tag"></i><span class="pretooltip">Done Tagging</span> 
             </div>
             {{else}}
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="activate this tag " style="position:relative;margin: 0 5px;width: 60px;" {{action activateTag}}>
-                 <i class="fa fa-tag"></i><span class="pretooltip">Tag</span> 
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Add a new tag "  {{action activateTag}}>
+                 <i class="fa fa-tag"></i><span class="pretooltip">Tag Image</span> 
             </div>
             {{/if}}
             {{/if}}
 
             {{#if controller.showAllTags}}
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="hide tags this photo" style="position:relative;margin: 0 5px;width: 60px;" {{action hideTags}}>
-                 <i class="fa fa-tag"></i><span class="pretooltip">HideTag</span> 
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Hide all tags on this image"  {{action hideTags}}>
+                 <i class="fa fa-tag"></i><span class="pretooltip">Hide Tags</span> 
             </div>
             {{else}}
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="show tag this photo" style="position:relative;margin: 0 5px;width: 60px;" {{action showTags}}>
-                 <i class="fa fa-tag"></i><span class="pretooltip">ShowTag</span> 
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Show all tags on this image"  {{action showTags}}>
+                 <i class="fa fa-tag"></i><span class="pretooltip">Show Tags</span> 
             </div>
             {{/if}}
             {{/unless}}
@@ -90,10 +91,15 @@
         <div class="mainfeature">
 
             <div  class="previous" id ="previousphoto" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="view"}}>
-                <i id="p" class="fa fa-arrow-left" style="top:400px; left: 138px; color: white; position: absolute; font-size: 50px;"></i>
+                {{#unless controller.onlyOne}}
+                <i id="p" class="" style="background: url(../../images/previouscursor.png) no-repeat;top:400px; left: 138px; color: white; position: absolute; font-size: 50px;width:50px;height:50px;"></i>
+                {{/unless}}
             </div>
             <div  class="next" id ="nextphoto" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="view"}}>
-                <i id="n" class="fa fa-arrow-right" style="top:400px; right: 138px; color: white; position: absolute; font-size: 50px;"></i></div>
+                {{#unless controller.onlyOne}}
+                <i id="n" class="" style="background: url(../../images/nextcursor.png) no-repeat;top:400px; right: 138px; color: white; position: absolute; font-size: 50px;width:50px;height:50px;"></i>
+                {{/unless}}
+            </div>
             <!--     image show here-->   
             <div id ="tag_image">
                 {{view HubStar.PhotoDisplayAreaView}}
@@ -116,25 +122,23 @@
                 </div>
                 {{/if}}
 
-                <div class="previous" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="controller"}}></div>
-                <div class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="controller"}}></div>
 
 
                 <!--     show   tag's detail content  template-->   
                 <!--              only when is not in the edit tag state and mouse over the tag can show the detail content-->
                 {{#if HubStar.tagging_display}}
-                    {{#unless controller.enableTag}}
-                        {{#if controller.showEachTagContent }}
-                        {{ view HubStar.TagContentView }}
-                        {{/if}}
-                    {{/unless}}
+                {{#unless controller.enableTag}}
+                {{#if controller.showEachTagContent }}
+                {{ view HubStar.TagContentView }}
+                {{/if}}
+                {{/unless}}
                 <!--     show all the tags--> 
                 {{#if controller.showAllTags}} <!--      showOrNot tag-->
                 {{#each controller.contentTags}}
                 {{view HubStar.TagMouseView}} 
                 {{/each}}
                 {{/if}}
-                
+
                 {{/if}}
             </div>
         </div>
@@ -182,9 +186,7 @@
                 </div>
             </div>
         </div>
-        {{#if controller.contact}}
-        {{render contact}}
-        {{/if}}
+
 
 
         <!-- OBJECT CONTROLL SECTION -->
@@ -452,5 +454,8 @@
 {{render updateTag}}
 {{/if}}
 {{#if controller.makeSureActivateTag}}
-                {{view HubStar.ActivateTagFunctionView}}
-                {{/if}}
+{{view HubStar.ActivateTagFunctionView}}
+{{/if}}
+{{#if controller.contact}}
+{{render contact}}
+{{/if}}

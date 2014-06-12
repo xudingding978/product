@@ -1503,7 +1503,6 @@ textarea.add-interests{
     width: 100%;
     height: auto; 
     min-height: 50px;
-    padding-left: 25px; 
     background-color: #ccc;
 }
 
@@ -1515,10 +1514,12 @@ textarea.add-interests{
     min-height: 50px;
     vertical-align: middle;
     display: inline-block;
+    position: absolute;
+    left:22px;
 }
 
 .new-profile-display-title{
-    left: 15%;
+
     position: relative;
     font-size: 20px;
     font-weight: bold;
@@ -1542,7 +1543,7 @@ textarea.add-interests{
 
 .title-list:hover{
     background-color: #000;
-    color: #fff;
+    color:#fff !important; 
 }
 
 .title-list-selected{
@@ -1560,7 +1561,7 @@ textarea.add-interests{
 }
 
 .title-list-selected > div i {
-     color:#fff !important; 
+    color:#fff !important; 
 }
 
 .title-list > div i{  
@@ -1609,16 +1610,18 @@ textarea.add-interests{
     width: 50px;
     position: relative;
     margin: 0px 6px;
+    float: left;
     border-radius: 5px;
 }
 .profile-top-name-position{
     color: #555;
     position: relative;
-    width: 100px;
-    margin:  0px 6px;
+    width: 70%;
+    margin: 0px 6px;
     display: inline-block;
     line-height: 20px;
     word-wrap: break-word;
+    vertical-align: middle;
 }
 
 .user-profile-bookmark{

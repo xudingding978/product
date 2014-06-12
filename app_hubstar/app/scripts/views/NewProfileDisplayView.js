@@ -3,6 +3,19 @@
 HubStar.NewProfileDisplayView = Ember.View.extend({
     templateName: 'newProfileDisplay',
     didInsertElement: function() {
+        var u = HubStar.User.find(localStorage.loginStatus);
+        var that =this;
+            u.then(function() {
+                if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
+                        && (u.get("email")).match(/@trendsideas.com/g) !== ""
+                        && (u.get("email")).match(/@trendsideas.com/g) !== null)
+                {
+                    that.set("is_trends_user", true);
+                }
+                else {
+                    that.set("is_trends_user", false);
+                }
+            });
         $(document).ready(function() {
             if (HubStar.get("userCreator") >= 6) {
                 $("#profile-creator").mCustomScrollbar({

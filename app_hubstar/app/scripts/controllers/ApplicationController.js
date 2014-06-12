@@ -235,6 +235,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 else {
                     that.set("is_trends_user", false);
                 }
+                that.set("user", u);
+                that.set("myUserProfile", "#/users/" + localStorage.loginStatus);
+                that.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
                 for (var i = 0; i < u.get("profiles").get("length"); i++) {
                     var id = u.get("profiles").objectAt(i).get("profile_id");
                     var name = u.get("profiles").objectAt(i).get("profile_name");
@@ -246,17 +249,17 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     if (type === "administrator")
                     {
                         isAdministrator = true;
-                        HubStar.set("userAdministrator", HubStar.get("userAdministrator")+1);
+                        HubStar.set("userAdministrator", HubStar.get("userAdministrator") + 1);
                     }
                     else if (type === "editor")
                     {
                         isEditor = true;
-                        HubStar.set("userEditor", HubStar.get("userEditor")+1);
+                        HubStar.set("userEditor", HubStar.get("userEditor") + 1);
                     }
                     else if (type === "creator")
                     {
                         isCreator = true;
-                        HubStar.set("userCreator", HubStar.get("userCreator")+1);
+                        HubStar.set("userCreator", HubStar.get("userCreator") + 1);
                     }
                     var url = pic.split("_");
                     var length = url.length;
@@ -290,9 +293,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
             });
         }
-        this.set("user", u);
-        this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
-        this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
 
     },
     searchSmallScreen: function() {

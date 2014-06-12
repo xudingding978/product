@@ -90,10 +90,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                     that.get("contentTags").pushObject(newTag);
                     that.createNotification(newTag, mega, tag_id);
                 }
-//                that.get("controllers.article").set("showRequestTag", true);
-//                that.get("controllers.mega").set("showRequestTag", true);
-////reset the value
-////  that.setTagIcon(pic_x, pic_y, tag_id); //set the tag icon location
+
                 if (HubStar.get("isArticleTag") === true)
                 {
                     that.get("controllers.article").set("showRequestTag", true);
@@ -110,6 +107,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 that.set("product_name", "");
                 that.readTags(photo_id); //call the read method to show all tags
             });
+           this.get('controllers.applicationFeedback').statusObserver(null, "Great job! We are sent a message to the content owner requesting activation of your tag.", "warnning"); 
         }
     },
     activateUserTag: function(tag_id, photo_id)

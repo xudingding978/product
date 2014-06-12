@@ -2329,6 +2329,13 @@ div.album-description-bg{
     width: 334px;
 }
 
+.add-tag_select-tag > div{
+    font-size: 16px; 
+    font-weight: bold; 
+    overflow: auto; 
+    overflow-x:hidden;
+}
+
 .add-tag_select-tag:before{
     content: "";
     position: absolute;

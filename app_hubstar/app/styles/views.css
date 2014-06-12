@@ -972,6 +972,36 @@ div.album-description-bg{
     float: right;
 }
 
+.previous-arrow-box{
+    width: 50%; 
+    height: 100%; 
+    float: left;
+}
+
+.arrow-pos{    
+    top:400px;  
+    color: white; 
+    position: absolute; 
+    font-size: 50px;
+    width:50px;
+    height:50px;
+}
+
+.arrow-left{
+    background: url(../../images/previouscursor.png) no-repeat;
+    left: 138px;
+}
+
+.arrow-right{
+    background: url(../../images/nextcursor.png) no-repeat;
+    right: 138px;
+}
+.next-arrow-box{
+    width: 50%; 
+    height: 100%; 
+    float: right;
+}
+
 
 .close_text{
     position: relative;
@@ -1037,6 +1067,7 @@ div.album-description-bg{
     position:relative; 
     left:44px;
 }
+<<<<<<< HEAD
 
 .right-arrow{
     left: 44px;
@@ -1052,6 +1083,23 @@ div.album-description-bg{
     position:relative;
 }
 
+=======
+
+.right-arrow{
+    left: 44px;
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.middle-icon{
+    left: 44px; 
+    display:inline-block; 
+    vertical-align: top; 
+    position:relative;
+}
+
+>>>>>>> 0c8a6ea40c952c30c122eda1781c3a0cfaecccf1
 .photo-no{
     left: 88px; 
     top:0;
@@ -1088,6 +1136,23 @@ div.album-description-bg{
     font-weight: bold;
     font-family: FontAwesome, "Helvetica Neue", Helvetica, Arial, sans-serif;
 
+}
+.top-article{
+    position:relative;
+    width: 60px;
+    margin: 0 5px;
+}
+
+.top-tag{
+    position:relative;
+    margin: 0 10px;
+    width: 60px;
+}
+
+.top-tag-acts{
+    position:relative;
+    margin: 0 5px;
+    width: 60px;
 }
 
 /* top navigation specific styling ends */
@@ -1269,6 +1334,63 @@ div.album-description-bg{
     padding: 0;
     margin: 0;
     width: 100%;
+<<<<<<< HEAD
+=======
+}
+
+.discuss-input-box{
+    width: 98%;
+    padding: 15px 10px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-bottom: 1px solid #ddd;
+}
+
+.discuss-input-innerbox{
+    margin:0 auto; 
+    padding: 0 0 0 50px;
+}
+.view-stats-innerbox{
+    padding: 0; 
+    height: 45px;
+}
+
+.view-stats-font{
+    font-size: 11px;
+}
+
+.view-edit-box{
+    float: right;
+}
+
+.view-edit-box2{
+    position: absolute;
+    font-size: 15px;
+    right: 10px;
+    argin: 1px;
+}
+.discuss-input{
+    width: 100%; 
+    border-radius: 2px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.discuss-input-txt{
+    margin: 0;
+    width: 100%; 
+    height:100px;
+}
+
+.discuss-submit{
+    height: 30px;
+    position: relative;
+    border-top: 1px solid #ddd;
+    top: -1px;
+}
+.edit_photo-titile_field{
+    margin-bottom: 7px;
+>>>>>>> 0c8a6ea40c952c30c122eda1781c3a0cfaecccf1
 }
 
 .discuss-input-box{
@@ -2287,6 +2409,14 @@ height: 430px;
     padding: 0 20px;
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #fff;
+}
+
+.selected-none{
+    display:inline-block;
+}
+
+.choose-exist-collection:hover{
+    background-color: rgba(0,0,0,0.1);
 }
 
 .selected-none{

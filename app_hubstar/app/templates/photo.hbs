@@ -33,7 +33,6 @@
             {{#unless controller.megaResouce.getVideo}}
             {{#if controller.isBusinessProfile}}
             {{#if controller.enableTag}}
-
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Exit image taggingo" {{action endTag}}>
                  <i class="fa fa-tag"></i><span class="pretooltip">Done Tagging</span> 
             </div>
@@ -45,7 +44,6 @@
             {{/if}}
 
             {{#if controller.showAllTags}}
-
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Hide all tags on this image" {{action hideTags}}>
                  <i class="fa fa-tag"></i><span class="pretooltip">Hide Tags</span>
             </div>
@@ -92,7 +90,6 @@
         </div>
 
         <div class="mainfeature">
-
             <div  class="previous previous-arrow-box" id ="previousphoto"  {{action previesImage on="click" target="view"}}>
                 {{#unless controller.onlyOne}}
                 <i id="p" class="arrow-pos arrow-left" ></i>

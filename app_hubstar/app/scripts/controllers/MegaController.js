@@ -133,8 +133,10 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
                 var selectedIndex = this.findSelectedItemIndex();
                 selectedIndex--;
+                if (selectedIndex < -1) {
+                this.get("controllers.checkingLoginStatus").popupLogin();
+            }
                 if (selectedIndex < 0) {
-                    this.get("controllers.checkingLoginStatus").popupLogin();
                     selectedIndex = this.get('content').get('length') - 1;
                     this.set('image_no', this.get('content').get('length'));
                 }
@@ -215,8 +217,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
                 var selectedIndex = this.findSelectedItemIndex();
                 selectedIndex++;
+            if (selectedIndex >= this.get('content').get('length') - 1) {
+                this.get("controllers.checkingLoginStatus").popupLogin();
+            }
                 if (selectedIndex >= (this.get('content').get('length'))) {
-                    this.get("controllers.checkingLoginStatus").popupLogin();
+                    
                     this.set('image_no', 1);
                     selectedIndex = 0;
                 }

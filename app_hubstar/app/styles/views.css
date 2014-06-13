@@ -2645,6 +2645,55 @@ div.album-description-bg{
     font-size: 11px;
     font-weight: bold;
 }
+
+/* contact.hbs */
+.contact-top{
+    position: relative;
+    height: 35px; 
+    width: 100%;
+    background: #fff url('../../../images/contactbg.png') repeat; 
+    z-index: 11;
+}
+
+.contact-box{
+    width: 500px;
+    font-size:13px;
+    background-color: white;
+    z-index:11;
+    position: absolute;
+}
+
+.contact-navigateBar{
+    position: relative; 
+    text-align: center;
+}
+
+.contact-hide-step{
+    background-color: #aaa;
+}
+
+.contact-step-bar{
+    width: 300px; 
+    height: 2px; 
+    border-radius: 20%;
+    background-color:#ccc;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 19px;
+    z-index: 0;
+}
+
+.contact-step-title{
+    font-size: 18px; 
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+    position: relative;
+    top: 10px;
+    right: 87px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 @media (max-width: 1280px){
     #cta-popup{
         right: 10%;

@@ -1,18 +1,18 @@
 
 <div class="blur_black" {{action closeContact }}></div>
 
-<div  style="position: relative;height: 35px; width: 100%;background: #fff url('../../../images/contactbg.png') repeat; z-index: 11;"></div>
+<div class="contact-top"></div>
 
-<div class="contactmebox-wapper" style="width: 500px;font-size:13px;background-color: white;z-index:11;position: absolute;">
+<div class="contactmebox-wapper contact-box">
 
 
     {{#unless controller.firstStepOfContactEmail}}
     <div class="head controlbtn-field">
-        <div style="position: relative; text-align: center;">
-            <div class="panelcircle radius-circle" style="">1</div>
-            <div class="panelcircle radius-circle" style="background-color: #aaa" {{action nextSendingEmailProcess}} >2</div>
-            <div style="width: 300px; height: 2px; border-radius: 20%;background-color:#ccc;position: absolute;margin: auto;left: 0;right: 0;top: 19px;z-index: 0;"></div>
-            <div style='font-size: 18px; text-shadow: 0 1px 0 rgba(255,255,255,0.8);position: relative;top: 10px;right: 87px;font-weight: bold;margin-bottom: 10px;'> Send a message.</div>
+        <div class="contact-navigateBar">
+            <div class="panelcircle radius-circle">1</div>
+            <div class="panelcircle radius-circle contact-hide-step" {{action nextSendingEmailProcess}} >2</div>
+            <div class="contact-step-bar"></div>
+            <div class="contact-step-title"> Send a message.</div>
         </div>
     </div>
 

@@ -234,8 +234,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                                     var left = center_x - HubStar.get("pic_current_width") / 2;
                                     var height = Math.ceil(tags[i].pic_y * HubStar.get("pic_current_height") + top) + "px";  //set the tag's place which is the percentage of image and add the picture origin left point place
                                     var width = Math.ceil(tags[i].pic_x * HubStar.get("pic_current_width") + left) + "px";
-                                    console.log(height);
-                                    console.log(width);
                                     $(tagDiv).css({"top": height, "left": width});
                                 }
                             }

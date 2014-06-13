@@ -40,7 +40,7 @@ HubStar.PhotoView = Ember.View.extend({
                 if (mouseY - HubStar.get("changeHeight")> center_y)
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true); //chage tag show style
-                    mouseY = mouseY -500;
+                    mouseY = mouseY -575;
                      //$("#showTagSavePhoto").css("position", "relative");
                 }
                 else
@@ -87,7 +87,7 @@ HubStar.PhotoView = Ember.View.extend({
                 }
                 if (mouseY - 70 > center_y)
                 {
-                    mouseY = mouseY   -500;
+                    mouseY = mouseY   -575;
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true);
                     //$("#showTagSavePhoto").css("position", "relative");
                 }

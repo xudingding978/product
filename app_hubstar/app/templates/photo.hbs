@@ -143,32 +143,33 @@
 
                 {{/if}}
             </div>
-        
 
-        <!--THIS IS THE ALBUM BOX-->
 
-        {{view HubStar.ShowAlbumView}}
+            <!--THIS IS THE ALBUM BOX-->
 
-        <div class="bottom-controlbar easing" >
-            <div class="fa icon-on-black"  {{action previesImage on="click" target="controller"}}>
-                <i class="fa fa-arrow-left"></i>
+            {{view HubStar.ShowAlbumView}}
+
+            <div class="bottom-controlbar easing" >
+                <div class="fa icon-on-black"  {{action previesImage on="click" target="controller"}}>
+                    <i class="fa fa-arrow-left"></i>
+                </div>
+                {{#unless controller.isRead}}
+                <div class="fa icon-on-black hint--rounded hint--top" data-hint="Show other photos in this collection." {{action popupAibum on="click" target="view"}}>
+                    <i class="fa fa-th"></i>
+                </div>
+                {{else}}
+                <div  class="spinner-object" >
+                    <i class="spinner"></i> 
+                </div>
+                {{/unless}}
+                <div class="fa icon-on-black" {{action nextImage on="click" target="controller"}}>
+                    <i class="fa fa-arrow-right"></i>
+                </div>
+                <div class="text-on-black"> {{controller.image_no}}/{{content.length}} </div>
             </div>
-            {{#unless controller.isRead}}
-            <div class="fa icon-on-black hint--rounded hint--top" data-hint="Show other photos in this collection." {{action popupAibum on="click" target="view"}}>
-                <i class="fa fa-th"></i>
-            </div>
-            {{else}}
-            <div  class="spinner-object" >
-                <i class="spinner"></i> 
-            </div>
-            {{/unless}}
-            <div class="fa icon-on-black" {{action nextImage on="click" target="controller"}}>
-                <i class="fa fa-arrow-right"></i>
-            </div>
-            <div class="text-on-black"> {{controller.image_no}}/{{content.length}} </div>
+
         </div>
-
-    </div> 
+    </div>
     <div class="objectview-right">
         <!-- USER SECTION -->
         <div style="cursor: pointer;">

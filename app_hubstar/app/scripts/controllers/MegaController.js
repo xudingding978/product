@@ -145,7 +145,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 this.set('image_no', selectedIndex + 1);
                 this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
                 this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
-                this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
+                //this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
                 this.set("photo_album_id", "album_" + this.get('selectedPhoto').id);
                 this.set("photo_thumb_id", "thumb_" + this.get('selectedPhoto').id);
                 var address = document.URL;
@@ -236,7 +236,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 this.set('image_no', selectedIndex + 1);
                 this.set('selectedPhoto', this.get('content').objectAt(selectedIndex));
                 this.set('megaResouce', HubStar.Mega.find(this.get('selectedPhoto').id));
-                this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
+                //this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
                 var address = document.URL;
                 if (this.get("controllers.masonryCollectionItems").get("type") === "user")
                 {

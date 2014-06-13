@@ -50,9 +50,11 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         var selectedID = this.get("selectedID"); //the selected profile id
         var collectionID = this.get("selectedCollection").id;
         var collection_name = this.get("selectedCollection").title;
-        if (selectedID === "" || selectedID === null || selectedID === undefined)
+        if (selectedID === "" || selectedID === null || selectedID === undefined ||
+                collectionID === "" || collectionID === null || collectionID === undefined ||
+                this.get("product_name") === "" || this.get("product_name") === null || this.get("product_name") === undefined)
         {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please select the profile before save.", "warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please fill all the blanks before save.", "warnning");
         }
         else
         {
@@ -175,17 +177,17 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             if (params !== "" && params !== undefined && params !== null)
             {
                 that.set("contentTags", params);
-                 for (var i = 0; i < params.length; i++)
-                            {
-                                if (params[i].tag_owner === localStorage.loginStatus)
-                                {
-                                    params[i].is_tag_owner = true;
-                                }
-                                else
-                                    {
-                                        params[i].is_tag_owner = false;
-                                    }
-                            }
+                for (var i = 0; i < params.length; i++)
+                {
+                    if (params[i].tag_owner === localStorage.loginStatus)
+                    {
+                        params[i].is_tag_owner = true;
+                    }
+                    else
+                    {
+                        params[i].is_tag_owner = false;
+                    }
+                }
                 if (HubStar.get("isArticleTag") === true)
                 {
                     that.get("controllers.article").set("contentTagsArticle", params);
@@ -196,45 +198,46 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 }
 
                 var tags = params;
-
-                $(document).ready(function() {
-                    setTimeout(function() {
-                        //thatthat.get("controllers.mega").set("tagCount", params.get("length"));
-                        if (HubStar.get("isArticleTag") === true)
-                        {
-                            thatthat.get("controllers.article").set("tagCount", params.get("length"));
-                        } else
-                        {
-                            thatthat.get("controllers.mega").set("tagCount", params.get("length"));
-                        }
-                        if (tags !== undefined && tags !== "" && tags !== null)
-                        {
-                            for (var i = 0; i < tags.length; i++)
+                setTimeout(function() {
+                    $(document).ready(function() {
+                        setTimeout(function() {
+                            //thatthat.get("controllers.mega").set("tagCount", params.get("length"));
+                            if (HubStar.get("isArticleTag") === true)
                             {
-                                var tagDiv = "#tag_" + tags[i].tag_id;
-                                var center_y = $(window).height() / 2;
-                                var isArticle = false;
-                                if (document.URL.search("article") !== -1)
-                                {
-                                    isArticle = true;
-                                }
-                                var center_x = 0;
-                                if (isArticle === true) {
-                                    center_x = ($(window).width() * 0.55) / 2;
-                                }
-                                else
-                                {
-                                    center_x = ($(window).width() - 320) / 2;
-                                }
-                                var top = center_y - HubStar.get("pic_current_height") / 2;
-                                var left = center_x - HubStar.get("pic_current_width") / 2;
-                                var height = tags[i].pic_y * HubStar.get("pic_current_height") + top;  //set the tag's place which is the percentage of image and add the picture origin left point place
-                                var width = tags[i].pic_x * HubStar.get("pic_current_width") + left;
-                                $(tagDiv).css({top: height, left: width});
+                                thatthat.get("controllers.article").set("tagCount", params.get("length"));
+                            } else
+                            {
+                                thatthat.get("controllers.mega").set("tagCount", params.get("length"));
                             }
-                        }
-                    }, 5);
-                });
+                            if (tags !== undefined && tags !== "" && tags !== null)
+                            {
+                                for (var i = 0; i < tags.length; i++)
+                                {
+                                    var tagDiv = "#tag_" + tags[i].tag_id;
+                                    var center_y = $(window).height() / 2;
+                                    var isArticle = false;
+                                    if (document.URL.search("article") !== -1)
+                                    {
+                                        isArticle = true;
+                                    }
+                                    var center_x = 0;
+                                    if (isArticle === true) {
+                                        center_x = ($(window).width() * 0.55) / 2;
+                                    }
+                                    else
+                                    {
+                                        center_x = ($(window).width() - 320) / 2;
+                                    }
+                                    var top = center_y - HubStar.get("pic_current_height") / 2;
+                                    var left = center_x - HubStar.get("pic_current_width") / 2;
+                                    var height = Math.ceil(tags[i].pic_y * HubStar.get("pic_current_height") + top) + "px";  //set the tag's place which is the percentage of image and add the picture origin left point place
+                                    var width = Math.ceil(tags[i].pic_x * HubStar.get("pic_current_width") + left) + "px";
+                                    $(tagDiv).css({"top": height, "left": width});
+                                }
+                            }
+                        }, 25);
+                    });
+                }, 25);
             }
             else
             {

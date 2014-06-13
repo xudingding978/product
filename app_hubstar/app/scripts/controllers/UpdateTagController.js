@@ -70,7 +70,6 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
         this.setThumbnailUrl(tag.pic_url);
         this.set("tag_id", tag_id);
         this.set("photo_id", photo_id);
-        console.log(tag);
     },
     saveUpdateTag: function(profile_id)
     {
@@ -97,7 +96,7 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
         {
             this.get("controllers.mega").set("contentTags", this.get("controllers.showTag").get("contentTags"));
         }
-        var tagInfo = [tag_id, this.get("product_name"), this.get("description"), this.get("linkTo"), time_stamp, photo_id];
+        var tagInfo = [tag_id, this.get("product_name"), this.get("description"), time_stamp, photo_id];
         tagInfo = JSON.stringify(tagInfo);
         var that = this;
         requiredBackEnd('showTag', 'updateTag', tagInfo, 'POST', function(params) {

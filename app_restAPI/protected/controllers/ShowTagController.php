@@ -170,10 +170,10 @@ class ShowTagController extends Controller {
         $tag_id = $request_array[0];  //tag id : consists of time and photo id
         $product_name = $request_array[1]; // it is the product name
         $desc = $request_array[2]; // it is the descript of the  product
-        $linkAddress = $request_array[3]; // it is the content link  address
-        $time_stamp = $request_array[4]; // it is create time      
+        //$linkAddress = $request_array[3]; // it is the content link  address
+        $time_stamp = $request_array[3]; // it is create time      
         //$profile_id = $request_array[5];
-        $photo_id = $request_array[5];  //selected photo's id
+        $photo_id = $request_array[4];  //selected photo's id
         //$collection_id = $request_array[7];
         try {
             $docIDDeep = $this->getDomain() . "/" . $photo_id; //$id  is the page owner
@@ -185,7 +185,7 @@ class ShowTagController extends Controller {
                     //$oldRecordDeep["photo"][0]['tags'][$i]["profile_id"] = $profile_id;
                     $oldRecordDeep["photo"][0]['tags'][$i]["product_name"] = $product_name;
                     $oldRecordDeep["photo"][0]['tags'][$i]["desc"] = $desc;
-                    $oldRecordDeep["photo"][0]['tags'][$i]["linkto"] = $linkAddress;
+                    //$oldRecordDeep["photo"][0]['tags'][$i]["linkto"] = $linkAddress;
                     $oldRecordDeep["photo"][0]['tags'][$i]["tag_time"] = $time_stamp;
                     // $oldRecordDeep["photo"][0]['tags'][$i]["collectionID"] = $collection_id;
                 }

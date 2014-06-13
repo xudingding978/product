@@ -26,6 +26,10 @@ a:hover , a:focus {color: #aaa;}
     top: 15px;
 }
 
+.dropdownicon-dis{
+    height: 16px; 
+    width: 16px;
+}
 .dropdownicon > i{
     height: 16px;
     width: 16px;
@@ -54,7 +58,6 @@ a:hover , a:focus {color: #aaa;}
     margin: 20px;
     position: relative;
     font-size: .8em;
-
     -webkit-perspective: 600px;
     -moz-perspective: 600px;
 }
@@ -73,6 +76,10 @@ a:hover , a:focus {color: #aaa;}
     cursor: pointer;
 }
 
+.share-box2{
+    position:relative;
+    margin: 0 5px;
+}
 .square-button:hover{opacity: 1}
 
 
@@ -89,8 +96,6 @@ a:hover , a:focus {color: #aaa;}
     border-radius: 3px;
     background: #fff;
     text-align: center;
-
-
 
     -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.9);
     -webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.9);
@@ -111,9 +116,6 @@ a:hover , a:focus {color: #aaa;}
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
 }
-
-
-
 
 .panel.flip .front {
     z-index: 900;
@@ -926,18 +928,6 @@ div.album-description-bg{
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 /*MANSONRY OBJECT STYLE             END*/
 
 
@@ -960,9 +950,10 @@ div.album-description-bg{
     top: 0;
     left: 0;
     margin: 0;
-    position: fixed;
+    position: absolute;
     right: 320px;
     overflow: hidden;
+    z-index: -1;
 }
 
 
@@ -979,6 +970,11 @@ div.album-description-bg{
     z-index: 1;
 }
 
+.exit-box{
+    float: right; 
+    position: relative; 
+    display: inline-block;
+}
 .top-controlbar{
     height: 44px;
     left: 0;
@@ -1100,6 +1096,37 @@ div.album-description-bg{
     /*    cursor: url(../../../images/previouscursor.png), auto;*/
 }
 
+.previous-arrow-box{
+    width: 50%; 
+    height: 100%; 
+    float: left;
+}
+
+.arrow-pos{    
+    top:400px;  
+    color: white; 
+    position: absolute; 
+    font-size: 50px;
+    width:50px;
+    height:50px;
+}
+
+.arrow-left{
+    background: url(../../images/previouscursor.png) no-repeat;
+    left: 138px;
+}
+
+.arrow-right{
+    background: url(../../images/nextcursor.png) no-repeat;
+    right: 138px;
+}
+.next-arrow-box{
+    width: 50%; 
+    height: 100%; 
+    float: right;
+}
+
+
 .close_text{
     position: relative;
     left: 34px;
@@ -1157,7 +1184,34 @@ div.album-description-bg{
     -o-transition: all 0.8s ease;
 }
 
+.left-arrow{
+    display:inline-block; 
+    vertical-align: top; 
+    position:relative; 
+    left:44px;
+}
 
+.right-arrow{
+    left: 44px;
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.middle-icon{
+    left: 44px; 
+    display:inline-block; 
+    vertical-align: top; 
+    position:relative;
+}
+
+.photo-no{
+    left: 88px; 
+    top:0;
+    position: relative !important;
+    display: inline-block;
+    vertical-align: top;
+}
 .icon-on-black:hover{
     color: #fff;
 }
@@ -1187,13 +1241,43 @@ div.album-description-bg{
     font-family: FontAwesome, "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 }
+.top-article{
+    position:relative;
+    width: 60px;
+    margin: 0 5px;
+}
+
+.top-tag{
+    position:relative;
+    margin: 0 10px;
+    width: 60px;
+}
+
+.top-tag-acts{
+    position:relative;
+    margin: 0 5px;
+    width: 60px;
+}
 
 
 /* top navigation specific styling ends */
 .icon-on-black > .pretooltip{
     float:left;
 }
+.view-des{
+    margin-bottom: 5px;
+}
+.view-txt{
+    width: 300px;
+    font-size: 13px;
+    line-height: 16px;
+}
 
+
+.view-arrow{
+    float: right; 
+    cursor:pointer;
+}
 .text-on-black{
     color: #737373;
     font: normal 14px Roboto,arial,sans-serif;
@@ -1343,6 +1427,15 @@ div.album-description-bg{
     background-color: #f8f8f8;
 }
 
+.article-display{
+    display:block;
+}
+
+.view-stats-box{
+    display:block;
+    border-top: 1px solid #f3f3f3;
+}
+
 .collapes-container_inner{
     padding: 30px 0;
     width: 87%;
@@ -1350,6 +1443,62 @@ div.album-description-bg{
     border-bottom: 1px solid rgba(0,0,0,.03)
 }
 
+.discuss-box{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.discuss-input-box{
+    width: 98%;
+    padding: 15px 10px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-bottom: 1px solid #ddd;
+}
+
+.discuss-input-innerbox{
+    margin:0 auto; 
+    padding: 0 0 0 50px;
+}
+.view-stats-innerbox{
+    padding: 0; 
+    height: 45px;
+}
+
+.view-stats-font{
+    font-size: 11px;
+}
+
+.view-edit-box{
+    float: right;
+}
+
+.view-edit-box2{
+    position: absolute;
+    font-size: 15px;
+    right: 10px;
+    argin: 1px;
+}
+.discuss-input{
+    width: 100%; 
+    border-radius: 2px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.discuss-input-txt{
+    margin: 0;
+    width: 100%; 
+    height:100px;
+}
+
+.discuss-submit{
+    height: 30px;
+    position: relative;
+    border-top: 1px solid #ddd;
+    top: -1px;
+}
 .edit_photo-titile_field{
     margin-bottom: 7px;
 }
@@ -1471,6 +1620,16 @@ div.album-description-bg{
     padding: 0 8px;
 }
 
+.new-btn-create{
+    vertical-align:middle;
+    top:0;
+}
+
+.new-btn-cancel{
+    vertical-align:middle;
+    top:0;
+}
+
 .new-btn > i{
     font-size: 13px;
 }
@@ -1543,6 +1702,13 @@ div.album-description-bg{
     text-shadow: none;
 }
 
+.blue-btn-ard{
+    display: block;
+    margin: 10px;
+    position: absolute !important;
+    top: 0;
+    right: 0;
+}
 .blue-btn:hover{
     -webkit-box-shadow: inset 0 -1px 0 #2f69c2;
     -o-box-shadow: inset 0 -1px 0 #2f69c2;
@@ -1618,13 +1784,15 @@ div.album-description-bg{
     box-shadow: none;
     top: -4px;
     position: relative;
-    padding: 0 8px;
+    padding: 0 6px;
     height: 28px;
     line-height: 28px;
-    margin: 0 2px;
+/*    margin: 0 2px;*/
     cursor: default;
 
     font-size: 12px;
+    overflow: hidden;
+    margin-top: 1%;
 }
 
 .disabled-green{
@@ -1690,6 +1858,79 @@ div.album-description-bg{
     line-height: 1.6em;
 }
 
+.article-text-table{
+    padding:0; 
+    border-spacing:0; 
+    border:0; 
+    width:100%;
+    padding-right: 0px; 
+    font-size: 12px;  
+    display: table;
+    border-collapse: separate;
+    border-spacing: 4px;
+    margin:10px auto;
+}
+
+.article-text-table-tbody{
+    display: table-row-group; 
+    vertical-align: middle; 
+    border-color: inherit;
+}
+
+.article-table-td1{
+    font-size: 14px;
+    font-weight: bold;
+    width: 90px;
+}
+
+.article-text-table-td2{
+    font-weight: bold; 
+    font-size: 12px;
+    width: 60px;
+}
+
+.article-text-url{
+    font-size: 14px;
+    font-weight: normal;
+    width: 90px;
+}
+
+.article-text-url2{
+    display: block;
+    height:55px ;
+}
+
+.article-text-url3{
+    margin: 0;
+    height:55px ;
+    width: 100%;
+}
+
+.article-text-margin{
+    margin-top: 10px;
+}
+.article-text2{
+    height: 210px;
+    overflow: hidden;
+}
+
+.content-edit{
+    position: relative;
+    display: block;
+    margin: 25px auto 0;
+    text-align: center;
+}
+
+.content-edit2{
+    position: relative;
+    display: block;
+    margin: 10px auto 0;
+    text-align: center;
+}
+
+.article-creditList{
+    font-weight: bold;
+}
 .caption-title{
     font-size: 22px;
     font-weight: bold;
@@ -1782,6 +2023,13 @@ div.album-description-bg{
     padding: 5px 6.5%;
 }
 
+.comment-item-img-z1{
+    z-index: 1;
+}
+
+.comment-item-img-z2{
+    z-index: 2;
+}
 .comment-position{
     padding: 4.5px 0 4.5px 35px;
     vertical-align: top;
@@ -1803,6 +2051,14 @@ div.album-description-bg{
     width: 33px;
     height: 33px;
     border: 1px solid #f3f3f3;
+}
+
+.comment-item-img{
+    width: 45px; 
+    height: 45px;
+    float: left; 
+    margin: 4px 0 0 -50px; 
+    margin-top: 0;
 }
 
 .comment-insert-field{
@@ -1908,6 +2164,18 @@ div.album-description-bg{
     cursor: pointer;
     text-align: left;
     overflow: hidden;
+}
+
+.selected-eachProfile{
+    width: auto;
+    line-height: 27px; 
+    padding: 0 20px;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #fff;
+}
+
+.selected-none{
+    display:inline-block;
 }
 
 .choose-exist-collection:hover{
@@ -2021,6 +2289,72 @@ div.album-description-bg{
     padding: 0;
 }
 
+.share-box{
+    width: 150px; 
+    margin: 0 auto; 
+    left: 70px;
+    padding: 0;
+}
+.share-box2a{
+    width: 170px; 
+    right: -36px; 
+    position: relative; 
+    top: 50px;
+}
+
+.share-box3a{
+    width: 170px; 
+    right: 80px; 
+    position: absolute; 
+    top: 130px;
+}
+
+.share-box4{
+    width: 150px; 
+    margin: 0 auto;
+    left: 45px;
+    padding: 0;
+}
+.share-type-fb{
+    max-height:34px;
+}
+
+.share-type-fb1{
+    top:-31px;
+}
+
+.share-type-fb2{
+    top:-32px;
+}
+
+.share-type{
+    font-size: 16px; 
+    margin: 0px 5px;
+}
+
+.share-type-pos1{
+    position: relative;
+}
+
+.share-type-pos2{
+    position: absolute;
+}
+
+.share-type-txt1{
+    margin-left: 1.3em;
+}
+
+.share-type-txt2{
+    margin-left: 2.5em;
+}
+
+.mainfeature_object2{
+    z-index: 0;
+    text-align: center;
+    line-height: 70;
+    max-width : 100%; 
+    width: 100%;
+}
 
 .edit-object-ul:before{
     content: "";

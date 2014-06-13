@@ -171,12 +171,18 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 else
                 {
                     var type = address.split("#")[1].split("/")[1];
+                    var search = address.split("#")[1].split("/")[2];
                     if (type === "photos")
                     {
                         this.transitionTo("photo", this.get("megaResouce").get('photo').objectAt(0));
                     }
                     else {
-                        this.transitionTo("newSearchPhoto", this.get("megaResouce"));
+                        if (search === "default")
+                        {
+                            this.transitionTo("searchDefaultPhoto", this.get("megaResouce"));
+                        } else {
+                            this.transitionTo("newSearchPhoto", this.get("megaResouce"));
+                        }
                     }
                 }
                 this.selectedImage(this.get('selectedPhoto').id);

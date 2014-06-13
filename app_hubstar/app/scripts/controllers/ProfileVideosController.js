@@ -36,21 +36,21 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
     dropdownPhotoSetting: function(id)
     {
         this.set('delete_id', id);
-            var ids='#dropdown_id_' + id;
+        var ids = '#dropdown_id_' + id;
         $(ids).toggleClass('hideClass');
         $(ids).click(function() {
             $(this).removeClass('hideClass');
         }).mouseleave(function() {
             $(this).addClass('hideClass');
         });
-        
-        
+
+
     },
     checkEditingMode: function()
     {
         this.set('is_profile_editing_mode', false);
         this.set('is_user_editing_mode', false);
-        
+
         if (HubStar.get('editingMode') === 'profile') {
             this.set('is_profile_editing_mode', true);
             var proController = this.get('controllers.profile');
@@ -112,9 +112,17 @@ HubStar.ProfileVideosController = Ember.Controller.extend({
             var tempmega = this.get('videoesContent').objectAt(i);
             if (tempmega.get('id') === this.get('delete_id'))
             {
-                tempmega.deleteRecord();
-                tempmega.store.save();
+                console.log(tempmega.get("save_count"));
                 this.get('videoesContent').removeObject(tempmega);
+                if (tempmega.get("save_count") > 0)
+                {
+                    tempmega.set("is_deleted", true);
+                    tempmega.store.save();
+                } else {
+                    tempmega.deleteRecord();
+                    tempmega.store.save();
+                }
+                                
                 var profile = HubStar.Profile.find(this.get("controllers.profile").get("Id"));
 
                 profile.set("profile_video_num", this.get('videoesContent').get("length"));

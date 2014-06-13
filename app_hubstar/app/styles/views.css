@@ -1096,11 +1096,7 @@ div.album-description-bg{
     /*    cursor: url(../../../images/previouscursor.png), auto;*/
 }
 
-.previous-arrow-box{
-    width: 50%; 
-    height: 100%; 
-    float: left;
-}
+
 
 .arrow-pos{    
     top:400px;  
@@ -1120,12 +1116,22 @@ div.album-description-bg{
     background: url(../../images/nextcursor.png) no-repeat;
     right: 138px;
 }
+.previous-arrow-box{
+    cursor: url(../../images/previouscursor.png),auto;
+    width: 50%; 
+    height: 100%; 
+    float: left;
+}
 .next-arrow-box{
+    cursor: url(../../images/nextcursor.png),auto;
     width: 50%; 
     height: 100%; 
     float: right;
 }
 
+.touch-cursor{
+    cursor:auto;
+}
 
 .close_text{
     position: relative;

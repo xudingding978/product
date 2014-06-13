@@ -22,7 +22,12 @@ HubStar.CollectionRoute = Ember.Route.extend({
             this.controllerFor('mega').set("selectPhoto", false);
 
             var obj = HubStar.Mega.find(id);
-            this.transitionTo("userPhoto", obj);//photo          
+            this.transitionTo("userPhoto", obj);//photo   
+            if (HubStar.get('ctaView') === true) {
+                this.controllerFor("checkingLoginStatus").popupLogin();
+                HubStar.set('ctaView', false);
+            }
+
         },
         transitionToProfile: function(id) {
             this.controllerFor('user').set('switchPhoto', false);
@@ -30,14 +35,25 @@ HubStar.CollectionRoute = Ember.Route.extend({
 //            var user_id = address.split("#")[1].split("/")[2];
 
             this.transitionTo("profile", HubStar.Profile.find(id));
+
         },
         transitionToArticle: function(id) {
             this.controllerFor("article").set("collectionArticleId", id);
             var article = HubStar.Mega.find(id);
-                 this.transitionTo("userArticle", article);        
+            this.transitionTo("userArticle", article);
+            if (HubStar.get('ctaView') === true) {
+                this.controllerFor("checkingLoginStatus").popupLogin();
+                HubStar.set('ctaView', false);
+            }
+
         },
         transitionToVideo: function(video_id) {
             this.transitionTo("userVideo", video_id);
+            if (HubStar.get('ctaView') === true) {
+                this.controllerFor("checkingLoginStatus").popupLogin();
+                HubStar.set('ctaView', false);
+            }
+
         }
     },
     redirect: function() {

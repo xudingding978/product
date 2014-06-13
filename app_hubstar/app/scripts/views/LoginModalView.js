@@ -420,6 +420,7 @@ HubStar.LoginModalView = Ember.View.extend({
         //   this.get("controller").get("controllers.mega").closeWindow();
         //    $("#body_id").css("overflow","auto");
         HubStar.set('checkLoginStatus', false);
+        HubStar.set('ctaView', true);
     }
     ,
     Facebook: function() {

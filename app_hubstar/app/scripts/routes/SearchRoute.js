@@ -62,6 +62,11 @@ HubStar.SearchRoute = Ember.Route.extend({
                 this.controllerFor('mega').set("type", "profile");
                 this.transitionTo("newSearchPhoto", HubStar.Mega.find(id));
             }
+             if (HubStar.get('ctaView') === true) {
+                this.controllerFor("checkingLoginStatus").popupLogin();
+                HubStar.set('ctaView', false);
+            }
+        
         },
         transitionToProfile: function(id) {
 
@@ -82,6 +87,11 @@ HubStar.SearchRoute = Ember.Route.extend({
             {
                 this.transitionTo("newSearchVideo", HubStar.Mega.find(id));
             }
+             if (HubStar.get('ctaView') === true) {
+                this.controllerFor("checkingLoginStatus").popupLogin();
+                HubStar.set('ctaView', false);
+            }
+        
         },
         transitionToArticle: function(id) {
 
@@ -98,6 +108,11 @@ HubStar.SearchRoute = Ember.Route.extend({
             {
                 this.transitionTo("searchIndexArticle", HubStar.Article.find(id));
             }
+             if (HubStar.get('ctaView') === true) {
+                this.controllerFor("checkingLoginStatus").popupLogin();
+                HubStar.set('ctaView', false);
+            }
+        
         }
     },
     redirect: function() {

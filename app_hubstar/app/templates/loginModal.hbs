@@ -4,11 +4,11 @@
     <div class="inner">
         <div class="left">
             <img src="../../../images/trends_logo.png" alt="trends logo">
-                <div id="cta_register" class="registerbtn" {{action ctaregister on="click"  target="view"}}>Register</div>
-                <div id="cta_login" class="loginbtn" {{action ctalogin on="click"  target="view"}}>Log in</div>
-                <div class="learnmore" >
-                    <a href="http://about.trendsideas.com" target="_blank">Learn more</a>
-                </div>
+            <div id="cta_register" class="registerbtn" {{action ctaregister on="click"  target="view"}}>Register</div>
+            <div id="cta_login" class="loginbtn" {{action ctalogin on="click"  target="view"}}>Log in</div>
+            <div class="learnmore" >
+                <a href="http://about.trendsideas.com" target="_blank">Learn more</a>
+            </div>
         </div><!-- end .left -->
         <div class="right">
             <img src="../../../images/cta-diagram.png" alt="Connect, Collect and Collaborate">
@@ -107,8 +107,11 @@
         </div>
     </div>
     <div class="back-btn easing" style="" >Back</div>
+    {{#if controller.isRegistering}}
     <div class="register-btn easing register-btn-small"  {{action next}}>Next</div>
-
+    {{else}}
+    <div class="easing register-btn-small" ><i class="spinner" style='top:4px'>&nbsp;</i></div>
+    {{/if}}
 
 </div>
 
@@ -185,9 +188,9 @@
         </div> 
     </div>
 </div>
-        
-        
-        <div id="register-with-social-select-interests" class="popup-container" style="display:none; width: 101.5%; overflow: hidden;">
+
+
+<div id="register-with-social-select-interests" class="popup-container" style="display:none; width: 101.5%; overflow: hidden;">
     <!-- Facebook Conversion Code for Lead -->
     <script type="text/javascript">
         var fb_param = {};
@@ -259,12 +262,12 @@
         </div> 
     </div>
 </div>
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
 
 <div id="register-with-email-step-4" style="overflow: hidden; z-index: 11; background-color: white; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; box-shadow: rgb(187, 187, 187) 0px 0px 20px; width: 430px; height: 320px; margin: 0px auto; position: fixed; top: 40%; left: 0px; right: 0px; display: none;">
     <div  style="background-color: #f3f3f3;padding: 10px;border-bottom: 1px solid #ddd;text-align: center;">

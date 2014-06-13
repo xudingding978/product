@@ -50,9 +50,11 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         var selectedID = this.get("selectedID"); //the selected profile id
         var collectionID = this.get("selectedCollection").id;
         var collection_name = this.get("selectedCollection").title;
-        if (selectedID === "" || selectedID === null || selectedID === undefined)
+        if (selectedID === "" || selectedID === null || selectedID === undefined ||
+                collectionID === "" || collectionID === null || collectionID === undefined ||
+                this.get("product_name") === "" || this.get("product_name") === null || this.get("product_name") === undefined)
         {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please select the profile before save.", "warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please fill all the blanks before save.", "warnning");
         }
         else
         {

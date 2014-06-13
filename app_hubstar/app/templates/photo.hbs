@@ -91,17 +91,17 @@
             <span id="close_text" class="close_text">close</span>
         </div>
 
-        <div class="mainfeature">
-
-            <div  class="previous previous-arrow-box" id ="previousphoto"  {{action previesImage on="click" target="view"}}>
+        <div class="mainfeature"> 
+            <div  class="previous previous-arrow-box" id ="previousphoto" {{action previesImage on="click" target="view"}}>
                 {{#unless controller.onlyOne}}
-                <i id="p" class="arrow-pos arrow-left" ></i>
+                <i id="p" class="arrow-pos arrow-left"></i>
                 {{/unless}}
             </div>
-            <div  class="next next-arrow-box" id ="nextphoto"  {{action nextImage on="click" target="view"}}>
-                {{#unless controller.onlyOne}}
-                <i id="n" class="arrow-pos arrow-right" ></i>
-                {{/unless}}
+            <div  class="next next-arrow-box" id ="nextphoto" {{action nextImage on="click" target="view"}}>
+                 {{#unless controller.onlyOne}}
+                <i id="n" class="arrow-pos arrow-right"></i>
+                  {{/unless}}
+            </div>
             </div>
             <!--     image show here-->   
             <div id ="tag_image">
@@ -142,7 +142,7 @@
 
                 {{/if}}
             </div>
-        </div>
+        
 
         <!--THIS IS THE ALBUM BOX-->
 

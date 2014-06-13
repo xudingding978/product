@@ -31,7 +31,7 @@ HubStar.ProfilesRoute = Ember.Route.extend({
             var profileNew = address.split("#")[1].split("/")[2];
             if (profileNew===""||profileNew===null||profileNew===undefined)
             {
-                this.transitionTo("searchIndex");
+                this.transitionTo("searchIndexTom");
             }
         }
     },

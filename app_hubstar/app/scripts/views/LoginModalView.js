@@ -22,6 +22,7 @@ HubStar.LoginModalView = Ember.View.extend({
                     $('.Login-box #social-login-container').css('display', 'none');
                     $('.Login-box #click-login').addClass('active-tab');
                     $('.Login-box #social-login').removeClass('social-active');
+                    
                 } else {
                     $('.Login-box #login-with-email-drop-down').css('display', 'none');
                     $('.Login-box #social-login-container').css('display', 'block');
@@ -32,6 +33,9 @@ HubStar.LoginModalView = Ember.View.extend({
             }
             else {
                 localStorage.loginState = "register";
+                 setTimeout(function(){
+               $("#first_name input").focus();  
+            },1);
                 if (localStorage.userType === "register_email") {
                     $('.Login-box #login-btn').text('Already have an account? Click here to Log in!');
                     $('.Login-box .black-tool-tip').css('display', 'none');
@@ -78,6 +82,7 @@ HubStar.LoginModalView = Ember.View.extend({
                 }
             });
             $(".Login-box #click-login").click(function() {
+
                 if ($('.Login-box #login-with-email-drop-down').css('display') === 'block' && $('#click-login').hasClass('active-tab')) {
                     $('.Login-box #click-login').removeClass('active-tab');
 
@@ -85,12 +90,23 @@ HubStar.LoginModalView = Ember.View.extend({
 
                     if ($('.Login-box #social-login-container').css('display') === 'block') {
                         $('.Login-box #social-login-container').animate({height: 'toggle'});
+                      
                     }
                 }
                 /* LOGIN TAB: closing login with email */
 
 
                 if ($('.Login-box #login-with-email-drop-down').css('display') === 'none') {
+                    setTimeout(function(){
+                        if (localStorage.userName !== undefined && localStorage.userName !== null && localStorage.userName !== "")
+                        {
+                            $("#loginPassword input").focus();
+                        }
+                        else {
+                            $("#loginUsername input").focus();
+                        }
+                    },1);
+                       
                     $('.Login-box #social-login').removeClass('social-active');
                     $('.Login-box #click-login').addClass('active-tab');
                     $('.Login-box #login-with-email-drop-down').animate({height: 'toggle'});
@@ -101,7 +117,7 @@ HubStar.LoginModalView = Ember.View.extend({
                 } /* LOGIN TAB: clicking login*/
             });
             $('.Login-box #loginPassword > div').click(function() {
-             
+
                 if ($('.Login-box #login-with-email-drop-down').css('display')) {
                     $('.Login-box #click-login').removeClass('active-tab');
 
@@ -117,7 +133,7 @@ HubStar.LoginModalView = Ember.View.extend({
                     }
                     if ($('.Login-box #click-login').css('display') === 'block') {
                         $('.Login-box #click-login').animate({height: 'toggle'});
-                   //        $('.Login-box #click-login').addClass('active-tab');
+                        //        $('.Login-box #click-login').addClass('active-tab');
 
                     }
                 }
@@ -128,7 +144,7 @@ HubStar.LoginModalView = Ember.View.extend({
                 $('.Login-box #user-forgot-password-pane').animate({height: 'toggle'});
                 $('.Login-box #login-with-email-drop-down').animate({height: 'toggle'});
                 $('.Login-box #click-login').css("display", "block");
-              $('.Login-box #click-login').addClass('active-tab');
+                $('.Login-box #click-login').addClass('active-tab');
                 if ($('.Login-box #social-login-container').css('display') === 'block') {
                     $('.Login-box #social-login-container').animate({height: 'toggle'});
 
@@ -193,7 +209,9 @@ HubStar.LoginModalView = Ember.View.extend({
             /* going back to step 1 function*/
 
             $(".Login-box .register-clicker").click(function() {
-
+                setTimeout(function() {
+                    $("#first_name input").focus();
+                }, 1);
                 if ($('.Login-box #register-with-email-step-2').hasClass('active-step')) {
                     //alert('closing step2');
 
@@ -264,6 +282,7 @@ HubStar.LoginModalView = Ember.View.extend({
         $("#cta-popup").css("display", "none");
         $("#profiles-main-container").css("display", "block");
         localStorage.loginState = "register";
+        $("#first_name input").focus();
         $('.Login-box #login-btn').text('Already have an account? Click here to Log in!');
         $('.Login-box .black-tool-tip').css('display', 'none');
         $('.Login-box #click-register-social').css('display', 'block');
@@ -273,6 +292,9 @@ HubStar.LoginModalView = Ember.View.extend({
         $('.Login-box #click-register').addClass('active-tab');
         $('.Login-box #register-with-email-drop-down').animate({height: 'toggle'});
         $('.Login-box #user-login-pane').css('display', 'none');
+         setTimeout(function(){
+               $("#first_name input").focus();  
+            },1);
         this.checkSocial();
 
     },
@@ -297,6 +319,13 @@ HubStar.LoginModalView = Ember.View.extend({
             $('.Login-box #register-with-email-step-2').css('display', 'none');
             $('.Login-box #register-with-email-step-3').css('display', 'none');
             $('.Login-box #user-login-pane').css('display', 'block');
+             if (localStorage.userName !== undefined && localStorage.userName !== null && localStorage.userName !== "")
+                {
+                    $("#loginPassword input").focus();
+                }
+                else {
+                    $("#loginUsername input").focus();
+                }
 
         } else {
             $('.Login-box #login-btn').text('Sign up for a new account!');
@@ -331,6 +360,10 @@ HubStar.LoginModalView = Ember.View.extend({
             $('.Login-box #click-register').removeClass('active-tab');
             $('.Login-box #register-with-email-step-2').removeClass('active-step');
             $('.Login-box #user-login-pane').css('display', 'none');
+            setTimeout(function(){
+               $("#first_name input").focus();  
+            },1);
+           
             localStorage.loginState = "register";
 
         }
@@ -354,12 +387,12 @@ HubStar.LoginModalView = Ember.View.extend({
                 $('.Login-box #register-with-email-step-2').css('display', 'none');
                 $('.Login-box #register-with-email-step-3').css('display', 'none');
                 $('.Login-box #user-login-pane').css('display', 'block');
-                if (document.getElementById("loginusername").value !== undefined && document.getElementById("loginusername").value !== null && document.getElementById("loginusername").value !== "")
+                if (localStorage.userName !== undefined && localStorage.userName !== null && localStorage.userName !== "")
                 {
-                    document.getElementById("loginpassword").focus();
+                    $("#loginPassword input").focus();
                 }
                 else {
-                    document.getElementById("loginusername").focus();
+                    $("#loginUsername input").focus();
                 }
             } else {
 
@@ -379,20 +412,22 @@ HubStar.LoginModalView = Ember.View.extend({
                 $('.Login-box #register-with-email-step-2').css('display', 'none');
                 $('.Login-box #register-with-email-step-3').css('display', 'none');
                 $('.Login-box #user-login-pane').css('display', 'block');
+
             }
         }
     },
-    closePane: function() {    
-     //   this.get("controller").get("controllers.mega").closeWindow();
-     //    $("#body_id").css("overflow","auto");
+    closePane: function() {
+        //   this.get("controller").get("controllers.mega").closeWindow();
+        //    $("#body_id").css("overflow","auto");
         HubStar.set('checkLoginStatus', false);
+        HubStar.set('ctaView', true);
     }
     ,
     Facebook: function() {
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Facebook#_=_";
-      var  newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -402,7 +437,7 @@ HubStar.LoginModalView = Ember.View.extend({
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Yahoo";
-      var  newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -412,7 +447,7 @@ HubStar.LoginModalView = Ember.View.extend({
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Twitter";
-      var  newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -422,7 +457,7 @@ HubStar.LoginModalView = Ember.View.extend({
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Sina";
-      var  newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -432,7 +467,7 @@ HubStar.LoginModalView = Ember.View.extend({
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=LinkedIn";
-      var  newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }
@@ -442,7 +477,7 @@ HubStar.LoginModalView = Ember.View.extend({
         var left = (screen.width / 2) - (650 / 2);
         var top = (screen.height / 2) - (400 / 2);
         var api_url = "http://" + document.domain + "/hybridauth/default/login/?provider=Google";
-     var   newwindow = window.open(api_url, 'name', 'height=' + 400 * 1.5 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
+        var newwindow = window.open(api_url, 'name', 'height=' + 400 * 1.5 + ',width=' + 650 + ',top=' + top + ',left=' + left + ',toolbar=no,scrollbars=no,location=no,resizable =yes');
         if (window.focus) {
             newwindow.focus();
         }

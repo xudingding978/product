@@ -5,8 +5,7 @@
     <div class="box" id="show-tag-box-up">
     </div>
     {{/unless}}
-    <div id ="showTagSavePhoto"class="t-style-box">
-
+    <div id ="showTagSavePhoto" class="t-style-box showTagSavePhoto">
         <div class="show-tag-title">          
             <div class="show-tag-title-font">  Request a new tag </div>
             <div class="closeview" {{action cancelTag }}>
@@ -35,8 +34,8 @@
             <div class="show-tag-part-below">
                 <div class="show-tag-part-below-left">
                     <div class="show-tag-left">
-                      <div class='show-tag-font'>Profile:</div>
-                      {{#if controller.selectedDesc}}
+                        <div class='show-tag-font'>Profile:</div>
+                        {{#if controller.selectedDesc}}
                         {{#unless controller.isReadProfile}}
                         <div class="new-btn show-tag-select" {{action profileSwitch on="click" target="controller"}}>
                             {{controller.selectedDesc}} 
@@ -44,8 +43,7 @@
                         </div>                      
                         {{else}}
                         <div class="new-btn show-tag-select"> 
-                            <div class="show-tag-loading"> Loading <i class="spinner" style="">&nbsp;</i></div>
-                           
+                            <div class="show-tag-loading"> Loading <i class="spinner" style="">&nbsp;</i></div>                       
                         </div>
                         {{/unless}}
                         {{else}}
@@ -57,10 +55,7 @@
                         {{#if controller.selectTagProfile}}
                         <div id="login_lightbox" class="blur" {{action profileCanel }}>&nbsp;</div>
                         <div class="select-profile-save">
-
-                            <div class="show-tag-profile-content" >
-                                
-
+                            <div class="show-tag-profile-content" >         
                                 {{#each controller.profiles}}
                                 <div class="choose-exist-collection easing" style="" {{action chooseProfile profile_name profile_id}}>
                                      <a class="exist-name easing"> {{profile_name}}</a>
@@ -73,7 +68,7 @@
                     </div>
 
                     <div class="show-tag-left">
-                         <div class='show-tag-font'>Collection:</div>
+                        <div class='show-tag-font'>Collection:</div>
                         {{#if chooseProfileItem}}
                         <div class="new-btn show-tag-select"  {{action collectionSwitch }} {{bindAttr text="controller.selectedTitle" }}>
                              {{controller.selectedTitle}}
@@ -83,7 +78,6 @@
                         {{#if controller.selectionPop}}
                         <div id="login_lightbox" class="blur" {{action collectionSwitch }}>&nbsp;</div>
                         <div class="add-tag_select-tag">
-
                             <div>
                                 {{#each controller.profileCollection}}
                                 <div class="choose-exist-collection easing" {{action chooseRecord title id}}>
@@ -91,9 +85,7 @@
                                 </div>
                                 {{/each}}
                             </div>
-
                         </div>
-
                         {{/if}}
                     </div>
                 </div>
@@ -106,18 +98,12 @@
                     {{/if}}
                 </div>
             </div>
-
-
         </div> 
-
         <div class="show-tag-bottom">
             <div  class="message-btn easing show-tag-button-right"  {{action cancelTag }}><i class='fa fa-times'>&nbsp;</i>Cancel</div>
             <div class="message-btn easing" {{action saveTag}}><i class='fa fa-check'>&nbsp;</i>Save</div>
         </div>
-
     </div>
-
-
     {{#if controller.change_tag_show}}
 
     <div class="box" id="show-tag-box-bottom">

@@ -814,16 +814,9 @@ textarea.add-interests{
 
 
 
-
 .aboutus-attr{font-size: 13px; font-weight: bold;margin: 5px;}
 
 /* client profile content styling ENDS */
-
-
-
-
-
-
 
 
 
@@ -1753,14 +1746,11 @@ textarea.add-interests{
     width: 70%;
 }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 81c7b2b87de64940335118a589ce285efb247a70
 /*-------------------------- user business profile fixed by Charis  END--------------------------------- */
 
 
-/*  aboutUsTemplate     */
+/*  aboutUsTemplate   by Ally  */
 .cursor-pointer{
     cursor:pointer;
 }

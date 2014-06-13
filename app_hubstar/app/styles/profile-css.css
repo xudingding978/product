@@ -1036,6 +1036,9 @@ textarea.add-interests{
     opacity: .8;
 }
 
+.message-btn-w{
+    width: 30px;
+}
 .message-btn-box{
     height:45px;
     line-height: 45px;
@@ -1144,6 +1147,14 @@ textarea.add-interests{
     width: 100%;
 }
 
+.reply-comment-frame2{
+    padding: 15px;
+}
+
+.reply-comment-innerframe{
+    margin:0 auto; 
+    padding: 0 45px 0 0;
+}
 .reply-comment{
     font-size: 11px;
     position: absolute;
@@ -1185,6 +1196,29 @@ textarea.add-interests{
     background-color: #fff;
 }
 
+.reply-comment-container-w{
+    width: 100%;
+    height: 32px;
+}
+
+.reply-comment-inputBox{
+    margin: 0;
+    width: 210px; 
+    height: 30px;
+    float: left;
+}
+.display-none{
+    display: none;
+}
+.reply-comment-action{
+    float: right;
+    height: 34px;
+    position: relative;
+}
+
+.reply-display{
+    border-top: 1px solid #ddd;
+}
 .reply-comment-container input, .reply-comment-container input:focus{
     background-color: rgba(255,255,255,0);
     box-shadow: none;
@@ -1215,6 +1249,7 @@ textarea.add-interests{
     margin-left: 7px;
     left: 51px;
 }
+
 .user-says-angle-after{
     width: 0px;
     height: 0px;
@@ -1236,6 +1271,7 @@ textarea.add-interests{
     margin-left: 7px;
     left: 49px;
 }
+
 .user-reply-angle-before{
     width: 0px;
     height: 0px;
@@ -1249,6 +1285,9 @@ textarea.add-interests{
     z-index: 2;
 }
 
+.user-says-angle-before3{
+    right: 47px;
+}
 .user-reply-angle-after{
     width: 0px;
     height: 0px;
@@ -1263,6 +1302,9 @@ textarea.add-interests{
     z-index: 1;
 }
 
+.user-says-angle-after3{
+    right: 45px;
+}
 
 .remove-comment-photo{
     float: right;

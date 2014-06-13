@@ -2061,6 +2061,12 @@ div.album-description-bg{
     margin-top: 0;
 }
 
+.comment-item-img2{
+    float: right; 
+    margin: 4px -45px 0 0; 
+    margin-top: 0;
+}
+
 .comment-insert-field{
     cursor:text;
     word-wrap: break-word;
@@ -2614,6 +2620,31 @@ div.album-description-bg{
     color:#fff;
 }
 
+/* comment.hbs*/
+.show-all-comment-box{
+    height: 20px; 
+    width: 100%; 
+    background-color: #f3f3f3;
+    text-align: center;
+    color: #555; 
+    border-top: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.all-comment-show{
+    display: inline-block; 
+    cursor: pointer;
+}
+
+.all-comment-hide{
+    display: none;
+    cursor: pointer;
+}
+
+.all-comment-indicator-txt{
+    font-size: 11px;
+    font-weight: bold;
+}
 @media (max-width: 1280px){
     #cta-popup{
         right: 10%;

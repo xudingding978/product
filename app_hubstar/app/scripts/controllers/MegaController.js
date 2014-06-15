@@ -584,7 +584,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     }
                     else
                     {
-                        console.log("ssssssssss");
+                        
                         that.addRelatedData(megaObject);  //it is for profile's collection
                     }
                     that.getCommentsById(megaObject.id);
@@ -1074,6 +1074,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     }
                 }
                 this.set("selectPhoto", false);
+                this.set('selectType',null);
                 this.transitionTo("profile", profile); // transition to profile
                 this.transitionTo("profileCollection", data);
             }

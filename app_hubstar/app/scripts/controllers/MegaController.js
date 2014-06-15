@@ -585,7 +585,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     }
                     else
                     {
-                        console.log("ssssssssss");
                         that.addRelatedData(megaObject);  //it is for profile's collection
                     }
                     that.getCommentsById(megaObject.id);

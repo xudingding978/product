@@ -114,6 +114,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             HubStar.set('pdf_display', params[0]);
             HubStar.set('tagging_display', params[1] && params[2]);
             HubStar.set('profile_manager', params[2]);
+            HubStar.set('top_ad_display', params[3]);
         });
 
 
@@ -140,7 +141,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 $("#cta-popup").css("display", "none");
                 $("#profiles-main-container").css("display", "block");
                 localStorage.loginState = "register";
-                 
+
                 $('.Login-box #login-btn').text('Already have an account? Click here to Log in!');
                 $('.Login-box .black-tool-tip').css('display', 'none');
                 $('.Login-box #click-register-social').css('display', 'block');
@@ -156,12 +157,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 else {
                 }
-                
-                setTimeout(function(){
-                     $("#first_name input").focus();
-                },1);
+
+                setTimeout(function() {
+                    $("#first_name input").focus();
+                }, 1);
             }, 1);
-           
+
         });
     },
     ctalogin: function() {
@@ -229,10 +230,10 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         $(".profile-top").css("height", "150px");
         this.searchSmallScreen();
         var tempComment = [this.get("user").get("id")];
-        var that =this;
+        var that = this;
         requiredBackEnd('users', 'SetTopAds', tempComment, 'POST', function() {
             HubStar.set("isTopAdDisplay", false);
-            that.get("user").set("is_top_ad_display",false);
+            that.get("user").set("is_top_ad_display", false);
         });
     },
     displayTopAds: function() {
@@ -288,7 +289,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         if (localStorage.loginStatus) {
             var u = HubStar.User.find(localStorage.loginStatus);
             u.then(function() {
-                HubStar.set("isTopAdDisplay", u.get("is_top_ad_display"));
+                if (HubStar.get("top_ad_display") === true) {
+                    HubStar.set("isTopAdDisplay", u.get("is_top_ad_display"));
+                }
+                else
+                {
+                    HubStar.set("isTopAdDisplay", false);
+                }
                 if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
                         && (u.get("email")).match(/@trendsideas.com/g) !== ""
                         && (u.get("email")).match(/@trendsideas.com/g) !== null)
@@ -298,7 +305,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 else {
                     that.set("is_trends_user", false);
                 }
-                if (u.get("is_top_ad_display")) {
+                if (HubStar.get("isTopAdDisplay")) {
                     setTimeout(function() {
                         that.displayTopAds();
                     }, 200);

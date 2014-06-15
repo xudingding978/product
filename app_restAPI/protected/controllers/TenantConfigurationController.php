@@ -73,6 +73,7 @@ class TenantConfigurationController extends Controller {
         }
         $this->sendResponse(200, $feedback);
     }
+
     public function actionobjectAdDisplay() {
 
         $request_json = file_get_contents('php://input');
@@ -90,6 +91,7 @@ class TenantConfigurationController extends Controller {
         }
         $this->sendResponse(200, $feedback);
     }
+
     public function actionPdfDisplay() {
 
 
@@ -97,9 +99,12 @@ class TenantConfigurationController extends Controller {
         $configuration1 = $this->getProviderConfigurationByName($domainWithoutAPI, "pdf_display");
         $configuration2 = $this->getProviderConfigurationByName($domainWithoutAPI, "tagging_display");
         $configuration3 = $this->getProviderConfigurationByName($domainWithoutAPI, "profile_manager");
+        $configuration4 = $this->getProviderConfigurationByName($domainWithoutAPI, "top_ad_display");
+
         $configuration[0] = $configuration1;
         $configuration[1] = $configuration2;
         $configuration[2] = $configuration3;
+        $configuration[3] = $configuration4;
         $feedback = CJSON::encode($configuration);
 
         $this->sendResponse(200, $feedback);

@@ -5,7 +5,7 @@ HubStar.LoginEnterKeyTextFieldView = Ember.TextField.extend({
         {
             this.$().focus();
         }else{
-             document.getElementById("loginusername").focus();
+             document.getElementById("loginUsername").focus();
         }
 
     },

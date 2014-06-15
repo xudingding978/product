@@ -142,6 +142,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 $("#cta-popup").css("display", "none");
                 $("#profiles-main-container").css("display", "block");
                 localStorage.loginState = "register";
+                 
                 $('.Login-box #login-btn').text('Already have an account? Click here to Log in!');
                 $('.Login-box .black-tool-tip').css('display', 'none');
                 $('.Login-box #click-register-social').css('display', 'block');
@@ -157,7 +158,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 else {
                 }
+                
+                setTimeout(function(){
+                     $("#first_name input").focus();
+                },1);
             }, 1);
+           
         });
     },
     ctalogin: function() {
@@ -186,7 +192,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     $('.Login-box #register-with-email-step-2').css('display', 'none');
                     $('.Login-box #register-with-email-step-3').css('display', 'none');
                     $('.Login-box #user-login-pane').css('display', 'block');
-
+                    if (localStorage.userName !== undefined && localStorage.userName !== null && localStorage.userName !== "")
+                    {
+                        $("#loginPassword input").focus();
+                    }
+                    else {
+                        $("#loginUsername input").focus();
+                    }
                 } else {
                     $('.Login-box #login-btn').text('Sign up for a new account!');
                     $('.Login-box .black-tool-tip').css('display', 'none');
@@ -204,7 +216,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     $('.Login-box #register-with-email-step-2').css('display', 'none');
                     $('.Login-box #register-with-email-step-3').css('display', 'none');
                     $('.Login-box #user-login-pane').css('display', 'block');
-
+                    $("#first_name input").focus();
                 }
             }, 1);
         });

@@ -3,38 +3,38 @@
 
 <div id="login_lightbox" class="popup-bg-fadeout" {{action canel}}>&nbsp;</div>
 
-<div class="" style="width: 510px;margin: 0 auto;margin-left: -255px;border-radius: 3px;overflow: hidden;border: 1px solid #eee; background-color: #fff;z-index: 11;position: absolute;top: 15%;left: 50%;">
-    <div style="height: 50px;width: 100%;background-color: #f3f3f3;text-align: center;line-height: 50px;color: #555;border-bottom: 1px solid #ddd;">
-        <i class="fa fa-film" style="font-size: 18px;">&nbsp;</i>
-        <span style="font-size: 20px; font-weight: bold">Add Video</span>
+<div class="upload-v-container">
+    <div class="upload-v-title">
+        <i class="fa fa-film uploaded-filmLogo">&nbsp;</i>
+        <span class="upload-v-txt">Add Video</span>
     </div>
-    <div style="margin: 20px;min-height: 400px;">
-        <div style="height: 35px; width: inherit;border-bottom: 1px solid #ddd;">
-            <div style="width: 400px;height:35px;">{{view Ember.TextField valueBinding="videoUrl" placeholder="Please insert YOUTUBE link or share url." class="no-effect"}}</div>
-            <div class="message-btn easing" style="right: 0;position: absolute;top: 69px;margin-right: 20px;width: 65px;height: 35px;line-height: 35px;border-left: 1px solid #ddd;"{{action getVideoFromYoutube}}>
+    <div class="upload-v-box">
+        <div class="upload-v-url-box">
+            <div class="upload-v-url">{{view Ember.TextField valueBinding="videoUrl" placeholder="Please insert YOUTUBE link or share url." class="no-effect"}}</div>
+            <div class="message-btn easing message-btn-preview"{{action getVideoFromYoutube}}>
                 Preview
             </div>
         </div>
-        <div style="width: 470px; min-height: 300px; margin: 15px 0; border: 2px dashed #eee;">
-            <div class="radius-circle" style="position: absolute;width: 70px;height: 70px;border: 2px solid #eee;line-height: 66px;text-align: center;color: #eee;font-size: 25px;margin: 120px auto;left: 0;right: 0;box-shadow: 0 0 10px #f3f3f3;">
-                <i class="fa fa-play" style="margin-left: 5px;text-shadow: 0 0 10px #f3f3f3;"></i>
+        <div class="upload-v-preview-box">
+            <div class="radius-circle upload-v-play-box">
+                <i class="fa fa-play upload-v-play"></i>
             </div>
-            <img style="width: 470px;" {{bindAttr src="videoImg"}}/>
+            <img {{bindAttr src="videoImg"}}/>
         </div>
-        <div style="width: 470px; background-color: #f3f3f3;padding: 10px; min-height: 50px;">
-            <div style="font-size: 15px;font-weight: bold;margin-bottom: 5px;">{{videoTitle}}</div>
-            <div style="line-height: 15px; font-size: 11px;">{{videoTitle}}
+        <div class="upload-v-preview-ctn">
+            <div class="upload-v-preview-title">{{videoTitle}}</div>
+            <div class="upload-v-preview-des">{{videoTitle}}
                 {{videoDesc}}
             </div>
         </div>
 
     </div>
-    <div class="" style="height: 41px;position: relative;border-top: 1px solid #ddd;bottom: 0;width: 100%;">
-        <div class="message-btn easing" style="height: 40px;line-height: 40px;border-right: 1px solid #ddd;" {{action canel}}><i class="fa fa-times">&nbsp;</i>Cancel</div>
+    <div class="add-action-box">
+        <div class="message-btn easing message-btn-box2 message-btn-cancel" {{action canel}}><i class="fa fa-times">&nbsp;</i>Cancel</div>
         {{#if videoid}}
-        <div class="message-btn easing" style="height: 40px;line-height: 40px;"{{action videoCreate}}><i class='fa fa-check'>&nbsp;</i>Post</div>
+        <div class="message-btn easing message-btn-box2"{{action videoCreate}} ><i class='fa fa-check'>&nbsp;</i>Post</div>
         {{else}}
-        <div class="message-btn-x easing" style="height: 40px;line-height: 40px;"><i class='fa fa-check'>&nbsp;</i>Post</div>
+        <div class="message-btn-x easing message-btn-box2"><i class='fa fa-check'>&nbsp;</i>Post</div>
         {{/if}}
     </div>
 

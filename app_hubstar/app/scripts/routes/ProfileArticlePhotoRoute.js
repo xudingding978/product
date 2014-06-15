@@ -1,7 +1,7 @@
 HubStar.ProfileArticlePhotoRoute = Ember.Route.extend({
-     setupController: function(controller, model) {
+    setupController: function(controller, model) {
         var temp;
-     
+
         var url = window.location.href;
         var urlArray = url.split("/");
         if (model.id === undefined) {                               //reload page model id can not be find
@@ -11,23 +11,23 @@ HubStar.ProfileArticlePhotoRoute = Ember.Route.extend({
         }
         this.controllerFor("masonryCollectionItems").set("type", "profile");
         var megaModel = HubStar.Mega.find(temp);
-         this.controllerFor("showTag").readTags(temp);
+        this.controllerFor("showTag").readTags(temp);
 
         HubStar.set("isArticleTag", true);
         var that = this;
-        megaModel.then(function() {           
-           that.controllerFor('mega').getInitData(megaModel);
-        },function() {
-            
-           that.transitionTo('fourOhFour',"404");
-        });        
+        megaModel.then(function() {
+             that.controllerFor('mega').getInitData(megaModel);
+        }, function() {
+            that.transitionTo('fourOhFour', "404");
+        });
+
     },
     model: function(params) {
         var model = HubStar.Mega.find({"RequireType": "singleVideo", "videoid": params.photo_id});
-         this.controllerFor("article").set("searchFromRoute", true); //only use in userarticle route to get the temp id;
+        this.controllerFor("article").set("searchFromRoute", true); //only use in userarticle route to get the temp id;
         this.controllerFor("mega").set("clickOrRoute", true);
-        
-        
+
+
         return model;
     },
     activate: function() {

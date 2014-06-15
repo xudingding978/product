@@ -1,6 +1,7 @@
 HubStar.LoginModalController = Ember.Controller.extend({
     selected_topics: "",
     isAdd: false,
+    isRegistering: true,
     contentTopicResidential: [
         {id: "1", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/newhomes.png', topic: 'New Homes'},
         {id: "2", image: 'http://develop.devbox.s3.amazonaws.com/Welcome-Interest/renovation.png', topic: 'Renovation'},
@@ -31,7 +32,6 @@ HubStar.LoginModalController = Ember.Controller.extend({
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
     },
-   
     login: function() {
         if (this.get('loginUsername') !== null && this.get('loginPassword') !== null && this.get('loginPassword') !== "" && this.get('loginPassword') !== "")
         {
@@ -121,13 +121,14 @@ HubStar.LoginModalController = Ember.Controller.extend({
 
         if (this.checkSignupInfo()) {
             var signupInfo = [this.get('email')];
+            var that=this;
             requiredBackEnd('login', 'getemail', signupInfo, 'POST', function(params) {
                 if (params === 1) {
                     $('#register-with-email-step-2').addClass('active-step');
                     $('#click-register').addClass('active-tab');
                     $('#register-with-email-step-2').animate({height: 'toggle'});
                     $('#register-with-email-drop-down').animate({height: 'toggle'});
-                    checkSocial();
+                    that.checkSocial();
                 }
                 else if (params === 0) {
 
@@ -172,7 +173,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
     },
     submitSelection: function() {
 
-             var updateTopic = [this.get("loginStatus"), this.get('selected_topics')];
+        var updateTopic = [this.get("loginStatus"), this.get('selected_topics')];
         var that = this;
         requiredBackEnd('login', 'selecttopic', updateTopic, 'POST', function() {
             setTimeout(function() {
@@ -189,7 +190,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
             }, 1000);
         });
     },
-     selectSocialTopic: function(id, topic) {
+    selectSocialTopic: function(id, topic) {
         if (HubStar.get(id)) {
             $('#minuss_' + id).attr("style", "opacity: .8; z-index: 10; right: 0; margin: 10px; display:none;");
             if (this.get('selected_topics').indexOf(topic) !== -1) {
@@ -207,14 +208,14 @@ HubStar.LoginModalController = Ember.Controller.extend({
         }
     },
     submitSocialSelection: function() {
-             var updateTopic = [localStorage.loginStatus, this.get('selected_topics')];
+        var updateTopic = [localStorage.loginStatus, this.get('selected_topics')];
         var that = this;
         requiredBackEnd('login', 'selecttopic', updateTopic, 'POST', function() {
             setTimeout(function() {
-                 HubStar.set('checkLoginStatus', false);
-                 localStorage.checkUser = 'newUser';
-                 localStorage.checkSocialUser = '';
-                 location.reload();
+                HubStar.set('checkLoginStatus', false);
+                localStorage.checkUser = 'newUser';
+                localStorage.checkSocialUser = '';
+                location.reload();
 //                $('#register-with-social-select-interests').css('display', 'none');
 //                $('#user-login-pane').css('display', 'none');
 //                that.set('first_name', "");
@@ -228,7 +229,8 @@ HubStar.LoginModalController = Ember.Controller.extend({
         });
     },
     next: function() {
-      var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
+        this.set("isRegistering", false);
+        var createInfo = [this.get('first_name'), this.get('last_name'), this.get('password'), this.get('email'), this.get('region'), this.get('gender'), this.get('age')];
         var that = this;
         requiredBackEnd('login', 'create', createInfo, 'POST', function(params) {
             localStorage.userName = params.USER_NAME;
@@ -242,17 +244,17 @@ HubStar.LoginModalController = Ember.Controller.extend({
 
             });
             setTimeout(function() {
-        $('#register-with-email-step-3').css('display', 'block');
-        $('#register-with-email-step-2').css('display', 'none');
-        $('#click-register-social').css('display', 'none');
-        $('#click-register').css('display', 'none');
-        $('.learnmore-btn').css('display', 'none');
-        $('#login-btn').css('display', 'none');
-             }, 1000);
+                $('#register-with-email-step-3').css('display', 'block');
+                $('#register-with-email-step-2').css('display', 'none');
+                $('#click-register-social').css('display', 'none');
+                $('#click-register').css('display', 'none');
+                $('.learnmore-btn').css('display', 'none');
+                $('#login-btn').css('display', 'none');
+            }, 1000);
         });
 
     },
-        encrypt: function(encryptString) {
+    encrypt: function(encryptString) {
         var tempstr = '';
         for (var a = 0; a < encryptString.length; a++) {
             tempstr = tempstr + (parseInt(encryptString.charCodeAt(a).toString(16), 16) + 10).toString(16);
@@ -260,27 +262,26 @@ HubStar.LoginModalController = Ember.Controller.extend({
         return tempstr;
     },
     done: function() {
-  
 
-                $('.Login-box #login-btn').text('Sign up for a new account!');
-                $('.Login-box .black-tool-tip').css('display', 'none');
-                $('.Login-box #click-register-social').css('display', 'none');
-                $('.Login-box #click-register').css('display', 'none');
-                $('.Login-box #social-link').css('display', 'none');
-                $('.Login-box #login-with-email-drop-down').css('display', 'block');
-                $('.Login-box #social-login-container').css('display', 'none');
-                $('.Login-box #click-login').addClass('active-tab');
-                $('.Login-box #social-login').removeClass('social-active');
-                $('.Login-box #user-forgot-password-pane').css('display', 'none');
-                $('.Login-box #forgot-message-container').css('display', 'none');
-                $('.Login-box #invalid-username').css('display', 'none');
-                $('.Login-box #register-with-email-drop-down').css('display', 'none');
-                $('.Login-box #register-with-email-step-2').css('display', 'none');
-                $('.Login-box #user-login-pane').css('display', 'block');
+
+        $('.Login-box #login-btn').text('Sign up for a new account!');
+        $('.Login-box .black-tool-tip').css('display', 'none');
+        $('.Login-box #click-register-social').css('display', 'none');
+        $('.Login-box #click-register').css('display', 'none');
+        $('.Login-box #social-link').css('display', 'none');
+        $('.Login-box #login-with-email-drop-down').css('display', 'block');
+        $('.Login-box #social-login-container').css('display', 'none');
+        $('.Login-box #click-login').addClass('active-tab');
+        $('.Login-box #social-login').removeClass('social-active');
+        $('.Login-box #user-forgot-password-pane').css('display', 'none');
+        $('.Login-box #forgot-message-container').css('display', 'none');
+        $('.Login-box #invalid-username').css('display', 'none');
+        $('.Login-box #register-with-email-drop-down').css('display', 'none');
+        $('.Login-box #register-with-email-step-2').css('display', 'none');
+        $('.Login-box #user-login-pane').css('display', 'block');
         $('#register-with-email-step-4').css('display', 'none');
+        this.set("isRegistering", true);
     },
-
-
     checkSignupInfo: function() {
         function CheckObject(id, input, lengthMin, lengthMax, isEmailValid)
         {

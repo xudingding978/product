@@ -4,25 +4,26 @@
 {{render loadingSpinner}}
 
 {{/if}}-->
+{{#if controller.collectable}}
+{{render addCollection}}
+{{/if}}
 <div  id ="ssss" class="objectview-wrapper" >
 
     <div class="objectview-left">
-        {{#if controller.collectable}}
-        {{render addCollection}}
-        {{/if}}
+
         <div class="top-controlbar easing" >
 
 
             {{#if controller.megaResouce.getVideo}}
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Watch this Video" style="position:relative;margin: 0 5px;width: 60px;"  {{action transitionToVideo controller.megaResouce}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom top-article" data-hint="Watch this Video" {{action transitionToVideo controller.megaResouce}}>
                  <i class="fa fa-film"></i><span class="pretooltip">Watch</span>
             </div>    
             {{/if}}
             {{#unless controller.enableTag}}
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." style="position:relative;margin: 0 5px;width: 60px;;"  {{action switchCollection on="click" target="controller"}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom top-article" data-hint="Save this photo to your own collection." {{action switchCollection on="click" target="controller"}}>
                 <i class="fa fa-folder"></i><span class="pretooltip">Save</span>
             </div>
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;width: 60px;" {{action dropdownPhotoSetting "1"}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom top-article" data-hint="Share this photo to other social platform." {{action dropdownPhotoSetting "1"}}>
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
             {{/unless}}
@@ -31,42 +32,42 @@
             {{#unless controller.megaResouce.getVideo}}
             {{#if controller.isBusinessProfile}}
             {{#if controller.enableTag}}
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="end tagging this photo" style="position:relative;margin: 0 10px;width: 60px;" {{action endTag}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom top-tag" data-hint="end tagging this photo" {{action endTag}}>
                  <i class="fa fa-tag"></i><span class="pretooltip">EndTag</span> 
             </div>
             {{else}}
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="activate this tag " style="position:relative;margin: 0 5px;width: 60px;" {{action activateTag}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom top-tag-acts" data-hint="activate this tag " {{action activateTag}}>
                  <i class="fa fa-tag"></i><span class="pretooltip">Tag</span> 
             </div>
             {{/if}}
             {{/if}}
 
             {{#if controller.showAllTags}}
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="hide tags this photo" style="position:relative;margin: 0 5px;width: 60px;" {{action hideTags}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom top-tag-acts" data-hint="hide tags this photo" {{action hideTags}}>
                  <i class="fa fa-tag"></i><span class="pretooltip">HideTag</span> 
             </div>
             {{else}}
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="show tag this photo" style="position:relative;margin: 0 5px;width: 60px;" {{action showTags}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom top-tag-acts" data-hint="show tag this photo" {{action showTags}}>
                  <i class="fa fa-tag"></i><span class="pretooltip">ShowTag</span> 
             </div>
             {{/if}}
             {{/unless}}
             {{/unless}}
             {{/if}}
-            <ul class="hideClass edit-object-ul" id="dropdown_id_1_{{unbound megaResouce.id}}" style="width: 150px; margin: 0 auto; left: 70px;padding: 0">
+            <ul class="hideClass edit-object-ul share-box" id="dropdown_id_1_{{unbound megaResouce.id}}">
 
 
                 <li class="ite" {{action  fbShare "1"}} >
-                    <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
+                    <i class="fa fa-facebook share-type share-type-pos2"></i><span class="share-type-txt2">Facebook</span>
                 </li>
                 <li class='ite' {{action tShare "1"}} >
-                    <i class="fa fa-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Twitter</span>
+                    <i class="fa fa-twitter share-type share-type-pos2"></i><span class="share-type-txt2">Twitter</span>
                 </li>
                 <li class='ite' {{action pShare "1"}} >
-                    <i class="fa fa-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Pinterest</span>
+                    <i class="fa fa-pinterest share-type share-type-pos2"></i><span class="share-type-txt2">Pinterest</span>
                 </li>
                 <li class="ite" {{action gpShare "1"}}>
-                    <i class="fa fa-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Google+</span>
+                    <i class="fa fa-google-plus share-type share-type-pos2"></i><span class="share-type-txt2">Google+</span>
                 </li>
             </ul>
 
@@ -88,12 +89,19 @@
         </div>
 
         <div class="mainfeature">
-
-            <div  class="previous" id ="previousphoto" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="view"}}>
-                <i id="p" class="fa fa-arrow-left" style="top:400px; left: 138px; color: white; position: absolute; font-size: 50px;"></i>
+           
+            <div  class="previous previous-arrow-box" id ="previousphoto" {{action previesImage on="click" target="view"}}>
+                {{#unless controller.onlyOne}}
+                <i id="p" class="arrow-pos arrow-left"></i>
+                {{/unless}}
             </div>
-            <div  class="next" id ="nextphoto" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="view"}}>
-                <i id="n" class="fa fa-arrow-right" style="top:400px; right: 138px; color: white; position: absolute; font-size: 50px;"></i></div>
+            <div  class="next next-arrow-box" id ="nextphoto" {{action nextImage on="click" target="view"}}>
+                 {{#unless controller.onlyOne}}
+                <i id="n" class="arrow-pos arrow-right"></i>
+                  {{/unless}}
+            </div>
+          
+            </div>
             <!--     image show here-->   
             <div id ="tag_image">
                 {{view HubStar.PhotoDisplayAreaView}}
@@ -116,10 +124,6 @@
                 </div>
                 {{/if}}
 
-                <div class="previous" style="width: 50%; height: 100%; float: left;" {{action previesImage on="click" target="controller"}}></div>
-                <div class="next" style="width: 50%; height: 100%; float: right;"  {{action nextImage on="click" target="controller"}}></div>
-
-
                 <!--     show   tag's detail content  template-->   
                 <!--              only when is not in the edit tag state and mouse over the tag can show the detail content-->
                 {{#if HubStar.tagging_display}}
@@ -139,19 +143,18 @@
                 {{/if}}
                 {{/if}}
             </div>
-        </div>
+        
 
         <!--THIS IS THE ALBUM BOX-->
 
         {{view HubStar.ShowAlbumView}}
 
         <div class="bottom-controlbar easing" >
-            <div class="text-on-black" style="right: 132px;"></div>
-            <div class="fa icon-on-black"  {{action previesImage on="click" target="controller"}} style="display:inline-block; vertical-align: top; position:relative; left:44px;">
+            <div class="fa icon-on-black left-arrow"  {{action previesImage on="click" target="controller"}}>
                 <i class="fa fa-arrow-left"></i>
             </div>
             {{#unless controller.isRead}}
-            <div class="fa icon-on-black hint--rounded hint--top" data-hint="Show other photos in this collection." style="left: 44px; display:inline-block; vertical-align: top; position:relative;" {{action popupAibum on="click" target="view"}}>
+            <div class="fa icon-on-black hint--rounded hint--top middle-icon" data-hint="Show other photos in this collection." {{action popupAibum on="click" target="view"}}>
                 <i class="fa fa-th"></i>
             </div>
             {{else}}
@@ -159,10 +162,10 @@
                 <i class="spinner"></i> 
             </div>
             {{/unless}}
-            <div class="fa icon-on-black" style="left: 44px;position: relative;vertical-align: top;display: inline-block;" {{action nextImage on="click" target="controller"}}>
+            <div class="fa icon-on-black right-arrow" {{action nextImage on="click" target="controller"}}>
                 <i class="fa fa-arrow-right"></i>
             </div>
-            <div class="text-on-black" style="left: 88px; top:0;position: relative;display: inline-block;vertical-align: top;"> {{controller.image_no}}/{{content.length}} </div>
+            <div class="text-on-black photo-no"> {{controller.image_no}}/{{content.length}} </div>
         </div>
 
     </div> 
@@ -177,39 +180,37 @@
                     <a class="poster-name" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
                 </div>        
 
-                <div class="enquiryBtn-containter" style="float: right;margin-left: -5px;margin-top: -10px;">
+                <div class="enquiryBtn-containter message-img">
                     <div class="enquiryBtn-ring"></div>
-                    <div class="enquiryBtn easing"{{action editingContactForm }}><i class="fa fa-envelope easing" style="font-size: 18px;"></i></div>
-                    <div class="btn-description" style="color: #333">MESSAGE</div>
+                    <div class="enquiryBtn easing"{{action editingContactForm }}><i class="fa fa-envelope easing message-img-box"></i></div>
+                    <div class="btn-description message-img-txt">MESSAGE</div>
                 </div>
             </div>
         </div>
-        {{#if controller.contact}}
-        {{render contact}}
-        {{/if}}
+
 
 
         <!-- OBJECT CONTROLL SECTION -->
-        <div  class="collapes-container"  style="display:block;border-top: 1px solid #f3f3f3;">
-            <div class="collapes-container_inner" style="padding: 0; height: 45px;">
+        <div  class="collapes-container view-stats-box">
+            <div class="collapes-container_inner view-stats-innerbox">
                 {{megaResouce.photo_isLike}}
 
                 {{#if megaResouce.isLike}}
 
                 <div  class="square-button hint--rounded hint--bottom"  data-hint="unLike this Idea!" {{action unLike}}>
-                      <i class="fa fa-thumbs-up">&nbsp;<span style="font-size: 11px;">{{megaResouce.likes_count}}</span>&nbsp;</i>
+                      <i class="fa fa-thumbs-up">&nbsp;<span class="view-stats-font">{{megaResouce.likes_count}}</span>&nbsp;</i>
                 </div>
                 {{else}}
                 <div  class="square-button hint--rounded hint--bottom"  data-hint="Like this Idea!" {{action addLike}}>
-                      <i class="fa fa-thumbs-up">&nbsp;<span style="font-size: 11px;">{{megaResouce.likes_count}}</span>&nbsp;</i>
+                      <i class="fa fa-thumbs-up">&nbsp;<span class="view-stats-font">{{megaResouce.likes_count}}</span>&nbsp;</i>
                 </div>
                 {{/if}}
                 <div class="square-button hint--rounded hint--bottom"  data-hint="Add to your own collection." {{action switchCollection on="click" target="controller"}}>
-                    <i class="fa fa-folder" >&nbsp;<span style="font-size: 11px;">{{megaResouce.save_count}}</span>&nbsp;</i>
+                    <i class="fa fa-folder" >&nbsp;<span class="view-stats-font">{{megaResouce.save_count}}</span>&nbsp;</i>
                 </div>
 
-                <div class="square-button hint--rounded hint--bottom for-tooltip-position" data-hint="Share this photo to other social platform" style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting "2"}}>
-                     <i class="fa fa-share" >&nbsp;<span style="font-size: 11px;">{{megaResouce.share_count}}</span>&nbsp;</i>
+                <div class="square-button hint--rounded hint--bottom for-tooltip-position share-box2" data-hint="Share this photo to other social platform" {{action dropdownPhotoSetting "2"}}>
+                     <i class="fa fa-share" >&nbsp;<span class="view-stats-font">{{megaResouce.share_count}}</span>&nbsp;</i>
                 </div>
 
 
@@ -220,22 +221,22 @@
                 {{/if}}
 
                 {{#if controller.is_authentic_user}}
-                <div class='square-button hint--left hint--rounded' data-hint='Edit Photo Info' style="float: right;">
+                <div class="square-button hint--left hint--rounded view-edit-box" data-hint="Edit Photo Info">
                     <i class="fa fa-pencil-square-o" {{action editingPhotoMegaData}}></i>
                 </div>
                 {{/if}}
-                <ul class="hideClass edit-object-ul" id="dropdown_id_2_{{unbound megaResouce.id}}"  style="width: 170px; right: 80px; position: absolute; top: 130px;">
+                <ul class="hideClass edit-object-ul share-box3a" id="dropdown_id_2_{{unbound megaResouce.id}}">
                     <li class="ite" {{action  fbShare "2"}} >
-                        <i class="fa fa-facebook" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Facebook</span>
+                        <i class="fa fa-facebook share-type share-type-pos2"></i><span class="share-type-txt2">Facebook</span>
                     </li>
                     <li class='ite' {{action tShare "2"}} >
-                        <i class="fa fa-twitter" style="font-size: 16px;  margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Twitter</span>
+                        <i class="fa fa-twitter share-type share-type-pos2"></i><span class="share-type-txt2">Twitter</span>
                     </li>
                     <li class='ite' {{action pShare "2"}} >
-                        <i class="fa fa-pinterest" style="font-size: 16px;  margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Pinterest</span>
+                        <i class="fa fa-pinterest share-type share-type-pos2"></i><span class="share-type-txt2">Pinterest</span>
                     </li>
                     <li class="ite" {{action gpShare "2"}}>
-                        <i class="fa fa-google-plus" style="font-size: 16px; margin: 0px 5px;position: absolute"></i><span style="margin-left: 2.5em">Google+</span>
+                        <i class="fa fa-google-plus share-type share-type-pos2"></i><span class="share-type-txt2">Google+</span>
                     </li>
                 </ul>
             </div>
@@ -254,7 +255,7 @@
                     <i class="fa fa-angle-down"></i>
                 </div>
             </div>
-            <div class="collapes-container"   id="article_action" style="display:block">
+            <div class="collapes-container article-display" id="article_action">
                 <div  class="collapes-container_inner">
 
                     {{#unless controller.enableToEdit}}
@@ -262,13 +263,13 @@
                     <div class="article-title">{{controller.selectedPhoto.photo_title}}  </div>
                     <div class="article-text">
                         <p>{{{controller.selectedPhoto.photo_caption}}}</p>
-                        <table cellpadding="0" cellspacing="0" border="0" width="100%" class='profilesnew-table' style="padding-right: 0px; font-size: 12px;  display: table;border-collapse: separate;border-spacing: 4px;margin:10px auto;">
-                            <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+                        <table class="profilesnew-table article-text-table">
+                            <tbody class="article-text-table-tbody">
                                 {{#if controller.selectedPhoto.photo_link_url}}
                                 <tr>
-                                    <td style = "font-size: 14px;font-weight: bold;width: 90px;">Link: </td>
+                                    <td class="article-table-td1">Link: </td>
                                     <td>
-                                        <a target="_blank" {{bindAttr href=controller.selectedPhoto.photo_link_url }} style = "font-size: 14px;font-weight: normal;width: 90px; alignment-adjust: central; ">{{{controller.selectedPhoto.photo_link_text}}}</a>
+                                        <a target="_blank" {{bindAttr href=controller.selectedPhoto.photo_link_url }} class="article-text-url">{{{controller.selectedPhoto.photo_link_text}}}</a>
                                     </td>
                                 </tr>
                                 {{/if}}
@@ -280,14 +281,14 @@
                     {{else}}
                     {{view Ember.TextField valueBinding="controller.selectedPhoto.photo_title"  id="" class="edit_photo-titile_field"  }}
                     {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_caption"  id="" class="edit_photo-caption_field"}}
-                    <table cellpadding="0" cellspacing="0" border="0" width="100%" class='profilesnew-table' style="padding-right: 0px; font-size: 12px;  display: table;border-collapse: separate;border-spacing: 4px;margin:10px auto;">
-                        <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+                    <table class="profilesnew-table article-text-table">
+                        <tbody class="article-text-table-tbody">
 
                             <tr>
-                                <td style = "font-weight: bold; font-size: 12px;width: 60px;">Link Text:</td>
+                                <td class = "article-text-table-td2">Link Text:</td>
                                 <td>
-                                    <div style="display: block;height:55px ;">
-                                        <div  id="displayName"  style="margin: 0;height:55px ;width: 100%;">
+                                    <div class="article-text-url2">
+                                        <div  id="displayName"  class="article-text-url3">
                                             {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_link_text" class="no-resize" placeholder="Type Your Link Text here"}}
 
                                         </div>
@@ -297,10 +298,10 @@
                             <tr >
 
 
-                                <th style = "font-size: 12px;font-weight: bold;width: 60px; margin-top: 10px">Link Url:</th>
+                                <th class="article-text-table-td2 article-text-margin">Link Url:</th>
                                 <td>
-                                    <div style="display: block; height:55px ; margin-top: 10px">
-                                        <div  id="displayName"  style="margin: 0;height:55px ;width: 100%;">
+                                    <div class="article-text-url2 article-text-margin">
+                                        <div  id="displayName" class="article-text-url3">
                                             {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_link_url" class="no-resize" placeholder="http://example.com"}}
                                         </div>
                                     </div>
@@ -312,11 +313,11 @@
 
 
 
-                    <div class="buttons" style="position: relative;display: block;margin: 25px auto 0;text-align: center;">
+                    <div class="buttons content-edit">
 
-                        <div  type="button" class="new-btn blue-btn" {{action yes}}> <i class="fa fa-check fa fa-white"></i></div>
+                        <div type="button" class="new-btn blue-btn" {{action yes}}> <i class="fa fa-check fa fa-white"></i></div>
 
-                        <div  type="button" class="new-btn" {{action no }}> <i class="fa fa-times"></i></div>
+                        <div type="button" class="new-btn" {{action no }}> <i class="fa fa-times"></i></div>
 
                     </div>
 
@@ -342,43 +343,33 @@
                     <span class="comment-amount" > {{controller.megaResouce.comments.length}} </span>
                 </span>
                 <div class="dropdownicon">
-                    <i class="fa fa-angle-down" style="height: 16px; width: 16px;"></i>
+                    <i class="fa fa-angle-down dropdownicon-dis"></i>
                 </div>      
             </div>
 
 
 
-            <div class="collapes-container"  id="discuss_action" style="display:block">
-                <div class="collapes-container_inner" style="padding: 0;margin: 0;width: 100%;">
-                    <div  style="width: 98%;padding: 15px 10px;margin: 0 auto;overflow: hidden;border-bottom: 1px solid #ddd;">
-                        <div style="margin:0 auto; padding: 0 0 0 50px;">
+            <div class="collapes-container article-display" id="discuss_action">
+                <div class="collapes-container_inner discuss-box">
+                    <div class="discuss-input-box">
+                        <div class="discuss-input-innerbox">
                             <a>
-                                <img class="profilepic_comment"  style="width: 45px; height: 45px;float: left; margin: 4px 0 0 -50px; margin-top: 0; z-index: 1" src="http://develop.devbox.s3.amazonaws.com/profile_pic/default/defaultpic1.jpg" />
-                                <img class="profilepic_comment"  style="width: 45px; height: 45px;float: left; margin: 4px 0 0 -50px; margin-top: 0; z-index:2" {{bindAttr src="controller.currentUser.photo_url_large"}} /> 
-                                <div class='user-says-angle-before' style="left: 51px;"></div>
-                                <div class='user-says-angle-after' style="left: 49px;"></div>
+                                <img class="profilepic_comment comment-item-img comment-item-img-z1" src="http://develop.devbox.s3.amazonaws.com/profile_pic/default/defaultpic1.jpg" />
+                                <img class="profilepic_comment comment-item-img comment-item-img-z2" {{bindAttr src="controller.currentUser.photo_url_large"}} /> 
+                                <div class="user-says-angle-before user-says-angle-before1"></div>
+                                <div class="user-says-angle-after user-says-angle-after1"></div>
                             </a>
 
-                            <div class="" style="width: 100%; border-radius: 2px;border: 1px solid #ddd;background-color: #fff;">
-                                <div   style="margin: 0;width: 100%; height:100px;">
+                            <div class="discuss-input">
+                                <div class="discuss-input-txt">
                                     {{view Ember.TextArea valueBinding="commentContent" id="AddRecord" class="no-resize no-effect" placeholder="Write a comment..." }}                                          
                                 </div>
-                                {{#if controller.isUploadPhoto}}
-                                <div style='max-width: 100%;max-height: 100px;padding: 10px 12px;text-align: center;border-top: 1px solid #ddd;'>
-                                    <div class='remove-comment-photo easing' {{action removePic}}><i class="fa fa-times"></i></div>
-                                    <img  {{bindAttr src= "newStyleImageSource"}}  style="max-width: 100%; max-height: 80px;">
-                                </div>
-                                {{/if}}
-                                <div class="" style="height: 30px;position: relative;border-top: 1px solid #ddd;top: -1px;">
-
-                                    <div class="message-btn easing" style='width: 100%'{{action addComment}}><i class='fa fa-check'>&nbsp;</i>Post </div>
-
+                                <div class="discuss-submit">
+                                    <div class="message-btn easing width-100"{{action addComment}}><i class='fa fa-check'>&nbsp;</i>Post </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
 
                     {{#each controller.megaResouce.comments}}
                     {{#unless this.isEdit}}
@@ -449,4 +440,7 @@
 
 {{view HubStar.DeleteFunctionView}}
 
+{{/if}}
+{{#if controller.contact}}
+{{render contact}}
 {{/if}}

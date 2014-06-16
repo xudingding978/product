@@ -190,7 +190,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     sureToActivate: function(tag_id)
     {
-        var message = "Are you sure to activate this tag?";
+        var message = "Activate this tag?";
         this.set("message", message);
         this.set('makeSureActivateTag', true);
         this.set("tag_id", tag_id);

@@ -205,6 +205,7 @@ HubStar.NotificationTopController = Ember.Controller.extend({
                 break;
             }
         }
+        this.notificationCancel();
     },
     goto: function(obj) {
         if (obj.get("type") === "follow" || obj.get("type") === "unFollow")

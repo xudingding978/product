@@ -398,7 +398,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     sureToActivate: function(tag_id)
     {
-        var message = "Are you sure to activate this tag?";
+        var message = "Activate this tag?";
         this.set("message", message);
         this.set('makeSureActivateTag', true);
         this.set("tag_id", tag_id);
@@ -585,7 +585,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     }
                     else
                     {
-                        console.log("ssssssssss");
                         that.addRelatedData(megaObject);  //it is for profile's collection
                     }
                     that.getCommentsById(megaObject.id);

@@ -49,7 +49,7 @@ HubStar.NotificationController = Ember.Controller.extend({
         }
         else if (type === "Tag")
         {
-            displayString = " add a tag on your photo, please activate";
+            displayString = " wants to tag your image - click here for more info";
         }
         else if (type === "authority")
         {

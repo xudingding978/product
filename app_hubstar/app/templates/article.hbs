@@ -74,16 +74,17 @@
         </div>
 
         <div class="mainfeature">
-            {{#unless controller.onlyOne}}
             <div  class="previous previous-arrow-box" id ="previousarticlephoto" {{action previesImage on="click" target="view"}}>
+                {{#if HubStar.touchDevice}}
                 <i id="pa" class="arrow-pos arrow-left"></i>
+                {{/if}}
             </div>
             <div  class="next next-arrow-box" id ="nextarticlephoto" {{action nextImage on="click" target="view"}}>
+                {{#if HubStar.touchDevice}}
                 <i id="na" class="arrow-pos arrow-right"></i>
-
+                {{/if}}
             </div>
 
-            {{/unless}}
             <div id ="tag_article_image">
                 {{view HubStar.PhotoDisplayAreaView}}
                 <!--     show add new  tag template-->   
@@ -248,8 +249,8 @@
                 <div id ="read_more_cue" class="article-text article-display">......</div>
             </div>
         </div>
-
-
+        <div id="article_view_ads">
+        </div>
         <!-- OBJECT CREDIT LIST SECTION -->
         {{#if controller.isCreditListExist}}
         <div>
@@ -375,3 +376,4 @@
 {{#if controller.contact}}
 {{render contact}}
 {{/if}}
+

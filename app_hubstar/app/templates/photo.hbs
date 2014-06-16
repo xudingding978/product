@@ -89,16 +89,16 @@
         </div>
 
         <div class="mainfeature">
-           
+          
             <div  class="previous previous-arrow-box" id ="previousphoto" {{action previesImage on="click" target="view"}}>
-                {{#unless controller.onlyOne}}
+                {{#if HubStar.touchDevice}}
                 <i id="p" class="arrow-pos arrow-left"></i>
-                {{/unless}}
+                {{/if}}
             </div>
             <div  class="next next-arrow-box" id ="nextphoto" {{action nextImage on="click" target="view"}}>
-                 {{#unless controller.onlyOne}}
+                {{#if HubStar.touchDevice}}
                 <i id="n" class="arrow-pos arrow-right"></i>
-                  {{/unless}}
+                  {{/if}}
             </div>
           
             </div>
@@ -327,7 +327,9 @@
         </div>
 
 
-
+        <div id="photo_view_ads">
+            
+        </div>
 
         <!-- OBJECT DISCUSSION SECTION -->
 

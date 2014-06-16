@@ -58,24 +58,6 @@ HubStar.UserView = Ember.View.extend({
                 $(this).addClass('selected-user-stats');
             });
         }
-
-        $(document).ready(function() {
-            $(window).resize(function() {
-                if ($(window).width() > 1200) {
-                    $("#search-bar").css('display', "block");
-                    $("#topResidentialCommerical").css('display', "block");
-                    $(".search-bar-on-small-screen").css('display', "none");
-                    $(".user-board").css("top", "0");
-                } else {
-                    $("#search-bar").css('display', "none");
-                    $("#topResidentialCommerical").css('display', "none");
-                    $(".search-bar-on-small-screen").css('display', "block");
-                    $(".user-board").css("top", "30px");
-                }
-            });
-
-        });
-
     },
     showInterestsUp: function() {
         if ($('#interest_btn').hasClass('fa-angle-double-up') && this.get('controller').get('interestsActive') === false) {

@@ -125,14 +125,14 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                     this.pushUptoBackend(client_id);
                     this.set('currentAddPartnerPic', '');
                     $(" #uploadArea").attr('style', "display:none");
-            $(" #uploadObject").attr('style', "display:block");
-            this.get('controllers.profile').set('newTitle', '');
-            this.get('controllers.profile').set('newDesc', '');
+                    $(" #uploadObject").attr('style', "display:block");
+                    this.get('controllers.profile').set('newTitle', '');
+                    this.get('controllers.profile').set('newDesc', '');
                 }
             }
 
             this.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
-            
+
 
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please input valid url", "warnning");
@@ -144,7 +144,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         profileOwner.set('profile_partner_ids', this.get('partnerID'));
         profileOwner.store.commit();
         var newPartner = HubStar.Mega.find(client_id);
-        this.get("content").insertAt(0,newPartner);
+        this.get("content").insertAt(0, newPartner);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {
@@ -196,9 +196,9 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     setContent: function(data)
     {
         var that = this;
-        for (var i = data.get("length")-1; i >-1; i--) {
+        for (var i = 0; i < data.get("length"); i++) {
             var tempmega = data.objectAt(i);
-            if (i !== 0) {
+            if (i !== data.get("length")-1) {
                 that.set("partnerNew", that.get('partnerNew') + tempmega.get("profile").objectAt(0).get("id") + ",");
             }
             else

@@ -106,7 +106,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                 }
                 else
                 {
-                    message = "this is already in the collection";
+                    message = "This is already in the collection";
                     this.get('controllers.applicationFeedback').statusObserver(null, message);
                 }
                 this.exit();
@@ -141,7 +141,7 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                 else {
                     if (content.indexOf(this.get("objectID")) !== -1)
                     {
-                        message = "this is already in the collection";
+                        message = "This is already in the collection";
                         this.get('controllers.applicationFeedback').statusObserver(null, message);
                     }
                     else {
@@ -188,16 +188,18 @@ HubStar.AddCollectionController = Ember.ObjectController.extend({
                 }
             }
             collection.set("collection_ids", HubStar.get('selectedCollection').collection_ids);
-            console.log(collection.get("collection_ids"));
+            
             collection.store.save();
         });
     },
     sendFeedBack: function() {
-        var message = "Saved to your " + this.get('selectedTitle') + " collection.";
-        if (this.get('parentTController') === 'video') {
-            //message = "Saved video successfully.";
-        } else if (this.get('parentTController') === 'photo') {
-            //message = "Saved photo successfully.";
+       var itemType=HubStar.Mega.find(this.get("objectID")).get("type");
+        if (itemType === 'article') {
+             var message = "Great! Article saved to " + this.get('selectedTitle') + " collection.";
+        } else if (itemType === 'photo') {
+             message = "Great! Image saved to " + this.get('selectedTitle') + " collection.";
+        }else if (itemType === 'video') {
+             message = "Great! Video saved to " + this.get('selectedTitle') + " collection.";
         }
         this.get('controllers.applicationFeedback').statusObserver(null, message);
     },

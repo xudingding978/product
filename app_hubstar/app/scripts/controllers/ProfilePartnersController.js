@@ -25,25 +25,23 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             this.set('loadingTime', true);
             var data = HubStar.Mega.find({RequireType: "partner", profile_partner_ids: this.get('partnerID')});
             var that = this;
-            data.addObserver('isLoaded', function() {
+            data.then(function() {
                 that.checkAuthenticUser();
-                if (data.get('isLoaded')) {
-                    that.setContent(data);
-                    that.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
-                    var lastPositionId = HubStar.get('lastPositionId');
-                    var lastPosition = HubStar.get("scrollPartenerPosition");
-                    if (model.id === lastPositionId) {
-                        $(window).scrollTop(lastPosition);
-                    }
-                    that.set('loadingTime', false);
-
-                    setTimeout(function() {
-                        $('#masonry_user_container').masonry("reloadItems");
-                        setTimeout(function() {
-                            $('#masonry_user_container').masonry();
-                        }, 100);
-                    }, 200);
+                that.setContent(data);
+                that.get('controllers.profile').paternsStatistics(data.get("length"));
+                var lastPositionId = HubStar.get('lastPositionId');
+                var lastPosition = HubStar.get("scrollPartenerPosition");
+                if (model.id === lastPositionId) {
+                    $(window).scrollTop(lastPosition);
                 }
+                that.set('loadingTime', false);
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry("reloadItems");
+                    setTimeout(function() {
+                        $('#masonry_user_container').masonry();
+                    }, 100);
+                }, 200);
+
             });
         }
 
@@ -126,14 +124,15 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                     this.set('partnerID', client_id + "," + temp);
                     this.pushUptoBackend(client_id);
                     this.set('currentAddPartnerPic', '');
+                    $(" #uploadArea").attr('style', "display:none");
+            $(" #uploadObject").attr('style', "display:block");
+            this.get('controllers.profile').set('newTitle', '');
+            this.get('controllers.profile').set('newDesc', '');
                 }
             }
 
             this.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
-            $(" #uploadArea").attr('style', "display:none");
-            $(" #uploadObject").attr('style', "display:block");
-            this.get('controllers.profile').set('newTitle', '');
-            this.get('controllers.profile').set('newDesc', '');
+            
 
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please input valid url", "warnning");
@@ -145,13 +144,13 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         profileOwner.set('profile_partner_ids', this.get('partnerID'));
         profileOwner.store.commit();
         var newPartner = HubStar.Mega.find(client_id);
-        this.get("content").pushObject(newPartner);
+        this.get("content").insertAt(0,newPartner);
         setTimeout(function() {
             $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {
                 $('#masonry_user_container').masonry();
             }, 100);
-        }, 200);
+        }, 500);
 
     },
     checkAuthenticUser: function() {
@@ -197,9 +196,9 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
     setContent: function(data)
     {
         var that = this;
-        for (var i = 0; i < data.get("length"); i++) {
+        for (var i = data.get("length")-1; i >-1; i--) {
             var tempmega = data.objectAt(i);
-            if (i !== data.get("length") - 1) {
+            if (i !== 0) {
                 that.set("partnerNew", that.get('partnerNew') + tempmega.get("profile").objectAt(0).get("id") + ",");
             }
             else

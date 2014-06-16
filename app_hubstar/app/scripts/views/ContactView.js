@@ -14,14 +14,14 @@ HubStar.ContactView = Ember.View.extend({
 
         //browser
         var nVer = navigator.appVersion;
-        var nAgt = navigator.userAgent;
+        var nAgt = navigator.userAgent+"";
         var browser = navigator.appName;
         var version = '' + parseFloat(navigator.appVersion);
         var majorVersion = parseInt(navigator.appVersion, 10);
         var nameOffset, verOffset, ix;
-
         // Opera
         if ((verOffset === nAgt.indexOf('Opera')) !== -1) {
+            
             browser = 'Opera';
             version = nAgt.substring(verOffset + 6);
             if ((verOffset === nAgt.indexOf('Version')) !== -1) {

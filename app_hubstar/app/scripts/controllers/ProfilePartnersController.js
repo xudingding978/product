@@ -113,7 +113,7 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
             var temp = this.get('partnerID');
             if (temp === null || temp === "") {
                 this.set('partnerID', client_id);
-                this.pushUptoBackend(client_id);              
+                this.pushUptoBackend(client_id);
             } else {
                 if (temp.indexOf(client_id) !== -1) {
 
@@ -125,11 +125,15 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
                 else {
                     this.set('partnerID', client_id + "," + temp);
                     this.pushUptoBackend(client_id);
-                    this.set('currentAddPartnerPic','');
+                    this.set('currentAddPartnerPic', '');
                 }
             }
 
             this.get('controllers.profile').paternsStatistics(this.get('content').get("length"));
+            $(" #uploadArea").attr('style', "display:none");
+            $(" #uploadObject").attr('style', "display:block");
+            this.get('controllers.profile').set('newTitle', '');
+            this.get('controllers.profile').set('newDesc', '');
 
         } else {
             this.get('controllers.applicationFeedback').statusObserver(null, "Please input valid url", "warnning");
@@ -154,20 +158,20 @@ HubStar.ProfilePartnersController = Ember.Controller.extend({
         var currentUser = HubStar.User.find(localStorage.loginStatus);
         var current_user_email = currentUser.get('email');
         var permissionController = this.get('controllers.permission');
-         var that = this;
-        var role = permissionController.checkAuthenticEdit(that.get("model").get("profile_creator"), that.get("model").get("profile_administrator"), that.get("model").get("profile_editor"));       
+        var that = this;
+        var role = permissionController.checkAuthenticEdit(that.get("model").get("profile_creator"), that.get("model").get("profile_administrator"), that.get("model").get("profile_editor"));
         var is_edit = false;
         if (role !== "")
         {
             is_edit = true;
         }
         var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-        that.set("is_authentic_user", is_authentic_user||is_edit);
+        that.set("is_authentic_user", is_authentic_user || is_edit);
         currentUser.addObserver('isLoaded', function() {
             var current_user_email = currentUser.get('email');
             if (currentUser.get('isLoaded')) {
                 var is_authentic_user = permissionController.checkAuthenticUser(that.get("model").get("owner"), that.get("model").get("profile_editors"), current_user_email);
-                that.set("is_authentic_user", is_authentic_user||is_edit);
+                that.set("is_authentic_user", is_authentic_user || is_edit);
             }
         });
     },

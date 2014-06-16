@@ -1168,6 +1168,9 @@ div.album-description-bg{
     vertical-align: top;
     display: inline-block;
     width: 50%;
+    word-break: break-word;
+    max-height: 60px;
+    overflow: hidden;
 }
 
 .poster-name{
@@ -2187,6 +2190,7 @@ div.album-description-bg{
     word-break: break-word;
     width: 73%;
     display: inline-block;
+    line-height: 15px;
 }
 
 .show-tag-left{
@@ -2214,8 +2218,9 @@ div.album-description-bg{
     height:100%; 
     font-size: 13px; 
     font-weight: bold; 
-    overflow: auto; 
-    overflow-x:hidden; 
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 160px;
 }
 
 .show-tag-profile-content .show-tag-profile-content{
@@ -2354,6 +2359,9 @@ div.album-description-bg{
     box-shadow: 0 0px 1px #888;
     z-index: 11;
     width: 334px;
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 160px;
 }
 
 .add-tag_select-tag > div{
@@ -2502,6 +2510,7 @@ div.album-description-bg{
     float: left;
     overflow: hidden; 
     padding:5px;
+    vertical-align: middle;
 }
 
 .tagMiddle{

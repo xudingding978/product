@@ -55,11 +55,11 @@ HubStar.NotificationController = Ember.Controller.extend({
         {
             if (name.split(',')[0] === "add")
             {
-                displayString = " added you as a " + name.split(',')[1];
+                displayString = " added you as " + name.split(',')[1];
             }
             else
             {
-                displayString = " removed you as a " + name.split(',')[1];
+                displayString = " removed you as " + name.split(',')[1];
             }
         }
         return displayString;

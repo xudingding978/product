@@ -12,105 +12,108 @@ HubStar.PhotoView = Ember.View.extend({
         var counter = 0;
         var mouseX = 0;
         var mouseY = 0;
-        $('#nextphoto').mousedown(function(e) {
-            if (e.which === 1) //2:middle 
-            {
-                var imgtag = $(this).parent(); // get the div to append the tagging entry
-                HubStar.set("changeHeight", 70);
 
-                mouseX = e.clientX - 265; // x and y axis
-                mouseY = e.clientY + HubStar.get("changeHeight");
+                $('#nextphoto').mousedown(function(e) {
+                    if (e.which === 1) //2:middle 
+                    {
+                        var imgtag = $(this).parent(); // get the div to append the tagging entry
+                        HubStar.set("changeHeight", 70);
 
-                var center_y = $(window).height() / 2;
-                var center_x = ($(window).width() - 320) / 2;
-                var top = center_y - HubStar.get("pic_current_height") / 2;
-                var left = center_x - HubStar.get("pic_current_width") / 2;
+                        mouseX = e.clientX - 265; // x and y axis
+                        mouseY = e.clientY + HubStar.get("changeHeight");
 
-                that.get("controller").get("controllers.showTag").set("pic_x", (e.clientX - left) / HubStar.get("pic_current_width")); //set 
-                that.get("controller").get("controllers.showTag").set("pic_y", (e.clientY - top) / HubStar.get("pic_current_height"));
-                if (that.get("controller").get("enableTag") === true)
-                {
-                    that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
-                }
-                else
-                {
-                    // $(".next").css({display: block});
-                    that.get("controller").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
-                }
-                if (mouseY - HubStar.get("changeHeight")> center_y)
-                {
-                    that.get("controller").get("controllers.showTag").set("change_tag_show", true); //chage tag show style
-                    mouseY = mouseY -500;
-                     //$("#showTagSavePhoto").css("position", "relative");
-                }
-                else
-                {
-                    that.get("controller").get("controllers.showTag").set("change_tag_show", false);
-                     //$("#showTagSavePhoto").css("position", "absolute");
-                }
-                if (mouseX +530 > $(window).width() - 320)
-                {
-                    //$("#showTagSavePhoto").css("left", "-265px");
+                        var center_y = $(window).height() / 2;
+                        var center_x = ($(window).width() - 320) / 2;
+                        var top = center_y - HubStar.get("pic_current_height") / 2;
+                        var left = center_x - HubStar.get("pic_current_width") / 2;
 
-                    that.get("controller").get("controllers.showTag").set("change_tag_show_2", true);
-                }
-                else
-                {
-                    //$("#showTagSavePhoto").css("left", "0px");
-                    that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
-                }
-                that.get("controller").nextImage(e, mouseX, mouseY);
-            }
-        });
-        $('#previousphoto').mousedown(function(event) {
-            if (event.which === 1) //2:middle 
-            {
-                var imgtag = $(this).parent(); // get the div to append the tagging entry
+                        that.get("controller").get("controllers.showTag").set("pic_x", (e.clientX - left) / HubStar.get("pic_current_width")); //set 
+                        that.get("controller").get("controllers.showTag").set("pic_y", (e.clientY - top) / HubStar.get("pic_current_height"));
+                        if (that.get("controller").get("enableTag") === true)
+                        {
+                            that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
+                        }
+                        else
+                        {
+                            // $(".next").css({display: block});
+                            that.get("controller").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
+                        }
+                        if (mouseY - HubStar.get("changeHeight") > center_y)
+                        {
+                            that.get("controller").get("controllers.showTag").set("change_tag_show", true); //chage tag show style
+                            mouseY = mouseY - 500;
+                            //$("#showTagSavePhoto").css("position", "relative");
+                        }
+                        else
+                        {
+                            that.get("controller").get("controllers.showTag").set("change_tag_show", false);
+                            //$("#showTagSavePhoto").css("position", "absolute");
+                        }
+                        if (mouseX + 530 > $(window).width() - 320)
+                        {
+                            //$("#showTagSavePhoto").css("left", "-265px");
 
-                mouseX = event.clientX - 265; // x and y axis
-                mouseY = event.clientY + 70;
-                var center_y = $(window).height() / 2;
-                var center_x = ($(window).width() - 320) / 2;
-                var top = center_y - HubStar.get("pic_current_height") / 2;
-                var left = center_x - HubStar.get("pic_current_width") / 2;
+                            that.get("controller").get("controllers.showTag").set("change_tag_show_2", true);
+                        }
+                        else
+                        {
+                            //$("#showTagSavePhoto").css("left", "0px");
+                            that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
+                        }
+                        that.get("controller").nextImage(e, mouseX, mouseY);
+                    }
+                });
+                $('#previousphoto').mousedown(function(event) {
+                    if (event.which === 1) //2:middle 
+                    {
+                        var imgtag = $(this).parent(); // get the div to append the tagging entry
 
-                that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - left) / HubStar.get("pic_current_width")); //set 
-                that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY - top) / HubStar.get("pic_current_height"));
-                if (that.get("controller").get("enableTag") === true)
-                {
-                    that.get("controller").set("inImage", true);
-                }
-                else
-                {
-                    //  $(".previous").attr('style', 'display:block');
-                    that.get("controller").set("inImage", false);
-                }
-                if (mouseY - 70 > center_y)
-                {
-                    mouseY = mouseY   -500;
-                    that.get("controller").get("controllers.showTag").set("change_tag_show", true);
-                    //$("#showTagSavePhoto").css("position", "relative");
-                }
-                else
-                {
-                    that.get("controller").get("controllers.showTag").set("change_tag_show", false);
-                     //$("#showTagSavePhoto").css("position", "absolute");
-                }
-                if (mouseX < 0)
-                {
-                    //$("#showTagSavePhoto").css("left", "265px");
+                        mouseX = event.clientX - 265; // x and y axis
+                        mouseY = event.clientY + 70;
+                        var center_y = $(window).height() / 2;
+                        var center_x = ($(window).width() - 320) / 2;
+                        var top = center_y - HubStar.get("pic_current_height") / 2;
+                        var left = center_x - HubStar.get("pic_current_width") / 2;
 
-                    that.get("controller").get("controllers.showTag").set("change_tag_show_2", true);
-                }
-                else
-                {
-                    //$("#showTagSavePhoto").css("left", "0px");
-                    that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
-                }
-                that.get("controller").previesImage(event, mouseX, mouseY);
+                        that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - left) / HubStar.get("pic_current_width")); //set 
+                        that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY - top) / HubStar.get("pic_current_height"));
+                        if (that.get("controller").get("enableTag") === true)
+                        {
+                            that.get("controller").set("inImage", true);
+                        }
+                        else
+                        {
+                            //  $(".previous").attr('style', 'display:block');
+                            that.get("controller").set("inImage", false);
+                        }
+                        if (mouseY - 70 > center_y)
+                        {
+                            mouseY = mouseY - 500;
+                            that.get("controller").get("controllers.showTag").set("change_tag_show", true);
+                            //$("#showTagSavePhoto").css("position", "relative");
+                        }
+                        else
+                        {
+                            that.get("controller").get("controllers.showTag").set("change_tag_show", false);
+                            //$("#showTagSavePhoto").css("position", "absolute");
+                        }
+                        if (mouseX < 0)
+                        {
+                            //$("#showTagSavePhoto").css("left", "265px");
 
-            }
-        });
+                            that.get("controller").get("controllers.showTag").set("change_tag_show_2", true);
+                        }
+                        else
+                        {
+                            //$("#showTagSavePhoto").css("left", "0px");
+                            that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
+                        }
+                        that.get("controller").previesImage(event, mouseX, mouseY);
+
+                    }
+                });
+
+          
         var that = this;
         window.onresize = function() {
             var tags = that.get("controller").get("controllers.showTag").get("contentTags");
@@ -156,8 +159,8 @@ HubStar.PhotoView = Ember.View.extend({
         });
 
     },
-    popupAibum: function() {         
-            $(".show-album").slideToggle("slow");  
+    popupAibum: function() {
+        $(".show-album").slideToggle("slow");
     },
     openComment: function() {
 

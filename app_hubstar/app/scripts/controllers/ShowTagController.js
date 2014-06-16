@@ -109,7 +109,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 that.set("product_name", "");
                 that.readTags(photo_id); //call the read method to show all tags
             });
-           this.get('controllers.applicationFeedback').statusObserver(null, "Great job! We are sent a message to the content owner requesting activation of your tag.", "warnning"); 
+            this.get('controllers.applicationFeedback').statusObserver(null, "Great job! We are sent a message to the content owner requesting activation of your tag.", "warnning");
         }
     },
     activateUserTag: function(tag_id, photo_id)
@@ -186,7 +186,27 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                     else
                     {
                         params[i].is_tag_owner = false;
+                    }                   
+                    var center_y = $(window).height() / 2;
+                    var isArticle = false;
+                    if (document.URL.search("article") !== -1)
+                    {
+                        isArticle = true;
                     }
+                    var center_x = 0;
+                    if (isArticle === true) {
+                        center_x = ($(window).width() * 0.55) / 2;
+                    }
+                    else
+                    {
+                        center_x = ($(window).width() - 320) / 2;
+                    }
+                    var top = center_y - HubStar.get("pic_current_height") / 2;
+                    var left = center_x - HubStar.get("pic_current_width") / 2;
+                    var height = Math.ceil(params[i].pic_y * HubStar.get("pic_current_height") + top) + "px";  //set the tag's place which is the percentage of image and add the picture origin left point place
+                    var width = Math.ceil(params[i].pic_x * HubStar.get("pic_current_width") + left) + "px";
+                    params[i].top = height;
+                    params[i].left = width;
                 }
                 if (HubStar.get("isArticleTag") === true)
                 {
@@ -197,47 +217,47 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                     that.get("controllers.mega").set("contentTags", params);
                 }
 
-                var tags = params;
-                setTimeout(function() {
-                    $(document).ready(function() {
-                        setTimeout(function() {
-                            //thatthat.get("controllers.mega").set("tagCount", params.get("length"));
-                            if (HubStar.get("isArticleTag") === true)
-                            {
-                                thatthat.get("controllers.article").set("tagCount", params.get("length"));
-                            } else
-                            {
-                                thatthat.get("controllers.mega").set("tagCount", params.get("length"));
-                            }
-                            if (tags !== undefined && tags !== "" && tags !== null)
-                            {
-                                for (var i = 0; i < tags.length; i++)
-                                {
-                                    var tagDiv = "#tag_" + tags[i].tag_id;
-                                    var center_y = $(window).height() / 2;
-                                    var isArticle = false;
-                                    if (document.URL.search("article") !== -1)
-                                    {
-                                        isArticle = true;
-                                    }
-                                    var center_x = 0;
-                                    if (isArticle === true) {
-                                        center_x = ($(window).width() * 0.55) / 2;
-                                    }
-                                    else
-                                    {
-                                        center_x = ($(window).width() - 320) / 2;
-                                    }
-                                    var top = center_y - HubStar.get("pic_current_height") / 2;
-                                    var left = center_x - HubStar.get("pic_current_width") / 2;
-                                    var height = Math.ceil(tags[i].pic_y * HubStar.get("pic_current_height") + top) + "px";  //set the tag's place which is the percentage of image and add the picture origin left point place
-                                    var width = Math.ceil(tags[i].pic_x * HubStar.get("pic_current_width") + left) + "px";
-                                    $(tagDiv).css({"top": height, "left": width});
-                                }
-                            }
-                        }, 25);
-                    });
-                }, 125);
+//                var tags = params;
+//                setTimeout(function() {
+//                    $(document).ready(function() {
+//                        setTimeout(function() {
+//                            //thatthat.get("controllers.mega").set("tagCount", params.get("length"));
+//                            if (HubStar.get("isArticleTag") === true)
+//                            {
+//                                thatthat.get("controllers.article").set("tagCount", params.get("length"));
+//                            } else
+//                            {
+//                                thatthat.get("controllers.mega").set("tagCount", params.get("length"));
+//                            }
+//                            if (tags !== undefined && tags !== "" && tags !== null)
+//                            {
+//                                for (var i = 0; i < tags.length; i++)
+//                                {
+//                                    var tagDiv = "#tag_" + tags[i].tag_id;
+//                                    var center_y = $(window).height() / 2;
+//                                    var isArticle = false;
+//                                    if (document.URL.search("article") !== -1)
+//                                    {
+//                                        isArticle = true;
+//                                    }
+//                                    var center_x = 0;
+//                                    if (isArticle === true) {
+//                                        center_x = ($(window).width() * 0.55) / 2;
+//                                    }
+//                                    else
+//                                    {
+//                                        center_x = ($(window).width() - 320) / 2;
+//                                    }
+//                                    var top = center_y - HubStar.get("pic_current_height") / 2;
+//                                    var left = center_x - HubStar.get("pic_current_width") / 2;
+//                                    var height = Math.ceil(tags[i].pic_y * HubStar.get("pic_current_height") + top) + "px";  //set the tag's place which is the percentage of image and add the picture origin left point place
+//                                    var width = Math.ceil(tags[i].pic_x * HubStar.get("pic_current_width") + left) + "px";
+//                                    $(tagDiv).css({"top": height, "left": width});
+//                                }
+//                            }
+//                        }, 25);
+//                    });
+//                }, 50);
             }
             else
             {

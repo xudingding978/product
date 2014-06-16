@@ -1309,10 +1309,12 @@ class Controller extends CController {
                     $mega_profile = CJSON::decode($tempMega_profile, true);
                     $profile_editors = (isset($mega_profile["profile"][0]["profile_editors"])) ? $mega_profile["profile"][0]["profile_editors"] : '*@trendsideas.com';
                     $profile_name = (isset($mega_profile["profile"][0]["profile_name"])) ? $mega_profile["profile"][0]["profile_name"] : 'Trends Ideas';
-                    $profile_pic = (isset($mega_profile["profile"][0]["profile_pic_url"])) ? $mega_profile["profile"][0]["profile_pic_url"] : 'http://s3.hubsrv.com/trendsideas.com/profiles/new-home-trends/profile_picture/profile_picture_192x192.jpg';
+                    $profile_pic = (isset($mega_profile["profile"][0]["profile_pic_url"])) ? $mega_profile["profile"][0]["profile_pic_url"] : 'http://s3.hubsrv.com/trendsideas.com/profiles/new-home-trends/profile_picture/profile_picture_192x192.jpg';                   
                     $tempResult['stats'][0]['megas'][$i]['editors'] = $profile_editors;
                     $tempResult['stats'][0]['megas'][$i]['owner_title'] = $profile_name;
                     $tempResult['stats'][0]['megas'][$i]['owner_profile_pic'] = $profile_pic;
+                    $profile_classification  =  $mega_profile['classification'];
+                    $tempResult['stats'][0]['megas'][$i]['classification'] = $profile_classification;
                     $profile_editor = (isset($mega_profile["profile"][0]["profile_editor"])) ? $mega_profile["profile"][0]["profile_editor"] : '';
                     $profile_administrator = (isset($mega_profile["profile"][0]["profile_administrator"])) ? $mega_profile["profile"][0]["profile_administrator"] : '';
                     $profile_creator = (isset($mega_profile["profile"][0]["profile_creator"])) ? $mega_profile["profile"][0]["profile_creator"] : '';
@@ -1340,6 +1342,8 @@ class Controller extends CController {
                     $tempResult['megas'][$i]['editors'] = $profile_editors;
                     $tempResult['megas'][$i]['owner_title'] = $profile_name;
                     $tempResult['megas'][$i]['owner_profile_pic'] = $profile_pic;
+                    $profile_classification  =  $mega_profile['classification'];
+                    $tempResult['megas'][$i]['classification'] = $profile_classification;
                     $profile_editor = (isset($mega_profile["profile"][0]["profile_editor"])) ? $mega_profile["profile"][0]["profile_editor"] : '';
                     $profile_administrator = (isset($mega_profile["profile"][0]["profile_administrator"])) ? $mega_profile["profile"][0]["profile_administrator"] : '';
                     $profile_creator = (isset($mega_profile["profile"][0]["profile_creator"])) ? $mega_profile["profile"][0]["profile_creator"] : '';

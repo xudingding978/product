@@ -25,41 +25,62 @@ HubStar.ApplicationView = Ember.View.extend({
         $(document).ready(function() {
 
             $(window).resize(function() {
-                if (HubStar.get('showDiscoveryBar') === true) { 
-                    
+                if (HubStar.get('showDiscoveryBar') === true) {
+                   
                     if (window.pageYOffset > scroll_pos_test) {
+                         console.log("sssssss");
                         if ($(window).width() > 1200) {
                             $("#search-bar").css('display', "block");
                             $("#topResidentialCommerical").css('display', "block");
                             $(".search-bar-on-small-screen").css('display', "none");
-
+                            if (HubStar.get("isTopAdDisplay")) {
+                                $("#top_bar_ads").css({"position": "relative", "top": "10px"});
+                            }
                         } else {
                             $("#search-bar").css('display', "none");
                             $("#topResidentialCommerical").css('display', "none");
                             $(".search-bar-on-small-screen").css('display', "block");
+                            if (HubStar.get("isTopAdDisplay")) {
+                                $("#top_bar_ads").css({"position": "relative", "top": "10px"});
+                            }
                         }
                     }
                     else {
+                         console.log("aaaa");
+                        if (HubStar.get("isTopAdDisplay")) {
+                            $("#top_bar_ads").css({"position": "relative", "top": "10px"});                         
+                        }
                         $("#search-bar").css('display', "none");
                         $("#topResidentialCommerical").css('display', "none");
                         $(".search-bar-on-small-screen").css('display', "none");
-
                     }
                 } else {
-                     
                     if ($(window).width() > 1200) {
                         $("#search-bar").css('display', "block");
                         $("#topResidentialCommerical").css('display', "block");
                         $(".search-bar-on-small-screen").css('display', "none");
-                        $('#masonry_container').css('top', "100px");
+                        if (HubStar.get("isTopAdDisplay")) {
+                            $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
+                            $('#masonry_wrapper').css('top', "240px");
+                        }
+                        else
+                        {
+                            $('#masonry_wrapper').css('top', "100px");
+                        }
                     } else {
                         $("#search-bar").css('display', "none");
                         $("#topResidentialCommerical").css('display', "none");
                         $(".search-bar-on-small-screen").css('display', "block");
-                       $('#masonry_container').css('top', "150px");
+                        if (HubStar.get("isTopAdDisplay")) {
+                            $("#top_bar_ads").css({"position": "fixed", "top": "150px"});
+                            $('#masonry_wrapper').css('top', "290px");
+                        }
+                        else
+                        {
+                            $('#masonry_wrapper').css('top', "150px");
+                        }
                     }
                 }
-
             });
 
             $(window).scroll(function() {
@@ -110,6 +131,29 @@ HubStar.ApplicationView = Ember.View.extend({
         });
     },
     didScroll: function() {
+        if (HubStar.get("isTopAdDisplay")) {
+            var top = $("#top_bar_ads").offset().top;
+            var docViewTop = $(window).scrollTop();
+            if (document.getElementById("top_bar_ads").getAttribute("style").indexOf("relative") !== -1) {
+                if (top - docViewTop <= 90)
+                {
+                    if ($(window).width() > 1200) {
+                        $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
+                    }
+                    else
+                    {
+                        $("#top_bar_ads").css({"position": "fixed", "top": "140px"});
+                    }
+                }
+            }
+            else
+            {
+                if (top <= 530 && HubStar.get("showDiscoveryBar") === true)
+                {
+                    $("#top_bar_ads").css({"position": "relative", "top": "10px"});
+                }
+            }
+        }
         if (this.isScrolledToBottom() && HubStar.get('isMansonryPageLoad')) {
             this.get('controller').scrollDownAction();
 

@@ -63,29 +63,7 @@
 
 
 
-    <div class="latest-area">
-        <a rel="nofollow" target="_blank" href="http://library.trendsideas.com/Home.aspx" class="cursor-pointer"><h4>Our Latest Titles</h4></a>
-        <h5><font color="FF00FF">On Sale Now...<h4>Buy your copy here!</h4></font></h5> 
-        {{#each about_book}}
-        <div class="book-area bg-color-area">            
-            <div class="aboutus-attr">Book Desc: </div>
-            <div>{{view Ember.TextArea valueBinding="book_description" class="no-resize"  placeholder="*"}}</div> 
-            <div class="aboutus-attr">Book URL: </div>
-            <div>{{view Ember.TextArea valueBinding="book_image_url" class="no-resize"  placeholder="Recommanded size: 180 x 240"}}</div> 
-            <div class="latestebook"> <img alt="" {{bindAttr src="book_image_url"}}>             </div> 
-            <div>Display size: </div>
-            <div>{{view Ember.RadioButton nameBinding="book_id" selectionBinding="display_size" value=1}}100%{{view Ember.RadioButton nameBinding="book_id" selectionBinding="display_size" value=0}}75%</div>
-            <div>
-                <div class="aboutus-attr">Book Read Link: </div>
-                <div>{{view Ember.TextArea valueBinding="book_read_url" class="no-resize"  placeholder="*"}}</div>
-                <div class="aboutus-attr">Book Buy Link: </div>
-                <div>{{view Ember.TextArea valueBinding="book_buy_url" class="no-resize"  placeholder="*"}}</div>
-            </div>
-        </div>
-        <hr>
-        {{/each}}
-
-    </div>
+    
     {{/each}}
 </div>
 {{else}}
@@ -139,29 +117,7 @@
             {{/each}}
         </div>
     </div>
-    <div class="display-latest-area">
-        <a rel="nofollow" target="_blank" href="http://library.trendsideas.com/Home.aspx" class="cursor-pointer"><h4>Our Latest Titles</h4></a> 
-        <h4 class="display-latest-area-title">On Sale Now...<br/>Buy your copy here!</h4>
-        {{#each about_book}}
-        <div class="book-des"><a>{{book_description}}</a></div> 
-        <div class="latestebook" class = "book-img"> 
-            {{#if this.getSize}}
-            <img alt="" {{bindAttr src="book_image_url"}} class="width-100"> 
-            {{else}}
-            <img alt="" {{bindAttr src="book_image_url"}} class="width-75"> 
-            {{/if}}
-            <div class="latestebook-control easing">
-                {{#if this.read_available}}
-                <a rel="nofollow" target="_blank" {{bindAttr href="book_read_url"}} class="new-btn">Read</a> 
-                {{/if}}
-                {{#if this.buy_available}}
-                <a rel="nofollow" target="_blank" {{bindAttr href="book_buy_url"}} class="new-btn green-btn">Buy</a> 
-                {{/if}}
-            </div>
-        </div> 
-        {{/each}}
-
-    </div>
+    
     {{/each}}
 </div>
 {{/if}}

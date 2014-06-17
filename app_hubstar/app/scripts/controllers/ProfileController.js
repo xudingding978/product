@@ -634,31 +634,31 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 "video_url": '', "optional": this.get('model').get('id')});
             about_us.get('about_embeded_object').pushObject(about_embeded_object);
             about_us.get('about_video').pushObject(about_video);
-            for (var i = 0; i < 2; i++) {
+            for (var i = 0; i < 3; i++) {
                 var about_image = HubStar.AboutImage.createRecord({"image_id": i.toString(), "image_title": '', "image_desc": '',
                     "image_url": '', "image_link": '', "optional": this.get('model').get('id')});
                 about_us.get('about_image').pushObject(about_image);
             }
-            for (var i = 0; i < 3; i++) {
-                var about_book;
-                if (i === 0) {
-                    about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '', "book_description": 'Renovation Trends (29/11)',
-                        "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0',
-                        "book_read_url": 'http://ebooks.trendsideas.com/Book885', "book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/455/Renovation_Ideas_Trends_Vol_2911.aspx',
-                        "optional": this.get('model').get('id'), "display_size": 1, "read_available": true, "buy_available": true});
-                } else if (i === 1) {
-                    about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '', "book_description": 'New Home Trends (29/10)',
-                        "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=483&w=300&tabid=101&h=0',
-                        "book_read_url": 'http://ebooks.trendsideas.com/Book873', "book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/447/New_Home_Trends_Vol_2910.aspx',
-                        "optional": this.get('model').get('id'), "display_size": 1, "read_available": true, "buy_available": true});
-                } else {
-                    about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '', "book_description": 'Limited Edition!',
-                        "book_image_url": 'http://library.trendsideas.com/Portals/0/productimages/418_06894.jpg',
-                        "book_read_url": '', "book_buy_url": 'http://shop.trendsideas.co.nz/homeseries.aspx?prodid=418', "optional": this.get('model').get('id'),
-                        "display_size": 1, "read_available": false, "buy_available": true});
-                }
-                about_us.get('about_book').pushObject(about_book);
-            }
+//            for (var i = 0; i < 3; i++) {
+//                var about_book;
+//                if (i === 0) {
+//                    about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '', "book_description": 'Renovation Trends (29/11)',
+//                        "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=499&w=300&tabid=101&h=0',
+//                        "book_read_url": 'http://ebooks.trendsideas.com/Book885', "book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/455/Renovation_Ideas_Trends_Vol_2911.aspx',
+//                        "optional": this.get('model').get('id'), "display_size": 1, "read_available": true, "buy_available": true});
+//                } else if (i === 1) {
+//                    about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '', "book_description": 'New Home Trends (29/10)',
+//                        "book_image_url": 'http://shop.trendsideas.co.nz/DesktopModules/NB_Store/makethumbnail.ashx?Image=483&w=300&tabid=101&h=0',
+//                        "book_read_url": 'http://ebooks.trendsideas.com/Book873', "book_buy_url": 'http://shop.trendsideas.co.nz/HomeSeries/tabid/101/ProdID/447/New_Home_Trends_Vol_2910.aspx',
+//                        "optional": this.get('model').get('id'), "display_size": 1, "read_available": true, "buy_available": true});
+//                } else {
+//                    about_book = HubStar.AboutBook.createRecord({"book_id": i.toString(), "book_title": '', "book_description": 'Limited Edition!',
+//                        "book_image_url": 'http://library.trendsideas.com/Portals/0/productimages/418_06894.jpg',
+//                        "book_read_url": '', "book_buy_url": 'http://shop.trendsideas.co.nz/homeseries.aspx?prodid=418', "optional": this.get('model').get('id'),
+//                        "display_size": 1, "read_available": false, "buy_available": true});
+//                }
+//                about_us.get('about_book').pushObject(about_book);
+//            }            
             this.get('about_us').pushObject(about_us);
 
         }
@@ -667,6 +667,13 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 about_embeded_object = HubStar.AboutEmbededObject.createRecord({"embeded_object_id": "", "embeded_object_title": "", "embeded_object_desc": "",
                     "embeded_object_code": "", "embeded_object_url": "", "optional": this.get('model').get('id'), "embed_object_enabled": false});
                 this.get("about_us").objectAt(0).get('about_embeded_object').pushObject(about_embeded_object);
+            }
+            if (this.get('about_us').objectAt(0).get('about_image').get('length')<3) {
+                for (var i = this.get('about_us').objectAt(0).get('about_image').get('length'); i < 3; i++) {
+                    var about_image = HubStar.AboutImage.createRecord({"image_id": i.toString(), "image_title": '', "image_desc": '',
+                    "image_url": '', "image_link": '', "optional": this.get('model').get('id')});
+                    this.get("about_us").objectAt(0).get('about_image').pushObject(about_image);
+                }
             }
         }
         this.set('makeSelection', false);
@@ -681,20 +688,20 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('editingAbout', !this.get('editingAbout'));
         }
         if (this.get('model').get('show_template')) {
-            for (var i = 0; i < this.get('about_us').objectAt(0).get('about_book').get('length'); i++) {
-                var about_book = this.get('about_us').objectAt(0).get('about_book').objectAt(i);
-                if (about_book.get('book_read_url') !== null && about_book.get('book_read_url') !== '' && about_book.get('book_read_url') !== undefined) {
-                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('read_available', true);
-                } else {
-                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('read_available', false);
-                }
-
-                if (about_book.get('book_buy_url') !== null && about_book.get('book_buy_url') !== '' && about_book.get('book_buy_url') !== undefined) {
-                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('buy_available', true);
-                } else {
-                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('buy_available', false);
-                }
-            }
+//            for (var i = 0; i < this.get('about_us').objectAt(0).get('about_book').get('length'); i++) {
+//                var about_book = this.get('about_us').objectAt(0).get('about_book').objectAt(i);
+//                if (about_book.get('book_read_url') !== null && about_book.get('book_read_url') !== '' && about_book.get('book_read_url') !== undefined) {
+//                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('read_available', true);
+//                } else {
+//                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('read_available', false);
+//                }
+//
+//                if (about_book.get('book_buy_url') !== null && about_book.get('book_buy_url') !== '' && about_book.get('book_buy_url') !== undefined) {
+//                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('buy_available', true);
+//                } else {
+//                    this.get('about_us').objectAt(0).get('about_book').objectAt(i).set('buy_available', false);
+//                }
+//            }
             for (var i = 0; i < this.get('about_us').objectAt(0).get('about_embeded_object').get('length'); i++) {
                 var about_embeded_object = this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i);
                 if (about_embeded_object.get('embeded_object_code') !== null && about_embeded_object.get('embeded_object_code') !== '' && about_embeded_object.get('embeded_object_code') !== undefined) {

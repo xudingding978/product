@@ -4,7 +4,6 @@ HubStar.ApplicationRoute = Ember.Route.extend({
     ,
     events: {
         transitionToGroup: function(id) {
-            console.log(id);
             this.transitionTo("group", HubStar.Group.find(id));
         }
     }

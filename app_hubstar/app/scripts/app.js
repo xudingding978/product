@@ -8,6 +8,14 @@ var HubStar = window.HubStar = Ember.Application.create({
         HubStar.set("showDiscoveryBar", true);
         HubStar.set("afterSearch", false);
         HubStar.set("setHight", null);
+        requiredBackEnd('tenantConfiguration', 'pdfDisplay', null, 'POST', function(params) {
+            HubStar.set('pdf_display', params[0]);
+            HubStar.set('tagging_display', params[1] && params[2]);
+            HubStar.set('profile_manager', params[2]);
+            HubStar.set('top_ad_display', params[3]);
+            HubStar.set('object_ad_display', params[4]);
+
+        });
         requiredBackEnd('tenantConfiguration', 'objectAdDisplay', null, 'post', function(callbck) {
             var array = $.map(callbck, function(value, index) {
                 return [value];
@@ -24,7 +32,7 @@ var HubStar = window.HubStar = Ember.Application.create({
             }
             HubStar.set('objectAds', array);
         });
-        
+
         if (Modernizr.touch) {
             HubStar.set('touchDevice', true);
         } else {

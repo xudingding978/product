@@ -33,7 +33,7 @@
         <div class="aboutus-attr">Video URL: </div>
         <div class="input-box video-input-box">{{view Ember.TextArea valueBinding="video_url" class="no-effect no-resize"  placeholder="*"}}</div> 
         <div class="new-btn preview-btn" {{action getVideoURL}}>preview</div>
-        <iframe width="560" height="315" {{bindAttr src="controller.embeded_url"}} frameborder="0" allowfullscreen=""></iframe> 
+        <iframe width="650" height="450" {{bindAttr src="controller.embeded_url"}} frameborder="0" allowfullscreen=""></iframe> 
         <div class="aboutus-thisvideo">
             <div class="aboutus-attr">Video Title: </div>
             <div>{{view Ember.TextArea valueBinding="video_title" class="no-resize"  placeholder="*"}}</div>
@@ -80,9 +80,9 @@
 
     {{#if embeded_object_code}}
     <div class="getapp-btn">
-        <a href="http://trendsideas.com/apps/home-trends.html" target="_blank"><span class="green-btn new-btn" >Get the App</span></a>
+        <a href="http://trendsideas.com/apps/home-trends.html" target="_blank"><span class="green-btn new-btn btn-style" >Get the App</span></a>
         {{#if embeded_object_url}}
-        <a {{bindAttr href="embeded_object_url"}} target="_blank"> <span class="green-btn new-btn" >Buy the Book</span></a>
+        <a {{bindAttr href="embeded_object_url"}} target="_blank"> <span class="green-btn new-btn btn-style" >Buy the Book</span></a>
         {{/if}}
     </div>
 
@@ -95,9 +95,9 @@
         <a rel="nofollow" target="_blank" href="http://www.youtube.com/trendspublishing" class="cursor-pointer"> 
             <h4>View the Latest Video from the Trends YouTube channel</h4></a>
         <hr>
-        <div class="bg-color-area">
+        <div class="bg-color-area bg-video-position" >
             {{#each about_video}}
-            <iframe width="560" height="315" {{bindAttr src="controller.embeded_url"}} frameborder="0" allowfullscreen=""></iframe> 
+            <iframe width="650" height="450" {{bindAttr src="controller.embeded_url"}} frameborder="0" allowfullscreen=""></iframe> 
             <div class="video-des-area">
                 <h4><a rel="nofollow" target="_blank" {{bindAttr href="image_link"}} class="cursor-pointer"> {{video_title}}</a></h4>
                 <div class="video-des">{{video_desc}}</div>

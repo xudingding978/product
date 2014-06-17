@@ -1720,12 +1720,12 @@ textarea.add-interests{
 }
 .video-area{
     margin: 15px 0; 
-    width:560px; 
+    width:750px; 
     float: left;
 }
 .video-input-box{
     float: left;
-    width: 495px;
+    width: 680px;
 }
 
 .preview-btn{
@@ -1739,7 +1739,7 @@ textarea.add-interests{
 .article-img-area{
     float: left; 
     padding: 6px 8px;
-    width: 275px;
+    width: 245px;
     border-radius: 2px;
     margin-right: 5px;
 }
@@ -1760,22 +1760,35 @@ textarea.add-interests{
 }
 
 .getapp-btn{
-    margin-top: 15px;
+    margin: 0 auto;
+    width: 380px;
+}
+
+.btn-style{
+    width: auto;
+    font-size: 15px;
+    padding: 0 15px;
+    margin: 0 30px;
 }
 
 .left-area{
     float: left;
     margin: 15px 0; 
-    width:560px;
+    width:785px;
 }
 
 .bg-color-area{
     background-color: #f3f3f3;
 }
 
+.bg-video-position{
+    padding: 30px 10px 0px 70px;
+}
+
 .video-des-area{
     padding: 0 10px 10px 10px;
     margin-bottom: 15px;
+    width: 90%;
 }
 
 .video-des{
@@ -1785,7 +1798,7 @@ textarea.add-interests{
 }
 
 .left-area-title-color{
-    color: #0088CC;
+    color: #0088CC !important;
 }
 
 .left-bottom-area{
@@ -1796,7 +1809,7 @@ textarea.add-interests{
     margin: 10px 5px; 
     font-size:13px;
     background: #f3f3f3;
-    width: 275px;
+    width: 255px;
     line-height: 18px; 
     float: left;
 }

@@ -8,6 +8,7 @@ HubStar.PhotoView = Ember.View.extend({
     DiscussionTag: false,
     NameTag: false,
     didInsertElement: function() {
+        this.ads();
         var that = this;
         var counter = 0;
         var mouseX = 0;
@@ -124,9 +125,9 @@ HubStar.PhotoView = Ember.View.extend({
                     that.get("controller").get("controllers.showTag").set("change_tag_show_2", false);
                 }
                 that.get("controller").previesImage(event, mouseX, mouseY);
-
             }
         });
+          
         var that = this;
         window.onresize = function() {
             var tags = that.get("controller").get("controllers.showTag").get("contentTags");
@@ -213,6 +214,48 @@ HubStar.PhotoView = Ember.View.extend({
                 $('#masonry_wrapper').attr('style', "top:100px;position:relative");
             }
         }
+    },
+    ads: function() {
+        var type = this.get("controller").get("megaResouce").get("classification");
+        $(document).ready(function() {
+            setTimeout(function() {
+                var photo = document.getElementById("photo_view_ads");
+                for (var i = 0; i < HubStar.get('objectAds')[0].length; i++)
+                {
+                    var ad = HubStar.get('objectAds')[0][i];
+                    if (ad.type === type)
+                    {
+                        var adDiv = document.createElement('div');
+                        adDiv.id = ad.div;
+                        var height = ad.size[1];
+                        var width = ad.size[0];
+                        adDiv.style.display = "block";
+                        adDiv.style.height = height + "px";
+                        adDiv.style.width = width + "px";
+                        photo.appendChild(adDiv);
+                        if (ad.isNew === true) {
+                            googletag.cmd.push(function() {
+                                var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                                ad.slot1 = slot1;
+                                googletag.pubads().enableSingleRequest();
+                                googletag.enableServices();
+                                googletag.display(ad.div);
+                                googletag.pubads().refresh([slot1]);
+                            });
+                            ad.isNew = false;
+                        }
+                        else
+                        {
+                            googletag.cmd.push(function() {
+                                googletag.pubads().enableSingleRequest();
+                                googletag.enableServices();
+                                googletag.display(ad.div);
+                                googletag.pubads().refresh([ad.slot1]);
+                            });
+                        }
+                    }
+                }
+            }, 10);
+        });
     }
-
 });

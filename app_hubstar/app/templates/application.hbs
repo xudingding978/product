@@ -5,27 +5,46 @@
 
     {{view HubStar.HeaderView}}
 
-    {{outlet profiles}}
-    {{outlet user}}
+
+
     {{outlet "welcome"}}
     {{#unless controller.isotherpage}}
     {{#if HubStar.showDiscoveryBar}}
     {{view HubStar.DiscoveryView}}
     {{/if}}
-    
+    {{#if HubStar.isTopAdDisplay}}
+    <div id ="top_bar_ads" style="height:140px;width:100%;background-color: black; opacity: 0.6;margin:0 auto; top:10px; position: relative;z-index: 3">
+        <div style="position:absolute; top:0; right: 0; color: #fff; font-size: 30px;" {{action closeTopAd}}><i class="fa fa-times"></i></div>
+        <div id ="search_wall_top" style="width: 760px;height: 120px;margin: auto;position: relative;top: 10px;">
+        </div>
+    </div>
+    {{/if}}
     {{view HubStar.MasonryView}}
+    {{else}}
+    {{#if HubStar.isTopAdDisplay}}
+    <div id ="top_bar_ads" style="height:140px;width:100%;background-color: black; opacity: 0.6;margin:0 auto; top:90px; position: fixed;z-index:3">
+        <div style="position:absolute; top:0; right: 0; color: #fff; font-size: 30px;"  {{action closeTopAd}}><i class="fa fa-times"></i></div>
+        <div id ="search_wall_top" style="width: 760px;height: 120px;margin: auto;position: relative;top: 10px;">
+        </div>
+    </div>
+    {{/if}}
     {{/unless}}
 
-
-    {{outlet profile}}
+    <div style="position:relative;top:120px">
+        {{outlet profiles}}
+        {{outlet profile}}
+        {{outlet user}}
+        {{outlet "profileNew"}}
+        {{#if controller.islogin}}
+        {{render "footer"}}
+        {{/if}}
+    </div>
     {{outlet photos}}
     {{outlet articles}}
     {{outlet videoes}}
-    {{outlet "profileNew"}}
 
-    {{#if controller.islogin}}
-    {{render "footer"}}
-    {{/if}}
+
+
 
 
     {{#if controller.loadingTime}}

@@ -7,6 +7,7 @@ HubStar.ArticleView = Ember.View.extend({
         return "test";
     }).property(),
     didInsertElement: function() {
+        this.ads();
         var that = this;
         var counter = 0;
         var mouseX = 0;
@@ -25,7 +26,6 @@ HubStar.ArticleView = Ember.View.extend({
 
                 that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - left) / HubStar.get("pic_current_width")); //set 
                 that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY - top) / HubStar.get("pic_current_height"));
-
                 if (that.get("controller").get("enableTag") === true)
                 {
                     var pic_w = HubStar.get("pic_current_width");
@@ -71,8 +71,6 @@ HubStar.ArticleView = Ember.View.extend({
         $('#previousarticlephoto').mousedown(function(event) {
             if (event.which === 1) //2:middle 
             {
-                var sss = event.clientX - $("#tag_image_object").offset().left;
-                var imgtag = $(this).parent(); // get the div to append the tagging entry
                 mouseX = event.clientX - 265; // x and y axis
                 mouseY = event.clientY + 70;
                 var center_y = $(window).height() / 2;
@@ -260,5 +258,47 @@ HubStar.ArticleView = Ember.View.extend({
             }
 
         }
+    }, ads: function() {
+        var type = this.get("controller").get("megaResouce").get("classification");
+        $(document).ready(function() {
+            setTimeout(function() {
+                var photo = document.getElementById("article_view_ads");
+                for (var i = 0; i < HubStar.get('objectAds')[1].length; i++)
+                {
+                    var ad = HubStar.get('objectAds')[1][i];
+                    if (ad.type === type)
+                    {
+                        var adDiv = document.createElement('div');
+                        adDiv.id = ad.div;
+                        var height = ad.size[1];
+                        var width = ad.size[0];
+                        adDiv.style.display = "block";
+                        adDiv.style.height = height + "px";
+                        adDiv.style.width = width + "px";
+                        photo.appendChild(adDiv);
+                        if (ad.isNew === true) {
+                            googletag.cmd.push(function() {
+                                var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                                ad.slot1 = slot1;
+                                googletag.pubads().enableSingleRequest();
+                                googletag.enableServices();
+                                googletag.display(ad.div);
+                                googletag.pubads().refresh([slot1]);
+                            });
+                            ad.isNew = false;
+                        }
+                        else
+                        {
+                            googletag.cmd.push(function() {
+                                googletag.pubads().enableSingleRequest();
+                                googletag.enableServices();
+                                googletag.display(ad.div);
+                                googletag.pubads().refresh([ad.slot1]);
+                            });
+                        }
+                    }
+                }
+            }, 300);
+        });
     }
 });

@@ -10,7 +10,6 @@ HubStar.TagMouseView = Ember.View.extend({
         var picx_content = 0;
         if (tag_id !== undefined) {
             var tags = this.get("controller").get("controllers.showTag").get("contentTags");
-
             for (var i = 0; i < tags.length; i++)
             {
                 if (tags.objectAt(i)["tag_id"] === tag_id)

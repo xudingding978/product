@@ -30,25 +30,33 @@ HubStar.PhotoView = Ember.View.extend({
                 that.get("controller").get("controllers.showTag").set("pic_y", (e.clientY - top) / HubStar.get("pic_current_height"));
                 if (that.get("controller").get("enableTag") === true)
                 {
-                    that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
+                    var pic_w = HubStar.get("pic_current_width");
+                    var pic_h = HubStar.get("pic_current_height");
+                    if ((e.clientX > left && e.clientX < left + pic_w) && (e.clientY > top && e.clientY < top + pic_h)) {
+                        that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
+                    }
+                    else
+                    {
+                        that.get("controller").set("inImage", false);
+                    }
                 }
                 else
                 {
                     // $(".next").css({display: block});
                     that.get("controller").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
                 }
-                if (mouseY - HubStar.get("changeHeight")> center_y)
+                if (mouseY - HubStar.get("changeHeight") > center_y)
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true); //chage tag show style
-                    mouseY = mouseY -575;
-                     //$("#showTagSavePhoto").css("position", "relative");
+                    mouseY = mouseY - 575;
+                    //$("#showTagSavePhoto").css("position", "relative");
                 }
                 else
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", false);
-                     //$("#showTagSavePhoto").css("position", "absolute");
+                    //$("#showTagSavePhoto").css("position", "absolute");
                 }
-                if (mouseX +530 > $(window).width() - 320)
+                if (mouseX + 530 > $(window).width() - 320)
                 {
                     //$("#showTagSavePhoto").css("left", "-265px");
 
@@ -78,7 +86,15 @@ HubStar.PhotoView = Ember.View.extend({
                 that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY - top) / HubStar.get("pic_current_height"));
                 if (that.get("controller").get("enableTag") === true)
                 {
-                    that.get("controller").set("inImage", true);
+                    var pic_w = HubStar.get("pic_current_width");
+                    var pic_h = HubStar.get("pic_current_height");
+                    if ((event.clientX > left && event.clientX < left + pic_w) && (event.clientY > top && event.clientY < top + pic_h)) {
+                        that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
+                    }
+                    else
+                    {
+                        that.get("controller").set("inImage", false);
+                    }
                 }
                 else
                 {
@@ -87,14 +103,14 @@ HubStar.PhotoView = Ember.View.extend({
                 }
                 if (mouseY - 70 > center_y)
                 {
-                    mouseY = mouseY   -575;
+                    mouseY = mouseY - 575;
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true);
                     //$("#showTagSavePhoto").css("position", "relative");
                 }
                 else
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", false);
-                     //$("#showTagSavePhoto").css("position", "absolute");
+                    //$("#showTagSavePhoto").css("position", "absolute");
                 }
                 if (mouseX < 0)
                 {
@@ -156,8 +172,8 @@ HubStar.PhotoView = Ember.View.extend({
         });
 
     },
-    popupAibum: function() {         
-            $(".show-album").slideToggle("slow");  
+    popupAibum: function() {
+        $(".show-album").slideToggle("slow");
     },
     openComment: function() {
 

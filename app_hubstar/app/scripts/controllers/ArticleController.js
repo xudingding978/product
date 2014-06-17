@@ -242,24 +242,26 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.get("controllers.showTag").set("contentTags", "");
         if (this.get("enableTag") === true)
         {
-            var that = this;
-            setTimeout(function() {
-                $('#tagit').fadeIn();
-                $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
-                if (that.get("controllers.showTag").get("change_tag_show_2"))
-                {
-                    $(document).ready(function() {
-                        $("#showTagSavePhoto").css("left", "265px");
-                    });
-                }
-                else
-                {
-                    $(document).ready(function() {
-                        $("#showTagSavePhoto").css("left", "0px");
-                    });
-                }
-                $('#tagname').focus();
-            }, 20);
+            if (this.get("inImage") === true) {
+                var that = this;
+                setTimeout(function() {
+                    $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                    $('#tagit').fadeIn();                    
+                    if (that.get("controllers.showTag").get("change_tag_show_2"))
+                    {
+                        $(document).ready(function() {
+                            $("#showTagSavePhoto").css("left", "265px");
+                        });
+                    }
+                    else
+                    {
+                        $(document).ready(function() {
+                            $("#showTagSavePhoto").css("left", "0px");
+                        });
+                    }
+                    $('#tagname').focus();
+                }, 20);
+            }
         } else
         {
             this.set("contentTagsArticle", "");
@@ -335,24 +337,26 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("showEachTagContent", false);
         if (this.get("enableTag") === true)
         {
-            var that = this;
-            setTimeout(function() {
-                $('#tagit').fadeIn();
-                $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
-                if (that.get("controllers.showTag").get("change_tag_show_2"))
-                {
-                    $(document).ready(function() {
-                        $("#showTagSavePhoto").css("left", "-265px");
-                    });
-                }
-                else
-                {
-                    $(document).ready(function() {
-                        $("#showTagSavePhoto").css("left", "0px");
-                    });
-                }
-                $('#tagname').focus();
-            }, 20);
+            if (this.get("inImage") === true) {
+                var that = this;
+                setTimeout(function() {
+                    $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                    $('#tagit').fadeIn();                   
+                    if (that.get("controllers.showTag").get("change_tag_show_2"))
+                    {
+                        $(document).ready(function() {
+                            $("#showTagSavePhoto").css("left", "-265px");
+                        });
+                    }
+                    else
+                    {
+                        $(document).ready(function() {
+                            $("#showTagSavePhoto").css("left", "0px");
+                        });
+                    }
+                    $('#tagname').focus();
+                }, 20);
+            }
         } else
         {
             this.set("contentTagsArticle", "");
@@ -545,6 +549,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             that.set('megaResouce', megaObject);
             that.addRelatedData(megaObject);
             that.getCommentsById(megaObject.id);
+            that.set("showEachTagContent", false);
             that.checkCreditExist(megaObject.get('article').objectAt(0).get('credits'));
             that.checkAuthenticUser();
             var tempComment = [megaObject.id];

@@ -28,7 +28,15 @@ HubStar.ArticleView = Ember.View.extend({
 
                 if (that.get("controller").get("enableTag") === true)
                 {
-                    that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
+                    var pic_w = HubStar.get("pic_current_width");
+                    var pic_h = HubStar.get("pic_current_height");
+                    if ((event.clientX > left && event.clientX < left + pic_w) && (event.clientY > top && event.clientY < top + pic_h)) {
+                        that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
+                    }
+                    else
+                    {
+                        that.get("controller").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
+                    }
                 }
                 else
                 {
@@ -77,8 +85,15 @@ HubStar.ArticleView = Ember.View.extend({
 
                 if (that.get("controller").get("enableTag") === true)
                 {
-
-                    that.get("controller").set("inImage", true);
+                    var pic_w = HubStar.get("pic_current_width");
+                    var pic_h = HubStar.get("pic_current_height");
+                    if ((event.clientX > left && event.clientX < left + pic_w) && (event.clientY > top && event.clientY < top + pic_h)) {
+                        that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
+                    }
+                    else
+                    {
+                        that.get("controller").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
+                    }
                 }
                 else
                 {

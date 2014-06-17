@@ -106,24 +106,26 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
             if (this.get("enableTag") === true)
             {
-                var that = this;
-                setTimeout(function() {
-                    $('#tagit').fadeIn();
-                    $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
-                    if (that.get("controllers.showTag").get("change_tag_show_2"))
-                    {
-                        $(document).ready(function() {
-                            $("#showTagSavePhoto").css("left", "265px");
-                        });
-                    }
-                    else
-                    {
-                        $(document).ready(function() {
-                            $("#showTagSavePhoto").css("left", "0px");
-                        });
-                    }
-                    $('#tagname').focus();
-                }, 15);
+                if (this.get("inImage") === true) {
+                    var that = this;
+                    setTimeout(function() {
+                        $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                        $('#tagit').fadeIn();
+                        if (that.get("controllers.showTag").get("change_tag_show_2"))
+                        {
+                            $(document).ready(function() {
+                                $("#showTagSavePhoto").css("left", "265px");
+                            });
+                        }
+                        else
+                        {
+                            $(document).ready(function() {
+                                $("#showTagSavePhoto").css("left", "0px");
+                            });
+                        }
+                        $('#tagname').focus();
+                    }, 15);
+                }
             } else
             {
                 this.set("contentTags", "");
@@ -196,24 +198,26 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
             if (this.get("enableTag") === true)
             {
-                var that = this;
-                setTimeout(function() {
-                    $('#tagit').fadeIn();
-                    $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
-                    if (that.get("controllers.showTag").get("change_tag_show_2"))
-                    {
-                        $(document).ready(function() {
-                            $("#showTagSavePhoto").css("left", "-265px");
-                        });
-                    }
-                    else
-                    {
-                        $(document).ready(function() {
-                            $("#showTagSavePhoto").css("left", "0px");
-                        });
-                    }
-                    $('#tagname').focus();
-                }, 15);
+                if (this.get("inImage") === true) {
+                    var that = this;
+                    setTimeout(function() {
+                        $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                        $('#tagit').fadeIn();
+                        if (that.get("controllers.showTag").get("change_tag_show_2"))
+                        {
+                            $(document).ready(function() {
+                                $("#showTagSavePhoto").css("left", "-265px");
+                            });
+                        }
+                        else
+                        {
+                            $(document).ready(function() {
+                                $("#showTagSavePhoto").css("left", "0px");
+                            });
+                        }
+                        $('#tagname').focus();
+                    }, 15);
+                }
             } else
             {
                 this.set("contentTags", "");
@@ -328,6 +332,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     JudgeBusinessProfile: function()
     {
+        this.set("showEachTagContent", false);
         if (localStorage.loginStatus) {
             var currentUser = HubStar.User.find(localStorage.loginStatus);
             var that = this;

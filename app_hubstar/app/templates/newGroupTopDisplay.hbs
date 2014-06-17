@@ -2,7 +2,7 @@
 <div id="user_groups_dropdown_scrollbar">  
 
     {{#each model}}
-    <a href="#/groups/{{unbound this.group_id}}"> 
+    <a   {{action transitionToGroup this.group_id}}> 
         <div>
             <div class="profile-top-image-position" > 
                 

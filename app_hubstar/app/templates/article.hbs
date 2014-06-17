@@ -9,13 +9,13 @@
 
         <div class="top-controlbar easing" >            
             {{#unless controller.enableTag}}
-            <div class="fa icon-on-black hint--rounded hint--bottom top-article" data-hint="Save this photo to your own collection." {{action switchCollection on="click" target="controller"}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom top-article" data-hint="Save this article to a collection." {{action switchCollection on="click" target="controller"}}>
                 <i class="fa fa-folder" {{action switchCollection on="click" target="controller"}}></i>
                 <span class="pretooltip">
                     Save
                 </span>          
             </div>
-            <div class="fa icon-on-black hint--rounded hint--bottom top-article" data-hint="Share this photo to other social platform." {{action dropdownPhotoSetting "1"}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom top-article" data-hint="Share this article." {{action dropdownPhotoSetting "1"}}>
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
             {{/unless}}
@@ -74,16 +74,17 @@
         </div>
 
         <div class="mainfeature">
-            {{#unless controller.onlyOne}}
             <div  class="previous previous-arrow-box" id ="previousarticlephoto" {{action previesImage on="click" target="view"}}>
+                {{#if HubStar.touchDevice}}
                 <i id="pa" class="arrow-pos arrow-left"></i>
+                {{/if}}
             </div>
             <div  class="next next-arrow-box" id ="nextarticlephoto" {{action nextImage on="click" target="view"}}>
+                {{#if HubStar.touchDevice}}
                 <i id="na" class="arrow-pos arrow-right"></i>
-
+                {{/if}}
             </div>
 
-            {{/unless}}
             <div id ="tag_article_image">
                 {{view HubStar.PhotoDisplayAreaView}}
                 <!--     show add new  tag template-->   
@@ -193,11 +194,11 @@
                 </div>
                 {{/if}}
 
-                <div class="square-button hint--rounded hint--bottom"  data-hint="Add to your own collection." {{action switchCollection on="click" target="controller"}}>
+                <div class="square-button hint--rounded hint--bottom"  data-hint="Save this article to a collection." {{action switchCollection on="click" target="controller"}}>
                     <i class="fa fa-folder" >&nbsp;<span class="view-stats-font">{{controller.article.save_count}}</span>&nbsp;</i>
                 </div>
 
-                <div class="square-button hint--rounded hint--bottom share-box2" data-hint="Share this photo to other social platform." {{action dropdownPhotoSetting "2"}}>
+                <div class="square-button hint--rounded hint--bottom share-box2" data-hint="Share this article." {{action dropdownPhotoSetting "2"}}>
                      <i class="fa fa-share" >&nbsp;<span class="view-stats-font">{{controller.article.share_count}}</span>&nbsp;</i>
                 </div>
 
@@ -248,8 +249,8 @@
                 <div id ="read_more_cue" class="article-text article-display">......</div>
             </div>
         </div>
-
-
+        <div id="article_view_ads">
+        </div>
         <!-- OBJECT CREDIT LIST SECTION -->
         {{#if controller.isCreditListExist}}
         <div>
@@ -375,3 +376,4 @@
 {{#if controller.contact}}
 {{render contact}}
 {{/if}}
+

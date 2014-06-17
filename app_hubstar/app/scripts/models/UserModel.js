@@ -48,6 +48,7 @@ HubStar.User = DS.Model.extend({
     password: DS.attr('string'),
     notification_setting: DS.attr('string'),
     selected_topics: DS.attr('string'),
+    is_top_ad_display: DS.attr('boolean'),
     profiles: DS.hasMany('HubStar.SaveToProfile'),
     groups: DS.hasMany('HubStar.GroupTitle'),
     collections: DS.hasMany('HubStar.Collection'),

@@ -32,7 +32,9 @@ HubStar.SearchRoute = Ember.Route.extend({
         this.controllerFor('application').set('isotherpage', false);
         localStorage.checkUser = "";
         $('#footer').css("display", "none");
-
+        if (HubStar.get("isTopAdDisplay")) {
+            $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
+        }
     },
     model: function(params) {
         var address = decodeURIComponent(document.URL);
@@ -131,11 +133,26 @@ HubStar.SearchRoute = Ember.Route.extend({
                     $("#topResidentialCommerical").css('display', "none");
                     $(".search-bar-on-small-screen").css('display', "block");
 
+                    if (HubStar.get("isTopAdDisplay")) {
+                        $('#masonry_wrapper').css('top', "290px");
+                    }
+                    else
+                    {
+                        $('#masonry_wrapper').css('top', "150px");
+                    }
+
                 }
                 if (HubStar.get('showDiscoveryBar') === true) {
-                    $('#masonry_container').css('top', "50px");
+                    $('#masonry_wrapper').css('top', "50px");
                 } else {
-                    $('#masonry_container').css('top', "100px");
+                    if (HubStar.get("isTopAdDisplay")) {
+                        $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
+                        $('#masonry_wrapper').css('top', "240px");
+                    }
+                    else
+                    {
+                        $('#masonry_wrapper').css('top', "100px");
+                    }
                 }
 
                 $('#footer').attr("style", "display:none");

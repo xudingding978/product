@@ -38,7 +38,7 @@
 
 <div class="masonry-object_profilepic" style="cursor:pointer;" >
 <div id="init_photo_{{unbound getID}}">
-     <a  href="#/profiles/{{unbound this.id}}/collections" > <img class="easing" {{bindAttr src="profile_pic_url"}}  />   </a>
+     <a  href="#/profiles/{{unbound this.id}}/collections"{{action transitionToProfile id}}> <img class="easing" {{bindAttr src="profile_pic_url"}}  />   </a>
 </div>
 </div>
 

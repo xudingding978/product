@@ -47,7 +47,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
     showRequestTag: false, //show the tag after save and sent the request
     showTagAfterSave: false, // show the tag icon afte approve
     isRead: false,
-    onlyOne: false,
     init: function()
     {
 
@@ -592,7 +591,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     }
                     else
                     {
-                        console.log("ssssssssss");
+                        
                         that.addRelatedData(megaObject);  //it is for profile's collection
                     }
                     that.getCommentsById(megaObject.id);
@@ -634,10 +633,20 @@ HubStar.MegaController = Ember.ArrayController.extend({
     checkSinglePhoto: function(length) {
         if (length !== 1)
         {
-            this.set("onlyOne", false);
+             $(document).ready(function() {
+                    setTimeout(function() {
+             $("#previousphoto").removeClass("touch-cursor");
+              $("#nextphoto").removeClass("touch-cursor");
+               },10);
+          });
         }
         else {
-            this.set("onlyOne", true);
+                $(document).ready(function() {
+                    setTimeout(function() {
+             $("#previousphoto").addClass("touch-cursor");
+              $("#nextphoto").addClass("touch-cursor");
+          },10);
+          });
         }
     },
     addProfileRelatedData: function(mega)
@@ -697,7 +706,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
         else if (this.get("clickOrRoute") === true) // it  assesses the collection photo from route
         {
-
             photoContent = [];
             var address = document.URL;
             var owner_id = address.split("#")[1].split("/")[2];
@@ -707,8 +715,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 if (profile.get('collections').objectAt(j).get('id') === collection_id)
                 {
                     id = profile.get('collections').objectAt(j).get('optional');
-                    this.checkSinglePhoto(profile.get('collections').objectAt(j).get('collection_ids').split(',').length);
-
+                    
                 }
             }
             var pics = HubStar.Mega.find({RquireType: "profileCollection", user_id: id, collection_id: collection_id});
@@ -756,6 +763,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                             }
                         }
                     }
+                    that.checkSinglePhoto(that.get("content").get("length"));
                 }
             });
         }
@@ -817,6 +825,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         }
                     }
                 }
+                   this.checkSinglePhoto(this.get("content").length);
             }
         }
         else if (this.get("clickOrRoute") === true) // it  assesses the collection photo from route
@@ -872,10 +881,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
                             }
                         }
                     }
+                    that.checkSinglePhoto(that.get("content").length);
                 }
             });
         }
-        this.checkSinglePhoto(this.get("content").length);
+     
         this.set("clickOrRoute", false);
     },
     selectImage: function(e) {
@@ -1071,6 +1081,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     }
                 }
                 this.set("selectPhoto", false);
+                this.set('selectType',null);
                 this.transitionTo("profile", profile); // transition to profile
                 this.transitionTo("profileCollection", data);
             }
@@ -1292,7 +1303,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         }
                         mega.store.save();
                     });
-                    that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Image shared successfully!");
                 } else {
                     that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
                 }

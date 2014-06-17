@@ -5,10 +5,10 @@
         {{/if}}
 
         <div class="top-controlbar easing">
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this photo to your own collection." style="position:relative;width: 60px;margin: 0 5px;" {{action switchCollection on="click" target="controller"}} >
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this video to a collection." style="position:relative;width: 60px;margin: 0 5px;" {{action switchCollection on="click" target="controller"}} >
                 <i class="fa fa-folder"></i><span class="pretooltip">Save</span>
             </div>
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this photo to other social platform." style="position:relative;width: 60px;margin: 0 5px;" {{action dropdownPhotoSetting "1"}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this video." style="position:relative;width: 60px;margin: 0 5px;" {{action dropdownPhotoSetting "1"}}>
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
             <ul class="hideClass edit-object-ul share-box4" id="dropdown_id_1">
@@ -88,11 +88,11 @@
                 </div>
                 {{/if}}
 
-                <div class="square-button hint--rounded hint--bottom"  data-hint="Add to your own collection." {{action switchCollection on="click" target="controller"}}>
+                <div class="square-button hint--rounded hint--bottom"  data-hint="Save this video to a collection." {{action switchCollection on="click" target="controller"}}>
                     <i class="fa fa-folder" >&nbsp;<span class="view-stats-font">{{megaResouce.save_count}}</span>&nbsp;</i>
                 </div>
 
-                <div class="square-button hint--rounded hint--bottom for-tooltip-position" data-hint="Share this photo to other social platform." style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting "2"}}>
+                <div class="square-button hint--rounded hint--bottom for-tooltip-position" data-hint="Share this video." style="position:relative;margin: 0 5px;" {{action dropdownPhotoSetting "2"}}>
                      <i class="fa fa-share" >&nbsp;<span class="view-stats-font">{{megaResouce.share_count}}</span>&nbsp;</i>
                 </div>
 
@@ -157,6 +157,8 @@
         </div>
 
         <!-- OBJECT DISCUSSION SECTION -->
+        <div id="video_view_ads">
+        </div>
         <div>
             <div class="object-collapes-title" {{action setDiscussionTag on="click" target="view"}} >
                 <div class="collapes-title_inner">

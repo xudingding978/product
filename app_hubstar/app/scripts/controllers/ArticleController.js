@@ -21,7 +21,6 @@ HubStar.ArticleController = Ember.Controller.extend({
     hasTag: false,
     makeSureActivateTag: false,
     willActivate: false,
-    onlyOne: false,
     contentTagsArticle: "", //all the tags
     showEachTagContent: false,
     showAllTagsArticle: true, // users show the tag
@@ -701,10 +700,20 @@ HubStar.ArticleController = Ember.Controller.extend({
 
                     }
                     if (that.get('content').length !== 1) {
-                        that.set('onlyOne', false);
+                        $(document).ready(function() {
+                            setTimeout(function() {
+                                $("#previousarticlephoto").removeClass("touch-cursor");
+                                $("#nextarticlephoto").removeClass("touch-cursor");
+                            }, 10);
+                        });
                     }
                     else {
-                        that.set('onlyOne', true);
+                        $(document).ready(function() {
+                            setTimeout(function() {
+                                $("#previousarticlephoto").addClass("touch-cursor");
+                                $("#nextarticlephoto").addClass("touch-cursor");
+                            }, 10);
+                        });
                     }
                     that.set('selectedPhoto', that.get('content').objectAt(0)); //set selectedPhoto to the first photo
                     that.set('captionTitle', that.get('selectedPhoto').get("photo_title"));
@@ -900,7 +909,7 @@ HubStar.ArticleController = Ember.Controller.extend({
                         }
                         mega.store.save();
                     });
-                    that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Article shared successfully!");
                 } else {
                     that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
                 }

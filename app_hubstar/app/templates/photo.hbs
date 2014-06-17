@@ -20,10 +20,10 @@
             </div>    
             {{/if}}
             {{#unless controller.enableTag}}
-            <div class="fa icon-on-black hint--rounded hint--bottom top-article" data-hint="Save this photo to your own collection." {{action switchCollection on="click" target="controller"}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom top-article" data-hint="Save this image to a collection." {{action switchCollection on="click" target="controller"}}>
                 <i class="fa fa-folder"></i><span class="pretooltip">Save</span>
             </div>
-            <div class="fa icon-on-black hint--rounded hint--bottom top-article" data-hint="Share this photo to other social platform." {{action dropdownPhotoSetting "1"}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom top-article" data-hint="Share this image." {{action dropdownPhotoSetting "1"}}>
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
             {{/unless}}
@@ -89,16 +89,16 @@
         </div>
 
         <div class="mainfeature">
-           
+          
             <div  class="previous previous-arrow-box" id ="previousphoto" {{action previesImage on="click" target="view"}}>
-                {{#unless controller.onlyOne}}
+                {{#if HubStar.touchDevice}}
                 <i id="p" class="arrow-pos arrow-left"></i>
-                {{/unless}}
+                {{/if}}
             </div>
             <div  class="next next-arrow-box" id ="nextphoto" {{action nextImage on="click" target="view"}}>
-                 {{#unless controller.onlyOne}}
+                {{#if HubStar.touchDevice}}
                 <i id="n" class="arrow-pos arrow-right"></i>
-                  {{/unless}}
+                  {{/if}}
             </div>
           
             </div>
@@ -205,11 +205,11 @@
                       <i class="fa fa-thumbs-up">&nbsp;<span class="view-stats-font">{{megaResouce.likes_count}}</span>&nbsp;</i>
                 </div>
                 {{/if}}
-                <div class="square-button hint--rounded hint--bottom"  data-hint="Add to your own collection." {{action switchCollection on="click" target="controller"}}>
+                <div class="square-button hint--rounded hint--bottom"  data-hint="Save this image to a collection." {{action switchCollection on="click" target="controller"}}>
                     <i class="fa fa-folder" >&nbsp;<span class="view-stats-font">{{megaResouce.save_count}}</span>&nbsp;</i>
                 </div>
 
-                <div class="square-button hint--rounded hint--bottom for-tooltip-position share-box2" data-hint="Share this photo to other social platform" {{action dropdownPhotoSetting "2"}}>
+                <div class="square-button hint--rounded hint--bottom for-tooltip-position share-box2" data-hint="Share this image." {{action dropdownPhotoSetting "2"}}>
                      <i class="fa fa-share" >&nbsp;<span class="view-stats-font">{{megaResouce.share_count}}</span>&nbsp;</i>
                 </div>
 
@@ -330,7 +330,9 @@
         </div>
 
 
-
+        <div id="photo_view_ads">
+            
+        </div>
 
         <!-- OBJECT DISCUSSION SECTION -->
 

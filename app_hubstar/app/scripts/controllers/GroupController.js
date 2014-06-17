@@ -40,7 +40,10 @@ HubStar.GroupController = Ember.Controller.extend({
         var createTime = model.get("collections").objectAt(0).get("created_at");
         var date = new Date(createTime * 1000);
         this.set("createTime", date + "");
-        this.selectPartner();
+        var that = this;
+        setTimeout(function() {
+            that.selectPartner();
+        }, 2);
         this.setPic();
         this.set("editGroup", false);
     },

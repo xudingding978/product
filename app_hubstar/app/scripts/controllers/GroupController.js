@@ -476,14 +476,11 @@ HubStar.GroupController = Ember.Controller.extend({
         {
             this.get("model").set("group_timeframe", this.get("group_timeframe"));
         }
-        this.get("model").set("group_category", this.get("Category"));
-        this.get("model").set("group_subcategory", this.get("subCategory"));
-        var type = this.get("topic").get("type");
-        if (type.indexOf("commercial") !== -1 && this.get("topic").get("type").indexOf("residential") !== -1)
-        {
-
+        if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
+            this.get("model").set("group_category", this.get("Category"));
+            this.get("model").set("group_subcategory", this.get("subCategory"));
+            this.get("model").set("group_classification", this.get("topic").get("type"));
         }
-        this.get("model").set("group_classification", this.get("topic").get("type"));
     },
     save: function() {
         if (this.get("name")) {

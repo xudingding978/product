@@ -46,6 +46,33 @@ HubStar.GroupController = Ember.Controller.extend({
         }, 2);
         this.setPic();
         this.set("editGroup", false);
+        $(document).ready(function() {
+            setTimeout(function() {
+                if ($(window).width() > 1200) {
+                    $("#search-bar").css('display', "block");
+                    $("#topResidentialCommerical").css('display', "block");
+                    $(".search-bar-on-small-screen").css('display', "none");
+                    if (HubStar.get("isTopAdDisplay")) {
+                    }
+                    else
+                    {
+                        $('.profile-top').css('height', "150px");
+                    }
+                } else {
+                    $("#search-bar").css('display', "none");
+                    $("#topResidentialCommerical").css('display', "none");
+                    $(".search-bar-on-small-screen").css('display', "block");
+                    if (HubStar.get("isTopAdDisplay")) {
+                        $("#top_bar_ads").css({"position": "fixed", "top": "150px"});
+                    }
+                    else
+                    {
+                        $('.profile-top').css('height', "150px");
+                    }
+
+                }
+            }, 50);
+        });
     },
     setPic: function() {
         var that = this;

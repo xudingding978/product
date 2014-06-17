@@ -34,7 +34,7 @@
             {{#if controller.isBusinessProfile}}
             {{#if controller.enableTag}}
 
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Exit image taggingo" {{action endTag}}>
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Exit image tagging" {{action endTag}}>
                  <i class="fa fa-tag"></i><span class="pretooltip">Done Tagging</span> 
             </div>
             {{else}}
@@ -107,16 +107,7 @@
             <!--     image show here-->   
             <div id ="tag_image">
                 {{view HubStar.PhotoDisplayAreaView}}
-
-                <!--     show add new  tag template-->   
-                {{#if HubStar.tagging_display}}
-                {{#if  controller.enableTag}}      
-                {{#if controller.inImage}} <!--only when it within the image place can add the tag-->
-                {{ render showTag }}
-                {{/if}}
-                {{/if}}
-                {{/if}}
-
+               
                 {{#if controller.megaResouce.getArticle}}
 
                 <div class="click-to-read-hit-area easing" {{action transitionToArticle controller.megaResouce.id}}>
@@ -124,23 +115,6 @@
                         <i class="fa fa-book">&nbsp;</i>click to read
                     </div>
                 </div>
-                {{/if}}
-
-                <!--     show   tag's detail content  template-->   
-                <!--              only when is not in the edit tag state and mouse over the tag can show the detail content-->
-                {{#if HubStar.tagging_display}}
-                {{#unless controller.enableTag}}
-                {{#if controller.showEachTagContent }}
-                {{ view HubStar.TagContentView }}
-                {{/if}}
-                {{/unless}}
-                <!--     show all the tags--> 
-                {{#if controller.showAllTags}} <!--      showOrNot tag-->
-                {{#each controller.contentTags}}
-                {{view HubStar.TagMouseView}} 
-                {{/each}}
-                {{/if}}
-
                 {{/if}}
             </div>
 
@@ -451,3 +425,28 @@
 {{#if controller.contact}}
 {{render contact}}
 {{/if}}
+                <!--     show   tag's detail content  template-->   
+                <!--              only when is not in the edit tag state and mouse over the tag can show the detail content-->
+                {{#if HubStar.tagging_display}}
+                    {{#if HubStar.tagging_display}}
+                    {{#if  controller.enableTag}}      
+                        {{#if controller.inImage}} <!--only when it within the image place can add the tag-->
+                            {{ render showTag }}
+                        {{/if}}
+                    {{/if}}
+                {{/if}}
+                    {{#unless controller.enableTag}}
+                        {{#if controller.showEachTagContent }}
+                            {{ view HubStar.TagContentView }}
+                        {{/if}}
+                    {{/unless}}
+                <!--     show all the tags--> 
+                    {{#if controller.showAllTags}} <!--      showOrNot tag-->
+                        {{#each controller.contentTags}}
+                            {{view HubStar.TagMouseView}} 
+                        {{/each}}
+                    {{/if}}
+                {{/if}}
+                
+
+                

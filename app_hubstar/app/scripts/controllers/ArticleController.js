@@ -100,7 +100,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     showTags: function()
     {
         this.set("showAllTagsArticle", true);
-        this.set("showEachTagContent", true);
+        this.set("showEachTagContent", false);
         this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
     },
     hideTags: function()

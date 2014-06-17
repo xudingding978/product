@@ -88,27 +88,6 @@
             
             <div id ="tag_article_image">
                 {{view HubStar.PhotoDisplayAreaView}}
-                <!--     show add new  tag template-->   
-                {{#if HubStar.tagging_display}}
-                {{#if  controller.enableTag}}      
-                {{#if controller.inImage}} <!--only when it within the image place can add the tag-->
-                {{  render showTag }}
-                {{/if}}
-                {{/if}}
-                <!--     show   tag's detail content  template-->   
-                <!--              only when is not in the edit tag state and mouse over the tag can show the detail content-->
-                {{#unless controller.enableTag}}
-                {{#if controller.showEachTagContent }}
-                {{  view HubStar.TagContentView }}
-                {{/if}}
-                {{/unless}}
-                <!--     show all the tags--> 
-                {{#if controller.showAllTagsArticle}} <!--      showOrNot tag-->
-                {{#each controller.contentTagsArticle}}
-                {{view HubStar.TagMouseView}} 
-                {{/each}}
-                {{/if}}
-                {{/if}}
             </div>
 
         </div>
@@ -381,3 +360,24 @@
 {{#if controller.contact}}
 {{render contact}}
 {{/if}}
+                <!--     show add new  tag template-->   
+                {{#if HubStar.tagging_display}}
+                    {{#if  controller.enableTag}}      
+                        {{#if controller.inImage}} <!--only when it within the image place can add the tag-->
+                            {{  render showTag }}
+                        {{/if}}
+                    {{/if}}
+                <!--     show   tag's detail content  template-->   
+                <!--              only when is not in the edit tag state and mouse over the tag can show the detail content-->
+                    {{#unless controller.enableTag}}
+                        {{#if controller.showEachTagContent }}
+                            {{  view HubStar.TagContentView }}
+                        {{/if}}
+                    {{/unless}}
+                <!--     show all the tags--> 
+                     {{#if controller.showAllTagsArticle}} <!--      showOrNot tag-->
+                        {{#each controller.contentTagsArticle}}
+                        {{view HubStar.TagMouseView}} 
+                        {{/each}}
+                    {{/if}}
+                {{/if}}

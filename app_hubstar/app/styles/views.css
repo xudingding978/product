@@ -1168,6 +1168,9 @@ div.album-description-bg{
     vertical-align: top;
     display: inline-block;
     width: 50%;
+    word-break: break-word;
+    max-height: 60px;
+    overflow: hidden;
 }
 
 .poster-name{
@@ -2215,8 +2218,9 @@ div.album-description-bg{
     height:100%; 
     font-size: 13px; 
     font-weight: bold; 
-    overflow: auto; 
-    overflow-x:hidden; 
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 160px;
 }
 
 .show-tag-profile-content .show-tag-profile-content{
@@ -2355,6 +2359,9 @@ div.album-description-bg{
     box-shadow: 0 0px 1px #888;
     z-index: 11;
     width: 334px;
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 160px;
 }
 
 .add-tag_select-tag > div{
@@ -2474,13 +2481,18 @@ div.album-description-bg{
 /* -------- tag content ---------*/
 #tagitshow{
     width: 300px;
-    opacity: 0;
-    border-style: solid;
-    border-color: #ffffff;
+    background-color: transparent;
+    position: absolute;
+    z-index: 1;
+    border: none;
+
+}
+
+.tagitshow{
+    width: 100%;
+    background-color: #fff;
     position: absolute;
     z-index: 2;
-    background-color: rgba(255,255,255,.9);
-    border: 0 none;
     overflow: hidden;
     border-radius:5px;
     -moz-box-shadow: 0px 0px 5px #555;
@@ -2498,6 +2510,7 @@ div.album-description-bg{
     float: left;
     overflow: hidden; 
     padding:5px;
+    vertical-align: middle;
 }
 
 .tagMiddle{
@@ -2543,13 +2556,15 @@ div.album-description-bg{
 .tagBtn > div{
     background-color: #ccc;
     position: relative;
-    line-height: 30px;
+    line-height: 20px;
     font-size: 20px;
     font-weight: bold;
     padding: 25%;
     color: #fff;
     float: right;
-    width: 80%;
+    width: 150px;
+    left:105px;
+    z-index:10;
 }
 
 .tag-content{

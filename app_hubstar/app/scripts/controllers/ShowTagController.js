@@ -73,26 +73,26 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             var that = this;
             requiredBackEnd('showTag', 'saveTag', tagInfo, 'POST', function(params) {
 //set the model , data come from the front end rather than the get from the back end
-                newTag["tag_id"] = tag_id;
-                newTag["profile_id"] = selectedID;
-                newTag["product_name"] = product_name;
-                newTag["desc"] = desc;
-                newTag["pic_x"] = pic_x;
-                newTag["pic_y"] = pic_y;
-                newTag["linkto"] = linkAddress;
-                newTag["link_to_click_count"] = 0;
-                newTag["tag_time"] = time_stamp;
-                newTag["tag_approved"] = false;
-                newTag["collectionID"] = collectionID;
-                newTag["collection_name"] = collection_name;
-                newTag["tag_owner"] = localStorage.loginStatus;
-                newTag["is_tag_owner"] = true;
-                if (that.get("contentTags") !== null && that.get("contentTags") !== "" && that.get("contentTags") !== undefined)
-                {
-                    that.get("contentTags").pushObject(newTag);
-                    that.createNotification(newTag, mega, tag_id);
-                }
-
+//                newTag["tag_id"] = tag_id;
+//                newTag["profile_id"] = selectedID;
+//                newTag["product_name"] = product_name;
+//                newTag["desc"] = desc;
+//                newTag["pic_x"] = pic_x;
+//                newTag["pic_y"] = pic_y;
+//                newTag["linkto"] = linkAddress;
+//                newTag["link_to_click_count"] = 0;
+//                newTag["tag_time"] = time_stamp;
+//                newTag["tag_approved"] = false;
+//                newTag["collectionID"] = collectionID;
+//                newTag["collection_name"] = collection_name;
+//                newTag["tag_owner"] = localStorage.loginStatus;
+//                newTag["is_tag_owner"] = true;
+//                if (that.get("contentTags") !== null && that.get("contentTags") !== "" && that.get("contentTags") !== undefined)
+//                {
+//                    that.get("contentTags").pushObject(newTag);
+//                    that.createNotification(newTag, mega, tag_id);
+//                }
+//
                 if (HubStar.get("isArticleTag") === true)
                 {
                     that.get("controllers.article").set("showRequestTag", true);
@@ -109,7 +109,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 that.set("product_name", "");
                 that.readTags(photo_id); //call the read method to show all tags
             });
-            this.get('controllers.applicationFeedback').statusObserver(null, "Great job! We are sent a message to the content owner requesting activation of your tag.", "warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Great job! A message to the content owner requesting activation of your tag.", "warnning");
         }
     },
     activateUserTag: function(tag_id, photo_id)
@@ -207,6 +207,26 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                     var width = Math.ceil(params[i].pic_x * HubStar.get("pic_current_width") + left) + "px";
                     params[i].top = height;
                     params[i].left = width;
+ 
+                    var url = params[i].pic_url.split("_");
+                    var length = url.length;
+                    var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
+                    var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
+
+                    if (width > height)
+                    {
+                        height = Math.ceil(85 / width * height);
+                        width = 85;
+                    }
+                    else
+                    {
+                        width = Math.ceil(85 / height * width);
+                        height = 85;
+                    }
+                    width = width + "px";
+                    height = height + "px";
+                    params[i].height = height;
+                    params[i].width = width;
                 }
                 if (HubStar.get("isArticleTag") === true)
                 {

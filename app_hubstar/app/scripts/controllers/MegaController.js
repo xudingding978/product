@@ -311,7 +311,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     showTags: function()
     {
         this.set("showAllTags", true);
-        this.set("showEachTagContent", true);
+        this.set("showEachTagContent", false);
         var tags = this.get("contentTags");
         this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
     },

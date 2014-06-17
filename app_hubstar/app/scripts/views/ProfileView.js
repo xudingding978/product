@@ -15,25 +15,24 @@ HubStar.ProfileView = Ember.View.extend({
                 setTimeout(function() {
                     $('#masonry_user_container').masonry();
                 }, 200);
-            }, 200);
+            }, 2000);
+
             $(window).resize(function() {
-                $(window).resize(function() {
+                setTimeout(function() {
+                    $('#masonry_user_container').masonry("reloadItems");
                     setTimeout(function() {
-                        $('#masonry_user_container').masonry("reloadItems");
-                        setTimeout(function() {
-                            $('#masonry_user_container').masonry();
-                        }, 200);
+                        $('#masonry_user_container').masonry();
                     }, 200);
-                    if ($(window).width() > 1200) {
-                        $("#search-bar").css('display', "block");
-                        $("#topResidentialCommerical").css('display', "block");
-                        $(".search-bar-on-small-screen").css('display', "none");
-                    } else {
-                        $("#search-bar").css('display', "none");
-                        $("#topResidentialCommerical").css('display', "none");
-                        $(".search-bar-on-small-screen").css('display', "block");
-                    }
-                });
+                }, 200);
+                if ($(window).width() > 1200) {
+                    $("#search-bar").css('display', "block");
+                    $("#topResidentialCommerical").css('display', "block");
+                    $(".search-bar-on-small-screen").css('display', "none");
+                } else {
+                    $("#search-bar").css('display', "none");
+                    $("#topResidentialCommerical").css('display', "none");
+                    $(".search-bar-on-small-screen").css('display', "block");
+                }
             });
 
         });

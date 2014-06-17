@@ -161,15 +161,15 @@ class Controller extends CController {
             $classification = $this->getUserInput($requireParams[6]);
             $response = $this->getSearchResultsWithAnalysis($region, $searchString, $from, $size, $location, $classification);
 
-           $response = $this->profileSetting($response, $returnType, 'firstsearch');
+            $response = $this->profileSetting($response, $returnType, 'firstsearch');
         } elseif ($requireType == 'collection') {
             $collection_id = $this->getUserInput($requireParams[1]);
             $owner_profile_id = $this->getUserInput($requireParams[2]);
             $response = $this->getCollectionReults($collection_id, $owner_profile_id);
             $response = $this->profileSetting($response, $returnType, 'collection');
         } elseif ($requireType == 'partner') {
-            $response = $this->getPartnerResults($requireParams[1]);
-            $response = $this->getReponseResult($response, $returnType);
+            $response = $this->getPartnerResultsInOrder($requireParams[1]);
+            //$response = $this->getReponseResult($response, $returnType);
         } elseif ($requireType == 'partnerSearch') {
             $response = $this->getPartnerResults($requireParams[1], $requireParams[2]);
             $response = $this->getReponseResult($response, $returnType);
@@ -212,7 +212,7 @@ class Controller extends CController {
         } elseif ($requireType == 'pdf') {
             $owner_id = $this->getUserInput($requireParams[1]);
             $response = $this->getPdfByOwner($owner_id);
-           $response = $this->profileSetting($response, $returnType, 'pdf');
+            $response = $this->profileSetting($response, $returnType, 'pdf');
         } elseif ($requireType == 'singleVideo') {
 
             $videoid = $this->getUserInput($requireParams[1]);
@@ -1465,7 +1465,33 @@ class Controller extends CController {
             $response = $this->RequireByIds($str_partnerIds, $size, $keyword);
         } else {
             $response = $this->RequireByIds($str_partnerIds, $size);
-        }return $response;
+        }
+
+        return $response;
+    }
+
+    protected function getPartnerResultsInOrder($partnerIds, $keyword = null) {
+        $response = array();
+        $partner_id_raw = $this->getUserInput($partnerIds, false);
+        $partner_id = str_replace("%2C", ",", $partner_id_raw);
+        $partnerIds = explode(',', $partner_id);
+        $str_partnerIds = "";
+        $domain = $this->getDomain();
+        $trendsUrl = $domain . "/profiles/";
+        $size = count($partnerIds);
+        $cb = $this->couchBaseConnection();
+        $results = '{"' . 'megas' . '":[';
+        for ($i = 0; $i < sizeof($partnerIds); $i++) {
+            $tempMega_profile = $cb->get($trendsUrl . $partnerIds[$i]);
+            if ($i !== sizeof($partnerIds) - 1) {
+                $results.= $tempMega_profile . ',';
+            } else {
+                $results.= $tempMega_profile;
+            }
+        }
+        $results .= ']}';
+
+        return $results;
     }
 
     protected function getArticleRelatedImages($article_id, $owner_id) {
@@ -1505,7 +1531,6 @@ class Controller extends CController {
             }
         }
         $results .= ']}';
-
         return $results;
     }
 

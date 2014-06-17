@@ -296,7 +296,7 @@ HubStar.VideoController = Ember.Controller.extend({
                     }
                     mega.store.save();
                 });
-                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Video shared successfully!");
             } else {
                 that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
             }

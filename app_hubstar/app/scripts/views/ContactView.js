@@ -7,7 +7,7 @@ HubStar.ContactView = Ember.View.extend({
         // screen
         var screenSize = '';
         if (screen.width) {
-          var width = (screen.width) ? screen.width : '';
+            var width = (screen.width) ? screen.width : '';
             var height = (screen.height) ? screen.height : '';
             screenSize += '' + width + " x " + height;
         }
@@ -20,39 +20,38 @@ HubStar.ContactView = Ember.View.extend({
         var majorVersion = parseInt(navigator.appVersion, 10);
         var nameOffset, verOffset, ix;
         // Opera
-        if ((verOffset === nAgt.indexOf('Opera')) !== -1) {
-            
+        if ((verOffset = nAgt.indexOf('Opera')) !== -1) {
             browser = 'Opera';
             version = nAgt.substring(verOffset + 6);
-            if ((verOffset === nAgt.indexOf('Version')) !== -1) {
+            if ((verOffset = nAgt.indexOf('Version')) !== -1) {
                 version = nAgt.substring(verOffset + 8);
             }
         }
         // MSIE
-        else if ((verOffset === nAgt.indexOf('MSIE')) !== -1) {
+        else if ((verOffset = nAgt.indexOf('MSIE')) !== -1) {
             browser = 'Microsoft Internet Explorer';
             version = nAgt.substring(verOffset + 5);
         }
         // Chrome
-        else if ((verOffset === nAgt.indexOf('Chrome')) !== -1) {
+        else if ((verOffset = nAgt.indexOf('Chrome')) !== -1) {
             browser = 'Chrome';
             version = nAgt.substring(verOffset + 7);
         }
         // Safari
-        else if ((verOffset === nAgt.indexOf('Safari')) !== -1) {
+        else if ((verOffset = nAgt.indexOf('Safari')) !== -1) {
             browser = 'Safari';
             version = nAgt.substring(verOffset + 7);
-            if ((verOffset === nAgt.indexOf('Version')) !== -1) {
+            if ((verOffset = nAgt.indexOf('Version')) !== -1) {
                 version = nAgt.substring(verOffset + 8);
             }
         }
         // Firefox
-        else if ((verOffset === nAgt.indexOf('Firefox')) !== -1) {
+        else if ((verOffset = nAgt.indexOf('Firefox')) !== -1) {
             browser = 'Firefox';
             version = nAgt.substring(verOffset + 8);
         }
         // Other browsers
-        else if ((nameOffset === nAgt.lastIndexOf(' ') + 1) < (verOffset === nAgt.lastIndexOf('/'))) {
+        else if ((nameOffset = nAgt.lastIndexOf(' ') + 1) < (verOffset = nAgt.lastIndexOf('/'))) {
             browser = nAgt.substring(nameOffset, verOffset);
             version = nAgt.substring(verOffset + 1);
             if (browser.toLowerCase() === browser.toUpperCase()) {
@@ -60,9 +59,9 @@ HubStar.ContactView = Ember.View.extend({
             }
         }
         // trim the version string
-        if ((ix ===version.indexOf(';')) !== -1)
+        if ((ix = version.indexOf(';')) !== -1)
             version = version.substring(0, ix);
-        if ((ix === version.indexOf(' ')) !== -1)
+        if ((ix = version.indexOf(' ')) !== -1)
             version = version.substring(0, ix);
 
         majorVersion = parseInt('' + version, 10);
@@ -154,7 +153,7 @@ HubStar.ContactView = Ember.View.extend({
                 flashVersion = unknown;
             }
         }
-        
+
 
         window.jscd = {
             screen: screenSize,
@@ -166,8 +165,8 @@ HubStar.ContactView = Ember.View.extend({
             cookies: cookieEnabled,
             flashVersion: flashVersion
         };
-        
-        this.get("controller").set("userEnvironment",  'OS: ' + jscd.os + ' ' + jscd.osVersion+ ' ' +  'Browser: ' + jscd.browser + ' ' + jscd.browserVersion);
+
+        this.get("controller").set("userEnvironment", 'OS: ' + jscd.os + ' ' + jscd.osVersion + ' ' + 'Browser: ' + jscd.browser + ' ' + jscd.browserVersion);
 
 
 

@@ -1349,6 +1349,14 @@ textarea.add-interests{
     cursor: pointer;
 }
 
+.show-more-comment{
+    position: absolute;
+    right: 0px;  
+    width: 20px;
+    text-align: center;
+    line-height: 70px;
+}
+
 .create-conversation:hover{
     background-color: #fff;
     opacity: 1;
@@ -1385,6 +1393,10 @@ textarea.add-interests{
     font-size: 13px;
     text-align: center;
     margin-right: -2px;
+}
+
+.message-newppl-minus{
+    opacity: .8;
 }
 
 .invite-friend{

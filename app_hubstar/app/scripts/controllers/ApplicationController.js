@@ -268,7 +268,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         }
                     }
                 }
-            }, 100);
+            }, 300);
         });
     },
     grapData: function() {

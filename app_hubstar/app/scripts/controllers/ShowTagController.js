@@ -72,27 +72,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             var newTag = new Array();
             var that = this;
             requiredBackEnd('showTag', 'saveTag', tagInfo, 'POST', function(params) {
-//set the model , data come from the front end rather than the get from the back end
-//                newTag["tag_id"] = tag_id;
-//                newTag["profile_id"] = selectedID;
-//                newTag["product_name"] = product_name;
-//                newTag["desc"] = desc;
-//                newTag["pic_x"] = pic_x;
-//                newTag["pic_y"] = pic_y;
-//                newTag["linkto"] = linkAddress;
-//                newTag["link_to_click_count"] = 0;
-//                newTag["tag_time"] = time_stamp;
-//                newTag["tag_approved"] = false;
-//                newTag["collectionID"] = collectionID;
-//                newTag["collection_name"] = collection_name;
-//                newTag["tag_owner"] = localStorage.loginStatus;
-//                newTag["is_tag_owner"] = true;
-//                if (that.get("contentTags") !== null && that.get("contentTags") !== "" && that.get("contentTags") !== undefined)
-//                {
-//                    that.get("contentTags").pushObject(newTag);
-//                    that.createNotification(newTag, mega, tag_id);
-//                }
-//
                 if (HubStar.get("isArticleTag") === true)
                 {
                     that.get("controllers.article").set("showRequestTag", true);
@@ -236,52 +215,9 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 {
                     that.get("controllers.mega").set("contentTags", params);
                 }
-
-//                var tags = params;
-//                setTimeout(function() {
-//                    $(document).ready(function() {
-//                        setTimeout(function() {
-//                            //thatthat.get("controllers.mega").set("tagCount", params.get("length"));
-//                            if (HubStar.get("isArticleTag") === true)
-//                            {
-//                                thatthat.get("controllers.article").set("tagCount", params.get("length"));
-//                            } else
-//                            {
-//                                thatthat.get("controllers.mega").set("tagCount", params.get("length"));
-//                            }
-//                            if (tags !== undefined && tags !== "" && tags !== null)
-//                            {
-//                                for (var i = 0; i < tags.length; i++)
-//                                {
-//                                    var tagDiv = "#tag_" + tags[i].tag_id;
-//                                    var center_y = $(window).height() / 2;
-//                                    var isArticle = false;
-//                                    if (document.URL.search("article") !== -1)
-//                                    {
-//                                        isArticle = true;
-//                                    }
-//                                    var center_x = 0;
-//                                    if (isArticle === true) {
-//                                        center_x = ($(window).width() * 0.55) / 2;
-//                                    }
-//                                    else
-//                                    {
-//                                        center_x = ($(window).width() - 320) / 2;
-//                                    }
-//                                    var top = center_y - HubStar.get("pic_current_height") / 2;
-//                                    var left = center_x - HubStar.get("pic_current_width") / 2;
-//                                    var height = Math.ceil(tags[i].pic_y * HubStar.get("pic_current_height") + top) + "px";  //set the tag's place which is the percentage of image and add the picture origin left point place
-//                                    var width = Math.ceil(tags[i].pic_x * HubStar.get("pic_current_width") + left) + "px";
-//                                    $(tagDiv).css({"top": height, "left": width});
-//                                }
-//                            }
-//                        }, 25);
-//                    });
-//                }, 50);
             }
             else
             {
-                //    thatthat.get("controllers.article").set("tagCount", 0);
                 if (HubStar.get("isArticleTag") === true)
                 {
                     thatthat.get("controllers.article").set("tagCount", 0);
@@ -290,8 +226,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 {
                     thatthat.get("controllers.mega").set("tagCount", 0);
                 }
-
-
             }
         });
 

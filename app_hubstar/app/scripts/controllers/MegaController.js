@@ -47,7 +47,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
     showRequestTag: false, //show the tag after save and sent the request
     showTagAfterSave: false, // show the tag icon afte approve
     isRead: false,
-    onlyOne: false,
     init: function()
     {
 
@@ -106,24 +105,26 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
             if (this.get("enableTag") === true)
             {
-                var that = this;
-                setTimeout(function() {
-                    $('#tagit').fadeIn();
-                    $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
-                    if (that.get("controllers.showTag").get("change_tag_show_2"))
-                    {
-                        $(document).ready(function() {
-                            $("#showTagSavePhoto").css("left", "265px");
-                        });
-                    }
-                    else
-                    {
-                        $(document).ready(function() {
-                            $("#showTagSavePhoto").css("left", "0px");
-                        });
-                    }
-                    $('#tagname').focus();
-                }, 15);
+                if (this.get("inImage") === true) {
+                    var that = this;
+                    setTimeout(function() {
+                        $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                        $('#tagit').fadeIn();
+                        if (that.get("controllers.showTag").get("change_tag_show_2"))
+                        {
+                            $(document).ready(function() {
+                                $("#showTagSavePhoto").css("left", "265px");
+                            });
+                        }
+                        else
+                        {
+                            $(document).ready(function() {
+                                $("#showTagSavePhoto").css("left", "0px");
+                            });
+                        }
+                        $('#tagname').focus();
+                    }, 15);
+                }
             } else
             {
                 this.set("contentTags", "");
@@ -196,24 +197,26 @@ HubStar.MegaController = Ember.ArrayController.extend({
 
             if (this.get("enableTag") === true)
             {
-                var that = this;
-                setTimeout(function() {
-                    $('#tagit').fadeIn();
-                    $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
-                    if (that.get("controllers.showTag").get("change_tag_show_2"))
-                    {
-                        $(document).ready(function() {
-                            $("#showTagSavePhoto").css("left", "-265px");
-                        });
-                    }
-                    else
-                    {
-                        $(document).ready(function() {
-                            $("#showTagSavePhoto").css("left", "0px");
-                        });
-                    }
-                    $('#tagname').focus();
-                }, 15);
+                if (this.get("inImage") === true) {
+                    var that = this;
+                    setTimeout(function() {
+                        $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                        $('#tagit').fadeIn();
+                        if (that.get("controllers.showTag").get("change_tag_show_2"))
+                        {
+                            $(document).ready(function() {
+                                $("#showTagSavePhoto").css("left", "-265px");
+                            });
+                        }
+                        else
+                        {
+                            $(document).ready(function() {
+                                $("#showTagSavePhoto").css("left", "0px");
+                            });
+                        }
+                        $('#tagname').focus();
+                    }, 15);
+                }
             } else
             {
                 this.set("contentTags", "");
@@ -328,6 +331,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     JudgeBusinessProfile: function()
     {
+        this.set("showEachTagContent", false);
         if (localStorage.loginStatus) {
             var currentUser = HubStar.User.find(localStorage.loginStatus);
             var that = this;
@@ -377,6 +381,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("enableTag", true);
         $("#p").addClass("hideClass");
         $("#n").addClass("hideClass");
+        $("#previousphoto").addClass("touch-cursor");
+        $("#nextphoto").addClass("touch-cursor");
     },
     /******* function name: enableTag
      * parameter:
@@ -390,6 +396,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("showRequestTag", true);
         $("#p").removeClass("hideClass"); //remove the left and right icon
         $("#n").removeClass("hideClass");
+        $("#previousphoto").removeClass("touch-cursor");
+        $("#nextphoto").removeClass("touch-cursor");
     },
     /****it is allow the user to active the tag******/
     activateUserTag: function(tag_id)
@@ -626,10 +634,20 @@ HubStar.MegaController = Ember.ArrayController.extend({
     checkSinglePhoto: function(length) {
         if (length !== 1)
         {
-            this.set("onlyOne", false);
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $("#previousphoto").removeClass("touch-cursor");
+                    $("#nextphoto").removeClass("touch-cursor");
+                }, 10);
+            });
         }
         else {
-            this.set("onlyOne", true);
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $("#previousphoto").addClass("touch-cursor");
+                    $("#nextphoto").addClass("touch-cursor");
+                }, 10);
+            });
         }
     },
     addProfileRelatedData: function(mega)
@@ -689,7 +707,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
         }
         else if (this.get("clickOrRoute") === true) // it  assesses the collection photo from route
         {
-
             photoContent = [];
             var address = document.URL;
             var owner_id = address.split("#")[1].split("/")[2];
@@ -699,7 +716,6 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 if (profile.get('collections').objectAt(j).get('id') === collection_id)
                 {
                     id = profile.get('collections').objectAt(j).get('optional');
-                    this.checkSinglePhoto(profile.get('collections').objectAt(j).get('collection_ids').split(',').length);
 
                 }
             }
@@ -748,6 +764,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                             }
                         }
                     }
+                    that.checkSinglePhoto(that.get("content").get("length"));
                 }
             });
         }
@@ -809,6 +826,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         }
                     }
                 }
+                this.checkSinglePhoto(this.get("content").length);
             }
         }
         else if (this.get("clickOrRoute") === true) // it  assesses the collection photo from route
@@ -864,10 +882,11 @@ HubStar.MegaController = Ember.ArrayController.extend({
                             }
                         }
                     }
+                    that.checkSinglePhoto(that.get("content").length);
                 }
             });
         }
-        this.checkSinglePhoto(this.get("content").length);
+
         this.set("clickOrRoute", false);
     },
     selectImage: function(e) {
@@ -1063,6 +1082,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                     }
                 }
                 this.set("selectPhoto", false);
+                this.set('selectType', null);
                 this.transitionTo("profile", profile); // transition to profile
                 this.transitionTo("profileCollection", data);
             }
@@ -1284,7 +1304,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
                         }
                         mega.store.save();
                     });
-                    that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
+                    that.get('controllers.applicationFeedback').statusObserver(null, "Image shared successfully!");
                 } else {
                     that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
                 }

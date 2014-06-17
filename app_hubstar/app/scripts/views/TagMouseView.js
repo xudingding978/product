@@ -10,7 +10,6 @@ HubStar.TagMouseView = Ember.View.extend({
         var picx_content = 0;
         if (tag_id !== undefined) {
             var tags = this.get("controller").get("controllers.showTag").get("contentTags");
-
             for (var i = 0; i < tags.length; i++)
             {
                 if (tags.objectAt(i)["tag_id"] === tag_id)
@@ -51,8 +50,8 @@ HubStar.TagMouseView = Ember.View.extend({
             this.get("controller").get("controllers.showTag").set("isUpdateTag", false);
             $(document).ready(function() {
                 setTimeout(function() {
-                    $("#tagitshow").fadeIn();
                     $("#tagitshow").css({top: pic_y, left: picx_content, opacity: 1});
+                    $("#tagitshow").fadeIn();                 
                 }, 5);
             });
         }

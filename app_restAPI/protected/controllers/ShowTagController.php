@@ -332,7 +332,7 @@ class ShowTagController extends Controller {
         $linkToCompany = $request_array[6];
 
         $notification_id = (string) (rand(10000, 99999)) . $time_stamp . $currentUser;
-        //  $receiveEmail1 = "linzw07@gmail.com";
+         // $receiveEmail1 = "linzw07@gmail.com";
         for ($i = 0; $i < sizeof($owner_ids); $i++) {
 
             $ownerId = trim($owner_ids[$i]);
@@ -377,14 +377,14 @@ class ShowTagController extends Controller {
 
     public function sendEmail($receiveEmail, $receiveName, $photo_url, $currentUserName, $linkToCompany) {
 
-        //$receiveEmail = "shuai@hubstar.co";
+        $receiveEmail = "shuai@hubstar.co";
         $domain = $this->getDomain();
         // $domainWithoutAPI = $this->getDomainWihoutAPI();
         $configuration = $this->getProviderConfigurationByName($domain, "SES");
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
         $platformEmail = $platformSettings['support']['email'];
-        $subject_prefix = $receiveName . "  you have tag avtivated pending ";
+        $subject_prefix = $receiveName . "  you have tag activated pending ";
         $args = array(
             "Source" => $platformEmail,
             "Destination" => array(

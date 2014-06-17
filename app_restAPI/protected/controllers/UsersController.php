@@ -314,7 +314,9 @@ class UsersController extends Controller {
             $domain = $this->getDomain();
             $reponse = $cb->get($doc_id);
             $respone_user = CJSON::decode($reponse, true);
-
+            if (!isset($respone_user['user'][0]['is_top_ad_display'])) {
+                $respone_user['user'][0]['is_top_ad_display'] = true;
+            }
             if (isset($respone_user['user'][0]['profiles'])) {
                 for ($i = 0; $i < sizeof($respone_user['user'][0]['profiles']); $i++) {
 
@@ -571,6 +573,42 @@ class UsersController extends Controller {
         } else {
             $cb->set($url, $tempUpdateResult);
             $this->sendResponse(500, 'something wrong');
+        }
+    }
+
+    public function actionSetTopAds() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $id = $request_array[0];
+
+        $docIDDeep = $this->getDomain() . "/users/" . $id; //$id  is the page owner
+        $cb = $this->couchBaseConnection();
+        $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+        $oldRecord = CJSON::decode($oldDeep, true);
+
+        $oldRecord["user"][0]['is_top_ad_display'] = false;
+
+        if ($cb->set($docIDDeep, CJSON::encode($oldRecord))) {
+            $this->sendResponse(204);
+        } else {
+            $this->sendResponse(500, "some thing wrong");
+        }
+    }
+
+    public function actionResetTopAds() {
+        $request_array = CJSON::decode(file_get_contents('php://input'));
+        $id = $request_array[0];
+
+        $docIDDeep = $this->getDomain() . "/users/" . $id; //$id  is the page owner
+        $cb = $this->couchBaseConnection();
+        $oldDeep = $cb->get($docIDDeep); // get the old user record from the database according to the docID string
+        $oldRecord = CJSON::decode($oldDeep, true);
+
+        $oldRecord["user"][0]['is_top_ad_display'] = true;
+
+        if ($cb->set($docIDDeep, CJSON::encode($oldRecord))) {
+            $this->sendResponse(204);
+        } else {
+            $this->sendResponse(500, "some thing wrong");
         }
     }
 

@@ -862,10 +862,10 @@ div.album-description-bg{
 }
 
 .spinner-object{
-    left: 51px;  
+    left: 37px;  
     display:inline-block; 
     position:relative;
-    top: 9px;
+    top: 0px;
 }
 
 .spinner-object > .spinner{
@@ -943,11 +943,6 @@ div.album-description-bg{
     display: block;
 }
 
-.previous-arrow-box{
-    width: 50%; 
-    height: 100%; 
-    float: left;
-}
 
 .arrow-pos{    
     top:400px;  
@@ -967,11 +962,23 @@ div.album-description-bg{
     background: url(../../images/nextcursor.png) no-repeat;
     right: 138px;
 }
+.previous-arrow-box{
+
+    width: 50%; 
+    height: 100%; 
+    float: left;
+}
 .next-arrow-box{
+
     width: 50%; 
     height: 100%; 
     float: right;
 }
+
+.touch-cursor{
+    cursor:auto;
+}
+
 
 .close_text{
     position: relative;
@@ -1620,7 +1627,7 @@ div.album-description-bg{
     padding: 0 6px;
     height: 28px;
     line-height: 28px;
-    /*    margin: 0 2px;*/
+    margin: -15px 0;
     cursor: default;
 
     font-size: 12px;

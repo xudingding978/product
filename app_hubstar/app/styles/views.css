@@ -2187,6 +2187,7 @@ div.album-description-bg{
     word-break: break-word;
     width: 73%;
     display: inline-block;
+    line-height: 15px;
 }
 
 .show-tag-left{

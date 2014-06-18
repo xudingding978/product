@@ -84,11 +84,6 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
             }
             that.set('loadingTime', false);
             that.relayout();
-            setTimeout(function() {
-                $('html,body').animate({
-                    scrollTop: $("#profile_submenu").offset().top-100
-                });
-            }, 100);
         });
 
     },

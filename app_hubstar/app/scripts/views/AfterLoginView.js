@@ -16,7 +16,7 @@ HubStar.AfterLoginView = Ember.View.extend({
     resetTopAd: function() {
         var tempComment = [localStorage.loginStatus];
         requiredBackEnd('users', 'ResetTopAds', tempComment, 'POST', function() {
-            HubStar.set("isTopAdDisplay", false);
+            HubStar.set("isTopAdDisplay", true);
         });
     },
     showUserDropDown: function() {

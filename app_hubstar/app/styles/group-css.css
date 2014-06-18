@@ -405,7 +405,6 @@
     width: 100%;
     overflow: hidden;
     position: absolute;
-    top: 90px;
     max-height: 700px;
 
 
@@ -418,9 +417,10 @@
 .group-wrapper{
     height: 620px;
     margin: 0 auto;
-    top: 150px;
+    top: 60px;
     position: relative;
     width: 100%;
+    margin-bottom: -100px;
 }
 
 #blur-bg{

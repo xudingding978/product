@@ -221,6 +221,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
 
         $(".user-top").css("height", "40px");
         $(".profile-top").css("height", "150px");
+        $("#group-top").css("top", "0px");
         this.searchSmallScreen();
         var tempComment = [this.get("user").get("id")];
         var that = this;
@@ -238,33 +239,35 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     var ad = HubStar.get('objectAds')[3][i];
                     //if (ad.type === type)
                     {
-                        var adDiv = document.createElement('div');
-                        adDiv.id = ad.div;
-                        var height = ad.size[1];
-                        var width = ad.size[0];
-                        adDiv.style.display = "block";
-                        adDiv.style.height = height + "px";
-                        adDiv.style.width = width + "px";
-                        photo.appendChild(adDiv);
-                        if (ad.isNew === true) {
-                            googletag.cmd.push(function() {
-                                var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
-                                ad.slot1 = slot1;
-                                googletag.pubads().enableSingleRequest();
-                                googletag.enableServices();
-                                googletag.display(ad.div);
-                                googletag.pubads().refresh([slot1]);
-                            });
-                            ad.isNew = false;
-                        }
-                        else
-                        {
-                            googletag.cmd.push(function() {
-                                googletag.pubads().enableSingleRequest();
-                                googletag.enableServices();
-                                googletag.display(ad.div);
-                                googletag.pubads().refresh([ad.slot1]);
-                            });
+                        if (document.getElementById(ad.div) === null) {
+                            var adDiv = document.createElement('div');
+                            adDiv.id = ad.div;
+                            var height = ad.size[1];
+                            var width = ad.size[0];
+                            adDiv.style.display = "block";
+                            adDiv.style.height = height + "px";
+                            adDiv.style.width = width + "px";
+                            photo.appendChild(adDiv);
+                            if (ad.isNew === true) {
+                                googletag.cmd.push(function() {
+                                    var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                                    ad.slot1 = slot1;
+                                    googletag.pubads().enableSingleRequest();
+                                    googletag.enableServices();
+                                    googletag.display(ad.div);
+                                    googletag.pubads().refresh([slot1]);
+                                });
+                                ad.isNew = false;
+                            }
+                            else
+                            {
+                                googletag.cmd.push(function() {
+                                    googletag.pubads().enableSingleRequest();
+                                    googletag.enableServices();
+                                    googletag.display(ad.div);
+                                    googletag.pubads().refresh([ad.slot1]);
+                                });
+                            }
                         }
                     }
                 }

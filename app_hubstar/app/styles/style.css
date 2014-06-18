@@ -410,7 +410,7 @@ body > div.ember-view > div
 }
 
 
-border-right{
+.border-right{
     border-right: 1px solid #ddd;
 }
 

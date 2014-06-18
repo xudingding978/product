@@ -7,14 +7,12 @@
                 {{#if controller.is_authentic_user}}
                 <div id="change_profile" class="changeuserprofilepic easing hint--right hint--rounded"  data-hint="Choose a profile picture" {{action userPhotoEditButton "User Picture"}}>
                      <i class="fa fa-pencil-square-o"></i>         
-
                 </div>  
-
                 {{/if}}
-                <img {{bindAttr src="controller.model.photo_url_large"}} style="width: 180px;height: 180px;"/>
+                <img {{bindAttr src="controller.model.photo_url_large"}} />
             </div>
             {{#if controller.followDisplay}}
-            <div style="margin: 30px auto 20px;display: block; text-align: center;">
+            <div class="user-follow-style">
                 {{#if controller.isUserSelf}}
                 <div href="#question_modal" role="button" class="disabled-btn follow-btn" data-toggle="modal" style="">Follow</div>
 

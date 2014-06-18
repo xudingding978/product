@@ -11,11 +11,11 @@ and open the template in the editor.
 /*-----welcome page only for social ---welcome.hbs-----*/
 
 .welcome-container{
-    z-index: 4;
+    z-index: 11;
     overflow: hidden; 
     background-color: white;
     border-radius: 5px;  
-    width: 1050px; 
+    width: 1025px;
     height: 600px; 
     margin: 0 auto; 
     position: fixed; 
@@ -46,8 +46,8 @@ and open the template in the editor.
     opacity: 0.5;
 }
 .welcome-subtitle-conainer{
-    margin: 80px 30px 5px;
-    height: 150px;
+    margin: 90px 30px 5px;
+    height: 120px;
 }
 
 .welcome-subtitle{
@@ -68,11 +68,11 @@ and open the template in the editor.
 
 
 .welcome-select-interest{
-    height: 150px; 
+    height: 100px;
     width: auto;
-    position: relative; 
-    float: left; 
-    margin: 10px 20px 60px;
+    position: relative;
+    float: left;
+    margin: 10px 10px 20px;
 }
 
 .welcome-select-interest > .welcome-plus-or-minus{
@@ -139,7 +139,7 @@ and open the template in the editor.
 }
 
 .welcome-button-style{
-    width: 50%;
+    width: 50% !important;
     float: left
 }
 

@@ -110,14 +110,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }
         });
 
-        requiredBackEnd('tenantConfiguration', 'pdfDisplay', null, 'POST', function(params) {
-            HubStar.set('pdf_display', params[0]);
-            HubStar.set('tagging_display', params[1] && params[2]);
-            HubStar.set('profile_manager', params[2]);
-            HubStar.set('top_ad_display', params[3]);
-        });
-
-
         if (localStorage.userType !== 'email' && localStorage.checkSocialUser === 'newSocialUser') {
             HubStar.set('checkLoginStatus', true);
             setTimeout(function() {

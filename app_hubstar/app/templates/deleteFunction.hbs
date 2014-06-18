@@ -3,16 +3,13 @@
 
 <div class="blur_black"></div>
 
-
-
-
-<div class="popup-box-style">
-    <i class="fa fa-exclamation-circle pop-box-style-info" ></i>
-    <div  class="popup-box-style-message">
+<div class="delete-container">
+    <i class="fa fa-exclamation-circle deleted-icon"></i>
+    <div class="deleted-reask">
         {{controller.message}}
     </div>
-    <div class="popup-box-style-hint"> You won't be able to undo this!</div>
-    <div class="popup-box-style-btn">       
+    <div class="deleted-warning"> You won't be able to undo this!</div>
+    <div class="deleted-action">       
         <div class="new-btn red-btn" {{action deleteSelection target="view"}}>Remove</div>
         <div class="new-btn" {{action cancelDelete target="view"}}>Cancel</div>
     </div>

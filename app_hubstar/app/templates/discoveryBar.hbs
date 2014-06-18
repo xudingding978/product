@@ -3,12 +3,12 @@
 
 
 
-<div id="discovery_search_bar_wrapper" style="z-index: auto;">
+<div id="discovery_search_bar_wrapper" class="searchbar-wrapper">
 
-    <div style="position: absolute; top: 140px; width: 880px;left:0; right: 0; margin: auto;text-align: center;height:400px;"> 
-        <div id="select-text" style="position:relative;font-size: 50px;color: white;font-weight: bold;display:block;height: 50px;">Select a category to start browsing</div>
-        <div id="welcome-text" style="position:relative;font-size: 50px;color: white;font-weight: bold;display:none;text-align: center; height: 50px;">Welcome to MyTrends</div>
-        <div style="position:relative; height:100px;" data-step="5" data-intro="Start your search by choosing what type of projects you’d like to find – <b>Residential</b> or <b>Commercial</b>." data-position='left' >
+    <div class="search-wrapper-container"> 
+        <div id="select-text" class="searchbar-title searchbar-title1">Select a category to start browsing</div>
+        <div id="welcome-text" class="searchbar-title searchbar-title2">Welcome to MyTrends</div>
+        <div class="searchbar-maintopic" data-step="5" data-intro="Start your search by choosing what type of projects you’d like to find – <b>Residential</b> or <b>Commercial</b>." data-position='left' >
             <div id="residential" class="residentialCommerical residentialCommerical-selected easing"   {{action residential on="click" target="view"}}>Residential</div>
             <div id="commercial" class="residentialCommerical residentialCommerical-selected easing"  {{action commercial on="click" target="view"}}>Commercial</div>
         </div>
@@ -17,8 +17,8 @@
 
     <div class="search-bar" >
         <div id ="navigator" class="Nav-btn easing" data-step="6" data-intro="Use the Navigator to browse content by <b>category</b>." data-position='left' {{action dropdownNavigator}} >
-             <i class="fa fa-list" style="font-size: 20px;"></i>
-            <div style="line-height: 0;position: relative;bottom: 5px;">Categories</div>
+             <i class="fa fa-list searchbar-listIcon"></i>
+            <div class="searchbar-listtxt">Categories</div>
         </div>
         {{#if controller.isNavigatorDropdown}}
         {{view HubStar.NavigatorView}}
@@ -26,14 +26,14 @@
 
         <div class="search-box easing" style="">
             {{view HubStar.SearchRequireTextFieldView valueBinding="search_string"  id="search_business" class="no-effect hover-opacity easing" placeholder="Search by keyword" }}
-            <div class="Nav-btn easing" style="position: relative;float: right;border-radius: 0 3px 3px 0;top: -60px; right: -5px;border-left: 1px solid #ddd;width: 60px"  {{action searching on="click" target="view"}}>
-                <i class="fa fa-search" style="font-size: 20px;line-height: 3;"></i>
+            <div class="Nav-btn easing searchbar-searchicon-container" {{action searching on="click" target="view"}}>
+                <i class="fa fa-search searchcar-searchicon"></i>
             </div>
         </div>
     </div>
 
-    <div class="popular-topics" style="">
-        <span style="float: left;color: white;font-family: Georgia, serif;font-style: italic;margin: 5px 10px;">Most Popular Topics:</span>
+    <div class="popular-topics">
+        <span class="searchbar-populartopic">Most Popular Topics:</span>
 
         {{#if controller.residentialKeyword}}
         <div {{action topicSearch "New Homes"}} >NEW HOMES</div>

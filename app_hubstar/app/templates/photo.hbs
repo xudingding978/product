@@ -114,8 +114,8 @@
                     <i class="fa fa-book">&nbsp;</i>click to read
                 </div>
             </div>
-            {{/if}}
-        </div>
+
+
 
 
         <!--THIS IS THE ALBUM BOX-->
@@ -347,6 +347,7 @@
                     </div>
                 </div>
 
+<<<<<<< HEAD
                 {{#each controller.megaResouce.comments}}
                 {{#unless this.isEdit}}
                 <div class="comment-item">
@@ -362,6 +363,30 @@
                                 </a>
                                 <div class="posttime-container">
                                     <span class="posttime">{{date time_stamp}}</span>                  
+=======
+                    {{#each controller.megaResouce.comments}}
+                    {{#unless this.isEdit}}
+                    <div class="comment-item">
+
+                        <div class="comment-position">
+                            <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}">
+                                <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
+                            </a>
+                            <div>
+                                <div class="comment-namentime">
+                                    <a class="comment-username"  href="#/users/{{unbound commenter_id}}">
+                                        {{name}}
+                                    </a>
+                                    <div class="posttime-container">
+                                        <span class="posttime">{{date time_stamp}}</span>                  
+                                    </div>
+                                    {{#if this.getUser}}
+                                    <span class="edit-comment easing">
+                                        <i class="fa fa-trash-o"  {{action removeComment this}}></i>                 
+                                        <i class="fa fa-pencil" {{action updateComment this}}></i>
+                                    </span>
+                                    {{/if}}
+>>>>>>> 684ce23975123c699116ccfc0703a05a5f08fd6a
                                 </div>
                                 {{#if this.getUser}}
                                 <span class="edit-comment easing">

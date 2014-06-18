@@ -377,7 +377,8 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("showRequestTag", false);
         this.set("showTagAfterSave", false);
         this.set("showEachTagContent", false);
-
+        this.set("tempShowTags",this.get("showAllTags"));
+        this.set("showAllTags",true);       
         this.set("enableTag", true);
         $("#p").addClass("hideClass");
         $("#n").addClass("hideClass");
@@ -394,6 +395,7 @@ HubStar.MegaController = Ember.ArrayController.extend({
         this.set("inImage", false);  //click the end tag recove the value
         this.set("showTagAfterSave", true);
         this.set("showRequestTag", true);
+        this.set("showAllTags",this.get("tempShowTags"));
         $("#p").removeClass("hideClass"); //remove the left and right icon
         $("#n").removeClass("hideClass");
         $("#previousphoto").removeClass("touch-cursor");

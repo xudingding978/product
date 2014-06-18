@@ -43,7 +43,7 @@
             </div>
             {{/if}}
             {{/if}}
-
+            {{#unless controller.enableTag}}
             {{#if controller.showAllTags}}
 
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Hide all tags on this image" {{action hideTags}}>
@@ -54,6 +54,7 @@
                  <i class="fa fa-tag"></i><span class="pretooltip">Show Tags</span> 
             </div>
             {{/if}}
+            {{/unless}}
             {{/unless}}
             {{/unless}}
             {{/if}}
@@ -143,270 +144,270 @@
 
     </div>
 
-<div class="objectview-right">
-    <!-- USER SECTION -->
-    <div style="cursor: pointer;">
-        <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
-            <div class="profilepic-container">
-                <a class="profilepic" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} /></a>              
-            </div>
-            <div class="poster_user" >
-                <a class="poster-name" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
-            </div>        
+    <div class="objectview-right">
+        <!-- USER SECTION -->
+        <div style="cursor: pointer;">
+            <div class="object-poster easing" {{action setNameTag on="click" target="view"}}>
+                <div class="profilepic-container">
+                    <a class="profilepic" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}><img {{bindAttr src="controller.megaResouce.owner_profile_pic"}} /></a>              
+                </div>
+                <div class="poster_user" >
+                    <a class="poster-name" href="#/profiles/{{unbound megaResouce.owner_id}}" {{action transitionToProfile megaResouce.owner_id}}>{{controller.megaResouce.owner_title}}</a>
+                </div>        
 
-            <div class="enquiryBtn-containter message-img">
-                <div class="enquiryBtn-ring"></div>
-                <div class="enquiryBtn easing"{{action editingContactForm }}><i class="fa fa-envelope easing message-img-box"></i></div>
-                <div class="btn-description message-img-txt">MESSAGE</div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <!-- OBJECT CONTROLL SECTION -->
-    <div  class="collapes-container view-stats-box">
-        <div class="collapes-container_inner view-stats-innerbox">
-            {{megaResouce.photo_isLike}}
-
-            {{#if megaResouce.isLike}}
-
-            <div  class="square-button hint--rounded hint--bottom"  data-hint="unLike this Idea!" {{action unLike}}>
-                  <i class="fa fa-thumbs-up">&nbsp;<span class="view-stats-font">{{megaResouce.likes_count}}</span>&nbsp;</i>
-            </div>
-            {{else}}
-            <div  class="square-button hint--rounded hint--bottom"  data-hint="Like this Idea!" {{action addLike}}>
-                  <i class="fa fa-thumbs-up">&nbsp;<span class="view-stats-font">{{megaResouce.likes_count}}</span>&nbsp;</i>
-            </div>
-            {{/if}}
-            <div class="square-button hint--rounded hint--bottom"  data-hint="Save this image to a collection." {{action switchCollection on="click" target="controller"}}>
-                <i class="fa fa-folder" >&nbsp;<span class="view-stats-font">{{megaResouce.save_count}}</span>&nbsp;</i>
-            </div>
-
-            <div class="square-button hint--rounded hint--bottom for-tooltip-position share-box2" data-hint="Share this image." {{action dropdownPhotoSetting "2"}}>
-                 <i class="fa fa-share" >&nbsp;<span class="view-stats-font">{{megaResouce.share_count}}</span>&nbsp;</i>
-            </div>
-
-
-            {{#if controller.megaResouce.getArticle}}
-            <div class="square-button hint--rounded hint--bottom" data-hint="Read this article"  {{action transitionToArticle controller.megaResouce.id}}>
-                 <i class="fa fa-book">&nbsp;</i>
-            </div>       
-            {{/if}}
-
-            {{#if controller.is_authentic_user}}
-            <div class="square-button hint--left hint--rounded view-edit-box" data-hint="Edit Photo Info">
-                <i class="fa fa-pencil-square-o" {{action editingPhotoMegaData}}></i>
-            </div>
-            {{/if}}
-            <ul class="hideClass edit-object-ul share-box3a" id="dropdown_id_2_{{unbound megaResouce.id}}">
-                <li class="ite" {{action  fbShare "2"}} >
-                    <i class="fa fa-facebook share-type share-type-pos2"></i><span class="share-type-txt2">Facebook</span>
-                </li>
-                <li class='ite' {{action tShare "2"}} >
-                    <i class="fa fa-twitter share-type share-type-pos2"></i><span class="share-type-txt2">Twitter</span>
-                </li>
-                <li class='ite' {{action pShare "2"}} >
-                    <i class="fa fa-pinterest share-type share-type-pos2"></i><span class="share-type-txt2">Pinterest</span>
-                </li>
-                <li class="ite" {{action gpShare "2"}}>
-                    <i class="fa fa-google-plus share-type share-type-pos2"></i><span class="share-type-txt2">Google+</span>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-
-
-
-    <!-- OBJECT DESCRIPTION SECTION -->
-    <div>
-        <div class="object-collapes-title" {{action setTitleTag  on="click" target="view"}}>
-            <div class="collapes-title_inner">
-                About
-            </div>
-            <div class="dropdownicon" >
-                <i class="fa fa-angle-down"></i>
+                <div class="enquiryBtn-containter message-img">
+                    <div class="enquiryBtn-ring"></div>
+                    <div class="enquiryBtn easing"{{action editingContactForm }}><i class="fa fa-envelope easing message-img-box"></i></div>
+                    <div class="btn-description message-img-txt">MESSAGE</div>
+                </div>
             </div>
         </div>
-        <div class="collapes-container article-display" id="article_action">
-            <div  class="collapes-container_inner">
 
-                {{#unless controller.enableToEdit}}
 
-                <div class="article-title">{{controller.selectedPhoto.photo_title}}  </div>
-                <div class="article-text">
-                    <p>{{{controller.selectedPhoto.photo_caption}}}</p>
+
+        <!-- OBJECT CONTROLL SECTION -->
+        <div  class="collapes-container view-stats-box">
+            <div class="collapes-container_inner view-stats-innerbox">
+                {{megaResouce.photo_isLike}}
+
+                {{#if megaResouce.isLike}}
+
+                <div  class="square-button hint--rounded hint--bottom"  data-hint="unLike this Idea!" {{action unLike}}>
+                      <i class="fa fa-thumbs-up">&nbsp;<span class="view-stats-font">{{megaResouce.likes_count}}</span>&nbsp;</i>
+                </div>
+                {{else}}
+                <div  class="square-button hint--rounded hint--bottom"  data-hint="Like this Idea!" {{action addLike}}>
+                      <i class="fa fa-thumbs-up">&nbsp;<span class="view-stats-font">{{megaResouce.likes_count}}</span>&nbsp;</i>
+                </div>
+                {{/if}}
+                <div class="square-button hint--rounded hint--bottom"  data-hint="Save this image to a collection." {{action switchCollection on="click" target="controller"}}>
+                    <i class="fa fa-folder" >&nbsp;<span class="view-stats-font">{{megaResouce.save_count}}</span>&nbsp;</i>
+                </div>
+
+                <div class="square-button hint--rounded hint--bottom for-tooltip-position share-box2" data-hint="Share this image." {{action dropdownPhotoSetting "2"}}>
+                     <i class="fa fa-share" >&nbsp;<span class="view-stats-font">{{megaResouce.share_count}}</span>&nbsp;</i>
+                </div>
+
+
+                {{#if controller.megaResouce.getArticle}}
+                <div class="square-button hint--rounded hint--bottom" data-hint="Read this article"  {{action transitionToArticle controller.megaResouce.id}}>
+                     <i class="fa fa-book">&nbsp;</i>
+                </div>       
+                {{/if}}
+
+                {{#if controller.is_authentic_user}}
+                <div class="square-button hint--left hint--rounded view-edit-box" data-hint="Edit Photo Info">
+                    <i class="fa fa-pencil-square-o" {{action editingPhotoMegaData}}></i>
+                </div>
+                {{/if}}
+                <ul class="hideClass edit-object-ul share-box3a" id="dropdown_id_2_{{unbound megaResouce.id}}">
+                    <li class="ite" {{action  fbShare "2"}} >
+                        <i class="fa fa-facebook share-type share-type-pos2"></i><span class="share-type-txt2">Facebook</span>
+                    </li>
+                    <li class='ite' {{action tShare "2"}} >
+                        <i class="fa fa-twitter share-type share-type-pos2"></i><span class="share-type-txt2">Twitter</span>
+                    </li>
+                    <li class='ite' {{action pShare "2"}} >
+                        <i class="fa fa-pinterest share-type share-type-pos2"></i><span class="share-type-txt2">Pinterest</span>
+                    </li>
+                    <li class="ite" {{action gpShare "2"}}>
+                        <i class="fa fa-google-plus share-type share-type-pos2"></i><span class="share-type-txt2">Google+</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+
+
+        <!-- OBJECT DESCRIPTION SECTION -->
+        <div>
+            <div class="object-collapes-title" {{action setTitleTag  on="click" target="view"}}>
+                <div class="collapes-title_inner">
+                    About
+                </div>
+                <div class="dropdownicon" >
+                    <i class="fa fa-angle-down"></i>
+                </div>
+            </div>
+            <div class="collapes-container article-display" id="article_action">
+                <div  class="collapes-container_inner">
+
+                    {{#unless controller.enableToEdit}}
+
+                    <div class="article-title">{{controller.selectedPhoto.photo_title}}  </div>
+                    <div class="article-text">
+                        <p>{{{controller.selectedPhoto.photo_caption}}}</p>
+                        <table class="profilesnew-table article-text-table">
+                            <tbody class="article-text-table-tbody">
+                                {{#if controller.selectedPhoto.photo_link_url}}
+                                <tr>
+                                    <td class="article-table-td1">Link: </td>
+                                    <td>
+                                        <a target="_blank" {{bindAttr href=controller.selectedPhoto.photo_link_url }} class="article-text-url">{{{controller.selectedPhoto.photo_link_text}}}</a>
+                                    </td>
+                                </tr>
+                                {{/if}}
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    {{else}}
+                    {{view Ember.TextField valueBinding="controller.selectedPhoto.photo_title"  id="" class="edit_photo-titile_field"  }}
+                    {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_caption"  id="" class="edit_photo-caption_field"}}
                     <table class="profilesnew-table article-text-table">
                         <tbody class="article-text-table-tbody">
-                            {{#if controller.selectedPhoto.photo_link_url}}
+
                             <tr>
-                                <td class="article-table-td1">Link: </td>
+                                <td class = "article-text-table-td2">Link Text:</td>
                                 <td>
-                                    <a target="_blank" {{bindAttr href=controller.selectedPhoto.photo_link_url }} class="article-text-url">{{{controller.selectedPhoto.photo_link_text}}}</a>
+                                    <div class="article-text-url2">
+                                        <div  id="displayName"  class="article-text-url3">
+                                            {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_link_text" class="no-resize" placeholder="Type Your Link Text here"}}
+
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
-                            {{/if}}
+                            <tr >
+
+
+                                <th class="article-text-table-td2 article-text-margin">Link Url:</th>
+                                <td>
+                                    <div class="article-text-url2 article-text-margin">
+                                        <div  id="displayName" class="article-text-url3">
+                                            {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_link_url" class="no-resize" placeholder="http://example.com"}}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
                         </tbody>
                     </table>
 
 
-                </div>
-                {{else}}
-                {{view Ember.TextField valueBinding="controller.selectedPhoto.photo_title"  id="" class="edit_photo-titile_field"  }}
-                {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_caption"  id="" class="edit_photo-caption_field"}}
-                <table class="profilesnew-table article-text-table">
-                    <tbody class="article-text-table-tbody">
 
-                        <tr>
-                            <td class = "article-text-table-td2">Link Text:</td>
-                            <td>
-                                <div class="article-text-url2">
-                                    <div  id="displayName"  class="article-text-url3">
-                                        {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_link_text" class="no-resize" placeholder="Type Your Link Text here"}}
+                    <div class="buttons content-edit">
 
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr >
+                        <div type="button" class="new-btn blue-btn" {{action yes}}> <i class="fa fa-check fa fa-white"></i></div>
 
+                        <div type="button" class="new-btn" {{action no }}> <i class="fa fa-times"></i></div>
 
-                            <th class="article-text-table-td2 article-text-margin">Link Url:</th>
-                            <td>
-                                <div class="article-text-url2 article-text-margin">
-                                    <div  id="displayName" class="article-text-url3">
-                                        {{view Ember.TextArea valueBinding="controller.selectedPhoto.photo_link_url" class="no-resize" placeholder="http://example.com"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                    </div>
 
-                    </tbody>
-                </table>
-
-
-
-                <div class="buttons content-edit">
-
-                    <div type="button" class="new-btn blue-btn" {{action yes}}> <i class="fa fa-check fa fa-white"></i></div>
-
-                    <div type="button" class="new-btn" {{action no }}> <i class="fa fa-times"></i></div>
+                    {{/unless}}
 
                 </div>
-
-                {{/unless}}
 
             </div>
 
+            {{#if HubStar.object_ad_display}}
+            <div id="photo_view_ads">
+
+            </div>
+            {{/if}}
+            <!-- OBJECT DISCUSSION SECTION -->
+
         </div>
 
-        {{#if HubStar.object_ad_display}}
-        <div id="photo_view_ads">
-            
-        </div>
-        {{/if}}
         <!-- OBJECT DISCUSSION SECTION -->
 
-    </div>
-
-    <!-- OBJECT DISCUSSION SECTION -->
-
-    <div>
-        <div class="object-collapes-title" {{action setDiscussionTag on="click" target="view"}} >
-            <div class="collapes-title_inner">
-                Discussion
-            </div>
-            <span class="show-comment_inner">
-                <span class="comment-amount" > {{controller.megaResouce.comments.length}} </span>
-            </span>
-            <div class="dropdownicon">
-                <i class="fa fa-angle-down dropdownicon-dis"></i>
-            </div>      
-        </div>
-
-
-
-        <div class="collapes-container article-display" id="discuss_action">
-            <div class="collapes-container_inner discuss-box">
-                <div class="discuss-input-box">
-                    <div class="discuss-input-innerbox">
-                        <a>
-                            <img class="profilepic_comment comment-item-img comment-item-img-z1" src="http://develop.devbox.s3.amazonaws.com/profile_pic/default/defaultpic1.jpg" />
-                            <img class="profilepic_comment comment-item-img comment-item-img-z2" {{bindAttr src="controller.currentUser.photo_url_large"}} /> 
-                            <div class="user-says-angle-before user-says-angle-before1"></div>
-                            <div class="user-says-angle-after user-says-angle-after1"></div>
-                        </a>
-
-                        <div class="discuss-input">
-                            <div class="discuss-input-txt">
-                                {{view Ember.TextArea valueBinding="commentContent" id="AddRecord" class="no-resize no-effect" placeholder="Write a comment..." }}                                          
-                            </div>
-                            <div class="discuss-submit">
-                                <div class="message-btn easing width-100"{{action addComment}}><i class='fa fa-check'>&nbsp;</i>Post </div>
-                            </div>
-                        </div>
-                    </div>
+        <div>
+            <div class="object-collapes-title" {{action setDiscussionTag on="click" target="view"}} >
+                <div class="collapes-title_inner">
+                    Discussion
                 </div>
+                <span class="show-comment_inner">
+                    <span class="comment-amount" > {{controller.megaResouce.comments.length}} </span>
+                </span>
+                <div class="dropdownicon">
+                    <i class="fa fa-angle-down dropdownicon-dis"></i>
+                </div>      
+            </div>
 
-                {{#each controller.megaResouce.comments}}
-                {{#unless this.isEdit}}
-                <div class="comment-item">
 
-                    <div class="comment-position">
-                        <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}">
-                            <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
-                        </a>
-                        <div style="">
-                            <div class="comment-namentime">
-                                <a class="comment-username"  href="#/users/{{unbound commenter_id}}">
-                                    {{name}}
-                                </a>
-                                <div class="posttime-container">
-                                    <span class="posttime">{{date time_stamp}}</span>                  
+
+            <div class="collapes-container article-display" id="discuss_action">
+                <div class="collapes-container_inner discuss-box">
+                    <div class="discuss-input-box">
+                        <div class="discuss-input-innerbox">
+                            <a>
+                                <img class="profilepic_comment comment-item-img comment-item-img-z1" src="http://develop.devbox.s3.amazonaws.com/profile_pic/default/defaultpic1.jpg" />
+                                <img class="profilepic_comment comment-item-img comment-item-img-z2" {{bindAttr src="controller.currentUser.photo_url_large"}} /> 
+                                <div class="user-says-angle-before user-says-angle-before1"></div>
+                                <div class="user-says-angle-after user-says-angle-after1"></div>
+                            </a>
+
+                            <div class="discuss-input">
+                                <div class="discuss-input-txt">
+                                    {{view Ember.TextArea valueBinding="commentContent" id="AddRecord" class="no-resize no-effect" placeholder="Write a comment..." }}                                          
                                 </div>
-                                {{#if this.getUser}}
-                                <span class="edit-comment easing">
-                                    <i class="fa fa-trash-o"  {{action removeComment this}}></i>                 
-                                    <i class="fa fa-pencil" {{action updateComment this}}></i>
-                                </span>
-                                {{/if}}
+                                <div class="discuss-submit">
+                                    <div class="message-btn easing width-100"{{action addComment}}><i class='fa fa-check'>&nbsp;</i>Post </div>
+                                </div>
                             </div>
-
-                            <div class="comment-content">
-                                {{content}}
-
-                                <!-- for +someone into the conversation-->
-                                <span>
-                                    <span></span>
-                                    <a></a>
-                                </span>
-                            </div>
-
                         </div>
                     </div>
+
+                    {{#each controller.megaResouce.comments}}
+                    {{#unless this.isEdit}}
+                    <div class="comment-item">
+
+                        <div class="comment-position">
+                            <a class="profilepic-comment-container" href="#/users/{{unbound commenter_id}}">
+                                <img class="profilepic_comment" {{bindAttr src="commenter_profile_pic_url"}} />
+                            </a>
+                            <div style="">
+                                <div class="comment-namentime">
+                                    <a class="comment-username"  href="#/users/{{unbound commenter_id}}">
+                                        {{name}}
+                                    </a>
+                                    <div class="posttime-container">
+                                        <span class="posttime">{{date time_stamp}}</span>                  
+                                    </div>
+                                    {{#if this.getUser}}
+                                    <span class="edit-comment easing">
+                                        <i class="fa fa-trash-o"  {{action removeComment this}}></i>                 
+                                        <i class="fa fa-pencil" {{action updateComment this}}></i>
+                                    </span>
+                                    {{/if}}
+                                </div>
+
+                                <div class="comment-content">
+                                    {{content}}
+
+                                    <!-- for +someone into the conversation-->
+                                    <span>
+                                        <span></span>
+                                        <a></a>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    {{else}}
+                    {{render editComment this}}   
+                    {{/unless}}
+
+                    {{/each}}
+
                 </div>
-                {{else}}
-                {{render editComment this}}   
-                {{/unless}}
-
-                {{/each}}
-
             </div>
+
         </div>
+
 
     </div>
 
 
-</div>
-
-
-<!-- add the tag content-->
+    <!-- add the tag content-->
 
 
 
 
-<!--end of tag content-->
+    <!--end of tag content-->
 
 
 </div>

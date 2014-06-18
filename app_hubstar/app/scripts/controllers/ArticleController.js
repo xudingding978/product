@@ -54,6 +54,10 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("showRequestTag", false);
         this.set("showTagAfterSave", false);
         this.set("showEachTagContent", false);
+        
+        this.set("tempShowTags",this.get("showAllTags"));
+        this.set("showAllTags",true);  
+        
         this.set("enableTag", true);      
         $("#previousarticlephoto").addClass("touch-cursor");
         $("#nextarticlephoto").addClass("touch-cursor");
@@ -69,6 +73,7 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("enableTag", false);
         this.set("showTagAfterSave", false);
         this.set("inImage", false);  //click the end tag recove the value
+        this.set("showAllTags",this.get("tempShowTags"));
         $("#previousarticlephoto").removeClass("touch-cursor");
         $("#nextarticlephoto").removeClass("touch-cursor");
     },

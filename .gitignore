@@ -8,6 +8,8 @@
 /app_hubstar/test/scripts/*.*
 /app_hubstar/test/scripts/*
 
+/app_crm/app/protected/runtime/*
+/app_crm/app/protected/runtime/*.*
 
 /app_hubstar/npm-debug.log
 /nbproject/private/

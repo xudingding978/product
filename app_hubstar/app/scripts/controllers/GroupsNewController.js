@@ -26,7 +26,7 @@ HubStar.GroupsNewController = Ember.Controller.extend({
     topic: [],
     needs: ['profile', 'applicationFeedback', 'application'],
     init: function()
-    {
+    {       
         this.setTopicModel();
     },
     setTopicModel: function() {

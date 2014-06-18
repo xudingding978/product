@@ -17,6 +17,9 @@ HubStar.GroupsNewRoute = Ember.Route.extend({
             HubStar.set('isLogin', true);
         }
         this.controllerFor('user').set('model', model);
+        controller.set('isResidential', false);
+        controller.set('isCommercial', false);
+        controller.set('subcate', null);
         setTimeout(function() {
             $('.nothingHere').attr('style', 'display:none');
         }, 10);

@@ -1,0 +1,151 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18/06/2014, 9:23:54 AM
+    Author     : Charis
+*/
+
+/*-----welcome page only for social ---welcome.hbs-----*/
+
+.welcome-container{
+    z-index: 4;
+    overflow: hidden; 
+    background-color: white;
+    border-radius: 5px;  
+    width: 1050px; 
+    height: 600px; 
+    margin: 0 auto; 
+    position: fixed; 
+    top: 20%; 
+    left: 0px; 
+    right: 0px; 
+    box-shadow: 0 0 5px #555;
+}
+
+.welcome-top{
+    background-color: #f3f3f3;
+    padding: 5px 5px 10px 35px;
+    border-bottom: 1px solid #ddd;
+}
+
+.welcome-title{
+    display: block;
+    position: relative;
+    height: 35px;
+}
+
+.welcome-title > div{
+    text-align: center;
+    line-height: 40px;
+    margin: 0 auto;
+    font-size: 20px;
+    background-color: #f3f3f3;
+    opacity: 0.5;
+}
+.welcome-subtitle-conainer{
+    margin: 80px 30px 5px;
+    height: 150px;
+}
+
+.welcome-subtitle{
+    position: absolute;
+    top: 100px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.welcome-res-position{
+    position: relative;     
+}
+
+.welcome-comm-position{
+    position: relative;
+    top:200px;
+}
+
+
+.welcome-select-interest{
+    height: 150px; 
+    width: auto;
+    position: relative; 
+    float: left; 
+    margin: 10px 20px 60px;
+}
+
+.welcome-select-interest > .welcome-plus-or-minus{
+    opacity:0;
+}
+.welcome-select-interest:hover > .welcome-plus-or-minus{
+    opacity:0.8;
+}
+
+.welcome-plus-or-minus{
+    background-color: #000;
+    opacity: 0;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    line-height: 22px;
+    font-size: 13px;
+    text-align: center;
+    margin-right: -2px;
+    z-index: 10;
+}
+
+.welcome-image-container{
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    top: -5px;
+    float: left; 
+}
+
+.welcome-image{
+    width: 100px; 
+    height: 100px; 
+    overflow: hidden;
+}
+
+.welcome-topic{
+    position: relative;
+    text-align: center;
+    font-size: 13px;
+    line-height: 15px;
+}
+
+.welcome-object-hoverarea{
+    width: 100px;
+    height: 120px;
+    opacity: 0;
+    position: absolute;
+    z-index: 1; 
+}
+
+.welcome-object-hoverarea:hover{
+    opacity: 1;
+}
+
+.welcome-button{
+    height: 45px;
+    position: absolute;
+    border-top: 1px solid #ddd;
+    bottom: 0;
+    width: 100%;
+}
+
+.welcome-button-style{
+    width: 50%;
+    float: left
+}
+
+.welcome-button-style i{
+    font-size: 13px;
+}
+
+
+

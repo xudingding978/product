@@ -28,7 +28,7 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
         this.set('loadingTime', true);
         this.set("model", model);
         this.set('clientID', model.id);
-        this.contentUser =[];
+        this.contentUser = [];
         this.contentProfile = [];
         this.set('followings', model.get("followings"));
         var data = [localStorage.loginStatus, this.get('clientID')];
@@ -80,11 +80,15 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
                     that.get("contentProfile").pushObject(dataNew);
 
                 }
-                dataNew =[];
+                dataNew = [];
             }
             that.set('loadingTime', false);
             that.relayout();
-
+            setTimeout(function() {
+                $('html,body').animate({
+                    scrollTop: $("#profile_submenu").offset().top-100
+                });
+            }, 100);
         });
 
     },
@@ -316,6 +320,9 @@ HubStar.UserFollowingsController = Ember.Controller.extend({
             $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {
                 $('#masonry_user_container').masonry();
+                 $('html,body').animate({
+                    scrollTop: $("#profile_submenu").offset().top-100
+                });
             }, 400);
         }, 300);
     }

@@ -36,6 +36,9 @@ HubStar.ProfilePdfController = Ember.Controller.extend({
                 $('#masonry_user_container').masonry("reloadItems");
                 setTimeout(function() {
                     $('#masonry_user_container').masonry();
+                      $('html,body').animate({
+                    scrollTop: $("#profile_submenu").offset().top-100
+                });
                 }, 100);
             }, 250);
         });

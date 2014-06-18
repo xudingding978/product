@@ -402,6 +402,9 @@ HubStar.MasonryCollectionItemsController = Ember.ArrayController.extend({
                             setTimeout(function() {
                                 $('#masonry_photo_collection_container').masonry();
                                 that.set("loadingTime", false);
+                                $('html,body').animate({
+                                    scrollTop: $("#profile_submenu").offset().top-100
+                                });
                             }, 15);
                         }, 15);
                     }, 500);

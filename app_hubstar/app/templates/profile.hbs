@@ -446,134 +446,88 @@
 
                     <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">General Settings</div>
 
-                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
-
-                        <tr>
-                            <td>Profile Name*: </td>
-                            <td>
-                                <div style="display: block;">
-                                    {{view Ember.TextField valueBinding="profile_name"   class="mustFill1" placeholder=""}}
-                                </div>
-                                <div class="mustfull" id="mustFill1" style="display: none">please fill in info... </div>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Profile Contact:</td>
-                            <td>
-                                <div  style="display: block; margin-bottom: 5px;" >
-
-                                    <div  style="margin: 0;width: 50%;display: inline-block;">
-                                        {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
-                                    </div>
-                                    <div style="margin: 0;width: 49%;display: inline-block;">
-                                        {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
-                                    </div>
-
-                                </div>
-                            </td>
-                        </tr>
-
-
-
-                        <tr>
-                            <td style="text-align: right;" >Profile Category:</td> 
-
-                            <td>
-                                <div  style="display: block; margin-bottom: 0px;" >
-                                    <div class="new-btn" style="margin:0;width: 50%;display: inline-block;" {{action dropdown "category"}}>
-                                         <span id="profileCategorySelection">{{controller.profileCategorySelection}}</span>
+                    <div style="height:39px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Profile Name*:</div>
+                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                             {{view Ember.TextField valueBinding="profile_name"   class="mustFill1" placeholder=""}}
+                             <div class="mustfull" id="mustFill1" style="display: none">please fill in info... </div>
+                        </div>
+                    </div>
+                    <div style="height:39px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Profile Contact:</div>
+                        <div style="display:table-column; width: 27%; color: #555;text-align: center;float: left;margin-left: 22px;font-size: 15px;">
+                             {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
+                        </div>
+                        <div style="display:table-column; width: 27%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                             {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
+                        </div>
+                    </div>
+                    <div style="height:39px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Profile Category:</div>
+                        <div class="new-btn" style="display:table-column; width: 27%; color: #555;text-align: center;float: left;margin-left: 22px;font-size: 15px;" {{action dropdown "category" }}>
+                             <span id="profileCategorySelection">{{controller.profileCategorySelection}}</span>
                                         <span class="caret"></span>
                                         {{#if controller.profileCategoryDropdown}}
                                         {{view HubStar.DropdownListView}}
                                         {{/if}}
-                                    </div>
-                                    <div  class="new-btn" style="margin: 0;width: 49%;display: inline-block;" {{action dropdown "subcategory"}}>
-                                          <span id="profileSubcategorySelection">{{controller.profileSubcategorySelection}}</span>
+                        </div>
+                        <div class="new-btn" style="display:table-column; width: 27%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;"{{action dropdown "subcategory" }}>
+                             <span id="profileSubcategorySelection">{{controller.profileSubcategorySelection}}</span>
                                         <span class="caret"></span>
                                         {{#if controller.profileSubcategoryDropdown}}
                                         {{view HubStar.DropdownListView}}
                                         {{/if}}
-                                    </div>                              
-                                </div>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Physical Address:</td>
-                            <td>
-                                <div  style="display: block; margin-bottom: 5px;" >
-
-                                    <div  style="margin: 0;width: 50%;display: inline-block;">
-                                        {{view Ember.TextField valueBinding="address"  placeholder="Street Address"}}
-                                    </div>
-                                    <div style="margin: 0;width: 49%;display: inline-block;">
-                                        {{view Ember.TextField valueBinding="suburb"  placeholder="Suburb"}}
-                                    </div>
-
-                                </div>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Contact Number:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="profile_contact_number" placeholder=""}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Website Domain:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="website" placeholder="yourdomain.com"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Website URL:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="website_url" placeholder="http://www.yourdomain.com"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Profile Cover Text:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="profile_cover_text" placeholder="Brief description (displayed when your profile appears in search results)"}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Google Analytics Tracking ID:</td>
-                            <td>
-                                <div style="display: block;">
-                                    <div   style="margin: 0;width: 100%;">
-                                        {{view Ember.TextField valueBinding="profile_analytics_code" placeholder=""}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-
-                    </table>
-                    <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                        </div>
+                    </div>
+                    <div style="height:39px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Physical Address:</div>
+                        <div style="display:table-column; width: 27%; color: #555;text-align: center;float: left;margin-left: 22px;font-size: 15px;">
+                             {{view Ember.TextField valueBinding="address"  placeholder="Street Address"}}
+                        </div>
+                        <div style="display:table-column; width: 27%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                             {{view Ember.TextField valueBinding="suburb"  placeholder="Suburb"}}
+                        </div>
+                    </div>
+                    <div style="height:39px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Contact Number:</div>
+                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                             {{view Ember.TextField valueBinding="profile_contact_number" placeholder=""}}
+                        </div>
+                    </div>
+                    <div style="height:39px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Website Domain:</div>
+                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                             {{view Ember.TextField valueBinding="website" placeholder="yourdomain.com"}}
+                        </div>
+                    </div>
+                    <div style="height:39px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Website URL:</div>
+                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                             {{view Ember.TextField valueBinding="website_url" placeholder="http://www.yourdomain.com"}}
+                        </div>
+                    </div>
+                    
+                    <div style="height:39px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Profile Cover Text:</div>
+                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                             {{view Ember.TextField valueBinding="profile_cover_text" placeholder="Brief description (displayed when your profile appears in search results)"}}
+                        </div>
+                    </div>
+                    <div style="height:39px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Google Analytics Tracking ID:</div>
+                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                             {{view Ember.TextField valueBinding="profile_analytics_code" placeholder=""}}
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div style="right: 0;margin: 18px auto 0;width: 150px;">
                         <span class="new-btn green-btn" {{action saveUpdateGeneral}}>Save</span>
                         <span class='new-btn blue-btn flip-back' {{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
                     </div>
@@ -588,79 +542,45 @@
                 <div class="tab-pane" id="tab3">
                     <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Account Settings</div>
 
-                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
-                        <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-
-
-                            <tr>
-                                <td>Country*:</td>
-                                <td>
-                                    <div style="display: block;">
-                                        <div   style="margin: 0;width: 100%;">
-                                            {{view Ember.TextField valueBinding="country" class="country"  placeholder="New Zealand" value="New Zealand"}}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Region*:</td>
-                                <td>
-                                    <div style="display: block;">
-                                        <div   style="margin: 0;width: 100%;">
-                                            {{view Ember.TextField valueBinding="region" class="region"  placeholder="Auckland"}}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Direct Enquiry Primary Email (To:)*:</td>
-
-                                <td>
-                                    <div style="display: block;">
-                                        <div   style="margin: 0;width: 100%;">
-                                            {{view Ember.TextField valueBinding="contact_email"  class="mustFill4"  placeholder=""}}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Direct Enquiry Secondary Email (Cc:):</td>
-                                <td>
-                                    <div style="display: block;">
-                                        <div   style="margin: 0;width: 100%;">
-                                            {{view Ember.TextField valueBinding="secondary_email"  class=""  placeholder=""}}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Direct Enquiry Tertiary Email (Bcc:):</td>
-                                <td>
-                                    <div style="display: block;">
-                                        <div   style="margin: 0;width: 100%;">
-                                            {{view Ember.TextField valueBinding="direct_enquiry_provide_email"  class=""  placeholder=""}}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Editors*:</td>
-                                <td>
-                                    <div style="display: block;">
-                                        <div   style="margin: 0;width: 100%; height: 100px;">
-                                            {{view Ember.TextArea valueBinding="editors"   class="mustFill6 no-resize" placeholder=""}}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-
-                        </tbody>
-                    </table>
+                    <div style="height:39px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Country*:</div>
+                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                             {{view Ember.TextField valueBinding="country" class="country"  placeholder="New Zealand" value="New Zealand"}}
+                        </div>
+                    </div>
+                    <div style="height:39px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Region*:</div>
+                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                              {{view Ember.TextField valueBinding="region" class="region"  placeholder="Auckland"}}
+                        </div>
+                    </div>
+                    <div style="height:39px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Direct Enquiry Primary Email (To:)*:</div>
+                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                            {{view Ember.TextField valueBinding="contact_email"  class="mustFill4"  placeholder=""}}
+                        </div>
+                    </div>
+                    <div style="height:39px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Direct Enquiry Secondary Email (Cc:):</div>
+                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                            {{view Ember.TextField valueBinding="secondary_email"  class=""  placeholder=""}}
+                        </div>
+                    </div>
+                    <div style="height:39px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Direct Enquiry Tertiary Email (Bcc:):</div>
+                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                             {{view Ember.TextField valueBinding="direct_enquiry_provide_email"  class=""  placeholder=""}}
+                        </div>
+                    </div>
+                    <div style="height:100px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Editors*:</div>
+                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px; height: 100px;font-size: 15px;">
+                             {{view Ember.TextArea valueBinding="editors"   class="mustFill6 no-resize" placeholder=""}}
+                        </div>
+                    </div>
+                    
+                    
+                    
                     <div style="right: 0;margin: 30px auto 0;width: 150px;">
                         <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
                         <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
@@ -670,87 +590,52 @@
                 <div class="tab-pane" id="tab7">
                     <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Social Links</div>
 
-                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
-                        <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-
-                            <tr>
-                                <td>Facebook:</td>
-                                <td>
-                                    <div style="display: block;">
-                                        <div  id="facebook" style="margin: 0;width: 100%;">
-                                            {{input type="text" value=facebook placeholder="www.facebook.com/username"}}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Twitter:</td>
-                                <td>
-                                    <div style="display: block;">
-                                        <div  id="twitter" style="margin: 0;width: 100%;">
-                                            {{input type="text" value=twitter placeholder="www.twitter.co/username"}}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Google+:</td>
-                                <td>
-                                    <div style="display: block;">
-                                        <div id="googleplus"  style="margin: 0;width: 100%;">
-                                            {{input type="text" value=googleplus placeholder="plus.google.com/username"}}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Pinterest:</td>
-                                <td>
-                                    <div style="display: block;">
-                                        <div  id="pinterest"  style="margin: 0;width: 100%;">
-                                            {{input type="text" value=pinterest placeholder="www.pinterest.com/username"}}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Linkedin:</td>
-                                <td>
-                                    <div style="display: block;">
-                                        <div id="linkedin"  style="margin: 0;width: 100%;">
-                                            {{input type="text" value=linkedin placeholder="www.linkedin.com/in/username"}}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td>Youtube:</td>
-                                <td>
-                                    <div style="display: block;">
-                                        <div  id="youtube" style="margin: 0;width: 100%;">
-                                            {{input type="text" value=youtube placeholder="www.youtube.com/user/username"}}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Instagram:</td>
-                                <td>
-                                    <div style="display: block;">
-                                        <div  id="youtube" style="margin: 0;width: 100%;">
-                                            {{input type="text" value=instagram placeholder="www.instagram.com/username"}}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div style="height:45px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Facebook:</div>
+                        <div id="facebook" style="display:table-column; width: 64%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                             {{input type="text" value=facebook placeholder="www.facebook.com/username"}}
+                        </div>
+                    </div>
+                    <div style="height:45px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Twitter:</div>
+                        <div id="twitter" style="display:table-column; width: 64%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                            {{input type="text" value=twitter placeholder="www.twitter.co/username"}}
+                        </div>
+                    </div>
+                    <div style="height:45px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Google+:</div>
+                        <div id="googleplus" style="display:table-column; width: 64%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                              {{input type="text" value=googleplus placeholder="plus.google.com/username"}}
+                        </div>
+                    </div>
+                    <div style="height:45px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Pinterest:</div>
+                        <div id="pinterest" style="display:table-column; width: 64%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                            {{input type="text" value=pinterest placeholder="www.pinterest.com/username"}}
+                        </div>
+                    </div>
+                    <div style="height:45px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Linkedin:</div>
+                        <div id="linkedin" style="display:table-column; width: 64%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                             {{input type="text" value=linkedin placeholder="www.linkedin.com/in/username"}}
+                        </div>
+                    </div>
+                    <div style="height:45px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Youtube:</div>
+                        <div id="youtube" style="display:table-column; width: 64%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                              {{input type="text" value=youtube placeholder="www.youtube.com/user/username"}}
+                        </div>
+                    </div>
+                    <div style="height:45px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Instagram:</div>
+                        <div id="instagram" style="display:table-column; width: 64%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
+                             {{input type="text" value=instagram placeholder="www.instagram.com/username"}}
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
                     <div style="right: 0;margin: 30px auto 0;width: 150px;">
                         <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
                         <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
@@ -761,86 +646,69 @@
 
                 <div class="tab-pane" id="tab4">
                     <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 22px;">Authority Settings</div>
-                    <div class="mustfull" id="errorMessage2" style="display: none">You can't change the package, your keyword numbers exceed the limit of<br> the package you want to change, please delete some keywords in your "Keyword Settings".</div>
-                    <table cellpadding="0" cellspacing="0" border="0" width="100%" class='profilesnew-table' style="padding-right: 147px; font-size: 14px;  display: table;border-collapse: separate;border-spacing: 4px;margin: 30px auto;">
-                        <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
-
-
-                            <tr>
-                                <td>Active*:</td>
-                                <td>
-                                    <div class="new-btn" style="display: block;" {{action dropdown controller.projectActiveDropdownType}}>
-                                         <span> {{controller.projectActiveDropdownContent}}</span>
+                    <div class="mustfull" id="errorMessage2" style="display: none;">You can't change the package, your keyword numbers exceed the limit of<br> the package you want to change, please delete some keywords in your "Keyword Settings".</div>
+                    
+                    
+                    
+                    <div style="height:39px;">
+                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Active*:</div>
+                        <div class="new-btn" style="display:table-column; width: 64%; color: #555;text-align: center;float: right;margin-right: 129px;" {{action dropdown controller.projectActiveDropdownType}}>
+                             <span> {{controller.projectActiveDropdownContent}}</span>
+                             <span class="caret"></span>
+                        </div>
+                        {{#if controller.isActiveDropdown}}
+                        {{view HubStar.DropdownListView}}
+                        {{/if}}
+                    </div>
+                    <div style="height:39px;">
+                        <div style=" display:table-column;font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Deleted*:</div>
+                        <div class="new-btn" style="display:table-column; width: 64%; color: #555;text-align: center;float: right;margin-right: 129px;" {{action dropdown controller.projectDeleteDropdownType}}>
+                             <span> {{controller.projectDeleteDropdownContent}}</span>
+                            <span class="caret"></span>
+                        </div>
+                        {{#if controller.isDeleteDropdown}}
+                        {{view HubStar.DropdownListView}}
+                        {{/if}}
+                    </div>
+                    <div style="height:39px;">
+                        <div style=" display:table-column;font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Package:</div>
+                        <div class="new-btn" style="display:table-column; width: 64%;color: #555;text-align: center;float: right;margin-right: 129px;" {{action dropdown controller.projectCategoryDropdownType}}>
+                              <span> {{controller.projectCategoryDropdownContent}}</span>
                                         <span class="caret"></span>
-                                    </div>
-                                    {{#if controller.isActiveDropdown}}
-                                    {{view HubStar.DropdownListView}}
-                                    {{/if}}
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Deleted*:</td>
-
-                                <td>
-                                    <div class="new-btn" style="display: block;" {{action dropdown controller.projectDeleteDropdownType}}>
-                                         <span> {{controller.projectDeleteDropdownContent}}</span>
-                                        <span class="caret"></span>
-                                    </div>
-                                    {{#if controller.isDeleteDropdown}}
-                                    {{view HubStar.DropdownListView}}
-                                    {{/if}}
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td> Package:</td>
-                                <td>
-                                    <div class="new-btn" style="display: block;" {{action dropdown controller.projectCategoryDropdownType}}>
-                                         <span> {{controller.projectCategoryDropdownContent}}</span>
-                                        <span class="caret"></span>
-                                    </div>
-                                    {{#if controller.isPackgetDropdown}}
-                                    {{view HubStar.DropdownListView}}
-                                    {{/if}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td> Creator:</td>
-                                <td>
-                                    <div class="disabled-btn" style="display: block; font-size: 12px;">
-                                        <span> {{controller.profile_creator}}</span>
-                                    </div>
-                                </td>
-                            </tr>                        
-
-                            <tr>
-                                <td>Domains:</td>
-                                <td>
-                                    <div style="display: block;">
-                                        <div   style="margin: 0;width: 100%;">
+                        </div>
+                        {{#if controller.isPackgetDropdown}}
+                        {{view HubStar.DropdownListView}}
+                        {{/if}}
+                    </div>
+                    <div style="height:39px;">
+                        <div style=" display:table-column;font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Creator:</div>
+                        <div class="disabled-btn" style="display:table-column; width: 64%;color: #555;text-align: center;float: right;margin-right: 129px;margin-top: 2px;">
+                              <span> {{controller.profile_creator}}</span>
+                        </div>
+                    </div>
+                    <div style="height:39px;">
+                        <div style=" display:table-column;font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Domains:</div>
+                        <div style="display:table-column; width: 64%; color: #555;text-align: center;float: right;margin-right: 129px;">
+                            <div>
                                             {{view Ember.TextField valueBinding="domains"  class="mustFill4"  }}
                                         </div>
-                                    </div>
-                                    <div class="mustfill" id="emailFormat6" style="display: none">not correct email format.....</div>
+                            <div class="mustfill" id="emailFormat6" style="display: none">not correct email format.....</div>
                                     <div class="mustfull" id="mustFill6" style="display: none">please fill in info... </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Keywords:</td>
-                                <td>
-                                    <div style="display: block;">
-                                        <div   style="margin: 0;width: 100%; height:80px;">
+                        </div>
+                                            
+                    </div>
+                    <div style="height:80px;">
+                        <div style=" display:table-column;font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Keywords:</div>
+                        <div style="display:table-column; width: 66%; padding: 0 0 5px 20px;color: #555;text-align: center;float: right;margin-right: 129px;">
+                         <div   style="height:80px;">
                                             {{view Ember.TextArea valueBinding="keywords" class="no-resize"  placeholder="Please use a comma separated list! i.e.: bathroom, kitchen, living room"}}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                        </div>                   
+                        </div>                  
+                    
+                    </div>
+                    
 
-                        </tbody>
-                    </table>
-
-                    <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                    <div style="right: 0;margin: 15px auto 0;width: 150px;">
                         <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
                         <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
                     </div>
@@ -1009,6 +877,23 @@
 
             </div>
         </div>
+        
+        
+         {{#if controller.switchPhoto}}
+
+
+         {{view HubStar.MasonryCollectionView}}
+
+        {{else}}
+
+
+        {{render "masonryCollectionItems"}}
+
+
+        {{/if}}
+        
+             </div>
+        </div>
 
 
         {{/unless}}
@@ -1019,18 +904,7 @@
         {{/if}}
 
 
-        {{#if controller.switchPhoto}}
-
-
-        {{view HubStar.MasonryCollectionView}}
-
-        {{else}}
-
-
-        {{render "masonryCollectionItems"}}
-
-
-        {{/if}}
+       
 
 
         {{#if controller.makeSureDelete}}

@@ -69,46 +69,49 @@ HubStar.VideoController = Ember.Controller.extend({
     },
     ads: function() {
         var type = this.get("megaResouce").get("classification");
+
         $(document).ready(function() {
             setTimeout(function() {
-                var photo = document.getElementById("video_view_ads");
-                for (var i = 0; i < HubStar.get('objectAds')[2].length; i++)
-                {
-                    var ad = HubStar.get('objectAds')[2][i];
-                    if (ad.type === type)
+                if (HubStar.get("object_ad_display") === true) {
+                    var photo = document.getElementById("video_view_ads");
+                    for (var i = 0; i < HubStar.get('objectAds')[2].length; i++)
                     {
-                        
-                        var adDiv = document.createElement('div');
-                        adDiv.id = ad.div;
-                        var height = ad.size[1];
-                        var width = ad.size[0];
-                        adDiv.style.display = "block";
-                        adDiv.style.height = height + "px";
-                        adDiv.style.width = width + "px";
-                        photo.appendChild(adDiv);
-                        if (ad.isNew === true) {
-                            googletag.cmd.push(function() {
-                                var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
-                                ad.slot1 = slot1;
-                                googletag.pubads().enableSingleRequest();
-                                googletag.enableServices();
-                                googletag.display(ad.div);
-                                googletag.pubads().refresh([slot1]);
-                            });
-                            ad.isNew = false;
-                        }
-                        else
+                        var ad = HubStar.get('objectAds')[2][i];
+                        if (ad.type === type)
                         {
-                            googletag.cmd.push(function() {
-                                googletag.pubads().enableSingleRequest();
-                                googletag.enableServices();
-                                googletag.display(ad.div);
-                                googletag.pubads().refresh([ad.slot1]);
-                            });
+
+                            var adDiv = document.createElement('div');
+                            adDiv.id = ad.div;
+                            var height = ad.size[1];
+                            var width = ad.size[0];
+                            adDiv.style.display = "block";
+                            adDiv.style.height = height + "px";
+                            adDiv.style.width = width + "px";
+                            photo.appendChild(adDiv);
+                            if (ad.isNew === true) {
+                                googletag.cmd.push(function() {
+                                    var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                                    ad.slot1 = slot1;
+                                    googletag.pubads().enableSingleRequest();
+                                    googletag.enableServices();
+                                    googletag.display(ad.div);
+                                    googletag.pubads().refresh([slot1]);
+                                });
+                                ad.isNew = false;
+                            }
+                            else
+                            {
+                                googletag.cmd.push(function() {
+                                    googletag.pubads().enableSingleRequest();
+                                    googletag.enableServices();
+                                    googletag.display(ad.div);
+                                    googletag.pubads().refresh([ad.slot1]);
+                                });
+                            }
                         }
                     }
                 }
-            }, 10);
+            }, 300);
         });
     },
     addComment: function() {

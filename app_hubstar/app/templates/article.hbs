@@ -227,8 +227,10 @@
                 <div id ="read_more_cue" class="article-text article-display">......</div>
             </div>
         </div>
-        <div id="article_view_ads">
+        {{#if HubStar.object_ad_display}}
+        <div id="article_view_ads" >
         </div>
+        {{/if}}
         <!-- OBJECT CREDIT LIST SECTION -->
         {{#if controller.isCreditListExist}}
         <div>

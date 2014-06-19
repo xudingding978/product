@@ -55,11 +55,11 @@ HubStar.NotificationController = Ember.Controller.extend({
         {
             if (name.split(',')[0] === "add")
             {
-                displayString = " added you as an" + name.split(',')[1];
+                displayString = " added you as an " + name.split(',')[1];
             }
             else
             {
-                displayString = " removed you as an" + name.split(',')[1];
+                displayString = " removed you as an " + name.split(',')[1];
             }
         }
         return displayString;
@@ -154,7 +154,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                         break;
                     }
                 }
-                that.get('controllers.applicationFeedback').statusObserver(null, params);
+                that.get('controllers.applicationFeedback').statusObserver(null, params,"warnning");
                 that.markRead(id);
             });
         }
@@ -169,7 +169,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                         break;
                     }
                 }
-                that.get('controllers.applicationFeedback').statusObserver(null, params);
+                that.get('controllers.applicationFeedback').statusObserver(null, params,"warnning");
                 that.markRead(id);
             });
         }
@@ -249,7 +249,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                         });
                     });
                 }
-                that.get('controllers.applicationFeedback').statusObserver(null, params);
+                that.get('controllers.applicationFeedback').statusObserver(null, params,"warnning");
                 that.markRead(id);
             });
         }
@@ -264,7 +264,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                         break;
                     }
                 }
-                that.get('controllers.applicationFeedback').statusObserver(null, params);
+                that.get('controllers.applicationFeedback').statusObserver(null, params,"warnning");
                 that.markRead(id);
             });
         }

@@ -78,6 +78,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     loadingTime: false,
     localStorage: "",
     applicationCategoryDropdownType: 'geoLocation',
+    total_profiels:0,
     init: function() {
         HubStar.set("isTopAdDisplay", true);
         var that = this;
@@ -358,6 +359,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     });
 
                 }
+                that.set("total_profiels",HubStar.get("profiles").length);
             });
         }
         else

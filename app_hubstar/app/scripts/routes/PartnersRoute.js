@@ -18,6 +18,8 @@ HubStar.PartnersRoute = Ember.Route.extend({
             this.controllerFor('profile').set('partnerTag', true);
             this.controllerFor('profile').set('collectionTag', false);
             this.controllerFor('profile').set('followerProfileTag', false);
+            this.controllerFor('profile').set('pdfTag', false);
+            this.controllerFor('profile').set('videoTag', false);
             $(document).ready(function() {
                 setTimeout(function() {
                     $('#user-stats > li').removeClass('selected-user-stats');

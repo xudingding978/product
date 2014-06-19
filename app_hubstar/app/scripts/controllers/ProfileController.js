@@ -1074,7 +1074,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {
                 $('#masonry_user_container').masonry();
-
+                $('html,body').animate({
+                    scrollTop: $("#profile_submenu").offset().top - 100
+                });
             }, 200);
         }, 250);
     },
@@ -1116,6 +1118,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 $('#masonry_user_container').masonry("reloadItems");
                 setTimeout(function() {
                     $('#masonry_user_container').masonry();
+                    $('html,body').animate({
+                        scrollTop: $("#profile_submenu").offset().top - 100
+                    });
                 }, 100);
             }, 250);
 
@@ -1162,6 +1167,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('collectionTag', false);
             this.set('reviewTag', false);
             this.set('followerProfileTag', false);
+            $('#user-stats > li').removeClass('selected-user-stats');
+            $('#pdf').addClass('selected-user-stats');
             this.transitionToRoute('profilePdf');
 
 

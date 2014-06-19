@@ -30,7 +30,7 @@ HubStar.DropdownListView = Ember.View.extend({
         $('#geoDropdown > .ite').click(function() {
             localStorage.geoLocation=$(this).text();
             that.get('controller').set("geoLocation",localStorage.geoLocation);
-            that.get('controller').get('controllers.applicationFeedback').statusObserver(null, "You geographic location has been changed into " + localStorage.geoLocation);
+            that.get('controller').get('controllers.applicationFeedback').statusObserver(null, "Your geographic location has been changed to " + localStorage.geoLocation);
         });
 
         $('#geoDropdown > .ite').click(function() {

@@ -5,7 +5,6 @@ HubStar.ArticlePhotoView = Ember.View.extend({
 
     didInsertElement: function() {
 
-
     },
     checkReading: function() {
         $('.article-objectview-right').animate({

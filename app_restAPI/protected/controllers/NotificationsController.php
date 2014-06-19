@@ -113,18 +113,26 @@ class NotificationsController extends Controller {
             $url = $domain . "/" . $megaId;
             $target = $cb->get($url);
             $targetMega = CJSON::decode($target, true);
+            $is_triggered = false;
             if (isset($targetMega['photo'][0]["tags"])) {
                 for ($i = 0; $i < sizeof($targetMega['photo'][0]["tags"]); $i++) {
                     if ($targetMega['photo'][0]["tags"][$i]["tag_id"] === $notificationObject["content"]) {
-
-                        $targetMega['photo'][0]["tags"][$i]["tag_approved"] = true;
-                        array_splice($targetMega['photo'][0]["tags"], $i, 1);
+                        if ($targetMega['photo'][0]["tags"][$i]["tag_approved"] === true) {
+                            $is_triggered = true;
+                        } else {
+                            $targetMega['photo'][0]["tags"][$i]["tag_approved"] = true;
+                            array_splice($targetMega['photo'][0]["tags"], $i, 1);
+                        }
                         break;
                     }
                 }
             }
             if ($cb->set($url, CJSON::encode($targetMega))) {
-                return "You have deleted the tag in your picture";
+                if ($is_triggered === true) {
+                    return "This tag has been activated by other business profile manager";
+                } else {
+                    return "You have deleted the tag in your picture";
+                }
             } else {
                 return "save fail";
             }
@@ -336,6 +344,7 @@ class NotificationsController extends Controller {
                 }
             }
         }
+        $is_triggered = false;
         if ($cb->set($docID_currentUser, CJSON::encode($mega_currentUser))) {
             $urls = explode("/", $notificationObject["action_id"]);
             $megaId = $urls[sizeof($urls) - 1];
@@ -345,7 +354,9 @@ class NotificationsController extends Controller {
             if (isset($targetMega['photo'][0]["tags"])) {
                 for ($i = 0; $i < sizeof($targetMega['photo'][0]["tags"]); $i++) {
                     if ($targetMega['photo'][0]["tags"][$i]["tag_id"] === $notificationObject["content"]) {
-
+                        if ($targetMega['photo'][0]["tags"][$i]["tag_approved"] === true) {
+                            $is_triggered = true;
+                        }
                         $targetMega['photo'][0]["tags"][$i]["tag_approved"] = true;
 
                         break;
@@ -353,7 +364,11 @@ class NotificationsController extends Controller {
                 }
             }
             if ($cb->set($url, CJSON::encode($targetMega))) {
-                return "You have activated the tag in your picture";
+                if ($is_triggered === true) {
+                    return "This tag has been activated by other business profile manager";
+                } else {
+                    return "You have activated the tag in your picture";
+                }
             } else {
                 return "save fail";
             }

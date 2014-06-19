@@ -11,11 +11,17 @@ HubStar.ReviewsRoute = Ember.Route.extend({
             this.controllerFor('profile').set('collectionTag', false);
             this.controllerFor('profile').set('followerProfileTag', false);
             this.controllerFor('profile').set('reviewTag', true);
+            this.controllerFor('profile').set('pdfTag', false);
+            this.controllerFor('profile').set('videoTag', false);
+            
             this.controllerFor('reviewList').set('model', model);
             setTimeout(function() {
                 $('#masonry_user_container').masonry("reloadItems");
                 setTimeout(function() {
                     $('#masonry_user_container').masonry();
+                     $('html,body').animate({
+                        scrollTop: $("#profile_submenu").offset().top - 100
+                    });
                 }, 100);
             }, 200);
 

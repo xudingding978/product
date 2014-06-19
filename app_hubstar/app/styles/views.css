@@ -1175,8 +1175,8 @@ div.album-description-bg{
     vertical-align: top;
     display: inline-block;
     width: 50%;
-    word-break: break-word;
-    max-height: 60px;
+    word-break: break-all;
+    max-height: 80px;
     overflow: hidden;
 }
 
@@ -1688,7 +1688,7 @@ div.album-description-bg{
     font-weight: bold;
     line-height: 30px;
     margin-bottom: 10px;
-    word-break: break-word;
+    word-break: break-all;
     text-transform: capitalize;
 
 }
@@ -2161,6 +2161,7 @@ div.album-description-bg{
 
 .show-tag-part div{
     display:inline-block;
+    padding: 5px 0;
 }
 
 
@@ -2178,7 +2179,7 @@ div.album-description-bg{
 .show-tag-font{
     font-size: 18px; 
     font-weight: bold; 
-    width: 130px; 
+    width: 136px;
     float: left;
     display: inline-block;
 }
@@ -2194,7 +2195,7 @@ div.album-description-bg{
 
 .show-tag-link-to-content{
     min-height: 20px;
-    word-break: break-word;
+    word-break: break-all;
     width: 73%;
     display: inline-block;
     line-height: 15px;
@@ -2546,7 +2547,7 @@ div.album-description-bg{
     overflow: hidden;
     max-height: 60px;
     margin: 5px auto;
-    word-break: break-word;
+    word-break: break-all;
 }
 
 
@@ -2557,6 +2558,15 @@ div.album-description-bg{
     display: inline-block;
     height: auto;
     float: right;
+}
+
+.tag-button{
+    position:relative; 
+    top:-4px; 
+    left: 7px; 
+    display:inline-block; 
+    font-size:15px;
+    cursor: pointer;
 }
 
 

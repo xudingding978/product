@@ -115,7 +115,7 @@
 
 
     {{#if controller.profileCategoryDropdown}}
-    <div id="profileCategoryDropdown"  class="Dropdownstyle1"  style="width: 260px; left: 0;" {{action dropdown "category"}}>
+    <div id="profileCategoryDropdown"  class="Dropdownstyle1"  style="width: 230px; left: 0;" {{action dropdown "category"}}>
          {{#each controller.categorys}}
          <div  class="ite " {{action topicSelection this}}>{{topic}}</div>
         {{/each}}
@@ -124,7 +124,7 @@
     {{/if}}
 
     {{#if controller.profileSubcategoryDropdown}}
-    <div id="profileSubcategoryDropdown" class="Dropdownstyle1" style="width: 260px; left: 0;" {{action dropdown "subcategory"}}>
+    <div id="profileSubcategoryDropdown" class="Dropdownstyle1" style="width: 230px; left: 0;" {{action dropdown "subcategory"}}>
 
          {{#each controller.subcate}}
          <div  class="ite " >{{category_topic}}</div>

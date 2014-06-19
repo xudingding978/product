@@ -16,7 +16,7 @@
                 {{#if controller.is_authentic_user}}
 
                 <div id="flip-front" data-hint="Dashboard" class='blue-btn new-btn hint--left hint--rounded edit-dashboard-btn blue-btn-ard' {{action flipFrontClick}}>
-                      <i class="fa fa-cogs"></i>
+                     <i class="fa fa-cogs"></i>
                 </div>
 
                 {{/if}}
@@ -444,156 +444,194 @@
 
                 <div class="tab-pane" id="tab2">
 
-                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">General Settings</div>
+                    <div class="profile-tab-title">General Settings</div>
+                    <div class="profile-tab-table">
 
-                    <div style="height:39px;">
-                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Profile Name*:</div>
-                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
-                             {{view Ember.TextField valueBinding="profile_name"   class="mustFill1" placeholder=""}}
-                             <div class="mustfull" id="mustFill1" style="display: none">please fill in info... </div>
+
+                        <div class="profile-row">
+                            <div class="profile-col1" >Profile Name*:</div>
+                            <div class="profile-col2" > 
+                                <div class="profile-tab-row1">
+                                    {{view Ember.TextField valueBinding="profile_name"   class="mustFill1" placeholder=""}}
+                                    <div class="mustfull profile-tab-row1-wrn" id="mustFill1">please fill in info... </div>
+                                </div>
+
+                            </div> 
+                        </div>
+
+                        <div class="profile-row">
+                            <div class="profile-col1" >Profile Contact:</div>
+                            <div class="profile-col2"> 
+                                
+
+                                    <div  class="profile-tab-row2a">
+                                        {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
+                                    </div>
+                                    <div class="profile-tab-row2b">
+                                        {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
+                                    </div>
+
+                                
+                            </div>
+                        </div>
+
+                        <div class="profile-row">
+                            <div class="profile-col1" >Profile Category:</div> 
+
+                            <div  class="profile-col2">
+
+                                <div class="new-btn classfication profile-tab-row2a" {{action dropdown "category" }}>
+                                     <span id="profileCategorySelection">{{controller.profileCategorySelection}}</span>
+                                    <span class="caret"></span>
+                                    {{#if controller.profileCategoryDropdown}}
+                                    {{view HubStar.DropdownListView}}
+                                    {{/if}}
+
+                                </div>
+                                <div class="new-btn classfication profile-tab-row2c" {{action dropdown "subcategory" }}>
+                                     <span id="profileSubcategorySelection">{{controller.profileSubcategorySelection}}</span>
+                                    <span class="caret"></span>
+                                    {{#if controller.profileSubcategoryDropdown}}
+                                    {{view HubStar.DropdownListView}}
+                                    {{/if}}
+
+
+                                </div>                              
+
+                            </div>
+                        </div>
+
+                        <div class="profile-row">
+                            <div class="profile-col1" >Physical Address:</div>
+                            <div class="profile-col2"> 
+                                
+                                <div  class="profile-tab-row2a">
+                                    {{view Ember.TextField valueBinding="address"  placeholder="Street Address"}}
+                                </div>
+                                <div class="profile-tab-row2b">
+                                    {{view Ember.TextField valueBinding="suburb"  placeholder="Suburb"}}
+                                </div>
+
+                               
+                            </div>
+                        </div>
+                        <div class="profile-row">
+                            <div class="profile-col1" >Contact Number:</div>
+                            <div class="profile-col2"> 
+                                <div class="profile-tab-row1">
+                                    {{view Ember.TextField valueBinding="profile_contact_number" placeholder=""}}
+                                </div>
+
+                            </div> 
+                        </div>
+                        <div class="profile-row">
+                            <div class="profile-col1" >Website Domain:</div>
+                            <div class="profile-col2"> 
+                                <div class="profile-tab-row1">
+                                    {{view Ember.TextField valueBinding="website" placeholder="yourdomain.com"}}
+                                </div>
+
+                            </div> 
+                        </div>    
+                        <div class="profile-row">
+                            <div class="profile-col1" >Website URL:</div>
+                            <div class="profile-col2"> 
+                                <div class="profile-tab-row1">
+                                    {{view Ember.TextField valueBinding="website_url" placeholder="http://www.yourdomain.com"}}
+                                </div>
+
+                            </div> 
+                        </div>
+                        <div class="profile-row">
+                            <div class="profile-col1" >Profile Cover Text:</div>
+                            <div class="profile-col2"> 
+                                <div class="profile-tab-row1">
+                                    {{view Ember.TextField valueBinding="profile_cover_text" placeholder="Brief description (displayed when your profile appears in search results)"}}
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="profile-row">
+                            <div class="profile-col1" >Google Analytics Tracking ID:</div>
+                            <div class="profile-col2"> 
+                                <div class="profile-tab-row1">
+                                    {{view Ember.TextField valueBinding="profile_analytics_code" placeholder=""}}
+                                </div>
+
+                            </div> 
                         </div>
                     </div>
-                    <div style="height:39px;">
-                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Profile Contact:</div>
-                        <div style="display:table-column; width: 27%; color: #555;text-align: center;float: left;margin-left: 22px;font-size: 15px;">
-                             {{view Ember.TextField valueBinding="first_name"  placeholder="First Name"}}
-                        </div>
-                        <div style="display:table-column; width: 27%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
-                             {{view Ember.TextField valueBinding="last_name"  placeholder="Last Name"}}
-                        </div>
-                    </div>
-                    <div style="height:39px;">
-                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Profile Category:</div>
-                        <div class="new-btn" style="display:table-column; width: 27%; color: #555;text-align: center;float: left;margin-left: 22px;font-size: 15px;" {{action dropdown "category" }}>
-                             <span id="profileCategorySelection">{{controller.profileCategorySelection}}</span>
-                                        <span class="caret"></span>
-                                        {{#if controller.profileCategoryDropdown}}
-                                        {{view HubStar.DropdownListView}}
-                                        {{/if}}
-                        </div>
-                        <div class="new-btn" style="display:table-column; width: 27%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;"{{action dropdown "subcategory" }}>
-                             <span id="profileSubcategorySelection">{{controller.profileSubcategorySelection}}</span>
-                                        <span class="caret"></span>
-                                        {{#if controller.profileSubcategoryDropdown}}
-                                        {{view HubStar.DropdownListView}}
-                                        {{/if}}
-                        </div>
-                    </div>
-                    <div style="height:39px;">
-                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Physical Address:</div>
-                        <div style="display:table-column; width: 27%; color: #555;text-align: center;float: left;margin-left: 22px;font-size: 15px;">
-                             {{view Ember.TextField valueBinding="address"  placeholder="Street Address"}}
-                        </div>
-                        <div style="display:table-column; width: 27%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
-                             {{view Ember.TextField valueBinding="suburb"  placeholder="Suburb"}}
-                        </div>
-                    </div>
-                    <div style="height:39px;">
-                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Contact Number:</div>
-                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
-                             {{view Ember.TextField valueBinding="profile_contact_number" placeholder=""}}
-                        </div>
-                    </div>
-                    <div style="height:39px;">
-                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Website Domain:</div>
-                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
-                             {{view Ember.TextField valueBinding="website" placeholder="yourdomain.com"}}
-                        </div>
-                    </div>
-                    <div style="height:39px;">
-                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Website URL:</div>
-                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
-                             {{view Ember.TextField valueBinding="website_url" placeholder="http://www.yourdomain.com"}}
-                        </div>
-                    </div>
-                    
-                    <div style="height:39px;">
-                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Profile Cover Text:</div>
-                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
-                             {{view Ember.TextField valueBinding="profile_cover_text" placeholder="Brief description (displayed when your profile appears in search results)"}}
-                        </div>
-                    </div>
-                    <div style="height:39px;">
-                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Google Analytics Tracking ID:</div>
-                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
-                             {{view Ember.TextField valueBinding="profile_analytics_code" placeholder=""}}
-                        </div>
-                    </div>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     <div style="right: 0;margin: 18px auto 0;width: 150px;">
                         <span class="new-btn green-btn" {{action saveUpdateGeneral}}>Save</span>
                         <span class='new-btn blue-btn flip-back' {{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
                     </div>
                 </div>
 
-
-
-
-
-
-
                 <div class="tab-pane" id="tab3">
-                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Account Settings</div>
-
-                    <div style="height:39px;">
-                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Country*:</div>
-                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
-                             {{view Ember.TextField valueBinding="country" class="country"  placeholder="New Zealand" value="New Zealand"}}
-                        </div>
-                    </div>
-                    <div style="height:39px;">
-                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Region*:</div>
-                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
-                              {{view Ember.TextField valueBinding="region" class="region"  placeholder="Auckland"}}
-                        </div>
-                    </div>
-                    <div style="height:39px;">
-                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Direct Enquiry Primary Email (To:)*:</div>
-                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
-                            {{view Ember.TextField valueBinding="contact_email"  class="mustFill4"  placeholder=""}}
-                        </div>
-                    </div>
-                    <div style="height:39px;">
-                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Direct Enquiry Secondary Email (Cc:):</div>
-                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
-                            {{view Ember.TextField valueBinding="secondary_email"  class=""  placeholder=""}}
-                        </div>
-                    </div>
-                    <div style="height:39px;">
-                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Direct Enquiry Tertiary Email (Bcc:):</div>
-                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
-                             {{view Ember.TextField valueBinding="direct_enquiry_provide_email"  class=""  placeholder=""}}
-                        </div>
-                    </div>
-                    <div style="height:100px;">
-                        <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 30%;float: left;">Editors*:</div>
-                        <div style="display:table-column; width: 54%; color: #555;text-align: center;float: right;margin-right: 129px; height: 100px;font-size: 15px;">
-                             {{view Ember.TextArea valueBinding="editors"   class="mustFill6 no-resize" placeholder=""}}
-                        </div>
-                    </div>
                     
-                    
-                    
-                    <div style="right: 0;margin: 30px auto 0;width: 150px;">
+                    <div class="profile-tab-title">Account Settings</div>
+                    <div class="profile-tab-table">
+                        <div class="profile-row">
+                            <div class="profile-col3" >Country*:</div>
+                            <div class="profile-col2" > 
+                                <div class="profile-tab-row1">
+                                    {{view Ember.TextField valueBinding="country" class="country"  placeholder="New Zealand" value="New Zealand"}}
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="profile-row">
+                            <div class="profile-col3" >Region*:</div>
+                            <div class="profile-col2" > 
+                                <div class="profile-tab-row1">
+                                    {{view Ember.TextField valueBinding="region" class="region"  placeholder="Auckland"}}
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="profile-row">
+                            <div class="profile-col3" >Direct Enquiry Primary Email (To:)*:</div>
+                            <div class="profile-col2" > 
+                                <div class="profile-tab-row1">
+                                    {{view Ember.TextField valueBinding="contact_email"  class="mustFill4"  placeholder=""}}
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="profile-row">
+                            <div class="profile-col3" >Direct Enquiry Secondary Email (Cc:):</div>
+                            <div class="profile-col2" > 
+                                <div class="profile-tab-row1">
+                                    {{view Ember.TextField valueBinding="secondary_email"  class=""  placeholder=""}}
+                                </div>
+                            </div> 
+                        </div> 
+                        <div class="profile-row">
+                            <div class="profile-col3" >Direct Enquiry Tertiary Email (Bcc:):</div>
+                            <div class="profile-col2" > 
+                                <div class="profile-tab-row1">
+                                    {{view Ember.TextField valueBinding="direct_enquiry_provide_email"  class=""  placeholder=""}}
+                                </div>
+                            </div> 
+                        </div> 
+                        <div class="profile-row">
+                            <div class="profile-col3" >Editors*:</div>
+                            <div class="profile-col2" > 
+                                <div class="profile-tab-row1 profile-tab-editor">
+                                    {{view Ember.TextArea valueBinding="editors"   class="mustFill6 no-resize" placeholder=""}}
+                                </div>
+                            </div> 
+                        </div>                                          
+                    </div>
+                    <div style="right: 0;margin: -16px auto 0;width: 150px;">
                         <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
                         <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
                     </div>
                 </div>
 
                 <div class="tab-pane" id="tab7">
-                    <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 30px;">Social Links</div>
+                    <div class="profile-tab-title">Social Links</div>
 
                     <div style="height:45px;">
                         <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Facebook:</div>
                         <div id="facebook" style="display:table-column; width: 64%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
-                             {{input type="text" value=facebook placeholder="www.facebook.com/username"}}
+                            {{input type="text" value=facebook placeholder="www.facebook.com/username"}}
                         </div>
                     </div>
                     <div style="height:45px;">
@@ -605,7 +643,7 @@
                     <div style="height:45px;">
                         <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Google+:</div>
                         <div id="googleplus" style="display:table-column; width: 64%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
-                              {{input type="text" value=googleplus placeholder="plus.google.com/username"}}
+                            {{input type="text" value=googleplus placeholder="plus.google.com/username"}}
                         </div>
                     </div>
                     <div style="height:45px;">
@@ -617,25 +655,25 @@
                     <div style="height:45px;">
                         <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Linkedin:</div>
                         <div id="linkedin" style="display:table-column; width: 64%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
-                             {{input type="text" value=linkedin placeholder="www.linkedin.com/in/username"}}
+                            {{input type="text" value=linkedin placeholder="www.linkedin.com/in/username"}}
                         </div>
                     </div>
                     <div style="height:45px;">
                         <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Youtube:</div>
                         <div id="youtube" style="display:table-column; width: 64%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
-                              {{input type="text" value=youtube placeholder="www.youtube.com/user/username"}}
+                            {{input type="text" value=youtube placeholder="www.youtube.com/user/username"}}
                         </div>
                     </div>
                     <div style="height:45px;">
                         <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Instagram:</div>
                         <div id="instagram" style="display:table-column; width: 64%; color: #555;text-align: center;float: right;margin-right: 129px;font-size: 15px;">
-                             {{input type="text" value=instagram placeholder="www.instagram.com/username"}}
+                            {{input type="text" value=instagram placeholder="www.instagram.com/username"}}
                         </div>
                     </div>
-                    
-                    
-                    
-                    
+
+
+
+
                     <div style="right: 0;margin: 30px auto 0;width: 150px;">
                         <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
                         <span class='new-btn blue-btn flip-back'{{action flipFrontBack}}><i class='fa fa-group'> &nbsp;</i>Back</span>
@@ -647,14 +685,14 @@
                 <div class="tab-pane" id="tab4">
                     <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: 10px auto 22px;">Authority Settings</div>
                     <div class="mustfull" id="errorMessage2" style="display: none;">You can't change the package, your keyword numbers exceed the limit of<br> the package you want to change, please delete some keywords in your "Keyword Settings".</div>
-                    
-                    
-                    
+
+
+
                     <div style="height:39px;">
                         <div style="display:table-column; font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Active*:</div>
                         <div class="new-btn" style="display:table-column; width: 64%; color: #555;text-align: center;float: right;margin-right: 129px;" {{action dropdown controller.projectActiveDropdownType}}>
                              <span> {{controller.projectActiveDropdownContent}}</span>
-                             <span class="caret"></span>
+                            <span class="caret"></span>
                         </div>
                         {{#if controller.isActiveDropdown}}
                         {{view HubStar.DropdownListView}}
@@ -673,8 +711,8 @@
                     <div style="height:39px;">
                         <div style=" display:table-column;font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Package:</div>
                         <div class="new-btn" style="display:table-column; width: 64%;color: #555;text-align: center;float: right;margin-right: 129px;" {{action dropdown controller.projectCategoryDropdownType}}>
-                              <span> {{controller.projectCategoryDropdownContent}}</span>
-                                        <span class="caret"></span>
+                             <span> {{controller.projectCategoryDropdownContent}}</span>
+                            <span class="caret"></span>
                         </div>
                         {{#if controller.isPackgetDropdown}}
                         {{view HubStar.DropdownListView}}
@@ -683,30 +721,30 @@
                     <div style="height:39px;">
                         <div style=" display:table-column;font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Creator:</div>
                         <div class="disabled-btn" style="display:table-column; width: 64%;color: #555;text-align: center;float: right;margin-right: 129px;margin-top: 2px;">
-                              <span> {{controller.profile_creator}}</span>
+                            <span> {{controller.profile_creator}}</span>
                         </div>
                     </div>
                     <div style="height:39px;">
                         <div style=" display:table-column;font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Domains:</div>
                         <div style="display:table-column; width: 64%; color: #555;text-align: center;float: right;margin-right: 129px;">
                             <div>
-                                            {{view Ember.TextField valueBinding="domains"  class="mustFill4"  }}
-                                        </div>
+                                {{view Ember.TextField valueBinding="domains"  class="mustFill4"  }}
+                            </div>
                             <div class="mustfill" id="emailFormat6" style="display: none">not correct email format.....</div>
-                                    <div class="mustfull" id="mustFill6" style="display: none">please fill in info... </div>
+                            <div class="mustfull" id="mustFill6" style="display: none">please fill in info... </div>
                         </div>
-                                            
+
                     </div>
                     <div style="height:80px;">
                         <div style=" display:table-column;font-size: 15px; color: #555;text-align: right;width: 20%;float: left;">Keywords:</div>
                         <div style="display:table-column; width: 66%; padding: 0 0 5px 20px;color: #555;text-align: center;float: right;margin-right: 129px;">
-                         <div   style="height:80px;">
-                                            {{view Ember.TextArea valueBinding="keywords" class="no-resize"  placeholder="Please use a comma separated list! i.e.: bathroom, kitchen, living room"}}
-                                        </div>                   
+                            <div   style="height:80px;">
+                                {{view Ember.TextArea valueBinding="keywords" class="no-resize"  placeholder="Please use a comma separated list! i.e.: bathroom, kitchen, living room"}}
+                            </div>                   
                         </div>                  
-                    
+
                     </div>
-                    
+
 
                     <div style="right: 0;margin: 15px auto 0;width: 150px;">
                         <span class="new-btn green-btn" {{action saveUpdate}} >Save</span>
@@ -877,12 +915,12 @@
 
             </div>
         </div>
-        
-        
-         {{#if controller.switchPhoto}}
 
 
-         {{view HubStar.MasonryCollectionView}}
+        {{#if controller.switchPhoto}}
+
+
+        {{view HubStar.MasonryCollectionView}}
 
         {{else}}
 
@@ -891,61 +929,61 @@
 
 
         {{/if}}
-        
-             </div>
-        </div>
+
+    </div>
+</div>
 
 
-        {{/unless}}
+{{/unless}}
 
 
-        {{#if editorAdd}}
-        {{render editEditors}}
-        {{/if}}
-
-
-       
-
-
-        {{#if controller.makeSureDelete}}
-
-        {{view HubStar.DeleteFunctionView}}
-
-
-        {{/if}}
-
-
-
-
-        {{#if controller.rateTime}}
-
-        {{render review this}}
-
-
-        {{/if}}
+{{#if editorAdd}}
+{{render editEditors}}
+{{/if}}
 
 
 
 
 
+{{#if controller.makeSureDelete}}
 
-        {{#if controller.popUpMap}}
-
-        {{view  HubStar.GoogleMapPopupView}}
-
-
-        {{/if}}
+{{view HubStar.DeleteFunctionView}}
 
 
-        {{#if controller.makeSelection}}
-
-        {{view HubStar.SelectFunctionView}}
-
-        {{/if}}
+{{/if}}
 
 
-        {{#if controller.contactChecking}}
-        {{render contact}}
-        {{/if}}
+
+
+{{#if controller.rateTime}}
+
+{{render review this}}
+
+
+{{/if}}
+
+
+
+
+
+
+{{#if controller.popUpMap}}
+
+{{view  HubStar.GoogleMapPopupView}}
+
+
+{{/if}}
+
+
+{{#if controller.makeSelection}}
+
+{{view HubStar.SelectFunctionView}}
+
+{{/if}}
+
+
+{{#if controller.contactChecking}}
+{{render contact}}
+{{/if}}
 
 

@@ -2100,3 +2100,96 @@ textarea.add-interests{
 .circle-btn-border{
     border: 0 !important;
 }
+
+
+/* profile.hbs */
+.profile-tab-title{
+    font-size: 25px; 
+    color: #555; 
+    text-align: center;
+    font-weight: bold;
+    margin: 10px auto 30px;
+}
+
+.profile-tab-table{
+    padding: 0 20px; 
+    width: 100%;
+    font-size: 14px;  
+    display: table;
+    border-collapse: separate;
+    border-spacing: 4px;
+    margin: 20px 0 30px 20px;
+}
+
+.profile-tab5-title{
+    margin: 10px auto 5px;
+}
+
+.profile-tab5-subtitle{
+    font-size: 15px; 
+    font-weight: bold;
+    color: #555; 
+    text-align: center;
+    margin: 5px auto 20px;
+}
+
+
+.tt{
+    display:table-column; 
+    font-size: 15px; 
+    color: #555;
+}
+.profile-row{
+    display:table-row;
+}
+
+
+.profile-row > .profile-col1{
+     display:table-cell;
+    text-align: right; 
+    width: 25%;
+}
+
+
+.profile-row > .profile-col2{
+    display:table-cell;
+     
+}
+
+.profile-row > .profile-col3{
+     display:table-cell;
+    text-align: right; 
+    width: 31%;
+}
+
+.profile-tab-row1-wrn{
+    display: none;
+}
+
+.profile-tab-row1{
+    margin: 10px 30px 5px 10px;
+    width: 70%; 
+    text-align: center;
+}
+
+.profile-tab-row2a{
+    margin: 10px 10px 0;
+    width: 34%;
+    display: inline-block;
+}
+
+.profile-tab-row2b{
+    margin: 10px -3px 0;
+    width: 34%;
+    display: inline-block;
+}
+
+.profile-tab-row2c{
+    margin: 16px -3px 0;
+    width: 34%;
+    display: inline-block;
+}
+
+.profile-tab-editor{
+    height: 100px;
+}

@@ -1153,6 +1153,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('collectionTag', false);
             this.set('reviewTag', false);
             this.set('followerProfileTag', false);
+            $('#user-stats > li').removeClass('selected-user-stats');
+            $('#pdf').addClass('selected-user-stats');
             this.transitionToRoute('profilePdf');
 
 

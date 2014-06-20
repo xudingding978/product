@@ -32,18 +32,23 @@
             </a>
     </li>
 
-    {{#if controller.newProfile}} 
-    <div id="profiles_display">
-        {{render newProfileDisplay HubStar.profiles}} 
-    </div>
-    {{/if}}
-    {{#if HubStar.profile_manager}}
-    {{render newProfileTopDisplay HubStar.profiles}}
+
+
+    {{else}}
+    {{#if user.profileSave}}
+    <li class="ite" >
+        {{#if HubStar.profile_manager}}
+        <a tabindex="-1"  href="" {{action userDisplaynone "new" on="click"  target="view"}}>
+           <i class="fa fa-briefcase" style="">&nbsp;&nbsp;</i>
+            <span>Business Profiles</span>
+        </a>
+        {{/if}}
+    </li>
     {{/if}}
     {{/if}}
 
     <li class='ite'><a tabindex="-1" href="http://about.trendsideas.com/" target="blank" {{action userDisplaynone "about" on="click"  target="view"}}>
-                                                             <i class="fa fa-question-circle">&nbsp;&nbsp;</i>
+                       <i class="fa fa-question-circle">&nbsp;&nbsp;</i>
             <span>Help</span>
         </a></li>
     <li class='ite'><a tabindex="-1" href="javascript:void(0)"  id="startButton" {{action startTour on="click"  target="view"}}>
@@ -56,4 +61,9 @@
         </a></li>
 
 </ul>
+{{/if}}
+
+
+{{#if controller.newProfile}} 
+{{render newProfileDisplay HubStar.profiles}} 
 {{/if}}

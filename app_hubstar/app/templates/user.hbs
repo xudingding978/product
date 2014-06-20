@@ -7,14 +7,12 @@
                 {{#if controller.is_authentic_user}}
                 <div id="change_profile" class="changeuserprofilepic easing hint--right hint--rounded"  data-hint="Choose a profile picture" {{action userPhotoEditButton "User Picture"}}>
                      <i class="fa fa-pencil-square-o"></i>         
-
                 </div>  
-
                 {{/if}}
-                <img {{bindAttr src="controller.model.photo_url_large"}} style="width: 180px;height: 180px;"/>
+                <img {{bindAttr src="controller.model.photo_url_large"}} />
             </div>
             {{#if controller.followDisplay}}
-            <div style="margin: 30px auto 20px;display: block; text-align: center;">
+            <div class="user-follow-style">
                 {{#if controller.isUserSelf}}
                 <div href="#question_modal" role="button" class="disabled-btn follow-btn" data-toggle="modal" style="">Follow</div>
 
@@ -45,31 +43,31 @@
             <div id="show_interest" data-step="2" data-intro=" Click the <b>+</b> button to add <b>Interests</b> to your profile." data-position="right">
 
                 <div class="show-interest easing">
-                    <div style="font-weight: bold;line-height: 20px; color: #777; font-size: 17px;margin-bottom: 5px; display:inline-block;">INTERESTS</div>
+                    <div class="show-interest-style">INTERESTS</div>
 
                     {{#if controller.is_authentic_user}}
 
-                    <div class="edit-btn hint--rounded hint--bottom" style="height: 20px;line-height: 20px;margin:0;" data-hint="Edit Interest" {{action toggleEditing controller.interests controller.interest}}>
-                         <i class="fa fa-plus edit-btn" style="font-size:13px;margin:0;padding:9px 10px;"  {{action showInterestsUp  target="view" on="click"}}></i>
+                    <div class="edit-btn hint--rounded hint--bottom show-interest-plus" data-hint="Edit Interest" {{action toggleEditing controller.interests controller.interest}}>
+                         <i class="fa fa-plus edit-btn" {{action showInterestsUp  target="view" on="click"}}></i>
                     </div>
                     {{/if}}
-                    <i id="interest_btn" class="fa fa-angle-double-up unvisible"  style=" float: right;padding: 7px;" {{action showInterests target="view" on="click"}}></i>
+                    <i id="interest_btn" class="fa fa-angle-double-up unvisible show-interest-up"  {{action showInterests target="view" on="click"}}></i>
 
                 </div>
 
-                <div class="interesttags-container" style="">
+                <div class="interesttags-container">
 
                     {{#if controller.editingInterest}}
-                    <div class="interest-textarea" style="">
+                    <div class="interest-textarea">
                         {{view Ember.TextArea valueBinding="interests"  id="" class="add-interests"  }}
                     </div>
-                    <div class="interest-insert-hint" style="">
+                    <div class="interest-insert-hint">
                         Comma separate interests to add several to your profile.<br>
                         e.g. Kitchens,Bathrooms,Interior
                     </div>
-                    <div style="text-align: center;right: 15px;position: relative;">
-                        <div class="new-btn" {{action no controller.interest}}><i style="position:absolute;top:0;left:0;width:33px;height:26px;line-height:26px;text-align:center;" class="fa fa-times" {{action showInterestsUp target="view" on="click"}}></i></div>
-                        <div class="new-btn blue-btn" {{action yes controller.interest}}><i style="position:absolute;top:0;left:0;width:33px;height:26px;line-height:26px;text-align:center;" class="fa fa-check fa fa-white" {{action showInterestsUp target="view" on="click"}}></i></div>
+                    <div class="show-interest-button">
+                        <div class="new-btn" {{action no controller.interest}}><i class="fa fa-times" {{action showInterestsUp target="view" on="click"}}></i></div>
+                        <div class="new-btn blue-btn" {{action yes controller.interest}}><i class="fa fa-check fa fa-white" {{action showInterestsUp target="view" on="click"}}></i></div>
                     </div>
 
 
@@ -95,25 +93,18 @@
         {{/if}}
     </div>
     <div  class="user-board_right style-box" >
-
-
         <div id="user-board_right_front" >
-            <div class="user-cover" data-step="3" data-intro="Hover over your <b>Cover Image</b> to access your profile Dashboard, where you can change the cover image and manage your Profile Settings." data-position="bottom">
-
-                <img {{bindAttr src= "controller.cover_url"}} style="width:100%;"/>
+            <div class="user-cover" data-step="3" data-intro="Hover over your <b>Cover Image</b> to access your profile Dashboard, where you can change the cover image and manage your Profile Settings." data-position='bottom'>
+                <img {{bindAttr src= "controller.cover_url"}} />
 
                 {{#if controller.is_authentic_user}}
-                <div  id="flip-front" class="blue-btn new-btn hint--left hint--rounded edit-dashboard-btn" style="display: block; margin: 10px;position: absolute;top: 0;right: 0;" data-hint="Dashboard"{{action userDashboardButton "User Cover"}}>  
+                <div  id="flip-front" class='blue-btn new-btn hint--left hint--rounded edit-dashboard-btn' data-hint="Dashboard"{{action userDashboardButton "User Cover"}}>  
 
                       <i class="fa fa-cogs" ></i>
                 </div>
                 {{/if}}
-                <div  style="font-size: 26px;font-weight: bold; line-height: 30px;  color: white;position: absolute;top: 245px;margin:0 30px;text-shadow: 0 0 10px #777;">{{display_name}}</div>
+                <div class="user-display-name" style="">{{display_name}}</div>
             </div>
-
-
-
-
 
             <div class="editor-content" data-step="4" data-intro="Write something about yourself in the <b>About me</b> section." data-position="left" style="height: 140px; padding: 10px 20px;display: inline-block;position: relative;width: 100%;">
                 <div style="font-size:15px;line-height: 20px;margin: 5px 20px;color: #888;">  

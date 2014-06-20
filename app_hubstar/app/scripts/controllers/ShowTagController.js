@@ -31,9 +31,9 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
     isComment: false,
     //isProfile: false,
     userName: '',
-    chooseProfileItem:false,
+    chooseProfileItem: false,
     profileCollection: [],
-    isReadProfile:false,
+    isReadProfile: false,
     init: function()
     {
         HubStar.set("isProfile", false);
@@ -49,9 +49,12 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         var photo_id = this.get("photo_id");
         var selectedID = this.get("selectedID"); //the selected profile id
         var collectionID = this.get("selectedCollection").id;
-        if (selectedID === "" || selectedID === null || selectedID === undefined)
+        var collection_name = this.get("selectedCollection").title;
+        if (selectedID === "" || selectedID === null || selectedID === undefined ||
+                collectionID === "" || collectionID === null || collectionID === undefined ||
+                this.get("product_name") === "" || this.get("product_name") === null || this.get("product_name") === undefined)
         {
-            this.get('controllers.applicationFeedback').statusObserver(null, "Please select the profile before save.", "warnning");
+            this.get('controllers.applicationFeedback').statusObserver(null, "Please fill all the blanks before save.", "warnning");
         }
         else
         {
@@ -62,41 +65,22 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             var pic_y = this.get("pic_y");
             var linkAddress = this.get("linkTo");
             var time_stamp = new Date();
-            var tag_id = createMessageid()+localStorage.loginStatus;
+            var tag_id = createMessageid() + localStorage.loginStatus;
             time_stamp = time_stamp.toString();
-            var tagInfo = [selectedID, product_name, desc, pic_x, pic_y, linkAddress, time_stamp, photo_id, tag_id,collectionID];
+            var tagInfo = [selectedID, product_name, desc, pic_x, pic_y, linkAddress, time_stamp, photo_id, tag_id, collectionID, collection_name, localStorage.loginStatus];
             tagInfo = JSON.stringify(tagInfo);
             var newTag = new Array();
             var that = this;
             requiredBackEnd('showTag', 'saveTag', tagInfo, 'POST', function(params) {
-//set the model , data come from the front end rather than the get from the back end
-                newTag["tag_id"] = tag_id;
-                newTag["profile_id"] = selectedID;
-                newTag["product_name"] = product_name;
-                newTag["desc"] = desc;
-                newTag["pic_x"] = pic_x;
-                newTag["pic_y"] = pic_y;
-                newTag["linkto"] = linkAddress;
-                newTag["link_to_click_count"] = 0;
-                newTag["tag_time"] = time_stamp;
-                newTag["tag_approved"] = false;
-                newTag["collectionID"] = collectionID;
-                if (that.get("contentTags") !== null && that.get("contentTags") !== "" && that.get("contentTags") !== undefined)
-                {
-                    that.get("contentTags").pushObject(newTag);
-                    that.createNotification(newTag, mega,tag_id);
-                }
-//                that.get("controllers.article").set("showRequestTag", true);
-//                that.get("controllers.mega").set("showRequestTag", true);
-////reset the value
-////  that.setTagIcon(pic_x, pic_y, tag_id); //set the tag icon location
                 if (HubStar.get("isArticleTag") === true)
                 {
                     that.get("controllers.article").set("showRequestTag", true);
+                    that.get("controllers.article").set("enableTag", false);
                 }
                 else
                 {
                     that.get("controllers.mega").set("showRequestTag", true);
+                    that.get("controllers.mega").set("enableTag", false);
                 }
 
                 that.setDescription("");
@@ -104,6 +88,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 that.set("product_name", "");
                 that.readTags(photo_id); //call the read method to show all tags
             });
+            this.get('controllers.applicationFeedback').statusObserver(null, "Great job! A message to the content owner requesting activation of your tag.", "warnning");
         }
     },
     activateUserTag: function(tag_id, photo_id)
@@ -125,7 +110,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
             that.readTags(photo_id);
         });
     },
-    createNotification: function(newTag, mega,tag_id)
+    createNotification: function(newTag, mega, tag_id)
     {
 
         var currentUser = HubStar.User.find(localStorage.loginStatus);
@@ -134,7 +119,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         var photo_owner = mega.get("owner_id"); //photo owner's profile id 
         var photo_type = mega.get("owner_type");
 //        this.getCurrentOwner(photo_owner, login_user_id);
-
 
         if (photo_owner !== null && photo_owner !== undefined && photo_owner !== "")
         {
@@ -165,13 +149,64 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         tagInfo = JSON.stringify(tagInfo);
         var newTag = new Array();
         var that = this;
+        that.set("contentTags", []);
         requiredBackEnd('showTag', 'readTag', tagInfo, 'POST', function(params) {
 //set the model          
             var thatthat = that;
             if (params !== "" && params !== undefined && params !== null)
             {
                 that.set("contentTags", params);
-                //    that.get("controllers.article").set("contentTagsArticle", params);
+                for (var i = 0; i < params.length; i++)
+                {
+                    if (params[i].tag_owner === localStorage.loginStatus)
+                    {
+                        params[i].is_tag_owner = true;
+                    }
+                    else
+                    {
+                        params[i].is_tag_owner = false;
+                    }                   
+                    var center_y = $(window).height() / 2;
+                    var isArticle = false;
+                    if (document.URL.search("article") !== -1)
+                    {
+                        isArticle = true;
+                    }
+                    var center_x = 0;
+                    if (isArticle === true) {
+                        center_x = ($(window).width() * 0.55) / 2;
+                    }
+                    else
+                    {
+                        center_x = ($(window).width() - 320) / 2;
+                    }
+                    var top = center_y - HubStar.get("pic_current_height") / 2;
+                    var left = center_x - HubStar.get("pic_current_width") / 2;
+                    var height = Math.ceil(params[i].pic_y * HubStar.get("pic_current_height") + top) + "px";  //set the tag's place which is the percentage of image and add the picture origin left point place
+                    var width = Math.ceil(params[i].pic_x * HubStar.get("pic_current_width") + left) + "px";
+                    params[i].top = height;
+                    params[i].left = width;
+ 
+                    var url = params[i].pic_url.split("_");
+                    var length = url.length;
+                    var width = Math.ceil(url[length - 1].split(".")[0].split("x")[0]);
+                    var height = Math.ceil(url[length - 1].split(".")[0].split("x")[1]);
+
+                    if (width > height)
+                    {
+                        height = Math.ceil(85 / width * height);
+                        width = 85;
+                    }
+                    else
+                    {
+                        width = Math.ceil(85 / height * width);
+                        height = 85;
+                    }
+                    width = width + "px";
+                    height = height + "px";
+                    params[i].height = height;
+                    params[i].width = width;
+                }
                 if (HubStar.get("isArticleTag") === true)
                 {
                     that.get("controllers.article").set("contentTagsArticle", params);
@@ -180,51 +215,9 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 {
                     that.get("controllers.mega").set("contentTags", params);
                 }
-
-                var tags = params;
-
-                $(document).ready(function() {
-                    setTimeout(function() {
-                        //thatthat.get("controllers.mega").set("tagCount", params.get("length"));
-                        if (HubStar.get("isArticleTag") === true)
-                        {
-                            thatthat.get("controllers.article").set("tagCount", params.get("length"));
-                        } else
-                        {
-                            thatthat.get("controllers.mega").set("tagCount", params.get("length"));
-                        }
-                        if (tags !== undefined && tags !== "" && tags !== null)
-                        {
-                            for (var i = 0; i < tags.length; i++)
-                            {
-                                var tagDiv = "#tag_" + tags[i].tag_id;
-                                var center_y = $(window).height() / 2;
-                                var isArticle = false;
-                                if (document.URL.search("article") !== -1)
-                                {
-                                    isArticle = true;
-                                }
-                                var center_x = 0;
-                                if (isArticle === true) {
-                                    center_x = ($(window).width() * 0.55) / 2;
-                                }
-                                else
-                                {
-                                    center_x = ($(window).width() - 320) / 2;
-                                }
-                                var top = center_y - HubStar.get("pic_current_height") / 2;
-                                var left = center_x - HubStar.get("pic_current_width") / 2;
-                                var height = tags[i].pic_y * HubStar.get("pic_current_height") + top;  //set the tag's place which is the percentage of image and add the picture origin left point place
-                                var width = tags[i].pic_x * HubStar.get("pic_current_width") + left;
-                                $(tagDiv).css({top: height, left: width});
-                            }
-                        }
-                    }, 5);
-                });
             }
             else
             {
-                //    thatthat.get("controllers.article").set("tagCount", 0);
                 if (HubStar.get("isArticleTag") === true)
                 {
                     thatthat.get("controllers.article").set("tagCount", 0);
@@ -233,8 +226,6 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 {
                     thatthat.get("controllers.mega").set("tagCount", 0);
                 }
-
-
             }
         });
 
@@ -259,11 +250,11 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
         var dataNew = new Array();
         var that = this;
         this.set('selectionPop', false);
-        this.set("isReadProfile",true);
+        this.set("isReadProfile", true);
         requiredBackEnd('users', 'ReadProfileData', data, 'POST', function(params) {
             that.set("profiles", params);
             //console.log(that.get('profiles'));
-            that.set("isReadProfile",false);
+            that.set("isReadProfile", false);
             that.set('selectTagProfile', !that.get('selectTagProfile'));
         });
     },
@@ -281,7 +272,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
                 {
                     this.set("chosenProfile", id);
                     this.set("profileCollection", this.get("profiles").objectAt(i).collection);
-                    this.set("chooseProfileItem",true);
+                    this.set("chooseProfileItem", true);
                 }
 
                 this.setDesc(title);
@@ -298,7 +289,7 @@ HubStar.ShowTagController = Ember.ObjectController.extend({
     chooseRecord: function(title, id) {
         this.set('selectedTitle', title);
         this.setSelectedCollection(id);
-        var link = 'http://' + document.domain + '/#/profiles/' +  this.get("selectedID")+"/collections/"+id;
+        var link = 'http://' + document.domain + '/#/profiles/' + this.get("selectedID") + "/collections/" + id;
         this.setLinkTo(link);
         this.set('selectionPop', !this.get("selectionPop"));
     },

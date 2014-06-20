@@ -1,114 +1,112 @@
+ 
+<div  id ="tagit" style ="display:none">
 
-<div  id ="tagit">
     {{#unless controller.change_tag_show}}
-    <div class="box" style="bottom: 20px">
+    <div class="box" id="show-tag-box-up">
     </div>
-
     {{/unless}}
-    <div id ="showTagSavePhoto"class="t-style-box" style="z-index: 1002; position: absolute;border-radius: 3px;">
-
-        <div style="margin: 0 0 10px; position: relative; background-color: #f3f3f3; height: 45px;border-bottom: 1px solid #ddd;border-radius: 3px 3px 0 0;">
-            <div style=' color: #555; font-size: 18px; font-weight: bold; text-align: center; line-height: 45px;'>Choose profile to click to:
-                {{#unless controller.isReadProfile}}
-                <div class="" style="display:inline-block;cursor: pointer;"   {{action profileSwitch on="click" target="controller"}}>
-                    {{controller.selectedDesc}}
-                    &nbsp;<i class="fa fa-caret-down"></i>
-                </div>
-                {{else}}
-                
-                 <div style="position: absolute; font-size: 12px; right: 90px;top: 0;"> Loading <i class="spinner" style="position: relative;top: 15px;left: 10px;">&nbsp;</i></div>
-                {{/unless}}
-                {{#if controller.selectTagProfile}}
-                <div id="login_lightbox" class="blur" {{action profileCanel }}>&nbsp;</div>
-                <div class="select-profile-save" style="top: 50px;">
-
-                    <div class="" style="height:100%; font-size: 13px; font-weight: bold; overflow: auto; overflow-x:hidden; ">
-                        <div  style="width: auto;line-height: 27px; padding: 0 20px;border-bottom: 1px solid #ddd;border-top: 1px solid #fff;">
-                            Your Profiles
-                        </div>
-
-                        {{#each controller.profiles}}
-                        <div class="choose-exist-collection easing" style="width: auto;line-height: 27px; padding: 0 20px;border-bottom: 1px solid #ddd;border-top: 1px solid #fff;" {{action chooseProfile profile_name profile_id}}>
-                             <a class="exist-name easing"> {{profile_name}}</a>
-                        </div>
-                        {{/each}}
-                    </div>
-                </div>
-
-                {{/if}}
-            </div>
-            <div class="exit" style="float: right; position: relative; top: -46px;">
-                <div class="closeview" {{action cancelTag }}>
-                     <i class="fa fa-times"></i>
-                </div> 
-            </div>  
+    <div id ="showTagSavePhoto" class="t-style-box showTagSavePhoto">
+        <div class="show-tag-title">          
+            <div class="show-tag-title-font">  Request a new tag </div>
+            <div class="closeview" {{action cancelTag }}>
+                 <i class="fa fa-times"></i>
+            </div> 
         </div> 
-        <div class="contactmebox-wapper" style="width: 530px;height: 200px;font-size: 13px;margin: 0 20px;">
-            <div style="display:inline-block; width:60%;">
-
-
-                <div style="display:inline-block; ">
-                    {{#if chooseProfileItem}}
-                    <div class="new-btn" style="display:block;"  {{action collectionSwitch }} {{bindAttr text="controller.selectedTitle" }}>
-                         {{controller.selectedTitle}}
-                         &nbsp;<i class="fa fa-caret-down"></i>
-                    </div>                   
-                    {{/if}}
-                    {{#if controller.selectionPop}}
-                    <div id="login_lightbox" class="blur" {{action collectionSwitch }}>&nbsp;</div>
-                    <div class="add-tag_select-tag">
-
-                        <div style=" font-size: 16px; font-weight: bold; overflow: auto; overflow-x:hidden;">
-                            {{#each controller.profileCollection}}
-                            <div class="choose-exist-collection easing" {{action chooseRecord title id}}>
-                                 <a class="exist-name easing"> {{title}}</a>
+        <div class="show-tag-contactmebox-wapper">
+            <div class="show-tag-part">
+                <div>
+                    <div class='show-tag-font'>Product Name</div> 
+                    <div>
+                        {{view Ember.TextArea valueBinding="controller.product_name" rows="1" cols="70" class="tag_currenprofile" placeholder="Say something about it!"}}
+                    </div>
+                </div>
+                <div>
+                    <div class='show-tag-font'>Write description:</div>
+                    <div>
+                        {{view Ember.TextArea valueBinding="controller.description" rows="10" cols="70" class="tag_descriptionbox" placeholder="Write something to introduce the product!"}}
+                    </div>
+                </div>
+            </div>
+            <div class="show-tag-link-to">
+                <div class='show-tag-font'> Link to:</div>
+                <div class="show-tag-link-to-content"> {{controller.linkTo}} </div>
+            </div>
+            <div class="show-tag-part-below">
+                <div class="show-tag-part-below-left">
+                    <div class="show-tag-left">
+                        <div class='show-tag-font'>Profile:</div>
+                        {{#if controller.selectedDesc}}
+                        {{#unless controller.isReadProfile}}
+                        <div class="new-btn show-tag-select" {{action profileSwitch on="click" target="controller"}}>
+                            {{controller.selectedDesc}} 
+                            &nbsp;<i class="fa fa-caret-down"></i>
+                        </div>                      
+                        {{else}}
+                        <div class="new-btn show-tag-select"> 
+                            <div class="show-tag-loading"> Loading <i class="spinner" style="">&nbsp;</i></div>                       
+                        </div>
+                        {{/unless}}
+                        {{else}}
+                        <div class="new-btn show-tag-select" {{action profileSwitch on="click" target="controller"}}>
+                            Choose your Profile
+                            &nbsp;<i class="fa fa-caret-down"></i>
+                        </div> 
+                        {{/if}}
+                        {{#if controller.selectTagProfile}}
+                        <div id="login_lightbox" class="blur" {{action profileCanel }}>&nbsp;</div>
+                        <div class="select-profile-save">
+                            <div class="show-tag-profile-content" >         
+                                {{#each controller.profiles}}
+                                <div class="choose-exist-collection easing" style="" {{action chooseProfile profile_name profile_id}}>
+                                     <a class="exist-name easing"> {{profile_name}}</a>
+                                </div>
+                                {{/each}}
                             </div>
-                            {{/each}}
                         </div>
 
+                        {{/if}}
                     </div>
 
+                    <div class="show-tag-left">
+                        <div class='show-tag-font'>Collection:</div>
+                        {{#if chooseProfileItem}}
+                        <div class="new-btn show-tag-select"  {{action collectionSwitch }} {{bindAttr text="controller.selectedTitle" }}>
+                             {{controller.selectedTitle}}
+                             &nbsp;<i class="fa fa-caret-down"></i>
+                        </div>                   
+                        {{/if}}
+                        {{#if controller.selectionPop}}
+                        <div id="login_lightbox" class="blur" {{action collectionSwitch }}>&nbsp;</div>
+                        <div class="add-tag_select-tag">
+                            <div>
+                                {{#each controller.profileCollection}}
+                                <div class="choose-exist-collection easing" {{action chooseRecord title id}}>
+                                     <a class="exist-name easing"> {{title}}</a>
+                                </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+
+                <div class="show-tag-part-below-right" >
+                    {{#if controller.selectedDesc}}
+                    <div class="show-tag-image" >
+                        <img  {{bindAttr src="controller.selectedPhotoThumbnailUrl" }}>
+                    </div>
                     {{/if}}
                 </div>
-
-
-                <div style=' font-size: 18px; font-weight: bold;'>    Product Name</div> 
-                <div style="height: 15px;">
-                    {{view Ember.TextArea valueBinding="controller.product_name" rows="1" cols="70" class="tag_currenprofile" placeholder="Say something about it!"}}
-                </div>
-                <br> 
-
-                <div style=' font-size: 18px; font-weight: bold;'>       Write description:</div>
-                <div style="height: 100px;">
-                    {{view Ember.TextArea valueBinding="controller.description" rows="10" cols="70" class="tag_descriptionbox" placeholder="Write something to introduce the product!"}}
-                </div>
-
-
             </div>
-            {{#if controller.selectedDesc}}
-            <div style="display:inline-block;margin:30px 15px ; vertical-align: top;">
-                <div style="width: 174px; height: 174px; overflow: hidden;padding: 10px;background-color: rgba(0,0,0,0.03);top: -4px;position: relative;">
-                    <img style="height: 154px;width: 154px;" {{bindAttr src="controller.selectedPhotoThumbnailUrl" }}>
-                </div>
-            </div>
-            {{/if}}
-
+        </div> 
+        <div class="show-tag-bottom">
+            <div  class="message-btn easing show-tag-button-right"  {{action cancelTag }}><i class='fa fa-times'>&nbsp;</i>Cancel</div>
+            <div class="message-btn easing" {{action saveTag}}><i class='fa fa-check'>&nbsp;</i>Save</div>
         </div>
-        <div style='  font-size: 18px; font-weight: bold; margin-left: 20px;'>       Link to:</div>
-        <div style="height: 50px;margin: 0 20px;">
-            {{controller.linkTo}}
-        </div>
-
-
-        <div class="" style="height: 45px;position: relative;border-top: 1px solid #ddd;top: -1px;border-radius: 0 0 3px 3px;overflow: hidden;">
-            <div  class="message-btn easing" style="height:45px;line-height: 45px; border-right: 1px solid #ddd;" {{action cancelTag }}><i class='fa fa-times'>&nbsp;</i>Cancel</div>
-            <div class="message-btn easing" style='height:45px;line-height: 45px;'{{action saveTag}}><i class='fa fa-check'>&nbsp;</i>Save</div>
-        </div>
-
     </div>
     {{#if controller.change_tag_show}}
 
-    <div class="box" style="bottom: -480px;">
+    <div class="box" id="show-tag-box-bottom">
     </div>
     {{/if}}
 </div>

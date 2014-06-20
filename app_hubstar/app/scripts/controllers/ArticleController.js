@@ -54,7 +54,9 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("showRequestTag", false);
         this.set("showTagAfterSave", false);
         this.set("showEachTagContent", false);
-        this.set("enableTag", true);
+        this.set("enableTag", true);      
+        $("#previousarticlephoto").addClass("touch-cursor");
+        $("#nextarticlephoto").addClass("touch-cursor");
     },
     /******* function name: enableTag
      * parameter:
@@ -67,7 +69,8 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("enableTag", false);
         this.set("showTagAfterSave", false);
         this.set("inImage", false);  //click the end tag recove the value
-
+        $("#previousarticlephoto").removeClass("touch-cursor");
+        $("#nextarticlephoto").removeClass("touch-cursor");
     },
     addClickCount: function(tag_id, photo_url)
     {
@@ -99,7 +102,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     showTags: function()
     {
         this.set("showAllTagsArticle", true);
-        this.set("showEachTagContent", true);
+        this.set("showEachTagContent", false);
         this.get("controllers.showTag").readTags(this.get('selectedPhoto').id);
     },
     hideTags: function()
@@ -111,7 +114,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     {
         this.set("enableEditTag", true);
         this.get("controllers.updateTag").updateTag(tag_id, this.get('selectedPhoto').id);
-
+        console.log("aaaaaa");
     },
     windowResizeTags: function(tags)
     {
@@ -189,7 +192,7 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     sureToActivate: function(tag_id)
     {
-        var message = "Are you sure to activate this tag?";
+        var message = "Activate this tag?";
         this.set("message", message);
         this.set('makeSureActivateTag', true);
         this.set("tag_id", tag_id);
@@ -237,31 +240,32 @@ HubStar.ArticleController = Ember.Controller.extend({
     },
     previesImage: function(event, pic_x, pic_y) {
         this.set("showEachTagContent", false);
-//        this.set("contentTagsArticle", "");
-        this.get("controllers.showTag").set("contentTags", "");
         if (this.get("enableTag") === true)
         {
-            var that = this;
-            setTimeout(function() {
-                $('#tagit').fadeIn();
-                $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
-                if (that.get("controllers.showTag").get("change_tag_show_2"))
-                {
-                    $(document).ready(function() {
-                        $("#showTagSavePhoto").css("left", "265px");
-                    });
-                }
-                else
-                {
-                    $(document).ready(function() {
-                        $("#showTagSavePhoto").css("left", "0px");
-                    });
-                }
-                $('#tagname').focus();
-            }, 20);
+            if (this.get("inImage") === true) {
+                var that = this;
+                setTimeout(function() {
+                    $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                    $('#tagit').fadeIn();
+                    if (that.get("controllers.showTag").get("change_tag_show_2"))
+                    {
+                        $(document).ready(function() {
+                            $("#showTagSavePhoto").css("left", "265px");
+                        });
+                    }
+                    else
+                    {
+                        $(document).ready(function() {
+                            $("#showTagSavePhoto").css("left", "0px");
+                        });
+                    }
+                    $('#tagname').focus();
+                }, 20);
+            }
         } else
         {
             this.set("contentTagsArticle", "");
+            this.get("controllers.showTag").set("contentTags", "");
             if (!this.get('selectedPhoto')) {
                 this.set('selectedPhoto', this.get('content').get('lastObject'));
             }
@@ -334,24 +338,26 @@ HubStar.ArticleController = Ember.Controller.extend({
         this.set("showEachTagContent", false);
         if (this.get("enableTag") === true)
         {
-            var that = this;
-            setTimeout(function() {
-                $('#tagit').fadeIn();
-                $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
-                if (that.get("controllers.showTag").get("change_tag_show_2"))
-                {
-                    $(document).ready(function() {
-                        $("#showTagSavePhoto").css("left", "-265px");
-                    });
-                }
-                else
-                {
-                    $(document).ready(function() {
-                        $("#showTagSavePhoto").css("left", "0px");
-                    });
-                }
-                $('#tagname').focus();
-            }, 20);
+            if (this.get("inImage") === true) {
+                var that = this;
+                setTimeout(function() {
+                    $('#tagit').css({top: pic_y, left: pic_x, opacity: 1});
+                    $('#tagit').fadeIn();
+                    if (that.get("controllers.showTag").get("change_tag_show_2"))
+                    {
+                        $(document).ready(function() {
+                            $("#showTagSavePhoto").css("left", "-265px");
+                        });
+                    }
+                    else
+                    {
+                        $(document).ready(function() {
+                            $("#showTagSavePhoto").css("left", "0px");
+                        });
+                    }
+                    $('#tagname').focus();
+                }, 20);
+            }
         } else
         {
             this.set("contentTagsArticle", "");
@@ -544,6 +550,7 @@ HubStar.ArticleController = Ember.Controller.extend({
             that.set('megaResouce', megaObject);
             that.addRelatedData(megaObject);
             that.getCommentsById(megaObject.id);
+            that.set("showEachTagContent", false);
             that.checkCreditExist(megaObject.get('article').objectAt(0).get('credits'));
             that.checkAuthenticUser();
             var tempComment = [megaObject.id];

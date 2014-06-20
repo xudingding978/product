@@ -6,11 +6,10 @@ HubStar.TagMouseView = Ember.View.extend({
     },
     showTagContent1: function(evt)
     {
-
         var tag_id = evt.target.id.split("_")[1];
+        var picx_content = 0;
         if (tag_id !== undefined) {
             var tags = this.get("controller").get("controllers.showTag").get("contentTags");
-
             for (var i = 0; i < tags.length; i++)
             {
                 if (tags.objectAt(i)["tag_id"] === tag_id)
@@ -46,23 +45,20 @@ HubStar.TagMouseView = Ember.View.extend({
                     break;
                 }
             }
-            var picx_content = pic_x;
-//             console.log("#tag_image_obj. left= "+document.getElementById('tag_image_object').offsetTop+"tagmouse view  "+ "pic_x ="+pic_x+ "  pic_y =   "+pic_y);
+            picx_content = pic_x;
             this.get("controller").set("showEachTagContent", true);
             this.get("controller").get("controllers.showTag").set("isUpdateTag", false);
-            setTimeout(function() {
-
-                $("#tagitshow").fadeIn();
-                $("#tagitshow").css({top: pic_y + 36, left: picx_content, opacity: 1});
-            }, 5);
-            //alert(that.get("controller").get("showEachTagContent"));
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $("#tagitshow").css({top: pic_y, left: picx_content, opacity: 1});
+                    $("#tagitshow").fadeIn();                 
+                }, 5);
+            });
         }
 
     },
     showTagContent2: function(evt)
-    {
-        this.get("controller").set("showEachTagContent", false);
-
+    {        
     },
     mouseEnter: Ember.aliasMethod('showTagContent1')
 //    mouseLeave: Ember.aliasMethod('showTagContent2')

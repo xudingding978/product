@@ -134,43 +134,8 @@ input{
     opacity: 0;
 }
 
-.user-top{
-    width:100%; 
-    height: 120px; 
-    display:block;
-    opacity: 0;
-}
-
 .addnew{
     z-index: 0
-}
-
-.user-board{
-    width: 87%;
-    position: relative;
-    margin: 0 auto 20px;
-    left: 0;
-    right: 0;
-    min-width: 1060px;
-    max-width: 1260px;
-}
-
-.user-board_left{
-    background: white;
-    width: 26%;
-    display: inline-block;
-    vertical-align: top;
-    height: 500px;
-    margin-right: 0.5%;
-}
-
-.user-board_right{
-    background: white;
-    width: 73%;
-    height: 500px;
-    display: inline-block;
-    vertical-align: top;
-    overflow: hidden;
 }
 
 .locationandlinks{
@@ -344,34 +309,6 @@ input{
     text-decoration: none;
 }
 
-.user-profilepic-container{
-    width: 180px; 
-    height: 180px; 
-    margin: auto;
-    margin-top: 40px;
-    position: relative;
-    display: block;
-    border: 5px solid #f3f3f3; 
-    border-radius: 50%;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -o-border-radius:50%;
-    overflow: hidden;
-}
-
-.changeuserprofilepic{
-    cursor: pointer;
-    opacity: 0;
-    background-color: #000;
-    position: absolute;
-    width: 170px;
-    height: 170px;
-    overflow:hidden;
-    border-radius: 50%;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -o-border-radius:50%;
-}
 
 .changePDFpic{
     cursor: pointer;
@@ -389,26 +326,14 @@ input{
 
 
 
-
-
-
-.user-profilepic-container:hover .changeuserprofilepic{
-    opacity: 0.6;
-}
-
-.changeuserprofilepic > i{
-    font-size: 35px;
-    color: #fff;
-    line-height: 180px;
-    margin: auto;
-    display: block;
-    width: 35px;
-}
-
 .edit-dashboard-btn{
     opacity: 0;
     margin: 10px;
     box-shadow: 0 0 10px #bbb;
+    display: block; 
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .profilecorpbanner{
@@ -427,18 +352,6 @@ input{
     box-shadow: 0 0 10px #fff;
 }
 
-/*USERPAGE*/
-.user-cover{
-
-    height: 300px; 
-    overflow: hidden;
-}
-
-.user-cover:hover .edit-dashboard-btn{
-    opacity: 1;
-    box-shadow: 0 0 10px #fff;
-}
-/*USERPAGE*/
 
 .profile-wallpaper{
     background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 85%, rgba(255,255,255,0) 100%); /* FF3.6+ */
@@ -676,109 +589,6 @@ div#appfeedback .fresh-message > i.fa-times{
 
 
 
-/* interest BEGINS */
-.show-interest{
-    background-color: #f3f3f3;
-    height: 30px;
-    line-height: 33px;
-    margin: 5px -20px 10px;
-    padding: 0 20px;
-}
-
-.show-interest:hover{
-    background-color: #fff;
-}
-
-.unvisible{
-    color: #777;
-    opacity: 0;
-}
-.user-photo_left{
-    float:left;
-    width:100%;
-}
-#interest_btn{cursor:pointer;}
-
-
-#show_interest:hover .unvisible{
-    opacity: .7
-}
-
-#show_interest
-{
-    position:absolute;
-    top:298px;
-    left:0;
-    padding: 5px 20px 0;
-    width: 100%;
-    height: 200px;
-    float:left;
-    overflow: hidden;
-    background: #F3F3F3;
-
-}
-div.profile-picture-active
-{
-    margin:5px 12px 0 20px!important;
-    width:50px!important;
-    height:50px!important;
-    z-index:1!important;
-    float:left!important;
-    border-width:4px!important;
-    position:absolute;
-}
-div#profile-picture.profile-picture-active > img{
-    min-width:50px;
-    min-height:50px;
-    max-height:53px;
-    max-width: 53px;
-    margin:-4px 0 0 -4px;
-}
-#profile-picture > img{
-    margin-left:-5px;
-    min-width:180px;
-    min-height:180px;
-    max-width:235px;
-    max-height:235px;
-}
-
-.follow-btn-active
-{
-    float: right!important;
-    top: 13px!important;
-    margin: 0 20px 0 0!important;
-    width: auto !important;
-}
-
-textarea.add-interests{
-    max-width:100%;
-}
-
-.user-profilepic-container > div#change_profile{max-width:100%;max-height:100%;}
-
-.interesttags-container{width: 100%;height: 100px;line-height: 25px;padding: 0 0 0 0;margin-top: -5px;overflow: hidden;}
-
-.interest-textarea{width: 100%;margin-bottom: 5px;height: 70px;}
-
-.interest-insert-hint{
-    display: none;
-    height: 80px; 
-    width: 100%; 
-    border-radius: 6px; 
-    border: 1px solid #999;
-    background-color: rgba(30,30,30,.3); 
-    color: #fff;
-    line-height: 15px;
-    text-align: center;
-    font-weight: bold;
-
-    margin: 5px auto 15px;
-    padding: 6px 20px;
-    font-size: 12px;
-}
-
-/* interest ENDS */
-
 /* client profile content styling BEGINS */
 .main_aboutus .editor-content iframe{margin:0!important;}
 
@@ -822,16 +632,9 @@ textarea.add-interests{
 
 
 
-
 .aboutus-attr{font-size: 13px; font-weight: bold;margin: 5px;}
 
 /* client profile content styling ENDS */
-
-
-
-
-
-
 
 
 
@@ -1169,7 +972,7 @@ textarea.add-interests{
     right: 0;
     top: 0;
     color: #333;
-    opacity: 0;
+    opacity: 0.5;
 }
 
 .reply-comment i{
@@ -1644,52 +1447,124 @@ textarea.add-interests{
     border-width: 8px 5px 7px 0;
     border-radius: 2px;
 }
-/* user business profile */
+
+
+
+
+/*-------------------------- user business profile fixed by Charis--------------------------------- */
+
 .new-profile-display{
     z-index: 11;
     background-color: white;  
     border-radius: 5px;
     box-shadow: 0 0 20px #bbb;  
-    width: 500px;
-    height: 450px;
+    width: 651px;
+    height: auto;
     margin: 0 auto; 
     position: fixed; 
     top: 25%;
     left: 0;
     right: 0;
     overflow: hidden;
+
 }
+
+.new-profile-display-top{
+    width: 100%;
+    height: auto; 
+    min-height: 50px;
+    background-color: #ccc;
+}
+
+.new-profile-display-button{
+    font-size: 20px;
+    font-weight: bold;
+    color: #555; 
+    height: auto; 
+    min-height: 50px;
+    vertical-align: middle;
+    display: inline-block;
+    position: absolute;
+    left:22px;
+}
+
+.new-profile-display-title{
+
+    position: relative;
+    font-size: 20px;
+    font-weight: bold;
+    color: #555; 
+    height: auto; 
+    min-height: 50px;
+    vertical-align: middle;
+    display: inline-block;
+
+}
+
+.title-list{
+    width: 100%;
+    position: relative;
+    text-align: left;
+    padding-left: 10px;
+    font-size: 18px;
+    color: #555;
+    clear: both;
+}
+
+.title-list:hover{
+    background-color: #000;
+    color:#fff !important; 
+}
+
+.title-list-selected{
+    background-color: #000;
+    color: #fff;
+}
+
+.title-list > div{
+    position: absolute; 
+    right:20px; 
+    top:0; 
+    color:#ccc; 
+    font-size:15px;
+    text-align:right;
+}
+
+.title-list-selected > div i {
+    color:#fff !important; 
+}
+
+.title-list > div i{  
+    color:#000; 
+    font-size:20px;
+    margin-left: 5px;
+}
+
+#profiles_display{
+    margin: 0 auto;
+}
+
+#profile-creator{
+    display:block;
+}
+#profile-admin{
+    display:none;
+}
+#profile-editor{
+    display:none;
+}
+
 
 .profile-image{
-    height: 200px; 
-    width: 135px; 
-    position:relative; 
-    margin: 7px;
-    float:left; 
-    border-radius: 5px; 
-    background-color: #ddd; 
-    overflow:hidden;
+    height: 65px;
+    width: 48%;
+    margin: 5px;
+    float: left;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid #ccc;
 }
 
-.profile-image-position{
-    text-align: center;
-    padding: 2px; 
-    height:135px;
-    overflow:hidden;
-    line-height: 135px;
-}
-
-.profile-name-position{
-    position: relative;
-    text-align: center;
-    padding: 5px;
-    height: 100px;
-    word-break: break-word;
-    vertical-align: middle;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 20px;
-}
 .profile-bookmark{
     position: absolute; 
     left: 0; 
@@ -1699,42 +1574,23 @@ textarea.add-interests{
 
 .profile-top-image-position{
     text-align: center;
-    background-color: white;
-    display: inline-block; 
-    height: 50px; 
-    width: 50px; 
-    position:relative; 
-    margin: 5px  5px 5px 10px; 
-    line-height: 50px;
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    position: relative;
+    margin: 0px 6px;
+    float: left;
     border-radius: 5px;
-    border: 1px solid #ddd;
-    vertical-align: top;
 }
 .profile-top-name-position{
-    color: #555;  
-    position: relative; 
-    display: inline-block; 
-    width: 100px; 
-    line-height: 20px; 
-    margin: 3px 0;
-    word-wrap: break-word;
-}
-
-.user-profile-image-position{
-    line-height: 135px;
-    text-align: center;
-    margin: 10px;
-    display: inline-block; 
-    width: 135px;
-    height:135px;
-}
-
-.user-profile-name-position{
+    color: #555;
+    position: relative;
+    width: 70%;
+    margin: 0px 6px;
     display: inline-block;
-    width:70%;
-    word-break: break-all;
-    line-height: 20px; 
-    padding-right: 20px;
+    line-height: 20px;
+    word-wrap: break-word;
+    vertical-align: middle;
 }
 
 .user-profile-bookmark{
@@ -1761,7 +1617,10 @@ textarea.add-interests{
     width: 70%;
 }
 
-/*  aboutUsTemplate     */
+/*-------------------------- user business profile fixed by Charis  END--------------------------------- */
+
+
+/*  aboutUsTemplate   by Ally  */
 .cursor-pointer{
     cursor:pointer;
 }

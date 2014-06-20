@@ -142,7 +142,7 @@
             <div class="fa icon-on-black left-arrow"  {{action previesImage on="click" target="controller"}}>
                 <i class="fa fa-arrow-left"></i>
             </div>
-            <div class="fa icon-on-black hint--rounded hint--top middle-icon" data-hint="Show other photos in this collection." {{action popupAibum controller.selectedPhoto.id on="click" target="view"}}>
+            <div class="fa icon-on-black hint--rounded hint--top middle-icon" data-hint="Show other images in this article" {{action popupAibum controller.selectedPhoto.id on="click" target="view"}}>
                 <i class="fa fa-th"></i>
             </div>
             <div class="fa icon-on-black right-arrow" {{action nextImage on="click" target="controller"}}>
@@ -198,7 +198,7 @@
                     <i class="fa fa-folder" >&nbsp;<span class="view-stats-font">{{controller.article.save_count}}</span>&nbsp;</i>
                 </div>
 
-                <div class="square-button hint--rounded hint--bottom share-box2" data-hint="Share this article." {{action dropdownPhotoSetting "2"}}>
+                <div class="square-button hint--rounded hint--bottom share-box2" data-hint="Share this article" {{action dropdownPhotoSetting "2"}}>
                      <i class="fa fa-share" >&nbsp;<span class="view-stats-font">{{controller.article.share_count}}</span>&nbsp;</i>
                 </div>
 

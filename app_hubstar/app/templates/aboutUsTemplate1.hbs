@@ -91,22 +91,25 @@
     {{/each}}
 
 
-    <div class="left-area"> 
+    <div class="left-area">         
         <a rel="nofollow" target="_blank" href="http://www.youtube.com/trendspublishing" class="cursor-pointer"> 
             <h4>View the Latest Video from the Trends YouTube channel</h4></a>
         <hr>
-        <div class="bg-color-area bg-video-position" >
-            {{#each about_video}}
+        {{#each about_video}}
+        {{#if display}}
+        <div class="bg-color-area bg-video-position" >                        
             <iframe width="650" height="450" {{bindAttr src="controller.embeded_url"}} frameborder="0" allowfullscreen=""></iframe> 
             <div class="video-des-area">
                 <h4><a rel="nofollow" target="_blank" {{bindAttr href="image_link"}} class="cursor-pointer"> {{video_title}}</a></h4>
                 <div class="video-des">{{video_desc}}</div>
                 <a rel="nofollow" target="_blank" class="left-area-title-color" class="hover-opacity" {{bindAttr href="video_url"}}>more</a>
             </div>
-            {{/each}}
         </div>
+        {{/if}}
+        {{/each}}
         <div class="left-bottom-area">
             {{#each about_image}}
+            {{#if display}}
             <a rel="nofollow" target="_blank" {{bindAttr href="image_link"}} class="display-article-img-area">
                 <div class="display-article-img-box"><img class="width-100" {{bindAttr src="image_url"}}></div>
                 <div class="display-article-img-Titledes">
@@ -114,6 +117,7 @@
                     <div class="display-article-img-des">{{image_desc}}</div>
                 </div>
             </a>
+            {{/if}}
             {{/each}}
         </div>
     </div>

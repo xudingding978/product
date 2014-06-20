@@ -2,11 +2,7 @@
     {{#if HubStar.is_404}}
     {{outlet fourOhFour}}
     {{else}}
-
     {{view HubStar.HeaderView}}
-
-
-
     {{outlet "welcome"}}
     {{#unless controller.isotherpage}}
     {{#if HubStar.showDiscoveryBar}}
@@ -42,24 +38,13 @@
     {{outlet photos}}
     {{outlet articles}}
     {{outlet videoes}}
-
-
-
-
-
     {{#if controller.loadingTime}}
     {{render loadingSpinner}}
     {{/if}}
-
-
     {{render applicationFeedback}}
-
-
     {{#if controller.loginTime}}
     {{render loadingSpinner}}
     {{/if}}
-
-
     {{/if}}
 </div>
 

@@ -28,7 +28,7 @@
            <a tabindex="-1"  href="#/profiles/new">
                 {{/if}}
                 <i class="fa fa-briefcase">&nbsp;&nbsp;</i>
-                <span>Business Profiles</span>
+                <span>Business Profiles ({{controller.total_profiels}})</span>
             </a>
     </li>
 
@@ -40,7 +40,7 @@
         {{#if HubStar.profile_manager}}
         <a tabindex="-1"  href="" {{action userDisplaynone "new" on="click"  target="view"}}>
            <i class="fa fa-briefcase" style="">&nbsp;&nbsp;</i>
-            <span>Business Profiles</span>
+            <span>Business Profiles ({{controller.total_profiels}})</span>
         </a>
         {{/if}}
     </li>

@@ -36,14 +36,14 @@
         {{#unless controller.tag.tag_approved}}
         <div id="tag_activate_button" {{action sureToActivate controller.tag.tag_id }} >
              <i class="fa fa-check-circle"></i>
-            <div id ="tag_activate_button_text" style ="position:relative; top:-4px; left: 7px; display:inline-block; font-size:15px;">
+            <div id ="tag_activate_button_text" class="tag-button" >
                 activate
             </div>
         </div>
         {{else}}
         <div id="tag_edit_button"  {{action EditTag controller.tag.tag_id }}>
              <i class="fa fa-pencil-square-o"></i>
-             <div id ="tag_edit_button_text" style ="position:relative; top:-4px; left: 7px; display:inline-block; font-size:15px;">
+             <div id ="tag_edit_button_text" class="tag-button">
                 edit
             </div>
         </div>
@@ -51,7 +51,7 @@
         <!--        only the tag owner can delete the tag button-->
         <div id="tag_delete_button"  {{action deleteTag controller.tag.tag_id }} >
              <i class="fa fa-trash-o"></i>
-            <div id ="tag_delete_button_text" style ="position:relative; top:-4px; left: 7px; display:inline-block; font-size:15px;">
+            <div id ="tag_delete_button_text" class="tag-button">
                 delete
             </div>
         </div>
@@ -60,13 +60,13 @@
         {{#if controller.tag.is_tag_owner}}
         <div  id="tag_edit_button"  {{action EditTag controller.tag.tag_id }}>
             <i class="fa fa-pencil-square-o"></i>
-             <div id ="tag_edit_button_text" style ="position:relative; top:-4px; left: 7px; display:inline-block; font-size:15px;">
+             <div id ="tag_edit_button_text" class="tag-button">
                 edit
             </div>
         </div>
         <div id="tag_delete_button"  {{action deleteTag controller.tag.tag_id }}>
             <i class="fa fa-trash-o"></i>
-            <div id ="tag_delete_button_text" style ="position:relative; top:-4px; left: 7px; display:inline-block; font-size:15px;">
+            <div id ="tag_delete_button_text" class="tag-button">
                 delete
             </div>
         </div>

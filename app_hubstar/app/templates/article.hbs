@@ -8,15 +8,11 @@
     <div class="objectview-left article-objectview-left" >
         <div class="top-controlbar easing" >
             {{#unless controller.enableTag}}
-
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this article to a collection." {{action switchCollection on="click" target="controller"}}>
-
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Save this article to a collection" {{action switchCollection on="click" target="controller"}}>
                 <i class="fa fa-folder" {{action switchCollection on="click" target="controller"}}></i>
                 <span class="pretooltip">  Save </span>          
             </div>
-
-            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this article." {{action dropdownPhotoSetting "1"}}>
-
+            <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Share this article" {{action dropdownPhotoSetting "1"}}>
                  <i class="fa fa-share"></i><span class="pretooltip">Share</span> 
             </div>
             {{/unless}}
@@ -33,6 +29,8 @@
             </div>
             {{/if}}
             {{/if}}
+            {{#unless controller.enableTag}}
+
             {{#if controller.showAllTagsArticle}}
             <div class="fa icon-on-black hint--rounded hint--bottom" data-hint="Hide all tags on this image"  {{action hideTags}}>
                  <i class="fa fa-tag"></i><span class="pretooltip">Hide Tags</span> 
@@ -42,6 +40,7 @@
                  <i class="fa fa-tag"></i><span class="pretooltip">Show Tags</span> 
             </div>
             {{/if}}
+            {{/unless}}
             {{/if}}
             <ul class="hideClass edit-object-ul share-box" id="dropdown_id_1">
 
@@ -120,7 +119,7 @@
             <div class="fa icon-on-black "  {{action previesImage on="click" target="controller"}}>
                 <i class="fa fa-arrow-left"></i>
             </div>
-            <div class="fa icon-on-black hint--rounded hint--top" data-hint="Show other photos in this collection." {{action popupAibum controller.selectedPhoto.id on="click" target="view"}}>
+            <div class="fa icon-on-black hint--rounded hint--top" data-hint="Show other other images in this article" {{action popupAibum controller.selectedPhoto.id on="click" target="view"}}>
                 <i class="fa fa-th"></i>
             </div>
             <div class="fa icon-on-black " {{action nextImage on="click" target="controller"}}>
@@ -172,11 +171,11 @@
                 </div>
                 {{/if}}
 
-                <div class="square-button hint--rounded hint--bottom"  data-hint="Save this article to a collection." {{action switchCollection on="click" target="controller"}}>
+                <div class="square-button hint--rounded hint--bottom"  data-hint="Save this article to a collection" {{action switchCollection on="click" target="controller"}}>
                     <i class="fa fa-folder" >&nbsp;<span class="view-stats-font">{{controller.article.save_count}}</span>&nbsp;</i>
                 </div>
 
-                <div class="square-button hint--rounded hint--bottom share-box2" data-hint="Share this article." {{action dropdownPhotoSetting "2"}}>
+                <div class="square-button hint--rounded hint--bottom share-box2" data-hint="Share this article" {{action dropdownPhotoSetting "2"}}>
                      <i class="fa fa-share" >&nbsp;<span class="view-stats-font">{{controller.article.share_count}}</span>&nbsp;</i>
                 </div>
 
@@ -227,8 +226,10 @@
                 <div id ="read_more_cue" class="article-text article-display">......</div>
             </div>
         </div>
-        <div id="article_view_ads">
+        {{#if HubStar.object_ad_display}}
+        <div id="article_view_ads" >
         </div>
+        {{/if}}
         <!-- OBJECT CREDIT LIST SECTION -->
         {{#if controller.isCreditListExist}}
         <div>

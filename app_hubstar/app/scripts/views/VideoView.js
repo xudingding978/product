@@ -64,8 +64,8 @@ HubStar.VideoView = Ember.View.extend({
                 if (user_photo_id !== undefined) //type:article means it 
                 {
 
-                    
-                    for ( i = 0; i < user.get('collections').get("length"); i++) {
+
+                    for (i = 0; i < user.get('collections').get("length"); i++) {
                         data = user.get('collections').objectAt(i);
                         if (data.id === collection_id) {
                             break;
@@ -85,8 +85,8 @@ HubStar.VideoView = Ember.View.extend({
                 if (type === "profiles")
                 {
                     var profile = HubStar.Profile.find(id);
-                    
-                    for ( i = 0; i < profile.get('collections').get("length"); i++) {
+
+                    for (i = 0; i < profile.get('collections').get("length"); i++) {
                         data = profile.get('collections').objectAt(i);
                         if (data.id === collection_id) {
                             break;

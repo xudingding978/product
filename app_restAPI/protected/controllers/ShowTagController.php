@@ -371,7 +371,7 @@ class ShowTagController extends Controller {
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
         $platformEmail = $platformSettings['support']['email'];
-        $subject_prefix = $receiveName . "  you have tag avtivated pending ";
+        $subject_prefix = $receiveName . "  you have tag activated pending ";
         $args = array(
             "Source" => $platformEmail,
             "Destination" => array(

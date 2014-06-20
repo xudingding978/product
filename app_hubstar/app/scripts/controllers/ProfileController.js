@@ -205,10 +205,24 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             $("#search-bar").css('display', "block");
                             $("#topResidentialCommerical").css('display', "block");
                             $(".search-bar-on-small-screen").css('display', "none");
+                             if (HubStar.get("isTopAdDisplay")) { 
+                            }
+                            else
+                            {
+                                $('.profile-top').css('height', "150px");
+                            }
                         } else {
                             $("#search-bar").css('display', "none");
                             $("#topResidentialCommerical").css('display', "none");
                             $(".search-bar-on-small-screen").css('display', "block");
+                            if (HubStar.get("isTopAdDisplay")) {
+                                $("#top_bar_ads").css({"position": "fixed", "top": "150px"});                               
+                            }
+                            else
+                            {
+                                $('.profile-top').css('height', "150px");
+                            }
+
                         }
                         $('#masonry_user_container').masonry("reloadItems");
                         setTimeout(function() {

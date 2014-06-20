@@ -16,6 +16,7 @@ HubStar.VideoController = Ember.Controller.extend({
             var megaModel = HubStar.Mega.find(videoObject);
             megaModel.then(function() {
                 that.set('megaResouce', megaModel);
+                that.ads();
                 var tempVideoObject = megaModel.get('videoes').objectAt(0);
                 that.set('videoObject', tempVideoObject);
                 var videoIframe = tempVideoObject.get("videoIframeCode");
@@ -62,11 +63,58 @@ HubStar.VideoController = Ember.Controller.extend({
         }
 
         );
-
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
         }
-    }, addComment: function() {
+    },
+    ads: function() {
+        var type = this.get("megaResouce").get("classification");
+
+        $(document).ready(function() {
+            setTimeout(function() {
+                if (HubStar.get("object_ad_display") === true) {
+                    var photo = document.getElementById("video_view_ads");
+                    for (var i = 0; i < HubStar.get('objectAds')[2].length; i++)
+                    {
+                        var ad = HubStar.get('objectAds')[2][i];
+                        if (ad.type === type)
+                        {
+
+                            var adDiv = document.createElement('div');
+                            adDiv.id = ad.div;
+                            var height = ad.size[1];
+                            var width = ad.size[0];
+                            adDiv.style.display = "block";
+                            adDiv.style.height = height + "px";
+                            adDiv.style.width = width + "px";
+                            photo.appendChild(adDiv);
+                            if (ad.isNew === true) {
+                                googletag.cmd.push(function() {
+                                    var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                                    ad.slot1 = slot1;
+                                    googletag.pubads().enableSingleRequest();
+                                    googletag.enableServices();
+                                    googletag.display(ad.div);
+                                    googletag.pubads().refresh([slot1]);
+                                });
+                                ad.isNew = false;
+                            }
+                            else
+                            {
+                                googletag.cmd.push(function() {
+                                    googletag.pubads().enableSingleRequest();
+                                    googletag.enableServices();
+                                    googletag.display(ad.div);
+                                    googletag.pubads().refresh([ad.slot1]);
+                                });
+                            }
+                        }
+                    }
+                }
+            }, 300);
+        });
+    },
+    addComment: function() {
 
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
@@ -251,7 +299,7 @@ HubStar.VideoController = Ember.Controller.extend({
                     }
                     mega.store.save();
                 });
-                that.get('controllers.applicationFeedback').statusObserver(null, "Shared Successfully.");
+                that.get('controllers.applicationFeedback').statusObserver(null, "Video shared successfully!");
             } else {
                 that.get('controllers.applicationFeedback').statusObserver(null, "Share cancelled.", "failed");
             }

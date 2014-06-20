@@ -1112,6 +1112,11 @@ search-bar-on-small-screen #topResidentialCommerical{
     .search-bar-on-large-screen{
         display: none;
     }
+    
+    .user-top{
+        height:180px;
+    }
+    
 }
 
 

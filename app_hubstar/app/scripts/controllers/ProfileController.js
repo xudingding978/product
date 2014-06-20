@@ -711,7 +711,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                     this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).set('embeded_object_id', embeded_object_id);
                 } else {
                     this.get('about_us').objectAt(0).get('about_embeded_object').objectAt(i).set('embed_object_enabled', false);
-                }
+                } 
             }
             if (this.get('model').get('about_us') === null || this.get('model').get('about_us') === 'undefined' || this.get('model').get('about_us').get('length') === 0) {
                 this.get('model').get('about_us').pushObject(this.get('about_us').objectAt(0));

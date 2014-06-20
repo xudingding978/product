@@ -14,7 +14,7 @@
         {{#each controller.notificationContent}}
         {{#if this.isRead}}
 
-        <div class='each-conversation easing'>
+        <div class="each-conversation easing">
             <div style="  padding: 15px 0 10px 95px;position: relative;" {{action go this.notification_id}}>
                  <a class="" style="position: absolute; top: 18px;margin: 0 0 0 -55px;"  {{bindAttr href="controller.photo_url"}}>
                     <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.photo_url}} /> 
@@ -46,12 +46,12 @@
             {{#if this.isButton}}
              {{#if this.isTag}}
             <div class="reply-comment easing" style="left: 254px;position: relative;top: -30px; float: left;">                 
-                <span class='new-btn' {{action viewPhoto this.action_id}}><i class='fa fa-picture-o'> &nbsp;</i>View</span>
+                <span class="new-btn" {{action viewPhoto this.action_id}}><i class="fa fa-picture-o"> &nbsp;</i>View</span>
             </div>
             {{/if}}
             <div class="reply-comment easing" style="right: 290px;position: relative;top: -30px; float: right;">  
-                <span class="new-btn green-btn "  {{action accept this.notification_id this.type}}><i class='fa fa-check'> &nbsp;</i>Accept</span>
-                <span class='new-btn' {{action decline this.notification_id this.type}}><i class='fa fa-times'> &nbsp;</i>Decline</span>
+                <span class="new-btn green-btn "  {{action accept this.notification_id this.type}}><i class="fa fa-check"> &nbsp;</i>Accept</span>
+                <span class="new-btn" {{action decline this.notification_id this.type}}><i class="fa fa-times"> &nbsp;</i>Decline</span>
 
             </div>
             <div class="reply-comment easing" style="right: -135px;position: relative;float: right;top: -60px;">  
@@ -61,7 +61,7 @@
             {{else}}
             {{#if this.isTag}}
             <div class="reply-comment easing" style="left: 94px;position: relative;top: -30px; float: left;">                 
-                <span class='new-btn' {{action viewPhoto this.action_id}}><i class='fa fa-picture-o'> &nbsp;</i>View</span>
+                <span class="new-btn" {{action viewPhoto this.action_id}}><i class="fa fa-picture-o"> &nbsp;</i>View</span>
             </div>
             {{/if}}
             <div class="reply-comment easing" style="right: 25px;position: relative;float: right;top: -60px;">  
@@ -72,7 +72,7 @@
         </div>
 
         {{else}}
-        <div class='each-conversation easing unread-style'>
+        <div class="each-conversation easing unread-style">
             <div style="  padding: 15px 0 10px 95px;position: relative;" {{action go this.notification_id}}>
                  <a class="" style="position: absolute; top: 18px;margin: 0 0 0 -55px;"  {{bindAttr href="controller.photo_url"}}>
                     <img class=""  style="border-radius: 50%; width: 40px; height: 40px; border: 1px solid #f3f3f3;" {{bindAttr src= this.photo_url}} /> 
@@ -103,12 +103,12 @@
             {{#if this.isButton}}
             {{#if this.isTag}}
             <div class="reply-comment easing" style="left: 254px;position: relative;top: -30px; float: left;">                 
-                <span class='new-btn' {{action viewPhoto this.action_id}}><i class='fa fa-picture-o'> &nbsp;</i>View</span>
+                <span class="new-btn" {{action viewPhoto this.action_id}}><i class="fa fa-picture-o"> &nbsp;</i>View</span>
             </div>
             {{/if}}
             <div class="reply-comment easing" style="right: 290px;position: relative;top: -30px; float: right;">                 
-                <span class="new-btn green-btn "  {{action accept this.notification_id this.type}}><i class='fa fa-check'> &nbsp;</i>Accept</span>
-                <span class='new-btn' {{action decline this.notification_id this.type}}><i class='fa fa-times'> &nbsp;</i>Decline</span>                
+                <span class="new-btn green-btn "  {{action accept this.notification_id this.type}}><i class="fa fa-check"> &nbsp;</i>Accept</span>
+                <span class="new-btn" {{action decline this.notification_id this.type}}><i class="fa fa-times"> &nbsp;</i>Decline</span>                
             </div>
             <div class="reply-comment easing" style="right: -135px;position: relative;float: right;top: -60px;">  
                 <i class="fa fa-check-circle" {{action markRead this.notification_id}}></i>                 
@@ -117,7 +117,7 @@
             {{else}}
             {{#if this.isTag}}
             <div class="reply-comment easing" style="left: 94px;position: relative;top: -30px; float: left;">                 
-                <span class='new-btn' {{action viewPhoto this.action_id}}><i class='fa fa-picture-o'> &nbsp;</i>View</span>
+                <span class="new-btn" {{action viewPhoto this.action_id}}><i class="fa fa-picture-o"> &nbsp;</i>View</span>
             </div>
             {{/if}}
             <div class="reply-comment easing" style="right: 25px;position: relative;float: right;top: -60px;">  

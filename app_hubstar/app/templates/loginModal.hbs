@@ -110,7 +110,7 @@
     {{#if controller.isRegistering}}
     <div class="register-btn easing register-btn-small"  {{action next}}>Next</div>
     {{else}}
-    <div class="easing register-btn-small" ><i class="spinner" style='top:4px'>&nbsp;</i></div>
+    <div class="easing register-btn-small" ><i class="spinner" style="top:4px">&nbsp;</i></div>
     {{/if}}
 
 </div>
@@ -362,7 +362,7 @@
             {{view Ember.TextField valueBinding="resetPasswordEmail" placeholder="Your Email" }}
         </div>
         <div class="back-btn easing" style="" >Back</div>
-        <div id='reset-btn' class="register-btn easing register-btn-small" {{action emailSend}}>Reset password</div>
+        <div id="reset-btn" class="register-btn easing register-btn-small" {{action emailSend}}>Reset password</div>
     </div>
 
     <div class="black-tool-tip"id="forgot-message-container" style="display:none;">

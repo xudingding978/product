@@ -2162,6 +2162,16 @@ textarea.add-interests{
     width: 31%;
 }
 
+.profile-row > .profile-col4{
+     display:table-cell;
+    text-align: right; 
+    width: 25%;
+}
+
+.profile-col4a{
+    position: relative;
+    bottom: 9px;
+}
 .profile-tab-row1-wrn{
     display: none;
 }
@@ -2172,6 +2182,11 @@ textarea.add-interests{
     text-align: center;
 }
 
+.profile-tab-row2{
+    margin: 10px 30px 5px 10px;
+    width: 80%; 
+    text-align: center;
+} 
 .profile-tab-row2a{
     margin: 10px 10px 0;
     width: 34%;
@@ -2190,6 +2205,21 @@ textarea.add-interests{
     display: inline-block;
 }
 
+.profile-tab-row2d{
+    margin: 10px 10px 0;
+    width: 72%;
+    display: inline-block;
+}
+
+.profile-tab-row2e{
+    margin-top: 0;
+}
+
+.profile-tab-row2f{
+    height: 80px;
+}
+
 .profile-tab-editor{
     height: 100px;
 }
+

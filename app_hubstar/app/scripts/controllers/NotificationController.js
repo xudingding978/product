@@ -49,17 +49,17 @@ HubStar.NotificationController = Ember.Controller.extend({
         }
         else if (type === "Tag")
         {
-            displayString = " add a tag on your photo, please activate";
+            displayString = " wants to tag your image - click here for more info";
         }
         else if (type === "authority")
         {
             if (name.split(',')[0] === "add")
             {
-                displayString = " added you as a " + name.split(',')[1];
+                displayString = " added you as an " + name.split(',')[1];
             }
             else
             {
-                displayString = " removed you as a " + name.split(',')[1];
+                displayString = " removed you as an " + name.split(',')[1];
             }
         }
         return displayString;
@@ -154,7 +154,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                         break;
                     }
                 }
-                that.get('controllers.applicationFeedback').statusObserver(null, params);
+                that.get('controllers.applicationFeedback').statusObserver(null, params,"warnning");
                 that.markRead(id);
             });
         }
@@ -169,7 +169,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                         break;
                     }
                 }
-                that.get('controllers.applicationFeedback').statusObserver(null, params);
+                that.get('controllers.applicationFeedback').statusObserver(null, params,"warnning");
                 that.markRead(id);
             });
         }
@@ -203,14 +203,17 @@ HubStar.NotificationController = Ember.Controller.extend({
                         if (type === "administrator")
                         {
                             isAdministrator = true;
+                            HubStar.set("userAdministrator", HubStar.get("userAdministrator") + 1);
                         }
                         else if (type === "editor")
                         {
                             isEditor = true;
+                            HubStar.set("userEditor", HubStar.get("userEditor") + 1);
                         }
                         else if (type === "creator")
                         {
                             isCreator = true;
+                            HubStar.set("userCreator", HubStar.get("userCreator") + 1);
                         }
 
                         var url = profile_pic.split("_");
@@ -246,7 +249,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                         });
                     });
                 }
-                that.get('controllers.applicationFeedback').statusObserver(null, params);
+                that.get('controllers.applicationFeedback').statusObserver(null, params,"warnning");
                 that.markRead(id);
             });
         }
@@ -261,7 +264,7 @@ HubStar.NotificationController = Ember.Controller.extend({
                         break;
                     }
                 }
-                that.get('controllers.applicationFeedback').statusObserver(null, params);
+                that.get('controllers.applicationFeedback').statusObserver(null, params,"warnning");
                 that.markRead(id);
             });
         }

@@ -78,6 +78,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     loadingTime: false,
     localStorage: "",
     applicationCategoryDropdownType: 'geoLocation',
+    total_profiels:0,
     init: function() {
         HubStar.set("isTopAdDisplay", true);
         var that = this;
@@ -267,11 +268,14 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                         }
                     }
                 }
-            }, 100);
+            }, 500);
         });
     },
     grapData: function() {
         HubStar.set("profiles", []);
+        HubStar.set("userAdministrator", 0);
+        HubStar.set("userEditor", 0);
+        HubStar.set("userCreator", 0);
         var that = this;
         if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
             localStorage.resOrcom = "All";
@@ -313,14 +317,17 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     if (type === "administrator")
                     {
                         isAdministrator = true;
+                        HubStar.set("userAdministrator", HubStar.get("userAdministrator") + 1);
                     }
                     else if (type === "editor")
                     {
                         isEditor = true;
+                        HubStar.set("userEditor", HubStar.get("userEditor") + 1);
                     }
                     else if (type === "creator")
                     {
                         isCreator = true;
+                        HubStar.set("userCreator", HubStar.get("userCreator") + 1);
                     }
                     var url = pic.split("_");
                     var length = url.length;
@@ -352,6 +359,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     });
 
                 }
+                that.set("total_profiels",HubStar.get("profiles").length);
             });
         }
         else
@@ -361,7 +369,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         this.set("user", u);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
-
     },
     searchSmallScreen: function() {
 

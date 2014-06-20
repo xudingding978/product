@@ -2,25 +2,32 @@
 HubStar.UpdateTagController = Ember.ObjectController.extend({
     change_tag_show: false,
     selectTagProfile: false,
-    photo_id: "", //selected photo's id
-    profiles: [], // the list of profiles that user own
+    photo_id: "",
+    profiles: [],
     collections: [],
-    product_name: "", //it is the product name
-    selectedDesc: "", //it is selected profile title
+    selectedCollection:[],
+    profileCollection: [],
+    product_name: "",
+    selectedDesc: "",
     selectedID: "",
-    description: "", //it is the descriptioin of the product
+    description: "",
     pic_x: "",
     pic_y: "",
     aa: false,
-    tag_id: "", // it is used to update
-    photo_id:"", //it is used to update
-            selectedID: "", //it is selected profile id
-            contentTags: "", //it is to save the every tag's content
+    tag_id: "",
+    photo_id:"",
+            chooseProfileItem: false,
+    selectedID: "",
+    selectedCollectionID:"",
+            contentTags: "",
+    profile_name: "",
     currentPhoto: "",
     linkTo: "", //the content link address
     photo_owner_user: [],
-    isUpdateTag: false,
+    //isUpdateTag: false,
     selectedPhotoThumbnailUrl: "",
+    selectedCollectionName:"",
+    isReadProfile: false,
     selectedTitle: "Choose your Collection",
     //selectedCollection: "",
     selectionPop: false,
@@ -40,7 +47,7 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
     /***get the original data of this tag**/
     updateTag: function(tag_id, photo_id)
     {
-        this.set("isUpdateTag", true);
+        //this.set("isUpdateTag", true);
         var tag = "";
 
         for (var i = 0; i < this.get("controllers.showTag").get("contentTags").get("length"); i++)
@@ -48,18 +55,19 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
             if (this.get("controllers.showTag").get("contentTags").objectAt(i)["tag_id"] === tag_id)
             {
                 tag = this.get("controllers.showTag").get("contentTags").objectAt(i);
-
                 break;
             }
-
         }
-        this.set("product_name", tag["product_name"]);
-        this.set("description", tag["desc"]);
-        this.set("linkTo", tag["linkto"]);
-       // console.log(tag);
-        this.set("selectedDesc","");  //selectedDesc is the profile id now
-        this.set("selectedID", tag["profile_id"]);  //selectedDesc is the profile id now
-        this.setThumbnailUrl(tag["pic_url"]);
+        this.set("product_name", tag.product_name);
+        //this.chooseProfile(tag.profile_name,tag.profile_id);
+        this.set('profile_name', tag.profile_name);
+        this.set("description", tag.desc);
+        this.set("linkTo", tag.linkto);
+        this.set("selectedDesc", "");
+        this.set("selectedID", tag.profile_id);
+        this.set("selectedCollectionID", tag.collectionID);
+        this.set("selectedCollectionName", tag.collection_name);
+        this.setThumbnailUrl(tag.pic_url);
         this.set("tag_id", tag_id);
         this.set("photo_id", photo_id);
     },
@@ -74,12 +82,9 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
         {
             if (this.get("controllers.showTag").get("contentTags").objectAt(i)["tag_id"] === tag_id)
             {
-                this.get("controllers.showTag").get("contentTags").objectAt(i)["linkto"] = this.get("linkTo");
                 this.get("controllers.showTag").get("contentTags").objectAt(i)["desc"] = this.get("description");
                 this.get("controllers.showTag").get("contentTags").objectAt(i)["product_name"] = this.get("product_name");
                 this.get("controllers.showTag").get("contentTags").objectAt(i)["tag_time"] = time_stamp;
-                this.get("controllers.showTag").get("contentTags").objectAt(i)["profile_id"] = this.get("selectedID");
-
                 break;
             }
         }
@@ -91,11 +96,11 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
         {
             this.get("controllers.mega").set("contentTags", this.get("controllers.showTag").get("contentTags"));
         }
-        var tagInfo = [tag_id, this.get("product_name"), this.get("description"), this.get("linkTo"), time_stamp, this.get("selectedID"), photo_id];
+        var tagInfo = [tag_id, this.get("product_name"), this.get("description"), time_stamp, photo_id];
         tagInfo = JSON.stringify(tagInfo);
         var that = this;
         requiredBackEnd('showTag', 'updateTag', tagInfo, 'POST', function(params) {
-            that.set("isUpdateTag", false);
+            //that.set("isUpdateTag", false);
             if (HubStar.get("isArticleTag") === true)
             {
                 that.get("controllers.article").set("enableEditTag", false);
@@ -109,6 +114,10 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
             that.get("controllers.showTag").readTags(photo_id);
         });
     },
+    collectionSwitch: function() {
+        this.set('selectionPop', !this.get("selectionPop"));
+        this.set('selectTagProfile', false);
+    },
     cancelUpdateTag: function()
     {
         if (HubStar.get("isArticleTag") === true)
@@ -119,7 +128,7 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
         {
             this.get("controllers.mega").set("enableEditTag", false);
         }
-        this.set("isUpdateTag", false);
+        //this.set("isUpdateTag", false);
         this.cancelTag();
     },
     cancelTag: function()
@@ -136,12 +145,14 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
         var dataNew = new Array();
         var that = this;
         this.set('selectionPop', false);
+        this.set('isReadProfile', true);
         requiredBackEnd('users', 'ReadProfileData', data, 'POST', function(params) {
 //            dataNew["profile_id"] = localStorage.loginStatus;
 //            dataNew["profile_name"] = "your profile";
 //            dataNew["type"] = "user";
 //            params.insertAt(0, dataNew);
             that.set("profiles", params);
+            that.set('isReadProfile', false);
             that.set('selectTagProfile', !that.get('selectTagProfile'));
         });
     },
@@ -159,6 +170,8 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
                 else
                 {
                     this.set("chosenProfile", id);
+                    this.set("profileCollection", this.get("profiles").objectAt(i).collection);
+                    this.set("chooseProfileItem", true);
                 }
 
                 this.setDesc(title); //set current profile
@@ -171,6 +184,24 @@ HubStar.UpdateTagController = Ember.ObjectController.extend({
             }
         }
         this.set('selectTagProfile', !this.get('selectTagProfile'));
+    },
+    chooseRecord: function(title, id) {
+        this.set('selectedTitle', title);
+        this.setSelectedCollection(id);
+        var link = 'http://' + document.domain + '/#/profiles/' + this.get("selectedID") + "/collections/" + id;
+        this.setLinkTo(link);
+        this.set('selectionPop', !this.get("selectionPop"));
+    },
+    setSelectedCollection: function(id) {
+        var selectedCollection = null;
+        for (var i = 0; i < this.get("profileCollection").get("length"); i++) {
+            var thisCollection = this.get("profileCollection").objectAt(i);
+            if (id === thisCollection.id) {
+                selectedCollection = thisCollection;
+            }
+        }
+        this.set("selectedCollectionID", selectedCollection.id);
+        this.set('selectedCollection', selectedCollection);
     },
     profileCanel: function() {
         this.set('selectTagProfile', false);

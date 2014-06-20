@@ -2127,7 +2127,7 @@ div.album-description-bg{
     position: absolute; 
     border-radius: 3px;
     width: 530px;
-    height: 430px;
+   height: auto;
 }
 
 .show-tag-title{
@@ -2594,11 +2594,12 @@ div.album-description-bg{
     height: auto;
     background-color: #000;
     color: #fff;
-    border-radius: 5px;
+    border-radius: 2px;
     text-align: center;
     padding: 5px 10px;
     font-weight: bold;
     word-wrap: break-word;
+    outline: white solid 1px;
 }
 
 .tag-content-arrow{
@@ -3488,7 +3489,7 @@ div.album-description-bg{
 
 /* deletedFunction.hbs */
 .delete-container{
-    z-index: 11;
+    z-index: 14;
     background-color: white; 
     border: 1px rgba(0,0,0,.6); 
     border-radius: 3px;
@@ -3500,6 +3501,7 @@ div.album-description-bg{
     top: 35%;
     left: 0;
     right: 0;
+     line-height: 18px;
 }
 
 .deleted-icon{
@@ -3517,9 +3519,8 @@ div.album-description-bg{
 
 .deleted-reask{
     color: #333; 
-    font-size: 22px; 
-    font-weight: bold; 
-    line-height: 18px; 
+    font-size: 18px; 
+    font-weight: bold;  
     text-align: center; 
     margin: 10px 0;
 }

@@ -1,6 +1,6 @@
 .blank-top-bar{
     background-color: transparent;
-    z-index: 10;
+    z-index: 11;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -901,7 +901,7 @@ div#forgot-password-container{
     position: relative;
     float: right; 
     top: 68px; 
-    z-index: 100;
+    z-index: 12;
     left: 40px;
 }
 .notification-triangle-after{

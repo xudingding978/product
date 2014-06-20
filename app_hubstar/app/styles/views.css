@@ -2599,7 +2599,7 @@ div.album-description-bg{
     padding: 5px 10px;
     font-weight: bold;
     word-wrap: break-word;
-    outline: white solid 1px;
+    box-shadow: 0 0 10px #fff
 }
 
 .tag-content-arrow{

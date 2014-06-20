@@ -86,15 +86,23 @@ return CMap::mergeArray(
                         ),
                     ),
                 ),
-//                'session' => array(
-//                    'sessionName' => 'Site Session',
-//                    'class' => 'CHttpSession',
-//                    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
-//                    'autoStart' => 'false',
-//                    'cookieMode' => 'only',
-//                    'savePath' => '/home/devbox/NetBeansProjects/hubstar/common/protected/models',
-//                    'timeout' => 1800
-//                ),
+                'session' => array(
+                    'sessionName' => 'Session',
+                    'class' => 'CDbHttpSession',
+                    //  'autoCreateSessionTable' => true,
+                    'connectionID' => 'db',
+                    'sessionTableName' => 'usersession',
+                    //    'useTransparentSessionID' => ($_POST['PHPSESSID']) ? true : false,
+                    'useTransparentSessionID' => true,
+                    'autoStart' => 'true',
+                    'cookieMode' => 'only',
+                    'cookieParams' => array(
+                        'path' => '/',
+                        'domain' => $domain,
+                        'httpOnly' => true,
+                    ),
+                //   'timeout' => 1800,
+                ),
                 'bootstrap' => array(
                     'class' => 'common.extensions.bootstrap.components.Bootstrap',
                     'responsiveCss' => true,

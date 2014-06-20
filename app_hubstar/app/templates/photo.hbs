@@ -127,7 +127,7 @@
                 <i class="fa fa-arrow-left"></i>
             </div>
             {{#unless controller.isRead}}
-            <div class="fa icon-on-black hint--rounded hint--top" data-hint="Show other photos in this collection" {{action popupAibum on="click" target="view"}}>
+            <div class="fa icon-on-black hint--rounded hint--top" data-hint="Show other images in this collection" {{action popupAibum on="click" target="view"}}>
                 <i class="fa fa-th"></i>
             </div>
             {{else}}
@@ -179,7 +179,7 @@
                       <i class="fa fa-thumbs-up">&nbsp;<span class="view-stats-font">{{megaResouce.likes_count}}</span>&nbsp;</i>
                 </div>
                 {{/if}}
-                <div class="square-button hint--rounded hint--bottom"  data-hint="Save this photo to a collection" {{action switchCollection on="click" target="controller"}}>
+                <div class="square-button hint--rounded hint--bottom"  data-hint="Save this image to a collection" {{action switchCollection on="click" target="controller"}}>
                     <i class="fa fa-folder" >&nbsp;<span class="view-stats-font">{{megaResouce.save_count}}</span>&nbsp;</i>
                 </div>
 

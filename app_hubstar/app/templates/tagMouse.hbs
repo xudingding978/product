@@ -1,6 +1,3 @@
-<!--it is only use for the mouse enter and leave  and show  or hide the tag contnet -->
-<!--it is only use for the mouse enter and leave  and show  or hide the tag contnet -->
-<!--<i id ="tag_{{unbound this.tag_id}}"  {{action  on="mouseEnter" target="view"}} {{action on="mouseLeave" target="view"}} class="fa fa-bell-o"  style="position: absolute;    margin: auto 220px;color: white;"></i>-->
 {{#if this.tag_approved}}
 <div id ="tag_{{unbound this.tag_id}}"  {{action on="mouseenter" target="view"}} class="tag-content" style="top:{{unbound this.top}}; left:{{unbound this.left}}">
     {{this.product_name}}

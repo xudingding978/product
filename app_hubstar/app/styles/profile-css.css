@@ -40,6 +40,29 @@ input{
     border-radius: 50%;
 }
 
+.upload-v-play-box{
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border: 2px solid #eee;
+    line-height: 66px;
+    text-align: center;
+    color: #eee;
+    font-size: 25px;
+    margin: 120px auto;
+    left: 0;
+    right: 0;
+    box-shadow: 0 0 10px #f3f3f3;
+}
+
+.upload-v-play-box img{
+    width: 470px;
+}
+
+.upload-v-play{
+    margin-left: 5px;
+    text-shadow: 0 0 10px #f3f3f3;
+}
 .radius-rounded-corner{
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -101,6 +124,25 @@ input{
     background-color: #fff;
     box-shadow: 0 0 0 0px #eef2f9 inset,0 0 20px 0px rgba(0,0,0,0.07) inset;
     background-image: none;
+}
+
+.profile-top{
+    width: 100%; 
+    height:180px; 
+    position: relative; 
+    display: block; 
+    opacity: 0;
+}
+
+.user-top{
+    width:100%; 
+    height: 120px; 
+    display:block;
+    opacity: 0;
+}
+
+.addnew{
+    z-index: 0
 }
 
 .user-board{
@@ -377,6 +419,9 @@ input{
     min-height: 400px;
 }
 
+.profile-wid{
+    width:100%;
+}
 .profilecorpbanner:hover .edit-dashboard-btn{
     opacity: 1;
     box-shadow: 0 0 10px #fff;
@@ -403,6 +448,39 @@ input{
     background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 85%,rgba(255,255,255,0) 100%); /* IE10+ */
     background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 85%,rgba(255,255,255,0) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
+}
+.profile-box{
+    width: 100%; 
+    overflow: hidden; 
+    position: fixed; 
+    top: 70px;
+}
+
+.profile-bg-url{
+    width: 100%; 
+    max-height: 500px;
+}
+.profilePanel{
+    z-index: 0;  
+    float: none;
+    position: relative !important; 
+    width: 87%; 
+    height: auto; 
+    margin:  auto; 
+    background: #fff; 
+    box-shadow: 0px 0px 8px #555; 
+    border-radius: 3px 3px 0 0;
+    max-width: 1260px;
+    min-width: 1250px;
+    overflow: hidden;
+    font-size: .8em; 
+    -webkit-perspective: 600px;
+    -moz-perspective: 600px;
+}
+
+.main-title{
+    height: 120px;
+    text-align: left;
 }
 
 .latestebook{
@@ -434,7 +512,7 @@ input{
     width:100%;
     background-color: #f3f3f3;
     padding: 10px 20px;
-    line-height:200px
+    line-height:200px;
 }
 
 .styleup_section:hover{
@@ -744,16 +822,9 @@ textarea.add-interests{
 
 
 
-
 .aboutus-attr{font-size: 13px; font-weight: bold;margin: 5px;}
 
 /* client profile content styling ENDS */
-
-
-
-
-
-
 
 
 
@@ -774,12 +845,11 @@ textarea.add-interests{
     width: 300px;
     height: 35px;
     margin: 10px auto;
-
     display: block;
     clear: both;
 }
 
-.LatestFollower  img{
+.LatestFollower img{
     width: 35px;
     height: 35px;
     border-radius: 50%;
@@ -967,6 +1037,13 @@ textarea.add-interests{
     opacity: .8;
 }
 
+.message-btn-box{
+    height:45px;
+    line-height: 45px;
+}
+.message-btn-cancel{    
+    border-right: 1px solid #ddd;
+}
 
 .message-btn-x{
     width: 50%; 
@@ -980,6 +1057,11 @@ textarea.add-interests{
     opacity: .8;
     background-color: #e3e3e3;
     color: #999;
+}
+
+.message-btn-box2{
+    height: 40px;
+    line-height: 40px;
 }
 
 .message-btn:hover{
@@ -1005,7 +1087,16 @@ textarea.add-interests{
     box-shadow: inset 0 2px 0 #ddd;
 }
 
-
+.message-btn-preview{
+    right: 0;
+    position: absolute;
+    top: 69px;
+    margin-right: 20px;
+    width: 65px;
+    height: 35px;
+    line-height: 35px;
+    border-left: 1px solid #ddd;
+}
 .Message-Board_comment-item{
     position: relative;
     width: auto;
@@ -1060,7 +1151,7 @@ textarea.add-interests{
     right: 0;
     top: 0;
     color: #333;
-    opacity: 0;
+    opacity: 0.5;
 }
 
 .reply-comment i{
@@ -1117,6 +1208,14 @@ textarea.add-interests{
     z-index: 2;
 }
 
+.user-says-angle-before1{
+    margin-left: 4px;
+    left: 51px;
+}
+.user-says-angle-before2{
+    margin-left: 7px;
+    left: 51px;
+}
 .user-says-angle-after{
     width: 0px;
     height: 0px;
@@ -1126,11 +1225,18 @@ textarea.add-interests{
     border-bottom: 0px solid transparent;
     border-left: 0px solid transparent;
     border-right: 15px solid #ddd;	
-
     position: absolute;
     z-index: 1;
 }
 
+.user-says-angle-after1{
+    margin-left: 4px;
+    left: 49px;
+}
+.user-says-angle-after2{
+    margin-left: 7px;
+    left: 49px;
+}
 .user-reply-angle-before{
     width: 0px;
     height: 0px;
@@ -1477,52 +1583,143 @@ textarea.add-interests{
     border-width: 8px 5px 7px 0;
     border-radius: 2px;
 }
-/* user business profile */
+
+
+
+
+/*-------------------------- user business profile fixed by Charis--------------------------------- */
+
 .new-profile-display{
     z-index: 11;
     background-color: white;  
     border-radius: 5px;
     box-shadow: 0 0 20px #bbb;  
-    width: 500px;
-    height: 450px;
+    width: 651px;
+    height: auto;
     margin: 0 auto; 
     position: fixed; 
     top: 25%;
     left: 0;
     right: 0;
     overflow: hidden;
+
 }
+
+.new-profile-display-top{
+    width: 100%;
+    height: auto; 
+    min-height: 50px;
+    background-color: #ccc;
+}
+
+.new-profile-display-button{
+    font-size: 20px;
+    font-weight: bold;
+    color: #555; 
+    height: auto; 
+    min-height: 50px;
+    vertical-align: middle;
+    display: inline-block;
+    position: absolute;
+    left:22px;
+}
+
+.new-profile-display-title{
+
+    position: relative;
+    font-size: 20px;
+    font-weight: bold;
+    color: #555; 
+    height: auto; 
+    min-height: 50px;
+    vertical-align: middle;
+    display: inline-block;
+
+}
+
+.title-list{
+    width: 100%;
+    position: relative;
+    text-align: left;
+    padding-left: 10px;
+    font-size: 18px;
+    color: #555;
+    clear: both;
+}
+
+.title-list:hover{
+    background-color: #000;
+    color:#fff !important; 
+}
+
+.user-title-list{
+    width: 100%;
+    position: relative;
+    text-align: left;
+    padding-left: 10px;
+    font-size: 18px;
+    color: #555;
+    clear: both;
+    margin: 0 5px;
+}
+
+.user-profile-hover .profile-top-image-position{
+    margin:6px;
+}
+.user-profile-hover .profile-top-name-position{
+    margin:6px;
+    vertical-align: bottom;
+}
+
+.title-list-selected{
+    background-color: #000;
+    color: #fff;
+}
+
+.title-list > div{
+    position: absolute; 
+    right:20px; 
+    top:0; 
+    color:#ccc; 
+    font-size:15px;
+    text-align:right;
+}
+
+.title-list-selected > div i {
+    color:#fff !important; 
+}
+
+.title-list > div i{  
+    color:#000; 
+    font-size:20px;
+    margin-left: 5px;
+}
+
+#profiles_display{
+    margin: 0 auto;
+}
+
+#profile-creator{
+    display:block;
+}
+#profile-admin{
+    display:none;
+}
+#profile-editor{
+    display:none;
+}
+
 
 .profile-image{
-    height: 200px; 
-    width: 135px; 
-    position:relative; 
-    margin: 7px;
-    float:left; 
-    border-radius: 5px; 
-    background-color: #ddd; 
-    overflow:hidden;
+    height: 65px;
+    width: 48%;
+    margin: 5px;
+    float: left;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid #ccc;
 }
 
-.profile-image-position{
-    text-align: center;
-    padding: 2px; 
-    height:135px;
-    overflow:hidden;
-    line-height: 135px;
-}
-
-.profile-name-position{
-    position: relative;
-    text-align: center;
-    padding: 5px;
-    height: 100px;
-    word-break: break-word;
-    vertical-align: middle;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 20px;
-}
 .profile-bookmark{
     position: absolute; 
     left: 0; 
@@ -1532,42 +1729,23 @@ textarea.add-interests{
 
 .profile-top-image-position{
     text-align: center;
-    background-color: white;
-    display: inline-block; 
-    height: 50px; 
-    width: 50px; 
-    position:relative; 
-    margin: 5px  5px 5px 10px; 
-    line-height: 50px;
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    position: relative;
+    margin: 0px 6px;
+    float: left;
     border-radius: 5px;
-    border: 1px solid #ddd;
-    vertical-align: top;
 }
 .profile-top-name-position{
-    color: #555;  
-    position: relative; 
-    display: inline-block; 
-    width: 100px; 
-    line-height: 20px; 
-    margin: 3px 0;
-    word-wrap: break-word;
-}
-
-.user-profile-image-position{
-    line-height: 135px;
-    text-align: center;
-    margin: 10px;
-    display: inline-block; 
-    width: 135px;
-    height:135px;
-}
-
-.user-profile-name-position{
+    color: #555;
+    position: relative;
+    width: 70%;
+    margin: 0px 6px;
     display: inline-block;
-    width:70%;
-    word-break: break-all;
-    line-height: 20px; 
-    padding-right: 20px;
+    line-height: 20px;
+    word-wrap: break-word;
+    vertical-align: middle;
 }
 
 .user-profile-bookmark{
@@ -1575,7 +1753,14 @@ textarea.add-interests{
     width: 10%;
     display: inline;
 }
-
+.profile-close{
+    position: absolute;
+    right: 15px;
+    top: 0;
+    color: #333;
+    font-size: 19px;
+    font-weight: normal;
+}
 
 
 .corpbanner_mask{
@@ -1592,4 +1777,449 @@ textarea.add-interests{
     bottom: 30px;
     margin-left: 30%;
     width: 70%;
+}
+
+/*-------------------------- user business profile fixed by Charis  END--------------------------------- */
+
+
+/*  aboutUsTemplate   by Ally  */
+.cursor-pointer{
+    cursor:pointer;
+}
+
+.input-box{
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    margin-right: 2px;
+}
+.video-area{
+    margin: 15px 0; 
+    width:560px; 
+    float: left;
+}
+.video-input-box{
+    float: left;
+    width: 495px;
+}
+
+.preview-btn{
+    position: relative;
+    height: 52px;
+    float: left;
+    top: 0;
+    line-height: 48px;
+}
+
+.article-img-area{
+    float: left; 
+    padding: 6px 8px;
+    width: 275px;
+    border-radius: 2px;
+    margin-right: 5px;
+}
+
+.article-img{
+    padding: 10px 15px; 
+    margin: 10px 0; 
+}
+
+.latest-area{
+    float: right; 
+    margin: 15px 0;
+    width: 220px;
+}
+
+.book-area{
+    padding: 8px 6px;
+}
+
+.getapp-btn{
+    margin-top: 15px;
+}
+
+.left-area{
+    float: left;
+    margin: 15px 0; 
+    width:560px;
+}
+
+.bg-color-area{
+    background-color: #f3f3f3;
+}
+
+.video-des-area{
+    padding: 0 10px 10px 10px;
+    margin-bottom: 15px;
+}
+
+.video-des{
+    height: 40px; 
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.left-area-title-color{
+    color: #0088CC;
+}
+
+.left-bottom-area{
+    margin: 0 -5px;
+}
+
+.display-article-img-area{
+    margin: 10px 5px; 
+    font-size:13px;
+    background: #f3f3f3;
+    width: 275px;
+    line-height: 18px; 
+    float: left;
+}
+
+.display-article-img-box{
+    height: 200px; 
+    text-align: center;
+    overflow: hidden;
+}
+
+.width-100{
+    width: 100%;
+}
+
+.width-75{
+    width: 75%;
+}
+
+.display-article-img-Titledes{
+    padding: 8px 10px;
+}
+
+.display-article-img-des{
+    height: 90px; 
+    overflow: hidden;
+}
+
+.display-latest-area{
+    float: right; 
+    margin: 15px 0;
+    width: 220px;
+}
+
+.display-latest-area-title{
+    color:#FF00FF; 
+    line-height: 30px;
+}
+.book-des{
+    font-size: 15px; 
+    font-weight: bold;
+}
+
+.book-img{
+    max-width: 180px;
+}
+
+/* addCollection */
+.addCollection-container2{
+    z-index: 1002; 
+    position: relative;
+    border-radius: 3px;
+}
+
+.addCollection-top{
+    margin: 0 0 20px; 
+    position: relative; 
+    background-color: #f3f3f3; 
+    height: 45px;
+    border-bottom: 1px solid #ddd;
+    border-radius: 3px 3px 0 0;
+}
+
+.addCollection-title{
+    color: #555; 
+    font-size: 18px; 
+    font-weight: bold; 
+    text-align: center; 
+    line-height: 45px;
+}
+
+.addCollection-saveto{
+    width: 65px; 
+    display: inline-block; 
+    position: absolute;
+    left: 10px;
+}
+
+.select-profile{
+    display:inline-block;
+    width: 350px;
+    overflow: hidden;
+    line-height: 20px;
+    padding-top: 5px;
+}
+
+.loading-left{
+    position: absolute; 
+    font-size: 12px; 
+    left: 245px;
+}
+
+.loading-right{
+    position: relative;
+    top: 15px;
+    left: 10px;
+}
+
+.selected-box-container{
+    height: 100%; 
+    font-size: 14px; 
+    font-weight: bold; 
+    overflow-x:hidden;
+}
+
+.selected-content-container{
+    width: 500px;
+    height: 190px;
+    font-size: 13px;
+    margin: 0 20px;
+}
+
+.selected-content-left-box{
+    display:inline-block;
+}
+
+.selected-collection{
+    display:block;
+}
+
+.selected-collection-des{
+    height: 150px;
+}
+
+.selected-collection-box{
+    margin: 7px; 
+    font-size: 16px; 
+    font-weight: bold; 
+    overflow: auto; 
+    overflow-x:hidden; 
+    width: 96%; 
+    max-height: 300px;
+}
+
+.selected-collection-preview-box{
+    display:inline-block;
+    margin-left:15px; 
+    vertical-align: top;
+}
+
+.selected-collection-preview{
+    width: 174px; 
+    height: 174px; 
+    overflow: hidden;
+    padding: 10px;
+    background-color: rgba(0,0,0,0.03);
+    top: -4px;
+    position: relative;
+}
+
+.selected-preview{
+    height: 154px;
+    width: 154px;
+}
+
+.selected-action-box{
+    height: 45px;
+    position: relative;
+    border-top: 1px solid #ddd;
+    top: -1px;
+    border-radius: 0 0 3px 3px;
+    overflow: hidden;
+}
+/* addVideo */
+.add-action-box{
+    height: 41px;
+    position: relative;
+    border-top: 1px solid #ddd;
+    bottom: 0;
+    width: 100%;
+}
+
+.upload-v-container{
+    width: 510px;
+    margin: 0 auto;
+    margin-left: -255px;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid #eee; 
+    background-color: #fff;
+    z-index: 11;
+    position: absolute;
+    top: 15%;
+    left: 50%;
+}
+
+.upload-v-title{
+    height: 50px;
+    width: 100%;
+    background-color: #f3f3f3;
+    text-align: center;
+    line-height: 50px;
+    color: #555;
+    border-bottom: 1px solid #ddd;
+}
+
+.uploaded-filmLogo{
+    font-size: 18px;
+}
+
+.upload-v-txt{
+    font-size: 20px; 
+    font-weight: bold
+}
+
+.upload-v-box{
+    margin: 20px;
+    min-height: 400px;
+}
+
+.upload-v-url-box{
+    height: 35px; 
+    width: inherit;
+    border-bottom: 1px solid #ddd;
+}
+
+.upload-v-url{
+    width: 400px;
+    height:35px;
+}
+
+.upload-v-preview-box{
+    width: 470px; 
+    min-height: 300px; 
+    margin: 15px 0; 
+    border: 2px dashed #eee;
+}
+
+.upload-v-preview-ctn{
+    width: 470px; 
+    background-color: #f3f3f3;
+    padding: 10px; 
+    min-height: 50px;
+}
+
+.upload-v-preview-title{
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.upload-v-preview-des{
+    line-height: 15px; 
+    font-size: 11px;
+}
+
+/* afterLogin */
+.circle-btn-border{
+    border: 0 !important;
+}
+
+
+
+/* ---------------------profile editors fixed by Charis--------------------*/
+
+.profile-editors-container{
+    z-index: 11;
+    position: fixed; 
+    width: 545px; 
+    margin: 10px auto; 
+    border-radius:5px; 
+    overflow: hidden; 
+    background-color: rgb(255, 255, 255); 
+    top: 25%; 
+    left: 0;
+    display: block;
+    right: 0;
+    box-shadow: 0 0 5px #fff;
+}
+.profile-editors-title{
+    position: relative;
+    font-size: 20px;
+    font-weight: bold;
+    color: #555;
+    display: inline-block;
+    margin: 10px 37%;
+
+}
+
+.profile-editors-top{
+    height: 50px; 
+    width: 100%;
+    position: relative; 
+    border-bottom: 1px solid #ddd; 
+    background-color: #f3f3f3;
+    padding: 0 15px;
+}
+
+.profile-editors-top div{
+    color: #555; 
+    font-size: 15px; 
+    line-height: 50px; 
+    font-weight: bold;
+    float: left;
+    margin-left: 20px;
+}
+
+.profile-editors-below{
+    position: relative;
+    width: 100%;
+    height: 100px;
+    padding: 0 35px;
+    overflow: auto;
+}
+.profile-editors-below > .invite-this-friend{
+    opacity: .8;
+}
+.profile-editors-below > .invite-friend > img{
+    box-shadow: 0 0 3px #888;
+    border: 1px solid #f3f3f3;
+    width: 45px;
+    height: 45px;
+}
+
+.profile-editors-loading{
+    position: relative;
+    width: 100%;
+    text-align: center;
+    height: 190px;
+    padding-top: 70px;
+    float: left;
+}
+
+.profile-editors-button{
+    height: 41px;
+    position: relative;
+    border-top: 1px solid #ddd;
+    bottom: 0;
+    width: 100%;
+    display: block;
+    clear: both;
+}
+
+.profile-editors-button div{
+    font-size: 15px; 
+    height: 40px; 
+    line-height: 40px;
+}
+
+.profile-editors-button .fa-plus{
+    position: absolute;
+    font-size: 8px;
+    top: 8px;
+    left: 10px;
+    color: white;
+    background-color: #333;
+    height: 12px;
+    width: 12px;
+    line-height: 11px;
+    border: 1px solid #fff;
+    border-radius: 50%;
 }

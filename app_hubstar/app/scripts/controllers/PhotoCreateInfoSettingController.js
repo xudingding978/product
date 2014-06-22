@@ -65,8 +65,18 @@ HubStar.PhotoCreateInfoSettingController = Ember.Controller.extend({
             if (that.get("photoLength") === objectLength)
             {
                 var url = photoInfo.get('photo_image_original_url');
-                that.get("collection").set("cover", url);
-                that.finishUploadingAndInfo();
+                var defaulturl = "https://s3-ap-southeast-2.amazonaws.com/develop.devbox/Defaultcollection-cover.png";
+                var currentCover=that.get("collection").get("cover");
+                if (currentCover === defaulturl) {
+                    that.get("collection").set("cover", url);
+                    var a = that.get("collection").save();
+                    that.get("collection").get("isSaving");
+                    a.then(function() {
+                        that.finishUploadingAndInfo();
+                    });
+                } else {
+                    that.finishUploadingAndInfo();
+                }
             }
         });
     },

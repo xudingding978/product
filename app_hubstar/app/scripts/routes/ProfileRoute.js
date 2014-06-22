@@ -52,6 +52,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', true);
         this.controllerFor('searchs').setLoginImge();
+        HubStar.set("showDiscoveryBar",false);
         this.controllerFor('profile').set('switchPhoto', true);
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#defualt').addClass('selected-user-stats');
@@ -65,6 +66,11 @@ HubStar.ProfileRoute = Ember.Route.extend({
         $("#user-dd-menu").attr("style", "display:none");
       
         ProfileController.setProfile(model.id); 
+        
+         if (HubStar.get('ctaView') === true) {
+            this.controllerFor("checkingLoginStatus").popupLogin();
+            HubStar.set('ctaView', false);
+        }
     },
     model: function(params) {
 
@@ -121,7 +127,7 @@ HubStar.ProfileRoute = Ember.Route.extend({
         $(window).scrollTop(0);
 
         $('#discovery_search_bar_wrapper').attr('style', "display:none");
-        $('#masonry_container').attr('style', "display:none");
+        $('#masonry_wrapper').attr('style', "display:none");
         $(function() {
             $('#masonry_container').masonry('remove', $('.noStyle1'));
         });        

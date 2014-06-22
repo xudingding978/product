@@ -7,7 +7,6 @@ HubStar.UserRoute = Ember.Route.extend({
         } else {
             HubStar.set("isLogin", true);
         }
-
         this.controllerFor('application').set('islogin', true);
         this.controllerFor('application').set('popup', false);
         this.controllerFor('application').set('isotherpage', true);
@@ -16,7 +15,7 @@ HubStar.UserRoute = Ember.Route.extend({
         this.controller.set('switchPhoto', true);
         this.controller.set('collectionTag', true);
         //  this.controller.set('partnerTag', false);
-
+        HubStar.set("showDiscoveryBar",false);
         if (localStorage.checkUser === "newUser") {
             setTimeout(function() {
                 window.location.href = 'JavaScript:void(0)';
@@ -42,7 +41,10 @@ HubStar.UserRoute = Ember.Route.extend({
         $(window).scrollTop(0);
         this.controllerFor('user').set("model", model);
         this.controllerFor('user').setUser();
-        
+         if (HubStar.get('ctaView') === true) {
+            this.controllerFor("checkingLoginStatus").popupLogin();
+            HubStar.set('ctaView', false);
+        }
        
     },
     model: function(params) {
@@ -96,7 +98,7 @@ HubStar.UserRoute = Ember.Route.extend({
 
         $(window).scrollTop(0);
         $('#discovery_search_bar_wrapper').css('display', "none");
-        $('#masonry_container').css('display', "none");
+        $('#masonry_wrapper').css('display', "none");
         $(function() {
             $('#masonry_container').masonry('remove', $('.noStyle1'));
         });

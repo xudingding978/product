@@ -77,7 +77,7 @@
 #user-dd-menu > li > a >span {
     color: #555;
     font-size: 13px;
-    padding: 10px 30px 10px 60px;
+    padding: 10px 15px 10px 60px;
     display: block;
 }
 
@@ -1112,6 +1112,11 @@ search-bar-on-small-screen #topResidentialCommerical{
     .search-bar-on-large-screen{
         display: none;
     }
+    
+    .user-top{
+        height:180px;
+    }
+    
 }
 
 

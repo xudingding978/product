@@ -34,6 +34,14 @@ class ShowTagController extends Controller {
                     $tempMega = $cb->get($docID);
                     $mega = CJSON::decode($tempMega, true);
                     $oldRecordDeep["photo"][0]['tags'][$i]["pic_url"] = $mega['profile'][0]['profile_pic_url'];
+                    $oldRecordDeep["photo"][0]['tags'][$i]["profile_name"] = $mega['profile'][0]['profile_name'];
+                    if (isset($oldRecordDeep["photo"][0]['tags'][$i]['collectionID'])) {
+                        for ($j = 0; $j < sizeof($mega['profile'][0]['collections']); $j++) {
+                            if ($mega['profile'][0]['collections'][$j]["id"] === $oldRecordDeep["photo"][0]['tags'][$i]['collectionID']) {
+                                $oldRecordDeep["photo"][0]['tags'][$i]["collection_name"] = $mega['profile'][0]['collections'][$j]['title'];
+                            }
+                        }
+                    }
                 }
             }
 
@@ -162,11 +170,11 @@ class ShowTagController extends Controller {
         $tag_id = $request_array[0];  //tag id : consists of time and photo id
         $product_name = $request_array[1]; // it is the product name
         $desc = $request_array[2]; // it is the descript of the  product
-        $linkAddress = $request_array[3]; // it is the content link  address
-        $time_stamp = $request_array[4]; // it is create time      
-        $profile_id = $request_array[5];
-        $photo_id = $request_array[6];  //selected photo's id
-
+        //$linkAddress = $request_array[3]; // it is the content link  address
+        $time_stamp = $request_array[3]; // it is create time      
+        //$profile_id = $request_array[5];
+        $photo_id = $request_array[4];  //selected photo's id
+        //$collection_id = $request_array[7];
         try {
             $docIDDeep = $this->getDomain() . "/" . $photo_id; //$id  is the page owner
             $cb = $this->couchBaseConnection();
@@ -174,11 +182,12 @@ class ShowTagController extends Controller {
             $oldRecordDeep = CJSON::decode($oldDeep, true);
             for ($i = 0; $i < sizeof($oldRecordDeep["photo"][0]['tags']); $i++) {
                 if ($oldRecordDeep["photo"][0]['tags'][$i]["tag_id"] === $tag_id) {
-                    $oldRecordDeep["photo"][0]['tags'][$i]["profile_id"] = $profile_id;
+                    //$oldRecordDeep["photo"][0]['tags'][$i]["profile_id"] = $profile_id;
                     $oldRecordDeep["photo"][0]['tags'][$i]["product_name"] = $product_name;
                     $oldRecordDeep["photo"][0]['tags'][$i]["desc"] = $desc;
-                    $oldRecordDeep["photo"][0]['tags'][$i]["linkto"] = $linkAddress;
+                    //$oldRecordDeep["photo"][0]['tags'][$i]["linkto"] = $linkAddress;
                     $oldRecordDeep["photo"][0]['tags'][$i]["tag_time"] = $time_stamp;
+                    // $oldRecordDeep["photo"][0]['tags'][$i]["collectionID"] = $collection_id;
                 }
             }
 
@@ -206,6 +215,8 @@ class ShowTagController extends Controller {
         $photo_id = $request_array[7];  //selected photo's id
         $tag_id = $request_array[8];  //tag id : consists of time and photo id
         $collectionID = $request_array[9];  //collectionID : the target collection id
+        $collection_name = $request_array[10];
+        $tag_owner = $request_array[11];
         $linkto_click_count = 0;
         $tag_approve = false;
         try {
@@ -227,6 +238,8 @@ class ShowTagController extends Controller {
             $tag["tag_time"] = $time_stamp;
             $tag["tag_approved"] = $tag_approve;
             $tag["collectionID"] = $collectionID;
+            $tag["collection_name"] = $collection_name;
+            $tag["tag_owner"] = $tag_owner;
             //put the tag into the end of tags array
             if (!isset($oldRecordDeep["photo"][0]['tags'])) {
                 $oldRecordDeep["photo"][0]['tags'] = array();
@@ -319,7 +332,7 @@ class ShowTagController extends Controller {
         $linkToCompany = $request_array[6];
 
         $notification_id = (string) (rand(10000, 99999)) . $time_stamp . $currentUser;
-        //  $receiveEmail1 = "linzw07@gmail.com";
+         // $receiveEmail1 = "linzw07@gmail.com";
         for ($i = 0; $i < sizeof($owner_ids); $i++) {
 
             $ownerId = trim($owner_ids[$i]);
@@ -371,7 +384,7 @@ class ShowTagController extends Controller {
         $amazonSes = Aws\Ses\SesClient::factory($configuration);
         $platformSettings = $this->getProviderConfigurationByName($domain, "Communications");
         $platformEmail = $platformSettings['support']['email'];
-        $subject_prefix = $receiveName . "  you have tag avtivated pending ";
+        $subject_prefix = $receiveName . "  you have tag activated pending ";
         $args = array(
             "Source" => $platformEmail,
             "Destination" => array(

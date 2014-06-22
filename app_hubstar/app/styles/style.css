@@ -410,7 +410,9 @@ body > div.ember-view > div
 }
 
 
-
+.border-right{
+    border-right: 1px solid #ddd;
+}
 
 
 
@@ -719,7 +721,7 @@ div.search-loading-invisible{
 .tab-content td:nth-child(1)  {
     color: #555;
     text-align: right;
-    width: 35%;
+    width: 10%;
 }
 
 .tab-content td:nth-child(2)  {
@@ -731,10 +733,6 @@ div.search-loading-invisible{
 .dropdown-contactme {
     width: 230px;
 }
-
-
-
-
 
 .checkbox-columncontainer{
     display: inline-block;
@@ -1677,4 +1675,10 @@ input[type=checkbox].css-checkbox.med + label.css-label.med {
     z-index:-1;
     top:0;
     left:0;
+}
+
+/* dropdownList.hbs */
+.Dropdownstyle1a{
+    width:auto;
+    min-width:233px;
 }

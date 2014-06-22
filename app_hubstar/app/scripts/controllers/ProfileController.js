@@ -1250,7 +1250,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
 
             this.get('controllers.applicationFeedback').statusObserver(null, "Please delete keywords, it can't exceed " +
                     this.getKeywordsNum(this.get('projectCategoryDropdownContent')));
-            $('#errorMessage2').attr('style', 'display:block');
+            $('#errorMessage2').attr('style', 'display:block;height:30px;color:#ff0000;');
             this.set('projectCategoryDropdownContent', update_profile_record.get('profile_package_name'));
 
         } else {

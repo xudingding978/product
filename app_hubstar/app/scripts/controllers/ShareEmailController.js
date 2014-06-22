@@ -13,7 +13,6 @@ HubStar.ShareEmailController = Ember.Controller.extend({
     emailDestination: null,
     emaiCCDestination: null,
     rememberMessage: true,
-    osAndBrowser: true,
     userEnvironment: "",
     owner_profile_pic: null,
     emaiBCCDestination: null,
@@ -23,14 +22,23 @@ HubStar.ShareEmailController = Ember.Controller.extend({
     showCate: false,
     temp: [],
     subcate: [],
+    selectedDesc: "",
+    objectID: "",
+    parentTController: "",
+    userName: '',
+    email_profile_pic_url: "",
+    selectedPhotoThumbnailUrl: "",
     projectBudget: null,
     projectExperience: null,
     email_title: "",
-    needs: ['permission', 'applicationFeedback', 'user', 'profile', "mega", 'article', 'video', 'application'],
+    needs: ['permission', 'applicationFeedback', 'user', 'profile', "mega", 'article', 'video', 'application', 'itemFunction'],
     init: function()
     {
         if (localStorage.loginStatus) {
             this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
+            $("#showpic").fadeIn().css("display", "block");
+            $('#showpic').attr('style', 'display: block');
+            console.log("000000000");
         }
     },
     checkAuthority: function() {
@@ -115,76 +123,79 @@ HubStar.ShareEmailController = Ember.Controller.extend({
             that.set('loadingTime', false);
         });
     },
-    closeContact: function() {
-//        var megaController = this.get("controllers.mega");
-//        var profileController = this.get("controllers.profile");
-//        var articleController = this.get("controllers.article");
-//        var videoController = this.get("controllers.video");
-//
+    closeShareEmail: function() {
+        var megaController = this.get("controllers.mega");
+        var profileController = this.get("controllers.profile");
+        var articleController = this.get("controllers.article");
+        var videoController = this.get("controllers.video");
+        var itemFunctionController = this.get("controllers.itemFunction");
 //        this.set('projectCategoryDropdown', false);
 //        this.set('projectTimeframeDropdown', false);
 //        this.set('projectBudgetDropdown', false);
 //        this.set('projectExperienceDropdown', false);
 //        this.set('showCate', false);
         this.get("controllers.profile").set("isShareEmail", false);
-//        videoController.closeContact();
-//        megaController.closeContact();
-//        profileController.closeContact();
-//        articleController.closeContact();
+        this.get("controllers.article").set("isShareEmail", false);
+        this.get("controllers.mega").set("isShareEmail", false);
+        this.get("controllers.video").set("isShareEmail", false);
+        this.controllerFor("itemFunction").closeShareEmail();
+        videoController.closeShareEmail();
+        megaController.closeShareEmail();
+        profileController.closeShareEmail();
+        articleController.closeShareEmail();
+        itemFunctionController.closeShareEmail();
     },
     emailSend: function()
     {
+        var that = this;
+//        var currentUser = HubStar.User.find(localStorage.loginStatus);
 
-        var projectSubCategoryItem = "";
-        for (var i = 0; i < this.get('subcate').get('length'); i++) {
-            if (this.get("checkbox" + i) === true) {
-                projectSubCategoryItem += $('.checkbox' + i).text() + ",";
-            }
-        }
-//        var userEnvironment = "";
-//        if (this.get("osAndBrowser") === true)
-//        {
-//            userEnvironment = this.get("userEnvironment");
-//        }
-        projectSubCategoryItem = projectSubCategoryItem.substring(0, projectSubCategoryItem.length - 1);
-        var tempEmail = HubStar.Email.createRecord({
-            "ownerTitle": this.get("ownerTitle"),
-            "displayName": this.get("displayName"),
-            "displayEmail": this.get("displayEmail"),
-            'recieveProfile': this.get('recieveProfile'),
-            "emailBody": this.get("emailBody"),
-            "emailSubject": this.get("emailSubject"),
-//            "emailDestination": this.get("emailDestination"),
-//            "emaiCCDestination": this.get("emaiCCDestination"),
-//            "emaiBCCDestination": this.get("emaiBCCDestination"),
-//            "projectCategory": this.get('projectCategorySelection').trim(),
-//            "projectTimeframe": this.get('timeframeSelection').trim(),
-//            "projectBudget": this.get('projectBudgetSelection').trim(),
-//            "projectExperience": this.get('projectExperienceSelection').trim(),
-            "objectUrl": document.URL,
-//            "userEnvironment": userEnvironment,
-            "projectSubCategoryItem": projectSubCategoryItem
+//        var senderName = this.set('senderName', this.get("currentUser").get("first_name") + " " + this.get("currentUser").get("last_name"));
+
+        var tempEmail = [this.get("emailDestination"), this.get("emailBody"), this.get('displayName'), this.get('displayEmail'), this.get("currentUser").get('photo_url_large'), this.get("owner_profile_pic"), this.get("selectedPhotoThumbnailUrl"), document.URL];
+
+        requiredBackEnd('emails', 'shareemail', tempEmail, 'POST', function(params) {
         });
-
-        tempEmail.store.commit();
+        console.log(this.get('displayName'));
+        console.log(this.get('displayEmail'));
+        console.log(this.get("currentUser").get('photo_url_large'));
+        console.log(this.get("owner_profile_pic"));
+        console.log(this.get("selectedPhotoThumbnailUrl"));
+        console.log(document.URL);
         this.get('controllers.applicationFeedback').statusObserver(null, "Your message has been sent.");
-        if (!this.get('rememberMessage')) {
-            this.set("emailBody", "");
-            this.set("emailSubject", "");
+        this.get("controllers.profile").set("isShareEmail", false);
+        this.get("controllers.article").set("isShareEmail", false);
+        this.get("controllers.mega").set("isShareEmail", false);
+        this.get("controllers.video").set("isShareEmail", false);
+        this.controllerFor("itemFunction").closeShareEmail();
+    },
+    setImageID: function(id) {
+        this.set("objectID", id);
+    },
+    setThumbnailUrl: function(photo_image_thumbnail_url) {
+        this.set("selectedPhotoThumbnailUrl", photo_image_thumbnail_url);
+    },
+    setRelatedController: function(parentController)
+    {
+
+        this.set('parentTController', parentController);
+    },
+    setUser: function()
+    {
+        var user = HubStar.User.find(localStorage.loginStatus);
+
+        this.set("collections", user.get("collections"));
+        if (this.get("collections").objectAt(0) !== null && this.get("collections").objectAt(0) !== undefined) {
+            this.setDesc("");
 
         }
-
-//        this.set('projectCategorySelection', 'Please Select One ...');
-//        this.set('timeframeSelection', 'Please Select One ...');
-//        this.set('projectBudgetSelection', 'Please Select One ...');
-//        this.set('projectExperienceSelection', 'Please Select One ...');
-        this.set('showCate', false);
-        this.closeContact();
-
     },
-    setSelectedMega: function(id)
+    setDesc: function(desc) {
+        this.set("selectedDesc", desc);
+    },
+    setProfileSelectedMega: function(id)
     {
-        console.log("11");
+
         this.set("currentUser", HubStar.User.find(localStorage.loginStatus));
         if (this.get("currentUser").get("first_name") !== null && this.get("currentUser").get("last_name")) {
             this.set("displayName", this.get("currentUser").get("first_name") + " " + this.get("currentUser").get("last_name"));
@@ -192,34 +203,32 @@ HubStar.ShareEmailController = Ember.Controller.extend({
         else {
             this.set("displayName", this.get("currentUser").get("display_name"));
         }
-//        this.set("displayEmail", this.get("currentUser").get("email"));
+        displayEmail = this.set("displayEmail", this.get("currentUser").get("email"));
         var idProfile;
         var tempMega = HubStar.Mega.find(id);
         this.set("selectedMega", tempMega);
         var that = this;
-        var email_profile_pic_url = 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg';
-        if (this.get("currentUser").get('photo_url_large').indexOf('data:image') > -1) {
-            email_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
-        } else {
-            email_profile_pic_url = this.get("currentUser").get('photo_url_large');
-        }
-
+//        var email_profile_pic_url = 'https://s3-ap-southeast-2.amazonaws.com/develop.devbox/profile_pic/default/defaultpic1.jpg';
+//        if (this.get("currentUser").get('photo_url_large').indexOf('data:image') > -1) {
+//            email_profile_pic_url = HubStar.get('photoDomain') + '/users/' + localStorage.loginStatus + '/user_picture/user_picture';
+//        } else {
+//            email_profile_pic_url = this.set("email_profile_pic_ur", this.get("currentUser").get('photo_url_large'));
+//        }
 
         tempMega.then(function() {
             that.set("selectedMega", tempMega);
-//            that.set("emailDestination", that.get("selectedMega").get("owner_contact_email"));
-//            that.set("emaiCCDestination", that.get("selectedMega").get("owner_contact_cc_emails"));
-//            that.set("emaiBCCDestination", that.get("selectedMega").get("owner_contact_bcc_emails"));
+
             that.set("ownerTitle", that.get("selectedMega").get("owner_title"));
             idProfile = that.get("selectedMega").get("owner_id");
 
-//            if (that.get("selectedMega").get("type") === 'profile')
-//            {
-//                that.set("owner_profile_pic", that.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
-//            }
-//            else {
-//                that.set("owner_profile_pic", that.get("selectedMega").get("owner_profile_pic"));
-//            }
+            if (that.get("selectedMega").get("type") === 'profile')
+            {
+                that.set("owner_profile_pic", that.get("selectedMega").get("profile").objectAt(0).get('profile_pic_url'));
+            }
+            else {
+                that.set("owner_profile_pic", that.get("selectedMega").get("owner_profile_pic"));
+            }
+
 //            var tempProfile = HubStar.Profile.find(idProfile);
 //            var those = that;
 //            tempProfile.then(function() {
@@ -229,9 +238,18 @@ HubStar.ShareEmailController = Ember.Controller.extend({
 //                that.set("emaiBCCDestination",tempProfile.get("owner_contact_bcc_emails"));
 //            });
         });
+
+        console.log(that.get("selectedMega").get("owner_title"));
+        $('#showpic').attr('style', 'display: block');
     },
     reviewCancel: function() {
+        console.log("11");
         this.get("controllers.profile").set("isShareEmail", false);
+        this.get("controllers.article").set("isShareEmail", false);
+        this.get("controllers.mega").set("isShareEmail", false);
+        this.get("controllers.video").set("isShareEmail", false);
+        this.set("isShareEmail", false);
+
 //        this.set("contentFollowerPhoto", null);
 //        this.set("contentCreatorPhoto", null);
 //        this.set("contentAdministratorPhoto", null);
@@ -239,5 +257,8 @@ HubStar.ShareEmailController = Ember.Controller.extend({
 //        var profile = this.get("controllers.profile").get("model");
 //        profile.set("profile_administrator", this.get("administrator"));
 //        profile.set("profile_shareEmail", this.get("shareEmail"));
+    },
+    exit: function() {
+
     }
 });

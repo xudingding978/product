@@ -833,37 +833,11 @@ HubStar.ArticleController = Ember.Controller.extend({
             this.set('contact', !this.get('contact'));
         }
     },
-    eShare: function() {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
-
-            var mega = HubStar.Mega.find(this.get('currentUserID'));
-            mega.then(function() {
-                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-                {
-                    mega.set("share_count", 0);
-                }
-                else
-                {
-                    mega.set("share_count", mega.get("share_count") + 1);
-                }
-                mega.store.save();
-            });
-//            this.sendEventTracking('event', 'button', 'click', 'Contact us');
-//            var shareEmailController = this.get('controllers.shareEmail');
-//            shareEmailController.setSelectedMega(this.get('currentUserID'));
-//            document.getElementById('light').style.display = 'block';
-//            document.getElementById('fade').style.display = 'block';
-            this.set("isShareEmail", true);
-//        this.get("controllers.shareEmail").getClientId(this.get("Id"));
-
-
-//            this.set('contactChecking', !this.get('contactChecking'));
-            //return false;
-        }
-    },
     closeContact: function() {
         this.set('contact', false);
+    },
+    closeShareEmail: function() {
+        this.set('shareEmail', false);
     },
     setCaption: function()
     {
@@ -1047,6 +1021,46 @@ HubStar.ArticleController = Ember.Controller.extend({
                     'height=436,width=626'
                     ).focus();
             return false;
+        }
+    },
+    eShare: function() {
+        if (this.get("controllers.checkingLoginStatus").popupLogin())
+        {
+
+            var mega = HubStar.Mega.find(this.get('currentUserID'));
+            mega.then(function() {
+                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+                {
+                    mega.set("share_count", 0);
+                }
+                else
+                {
+                    mega.set("share_count", mega.get("share_count") + 1);
+                }
+                mega.store.save();
+            });
+
+            var shareEmailController = this.get('controllers.shareEmail');
+            var selectid = this.get('articleResouce').id;
+            shareEmailController.setImageID(selectid);
+
+            var tempUrl = this.get('articleResouce').get("article_image_url");
+            shareEmailController.setThumbnailUrl(tempUrl);
+            shareEmailController.setRelatedController('article');
+            shareEmailController.setUser();
+            //this.set('collectable', !this.get('collectable'));
+
+//            this.sendEventTracking('event', 'button', 'click', 'Contact us');
+
+            shareEmailController.setProfileSelectedMega(this.get('currentUserID'));
+//            document.getElementById('light').style.display = 'block';
+//            document.getElementById('fade').style.display = 'block';
+            this.set("isShareEmail", true);
+//        this.get("controllers.shareEmail").getClientId(this.get("Id"));
+
+
+//            this.set('contactChecking', !this.get('contactChecking'));
+            //return false;
         }
     },
     addLike: function() {

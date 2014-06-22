@@ -201,6 +201,9 @@ HubStar.VideoController = Ember.Controller.extend({
     closeContact: function() {
         this.set('contact', false);
     },
+    closeShareEmail: function() {
+        this.set('shareEmail', false);
+    },
     dropdownPhotoSetting: function(param) {
         var tempUrl = this.get('megaResouce').get('object_image_url');
         this.set('sharePhotoUrl', tempUrl);
@@ -366,10 +369,15 @@ HubStar.VideoController = Ember.Controller.extend({
                 mega.store.save();
             });
 //            this.sendEventTracking('event', 'button', 'click', 'Contact us');
-//            var shareEmailController = this.get('controllers.shareEmail');
-//            shareEmailController.setSelectedMega(this.get('currentUserID'));
-//            document.getElementById('light').style.display = 'block';
-//            document.getElementById('fade').style.display = 'block';
+            var shareEmailController = this.get('controllers.shareEmail');
+            var selectid = this.get('megaResouce').id;
+            shareEmailController.setImageID(selectid);
+            var tempUrl = this.get('megaResouce').get('object_image_url');
+            shareEmailController.setThumbnailUrl(tempUrl);
+            shareEmailController.setUser();
+            shareEmailController.setRelatedController('video');
+            shareEmailController.setProfileSelectedMega(this.get('currentUserID'));
+
             this.set("isShareEmail", true);
 //        this.get("controllers.shareEmail").getClientId(this.get("Id"));
 

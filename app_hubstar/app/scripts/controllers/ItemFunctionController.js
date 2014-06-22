@@ -51,7 +51,7 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
                 addCollectionController.setRelatedController('itemFunction');
                 $('#addCollection_' + model.id).attr('style', 'display: block');
             }
-            $("#body_id").css("overflow", "hidden");
+            $("#body_id").css("overflow", "hidden");            
         }
     },
     addLike: function(id)
@@ -475,34 +475,78 @@ HubStar.ItemFunctionController = Ember.Controller.extend({
         }
 
     },
-    eShare: function() {
-        if (this.get("controllers.checkingLoginStatus").popupLogin())
-        {
+    eShare: function(model) {
+        if (this.get("controllers.checkingLoginStatus").popupLogin()) {
+            var photoObj;
+            var shareEmailController;
+            var selectid;
+            var tempUrl;
+            if (model.get("type") === "photo") {
+                photoObj = model.get("photo").objectAt(0);
+                shareEmailController = this.get('controllers.shareEmail');
+                selectid = model.id;
+                shareEmailController.setImageID(selectid);
+                tempUrl = photoObj.get('photo_image_thumbnail_url');
+                shareEmailController.setThumbnailUrl(tempUrl);
+                shareEmailController.setUser();
+                shareEmailController.setRelatedController('itemFunction');
+                $('#shareEmail' + model.id).attr('style', 'display: block');
+            }
+            else if (model.get("type") === "article")
+            {
+                photoObj = model.get("article").objectAt(0);
+                shareEmailController = this.get('controllers.shareEmail');
+                selectid = model.id;
+                shareEmailController.setImageID(selectid);
+                tempUrl = photoObj.get('article_image_url');
+                shareEmailController.setThumbnailUrl(tempUrl);
+                shareEmailController.setUser();
+                shareEmailController.setRelatedController('itemFunction');
+                $('#shareEmail' + model.id).attr('style', 'display: block');
+            }
 
-            var mega = HubStar.Mega.find(this.get('currentUserID'));
-            mega.then(function() {
-                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
-                {
-                    mega.set("share_count", 0);
-                }
-                else
-                {
-                    mega.set("share_count", mega.get("share_count") + 1);
-                }
-                mega.store.save();
-            });
-//            this.sendEventTracking('event', 'button', 'click', 'Contact us');
-//            var shareEmailController = this.get('controllers.shareEmail');
-//            shareEmailController.setSelectedMega(this.get('currentUserID'));
-//            document.getElementById('light').style.display = 'block';
-//            document.getElementById('fade').style.display = 'block';
+            else if (model.get("type") === "video")
+            {
+                shareEmailController = this.get('controllers.shareEmail');
+                selectid = model.id;
+                shareEmailController.setImageID(selectid);
+                tempUrl = model.get('object_image_url');
+                shareEmailController.setThumbnailUrl(tempUrl);
+                shareEmailController.setUser();
+                shareEmailController.setRelatedController('itemFunction');
+                $('#shareEmail' + model.id).attr('style', 'display: block');
+            }
+            $("#body_id").css("overflow", "hidden");
             this.set("isShareEmail", true);
-//        this.get("controllers.shareEmail").getClientId(this.get("Id"));
-
-
-//            this.set('contactChecking', !this.get('contactChecking'));
-            //return false;
         }
+//        if (this.get("controllers.checkingLoginStatus").popupLogin())
+//        {
+//
+//            var mega = HubStar.Mega.find(this.get('currentUserID'));
+//            mega.then(function() {
+//                if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
+//                {
+//                    mega.set("share_count", 0);
+//                }
+//                else
+//                {
+//                    mega.set("share_count", mega.get("share_count") + 1);
+//                }
+//                mega.store.save();
+//            });
+////            this.sendEventTracking('event', 'button', 'click', 'Contact us');
+////            var shareEmailController = this.get('controllers.shareEmail');
+////            shareEmailController.setSelectedMega(this.get('currentUserID'));
+//            this.set("isShareEmail", true);
+////        this.get("controllers.shareEmail").getClientId(this.get("Id"));
+//
+//
+////            this.set('contactChecking', !this.get('contactChecking'));
+//            //return false;
+//        }
+    },
+    closeShareEmail: function() {
+        this.set('shareEmail', false);
     }
 }
 );

@@ -901,7 +901,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     eShare: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())
         {
-
+            $("#showprofile").css("display", "block");
             var mega = HubStar.Mega.find(this.get('currentUserID'));
             mega.then(function() {
                 if (mega.get("share_count") === undefined || mega.get("share_count") === null || mega.get("share_count") === "")
@@ -916,7 +916,7 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             });
 //            this.sendEventTracking('event', 'button', 'click', 'Contact us');
             var shareEmailController = this.get('controllers.shareEmail');
-            shareEmailController.setSelectedMega(this.get('currentUserID'));
+            shareEmailController.setProfileSelectedMega(this.get('currentUserID'));
 //            document.getElementById('light').style.display = 'block';
 //            document.getElementById('fade').style.display = 'block';
             this.set("isShareEmail", true);
@@ -930,6 +930,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
     closeContact: function() {
         this.set('contactChecking', false);
         document.getElementById("body_id").style.overflow = "auto";
+    },
+    closeShareEmail: function() {
+        this.set('shareEmail', false);
     },
     uploadImage: function() {
         var user = this.getCurrentProfile(this.get('currentUserID'));

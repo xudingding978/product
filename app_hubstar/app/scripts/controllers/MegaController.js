@@ -1129,9 +1129,16 @@ HubStar.MegaController = Ember.ArrayController.extend({
                 }
                 mega.store.save();
             });
+            
 //            this.sendEventTracking('event', 'button', 'click', 'Contact us');
-//            var shareEmailController = this.get('controllers.shareEmail');
-//            shareEmailController.setSelectedMega(this.get('currentUserID'));
+            var shareEmailController = this.get('controllers.shareEmail');
+            var selectid = this.get('selectedPhoto').id;
+            shareEmailController.setImageID(selectid);
+            var tempUrl = this.get('selectedPhoto').get('photo_image_thumbnail_url');
+            shareEmailController.setThumbnailUrl(tempUrl);
+            shareEmailController.setUser();
+            shareEmailController.setRelatedController('photo');
+            shareEmailController.setProfileSelectedMega(this.get('currentUserID'));
 //            document.getElementById('light').style.display = 'block';
 //            document.getElementById('fade').style.display = 'block';
             this.set("isShareEmail", true);
@@ -1144,6 +1151,9 @@ HubStar.MegaController = Ember.ArrayController.extend({
     },
     closeContact: function() {
         this.set('contact', false);
+    },
+    closeShareEmail: function() {
+        this.set('shareEmail', false);
     },
     addComment: function() {
         if (this.get("controllers.checkingLoginStatus").popupLogin())

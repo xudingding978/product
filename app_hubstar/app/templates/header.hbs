@@ -31,7 +31,7 @@
 
         <div id="notification-filter" class="Geo-Filter easing"  {{action dropdown "notification"}} data-step="3" data-intro="New notifications will appear beside the <b>Notification icon</b>. Click the icon to see your latest notifications.">
             <div class="circle-btn"><i class="fa fa-bell fa-lg" ></i></div>
-            <div class="circle-btn-description">Notification</div>
+            <div class="circle-btn-description">Notifications</div>
             {{#if isUnReadCountZero}}
             <div class="notification-number">{{unReadCount}}</div>
             {{/if}}
@@ -50,8 +50,8 @@
 
         {{#if isNotification}}
         <div class="notification-triangle">
-            <div class="notification-triangle-after" style=""></div>
-            <div class="notification-triangle-before" style=""></div>
+            <div class="notification-triangle-after"></div>
+            <div class="notification-triangle-before"></div>
         </div>
         {{render notificationTop}}
         {{/if}}

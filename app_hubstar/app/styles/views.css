@@ -49,8 +49,6 @@ a:hover , a:focus {color: #aaa;}
 
 
 /* flip item                     **************************************************/
-/* flip item                     **************************************************/
-/* flip item                     **************************************************/
 .panel {
     float: left;
     width: 200px;
@@ -292,150 +290,11 @@ a:hover , a:focus {color: #aaa;}
 .circle div h2 {padding-top: 3em; text-align: center; }
 
 /* flip item                     **************************************************/
-/* flip item                     **************************************************/
-/* flip item                     **************************************************/
 
 
 
 
 
-.object-tags-box{
-    -webkit-transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
-    transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
-    margin: 15px 0 0 0;
-    max-width: 5%;
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: 10;
-    opacity: 0;
-}
-
-.object-tags-box:hover{opacity: 1 !important;}
-
-.object-tags-box div{position:relative;z-index:100;}
-.object-tags{
-    clear: both;
-    height: 26px;
-    line-height: 26px;
-    word-wrap: normal;
-    position:relative;
-    z-index:2;
-    margin:1px;
-}
-
-.tags-mark{
-    float: right;
-    height: 26px;
-    margin-right: -4px;
-    padding-right: 4px;
-    width: 0;
-}
-
-.tags{
-    margin: 0 -2px 1px 0;
-    color: #fff;
-    display: block;
-    float: right;
-    max-width: 180px;
-    /*overflow: hidden; this was removed for the tool tips 3/10/13 */
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    background-color: #427fed;
-    opacity: .6;
-    cursor: pointer;
-}
-
-.tags:hover{
-    color: white;
-    background-color: #427fed;
-    box-shadow: 0px 0px 8px #555;
-    opacity: 1;
-}
-
-.tags-new{
-    display: inline-block;
-    font-weight: bold;
-    padding: 0 10px;
-    font-size: 12px;
-    vertical-align: top;
-    margin-right: -4px;
-}
-.object-tags-box .hint--top:after, .object-tags-box .hint--left:after
-{
-    background:#fff;
-    border-color:#fff;
-    color:#666;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    -moz-box-shadow: 0 0 5px #888;
-    -webkit-box-shadow: 0 0 5px#888;
-    box-shadow: 0 0 5px #888;
-    text-shadow:0 0 0;
-}
-.object-tags-box .hint--left:before
-{
-    border-left-color:#ccc!important;
-}
-.object-tags-box .hint--top:before
-{
-    border-top-color:#ccc!important;
-}
-
-.hashtags{
-    border: 1px solid #d9d9d9;
-    border-radius: 2px;
-    -webkit-border-radius: 2px;
-    background-color: #FFF;
-    color: #333;
-    font-size: 11px;
-    font-weight: bold;
-    padding: 1px 7px;
-    display: inline-block;
-    line-height: 18px;
-    white-space: nowrap;
-}
-
-.remove-hashtages{
-    display: inline-block;
-    opacity: .6;
-    vertical-align: top;
-    cursor: pointer;
-    font-family: 'Helvetica', sans-serif;
-    padding: 0px 0 0 8px;
-    font-style: normal;
-}
-
-.remove-hashtages:hover{
-    opacity: 1;
-}
-
-
-.object-type{
-    display: inline-block;
-    text-align: center;
-    background-color: #427fed;
-    color: white;
-    border-bottom: 2px solid #427fed;
-}
-
-.object-type:hover{
-    border-bottom: 2px solid #fff;
-    opacity: 1;
-}
-
-.tagsappear{
-    overflow: hidden;
-}
-
-.tagsappear:hover{
-    opacity: 1;
-}
-
-.object-type > i {
-    padding: 10px;
-}
 
 
 
@@ -941,26 +800,19 @@ div.album-description-bg{
 /*MANSONRY OBJECT STYLE             END*/
 
 
-
-
-
 .objectview-wrapper{
     min-width: 700px;
 }
 
 
-
-
 /*OBJECT VIEW LEFT*/
-
-
 
 .objectview-left{
     bottom: 0;
     top: 0;
     left: 0;
     margin: 0;
-    position: absolute;
+    position: fixed;
     right: 320px;
     overflow: hidden;
     z-index: -1;
@@ -1009,17 +861,21 @@ div.album-description-bg{
     background-color: rgba(0,0,0,.6);
     opacity: 1;
     text-align: center;
-
     cursor: pointer;
     z-index: 1;
 
 }
 
+.bottom-controlbar > div{
+    display:inline-block;
+    left:45px;
+}
+
 .spinner-object{
-    left: 51px;  
+    left: 37px;  
     display:inline-block; 
     position:relative;
-    top: 9px;
+    top: 0px;
 }
 
 .spinner-object > .spinner{
@@ -1098,16 +954,6 @@ div.album-description-bg{
 }
 
 
-.next {
-    /*    cursor: url(../../../images/nextcursor.png), auto;*/
-}
-
-.previous{
-    /*    cursor: url(../../../images/previouscursor.png), auto;*/
-}
-
-
-
 .arrow-pos{    
     top:400px;  
     color: white; 
@@ -1127,13 +973,13 @@ div.album-description-bg{
     right: 138px;
 }
 .previous-arrow-box{
-    cursor: url(../../images/previouscursor.png),auto;
+
     width: 50%; 
     height: 100%; 
     float: left;
 }
 .next-arrow-box{
-    cursor: url(../../images/nextcursor.png),auto;
+
     width: 50%; 
     height: 100%; 
     float: right;
@@ -1142,6 +988,7 @@ div.album-description-bg{
 .touch-cursor{
     cursor:auto;
 }
+
 
 .close_text{
     position: relative;
@@ -1191,43 +1038,17 @@ div.album-description-bg{
 .icon-on-black{
     color: #aaa;
     cursor: pointer;
-    height: 44px;
-    position: absolute;
     min-width: 44px;
+    position:relative;
+    width: auto;
+    margin: 0 5px;
 
     -webkit-transition: all 0.8s ease;
     -moz-transition: all 0.8s ease;
     -o-transition: all 0.8s ease;
 }
 
-.left-arrow{
-    display:inline-block; 
-    vertical-align: top; 
-    position:relative; 
-    left:44px;
-}
 
-.right-arrow{
-    left: 44px;
-    position: relative;
-    vertical-align: top;
-    display: inline-block;
-}
-
-.middle-icon{
-    left: 44px; 
-    display:inline-block; 
-    vertical-align: top; 
-    position:relative;
-}
-
-.photo-no{
-    left: 88px; 
-    top:0;
-    position: relative !important;
-    display: inline-block;
-    vertical-align: top;
-}
 .icon-on-black:hover{
     color: #fff;
 }
@@ -1238,44 +1059,36 @@ div.album-description-bg{
     height: 20px;
     left: 0;
     margin: auto;
-    position: absolute;
+    position: relative;
     right: 0;
     top: 0;
     width: 20px;
     font-size: 21px;
     float:left;
 }
+
+.text-on-black{
+    color: #737373;
+    font: normal 14px Roboto,arial,sans-serif;
+    line-height: 44px;
+    padding: 0 10px;
+    position: relative;
+    white-space: nowrap;
+    top: 2px;
+}
+
 /* top naviagtion specific styling */
 .top-controlbar div.icon-on-black{height:auto;}
 .top-controlbar .icon-on-black > i, .top-controlbar .icon-on-black > span{margin:10px 0;}
 .top-controlbar .icon-on-black > span
 {
-    text-indent: 25px;
+
     line-height: 23px;
     font-size: 14px;
     font-weight: bold;
     font-family: FontAwesome, "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 }
-.top-article{
-    position:relative;
-    width: 60px;
-    margin: 0 5px;
-}
-
-.top-tag{
-    position:relative;
-    margin: 0 10px;
-    width: 60px;
-}
-
-.top-tag-acts{
-    position:relative;
-    margin: 0 5px;
-    width: 60px;
-}
-
-
 /* top navigation specific styling ends */
 .icon-on-black > .pretooltip{
     float:left;
@@ -1294,14 +1107,7 @@ div.album-description-bg{
     float: right; 
     cursor:pointer;
 }
-.text-on-black{
-    color: #737373;
-    font: normal 14px Roboto,arial,sans-serif;
-    line-height: 44px;
-    padding: 0 10px;
-    position: absolute;
-    white-space: nowrap;
-}
+
 
 
 .caption-container{
@@ -1316,26 +1122,13 @@ div.album-description-bg{
 }
 
 
-
-
-
-
 /*OBJECT VIEW LEFT               END*/
-
-
-
-
-
-
-
-
-
 /*OBJECT VIEW RIGHT*/
 
 
 .objectview-right{
     bottom: 0;
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 0;
     width: 320px;
@@ -1392,6 +1185,9 @@ div.album-description-bg{
     vertical-align: top;
     display: inline-block;
     width: 50%;
+    word-break: break-all;
+    max-height: 80px;
+    overflow: hidden;
 }
 
 .poster-name{
@@ -1409,9 +1205,54 @@ div.album-description-bg{
     line-height:140%;
 }
 
+.popup-box-style{
+    z-index: 11;
+    background-color: white;
+    border: 1px rgba(0,0,0,.6); 
+    border-radius: 3px;
+    box-shadow: 0 0 20px 5px #aaa;  
+    width: 500px;
+    margin: 0 auto; 
+    padding: 20px 40px;
+    position: fixed; 
+    top: 35%;
+    left: 0;
+    right: 0;
+}
 
+.popup-box-style-info{
+    color: #333;
+    font-size: 35px;
+    margin: auto;
+    width: 40px;
+    position: relative;
+    left: 0;
+    right: 0;
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+}
 
+.popup-box-style-hint{
+    color: #333; 
+    font-weight: normal; 
+    font-size: 15px;
+    text-align: center;
+}
+.popup-box-style-message{
+    color: #333; 
+    font-size: 18px; 
+    font-weight: bold; 
+    line-height: 20px; 
+    text-align: center;
+    margin: 10px 0;
+}
 
+.popup-box-style-btn{  
+    width:200px; 
+    margin: 20px auto 5px;
+    text-align: center; 
+}
 
 .object-collapes-title {
     cursor: pointer;
@@ -1525,13 +1366,6 @@ div.album-description-bg{
     overflow: auto;
 }
 
-/*.edit_photo-keywords_field{
-    margin: 10px auto;
-    height: 100px;
-    resize: none;
-    overflow: auto;
-}*/
-
 .sml-partner {
     margin: 7px;
     display: inline-block;
@@ -1590,7 +1424,7 @@ div.album-description-bg{
 }
 
 
-
+/* --------------------Button Style ----------------------*/
 .new-btn {
     /*BASIC POSITION*/
     cursor: pointer;
@@ -1798,12 +1632,12 @@ div.album-description-bg{
     border: 1px solid #ddd;
     color: #aaa;
     box-shadow: none;
-    top: -4px;
+    top: -10px;
     position: relative;
     padding: 0 6px;
     height: 28px;
     line-height: 28px;
-    /*    margin: 0 2px;*/
+    margin: -15px 0;
     cursor: default;
 
     font-size: 12px;
@@ -1841,7 +1675,7 @@ div.album-description-bg{
 }
 
 
-
+/* --------------------Button Style END----------------------*/
 
 
 
@@ -1864,7 +1698,7 @@ div.album-description-bg{
     font-weight: bold;
     line-height: 30px;
     margin-bottom: 10px;
-    word-break: break-word;
+    word-break: break-all;
     text-transform: capitalize;
 
 }
@@ -2132,15 +1966,6 @@ div.album-description-bg{
     word-wrap: break-word;
 }
 
-
-
-
-/*OBJECT VIEW RIGHT             END*/
-
-
-
-
-
 .collect_descriptionbox {
     width:300px;
     margin: 0px 0px 10px;
@@ -2148,22 +1973,336 @@ div.album-description-bg{
     resize: none;
 }
 
+
+
+/*----------OBJECT VIEW RIGHT    ---------- END*/
+
+
+/* ----------tag function updated by Charis -------------*/
+
+.object-tags-box{
+    -webkit-transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
+    transition: box-shadow .218s ease,background-color .218s ease,max-width .218s step-end;
+    margin: 15px 0 0 0;
+    max-width: 5%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 10;
+    opacity: 0;
+}
+
+.object-tags-box:hover{opacity: 1 !important;}
+
+.object-tags-box div{position:relative;z-index:100;}
+.object-tags{
+    clear: both;
+    height: 26px;
+    line-height: 26px;
+    word-wrap: normal;
+    position:relative;
+    z-index:2;
+    margin:1px;
+}
+
+.tags-mark{
+    float: right;
+    height: 26px;
+    margin-right: -4px;
+    padding-right: 4px;
+    width: 0;
+}
+
+.tags{
+    margin: 0 -2px 1px 0;
+    color: #fff;
+    display: block;
+    float: right;
+    max-width: 180px;
+    /*overflow: hidden; this was removed for the tool tips 3/10/13 */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color: #427fed;
+    opacity: .6;
+    cursor: pointer;
+}
+
+.tags:hover{
+    color: white;
+    background-color: #427fed;
+    box-shadow: 0px 0px 8px #555;
+    opacity: 1;
+}
+
+.tags-new{
+    display: inline-block;
+    font-weight: bold;
+    padding: 0 10px;
+    font-size: 12px;
+    vertical-align: top;
+    margin-right: -4px;
+}
+.object-tags-box .hint--top:after, .object-tags-box .hint--left:after
+{
+    background:#fff;
+    border-color:#fff;
+    color:#666;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    text-shadow:0 0 0;
+}
+.object-tags-box .hint--left:before
+{
+    border-left-color:#ccc!important;
+}
+.object-tags-box .hint--top:before
+{
+    border-top-color:#ccc!important;
+}
+
+.hashtags{
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    background-color: #FFF;
+    color: #333;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 1px 7px;
+    display: inline-block;
+    line-height: 18px;
+    white-space: nowrap;
+}
+
+.remove-hashtages{
+    display: inline-block;
+    opacity: .6;
+    vertical-align: top;
+    cursor: pointer;
+    font-family: 'Helvetica', sans-serif;
+    padding: 0px 0 0 8px;
+    font-style: normal;
+}
+
+.remove-hashtages:hover{
+    opacity: 1;
+}
+
+
+.object-type{
+    display: inline-block;
+    text-align: center;
+    background-color: #427fed;
+    color: white;
+    border-bottom: 2px solid #427fed;
+}
+
+.object-type:hover{
+    border-bottom: 2px solid #fff;
+    opacity: 1;
+}
+
+.tagsappear{
+    overflow: hidden;
+}
+
+.tagsappear:hover{
+    opacity: 1;
+}
+
+.object-type > i {
+    padding: 10px;
+}
+
+/*-----show tag -----*/
+
+#show-tag-box-up{
+    bottom: 20px
+}
+
+#show-tag-box-bottom{
+    bottom:-560px;
+}
+
+
+.showTagSavePhoto{
+    z-index: 11;
+    position: absolute; 
+    border-radius: 3px;
+    width: 530px;
+    height: 430px;
+}
+
+.show-tag-title{
+    margin-bottom: 10px; 
+    position: relative; 
+    background-color: #f3f3f3; 
+    height: 45px;
+    border-bottom: 1px solid #ddd;
+    border-radius: 3px 3px 0 0;
+}
+
+.show-tag-title-font{
+    font-size: 20px; 
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+
+.show-tag-contactmebox-wapper{
+    width: 530px;
+    font-size: 13px;
+}
+
+.show-tag-part{
+    width:96%;
+    margin: 0 10px;
+}
+
+.show-tag-part-below{
+    width: 96%;
+    margin: 0 10px;
+    min-height: 105px;
+}
+
+.show-tag-part div{
+    display:inline-block;
+    padding: 5px 0;
+}
+
+
+.show-tag-part-below-left{
+    width: 70%;
+    float: left;
+    padding: 7px 0 0 0;
+}
+.show-tag-part-below-right{
+    display:inline-block;
+    margin:10px 20px;
+    float:right;
+}
+
+.show-tag-font{
+    font-size: 18px; 
+    font-weight: bold; 
+    width: 136px;
+    float: left;
+    display: inline-block;
+}
+
+.show-tag-link-to{
+    width: 100%;
+    background-color: #ccc;
+    padding: 10px;
+    height: 60px;
+    overflow: hidden;
+
+}
+
+.show-tag-link-to-content{
+    min-height: 20px;
+    word-break: break-all;
+    width: 73%;
+    display: inline-block;
+    line-height: 15px;
+}
+
+.show-tag-left{
+    margin: 8px 0;
+}
+
+.show-tag-select{
+    display: inline-block;
+    cursor: pointer;
+    width: 220px;
+    overflow: hidden;
+
+}
+
+.show-tag-disabled{
+    display: inline-block;
+    width: 220px;
+    border: none;
+    top: -10px;
+    font-size: 18px;
+    cursor: auto;
+}
+
+.show-tag-profile-content{
+    height:100%; 
+    font-size: 13px; 
+    font-weight: bold; 
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 160px;
+}
+
+.show-tag-profile-content .show-tag-profile-content{
+    width: auto;
+    line-height: 27px;
+}
+
+
+.show-tag-loading{
+    position: absolute;
+    font-size: 12px;
+    bottom: 0;
+    left: 60px;
+}
+
+.show-tag-loading i{
+    position: relative;
+    left: 10px;
+}
+
+
 .tag_descriptionbox {
-    width:300px;
-    margin: 0px 0px 10px;
+    width:370px;
     height: 95px;
     resize: none;
 }
 .tag_currenprofile {
-    width:300px;
-    margin: 0px 0px 10px;
+    width: 370px;
     height: 30px;
     resize: none;
 }
 
+.show-tag-bottom{
+    height: 45px;
+    position: relative;
+    border-top: 1px solid #ddd;
+    border-radius: 0 0 3px 3px;
+    overflow: hidden;
+}
+
+.show-tag-bottom div{
+    height:45px;
+    line-height: 45px;
+}
+
+.show-tag-button-right{
+    border-right: 1px solid #ddd; 
+}
+
+.show-tag-image{
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.03);
+    position: relative;  
+}
+
+.show-tag-image img{
+    width: 80px;
+    height: 80px;
+}
+
 .tag_linkto {
     width:300px;
-    margin: 0px 0px 10px;
     height: 30px;
     resize: none;
 }
@@ -2198,9 +2337,12 @@ div.album-description-bg{
     background-color: rgba(0,0,0,0.1);
 }
 
-.exist-name{
-    text-decoration: none;
-    color: #ddd;
+.selected-none{
+    display:inline-block;
+}
+
+.choose-exist-collection:hover{
+    background-color: rgba(0,0,0,0.1);
 }
 
 .exist-name{
@@ -2213,7 +2355,6 @@ div.album-description-bg{
 }
 
 .add-collection_select-collection{
-
     padding: 10px;
     position: absolute;
     left: 4px;
@@ -2229,14 +2370,23 @@ div.album-description-bg{
 .add-tag_select-tag{
     padding: 5px;
     position: absolute;
-    left: 4px;
-    top: 100px;
+    left: 83px;
     background: #fff;
     -webkit-box-shadow: 0 0px 1px #888;
     -moz-box-shadow: 0 0px 1px #888;
     box-shadow: 0 0px 1px #888;
     z-index: 11;
     width: 334px;
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 160px;
+}
+
+.add-tag_select-tag > div{
+    font-size: 16px; 
+    font-weight: bold; 
+    overflow: auto; 
+    overflow-x:hidden;
 }
 
 .add-tag_select-tag:before{
@@ -2260,6 +2410,223 @@ div.album-description-bg{
     border-width: 10px 10px 10px 10px;
     z-index: -1;
 }
+
+
+.tagview
+{
+    border:solid 3px #fff;
+    width:100px;
+    height:100px;
+    position:absolute;
+    display:none;
+}
+
+#tagit
+{
+    position:absolute;
+    opacity:1;
+
+}
+
+.tagit{
+    position: absolute;
+    margin: 200px 35%;
+}
+
+
+#tagit .box
+{
+    border:solid 3px #ffffff;
+    width:100px;
+    opacity:.2;
+    height:100px;
+    border-style:solid;
+    border-color:#020202;
+    margin: auto 220px;
+    position: absolute;
+
+}
+
+#tagit .name
+{
+    float:left;
+    background-color:white;
+    width:200px;
+    height:250px;
+    padding:5px;
+
+}
+#tagit div.text
+{
+    margin-bottom:5px;
+}
+#tagit input[type=text]
+{
+    margin-bottom:5px;
+}
+#tagit #tagname
+{
+    width:110px;
+}
+#taglist
+{
+    background-color:#012D4A;
+    width:300px;
+    min-height:200px;
+    height:auto !important;
+    height:200px;
+    float:left;
+    padding:10px;
+    margin-left:20px;
+    color:#BFC6D0;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+
+}
+#taglist ol { padding:0 20px;float:left;cursor:pointer}
+#taglist ol a { color:#BFC6D0;font-size:11px;}
+#taglist ol a:hover { text-decoration:underline }
+
+.tagtitle
+{
+    font-size:14px;
+    text-align:center;
+    width:100%;
+    float:left;
+}
+
+/* -------- tag content ---------*/
+#tagitshow{
+    width: 300px;
+    background-color: transparent;
+    position: absolute;
+    z-index: 1;
+    border: none;
+
+}
+
+.tagitshow{
+    width: 100%;
+    background-color: #fff;
+    position: absolute;
+    z-index: 2;
+    overflow: hidden;
+    border-radius:5px;
+    -moz-box-shadow: 0px 0px 5px #555;
+    -webkit-box-shadow: 0px 0px 5px#555;
+    box-shadow: 0px 0px 5px #555;
+}
+
+.tagImg{
+    z-index: 1;
+    position: relative;
+    width: 30%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    float: left;
+    overflow: hidden; 
+    padding:5px;
+    vertical-align: middle;
+}
+
+.tagMiddle{
+    z-index: 1;
+    position: relative;
+    width: 50%;
+    float: left;
+    overflow: hidden;
+    padding: 5px;
+} 
+
+.tagName{
+    line-height: 20px;
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+    position: relative;
+    max-height: 40px;
+}
+
+.tagContent{
+    z-index: 1;
+    width: 100%;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    max-height: 60px;
+    margin: 5px auto;
+    word-break: break-all;
+}
+
+
+
+.tagBtn{
+    width: 20%;
+    position: relative;
+    display: inline-block;
+    height: auto;
+    float: right;
+}
+
+.tag-button{
+    position:relative; 
+    top:-4px; 
+    left: 7px; 
+    display:inline-block; 
+    font-size:15px;
+    cursor: pointer;
+}
+
+
+.tagBtn > div{
+    background-color: #ccc;
+    position: relative;
+    line-height: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 25%;
+    color: #fff;
+    float: right;
+    width: 150px;
+    left:105px;
+    z-index:10;
+}
+
+.tag-content{
+    position: absolute;
+    font-size: 15px;
+    max-width: 200px;
+    height: auto;
+    background-color: #000;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px 10px;
+    font-weight: bold;
+    word-wrap: break-word;
+}
+
+.tag-content-arrow{
+    width: 0;
+    height: 0;
+    border-top: 0px solid transparent;
+    border-bottom: 11px solid transparent;
+    border-right: 10px solid #000;
+    position: absolute;
+    top: 0;
+    left: -5px;
+    margin: 0 auto;
+    opacity: 1;
+}
+
+
+
+
+
+
+/* ----------tag function end -------------*/
 
 .edit-btn{
     cursor: pointer;
@@ -2452,7 +2819,7 @@ div.album-description-bg{
 /*call to action style */
 
 
-/* Author: Stephanie Derrick-Hardie */
+/* Author: Stephanie Derrick-Hardie --------Updated by Charis*/
 
 #cta-popup{
 

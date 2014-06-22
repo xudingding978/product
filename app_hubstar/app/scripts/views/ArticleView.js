@@ -7,6 +7,7 @@ HubStar.ArticleView = Ember.View.extend({
         return "test";
     }).property(),
     didInsertElement: function() {
+        this.ads();
         var that = this;
         var counter = 0;
         var mouseX = 0;
@@ -25,10 +26,17 @@ HubStar.ArticleView = Ember.View.extend({
 
                 that.get("controller").get("controllers.showTag").set("pic_x", (event.clientX - left) / HubStar.get("pic_current_width")); //set 
                 that.get("controller").get("controllers.showTag").set("pic_y", (event.clientY - top) / HubStar.get("pic_current_height"));
-
                 if (that.get("controller").get("enableTag") === true)
                 {
-                    that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
+                    var pic_w = HubStar.get("pic_current_width");
+                    var pic_h = HubStar.get("pic_current_height");
+                    if ((event.clientX > left && event.clientX < left + pic_w) && (event.clientY > top && event.clientY < top + pic_h)) {
+                        that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
+                    }
+                    else
+                    {
+                        that.get("controller").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
+                    }
                 }
                 else
                 {
@@ -38,7 +46,7 @@ HubStar.ArticleView = Ember.View.extend({
                 if (mouseY - 70 > center_y)
                 {
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true); //chage tag show style
-                    mouseY = mouseY - 500;
+                    mouseY = mouseY - 575;
                     //$("#showTagSavePhoto").css("position", "relative");
                 }
                 else
@@ -63,8 +71,6 @@ HubStar.ArticleView = Ember.View.extend({
         $('#previousarticlephoto').mousedown(function(event) {
             if (event.which === 1) //2:middle 
             {
-                var sss = event.clientX - $("#tag_image_object").offset().left;
-                var imgtag = $(this).parent(); // get the div to append the tagging entry
                 mouseX = event.clientX - 265; // x and y axis
                 mouseY = event.clientY + 70;
                 var center_y = $(window).height() / 2;
@@ -77,8 +83,15 @@ HubStar.ArticleView = Ember.View.extend({
 
                 if (that.get("controller").get("enableTag") === true)
                 {
-
-                    that.get("controller").set("inImage", true);
+                    var pic_w = HubStar.get("pic_current_width");
+                    var pic_h = HubStar.get("pic_current_height");
+                    if ((event.clientX > left && event.clientX < left + pic_w) && (event.clientY > top && event.clientY < top + pic_h)) {
+                        that.get("controller").set("inImage", true);  //just click inside the image can triggle the action rather rather click the tag button
+                    }
+                    else
+                    {
+                        that.get("controller").set("inImage", false);  //just click inside the image can triggle the action rather rather click the tag button
+                    }
                 }
                 else
                 {
@@ -87,7 +100,7 @@ HubStar.ArticleView = Ember.View.extend({
                 }
                 if (mouseY - 70 > center_y)
                 {
-                    mouseY = mouseY - 500;
+                    mouseY = mouseY - 575;
                     that.get("controller").get("controllers.showTag").set("change_tag_show", true);
                     // $("#showTagSavePhoto").css("position", "relative");
                 }
@@ -245,5 +258,50 @@ HubStar.ArticleView = Ember.View.extend({
             }
 
         }
+    }, ads: function() {
+        var type = this.get("controller").get("megaResouce").get("classification");
+        $(document).ready(function() {
+            setTimeout(function() {
+                if (HubStar.get("object_ad_display") === true) {
+                    var photo = document.getElementById("article_view_ads");
+                    for (var i = 0; i < HubStar.get('objectAds')[1].length; i++)
+                    {
+                        var ad = HubStar.get('objectAds')[1][i];
+                        if (ad.type === type)
+                        {
+                            var adDiv = document.createElement('div');
+                            adDiv.id = ad.div;
+                            var height = ad.size[1];
+                            var width = ad.size[0];
+                            adDiv.style.display = "block";
+                            adDiv.style.height = height + "px";
+                            adDiv.style.width = width + "px";
+                            adDiv.style.margin = "0 auto";
+                            photo.appendChild(adDiv);
+                            if (ad.isNew === true) {
+                                googletag.cmd.push(function() {
+                                    var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                                    ad.slot1 = slot1;
+                                    googletag.pubads().enableSingleRequest();
+                                    googletag.enableServices();
+                                    googletag.display(ad.div);
+                                    googletag.pubads().refresh([slot1]);
+                                });
+                                ad.isNew = false;
+                            }
+                            else
+                            {
+                                googletag.cmd.push(function() {
+                                    googletag.pubads().enableSingleRequest();
+                                    googletag.enableServices();
+                                    googletag.display(ad.div);
+                                    googletag.pubads().refresh([ad.slot1]);
+                                });
+                            }
+                        }
+                    }
+                }
+            }, 300);
+        });
     }
 });

@@ -78,8 +78,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     loadingTime: false,
     localStorage: "",
     applicationCategoryDropdownType: 'geoLocation',
+    total_profiels:0,
     init: function() {
-
+        HubStar.set("isTopAdDisplay", true);
         var that = this;
 
         this.set('categorys', HubStar.Cate.find({}));
@@ -110,13 +111,6 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             }
         });
 
-        requiredBackEnd('tenantConfiguration', 'pdfDisplay', null, 'POST', function(params) {
-            HubStar.set('pdf_display', params[0]);
-            HubStar.set('tagging_display', params[1] && params[2]);
-            HubStar.set('profile_manager', params[2]);
-        });
-
-
         if (localStorage.userType !== 'email' && localStorage.checkSocialUser === 'newSocialUser') {
             HubStar.set('checkLoginStatus', true);
             setTimeout(function() {
@@ -140,7 +134,7 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 $("#cta-popup").css("display", "none");
                 $("#profiles-main-container").css("display", "block");
                 localStorage.loginState = "register";
-                 
+
                 $('.Login-box #login-btn').text('Already have an account? Click here to Log in!');
                 $('.Login-box .black-tool-tip').css('display', 'none');
                 $('.Login-box #click-register-social').css('display', 'block');
@@ -156,12 +150,12 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 else {
                 }
-                
-                setTimeout(function(){
-                     $("#first_name input").focus();
-                },1);
+
+                setTimeout(function() {
+                    $("#first_name input").focus();
+                }, 1);
             }, 1);
-           
+
         });
     },
     ctalogin: function() {
@@ -223,10 +217,66 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     email_login: function() {
         this.set('mail', !this.get('mail'));
     },
+    closeTopAd: function() {
+
+        $(".user-top").css("height", "40px");
+        $(".profile-top").css("height", "150px");
+        this.searchSmallScreen();
+        var tempComment = [this.get("user").get("id")];
+        var that = this;
+        requiredBackEnd('users', 'SetTopAds', tempComment, 'POST', function() {
+            HubStar.set("isTopAdDisplay", false);
+            that.get("user").set("is_top_ad_display", false);
+        });
+    },
+    displayTopAds: function() {
+        $(document).ready(function() {
+            setTimeout(function() {
+                var photo = document.getElementById("search_wall_top");
+                for (var i = 0; i < HubStar.get('objectAds')[3].length; i++)
+                {
+                    var ad = HubStar.get('objectAds')[3][i];
+                    //if (ad.type === type)
+                    {
+                        var adDiv = document.createElement('div');
+                        adDiv.id = ad.div;
+                        var height = ad.size[1];
+                        var width = ad.size[0];
+                        adDiv.style.display = "block";
+                        adDiv.style.height = height + "px";
+                        adDiv.style.width = width + "px";
+                        photo.appendChild(adDiv);
+                        if (ad.isNew === true) {
+                            googletag.cmd.push(function() {
+                                var slot1 = googletag.defineSlot(ad.path, [ad.size[0], ad.size[1]], ad.div).addService(googletag.pubads());
+                                ad.slot1 = slot1;
+                                googletag.pubads().enableSingleRequest();
+                                googletag.enableServices();
+                                googletag.display(ad.div);
+                                googletag.pubads().refresh([slot1]);
+                            });
+                            ad.isNew = false;
+                        }
+                        else
+                        {
+                            googletag.cmd.push(function() {
+                                googletag.pubads().enableSingleRequest();
+                                googletag.enableServices();
+                                googletag.display(ad.div);
+                                googletag.pubads().refresh([ad.slot1]);
+                            });
+                        }
+                    }
+                }
+            }, 500);
+        });
+    },
     grapData: function() {
         HubStar.set("profiles", []);
+        HubStar.set("userAdministrator", 0);
+        HubStar.set("userEditor", 0);
+        HubStar.set("userCreator", 0);
         var that = this;
-
         if (localStorage.resOrcom === "" || localStorage.resOrcom === null || localStorage.resOrcom === undefined) {
             localStorage.resOrcom = "All";
         }
@@ -235,6 +285,13 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
         if (localStorage.loginStatus) {
             var u = HubStar.User.find(localStorage.loginStatus);
             u.then(function() {
+                if (HubStar.get("top_ad_display") === true) {
+                    HubStar.set("isTopAdDisplay", u.get("is_top_ad_display"));
+                }
+                else
+                {
+                    HubStar.set("isTopAdDisplay", false);
+                }
                 if ((u.get("email")).match(/@trendsideas.com/g) !== "undefined"
                         && (u.get("email")).match(/@trendsideas.com/g) !== ""
                         && (u.get("email")).match(/@trendsideas.com/g) !== null)
@@ -243,6 +300,11 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                 }
                 else {
                     that.set("is_trends_user", false);
+                }
+                if (HubStar.get("isTopAdDisplay")) {
+                    setTimeout(function() {
+                        that.displayTopAds();
+                    }, 200);
                 }
                 for (var i = 0; i < u.get("profiles").get("length"); i++) {
                     var id = u.get("profiles").objectAt(i).get("profile_id");
@@ -255,14 +317,17 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     if (type === "administrator")
                     {
                         isAdministrator = true;
+                        HubStar.set("userAdministrator", HubStar.get("userAdministrator") + 1);
                     }
                     else if (type === "editor")
                     {
                         isEditor = true;
+                        HubStar.set("userEditor", HubStar.get("userEditor") + 1);
                     }
                     else if (type === "creator")
                     {
                         isCreator = true;
+                        HubStar.set("userCreator", HubStar.get("userCreator") + 1);
                     }
                     var url = pic.split("_");
                     var length = url.length;
@@ -294,12 +359,16 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
                     });
 
                 }
+                that.set("total_profiels",HubStar.get("profiles").length);
             });
+        }
+        else
+        {
+            that.displayTopAds();
         }
         this.set("user", u);
         this.set("myUserProfile", "#/users/" + localStorage.loginStatus);
         this.set("myMessageBoard", "#/users/" + localStorage.loginStatus + "/messagecenter");
-
     },
     searchSmallScreen: function() {
 
@@ -308,9 +377,23 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             if (HubStar.get('showDiscoveryBar') === true) {
 
                 $("#search-bar").css('display', "none");
+                if (HubStar.get("isTopAdDisplay")) {
+                    $("#top_bar_ads").css({"position": "relative", "top": "10px"});
+
+                }
                 $("#topResidentialCommerical").css('display', "none");
             } else {
-                $('#masonry_container').css('top', "100px");
+                if (HubStar.get("isTopAdDisplay")) {
+                    $('#masonry_wrapper').css('top', "240px");
+                    if (HubStar.get("isTopAdDisplay")) {
+                        $("#top_bar_ads").css({"position": "fixed", "top": "90px"});
+
+                    }
+                }
+                else
+                {
+                    $('#masonry_wrapper').css('top', "100px");
+                }
                 $("#search-bar").css('display', "block");
                 $("#topResidentialCommerical").css('display', "block");
             }
@@ -318,12 +401,21 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
             $("#search-bar").css('display', "none");
             $("#topResidentialCommerical").css('display', "none");
             if (HubStar.get('showDiscoveryBar') === true) {
+                if (HubStar.get("isTopAdDisplay")) {
+                    $("#top_bar_ads").css({"position": "relative", "top": "10px"});
 
+                }
                 $(".search-bar-on-small-screen").css('display', "none");
             } else {
                 $(".search-bar-on-small-screen").css('display', "block");
-                $('#masonry_container').css('top', "150px");
-
+                if (HubStar.get("isTopAdDisplay")) {
+                    $("#top_bar_ads").css({"position": "fixed", "top": "140px"});
+                    $('#masonry_wrapper').css('top', "290px");
+                }
+                else
+                {
+                    $('#masonry_wrapper').css('top', "150px");
+                }
             }
         }
 
@@ -896,7 +988,9 @@ HubStar.ApplicationController = Ember.ArrayController.extend({
     showDiscoveryBar: function() {
 
         HubStar.set("showDiscoveryBar", true);
-
+        if (HubStar.get("isTopAdDisplay")) {
+            $("#top_bar_ads").css({"position": "relative", "top": "10px"});
+        }
         HubStar.set("escVideo", true);
         HubStar.set("defaultSearch", true);
         this.transitionToRoute('indexIndex');

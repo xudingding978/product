@@ -206,10 +206,24 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                             $("#search-bar").css('display', "block");
                             $("#topResidentialCommerical").css('display', "block");
                             $(".search-bar-on-small-screen").css('display', "none");
+                             if (HubStar.get("isTopAdDisplay")) { 
+                            }
+                            else
+                            {
+                                $('.profile-top').css('height', "150px");
+                            }
                         } else {
                             $("#search-bar").css('display', "none");
                             $("#topResidentialCommerical").css('display', "none");
                             $(".search-bar-on-small-screen").css('display', "block");
+                            if (HubStar.get("isTopAdDisplay")) {
+                                $("#top_bar_ads").css({"position": "fixed", "top": "150px"});                               
+                            }
+                            else
+                            {
+                                $('.profile-top').css('height', "150px");
+                            }
+
                         }
                         $('#masonry_user_container').masonry("reloadItems");
                         setTimeout(function() {
@@ -1093,7 +1107,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             $('#masonry_user_container').masonry("reloadItems");
             setTimeout(function() {
                 $('#masonry_user_container').masonry();
-
+                $('html,body').animate({
+                    scrollTop: $("#profile_submenu").offset().top - 100
+                });
             }, 200);
         }, 250);
     },
@@ -1135,6 +1151,9 @@ HubStar.ProfileController = Ember.ObjectController.extend({
                 $('#masonry_user_container').masonry("reloadItems");
                 setTimeout(function() {
                     $('#masonry_user_container').masonry();
+                    $('html,body').animate({
+                        scrollTop: $("#profile_submenu").offset().top - 100
+                    });
                 }, 100);
             }, 250);
 
@@ -1181,6 +1200,8 @@ HubStar.ProfileController = Ember.ObjectController.extend({
             this.set('collectionTag', false);
             this.set('reviewTag', false);
             this.set('followerProfileTag', false);
+            $('#user-stats > li').removeClass('selected-user-stats');
+            $('#pdf').addClass('selected-user-stats');
             this.transitionToRoute('profilePdf');
 
 

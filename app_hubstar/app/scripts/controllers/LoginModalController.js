@@ -121,7 +121,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
 
         if (this.checkSignupInfo()) {
             var signupInfo = [this.get('email')];
-            var that=this;
+            var that = this;
             requiredBackEnd('login', 'getemail', signupInfo, 'POST', function(params) {
                 if (params === 1) {
                     $('#register-with-email-step-2').addClass('active-step');
@@ -238,7 +238,7 @@ HubStar.LoginModalController = Ember.Controller.extend({
             that.set('loginStatus', params.COUCHBASE_ID);
             localStorage.userType = "email";
             localStorage.loginState = "login";
-
+            ga('Trends.send', 'event', 'button', 'click', 'SignUp');
             var emailInfo = [params.USER_NAME, that.encrypt(params.USER_NAME), that.encrypt(params.PWD_HASH)];
             requiredBackEnd('emails', 'confirmationemail', emailInfo, 'POST', function() {
 

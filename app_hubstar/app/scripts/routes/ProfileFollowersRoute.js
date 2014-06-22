@@ -16,7 +16,11 @@ HubStar.ProfileFollowersRoute = Ember.Route.extend({
          this.controllerFor('profile').set('profileSelectionStatus', 'Followers');
          this.controllerFor('profile').set('partnerTag', false);
          this.controllerFor('profile').set('collectionTag', false);
-         this.controllerFor('profile').set('followerProfileTag', true);         
+         this.controllerFor('profile').set('followerProfileTag', true);
+         this.controllerFor('profile').set('reviewTag', false);
+         this.controllerFor('profile').set('pdfTag', false);
+         this.controllerFor('profile').set('videoTag', false);
+         
         $('#user-stats > li').removeClass('selected-user-stats');
         $('#follow').addClass('selected-user-stats');
           this.controllerFor('userFollowers').getProfileId(model);

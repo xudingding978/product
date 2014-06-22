@@ -54,7 +54,7 @@ HubStar.AfterLoginView = Ember.View.extend({
               this.get("controller").set("newProfile", true);
         }
         else if (checking === "newGroup") {
-            location.href = "#/groups/new";
+            location.href = "#/groups/new";           
             this.get("controller").set('userProfile', false);
             //$("#user-dd-menu").attr("style", "display:none");
             $("#cancel").css("display", "none");

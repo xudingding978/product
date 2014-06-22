@@ -300,9 +300,6 @@
             </div>          
             {{/unless}}
             <div class="tab-pane" id="tab5">
-
-
-
                 <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">NOTIFICATION</div>
                 <div style="margin: 10px 40px;"> 
                     <span style="font-size: 15px; font-weight: bold; color: #555;">How You Get Notifications:</span>
@@ -335,58 +332,86 @@
             <div class="tab-pane" id="tab6">
                 <div style="font-size: 25px; color: #555; text-align: center;font-weight: bold;margin: auto;">YOUR BUSINESS PROFILES</div>
 
-                <div style="width: 100%;height: auto; max-height: 50px;padding: 10px 10px;line-height: 10px;margin-left: 15px;">
-                    <i class="fa fa-bookmark" style="position: relative; font-size: 13px; color: red; display: inline-block; margin-right: 5px;">&nbsp;Administrator</i>
-                    <i class="fa fa-bookmark" style="position: relative; font-size: 13px; color: blue;display: inline-block; margin-right: 5px;">&nbsp;Editor</i>
-                    <i class="fa fa-bookmark" style="position: relative;  font-size: 13px; color: gold;display: inline-block">&nbsp;Creator</i>
-                </div>
 
                 <div id="user_profiles"> 
-                    {{#each HubStar.profiles}}
-                    {{#if this.isAdministrator}}
-                    <div>
-                        <a href="#/profiles/{{unbound this.profile_id}}"> 
-                            <div style="padding:20px; width:100%"> 
-                                <div class="user-profile-image-position"><img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound width}}; height:{{unbound height}}"></div>
-                                <div class="user-profile-name-position">{{this.profile_name}}</div>
-                                <div class="user-profile-bookmark"><i class="fa fa-bookmark" style=" font-size: 30px; color: red;"></i></div>    
+                    <div class="user-profile-hover">
+                        <div id="profile-creator-title" class="user-title-list" {{action clickToDisplay 'Creator' on="click" target="view"}}> 
+                             <i class="fa fa-user-md" >&nbsp;</i>Creator &nbsp;(&nbsp;{{HubStar.userCreator}}&nbsp;)
+                        </div>
+                        <div id="user-profile-creator">
+                            {{#each HubStar.profiles}}
+                            {{#if this.isCreator}}
+                            <div>
+                                <a href="#/profiles/{{unbound this.profile_id}}">
+                                    <div  class="profile-image"> 
+                                        <div class="profile-top-image-position">
+                                            <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
+                                        </div>
+                                        <div class="profile-top-name-position">{{unbound this.profile_name}} </div>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
+                            {{/if}}
+                            {{/each}}
+                        </div>
                     </div>
-                    {{/if}}
-                    {{#if this.isEditor}}
-                    <div>
-                        <a href="#/profiles/{{unbound this.profile_id}}"> 
-                            <div style="padding:20px; width:100%"> 
-                                <div class="user-profile-image-position"><img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound width}}; height:{{unbound height}}"></div>
-                                <div class="user-profile-name-position">{{this.profile_name}}</div>
-                                <div class="user-profile-bookmark"><i class="fa fa-bookmark" style=" font-size: 30px; color: blue;"></i></div>    
-                            </div>
-                        </a>
-                    </div>
-                    {{/if}}
-                    {{#if this.isCreator}}
-                    <div>
-                        <a href="#/profiles/{{unbound this.profile_id}}"> 
-                            <div style="padding:20px; width:100%"> 
-                                <div class="user-profile-image-position"><img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound width}}; height:{{unbound height}}"></div>
-                                <div class="user-profile-name-position">{{this.profile_name}}</div>
-                                <div class="user-profile-bookmark"><i class="fa fa-bookmark" style=" font-size: 30px; color: gold;"></i></div>    
-                            </div>
-                        </a>
-                    </div>
-                    {{/if}}
-                    {{/each}}
+                    <div class="user-profile-hover">
+                        <div id="profile-admin-title" class="user-title-list " {{action clickToDisplay "Admin" on="click" target="view"}}>
+                             <i class="fa fa-user" ></i>&nbsp;Administrator &nbsp;(&nbsp;{{HubStar.userAdministrator}}&nbsp;)
 
+                        </div>
+                        <div id="user-profile-admin">
+
+                            {{#each HubStar.profiles}}  
+                            {{#if this.isAdministrator}}
+                            <div>
+                                <a href="#/profiles/{{unbound this.profile_id}}">
+                                    <div class="profile-image" > 
+                                        <div class="profile-top-image-position">
+                                            <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
+                                        </div>
+
+                                        <div class="profile-top-name-position">{{this.profile_name}}</div>
+
+                                    </div>
+                                </a>
+                            </div>
+                            {{/if}}
+                            {{/each}}
+                        </div>
+                    </div>
+                    <div class="user-profile-hover">
+                        <div id="profile-editor-title" class="user-title-list" {{action clickToDisplay "Editor" on="click" target="view"}}>
+                             <i class="fa fa-users">&nbsp;</i>Editor  &nbsp;(&nbsp;{{HubStar.userEditor}}&nbsp;)
+
+                        </div>
+                        <div id="user-profile-editor">
+
+                            {{#each HubStar.profiles}}  
+                            {{#if this.isEditor}}
+                            <div>
+                                <a href="#/profiles/{{unbound this.profile_id}}">
+                                    <div class="profile-image" > 
+
+                                        <div class="profile-top-image-position">
+                                            <img {{bindAttr src="this.profile_pic"}}  style="width:{{unbound widthTop}}; height:{{unbound heightTop}}" >
+                                        </div>
+                                        <div class="profile-top-name-position">{{this.profile_name}} </div>
+                                    </div>
+                                </a>
+                            </div>
+                            {{/if}}
+                            {{/each}}
+                        </div>
+                    </div>
                 </div>
 
                 <div style="width: 100%;height: auto; min-height: 50px;padding-left: 25px;">
-
-                    <div style="font-size: 20px;font-weight: bold;color: #555; height: auto; min-height: 50px;vertical-align: middle;display: inline-block;">
-                        <a href="#/profiles/new"><i class="fa fa-plus">&nbsp;New Profile</I></a>
-                    </div>
+                    {{#if view.is_trends_user}}
+                    <div class='new-profile-display-button'><a href="#/profiles/new"><i class="fa fa-plus">&nbsp;New Profile</i></a> </div>
+                    {{/if}}
                 </div>
-                <div style="margin: 0 auto;width: 150px;">
+                <div style="margin: 0 auto;width: 100px;clear: both;">
                     <span class='new-btn flip-back' {{action userDashboardBackButton }}><i class='fa fa-group'> &nbsp;</i>Back</span>
                 </div>
 

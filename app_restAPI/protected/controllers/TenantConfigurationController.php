@@ -100,13 +100,15 @@ class TenantConfigurationController extends Controller {
         $configuration2 = $this->getProviderConfigurationByName($domainWithoutAPI, "tagging_display");
         $configuration3 = $this->getProviderConfigurationByName($domainWithoutAPI, "profile_manager");
         $configuration4 = $this->getProviderConfigurationByName($domainWithoutAPI, "top_ad_display");
-        $configuration5 = $this->getProviderConfigurationByName($domainWithoutAPI, "group");
+        $configuration5 = $this->getProviderConfigurationByName($domainWithoutAPI, "object_ad_display");
+        $configuration6 = $this->getProviderConfigurationByName($domainWithoutAPI, "group");
 
         $configuration[0] = $configuration1;
         $configuration[1] = $configuration2;
         $configuration[2] = $configuration3;
         $configuration[3] = $configuration4;
         $configuration[4] = $configuration5;
+        $configuration[5] = $configuration6;
         $feedback = CJSON::encode($configuration);
 
         $this->sendResponse(200, $feedback);

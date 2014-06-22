@@ -69,11 +69,11 @@ HubStar.GroupController = Ember.Controller.extend({
                     }
                     else
                     {
-                       $('#group-top').css('top', "0px");
+                        $('#group-top').css('top', "0px");
                     }
 
                 }
-            }, 50);
+            }, 500);
         });
     },
     setPic: function() {
@@ -187,6 +187,7 @@ HubStar.GroupController = Ember.Controller.extend({
     },
     topicSelection: function(data) {
         if (data !== this.get("topic")) {
+            
             this.set('selected_cate', []);
         }
         data.set("isSelected", true);
@@ -476,46 +477,57 @@ HubStar.GroupController = Ember.Controller.extend({
         this.set("Category", Category);
     },
     fieldChecking: function() {
+        var flag = false;
         if (this.get("name") !== this.get("model").get("group_name"))
         {
             this.get("model").set("group_name", this.get("name"));
+            flag = true;
         }
         if (this.get("description") !== this.get("model").get("group_description"))
         {
             this.get("model").set("group_description", this.get("description"));
+             flag = true;
         }
         if (this.get("group_pic_url") !== this.get("model").get("group_pic_url"))
         {
             this.get("model").set("group_pic_url", this.get("group_pic_url"));
+             flag = true;
         }
         if (this.get("group_bg_url") !== this.get("model").get("group_bg_url"))
         {
             this.get("model").set("group_bg_url", this.get("group_bg_url"));
             this.get("model").set("group_hero_url", this.get("group_hero_url"));
+             flag = true;
         }
         if (this.get("group_expertise") !== this.get("model").get("group_expertise"))
         {
             this.get("model").set("group_expertise", this.get("group_expertise"));
+             flag = true;
         }
         if (this.get("group_budget") !== this.get("model").get("group_budget"))
         {
             this.get("model").set("group_budget", this.get("group_budget"));
+             flag = true;
         }
         if (this.get("group_timeframe") !== this.get("model").get("group_timeframe"))
         {
             this.get("model").set("group_timeframe", this.get("group_timeframe"));
+             flag = true;
         }
         if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
             this.get("model").set("group_category", this.get("Category"));
             this.get("model").set("group_subcategory", this.get("subCategory"));
             this.get("model").set("group_classification", this.get("topic").get("type"));
+             flag = true;
         }
+        return flag;
     },
     save: function() {
         if (this.get("name")) {
             this.getCateandSubCate();
-            this.fieldChecking();
-            if (this.get('selected_cate').get('length') !== null && this.get('selected_cate').get('length') !== 0) {
+            var flag = this.fieldChecking();
+
+            if (flag) {
                 var that = this;
                 var a = this.get("model").save();
                 this.get("model").get('isSaving');

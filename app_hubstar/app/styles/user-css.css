@@ -498,6 +498,48 @@ textarea.add-interests{
     overflow: hidden;
 }
 
+.user-about-us{
+   font-size:15px;
+   line-height: 20px;
+   margin: 5px 20px;
+   color: #888; 
+}
+
+.user-about-us-title{
+   margin-bottom: 5px;
+   display: inline-block; 
+   font-size: 18px;
+   padding:0;
+}
+
+.user-about-us-title i{
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.user-about-us-textarea{
+    height: 100px;
+    border-radius: 3px;
+}
+
+.user-about-us-button{
+    right: 40px;
+    bottom: -49px;
+    position: absolute;
+}
+
+.limit_about_us{
+    word-wrap: break-word;
+}
+
+.user-about-us-share{
+    margin: 10px 30px; 
+    width:600px; 
+    height: 40px; 
+    position:relative; 
+    overflow: hidden;
+}
+
 
 
 

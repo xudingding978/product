@@ -107,19 +107,15 @@
             </div>
 
             <div class="editor-content" data-step="4" data-intro="Write something about yourself in the <b>About me</b> section." data-position="left" style="height: 140px; padding: 10px 20px;display: inline-block;position: relative;width: 100%;">
-                <div style="font-size:15px;line-height: 20px;margin: 5px 20px;color: #888;">  
-
-
-                    <p style="margin-bottom: 5px;display: inline-block; font-size: 18px;padding:0">
-                        <i class="fa fa-user" style="margin-right: 10px;display: inline-block;"></i>About me  
-                    </p>
+                <div class="user-about-us">  
+                    <div class="user-about-us-title"><i class="fa fa-user"></i>About me</div>
 
                     {{#if controller.editingAbout}}
-                    <div  style="height: 100px;border-radius: 3px;">
+                    <div  class="user-about-us-textarea">
                         {{view HubStar.UserAboutUsView valueBinding="about_me" class="no-resize" placeholder="Say something interesting about yourself (Maximum 430 characters)."}}
                     </div>
 
-                    <div style="right: 40px;bottom: -49px;position: absolute;">
+                    <div class="user-about-us-button">
                         &nbsp;  {{controller.left_count_aboutme}} 
                         <div class="new-btn blue-btn" {{action yes controller.aboutMe}}><i class="fa fa-check fa fa-white"></i></div>
                         <div class="new-btn" {{action no controller.aboutMe}}><i class="fa fa-times"></i></div>
@@ -134,28 +130,14 @@
                     {{/if}}
 
                     {{#if controller.about_me_limit}}
-                    <div class="limit_about_us" style="word-wrap: break-word;" >
+                    <div class="limit_about_us">
 
-                        {{about_me_limit_data}}...<!--   <i class="new-btn"  {{action showMore}}> more...</i>  -->
+                        {{about_me_limit_data}}
                     </div>
 
                     {{else}}
-                    <div style="display: block; word-wrap: break-word; " >{{about_me}}</div>  
+                    <div class="limit_about_us" >{{about_me}}</div>  
                     {{/if}}
-
-
-                    <div id ="tom" style="display: none;">
-                        <div class="more_about_us" style="display: block;" >
-                            <div id="about_us_contents">
-                                {{about_me}}
-                            </div>
-                        </div>
-
-                        <div style="right: 40px;bottom: -49px;position: absolute;">
-                            <div class="new-btn" {{action collap controller.about_me}}><i class="icon-remove"></i></div>
-                        </div>
-                    </div>
-
                     {{/if}}
 
 
@@ -166,8 +148,8 @@
 
 
 
-            <div style="margin: 10px 30px; width:600px; height: 40px; position:relative; overflow: hidden;">
-                <ul class="locationandlinks" >
+            <div class="user-about-us-share">
+                <ul class="locationandlinks">
                     <li>
                         <span class="locationIcon"><i class="fa fa-map-marker"></i></span>
                         {{location}} 

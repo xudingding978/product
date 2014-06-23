@@ -491,12 +491,10 @@ HubStar.UserController = Ember.Controller.extend({
     showMore: function() {
         this.set("more", true);
         $(".limit_about_us").attr('style', 'display: none');
-        $("#tom").attr('style', 'display: block');
     },
     collap: function(checkingInfo) {
         this.set("more", false);
         this.set('about_me', checkingInfo);
-        $("#tom").attr('style', 'display: none');
         this.saveUpdateInterest();
         $(".limit_about_us").attr('style', 'display: block');
     },
